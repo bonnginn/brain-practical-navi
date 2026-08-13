@@ -2,3 +2,5 @@ MNI152NLin2009cSym and CerebA via TemplateFlow.
 MNI152 high-density white surfaces via BigBrainWarp; pial-like surface derived by normal expansion.
 BigBrain manual subcortical segmentation from the MNI PD25/BigBrain co-registration dataset (Xiao et al.), CC BY 4.0.
 Derived display volume and volumetric meshes: 1 mm.
+Structure-focused specimen tissue is a 1 mm-geometry BigBrain derivative. Same-grid ventricular and subcortical parts are separately identified in specimen-blocks.json.
+Project-authored procedurally generated teaching meshes include the corona, optic and auditory radiation guides, choroid plexus, fimbria, fornix, mammillary bodies, aqueduct, hypothalamic/septal/peduncular/uncus location markers, simplified basal landmarks, and neurovascular overlays. They are not validated segmentations or morphometry.

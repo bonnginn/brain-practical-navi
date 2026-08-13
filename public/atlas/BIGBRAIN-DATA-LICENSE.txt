@@ -1,0 +1,30 @@
+BigBrain-derived data notice
+Updated: 2026-08-13
+
+Source: BigBrain, McGill University
+https://bigbrainproject.org/
+
+License: Creative Commons Attribution-NonCommercial-ShareAlike 4.0
+International (CC BY-NC-SA 4.0)
+https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+Required citation:
+Amunts K, et al. BigBrain: An Ultrahigh-Resolution 3D Human Brain Model.
+Science. 2013;340(6139):1472-1475. doi:10.1126/science.1235381
+
+Files in this application include browser-ready derivatives of BigBrain
+histology and fixed-brain MRI. Changes include grid selection/resampling,
+8-bit conversion, compression, background masking and display tone mapping.
+The teaching overlays may also include converted manual labels and provisional
+image-guided masks. Provisional masks are not anatomical ground truth.
+
+Use is limited to non-commercial purposes under the license. Appropriate
+credit, a link to the license and an indication of changes are required.
+Adapted material must be shared under CC BY-NC-SA 4.0 or a compatible license.
+No endorsement by the original authors or institutions is implied.
+
+The BigBrain co-registration dataset and its manual subcortical labels are
+distributed separately under CC BY 4.0 by Xiao and collaborators. The official
+source expressly states that this exception does not alter the CC BY-NC-SA 4.0
+license of the underlying BigBrain material:
+https://nist.mni.mcgill.ca/multi-contrast-pd25-atlas/

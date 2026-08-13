@@ -1,0 +1,270 @@
+{
+  "version": 1,
+  "source": "CerebrA in MNI152NLin2009cSym space",
+  "method": "nearest voxel sampling along matched white-surface normal, ±3 mm maximum",
+  "status": "atlas-derived teaching overlay; not a manual pial-surface parcellation",
+  "hemispheres": {
+    "left": {
+      "vertices": 163842,
+      "labelledVertices": 153329,
+      "coverage": 0.9358345235043517,
+      "labels": {
+        "52": {
+          "name": "Rostral Middle Frontal",
+          "count": 6206
+        },
+        "54": {
+          "name": "Inferior temporal",
+          "count": 4319
+        },
+        "57": {
+          "name": "Pericalcarine",
+          "count": 2950
+        },
+        "58": {
+          "name": "Lateral Orbitofrontal",
+          "count": 5639
+        },
+        "59": {
+          "name": "Rostral Anterior Cingulate",
+          "count": 1816
+        },
+        "60": {
+          "name": "Superior Parietal",
+          "count": 6958
+        },
+        "61": {
+          "name": "Inferior Parietal",
+          "count": 7380
+        },
+        "63": {
+          "name": "Lingual",
+          "count": 4666
+        },
+        "64": {
+          "name": "Postcentral",
+          "count": 9574
+        },
+        "65": {
+          "name": "Transverse Temporal",
+          "count": 910
+        },
+        "66": {
+          "name": "Medial Orbitofrontal",
+          "count": 3387
+        },
+        "67": {
+          "name": "Paracentral",
+          "count": 3711
+        },
+        "69": {
+          "name": "Parahippocampal",
+          "count": 1761
+        },
+        "73": {
+          "name": "Pars Triangularis",
+          "count": 2606
+        },
+        "74": {
+          "name": "Insula",
+          "count": 4084
+        },
+        "75": {
+          "name": "Fusiform",
+          "count": 4979
+        },
+        "79": {
+          "name": "Middle Temporal",
+          "count": 8067
+        },
+        "81": {
+          "name": "Caudal Anterior Cingulate",
+          "count": 1656
+        },
+        "82": {
+          "name": "Precuneus",
+          "count": 6963
+        },
+        "83": {
+          "name": "Pars Opercularis",
+          "count": 2767
+        },
+        "84": {
+          "name": "Isthmus Cingulate",
+          "count": 2110
+        },
+        "85": {
+          "name": "Lateral Occipital",
+          "count": 7473
+        },
+        "86": {
+          "name": "Precentral",
+          "count": 10036
+        },
+        "87": {
+          "name": "Entorhinal",
+          "count": 1337
+        },
+        "89": {
+          "name": "Superior Frontal",
+          "count": 16810
+        },
+        "93": {
+          "name": "Caudal Middle Frontal",
+          "count": 3886
+        },
+        "94": {
+          "name": "Cuneus",
+          "count": 3011
+        },
+        "95": {
+          "name": "Pars Orbitalis",
+          "count": 1213
+        },
+        "96": {
+          "name": "Superior Temporal",
+          "count": 9220
+        },
+        "98": {
+          "name": "Posterior Cingulate",
+          "count": 2694
+        },
+        "102": {
+          "name": "Supramarginal",
+          "count": 5140
+        }
+      }
+    },
+    "right": {
+      "vertices": 163842,
+      "labelledVertices": 153329,
+      "coverage": 0.9358345235043517,
+      "labels": {
+        "1": {
+          "name": "Rostral Middle Frontal",
+          "count": 6206
+        },
+        "3": {
+          "name": "Inferior temporal",
+          "count": 4319
+        },
+        "6": {
+          "name": "Pericalcarine",
+          "count": 2950
+        },
+        "7": {
+          "name": "Lateral Orbitofrontal",
+          "count": 5639
+        },
+        "8": {
+          "name": "Rostral Anterior Cingulate",
+          "count": 1816
+        },
+        "9": {
+          "name": "Superior Parietal",
+          "count": 6958
+        },
+        "10": {
+          "name": "Inferior Parietal",
+          "count": 7380
+        },
+        "12": {
+          "name": "Lingual",
+          "count": 4666
+        },
+        "13": {
+          "name": "Postcentral",
+          "count": 9574
+        },
+        "14": {
+          "name": "Transverse Temporal",
+          "count": 910
+        },
+        "15": {
+          "name": "Medial Orbitofrontal",
+          "count": 3387
+        },
+        "16": {
+          "name": "Paracentral",
+          "count": 3711
+        },
+        "18": {
+          "name": "Parahippocampal",
+          "count": 1761
+        },
+        "22": {
+          "name": "Pars Triangularis",
+          "count": 2606
+        },
+        "23": {
+          "name": "Insula",
+          "count": 4084
+        },
+        "24": {
+          "name": "Fusiform",
+          "count": 4979
+        },
+        "28": {
+          "name": "Middle Temporal",
+          "count": 8067
+        },
+        "30": {
+          "name": "Caudal Anterior Cingulate",
+          "count": 1656
+        },
+        "31": {
+          "name": "Precuneus",
+          "count": 6963
+        },
+        "32": {
+          "name": "Pars Opercularis",
+          "count": 2767
+        },
+        "33": {
+          "name": "Isthmus Cingulate",
+          "count": 2110
+        },
+        "34": {
+          "name": "Lateral Occipital",
+          "count": 7473
+        },
+        "35": {
+          "name": "Precentral",
+          "count": 10036
+        },
+        "36": {
+          "name": "Entorhinal",
+          "count": 1337
+        },
+        "38": {
+          "name": "Superior Frontal",
+          "count": 16810
+        },
+        "42": {
+          "name": "Caudal Middle Frontal",
+          "count": 3886
+        },
+        "43": {
+          "name": "Cuneus",
+          "count": 3011
+        },
+        "44": {
+          "name": "Pars Orbitalis",
+          "count": 1213
+        },
+        "45": {
+          "name": "Superior Temporal",
+          "count": 9220
+        },
+        "47": {
+          "name": "Posterior Cingulate",
+          "count": 2694
+        },
+        "51": {
+          "name": "Supramarginal",
+          "count": 5140
+        }
+      }
+    }
+  }
+}

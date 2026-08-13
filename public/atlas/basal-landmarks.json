@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "coordinateSpace": "manually approximated MNI-oriented display space",
+  "displayShiftMm": [
+    0.0,
+    18.0,
+    -18.0
+  ],
+  "alignmentPolicy": "same [x, y, z] display shift as the pial meshes",
+  "status": "project-authored simplified teaching landmarks; not validated segmentation or morphometry",
+  "anteriorToPosteriorOrder": [
+    "optic nerves/chiasm",
+    "infundibulum",
+    "mammillary bodies"
+  ],
+  "specimenNote": "the pituitary gland is not shown; a brain specimen may retain only a cut stalk",
+  "meshes": [
+    {
+      "file": "landmark-optic-pathway.mesh",
+      "vertices": 1068,
+      "faces": 2016,
+      "label": "視神経・視交叉・視索"
+    },
+    {
+      "file": "landmark-infundibulum.mesh",
+      "vertices": 660,
+      "faces": 1248,
+      "label": "漏斗（下垂体茎）"
+    },
+    {
+      "file": "landmark-mammillary-bodies.mesh",
+      "vertices": 912,
+      "faces": 1728,
+      "label": "乳頭体"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+name: セグメンテーション修正
+description: 0.5 mm単一標本のラベル境界・構造同定の修正を提案します
+title: "[Segmentation] "
+labels: ["segmentation", "needs-review"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        患者情報、許諾のない標本写真、講義・教科書・アトラス図版は添付しないでください。差分JSONがある場合も、根拠と確認範囲を文章で説明してください。
+  - type: input
+    id: structure
+    attributes:
+      label: 対象構造・左右
+      placeholder: 例：左被殻
+    validations:
+      required: true
+  - type: input
+    id: slices
+    attributes:
+      label: 対象断面
+      description: 水平断のZ番号またはアプリ内位置を記載してください。
+      placeholder: 例：Z 178–191
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: 現在の問題と提案
+      description: どの境界がどう誤って見え、どのように直すべきかを説明してください。
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 根拠
+      description: 画像上のランドマーク、書誌情報、公開URL、確認者を記載してください。
+    validations:
+      required: true
+  - type: input
+    id: patch
+    attributes:
+      label: 差分JSONまたはPull Request
+      description: 作成済みの場合だけURLまたはファイル名を記載してください。
+  - type: dropdown
+    id: review
+    attributes:
+      label: 確認状況
+      options:
+        - 自分のみで確認
+        - 第二確認者あり
+        - 専門家確認済み
+        - 未確認の提案
+    validations:
+      required: true
+  - type: textarea
+    id: ai
+    attributes:
+      label: AI支援ツールの利用
+      description: Codex、Claude Code等を利用した場合、その用途と本人が確認した範囲を記載してください。
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: 安全・権利確認
+      options:
+        - label: 患者・献体者・学生を特定できる情報を含みません
+          required: true
+        - label: 許諾のない標本写真・講義・教科書・アトラス図版を含みません
+          required: true
+        - label: この提案が自動的に公式ラベルへ採用されないことを理解しています
+          required: true

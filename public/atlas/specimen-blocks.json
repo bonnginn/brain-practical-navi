@@ -1,0 +1,516 @@
+{
+  "version": 3,
+  "source": "bigbrain-icbm500.bin.gz",
+  "segmentation": "bigbrain-practical-segmentation-icbm500.bin.gz",
+  "sourceVoxelMm": 0.5,
+  "geometrySamplingMm": 1.0,
+  "specimens": {
+    "lateral-ventricle": [
+      {
+        "file": "block-lateral-ventricle-tissue.mesh",
+        "vertices": 34252,
+        "faces": 67900,
+        "shadeMin": 0.0,
+        "shadeMax": 1.0,
+        "part": "tissue",
+        "nameJa": "脳室周囲実質",
+        "sourceType": "specimen-derived",
+        "color": "#c9a27d",
+        "material": "specimen"
+      },
+      {
+        "file": "block-lateral-ventricle-ventricular-cavity.mesh",
+        "vertices": 8468,
+        "faces": 16796,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "ventricular-cavity",
+        "nameJa": "側脳室腔",
+        "sourceType": "same-grid-segmentation",
+        "color": "#45aebd",
+        "material": "model"
+      },
+      {
+        "file": "block-lateral-ventricle-caudate.mesh",
+        "vertices": 3248,
+        "faces": 6484,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "caudate",
+        "nameJa": "尾状核",
+        "sourceType": "manual-segmentation",
+        "color": "#dc914b",
+        "material": "model"
+      },
+      {
+        "file": "block-lateral-ventricle-thalamus.mesh",
+        "vertices": 3248,
+        "faces": 6492,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "thalamus",
+        "nameJa": "視床",
+        "sourceType": "manual-segmentation",
+        "color": "#8d82c4",
+        "material": "model"
+      },
+      {
+        "file": "block-lateral-ventricle-hippocampus.mesh",
+        "vertices": 3408,
+        "faces": 6812,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "hippocampus",
+        "nameJa": "海馬",
+        "sourceType": "manual-segmentation",
+        "color": "#c8798d",
+        "material": "model"
+      }
+    ],
+    "diencephalon": [
+      {
+        "file": "block-diencephalon-tissue.mesh",
+        "vertices": 30273,
+        "faces": 60454,
+        "shadeMin": 0.0,
+        "shadeMax": 1.0,
+        "part": "tissue",
+        "nameJa": "間脳周囲実質",
+        "sourceType": "specimen-derived",
+        "color": "#c9a27d",
+        "material": "specimen"
+      },
+      {
+        "file": "block-diencephalon-thalami.mesh",
+        "vertices": 6368,
+        "faces": 12728,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "thalami",
+        "nameJa": "視床",
+        "sourceType": "manual-segmentation",
+        "color": "#8d82c4",
+        "material": "model"
+      },
+      {
+        "file": "block-diencephalon-third-ventricle.mesh",
+        "vertices": 1998,
+        "faces": 3920,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "third-ventricle",
+        "nameJa": "第三脳室",
+        "sourceType": "same-grid-segmentation",
+        "color": "#45aebd",
+        "material": "model"
+      },
+      {
+        "file": "block-diencephalon-hypothalamus.mesh",
+        "vertices": 7273,
+        "faces": 14506,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "hypothalamus",
+        "nameJa": "視床下部（位置目安）",
+        "sourceType": "regional-approximation",
+        "color": "#b97864",
+        "material": "model"
+      },
+      {
+        "file": "block-diencephalon-subthalamic-nuclei.mesh",
+        "vertices": 566,
+        "faces": 1124,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "subthalamic-nuclei",
+        "nameJa": "視床下核",
+        "sourceType": "manual-segmentation",
+        "color": "#e0ad45",
+        "material": "model"
+      },
+      {
+        "file": "block-diencephalon-mammillary-bodies.mesh",
+        "vertices": 524,
+        "faces": 1040,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "mammillary-bodies",
+        "nameJa": "乳頭体",
+        "sourceType": "schematic-3d",
+        "color": "#a8795f",
+        "material": "model"
+      }
+    ],
+    "radiations": [
+      {
+        "file": "block-radiations-tissue.mesh",
+        "vertices": 75555,
+        "faces": 148890,
+        "shadeMin": 0.0,
+        "shadeMax": 1.0,
+        "part": "tissue",
+        "nameJa": "水平切断標本",
+        "sourceType": "specimen-derived",
+        "color": "#c9a27d",
+        "material": "specimen"
+      },
+      {
+        "file": "block-radiations-lentiform.mesh",
+        "vertices": 4224,
+        "faces": 8368,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "lentiform",
+        "nameJa": "レンズ核",
+        "sourceType": "manual-segmentation",
+        "color": "#d88450",
+        "material": "model"
+      },
+      {
+        "file": "block-radiations-internal-capsule.mesh",
+        "vertices": 6138,
+        "faces": 12252,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "internal-capsule",
+        "nameJa": "内包",
+        "sourceType": "image-guided-segmentation",
+        "color": "#e4d27a",
+        "material": "model"
+      },
+      {
+        "file": "block-radiations-corona-radiata.mesh",
+        "vertices": 2410,
+        "faces": 4816,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "corona-radiata",
+        "nameJa": "放線冠",
+        "sourceType": "schematic-surface-guide",
+        "color": "#e7c85d",
+        "material": "model"
+      },
+      {
+        "file": "block-radiations-optic-radiation.mesh",
+        "vertices": 2212,
+        "faces": 4488,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "optic-radiation",
+        "nameJa": "視放線",
+        "sourceType": "schematic-surface-guide",
+        "color": "#7d9fd0",
+        "material": "model"
+      },
+      {
+        "file": "block-radiations-auditory-radiation.mesh",
+        "vertices": 1208,
+        "faces": 2412,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "auditory-radiation",
+        "nameJa": "聴放線",
+        "sourceType": "schematic-surface-guide",
+        "color": "#74b99e",
+        "material": "model"
+      }
+    ],
+    "commissural-system": [
+      {
+        "file": "block-commissural-system-tissue.mesh",
+        "vertices": 19402,
+        "faces": 38612,
+        "shadeMin": 0.1581,
+        "shadeMax": 1.0,
+        "part": "tissue",
+        "nameJa": "正中周囲実質",
+        "sourceType": "specimen-derived",
+        "color": "#c9a27d",
+        "material": "specimen"
+      },
+      {
+        "file": "block-commissural-system-corpus-callosum.mesh",
+        "vertices": 13240,
+        "faces": 26480,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "corpus-callosum",
+        "nameJa": "脳梁",
+        "sourceType": "image-guided-segmentation",
+        "color": "#dbc270",
+        "material": "model"
+      },
+      {
+        "file": "block-commissural-system-lateral-ventricles.mesh",
+        "vertices": 10898,
+        "faces": 21756,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "lateral-ventricles",
+        "nameJa": "側脳室",
+        "sourceType": "same-grid-segmentation",
+        "color": "#45aebd",
+        "material": "model"
+      },
+      {
+        "file": "block-commissural-system-fornix.mesh",
+        "vertices": 1900,
+        "faces": 3792,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "fornix",
+        "nameJa": "脳弓",
+        "sourceType": "schematic-3d",
+        "color": "#e7d9a6",
+        "material": "model"
+      },
+      {
+        "file": "block-commissural-system-septum-pellucidum.mesh",
+        "vertices": 2214,
+        "faces": 4424,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "septum-pellucidum",
+        "nameJa": "透明中隔",
+        "sourceType": "regional-approximation",
+        "color": "#a9c5bd",
+        "material": "model"
+      }
+    ],
+    "choroid-plexus": [
+      {
+        "file": "block-choroid-plexus-tissue.mesh",
+        "vertices": 17762,
+        "faces": 35380,
+        "shadeMin": 0.0233,
+        "shadeMax": 1.0,
+        "part": "tissue",
+        "nameJa": "脳室内側壁",
+        "sourceType": "specimen-derived",
+        "color": "#c9a27d",
+        "material": "specimen"
+      },
+      {
+        "file": "block-choroid-plexus-ventricular-cavity.mesh",
+        "vertices": 8010,
+        "faces": 15908,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "ventricular-cavity",
+        "nameJa": "側脳室腔",
+        "sourceType": "same-grid-segmentation",
+        "color": "#45aebd",
+        "material": "model"
+      },
+      {
+        "file": "block-choroid-plexus-choroid-plexus.mesh",
+        "vertices": 1578,
+        "faces": 3092,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "choroid-plexus",
+        "nameJa": "脈絡叢",
+        "sourceType": "schematic-3d",
+        "color": "#b34c62",
+        "material": "model"
+      },
+      {
+        "file": "block-choroid-plexus-hippocampus.mesh",
+        "vertices": 3408,
+        "faces": 6812,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "hippocampus",
+        "nameJa": "海馬",
+        "sourceType": "manual-segmentation",
+        "color": "#c8798d",
+        "material": "model"
+      }
+    ],
+    "medial-temporal": [
+      {
+        "file": "block-medial-temporal-tissue.mesh",
+        "vertices": 28253,
+        "faces": 56282,
+        "shadeMin": 0.0,
+        "shadeMax": 1.0,
+        "part": "tissue",
+        "nameJa": "内側側頭葉標本",
+        "sourceType": "specimen-derived",
+        "color": "#c9a27d",
+        "material": "specimen"
+      },
+      {
+        "file": "block-medial-temporal-hippocampus.mesh",
+        "vertices": 3060,
+        "faces": 6116,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "hippocampus",
+        "nameJa": "海馬",
+        "sourceType": "manual-segmentation",
+        "color": "#c8798d",
+        "material": "model"
+      },
+      {
+        "file": "block-medial-temporal-amygdala.mesh",
+        "vertices": 1188,
+        "faces": 2372,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "amygdala",
+        "nameJa": "扁桃体",
+        "sourceType": "manual-segmentation",
+        "color": "#9c6cae",
+        "material": "model"
+      },
+      {
+        "file": "block-medial-temporal-inferior-horn.mesh",
+        "vertices": 828,
+        "faces": 1576,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "inferior-horn",
+        "nameJa": "側脳室下角",
+        "sourceType": "same-grid-segmentation",
+        "color": "#45aebd",
+        "material": "model"
+      },
+      {
+        "file": "block-medial-temporal-fimbria.mesh",
+        "vertices": 560,
+        "faces": 1116,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "fimbria",
+        "nameJa": "海馬采",
+        "sourceType": "schematic-3d",
+        "color": "#e3d8b0",
+        "material": "model"
+      },
+      {
+        "file": "block-medial-temporal-uncus.mesh",
+        "vertices": 2096,
+        "faces": 4196,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "uncus",
+        "nameJa": "鉤（位置目安）",
+        "sourceType": "regional-approximation",
+        "color": "#b78165",
+        "material": "model"
+      }
+    ],
+    "midbrain-section": [
+      {
+        "file": "block-midbrain-section-tissue.mesh",
+        "vertices": 2237,
+        "faces": 4474,
+        "shadeMin": 0.2372,
+        "shadeMax": 1.0,
+        "part": "tissue",
+        "nameJa": "中脳横断標本",
+        "sourceType": "specimen-derived",
+        "color": "#c9a27d",
+        "material": "specimen"
+      },
+      {
+        "file": "block-midbrain-section-red-nuclei.mesh",
+        "vertices": 606,
+        "faces": 1204,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "red-nuclei",
+        "nameJa": "赤核",
+        "sourceType": "manual-segmentation",
+        "color": "#d24f49",
+        "material": "model"
+      },
+      {
+        "file": "block-midbrain-section-substantia-nigra.mesh",
+        "vertices": 1442,
+        "faces": 2876,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "substantia-nigra",
+        "nameJa": "黒質",
+        "sourceType": "manual-segmentation",
+        "color": "#716387",
+        "material": "model"
+      },
+      {
+        "file": "block-midbrain-section-aqueduct.mesh",
+        "vertices": 262,
+        "faces": 520,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "aqueduct",
+        "nameJa": "中脳水道",
+        "sourceType": "schematic-3d",
+        "color": "#45aebd",
+        "material": "model"
+      },
+      {
+        "file": "block-midbrain-section-cerebral-peduncles.mesh",
+        "vertices": 2916,
+        "faces": 5780,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "cerebral-peduncles",
+        "nameJa": "大脳脚（位置目安）",
+        "sourceType": "regional-approximation",
+        "color": "#d29a55",
+        "material": "model"
+      }
+    ],
+    "hindbrain": [
+      {
+        "file": "block-hindbrain-pons-medulla.mesh",
+        "vertices": 8702,
+        "faces": 17352,
+        "shadeMin": 0.0,
+        "shadeMax": 1.0,
+        "part": "pons-medulla",
+        "nameJa": "橋・延髄",
+        "sourceType": "same-grid-segmentation",
+        "color": "#b89778",
+        "material": "specimen"
+      },
+      {
+        "file": "block-hindbrain-cerebellum.mesh",
+        "vertices": 46401,
+        "faces": 90978,
+        "shadeMin": 0.0,
+        "shadeMax": 1.0,
+        "part": "cerebellum",
+        "nameJa": "小脳",
+        "sourceType": "same-grid-segmentation",
+        "color": "#d0ad83",
+        "material": "specimen"
+      },
+      {
+        "file": "block-hindbrain-midbrain.mesh",
+        "vertices": 4001,
+        "faces": 7994,
+        "shadeMin": 0.1628,
+        "shadeMax": 1.0,
+        "part": "midbrain",
+        "nameJa": "中脳",
+        "sourceType": "teaching-segmentation",
+        "color": "#bd8e69",
+        "material": "specimen"
+      }
+    ]
+  },
+  "sourceTypeDefinitions": {
+    "specimen-derived": "surface reconstructed directly from the 0.5 mm histological volume",
+    "manual-segmentation": "same-grid manually delineated subcortical structure",
+    "same-grid-segmentation": "same-grid practical teaching segmentation",
+    "image-guided-segmentation": "image-guided provisional white-matter segmentation",
+    "teaching-segmentation": "project-authored teaching subdivision of a same-grid label",
+    "schematic-surface-guide": "project-authored pathway projected onto the specimen cut face",
+    "schematic-3d": "project-authored three-dimensional teaching approximation",
+    "regional-approximation": "project-authored regional location marker, not a validated boundary"
+  },
+  "status": "structure-focused teaching specimens; not validated morphometry or surgical anatomy"
+}

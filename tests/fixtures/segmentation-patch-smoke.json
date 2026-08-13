@@ -1,0 +1,15 @@
+{
+  "format": "brain-practical-segmentation-patch",
+  "version": 1,
+  "sourceImage": "/atlas/bigbrain-icbm500.bin.gz",
+  "sourceLabels": "/atlas/bigbrain-practical-segmentation-icbm500.bin.gz",
+  "sourceLabelsSha256": "2b64122a1acb566eae49841ee175ceb194a069c709b7114356e50a6c74a08cc5",
+  "dims": [394, 466, 378],
+  "voxelSizeMm": [0.5, 0.5, 0.5],
+  "primaryPlane": "horizontal",
+  "createdAt": "2026-08-13T00:00:00.000Z",
+  "authorNote": "validator smoke test",
+  "authorGitHub": "",
+  "editCount": 1,
+  "runs": [{"start": 0, "length": 1, "label": 0}]
+}

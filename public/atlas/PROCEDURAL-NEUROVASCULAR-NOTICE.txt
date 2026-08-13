@@ -1,0 +1,36 @@
+Project-authored simplified basal and neurovascular teaching overlays
+Copyright (C) 2026 Brain Practical Navigator contributors
+
+License: Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International
+https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+Files:
+- overlay-arteries-anterior.mesh
+- overlay-arteries-posterior.mesh
+- overlay-nerves-anterior.mesh
+- overlay-nerves-pontine.mesh
+- overlay-nerves-medullary.mesh
+- neurovascular-overlays.json
+- landmark-optic-pathway.mesh
+- landmark-infundibulum.mesh
+- landmark-mammillary-bodies.mesh
+- basal-landmarks.json
+
+These meshes were procedurally generated from manually placed teaching paths and shapes
+in the MNI-oriented display space used by this application. They were not
+extracted from BigBrain histology, angiography, tractography, a donor specimen,
+or a third-party atlas illustration.
+
+They show major practical landmarks only. Individual variation, small
+perforating branches, distal cranial-nerve courses, skull foramina, morphometry,
+and surgical relationships are intentionally omitted. They are not validated
+anatomical ground truth and must not be used for diagnosis, treatment, surgery,
+or quantitative research.
+
+The BNM3 mesh files contain project-authored per-vertex structure IDs 1-45.
+These IDs only support individual selection and white highlighting in the
+teaching interface; they are not atlas labels or validated segmentations.
+
+The accompanying generator source is licensed under AGPL-3.0-or-later as part
+of the application code. No endorsement by referenced authors or data providers
+is implied.

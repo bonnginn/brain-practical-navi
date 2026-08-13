@@ -1,0 +1,7 @@
+# GitHubリポジトリ作成後、管理者のGitHub IDへ置換し、
+# このファイルを .github/CODEOWNERS に変更してください。
+* @PROJECT_OWNER
+
+# 解剖学的内容に監修者が参加した後、必要に応じて追加します。
+# /app/ @PROJECT_OWNER @ANATOMY_REVIEWER
+# /public/atlas/ @PROJECT_OWNER @IMAGING_REVIEWER

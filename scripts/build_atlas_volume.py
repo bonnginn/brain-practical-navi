@@ -107,6 +107,13 @@ def main():
     cerebellum={97,46,90,39,101,50,53,2,71,20};brainstem={62,11};ventricles=set(FOCUS["ventricle"])
     deep={int(r["label"]) for r in source_rows}-cortex-cerebellum-brainstem-ventricles
     for name,values,step,sigma in [("segment-cortex",cortex,1,.25),("segment-cerebellum",cerebellum,1,.20),("segment-brainstem",brainstem,1,.20),("segment-deep",deep,1,.15),("segment-ventricles",ventricles,1,.10)]:write_mesh(OUT/f"{name}.mesh",np.isin(labs,list(values)),step=step,sigma=sigma)
+    # Keep the mesencephalon detachable in block/neurovascular teaching views.
+    # In this centred 1 mm grid, z=-40 mm approximates the pontomesencephalic
+    # transition; it is an explicit teaching boundary, not a validated atlas label.
+    z_mm=np.arange(labs.shape[0],dtype=np.float32)[:,None,None]-(labs.shape[0]-1)/2
+    brainstem_mask=np.isin(labs,list(brainstem));midbrain_mask=brainstem_mask&(z_mm>=-40)
+    write_mesh(OUT/"segment-midbrain.mesh",midbrain_mask,step=1,sigma=.20)
+    write_mesh(OUT/"segment-pons-medulla.mesh",brainstem_mask&~midbrain_mask,step=1,sigma=.20)
     x=np.arange(labs.shape[2])[None,None,:];mid=(labs.shape[2]-1)/2
     cerebrum=brain&~np.isin(labs,list(cerebellum|brainstem));left_hemi=cerebrum&(x<mid);right_hemi=cerebrum&(x>=mid)
     basal={100,49,72,21,78,27,55,4};amygdala={70,19};
@@ -122,7 +129,12 @@ def main():
     glb=OUT/"brain-practical-segmented-v2.glb";glb.write_bytes(scene.export(file_type="glb"));print(glb.name,glb.stat().st_size)
     rows=[{"id":int(r["label"]),"name":r["name"],"hemi":r["hemi"]} for r in source_rows]
     (OUT/"labels.json").write_text(json.dumps(rows,ensure_ascii=False),encoding="utf-8")
-    (OUT/"ATTRIBUTION.txt").write_text("MNI152NLin2009cSym and CerebA via TemplateFlow.\nMNI152 high-density white surfaces via BigBrainWarp; pial-like surface derived by normal expansion.\nDerived display volume and volumetric meshes: 1 mm.\n",encoding="utf-8")
+    (OUT/"ATTRIBUTION.txt").write_text("MNI152NLin2009cSym and CerebA via TemplateFlow.\nMNI152 high-density white surfaces via BigBrainWarp; pial-like surface derived by normal expansion.\nBigBrain manual subcortical segmentation from the MNI PD25/BigBrain co-registration dataset (Xiao et al.), CC BY 4.0.\nDerived display volume and volumetric meshes: 1 mm.\nProject-authored procedurally generated teaching meshes include simplified landmarks, neurovascular overlays, and specimen-derived detachable blocks; these are not validated morphometry.\n",encoding="utf-8")
+    # Re-attach cortical IDs after write_pial_mesh emits the base BNM2 files.
+    # Keeping this in the primary build prevents a later atlas rebuild from
+    # silently dropping the BNM3 teaching overlays expected by the UI.
+    from build_surface_region_overlays import main as build_surface_region_overlays
+    build_surface_region_overlays()
     print({"dims":dims,"raw_bytes":len(payload),"gzip_bytes":(OUT/"mni-cerebra-1mm.bin.gz").stat().st_size,"T1_window":t1win,"T2_window":t2win})
 
 if __name__=="__main__":main()
