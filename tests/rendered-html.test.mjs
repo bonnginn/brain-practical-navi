@@ -359,6 +359,10 @@ test("bundles structure-focused specimens and distinguishes derived from schemat
   assert.match(metadata.sourceTypeDefinitions["specimen-derived"], /histological volume/);
   assert.match(metadata.sourceTypeDefinitions["schematic-3d"], /teaching approximation/);
   assert.equal(metadata.specimens["lateral-ventricle"].find(part => part.part === "caudate").sourceType, "manual-segmentation");
+  assert.equal(metadata.specimens.radiations.find(part => part.part === "putamen").sourceType, "manual-segmentation");
+  assert.equal(metadata.specimens.radiations.find(part => part.part === "pallidum-external").sourceType, "manual-segmentation");
+  assert.equal(metadata.specimens.radiations.find(part => part.part === "pallidum-internal").sourceType, "manual-segmentation");
+  assert.equal(metadata.specimens.radiations.some(part => part.part === "lentiform"), false);
   assert.equal(metadata.specimens.radiations.find(part => part.part === "optic-radiation").sourceType, "schematic-surface-guide");
   assert.equal(metadata.specimens["choroid-plexus"].find(part => part.part === "choroid-plexus").sourceType, "schematic-3d");
   assert.equal(metadata.specimens["medial-temporal"].find(part => part.part === "uncus").sourceType, "regional-approximation");
@@ -384,6 +388,48 @@ test("bundles structure-focused specimens and distinguishes derived from schemat
       assert.ok(part.shadeMin >= 0 && part.shadeMax <= 1);
       if (part.material === "specimen") assert.ok(part.shadeMax - part.shadeMin > 0.25, `${block}/${part.part} specimen shade range`);
     }
+  }
+});
+
+test("covers every cranial nerve without hiding schematic limitations", async () => {
+  const [metadataText, page, audit] = await Promise.all([
+    readFile(new URL("public/atlas/neurovascular-overlays.json", root), "utf8"),
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("LECTURE_COVERAGE_AUDIT.md", root), "utf8"),
+  ]);
+  const metadata = JSON.parse(metadataText);
+  const nerves = metadata.groups
+    .filter(group => group.file.startsWith("overlay-nerves-"))
+    .flatMap(group => group.structures);
+  assert.deepEqual(nerves.map(item => item.id), Array.from({ length: 25 }, (_, index) => index + 21));
+  const normalized = nerves.map(item => item.name.replace(/^[左右]/, ""));
+  const expectedCounts = new Map([
+    ["I", 2], ["II", 3], ["III", 2], ["IV", 2], ["V", 2], ["VI", 2],
+    ["VII", 2], ["VIII", 2], ["IX", 2], ["X", 2], ["XI", 2], ["XII", 2],
+  ]);
+  for (const [roman, expected] of expectedCounts) {
+    assert.equal(normalized.filter(name => name.startsWith(`${roman} `)).length, expected, `cranial nerve ${roman}`);
+  }
+  for (const key of Array.from({ length: 12 }, (_, index) => `cn${index + 1}`)) {
+    assert.match(page, new RegExp(`${key}:\\{name:`), key);
+  }
+  assert.match(audit, /脳神経I〜XIIは欠番なく収録/);
+  assert.match(audit, /Iの嗅球、XIの脊髄根/);
+});
+
+test("keeps lecture coverage honest and separates pallidal segments", async () => {
+  const [page, audit] = await Promise.all([
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("LECTURE_COVERAGE_AUDIT.md", root), "utf8"),
+  ]);
+  assert.match(page, /pallidumExternal: \{ name:"淡蒼球外節"[\s\S]*?bigbrainIds:\[11,12\]/);
+  assert.match(page, /pallidumInternal: \{ name:"淡蒼球内節"[\s\S]*?bigbrainIds:\[13,14\]/);
+  assert.match(page, /members:\["caudate","putamen","pallidumExternal","pallidumInternal","accumbens"\]/);
+  for (const status of ["標本分節", "試作分節", "アトラス脳表", "模式3D", "位置目安", "表記のみ", "未収録"]) {
+    assert.match(audit, new RegExp(status));
+  }
+  for (const gap of ["中心溝", "嗅球", "外側膝状体", "上・中・下小脳脚", "顔面神経丘", "脳静脈"]) {
+    assert.match(audit, new RegExp(gap));
   }
 });
 
@@ -425,6 +471,8 @@ test("anchors cranial nerve roots at the intended brainstem levels", async () =>
   near(35, [13, -1, -57]);  // VII
   near(37, [17, -6, -57]);  // VIII, lateral to VII
   near(39, [13, -26, -62]); // IX, upper post-olivary sulcus
+  near(41, [10.5, -25, -68]); // X, post-olivary rootlets below IX
+  near(43, [9, -25, -76]);  // XI, caudal rootlets
   near(45, [7, -8, -66]);   // XII, pre-olivary sulcus
 });
 

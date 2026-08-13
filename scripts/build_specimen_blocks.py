@@ -135,7 +135,10 @@ def specimen_definitions(raw: np.ndarray, seg: np.ndarray) -> dict[str, list[Par
     third_ventricle = seg == THIRD_VENTRICLE
     hippocampus = seg == RIGHT_HIPPOCAMPUS
     amygdala = seg == RIGHT_AMYGDALA
-    lentiform = np.isin(seg, (RIGHT_PUTAMEN, RIGHT_GPE, RIGHT_GPI))
+    right_putamen = seg == RIGHT_PUTAMEN
+    right_gpe = seg == RIGHT_GPE
+    right_gpi = seg == RIGHT_GPI
+    lentiform = right_putamen | right_gpe | right_gpi
     internal_capsule = seg == RIGHT_INTERNAL_CAPSULE
     corpus_callosum = seg == CORPUS_CALLOSUM
     red_nuclei = np.isin(seg, RED_NUCLEI)
@@ -264,7 +267,9 @@ def specimen_definitions(raw: np.ndarray, seg: np.ndarray) -> dict[str, list[Par
         ],
         "radiations": [
             Part("tissue", radiation_tissue, "水平切断標本", "specimen-derived", "#c9a27d", "specimen"),
-            Part("lentiform", lentiform & deep_crop, "レンズ核", "manual-segmentation", "#d88450"),
+            Part("putamen", right_putamen & deep_crop, "被殻", "manual-segmentation", "#d9854f"),
+            Part("pallidum-external", right_gpe & deep_crop, "淡蒼球外節", "manual-segmentation", "#d0ae5c"),
+            Part("pallidum-internal", right_gpi & deep_crop, "淡蒼球内節", "manual-segmentation", "#b88d42"),
             Part("internal-capsule", internal_capsule & deep_crop, "内包", "image-guided-segmentation", "#e4d27a"),
             Part("corona-radiata", corona_paths, "放線冠", "schematic-surface-guide", "#e7c85d"),
             Part("optic-radiation", optic_paths, "視放線", "schematic-surface-guide", "#7d9fd0"),

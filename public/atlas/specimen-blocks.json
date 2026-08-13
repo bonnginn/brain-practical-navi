@@ -155,15 +155,39 @@
         "material": "specimen"
       },
       {
-        "file": "block-radiations-lentiform.mesh",
-        "vertices": 4224,
-        "faces": 8368,
+        "file": "block-radiations-putamen.mesh",
+        "vertices": 3484,
+        "faces": 6960,
         "shadeMin": 0.82,
         "shadeMax": 0.82,
-        "part": "lentiform",
-        "nameJa": "レンズ核",
+        "part": "putamen",
+        "nameJa": "被殻",
         "sourceType": "manual-segmentation",
-        "color": "#d88450",
+        "color": "#d9854f",
+        "material": "model"
+      },
+      {
+        "file": "block-radiations-pallidum-external.mesh",
+        "vertices": 1598,
+        "faces": 3192,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "pallidum-external",
+        "nameJa": "淡蒼球外節",
+        "sourceType": "manual-segmentation",
+        "color": "#d0ae5c",
+        "material": "model"
+      },
+      {
+        "file": "block-radiations-pallidum-internal.mesh",
+        "vertices": 774,
+        "faces": 1544,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "pallidum-internal",
+        "nameJa": "淡蒼球内節",
+        "sourceType": "manual-segmentation",
+        "color": "#b88d42",
         "material": "model"
       },
       {

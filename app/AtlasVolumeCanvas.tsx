@@ -35,7 +35,9 @@ const SPECIMEN_PARTS:Record<Exclude<SpecimenBlock,"none">,SpecimenPartDefinition
   ],
   radiations:[
     {key:"tissue",color:[.79,.64,.49,1],material:4},
-    {key:"lentiform",layer:"lentiform",color:[.85,.52,.31,1],material:1},
+    {key:"putamen",layer:"putamen",color:[.85,.52,.31,1],material:1},
+    {key:"pallidum-external",layer:"pallidum-external",color:[.82,.68,.36,1],material:1},
+    {key:"pallidum-internal",layer:"pallidum-internal",color:[.72,.55,.26,1],material:1},
     {key:"internal-capsule",layer:"internal-capsule",color:[.89,.82,.48,1],material:1},
     {key:"corona-radiata",layer:"corona-radiata",color:[.91,.78,.36,1],material:1},
     {key:"optic-radiation",layer:"optic-radiation",color:[.49,.62,.82,1],material:1},

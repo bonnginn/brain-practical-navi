@@ -27,7 +27,7 @@
 
 本アプリは教育用です。診断、治療方針の決定、研究用の定量解析には使用できません。試作ラベルは解剖学的正解データではありません。
 
-講義範囲に対する実装状況と、必修／発展の優先順位は [LEARNING_SCOPE.md](LEARNING_SCOPE.md) に整理しています。
+講義範囲に対する実装状況と、必修／発展の優先順位は [LEARNING_SCOPE.md](LEARNING_SCOPE.md) に整理しています。全6資料との構造単位の照合と、標本分節・模式表示・未収録を区別した結果は [LECTURE_COVERAGE_AUDIT.md](LECTURE_COVERAGE_AUDIT.md) に記録しています。
 
 ## ローカル実行
 

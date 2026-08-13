@@ -17,7 +17,7 @@ type BlockVisual = "model";
 type BlockLayer = {key:string;name:string;latin:string;color:string;source:"標本分節"|"試作分節"|"模式補助"|"位置目安";note:string};
 type BlockLesson = {name:string;en:string;visual:BlockVisual;plane:Plane;position:number;focus:Focus;view:"inside"|"ghost"|"extracted"|"segmented";rotation:Rotation;intro:string;observe:string[];caution:string;layers:BlockLayer[]};
 type NeurovascularStructureKey = "ica" | "aca" | "acomm" | "mca" | "pcomm" | "vertebral" | "basilar" | "pca" | "cerebellarArteries" | "cn1" | "cn2" | "opticChiasm" | "cn3" | "cn4" | "cn5" | "cn6" | "cn7" | "cn8" | "cn9" | "cn10" | "cn11" | "cn12";
-type StructureKey = Focus | "thirdVentricle" | "fourthVentricle" | "corpusCallosum" | "internalCapsule" | "putamen" | "pallidum" | "amygdala" | "accumbens" | "redNucleus" | "substantiaNigra" | "subthalamic" | "brainstem" | "cerebellum" | "opticChiasm" | "insula";
+type StructureKey = Focus | "thirdVentricle" | "fourthVentricle" | "corpusCallosum" | "internalCapsule" | "putamen" | "pallidumExternal" | "pallidumInternal" | "pallidum" | "amygdala" | "accumbens" | "redNucleus" | "substantiaNigra" | "subthalamic" | "brainstem" | "cerebellum" | "opticChiasm" | "insula";
 type LabelSource = "manual" | "atlas-provisional" | "image-guided";
 type StructureInfo = { name: string; latin: string; color: string; rgb: [number,number,number]; ids: number[]; bigbrainIds?: number[]; labelSource?: LabelSource; note: string; relation: string; meshFocus?: Focus };
 type Landmark = { p: number; label: string; short: string; row?: 0 | 1 };
@@ -114,8 +114,10 @@ const blockSpecimens:Record<BlockSpecimenKey,BlockLesson>={
     {key:"subthalamic-nuclei",name:"視床下核",latin:"Nucleus subthalamicus",color:"#e0ad45",source:"標本分節",note:"視床腹側・中脳吻側の小さな核を左右表示します。"},
     {key:"mammillary-bodies",name:"乳頭体",latin:"Corpora mamillaria",color:"#a8795f",source:"模式補助",note:"視床下部下面の後方にある一対の小隆起の位置を示します。"},
   ]},
-  radiations:{name:"レンズ核・投射線維",en:"LENTIFORM & RADIATIONS",visual:"model",plane:"horizontal",position:53,focus:"caudate",view:"inside",rotation:{x:-58,y:-8},intro:"レンズ核と内包を含む水平切断標本に、放線冠・視放線・聴放線の走行目安を重ねます。核と線維を同時表示したり、一つずつ外したりして、内包を中心とする広がりを確認します。",observe:["被殻・淡蒼球からなるレンズ核","レンズ核内側の内包","上方へ扇状に広がる放線冠","外側膝状体から後頭葉へ向かう視放線","内側膝状体から側頭葉へ向かう聴放線"],caution:"レンズ核は手動分節、内包は画像誘導の試作分節です。3種類の放線は現在の組織像から抽出した線維束ではなく、切断面上へ投影した走行模式です。位置関係の学習用で、束の太さ・全線維・個人差は表しません。",layers:[
-    {key:"lentiform",name:"レンズ核",latin:"Nucleus lentiformis",color:"#d88450",source:"標本分節",note:"被殻と淡蒼球外節・内節を一括表示します。"},
+  radiations:{name:"レンズ核・投射線維",en:"LENTIFORM & RADIATIONS",visual:"model",plane:"horizontal",position:53,focus:"caudate",view:"inside",rotation:{x:-58,y:-8},intro:"レンズ核と内包を含む水平切断標本に、放線冠・視放線・聴放線の走行目安を重ねます。被殻・淡蒼球外節・内節を別々に外しながら、内包を中心とする広がりを確認します。",observe:["被殻・淡蒼球外節・内節の層状配列","レンズ核内側の内包","上方へ扇状に広がる放線冠","外側膝状体から後頭葉へ向かう視放線","内側膝状体から側頭葉へ向かう聴放線"],caution:"被殻と淡蒼球外節・内節は手動分節、内包は画像誘導の試作分節です。3種類の放線は現在の組織像から抽出した線維束ではなく、切断面上へ投影した走行模式です。位置関係の学習用で、束の太さ・全線維・個人差は表しません。",layers:[
+    {key:"putamen",name:"被殻",latin:"Putamen",color:"#d9854f",source:"標本分節",note:"レンズ核の外側部です。"},
+    {key:"pallidum-external",name:"淡蒼球外節",latin:"Globus pallidus externus",color:"#d0ae5c",source:"標本分節",note:"被殻の内側、淡蒼球内節の外側に位置します。"},
+    {key:"pallidum-internal",name:"淡蒼球内節",latin:"Globus pallidus internus",color:"#b88d42",source:"標本分節",note:"外節の内側で、内包に接します。"},
     {key:"internal-capsule",name:"内包",latin:"Capsula interna",color:"#e4d27a",source:"試作分節",note:"レンズ核の内側、尾状核・視床の外側を通ります。"},
     {key:"corona-radiata",name:"放線冠",latin:"Corona radiata",color:"#e7c85d",source:"模式補助",note:"内包より上方で皮質へ扇状に広がる投射線維です。"},
     {key:"optic-radiation",name:"視放線",latin:"Radiatio optica",color:"#7d9fd0",source:"模式補助",note:"外側膝状体から側頭・頭頂葉を経て後頭葉へ向かいます。"},
@@ -196,7 +198,9 @@ const structures: Record<StructureKey, StructureInfo> = {
   internalCapsule: { name:"内包", latin:"Capsula interna", color:"#e2964f", rgb:[226,150,79], ids:[], bigbrainIds:[31,32], labelSource:"image-guided", note:"尾状核・視床とレンズ核の間を走る白質路です。冠状断で前脚・膝・後脚の曲がりを追います。", relation:"尾状核・視床の外側、被殻・淡蒼球の内側" },
   caudate: { name: "尾状核", latin: "Nucleus caudatus", color: "#e19749", rgb:[225,151,73], ids:[100,49], bigbrainIds:[7,8], labelSource:"manual", meshFocus:"caudate", note: "側脳室に沿って前後へ連続する核です。断面を移動して頭・体・尾の位置変化を追います。", relation: "側脳室の外側、内包の内側" },
   putamen: { name:"被殻", latin:"Putamen", color:"#d9854f", rgb:[217,133,79], ids:[72,21], bigbrainIds:[9,10], labelSource:"manual", note:"レンズ核の外側部です。淡蒼球との境界と、外側を走る外包を確認します。", relation:"淡蒼球の外側、島皮質の内側" },
-  pallidum: { name:"淡蒼球", latin:"Globus pallidus", color:"#c8a451", rgb:[200,164,81], ids:[78,27], bigbrainIds:[11,12,13,14], labelSource:"manual", note:"レンズ核の内側部です。被殻より淡く見えることが多く、内包に接します。", relation:"被殻の内側、内包の外側" },
+  pallidumExternal: { name:"淡蒼球外節", latin:"Globus pallidus externus", color:"#d0ae5c", rgb:[208,174,92], ids:[], bigbrainIds:[11,12], labelSource:"manual", note:"淡蒼球の外側区画です。内外の髄板を手がかりに、内節と分けて確認します。", relation:"被殻の内側、淡蒼球内節の外側" },
+  pallidumInternal: { name:"淡蒼球内節", latin:"Globus pallidus internus", color:"#b88d42", rgb:[184,141,66], ids:[], bigbrainIds:[13,14], labelSource:"manual", note:"淡蒼球の内側区画です。外節より小さく、内包に接する位置を確認します。", relation:"淡蒼球外節の内側、内包の外側" },
+  pallidum: { name:"淡蒼球（全体）", latin:"Globus pallidus", color:"#c8a451", rgb:[200,164,81], ids:[78,27], bigbrainIds:[11,12,13,14], labelSource:"manual", note:"外節と内節を一括表示します。細部の学習では、別項目の外節・内節を使ってください。", relation:"被殻の内側、内包の外側" },
   thalamus: { name: "視床", latin: "Thalamus", color: "#8d82c4", rgb:[141,130,196], ids:[91,40], bigbrainIds:[15,16], labelSource:"manual", meshFocus:"thalamus", note: "第三脳室を挟んで左右に位置します。水平断と冠状断で内包との境界を比較します。", relation: "第三脳室外側、内包の内側" },
   hippocampus: { name: "海馬", latin: "Hippocampus", color: "#c8798d", rgb:[200,121,141], ids:[99,48], bigbrainIds:[17,18], labelSource:"manual", meshFocus:"hippocampus", note: "側脳室下角の床に沿う構造です。冠状断と矢状断を往復して前後方向の連続を確認します。", relation: "側脳室下角の内側・床" },
   amygdala: { name:"扁桃体", latin:"Corpus amygdaloideum", color:"#c76878", rgb:[199,104,120], ids:[70,19], bigbrainIds:[21,22], labelSource:"manual", note:"側頭葉内側前方の核群です。海馬の前端との移行を連続断面で追います。", relation:"海馬頭の前上方、側脳室下角の前方" },
@@ -212,7 +216,7 @@ const structures: Record<StructureKey, StructureInfo> = {
 
 const structureGroups:{key:string;name:string;color:string;members:StructureKey[]}[]=[
   {key:"ventricles",name:"脳室系",color:"#49a9b4",members:["ventricle","thirdVentricle","fourthVentricle"]},
-  {key:"basal",name:"大脳基底核",color:"#d9854f",members:["caudate","putamen","pallidum","accumbens"]},
+  {key:"basal",name:"大脳基底核",color:"#d9854f",members:["caudate","putamen","pallidumExternal","pallidumInternal","accumbens"]},
   {key:"midline",name:"正中・白質",color:"#d2b765",members:["corpusCallosum","internalCapsule","thalamus"]},
   {key:"limbic",name:"辺縁系",color:"#c8798d",members:["hippocampus","amygdala"]},
   {key:"midbrain",name:"中脳核",color:"#b06e75",members:["redNucleus","substantiaNigra","subthalamic"]},
@@ -227,6 +231,8 @@ const structureFunctions:Record<StructureKey,string>={
   internalCapsule:"皮質と視床・脳幹・脊髄を結ぶ投射線維が密集し、運動・感覚経路が通ります。",
   caudate:"行動選択、眼球運動、認知的な運動制御に関わる線条体の一部です。",
   putamen:"随意運動の開始・大きさの調節や、習慣化された運動に関わります。",
+  pallidumExternal:"大脳基底核の間接路を調節する中継部として、視床下核などとの回路を構成します。",
+  pallidumInternal:"大脳基底核から視床などへ向かう主要な出力部として、運動の選択を調節します。",
   pallidum:"大脳基底核回路の主要な出力部として、不要な運動を抑え必要な運動を通します。",
   thalamus:"感覚・運動・認知情報を大脳皮質へ中継し、皮質活動を調整します。",
   hippocampus:"エピソード記憶の形成と空間情報の処理に重要です。",
