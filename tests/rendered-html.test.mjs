@@ -117,6 +117,8 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(canvasCss, /\.quizWorkspace\s*\{[^}]*display:\s*grid/);
   assert.match(canvasCss, /\.quizImageStage\s*\{[^}]*position:\s*relative/);
   assert.match(canvasCss, /\.quizTargetTag\s*\{[^}]*position:\s*absolute/);
+  assert.match(canvasCss, /\.learningGrid,\.quizWorkspace,\.segWorkbench\{grid-template-columns:minmax\(0,1fr\) minmax\(270px,34vw,310px\)\}/);
+  assert.doesNotMatch(canvasCss, /@media\(max-width:900px\)[^\n]*\.learningGrid,\.quizWorkspace,\.segWorkbench\{grid-template-columns:1fr\}/);
   assert.match(page, /小脳を外す/);
   assert.match(page, /橋・延髄を外す/);
   assert.doesNotMatch(page, /中脳を外す/);
