@@ -81,8 +81,9 @@ test("keeps official labels separate from provisional teaching overlays", async 
 });
 
 test("ships the learning workspaces, contributor editor, and public data notice", async () => {
-  const [page, editor, workflow, readme, licenses, attribution, packageJson, softwareLicense, licenseMap, governance] = await Promise.all([
+  const [page, canvasCss, editor, workflow, readme, licenses, attribution, packageJson, softwareLicense, licenseMap, governance] = await Promise.all([
     readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("app/canvas.css", root), "utf8"),
     readFile(new URL("app/ManualSegmentationWorkbench.tsx", root), "utf8"),
     readFile(new URL("SEGMENTATION_WORKFLOW.md", root), "utf8"),
     readFile(new URL("README.md", root), "utf8"),
@@ -100,11 +101,22 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /useState<WorkspaceMode>\("home"\)/);
   assert.match(page, /脳実習を、/);
   assert.match(page, /切る前から立体で。/);
+  assert.match(page, /OPEN ALPHA/);
+  assert.match(page, /α版・非営利教育用/);
+  assert.doesNotMatch(page, /OPEN BETA|β版・非営利教育用/);
   assert.doesNotMatch(page, /を連続して追う/);
   assert.match(page, /VITE_FEEDBACK_FORM_URL/);
   assert.match(page, /VITE_SOURCE_REPOSITORY_URL/);
   assert.match(page, /間違った問題のみ/);
   assert.match(page, /間違い履歴を消去/);
+  assert.match(page, /quizFinished/);
+  assert.match(page, /restoreAllQuiz/);
+  assert.match(page, /同じ問題を再挑戦/);
+  assert.match(page, /結果を見る/);
+  assert.match(canvasCss, /\.homeModelStage\s*\{[^}]*height:\s*auto/);
+  assert.match(canvasCss, /\.quizWorkspace\s*\{[^}]*display:\s*grid/);
+  assert.match(canvasCss, /\.quizImageStage\s*\{[^}]*position:\s*relative/);
+  assert.match(canvasCss, /\.quizTargetTag\s*\{[^}]*position:\s*absolute/);
   assert.match(page, /小脳を外す/);
   assert.match(page, /橋・延髄を外す/);
   assert.doesNotMatch(page, /中脳を外す/);
@@ -146,6 +158,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(editor, /端末内へ自動保存/);
   assert.match(workflow, /Pull Requestに必要な情報/);
   assert.match(workflow, /apply_segmentation_patch\.py/);
+  assert.equal(JSON.parse(packageJson).version, "0.1.0-alpha.1");
   assert.equal(JSON.parse(packageJson).license, "AGPL-3.0-or-later");
   assert.match(softwareLicense, /GNU AFFERO GENERAL PUBLIC LICENSE/);
   assert.match(softwareLicense, /13\. Remote Network Interaction/);

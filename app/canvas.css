@@ -193,7 +193,9 @@ html, body, #root { height: 100%; overflow: hidden; }
 @media(max-width:940px){.sliceStage{height:auto;grid-template-columns:minmax(0,1fr) 210px}.insetHead{flex-basis:38px;height:38px}.modelInset .blockControls{left:7px;right:7px;bottom:7px}.modelInset .blockControls button{font-size:8px;padding-block:6px}.modelInset .orientation{display:none}}
 @media(max-width:760px){html,body,#root{height:auto;overflow:auto}.appShell{display:block;height:auto;padding:60px 0 72px}.leftRail,.workArea{overflow:visible}.visualGrid{display:block}.slicePanel{display:block}.sliceStage{height:600px;grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) 180px}.sliceViewport{border-right:0;border-bottom:1px solid #455052}.slicePanel{margin-top:0}.slicePanel .panelHead{display:block}.sliceTools{margin-top:8px;gap:4px;flex-wrap:wrap;justify-content:flex-start}.contrastSwitch button,.displaySwitch button{padding:6px 7px;font-size:9px}.workArea{padding:20px 12px}.workHead h1{font-size:26px}.panelHead b{font-size:13px}.panelHead small{font-size:10px}.sliceTimeline{padding-inline:13px}.rangeWrap button span{font-size:9px}.miniSlices>button>b{font-size:12px}.miniSlices>button>small{font-size:9px}.modelInset{width:auto;margin:0}.insetHead{flex-basis:30px;height:30px}.insetHead small,.insetHead>span{display:none}.modelInset .blockControls,.modelInset .orientation{display:none}.identifyHint{top:8px;padding:5px 7px}.identifyHint b{font-size:9px}.identifyHint span{display:none}.identifyMarker{min-width:132px}.selectedStructureBar{grid-template-columns:7px auto auto;padding-inline:11px}.selectedStructureBar p{display:none}.clearStructures,.structureGroupGrid{display:none}.zoomReadout{right:10px;bottom:10px}.inspectorBackdrop{top:60px}.inspector{top:60px;width:min(360px,94vw);padding:20px}}
 
-.workspaceSwitch { gap: 2px; }
+.topbar { gap: 12px; }
+.brand, .topActions { flex: 0 0 auto; }
+.workspaceSwitch { min-width: 0; gap: 2px; }
 .workspaceSwitch button { min-width: 108px; display: grid; gap: 2px; padding: 7px 15px; text-align: center; }
 .workspaceSwitch button > span { font-size: 12px; }
 .workspaceSwitch button > i { margin: 0; color: #89918f; font: 9px/1.2 monospace; letter-spacing: .04em; }
@@ -241,8 +243,8 @@ html, body, #root { height: 100%; overflow: hidden; }
 .appShell.homeShell { grid-template-columns: minmax(0,1fr); }
 .homeShell .topbar { grid-column: 1; }
 .homeShell .leftRail { display: none; }
-.homeArea { grid-column: 1; min-height: 0; display: grid; grid-template-rows: minmax(0,1fr) auto auto; gap: 12px; overflow: hidden; padding: 18px 28px 16px; background: #e7e5df; }
-.homeHero { min-height: 0; display: grid; grid-template-columns: minmax(370px,.8fr) minmax(480px,1.2fr); overflow: hidden; border: 1px solid #c3c7c1; background: #eeeDE7; box-shadow: 0 14px 38px rgba(22,31,31,.1); }
+.homeArea { grid-column: 1; grid-row: 2; width: 100%; min-width: 0; min-height: 0; display: grid; grid-template-rows: minmax(0,1fr) auto auto; gap: 12px; overflow: hidden; padding: 18px 28px 16px; background: #e7e5df; }
+.homeHero { width: 100%; min-width: 0; min-height: 0; display: grid; grid-template-columns: minmax(340px,42%) minmax(0,1fr); overflow: hidden; border: 1px solid #c3c7c1; background: #eeede7; box-shadow: 0 14px 38px rgba(22,31,31,.1); }
 .homeIntro { position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: center; min-width: 0; padding: clamp(28px,4vw,64px); border-right: 1px solid #c9cbc5; background: linear-gradient(135deg,#f4f2ec 0,#e8e6df 100%); }
 .homeBadges { display: flex; align-items: center; gap: 8px; margin-bottom: 13px; }
 .homeBadges span, .homeBadges b { padding: 5px 7px; border: 1px solid #c5aaa2; color: #9a574a; font-size: 8px; letter-spacing: .1em; }
@@ -260,7 +262,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 .homeMetrics > div + div { padding-left: 12px; border-left: 1px solid #c3c6c0; }
 .homeMetrics b { color: #1d6e69; font: 31px/1 Georgia,serif; }
 .homeMetrics span { color: #75807d; font-size: 8px; line-height: 1.5; }
-.homeModelStage { position: relative; min-width: 0; min-height: 0; overflow: hidden; cursor: grab; touch-action: none; background: radial-gradient(circle at 50% 43%,#596267 0,#353c40 49%,#1b2023 100%); }
+.homeModelStage { position: relative; width: 100%; height: auto; min-width: 0; min-height: 340px; overflow: hidden; cursor: grab; touch-action: none; background: radial-gradient(circle at 50% 43%,#596267 0,#353c40 49%,#1b2023 100%); }
 .homeModelStage:active { cursor: grabbing; }
 .homeModelStage .orientation { top: 22px; right: 22px; color: #ccd3d2; }
 .homeModelStage .orientation i { background: #7e898a; }
@@ -398,6 +400,11 @@ html, body, #root { height: 100%; overflow: hidden; }
 .accuracyNote b { font-size: 11px; }
 .accuracyNote p { margin: 5px 0 0; color: #67706f; font-size: 11px; line-height: 1.7; }
 
+.quizArea { display: flex; flex-direction: column; }
+.quizWorkspace { flex: 1 1 auto; min-height: 0; display: grid; grid-template-columns: minmax(0,1fr) clamp(340px,30vw,430px); gap: 12px; }
+.quizImageStage { position: relative; min-width: 0; min-height: 0; overflow: hidden; background: radial-gradient(circle at 50% 44%,#4b5559 0,#30373a 48%,#171c1e 100%); }
+.quizTargetTag { position: absolute; z-index: 9; left: 18px; bottom: 18px; display: grid; grid-template-columns: 8px auto; align-items: center; gap: 9px; min-width: 210px; padding: 10px 13px; border: 1px solid rgba(220,228,227,.3); background: rgba(20,26,28,.88); color: #f2f3ef; box-shadow: 0 8px 24px rgba(0,0,0,.32); pointer-events: none; }
+.quizTargetTag > i { align-self: stretch; width: 8px; min-height: 34px; border-radius: 5px; box-shadow: 0 0 12px currentColor; }
 .quizTargetTag b { display: block; font-size: 12px; }
 .quizTargetTag small { display: block; margin-top: 2px; color: #acb7b5; font-size: 9px; font-weight: 400; }
 .quizQuestionCard { min-height: 0; overflow-y: auto; padding: 26px 28px; border: 1px solid #c7cac4; background: #e7e5df; }
@@ -425,6 +432,9 @@ html, body, #root { height: 100%; overflow: hidden; }
 .quizEmptyState h2 { margin: 10px 0 6px; font: 400 27px Georgia,"Yu Mincho",serif; }
 .quizEmptyState p { max-width: 520px; margin: 0; color: #68716f; font-size: 11px; line-height: 1.8; }
 .quizEmptyState button { margin-top: 20px; padding: 9px 14px; border: 0; background: #172126; color: #fff; font-size: 10px; font-weight: 700; }
+.quizResultState > div { display: flex; gap: 7px; margin-top: 20px; }
+.quizResultState > div button { margin-top: 0; }
+.quizResultState > div button:first-child { border: 1px solid #1d6e69; background: transparent; color: #1d6e69; }
 
 .legalBackdrop { position: fixed; z-index: 60; inset: 0; display: grid; place-items: center; padding: 24px; background: rgba(13,20,22,.66); backdrop-filter: blur(3px); }
 .legalDialog { width: min(980px,96vw); max-height: min(780px,92vh); overflow-y: auto; border: 1px solid #aeb7b5; background: #f2f1ec; box-shadow: 0 24px 80px #0008; }
@@ -530,7 +540,8 @@ html, body, #root { height: 100%; overflow: hidden; }
 .segControls .accuracyNote p { margin-bottom: 0; }
 
 @media(max-width:1120px){.workspaceSwitch button{min-width:82px;padding-inline:8px}.workspaceSwitch button>span{font-size:10px}.learningGrid,.quizWorkspace,.segWorkbench{grid-template-columns:minmax(0,1fr) 330px}.topActions>span{display:none}}
-@media(max-width:900px){.workspaceSwitch button{min-width:68px}.workspaceSwitch button>i{display:none}.homeHero{grid-template-columns:minmax(330px,.9fr) minmax(360px,1.1fr)}.homeIntro{padding:28px}.homeModeGrid{grid-template-columns:1fr 1fr}.homeModeGrid button{min-height:72px}.homeModeGrid small{display:none}.learningGrid,.quizWorkspace,.segWorkbench{grid-template-columns:1fr}.learningGuide,.quizQuestionCard{max-height:330px}.segCanvasCard{min-height:520px}.segControls{max-height:380px}.legalColumns{grid-template-columns:1fr}.legalColumns article+article{padding-left:0;border-left:0}}
+@media(max-width:900px){.workspaceSwitch button{min-width:68px}.workspaceSwitch button>i{display:none}.homeHero{grid-template-columns:minmax(300px,43%) minmax(0,1fr)}.homeIntro{padding:28px}.homeModeGrid{grid-template-columns:1fr 1fr}.homeModeGrid button{min-height:72px}.homeModeGrid small{display:none}.learningGrid,.quizWorkspace,.segWorkbench{grid-template-columns:1fr}.quizWorkspace{grid-template-rows:minmax(400px,1fr) auto}.learningGuide,.quizQuestionCard{max-height:330px}.segCanvasCard{min-height:520px}.segControls{max-height:380px}.legalColumns{grid-template-columns:1fr}.legalColumns article+article{padding-left:0;border-left:0}}
+@media(max-height:820px) and (min-width:761px){.homeArea{gap:8px;padding:12px 22px 10px}.homeIntro{padding:clamp(22px,3vw,42px)}.homeBadges{margin-bottom:8px}.homeIntro h1{margin:8px 0 11px;font-size:clamp(34px,3.6vw,52px)}.homeLead{line-height:1.65}.homeActions{margin-top:14px}.homeMetrics{margin-top:14px}.homeMetrics>div{padding-top:9px}.homeMetrics b{font-size:27px}.homeModeGrid button{min-height:76px;padding-block:10px}.homeFooter{min-height:30px}}
 @media(max-width:760px){.topbar{padding-inline:5px;gap:3px}.brand{min-width:auto}.brand>span:last-child{display:none}.workspaceSwitch{display:flex;min-width:0;overflow-x:auto;scrollbar-width:none}.workspaceSwitch::-webkit-scrollbar{display:none}.workspaceSwitch button{min-width:52px;padding:7px 3px}.workspaceSwitch button>span{font-size:8px}.topActions{gap:2px}.topActions>span{display:none}.legalButton{padding:7px 3px;font-size:8px;white-space:nowrap}.feedbackButton{display:block;width:38px;padding:7px 2px;font-size:0;white-space:nowrap}.feedbackButton::after{content:"協力";font-size:8px}.compactToggle{border:0;padding-left:0}.learningArea,.quizArea,.segmentationArea{min-height:800px}.learningGrid,.quizWorkspace,.segWorkbench{display:block}.learningModelCard,.quizImageCard,.segCanvasCard{height:520px}.learningGuide,.quizQuestionCard,.segControls{max-height:none;margin-top:10px}.neurovascularControls{left:8px;bottom:8px}.neurovascularControls button{padding:6px}.neurovascularLegend{right:8px;bottom:62px;grid-template-columns:1fr}.feedbackOptions{grid-template-columns:1fr}.legalBackdrop{padding:8px}.legalDialog>footer{display:block}.legalDialog footer div{margin-top:8px}}
 @media(max-width:760px){.specimenViewControls{right:8px;bottom:8px}.specimenViewControls>span{display:none}.specimenViewControls button{padding-inline:6px}.specimenRotationHint{display:none}}
 @media(max-width:760px){.homeArea{display:block;overflow:visible;padding:12px}.homeHero{display:block}.homeIntro{padding:30px 22px;border-right:0;border-bottom:1px solid #c9cbc5}.homeIntro h1{font-size:40px}.homeModelStage{height:380px}.homeModeGrid{grid-template-columns:1fr;margin-top:10px}.homeModeGrid button{min-height:78px}.homeModeGrid small{display:block}.homeFooter{display:block;padding:13px 2px}.homeFooter div{margin-top:9px}}
