@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "NEURO ATLAS — 脳解剖実習ラボ",
-  description: "脳表・断面・血管・脳神経・深部構造を観察して学ぶ、イラストベースの脳解剖教材。",
+  title: "脳実習ナビ — 脳解剖実習 学習補助アプリ",
+  description: "断面・立体・標本作製をつなぐ、脳解剖実習の学習補助アプリ。",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",

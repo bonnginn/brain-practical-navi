@@ -1,0 +1,8 @@
+BigBrain manual subcortical segmentation
+Source: https://nist.mni.mcgill.ca/multi-contrast-pd25-atlas/
+Dataset: BigBrain co-registration with PD25 and ICBM152
+Creators: Yiming Xiao and collaborators, McConnell Brain Imaging Centre, McGill University
+License: Creative Commons Attribution 4.0 International (CC BY 4.0)
+https://creativecommons.org/licenses/by/4.0/
+
+The underlying BigBrain dataset remains subject to its own BigBrain data license.

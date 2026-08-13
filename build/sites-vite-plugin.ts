@@ -1,4 +1,4 @@
-import { access, cp, mkdir, rm } from "node:fs/promises";
+import { access, cp, mkdir, rm, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import type { Plugin } from "vite";
 
@@ -26,6 +26,7 @@ export function sites(): Plugin {
     },
     async closeBundle() {
       const outputDirectory = resolve(root, "dist", ".openai");
+      const serverDirectory = resolve(root, "dist", "server");
       const hostingConfig = resolve(root, ".openai", "hosting.json");
       const drizzleSource = resolve(root, "drizzle");
 
@@ -40,6 +41,12 @@ export function sites(): Plugin {
           recursive: true,
         });
       }
+
+      await mkdir(serverDirectory, { recursive: true });
+      await writeFile(
+        resolve(serverDirectory, "index.js"),
+        `const worker={async fetch(request,env){let response=await env.ASSETS.fetch(request);if(response.status===404&&(request.headers.get("accept")||"").includes("text/html")){const url=new URL(request.url);url.pathname="/index.html";response=await env.ASSETS.fetch(new Request(url,request))}return response}};export default worker;\n`,
+      );
     },
   };
 }

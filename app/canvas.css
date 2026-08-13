@@ -1,0 +1,156 @@
+.sectionCanvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.displaySwitch { display: flex; }
+.sliceTools, .contrastSwitch { display: flex; align-items: center; }
+.sliceTools { gap: 7px; }
+.contrastSwitch button { border: 1px solid #aeb6b4; background: #edf0ed; color: #53605f; padding: 5px 8px; font-size: 7px; font-weight: 700; }
+.contrastSwitch button + button { margin-left: -1px; }
+.contrastSwitch button.active { background: #4d777d; border-color: #4d777d; color: #fff; }
+.displaySwitch button { border: 1px solid #c7c9c4; background: transparent; padding: 5px 7px; font-size: 7px; margin-left: -1px; }
+.displaySwitch button.active { background: #172126; border-color: #172126; color: #fff; }
+.sliceStage .pin, .sliceStage .scale { z-index: 6; }
+.brandMark { font: 700 12px/1 "Yu Mincho", serif !important; letter-spacing: 0 !important; }
+.atlasCanvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.atlasCanvas.identifiable { cursor: crosshair; touch-action: none; }
+.atlasLoading { position: absolute; z-index: 7; left: 50%; top: 50%; transform: translate(-50%,-50%); padding: 10px 14px; background: #f5f3ed; border: 1px solid #c7c4bc; color: #596264; font-size: 11px; white-space: nowrap; }
+.atlasLoading.error { color: #a2473c; border-color: #d6a49b; }
+.atlasOverlay .hemi, .atlasOverlay .cerebellum, .atlasOverlay .stem, .atlasOverlay .ventricleShape { display: none; }
+.atlasOverlay { pointer-events: none; }
+.atlasCredit { margin-top: 20px; padding-top: 14px; border-top: 1px solid #c5c7c1; font-size: 9px; line-height: 1.7; color: #747e7d; }
+.playButton { flex: 0 0 36px; width: 36px; height: 32px; margin-right: 12px; border: 1px solid #bec1bc; background: transparent; font-size: 11px; }
+.playButton.active { color: #fff; background: #e36e57; border-color: #e36e57; }
+.appShell { grid-template: 78px 1fr / 190px minmax(620px,1fr) 320px; }
+.topbar { padding-inline: 28px; }
+.brand { font-size: 17px; }
+.brand small { font-size: 9px; }
+.brandMark { width: 40px; height: 40px; font-size: 14px !important; }
+.modeSwitch button { padding: 9px 20px; font-size: 12px; }
+.modeSwitch i { font-size: 9px; }
+.session { font-size: 11px; }
+.leftRail { padding-top: 28px; }
+.eyebrow { font-size: 10px; }
+.leftRail > .eyebrow { margin-bottom: 12px; }
+.planeBtn { grid-template-columns: 32px 1fr; padding: 14px 20px; }
+.planeBtn > span { font-size: 10px; }
+.planeBtn b { font-size: 14px; }
+.planeBtn small { font-size: 9px; }
+.structureBtn { padding-block: 12px; font-size: 13px; }
+.structureBtn i { width: 9px; height: 9px; }
+.bookNotice b { font-size: 12px; }
+.bookNotice p { font-size: 11px; }
+.bookNotice span { font-size: 9px; }
+.workArea { padding: 28px 30px 56px; }
+.workHead { margin-bottom: 22px; }
+.workHead h1 { font-size: 31px; }
+.labelToggle { font-size: 12px; }
+.visualGrid { grid-template-columns: 1fr; gap: 0; }
+.slicePanel { grid-column: 1; grid-row: 1; box-shadow: 0 10px 34px rgba(26,34,35,.1); }
+.panelHead { height: 58px; padding-inline: 15px; }
+.panelHead b { font-size: 14px; }
+.panelHead small { font-size: 10px; }
+.panelHead > span { font-size: 9px; }
+.slicePanel .panelHead { height: auto; min-height: 68px; gap: 12px; padding-block: 9px; }
+.slicePanel .sliceTools { flex-wrap: wrap; justify-content: flex-end; }
+.contrastSwitch button, .displaySwitch button { padding: 7px 9px; font-size: 10px; }
+.sliceStage { height: clamp(610px, 68vh, 720px); display: grid; grid-template-columns: minmax(0,1fr) 174px; place-items: stretch; }
+.sliceViewport { position: relative; min-width: 0; height: 100%; overflow: hidden; border-right: 1px solid #455052; }
+.identifyHint { position: absolute; z-index: 7; top: 12px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 9px; padding: 7px 10px; border: 1px solid #77818488; background: #172126d9; color: #f3f2ec; pointer-events: none; white-space: nowrap; }
+.identifyHint b { font-size: 10px; }
+.identifyHint span { padding-left: 9px; border-left: 1px solid #7d8788; color: #b9c2bf; font: 8px monospace; }
+.identifyHint.unavailable { border-color: #b49b6b88; background: #2b2924e8; }
+.identifyMarker { position: absolute; z-index: 8; transform: translate(-50%,calc(-100% - 12px)); min-width: 150px; padding: 8px 26px 8px 10px; border: 1px solid #e36e57; background: #f8f6ef; color: #202a2e; box-shadow: 0 6px 18px #0008; pointer-events: none; }
+.identifyMarker::after { content: ""; position: absolute; left: 50%; top: 100%; border: 7px solid transparent; border-top-color: #e36e57; transform: translateX(-50%); }
+.identifyMarker i { position: absolute; left: 50%; top: calc(100% + 7px); width: 8px; height: 8px; border: 2px solid white; border-radius: 50%; background: #e36e57; box-shadow: 0 0 0 2px #e36e57; transform: translate(-50%,-50%); }
+.identifyMarker b { display: block; font-size: 12px; }
+.identifyMarker small { position: absolute; right: 7px; top: 9px; color: #a05a4e; font: 7px monospace; }
+.identifyMarker.outside { border-color: #8e9694; color: #697270; }
+.modelStage { height: 140px; }
+.orientation, .dragTip { font-size: 10px; }
+.sliceStage .pin { padding: 8px 10px; font-size: 11px; }
+.sliceStage .scale { left: 18px; right: auto; width: 50px; font-size: 10px; }
+.modelInset { position: relative; z-index: 8; align-self: start; width: 150px; margin: 16px 12px; border: 1px solid rgba(230,231,226,.45); background: #e8e7e1; box-shadow: 0 12px 30px rgba(0,0,0,.34); }
+.modelInset::before { content: "位置参照"; position: absolute; top: calc(100% + 9px); left: 0; right: 0; color: #9ca4a2; font: 9px/1.4 monospace; letter-spacing: .08em; text-align: center; }
+.insetHead { height: 34px; display: flex; align-items: center; justify-content: space-between; padding: 0 9px; border-bottom: 1px solid rgba(160,165,160,.65); color: #283235; }
+.insetHead b { display: block; font-size: 12px; }
+.insetHead small { display: block; margin-top: 2px; color: #77807f; font-size: 9px; }
+.insetHead > span { font: 9px monospace; letter-spacing: .12em; color: #66716f; }
+.insetStage { height: 140px; background: #e8e7e1; }
+.modelInset .orientation { right: 10px; top: 10px; font-size: 8px; }
+.modelInset .orientation > i { height: 25px; }
+.modelInset .orientation span { top: 14px; }
+.modelInset .orientation span i { width: 25px; }
+.modelInset .blockControls { left: 8px; right: 8px; bottom: 8px; justify-content: center; }
+.modelInset .blockControls button { flex: 1; min-width: 0; padding: 6px 2px; font-size: 7px; }
+.sliceTimeline { margin: 0; border: 0; border-top: 1px solid #cccdc8; padding: 17px 20px 15px; }
+.selectedStructureBar { display: grid; grid-template-columns: 8px auto 1fr auto; align-items: center; gap: 12px; min-height: 58px; padding: 9px 18px; border-top: 1px solid #cccdc8; background: #eeede8; }
+.selectedStructureBar > span { width: 8px; height: 34px; border-radius: 5px; }
+.selectedStructureBar small { display: block; color: #818987; font-size: 9px; }
+.selectedStructureBar b { display: block; margin-top: 2px; font-size: 14px; }
+.selectedStructureBar p { margin: 0; text-align: right; color: #6f7877; font-size: 10px; }
+.selectedStructureBar button { border: 1px solid #b9bdb7; background: #f8f7f2; padding: 7px 11px; font-size: 10px; }
+.selectedStructureBar button:disabled, .quiz:disabled { cursor: default; opacity: .48; }
+.timelineHead > div { font-size: 11px; }
+.timelineHead b { font-size: 12px; }
+.timelineHead output { min-width: 42px; padding: 7px; font-size: 11px; }
+.rangeWrap { margin-block: 19px 31px; }
+.rangeWrap input { height: 3px; }
+.rangeWrap button span { font-size: 10px; }
+.timeline > p { font-size: 11px; line-height: 1.6; }
+.blockControls button { min-width: 54px; padding: 8px 6px; font-size: 9px; }
+.sectionTitle h2 { font-size: 23px; margin-top: 6px; }
+.orthogonal { margin-top: 32px; }
+.miniSlices > button { min-height: 100px; }
+.miniSlices > button > b { font-size: 13px; }
+.miniSlices > button > small { font-size: 10px; }
+.inspector { padding: 30px 25px; }
+.inspectIndex { font-size: 9px; }
+.inspector h2 { font-size: 32px; }
+.inspector em { font-size: 12px; }
+.inspector h3 { font-size: 12px; }
+.inspector > p { font-size: 13px; line-height: 1.85; }
+.inspector dl div { grid-template-columns: 80px 1fr; padding-block: 12px; font-size: 11px; }
+.identifyCard { margin-top: 18px; padding: 13px; border: 1px solid #bfc4be; background: #efeee9; }
+.identifyCard > span { display: block; color: #e36e57; font: 8px monospace; letter-spacing: .12em; }
+.identifyCard b { display: block; margin-top: 6px; font-size: 14px; }
+.identifyCard small { display: block; margin-top: 4px; color: #727a79; font-size: 9px; line-height: 1.5; }
+.continuity > span { font-size: 12px; }
+.continuity small { font-size: 9px; }
+.quiz { padding: 15px; font-size: 12px; }
+.practiceCard > span { font-size: 9px; }
+.practiceCard > b { font-size: 12px; }
+.practiceCard ol { font-size: 10px; }
+.blockControls { z-index: 9; pointer-events: auto; }
+html, body, #root { height: 100%; overflow: hidden; }
+.appShell { height: 100vh; min-height: 0; }
+.leftRail, .workArea, .inspector { min-height: 0; overflow: hidden; }
+.leftRail { padding-top: 14px; }
+.leftRail > .eyebrow { margin-bottom: 5px; }
+.planeBtn { padding: 8px 18px; }
+.railLine { margin: 8px 18px; }
+.structureBtn { padding: 5px 18px; font-size: 11px; }
+.bookNotice { display: none; }
+.workArea { display: flex; flex-direction: column; padding: 14px 22px 16px; }
+.workHead { flex: 0 0 auto; margin-bottom: 10px; }
+.workHead h1 { font-size: 25px; }
+.visualGrid { flex: 1 1 auto; min-height: 0; }
+.slicePanel { height: 100%; min-height: 0; display: grid; grid-template-rows: auto minmax(0,1fr) auto auto; }
+.slicePanel .panelHead { min-height: 56px; padding-block: 7px; }
+.sliceStage { height: auto; min-height: 0; }
+.sliceTimeline { padding: 10px 18px 9px; }
+.rangeWrap { margin-block: 12px 23px; }
+.timeline > p { line-height: 1.4; }
+.selectedStructureBar { min-height: 48px; padding-block: 6px; }
+.inspector { padding: 16px 18px; }
+.structureColor { margin-top: 12px; }
+.inspector h2 { margin-top: 5px; font-size: 27px; }
+.rule { margin: 12px 0; }
+.inspector > p { font-size: 11px; line-height: 1.55; }
+.inspector dl { margin-top: 10px; }
+.inspector dl div { padding-block: 7px; font-size: 10px; }
+.identifyCard { margin-top: 10px; padding: 9px 11px; }
+.continuity { margin-top: 10px; }
+.quiz { margin-top: 12px; padding: 10px; }
+.atlasCredit { margin-top: 10px; padding-top: 8px; font-size: 7px !important; line-height: 1.45 !important; }
+@media(max-width:1250px){.appShell{grid-template-columns:170px minmax(0,1fr) 270px}.topbar{grid-column:1/4}.inspector{display:block}.structureBtn{padding-inline:15px}}
+@media(max-width:1050px){.appShell{grid-template-columns:160px minmax(0,1fr)}.topbar{grid-column:1/3}.inspector{display:none}}
+@media(max-width:940px){.sliceStage{height:auto;grid-template-columns:minmax(0,1fr) 140px}.modelInset{width:116px;margin:12px}.modelInset::before{display:none}.insetHead{height:30px}.insetStage{height:108px}.modelInset .blockControls,.modelInset .orientation{display:none}}
+@media(max-width:760px){html,body,#root{height:auto;overflow:auto}.appShell{display:block;height:auto;padding:60px 0 72px}.leftRail,.workArea{overflow:visible}.visualGrid{display:block}.slicePanel{display:block}.sliceStage{height:480px;grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) 112px}.sliceViewport{border-right:0;border-bottom:1px solid #455052}.slicePanel{margin-top:0}.slicePanel .panelHead{display:block}.sliceTools{margin-top:8px;gap:4px;flex-wrap:wrap;justify-content:flex-start}.contrastSwitch button,.displaySwitch button{padding:6px 7px;font-size:9px}.workArea{padding:20px 12px}.workHead h1{font-size:26px}.panelHead b{font-size:13px}.panelHead small{font-size:10px}.sliceTimeline{padding-inline:13px}.rangeWrap button span{font-size:9px}.miniSlices>button>b{font-size:12px}.miniSlices>button>small{font-size:9px}.modelInset{width:104px;margin:5px 10px 0 auto}.modelInset::before{display:none}.insetHead{height:26px}.insetHead small,.insetHead>span{display:none}.insetStage{height:80px}.modelInset .blockControls,.modelInset .orientation{display:none}.identifyHint{top:8px;padding:5px 7px}.identifyHint b{font-size:9px}.identifyHint span{display:none}.identifyMarker{min-width:132px}.selectedStructureBar{grid-template-columns:7px auto auto;padding-inline:11px}.selectedStructureBar p{display:none}}

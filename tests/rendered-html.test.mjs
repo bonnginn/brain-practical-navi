@@ -1,91 +1,51 @@
 import assert from "node:assert/strict";
-import { access, readFile, readdir } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 import test from "node:test";
+import { gunzipSync } from "node:zlib";
 
-const developmentPreviewMeta =
-  /<meta(?=[^>]*\bname=["']codex-preview["'])(?=[^>]*\bcontent=["']development["'])[^>]*>/i;
-const templateRoot = new URL("../", import.meta.url);
-const previewRoot = new URL("../app/_sites-preview/", import.meta.url);
+const root = new URL("../", import.meta.url);
 
-async function render() {
-  const workerUrl = new URL("../dist/server/index.js", import.meta.url);
-  workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
-  const { default: worker } = await import(workerUrl.href);
-
-  return worker.fetch(
-    new Request("http://localhost/", {
-      headers: { accept: "text/html" },
-    }),
-    {
-      ASSETS: {
-        fetch: async () => new Response("Not found", { status: 404 }),
-      },
-    },
-    {
-      waitUntil() {},
-      passThroughOnException() {},
-    },
-  );
+function readVolumeHeader(buffer, expectedMagic) {
+  const payload = gunzipSync(buffer);
+  assert.equal(payload.subarray(0, 4).toString("ascii"), expectedMagic);
+  const dims = [payload.readUInt16LE(4), payload.readUInt16LE(6), payload.readUInt16LE(8)];
+  const voxelCount = dims.reduce((total, value) => total * value, 1);
+  assert.equal(payload.length, 10 + voxelCount);
+  return { payload, dims, voxelCount };
 }
 
-test("server-renders the starter loading skeleton", async () => {
-  const response = await render();
-  assert.equal(response.status, 200);
-  assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
-
-  const html = await response.text();
-  assert.match(html, developmentPreviewMeta);
-  assert.match(html, /<title>Your site is taking shape<\/title>/i);
-  assert.match(html, /Building your site/);
-  assert.match(html, /Your site is taking shape/);
-  assert.match(
-    html,
-    /Your first version will appear here automatically when it’s ready\./,
-  );
-  assert.doesNotMatch(html, /Codex/);
-  assert.match(html, /react-loading-skeleton/);
-  assert.match(html, /role="status"/);
-});
-
-test("keeps the loading skeleton scoped and disposable", async () => {
-  const [preview, css, page, layout, packageJson, files] = await Promise.all([
-    readFile(new URL("SkeletonPreview.tsx", previewRoot), "utf8"),
-    readFile(new URL("preview.css", previewRoot), "utf8"),
-    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../package.json", import.meta.url), "utf8"),
-    readdir(previewRoot),
+test("uses an exact coordinate-matched BigBrain image and manual label grid", async () => {
+  const [imageFile, labelFile, metadataFile] = await Promise.all([
+    readFile(new URL("public/atlas/bigbrain-icbm500.bin.gz", root)),
+    readFile(new URL("public/atlas/bigbrain-manual-subcortical-icbm500.bin.gz", root)),
+    readFile(new URL("public/atlas/bigbrain-icbm500-validation.json", root), "utf8"),
   ]);
 
-  assert.deepEqual(files.sort(), ["SkeletonPreview.tsx", "preview.css"]);
-  assert.match(preview, /from "react-loading-skeleton"/);
-  assert.match(preview, /baseColor="#eceae7"/);
-  assert.match(preview, /highlightColor="#f9f8f6"/);
-  assert.match(preview, /duration=\{2\.8\}/);
-  assert.match(preview, /sites-skeleton-search-placeholder/);
-  assert.match(packageJson, /"react-loading-skeleton": "3\.5\.0"/);
+  const image = readVolumeHeader(imageFile, "BBV1");
+  const labels = readVolumeHeader(labelFile, "BBS1");
+  assert.deepEqual(image.dims, [394, 466, 378]);
+  assert.deepEqual(labels.dims, image.dims);
 
-  const shellIndex = preview.indexOf('className="sites-skeleton-shell"');
-  const statusIndex = preview.indexOf('className="sites-skeleton-status"');
-  assert.ok(shellIndex >= 0 && statusIndex > shellIndex);
-  assert.match(css, /position:\s*fixed/);
-  assert.match(css, /inset:\s*0/);
-  assert.match(css, /opacity:\s*0\.52/);
-  assert.match(css, /prefers-reduced-motion:\s*reduce/);
-  assert.doesNotMatch(css, /#020617|canvas|pets|progress/i);
-  assert.doesNotMatch(
-    preview,
-    /loading-spinner|status-mark|status-progress|canvas|cookie|random/i,
-  );
+  const metadata = JSON.parse(metadataFile);
+  assert.deepEqual(metadata.shape, image.dims);
+  assert.deepEqual(metadata.voxelSizeMm, [0.5, 0.5, 0.5]);
+  assert.deepEqual(metadata.labelIds, Array.from({ length: 22 }, (_, index) => index + 1));
+  assert.ok(metadata.labelTissueOverlap > 0.99);
+  assert.equal(metadata.leftRightPairsValidated, 11);
+  assert.match(metadata.coordinatePolicy, /exact shared ICBM2009 symmetric grid/);
+});
 
-  assert.match(page, /export const metadata:\s*Metadata/);
-  assert.match(page, /"codex-preview": "development"/);
-  assert.match(page, /<SkeletonPreview \/>/);
-  assert.match(layout, /title:\s*"Starter Project"/);
-  assert.doesNotMatch(layout, /codex-preview|_sites-preview|themeColor|\bViewport\b/);
-  assert.doesNotMatch(css, /(^|\s)(html|body)\s*\{/m);
+test("does not load the rejected affine-only label transfer", async () => {
+  const [canvas, page, html] = await Promise.all([
+    readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8"),
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("dist/index.html", root), "utf8"),
+  ]);
 
-  await assert.rejects(
-    access(new URL("public/_sites-preview", templateRoot)),
-  );
+  assert.match(canvas, /bigbrain-icbm500\.bin\.gz/);
+  assert.match(canvas, /bigbrain-manual-subcortical-\$\{name\}\.bin\.gz/);
+  assert.doesNotMatch(canvas, /manual-subcortical-(fixed|histology)/);
+  assert.match(page, /同一格子で検証済み/);
+  assert.match(page, /未検証ラベルは表示しません/);
+  assert.match(html, /<title>脳実習ナビ/);
 });
