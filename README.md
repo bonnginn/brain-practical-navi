@@ -38,7 +38,7 @@ npm install
 npm run dev
 ```
 
-意見募集用Google Formを有効にする場合は、`.env.example` を参考に `VITE_FEEDBACK_FORM_URL` を設定します。URL未設定時はボタンが無効になり、誤った送信先へ誘導しません。対応ソースは [bonnginn/brain-practical-navi](https://github.com/bonnginn/brain-practical-navi)、不具合・修正提案は [GitHub Issues](https://github.com/bonnginn/brain-practical-navi/issues) で公開します。
+意見募集用Google Formの回答者URLはアプリへ設定済みです。別フォームへ切り替える場合は、`.env.example` を参考に `VITE_FEEDBACK_FORM_URL` で上書きできます。編集URLと回答スプレッドシートURLは公開コードへ設定しません。対応ソースは [bonnginn/brain-practical-navi](https://github.com/bonnginn/brain-practical-navi)、不具合・修正提案は [GitHub Issues](https://github.com/bonnginn/brain-practical-navi/issues) で公開します。
 
 フォームは `scripts/create_google_feedback_form.gs` をGoogle Apps Scriptで実行すると、匿名フィードバック／共同制作希望の分岐、回答スプレッドシート、運用メモを自動生成できます。作成後はGoogle Forms側で回答者の公開範囲を確認し、実行ログの `RESPONDER_URL` を設定してください。詳しくは `BETA_FEEDBACK.md` を参照してください。
 

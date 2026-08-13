@@ -94,9 +94,12 @@ test("ships the learning workspaces, contributor editor, and public data notice"
     readFile(new URL("GOVERNANCE.md", root), "utf8"),
   ]);
 
-  for (const label of ["断面実習", "脳表観察", "ブロック標本", "脳底動脈", "脳神経・脳幹", "復習クイズ", "編集ツール", "CC・権利", "意見・共同制作"]) {
+  for (const label of ["トップ", "断面実習", "脳表観察", "ブロック標本", "脳底動脈", "脳神経・脳幹", "復習クイズ", "編集ツール", "CC・権利", "意見・共同制作"]) {
     assert.match(page, new RegExp(label));
   }
+  assert.match(page, /useState<WorkspaceMode>\("home"\)/);
+  assert.match(page, /脳実習を、/);
+  assert.match(page, /切る前から立体で。/);
   assert.doesNotMatch(page, /を連続して追う/);
   assert.match(page, /VITE_FEEDBACK_FORM_URL/);
   assert.match(page, /VITE_SOURCE_REPOSITORY_URL/);
@@ -148,6 +151,18 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(softwareLicense, /13\. Remote Network Interaction/);
   assert.match(softwareLicense, /END OF TERMS AND CONDITIONS/);
   assert.match(attribution, /BigBrain/);
+});
+
+test("connects only the public Google Form responder URL", async () => {
+  const [page, envExample, readme] = await Promise.all([
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL(".env.example", root), "utf8"),
+    readFile(new URL("README.md", root), "utf8"),
+  ]);
+  const publishedText = `${page}\n${envExample}\n${readme}`;
+  assert.match(publishedText, /1FAIpQLSeM5Kge0Zl9Q0lCHMEP1g____uHvDZsfzjSGA0FzeT9Gf75dA\/viewform/);
+  assert.doesNotMatch(publishedText, /15c95KrcMeKccBxyBWiotKO3s_5xcF8NNHqkRf6n0Dx4/);
+  assert.doesNotMatch(publishedText, /1nW-udpo6EAhG7Fi0D0VCpUTngjQ8ldIKUoECAFwxvv0/);
 });
 
 test("validates browser segmentation patches against the bundled BBS1 grid", () => {
@@ -411,6 +426,21 @@ test("anchors cranial nerve roots at the intended brainstem levels", async () =>
   near(37, [17, -6, -57]);  // VIII, lateral to VII
   near(39, [13, -26, -62]); // IX, upper post-olivary sulcus
   near(45, [7, -8, -66]);   // XII, pre-olivary sulcus
+});
+
+test("block specimens support continuous three-axis rotation and anatomical view presets", async () => {
+  const [page, canvas] = await Promise.all([
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8"),
+  ]);
+  assert.doesNotMatch(page, /Math\.max\(-88/);
+  assert.match(page, /mode:"orbit"\|"roll"/);
+  assert.match(page, /e\.button===2\|\|e\.shiftKey\?"roll":"orbit"/);
+  assert.match(page, /blockViewLabels:Record<BlockViewPreset,string>=\{initial:"初期",opposite:"反対側",superior:"上面",inferior:"下面"\}/);
+  assert.match(page, /setRotation\(\{\.\.\.blockInitialRotations\[key\]\}\)/);
+  assert.match(page, /key=\{blockSpecimen\}/);
+  assert.match(canvas, /az=\(rot\.z\?\?0\)\*Math\.PI\/180/);
+  assert.match(canvas, /cz\*cy-sz\*sx\*sy/);
 });
 
 test("every section quiz shows a visible amount of its target label", async () => {
