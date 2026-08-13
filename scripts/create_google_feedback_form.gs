@@ -28,6 +28,7 @@ function createBrainPracticalFeedbackForm() {
   if (savedFormId && savedSheetId) {
     var existingForm = FormApp.openById(savedFormId);
     var existingSheet = SpreadsheetApp.openById(savedSheetId);
+    refreshExistingForm_(existingForm, existingSheet);
     logResult_(existingForm, existingSheet, true);
     return;
   }
@@ -198,12 +199,7 @@ function createBrainPracticalFeedbackForm() {
 
   form.addCheckboxItem()
     .setTitle('共同制作に関する確認')
-    .setChoiceValues([
-      '公開αへの参加希望であり、報酬・採用・継続参加は個別の合意がない限り保証されないことを理解しました。',
-      '公式版への採用・編集・見送りの最終判断は、当面プロジェクト管理者が行うことを理解しました。',
-      'コード・教材・セグメンテーション等を提出する場合は、自分に提出権限があり、指定ライセンスとDCOを確認します。',
-      '患者情報、公開許諾のない標本写真、第三者の講義・教科書図版を提出しません。',
-    ])
+    .setChoiceValues(collaborationAcknowledgements_())
     .setRequired(true);
 
   routeItem.setChoices([
@@ -222,6 +218,25 @@ function createBrainPracticalFeedbackForm() {
   });
 
   logResult_(form, spreadsheet, false);
+}
+
+function collaborationAcknowledgements_() {
+  return [
+    '公開αへの参加希望であり、報酬・採用・継続参加は個別の合意がない限り保証されないことを理解しました。',
+    '公式版への採用・編集・見送りの最終判断は、当面プロジェクト管理者が行うことを理解しました。',
+    'コード・教材・セグメンテーション等を提出する場合は、自分に提出権限があり、指定ライセンスとDCOを確認します。',
+    '患者情報、公開許諾のない標本写真、第三者の講義・教科書図版を提出しません。',
+  ];
+}
+
+function refreshExistingForm_(form, spreadsheet) {
+  form.setTitle(CONFIG.FORM_TITLE).setDescription(buildDescription_());
+  spreadsheet.rename(CONFIG.RESPONSE_SHEET_TITLE);
+  form.getItems(FormApp.ItemType.CHECKBOX).forEach(function(item) {
+    if (item.getTitle() === '共同制作に関する確認') {
+      item.asCheckboxItem().setChoiceValues(collaborationAcknowledgements_());
+    }
+  });
 }
 
 function buildDescription_() {
