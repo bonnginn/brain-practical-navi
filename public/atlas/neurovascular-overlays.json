@@ -13,7 +13,7 @@
   "omissions": [
     "individual variation",
     "small perforators",
-    "distal nerve course",
+    "distal nerve course beyond the proximal olfactory bulb/tract and cranial-nerve roots",
     "skull foramina",
     "surgical accuracy"
   ],
@@ -122,11 +122,11 @@
       "structures": [
         {
           "id": 21,
-          "name": "左I 嗅索"
+          "name": "左I 嗅球・嗅索"
         },
         {
           "id": 22,
-          "name": "右I 嗅索"
+          "name": "右I 嗅球・嗅索"
         },
         {
           "id": 23,

@@ -94,7 +94,7 @@
 - `public/atlas/thalamus.mesh`
 - `public/atlas/ventricle.mesh`
 - `public/atlas/segment-*.mesh`
-- `public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz` の IDs 23–29
+- `public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz` の IDs 23–29、33–35
 
 出典:
 
@@ -113,9 +113,9 @@
 - T1/T2、GM/WM/CSF確率、脳マスク、CerebrAラベルの1 mm格子への統合
 - 8-bit化、gzip圧縮、独自ヘッダー付与
 - CerebrAラベルから表示用メッシュを作成
-- CerebrA由来の脳室・脳幹・小脳候補をBigBrain 0.5 mm格子へ最近傍再標本化し、教育用に形態学的調整
+- CerebrA由来の脳室・脳幹・小脳・視交叉・島皮質候補をBigBrain 0.5 mm格子へ最近傍再標本化し、既存ラベルの空き領域へ限定
 
-IDs 23–29は手動正解ラベルではありません。アプリでは「試作」または「位置照合済みアトラス由来」と明記します。
+IDs 23–29、33–35は手動正解ラベルではありません。アプリでは「試作」または「位置照合済みアトラス由来」と明記します。
 
 ## 4. 全脳表面モデル
 
@@ -124,6 +124,8 @@ IDs 23–29は手動正解ラベルではありません。アプリでは「試
 - `public/atlas/pial-left.mesh`
 - `public/atlas/pial-right.mesh`
 - `public/atlas/surface-region-labels.json`
+- `public/atlas/surface-landmark-*.mesh`
+- `public/atlas/surface-landmarks.json`
 
 出典: BigBrainWarpの配布物に含まれるMNI152高密度白質表面。配布物の `COPYING` は上記MNIライセンスを収録し、BigBrainWarpのプログラムコード自体はGPL-3.0です。本アプリはBigBrainWarpのプログラムコードを組み込まず、表面データを変換して使用します。
 
@@ -134,8 +136,9 @@ IDs 23–29は手動正解ラベルではありません。アプリでは「試
 - 同じMNI152NLin2009cSym空間のCerebrA皮質領域を、対応白質表面の法線方向±3 mm以内で標本化
 - 左右各163,842頂点の93.6%へCerebrA領域IDを格納
 - WebGL表示用の独自メッシュ形式へ変換
+- 本プロジェクトが置いた8本の種曲線を最寄りの高密度脳表頂点へ投影し、細い管状ガイドへ変換
 
-脳表領域IDはアトラス由来の教育用対応であり、専門家がpial表面を手動区画した正解データではありません。脳溝境界の厳密な判定、皮質面積・厚さ等の定量解析には使用できません。
+脳表領域IDはアトラス由来の教育用対応であり、専門家がpial表面を手動区画した正解データではありません。線状ガイドも献体脳の溝をトレースした境界ではなく、中心溝、中心前溝、外側溝、上前頭溝、大脳縦裂、頭頂後頭溝、鳥距溝、嗅溝の模式位置です。脳溝境界の厳密な判定、皮質面積・厚さ等の定量解析には使用できません。
 
 引用:
 
@@ -162,15 +165,17 @@ IDs 23–29は手動正解ラベルではありません。アプリでは「試
 - `public/atlas/overlay-nerves-medullary.mesh`
 - `public/atlas/neurovascular-overlays.json`
 - `public/atlas/landmark-optic-pathway.mesh`
+- `public/atlas/landmark-olfactory-pathway.mesh`
 - `public/atlas/landmark-infundibulum.mesh`
 - `public/atlas/landmark-mammillary-bodies.mesh`
+- `public/atlas/landmark-anterior-perforated-substance.mesh`
 - `public/atlas/basal-landmarks.json`
 
-脳底動脈と脳神経根は、本プロジェクトが主要経路をMNI方向の表示空間へ手作業で置き、`scripts/build_neurovascular_overlays.py` で管状メッシュへ変換した模式3Dです。動脈はpial-like表面の表示補正を維持し、III–XIIの神経根は同一ICBM500格子の脳幹ラベル表面へ見かけの起始部を合わせています。視神経・視交叉・視索、漏斗（下垂体茎）、乳頭体は、同じ表示空間へ `scripts/build_basal_landmarks.py` で配置した独立部品です。外部の標本写真・教科書図版・アトラス図版をトレースまたは収録していません。BigBrain組織像、血管造影、tractography、献体標本から抽出したものでもありません。
+脳底動脈と脳神経根は、本プロジェクトが主要経路をMNI方向の表示空間へ手作業で置き、`scripts/build_neurovascular_overlays.py` で管状メッシュへ変換した模式3Dです。動脈はpial-like表面の表示補正を維持し、III–XIIの神経根は同一ICBM500格子の脳幹ラベル表面へ見かけの起始部を合わせています。嗅球・嗅索、視神経・視交叉・視索、漏斗（下垂体茎）、乳頭体、前有孔質は、同じ表示空間へ `scripts/build_basal_landmarks.py` で配置した独立部品です。外部の標本写真・教科書図版・アトラス図版をトレースまたは収録していません。BigBrain組織像、血管造影、tractography、献体標本から抽出したものでもありません。
 
 - 動脈は内頸動脈系、椎骨脳底動脈系、ウィリス動脈輪、主要小脳動脈に限定します。
 - 脳神経はI–XIIの脳底面で見える近位部と、脳幹に対する起始レベルを単純化します。
-- 脳底面では視神経・視交叉・視索、漏斗、左右の乳頭体を前後に並べます。下垂体そのものは表示しません。
+- 脳底面では前有孔質、視神経・視交叉・視索、漏斗、左右の乳頭体を前後に並べます。下垂体そのものは表示しません。
 - 各管状メッシュ頂点に1–45の個別構造IDを格納し、教材上の選択・白色強調にだけ使用します。
 - 3Dモデルはホイール拡大、脳表の透過、小脳・橋／延髄・血管・神経レイヤーの脱着に対応します。中脳は上方との連続を保つため脱着対象にしません。
 - 個人差、穿通枝、正確な血管径、神経核、頭蓋孔、遠位走行は再現しません。
@@ -225,7 +230,7 @@ AGPLはオープンソースであり、コードの販売や業務利用その�
 | OGPイラストの作成履歴 | 要記録保持 | `public/og.png` のプロジェクト内作成履歴を保持 |
 | アプリコードのライセンス | 対応済み | AGPL-3.0-or-laterとソース導線を維持 |
 | 自作教材文書のライセンス | 対応済み | CC BY-NC-SA 4.0表示を維持 |
-| 公開ソースURL | 未設定 | GitHubリポジトリ作成後、アプリへ設定 |
+| 公開ソースURL | 対応済み | `bonnginn/brain-practical-navi` への導線を維持 |
 | 商用利用 | 不可 | 別許諾または素材差し替えが必要 |
 
 ## 11. 推奨する表示文（短縮版）

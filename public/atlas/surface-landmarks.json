@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "source": "project-authored seed curves projected to pial-left/right.mesh",
+  "status": "schematic surface guides; not donor-traced or validated sulcal curves",
+  "method": "nearest high-density pial vertex projection followed by thin tube generation; the longitudinal fissure uses an anterior-posterior extended midpoint filler recessed between left and right medial banks",
+  "landmarks": [
+    {
+      "file": "surface-landmark-central-sulcus.mesh",
+      "vertices": 256,
+      "faces": 480,
+      "key": "central-sulcus",
+      "label": "中心溝",
+      "sourceType": "schematic-surface-guide"
+    },
+    {
+      "file": "surface-landmark-precentral-sulcus.mesh",
+      "vertices": 176,
+      "faces": 320,
+      "key": "precentral-sulcus",
+      "label": "中心前溝",
+      "sourceType": "schematic-surface-guide"
+    },
+    {
+      "file": "surface-landmark-lateral-sulcus.mesh",
+      "vertices": 256,
+      "faces": 480,
+      "key": "lateral-sulcus",
+      "label": "外側溝",
+      "sourceType": "schematic-surface-guide"
+    },
+    {
+      "file": "surface-landmark-superior-frontal-sulcus.mesh",
+      "vertices": 176,
+      "faces": 320,
+      "key": "superior-frontal-sulcus",
+      "label": "上前頭溝",
+      "sourceType": "schematic-surface-guide"
+    },
+    {
+      "file": "surface-landmark-parieto-occipital-sulcus.mesh",
+      "vertices": 176,
+      "faces": 320,
+      "key": "parieto-occipital-sulcus",
+      "label": "頭頂後頭溝",
+      "sourceType": "schematic-surface-guide"
+    },
+    {
+      "file": "surface-landmark-calcarine-sulcus.mesh",
+      "vertices": 256,
+      "faces": 480,
+      "key": "calcarine-sulcus",
+      "label": "鳥距溝",
+      "sourceType": "schematic-surface-guide"
+    },
+    {
+      "file": "surface-landmark-olfactory-sulcus.mesh",
+      "vertices": 176,
+      "faces": 320,
+      "key": "olfactory-sulcus",
+      "label": "嗅溝",
+      "sourceType": "schematic-surface-guide"
+    },
+    {
+      "file": "surface-landmark-longitudinal-fissure.mesh",
+      "vertices": 408,
+      "faces": 800,
+      "key": "longitudinal-fissure",
+      "label": "大脳縦裂",
+      "sourceType": "schematic-surface-guide"
+    }
+  ]
+}

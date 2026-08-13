@@ -2,6 +2,7 @@
   "version": 3,
   "source": "bigbrain-icbm500.bin.gz",
   "segmentation": "bigbrain-practical-segmentation-icbm500.bin.gz",
+  "coordinateSpace": "shared centred ICBM500 display grid; x right, y anterior, z superior (mm)",
   "sourceVoxelMm": 0.5,
   "geometrySamplingMm": 1.0,
   "specimens": {
@@ -70,8 +71,8 @@
     "diencephalon": [
       {
         "file": "block-diencephalon-tissue.mesh",
-        "vertices": 30273,
-        "faces": 60454,
+        "vertices": 30243,
+        "faces": 60394,
         "shadeMin": 0.0,
         "shadeMax": 1.0,
         "part": "tissue",
@@ -106,8 +107,8 @@
       },
       {
         "file": "block-diencephalon-hypothalamus.mesh",
-        "vertices": 7273,
-        "faces": 14506,
+        "vertices": 3452,
+        "faces": 6896,
         "shadeMin": 0.82,
         "shadeMax": 0.82,
         "part": "hypothalamus",
@@ -278,8 +279,8 @@
       },
       {
         "file": "block-commissural-system-fornix.mesh",
-        "vertices": 1900,
-        "faces": 3792,
+        "vertices": 2560,
+        "faces": 5112,
         "shadeMin": 0.82,
         "shadeMax": 0.82,
         "part": "fornix",
@@ -485,6 +486,66 @@
         "sourceType": "regional-approximation",
         "color": "#d29a55",
         "material": "model"
+      },
+      {
+        "file": "block-midbrain-section-superior-colliculi.mesh",
+        "vertices": 560,
+        "faces": 1112,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "superior-colliculi",
+        "nameJa": "上丘",
+        "sourceType": "regional-approximation",
+        "color": "#bd6f56",
+        "material": "model"
+      },
+      {
+        "file": "block-midbrain-section-inferior-colliculi.mesh",
+        "vertices": 476,
+        "faces": 944,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "inferior-colliculi",
+        "nameJa": "下丘",
+        "sourceType": "regional-approximation",
+        "color": "#a85d4e",
+        "material": "model"
+      },
+      {
+        "file": "block-midbrain-section-lateral-geniculate-bodies.mesh",
+        "vertices": 684,
+        "faces": 1360,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "lateral-geniculate-bodies",
+        "nameJa": "外側膝状体",
+        "sourceType": "regional-approximation",
+        "color": "#648fc2",
+        "material": "model"
+      },
+      {
+        "file": "block-midbrain-section-medial-geniculate-bodies.mesh",
+        "vertices": 484,
+        "faces": 960,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "medial-geniculate-bodies",
+        "nameJa": "内側膝状体",
+        "sourceType": "regional-approximation",
+        "color": "#69a78a",
+        "material": "model"
+      },
+      {
+        "file": "block-midbrain-section-interpeduncular-fossa.mesh",
+        "vertices": 214,
+        "faces": 424,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "interpeduncular-fossa",
+        "nameJa": "脚間窩",
+        "sourceType": "regional-approximation",
+        "color": "#8f6d58",
+        "material": "model"
       }
     ],
     "hindbrain": [
@@ -523,6 +584,126 @@
         "sourceType": "teaching-segmentation",
         "color": "#bd8e69",
         "material": "specimen"
+      },
+      {
+        "file": "block-hindbrain-fourth-ventricle.mesh",
+        "vertices": 1258,
+        "faces": 2500,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "fourth-ventricle",
+        "nameJa": "第四脳室",
+        "sourceType": "same-grid-segmentation",
+        "color": "#45aebd",
+        "material": "model"
+      },
+      {
+        "file": "block-hindbrain-superior-cerebellar-peduncles.mesh",
+        "vertices": 1376,
+        "faces": 2744,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "superior-cerebellar-peduncles",
+        "nameJa": "上小脳脚",
+        "sourceType": "schematic-3d",
+        "color": "#e8ba52",
+        "material": "model"
+      },
+      {
+        "file": "block-hindbrain-middle-cerebellar-peduncles.mesh",
+        "vertices": 2256,
+        "faces": 4504,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "middle-cerebellar-peduncles",
+        "nameJa": "中小脳脚",
+        "sourceType": "schematic-3d",
+        "color": "#db8747",
+        "material": "model"
+      },
+      {
+        "file": "block-hindbrain-inferior-cerebellar-peduncles.mesh",
+        "vertices": 1524,
+        "faces": 3040,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "inferior-cerebellar-peduncles",
+        "nameJa": "下小脳脚",
+        "sourceType": "schematic-3d",
+        "color": "#6dad7a",
+        "material": "model"
+      },
+      {
+        "file": "block-hindbrain-facial-colliculi.mesh",
+        "vertices": 300,
+        "faces": 592,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "facial-colliculi",
+        "nameJa": "顔面神経丘",
+        "sourceType": "regional-approximation",
+        "color": "#d46e7f",
+        "material": "model"
+      },
+      {
+        "file": "block-hindbrain-vestibular-areas.mesh",
+        "vertices": 652,
+        "faces": 1296,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "vestibular-areas",
+        "nameJa": "前庭野",
+        "sourceType": "regional-approximation",
+        "color": "#579ec0",
+        "material": "model"
+      },
+      {
+        "file": "block-hindbrain-hypoglossal-trigones.mesh",
+        "vertices": 268,
+        "faces": 528,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "hypoglossal-trigones",
+        "nameJa": "舌下神経三角",
+        "sourceType": "regional-approximation",
+        "color": "#a386bf",
+        "material": "model"
+      },
+      {
+        "file": "block-hindbrain-vagal-trigones.mesh",
+        "vertices": 268,
+        "faces": 528,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "vagal-trigones",
+        "nameJa": "迷走神経三角",
+        "sourceType": "regional-approximation",
+        "color": "#7b6aa6",
+        "material": "model"
+      },
+      {
+        "file": "block-hindbrain-pyramids.mesh",
+        "vertices": 1416,
+        "faces": 2824,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "pyramids",
+        "nameJa": "錐体",
+        "sourceType": "regional-approximation",
+        "color": "#d1a863",
+        "material": "model"
+      },
+      {
+        "file": "block-hindbrain-olives.mesh",
+        "vertices": 2060,
+        "faces": 4112,
+        "shadeMin": 0.82,
+        "shadeMax": 0.82,
+        "part": "olives",
+        "nameJa": "オリーブ",
+        "sourceType": "regional-approximation",
+        "color": "#bd6e5c",
+        "material": "model"
       }
     ]
   },

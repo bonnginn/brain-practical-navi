@@ -71,10 +71,15 @@ def tube_mesh(paths):
             binormal = np.cross(tangent, normal)
             binormal /= max(np.linalg.norm(binormal), 1e-8)
             previous_normal = normal
+            local_radius = radius
+            if "bulb_radius" in path:
+                taper_end = max(2, int(len(centerline) * .22))
+                mix = min(1.0, index / taper_end)
+                local_radius = float(path["bulb_radius"]) * (1.0 - mix) + radius * mix
             for side in range(SIDES):
                 angle = 2 * np.pi * side / SIDES
                 radial = normal * np.cos(angle) + binormal * np.sin(angle)
-                vertices.append(center + radial * radius)
+                vertices.append(center + radial * local_radius)
                 normals.append(radial)
                 regions.append(path["id"])
         rings = len(centerline)
@@ -146,9 +151,12 @@ def main():
     posterior_arteries += pair("後下小脳動脈", [p(10, -60, -49), p(21, -63, -48), p(32, -62, -43), p(40, -57, -36)], 1.15)
 
     anterior_nerves = []
-    anterior_nerves += pair("I 嗅索", [p(18, 62, -11), p(18, 49, -16), p(17, 36, -20), p(15, 25, -22)], 1.25)
-    anterior_nerves += pair("II 視神経", [p(42, 34, -20), p(32, 27, -21), p(20, 17, -21), p(8, 7, -20)], 1.85)
-    anterior_nerves.append({"name": "II 視交叉", "points": [p(-8, 7, -20), p(0, 4, -20), p(8, 7, -20)], "radius": 2.15})
+    olfactory_paths = pair("I 嗅球・嗅索", [p(18, 62, -14), p(18, 49, -19), p(17, 36, -23), p(15, 25, -25)], 1.25)
+    for path in olfactory_paths:
+        path["bulb_radius"] = 3.8
+    anterior_nerves += olfactory_paths
+    anterior_nerves += pair("II 視神経", [p(42, 34, -24), p(32, 27, -25), p(20, 17, -25), p(8, 7, -24)], 1.95)
+    anterior_nerves.append({"name": "II 視交叉", "points": [p(-8, 7, -24), p(0, 4, -24), p(8, 7, -24)], "radius": 2.3})
     # Roots III–XII are calibrated against practical label 27 in the same
     # ICBM500 grid as the specimen. The first point is the apparent origin.
     # III: ventral midbrain in the interpeduncular fossa.
@@ -193,7 +201,7 @@ def main():
         "cranialNerveRootCalibration": "III-XII apparent origins placed on or within 2 mm of practical label 27 surface; teaching approximation",
         "status": "project-authored simplified teaching overlay; not validated morphometry",
         "scope": "major basal arteries and visible cranial-nerve roots only",
-        "omissions": ["individual variation", "small perforators", "distal nerve course", "skull foramina", "surgical accuracy"],
+        "omissions": ["individual variation", "small perforators", "distal nerve course beyond the proximal olfactory bulb/tract and cranial-nerve roots", "skull foramina", "surgical accuracy"],
         "groups": results,
     }
     (OUT / "neurovascular-overlays.json").write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

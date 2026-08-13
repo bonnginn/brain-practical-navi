@@ -9,12 +9,20 @@
   "alignmentPolicy": "same [x, y, z] display shift as the pial meshes",
   "status": "project-authored simplified teaching landmarks; not validated segmentation or morphometry",
   "anteriorToPosteriorOrder": [
+    "olfactory bulbs/tracts",
+    "anterior perforated substance",
     "optic nerves/chiasm",
     "infundibulum",
     "mammillary bodies"
   ],
   "specimenNote": "the pituitary gland is not shown; a brain specimen may retain only a cut stalk",
   "meshes": [
+    {
+      "file": "landmark-olfactory-pathway.mesh",
+      "vertices": 1368,
+      "faces": 2592,
+      "label": "嗅球・嗅索"
+    },
     {
       "file": "landmark-optic-pathway.mesh",
       "vertices": 1068,
@@ -32,6 +40,12 @@
       "vertices": 912,
       "faces": 1728,
       "label": "乳頭体"
+    },
+    {
+      "file": "landmark-anterior-perforated-substance.mesh",
+      "vertices": 912,
+      "faces": 1728,
+      "label": "前有孔質（位置目安）"
     }
   ]
 }

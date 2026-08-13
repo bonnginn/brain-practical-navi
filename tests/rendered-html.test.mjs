@@ -69,9 +69,9 @@ test("keeps official labels separate from provisional teaching overlays", async 
   assert.deepEqual(metadata.shape, labels.dims);
   assert.deepEqual(metadata.officialManualIds, Array.from({ length: 22 }, (_, index) => index + 1));
   assert.equal(metadata.officialLabelsPreserved, true);
-  assert.deepEqual(metadata.atlasDerivedIds, [23, 24, 25, 26, 27, 28, 29]);
+  assert.deepEqual(metadata.atlasDerivedIds, [23, 24, 25, 26, 27, 28, 29, 33, 34, 35]);
   assert.deepEqual(metadata.imageGuidedCandidateIds, [30, 31, 32]);
-  for (const id of Array.from({ length: 32 }, (_, index) => index + 1)) {
+  for (const id of Array.from({ length: 35 }, (_, index) => index + 1)) {
     assert.ok(metadata.labelCounts[id] > 0, `label ${id} must contain voxels`);
   }
   assert.equal(metadata.ventricleLabelsRestrictedToEmptySpace, true);
@@ -80,9 +80,56 @@ test("keeps official labels separate from provisional teaching overlays", async 
   assert.match(metadata.teachingPolicy, /provisional teaching overlays/);
 });
 
-test("ships the learning workspaces, contributor editor, and public data notice", async () => {
-  const [page, canvasCss, editor, workflow, readme, licenses, attribution, packageJson, softwareLicense, licenseMap, governance] = await Promise.all([
+test("keeps every section structure colourable in the default BigBrain source", async () => {
+  const page = await readFile(new URL("app/page.tsx", root), "utf8");
+  const expected = [
+    "ventricle", "thirdVentricle", "fourthVentricle", "corpusCallosum", "internalCapsule",
+    "caudate", "putamen", "pallidumExternal", "pallidumInternal", "pallidum", "thalamus",
+    "hippocampus", "amygdala", "accumbens", "redNucleus", "substantiaNigra", "subthalamic",
+    "brainstem", "cerebellum", "opticChiasm", "insula",
+  ];
+  for (const key of expected) {
+    assert.match(page, new RegExp(`\\n  ${key}: \\{[^\\n]+bigbrainIds:\\[[^\\]]+\\]`), `${key} BigBrain labels`);
+  }
+  assert.match(page, /opticChiasm:[^\n]+bigbrainIds:\[33\]/);
+  assert.match(page, /insula:[^\n]+bigbrainIds:\[34,35\]/);
+});
+
+test("presents the practical flow clearly and keeps interface text readable", async () => {
+  const [page, main, globalsCss, canvasCss, canvas, editor] = await Promise.all([
     readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("src/main.tsx", root), "utf8"),
+    readFile(new URL("app/globals.css", root), "utf8"),
+    readFile(new URL("app/canvas.css", root), "utf8"),
+    readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8"),
+    readFile(new URL("app/ManualSegmentationWorkbench.tsx", root), "utf8"),
+  ]);
+
+  const modeList = page.slice(page.indexOf("const workspaceModes"), page.indexOf("const homeRotation"));
+  assert.ok(modeList.indexOf('{key:"surface"') < modeList.indexOf('{key:"sections"'));
+  assert.ok(modeList.indexOf('{key:"sections"') < modeList.indexOf('{key:"blocks"'));
+
+  const homeMenu = page.slice(page.indexOf('<div className="homeModeGrid"'), page.indexOf('<footer className="homeFooter"'));
+  assert.ok(homeMenu.indexOf('openWorkspace("surface")') < homeMenu.indexOf('openWorkspace("sections")'));
+  assert.ok(homeMenu.indexOf('openWorkspace("sections")') < homeMenu.indexOf('openWorkspace("blocks")'));
+  assert.doesNotMatch(page, /homeMetrics|日本語で|<i>0[1-4]<\/i>/);
+  assert.doesNotMatch(page, /homeActions|脳表観察から始める|断面実習を見る/);
+  assert.match(main, /import "\.\.\/app\/globals\.css"/);
+  assert.match(main, /import "\.\.\/app\/canvas\.css"/);
+
+  assert.match(canvasCss, /\.homeLead\s*\{[^}]*font-size:\s*clamp\(14px,1\.2vw,17px\)/);
+  assert.match(canvasCss, /\.workspaceSwitch button > span\s*\{\s*font-size:\s*14px/);
+  assert.match(canvasCss, /\.workspaceSwitch button > i\s*\{\s*font:\s*11px\/1\.2 monospace/);
+  assert.match(canvasCss, /\.legalButton, \.feedbackButton\s*\{\s*font-size:\s*13px/);
+  assert.match(page, /aria-label="利用条件・クレジットを表示">利用条件<\/button>/);
+  assert.match(globalsCss, /font-family/);
+  assert.doesNotMatch(`${canvas}\n${editor}`, /font="(?:7|8|9|10|11|12|13)px/);
+});
+
+test("ships the learning workspaces, contributor editor, and public data notice", async () => {
+  const [page, canvas, canvasCss, editor, workflow, readme, licenses, attribution, packageJson, softwareLicense, licenseMap, governance] = await Promise.all([
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8"),
     readFile(new URL("app/canvas.css", root), "utf8"),
     readFile(new URL("app/ManualSegmentationWorkbench.tsx", root), "utf8"),
     readFile(new URL("SEGMENTATION_WORKFLOW.md", root), "utf8"),
@@ -95,10 +142,16 @@ test("ships the learning workspaces, contributor editor, and public data notice"
     readFile(new URL("GOVERNANCE.md", root), "utf8"),
   ]);
 
-  for (const label of ["トップ", "断面実習", "脳表観察", "ブロック標本", "脳底動脈", "脳神経・脳幹", "復習クイズ", "編集ツール", "CC・権利", "意見・共同制作"]) {
+  for (const label of ["トップ", "断面実習", "脳表観察", "ブロック標本", "脳底動脈", "脳神経・脳幹", "復習クイズ", "編集ツール", "利用条件・クレジット", "意見・共同制作"]) {
     assert.match(page, new RegExp(label));
   }
-  assert.match(page, /useState<WorkspaceMode>\("home"\)/);
+  assert.match(page, /useState<WorkspaceMode>\(\(\)=>typeof window==="undefined"\?"home":workspaceFromHash\(window.location.hash\)\)/);
+  assert.match(page, /window\.addEventListener\("hashchange",restore\)/);
+  assert.match(page, /window\.addEventListener\("popstate",restore\)/);
+  assert.match(page, /window\.history\.pushState\(null,"",workspaceHash\(key,surfaceView\)\)/);
+  assert.match(page, /surfaceViewFromHash\(window\.location\.hash\)/);
+  assert.match(page, /workspaceHash\("surface",key\)/);
+  assert.match(page, /key==="surface"\?`\/\$\{surfaceView\}`:""/);
   assert.match(page, /脳実習を、/);
   assert.match(page, /切る前から立体で。/);
   assert.match(page, /OPEN ALPHA/);
@@ -123,10 +176,47 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /橋・延髄を外す/);
   assert.doesNotMatch(page, /中脳を外す/);
   assert.match(page, /0\.5 mm標本組織＋構造レイヤー/);
+  for (const structure of ["上小脳脚", "中小脳脚", "下小脳脚", "顔面神経丘", "前庭野", "舌下神経三角", "迷走神経三角", "錐体", "オリーブ"]) assert.match(page, new RegExp(structure));
+  assert.match(page, /標本組織/);
+  assert.match(page, /選択だけ/);
+  assert.match(page, /setBlockTissueMode\(next\.layers\.length\?"ghost":"solid"\)/);
+  assert.match(page, /setSurfaceGhost\(key==="cranialNerves"\)/);
+  assert.match(canvas, /specimenTissueMode/);
+  assert.match(canvas, /gl\.depthMask\(false\)/);
+  assert.match(canvasCss, /\.specimenTissueControls/);
   for (const specimen of ["側脳室の全景", "視床・視床下部標本", "レンズ核・投射線維", "脳梁・脳弓標本", "脈絡叢を開く", "海馬・扁桃体標本", "中脳核・大脳脚標本"]) assert.match(page, new RegExp(specimen));
   for (const provenance of ["標本分節", "試作分節", "模式補助", "位置目安"]) assert.match(page, new RegExp(provenance));
-  assert.match(page, /脳回を色づける/);
+  assert.match(page, /同定する構造/);
+  assert.match(page, /クリックして着色/);
+  assert.match(page, /両岸の間を仮想的な色面で埋めて表示しています/);
+  assert.match(page, /setSurfaceVisibleRegions\(surfaceViewRegions\[surfaceView\]\)/);
+  assert.match(page, /setSurfaceVisibleLandmarks\(surfaceViewLandmarks\[surfaceView\]\)/);
+  assert.match(page, /medial:\{name:"大脳半球（内側面）"/);
+  assert.match(page, /medial:\{name:"大脳半球（内側面）"[^\n]+rotation:\{x:0,y:90,z:0\}/);
+  assert.match(page, /lateral:\{name:"左外側面"[^\n]+rotation:\{x:0,y:-90,z:0\}/);
+  assert.match(page, /useState<SurfaceViewKey>\(\(\)=>typeof window==="undefined"\?"lateral":surfaceViewFromHash\(window\.location\.hash\)\)/);
+  assert.match(page, /useState<SurfaceRegionKey\[]>\(surfaceView==="inferior"\?\[\]:surfaceViewRegions\[surfaceView\]\)/);
+  assert.match(page, /basalView=key==="inferior"/);
+  assert.doesNotMatch(page, /hemisphere:\{name:"左大脳半球"/);
+  assert.doesNotMatch(page, /CerebrA対応・試作表面ラベル|CerebAアトラス対応/);
+  assert.doesNotMatch(page, /脳表モデル・試作ラベル|講義資料の課題スケッチ/);
+  assert.doesNotMatch(page, /REGIONS ·|GUIDES/);
+  assert.match(page, /surfaceVisibleLandmarks/);
+  assert.match(page, /内側の深部構造/);
+  assert.match(page, /surfaceVisibleDeepLandmarks/);
+  assert.match(page, /透明中隔/);
+  assert.match(page, /defaultMedialDeepLandmarks:SurfaceDeepLandmarkKey\[]\=\["corpus-callosum","septum-pellucidum","fornix","thalami","hypothalamus"\]/);
+  assert.match(page, /surfaceView!=="cranialNerves"&&surfaceView!=="medial"/);
+  assert.match(page, /setSurfaceCerebellum\(key!=="medial"\)/);
+  assert.match(page, /medial:\["cingulate","paracentral","precuneus","cuneus","lingual"\]/);
+  assert.doesNotMatch(page, /medial:\[[^\n]+"pericalcarine"/);
+  assert.match(page, /key==="cuneus"\?\{ids:surfaceRegions\.pericalcarine\.ids,axis:0,min:-14\}/);
+  assert.match(page, /key==="lingual"\?\{ids:surfaceRegions\.pericalcarine\.ids,axis:0,max:-14\}/);
   assert.match(page, /複数選択/);
+  assert.match(page, /structureAvailable/);
+  assert.match(page, /現在の画像ソースには対応ラベルがありません/);
+  assert.match(page, /現在の画像ソースでは未分節・着色できません/);
+  assert.match(canvasCss, /\.structureBtn\.unavailable/);
   assert.match(page, /surfaceHighlights/);
   assert.match(page, /脳表を透過/);
   assert.match(page, /脳表・主要脳回/);
@@ -135,17 +225,49 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /診断・治療・手術計画・定量研究には使用できません/);
   assert.match(readme, /非営利目的に限られます/);
   assert.match(readme, /主要脳底動脈と脳神経根を重ねる/);
-  assert.match(page, /ALIGNED 3D OVERLAY · PILOT/);
+  assert.match(page, /3D OVERLAY · PILOT/);
   assert.match(page, /neurovascularOverlay/);
   assert.match(page, /neurovascularHighlights/);
   assert.match(page, /個別に同定/);
   assert.match(page, /選択した管・神経根を白色で強調/);
   assert.match(page, /key==="cranialNerves"\)\{setSurfaceVessels\(false\);setSurfaceNerves\(true\)/);
   assert.doesNotMatch(page, /blockSpecimen==="arteries"|blockSpecimen==="cranialNerves"/);
-  assert.match(page, /脳底ランドマーク/);
+  assert.match(page, /surfaceView==="inferior"&&<div className="basalLandmarkPicker surfaceRegionPicker"/);
+  assert.match(page, /surfaceVisibleBasalLandmarks/);
+  assert.match(page, /toggleBasalLandmark/);
+  assert.match(page, /setSurfaceVisibleBasalLandmarks\(basalLandmarkKeys\)/);
+  assert.match(page, /setSurfaceVisibleRegions\(basalView\?\[\]:surfaceViewRegions\[key\]\)/);
+  assert.match(page, /setSurfaceVisibleLandmarks\(basalView\?\[\]:surfaceViewLandmarks\[key\]\)/);
+  assert.match(page, /basalHighlights/);
+  assert.match(page, /aria-label="下面の補助レイヤー"/);
+  assert.match(page, /surfaceNeurovascular\|\|surfaceView==="inferior"\|\|surfaceView==="free"\?surfaceOverlay:"none"/);
+  assert.match(page, /showBasalLandmarks=\{surfaceView==="inferior"\|\|surfaceNeurovascular\|\|surfaceView==="free"\}/);
+  assert.match(page, /basalOnlySelected=\{false\}/);
+  assert.match(page, /free:\{name:"自由観察"/);
+  assert.match(page, /文字検索または分類別索引から追加/);
+  assert.match(page, /構造索引/);
+  assert.match(page, /freeSelectedCards/);
+  assert.doesNotMatch(page, /selectAllFreeObservation/);
+  assert.match(page, /clearFreeObservation/);
+  assert.match(page, /freeHemisphere===side/);
+  assert.match(page, /onSurfaceIdentify=\{surfaceView==="free"\?identifyFreeSurface:undefined\}/);
+  assert.match(canvas, /function identifySurface/);
+  assert.match(canvas, /source:"neurovascular"/);
+  assert.match(page, /point\.source==="surface"/);
+  assert.match(canvas, /クリックで構造を選択/);
   assert.match(page, /漏斗（下垂体茎）/);
   assert.match(page, /乳頭体/);
   assert.match(page, /showBasalLandmarks/);
+  assert.match(canvas, /neutral=\[\.78,\.82,\.83,1\]/);
+  assert.match(canvas, /function ventralSurfacePatchMesh/);
+  assert.match(canvas, /frontByBin/);
+  assert.match(canvas, /frontY-5/);
+  assert.match(canvas, /component\.length>largest\.length/);
+  assert.match(canvas, /ventralSurfacePatchMesh\(surface\[3\],key\)/);
+  assert.match(canvas, /if\(showPonsMedulla\)draw\(ventralSurfacePatchMesh\(surface\[3\],key\)/);
+  assert.match(canvas, /ventralSurfacePatchMesh\(ponsSurface,part\.definition\.key\)/);
+  assert.match(canvas, /const ponsSurface=showPonsMedulla\?/);
+  assert.match(canvas, /if\(part\.definition\.key==="pyramids"\|\|part\.definition\.key==="olives"\)\{if\(ponsSurface\)draw/);
   assert.match(page, /血管[\s\S]*脳神経[\s\S]*小脳を外す/);
   assert.doesNotMatch(page, /<svg/);
   assert.match(licenses, /AGPL-3\.0-or-later/);
@@ -240,8 +362,10 @@ test("bundles valid WebGL meshes and the required data notices", async () => {
     "overlay-nerves-pontine.mesh",
     "overlay-nerves-medullary.mesh",
     "landmark-optic-pathway.mesh",
+    "landmark-olfactory-pathway.mesh",
     "landmark-infundibulum.mesh",
     "landmark-mammillary-bodies.mesh",
+    "landmark-anterior-perforated-substance.mesh",
   ];
 
   for (const name of meshNames) {
@@ -263,6 +387,46 @@ test("bundles valid WebGL meshes and the required data notices", async () => {
   assert.match(notices.at(-1), /not\s+extracted from BigBrain histology/);
 });
 
+test("draws toggleable sulci from cortical region boundaries", async () => {
+  const [metadataText, page, canvas] = await Promise.all([
+    readFile(new URL("public/atlas/surface-landmarks.json", root), "utf8"),
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8"),
+  ]);
+  const metadata = JSON.parse(metadataText);
+  const expectedKeys = [
+    "central-sulcus", "precentral-sulcus", "lateral-sulcus", "superior-frontal-sulcus",
+    "parieto-occipital-sulcus", "calcarine-sulcus", "olfactory-sulcus", "longitudinal-fissure",
+  ];
+  assert.equal(metadata.version, 1);
+  assert.match(metadata.source, /project-authored seed curves/);
+  assert.match(metadata.status, /not donor-traced or validated/);
+  assert.match(metadata.method, /longitudinal fissure uses an anterior-posterior extended midpoint filler recessed/);
+  assert.deepEqual(metadata.landmarks.map(item => item.key), expectedKeys);
+  for (const item of metadata.landmarks) {
+    assert.equal(item.sourceType, "schematic-surface-guide");
+    assert.ok(item.vertices >= 176, `${item.key} vertices`);
+    assert.ok(item.faces >= 320, `${item.key} faces`);
+    const mesh = await readFile(new URL(`public/atlas/${item.file}`, root));
+    assert.equal(mesh.subarray(0, 4).toString("ascii"), "BNM1");
+    assert.equal(mesh.readUInt32LE(4), item.vertices);
+    assert.equal(mesh.readUInt32LE(8), item.faces);
+  }
+  for (const name of ["中心溝", "中心前溝", "外側溝", "上前頭溝", "頭頂後頭溝", "鳥距溝", "嗅溝", "大脳縦裂"]) {
+    assert.match(page, new RegExp(name));
+  }
+  assert.match(page, /両岸の間を仮想的な色面で埋めて表示しています/);
+  assert.match(canvas, /SURFACE_LANDMARKS/);
+  assert.match(canvas, /surface-landmark-\$\{item\.key\}/);
+  assert.match(canvas, /SURFACE_BOUNDARY_LABELS/);
+  assert.match(canvas, /surfaceBoundaryMesh/);
+  assert.match(canvas, /surfaceLevelMesh/);
+  assert.match(canvas, /surfaceLevelMesh\(part,\[57,6\],0,-14,\.9\)/);
+  assert.match(canvas, /if\(hemisphere!=="both"\)gl\.clear\(gl\.DEPTH_BUFFER_BIT\)/);
+  assert.match(canvas, /locallyFilledSurfacePoint/);
+  assert.doesNotMatch(canvas, /\[\.035,\.045,\.05,1\]/);
+});
+
 test("bundles the practical ventral-brain landmarks in anatomical order", async () => {
   const metadata = JSON.parse(await readFile(new URL("public/atlas/basal-landmarks.json", root), "utf8"));
   assert.equal(metadata.version, 1);
@@ -271,11 +435,11 @@ test("bundles the practical ventral-brain landmarks in anatomical order", async 
   assert.match(metadata.alignmentPolicy, /same.*display shift.*pial/i);
   assert.match(metadata.status, /not validated segmentation or morphometry/);
   assert.deepEqual(metadata.anteriorToPosteriorOrder, [
-    "optic nerves/chiasm", "infundibulum", "mammillary bodies",
+    "olfactory bulbs/tracts", "anterior perforated substance", "optic nerves/chiasm", "infundibulum", "mammillary bodies",
   ]);
   assert.match(metadata.specimenNote, /pituitary gland is not shown/);
   assert.deepEqual(metadata.meshes.map(mesh => mesh.label), [
-    "視神経・視交叉・視索", "漏斗（下垂体茎）", "乳頭体",
+    "嗅球・嗅索", "視神経・視交叉・視索", "漏斗（下垂体茎）", "乳頭体", "前有孔質（位置目安）",
   ]);
   for (const item of metadata.meshes) {
     assert.ok(item.vertices > 500, `${item.label} vertices`);
@@ -289,20 +453,24 @@ test("bundles the practical ventral-brain landmarks in anatomical order", async 
 });
 
 test("maps major CerebrA cortical regions onto both high-density pial surfaces", async () => {
-  const [metadataText, left, right] = await Promise.all([
+  const [metadataText, left, right, page] = await Promise.all([
     readFile(new URL("public/atlas/surface-region-labels.json", root), "utf8"),
     readFile(new URL("public/atlas/pial-left.mesh", root)),
     readFile(new URL("public/atlas/pial-right.mesh", root)),
+    readFile(new URL("app/page.tsx", root), "utf8"),
   ]);
   const metadata = JSON.parse(metadataText);
   assert.equal(metadata.version, 1);
   assert.match(metadata.source, /CerebrA/);
   assert.match(metadata.method, /±3 mm/);
   assert.match(metadata.status, /not a manual pial-surface parcellation/);
+  const regionSource=page.slice(page.indexOf("const surfaceRegions:"),page.indexOf("const surfaceRegionKeys="));
+  const configuredIds=new Set([...regionSource.matchAll(/ids:\[([0-9,]+)\]/g)].flatMap(match=>match[1].split(",").map(Number)));
+  for(const hemisphere of ["left","right"])for(const id of Object.keys(metadata.hemispheres[hemisphere].labels).map(Number))assert.ok(configuredIds.has(id),`${hemisphere} surface label ${id} is available to free observation`);
 
   for (const [hemisphere, mesh, expectedIds] of [
-    ["left", left, [86, 64, 89, 96, 83, 73, 102, 82, 67, 94, 57, 63, 75]],
-    ["right", right, [35, 13, 38, 45, 32, 22, 51, 31, 16, 43, 6, 12, 24]],
+    ["left", left, [86, 64, 89, 96, 83, 73, 102, 82, 67, 94, 57, 63, 75, 81, 59, 98, 84]],
+    ["right", right, [35, 13, 38, 45, 32, 22, 51, 31, 16, 43, 6, 12, 24, 30, 8, 47, 33]],
   ]) {
     assert.equal(mesh.subarray(0, 4).toString("ascii"), "BNM3");
     const vertexCount = mesh.readUInt32LE(4);
@@ -320,6 +488,25 @@ test("maps major CerebrA cortical regions onto both high-density pial surfaces",
     assert.ok(metadata.hemispheres[hemisphere].coverage < .95);
     assert.equal(metadata.hemispheres[hemisphere].vertices, vertexCount);
   }
+});
+
+test("connects medial-surface study targets to visible surface or deep components", async () => {
+  const [page, canvas] = await Promise.all([
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8"),
+  ]);
+  assert.match(page, /cingulate:\{name:"帯状回"/);
+  assert.match(page, /ids:\[81,30,59,8,98,47,84,33\]/);
+  for (const key of ["corpus-callosum", "septum-pellucidum", "fornix", "thalami", "hypothalamus"]) {
+    assert.match(page, new RegExp(key));
+    assert.match(canvas, new RegExp(`key:\"${key}\"`));
+  }
+  for (const mesh of [
+    "block-commissural-system-corpus-callosum", "block-commissural-system-septum-pellucidum", "block-commissural-system-fornix",
+    "block-diencephalon-thalami", "block-diencephalon-hypothalamus",
+  ]) assert.match(canvas, new RegExp(mesh));
+  assert.match(canvas, /deep:rest\.slice\(13,18\)/);
+  assert.match(canvas, /landmarks:rest\.slice\(18\)/);
 });
 
 test("bundles simplified neurovascular overlays as separately disclosed teaching meshes", async () => {
@@ -370,6 +557,8 @@ test("bundles structure-focused specimens and distinguishes derived from schemat
   assert.equal(metadata.version, 3);
   assert.equal(metadata.sourceVoxelMm, 0.5);
   assert.equal(metadata.geometrySamplingMm, 1);
+  assert.match(metadata.coordinateSpace, /x right, y anterior, z superior/);
+  assert.equal(Object.values(metadata.specimens).reduce((total, parts) => total + parts.length, 0), 57);
   assert.deepEqual(Object.keys(metadata.specimens), ["lateral-ventricle", "diencephalon", "radiations", "commissural-system", "choroid-plexus", "medial-temporal", "midbrain-section", "hindbrain"]);
   assert.match(metadata.sourceTypeDefinitions["specimen-derived"], /histological volume/);
   assert.match(metadata.sourceTypeDefinitions["schematic-3d"], /teaching approximation/);
@@ -385,6 +574,17 @@ test("bundles structure-focused specimens and distinguishes derived from schemat
   assert.equal(metadata.specimens["commissural-system"].find(part => part.part === "fornix").sourceType, "schematic-3d");
   assert.equal(metadata.specimens["midbrain-section"].find(part => part.part === "red-nuclei").sourceType, "manual-segmentation");
   assert.equal(metadata.specimens["midbrain-section"].find(part => part.part === "aqueduct").sourceType, "schematic-3d");
+  for (const part of ["superior-cerebellar-peduncles", "middle-cerebellar-peduncles", "inferior-cerebellar-peduncles"]) {
+    assert.equal(metadata.specimens.hindbrain.find(item => item.part === part).sourceType, "schematic-3d");
+  }
+  for (const part of ["facial-colliculi", "vestibular-areas", "hypoglossal-trigones", "vagal-trigones", "pyramids", "olives"]) {
+    assert.equal(metadata.specimens.hindbrain.find(item => item.part === part).sourceType, "regional-approximation");
+  }
+  assert.ok(metadata.specimens.hindbrain.find(item => item.part === "pyramids").vertices > 1000);
+  assert.ok(metadata.specimens.hindbrain.find(item => item.part === "olives").vertices > 1000);
+  for (const part of ["superior-colliculi", "inferior-colliculi", "lateral-geniculate-bodies", "medial-geniculate-bodies", "interpeduncular-fossa"]) {
+    assert.equal(metadata.specimens["midbrain-section"].find(item => item.part === part).sourceType, "regional-approximation");
+  }
 
   for (const [block, parts] of Object.entries(metadata.specimens)) {
     assert.ok(parts.length >= 3, `${block} parts`);
@@ -406,6 +606,46 @@ test("bundles structure-focused specimens and distinguishes derived from schemat
   }
 });
 
+test("keeps medial deep structures on the shared grid and in anatomical order", async () => {
+  const names = [
+    "thalamus",
+    "block-diencephalon-thalami",
+    "block-diencephalon-hypothalamus",
+    "block-commissural-system-corpus-callosum",
+    "block-commissural-system-septum-pellucidum",
+    "block-commissural-system-fornix",
+  ];
+  const files = await Promise.all(names.map(name => readFile(new URL(`public/atlas/${name}.mesh`, root))));
+  const bounds = new Map(files.map((mesh, fileIndex) => {
+    const count = mesh.readUInt32LE(4);
+    const low = [Infinity, Infinity, Infinity];
+    const high = [-Infinity, -Infinity, -Infinity];
+    const sum = [0, 0, 0];
+    for (let index = 0; index < count; index += 1) {
+      const offset = 12 + index * 12;
+      const xyz = [mesh.readFloatLE(offset + 8), mesh.readFloatLE(offset + 4), mesh.readFloatLE(offset)];
+      xyz.forEach((value, axis) => {
+        low[axis] = Math.min(low[axis], value);
+        high[axis] = Math.max(high[axis], value);
+        sum[axis] += value;
+      });
+    }
+    return [names[fileIndex], { low, high, center: sum.map(value => value / count) }];
+  }));
+  const atlasThalamus = bounds.get("thalamus");
+  const specimenThalamus = bounds.get("block-diencephalon-thalami");
+  atlasThalamus.center.forEach((value, axis) => {
+    assert.ok(Math.abs(value - specimenThalamus.center[axis]) < 1, `thalamus grid alignment axis ${axis}`);
+  });
+  const corpusCallosum = bounds.get("block-commissural-system-corpus-callosum");
+  const fornix = bounds.get("block-commissural-system-fornix");
+  const hypothalamus = bounds.get("block-diencephalon-hypothalamus");
+  assert.ok(corpusCallosum.center[2] > fornix.center[2], "fornix remains below corpus callosum");
+  assert.ok(fornix.low[2] < -27, "fornix columns descend toward the mammillary region");
+  assert.ok(specimenThalamus.center[2] > hypothalamus.center[2], "hypothalamic marker remains ventral to thalamus");
+  assert.ok(hypothalamus.high[1] - hypothalamus.low[1] < 34, "hypothalamic marker does not spread across the basal forebrain");
+});
+
 test("covers every cranial nerve without hiding schematic limitations", async () => {
   const [metadataText, page, audit] = await Promise.all([
     readFile(new URL("public/atlas/neurovascular-overlays.json", root), "utf8"),
@@ -422,6 +662,7 @@ test("covers every cranial nerve without hiding schematic limitations", async ()
     ["I", 2], ["II", 3], ["III", 2], ["IV", 2], ["V", 2], ["VI", 2],
     ["VII", 2], ["VIII", 2], ["IX", 2], ["X", 2], ["XI", 2], ["XII", 2],
   ]);
+  assert.equal(nerves.filter(item => item.name.includes("I 嗅球・嗅索")).length, 2);
   for (const [roman, expected] of expectedCounts) {
     assert.equal(normalized.filter(name => name.startsWith(`${roman} `)).length, expected, `cranial nerve ${roman}`);
   }
@@ -429,7 +670,7 @@ test("covers every cranial nerve without hiding schematic limitations", async ()
     assert.match(page, new RegExp(`${key}:\\{name:`), key);
   }
   assert.match(audit, /脳神経I〜XIIは欠番なく収録/);
-  assert.match(audit, /Iの嗅球、XIの脊髄根/);
+  assert.match(audit, /Iの嗅球は概形のみ、XIの脊髄根/);
 });
 
 test("keeps lecture coverage honest and separates pallidal segments", async () => {
@@ -519,10 +760,11 @@ test("every section quiz shows a visible amount of its target label", async () =
     redNucleus: [1, 2], substantiaNigra: [3, 4], subthalamic: [5, 6],
     ventricle: [23, 24], thalamus: [15, 16], corpusCallosum: [30],
     internalCapsule: [31, 32], brainstem: [27], cerebellum: [28, 29],
+    opticChiasm: [33], insula: [34, 35],
   };
   const pattern = /\{target:"([^"]+)",category:"[^"]+",plane:"([^"]+)",position:(\d+),prompt:/g;
   const questions = [...page.matchAll(pattern)];
-  assert.equal(questions.length, 15);
+  assert.equal(questions.length, 17);
 
   for (const [, target, plane, rawPosition] of questions) {
     const ids = new Set(labelIds[target]);
@@ -575,7 +817,7 @@ test("surface quiz questions use labelled high-density pial regions", async () =
 test("ships a reproducible Google Form generator for feedback and collaborators", async () => {
   const [script, guide] = await Promise.all([
     readFile(new URL("scripts/create_google_feedback_form.gs", root), "utf8"),
-    readFile(new URL("BETA_FEEDBACK.md", root), "utf8"),
+    readFile(new URL("ALPHA_FEEDBACK.md", root), "utf8"),
   ]);
   assert.match(script, /function createBrainPracticalFeedbackForm\(\)/);
   assert.match(script, /FormApp\.create\(CONFIG\.FORM_TITLE, true\)/);

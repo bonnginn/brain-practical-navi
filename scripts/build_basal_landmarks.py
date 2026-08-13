@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Build simplified ventral-brain landmark meshes for practical teaching.
 
-These project-authored meshes show the optic nerves/chiasm/tracts, the
-infundibulum (pituitary stalk), and paired mammillary bodies in the same
-MNI-oriented display space as the pial-like model. They are explanatory
-geometry, not donor-derived segmentation or validated morphometry.
+These project-authored meshes show the olfactory bulbs/tracts, optic
+nerves/chiasm/tracts, infundibulum (pituitary stalk), mammillary bodies, and
+anterior perforated substance in the same MNI-oriented display space as the
+pial-like model. They are explanatory geometry, not donor-derived segmentation
+or validated morphometry.
 """
 
 import json
@@ -145,13 +146,22 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
 
     optic_paths = [
-        {"points": mirror([p(42, 34, -20), p(32, 27, -21), p(20, 17, -21), p(8, 7, -20)]), "radiusStart": 2.0, "radiusEnd": 2.3},
-        {"points": [p(42, 34, -20), p(32, 27, -21), p(20, 17, -21), p(8, 7, -20)], "radiusStart": 2.0, "radiusEnd": 2.3},
-        {"points": [p(-8, 7, -20), p(0, 4, -20), p(8, 7, -20)], "radius": 2.5},
-        {"points": mirror([p(7, 4, -20), p(11, 0, -20), p(15, -6, -18), p(17, -11, -16)]), "radiusStart": 2.2, "radiusEnd": 1.6},
-        {"points": [p(7, 4, -20), p(11, 0, -20), p(15, -6, -18), p(17, -11, -16)], "radiusStart": 2.2, "radiusEnd": 1.6},
+        {"points": mirror([p(42, 34, -24), p(32, 27, -25), p(20, 17, -25), p(8, 7, -24)]), "radiusStart": 2.2, "radiusEnd": 2.5},
+        {"points": [p(42, 34, -24), p(32, 27, -25), p(20, 17, -25), p(8, 7, -24)], "radiusStart": 2.2, "radiusEnd": 2.5},
+        {"points": [p(-8, 7, -24), p(0, 4, -24), p(8, 7, -24)], "radius": 2.7},
+        {"points": mirror([p(7, 4, -24), p(11, 0, -24), p(15, -6, -22), p(17, -11, -20)]), "radiusStart": 2.4, "radiusEnd": 1.8},
+        {"points": [p(7, 4, -24), p(11, 0, -24), p(15, -6, -22), p(17, -11, -20)], "radiusStart": 2.4, "radiusEnd": 1.8},
     ]
     optic = tube_mesh(optic_paths)
+
+    olfactory = combine([
+        tube_mesh([
+            {"points": mirror([p(18, 62, -14), p(18, 49, -19), p(17, 36, -23), p(15, 25, -25)]), "radiusStart": 2.0, "radiusEnd": 1.35},
+            {"points": [p(18, 62, -14), p(18, 49, -19), p(17, 36, -23), p(15, 25, -25)], "radiusStart": 2.0, "radiusEnd": 1.35},
+        ]),
+        ellipsoid_mesh(p(-18, 62, -14), [3.8, 5.2, 3.2]),
+        ellipsoid_mesh(p(18, 62, -14), [3.8, 5.2, 3.2]),
+    ])
 
     infundibulum = combine([
         ellipsoid_mesh(p(0, -1, -25), [3.8, 3.2, 1.9]),
@@ -162,11 +172,17 @@ def main():
         ellipsoid_mesh(p(-4.0, -10.0, -27.0), [3.1, 3.4, 2.8]),
         ellipsoid_mesh(p(4.0, -10.0, -27.0), [3.1, 3.4, 2.8]),
     ])
+    anterior_perforated = combine([
+        ellipsoid_mesh(p(-14.0, 11.0, -22.5), [8.0, 6.0, 1.0]),
+        ellipsoid_mesh(p(14.0, 11.0, -22.5), [8.0, 6.0, 1.0]),
+    ])
 
     meshes = {
+        "landmark-olfactory-pathway": (olfactory, "嗅球・嗅索"),
         "landmark-optic-pathway": (optic, "視神経・視交叉・視索"),
         "landmark-infundibulum": (infundibulum, "漏斗（下垂体茎）"),
         "landmark-mammillary-bodies": (mammillary, "乳頭体"),
+        "landmark-anterior-perforated-substance": (anterior_perforated, "前有孔質（位置目安）"),
     }
     results = []
     for name, (geometry, label) in meshes.items():
@@ -180,7 +196,7 @@ def main():
         "displayShiftMm": DISPLAY_SHIFT.tolist(),
         "alignmentPolicy": "same [x, y, z] display shift as the pial meshes",
         "status": "project-authored simplified teaching landmarks; not validated segmentation or morphometry",
-        "anteriorToPosteriorOrder": ["optic nerves/chiasm", "infundibulum", "mammillary bodies"],
+        "anteriorToPosteriorOrder": ["olfactory bulbs/tracts", "anterior perforated substance", "optic nerves/chiasm", "infundibulum", "mammillary bodies"],
         "specimenNote": "the pituitary gland is not shown; a brain specimen may retain only a cut stalk",
         "meshes": results,
     }

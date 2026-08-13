@@ -158,7 +158,12 @@ def specimen_definitions(raw: np.ndarray, seg: np.ndarray) -> dict[str, list[Par
     # The hypothalamus is not independently segmented in the current grid, so a
     # conservative medial region marker is kept explicitly provisional.
     diencephalon_region = bounds(zz, yy, xx, x=(-30, 30), y=(-31, 39), z=(-45, 12))
-    hypothalamus = tissue & ellipse_mask(zz, yy, xx, (0, 7, -28), (14, 24, 13))
+    # Keep this provisional region compact and immediately ventral to the
+    # thalami.  The previous 48 mm AP / 26 mm SI ellipsoid read as a second
+    # large nucleus in the medial view and extended too far into the basal
+    # forebrain.  It remains a regional teaching marker, not a nuclear
+    # segmentation.
+    hypothalamus = tissue & ellipse_mask(zz, yy, xx, (0, 4, -28), (12, 16, 9))
     hypothalamus &= diencephalon_region & ~(thalami | subthalamic_nuclei)
     mammillary_bodies = (
         ellipse_mask(zz, yy, xx, (-4, -10, -27), (3.8, 4.0, 3.4))
@@ -194,13 +199,31 @@ def specimen_definitions(raw: np.ndarray, seg: np.ndarray) -> dict[str, list[Par
     # teaching geometry because those thin structures are not independently
     # segmented at a usable quality in the present volume.
     commissural_region = bounds(zz, yy, xx, x=(-19, 19), y=(-39, 60), z=(-24, 26))
+    fornix_region = bounds(zz, yy, xx, x=(-19, 19), y=(-39, 60), z=(-31, 26))
     distance_to_lateral_ventricles = ndimage.distance_transform_edt(~lateral_ventricles) * GEOMETRY_SPACING_MM
     commissural_support = tissue & commissural_region & (distance_to_lateral_ventricles <= 13)
     commissural_support &= (xx <= -8) | (zz >= 19)
     fornix = np.zeros_like(tissue)
     for side in (-3.0, 3.0):
-        fornix |= polyline_mask(raw.shape, [(side, -29, -7), (side, -10, -5), (side, 7, -3), (side, 20, -7), (side, 25, -21)], 1.55)
-    fornix &= commissural_region
+        # Crus/body runs posterior-to-anterior below the corpus callosum; the
+        # column then turns inferiorly and back toward the mammillary body.
+        # Previously the final point continued anteriorly, leaving the column
+        # suspended above the hypothalamus and making its position look wrong
+        # in a straight medial projection.
+        fornix |= polyline_mask(
+            raw.shape,
+            [
+                (side, -29, -7),
+                (side, -10, -5),
+                (side, 7, -3),
+                (side, 20, -7),
+                (side, 20, -15),
+                (side, 10, -23),
+                (side, -6, -28),
+            ],
+            1.55,
+        )
+    fornix &= fornix_region
     septum_pellucidum = (
         (np.abs(xx) <= 1.25)
         & (((yy - 18) / 22) ** 2 + ((zz - 4) / 13) ** 2 <= 1)
@@ -243,11 +266,71 @@ def specimen_definitions(raw: np.ndarray, seg: np.ndarray) -> dict[str, list[Par
     red_in_slab = red_nuclei & midbrain_box
     nigra_in_slab = substantia_nigra & midbrain_box
     midbrain_slab &= ~(red_in_slab | nigra_in_slab | aqueduct | cerebral_peduncles)
+    superior_colliculi = (
+        ellipse_mask(zz, yy, xx, (-6.5, -25, -25.5), (4.6, 4.0, 3.2))
+        | ellipse_mask(zz, yy, xx, (6.5, -25, -25.5), (4.6, 4.0, 3.2))
+    )
+    inferior_colliculi = (
+        ellipse_mask(zz, yy, xx, (-6.5, -31, -31), (4.2, 3.8, 3.0))
+        | ellipse_mask(zz, yy, xx, (6.5, -31, -31), (4.2, 3.8, 3.0))
+    )
+    lateral_geniculate_bodies = (
+        ellipse_mask(zz, yy, xx, (-21, -22, -18), (5.0, 4.2, 3.4))
+        | ellipse_mask(zz, yy, xx, (21, -22, -18), (5.0, 4.2, 3.4))
+    )
+    medial_geniculate_bodies = (
+        ellipse_mask(zz, yy, xx, (-13.5, -27, -21), (4.0, 3.8, 3.2))
+        | ellipse_mask(zz, yy, xx, (13.5, -27, -21), (4.0, 3.8, 3.2))
+    )
+    interpeduncular_fossa = ellipse_mask(zz, yy, xx, (0, -3, -33), (5.2, 3.2, 2.1))
 
     # 8) Retain the detachable hindbrain specimen requested earlier.
     midbrain = tissue & (seg == BRAINSTEM) & (zz >= MIDBRAIN_MIN_Z_MM)
     pons_medulla = tissue & (seg == BRAINSTEM) & ~midbrain
     cerebellum = tissue & np.isin(seg, CEREBELLUM)
+    fourth_ventricle = seg == 26
+    superior_peduncles = np.zeros_like(tissue)
+    middle_peduncles = np.zeros_like(tissue)
+    inferior_peduncles = np.zeros_like(tissue)
+    for side in (-1, 1):
+        superior_peduncles |= polyline_mask(raw.shape, [(side * 5, -20, -39), (side * 10, -31, -34), (side * 16, -43, -28)], 2.1)
+        middle_peduncles |= polyline_mask(raw.shape, [(side * 13, -8, -50), (side * 22, -25, -50), (side * 31, -43, -48)], 2.7)
+        inferior_peduncles |= polyline_mask(raw.shape, [(side * 7, -20, -67), (side * 13, -32, -62), (side * 21, -45, -58)], 2.0)
+    hindbrain_region = bounds(zz, yy, xx, x=(-39, 39), y=(-64, 16), z=(-82, -24))
+    superior_peduncles &= hindbrain_region
+    middle_peduncles &= hindbrain_region
+    inferior_peduncles &= hindbrain_region
+
+    # Dorsal floor-of-fourth-ventricle landmarks and ventral medullary reliefs
+    # are deliberately shallow regional guides, not nuclei or tract masks.
+    facial_colliculi = (
+        ellipse_mask(zz, yy, xx, (-4, -24, -55), (2.8, 2.0, 4.2))
+        | ellipse_mask(zz, yy, xx, (4, -24, -55), (2.8, 2.0, 4.2))
+    )
+    vestibular_areas = (
+        ellipse_mask(zz, yy, xx, (-10, -25, -58), (4.2, 2.0, 7.0))
+        | ellipse_mask(zz, yy, xx, (10, -25, -58), (4.2, 2.0, 7.0))
+    )
+    hypoglossal_trigones = (
+        ellipse_mask(zz, yy, xx, (-3, -25, -66), (2.3, 1.8, 4.4))
+        | ellipse_mask(zz, yy, xx, (3, -25, -66), (2.3, 1.8, 4.4))
+    )
+    vagal_trigones = (
+        ellipse_mask(zz, yy, xx, (-7, -25.5, -68), (2.4, 1.8, 4.0))
+        | ellipse_mask(zz, yy, xx, (7, -25.5, -68), (2.4, 1.8, 4.0))
+    )
+    # Use continuous, shallow ventral reliefs rather than intersecting the
+    # guides with the irregular brainstem mask.  The old intersection broke
+    # each guide into small islands and made a longitudinal surface landmark
+    # look like several unrelated spots.
+    pyramids = (
+        ellipse_mask(zz, yy, xx, (-4.2, 5.2, -67.0), (3.6, 2.0, 19.0))
+        | ellipse_mask(zz, yy, xx, (4.2, 5.2, -67.0), (3.6, 2.0, 19.0))
+    )
+    olives = (
+        ellipse_mask(zz, yy, xx, (-11.0, 4.2, -65.5), (6.5, 2.4, 16.5))
+        | ellipse_mask(zz, yy, xx, (11.0, 4.2, -65.5), (6.5, 2.4, 16.5))
+    )
 
     return {
         "lateral-ventricle": [
@@ -302,11 +385,26 @@ def specimen_definitions(raw: np.ndarray, seg: np.ndarray) -> dict[str, list[Par
             Part("substantia-nigra", nigra_in_slab, "黒質", "manual-segmentation", "#716387"),
             Part("aqueduct", aqueduct, "中脳水道", "schematic-3d", "#45aebd"),
             Part("cerebral-peduncles", cerebral_peduncles, "大脳脚（位置目安）", "regional-approximation", "#d29a55"),
+            Part("superior-colliculi", superior_colliculi, "上丘", "regional-approximation", "#bd6f56"),
+            Part("inferior-colliculi", inferior_colliculi, "下丘", "regional-approximation", "#a85d4e"),
+            Part("lateral-geniculate-bodies", lateral_geniculate_bodies, "外側膝状体", "regional-approximation", "#648fc2"),
+            Part("medial-geniculate-bodies", medial_geniculate_bodies, "内側膝状体", "regional-approximation", "#69a78a"),
+            Part("interpeduncular-fossa", interpeduncular_fossa, "脚間窩", "regional-approximation", "#8f6d58"),
         ],
         "hindbrain": [
             Part("pons-medulla", pons_medulla, "橋・延髄", "same-grid-segmentation", "#b89778", "specimen"),
             Part("cerebellum", cerebellum, "小脳", "same-grid-segmentation", "#d0ad83", "specimen"),
             Part("midbrain", midbrain, "中脳", "teaching-segmentation", "#bd8e69", "specimen"),
+            Part("fourth-ventricle", fourth_ventricle & hindbrain_region, "第四脳室", "same-grid-segmentation", "#45aebd"),
+            Part("superior-cerebellar-peduncles", superior_peduncles, "上小脳脚", "schematic-3d", "#e8ba52"),
+            Part("middle-cerebellar-peduncles", middle_peduncles, "中小脳脚", "schematic-3d", "#db8747"),
+            Part("inferior-cerebellar-peduncles", inferior_peduncles, "下小脳脚", "schematic-3d", "#6dad7a"),
+            Part("facial-colliculi", facial_colliculi, "顔面神経丘", "regional-approximation", "#d46e7f"),
+            Part("vestibular-areas", vestibular_areas, "前庭野", "regional-approximation", "#579ec0"),
+            Part("hypoglossal-trigones", hypoglossal_trigones, "舌下神経三角", "regional-approximation", "#a386bf"),
+            Part("vagal-trigones", vagal_trigones, "迷走神経三角", "regional-approximation", "#7b6aa6"),
+            Part("pyramids", pyramids, "錐体", "regional-approximation", "#d1a863"),
+            Part("olives", olives, "オリーブ", "regional-approximation", "#bd6e5c"),
         ],
     }
 
@@ -401,6 +499,7 @@ def main() -> None:
         "version": 3,
         "source": BIGBRAIN.name,
         "segmentation": SEGMENTATION.name,
+        "coordinateSpace": "shared centred ICBM500 display grid; x right, y anterior, z superior (mm)",
         "sourceVoxelMm": SOURCE_SPACING_MM,
         "geometrySamplingMm": GEOMETRY_SPACING_MM,
         "specimens": results,

@@ -1,0 +1,7 @@
+* text=auto
+
+*.bin binary
+*.gz binary
+*.glb binary
+*.mesh binary
+*.png binary

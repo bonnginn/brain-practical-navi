@@ -51,6 +51,9 @@ PRACTICAL_LABELS = {
     30: "corpus callosum candidate",
     31: "left internal capsule candidate",
     32: "right internal capsule candidate",
+    33: "optic chiasm atlas candidate",
+    34: "left insula atlas candidate",
+    35: "right insula atlas candidate",
 }
 
 
@@ -192,9 +195,22 @@ def main() -> None:
         practical[mask & empty] = label_id
         empty = practical == 0
 
+    # These structures already exist in the learning UI but were previously
+    # colourable only on the average atlas. Add conservative CerebrA candidates
+    # to otherwise-unlabelled BigBrain tissue; never overwrite manual labels,
+    # ventricles, brainstem/cerebellum, or white-matter candidates.
+    late_atlas_masks = {
+        33: np.isin(resampled_atlas, [68, 17]),
+        34: resampled_atlas == 74,
+        35: resampled_atlas == 23,
+    }
+    for label_id, mask in late_atlas_masks.items():
+        practical[mask & empty & ~empty_space] = label_id
+        empty = practical == 0
+
     if not np.array_equal(practical[manual > 0], manual[manual > 0]):
         raise ValueError("official manual labels were modified")
-    counts = {str(label_id): int((practical == label_id).sum()) for label_id in range(1, 33)}
+    counts = {str(label_id): int((practical == label_id).sum()) for label_id in range(1, 36)}
     if any(counts[str(label_id)] == 0 for label_id in PRACTICAL_LABELS):
         raise ValueError(f"one or more practical labels are empty: {counts}")
 
@@ -207,7 +223,7 @@ def main() -> None:
         "voxelSizeMm": list(map(float, manual_nii.header.get_zooms()[:3])),
         "officialManualIds": list(range(1, 23)),
         "officialLabelsPreserved": True,
-        "atlasDerivedIds": list(range(23, 30)),
+        "atlasDerivedIds": list(range(23, 30)) + [33, 34, 35],
         "imageGuidedCandidateIds": [30, 31, 32],
         "labelNames": {str(key): value for key, value in PRACTICAL_LABELS.items()},
         "labelCounts": counts,
@@ -215,7 +231,7 @@ def main() -> None:
         "ventricleLabelsRestrictedToEmptySpace": True,
         "ventricleTissueOverlap": float((~empty_space[np.isin(practical, [23, 24, 25, 26])]).mean()),
         "coordinatePolicy": "exact BigBrain ICBM2009sym 0.5 mm output grid; CerebrA resampling accepted only after overlap audit",
-        "teachingPolicy": "IDs 23-32 are provisional teaching overlays and must not be presented as manual ground truth",
+        "teachingPolicy": "IDs 23-35 are provisional teaching overlays and must not be presented as manual ground truth",
     }
     validation_output.write_text(json.dumps(validation, ensure_ascii=False, indent=2) + "\n")
     print(json.dumps({"output": str(output), "validation": str(validation_output), **validation}, ensure_ascii=False))

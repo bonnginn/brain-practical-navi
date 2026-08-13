@@ -41,7 +41,10 @@
     26,
     27,
     28,
-    29
+    29,
+    33,
+    34,
+    35
   ],
   "imageGuidedCandidateIds": [
     30,
@@ -58,7 +61,10 @@
     "29": "right cerebellum",
     "30": "corpus callosum candidate",
     "31": "left internal capsule candidate",
-    "32": "right internal capsule candidate"
+    "32": "right internal capsule candidate",
+    "33": "optic chiasm atlas candidate",
+    "34": "left insula atlas candidate",
+    "35": "right insula atlas candidate"
   },
   "labelCounts": {
     "1": 2136,
@@ -92,7 +98,10 @@
     "29": 748960,
     "30": 151380,
     "31": 58250,
-    "32": 54585
+    "32": 54585,
+    "33": 9013,
+    "34": 66084,
+    "35": 71073
   },
   "atlasToManualDiceAudit": {
     "caudate": 0.8448,
@@ -106,5 +115,5 @@
   "ventricleLabelsRestrictedToEmptySpace": true,
   "ventricleTissueOverlap": 0.0,
   "coordinatePolicy": "exact BigBrain ICBM2009sym 0.5 mm output grid; CerebrA resampling accepted only after overlap audit",
-  "teachingPolicy": "IDs 23-32 are provisional teaching overlays and must not be presented as manual ground truth"
+  "teachingPolicy": "IDs 23-35 are provisional teaching overlays and must not be presented as manual ground truth"
 }

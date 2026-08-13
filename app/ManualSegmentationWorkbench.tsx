@@ -24,17 +24,17 @@ type SegmentationPatch={
 
 const IMAGE_URL="/atlas/bigbrain-icbm500.bin.gz";
 const LABEL_URL="/atlas/bigbrain-practical-segmentation-icbm500.bin.gz";
-const LABEL_SHA256="2b64122a1acb566eae49841ee175ceb194a069c709b7114356e50a6c74a08cc5";
+const LABEL_SHA256="de30b5c77f4ed4f2902564a5d238b0e733413c247643ef828fb66aa03d8cc8be";
 const DRAFT_KEY="brain-practical-segmentation-draft-v1";
 const palette:Record<number,[number,number,number]>={
   1:[214,84,72],2:[214,84,72],3:[103,86,133],4:[103,86,133],5:[72,145,128],6:[72,145,128],
   7:[225,151,73],8:[225,151,73],9:[217,133,79],10:[217,133,79],11:[200,164,81],12:[200,164,81],13:[188,148,65],14:[188,148,65],
   15:[141,130,196],16:[141,130,196],17:[200,121,141],18:[200,121,141],19:[120,181,121],20:[120,181,121],21:[199,104,120],22:[199,104,120],
-  23:[92,181,192],24:[92,181,192],25:[88,174,184],26:[73,151,176],27:[115,155,114],28:[126,166,143],29:[126,166,143],30:[219,194,112],31:[226,150,79],32:[226,150,79],
+  23:[92,181,192],24:[92,181,192],25:[88,174,184],26:[73,151,176],27:[115,155,114],28:[126,166,143],29:[126,166,143],30:[219,194,112],31:[226,150,79],32:[226,150,79],33:[212,182,91],34:[111,157,176],35:[111,157,176],
 };
 const labelGroups=[
   {name:"手動ラベル",items:[[1,"左赤核"],[2,"右赤核"],[3,"左黒質"],[4,"右黒質"],[5,"左視床下核"],[6,"右視床下核"],[7,"左尾状核"],[8,"右尾状核"],[9,"左被殻"],[10,"右被殻"],[11,"左淡蒼球外節"],[12,"右淡蒼球外節"],[13,"左淡蒼球内節"],[14,"右淡蒼球内節"],[15,"左視床"],[16,"右視床"],[17,"左海馬"],[18,"右海馬"],[19,"左側坐核"],[20,"右側坐核"],[21,"左扁桃体"],[22,"右扁桃体"]] as [number,string][]},
-  {name:"試作ラベル",items:[[23,"左側脳室"],[24,"右側脳室"],[25,"第三脳室"],[26,"第四脳室"],[27,"脳幹"],[28,"左小脳"],[29,"右小脳"],[30,"脳梁候補"],[31,"左内包候補"],[32,"右内包候補"]] as [number,string][]},
+  {name:"試作ラベル",items:[[23,"左側脳室"],[24,"右側脳室"],[25,"第三脳室"],[26,"第四脳室"],[27,"脳幹"],[28,"左小脳"],[29,"右小脳"],[30,"脳梁候補"],[31,"左内包候補"],[32,"右内包候補"],[33,"視交叉候補"],[34,"左島皮質候補"],[35,"右島皮質候補"]] as [number,string][]},
 ];
 const labelName=new Map(labelGroups.flatMap(group=>group.items));
 let dataCache:Promise<VolumeData>|null=null;
@@ -87,7 +87,7 @@ export function ManualSegmentationWorkbench(){
   function transform(){const canvas=canvasRef.current;if(!canvas||!data)return null;const w=canvas.clientWidth,h=canvas.clientHeight,fit=Math.min((w-18)/data.dims[0],(h-18)/data.dims[1]),scale=fit*zoom;return{w,h,scale,ox:(w-data.dims[0]*scale)/2+pan.x,oy:(h-data.dims[1]*scale)/2+pan.y}}
   useEffect(()=>{const canvas=canvasRef.current;if(!canvas||!data)return;const dpr=Math.min(devicePixelRatio||1,2),w=canvas.clientWidth,h=canvas.clientHeight;canvas.width=w*dpr;canvas.height=h*dpr;const context=canvas.getContext("2d");if(!context)return;context.setTransform(dpr,0,0,dpr,0,0);context.fillStyle="#111719";context.fillRect(0,0,w,h);const off=document.createElement("canvas");off.width=data.dims[0];off.height=data.dims[1];const oc=off.getContext("2d")!,image=oc.createImageData(off.width,off.height),z=sliceIndex;
     for(let b=0;b<data.dims[1];b++)for(let x=0;x<data.dims[0];x++){const y=data.dims[1]-1-b,index=index3d(x,y,z,data.dims),pixel=(b*data.dims[0]+x)*4,raw=data.image[index],left=data.image[index3d(Math.max(0,x-1),y,z,data.dims)],right=data.image[index3d(Math.min(data.dims[0]-1,x+1),y,z,data.dims)],up=data.image[index3d(x,Math.min(data.dims[1]-1,y+1),z,data.dims)],down=data.image[index3d(x,Math.max(0,y-1),z,data.dims)],edge=Math.min(24,(Math.abs(right-left)+Math.abs(up-down))*.10),value=Math.max(0,Math.min(255,(raw-128)*1.07+128-edge)),original=data.labels[index],hasEdit=editsRef.current.has(index),effective=hasEdit?editsRef.current.get(index)!:original,color=palette[effective];let r=35+value*.78,g=30+value*.68,blue=24+value*.55;if(color&&((showOriginal&&original>0)||hasEdit)){const alpha=hasEdit ? .72 : .28;r=r*(1-alpha)+color[0]*alpha;g=g*(1-alpha)+color[1]*alpha;blue=blue*(1-alpha)+color[2]*alpha}if(hasEdit&&effective===0){r=80+value*.42;g=84+value*.42;blue=86+value*.42}image.data[pixel]=r;image.data[pixel+1]=g;image.data[pixel+2]=blue;image.data[pixel+3]=data.image[index]<252?255:0}
-    oc.putImageData(image,0,0);const view=transform();if(!view)return;context.imageSmoothingEnabled=false;context.drawImage(off,view.ox,view.oy,off.width*view.scale,off.height*view.scale);context.strokeStyle="#d9dedb";context.lineWidth=1;context.strokeRect(view.ox-.5,view.oy-.5,off.width*view.scale+1,off.height*view.scale+1);context.fillStyle="#d9dedb";context.font="10px monospace";context.fillText(`Z ${z}  |  0.5 mm`,view.ox+9,view.oy+16);
+    oc.putImageData(image,0,0);const view=transform();if(!view)return;context.imageSmoothingEnabled=false;context.drawImage(off,view.ox,view.oy,off.width*view.scale,off.height*view.scale);context.strokeStyle="#f0f3f1";context.lineWidth=1;context.strokeRect(view.ox-.5,view.oy-.5,off.width*view.scale+1,off.height*view.scale+1);context.fillStyle="#f0f3f1";context.font="16px monospace";context.fillText(`Z ${z}  |  0.5 mm`,view.ox+9,view.oy+19);
   },[data,sliceIndex,showOriginal,zoom,pan,version,sizeVersion]);
 
   function point(event:React.PointerEvent<HTMLCanvasElement>){const view=transform(),canvas=canvasRef.current;if(!view||!canvas||!data)return null;const rect=canvas.getBoundingClientRect(),x=Math.floor((event.clientX-rect.left-view.ox)/view.scale),b=Math.floor((event.clientY-rect.top-view.oy)/view.scale);if(x<0||x>=data.dims[0]||b<0||b>=data.dims[1])return null;return{x,b}}
