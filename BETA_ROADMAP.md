@@ -19,7 +19,7 @@
 - [ ] 脳神経I–XIIの見かけの起始部と主要脳底動脈の走行を確認する。
 - [ ] 断面の必修構造について、冠状・水平・矢状の連続断でラベルの位置と連続性を確認する（35ラベルの3方向空断面・6近傍成分・最大成分比を `npm run audit:sections` で再現可能にし、35/35が確度別回帰閾値に合格。脳室、脳梁、視交叉、右扁桃体の孤立片を専門家目視の優先対象として `SECTION_CONTINUITY_AUDIT.md` に固定）。
 - [x] 脳梁・内包、視交叉・島皮質、脳室・脳幹・小脳候補の由来と確度を再確認する（13試作ID、9画面構造、7局所標本部品を `npm run audit:provenance` で照合し、構造別の再標本化・保護・領域制約を詳細パネルと `PROVENANCE_AUDIT.md` に明示。解剖学的境界は監修待ちを維持）。
-- [ ] 小脳脚、菱形窩、錐体、オリーブ、丘・膝状体、脚間窩を確認する。
+- [ ] 小脳脚、菱形窩、錐体、オリーブ、丘・膝状体、脚間窩を確認する（公的解剖資料に基づく12位置関係を `npm run audit:landmarks` で固定し、後脳・中脳標本の着脱と上下面をWindows実ブラウザで確認。橋・延髄を外した際のガイド消失を修正。形状・境界の専門家確認は `LANDMARK_RELATIONS_AUDIT.md` の対象として継続）。
 
 完了条件: 必修構造ごとに「検証済み」「模式表示」「推定」「未収録」のいずれかが記録され、未確認の表示を検証済みと誤認させない。明らかな位置誤り、二重表示、構造から遊離した部品を残さない。
 
@@ -167,3 +167,4 @@
 - [FORM_OPERATION_AUDIT.md](FORM_OPERATION_AUDIT.md): 公開回答画面の3分岐確認と管理者一往復試験
 - [SECTION_CONTINUITY_AUDIT.md](SECTION_CONTINUITY_AUDIT.md): 35断面ラベルの3方向連続性・孤立成分監査
 - [PROVENANCE_AUDIT.md](PROVENANCE_AUDIT.md): 試作断面ラベルの生成経路・画面表示・局所標本の由来照合
+- [LANDMARK_RELATIONS_AUDIT.md](LANDMARK_RELATIONS_AUDIT.md): 後脳・中脳模式部品の方向関係と着脱表示の監査

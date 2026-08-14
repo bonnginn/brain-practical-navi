@@ -201,6 +201,24 @@ test("keeps provisional structure provenance consistent across data and UI", () 
   assert.match(result.stdout, /PASS\t13 provisional IDs; 9 UI structures; 7 specimen parts; manual labels preserved; ventricle tissue overlap 0/);
 });
 
+test("audits hindbrain and midbrain teaching-landmark relations", async () => {
+  const result = spawnSync(process.execPath, [localPath("scripts/audit_specimen_relations.mjs")], {
+    cwd: localPath("."),
+    encoding: "utf8",
+  });
+  assert.equal(result.status, 0, result.stderr || result.stdout);
+  assert.match(result.stdout, /PASS\t12 landmark relations; 0 failures/);
+  const [page, canvas] = await Promise.all([
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8"),
+  ]);
+  assert.match(page, /橋・延髄を外した時も小脳脚と菱形窩の位置ガイドは元の座標に残し/);
+  assert.match(page, /残るガイドは元の位置を示す比較用/);
+  assert.match(canvas, /showPonsMedulla\|\|part\.definition\.key!=="pons-medulla"/);
+  assert.doesNotMatch(canvas, /part\.definition\.attachment!=="pons-medulla"/);
+  assert.match(canvas, /part\.definition\.key==="pyramids"\|\|part\.definition\.key==="olives"[\s\S]*if\(ponsSurface\)draw/);
+});
+
 test("presents the practical flow clearly and keeps interface text readable", async () => {
   const [page, main, globalsCss, canvasCss, canvas, editor] = await Promise.all([
     readFile(new URL("app/page.tsx", root), "utf8"),
