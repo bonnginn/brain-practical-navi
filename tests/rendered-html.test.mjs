@@ -349,7 +349,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /試作中・解剖学的正確性は未保証/);
   assert.match(page, /ブロック標本（試作中）/);
   assert.match(page, /key:"blocks",label:"ブロック標本",sub:"試作品"/);
-  assert.match(page, /blockIntroOpen&&<section className="workArea blockIntroPage"/);
+  assert.match(page, /blockIntroOpen&&!m2Comparison&&<section className="workArea blockIntroPage"/);
   assert.match(page, /ブロック標本は試作中です/);
   assert.match(page, /形状・範囲・接続関係の完全性や解剖学的正確性は保証しません/);
   assert.match(page, /Cloudflare Web Analytics/);
@@ -1591,7 +1591,7 @@ test("complex workspaces expose visible keyboard focus and a main-content shortc
     readFile(new URL("app/ManualSegmentationWorkbench.tsx", root), "utf8"),
   ]);
   assert.match(page, /className="skipLink" onClick=\{\(\)=>document\.getElementById\("workspace"\)\?\.focus\(\)\}/);
-  assert.equal((page.match(/id="workspace" tabIndex=\{-1\}/g) ?? []).length, 7);
+  assert.equal((page.match(/id="workspace" tabIndex=\{-1\}/g) ?? []).length, 8);
   assert.match(page, /workspace==="blocks"&&blockIntroOpen/);
   assert.match(page, /workspace==="blocks"&&!blockIntroOpen/);
   assert.ok((page.match(/aria-current=\{/g) ?? []).length >= 4);
@@ -1626,6 +1626,26 @@ test("phone layouts use a bottom workspace dock and a complete context sheet", a
   assert.match(css, /\.feedbackButton::after\{content:"共同";font-size:12px\}/);
   assert.match(css, /\.legalButton::after\{content:"条件";font-size:12px\}/);
   assert.match(css, /@media\(max-width:380px\)[\s\S]*\.specimenAttachmentControls\{left:8px;right:64px;max-width:none\}/);
+});
+
+test("M2 compares data-anchored and schematic hindbrain models without conflating provenance", async () => {
+  const [page, css, pkg, audit, record] = await Promise.all([
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("app/canvas.css", root), "utf8"),
+    readFile(new URL("package.json", root), "utf8"),
+    readFile(new URL("scripts/audit_model_comparison.mjs", root), "utf8"),
+    readFile(new URL("MODEL_COMPARISON_AUDIT.md", root), "utf8"),
+  ]);
+  assert.match(page, /new URLSearchParams\(window\.location\.search\)\.get\("m2"\)==="compare"/);
+  assert.match(page, /DATA-ANCHORED[\s\S]*PROJECT-AUTHORED/);
+  assert.match(page, /specimenLayers=\{hindbrainReconstructionComparisonLayers\}[\s\S]*specimenLayers=\{hindbrainSchematicComparisonLayers\}/);
+  assert.match(page, /specimenTissueMode="solid"[\s\S]*specimenTissueMode="hidden"/);
+  assert.match(css, /\.modelComparisonGrid\{[\s\S]*grid-template-columns:minmax\(0,1fr\) minmax\(0,1fr\)/);
+  assert.match(css, /@media\(max-width:760px\)\{\.modelComparisonNotice[\s\S]*\.modelComparisonGrid\{display:block\}/);
+  assert.match(pkg, /"audit:models": "node scripts\/audit_model_comparison\.mjs"/);
+  assert.match(audit, /comparison-sets-disjoint/);
+  assert.match(record, /β本体はAの標本再構成を基盤にし/);
+  assert.match(record, /専門家による形状承認ではありません/);
 });
 
 test("ships a reproducible Google Form generator for feedback and collaborators", async () => {

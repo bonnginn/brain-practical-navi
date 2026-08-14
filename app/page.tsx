@@ -272,6 +272,8 @@ const blockPriorities:Record<BlockSpecimenKey,{level:"beta"|"later";label:string
   "midbrain-section":{level:"later",label:"発展枠",reason:"丘・膝状体など位置目安の監修を先に行う"},
   hindbrain:{level:"later",label:"発展枠",reason:"小脳脚・菱形窩の模式表示を監修後に改善"},
 };
+const hindbrainReconstructionComparisonLayers=["fourth-ventricle"];
+const hindbrainSchematicComparisonLayers=blockSpecimens.hindbrain.layers.filter(layer=>layer.source==="模式補助"||layer.source==="位置目安").map(layer=>layer.key);
 
 const blockGuidedInitialLayers:Partial<Record<BlockSpecimenKey,string[]>>={
   radiations:["putamen","pallidum-external","pallidum-internal","internal-capsule","corona-radiata"],
@@ -505,6 +507,7 @@ function OrientationCompass({rotation,compact=false}:{rotation:Rotation;compact?
 export default function Home() {
   const initialPlane=typeof window==="undefined"?"coronal":planeFromHash(window.location.hash);
   const initialBlockSpecimen=typeof window==="undefined"?"lateral-ventricle":blockSpecimenFromHash(window.location.hash);
+  const comparisonRequested=typeof window!=="undefined"&&new URLSearchParams(window.location.search).get("m2")==="compare";
   const [workspace, setWorkspace] = useState<WorkspaceMode>(()=>typeof window==="undefined"?"home":workspaceFromHash(window.location.hash));
   const [surfaceView,setSurfaceView]=useState<SurfaceViewKey>(()=>typeof window==="undefined"?"lateral":surfaceViewFromHash(window.location.hash));
   const [plane, setPlane] = useState<Plane>(initialPlane);
@@ -549,7 +552,7 @@ export default function Home() {
   const [blockCerebellum,setBlockCerebellum]=useState(true);
   const [blockPonsMedulla,setBlockPonsMedulla]=useState(true);
   const [blockViewPreset,setBlockViewPreset]=useState<BlockViewPreset|"custom">("initial");
-  const [blockIntroOpen,setBlockIntroOpen]=useState(workspace==="blocks");
+  const [blockIntroOpen,setBlockIntroOpen]=useState(workspace==="blocks"&&!comparisonRequested);
   const [mobileRailOpen,setMobileRailOpen]=useState(false);
   const [quizIndex,setQuizIndex]=useState(0);
   const [quizQueue,setQuizQueue]=useState<QuizQuestion[]>(()=>shuffledQuestions(standardQuizQuestions).slice(0,10));
@@ -605,6 +608,7 @@ export default function Home() {
   const activePathway=selectedPathway?pathwayPresets[selectedPathway]:null;
   const freePathwayMeshLayers=useMemo(()=>activePathway?[...activePathway.sectionKeys.flatMap(key=>{const files=structureMeshFiles[key]??[];return files.length?[{files,color:structures[key].rgb}]:[]}),...(activePathway.extraLayers??[])]:[],[activePathway]);
   const specimenLesson={...blockSpecimens[blockSpecimen],caution:`${blockSpecimenDisclaimer} ${blockSpecimens[blockSpecimen].caution}`};
+  const m2Comparison=comparisonRequested&&workspace==="blocks"&&blockSpecimen==="hindbrain";
   const renderedSurfaceNerves=surfaceView==="inferior"||surfaceView==="free"?true:surfaceNerves;
   const surfaceOverlay=surfaceVessels&&renderedSurfaceNerves?"both":surfaceVessels?"vessels":renderedSurfaceNerves?"nerves":"none";
   const selectedNeurovascular=neurovascularStructures[selectedNeurovascularStructure];
@@ -707,7 +711,7 @@ export default function Home() {
   function chooseNeurovascularStructure(key:NeurovascularStructureKey){const item=neurovascularStructures[key];setSelectedNeurovascularStructure(key);if(item.kind==="arteries")setSurfaceVessels(true);else setSurfaceNerves(true)}
   function closeOverlay(){setHelpOpen(false);setFeedbackOpen(false);setLegalOpen(false);const nextHash=workspaceHash(workspace,surfaceView,plane,blockSpecimen);if(window.location.hash!==nextHash)window.history.replaceState(null,"",nextHash)}
   function openOverlay(key:OverlayMode){overlayReturnFocus.current=document.activeElement instanceof HTMLElement?document.activeElement:null;window.history.pushState(null,"",`#workspace/${key}`);setHelpOpen(key==="help");setFeedbackOpen(key==="feedback");setLegalOpen(key==="legal")}
-  function openWorkspace(key:WorkspaceMode){setHelpOpen(false);setFeedbackOpen(false);setLegalOpen(false);setMobileRailOpen(false);const nextHash=workspaceHash(key,surfaceView,plane,blockSpecimen);if(window.location.hash!==nextHash)window.history.pushState(null,"",nextHash);setWorkspace(key);if(key==="home")setRotation({...homeRotation});if(key==="sections")setRotation({x:-7,y:-18,z:0});if(key==="surface")setRotation(surfaceViews[surfaceView].rotation);if(key==="blocks"){setBlockIntroOpen(true);setRotation({...blockInitialRotations[blockSpecimen]});setBlockViewPreset("initial")}}
+  function openWorkspace(key:WorkspaceMode){setHelpOpen(false);setFeedbackOpen(false);setLegalOpen(false);setMobileRailOpen(false);const nextHash=workspaceHash(key,surfaceView,plane,blockSpecimen);if(window.location.hash!==nextHash)window.history.pushState(null,"",nextHash);setWorkspace(key);if(key==="home")setRotation({...homeRotation});if(key==="sections")setRotation({x:-7,y:-18,z:0});if(key==="surface")setRotation(surfaceViews[surfaceView].rotation);if(key==="blocks"){setBlockIntroOpen(!comparisonRequested);setRotation({...blockInitialRotations[blockSpecimen]});setBlockViewPreset("initial")}}
   function saveWrongTargets(next:QuizTargetKey[]){setWrongTargets(next);try{localStorage.setItem(QUIZ_WRONG_CACHE_KEY,JSON.stringify(next))}catch{/* private browsing may block storage */}}
   function startQuiz(){let candidates=quizQuestions.filter(question=>(quizIncludeProvisional||!isProvisionalQuiz(question))&&(quizCategory==="all"||question.category===quizCategory));if(quizWrongOnly)candidates=candidates.filter(question=>wrongTargets.includes(question.target));setQuizQueue(shuffledQuestions(candidates).slice(0,quizCount));setQuizIndex(0);setQuizChoice(null);setQuizScore(0);setQuizMisses([]);setQuizFinished(false)}
   function answerQuiz(key:QuizTargetKey){if(quizChoice||quizEmpty)return;setQuizChoice(key);const correct=key===quizQuestion.target;if(correct){setQuizScore(score=>score+1);if(wrongTargets.includes(quizQuestion.target))saveWrongTargets(wrongTargets.filter(target=>target!==quizQuestion.target))}else{setQuizMisses(previous=>previous.includes(quizQuestion.target)?previous:[...previous,quizQuestion.target]);if(!wrongTargets.includes(quizQuestion.target))saveWrongTargets([...wrongTargets,quizQuestion.target])}}
@@ -857,11 +861,21 @@ export default function Home() {
       </div>
     </section>}
 
-    {workspace==="blocks"&&blockIntroOpen&&<section className="workArea blockIntroPage" id="workspace" tabIndex={-1}>
+    {workspace==="blocks"&&blockIntroOpen&&!m2Comparison&&<section className="workArea blockIntroPage" id="workspace" tabIndex={-1}>
       <div className="blockIntroCard"><span>PROTOTYPE</span><h1>ブロック標本は試作中です</h1><p>位置関係を検討するための試作品であり、形状・範囲・接続関係の完全性や解剖学的正確性は保証しません。</p><div><button onClick={()=>setBlockIntroOpen(false)}>試作品を確認する</button><button onClick={()=>openOverlay("feedback")}>誤りを報告する</button></div></div>
     </section>}
 
-    {workspace==="blocks"&&!blockIntroOpen&&<section className="workArea learningArea" id="workspace" tabIndex={-1}>
+    {m2Comparison&&<section className="workArea modelComparisonArea" id="workspace" tabIndex={-1}>
+      <div className="workHead"><div><span className="eyebrow">M2 · CONTROLLED MODEL COMPARISON</span><h1>後脳モデル比較試作</h1></div><span className="sourceBadge">比較用経路・β標準画面では非表示</span></div>
+      <div className="modelComparisonNotice"><b>同じ座標・同じ向き・同じ操作で比較</b><p>左は標本と同一格子の再構成を主役にし、右は制作した模式形状だけを表示します。右を標本由来の分節や正解形状として扱わないでください。</p></div>
+      <div className="modelComparisonGrid">
+        <section className="modelComparisonCard"><header><span>A</span><div><b>標本再構成中心</b><small>同一格子の橋・延髄、小脳、第四脳室</small></div></header><div className="modelComparisonStage" tabIndex={0} aria-label="標本再構成中心の後脳3Dモデル。ドラッグまたは矢印キーで回転" onKeyDown={handleModelKey} onPointerDown={beginRotation} onPointerMove={move} onPointerUp={()=>setDrag(null)} onPointerCancel={()=>setDrag(null)} onContextMenu={event=>event.preventDefault()}><AtlasVolumeCanvas kind="surface" plane="horizontal" position={80} focus="thalamus" display="specimen" rotation={rotation} view="inside" contrast="bigbrain" showFocus={false} showCutPlane={false} showCerebellum showPonsMedulla specimenBlock="hindbrain" specimenLayers={hindbrainReconstructionComparisonLayers} specimenTissueMode="solid"/><OrientationCompass rotation={rotation}/><div className="comparisonTag data"><b>DATA-ANCHORED</b><span>支持表面・尺度・個体形を保持</span></div></div></section>
+        <section className="modelComparisonCard"><header><span>B</span><div><b>知識ベース模式中心</b><small>小脳脚・菱形窩指標・錐体・オリーブ</small></div></header><div className="modelComparisonStage" tabIndex={0} aria-label="知識ベース模式中心の後脳3Dモデル。ドラッグまたは矢印キーで回転" onKeyDown={handleModelKey} onPointerDown={beginRotation} onPointerMove={move} onPointerUp={()=>setDrag(null)} onPointerCancel={()=>setDrag(null)} onContextMenu={event=>event.preventDefault()}><AtlasVolumeCanvas kind="surface" plane="horizontal" position={80} focus="thalamus" display="specimen" rotation={rotation} view="inside" contrast="bigbrain" showFocus={false} showCutPlane={false} showCerebellum={false} showPonsMedulla={false} specimenBlock="hindbrain" specimenLayers={hindbrainSchematicComparisonLayers} specimenTissueMode="hidden"/><OrientationCompass rotation={rotation}/><div className="comparisonTag schematic"><b>PROJECT-AUTHORED</b><span>位置関係を強調・境界未検証</span></div></div></section>
+        <aside className="modelComparisonGuide"><span>M2 PROTOTYPE 01</span><h2>β基盤を選ぶための比較</h2><p>両方を一緒にドラッグし、上面・下面・反対側まで回して次を確認します。</p><dl><div><dt>同定</dt><dd>構造名を伏せても支持表面から位置を推定できるか</dd></div><div><dt>位置関係</dt><dd>第四脳室、小脳脚、菱形窩、錐体・オリーブの前後・上下が読めるか</dd></div><div><dt>表面</dt><dd>段差や粗さが学習を妨げないか</dd></div><div><dt>操作</dt><dd>回転しても対象を見失わないか</dd></div><div><dt>負荷</dt><dd>2 Canvas同時表示の読込とメモリが許容範囲か</dd></div><div><dt>保守</dt><dd>誤りを標本座標へ戻して修正できるか</dd></div></dl><div className="accuracyNote warning"><b>暫定判断</b><p>βではAを基盤にし、Bは明示した補助レイヤーとして着脱する方針を検証します。B単独は支持表面・尺度・個体差を失うため、置き換え候補とはみなしません。</p></div></aside>
+      </div>
+    </section>}
+
+    {workspace==="blocks"&&!blockIntroOpen&&!m2Comparison&&<section className="workArea learningArea" id="workspace" tabIndex={-1}>
       <div className="workHead"><div><span className="eyebrow">LOCAL SPECIMEN</span><h1>標本観察</h1></div><div className="blockReleaseNote"><span className={`specimenPriorityBadge ${blockPriorities[blockSpecimen].level}`} title={blockPriorities[blockSpecimen].reason}>{blockPriorities[blockSpecimen].label}</span><span className="sourceBadge">試作中・解剖学的正確性は未保証</span><button onClick={()=>openOverlay("feedback")}>誤りを報告</button></div></div>
       <div className="learningGrid">
         <section className="learningModelCard"><div className="panelHead"><div><b>{specimenLesson.name}</b><small>{specimenLesson.en}・ドラッグ：回転／Shift・右：傾き</small></div><span>SPECIMEN + SELECTABLE PARTS</span></div>
