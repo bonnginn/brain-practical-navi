@@ -83,7 +83,7 @@
 - [ ] 小脳メッシュを、葉・裂を潰さない範囲でスムージングする。
 - [ ] 大脳と小脳の色を分けつつ、脳溝の陰影が読める配色へ調整する。
 - [ ] 溝・裂は厳密な分節面と混同させず、脳回間の位置関係が読める教材表現へ統一する。
-- [ ] 選択構造の色が互いに区別でき、背景・文字とのコントラストを保つ。
+- [x] 選択構造の色が互いに区別でき、背景・文字とのコントラストを保つ（方向別の同時選択色を監査し、最小sRGB距離35以上、暗背景との元色比3:1以上を自動検査。名称・選択状態も併記）。
 
 ### 7. セグメンテーション共同編集
 
@@ -157,4 +157,5 @@
 - [ACCURACY_AND_VIEWER_RESEARCH.md](ACCURACY_AND_VIEWER_RESEARCH.md): 正確性と3D閲覧方式の調査
 - [DATA_AND_LICENSES.md](DATA_AND_LICENSES.md): データと権利の監査
 - [STRUCTURE_PROVENANCE.md](STRUCTURE_PROVENANCE.md): 構造表示の由来・確度・監修台帳
+- [VISUAL_CONTRAST_AUDIT.md](VISUAL_CONTRAST_AUDIT.md): 3D選択色と暗背景の可読性監査
 - [CONTRIBUTING.md](CONTRIBUTING.md): 共同制作の入口
