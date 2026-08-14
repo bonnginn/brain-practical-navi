@@ -60,7 +60,10 @@ npm run dev
 ```bash
 npm run build
 npm test
+npm run audit:beta
 ```
+
+`audit:beta` は9系統のローカル監査をまとめ、Go / No-Go表の外部待ちを合格と混同せず表示します。成功しても、専門家・実スマートフォン・公開URL・管理者操作の証拠が揃うまではβ公開可を意味しません。
 
 Windows側のCodexへ開発を引き継ぐ場合は、取得手順、実画面の確認順、既知の注意点をまとめた [WINDOWS_HANDOFF.md](WINDOWS_HANDOFF.md) を参照してください。
 

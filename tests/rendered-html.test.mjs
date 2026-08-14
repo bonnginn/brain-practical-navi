@@ -1933,3 +1933,14 @@ test("keeps the internal capsule distinct from adjacent basal nuclei", async () 
   }
   assert.match(page, /key:"internal-capsule"[^\n]+color:"#e3d8b0"/);
 });
+
+test("aggregates every local beta audit without converting external waits into passes", async () => {
+  const script=await readFile(new URL("scripts/audit_beta_candidate.mjs",root),"utf8");
+  for(const audit of ["audit_asset_budgets","audit_section_continuity","audit_deep_relations","audit_structure_provenance","audit_specimen_relations","audit_basal_neurovascular_relations","audit_surface_relations","audit_model_comparison","audit_expert_review_targets"])assert.match(script,new RegExp(audit));
+  assert.match(script,/release remains No-Go/);
+  assert.match(script,/WAIT \$\{row\.status\}/);
+  const result=spawnSync(process.execPath,[localPath("scripts/audit_beta_candidate.mjs")],{encoding:"utf8",cwd:localPath("."),maxBuffer:10*1024*1024});
+  assert.equal(result.status,0,result.stderr);
+  assert.match(result.stdout,/SUMMARY\t3 local gates passed; 7 external-evidence gates remain/);
+  assert.match(result.stdout,/PASS\tbeta-candidate local audits complete; release remains No-Go/);
+});
