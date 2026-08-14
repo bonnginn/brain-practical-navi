@@ -1403,3 +1403,15 @@ test("quiz mistakes link back to the exact study view", async () => {
   assert.match(page, /labelSourceDisplay\[sectionQuizTarget\.labelSource\]\.label/);
   assert.match(css, /\.quizReviewTargets/);
 });
+
+test("section quiz slices can be stepped without dragging the range control", async () => {
+  const [page, css] = await Promise.all([
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("app/canvas.css", root), "utf8"),
+  ]);
+  assert.match(page, /aria-label="1断面戻る"/);
+  assert.match(page, /Math\.max\(0,value-1\)/);
+  assert.match(page, /aria-label="1断面進む"/);
+  assert.match(page, /Math\.min\(100,value\+1\)/);
+  assert.match(css, /\.quizSliceControl\s*\{[^}]*grid-template-columns:\s*32px minmax\(0,1fr\) 32px/);
+});
