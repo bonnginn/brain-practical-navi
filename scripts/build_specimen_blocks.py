@@ -224,9 +224,13 @@ def specimen_definitions(raw: np.ndarray, seg: np.ndarray) -> dict[str, list[Par
             1.55,
         )
     fornix &= fornix_region
+    # A conservative midline membrane between the callosal undersurface and
+    # the fornix. The former broad ellipse extended too far anteriorly and
+    # superiorly, so it looked like a free-standing plate in medial view.
     septum_pellucidum = (
-        (np.abs(xx) <= 1.25)
-        & (((yy - 18) / 22) ** 2 + ((zz - 4) / 13) ** 2 <= 1)
+        (np.abs(xx) <= 0.75)
+        & (((yy - 9) / 17) ** 2 + ((zz - 2) / 8) ** 2 <= 1)
+        & (zz >= -5 + 0.05 * (yy + 8))
         & commissural_region
     )
     commissural_support &= ~(corpus_callosum | fornix | septum_pellucidum)

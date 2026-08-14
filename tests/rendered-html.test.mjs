@@ -3,9 +3,31 @@ import { readFile } from "node:fs/promises";
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import test from "node:test";
+import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 import { gunzipSync } from "node:zlib";
 
 const root = new URL("../", import.meta.url);
+const localPath = (path) => fileURLToPath(new URL(path, root));
+
+function resolvePython() {
+  const configured = process.env.PYTHON?.trim();
+  const codexBundledPython = process.platform === "win32" && process.env.USERPROFILE
+    ? join(process.env.USERPROFILE, ".cache", "codex-runtimes", "codex-primary-runtime", "dependencies", "python", "python.exe")
+    : null;
+  const candidates = configured
+    ? [[configured, []]]
+    : process.platform === "win32"
+      ? [["py", ["-3"]], ...(codexBundledPython ? [[codexBundledPython, []]] : []), ["python", []], ["python3", []]]
+      : [["python3", []], ["python", []]];
+  for (const [command, prefix] of candidates) {
+    const probe = spawnSync(command, [...prefix, "--version"], { encoding: "utf8" });
+    if (probe.status === 0) return { command, prefix };
+  }
+  throw new Error("Python 3 was not found. Set the PYTHON environment variable to the Python executable used for contributor-tool tests.");
+}
+
+const python = resolvePython();
 
 function readVolumeHeader(buffer, expectedMagic) {
   const payload = gunzipSync(buffer);
@@ -51,6 +73,21 @@ test("does not load the rejected affine-only label transfer", async () => {
   assert.match(page, /同一格子で検証済み/);
   assert.match(page, /未検証ラベルを表示しません/);
   assert.match(html, /<title>脳実習ナビ/);
+});
+
+test("publishes complete browser and social metadata", async () => {
+  const [html, favicon] = await Promise.all([
+    readFile(new URL("index.html", root), "utf8"),
+    readFile(new URL("public/favicon.svg", root), "utf8"),
+  ]);
+  assert.match(html, /<html lang="ja">/);
+  assert.match(html, /<link rel="icon" href="\/favicon\.svg" type="image\/svg\+xml"/);
+  assert.match(html, /<meta name="theme-color" content="#f8f7f3"/);
+  assert.match(html, /<meta property="og:type" content="website"/);
+  assert.match(html, /<meta property="og:locale" content="ja_JP"/);
+  assert.match(html, /<meta name="twitter:card" content="summary_large_image"/);
+  assert.match(favicon, /<title>脳実習ナビ<\/title>/);
+  assert.match(favicon, /stroke="#e36e57"/);
 });
 
 test("keeps official labels separate from provisional teaching overlays", async () => {
@@ -148,17 +185,25 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /useState<WorkspaceMode>\(\(\)=>typeof window==="undefined"\?"home":workspaceFromHash\(window.location.hash\)\)/);
   assert.match(page, /window\.addEventListener\("hashchange",restore\)/);
   assert.match(page, /window\.addEventListener\("popstate",restore\)/);
-  assert.match(page, /window\.history\.pushState\(null,"",workspaceHash\(key,surfaceView\)\)/);
+  assert.match(page, /window\.history\.pushState\(null,"",nextHash\)/);
   assert.match(page, /surfaceViewFromHash\(window\.location\.hash\)/);
   assert.match(page, /workspaceHash\("surface",key\)/);
-  assert.match(page, /key==="surface"\?`\/\$\{surfaceView\}`:""/);
+  assert.match(page, /if\(candidate==="nerves"\)return "cranialNerves"/);
+  assert.match(page, /surfaceView==="cranialNerves"\?"nerves":surfaceView/);
+  assert.match(page, /workspaceSwitch button\.active/);
+  assert.match(page, /leftRail \.planeBtn\.active/);
+  assert.match(page, /scrollIntoView\(\{block:"nearest",inline:"center"\}\)/);
   assert.match(page, /脳実習を、/);
   assert.match(page, /切る前から立体で。/);
+  assert.match(page, /className="homeModelStage[\s\S]{0,700}view="inside"/);
   assert.match(page, /OPEN ALPHA/);
-  assert.match(page, /α版・非営利教育用/);
+  assert.match(page, /公開α準備中・非営利教育用/);
   assert.doesNotMatch(page, /OPEN BETA|β版・非営利教育用/);
   assert.doesNotMatch(page, /を連続して追う/);
   assert.match(page, /VITE_FEEDBACK_FORM_URL/);
+  assert.match(page, /BigBrain（Amunts et al\., 2013）/);
+  assert.doesNotMatch(page, /BigBrain 2015/);
+  assert.match(page, /単一固定脳 MRI 0\.444 mm/);
   assert.match(page, /VITE_SOURCE_REPOSITORY_URL/);
   assert.match(page, /間違った問題のみ/);
   assert.match(page, /間違い履歴を消去/);
@@ -180,34 +225,42 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /標本組織/);
   assert.match(page, /選択だけ/);
   assert.match(page, /setBlockTissueMode\(next\.layers\.length\?"ghost":"solid"\)/);
-  assert.match(page, /setSurfaceGhost\(key==="cranialNerves"\)/);
+  assert.match(page, /setSurfaceGhost\(key==="cranialNerves"\|\|key==="arteries"\)/);
   assert.match(canvas, /specimenTissueMode/);
   assert.match(canvas, /gl\.depthMask\(false\)/);
   assert.match(canvasCss, /\.specimenTissueControls/);
   for (const specimen of ["側脳室の全景", "視床・視床下部標本", "レンズ核・投射線維", "脳梁・脳弓標本", "脈絡叢を開く", "海馬・扁桃体標本", "中脳核・大脳脚標本"]) assert.match(page, new RegExp(specimen));
   for (const provenance of ["標本分節", "試作分節", "模式補助", "位置目安"]) assert.match(page, new RegExp(provenance));
   assert.match(page, /同定する構造/);
-  assert.match(page, /クリックして着色/);
+  assert.match(page, /無着色の標本から、確認する構造だけを追加/);
   assert.match(page, /両岸の間を仮想的な色面で埋めて表示しています/);
   assert.match(page, /setSurfaceVisibleRegions\(surfaceViewRegions\[surfaceView\]\)/);
   assert.match(page, /setSurfaceVisibleLandmarks\(surfaceViewLandmarks\[surfaceView\]\)/);
-  assert.match(page, /medial:\{name:"大脳半球（内側面）"/);
-  assert.match(page, /medial:\{name:"大脳半球（内側面）"[^\n]+rotation:\{x:0,y:90,z:0\}/);
+  assert.match(page, /medial:\{name:"左半球・内側面"/);
+  assert.match(page, /medial:\{name:"左半球・内側面"[^\n]+rotation:\{x:0,y:90,z:0\}/);
   assert.match(page, /lateral:\{name:"左外側面"[^\n]+rotation:\{x:0,y:-90,z:0\}/);
   assert.match(page, /useState<SurfaceViewKey>\(\(\)=>typeof window==="undefined"\?"lateral":surfaceViewFromHash\(window\.location\.hash\)\)/);
-  assert.match(page, /useState<SurfaceRegionKey\[]>\(surfaceView==="inferior"\?\[\]:surfaceViewRegions\[surfaceView\]\)/);
-  assert.match(page, /basalView=key==="inferior"/);
+  assert.match(page, /function planeFromHash/);
+  assert.match(page, /function blockSpecimenFromHash/);
+  assert.match(page, /key==="sections"\?plane:key==="blocks"\?blockSpecimen/);
+  assert.match(page, /useState<SurfaceRegionKey\[]>\(\[\]\)/);
+  assert.match(page, /useState<SurfaceLandmarkKey\[]>\(\[\]\)/);
   assert.doesNotMatch(page, /hemisphere:\{name:"左大脳半球"/);
   assert.doesNotMatch(page, /CerebrA対応・試作表面ラベル|CerebAアトラス対応/);
   assert.doesNotMatch(page, /脳表モデル・試作ラベル|講義資料の課題スケッチ/);
   assert.doesNotMatch(page, /REGIONS ·|GUIDES/);
   assert.match(page, /surfaceVisibleLandmarks/);
-  assert.match(page, /内側の深部構造/);
+  assert.match(page, /function resetSurfaceView\(\)\{setRotation\(\{\.\.\.surfaceViews\[surfaceView\]\.rotation\}\)\}/);
+  assert.match(page, />向きを戻す<\/button>/);
+  assert.match(page, /内側面に追加する深部構造/);
   assert.match(page, /surfaceVisibleDeepLandmarks/);
   assert.match(page, /透明中隔/);
-  assert.match(page, /defaultMedialDeepLandmarks:SurfaceDeepLandmarkKey\[]\=\["corpus-callosum","septum-pellucidum","fornix","thalami","hypothalamus"\]/);
+  assert.match(page, /defaultMedialDeepLandmarks:SurfaceDeepLandmarkKey\[]\=\[]/);
+  assert.match(page, /初期状態は非表示・左側だけを描画/);
+  assert.match(canvas, /conservativeSeptumMesh/);
   assert.match(page, /surfaceView!=="cranialNerves"&&surfaceView!=="medial"/);
-  assert.match(page, /setSurfaceCerebellum\(key!=="medial"\)/);
+  assert.match(page, /setSurfaceCerebellum\(key!=="medial"&&key!=="inferior"\)/);
+  assert.match(page, /useState\(surfaceView!=="cranialNerves"&&surfaceView!=="medial"&&surfaceView!=="inferior"\)/);
   assert.match(page, /medial:\["cingulate","paracentral","precuneus","cuneus","lingual"\]/);
   assert.doesNotMatch(page, /medial:\[[^\n]+"pericalcarine"/);
   assert.match(page, /key==="cuneus"\?\{ids:surfaceRegions\.pericalcarine\.ids,axis:0,min:-14\}/);
@@ -236,13 +289,14 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /surfaceVisibleBasalLandmarks/);
   assert.match(page, /toggleBasalLandmark/);
   assert.match(page, /setSurfaceVisibleBasalLandmarks\(basalLandmarkKeys\)/);
-  assert.match(page, /setSurfaceVisibleRegions\(basalView\?\[\]:surfaceViewRegions\[key\]\)/);
-  assert.match(page, /setSurfaceVisibleLandmarks\(basalView\?\[\]:surfaceViewLandmarks\[key\]\)/);
+  assert.match(page, /setSurfaceVisibleRegions\(\[\]\)/);
+  assert.match(page, /setSurfaceVisibleLandmarks\(\[\]\)/);
+  assert.match(page, /setSurfaceVisibleBasalLandmarks\(\[\]\)/);
   assert.match(page, /basalHighlights/);
   assert.match(page, /aria-label="下面の補助レイヤー"/);
   assert.match(page, /surfaceNeurovascular\|\|surfaceView==="inferior"\|\|surfaceView==="free"\?surfaceOverlay:"none"/);
-  assert.match(page, /showBasalLandmarks=\{surfaceView==="inferior"\|\|surfaceNeurovascular\|\|surfaceView==="free"\}/);
-  assert.match(page, /basalOnlySelected=\{false\}/);
+  assert.match(page, /showBasalLandmarks=\{surfaceView==="inferior"\|\|surfaceView==="free"\}/);
+  assert.match(page, /basalOnlySelected=\{surfaceView==="inferior"\|\|surfaceView==="free"\}/);
   assert.match(page, /free:\{name:"自由観察"/);
   assert.match(page, /文字検索または分類別索引から追加/);
   assert.match(page, /構造索引/);
@@ -303,10 +357,10 @@ test("connects only the public Google Form responder URL", async () => {
 });
 
 test("validates browser segmentation patches against the bundled BBS1 grid", () => {
-  const result = spawnSync("python3", [
-    new URL("scripts/apply_segmentation_patch.py", root).pathname,
-    new URL("tests/fixtures/segmentation-patch-smoke.json", root).pathname,
-    "--input", new URL("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz", root).pathname,
+  const result = spawnSync(python.command, [...python.prefix,
+    localPath("scripts/apply_segmentation_patch.py"),
+    localPath("tests/fixtures/segmentation-patch-smoke.json"),
+    "--input", localPath("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"),
     "--check",
   ], {encoding:"utf8"});
   assert.equal(result.status, 0, result.stderr);
@@ -328,11 +382,11 @@ test("pins segmentation patches to the exact bundled label revision", async () =
 });
 
 test("detects voxel-level conflicts between contributor segmentation patches", () => {
-  const result = spawnSync("python3", [
-    new URL("scripts/check_segmentation_patch_conflicts.py", root).pathname,
-    new URL("tests/fixtures/segmentation-patch-smoke.json", root).pathname,
-    new URL("tests/fixtures/segmentation-patch-conflict.json", root).pathname,
-    "--input", new URL("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz", root).pathname,
+  const result = spawnSync(python.command, [...python.prefix,
+    localPath("scripts/check_segmentation_patch_conflicts.py"),
+    localPath("tests/fixtures/segmentation-patch-smoke.json"),
+    localPath("tests/fixtures/segmentation-patch-conflict.json"),
+    "--input", localPath("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"),
   ], {encoding:"utf8"});
   assert.equal(result.status, 2, result.stderr);
   const audit = JSON.parse(result.stdout);
@@ -422,7 +476,7 @@ test("draws toggleable sulci from cortical region boundaries", async () => {
   assert.match(canvas, /surfaceBoundaryMesh/);
   assert.match(canvas, /surfaceLevelMesh/);
   assert.match(canvas, /surfaceLevelMesh\(part,\[57,6\],0,-14,\.9\)/);
-  assert.match(canvas, /if\(hemisphere!=="both"\)gl\.clear\(gl\.DEPTH_BUFFER_BIT\)/);
+  assert.doesNotMatch(canvas, /surfaceDeepLandmarks\.length&&blockMeshes===null\)\{\s*if\(hemisphere!=="both"\)gl\.clear/);
   assert.match(canvas, /locallyFilledSurfacePoint/);
   assert.doesNotMatch(canvas, /\[\.035,\.045,\.05,1\]/);
 });
@@ -646,6 +700,38 @@ test("keeps medial deep structures on the shared grid and in anatomical order", 
   assert.ok(hypothalamus.high[1] - hypothalamus.low[1] < 34, "hypothalamic marker does not spread across the basal forebrain");
 });
 
+test("left medial view clips every paired deep overlay to the displayed side", async () => {
+  const [canvas, page] = await Promise.all([
+    readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8"),
+    readFile(new URL("app/page.tsx", root), "utf8"),
+  ]);
+  assert.match(canvas, /if\(hemiMode<-\.5&&anatomy\.x>0\.\)discard/);
+  assert.match(canvas, /gl\.uniform1f\(gl\.getUniformLocation\(prog,"hemiMode"\),hemisphere==="left"\?-1/);
+  assert.match(page, /hemisphere:"left"/);
+  assert.match(page, /初期状態は非表示・左側だけを描画/);
+  assert.match(page, /右側成分は表示しません/);
+
+  for (const name of [
+    "block-commissural-system-corpus-callosum",
+    "block-commissural-system-septum-pellucidum",
+    "block-commissural-system-fornix",
+    "block-diencephalon-thalami",
+    "block-diencephalon-hypothalamus",
+  ]) {
+    const mesh = await readFile(new URL(`public/atlas/${name}.mesh`, root));
+    const count = mesh.readUInt32LE(4);
+    let negative = 0;
+    let positive = 0;
+    for (let index = 0; index < count; index += 1) {
+      const anatomicalX = mesh.readFloatLE(12 + index * 12 + 8);
+      if (anatomicalX < 0) negative += 1;
+      if (anatomicalX > 0) positive += 1;
+    }
+    assert.ok(negative > 100, `${name} has a left component to retain`);
+    assert.ok(positive > 100, `${name} has a right component to remove`);
+  }
+});
+
 test("covers every cranial nerve without hiding schematic limitations", async () => {
   const [metadataText, page, audit] = await Promise.all([
     readFile(new URL("public/atlas/neurovascular-overlays.json", root), "utf8"),
@@ -732,7 +818,7 @@ test("anchors cranial nerve roots at the intended brainstem levels", async () =>
   near(45, [7, -8, -66]);   // XII, pre-olivary sulcus
 });
 
-test("block specimens support continuous three-axis rotation and anatomical view presets", async () => {
+test("block specimens support continuous rotation and reuse the shared WebGL renderer", async () => {
   const [page, canvas] = await Promise.all([
     readFile(new URL("app/page.tsx", root), "utf8"),
     readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8"),
@@ -742,9 +828,51 @@ test("block specimens support continuous three-axis rotation and anatomical view
   assert.match(page, /e\.button===2\|\|e\.shiftKey\?"roll":"orbit"/);
   assert.match(page, /blockViewLabels:Record<BlockViewPreset,string>=\{initial:"初期",opposite:"反対側",superior:"上面",inferior:"下面"\}/);
   assert.match(page, /setRotation\(\{\.\.\.blockInitialRotations\[key\]\}\)/);
-  assert.match(page, /key=\{blockSpecimen\}/);
+  assert.doesNotMatch(page, /<AtlasVolumeCanvas[^>]*key=\{blockSpecimen\}/);
+  assert.match(canvas, /let sharedAtlasRenderCanvas:HTMLCanvasElement\|null=null/);
+  assert.match(canvas, /target\.drawImage\(canvas,0,0\)/);
+  assert.match(canvas, /gl\.deleteShader\(vertexShader\);gl\.deleteShader\(fragmentShader\)/);
+  assert.match(canvas, /if\(!ext\)\{gl\.deleteProgram\(prog\);return\}/);
+  assert.match(canvas, /gl\.deleteProgram\(prog\)/);
+  assert.doesNotMatch(canvas, /Promise\.all\(\["brain",focus/);
+  assert.match(canvas, /if\(specimenBlock!=="none"\)\{setMeshes\(\{focus:EMPTY_MESH,surface:\[\],segments:\[\],overlays:\[\],basal:\[\],deep:\[\],landmarks:\[\]\}\);return\}/);
+  assert.match(canvas, /\[kind,focus,specimenBlock\]/);
+  assert.match(canvas, /let active=true;setBlockMeshes\(null\);setError\(""\)/);
+  assert.match(canvas, /return\(\)=>\{active=false\}/);
   assert.match(canvas, /az=\(rot\.z\?\?0\)\*Math\.PI\/180/);
   assert.match(canvas, /cz\*cy-sz\*sx\*sy/);
+});
+
+test("the shipped septum pellucidum mesh stays a thin, conservative midline guide", async () => {
+  const [mesh, metadataText] = await Promise.all([
+    readFile(new URL("public/atlas/block-commissural-system-septum-pellucidum.mesh", root)),
+    readFile(new URL("public/atlas/specimen-blocks.json", root), "utf8"),
+  ]);
+  assert.equal(mesh.subarray(0, 4).toString("ascii"), "BNM2");
+  const vertexCount = mesh.readUInt32LE(4);
+  const faceCount = mesh.readUInt32LE(8);
+  assert.ok(vertexCount >= 500 && vertexCount <= 1200, `unexpected septum vertex count: ${vertexCount}`);
+  assert.equal(mesh.length, 12 + vertexCount * 28 + faceCount * 12);
+
+  const bounds = [[Infinity, -Infinity], [Infinity, -Infinity], [Infinity, -Infinity]];
+  for (let index = 0; index < vertexCount; index += 1) {
+    for (let axis = 0; axis < 3; axis += 1) {
+      const value = mesh.readFloatLE(12 + index * 12 + axis * 4);
+      bounds[axis][0] = Math.min(bounds[axis][0], value);
+      bounds[axis][1] = Math.max(bounds[axis][1], value);
+    }
+  }
+  // Stored axis order is z, y, x. These limits reject the former broad plate
+  // while leaving a little tolerance for marching-cubes implementation detail.
+  assert.ok(bounds[0][0] > -6 && bounds[0][1] < 12, `septum z bounds: ${bounds[0]}`);
+  assert.ok(bounds[1][0] > -10 && bounds[1][1] < 28, `septum y bounds: ${bounds[1]}`);
+  assert.ok(bounds[2][0] > -1 && bounds[2][1] < 1, `septum x bounds: ${bounds[2]}`);
+
+  const septum = JSON.parse(metadataText).specimens["commissural-system"]
+    .find(part => part.part === "septum-pellucidum");
+  assert.equal(septum.vertices, vertexCount);
+  assert.equal(septum.faces, faceCount);
+  assert.equal(septum.sourceType, "regional-approximation");
 });
 
 test("every section quiz shows a visible amount of its target label", async () => {
@@ -812,6 +940,66 @@ test("surface quiz questions use labelled high-density pial regions", async () =
     assert.ok(metadata.hemispheres.left.labels[leftId].count > 1000, `${target} left visibility`);
     assert.ok(metadata.hemispheres.right.labels[rightId].count > 1000, `${target} right visibility`);
   }
+  assert.match(page, /function shuffledItems<T>\(items:readonly T\[\]\)/);
+  assert.match(page, /options:shuffledItems\(question\.options\)/);
+  assert.match(page, /useState<QuizQuestion\[\]>\(\(\)=>shuffledQuestions\(quizQuestions\)\.slice\(0,10\)\)/);
+});
+
+test("medial surface quiz keeps the same isolated-hemisphere anatomy as study mode", async () => {
+  const page = await readFile(new URL("app/page.tsx", root), "utf8");
+  assert.match(page, /showCerebellum=\{quizQuestion\.view!=="medial"\}/);
+  assert.match(page, /showPonsMedulla=\{quizQuestion\.view!=="medial"\}/);
+  assert.match(page, /showMidbrain=\{quizQuestion\.view!=="medial"\}/);
+});
+
+test("feedback and credit dialogs have durable shareable URLs", async () => {
+  const page = await readFile(new URL("app/page.tsx", root), "utf8");
+  assert.match(page, /type OverlayMode = "feedback" \| "legal"/);
+  assert.match(page, /function overlayFromHash\(hash:string\):OverlayMode\|null/);
+  assert.match(page, /overlayFromHash\(window\.location\.hash\)==="feedback"/);
+  assert.match(page, /overlayFromHash\(window\.location\.hash\)==="legal"/);
+  assert.match(page, /window\.history\.pushState\(null,"",`#workspace\/\$\{key\}`\)/);
+  assert.match(page, /onClick=\{\(\)=>openOverlay\("feedback"\)\}/);
+  assert.match(page, /onClick=\{\(\)=>openOverlay\("legal"\)\}/);
+  assert.match(page, /document\.body\.style\.overflow="hidden"/);
+  assert.match(page, /document\.querySelector<HTMLButtonElement>\('\.legalDialog header button'\)\?\.focus\(\)/);
+  assert.match(page, /overlayReturnFocus\.current\?\.focus\(\)/);
+  assert.match(page, /event\.shiftKey&&document\.activeElement===first/);
+  assert.match(page, /!event\.shiftKey&&document\.activeElement===last/);
+  assert.match(page, /onClick=\{closeOverlay\} aria-label="意見募集を閉じる"/);
+  assert.match(page, /onClick=\{closeOverlay\} aria-label="利用条件とクレジット表示を閉じる"/);
+});
+
+test("complex workspaces expose visible keyboard focus and a main-content shortcut", async () => {
+  const [page, css, editor] = await Promise.all([
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("app/canvas.css", root), "utf8"),
+    readFile(new URL("app/ManualSegmentationWorkbench.tsx", root), "utf8"),
+  ]);
+  assert.match(page, /className="skipLink" onClick=\{\(\)=>document\.getElementById\("workspace"\)\?\.focus\(\)\}/);
+  assert.equal((page.match(/id="workspace" tabIndex=\{-1\}/g) ?? []).length, 6);
+  assert.ok((page.match(/aria-current=\{/g) ?? []).length >= 4);
+  assert.match(page, /role="group" aria-label="構造グループの一括表示"/);
+  assert.match(css, /:focus-visible \{ outline: 3px solid #e36e57/);
+  assert.match(css, /\.skipLink:focus-visible \{ top: 8px; \}/);
+  assert.match(css, /prefers-reduced-motion:reduce/);
+  assert.match(editor, /aria-label="差分JSONファイルを選択"/);
+});
+
+test("narrow layouts keep destination rails and full workflow panels distinct", async () => {
+  const [page, css] = await Promise.all([
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("app/canvas.css", root), "utf8"),
+  ]);
+  assert.match(page, /appShell workspace-\$\{workspace\}/);
+  assert.match(page, /aria-label="意見・共同制作を表示"/);
+  assert.match(css, /\.leftRail \.lessonRailBtn\{min-width:136px;display:grid/);
+  assert.match(css, /\.leftRail \.planeBtn small\{display:none\}/);
+  assert.match(css, /\.rangeWrap button span\{display:none\}/);
+  assert.match(css, /\.workspace-quiz \.leftRail,/);
+  assert.match(css, /\.workspace-segment \.leftRail\{position:static/);
+  assert.match(css, /\.workspace-quiz \.quizSetup\{margin:10px 0 0\}/);
+  assert.match(css, /@media\(max-width:380px\)\{\.learningModelCard \.panelHead\{min-width:0;flex-wrap:wrap/);
 });
 
 test("ships a reproducible Google Form generator for feedback and collaborators", async () => {
@@ -832,4 +1020,35 @@ test("ships a reproducible Google Form generator for feedback and collaborators"
   assert.doesNotMatch(script, /addFileUploadItem/);
   assert.match(guide, /リンクを知っている全員/);
   assert.match(guide, /CONTACT_TEXT/);
+});
+
+test("research-backed anatomy cautions distinguish source data from teaching schematics", async () => {
+  const [page, research] = await Promise.all([
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("ACCURACY_AND_VIEWER_RESEARCH.md", root), "utf8"),
+  ]);
+  assert.match(page, /完全な輪が常に存在するわけではありません/);
+  assert.match(page, /I・IIは脳幹から出る神経根ではありません/);
+  assert.match(page, /脳梁下面と脳弓上面を結ぶ両葉性の薄い隔壁/);
+  assert.match(page, /BigBrainは単一個体の20 µm組織再構成/);
+  assert.match(research, /Neuroglancer/);
+  assert.match(research, /BrainBrowser/);
+  assert.match(research, /NiiVue/);
+});
+
+test("3D viewers expose orientation, keyboard rotation, reset, and visible zoom controls", async () => {
+  const [page, canvas, css] = await Promise.all([
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8"),
+    readFile(new URL("app/globals.css", root), "utf8"),
+  ]);
+  assert.match(page, /function OrientationCompass/);
+  assert.match(page, /R 右、L 左、A 前、P 後、S 上、I 下/);
+  assert.ok((page.match(/onKeyDown=\{handleModelKey\}/g) ?? []).length >= 4);
+  assert.match(page, /event\.key\.toLowerCase\(\)==="r"/);
+  assert.match(canvas, /className="modelZoomControls"/);
+  assert.match(canvas, /aria-label="拡大率を100パーセントに戻す"/);
+  assert.match(css, /\.modelStage:focus-visible/);
+  assert.match(css, /\.orientationCompass/);
+  assert.match(css, /\.modelZoomControls/);
 });

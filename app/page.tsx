@@ -1,20 +1,23 @@
 "use client";
 
-import { PointerEvent, useEffect, useMemo, useState } from "react";
+import { KeyboardEvent as ReactKeyboardEvent, PointerEvent, useEffect, useMemo, useRef, useState } from "react";
 import { AtlasVolumeCanvas, type HighlightLayer, type IdentifiedPoint } from "./AtlasVolumeCanvas";
 import { ManualSegmentationWorkbench } from "./ManualSegmentationWorkbench";
 
 type Plane = "coronal" | "horizontal" | "sagittal";
 type Focus = "ventricle" | "caudate" | "hippocampus" | "thalamus";
 type WorkspaceMode = "home" | "sections" | "surface" | "blocks" | "quiz" | "segment";
+type OverlayMode = "feedback" | "legal";
 type SurfaceViewKey = "lateral" | "superior" | "inferior" | "medial" | "arteries" | "cranialNerves" | "free";
 const surfaceViewKeys:SurfaceViewKey[]=["lateral","superior","inferior","medial","arteries","cranialNerves","free"];
+const planeKeys:Plane[]=["coronal","horizontal","sagittal"];
 type SurfaceRegionKey = "precentral" | "postcentral" | "superiorFrontal" | "rostralMiddleFrontal" | "caudalMiddleFrontal" | "inferiorFrontal" | "parsOrbitalis" | "superiorTemporal" | "middleTemporal" | "inferiorTemporal" | "transverseTemporal" | "supramarginal" | "superiorParietal" | "inferiorParietal" | "paracentral" | "precuneus" | "cuneus" | "pericalcarine" | "lingual" | "fusiform" | "parahippocampal" | "entorhinal" | "insula" | "orbitofrontal" | "lateralOccipital" | "cingulate";
 type SurfaceLandmarkKey = "central-sulcus" | "precentral-sulcus" | "lateral-sulcus" | "superior-frontal-sulcus" | "parieto-occipital-sulcus" | "calcarine-sulcus" | "olfactory-sulcus" | "longitudinal-fissure";
 type SurfaceDeepLandmarkKey = "corpus-callosum" | "septum-pellucidum" | "fornix" | "thalami" | "hypothalamus";
 type BasalLandmarkKey = "all" | "olfactory" | "optic" | "infundibulum" | "mammillary" | "perforated" | "peduncles" | "pyramids" | "olives";
 type BasalLandmarkPartKey = Exclude<BasalLandmarkKey,"all">;
 type BlockSpecimenKey = "lateral-ventricle" | "diencephalon" | "radiations" | "commissural-system" | "choroid-plexus" | "medial-temporal" | "midbrain-section" | "hindbrain";
+const blockSpecimenKeys:BlockSpecimenKey[]=["lateral-ventricle","diencephalon","radiations","commissural-system","choroid-plexus","medial-temporal","midbrain-section","hindbrain"];
 type Rotation = {x:number;y:number;z?:number};
 type BlockViewPreset = "initial" | "opposite" | "superior" | "inferior";
 type SpecimenTissueMode = "solid" | "ghost" | "hidden";
@@ -51,8 +54,11 @@ function workspaceFromHash(hash:string):WorkspaceMode{
   const candidate=hash.replace(/^#/,"").replace(/^workspace\/?/,"").split("/")[0];
   return workspaceModeKeys.includes(candidate as WorkspaceMode)?candidate as WorkspaceMode:"home";
 }
-function surfaceViewFromHash(hash:string):SurfaceViewKey{const candidate=hash.replace(/^#/,"").replace(/^workspace\/?/,"").split("/")[1];return surfaceViewKeys.includes(candidate as SurfaceViewKey)?candidate as SurfaceViewKey:"lateral"}
-function workspaceHash(key:WorkspaceMode,surfaceView:SurfaceViewKey="lateral"){return `#workspace/${key}${key==="surface"?`/${surfaceView}`:""}`}
+function overlayFromHash(hash:string):OverlayMode|null{const candidate=hash.replace(/^#/,"").replace(/^workspace\/?/,"").split("/")[0];return candidate==="feedback"||candidate==="legal"?candidate:null}
+function surfaceViewFromHash(hash:string):SurfaceViewKey{const candidate=hash.replace(/^#/,"").replace(/^workspace\/?/,"").split("/")[1];if(candidate==="nerves")return "cranialNerves";return surfaceViewKeys.includes(candidate as SurfaceViewKey)?candidate as SurfaceViewKey:"lateral"}
+function planeFromHash(hash:string):Plane{const candidate=hash.replace(/^#/,"").replace(/^workspace\/?/,"").split("/")[1];return planeKeys.includes(candidate as Plane)?candidate as Plane:"coronal"}
+function blockSpecimenFromHash(hash:string):BlockSpecimenKey{const candidate=hash.replace(/^#/,"").replace(/^workspace\/?/,"").split("/")[1];return blockSpecimenKeys.includes(candidate as BlockSpecimenKey)?candidate as BlockSpecimenKey:"lateral-ventricle"}
+function workspaceHash(key:WorkspaceMode,surfaceView:SurfaceViewKey="lateral",plane:Plane="coronal",blockSpecimen:BlockSpecimenKey="lateral-ventricle"){const detail=key==="surface"?(surfaceView==="cranialNerves"?"nerves":surfaceView):key==="sections"?plane:key==="blocks"?blockSpecimen:"";return `#workspace/${key}${detail?`/${detail}`:""}`}
 const homeRotation:Rotation={x:-8,y:-28,z:0};
 
 const quizCategories:{key:"all"|QuizCategory;label:string}[]=[
@@ -71,9 +77,9 @@ const surfaceViews:Record<SurfaceViewKey,{name:string;en:string;visual:"cortex"|
   lateral:{name:"左外側面",en:"LATERAL",visual:"cortex",rotation:{x:0,y:-90,z:0},hemisphere:"both",intro:"外側溝から中心溝をたどり、前頭・頭頂・側頭葉の境界を組み立てます。",structures:["外側溝（シルビウス溝）","中心前溝・中心溝","中心前回・中心後回","上側頭回","下前頭回 弁蓋部・三角部"]},
   superior:{name:"上面",en:"SUPERIOR",visual:"cortex",rotation:{x:-72,y:-6},hemisphere:"both",intro:"大脳縦裂を基準に、上前頭溝と逆Ω型の中心前回を見つけます。",structures:["大脳縦裂","上前頭溝","中心前溝","中心溝","中心前回・中心後回"]},
   inferior:{name:"下面",en:"INFERIOR",visual:"cortex",rotation:{x:70,y:4},hemisphere:"both",intro:"嗅覚路・視覚路と脳幹腹側を、前後方向に並べて観察します。",structures:["嗅球・嗅索・嗅溝","視神経・視交叉・視索","乳頭体・大脳脚","橋・延髄","錐体・オリーブ","小脳半球"]},
-  medial:{name:"大脳半球（内側面）",en:"MEDIAL HEMISPHERE",visual:"cortex",rotation:{x:0,y:90,z:0},hemisphere:"left",intro:"片側半球を外して、脳梁周囲と内側面の脳溝・脳回を確認します。",structures:["脳梁・帯状回","中心傍小葉","楔前部・楔部","頭頂後頭溝","鳥距溝","透明中隔・脳弓・視床・視床下部"]},
-  arteries:{name:"脳底動脈",en:"BASAL ARTERIES",visual:"arteries",rotation:{x:68,y:2},hemisphere:"both",intro:"高密度全脳モデルの下面へ主要動脈を重ね、内頸動脈系と椎骨脳底動脈系がウィリス動脈輪で連絡する配置を追います。",structures:["内頸動脈・中大脳動脈","前大脳動脈・前交通動脈","後交通動脈・後大脳動脈","椎骨動脈・脳底動脈","上小脳・前下小脳・後下小脳動脈","視交叉・脳幹との位置関係"],caution:"赤い管は主要幹を手作業で標準空間へ置いた模式3Dです。BigBrain画像から血管を抽出したものではなく、個人差・穿通枝・正確な血管径は再現していません。"},
-  cranialNerves:{name:"脳神経・脳幹",en:"CRANIAL NERVES",visual:"nerves",rotation:{x:68,y:2},hemisphere:"both",intro:"脳底面モデルへ脳神経根を重ね、前脳・中脳・橋・延髄のどの高さから現れるかを確認します。",structures:["嗅球・嗅索・視神経・視交叉","動眼神経・滑車神経","三叉神経","外転・顔面・内耳神経","舌咽・迷走・副神経","舌下神経と錐体・オリーブ"],caution:"嗅球・嗅索とIII–XIIの見かけの起始部は、同一標本の表面関係に合わせた模式です。黄系の管は近位走行の模式3Dであり、神経核・頭蓋孔・遠位走行・太さは再現していません。"},
+  medial:{name:"左半球・内側面",en:"LEFT MEDIAL HEMISPHERE",visual:"cortex",rotation:{x:0,y:90,z:0},hemisphere:"left",intro:"右半球を外し、左半球の内側面を正中側から観察します。まず皮質と脳溝を確認し、深部構造は必要なものだけ追加します。",structures:["帯状回・脳梁周囲","中心傍小葉","楔前部・楔部","頭頂後頭溝","鳥距溝","必要時のみ脳梁・脳弓・左視床を追加"]},
+  arteries:{name:"脳底の主要動脈",en:"BASAL CEREBRAL ARTERIES",visual:"arteries",rotation:{x:68,y:2},hemisphere:"both",intro:"高密度全脳モデルの下面へ主要動脈を重ね、内頸動脈系と椎骨脳底動脈系が脳底の動脈輪で連絡する標準的な配置を追います。",structures:["内頸動脈・中大脳動脈","前大脳動脈・前交通動脈","後交通動脈・後大脳動脈","椎骨動脈・脳底動脈","上小脳・前下小脳・後下小脳動脈","視交叉・脳幹との位置関係"],caution:"赤い管は主要幹の典型的な連絡を標準空間へ置いた模式3Dです。Willis動脈輪は欠損・低形成・胎児型などの個体差が多く、完全な輪が常に存在するわけではありません。穿通枝・正確な血管径・個人差は再現していません。"},
+  cranialNerves:{name:"脳神経・脳幹",en:"CRANIAL NERVES",visual:"nerves",rotation:{x:68,y:2},hemisphere:"both",intro:"脳底面モデルへ脳神経の近位部を重ね、I・IIは前脳側、III–XIIは中脳・橋・延髄のどの高さから現れるかを区別します。",structures:["嗅球・嗅索・視神経・視交叉","動眼神経・滑車神経","三叉神経","外転・顔面・内耳神経","舌咽・迷走・副神経","舌下神経と錐体・オリーブ"],caution:"I・IIは脳幹から出る神経根ではありません。III–XIIの見かけの起始部は表面関係に合わせた模式で、IVの背側起始から腹側へ回る経路も簡略化しています。神経核・頭蓋孔・遠位走行・太さは再現していません。"},
   free:{name:"自由観察",en:"FREE EXPLORATION",visual:"cortex",rotation:{x:-8,y:-28,z:0},hemisphere:"both",intro:"3Dを自由に回転し、表面をクリックするか構造名を検索して、複数の構造を同時に着色します。",structures:["主要な脳回・皮質領域","主要な溝・裂","内側の深部構造","脳底動脈","脳神経"]},
 };
 
@@ -138,14 +144,17 @@ const surfaceViewLandmarks:Record<SurfaceViewKey,SurfaceLandmarkKey[]>={
   free:surfaceLandmarkKeys,
 };
 const surfaceDeepLandmarks:Record<SurfaceDeepLandmarkKey,{name:string;latin:string;color:string;source:string;note:string}>={
-  "corpus-callosum":{name:"脳梁",latin:"Corpus callosum",color:"#dbc270",source:"試作分節",note:"左右半球を結ぶ大交連を、内側面の位置関係用に表示します。"},
-  "septum-pellucidum":{name:"透明中隔",latin:"Septum pellucidum",color:"#a9c5bd",source:"位置目安",note:"脳梁と脳弓の間で左右の側脳室を隔てる、薄い膜状構造の概略位置です。"},
-  fornix:{name:"脳弓",latin:"Fornix",color:"#e8d9a6",source:"模式補助",note:"海馬系から乳頭体方向へ弓状に走る概略形状です。"},
-  thalami:{name:"視床",latin:"Thalamus",color:"#8d82c4",source:"標本分節",note:"第三脳室の両側を占める左右の灰白質です。"},
-  hypothalamus:{name:"視床下部領域",latin:"Hypothalamus",color:"#b97864",source:"位置目安",note:"視床腹側から第三脳室底へ続く概略領域で、核境界ではありません。"},
+  "corpus-callosum":{name:"脳梁",latin:"Corpus callosum",color:"#dbc270",source:"試作分節",note:"左右半球を結ぶ大交連のうち、左半球側だけを内側面の位置関係用に表示します。"},
+  "septum-pellucidum":{name:"透明中隔（位置目安）",latin:"Septum pellucidum",color:"#a9c5bd",source:"模式補助",note:"脳梁下面と脳弓上面を結ぶ両葉性の薄い隔壁のうち、左葉の位置だけを示します。輪郭は正解分節ではなく、上下関係の確認に限ってください。"},
+  fornix:{name:"脳弓",latin:"Fornix",color:"#e8d9a6",source:"模式補助",note:"左海馬系から乳頭体方向へ弓状に走る概略形状です。右側成分は表示しません。"},
+  thalami:{name:"視床",latin:"Thalamus",color:"#8d82c4",source:"標本分節",note:"第三脳室の外側を占める灰白質のうち、左視床だけを表示します。"},
+  hypothalamus:{name:"視床下部領域",latin:"Hypothalamus",color:"#b97864",source:"位置目安",note:"左視床腹側から第三脳室底へ続く概略領域です。核境界ではなく、右側成分は表示しません。"},
 };
 const medialDeepLandmarkKeys=Object.keys(surfaceDeepLandmarks) as SurfaceDeepLandmarkKey[];
-const defaultMedialDeepLandmarks:SurfaceDeepLandmarkKey[]=["corpus-callosum","septum-pellucidum","fornix","thalami","hypothalamus"];
+// The medial lesson starts with the exposed cortical surface only. Deep
+// structures are opt-in so a schematic or normally hidden structure is never
+// presented as if it were visible on the intact medial surface.
+const defaultMedialDeepLandmarks:SurfaceDeepLandmarkKey[]=[];
 
 const basalLandmarks:Record<BasalLandmarkKey,{name:string;latin:string;note:string;color:string}>={
   all:{name:"すべて",latin:"Basal landmarks",note:"脳底構造をまとめて表示します。",color:"#c5d1d4"},
@@ -187,7 +196,7 @@ const blockSpecimens:Record<BlockSpecimenKey,BlockLesson>={
     {key:"corpus-callosum",name:"脳梁",latin:"Corpus callosum",color:"#dbc270",source:"試作分節",note:"左右大脳半球を結ぶ大きな交連線維の弧です。"},
     {key:"lateral-ventricles",name:"側脳室",latin:"Ventriculi laterales",color:"#45aebd",source:"試作分節",note:"脳梁・透明中隔・脳弓の位置を読む空間基準です。"},
     {key:"fornix",name:"脳弓",latin:"Fornix",color:"#e7d9a6",source:"模式補助",note:"海馬から中隔野・乳頭体方向へ弧を描く線維路の模式です。"},
-    {key:"septum-pellucidum",name:"透明中隔",latin:"Septum pellucidum",color:"#a9c5bd",source:"位置目安",note:"脳梁と脳弓の間に張る薄い隔壁の領域を示します。"},
+    {key:"septum-pellucidum",name:"透明中隔",latin:"Septum pellucidum",color:"#a9c5bd",source:"位置目安",note:"脳梁下面と脳弓上面を結ぶ両葉性の薄い隔壁の位置を示します。現在の3Dは左葉だけの模式です。"},
   ]},
   "choroid-plexus":{name:"脈絡叢を開く",en:"CHOROID PLEXUS",visual:"model",plane:"sagittal",position:55,focus:"ventricle",view:"inside",rotation:{x:-18,y:-54},intro:"側脳室の内側壁を開き、脳室腔、海馬、脈絡裂に沿う脈絡叢を観察する局所標本です。腔の全体像と脈絡叢の付着位置を混同しないよう、別レイヤーにしました。",observe:["側脳室体部・三角部・下角","脈絡裂のC字形の方向","脈絡叢と視床・海馬の位置関係","下角の床をつくる海馬","脈絡叢が存在しない前角・後角の方向"],caution:"組織像から脈絡叢を安定して抽出できないため、赤紫の房状構造は脈絡裂に沿わせた模式3Dです。側脳室腔と海馬は同一標本格子に基づきます。脈絡叢の細かな形・付着範囲は検証用標本で今後修正します。",layers:[
     {key:"ventricular-cavity",name:"側脳室腔",latin:"Ventriculus lateralis",color:"#45aebd",source:"試作分節",note:"脈絡叢が入る腔を先に把握するための基準です。"},
@@ -404,16 +413,49 @@ function sliceVariant(position: number) {
   return "posterior";
 }
 
-function shuffledQuestions(items:QuizQuestion[]) {
+function shuffledItems<T>(items:readonly T[]) {
   const next=[...items];
   for(let i=next.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[next[i],next[j]]=[next[j],next[i]]}
   return next;
 }
+function shuffledQuestions(items:QuizQuestion[]) {
+  return shuffledItems(items.map(question=>isSurfaceQuiz(question)
+    ? {...question,options:shuffledItems(question.options)}
+    : {...question,options:shuffledItems(question.options)}));
+}
+
+function OrientationCompass({rotation}:{rotation:Rotation}) {
+  const ax=rotation.x*Math.PI/180,ay=rotation.y*Math.PI/180,az=(rotation.z??0)*Math.PI/180;
+  const cx=Math.cos(ax),sx=Math.sin(ax),cy=Math.cos(ay),sy=Math.sin(ay),cz=Math.cos(az),sz=Math.sin(az);
+  const matrix=[cz*cy-sz*sx*sy,sz*cy+cz*sx*sy,-cx*sy,-sz*cx,cz*cx,sx,cz*sy+sz*sx*cy,sz*sy-cz*sx*cy,cx*cy];
+  const axes:{positive:string;negative:string;vector:[number,number,number]}[]=[
+    {positive:"R",negative:"L",vector:[1,0,0]},
+    {positive:"S",negative:"I",vector:[0,1,0]},
+    {positive:"A",negative:"P",vector:[0,0,1]},
+  ];
+  return <div className="orientationCompass" aria-label="現在の解剖学的方位。R 右、L 左、A 前、P 後、S 上、I 下">
+    {axes.map(axis=>{
+      const [x,y,z]=axis.vector,rx=matrix[0]*x+matrix[3]*y+matrix[6]*z,ry=matrix[1]*x+matrix[4]*y+matrix[7]*z,rz=matrix[2]*x+matrix[5]*y+matrix[8]*z;
+      const length=24,dx=rx*length,dy=-ry*length;
+      // An axis pointing into/out of the screen has no truthful 2D endpoint.
+      // Keep its pair in the legend instead of stacking two unreadable labels.
+      if(Math.hypot(dx,dy)<8)return null;
+      return <div className="compassAxis" key={axis.positive} style={{opacity:.48+Math.abs(rz)*.42}}>
+        <i style={{transform:`rotate(${Math.atan2(dy,dx)*180/Math.PI}deg)`,width:`${Math.hypot(dx,dy)}px`}}/>
+        <b className="compassPositive" style={{transform:`translate(${dx}px,${dy}px)`,zIndex:rz<0?2:1}}>{axis.positive}</b>
+        <b className="compassNegative" style={{transform:`translate(${-dx}px,${-dy}px)`,zIndex:rz>0?2:1}}>{axis.negative}</b>
+      </div>;
+    })}
+    <span>R/L · A/P · S/I</span>
+  </div>;
+}
 
 export default function Home() {
+  const initialPlane=typeof window==="undefined"?"coronal":planeFromHash(window.location.hash);
+  const initialBlockSpecimen=typeof window==="undefined"?"lateral-ventricle":blockSpecimenFromHash(window.location.hash);
   const [workspace, setWorkspace] = useState<WorkspaceMode>(()=>typeof window==="undefined"?"home":workspaceFromHash(window.location.hash));
   const [surfaceView,setSurfaceView]=useState<SurfaceViewKey>(()=>typeof window==="undefined"?"lateral":surfaceViewFromHash(window.location.hash));
-  const [plane, setPlane] = useState<Plane>("coronal");
+  const [plane, setPlane] = useState<Plane>(initialPlane);
   const [position, setPosition] = useState(52);
   const [focus, setFocus] = useState<Focus>("ventricle");
   const [selectedStructure, setSelectedStructure] = useState<StructureKey>("ventricle");
@@ -423,35 +465,37 @@ export default function Home() {
   const [block, setBlock] = useState<"inside" | "ghost" | "extracted" | "segmented">("segmented");
   const [display, setDisplay] = useState<"specimen" | "diagram" | "outline">("specimen");
   const [contrast, setContrast] = useState<"t1" | "t2" | "bigbrain" | "single">("bigbrain");
-  const [rotation, setRotation] = useState<Rotation>(()=>workspace==="sections"?{x:-7,y:-18,z:0}:workspace==="surface"?surfaceViews[surfaceView].rotation:workspace==="blocks"?blockInitialRotations["lateral-ventricle"]:{...homeRotation});
+  const [rotation, setRotation] = useState<Rotation>(()=>workspace==="sections"?{x:-7,y:-18,z:0}:workspace==="surface"?surfaceViews[surfaceView].rotation:workspace==="blocks"?blockInitialRotations[initialBlockSpecimen]:{...homeRotation});
   const [playing, setPlaying] = useState(false);
   const [drag, setDrag] = useState<{ x: number; y: number; mode:"orbit"|"roll" } | null>(null);
   const [detailsOpen,setDetailsOpen]=useState(false);
-  const [legalOpen,setLegalOpen]=useState(false);
-  const [feedbackOpen,setFeedbackOpen]=useState(false);
-  const [surfaceCerebellum,setSurfaceCerebellum]=useState(surfaceView!=="cranialNerves"&&surfaceView!=="medial");
-  const [surfaceVisibleRegions,setSurfaceVisibleRegions]=useState<SurfaceRegionKey[]>(surfaceView==="inferior"?[]:surfaceViewRegions[surfaceView]);
-  const [surfaceVisibleLandmarks,setSurfaceVisibleLandmarks]=useState<SurfaceLandmarkKey[]>(surfaceView==="inferior"?[]:surfaceViewLandmarks[surfaceView]);
+  const [legalOpen,setLegalOpen]=useState(()=>typeof window!=="undefined"&&overlayFromHash(window.location.hash)==="legal");
+  const [feedbackOpen,setFeedbackOpen]=useState(()=>typeof window!=="undefined"&&overlayFromHash(window.location.hash)==="feedback");
+  const overlayReturnFocus=useRef<HTMLElement|null>(null);
+  const overlayOpen=feedbackOpen||legalOpen;
+  const [surfaceCerebellum,setSurfaceCerebellum]=useState(surfaceView!=="cranialNerves"&&surfaceView!=="medial"&&surfaceView!=="inferior");
+  const [surfaceVisibleRegions,setSurfaceVisibleRegions]=useState<SurfaceRegionKey[]>([]);
+  const [surfaceVisibleLandmarks,setSurfaceVisibleLandmarks]=useState<SurfaceLandmarkKey[]>([]);
   const [surfaceVisibleDeepLandmarks,setSurfaceVisibleDeepLandmarks]=useState<SurfaceDeepLandmarkKey[]>(surfaceView==="medial"?defaultMedialDeepLandmarks:[]);
-  const [surfaceVisibleBasalLandmarks,setSurfaceVisibleBasalLandmarks]=useState<BasalLandmarkPartKey[]>(basalLandmarkKeys);
+  const [surfaceVisibleBasalLandmarks,setSurfaceVisibleBasalLandmarks]=useState<BasalLandmarkPartKey[]>([]);
   const [surfaceVessels,setSurfaceVessels]=useState(surfaceView==="arteries");
   const [surfaceNerves,setSurfaceNerves]=useState(surfaceView==="cranialNerves");
-  const [surfaceGhost,setSurfaceGhost]=useState(surfaceView==="cranialNerves");
-  const [surfacePonsMedulla,setSurfacePonsMedulla]=useState(true);
-  const [selectedNeurovascularStructure,setSelectedNeurovascularStructure]=useState<NeurovascularStructureKey>("ica");
+  const [surfaceGhost,setSurfaceGhost]=useState(surfaceView==="cranialNerves"||surfaceView==="arteries");
+  const [surfacePonsMedulla,setSurfacePonsMedulla]=useState(surfaceView!=="medial");
+  const [selectedNeurovascularStructure,setSelectedNeurovascularStructure]=useState<NeurovascularStructureKey>(surfaceView==="cranialNerves"?"cn1":"ica");
   const [freeHemisphere,setFreeHemisphere]=useState<"both"|"left"|"right">("both");
   const [freeSearch,setFreeSearch]=useState("");
   const [freeSelections,setFreeSelections]=useState<FreeObservationKey[]>([]);
   const [freeFocusedKey,setFreeFocusedKey]=useState<FreeObservationKey|null>(null);
-  const [blockSpecimen,setBlockSpecimen]=useState<BlockSpecimenKey>("lateral-ventricle");
-  const [blockLayers,setBlockLayers]=useState<string[]>(blockSpecimens["lateral-ventricle"].layers.map(layer=>layer.key));
-  const [blockLayerFocus,setBlockLayerFocus]=useState("ventricular-cavity");
+  const [blockSpecimen,setBlockSpecimen]=useState<BlockSpecimenKey>(initialBlockSpecimen);
+  const [blockLayers,setBlockLayers]=useState<string[]>(blockSpecimens[initialBlockSpecimen].layers.map(layer=>layer.key));
+  const [blockLayerFocus,setBlockLayerFocus]=useState(blockSpecimens[initialBlockSpecimen].layers[0]?.key??"");
   const [blockTissueMode,setBlockTissueMode]=useState<SpecimenTissueMode>("ghost");
   const [blockCerebellum,setBlockCerebellum]=useState(true);
   const [blockPonsMedulla,setBlockPonsMedulla]=useState(true);
   const [blockViewPreset,setBlockViewPreset]=useState<BlockViewPreset|"custom">("initial");
   const [quizIndex,setQuizIndex]=useState(0);
-  const [quizQueue,setQuizQueue]=useState<QuizQuestion[]>(quizQuestions.slice(0,10));
+  const [quizQueue,setQuizQueue]=useState<QuizQuestion[]>(()=>shuffledQuestions(quizQuestions).slice(0,10));
   const [quizCategory,setQuizCategory]=useState<"all"|QuizCategory>("all");
   const [quizCount,setQuizCount]=useState<5|10|15|20>(10);
   const [quizWrongOnly,setQuizWrongOnly]=useState(false);
@@ -511,17 +555,39 @@ export default function Home() {
   useEffect(()=>setIdentified(null),[plane,position,contrast]);
   useEffect(()=>{setDetailsOpen(false);setPlaying(false)},[workspace]);
   useEffect(()=>{try{const saved=JSON.parse(localStorage.getItem(QUIZ_WRONG_CACHE_KEY)??"[]");if(Array.isArray(saved))setWrongTargets(saved.filter((key):key is QuizTargetKey=>typeof key==="string"&&(key in structures||key in surfaceRegions)))}catch{/* invalid cache is ignored */}},[]);
-  useEffect(()=>{const close=(event:KeyboardEvent)=>{if(event.key==="Escape"){setLegalOpen(false);setFeedbackOpen(false);setDetailsOpen(false)}};window.addEventListener("keydown",close);return()=>window.removeEventListener("keydown",close)},[]);
-  useEffect(()=>{const restore=()=>{setWorkspace(workspaceFromHash(window.location.hash));setSurfaceView(surfaceViewFromHash(window.location.hash))};window.addEventListener("hashchange",restore);window.addEventListener("popstate",restore);return()=>{window.removeEventListener("hashchange",restore);window.removeEventListener("popstate",restore)}},[]);
-  useEffect(()=>{const expected=workspaceHash(workspace,surfaceView);if(window.location.hash!==expected)window.history.replaceState(null,"",expected)},[workspace,surfaceView]);
+  useEffect(()=>{const close=(event:KeyboardEvent)=>{if(event.key==="Escape"){closeOverlay();setDetailsOpen(false)}};window.addEventListener("keydown",close);return()=>window.removeEventListener("keydown",close)},[workspace,surfaceView,plane,blockSpecimen]);
+  useEffect(()=>{if(!overlayOpen)return;const previousOverflow=document.body.style.overflow;document.body.style.overflow="hidden";const frame=window.requestAnimationFrame(()=>document.querySelector<HTMLButtonElement>('.legalDialog header button')?.focus());const trap=(event:KeyboardEvent)=>{if(event.key!=="Tab")return;const dialog=document.querySelector<HTMLElement>('.legalDialog');if(!dialog)return;const focusable=[...dialog.querySelectorAll<HTMLElement>('button:not(:disabled),a[href],input:not(:disabled),select:not(:disabled),textarea:not(:disabled),[tabindex]:not([tabindex="-1"])')].filter(element=>element.getClientRects().length>0);if(!focusable.length)return;const first=focusable[0],last=focusable.at(-1)!;if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus()}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus()}};window.addEventListener("keydown",trap);return()=>{window.cancelAnimationFrame(frame);window.removeEventListener("keydown",trap);document.body.style.overflow=previousOverflow;overlayReturnFocus.current?.focus()}},[overlayOpen]);
+  useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.hash);setFeedbackOpen(overlay==="feedback");setLegalOpen(overlay==="legal");const nextWorkspace=workspaceFromHash(window.location.hash);setWorkspace(nextWorkspace);if(nextWorkspace==="surface")chooseSurface(surfaceViewFromHash(window.location.hash));else if(nextWorkspace==="sections")jump(planeFromHash(window.location.hash),52);else if(nextWorkspace==="blocks")chooseBlock(blockSpecimenFromHash(window.location.hash))};window.addEventListener("hashchange",restore);window.addEventListener("popstate",restore);return()=>{window.removeEventListener("hashchange",restore);window.removeEventListener("popstate",restore)}},[]);
+  useEffect(()=>{if(feedbackOpen||legalOpen)return;const expected=workspaceHash(workspace,surfaceView,plane,blockSpecimen);if(window.location.hash!==expected)window.history.replaceState(null,"",expected)},[workspace,surfaceView,plane,blockSpecimen,feedbackOpen,legalOpen]);
+  useEffect(()=>{if(!window.matchMedia("(max-width: 760px)").matches)return;const frame=window.requestAnimationFrame(()=>{document.querySelector<HTMLElement>(".workspaceSwitch button.active")?.scrollIntoView({block:"nearest",inline:"center"});document.querySelector<HTMLElement>(".leftRail .planeBtn.active")?.scrollIntoView({block:"nearest",inline:"center"})});return()=>window.cancelAnimationFrame(frame)},[workspace,surfaceView,plane,blockSpecimen]);
 
   function wrapAngle(value:number){return ((value+180)%360+360)%360-180}
 
   function beginRotation(e:PointerEvent<HTMLDivElement>){
     if((e.target as HTMLElement).closest("button"))return;
     e.preventDefault();
-    (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
+    e.currentTarget.focus();
+    e.currentTarget.setPointerCapture?.(e.pointerId);
     setDrag({x:e.clientX,y:e.clientY,mode:e.button===2||e.shiftKey?"roll":"orbit"});
+  }
+
+  function resetCurrentModelRotation(){
+    if(workspace==="surface")return resetSurfaceView();
+    if(workspace==="blocks"){setBlockViewPreset("initial");setRotation({...blockInitialRotations[blockSpecimen]});return}
+    setRotation(workspace==="sections"?{x:-7,y:-18,z:0}:{...homeRotation});
+  }
+
+  function handleModelKey(event:ReactKeyboardEvent<HTMLDivElement>){
+    const step=8;
+    if(event.key.toLowerCase()==="r"){event.preventDefault();resetCurrentModelRotation();return}
+    if(!["ArrowLeft","ArrowRight","ArrowUp","ArrowDown"].includes(event.key))return;
+    event.preventDefault();
+    setRotation(current=>({
+      ...current,
+      x:wrapAngle(current.x+(event.key==="ArrowUp"?-step:event.key==="ArrowDown"?step:0)),
+      y:wrapAngle(current.y+(event.key==="ArrowLeft"?-step:event.key==="ArrowRight"?step:0)),
+    }));
+    if(workspace==="blocks")setBlockViewPreset("custom");
   }
 
   function move(e: PointerEvent<HTMLDivElement>) {
@@ -535,6 +601,7 @@ export default function Home() {
   }
 
   function jump(nextPlane: Plane, nextPosition?: number) {
+    if(workspace==="sections")window.history.replaceState(null,"",workspaceHash("sections",surfaceView,nextPlane,blockSpecimen));
     setPlane(nextPlane);
     if (nextPosition !== undefined) setPosition(nextPosition);
   }
@@ -548,21 +615,24 @@ export default function Home() {
     const match=structureKeys.find(key=>(bigbrain?structures[key].bigbrainIds:structures[key].ids)?.includes(point.id));if(match)focusStructure(match,true);
   }
 
-  function chooseSurface(key:SurfaceViewKey){const next=surfaceViews[key],basalView=key==="inferior";window.history.replaceState(null,"",workspaceHash("surface",key));setSurfaceView(key);setRotation(next.rotation);setSurfaceVisibleRegions(basalView?[]:surfaceViewRegions[key]);setSurfaceVisibleLandmarks(basalView?[]:surfaceViewLandmarks[key]);setSurfaceVisibleDeepLandmarks(key==="medial"?defaultMedialDeepLandmarks:[]);setSurfaceGhost(key==="cranialNerves");setSurfacePonsMedulla(true);if(basalView)setSurfaceVisibleBasalLandmarks(basalLandmarkKeys);if(key==="arteries"){setSurfaceVessels(true);setSurfaceNerves(false);setSurfaceCerebellum(true);setSelectedNeurovascularStructure("ica")}else if(key==="cranialNerves"){setSurfaceVessels(false);setSurfaceNerves(true);setSurfaceCerebellum(false);setSelectedNeurovascularStructure("cn1")}else{setSurfaceVessels(false);setSurfaceNerves(false);setSurfaceCerebellum(key!=="medial")}}
+  function chooseSurface(key:SurfaceViewKey){const next=surfaceViews[key];window.history.replaceState(null,"",workspaceHash("surface",key));setSurfaceView(key);setRotation(next.rotation);setSurfaceVisibleRegions([]);setSurfaceVisibleLandmarks([]);setSurfaceVisibleDeepLandmarks(key==="medial"?defaultMedialDeepLandmarks:[]);setSurfaceVisibleBasalLandmarks([]);setSurfaceGhost(key==="cranialNerves"||key==="arteries");setSurfacePonsMedulla(key!=="medial");if(key==="arteries"){setSurfaceVessels(true);setSurfaceNerves(false);setSurfaceCerebellum(true);setSelectedNeurovascularStructure("ica")}else if(key==="cranialNerves"){setSurfaceVessels(false);setSurfaceNerves(true);setSurfaceCerebellum(false);setSelectedNeurovascularStructure("cn1")}else{setSurfaceVessels(false);setSurfaceNerves(false);setSurfaceCerebellum(key!=="medial"&&key!=="inferior")}}
   function toggleSurfaceRegion(key:SurfaceRegionKey){setSurfaceVisibleRegions(previous=>previous.includes(key)?previous.filter(item=>item!==key):[...previous,key])}
   function toggleSurfaceLandmark(key:SurfaceLandmarkKey){setSurfaceVisibleLandmarks(previous=>previous.includes(key)?previous.filter(item=>item!==key):[...previous,key])}
   function toggleBasalLandmark(key:BasalLandmarkPartKey){setSurfaceVisibleBasalLandmarks(previous=>previous.includes(key)?previous.filter(item=>item!==key):[...previous,key])}
   function toggleSurfaceDeepLandmark(key:SurfaceDeepLandmarkKey){setSurfaceVisibleDeepLandmarks(previous=>previous.includes(key)?previous.filter(item=>item!==key):[...previous,key])}
+  function resetSurfaceView(){setRotation({...surfaceViews[surfaceView].rotation})}
   function toggleFreeObservation(key:FreeObservationKey){const selecting=!freeSelectedSet.has(key);setFreeSelections(previous=>selecting?[...previous,key]:previous.filter(item=>item!==key));setFreeFocusedKey(selecting?key:null);if(selecting&&key.startsWith("neuro:")){const item=neurovascularStructures[key.slice(6) as NeurovascularStructureKey];if(item.kind==="arteries")setSurfaceVessels(true);else setSurfaceNerves(true)}if(selecting&&key.startsWith("deep:")&&freeHemisphere==="both")setFreeHemisphere("left")}
   function clearFreeObservation(){setFreeSelections([]);setFreeFocusedKey(null)}
   function selectFreeObservation(key:FreeObservationKey){if(!freeSelectedSet.has(key))toggleFreeObservation(key);else setFreeFocusedKey(key)}
   function identifyFreeSurface(point:{source:"surface"|"neurovascular";id:number}){if(point.source==="surface"){const key=surfaceRegionKeys.find(regionKey=>surfaceRegions[regionKey].ids.includes(point.id));if(key)toggleFreeObservation(`region:${key}`);return}const key=neurovascularStructureKeys.find(structureKey=>neurovascularStructures[structureKey].ids.includes(point.id));if(key)toggleFreeObservation(`neuro:${key}`)}
   function blockPresetRotation(preset:BlockViewPreset):Rotation{const initial=blockInitialRotations[blockSpecimen];if(preset==="opposite")return{...initial,y:wrapAngle(initial.y+180)};if(preset==="superior")return{x:-82,y:0,z:0};if(preset==="inferior")return{x:82,y:0,z:0};return{...initial}}
   function chooseBlockView(preset:BlockViewPreset){setBlockViewPreset(preset);setRotation(blockPresetRotation(preset))}
-  function chooseBlock(key:BlockSpecimenKey){const next=blockSpecimens[key];setBlockSpecimen(key);setBlockLayers(next.layers.map(layer=>layer.key));setBlockLayerFocus(next.layers[0]?.key??"");setBlockTissueMode(next.layers.length?"ghost":"solid");setRotation({...blockInitialRotations[key]});setBlockViewPreset("initial");setBlockPonsMedulla(true);setBlockCerebellum(true)}
+  function chooseBlock(key:BlockSpecimenKey){const next=blockSpecimens[key];if(workspace==="blocks")window.history.replaceState(null,"",workspaceHash("blocks",surfaceView,plane,key));setBlockSpecimen(key);setBlockLayers(next.layers.map(layer=>layer.key));setBlockLayerFocus(next.layers[0]?.key??"");setBlockTissueMode(next.layers.length?"ghost":"solid");setRotation({...blockInitialRotations[key]});setBlockViewPreset("initial");setBlockPonsMedulla(true);setBlockCerebellum(true)}
   function toggleBlockLayer(key:string){setBlockLayerFocus(key);setBlockLayers(previous=>previous.includes(key)?previous.filter(item=>item!==key):[...previous,key])}
   function chooseNeurovascularStructure(key:NeurovascularStructureKey){const item=neurovascularStructures[key];setSelectedNeurovascularStructure(key);if(item.kind==="arteries")setSurfaceVessels(true);else setSurfaceNerves(true)}
-  function openWorkspace(key:WorkspaceMode){if(window.location.hash!==workspaceHash(key,surfaceView))window.history.pushState(null,"",workspaceHash(key,surfaceView));setWorkspace(key);if(key==="home")setRotation({...homeRotation});if(key==="sections")setRotation({x:-7,y:-18,z:0});if(key==="surface")setRotation(surfaceViews[surfaceView].rotation);if(key==="blocks"){setRotation({...blockInitialRotations[blockSpecimen]});setBlockViewPreset("initial")}}
+  function closeOverlay(){setFeedbackOpen(false);setLegalOpen(false);const nextHash=workspaceHash(workspace,surfaceView,plane,blockSpecimen);if(window.location.hash!==nextHash)window.history.replaceState(null,"",nextHash)}
+  function openOverlay(key:OverlayMode){overlayReturnFocus.current=document.activeElement instanceof HTMLElement?document.activeElement:null;window.history.pushState(null,"",`#workspace/${key}`);setFeedbackOpen(key==="feedback");setLegalOpen(key==="legal")}
+  function openWorkspace(key:WorkspaceMode){setFeedbackOpen(false);setLegalOpen(false);const nextHash=workspaceHash(key,surfaceView,plane,blockSpecimen);if(window.location.hash!==nextHash)window.history.pushState(null,"",nextHash);setWorkspace(key);if(key==="home")setRotation({...homeRotation});if(key==="sections")setRotation({x:-7,y:-18,z:0});if(key==="surface")setRotation(surfaceViews[surfaceView].rotation);if(key==="blocks"){setRotation({...blockInitialRotations[blockSpecimen]});setBlockViewPreset("initial")}}
   function saveWrongTargets(next:QuizTargetKey[]){setWrongTargets(next);try{localStorage.setItem(QUIZ_WRONG_CACHE_KEY,JSON.stringify(next))}catch{/* private browsing may block storage */}}
   function startQuiz(){let candidates=quizQuestions.filter(question=>quizCategory==="all"||question.category===quizCategory);if(quizWrongOnly)candidates=candidates.filter(question=>wrongTargets.includes(question.target));setQuizQueue(shuffledQuestions(candidates).slice(0,quizCount));setQuizIndex(0);setQuizChoice(null);setQuizScore(0);setQuizFinished(false)}
   function answerQuiz(key:QuizTargetKey){if(quizChoice||quizEmpty)return;setQuizChoice(key);const correct=key===quizQuestion.target;if(correct){setQuizScore(score=>score+1);if(wrongTargets.includes(quizQuestion.target))saveWrongTargets(wrongTargets.filter(target=>target!==quizQuestion.target))}else if(!wrongTargets.includes(quizQuestion.target))saveWrongTargets([...wrongTargets,quizQuestion.target])}
@@ -572,22 +642,23 @@ export default function Home() {
   function restoreAllQuiz(){setQuizWrongOnly(false);setQuizCategory("all");setQuizQueue(shuffledQuestions(quizQuestions).slice(0,quizCount));resetQuiz()}
   function resetWrongHistory(){saveWrongTargets([]);if(quizWrongOnly){setQuizQueue([]);resetQuiz()}}
 
-  return <main className={`appShell ${workspace==="home"?"homeShell":""}`}>
+  return <main className={`appShell workspace-${workspace} ${workspace==="home"?"homeShell":""}`}>
+    <button className="skipLink" onClick={()=>document.getElementById("workspace")?.focus()}>本文へ移動</button>
     <header className="topbar">
       <a className="brand" href="#workspace/home" onClick={event=>{event.preventDefault();openWorkspace("home")}}><span className="brandMark">脳</span><span>脳実習ナビ<small>脳解剖実習 学習補助アプリ</small></span></a>
       <nav className="modeSwitch workspaceSwitch" aria-label="教材を選択">
-        {workspaceModes.map(item=><button key={item.key} className={workspace===item.key?"active":""} onClick={()=>openWorkspace(item.key)}><span>{item.label}</span><i>{item.sub}</i></button>)}
+        {workspaceModes.map(item=><button key={item.key} className={workspace===item.key?"active":""} aria-current={workspace===item.key?"page":undefined} onClick={()=>openWorkspace(item.key)}><span>{item.label}</span><i>{item.sub}</i></button>)}
       </nav>
-      <div className="topActions"><span>α版・非営利教育用</span><button className="feedbackButton" onClick={()=>setFeedbackOpen(true)}>意見・共同制作</button><button className="legalButton" onClick={()=>setLegalOpen(true)} aria-label="利用条件・クレジットを表示">利用条件</button></div>
+      <div className="topActions"><span>公開α準備中・非営利教育用</span><button className="feedbackButton" onClick={()=>openOverlay("feedback")} aria-label="意見・共同制作を表示">意見・共同制作</button><button className="legalButton" onClick={()=>openOverlay("legal")} aria-label="利用条件・クレジットを表示">利用条件</button></div>
     </header>
 
-    <aside className={`leftRail rail-${workspace}`}>
+    <aside className={`leftRail rail-${workspace}`} key={`rail-${workspace}`}>
       {workspace==="sections"&&<>
         <p className="eyebrow">CUTTING PLANE</p>
-        {(Object.keys(planeData) as Plane[]).map((p, i) => <button key={p} className={`planeBtn ${plane === p ? "active" : ""}`} onClick={() => jump(p)}><span>0{i + 1}</span><b>{planeData[p].ja}</b><small>{planeData[p].en}</small></button>)}
+        {(Object.keys(planeData) as Plane[]).map((p, i) => <button key={p} className={`planeBtn ${plane === p ? "active" : ""}`} aria-current={plane===p?"page":undefined} onClick={() => jump(p,p===plane?undefined:52)}><span>0{i + 1}</span><b>{planeData[p].ja}</b><small>{planeData[p].en}</small></button>)}
         <div className="railLine"/>
         <p className="eyebrow structureHeading">FOCUS STRUCTURE <small>複数選択</small></p>
-        <div className="structureGroupGrid" aria-label="構造グループの一括表示">
+        <div className="structureGroupGrid" role="group" aria-label="構造グループの一括表示">
           {structureGroups.map(group=>{const available=group.members.filter(structureAvailable),count=available.filter(key=>visibleSet.has(key)).length,all=available.length>0&&count===available.length;return <button key={group.key} className={`${all?"active":""} ${count>0&&!all?"partial":""}`} aria-pressed={all} onClick={()=>toggleGroup(group.members)} disabled={available.length===0}><i style={{background:group.color}}/><span>{group.name}</span><small>{count}/{available.length}</small></button>})}
         </div>
         <button className="clearStructures" onClick={()=>setVisibleStructures([])} disabled={visibleStructures.length===0}>すべて解除</button>
@@ -595,12 +666,12 @@ export default function Home() {
       </>}
       {workspace==="surface"&&<>
         <p className="eyebrow">SURFACE VIEW</p>
-        {(Object.keys(surfaceViews) as SurfaceViewKey[]).map((key,i)=><button key={key} className={`planeBtn lessonRailBtn ${surfaceView===key?"active":""}`} onClick={()=>chooseSurface(key)}><span>{key==="free"?"自由":`0${i+1}`}</span><b>{surfaceViews[key].name}</b><small>{surfaceViews[key].en}</small></button>)}
+        {(Object.keys(surfaceViews) as SurfaceViewKey[]).map((key,i)=><button key={key} className={`planeBtn lessonRailBtn ${surfaceView===key?"active":""}`} aria-current={surfaceView===key?"page":undefined} onClick={()=>chooseSurface(key)}><span>{key==="free"?"自由":`0${i+1}`}</span><b>{surfaceViews[key].name}</b><small>{surfaceViews[key].en}</small></button>)}
         <div className="railLine"/>
       </>}
       {workspace==="blocks"&&<>
         <p className="eyebrow">SPECIMEN BLOCK</p>
-        {(Object.keys(blockSpecimens) as BlockSpecimenKey[]).map((key,i)=><button key={key} className={`planeBtn lessonRailBtn ${blockSpecimen===key?"active":""}`} onClick={()=>chooseBlock(key)}><span>0{i+1}</span><b>{blockSpecimens[key].name}</b><small>{blockSpecimens[key].en}</small></button>)}
+        {(Object.keys(blockSpecimens) as BlockSpecimenKey[]).map((key,i)=><button key={key} className={`planeBtn lessonRailBtn ${blockSpecimen===key?"active":""}`} aria-current={blockSpecimen===key?"page":undefined} onClick={()=>chooseBlock(key)}><span>0{i+1}</span><b>{blockSpecimens[key].name}</b><small>{blockSpecimens[key].en}</small></button>)}
         <div className="railLine"/><p className="railMemo">「切り離した途端に位置関係が分からない」を避けるため、全脳の中での位置を残したまま観察します。</p>
       </>}
       {workspace==="quiz"&&<>
@@ -613,7 +684,7 @@ export default function Home() {
       {workspace==="segment"&&<><p className="eyebrow">SEGMENTATION</p><div className="segRailIntro"><b>差分編集</b><p>元データを直接変更せず、修正したボクセルだけをJSONへ保存します。</p><ol><li>水平断を選ぶ</li><li>構造とブラシを選ぶ</li><li>境界を修正する</li><li>JSONをPRへ添付</li></ol></div><div className="railLine"/><p className="railMemo">共同制作者向けのα機能です。公式ラベルへの統合には、別のレビューと変換処理が必要です。</p></>}
     </aside>
 
-    {workspace==="home"&&<section className="homeArea" id="workspace">
+    {workspace==="home"&&<section className="homeArea" id="workspace" tabIndex={-1}>
       <div className="homeHero">
         <div className="homeIntro">
           <div className="homeBadges"><span>OPEN ALPHA</span><b>非営利教育用</b></div>
@@ -621,24 +692,24 @@ export default function Home() {
           <h1>脳実習を、<br/><em>切る前から立体で。</em></h1>
           <p className="homeLead">全脳の表面を観察し、連続断面と局所標本へ進みながら、構造の位置関係を立体モデルと標本像の両方から学ぶ実習補助アプリです。</p>
         </div>
-        <div className="homeModelStage modelStage" onPointerDown={beginRotation} onPointerMove={move} onPointerUp={()=>setDrag(null)} onPointerCancel={()=>setDrag(null)} onContextMenu={event=>event.preventDefault()}>
-          <AtlasVolumeCanvas kind="surface" plane="sagittal" position={50} focus="thalamus" display="specimen" rotation={rotation} view="segmented" contrast="bigbrain" showFocus={false} showCutPlane={false}/>
-          <div className="homeModelLabel"><span>INTERACTIVE 3D</span><b>全脳分節モデル</b><small>ドラッグで回転・ホイールで拡大</small></div>
-          <div className="orientation"><b>S</b><i/><b>I</b><span><b>A</b><i/><b>P</b></span></div>
+        <div className="homeModelStage modelStage" tabIndex={0} aria-label="全脳3Dモデル。ドラッグまたは矢印キーで回転、Rキーで向きを戻す" onKeyDown={handleModelKey} onPointerDown={beginRotation} onPointerMove={move} onPointerUp={()=>setDrag(null)} onPointerCancel={()=>setDrag(null)} onContextMenu={event=>event.preventDefault()}>
+          <AtlasVolumeCanvas kind="surface" plane="sagittal" position={50} focus="thalamus" display="specimen" rotation={rotation} view="inside" contrast="bigbrain" showFocus={false} showCutPlane={false}/>
+          <OrientationCompass rotation={rotation}/>
+          <div className="homeModelLabel"><span>INTERACTIVE 3D</span><b>全脳表面モデル</b><small>ドラッグ／矢印キーで回転・Rで初期化</small></div>
         </div>
       </div>
       <div className="homeModeGrid" aria-label="学習メニュー">
-        <button onClick={()=>openWorkspace("surface")}><span><b>脳表観察</b><small>脳回・脳神経・脳底動脈を回転可能な3Dで確認</small></span><em>→</em></button>
-        <button onClick={()=>openWorkspace("sections")}><span><b>断面実習</b><small>0.5 mm単一標本を連続して追い、複数構造を同時に同定</small></span><em>→</em></button>
+        <button onClick={()=>openWorkspace("surface")}><span><b>脳表観察</b><small>脳回・脳神経・脳底の主要動脈を回転可能な3Dで確認</small></span><em>→</em></button>
+        <button onClick={()=>openWorkspace("sections")}><span><b>断面実習</b><small>BigBrain単一個体の0.5 mm再標本化画像を連続して追い、複数構造を同時に同定</small></span><em>→</em></button>
         <button onClick={()=>openWorkspace("blocks")}><span><b>ブロック標本</b><small>脳室・辺縁系・投射線維などを局所標本として分解</small></span><em>→</em></button>
         <button onClick={()=>openWorkspace("quiz")}><span><b>復習クイズ</b><small>項目・問題数・間違い履歴を指定して構造同定を復習</small></span><em>→</em></button>
       </div>
-      <footer className="homeFooter"><p><b>公開α版</b> 解剖学的誤りや使いにくさの指摘を受けながら改善します。診断・治療・手術計画には使用できません。</p><div><button onClick={()=>setFeedbackOpen(true)}>意見・共同制作</button><a href={sourceRepositoryUrl} target="_blank" rel="noreferrer">GitHub</a><button onClick={()=>setLegalOpen(true)}>利用条件・クレジット</button></div></footer>
+      <footer className="homeFooter"><p><b>公開α版候補</b> 解剖学的誤りや使いにくさの指摘を受けながら改善します。診断・治療・手術計画には使用できません。</p><div><button onClick={()=>openOverlay("feedback")}>意見・共同制作</button><a href={sourceRepositoryUrl} target="_blank" rel="noreferrer">GitHub</a><button onClick={()=>openOverlay("legal")}>利用条件・クレジット</button></div></footer>
     </section>}
 
-    {workspace==="sections"&&<section className="workArea" id="workspace">
+    {workspace==="sections"&&<section className="workArea" id="workspace" tabIndex={-1}><h1 className="srOnly">断面実習</h1>
       <div className="visualGrid"><section className="slicePanel">
-        <div className="panelHead"><div><b>{planeData[plane].ja}</b><small>位置 {position}{contrast === "bigbrain" ? "・単一標本脳 0.5 mm（同一格子で検証済み）" : contrast === "single" ? "・単一固定脳 MRI 0.44 mm（画像参照）" : "・平均標準脳"}</small></div><div className="sliceTools"><div className="contrastSwitch" aria-label="断面画像ソース"><button className={contrast === "bigbrain" ? "active" : ""} onClick={() => setContrast("bigbrain")}>単一標本 0.5</button><button className={contrast === "single" ? "active" : ""} onClick={() => setContrast("single")}>固定脳MRI 0.44</button><button className={contrast === "t1" ? "active" : ""} onClick={() => setContrast("t1")}>平均T1</button><button className={contrast === "t2" ? "active" : ""} onClick={() => setContrast("t2")}>T2</button></div><div className="displaySwitch"><button className={display === "specimen" ? "active" : ""} onClick={() => setDisplay("specimen")}>実習標本調</button><button className={display === "diagram" ? "active" : ""} onClick={() => setDisplay("diagram")}>学習図</button><button className={display === "outline" ? "active" : ""} onClick={() => setDisplay("outline")}>輪郭</button></div><label className="labelToggle compactToggle"><input type="checkbox" checked={labels} onChange={e => setLabels(e.target.checked)}/><span/>構造表示</label></div></div>
+        <div className="panelHead"><div><b>{planeData[plane].ja}</b><small>位置 {position}{contrast === "bigbrain" ? "・単一標本脳 0.5 mm（同一格子で検証済み）" : contrast === "single" ? "・単一固定脳 MRI 0.444 mm（画像参照）" : "・平均標準脳"}</small></div><div className="sliceTools"><div className="contrastSwitch" aria-label="断面画像ソース"><button className={contrast === "bigbrain" ? "active" : ""} onClick={() => setContrast("bigbrain")}>単一標本 0.5</button><button className={contrast === "single" ? "active" : ""} onClick={() => setContrast("single")}>固定脳MRI 0.444</button><button className={contrast === "t1" ? "active" : ""} onClick={() => setContrast("t1")}>平均T1</button><button className={contrast === "t2" ? "active" : ""} onClick={() => setContrast("t2")}>T2</button></div><div className="displaySwitch"><button className={display === "specimen" ? "active" : ""} onClick={() => setDisplay("specimen")}>実習標本調</button><button className={display === "diagram" ? "active" : ""} onClick={() => setDisplay("diagram")}>学習図</button><button className={display === "outline" ? "active" : ""} onClick={() => setDisplay("outline")}>輪郭</button></div><label className="labelToggle compactToggle"><input type="checkbox" checked={labels} onChange={e => setLabels(e.target.checked)}/><span/>構造表示</label></div></div>
         <div className={`sliceStage ${plane} ${sliceVariant(position)}`}>
           <div className="sliceViewport">
             <AtlasVolumeCanvas kind="slice" plane={plane} position={position} focus={focus} display={display} rotation={rotation} contrast={contrast} highlights={highlightLayers} onIdentify={contrast==="single"?undefined:identify} onViewChange={()=>setIdentified(null)}/>
@@ -647,10 +718,10 @@ export default function Home() {
           </div>
           <aside className="modelInset" aria-label="全脳で切断位置を確認">
             <div className="insetHead"><div><b>全脳モデル</b><small>{contrast==="single"?"別個体MRIのため切断位置は概略":block==="ghost"?"透過脳表で内部構造を確認":block==="segmented"?"不透明な分節モデルで切断位置を確認":"不透明な脳表で切断位置を確認"}</small></div><span>{planeData[plane].en.slice(0,3)} {position}</span></div>
-            <div className="modelStage insetStage" onPointerDown={beginRotation} onPointerMove={move} onPointerUp={()=>setDrag(null)} onPointerCancel={()=>setDrag(null)} onContextMenu={event=>event.preventDefault()}>
+            <div className="modelStage insetStage" tabIndex={0} aria-label="切断位置の全脳3Dモデル。ドラッグまたは矢印キーで回転、Rキーで向きを戻す" onKeyDown={handleModelKey} onPointerDown={beginRotation} onPointerMove={move} onPointerUp={()=>setDrag(null)} onPointerCancel={()=>setDrag(null)} onContextMenu={event=>event.preventDefault()}>
               <AtlasVolumeCanvas kind="surface" plane={plane} position={position} focus={focus} display={display} rotation={rotation} view={block} contrast={contrast} showFocus={modelFocusVisible}/>
+              <OrientationCompass rotation={rotation}/>
               <div className="modelFocusTag"><i style={{background:modelFocusVisible?current.color:"#aeb8bb"}}/><span>{modelTag.caption}</span><b>{modelTag.name}</b></div>
-              <div className="orientation"><b>S</b><i/><b>I</b><span><b>A</b><i/><b>P</b></span></div>
               <div className="blockControls"><button className={block === "segmented" ? "active" : ""} onClick={e => {e.stopPropagation();setBlock("segmented")}}>分節</button><button className={block === "inside" ? "active" : ""} onClick={e => {e.stopPropagation();setBlock("inside")}}>脳表</button><button className={block === "ghost" ? "active" : ""} onClick={e => {e.stopPropagation();setBlock("ghost")}}>透過</button><button className={block === "extracted" ? "active" : ""} onClick={e => {e.stopPropagation();setBlock("extracted")}}>切断</button></div>
             </div>
           </aside>
@@ -664,23 +735,23 @@ export default function Home() {
       </section></div>
     </section>}
 
-    {workspace==="surface"&&<section className="workArea learningArea" id="workspace">
-      <div className="workHead"><div><span className="eyebrow">SURFACE PRACTICAL</span><h1>脳表観察</h1></div><span className="sourceBadge">講義到達目標から再構成</span></div>
+    {workspace==="surface"&&<section className="workArea learningArea" id="workspace" tabIndex={-1}>
+      <div className="workHead"><div><span className="eyebrow">SURFACE PRACTICAL</span><h1>脳表観察</h1></div><span className="sourceBadge">MNI高密度脳表＋教材レイヤー</span></div>
       <div className="learningGrid">
-        <section className="learningModelCard"><div className="panelHead"><div><b>{surfaceLesson.name}</b><small>{surfaceLesson.en}・ドラッグで回転</small></div>{surfaceView==="free"?<span>{freeSelections.length} 構造を選択中</span>:surfaceNeurovascular?<span>3D OVERLAY · PILOT</span>:<div className="panelActions"><button className={surfaceCerebellum?"active":""} aria-pressed={surfaceCerebellum} onClick={()=>setSurfaceCerebellum(value=>!value)}>{surfaceCerebellum?"小脳を外す":"小脳を戻す"}</button></div>}</div>
-          <div className="learningModelStage modelStage" onPointerDown={beginRotation} onPointerMove={move} onPointerUp={()=>setDrag(null)} onPointerCancel={()=>setDrag(null)} onContextMenu={event=>event.preventDefault()}>
-            <AtlasVolumeCanvas kind="surface" plane="sagittal" position={50} focus="thalamus" display="specimen" rotation={rotation} view={surfaceNeurovascular&&surfaceGhost?"ghost":"inside"} contrast="bigbrain" showFocus={false} showCutPlane={false} hemisphere={renderedHemisphere} showCerebellum={surfaceCerebellum} showPonsMedulla={surfacePonsMedulla} surfaceHighlights={surfaceNeurovascular?[]:surfaceHighlightLayers} surfaceLandmarks={surfaceNeurovascular?[]:renderedSurfaceLandmarks} surfaceDeepLandmarks={surfaceNeurovascular?[]:renderedSurfaceDeepLandmarks} neurovascularOverlay={surfaceNeurovascular||surfaceView==="inferior"||surfaceView==="free"?surfaceOverlay:"none"} neurovascularHighlights={surfaceNeurovascular||surfaceView==="free"?neurovascularHighlightLayers:[]} showBasalLandmarks={surfaceView==="inferior"||surfaceNeurovascular||surfaceView==="free"} basalLandmark={surfaceView==="cranialNerves"?"hypothalamic":"all"} basalHighlights={surfaceView==="free"?renderedBasalLandmarks:surfaceView==="inferior"?surfaceVisibleBasalLandmarks:[]} basalOnlySelected={false} onSurfaceIdentify={surfaceView==="free"?identifyFreeSurface:undefined}/>
+        <section className="learningModelCard"><div className="panelHead"><div><b>{surfaceLesson.name}</b><small>{surfaceLesson.en}・ドラッグで回転</small></div><div className="panelActions">{surfaceView==="free"?<span>{freeSelections.length} 構造を選択中</span>:surfaceNeurovascular?<span>3D OVERLAY · PILOT</span>:surfaceView!=="medial"?<button className={surfaceCerebellum?"active":""} aria-pressed={surfaceCerebellum} onClick={()=>setSurfaceCerebellum(value=>!value)}>{surfaceCerebellum?"小脳を外す":"小脳を戻す"}</button>:null}<button onClick={resetSurfaceView}>向きを戻す</button></div></div>
+          <div className="learningModelStage modelStage" tabIndex={0} aria-label="脳表3Dモデル。ドラッグまたは矢印キーで回転、Rキーで向きを戻す" onKeyDown={handleModelKey} onPointerDown={beginRotation} onPointerMove={move} onPointerUp={()=>setDrag(null)} onPointerCancel={()=>setDrag(null)} onContextMenu={event=>event.preventDefault()}>
+            <AtlasVolumeCanvas kind="surface" plane="sagittal" position={50} focus="thalamus" display="specimen" rotation={rotation} view={surfaceNeurovascular&&surfaceGhost?"ghost":"inside"} contrast="bigbrain" showFocus={false} showCutPlane={false} hemisphere={renderedHemisphere} showCerebellum={surfaceCerebellum} showPonsMedulla={surfacePonsMedulla} showMidbrain={surfaceView!=="medial"} surfaceHighlights={surfaceNeurovascular?[]:surfaceHighlightLayers} surfaceLandmarks={surfaceNeurovascular?[]:renderedSurfaceLandmarks} surfaceDeepLandmarks={surfaceNeurovascular?[]:renderedSurfaceDeepLandmarks} neurovascularOverlay={surfaceNeurovascular||surfaceView==="inferior"||surfaceView==="free"?surfaceOverlay:"none"} neurovascularHighlights={surfaceNeurovascular||surfaceView==="free"?neurovascularHighlightLayers:[]} showBasalLandmarks={surfaceView==="inferior"||surfaceView==="free"} basalLandmark={surfaceView==="cranialNerves"?"hypothalamic":"all"} basalHighlights={surfaceView==="free"?renderedBasalLandmarks:surfaceView==="inferior"?surfaceVisibleBasalLandmarks:[]} basalOnlySelected={surfaceView==="inferior"||surfaceView==="free"} onSurfaceIdentify={surfaceView==="free"?identifyFreeSurface:undefined}/>
+            <OrientationCompass rotation={rotation}/>
             {surfaceNeurovascular&&<div className="neurovascularControls specimenPartControls" aria-label="脳表・神経血管レイヤー"><button className={surfaceVessels?"active vessels":""} aria-pressed={surfaceVessels} onClick={()=>setSurfaceVessels(value=>!value)}><i/>血管</button><button className={surfaceNerves?"active nerves":""} aria-pressed={surfaceNerves} onClick={()=>setSurfaceNerves(value=>!value)}><i/>脳神経</button><button className={surfaceCerebellum?"active":""} aria-pressed={surfaceCerebellum} onClick={()=>setSurfaceCerebellum(value=>!value)}>{surfaceCerebellum?"小脳を外す":"小脳を戻す"}</button><button className={surfacePonsMedulla?"active":""} aria-pressed={surfacePonsMedulla} onClick={()=>setSurfacePonsMedulla(value=>!value)}>{surfacePonsMedulla?"橋・延髄を外す":"橋・延髄を戻す"}</button><button className={surfaceGhost?"active":""} aria-pressed={surfaceGhost} onClick={()=>setSurfaceGhost(value=>!value)}>{surfaceGhost?"脳表を戻す":"脳表を透過"}</button></div>}
             {surfaceView==="inferior"&&<div className="neurovascularControls specimenPartControls basalOverlayControls" aria-label="下面の補助レイヤー"><button className={surfaceVessels?"active vessels":""} aria-pressed={surfaceVessels} onClick={()=>setSurfaceVessels(value=>!value)}><i/>血管</button><button className={surfaceNerves?"active nerves":""} aria-pressed={surfaceNerves} onClick={()=>setSurfaceNerves(value=>!value)}><i/>脳神経</button></div>}
             {surfaceView==="free"&&<div className="freeObservationControls" aria-label="自由観察の表示レイヤー"><div className="freeHemisphereSwitch"><span>半球</span>{(["both","left","right"] as const).map(side=><button key={side} className={freeHemisphere===side?"active":""} aria-pressed={freeHemisphere===side} onClick={()=>setFreeHemisphere(side)}>{side==="both"?"全脳":side==="left"?"左半球":"右半球"}</button>)}</div><div><button className={surfaceCerebellum?"active":""} aria-pressed={surfaceCerebellum} onClick={()=>setSurfaceCerebellum(value=>!value)}>小脳</button><button className={surfaceVessels?"active vessels":""} aria-pressed={surfaceVessels} onClick={()=>setSurfaceVessels(value=>!value)}>血管</button><button className={surfaceNerves?"active nerves":""} aria-pressed={surfaceNerves} onClick={()=>setSurfaceNerves(value=>!value)}>脳神経</button></div></div>}
             {surfaceView==="free"&&<div className="freeSelectionOverlay" aria-live="polite"><small>クリック／検索で複数選択</small><b>{freeFocusedItem?.name??(freeSelectedItems.length?`${freeSelectedItems.length}構造を着色中`:"構造を選択してください")}</b>{freeFocusedItem&&<span>{freeFocusedItem.latin}</span>}</div>}
-            {surfaceNeurovascular&&<div className="neurovascularLegend"><span><i className="arterialAnterior"/>内頸動脈系</span><span><i className="arterialPosterior"/>椎骨脳底系</span><span><i className="nerveAnterior"/>I–IV</span><span><i className="nervePontine"/>V–VIII</span><span><i className="nerveMedullary"/>IX–XII</span></div>}
-            <div className="orientation"><b>S</b><i/><b>I</b><span><b>A</b><i/><b>P</b></span></div>
+            {surfaceNeurovascular&&<div className="neurovascularLegend">{surfaceVessels&&<><span><i className="arterialAnterior"/>内頸動脈系</span><span><i className="arterialPosterior"/>椎骨脳底系</span></>}{surfaceNerves&&<><span><i className="nerveAnterior"/>I–IV</span><span><i className="nervePontine"/>V–VIII</span><span><i className="nerveMedullary"/>IX–XII</span></>}</div>}
           </div>
         </section>
-        <aside className="learningGuide">
+        <aside className="learningGuide" key={surfaceView}>
           <span className="guideIndex">{surfaceView==="free"?"FREE EXPLORATION":`観察 0${(Object.keys(surfaceViews) as SurfaceViewKey[]).indexOf(surfaceView)+1}`}</span><h2>{surfaceLesson.name}</h2><p>{surfaceLesson.intro}</p>
-          {surfaceView==="inferior"&&<div className="basalLandmarkPicker surfaceRegionPicker"><header><div><b>同定する構造</b><small>複数選択</small></div><span className="pickerActions"><button onClick={()=>setSurfaceVisibleBasalLandmarks(basalLandmarkKeys)} disabled={surfaceVisibleBasalLandmarks.length===basalLandmarkKeys.length}>すべて選択</button><button onClick={()=>setSurfaceVisibleBasalLandmarks([])} disabled={surfaceVisibleBasalLandmarks.length===0}>すべて解除</button></span></header><div>{basalLandmarkKeys.map(key=>{const item=basalLandmarks[key],active=surfaceVisibleBasalLandmarks.includes(key);return <button key={key} className={active?"active":""} aria-pressed={active} title={item.note} onClick={()=>toggleBasalLandmark(key)}><i style={{background:item.color}}/><span>{item.name}<small>{item.latin}</small></span></button>})}</div><em>下垂体そのものは表示せず、実標本で残りうる漏斗・茎の位置を示します。</em></div>}
+          {surfaceView==="inferior"&&<div className="basalLandmarkPicker surfaceRegionPicker"><header><div><b>同定する構造</b><small>無着色の下面から、確認する構造だけを追加</small></div><span className="pickerActions"><button onClick={()=>setSurfaceVisibleBasalLandmarks(basalLandmarkKeys)} disabled={surfaceVisibleBasalLandmarks.length===basalLandmarkKeys.length}>すべて選択</button><button onClick={()=>setSurfaceVisibleBasalLandmarks([])} disabled={surfaceVisibleBasalLandmarks.length===0}>すべて解除</button></span></header><div>{basalLandmarkKeys.map(key=>{const item=basalLandmarks[key],active=surfaceVisibleBasalLandmarks.includes(key);return <button key={key} className={active?"active":""} aria-pressed={active} title={item.note} onClick={()=>toggleBasalLandmark(key)}><i style={{background:item.color}}/><span>{item.name}<small>{item.latin}</small></span></button>})}</div><em>下垂体そのものは表示せず、実標本で残りうる漏斗・茎の位置を示します。</em></div>}
           {surfaceView==="free"?<div className="freeExplorer">
             <header><div><b>構造を探す</b><small>文字検索または分類別索引から追加</small></div><button onClick={clearFreeObservation} disabled={freeSelections.length===0}>すべて解除</button></header>
             <label className="freeSearch"><span>検索</span><input type="search" value={freeSearch} placeholder="例：中心前回、視神経、artery" onChange={event=>setFreeSearch(event.target.value)} onKeyDown={event=>{if(event.key==="Enter"&&freeFilteredItems[0])selectFreeObservation(freeFilteredItems[0].key)}}/>{freeSearch&&<button aria-label="検索をクリア" onClick={()=>setFreeSearch("")}>×</button>}</label>
@@ -689,41 +760,42 @@ export default function Home() {
             <div className="freeSelectedHeader"><div><b>表示中の構造</b><small>{freeSelectedItems.length?`${freeSelectedItems.length}件を着色中`:"まだ選択されていません"}</small></div><span>3D上のクリックでも追加できます</span></div>
             {freeSelectedItems.length?<div className="freeSelectedCards" aria-label="表示中の構造">{freeSelectedItems.map(item=><article key={item.key} className={freeFocusedKey===item.key?"focused":""}><i style={{background:item.color}}/><div><em>{item.kind}</em><b>{item.name}</b><small>{item.latin}</small><p>{item.note}</p></div><button aria-label={`${item.name}の表示を解除`} onClick={()=>toggleFreeObservation(item.key)}>×</button></article>)}</div>:<div className="freeEmptySelection"><b>構造を選択してください</b><p>検索、構造索引、または3Dモデルのクリックから複数選択できます。</p></div>}
           </div>:surfaceNeurovascular?<div className="neurovascularPicker"><header><b>個別に同定</b><small>選択した管・神経根を白色で強調</small></header><div>{neurovascularStructureKeys.filter(key=>neurovascularStructures[key].kind===surfaceNeurovascularKind).map(key=>{const item=neurovascularStructures[key],active=key===selectedNeurovascularStructure;return <button key={key} className={active?"active":""} aria-pressed={active} onClick={()=>chooseNeurovascularStructure(key)}><span>{item.name}<small>{item.latin}</small></span><b>{active?"表示中":"表示"}</b></button>})}</div><p><b>{selectedNeurovascular.name}</b>{selectedNeurovascular.note}</p></div>:<>
-            <div className="surfaceRegionPicker"><header><div><b>同定する構造</b><small>クリックして着色</small></div><span className="pickerActions"><button onClick={()=>setSurfaceVisibleRegions(surfaceViewRegions[surfaceView])} disabled={surfaceVisibleRegions.length===surfaceViewRegions[surfaceView].length}>すべて選択</button><button onClick={()=>setSurfaceVisibleRegions([])} disabled={surfaceVisibleRegions.length===0}>すべて解除</button></span></header><div>{surfaceViewRegions[surfaceView].map(key=>{const region=surfaceRegions[key],active=surfaceVisibleRegions.includes(key);return <button key={key} className={active?"active":""} aria-pressed={active} onClick={()=>toggleSurfaceRegion(key)}><i style={{background:region.color}}/><span>{region.name}<small>{region.latin}</small></span></button>})}</div></div>
+            <div className="surfaceRegionPicker"><header><div><b>同定する構造</b><small>無着色の標本から、確認する構造だけを追加</small></div><span className="pickerActions"><button onClick={()=>setSurfaceVisibleRegions(surfaceViewRegions[surfaceView])} disabled={surfaceVisibleRegions.length===surfaceViewRegions[surfaceView].length}>すべて選択</button><button onClick={()=>setSurfaceVisibleRegions([])} disabled={surfaceVisibleRegions.length===0}>すべて解除</button></span></header><div>{surfaceViewRegions[surfaceView].map(key=>{const region=surfaceRegions[key],active=surfaceVisibleRegions.includes(key);return <button key={key} className={active?"active":""} aria-pressed={active} onClick={()=>toggleSurfaceRegion(key)}><i style={{background:region.color}}/><span>{region.name}<small>{region.latin}</small></span></button>})}</div></div>
             {surfaceViewLandmarks[surfaceView].length>0&&<div className="surfaceLandmarkPicker"><header><div><b>溝・裂</b><small>クリックして表示</small></div><span className="pickerActions"><button onClick={()=>setSurfaceVisibleLandmarks(surfaceViewLandmarks[surfaceView])} disabled={surfaceVisibleLandmarks.length===surfaceViewLandmarks[surfaceView].length}>すべて選択</button><button onClick={()=>setSurfaceVisibleLandmarks([])} disabled={surfaceVisibleLandmarks.length===0}>すべて解除</button></span></header><div>{surfaceViewLandmarks[surfaceView].map(key=>{const landmark=surfaceLandmarks[key],active=surfaceVisibleLandmarks.includes(key);return <button key={key} className={active?"active":""} aria-pressed={active} title={landmark.note} onClick={()=>toggleSurfaceLandmark(key)}><i style={{background:landmark.color}}/><span>{landmark.name}<small>{landmark.latin}</small></span></button>})}</div><p>脳回間の位置関係が見えるよう、両岸の間を仮想的な色面で埋めて表示しています。</p></div>}
-            {surfaceView==="medial"&&<div className="surfaceLandmarkPicker surfaceDeepPicker"><header><div><b>内側の深部構造</b><small>複数選択・精度区分を表示</small></div><button onClick={()=>setSurfaceVisibleDeepLandmarks([])} disabled={surfaceVisibleDeepLandmarks.length===0}>すべて解除</button></header><div>{medialDeepLandmarkKeys.map(key=>{const landmark=surfaceDeepLandmarks[key],active=surfaceVisibleDeepLandmarks.includes(key);return <button key={key} className={active?"active":""} aria-pressed={active} title={landmark.note} onClick={()=>toggleSurfaceDeepLandmark(key)}><i style={{background:landmark.color}}/><span>{landmark.name}<small>{landmark.latin}</small></span><b>{active?landmark.source:"＋"}</b></button>})}</div><p>片側半球を外した内側面へ、局所標本と同じ部品を重ねます。模式補助・位置目安を正解分節として扱わないでください。</p></div>}
+            {surfaceView==="medial"&&<div className="surfaceLandmarkPicker surfaceDeepPicker"><header><div><b>内側面に追加する深部構造</b><small>初期状態は非表示・左側だけを描画</small></div><button onClick={()=>setSurfaceVisibleDeepLandmarks([])} disabled={surfaceVisibleDeepLandmarks.length===0}>すべて解除</button></header><div>{medialDeepLandmarkKeys.map(key=>{const landmark=surfaceDeepLandmarks[key],active=surfaceVisibleDeepLandmarks.includes(key);return <button key={key} className={active?"active":""} aria-pressed={active} title={landmark.note} onClick={()=>toggleSurfaceDeepLandmark(key)}><i style={{background:landmark.color}}/><span>{landmark.name}<small>{landmark.latin}</small></span><b>{active?landmark.source:"＋"}</b></button>})}</div><p>深部構造は表面から自然に見えるものではありません。選択時だけ位置関係を学ぶ模式オーバーレイとして、左側成分を内側面へ重ねます。透明中隔などの模式形状は位置関係の確認に限ってください。</p></div>}
           </>}
           {surfaceNeurovascular&&<div className="accuracyNote warning"><b>模式3Dの範囲</b><p>{surfaceLesson.caution}</p></div>}
         </aside>
       </div>
     </section>}
 
-    {workspace==="blocks"&&<section className="workArea learningArea" id="workspace">
+    {workspace==="blocks"&&<section className="workArea learningArea" id="workspace" tabIndex={-1}>
       <div className="workHead"><div><span className="eyebrow">LOCAL SPECIMEN</span><h1>標本観察</h1></div><span className="sourceBadge">目的構造ごとに周囲を局所切り出し</span></div>
       <div className="learningGrid">
-        <section className="learningModelCard"><div className="panelHead"><div><b>{specimenLesson.name}</b><small>{specimenLesson.en}・ドラッグで自由回転／Shift・右ドラッグで傾き</small></div><span>SPECIMEN + SELECTABLE PARTS</span></div>
-          <div className="learningModelStage modelStage" onPointerDown={beginRotation} onPointerMove={move} onPointerUp={()=>setDrag(null)} onPointerCancel={()=>setDrag(null)} onContextMenu={event=>event.preventDefault()}>
-            <AtlasVolumeCanvas key={blockSpecimen} kind="surface" plane={specimenLesson.plane} position={specimenLesson.position} focus={specimenLesson.focus} display="specimen" rotation={rotation} view="inside" contrast="bigbrain" showFocus={false} showCutPlane={false} showCerebellum={blockCerebellum} showPonsMedulla={blockPonsMedulla} specimenBlock={blockSpecimen} specimenLayers={blockLayers} specimenTissueMode={blockTissueMode}/>
-            {blockSpecimen==="hindbrain"&&<div className="neurovascularControls specimenPartControls" aria-label="標本3Dレイヤー"><button className={blockCerebellum?"active":""} aria-pressed={blockCerebellum} onClick={()=>setBlockCerebellum(value=>!value)}>{blockCerebellum?"小脳を外す":"小脳を戻す"}</button><button className={blockPonsMedulla?"active":""} aria-pressed={blockPonsMedulla} onClick={()=>setBlockPonsMedulla(value=>!value)}>{blockPonsMedulla?"橋・延髄を外す":"橋・延髄を戻す"}</button></div>}
+        <section className="learningModelCard"><div className="panelHead"><div><b>{specimenLesson.name}</b><small>{specimenLesson.en}・ドラッグ：回転／Shift・右：傾き</small></div><span>SPECIMEN + SELECTABLE PARTS</span></div>
+          <div className="learningModelStage modelStage" tabIndex={0} aria-label="局所標本3Dモデル。ドラッグまたは矢印キーで回転、Rキーで向きを戻す" onKeyDown={handleModelKey} onPointerDown={beginRotation} onPointerMove={move} onPointerUp={()=>setDrag(null)} onPointerCancel={()=>setDrag(null)} onContextMenu={event=>event.preventDefault()}>
+            <AtlasVolumeCanvas kind="surface" plane={specimenLesson.plane} position={specimenLesson.position} focus={specimenLesson.focus} display="specimen" rotation={rotation} view="inside" contrast="bigbrain" showFocus={false} showCutPlane={false} showCerebellum={blockCerebellum} showPonsMedulla={blockPonsMedulla} specimenBlock={blockSpecimen} specimenLayers={blockLayers} specimenTissueMode={blockTissueMode}/>
+            <OrientationCompass rotation={rotation}/>
+            {blockSpecimen==="hindbrain"&&<div className="neurovascularControls specimenPartControls specimenAttachmentControls" aria-label="標本3Dレイヤー"><button className={blockCerebellum?"active":""} aria-pressed={blockCerebellum} onClick={()=>setBlockCerebellum(value=>!value)}>{blockCerebellum?"小脳を外す":"小脳を戻す"}</button><button className={blockPonsMedulla?"active":""} aria-pressed={blockPonsMedulla} onClick={()=>setBlockPonsMedulla(value=>!value)}>{blockPonsMedulla?"橋・延髄を外す":"橋・延髄を戻す"}</button></div>}
             {specimenLesson.layers.length>0&&<div className="specimenTissueControls" aria-label="標本組織の表示"><span>標本組織</span>{(["ghost","solid","hidden"] as SpecimenTissueMode[]).map(mode=><button key={mode} className={blockTissueMode===mode?"active":""} aria-pressed={blockTissueMode===mode} onClick={()=>setBlockTissueMode(mode)}>{mode==="ghost"?"透過":mode==="solid"?"通常":"非表示"}</button>)}</div>}
             <div className="specimenViewControls" aria-label="標本の視点"><span>VIEW</span>{(["initial","opposite","superior","inferior"] as BlockViewPreset[]).map(preset=><button key={preset} className={blockViewPreset===preset?"active":""} aria-pressed={blockViewPreset===preset} onClick={()=>chooseBlockView(preset)}>{blockViewLabels[preset]}</button>)}</div>
             <div className="specimenRotationHint"><b>ドラッグ</b> 自由回転 <i/> <b>Shift・右ドラッグ</b> 傾き</div>
-            <div className="modelLegend"><span>0.5 mm標本組織＋構造レイヤー</span><b>{specimenLesson.name}</b><small>{specimenLesson.layers.length?`${blockLayers.length} / ${specimenLesson.layers.length} 部品を表示中`:"橋・延髄と小脳を脱着可能"}</small></div><div className="orientation"><b>S</b><i/><b>I</b><span><b>A</b><i/><b>P</b></span></div>
+            <div className="modelLegend"><span>0.5 mm標本組織＋構造レイヤー</span><b>{specimenLesson.name}</b><small>{specimenLesson.layers.length?`${blockLayers.length} / ${specimenLesson.layers.length} レイヤーを選択中`:"橋・延髄と小脳を脱着可能"}</small></div>
           </div>
         </section>
-        <aside className="learningGuide"><span className="guideIndex">SPECIMEN 0{(Object.keys(blockSpecimens) as BlockSpecimenKey[]).indexOf(blockSpecimen)+1}</span><h2>{specimenLesson.name}</h2><p>{specimenLesson.intro}</p>{specimenLesson.layers.length>0&&<div className="specimenLayerPicker"><header><div><b>標本の部品</b><small>複数を同時に表示できます</small></div><span className="specimenLayerActions"><button onClick={()=>blockLayerFocus&&setBlockLayers([blockLayerFocus])} disabled={!blockLayerFocus||blockLayers.length===1&&blockLayers[0]===blockLayerFocus}>選択だけ</button><button onClick={()=>setBlockLayers(specimenLesson.layers.map(layer=>layer.key))} disabled={blockLayers.length===specimenLesson.layers.length}>すべて表示</button></span></header><div>{specimenLesson.layers.map(layer=>{const active=blockLayers.includes(layer.key);return <button key={layer.key} className={active?"active":""} aria-pressed={active} onClick={()=>toggleBlockLayer(layer.key)}><i style={{background:layer.color}}/><span>{layer.name}<small>{layer.latin}</small></span><em>{layer.source}</em><b>{active?"✓":"＋"}</b></button>})}</div><p>{specimenLesson.layers.find(layer=>layer.key===blockLayerFocus)?.note??"色レイヤーはすべて非表示です。標本組織だけを回転して観察できます。"}</p><footer><span><i/>標本分節・試作分節</span><span><i/>模式補助・位置目安</span></footer></div>}<h3>この標本で追う構造</h3><ol>{specimenLesson.observe.map((item,i)=><li key={item}><i>{String(i+1).padStart(2,"0")}</i><span>{item}</span></li>)}</ol><div className="accuracyNote warning"><b>標本由来と模式補助</b><p>{specimenLesson.caution}</p></div></aside>
+        <aside className="learningGuide" key={blockSpecimen}><span className="guideIndex">SPECIMEN 0{(Object.keys(blockSpecimens) as BlockSpecimenKey[]).indexOf(blockSpecimen)+1}</span><h2>{specimenLesson.name}</h2><p>{specimenLesson.intro}</p>{specimenLesson.layers.length>0&&<div className="specimenLayerPicker"><header><div><b>標本の部品</b><small>複数を同時に表示できます</small></div><span className="specimenLayerActions"><button onClick={()=>blockLayerFocus&&setBlockLayers([blockLayerFocus])} disabled={!blockLayerFocus||blockLayers.length===1&&blockLayers[0]===blockLayerFocus}>選択だけ</button><button onClick={()=>setBlockLayers(specimenLesson.layers.map(layer=>layer.key))} disabled={blockLayers.length===specimenLesson.layers.length}>すべて表示</button></span></header><div>{specimenLesson.layers.map(layer=>{const active=blockLayers.includes(layer.key);return <button key={layer.key} className={active?"active":""} aria-pressed={active} onClick={()=>toggleBlockLayer(layer.key)}><i style={{background:layer.color}}/><span>{layer.name}<small>{layer.latin}</small></span><em>{layer.source}</em><b>{active?"✓":"＋"}</b></button>})}</div><p>{specimenLesson.layers.find(layer=>layer.key===blockLayerFocus)?.note??"色レイヤーはすべて非表示です。標本組織だけを回転して観察できます。"}</p><footer><span><i/>標本分節・試作分節</span><span><i/>模式補助・位置目安</span></footer></div>}<h3>この標本で追う構造</h3><ol>{specimenLesson.observe.map((item,i)=><li key={item}><i>{String(i+1).padStart(2,"0")}</i><span>{item}</span></li>)}</ol><div className="accuracyNote warning"><b>標本由来と模式補助</b><p>{specimenLesson.caution}</p></div></aside>
       </div>
     </section>}
 
-    {workspace==="quiz"&&<section className="workArea quizArea" id="workspace">
+    {workspace==="quiz"&&<section className="workArea quizArea" id="workspace" tabIndex={-1}>
       <div className="workHead"><div><span className="eyebrow">IDENTIFICATION QUIZ</span><h1>復習クイズ</h1></div><span className="sourceBadge">色で示した構造を同定</span></div>
       {quizFinished?<div className="quizEmptyState quizResultState" role="status" aria-live="polite"><span>QUIZ COMPLETE</span><h2>{quizScore} / {quizQueue.length} 問正解</h2><p>{quizScore===quizQueue.length?"全問正解です。別の項目へ進むか、同じ問題を順番を変えて再確認できます。":"間違えた問題は端末内に保存しました。左の「間違った問題のみ」から再出題できます。"}</p><div><button onClick={retryQuiz}>同じ問題を再挑戦</button><button onClick={startQuiz}>この条件で新しく出題</button></div></div>:quizEmpty?<div className="quizEmptyState" role="status"><span>REVIEW CACHE</span><h2>{quizWrongOnly?"この条件の間違い履歴はありません":"出題できる問題がありません"}</h2><p>{quizWrongOnly?"一度間違えた問題は端末に保存されます。別の項目を選ぶか、「間違った問題のみ」を解除してください。":"出題項目または問題数を変更してください。"}</p><button onClick={restoreAllQuiz}>全問題で出題を再開</button></div>:<div className="quizWorkspace">
-        <section className="quizImageCard"><div className="panelHead"><div><b>問題 {quizIndex+1}</b><small>{surfaceQuiz?surfaceViews[quizQuestion.view].name:`${planeData[quizQuestion.plane].ja}・位置 ${quizQuestion.position}・単一標本脳 0.5 mm`}</small></div><span>SCROLL TO ZOOM</span></div><div className="quizImageStage">{surfaceQuiz?<AtlasVolumeCanvas kind="surface" plane="sagittal" position={50} focus="thalamus" display="specimen" rotation={surfaceViews[quizQuestion.view].rotation} view="inside" contrast="bigbrain" showFocus={false} showCutPlane={false} hemisphere={surfaceViews[quizQuestion.view].hemisphere} showCerebellum={true} surfaceHighlights={quizSurfaceHighlight}/>:<AtlasVolumeCanvas kind="slice" plane={quizQuestion.plane} position={quizQuestion.position} focus={sectionQuizTarget.meshFocus??"thalamus"} display="specimen" rotation={rotation} contrast="bigbrain" highlights={quizHighlight}/>}<div className="quizTargetTag"><i style={{background:quizTarget.color}}/><span><b>この色の構造は？</b>{quizSource&&<small>{quizSource}</small>}</span></div></div></section>
+        <section className="quizImageCard"><div className="panelHead"><div><b>問題 {quizIndex+1}</b><small>{surfaceQuiz?surfaceViews[quizQuestion.view].name:`${planeData[quizQuestion.plane].ja}・位置 ${quizQuestion.position}・単一標本脳 0.5 mm`}</small></div><span>SCROLL TO ZOOM</span></div><div className="quizImageStage">{surfaceQuiz?<AtlasVolumeCanvas kind="surface" plane="sagittal" position={50} focus="thalamus" display="specimen" rotation={surfaceViews[quizQuestion.view].rotation} view="inside" contrast="bigbrain" showFocus={false} showCutPlane={false} hemisphere={surfaceViews[quizQuestion.view].hemisphere} showCerebellum={quizQuestion.view!=="medial"} showPonsMedulla={quizQuestion.view!=="medial"} showMidbrain={quizQuestion.view!=="medial"} surfaceHighlights={quizSurfaceHighlight}/>:<AtlasVolumeCanvas kind="slice" plane={quizQuestion.plane} position={quizQuestion.position} focus={sectionQuizTarget.meshFocus??"thalamus"} display="specimen" rotation={rotation} contrast="bigbrain" highlights={quizHighlight}/>}<div className="quizTargetTag"><i style={{background:quizTarget.color}}/><span><b>この色の構造は？</b>{quizSource&&<small>{quizSource}</small>}</span></div></div></section>
         <aside className="quizQuestionCard"><span className="guideIndex">QUESTION {String(quizIndex+1).padStart(2,"0")} / {quizQueue.length}</span><h2>{quizQuestion.prompt}</h2><div className="quizOptions">{quizQuestion.options.map((key,i)=>{const correct=key===quizQuestion.target,chosen=quizChoice===key,option=surfaceQuiz?surfaceRegions[key as SurfaceRegionKey]:structures[key as StructureKey];return <button key={key} className={quizChoice?(correct?"correct":chosen?"wrong":"muted"):""} onClick={()=>answerQuiz(key)} disabled={!!quizChoice}><i>{String.fromCharCode(65+i)}</i><span>{option.name}<small>{option.latin}</small></span>{quizChoice&&correct&&<b>正解</b>}{quizChoice&&chosen&&!correct&&<b>選択</b>}</button>})}</div>{quizChoice&&<div className={`quizFeedback ${quizChoice===quizQuestion.target?"correct":"wrong"}`} role="status" aria-live="polite"><b>{quizChoice===quizQuestion.target?"正解です":"もう一度位置関係を確認"}</b><p>{surfaceQuiz?surfaceQuizTarget.note:`${sectionQuizTarget.relation}。${sectionQuizTarget.note}`}</p><button onClick={nextQuiz}>{quizIndex===quizQueue.length-1?"結果を見る":"次の問題へ"} →</button></div>}<div className="quizScoreLine"><span>現在の正答</span><b>{quizScore}</b><small>/ {quizChoice?quizIndex+1:quizIndex}</small></div></aside>
       </div>}
     </section>}
 
-    {workspace==="segment"&&<section className="workArea segmentationArea" id="workspace">
+    {workspace==="segment"&&<section className="workArea segmentationArea" id="workspace" tabIndex={-1}>
       <div className="workHead"><div><span className="eyebrow">MANUAL SEGMENTATION · ALPHA</span><h1>セグメンテーション編集</h1></div><span className="sourceBadge">0.5 mm単一標本・水平断中心</span></div>
       <ManualSegmentationWorkbench/>
     </section>}
@@ -739,11 +811,11 @@ export default function Home() {
       <div className="identifyCard"><span>クリック同定</span>{contrast==="single"?<><b>画像参照モード</b><small>座標未確認のラベルは重ねません。照合済みの「単一標本 0.5」を選択してください。</small></>:identified?<><b>{labels?`${identified.side}${identified.name}`:"解答非表示"}</b><small>{identified.certainty==="atlas"?"位置照合した試作ラベル":identified.certainty==="manual"?"画像と同一格子のBigBrain手動ラベル":"位置照合または画像誘導による試作ラベル"}</small></>:<><b>断面上をクリック</b><small>指した場所の構造名を表示します。ホイールで拡大縮小できます。</small></>}</div>
       <div className="continuity"><span>連続性</span><div><i style={{width:`${Math.max(18, 100-Math.abs(position-52)*1.35)}%`,background:current.color}}/></div><small>この断面での見えやすさ</small></div>
       <button className="quiz" onClick={() => setLabels(!labels)} disabled={contrast==="single"}>{contrast==="single"?"固定脳MRIは画像参照のみ":labels ? "ラベルを隠して確認" : "答えを表示"}<b>→</b></button>
-      <p className="atlasCredit">解剖基盤：BigBrain 2015（Amunts et al.）、BigBrain manual subcortical segmentation（Xiao et al.）、CerebrA。1–22は同一0.5 mm格子の手動ラベル、脳室・脳幹・小脳・視交叉・島皮質は位置照合済みアトラス由来、脳梁・内包は画像誘導の試作です。試作輪郭は手動正解データではありません。診断用途ではありません。</p>
+      <p className="atlasCredit">解剖基盤：BigBrain（Amunts et al., 2013）、BigBrain manual subcortical segmentation（Xiao et al.）、CerebrA。BigBrainは単一個体の20 µm組織再構成で、本アプリでは表示用0.5 mmへ再標本化しています。1–22は同一格子の手動ラベル、脳室・脳幹・小脳・視交叉・島皮質は位置照合済みアトラス由来、脳梁・内包は画像誘導の試作です。試作輪郭は手動正解データではありません。診断用途ではありません。</p>
     </aside>}
 
-    {feedbackOpen&&<div className="legalBackdrop" role="presentation" onMouseDown={event=>{if(event.target===event.currentTarget)setFeedbackOpen(false)}}><section className="legalDialog feedbackDialog" role="dialog" aria-modal="true" aria-labelledby="feedback-title"><header><div><span>OPEN ALPHA</span><h2 id="feedback-title">意見・共同制作</h2></div><button onClick={()=>setFeedbackOpen(false)} aria-label="意見募集を閉じる">×</button></header><p className="feedbackIntro">脳解剖の専門家、実習担当者、学生、3D・画像処理・Web開発者からの指摘を歓迎します。未完成の公開αとして、誤りを隠さず、報告と専門家確認を通じて育てます。氏名・所属・連絡先は共同制作を希望する場合だけ任意で送信してください。</p><div className="feedbackOptions"><article><h3>修正案・使いにくさを送る</h3><p>構造名、表示位置、解説、操作性、クイズの誤りなどを匿名でも報告できます。知見・意見だけで継続参加する場合は役割を相談します。患者情報、標本写真、第三者の個人情報は送信しないでください。</p>{feedbackFormUrl?<a href={feedbackFormUrl} target="_blank" rel="noreferrer">Google Formを開く →</a>:<button disabled>フォームURL設定待ち</button>}</article><article><h3>共同制作者として参加する</h3><p>GitHubアカウントを持ち、本人またはCodex・Claude Code等を使って変更とPull Requestを管理できる方を基本対象とします。セグメンテーション、3D、教材設計、Web開発、神経解剖学監修を募集します。</p>{feedbackFormUrl?<a href={feedbackFormUrl} target="_blank" rel="noreferrer">参加希望を送る →</a>:<button disabled>フォームURL設定待ち</button>}</article></div>{!feedbackFormUrl&&<p className="feedbackConfig">公開前に <code>VITE_FEEDBACK_FORM_URL</code> へGoogle Formの共有URLを設定すると、2つのボタンが有効になります。</p>}</section></div>}
+    {feedbackOpen&&<div className="legalBackdrop" role="presentation" onMouseDown={event=>{if(event.target===event.currentTarget)closeOverlay()}}><section className="legalDialog feedbackDialog" role="dialog" aria-modal="true" aria-labelledby="feedback-title"><header><div><span>OPEN ALPHA</span><h2 id="feedback-title">意見・共同制作</h2></div><button onClick={closeOverlay} aria-label="意見募集を閉じる">×</button></header><p className="feedbackIntro">脳解剖の専門家、実習担当者、学生、3D・画像処理・Web開発者からの指摘を歓迎します。未完成の公開αとして、誤りを隠さず、報告と専門家確認を通じて育てます。氏名・所属・連絡先は共同制作を希望する場合だけ任意で送信してください。</p><div className="feedbackOptions"><article><h3>修正案・使いにくさを送る</h3><p>構造名、表示位置、解説、操作性、クイズの誤りなどを匿名でも報告できます。知見・意見だけで継続参加する場合は役割を相談します。患者情報、標本写真、第三者の個人情報は送信しないでください。</p>{feedbackFormUrl?<a href={feedbackFormUrl} target="_blank" rel="noreferrer">Google Formを開く →</a>:<button disabled>フォームURL設定待ち</button>}</article><article><h3>共同制作者として参加する</h3><p>GitHubアカウントを持ち、本人またはCodex・Claude Code等を使って変更とPull Requestを管理できる方を基本対象とします。セグメンテーション、3D、教材設計、Web開発、神経解剖学監修を募集します。</p>{feedbackFormUrl?<a href={feedbackFormUrl} target="_blank" rel="noreferrer">参加希望を送る →</a>:<button disabled>フォームURL設定待ち</button>}</article></div>{!feedbackFormUrl&&<p className="feedbackConfig">公開前に <code>VITE_FEEDBACK_FORM_URL</code> へGoogle Formの共有URLを設定すると、2つのボタンが有効になります。</p>}</section></div>}
 
-      {legalOpen&&<div className="legalBackdrop" role="presentation" onMouseDown={event=>{if(event.target===event.currentTarget)setLegalOpen(false)}}><section className="legalDialog" role="dialog" aria-modal="true" aria-labelledby="legal-title"><header><div><span>LICENSE & DATA NOTICE</span><h2 id="legal-title">利用条件・データ・クレジット</h2></div><button onClick={()=>setLegalOpen(false)} aria-label="利用条件とクレジット表示を閉じる">×</button></header><div className="legalStatus"><b>データを含む公式α版: 非営利教育用</b><p>BigBrain由来データのCC BY-NC-SA 4.0に従います。アプリコードはAGPL-3.0-or-later、自作教材文書はCC BY-NC-SA 4.0です。</p></div><div className="legalColumns"><article><h3>アプリコード</h3><p>Copyright © 2026 脳実習ナビ contributors。<a href="https://spdx.org/licenses/AGPL-3.0-or-later.html" target="_blank" rel="noreferrer">AGPL-3.0-or-later</a>で提供し、無保証です。変更したWeb版は利用者へ対応ソースを取得する機会を提供する必要があります。</p><h3>自作教材文書</h3><p>本プロジェクトが作成した解説・共同制作文書は <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noreferrer">CC BY-NC-SA 4.0</a>です。外部データの条件は変更しません。</p><h3>BigBrain</h3><p>単一標本脳0.5 mmと固定脳MRI0.444 mmは <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noreferrer">CC BY-NC-SA 4.0</a>。表示用に再標本化・8-bit化・圧縮・マスク・色調調整を行っています。局所3D標本の褐色組織は0.5 mm組織像から1 mm形状を再構成したBigBrain派生物です。脳室腔・核・一部白質を別部品化しています。</p><h3>手動皮質下核</h3><p>XiaoらのBigBrain co-registration datasetは <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a>。基になるBigBrainのCC BY-NC-SA条件は変わりません。</p></article><article><h3>MNI152 / CerebrA</h3><p>MNIライセンスに基づき使用し、Louis Collins / MNI / McGillの著作権表示を保持します。</p><h3>試作ラベル</h3><p>IDs 23–29と33–35はCerebrA由来の教育用マスク、30–32は画像誘導の候補です。手動正解ラベルや研究用マスクではありません。</p><h3>プロジェクト独自の模式3D</h3><p>主要な溝・裂の線状ガイド、放線群、脈絡叢、海馬采、脳弓、乳頭体、中脳水道、小脳脚、嗅球・嗅索と、鉤・視床下部・透明中隔・大脳脚・丘・膝状体・前有孔質・菱形窩・錐体・オリーブの位置目安、視覚路・漏斗、主要脳底動脈、脳神経根は手作業で標準空間へ置いたCC BY-NC-SA 4.0教材データです。BigBrainから抽出した正解形状ではなく、画面上でも「模式補助」「位置目安」と表示します。</p><h3>α版で未収録・専門家未確認</h3><p>XIの脊髄根、閂・薄束／楔状束の詳細、静脈・静脈洞は未収録です。試作分節、脳表ラベル・脳溝ガイド、神経血管、小脳脚・菱形窩の模式表示は専門家未確認で、指摘により変更します。</p><h3>参考資料</h3><p>講義資料、教科書、3D Brain、標本閲覧サイトを学習項目とUIの検討に参照しています。外部図版は収録していません。</p><h3>免責</h3><p>教育用α版です。正確性や継続提供を保証せず、診断・治療・手術計画・定量研究には使用できません。</p></article></div><footer><span>更新 2026-08-13・AGPL-3.0-or-later・無保証</span><div>{sourceRepositoryUrl?<a href={sourceRepositoryUrl} target="_blank" rel="noreferrer">対応ソース</a>:<span className="sourcePending">GitHub未作成・ソースURL設定待ち</span>}<a href="https://bigbrainproject.org/" target="_blank" rel="noreferrer">BigBrain</a><a href="https://nist.mni.mcgill.ca/multi-contrast-pd25-atlas/" target="_blank" rel="noreferrer">MNI PD25</a><a href="https://github.com/templateflow/tpl-MNI152NLin2009cSym" target="_blank" rel="noreferrer">TemplateFlow</a></div></footer></section></div>}
+      {legalOpen&&<div className="legalBackdrop" role="presentation" onMouseDown={event=>{if(event.target===event.currentTarget)closeOverlay()}}><section className="legalDialog" role="dialog" aria-modal="true" aria-labelledby="legal-title"><header><div><span>LICENSE & DATA NOTICE</span><h2 id="legal-title">利用条件・データ・クレジット</h2></div><button onClick={closeOverlay} aria-label="利用条件とクレジット表示を閉じる">×</button></header><div className="legalStatus"><b>データを含む公開α版候補: 非営利教育用</b><p>BigBrain由来データのCC BY-NC-SA 4.0に従います。アプリコードはAGPL-3.0-or-later、自作教材文書はCC BY-NC-SA 4.0です。</p></div><div className="projectCredit"><span>PROJECT LEAD</span><b>稲葉 弘哲</b><p>三重大学大学院 医学系研究科 組織学・細胞生物学</p><small>企画・医学教育・教材設計・実装方針。解剖学的表示は公開αとして継続検証中です。</small></div><div className="legalColumns"><article><h3>アプリコード</h3><p>Copyright © 2026 脳実習ナビ contributors。<a href="https://spdx.org/licenses/AGPL-3.0-or-later.html" target="_blank" rel="noreferrer">AGPL-3.0-or-later</a>で提供し、無保証です。変更したWeb版は利用者へ対応ソースを取得する機会を提供する必要があります。</p><h3>自作教材文書</h3><p>本プロジェクトが作成した解説・共同制作文書は <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noreferrer">CC BY-NC-SA 4.0</a>です。外部データの条件は変更しません。</p><h3>BigBrain</h3><p>単一標本脳0.5 mmと固定脳MRI0.444 mmは <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noreferrer">CC BY-NC-SA 4.0</a>。表示用に再標本化・8-bit化・圧縮・マスク・色調調整を行っています。局所3D標本の褐色組織は0.5 mm組織像から1 mm形状を再構成したBigBrain派生物です。脳室腔・核・一部白質を別部品化しています。</p><h3>手動皮質下核</h3><p>XiaoらのBigBrain co-registration datasetは <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a>。基になるBigBrainのCC BY-NC-SA条件は変わりません。</p></article><article><h3>MNI152 / CerebrA</h3><p>MNIライセンスに基づき使用し、Louis Collins / MNI / McGillの著作権表示を保持します。</p><h3>試作ラベル</h3><p>IDs 23–29と33–35はCerebrA由来の教育用マスク、30–32は画像誘導の候補です。手動正解ラベルや研究用マスクではありません。</p><h3>プロジェクト独自の模式3D</h3><p>主要な溝・裂の線状ガイド、放線群、脈絡叢、海馬采、脳弓、乳頭体、中脳水道、小脳脚、嗅球・嗅索と、鉤・視床下部・透明中隔・大脳脚・丘・膝状体・前有孔質・菱形窩・錐体・オリーブの位置目安、視覚路・漏斗、主要脳底動脈、脳神経根は手作業で標準空間へ置いたCC BY-NC-SA 4.0教材データです。BigBrainから抽出した正解形状ではなく、画面上でも「模式補助」「位置目安」と表示します。</p><h3>α版で未収録・専門家未確認</h3><p>XIの脊髄根、閂・薄束／楔状束の詳細、静脈・静脈洞は未収録です。試作分節、脳表ラベル・脳溝ガイド、神経血管、小脳脚・菱形窩の模式表示は専門家未確認で、指摘により変更します。</p><h3>参考資料</h3><p>講義資料、教科書、3D Brain、標本閲覧サイトを学習項目とUIの検討に参照しています。外部図版は収録していません。</p><h3>免責</h3><p>教育用α版です。正確性や継続提供を保証せず、診断・治療・手術計画・定量研究には使用できません。</p></article></div><footer><span>更新 2026-08-14・AGPL-3.0-or-later・無保証</span><div>{sourceRepositoryUrl?<a href={sourceRepositoryUrl} target="_blank" rel="noreferrer">対応ソース</a>:<span className="sourcePending">GitHub未作成・ソースURL設定待ち</span>}<a href="https://bigbrainproject.org/" target="_blank" rel="noreferrer">BigBrain</a><a href="https://nist.mni.mcgill.ca/multi-contrast-pd25-atlas/" target="_blank" rel="noreferrer">MNI PD25</a><a href="https://github.com/templateflow/tpl-MNI152NLin2009cSym" target="_blank" rel="noreferrer">TemplateFlow</a></div></footer></section></div>}
   </main>;
 }

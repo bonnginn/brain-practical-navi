@@ -45,11 +45,11 @@
 .structureBtn.unavailable { color: #939a98; background: #ebeae5; }
 .structureBtn.unavailable i { filter: grayscale(1); opacity: .42; }
 .structureBtn.unavailable strong { color: #a8aeac; }
-.structureHeading { display: flex; align-items: center; justify-content: space-between; }
+.structureHeading { display: grid; align-items: start; gap: 4px; }
 .structureHeading small { color: #1d6e69; font: 700 15px sans-serif; letter-spacing: 0; }
 .clearStructures { width: calc(100% - 36px); margin: 0 18px 4px; padding: 4px 7px; border: 1px solid #c0c4bf; background: #f4f3ee; color: #6f7877; font-size: 15px; text-align: right; }
 .clearStructures:disabled { opacity: .4; cursor: default; }
-.structureGroupGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin: 0 12px 6px; }
+.structureGroupGrid { display: grid; grid-template-columns: 1fr; gap: 4px; margin: 0 12px 6px; }
 .structureGroupGrid button { min-width: 0; display: grid; grid-template-columns: 7px minmax(0,1fr) auto; align-items: center; gap: 5px; padding: 6px 7px; border: 1px solid #c4c7c1; background: #f3f2ed; color: #677170; text-align: left; font-size: 15px; }
 .structureGroupGrid button i { width: 7px; height: 7px; border-radius: 50%; }
 .structureGroupGrid button span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -79,7 +79,7 @@
 .identifyHint b { font-size: 16px; }
 .identifyHint span { padding-left: 9px; border-left: 1px solid #7d8788; color: #b9c2bf; font: 15px monospace; }
 .identifyHint.unavailable { border-color: #b49b6b88; background: #2b2924e8; }
-.identifyMarker { position: absolute; z-index: 8; transform: translate(-50%,calc(-100% - 12px)); min-width: 150px; padding: 8px 26px 8px 10px; border: 1px solid #e36e57; background: #f8f6ef; color: #202a2e; box-shadow: 0 6px 18px #0008; pointer-events: none; }
+.identifyMarker { position: absolute; z-index: 8; transform: translate(-50%,calc(-100% - 12px)); min-width: 150px; padding: 8px 58px 8px 10px; border: 1px solid #e36e57; background: #f8f6ef; color: #202a2e; box-shadow: 0 6px 18px #0008; pointer-events: none; }
 .identifyMarker::after { content: ""; position: absolute; left: 50%; top: 100%; border: 7px solid transparent; border-top-color: #e36e57; transform: translateX(-50%); }
 .identifyMarker i { position: absolute; left: 50%; top: calc(100% + 7px); width: 8px; height: 8px; border: 2px solid white; border-radius: 50%; background: #e36e57; box-shadow: 0 0 0 2px #e36e57; transform: translate(-50%,-50%); }
 .identifyMarker b { display: block; font-size: 15px; }
@@ -154,6 +154,14 @@
 .practiceCard ol { font-size: 16px; }
 .blockControls { z-index: 9; pointer-events: auto; }
 html, body, #root { height: 100%; overflow: hidden; }
+.appShell :where(button,a,input,select,textarea):focus-visible { outline: 3px solid #e36e57; outline-offset: 2px; }
+.skipLink { position: fixed; z-index: 100; left: 12px; top: -60px; padding: 9px 12px; border: 2px solid #172126; background: #fff; color: #172126; font-weight: 800; }
+.skipLink:focus-visible { top: 8px; }
+.srOnly { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; margin: -1px !important; overflow: hidden !important; clip: rect(0,0,0,0) !important; white-space: nowrap !important; border: 0 !important; }
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .inspector{animation:none}
+}
 .appShell { height: 100vh; min-height: 0; }
 .leftRail, .workArea, .inspector { min-height: 0; overflow: hidden; }
 .leftRail { padding-top: 14px; }
@@ -192,7 +200,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 .inspectorTop .inspectIndex { display: grid; gap: 4px; }
 .inspectorClose { width: 34px; height: 34px; border: 1px solid #b8bcb6; background: #f5f3ed; font-size: 18px; line-height: 1; }
 .inspector h3 + p { margin-top: 7px; }
-@media(max-width:1250px){.appShell{grid-template-columns:170px minmax(0,1fr)}.topbar{grid-column:1/3}.structureBtn{padding-inline:15px}.sliceStage{grid-template-columns:minmax(0,1fr) 260px}}
+@media(max-width:1250px){.appShell{grid-template-columns:190px minmax(0,1fr)}.topbar{grid-column:1/3}.structureBtn{padding-inline:15px}.sliceStage{grid-template-columns:minmax(0,1fr) 260px}}
 @media(max-width:1050px){.appShell{grid-template-columns:160px minmax(0,1fr)}.topbar{grid-column:1/3}.sliceStage{grid-template-columns:minmax(0,1fr) 230px}}
 @media(max-width:940px){.sliceStage{height:auto;grid-template-columns:minmax(0,1fr) 210px}.insetHead{flex-basis:38px;height:38px}.modelInset .blockControls{left:7px;right:7px;bottom:7px}.modelInset .blockControls button{font-size:15px;padding-block:6px}.modelInset .orientation{display:none}}
 @media(max-width:760px){html,body,#root{height:auto;overflow:auto}.appShell{display:block;height:auto;padding:60px 0 72px}.leftRail,.workArea{overflow:visible}.visualGrid{display:block}.slicePanel{display:block}.sliceStage{height:600px;grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) 180px}.sliceViewport{border-right:0;border-bottom:1px solid #455052}.slicePanel{margin-top:0}.slicePanel .panelHead{display:block}.sliceTools{margin-top:8px;gap:4px;flex-wrap:wrap;justify-content:flex-start}.contrastSwitch button,.displaySwitch button{padding:6px 7px;font-size:15px}.workArea{padding:20px 12px}.workHead h1{font-size:26px}.panelHead b{font-size:16px}.panelHead small{font-size:16px}.sliceTimeline{padding-inline:13px}.rangeWrap button span{font-size:15px}.miniSlices>button>b{font-size:15px}.miniSlices>button>small{font-size:15px}.modelInset{width:auto;margin:0}.insetHead{flex-basis:30px;height:30px}.insetHead small,.insetHead>span{display:none}.modelInset .blockControls,.modelInset .orientation{display:none}.identifyHint{top:8px;padding:5px 7px}.identifyHint b{font-size:15px}.identifyHint span{display:none}.identifyMarker{min-width:132px}.selectedStructureBar{grid-template-columns:7px auto auto;padding-inline:11px}.selectedStructureBar p{display:none}.clearStructures,.structureGroupGrid{display:none}.zoomReadout{right:10px;bottom:10px}.inspectorBackdrop{top:60px}.inspector{top:60px;width:min(360px,94vw);padding:20px}}
@@ -212,6 +220,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 .compactToggle { margin-left: 4px; padding-left: 9px; border-left: 1px solid #c4c7c2; font-size: 16px; white-space: nowrap; }
 .panelActions { display: flex; align-items: center; gap: 10px; }
 .panelActions button { padding: 7px 9px; border: 1px solid #738082; background: #283033; color: #d4d9d6; font-size: 16px; font-weight: 700; }
+.panelActions button { white-space: nowrap; }
 .panelActions button.active { border-color: #b8c5c1; background: #e5e9e5; color: #273331; }
 .panelActions > span { color: #9fa9aa; font: 15px monospace; letter-spacing: .1em; }
 
@@ -283,8 +292,8 @@ html, body, #root { height: 100%; overflow: hidden; }
 .learningArea .workHead, .quizArea .workHead { align-items: center; }
 .sourceBadge { padding: 7px 9px; border: 1px solid #b8bcb7; background: #efeee8; color: #687270; font-size: 16px; }
 .learningGrid { flex: 1 1 auto; min-height: 0; display: grid; grid-template-columns: minmax(0,1fr) clamp(330px,29vw,410px); gap: 12px; }
-.learningModelCard, .quizImageCard { min-height: 0; display: grid; grid-template-rows: 58px minmax(0,1fr); overflow: hidden; border: 1px solid #c7cac4; background: #292e31; box-shadow: 0 10px 34px rgba(26,34,35,.1); }
-.learningModelCard .panelHead, .quizImageCard .panelHead { height: 58px; }
+.learningModelCard, .quizImageCard { min-height: 0; display: grid; grid-template-rows: auto minmax(0,1fr); overflow: hidden; border: 1px solid #c7cac4; background: #292e31; box-shadow: 0 10px 34px rgba(26,34,35,.1); }
+.learningModelCard .panelHead, .quizImageCard .panelHead { height: auto; min-height: 58px; padding-block: 7px; }
 .learningModelStage { height: auto; min-height: 0; cursor: grab; touch-action: none; user-select: none; background: radial-gradient(circle at 50% 44%,#515a5f 0,#343a3e 48%,#202528 100%); }
 .learningModelStage:active { cursor: grabbing; }
 .modelLegend { position: absolute; z-index: 8; left: 18px; top: 18px; display: grid; gap: 3px; min-width: 180px; padding: 11px 13px; border-left: 5px solid #d6dde0; background: rgba(20,25,27,.76); color: #f3f3ef; pointer-events: none; }
@@ -309,7 +318,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 .neurovascularControls button i { width: 16px; height: 5px; border-radius: 4px; background: #747e80; box-shadow: 0 0 8px transparent; }
 .neurovascularControls button.vessels i { background: #d92e24; box-shadow: 0 0 8px #d92e2477; }
 .neurovascularControls button.nerves i { background: #f3cf66; box-shadow: 0 0 8px #f3cf6677; }
-.neurovascularLegend { position: absolute; z-index: 9; right: 18px; bottom: 18px; display: grid; grid-template-columns: auto auto; gap: 6px 13px; padding: 9px 11px; border: 1px solid #667174; background: rgba(19,25,27,.82); color: #d5dad8; font-size: 15px; pointer-events: none; }
+.neurovascularLegend { position: absolute; z-index: 9; left: 18px; top: 18px; display: grid; grid-template-columns: auto auto; gap: 6px 13px; padding: 9px 11px; border: 1px solid #667174; background: rgba(19,25,27,.86); color: #d5dad8; font-size: 15px; pointer-events: none; }
 .neurovascularLegend span { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
 .neurovascularLegend i { width: 18px; height: 4px; border-radius: 4px; }
 .neurovascularLegend .arterialAnterior { background: #db2e24; }
@@ -338,11 +347,13 @@ html, body, #root { height: 100%; overflow: hidden; }
 .specimenLayerPicker > header button { padding: 5px 7px; border: 1px solid #b7bdb7; background: transparent; color: #68716f; font-size: 15px; }
 .specimenLayerPicker > header button:disabled { opacity: .35; }
 .specimenLayerActions { display: flex; gap: 5px; }
-.specimenTissueControls { position: absolute; top: 12px; left: 12px; z-index: 5; display: flex; align-items: center; gap: 4px; padding: 5px; border: 1px solid #ffffff24; background: #171b1cd9; box-shadow: 0 8px 24px #0004; }
+.specimenTissueControls { position: absolute; top: 12px; right: 12px; z-index: 9; display: flex; align-items: center; gap: 4px; padding: 5px; border: 1px solid #ffffff24; background: #171b1cd9; box-shadow: 0 8px 24px #0004; }
+.specimenTissueControls ~ .orientation { display: none; }
+.specimenAttachmentControls { bottom: 70px; }
 .specimenTissueControls > span { padding: 0 5px; color: #cbd2d0; font-size: 15px; font-weight: 800; letter-spacing: .08em; }
 .specimenTissueControls button { min-width: 42px; padding: 5px 7px; border: 1px solid #717b79; background: transparent; color: #bdc5c3; font-size: 15px; }
 .specimenTissueControls button.active { border-color: #8cb9ad; background: #4f746b; color: #fff; }
-.specimenLayerPicker > div { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+.specimenLayerPicker > div { display: grid; grid-template-columns: 1fr; gap: 5px; }
 .specimenLayerPicker > div > button { display: grid; grid-template-columns: 7px minmax(0,1fr) auto 12px; align-items: center; gap: 6px; min-height: 47px; padding: 6px 7px; border: 1px solid #c0c4be; background: #faf8f3; color: #33403d; text-align: left; }
 .specimenLayerPicker > div > button:hover { border-color: #738b85; }
 .specimenLayerPicker > div > button.active { border-color: #55726c; background: #e1e8e3; box-shadow: inset 0 0 0 1px #fff8; }
@@ -370,7 +381,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 .basalLandmarkPicker > p { display: grid; gap: 3px; margin: 8px 0 0; padding: 10px 11px; border-left: 3px solid #b67d62; background: #ddd8d0; color: #5a6462; font-size: 16px; line-height: 1.65; }
 .basalLandmarkPicker > p b { color: #293432; font-size: 14px; }
 .basalLandmarkPicker > em { display: block; margin-top: 7px; color: #7c716a; font-size: 15px; line-height: 1.55; font-style: normal; }
-.learningGuide { min-height: 0; overflow-y: auto; padding: 26px 28px; border: 1px solid #c7cac4; background: #e7e5df; }
+.learningGuide { min-height: 0; overflow-x: hidden; overflow-y: auto; padding: 26px 28px; border: 1px solid #c7cac4; background: #e7e5df; }
 .guideIndex { color: #1d6e69; font: 700 16px monospace; letter-spacing: .13em; }
 .learningGuide h2 { margin: 8px 0 6px; font: 400 30px Georgia,"Yu Mincho",serif; }
 .learningGuide > p { margin: 0; color: #5f6967; font-size: 16px; line-height: 1.8; }
@@ -513,7 +524,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 .quizResultState > div button { margin-top: 0; }
 .quizResultState > div button:first-child { border: 1px solid #1d6e69; background: transparent; color: #1d6e69; }
 
-.legalBackdrop { position: fixed; z-index: 60; inset: 0; display: grid; place-items: center; padding: 24px; background: rgba(13,20,22,.66); backdrop-filter: blur(3px); }
+.legalBackdrop { position: fixed; z-index: 60; inset: 0; display: grid; place-items: center; padding: 24px; background: rgba(13,20,22,.66); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
 .legalDialog { width: min(980px,96vw); max-height: min(780px,92vh); overflow-y: auto; border: 1px solid #aeb7b5; background: #f2f1ec; box-shadow: 0 24px 80px #0008; }
 .legalDialog > header { position: sticky; z-index: 2; top: 0; display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; border-bottom: 1px solid #c6c9c3; background: #f8f7f3; }
 .legalDialog header span { color: #1d6e69; font: 700 15px monospace; letter-spacing: .14em; }
@@ -522,6 +533,11 @@ html, body, #root { height: 100%; overflow: hidden; }
 .legalStatus { margin: 22px 24px 0; padding: 16px 18px; border-left: 5px solid #e36e57; background: #eee7df; }
 .legalStatus b { font-size: 18px; }
 .legalStatus p { margin: 5px 0 0; color: #666f6e; font-size: 14px; line-height: 1.7; }
+.projectCredit { display: flex; align-items: baseline; gap: 6px; margin: 9px 24px 0; color: #596460; font-size: 11px; line-height: 1.45; }
+.projectCredit > span { color: #1d6e69; font: 700 9px monospace; letter-spacing: .06em; }
+.projectCredit > b { font-size: 12px; font-weight: 700; }
+.projectCredit > p { margin: 0; font-size: 11px; }
+.projectCredit > small { color: #707a77; font-size: 10px; }
 .legalColumns { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; padding: 22px 24px 26px; }
 .legalColumns article + article { padding-left: 28px; border-left: 1px solid #c8cbc5; }
 .legalColumns h3 { margin: 0 0 6px; font-size: 15px; }
@@ -544,7 +560,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 
 .segRailIntro { margin: 16px 18px 18px; padding: 14px; border: 1px solid #c5c9c3; background: #efeee8; }
 .segRailIntro > b { font-size: 16px; }
-.segRailIntro p { margin: 5px 0 10px; color: #66706e; font-size: 16px; line-height: 1.65; }
+.segRailIntro p { margin: 5px 0 10px; color: #4f5957; font-size: 16px; line-height: 1.65; }
 .segRailIntro ol { margin: 0; padding-left: 18px; color: #485452; font-size: 16px; line-height: 1.85; }
 .segmentationArea { min-height: 0; }
 .segWorkbench { flex: 1 1 auto; min-height: 0; display: grid; grid-template-columns: minmax(0,1fr) clamp(330px,30vw,420px); gap: 12px; }
@@ -568,7 +584,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 .segCanvasCard input[type="range"] { width: 100%; accent-color: #e36e57; }
 .segCanvasCard > footer button { padding: 7px 9px; border: 1px solid #657173; background: #30393c; color: #d1d6d4; font-size: 15px; }
 .segControls { min-height: 0; overflow-y: auto; padding: 22px 24px 26px; border: 1px solid #c7cac4; background: #e7e5df; }
-.segControls h2 { margin: 7px 0 6px; font: 400 27px Georgia,"Yu Mincho",serif; }
+.segControls h2 { margin: 7px 0 6px; font: 400 24px Georgia,"Yu Mincho",serif; }
 .segControls > p { margin: 0 0 15px; color: #626c6a; font-size: 16px; line-height: 1.7; }
 .segToolRow { display: grid; grid-template-columns: repeat(3,1fr); margin-bottom: 12px; }
 .segToolRow button { padding: 9px 5px; border: 1px solid #b7bcb6; background: #f3f1ec; color: #5e6866; font-size: 16px; font-weight: 700; }
@@ -616,15 +632,26 @@ html, body, #root { height: 100%; overflow: hidden; }
 .segControls .accuracyNote { margin-top: 12px; }
 .segControls .accuracyNote p { margin-bottom: 0; }
 
-@media(max-width:1120px){.workspaceSwitch button{min-width:82px;padding-inline:8px}.workspaceSwitch button>span{font-size:16px}.learningGrid,.quizWorkspace,.segWorkbench{grid-template-columns:minmax(0,1fr) 330px}.topActions>span{display:none}}
+@media(max-width:1400px){.topActions>span{display:none}}
+@media(max-width:1320px){.learningModelCard .panelHead>span,.learningModelCard .panelActions>span,.specimenTissueControls>span,.specimenRotationHint{display:none}.workspaceSwitch button{min-width:82px;padding-inline:8px}.neurovascularPicker>div{grid-template-columns:1fr}.neurovascularPicker button{min-width:0}.neurovascularPicker button small{max-width:none}}
+@media(max-width:1120px){.workspaceSwitch button{min-width:82px;padding-inline:8px}.workspaceSwitch button>span{font-size:16px}.learningGrid,.quizWorkspace,.segWorkbench{grid-template-columns:minmax(0,1fr) 350px}.topActions>span{display:none}.surfaceRegionPicker>div,.surfaceLandmarkPicker>div{grid-template-columns:1fr}.learningGuide{padding-inline:20px}}
 @media(max-width:900px){.workspaceSwitch button{min-width:68px}.workspaceSwitch button>i{display:none}.homeHero{grid-template-columns:minmax(300px,43%) minmax(0,1fr)}.homeIntro{padding:28px}.homeModeGrid{grid-template-columns:1fr 1fr}.homeModeGrid button{min-height:72px}.homeModeGrid small{display:none}.learningGrid,.quizWorkspace,.segWorkbench{grid-template-columns:minmax(0,1fr) minmax(270px,34vw,310px)}.learningGuide,.quizQuestionCard,.segControls{padding-inline:18px}.legalColumns{grid-template-columns:1fr}.legalColumns article+article{padding-left:0;border-left:0}}
 @media(max-height:820px) and (min-width:761px){.homeArea{gap:8px;padding:12px 22px 10px}.homeIntro{padding:clamp(22px,3vw,42px)}.homeBadges{margin-bottom:8px}.homeIntro h1{margin:8px 0 11px;font-size:clamp(34px,3.6vw,52px)}.homeLead{line-height:1.65}.homeModeGrid button{min-height:76px;padding-block:10px}.homeFooter{min-height:30px}}
-@media(max-width:760px){.topbar{padding-inline:5px;gap:3px}.brand{min-width:auto}.brand>span:last-child{display:none}.workspaceSwitch{display:flex;min-width:0;overflow-x:auto;scrollbar-width:none}.workspaceSwitch::-webkit-scrollbar{display:none}.workspaceSwitch button{min-width:52px;padding:7px 3px}.workspaceSwitch button>span{font-size:15px}.topActions{gap:2px}.topActions>span{display:none}.legalButton{padding:7px 3px;font-size:15px;white-space:nowrap}.feedbackButton{display:block;width:38px;padding:7px 2px;font-size:0;white-space:nowrap}.feedbackButton::after{content:"協力";font-size:15px}.compactToggle{border:0;padding-left:0}.learningArea,.quizArea,.segmentationArea{min-height:800px}.learningGrid,.quizWorkspace,.segWorkbench{display:block}.learningModelCard,.quizImageCard,.segCanvasCard{height:520px}.learningGuide,.quizQuestionCard,.segControls{max-height:none;margin-top:10px}.neurovascularControls{left:8px;bottom:8px}.neurovascularControls button{padding:6px}.neurovascularLegend{right:8px;bottom:62px;grid-template-columns:1fr}.feedbackOptions{grid-template-columns:1fr}.legalBackdrop{padding:8px}.legalDialog>footer{display:block}.legalDialog footer div{margin-top:8px}}
+@media(max-width:760px){.topbar{padding-inline:5px;gap:3px}.brand{min-width:auto}.brand>span:last-child{display:none}.workspaceSwitch{display:flex;min-width:0;overflow-x:auto;scrollbar-width:none}.workspaceSwitch::-webkit-scrollbar{display:none}.workspaceSwitch button{min-width:52px;padding:7px 3px}.workspaceSwitch button>span{font-size:15px}.topActions{gap:2px}.topActions>span{display:none}.legalButton{padding:7px 3px;font-size:15px;white-space:nowrap}.feedbackButton{display:block;width:38px;padding:7px 2px;font-size:0;white-space:nowrap}.feedbackButton::after{content:"協力";font-size:15px}.compactToggle{border:0;padding-left:0}.learningArea,.quizArea,.segmentationArea{min-height:800px}.learningGrid,.quizWorkspace,.segWorkbench{display:block}.learningModelCard,.quizImageCard,.segCanvasCard{height:520px}.learningGuide,.quizQuestionCard,.segControls{max-height:none;margin-top:10px}.neurovascularControls{left:8px;bottom:8px}.neurovascularControls button{padding:6px}.neurovascularLegend{left:8px;top:8px;right:auto;bottom:auto;grid-template-columns:repeat(3,auto);gap:5px 8px;padding:7px 8px;font-size:12px}.neurovascularLegend i{width:13px}.feedbackOptions{grid-template-columns:1fr}.legalBackdrop{padding:8px}.legalDialog>footer{display:block}.legalDialog footer div{margin-top:8px}}
 @media(max-width:760px){.specimenViewControls{right:8px;bottom:8px}.specimenViewControls>span{display:none}.specimenViewControls button{padding-inline:6px}.specimenRotationHint{display:none}}
 @media(max-width:760px){.homeArea{display:block;overflow:visible;padding:12px}.homeHero{display:block}.homeIntro{padding:30px 22px;border-right:0;border-bottom:1px solid #c9cbc5}.homeIntro h1{font-size:40px}.homeModelStage{height:380px}.homeModeGrid{grid-template-columns:1fr;margin-top:10px}.homeModeGrid button{min-height:78px}.homeModeGrid small{display:block}.homeFooter{display:block;padding:13px 2px}.homeFooter div{margin-top:9px}}
+@media(max-width:380px){.learningModelCard .panelHead{min-width:0;flex-wrap:wrap;align-content:center;gap:5px}.learningModelCard .panelHead>div:first-child{min-width:0;flex:1 1 120px}.learningModelCard .panelActions{min-width:0;flex:1 1 auto;gap:4px;justify-content:flex-end}.learningModelCard .panelActions button{padding-inline:6px;font-size:14px}}
 
 /* Readability pass: keep secondary text visibly separate from both paper and 3D backgrounds. */
 :root { --muted: #43504e; --line: #aeb4af; }
+.homeModeGrid em { color: #3f625c; }
+.homeFooter p b { color: #884438; }
+.surfaceRegionPicker > header button,
+.surfaceLandmarkPicker > header button,
+.specimenLayerPicker > header button { color: #4f5a58; }
+.quizImageCard .panelHead > span { color: #56615f; }
+.quizOptions button > i { color: #4d5755; }
+.segControls > p { color: #596360; }
 .workspaceSwitch button > i,
 .railMemo,
 .quizRailScore > span,
@@ -709,4 +736,67 @@ html, body, #root { height: 100%; overflow: hidden; }
 .legalButton, .feedbackButton { font-size: 13px; }
 
 @media(max-width:1120px){.workspaceSwitch button>span{font-size:12px}}
-@media(max-width:760px){.workspaceSwitch button>span{font-size:10px}.legalButton{font-size:10px}.feedbackButton::after{font-size:10px}}
+@media(max-width:760px){.workspaceSwitch button>span{font-size:10px}.legalButton{font-size:10px}.feedbackButton::after{font-size:10px}.workHead{display:block}.workHead h1{font-size:24px;line-height:1.25}.sourceBadge{display:inline-block;margin-top:10px}}
+
+/* On narrow screens, preserve readable destinations instead of squeezing all
+   six workspaces and the utility actions into a single 390 px row. */
+@media(max-width:760px){
+  .appShell{padding-top:104px}
+  .topbar{height:104px;display:grid;grid-template-columns:44px minmax(0,1fr) auto;grid-template-rows:52px 52px;align-content:start;gap:0 6px;padding:0 6px}
+  .brand{grid-column:1;grid-row:1}
+  .workspaceSwitch{grid-column:1/4;grid-row:2;width:100%;padding:3px;background:#e8e7e2;scroll-snap-type:x proximity}
+  .workspaceSwitch button{min-width:92px;padding:7px 8px;scroll-snap-align:start}
+  .workspaceSwitch button>span{font-size:13px;white-space:nowrap}
+  .topActions{grid-column:3;grid-row:1}
+  .feedbackButton{width:auto;padding-inline:8px;font-size:0}
+  .feedbackButton::after{content:"共同制作";font-size:12px}
+  .legalButton{padding-inline:8px;font-size:12px}
+  .inspectorBackdrop,.inspector{top:104px}
+  .leftRail .lessonRailBtn{min-width:136px;display:grid;grid-template-columns:22px minmax(0,1fr);align-items:center;padding:5px 8px;text-align:left}
+  .leftRail .lessonRailBtn>span{grid-row:auto}
+  .leftRail .lessonRailBtn small{display:none}
+  .leftRail .lessonRailBtn b{display:block;font-size:13px;line-height:1.2}
+  .leftRail .planeBtn small{display:none}
+  .rangeWrap button span{display:none}
+
+  /* Quiz settings and the contributor workflow are full panels, not a
+     destination strip. Keep them in document flow on narrow screens. */
+  .workspace-quiz,
+  .workspace-segment{padding-bottom:0}
+  .workspace-quiz .leftRail,
+  .workspace-segment .leftRail{position:static;height:auto;display:block;padding:14px 12px;overflow:visible;border-top:0;border-right:0;border-bottom:1px solid var(--line)}
+  .workspace-quiz .leftRail>.eyebrow,
+  .workspace-segment .leftRail>.eyebrow,
+  .workspace-quiz .leftRail .railLine,
+  .workspace-segment .leftRail .railLine{display:block}
+  .workspace-quiz .quizRailScore{margin:10px 0}
+  .workspace-quiz .quizRailDots{margin:0}
+  .workspace-quiz .quizSetup{margin:10px 0 0}
+  .workspace-quiz .railReset,
+  .workspace-quiz .historyReset{width:100%;margin:8px 0 0}
+  .workspace-segment .segRailIntro{margin:10px 0}
+  .workspace-segment .railMemo{padding:0}
+}
+
+/* Accessibility contrast pass for small text on the paper-coloured UI.
+   These are functional labels rather than decorative watermark text. */
+.brand small { color: #596360; }
+.workspaceSwitch button:not(.active) > span { color: #4f5b59; }
+.leftRail > .eyebrow,
+.workHead .eyebrow { color: #596360; }
+.planeBtn > span,
+.planeBtn small { color: #596360; }
+.structureGroupGrid button { color: #465351; }
+.structureGroupGrid button small,
+.clearStructures { color: #53605d; }
+.rangeWrap button span { color: #596360; }
+.rangeWrap button.active span { color: #b94d3b; }
+.sourceBadge { color: #53605d; }
+.specimenLayerPicker > div > button em { color: #4f5b59; }
+.quizSetup label > span,
+.quizSetup > div > span { color: #4f5b59; }
+.quizRailScore strong,
+.quizScoreLine b { color: #b94d3b; }
+.segStats b { color: #a84233; }
+.segStats small,
+.projectCredit > small { color: #596360; }

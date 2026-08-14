@@ -291,8 +291,8 @@
       },
       {
         "file": "block-commissural-system-septum-pellucidum.mesh",
-        "vertices": 2214,
-        "faces": 4424,
+        "vertices": 894,
+        "faces": 1784,
         "shadeMin": 0.82,
         "shadeMax": 0.82,
         "part": "septum-pellucidum",
