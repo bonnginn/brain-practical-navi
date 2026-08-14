@@ -755,7 +755,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 @media(max-width:760px){.topbar{padding-inline:5px;gap:3px}.brand{min-width:auto}.brand>span:last-child{display:none}.workspaceSwitch{display:flex;min-width:0;overflow-x:auto;scrollbar-width:none}.workspaceSwitch::-webkit-scrollbar{display:none}.workspaceSwitch button{min-width:52px;padding:7px 3px}.workspaceSwitch button>span{font-size:15px}.topActions{gap:2px}.topActions>span{display:none}.legalButton{padding:7px 3px;font-size:15px;white-space:nowrap}.feedbackButton{display:block;width:38px;padding:7px 2px;font-size:0;white-space:nowrap}.feedbackButton::after{content:"協力";font-size:15px}.compactToggle{border:0;padding-left:0}.learningArea,.quizArea,.segmentationArea{min-height:800px}.learningGrid,.quizWorkspace,.segWorkbench{display:block}.learningModelCard,.quizImageCard,.segCanvasCard{height:520px}.learningGuide,.quizQuestionCard,.segControls{max-height:none;margin-top:10px}.neurovascularControls{left:8px;bottom:8px}.neurovascularControls button{padding:6px}.neurovascularLegend{left:8px;top:8px;right:auto;bottom:auto;grid-template-columns:repeat(3,auto);gap:5px 8px;padding:7px 8px;font-size:12px}.neurovascularLegend i{width:13px}.blockReleaseNote .sourceBadge{display:none}.feedbackOptions{grid-template-columns:1fr}.legalBackdrop{padding:8px}.legalDialog>footer{display:block}.legalDialog footer div{margin-top:8px}}
 @media(max-width:760px){.quizSliceNavigator{grid-template-columns:minmax(0,1fr) 38px auto;gap:7px;padding-inline:9px}.quizSliceAxis{display:none}.quizSliceNavigator button{padding-inline:6px}.quizSliceControl{display:grid;grid-template-columns:30px minmax(0,1fr) 30px;gap:5px}.quizSliceControl button{width:30px;padding:0}}
 @media(max-width:760px){.sectionLayoutSwitch{width:100%}.sectionLayoutSwitch button{flex:1;padding-inline:4px;font-size:12px}.sliceStage.layout-slice,.sliceStage.layout-model{grid-template-rows:minmax(0,1fr)}.sliceStage.layout-model .insetViews{grid-template-columns:1fr 1fr;grid-template-rows:1fr}}
-@media(max-width:760px){.specimenViewControls{right:8px;bottom:90px}.specimenAttachmentControls{bottom:140px}.specimenViewControls>span{display:none}.specimenViewControls button{padding-inline:6px}.specimenRotationHint{display:none}}
+@media(max-width:760px){.specimenViewControls{right:8px}.specimenViewControls>span{display:none}.specimenViewControls button{padding-inline:6px}.specimenRotationHint{display:none}}
 @media(max-width:760px){.homeArea{display:block;overflow:visible;padding:12px}.homeHero{display:block}.homeIntro{padding:30px 22px;border-right:0;border-bottom:1px solid #c9cbc5}.homeIntro h1{font-size:40px}.homeAccuracyWarning{grid-template-columns:1fr;gap:3px}.homeModelStage{height:380px}.homeModeGrid{grid-template-columns:1fr;margin-top:10px}.homeModeGrid button{min-height:78px}.homeModeGrid small{display:block}.homeFooter{display:block;padding:13px 2px}.homeFooter div{margin-top:9px}}
 @media(max-width:380px){.learningModelCard .panelHead{min-width:0;flex-wrap:wrap;align-content:center;gap:5px}.learningModelCard .panelHead>div:first-child{min-width:0;flex:1 1 120px}.learningModelCard .panelActions{min-width:0;flex:1 1 auto;gap:4px;justify-content:flex-end}.learningModelCard .panelActions button{padding-inline:6px;font-size:14px}}
 
@@ -858,7 +858,8 @@ html, body, #root { height: 100%; overflow: hidden; }
 /* On narrow screens, preserve readable destinations instead of squeezing all
    six workspaces and the utility actions into a single 390 px row. */
 @media(max-width:760px){
-  .appShell{padding-top:104px}
+  html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+  .appShell{padding:104px 0 0}
   .topbar{height:104px;display:grid;grid-template-columns:44px minmax(0,1fr) auto;grid-template-rows:52px 52px;align-content:start;gap:0 6px;padding:0 6px}
   .brand{grid-column:1;grid-row:1}
   .workspaceSwitch{grid-column:1/4;grid-row:2;width:100%;padding:3px;background:#e8e7e2;scroll-snap-type:x proximity}
@@ -879,6 +880,19 @@ html, body, #root { height: 100%; overflow: hidden; }
   .leftRail .planeBtn small{display:none}
   .rangeWrap button span{display:none}
 
+  /* Surface, section and specimen lessons use a mobile destination strip.
+     It sits below the two-row header in normal flow instead of covering model
+     controls, and scrolls away to give the model the full vertical viewport. */
+  .workspace-surface,
+  .workspace-sections,
+  .workspace-blocks{padding-bottom:0}
+  .workspace-surface .leftRail,
+  .workspace-sections .leftRail,
+  .workspace-blocks .leftRail{position:static;z-index:18;top:auto;bottom:auto;height:70px;display:flex;padding:0;overflow-x:auto;overflow-y:hidden;border-top:0;border-right:0;border-bottom:1px solid var(--line);background:#eeece6;scroll-snap-type:x proximity}
+  .workspace-surface .leftRail .lessonRailBtn,
+  .workspace-sections .leftRail .lessonRailBtn,
+  .workspace-blocks .leftRail .lessonRailBtn{min-width:128px;scroll-snap-align:start}
+
   /* Quiz settings and the contributor workflow are full panels, not a
      destination strip. Keep them in document flow on narrow screens. */
   .workspace-quiz,
@@ -897,6 +911,8 @@ html, body, #root { height: 100%; overflow: hidden; }
   .workspace-segment .segRailIntro{margin:10px 0}
   .workspace-segment .railMemo{padding:0}
 }
+
+@media(max-width:760px){.specimenViewControls{right:8px;bottom:8px}.specimenAttachmentControls{bottom:66px}}
 
 /* Accessibility contrast pass for small text on the paper-coloured UI.
    These are functional labels rather than decorative watermark text. */

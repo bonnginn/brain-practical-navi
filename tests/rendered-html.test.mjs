@@ -1436,7 +1436,7 @@ test("prioritizes beta specimen work without implying anatomical validation", as
   assert.match(page, /"medial-temporal":\["hippocampus","amygdala","inferior-horn"\]/);
   assert.match(page, /useState<string\[]>\(initialBlockLayers\(initialBlockSpecimen\)\)/);
   assert.match(page, /setBlockLayers\(initialBlockLayers\(key\)\)/);
-  assert.match(css, /@media\(max-width:760px\)\{\.specimenViewControls\{right:8px;bottom:90px\}\.specimenAttachmentControls\{bottom:140px\}/);
+  assert.match(css, /@media\(max-width:760px\)\{\.specimenViewControls\{right:8px;bottom:8px\}\.specimenAttachmentControls\{bottom:66px\}/);
   const priorities = page.split("const blockPriorities")[1].split("const blockInitialRotations")[0];
   assert.equal((priorities.match(/label:"β重点"/g)??[]).length, 4);
   assert.equal((priorities.match(/label:"発展枠"/g)??[]).length, 4);
@@ -1500,6 +1500,9 @@ test("narrow layouts keep destination rails and full workflow panels distinct", 
   assert.match(page, /aria-label="意見・共同制作を表示"/);
   assert.match(css, /\.leftRail \.lessonRailBtn\{min-width:136px;display:grid/);
   assert.match(css, /\.leftRail \.planeBtn small\{display:none\}/);
+  assert.match(css, /html\{-webkit-text-size-adjust:100%;text-size-adjust:100%\}/);
+  assert.match(css, /\.workspace-surface \.leftRail,[\s\S]*\.workspace-blocks \.leftRail\{position:static;z-index:18;top:auto;bottom:auto;height:70px/);
+  assert.match(css, /\.workspace-surface \.leftRail \.lessonRailBtn,[\s\S]*\.workspace-blocks \.leftRail \.lessonRailBtn\{min-width:128px;scroll-snap-align:start\}/);
   assert.doesNotMatch(page, /landmarks\.map\(mark/);
   assert.match(css, /\.workspace-quiz \.leftRail,/);
   assert.match(css, /\.workspace-segment \.leftRail\{position:static/);
