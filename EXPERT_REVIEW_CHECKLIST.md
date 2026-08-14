@@ -60,7 +60,7 @@
 | D1 | `#workspace/blocks/lateral-ventricle` | 側脳室のC字形、尾状核・視床・海馬との隣接、第三脳室方向 |  |
 | D2 | `#workspace/blocks/radiations` | 被殻、淡蒼球外節・内節、内包、放線冠・視放線・聴放線の模式関係 |  |
 | D3 | `#workspace/blocks/choroid-plexus` | 脈絡叢の位置、側脳室・第三脳室との関係、模式表示の範囲 |  |
-| D4 | `#workspace/blocks/medial-temporal` | 海馬、扁桃体、海馬采、鉤、側脳室下角の位置と連続性 |  |
+| D4 | `#workspace/blocks/medial-temporal` | 海馬、扁桃体、側脳室下角の位置と連続性。海馬采・鉤を未収録とする判断 |  |
 | D5 | `#workspace/blocks/diencephalon` | 視床、第三脳室、視床下部、視床下核、乳頭体 |  |
 
 局所標本は実標本らしい質感ではなく、構造を着脱して位置関係を読む試作教材です。各部品の「標本分節」「試作分節」「模式補助」「位置目安」を別々に判定します。

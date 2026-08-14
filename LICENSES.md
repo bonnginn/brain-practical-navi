@@ -26,7 +26,7 @@ README、学習範囲、共同制作ガイド、解説文など、本プロジ�
 
 `public/atlas/` のデータと派生物には、BigBrainのCC BY-NC-SA 4.0、BigBrain co-registration/manual labelsのCC BY 4.0、MNIライセンスなど、素材ごとの条件が適用されます。本プロジェクトのAGPLまたは教材文書のCC表示によって、第三者素材の条件が変更されることはありません。
 
-本プロジェクトが手作業の経路・形状から生成した放線冠・視放線・聴放線、脈絡叢、海馬采、脳弓、乳頭体、中脳水道、鉤・視床下部・透明中隔・大脳脚の位置目安、視覚路・漏斗、脳底動脈、脳神経の模式3DメッシュはCC BY-NC-SA 4.0です。これらは第三者データの抽出物ではなく、正解ラベルでもありません。アプリ内と `public/atlas/specimen-blocks.json` ではBigBrain由来の組織・分節と明示的に区別します。神経血管の対象と免責は `public/atlas/PROCEDURAL-NEUROVASCULAR-NOTICE.txt` に記載します。
+本プロジェクトが手作業の経路・形状から生成した放線冠・視放線・聴放線、脈絡叢、脳弓、乳頭体、中脳水道、視床下部・透明中隔・大脳脚の位置目安、視覚路・漏斗、脳底動脈、脳神経の模式3DメッシュはCC BY-NC-SA 4.0です。これらは第三者データの抽出物ではなく、正解ラベルでもありません。アプリ内と `public/atlas/specimen-blocks.json` ではBigBrain由来の組織・分節と明示的に区別します。旧海馬采・鉤メッシュは位置と連続性の根拠が不足するためβ候補の配布物から除外しました。神経血管の対象と免責は `public/atlas/PROCEDURAL-NEUROVASCULAR-NOTICE.txt` に記載します。
 
 詳しい来歴、改変内容、帰属表示は `DATA_AND_LICENSES.md` と `public/atlas/ATTRIBUTION.txt` を参照してください。
 

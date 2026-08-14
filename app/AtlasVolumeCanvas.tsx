@@ -102,8 +102,6 @@ const SPECIMEN_PARTS:Record<Exclude<SpecimenBlock,"none">,SpecimenPartDefinition
     {key:"hippocampus",layer:"hippocampus",color:[.78,.47,.55,1],material:1},
     {key:"amygdala",layer:"amygdala",color:[.61,.42,.68,1],material:1},
     {key:"inferior-horn",layer:"inferior-horn",color:[.27,.68,.74,1],material:1},
-    {key:"fimbria",layer:"fimbria",color:[.89,.85,.69,1],material:1},
-    {key:"uncus",layer:"uncus",color:[.72,.51,.40,1],material:1},
   ],
   "midbrain-section":[
     {key:"tissue",color:[.79,.64,.49,1],material:4},

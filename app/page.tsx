@@ -231,12 +231,10 @@ const blockSpecimens:Record<BlockSpecimenKey,BlockLesson>={
     {key:"choroid-plexus",name:"脈絡叢",latin:"Plexus choroideus",color:"#b34c62",source:"模式補助",note:"脈絡裂に沿う付着方向を示す房状モデルです。"},
     {key:"hippocampus",name:"海馬",latin:"Hippocampus",color:"#c8798d",source:"標本分節",note:"側脳室下角の床と脈絡裂の位置を理解する基準です。"},
   ]},
-  "medial-temporal":{name:"海馬・扁桃体標本",en:"MEDIAL TEMPORAL SPECIMEN",visual:"model",plane:"horizontal",position:69,focus:"hippocampus",view:"inside",rotation:{x:-20,y:-48},intro:"右内側側頭葉だけを小さく切り出し、海馬、海馬采、側脳室下角、扁桃体、鉤の位置を見比べる標本です。前後方向を回転させ、扁桃体から海馬へ移る関係を追います。",observe:["海馬頭・体と側脳室下角","海馬表面から内側へ集まる海馬采","海馬前方の扁桃体","鉤と扁桃体・海馬頭の位置関係","後方へ脳弓へ続く方向"],caution:"海馬と扁桃体は同一標本の手動分節、側脳室下角は試作腔ラベルです。海馬采と鉤は位置・連続性を含めた模式補助で、実標本由来の正解輪郭ではありません。表面の線維感、湿潤感、切断面の質感も再現していないため、形状や質感を暗記せず実標本・検証済み資料と照合してください。",layers:[
+  "medial-temporal":{name:"海馬・扁桃体標本",en:"MEDIAL TEMPORAL SPECIMEN",visual:"model",plane:"horizontal",position:69,focus:"hippocampus",view:"inside",rotation:{x:-20,y:-48},intro:"右内側側頭葉だけを小さく切り出し、同一格子上の海馬、側脳室下角、扁桃体の前後関係を見比べる標本です。前後方向を回転させ、扁桃体から海馬へ移る関係を追います。",observe:["海馬頭・体と側脳室下角","海馬前方の扁桃体","海馬采・鉤は信頼できる境界データがなく3D未収録"],caution:"海馬と扁桃体は同一標本の手動分節、側脳室下角は試作腔ラベルです。海馬采と鉤は、手置き形状では位置と連続性を正確に示せないためβ候補の3Dから除外しました。海馬采は海馬の内側縁から脳弓へ続く白質帯、鉤は海馬傍回前端の複雑な折り返しとして実標本・検証済み資料で確認してください。表面の線維感、湿潤感、切断面の質感も再現していません。",layers:[
     {key:"hippocampus",name:"海馬",latin:"Hippocampus",color:"#c8798d",source:"標本分節",note:"下角の床を隆起させ、後方へ細く続きます。"},
     {key:"amygdala",name:"扁桃体",latin:"Corpus amygdaloideum",color:"#9c6cae",source:"標本分節",note:"海馬の前方、側脳室下角前端の近くに位置します。"},
     {key:"inferior-horn",name:"側脳室下角",latin:"Cornu inferius",color:"#45aebd",source:"試作分節",note:"海馬と扁桃体の上下前後関係を読む空間基準です。"},
-    {key:"fimbria",name:"海馬采",latin:"Fimbria hippocampi",color:"#e3d8b0",source:"模式補助",note:"海馬表面の線維が内側縁へ集まる概略方向だけを示す試作です。位置と連続性は未検証です。"},
-    {key:"uncus",name:"鉤（位置目安）",latin:"Uncus",color:"#b78165",source:"位置目安",note:"海馬傍回前端が内側へ鉤状に曲がる領域です。"},
   ]},
   "midbrain-section":{name:"中脳核・大脳脚標本",en:"MIDBRAIN TRANSVERSE",visual:"model",plane:"horizontal",position:67,focus:"thalamus",view:"inside",rotation:{x:-62,y:0},intro:"赤核と黒質が現れる高さで中脳を横断した局所標本です。中脳水道を背側の基準に、被蓋の赤核、腹側の黒質と大脳脚を層状に比較し、丘・膝状体の方向も確認します。",observe:["正中背側寄りの中脳水道","被蓋に並ぶ左右の赤核","赤核の腹外側に沿う黒質","黒質腹側の大脳脚と脚間窩","上丘・下丘と外側・内側膝状体の対応"],caution:"赤核・黒質は手動分節、褐色組織は同一標本の脳幹ラベルから作った10 mm厚の横断標本です。中脳水道は模式3D、大脳脚、上丘・下丘、膝状体、脚間窩は位置目安で、核境界の正解分節ではありません。",layers:[
     {key:"red-nuclei",name:"赤核",latin:"Nuclei rubri",color:"#d24f49",source:"標本分節",note:"中脳被蓋内に左右一対で現れる円形の核です。"},
