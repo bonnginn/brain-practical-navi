@@ -214,4 +214,6 @@ https://github.com/bonnginn/brain-practical-navi を取得し、WINDOWS_HANDOFF.
 
 β版への昇格は、`BETA_ROADMAP.md` のGo / No-Goを満たし、少なくとも1名の神経解剖学に詳しい確認者の記録を得た後に、プロジェクト管理者が決定します。
 
+追記: 専門家レビュー対象19件を `app/expert-review-targets.json` へ正規化し、`/?review=<ID>&commit=<SHA>#workspace/...` で解剖画面と固定判定票を同時に開けるようにしました。記名、所属、専門領域、対象コミット、判定、理由、根拠URL、画面条件を `brain-practical-expert-review` version 1 JSONへローカル書き出しできます。入力は保存・送信されません。`npm run audit:expert-review` で対象台帳、`npm run validate:expert-review -- <record.json>` で記録を検査します。fixtureの判定保留は形式試験だけで、実レビュー件数へ含めません。
+
 追記: 断面35ラベルについて、左右、正中、前後、上下、内外側の18関係を公的解剖資料と照合し、`npm run audit:deep` で再現可能にしました。1366 × 768 pxで冠状・水平・矢状断の核・脳室・白質を重ねて確認しています。390 × 844 pxでは断面の構造追加一覧が消えていたため、専用Web UIへ折りたたみ式の6群・22構造選択と全解除を追加し、内包・第三脳室を追加して4構造表示へ戻る操作を確認しました。輪郭・境界・孤立片は専門家待ちで、No-Goを維持します。現在の検証基準は72/72自動テスト、型検査、本番Viteビルド成功です。

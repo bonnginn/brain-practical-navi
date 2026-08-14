@@ -53,6 +53,8 @@ npm run dev
 
 手動セグメンテーションの差分形式、Pull Requestに必要な情報、検証・統合方法は [SEGMENTATION_WORKFLOW.md](SEGMENTATION_WORKFLOW.md) を参照してください。ブラウザ編集は元ラベルを直接変更せず、採用前の差分だけを作成します。
 
+専門家レビューは `/?review=A1&commit=<対象SHA>#workspace/surface/lateral` の形式で固定画面を開き、アプリ内票から記名JSONを書き出せます。19対象とチェック票の対応は `npm run audit:expert-review`、書き出した記録は `npm run validate:expert-review -- <record.json>` で検査します。入力は自動保存・送信されません。
+
 ビルド確認:
 
 ```bash

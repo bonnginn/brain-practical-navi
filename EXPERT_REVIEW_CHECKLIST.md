@@ -1,8 +1,21 @@
 # β候補・神経解剖学レビュー票
 
-更新日: 2026-08-14
+更新日: 2026-08-15
 
 この文書は、専門家にしか確定できない解剖学的課題を、再現可能な画面条件と判定欄まで揃えて引き渡すためのレビュー票です。表示が動くことを確認するUI監査ではなく、位置、範囲、左右、連続性、表面からの可視性、教材としての誤解しにくさを判定します。未記入欄を推測で埋めず、確認前は `STRUCTURE_PROVENANCE.md` の「監修待ち」を維持します。
+
+## アプリ内レビュー票
+
+各IDは `/?review=<ID>&commit=<対象SHA>#workspace/...` で開けます。例としてA1は `/?review=A1&commit=60ca0f6#workspace/surface/lateral` です。右側の票に確認者、所属、専門領域、判定、理由を入力し、「検証用JSONを書き出す」を押します。入力内容はブラウザ内に保存せず、外部へ自動送信しません。次／前のIDへ移るリンクは対象コミットを維持します。
+
+対象台帳 `app/expert-review-targets.json` と本表の19件は、次で照合します。書き出した記録は2つ目のコマンドで、ID・固定経路・対象コミット・記名・判定語・根拠URL・画面条件を検証できます。
+
+```bash
+npm run audit:expert-review
+npm run validate:expert-review -- path/to/expert-review-A1-<sha>.json
+```
+
+JSONは専門家の判断を代替せず、判断の対象と根拠を後から再現するための記録です。採用する場合は、検証済みJSONをIssueまたはPull Requestへ添付し、`STRUCTURE_PROVENANCE.md` の該当行を同じ変更で更新します。
 
 ## 記録情報
 

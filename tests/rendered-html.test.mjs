@@ -1882,10 +1882,13 @@ test("classifies every lecture target without treating schematic content as vali
 });
 
 test("packages expert anatomy review as reproducible screen-level decisions", async () => {
-  const [review, provenance, readme] = await Promise.all([
+  const [review, provenance, readme, page, css, targets] = await Promise.all([
     readFile(new URL("EXPERT_REVIEW_CHECKLIST.md", root), "utf8"),
     readFile(new URL("STRUCTURE_PROVENANCE.md", root), "utf8"),
     readFile(new URL("README.md", root), "utf8"),
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("app/canvas.css", root), "utf8"),
+    readFile(new URL("app/expert-review-targets.json", root), "utf8").then(JSON.parse),
   ]);
   for (const route of [
     "#workspace/surface/lateral", "#workspace/surface/superior", "#workspace/surface/inferior",
@@ -1899,6 +1902,20 @@ test("packages expert anatomy review as reproducible screen-level decisions", as
   assert.match(review, /第三者の教科書・講義・標本画像を含めず/);
   assert.match(provenance, /EXPERT_REVIEW_CHECKLIST\.md/);
   assert.match(readme, /EXPERT_REVIEW_CHECKLIST\.md/);
+  assert.equal(targets.length,19);
+  assert.equal(new Set(targets.map(target=>target.id)).size,19);
+  assert.match(page,/get\("review"\)/);
+  assert.match(page,/format:"brain-practical-expert-review"/);
+  assert.match(page,/入力はこの端末の画面内だけで保持され、自動保存・送信されません/);
+  assert.match(page,/検証用JSONを書き出す/);
+  assert.match(css,/\.expertReviewPanel\{position:fixed/);
+  assert.match(css,/@media\(max-width:760px\)[\s\S]*\.expertReviewPanel\{top:auto;left:8px/);
+  const audit=spawnSync(process.execPath,[localPath("scripts/audit_expert_review_targets.mjs")],{encoding:"utf8",cwd:localPath(".")});
+  assert.equal(audit.status,0,audit.stderr);
+  assert.match(audit.stdout,/PASS\texpert review target audit complete/);
+  const validation=spawnSync(process.execPath,[localPath("scripts/validate_expert_review_record.mjs"),localPath("tests/fixtures/expert-review-record-smoke.json")],{encoding:"utf8",cwd:localPath(".")});
+  assert.equal(validation.status,0,validation.stderr);
+  assert.match(validation.stdout,/PASS\texpert review record is structurally valid/);
 });
 
 test("keeps the internal capsule distinct from adjacent basal nuclei", async () => {

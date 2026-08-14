@@ -1024,6 +1024,53 @@ html, body, #root { height: 100%; overflow: hidden; }
   .leftRail{transition:none}
 }
 
+/* Expert review is a temporary, local-only inspection layer. It keeps the
+   anatomy screen visible while binding a decision to one canonical route. */
+.expertReviewPanel{position:fixed;z-index:49;top:90px;right:12px;bottom:14px;width:min(370px,calc(100vw - 24px));display:grid;grid-template-rows:auto minmax(0,1fr) auto;overflow:hidden;border:1px solid #87928e;background:#f6f4ee;color:#273431;box-shadow:0 18px 54px rgba(17,29,28,.28)}
+.expertReviewPanel>header{display:flex;align-items:start;justify-content:space-between;gap:12px;padding:12px 13px;border-bottom:1px solid #bfc5bf;background:#223c3a;color:#f4f4ef}
+.expertReviewPanel>header div{display:grid;gap:2px;min-width:0}
+.expertReviewPanel>header span{color:#afc9c4;font:700 11px/1.35 monospace;letter-spacing:.08em}
+.expertReviewPanel>header b{font-size:17px}
+.expertReviewPanel>header small{color:#d2dfdc;font-size:12px}
+.expertReviewPanel>header button{flex:0 0 36px;width:36px;height:36px;border:1px solid #76908b;background:transparent;color:#fff;font-size:22px}
+.expertReviewScroll{min-height:0;padding:12px;overflow-y:auto;overscroll-behavior:contain}
+.expertReviewTarget{display:grid;gap:8px;padding:10px;border-left:4px solid #4f7771;background:#e4ece8}
+.expertReviewTarget p{display:grid;grid-template-columns:70px minmax(0,1fr);gap:7px;margin:0;font-size:13px;line-height:1.55}
+.expertReviewTarget p>b{color:#315b55;font-size:12px}
+.expertReviewTarget code{overflow-wrap:anywhere;font-size:11px}
+.expertReviewPrivacy{margin:10px 0;padding:8px 9px;border:1px solid #cbbda6;background:#f5ecdf;color:#624f38;font-size:12px;line-height:1.55}
+.expertReviewFields{display:grid;gap:9px}
+.expertReviewFields label{display:grid;gap:4px}
+.expertReviewFields label>span{color:#4b5956;font-size:12px;font-weight:700}
+.expertReviewFields label>span b{color:#a04435;font-size:10px}
+.expertReviewFields input,.expertReviewFields select,.expertReviewFields textarea{min-width:0;width:100%;padding:8px 9px;border:1px solid #9fa9a4;background:#fff;color:#20302d;font:14px/1.45 sans-serif}
+.expertReviewFields textarea{resize:vertical}
+.expertReviewFields :is(input,textarea)[aria-invalid="true"]{border-color:#b94d3b;background:#fff5f2}
+.expertReviewFields label>small{color:#9b3f32;font-size:11px}
+.expertReviewExport{width:100%;min-height:42px;margin-top:12px;border:0;background:#1d6e69;color:#fff;font-size:14px;font-weight:800}
+.expertReviewExport:disabled{background:#c8cdca;color:#6b7472}
+.expertReviewIncomplete,.expertReviewStatus{margin:6px 0 0;color:#5b6663;font-size:11px;line-height:1.45}
+.expertReviewPanel>footer{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 11px;border-top:1px solid #c6cac5;background:#e9e8e2;font-size:12px}
+.expertReviewPanel>footer nav{display:flex;align-items:center;gap:5px}
+.expertReviewPanel>footer a{padding:5px 6px;border:1px solid #adb5b0;background:#fff;color:#315b55;font-weight:700;text-decoration:none}
+.expertReviewToggle{position:fixed;z-index:49;right:12px;bottom:14px;min-height:42px;padding:9px 12px;border:1px solid #315b55;border-radius:22px;background:#1f4542;color:#fff;box-shadow:0 7px 22px rgba(17,29,28,.25);font-size:13px}
+.expertReviewToggle b{margin-right:5px;font-family:monospace}
+.expertReviewInvalid{position:fixed;z-index:49;right:12px;top:90px;display:grid;gap:5px;max-width:340px;padding:12px;border-left:5px solid #b94d3b;background:#fff4f0;box-shadow:0 10px 30px rgba(30,20,18,.22);font-size:13px}
+.expertReviewInvalid a{color:#315b55;font-weight:700}
+@media(min-width:1100px){.expertReviewMode .workArea{padding-right:390px}}
+@media(max-width:760px){
+  .expertReviewPanel{top:auto;left:8px;right:8px;bottom:8px;width:auto;max-height:min(72dvh,660px)}
+  .expertReviewPanel>header{padding-block:9px}
+  .expertReviewPanel>footer{display:grid;grid-template-columns:auto minmax(0,1fr)}
+  .expertReviewPanel>footer nav{justify-content:flex-end;flex-wrap:wrap}
+  .expertReviewToggle{right:10px;bottom:10px}
+  .expertReviewInvalid{top:66px;left:8px;right:8px;max-width:none}
+}
+@media(max-width:760px) and (hover:none) and (pointer:coarse){
+  .expertReviewPanel{bottom:calc(70px + env(safe-area-inset-bottom,0px))}
+  .expertReviewToggle{bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+}
+
 /* Accessibility contrast pass for small text on the paper-coloured UI.
    These are functional labels rather than decorative watermark text. */
 .brand small { color: #596360; }

@@ -3,11 +3,16 @@
 import { KeyboardEvent as ReactKeyboardEvent, PointerEvent, useEffect, useMemo, useRef, useState } from "react";
 import { AtlasVolumeCanvas, type HighlightLayer, type IdentifiedPoint } from "./AtlasVolumeCanvas";
 import { ManualSegmentationWorkbench } from "./ManualSegmentationWorkbench";
+import expertReviewTargetsData from "./expert-review-targets.json";
 
 type Plane = "coronal" | "horizontal" | "sagittal";
 type Focus = "ventricle" | "caudate" | "hippocampus" | "thalamus";
 type WorkspaceMode = "home" | "sections" | "surface" | "blocks" | "quiz" | "segment";
 type OverlayMode = "help" | "feedback" | "legal";
+type ExpertReviewDecision = "採用可" | "注意書き付きで採用可" | "要修正" | "判定保留";
+type ExpertReviewTarget = {id:string;group:string;title:string;route:string;direction:string;structures:string[];criterion:string;audit:string};
+const expertReviewTargets=expertReviewTargetsData as ExpertReviewTarget[];
+const expertReviewDecisions:ExpertReviewDecision[]=["採用可","注意書き付きで採用可","要修正","判定保留"];
 type SurfaceViewKey = "lateral" | "superior" | "inferior" | "medial" | "arteries" | "cranialNerves" | "free";
 const surfaceViewKeys:SurfaceViewKey[]=["lateral","superior","inferior","medial","arteries","cranialNerves","free"];
 const planeKeys:Plane[]=["coronal","horizontal","sagittal"];
@@ -508,6 +513,9 @@ export default function Home() {
   const initialPlane=typeof window==="undefined"?"coronal":planeFromHash(window.location.hash);
   const initialBlockSpecimen=typeof window==="undefined"?"lateral-ventricle":blockSpecimenFromHash(window.location.hash);
   const comparisonRequested=typeof window!=="undefined"&&new URLSearchParams(window.location.search).get("m2")==="compare";
+  const requestedReviewId=typeof window==="undefined"?null:new URLSearchParams(window.location.search).get("review");
+  const requestedReviewCommit=typeof window==="undefined"?"":new URLSearchParams(window.location.search).get("commit")??"";
+  const expertReviewTarget=expertReviewTargets.find(target=>target.id===requestedReviewId);
   const [workspace, setWorkspace] = useState<WorkspaceMode>(()=>typeof window==="undefined"?"home":workspaceFromHash(window.location.hash));
   const [surfaceView,setSurfaceView]=useState<SurfaceViewKey>(()=>typeof window==="undefined"?"lateral":surfaceViewFromHash(window.location.hash));
   const [plane, setPlane] = useState<Plane>(initialPlane);
@@ -557,6 +565,16 @@ export default function Home() {
   const [compactViewport,setCompactViewport]=useState(()=>typeof window!=="undefined"&&window.matchMedia("(max-width: 760px)").matches);
   const [phoneViewport,setPhoneViewport]=useState(()=>typeof window!=="undefined"&&window.matchMedia("(max-width: 760px) and (hover: none) and (pointer: coarse)").matches);
   const [comparisonMobileMode,setComparisonMobileMode]=useState<"reconstruction"|"schematic">("reconstruction");
+  const [expertReviewOpen,setExpertReviewOpen]=useState(!!requestedReviewId);
+  const [reviewerName,setReviewerName]=useState("");
+  const [reviewerAffiliation,setReviewerAffiliation]=useState("");
+  const [reviewerExpertise,setReviewerExpertise]=useState("");
+  const [reviewTargetCommit,setReviewTargetCommit]=useState(requestedReviewCommit);
+  const [reviewDecision,setReviewDecision]=useState<ExpertReviewDecision|"">("");
+  const [reviewReason,setReviewReason]=useState("");
+  const [reviewEvidence,setReviewEvidence]=useState("");
+  const [reviewScreenshot,setReviewScreenshot]=useState("");
+  const [reviewExportStatus,setReviewExportStatus]=useState("");
   const mobileRailReturnFocus=useRef<HTMLElement|null>(null);
   const [quizIndex,setQuizIndex]=useState(0);
   const [quizQueue,setQuizQueue]=useState<QuizQuestion[]>(()=>shuffledQuestions(standardQuizQuestions).slice(0,10));
@@ -630,6 +648,10 @@ export default function Home() {
   const quizSource=surfaceQuiz?"":sectionQuizTarget.labelSource==="manual"?"同一格子の手動ラベル":sectionQuizTarget.labelSource==="atlas-provisional"?"位置照合済みアトラス由来":sectionQuizTarget.labelSource==="image-guided"?"画像誘導の試作ラベル":"学習用領域";
   const quizHighlight=useMemo<HighlightLayer[]>(()=>surfaceQuiz?[]:[{ids:sectionQuizTarget.bigbrainIds??[],color:sectionQuizTarget.rgb}],[sectionQuizTarget,surfaceQuiz]);
   const quizSurfaceHighlight=useMemo<HighlightLayer[]>(()=>surfaceQuiz?[{ids:surfaceQuizTarget.ids,color:surfaceQuizTarget.rgb}]:[],[surfaceQuizTarget,surfaceQuiz]);
+  const reviewEvidenceUrls=reviewEvidence.split(/\r?\n/).map(value=>value.trim()).filter(Boolean);
+  const reviewEvidenceValid=reviewEvidenceUrls.every(value=>{try{const url=new URL(value);return url.protocol==="http:"||url.protocol==="https:"}catch{return false}});
+  const reviewScreenshotValid=!reviewScreenshot.trim()||(!reviewScreenshot.includes("/")&&!reviewScreenshot.includes("\\"));
+  const reviewCanExport=!!expertReviewTarget&&/^[0-9a-f]{7,40}$/i.test(reviewTargetCommit.trim())&&!!reviewerName.trim()&&!!reviewerAffiliation.trim()&&!!reviewerExpertise.trim()&&!!reviewDecision&&!!reviewReason.trim()&&reviewEvidenceValid&&reviewScreenshotValid;
   useEffect(() => { if (!playing) return; const timer = window.setInterval(() => setPosition(p => p >= 95 ? 5 : p + 1), 90); return () => window.clearInterval(timer); }, [playing]);
   useEffect(()=>setIdentified(null),[plane,position,contrast]);
   useEffect(()=>{setDetailsOpen(false);setPlaying(false)},[workspace]);
@@ -733,6 +755,29 @@ export default function Home() {
   function restoreAllQuiz(){setQuizWrongOnly(false);setQuizCategory("all");setQuizIncludeProvisional(false);setQuizQueue(shuffledQuestions(standardQuizQuestions).slice(0,quizCount));resetQuiz()}
   function resetWrongHistory(){saveWrongTargets([]);if(quizWrongOnly){setQuizQueue([]);resetQuiz()}}
 
+  function expertReviewHref(target:ExpertReviewTarget){const params=new URLSearchParams({review:target.id});if(reviewTargetCommit.trim())params.set("commit",reviewTargetCommit.trim());return `?${params.toString()}${target.route}`}
+  function downloadExpertReviewRecord(){
+    if(!expertReviewTarget||!reviewCanExport)return;
+    const record={
+      format:"brain-practical-expert-review",
+      version:1,
+      target:{...expertReviewTarget},
+      targetCommit:reviewTargetCommit.trim(),
+      reviewer:{name:reviewerName.trim(),affiliation:reviewerAffiliation.trim(),expertise:reviewerExpertise.trim()},
+      reviewedAt:new Date().toISOString(),
+      decision:reviewDecision,
+      reason:reviewReason.trim(),
+      evidenceUrls:reviewEvidenceUrls,
+      screenshotName:reviewScreenshot.trim(),
+      appUrl:window.location.href,
+      environment:{userAgent:navigator.userAgent,viewport:{width:window.innerWidth,height:window.innerHeight},devicePixelRatio:window.devicePixelRatio},
+    };
+    const blob=new Blob([`${JSON.stringify(record,null,2)}\n`],{type:"application/json"});
+    const url=URL.createObjectURL(blob),link=document.createElement("a");
+    link.href=url;link.download=`expert-review-${expertReviewTarget.id}-${reviewTargetCommit.trim().slice(0,12)}.json`;link.click();URL.revokeObjectURL(url);
+    setReviewExportStatus(`${expertReviewTarget.id} のレビュー記録を書き出しました。送信はしていません。`);
+  }
+
   function renderSectionStructureControls(){return <>
     <div className="structureGroupGrid" role="group" aria-label="構造グループの一括表示">
       {structureGroups.map(group=>{const available=group.members.filter(structureAvailable),count=available.filter(key=>visibleSet.has(key)).length,all=available.length>0&&count===available.length;return <button key={group.key} className={`${all?"active":""} ${count>0&&!all?"partial":""}`} aria-pressed={all} onClick={()=>toggleGroup(group.members)} disabled={available.length===0}><i style={{background:group.color}}/><span>{group.name}</span><small>{count}/{available.length}</small></button>})}
@@ -743,7 +788,7 @@ export default function Home() {
     </div>
   </>}
 
-  return <main className={`appShell workspace-${workspace} ${workspace==="home"?"homeShell":""}`}>
+  return <main className={`appShell workspace-${workspace} ${workspace==="home"?"homeShell":""} ${expertReviewTarget?"expertReviewMode":""}`}>
     <button className="skipLink" onClick={()=>document.getElementById("workspace")?.focus()}>本文へ移動</button>
     <header className="topbar">
       <a className="brand" href="#workspace/home" onClick={event=>{event.preventDefault();openWorkspace("home")}}><span className="brandMark">脳</span><span>脳実習ナビ<small>脳解剖実習 学習補助アプリ</small></span></a>
@@ -752,6 +797,30 @@ export default function Home() {
       </nav>
       <div className="topActions"><span>公開α版・非営利教育用</span><button className="helpButton" onClick={()=>openOverlay("help")} aria-label="操作ガイドを表示">操作ガイド</button><button className="feedbackButton" onClick={()=>openOverlay("feedback")} aria-label="意見・共同制作を表示">意見・共同制作</button><button className="legalButton" onClick={()=>openOverlay("legal")} aria-label="利用条件・クレジットを表示">利用条件</button></div>
     </header>
+
+    {requestedReviewId&&!expertReviewTarget&&<aside className="expertReviewInvalid" role="alert"><b>レビュー対象が見つかりません</b><span><code>{requestedReviewId}</code> は台帳にありません。</span><a href="#workspace/home">通常画面へ戻る</a></aside>}
+    {expertReviewTarget&&!expertReviewOpen&&<button className="expertReviewToggle" onClick={()=>setExpertReviewOpen(true)}><b>{expertReviewTarget.id}</b> レビュー票を開く</button>}
+    {expertReviewTarget&&expertReviewOpen&&<aside className="expertReviewPanel" aria-label={`${expertReviewTarget.id} 専門家レビュー票`}>
+      <header><div><span>EXPERT REVIEW · {expertReviewTarget.id}</span><b>{expertReviewTarget.title}</b><small>{expertReviewTarget.group}</small></div><button onClick={()=>setExpertReviewOpen(false)} aria-label="専門家レビュー票を折りたたむ">−</button></header>
+      <div className="expertReviewScroll">
+        <section className="expertReviewTarget"><p><b>固定方向</b>{expertReviewTarget.direction}</p><p><b>確認構造</b>{expertReviewTarget.structures.join("、")}</p><p><b>合否基準</b>{expertReviewTarget.criterion}</p><p><b>監査資料</b><code>{expertReviewTarget.audit}</code></p></section>
+        <p className="expertReviewPrivacy">入力はこの端末の画面内だけで保持され、自動保存・送信されません。患者情報、第三者画像、非公開資料は入力しないでください。</p>
+        <div className="expertReviewFields">
+          <label><span>対象コミット <b>必須</b></span><input value={reviewTargetCommit} onChange={event=>setReviewTargetCommit(event.target.value)} placeholder="7〜40桁のGit SHA" autoComplete="off"/></label>
+          <label><span>確認者氏名 <b>必須</b></span><input value={reviewerName} onChange={event=>setReviewerName(event.target.value)} autoComplete="name"/></label>
+          <label><span>所属 <b>必須</b></span><input value={reviewerAffiliation} onChange={event=>setReviewerAffiliation(event.target.value)} autoComplete="organization"/></label>
+          <label><span>専門領域 <b>必須</b></span><input value={reviewerExpertise} onChange={event=>setReviewerExpertise(event.target.value)} placeholder="例：神経解剖学"/></label>
+          <label><span>判定 <b>必須</b></span><select value={reviewDecision} onChange={event=>setReviewDecision(event.target.value as ExpertReviewDecision|"")}><option value="">選択してください</option>{expertReviewDecisions.map(decision=><option key={decision} value={decision}>{decision}</option>)}</select></label>
+          <label><span>判定理由・修正指示 <b>必須</b></span><textarea value={reviewReason} onChange={event=>setReviewReason(event.target.value)} rows={4}/></label>
+          <label><span>根拠URL（任意・1行1件）</span><textarea value={reviewEvidence} onChange={event=>setReviewEvidence(event.target.value)} rows={3} placeholder="https://…" aria-invalid={!reviewEvidenceValid}/>{!reviewEvidenceValid&&<small role="alert">http(s) URLを1行ずつ入力してください。</small>}</label>
+          <label><span>アプリ画面のみのスクリーンショット名（任意）</span><input value={reviewScreenshot} onChange={event=>setReviewScreenshot(event.target.value)} placeholder="A1-app-only.png" aria-invalid={!reviewScreenshotValid}/>{!reviewScreenshotValid&&<small role="alert">フォルダーを含まないファイル名だけを入力してください。</small>}</label>
+        </div>
+        <button className="expertReviewExport" disabled={!reviewCanExport} onClick={downloadExpertReviewRecord}>検証用JSONを書き出す</button>
+        {!reviewCanExport&&<p className="expertReviewIncomplete">必須項目、Git SHA、URL形式を確認すると書き出せます。</p>}
+        <p className="expertReviewStatus" role="status" aria-live="polite">{reviewExportStatus}</p>
+      </div>
+      <footer>{(()=>{const index=expertReviewTargets.indexOf(expertReviewTarget),previous=expertReviewTargets[index-1],next=expertReviewTargets[index+1];return <><span>{index+1} / {expertReviewTargets.length}</span><nav>{previous&&<a href={expertReviewHref(previous)}>← {previous.id}</a>}<a href={expertReviewTarget.route}>レビュー終了</a>{next&&<a href={expertReviewHref(next)}>{next.id} →</a>}</nav></>})()}</footer>
+    </aside>}
 
     {workspace!=="home"&&<><button className={`mobileRailBackdrop ${mobileRailOpen?"visible":""}`} aria-label="画面設定を閉じる" tabIndex={-1} onClick={closeMobileRail}/><button className="mobileContextToggle" aria-expanded={mobileRailOpen} aria-controls="mobile-context-panel" onClick={toggleMobileRail}><span>{workspace==="sections"?"断面・構造":workspace==="surface"?"観察方向":workspace==="blocks"?"標本を選ぶ":workspace==="quiz"?"出題設定":"編集手順"}</span><b>{mobileRailOpen?"閉じる":"開く"}</b></button></>}
     <aside id="mobile-context-panel" className={`leftRail rail-${workspace} ${mobileRailOpen?"mobileOpen":""}`} role={phoneViewport?"dialog":undefined} aria-modal={phoneViewport&&mobileRailOpen?true:undefined} aria-hidden={phoneViewport&&!mobileRailOpen?true:undefined} aria-label={phoneViewport?"この画面の設定":undefined} key={`rail-${workspace}`}>

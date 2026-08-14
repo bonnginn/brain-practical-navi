@@ -53,6 +53,8 @@
 
 確認時は [EXPERT_REVIEW_CHECKLIST.md](EXPERT_REVIEW_CHECKLIST.md) を使い、方向・断面位置・左右・表示モード・問題のスクリーンショットまたは再現手順を記録します。修正が必要な場合はGitHub IssueまたはPull Requestへ結び付け、採否と理由を残します。
 
+アプリ内の `?review=<ID>&commit=<SHA>` は、19画面の固定条件を表示し、記名判定を `brain-practical-expert-review` version 1 JSONとしてローカルへ書き出します。`npm run audit:expert-review` でチェック票との対応、`npm run validate:expert-review -- <JSON>` で記録形式を検査します。JSONが合格しても上表は自動昇格せず、内容を専門家の署名・根拠と照合してから手作業で更新します。
+
 ## クイズへの採用基準
 
 - 通常問題は、対象が十分な面積で見え、出題位置で色が確実に表示される構造に限ります。
