@@ -239,6 +239,25 @@ test("audits basal landmarks, cranial nerves, and major arteries", async () => {
   assert.match(packageText, /"audit:basal": "node scripts\/audit_basal_neurovascular_relations\.mjs"/);
 });
 
+test("audits cortical surface landmark relations", async () => {
+  const result = spawnSync(process.execPath, [localPath("scripts/audit_surface_relations.mjs")], {
+    cwd: localPath("."),
+    encoding: "utf8",
+  });
+  assert.equal(result.status, 0, result.stderr || result.stdout);
+  assert.match(result.stdout, /PASS\t17 surface relations; 0 failures/);
+  const [metadata, audit, packageText] = await Promise.all([
+    readFile(new URL("public/atlas/surface-landmarks.json", root), "utf8").then(JSON.parse),
+    readFile(new URL("SURFACE_RELATIONS_AUDIT.md", root), "utf8"),
+    readFile(new URL("package.json", root), "utf8"),
+  ]);
+  assert.equal(metadata.anatomyReferences.length, 4);
+  assert.match(metadata.displayPolicy, /narrowed to 22 percent.*recessed 0\.8 mm/);
+  assert.match(audit, /17\/17の位置関係が合格/);
+  assert.match(audit, /個体脳の溝を追跡した曲線でも/);
+  assert.match(packageText, /"audit:surface": "node scripts\/audit_surface_relations\.mjs"/);
+});
+
 test("presents the practical flow clearly and keeps interface text readable", async () => {
   const [page, main, globalsCss, canvasCss, canvas, editor] = await Promise.all([
     readFile(new URL("app/page.tsx", root), "utf8"),
@@ -825,7 +844,11 @@ test("draws toggleable sulci from cortical region boundaries", async () => {
   assert.match(canvas, /surfaceRegionUpperRimMesh\(part,\[96,45\],2\.05,\.9\)/);
   assert.match(canvas, /for\(let anteriorPosterior=36;anteriorPosterior>=-24;anteriorPosterior-=2\)/);
   assert.match(canvas, /anteriorExpansion=Math\.max\(0,Math\.min\(1,\(midAnteriorPosterior\+4\)\/32\)\)/);
-  assert.match(canvas, /definition\.key==="longitudinal-fissure"\)draw\(landmarks\[index\]/);
+  assert.match(canvas, /function longitudinalFissureGuideMesh/);
+  assert.match(canvas, /vertices\[offset\]=center\[axis\]\+\(vertices\[offset\]-center\[axis\]\)\*\.22/);
+  assert.match(canvas, /vertices\[\(ring\+side\)\*3\]-=\.8/);
+  assert.match(canvas, /definition\.key==="longitudinal-fissure"\)draw\(longitudinalFissureGuideMesh\(landmarks\[index\]\)/);
+  assert.match(page, /大脳縦裂[^\n]+実在する棒状構造ではありません/);
   assert.doesNotMatch(canvas, /definition\.key==="longitudinal-fissure"\|\|definition\.key==="lateral-sulcus"/);
   assert.doesNotMatch(canvas, /definition\.key==="longitudinal-fissure"\|\|definition\.key==="central-sulcus"/);
   assert.match(canvas, /surfaceLevelMesh\(part,\[57,6\],0,-14,\.9\)/);
@@ -1484,7 +1507,7 @@ test("presents sulci as teaching guides rather than segmentation boundaries", as
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
   const guides = page.split("const surfaceLandmarks")[1].split("const surfaceLandmarkKeys")[0];
   assert.equal((guides.match(/note:"[^"]*位置目安です。"/g)??[]).length,7);
-  assert.match(guides,/longitudinal-fissure[\s\S]*正中の裂を示します/);
+  assert.match(guides,/longitudinal-fissure[\s\S]*正中の裂を、細い低彩度ガイドで示します。[\s\S]*実在する棒状構造ではありません/);
   assert.match(page,/source:"模式ガイド"/);
   assert.match(page,/脳回間の位置関係を読む教材ガイドです。[\s\S]*厳密な溝の輪郭や分節境界ではありません/);
 });

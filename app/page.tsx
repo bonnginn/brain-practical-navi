@@ -147,7 +147,7 @@ const surfaceLandmarks:Record<SurfaceLandmarkKey,{name:string;latin:string;color
   "parieto-occipital-sulcus":{name:"頭頂後頭溝",latin:"Sulcus parietooccipitalis",color:"#ffb45c",note:"内側面で頭頂葉と後頭葉を分ける位置目安です。"},
   "calcarine-sulcus":{name:"鳥距溝",latin:"Sulcus calcarinus",color:"#bca4ff",note:"楔部と舌状回の間を後方へ走る位置目安です。"},
   "olfactory-sulcus":{name:"嗅溝",latin:"Sulcus olfactorius",color:"#ff786f",note:"直回の外側で嗅索に沿う位置目安です。"},
-  "longitudinal-fissure":{name:"大脳縦裂",latin:"Fissura longitudinalis cerebri",color:"#f7f7f2",note:"左右大脳半球を分ける正中の裂を示します。"},
+  "longitudinal-fissure":{name:"大脳縦裂",latin:"Fissura longitudinalis cerebri",color:"#9fbebb",note:"左右大脳半球を分ける正中の裂を、細い低彩度ガイドで示します。実在する棒状構造ではありません。"},
 };
 const surfaceLandmarkKeys=Object.keys(surfaceLandmarks) as SurfaceLandmarkKey[];
 const surfaceViewLandmarks:Record<SurfaceViewKey,SurfaceLandmarkKey[]>={

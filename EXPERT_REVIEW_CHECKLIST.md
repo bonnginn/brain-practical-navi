@@ -27,6 +27,8 @@
 
 脳表領域はCerebrAを高密度pial-like表面へ対応させた教材表示、溝は周囲領域から配置した模式ガイドです。個体脳の手動区画ではありません。根拠資料は [CerebrA](https://doi.org/10.1038/s41597-020-0557-9) と [BigBrainWarp](https://doi.org/10.7554/eLife.70119) を起点にし、アプリ固有の投影条件は `DATA_AND_LICENSES.md` を確認します。
 
+A1〜A4では、最初に [SURFACE_RELATIONS_AUDIT.md](SURFACE_RELATIONS_AUDIT.md) の17項目と大脳縦裂の表示修正を参照してください。機械監査は対応領域の境界と大きな方向だけを保証し、溝底、分枝、個体差、実標本での見え方は保証しません。
+
 ## B. 脳底ランドマーク・動脈・脳神経
 
 | ID | 開くURL | 初期方向・操作 | 確認対象 | 合否の要点 | 判定・指摘 |

@@ -41,7 +41,7 @@ const SURFACE_LANDMARKS:{key:SurfaceLandmark;color:[number,number,number,number]
   {key:"parieto-occipital-sulcus",color:[1,.71,.36,1]},
   {key:"calcarine-sulcus",color:[.74,.64,1,1]},
   {key:"olfactory-sulcus",color:[1,.47,.44,1]},
-  {key:"longitudinal-fissure",color:[.97,.97,.95,1]},
+  {key:"longitudinal-fissure",color:[.62,.75,.73,1]},
 ];
 const SURFACE_BOUNDARY_LABELS:Partial<Record<SurfaceLandmark,{a:number[];b:number[]}>>={
   "central-sulcus":{a:[86,35],b:[64,13]},
@@ -131,7 +131,7 @@ const SPECIMEN_PARTS:Record<Exclude<SpecimenBlock,"none">,SpecimenPartDefinition
     {key:"olives",layer:"olives",attachment:"pons-medulla",color:[.74,.43,.36,1],material:1},
   ],
 };
-let volumeCache:Promise<Volume>|null=null,bigBrainCache:Promise<BigBrain>|null=null,fixedBrainCache:Promise<FixedBrain>|null=null,largeVolumeConsumers=0,largeVolumeReleaseTimer:number|null=null,surfaceMeshConsumers=0,surfaceMeshReleaseTimer:number|null=null;const manualSegCache=new Map<string,Promise<ManualSeg>>(),meshCache=new Map<string,Promise<Mesh>>(),zeroHighlightCache=new WeakMap<Mesh,Float32Array>(),surfaceHighlightCache=new WeakMap<Mesh,Map<string,Float32Array>>(),surfaceBoundaryCache=new WeakMap<Mesh,Map<string,Mesh>>(),surfaceRimCache=new WeakMap<Mesh,Map<string,Mesh>>(),surfaceLevelCache=new WeakMap<Mesh,Map<string,Mesh>>(),ventralSurfacePatchCache=new WeakMap<Mesh,Map<string,Mesh>>(),brainstemLevelCache=new WeakMap<Mesh,Map<string,Mesh>>(),midbrainDorsalPatchCache=new WeakMap<Mesh,Map<string,Mesh>>(),surfaceSpatialCache=new WeakMap<Mesh,Map<string,number[]>>(),surfaceFilledPointCache=new WeakMap<Mesh,Map<string,{point:number[];normal:number[]}>>(),conservativeSeptumCache=new WeakMap<Mesh,Mesh>();
+let volumeCache:Promise<Volume>|null=null,bigBrainCache:Promise<BigBrain>|null=null,fixedBrainCache:Promise<FixedBrain>|null=null,largeVolumeConsumers=0,largeVolumeReleaseTimer:number|null=null,surfaceMeshConsumers=0,surfaceMeshReleaseTimer:number|null=null;const manualSegCache=new Map<string,Promise<ManualSeg>>(),meshCache=new Map<string,Promise<Mesh>>(),zeroHighlightCache=new WeakMap<Mesh,Float32Array>(),surfaceHighlightCache=new WeakMap<Mesh,Map<string,Float32Array>>(),surfaceBoundaryCache=new WeakMap<Mesh,Map<string,Mesh>>(),surfaceRimCache=new WeakMap<Mesh,Map<string,Mesh>>(),surfaceLevelCache=new WeakMap<Mesh,Map<string,Mesh>>(),ventralSurfacePatchCache=new WeakMap<Mesh,Map<string,Mesh>>(),brainstemLevelCache=new WeakMap<Mesh,Map<string,Mesh>>(),midbrainDorsalPatchCache=new WeakMap<Mesh,Map<string,Mesh>>(),surfaceSpatialCache=new WeakMap<Mesh,Map<string,number[]>>(),surfaceFilledPointCache=new WeakMap<Mesh,Map<string,{point:number[];normal:number[]}>>(),conservativeSeptumCache=new WeakMap<Mesh,Mesh>(),longitudinalFissureGuideCache=new WeakMap<Mesh,Mesh>();
 const ATLAS_RETRY_EVENT="brain-practical-navi:retry-atlas-data";
 
 function clearLargeVolumeCaches(){volumeCache=null;bigBrainCache=null;fixedBrainCache=null;manualSegCache.clear()}
@@ -208,6 +208,25 @@ function conservativeSeptumMesh(mesh:Mesh){
     if(inside)faces.push(...triangle);
   }
   const result={...mesh,faces:new Uint32Array(faces)};conservativeSeptumCache.set(mesh,result);return result;
+}
+
+function longitudinalFissureGuideMesh(mesh:Mesh){
+  const cached=longitudinalFissureGuideCache.get(mesh);if(cached)return cached;
+  const ringSize=8,vertices=new Float32Array(mesh.vertices);
+  if(vertices.length/3%ringSize!==0)return mesh;
+  // The packaged guide is an eight-sided tube. Collapse each cross-section
+  // around its own centre and recess it slightly so the fissure reads as a
+  // location cue between the hemispheres, not as an opaque midline rod.
+  for(let ring=0;ring<vertices.length/3;ring+=ringSize){
+    const center=[0,0,0];
+    for(let side=0;side<ringSize;side++)for(let axis=0;axis<3;axis++)center[axis]+=vertices[(ring+side)*3+axis]/ringSize;
+    for(let side=0;side<ringSize;side++)for(let axis=0;axis<3;axis++){
+      const offset=(ring+side)*3+axis;
+      vertices[offset]=center[axis]+(vertices[offset]-center[axis])*.22;
+    }
+    for(let side=0;side<ringSize;side++)vertices[(ring+side)*3]-=.8;
+  }
+  const result={...mesh,vertices};longitudinalFissureGuideCache.set(mesh,result);return result;
 }
 
 function vertexHighlights(mesh:Mesh,layers:HighlightLayer[]){
@@ -473,7 +492,7 @@ function drawWebGL(canvas:HTMLCanvasElement,selectionLayers:{meshes:Mesh[];color
   if(showFocus&&selectionLayers.length){gl.clear(gl.DEPTH_BUFFER_BIT);gl.disable(gl.CULL_FACE);gl.uniform1f(gl.getUniformLocation(prog,"clipOn"),view==="extracted"?1:0);selectionLayers.forEach(layer=>layer.meshes.forEach(part=>draw(part,[layer.color[0]/255,layer.color[1]/255,layer.color[2]/255,1],1)));}
   if(surfaceLandmarks.length&&blockMeshes===null){
     gl.uniform1f(gl.getUniformLocation(prog,"clipOn"),0);gl.uniform1f(gl.getUniformLocation(prog,"hemiMode"),hemisphere==="left"?-1:hemisphere==="right"?1:0);gl.disable(gl.CULL_FACE);gl.depthFunc(gl.LEQUAL);
-    SURFACE_LANDMARKS.forEach((definition,index)=>{if(!surfaceLandmarks.includes(definition.key))return;if(definition.key==="longitudinal-fissure")draw(landmarks[index],definition.color,1);else if(definition.key==="lateral-sulcus")visibleSurface.slice(0,2).forEach(part=>draw(surfaceRegionUpperRimMesh(part,[96,45],2.05,.9),definition.color,3));else if(definition.key==="calcarine-sulcus")visibleSurface.slice(0,2).forEach(part=>draw(surfaceLevelMesh(part,[57,6],0,-14,.9),definition.color,3));else visibleSurface.slice(0,2).forEach(part=>draw(surfaceBoundaryMesh(part,definition.key,2.05,.9),definition.color,3))});
+    SURFACE_LANDMARKS.forEach((definition,index)=>{if(!surfaceLandmarks.includes(definition.key))return;if(definition.key==="longitudinal-fissure")draw(longitudinalFissureGuideMesh(landmarks[index]),definition.color,1);else if(definition.key==="lateral-sulcus")visibleSurface.slice(0,2).forEach(part=>draw(surfaceRegionUpperRimMesh(part,[96,45],2.05,.9),definition.color,3));else if(definition.key==="calcarine-sulcus")visibleSurface.slice(0,2).forEach(part=>draw(surfaceLevelMesh(part,[57,6],0,-14,.9),definition.color,3));else visibleSurface.slice(0,2).forEach(part=>draw(surfaceBoundaryMesh(part,definition.key,2.05,.9),definition.color,3))});
     gl.uniform1f(gl.getUniformLocation(prog,"hemiMode"),0);
   }
   if(surfaceDeepLandmarks.length&&blockMeshes===null){
