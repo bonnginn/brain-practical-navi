@@ -50,6 +50,7 @@ def tube_mesh(paths):
     vertices, normals, regions, faces = [], [], [], []
     for path in paths:
         centerline = catmull_rom(path["points"], path.get("subdivisions", 5))
+        centerline += np.asarray(path.get("display_shift", [0., 0., 0.]), dtype=np.float64)
         radius = float(path["radius"])
         start = len(vertices)
         previous_normal = None
@@ -96,8 +97,9 @@ def tube_mesh(paths):
 
 def write_mesh(name, paths, display_shift=True):
     xyz, normal_xyz, regions, faces = tube_mesh(paths)
-    # Arterial paths follow the shifted pial source. Cranial-nerve roots are
-    # anchored directly to the unshifted 0.5 mm brainstem segmentation surface.
+    # The anterior circulation follows the shifted pial source. Individual
+    # forebrain nerve paths can request the same shift, while III-XII remain
+    # authored directly against the unshifted brainstem segmentation surface.
     if display_shift:
         xyz = xyz + DISPLAY_SHIFT
     # AtlasVolumeCanvas stores p as z,y,x; its shader restores x,z,y for display.
@@ -119,7 +121,9 @@ def write_mesh(name, paths, display_shift=True):
         "vertices": len(vertices),
         "faces": len(faces),
         "displayShiftApplied": display_shift,
-        "structures": [{"id": path["id"], "name": path["name"]} for path in paths],
+        "structures": [{"id": path["id"], "name": path["name"],
+                        "displayShiftApplied": bool(display_shift or "display_shift" in path)}
+                       for path in paths],
     }
 
 
@@ -143,20 +147,35 @@ def main():
     anterior_arteries += pair("後交通動脈", [p(15, 5, -23), p(14, 0, -24), p(12, -6, -25), p(11, -11, -26)], 1.15)
 
     posterior_arteries = []
-    posterior_arteries += pair("椎骨動脈", [p(13, -73, -54), p(12, -64, -50), p(9, -55, -47), p(0, -47, -43)], 2.25)
-    posterior_arteries.append({"name": "脳底動脈", "points": [p(0, -48, -43), p(0, -37, -39), p(0, -27, -34), p(0, -17, -29), p(0, -10, -26)], "radius": 2.5})
-    posterior_arteries += pair("後大脳動脈", [p(0, -10, -26), p(11, -11, -26), p(23, -14, -22), p(36, -19, -16), p(49, -27, -7)], 1.9)
-    posterior_arteries += pair("上小脳動脈", [p(0, -17, -32), p(12, -19, -34), p(25, -25, -31), p(38, -33, -25)], 1.25)
-    posterior_arteries += pair("前下小脳動脈", [p(0, -34, -40), p(13, -36, -42), p(27, -41, -39), p(39, -47, -32)], 1.15)
-    posterior_arteries += pair("後下小脳動脈", [p(10, -60, -49), p(21, -63, -48), p(32, -62, -43), p(40, -57, -36)], 1.15)
+    # Track the ventrolateral medulla, converge at the pontomedullary junction,
+    # and continue over the ventral pons. These coordinates are calibrated to
+    # the unshifted practical-label-27 brainstem surface.
+    posterior_arteries += pair("椎骨動脈", [p(7, -12, -82), p(8, -10, -75), p(10, -4, -68), p(8, 2.5, -63), p(4, 6, -59), p(0, 7, -58)], 2.25)
+    posterior_arteries.append({"name": "脳底動脈", "points": [p(0, 7, -58), p(0, 7, -53), p(0, 7, -48), p(0, 6.5, -44), p(0, 6, -40)], "radius": 2.5})
+    posterior_arteries += pair("後大脳動脈", [p(0, 6, -40), p(11, 4, -39), p(23, -2, -35), p(36, -12, -27), p(49, -22, -18)], 1.9)
+    posterior_arteries += pair("上小脳動脈", [p(0, 6, -42), p(12, 3, -43), p(25, -6, -40), p(38, -18, -33)], 1.25)
+    posterior_arteries += pair("前下小脳動脈", [p(0, 7, -51), p(13, 3, -53), p(27, -6, -50), p(39, -18, -43)], 1.15)
+    posterior_arteries += pair("後下小脳動脈", [p(9, -2, -66), p(18, -10, -68), p(30, -22, -61), p(40, -30, -50)], 1.15)
 
     anterior_nerves = []
-    olfactory_paths = pair("I 嗅球・嗅索", [p(18, 62, -14), p(18, 49, -19), p(17, 36, -23), p(15, 25, -25)], 1.25)
+    # The olfactory bulb and tract lie in the olfactory sulcus between the
+    # gyrus rectus and orbital gyri. Keep the tract narrow and follow the local
+    # inferior pial trough instead of suspending it over the orbital surface.
+    olfactory_paths = pair("I 嗅球・嗅索", [p(14, 62, -23), p(14, 50, -27), p(14, 38, -29), p(13, 27, -28)], 1.15)
     for path in olfactory_paths:
         path["bulb_radius"] = 3.8
+        path["display_shift"] = DISPLAY_SHIFT.tolist()
     anterior_nerves += olfactory_paths
-    anterior_nerves += pair("II 視神経", [p(42, 34, -24), p(32, 27, -25), p(20, 17, -25), p(8, 7, -24)], 1.95)
-    anterior_nerves.append({"name": "II 視交叉", "points": [p(-8, 7, -24), p(0, 4, -24), p(8, 7, -24)], "radius": 2.3})
+    # Continue each optic nerve through the chiasmal junction into the optic
+    # tract. The paired curves form the gross X-shaped pathway in inferior
+    # view; the short transverse bridge below gives the chiasm a visible body.
+    optic_paths = pair("II 視神経・視索", [p(23, 25, -24), p(18, 18, -25), p(12, 11, -25), p(7, 6, -24),
+                                             p(3, 4, -24), p(7, 2, -23), p(11, 0, -22), p(15, -6, -21), p(17, -11, -20)], 1.95)
+    for path in optic_paths:
+        path["display_shift"] = DISPLAY_SHIFT.tolist()
+    anterior_nerves += optic_paths
+    anterior_nerves.append({"name": "II 視交叉", "points": [p(-9, 4, -24), p(0, 4, -24), p(9, 4, -24)], "radius": 2.55,
+                            "display_shift": DISPLAY_SHIFT.tolist()})
     # Roots III–XII are calibrated against practical label 27 in the same
     # ICBM500 grid as the specimen. The first point is the apparent origin.
     # III: ventral midbrain in the interpeduncular fossa.
@@ -192,13 +211,33 @@ def main():
         for path in paths:
             path["id"] = structure_id
             structure_id += 1
-    results = [write_mesh(name, paths, display_shift=not name.startswith("overlay-nerves")) for name, paths in groups.items()]
+    results = [
+        write_mesh(name, paths, display_shift=name == "overlay-arteries-anterior")
+        for name, paths in groups.items()
+    ]
     metadata = {
-        "version": 1,
+        "version": 2,
         "coordinateSpace": "manually approximated MNI-oriented display space",
         "displayShiftMm": DISPLAY_SHIFT.tolist(),
-        "alignmentPolicy": "arteries retain the pial display shift; cranial-nerve roots are anchored directly to the ICBM500 brainstem segmentation",
+        "alignmentPolicy": "anterior arteries and forebrain-associated cranial nerves I-II retain the pial display shift; vertebrobasilar arteries and cranial-nerve roots III-XII are anchored directly to the ICBM500 brainstem segmentation",
+        "vertebrobasilarCalibration": "vertebral arteries track the ventrolateral medulla, unite at the pontomedullary junction, and continue over the ventral pons; teaching approximation",
+        "forebrainNerveCalibration": "olfactory bulbs and tracts plus optic nerves and chiasm follow the shifted pial source so they remain exposed on the inferior surface; teaching approximation",
         "cranialNerveRootCalibration": "III-XII apparent origins placed on or within 2 mm of practical label 27 surface; teaching approximation",
+        "cranialNerveRootTopography": {
+            "I-II": "basal forebrain rather than brainstem roots",
+            "III": "ventral midbrain, interpeduncular fossa",
+            "IV": "dorsal caudal midbrain, just caudal to the inferior colliculi, then wraps laterally",
+            "V": "anterolateral mid-pons",
+            "VI": "medial pontomedullary sulcus",
+            "VII-VIII": "pontomedullary sulcus/cerebellopontine angle, lateral to VI; VII medial to VIII",
+            "IX-XI": "post-olivary sulcus, ordered superior to inferior",
+            "XII": "pre-olivary sulcus between pyramid and olive",
+        },
+        "anatomyReferences": [
+            "https://www.ncbi.nlm.nih.gov/books/NBK608599/",
+            "https://www.ncbi.nlm.nih.gov/books/NBK406/",
+            "https://www.ncbi.nlm.nih.gov/books/NBK544297/",
+        ],
         "status": "project-authored simplified teaching overlay; not validated morphometry",
         "scope": "major basal arteries and visible cranial-nerve roots only",
         "omissions": ["individual variation", "small perforators", "distal nerve course beyond the proximal olfactory bulb/tract and cranial-nerve roots", "skull foramina", "surgical accuracy"],

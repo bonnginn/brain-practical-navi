@@ -145,32 +145,35 @@ def write_mesh(name, geometry):
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
 
+    optic_side = [p(23, 25, -24), p(18, 18, -25), p(12, 11, -25), p(7, 6, -24),
+                  p(3, 4, -24), p(7, 2, -23), p(11, 0, -22), p(15, -6, -21), p(17, -11, -20)]
     optic_paths = [
-        {"points": mirror([p(42, 34, -24), p(32, 27, -25), p(20, 17, -25), p(8, 7, -24)]), "radiusStart": 2.2, "radiusEnd": 2.5},
-        {"points": [p(42, 34, -24), p(32, 27, -25), p(20, 17, -25), p(8, 7, -24)], "radiusStart": 2.2, "radiusEnd": 2.5},
-        {"points": [p(-8, 7, -24), p(0, 4, -24), p(8, 7, -24)], "radius": 2.7},
-        {"points": mirror([p(7, 4, -24), p(11, 0, -24), p(15, -6, -22), p(17, -11, -20)]), "radiusStart": 2.4, "radiusEnd": 1.8},
-        {"points": [p(7, 4, -24), p(11, 0, -24), p(15, -6, -22), p(17, -11, -20)], "radiusStart": 2.4, "radiusEnd": 1.8},
+        {"points": mirror(optic_side), "radiusStart": 2.2, "radiusEnd": 1.8},
+        {"points": optic_side, "radiusStart": 2.2, "radiusEnd": 1.8},
+        {"points": [p(-9, 4, -24), p(0, 4, -24), p(9, 4, -24)], "radius": 2.7},
     ]
     optic = tube_mesh(optic_paths)
 
     olfactory = combine([
         tube_mesh([
-            {"points": mirror([p(18, 62, -14), p(18, 49, -19), p(17, 36, -23), p(15, 25, -25)]), "radiusStart": 2.0, "radiusEnd": 1.35},
-            {"points": [p(18, 62, -14), p(18, 49, -19), p(17, 36, -23), p(15, 25, -25)], "radiusStart": 2.0, "radiusEnd": 1.35},
+            {"points": mirror([p(14, 62, -23), p(14, 50, -27), p(14, 38, -29), p(13, 27, -28)]), "radiusStart": 1.7, "radiusEnd": 1.15},
+            {"points": [p(14, 62, -23), p(14, 50, -27), p(14, 38, -29), p(13, 27, -28)], "radiusStart": 1.7, "radiusEnd": 1.15},
         ]),
-        ellipsoid_mesh(p(-18, 62, -14), [3.8, 5.2, 3.2]),
-        ellipsoid_mesh(p(18, 62, -14), [3.8, 5.2, 3.2]),
+        ellipsoid_mesh(p(-14, 62, -23), [3.5, 5.0, 2.8]),
+        ellipsoid_mesh(p(14, 62, -23), [3.5, 5.0, 2.8]),
     ])
 
+    # The diencephalic teaching mesh reaches an inferior z of about -36.5 mm
+    # after display alignment.  Seat both landmarks in that surface instead of
+    # leaving the former ~6 mm air gap beneath the hypothalamus.
     infundibulum = combine([
-        ellipsoid_mesh(p(0, -1, -25), [3.8, 3.2, 1.9]),
-        tube_mesh([{"points": [p(0, -1, -26), p(0, -1, -31), p(0, -1, -37)],
+        ellipsoid_mesh(p(0, -1, -18.5), [3.8, 3.2, 1.9]),
+        tube_mesh([{"points": [p(0, -1, -19.5), p(0, -1, -24.5), p(0, -1, -30.5)],
                     "radiusStart": 2.5, "radiusEnd": 1.45, "subdivisions": 8}]),
     ])
     mammillary = combine([
-        ellipsoid_mesh(p(-4.0, -10.0, -27.0), [3.1, 3.4, 2.8]),
-        ellipsoid_mesh(p(4.0, -10.0, -27.0), [3.1, 3.4, 2.8]),
+        ellipsoid_mesh(p(-4.0, -10.0, -21.0), [3.1, 3.4, 2.8]),
+        ellipsoid_mesh(p(4.0, -10.0, -21.0), [3.1, 3.4, 2.8]),
     ])
     anterior_perforated = combine([
         ellipsoid_mesh(p(-14.0, 11.0, -22.5), [8.0, 6.0, 1.0]),
@@ -191,13 +194,14 @@ def main():
         results.append(result)
 
     metadata = {
-        "version": 1,
+        "version": 2,
         "coordinateSpace": "manually approximated MNI-oriented display space",
         "displayShiftMm": DISPLAY_SHIFT.tolist(),
         "alignmentPolicy": "same [x, y, z] display shift as the pial meshes",
         "status": "project-authored simplified teaching landmarks; not validated segmentation or morphometry",
         "anteriorToPosteriorOrder": ["olfactory bulbs/tracts", "anterior perforated substance", "optic nerves/chiasm", "infundibulum", "mammillary bodies"],
         "specimenNote": "the pituitary gland is not shown; a brain specimen may retain only a cut stalk",
+        "attachmentPolicy": "infundibulum and mammillary bodies overlap the inferior hypothalamic teaching surface; no detached floating landmarks",
         "meshes": results,
     }
     (OUT / "basal-landmarks.json").write_text(

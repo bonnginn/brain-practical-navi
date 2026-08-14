@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "coordinateSpace": "manually approximated MNI-oriented display space",
   "displayShiftMm": [
     0.0,
@@ -16,6 +16,7 @@
     "mammillary bodies"
   ],
   "specimenNote": "the pituitary gland is not shown; a brain specimen may retain only a cut stalk",
+  "attachmentPolicy": "infundibulum and mammillary bodies overlap the inferior hypothalamic teaching surface; no detached floating landmarks",
   "meshes": [
     {
       "file": "landmark-olfactory-pathway.mesh",
@@ -25,8 +26,8 @@
     },
     {
       "file": "landmark-optic-pathway.mesh",
-      "vertices": 1068,
-      "faces": 2016,
+      "vertices": 1332,
+      "faces": 2592,
       "label": "視神経・視交叉・視索"
     },
     {

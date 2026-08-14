@@ -95,13 +95,11 @@
 .insetHead b { display: block; font-size: 15px; }
 .insetHead small { display: block; margin-top: 2px; color: #aeb7b8; font-size: 15px; }
 .insetHead > span { padding: 4px 6px; border: 1px solid #667174; color: #c6ced0; font: 15px monospace; letter-spacing: .12em; }
-.insetStage { flex: 1 1 auto; height: auto; min-height: 0; background: radial-gradient(circle at 50% 43%,#485055 0,#30363a 48%,#202528 100%); }
+.insetViews { flex: 1 1 auto; min-height: 0; display: grid; grid-template-rows: repeat(2,minmax(0,1fr)); gap: 1px; padding-bottom: 52px; background: #667174; }
+.insetStage { position: relative; width: 100%; height: 100%; min-height: 0; background: radial-gradient(circle at 50% 43%,#485055 0,#30363a 48%,#202528 100%); }
+.insetViewLabel { position: absolute; z-index: 8; left: 9px; bottom: 8px; padding: 3px 5px; border: 1px solid #ffffff26; background: #171c1ecc; color: #c7cecf; font-size: 12px; pointer-events: none; }
 .modelInset .orientation { right: 14px; top: 14px; color: #bdc5c6; font-size: 15px; }
 .modelInset .orientation > i,.modelInset .orientation span i { background: #798487; }
-.modelFocusTag { position: absolute; z-index: 8; top: 12px; left: 12px; display: grid; grid-template-columns: 8px auto; column-gap: 7px; padding: 7px 9px; border: 1px solid rgba(221,228,230,.18); background: rgba(23,28,30,.78); color: #f2f3f1; pointer-events: none; box-shadow: 0 5px 18px rgba(0,0,0,.16); }
-.modelFocusTag i { grid-row: 1/3; align-self: stretch; width: 5px; min-height: 27px; border-radius: 3px; box-shadow: 0 0 10px currentColor; }
-.modelFocusTag span { color: #9fa9ab; font-size: 14px; letter-spacing: .1em; }
-.modelFocusTag b { margin-top: 2px; font-size: 14px; }
 .modelInset .orientation > i { height: 32px; }
 .modelInset .orientation span { top: 18px; }
 .modelInset .orientation span i { width: 32px; }
@@ -111,12 +109,23 @@
 .modelInset .blockControls button:last-child { border-right: 0; }
 .modelInset .blockControls button.active { background: #eef1ef; color: #202629; }
 .sliceTimeline { margin: 0; border: 0; border-top: 1px solid #cccdc8; padding: 17px 20px 15px; }
-.selectedStructureBar { display: grid; grid-template-columns: 8px auto 1fr auto; align-items: center; gap: 12px; min-height: 58px; padding: 9px 18px; border-top: 1px solid #cccdc8; background: #eeede8; }
-.selectedStructureBar > span { width: 8px; height: 34px; border-radius: 5px; }
-.selectedStructureBar small { display: block; color: #818987; font-size: 15px; }
-.selectedStructureBar b { display: block; margin-top: 2px; font-size: 17px; }
-.selectedStructureBar p { margin: 0; text-align: right; color: #6f7877; font-size: 16px; }
+.selectedStructureBar { min-height: 58px; max-height: min(31vh,260px); overflow-y: auto; border-top: 1px solid #cccdc8; background: #eeede8; scrollbar-width: thin; scrollbar-color: #aeb6b2 transparent; }
+.selectedStructureSummary { position: sticky; z-index: 2; top: 0; display: grid; grid-template-columns: 8px minmax(0,1fr) auto; align-items: center; gap: 12px; min-height: 58px; padding: 9px 18px; border-bottom: 1px solid #d3d4cf; background: #eeede8f5; }
+.selectedStructureSummary > span { width: 8px; height: 34px; border-radius: 5px; }
+.selectedStructureBar small { display: block; color: #606b69; font-size: 14px; }
+.selectedStructureBar b { display: block; margin-top: 2px; font-size: 16px; }
+.selectedStructureList { display: grid; gap: 1px; background: #d4d5d0; }
+.selectedStructureList > button { min-width: 0; display: grid; grid-template-columns: 7px minmax(120px,.42fr) minmax(0,1fr); align-items: start; gap: 10px; padding: 9px 18px; border: 0; background: #f4f3ee; color: #273331; text-align: left; }
+.selectedStructureList > button:hover,.selectedStructureList > button.current { background: #fffdf7; }
+.selectedStructureList > button.current { box-shadow: inset 3px 0 #e36e57; }
+.selectedStructureList > button > i { width: 7px; min-height: 34px; border-radius: 4px; }
+.selectedStructureList > button > span { min-width: 0; }
+.selectedStructureList > button > span small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.selectedStructureList p { display: grid; gap: 3px; margin: 0; color: #465351; font-size: 14px; line-height: 1.45; }
+.selectedStructureList p em { color: #697371; font-style: normal; }
+.selectedStructureList p em::before { content: "位置："; font-weight: 700; }
 .selectedStructureBar button { border: 1px solid #b9bdb7; background: #f8f7f2; padding: 7px 11px; font-size: 16px; }
+.selectedStructureList > button { border: 0; padding: 9px 18px; }
 .selectedStructureBar button:disabled, .quiz:disabled { cursor: default; opacity: .48; }
 .selectedBarActions { display: flex; gap: 5px; }
 .selectedBarActions .detailToggle { border-color: #487875; background: #487875; color: #fff; font-weight: 700; }
@@ -181,7 +190,22 @@ html, body, #root { height: 100%; overflow: hidden; }
 .sliceTimeline { padding: 10px 18px 9px; }
 .rangeWrap { margin-block: 12px 35px; }
 .timeline > p { line-height: 1.4; }
-.selectedStructureBar { min-height: 48px; padding-block: 6px; }
+.selectedStructureBar { min-height: 48px; }
+.selectedStructureSummary { min-height: 48px; padding-block: 6px; }
+.workspace-sections .workArea { overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #aeb6b2 transparent; }
+.workspace-sections .visualGrid { flex: 0 0 auto; overflow: visible; }
+.workspace-sections .slicePanel { height: auto; grid-template-rows: auto clamp(520px,65vh,760px) auto auto; }
+.workspace-sections .sliceStage { height: 100%; min-height: 520px; }
+.workspace-sections .selectedStructureBar { max-height: none; overflow: visible; }
+.workspace-sections .selectedStructureSummary { position: static; }
+.workspace-sections .rangeWrap { margin: 12px 0 4px; }
+.sectionLayoutSwitch { display: flex; overflow: hidden; border: 1px solid #aeb6b4; border-radius: 3px; }
+.sectionLayoutSwitch button { min-height: 34px; padding: 5px 8px; border: 0; border-right: 1px solid #c6cbc7; background: #edf0ed; color: #53605f; font-size: 14px; font-weight: 700; white-space: nowrap; }
+.sectionLayoutSwitch button:last-child { border-right: 0; }
+.sectionLayoutSwitch button.active { background: #315f63; color: #fff; }
+.sliceStage.layout-slice,.sliceStage.layout-model { grid-template-columns: minmax(0,1fr); }
+.sliceStage.layout-slice .sliceViewport { border-right: 0; }
+.sliceStage.layout-model .insetViews { grid-template-columns: repeat(2,minmax(0,1fr)); grid-template-rows: minmax(0,1fr); }
 .inspector { padding: 16px 18px; }
 .structureColor { margin-top: 12px; }
 .inspector h2 { margin-top: 5px; font-size: 27px; }
@@ -203,7 +227,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 @media(max-width:1250px){.appShell{grid-template-columns:190px minmax(0,1fr)}.topbar{grid-column:1/3}.structureBtn{padding-inline:15px}.sliceStage{grid-template-columns:minmax(0,1fr) 260px}}
 @media(max-width:1050px){.appShell{grid-template-columns:160px minmax(0,1fr)}.topbar{grid-column:1/3}.sliceStage{grid-template-columns:minmax(0,1fr) 230px}}
 @media(max-width:940px){.sliceStage{height:auto;grid-template-columns:minmax(0,1fr) 210px}.insetHead{flex-basis:38px;height:38px}.modelInset .blockControls{left:7px;right:7px;bottom:7px}.modelInset .blockControls button{font-size:15px;padding-block:6px}.modelInset .orientation{display:none}}
-@media(max-width:760px){html,body,#root{height:auto;overflow:auto}.appShell{display:block;height:auto;padding:60px 0 72px}.leftRail,.workArea{overflow:visible}.visualGrid{display:block}.slicePanel{display:block}.sliceStage{height:600px;grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) 180px}.sliceViewport{border-right:0;border-bottom:1px solid #455052}.slicePanel{margin-top:0}.slicePanel .panelHead{display:block}.sliceTools{margin-top:8px;gap:4px;flex-wrap:wrap;justify-content:flex-start}.contrastSwitch button,.displaySwitch button{padding:6px 7px;font-size:15px}.workArea{padding:20px 12px}.workHead h1{font-size:26px}.panelHead b{font-size:16px}.panelHead small{font-size:16px}.sliceTimeline{padding-inline:13px}.rangeWrap button span{font-size:15px}.miniSlices>button>b{font-size:15px}.miniSlices>button>small{font-size:15px}.modelInset{width:auto;margin:0}.insetHead{flex-basis:30px;height:30px}.insetHead small,.insetHead>span{display:none}.modelInset .blockControls,.modelInset .orientation{display:none}.identifyHint{top:8px;padding:5px 7px}.identifyHint b{font-size:15px}.identifyHint span{display:none}.identifyMarker{min-width:132px}.selectedStructureBar{grid-template-columns:7px auto auto;padding-inline:11px}.selectedStructureBar p{display:none}.clearStructures,.structureGroupGrid{display:none}.zoomReadout{right:10px;bottom:10px}.inspectorBackdrop{top:60px}.inspector{top:60px;width:min(360px,94vw);padding:20px}}
+@media(max-width:760px){html,body,#root{height:auto;overflow:auto}.appShell{display:block;height:auto;padding:60px 0 72px}.leftRail,.workArea{overflow:visible}.visualGrid{display:block}.slicePanel{display:block}.sliceStage{height:760px;grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) 340px}.sliceViewport{border-right:0;border-bottom:1px solid #455052}.slicePanel{margin-top:0}.slicePanel .panelHead{display:block}.sliceTools{margin-top:8px;gap:4px;flex-wrap:wrap;justify-content:flex-start}.contrastSwitch button,.displaySwitch button{padding:6px 7px;font-size:15px}.workArea{padding:20px 12px}.workHead h1{font-size:26px}.panelHead b{font-size:16px}.panelHead small{font-size:16px}.sliceTimeline{padding-inline:13px}.rangeWrap button span{font-size:15px}.miniSlices>button>b{font-size:15px}.miniSlices>button>small{font-size:15px}.modelInset{width:auto;margin:0}.insetHead{flex-basis:30px;height:30px}.insetHead small,.insetHead>span{display:none}.insetViews{grid-template-columns:1fr 1fr;grid-template-rows:1fr;padding-bottom:0}.modelInset .blockControls,.modelInset .orientation{display:none}.identifyHint{top:8px;padding:5px 7px}.identifyHint b{font-size:15px}.identifyHint span{display:none}.identifyMarker{min-width:132px}.selectedStructureBar{max-height:280px}.selectedStructureSummary{grid-template-columns:7px minmax(0,1fr) auto;padding-inline:11px}.selectedStructureList>button{grid-template-columns:7px minmax(0,1fr);padding-inline:11px}.selectedStructureList p{grid-column:2}.clearStructures,.structureGroupGrid{display:none}.zoomReadout{right:10px;bottom:10px}.inspectorBackdrop{top:60px}.inspector{top:60px;width:min(360px,94vw);padding:20px}}
 
 .topbar { gap: 12px; }
 .brand, .topActions { flex: 0 0 auto; }
@@ -212,6 +236,8 @@ html, body, #root { height: 100%; overflow: hidden; }
 .workspaceSwitch button > span { font-size: 15px; }
 .workspaceSwitch button > i { margin: 0; color: #89918f; font: 15px/1.2 monospace; letter-spacing: .04em; }
 .workspaceSwitch button.active > i { color: #1d6e69; }
+.workspaceSwitch button.prototype > i { color: #c44737; font-weight: 900; }
+.workspaceSwitch button.prototype.active > i { color: #a63326; }
 .topActions { display: flex; align-items: center; gap: 10px; }
 .topActions > span { padding: 5px 8px; border: 1px solid #d4b7ae; color: #9a574a; font-size: 16px; font-weight: 700; letter-spacing: .04em; }
 .legalButton, .feedbackButton { padding: 9px 12px; border: 1px solid #aeb5b1; background: #f7f6f2; font-size: 14px; font-weight: 700; }
@@ -266,6 +292,9 @@ html, body, #root { height: 100%; overflow: hidden; }
 .homeIntro h1 { margin: 13px 0 17px; color: #1d2628; font: 400 clamp(37px,4vw,64px)/1.07 Georgia,"Yu Mincho",serif; letter-spacing: -.045em; }
 .homeIntro h1 em { color: #c9604e; font-style: normal; }
 .homeLead { max-width: 600px; margin: 0; color: #34413f; font-size: clamp(14px,1.2vw,17px); line-height: 1.8; }
+.homeAccuracyWarning { display: grid; grid-template-columns: auto minmax(0,1fr); align-items: center; gap: 9px; max-width: 610px; margin: 14px 0 0; padding: 10px 12px; border: 1px solid #c97869; border-left: 5px solid #c44737; background: #f5e5e0; color: #713a32; font-size: 15px; line-height: 1.55; }
+.homeAccuracyWarning b { color: #a43529; white-space: nowrap; }
+.homeAccuracyWarning span { font-weight: 700; }
 .homeModelStage { position: relative; width: 100%; height: auto; min-width: 0; min-height: 340px; overflow: hidden; cursor: grab; touch-action: none; background: radial-gradient(circle at 50% 43%,#596267 0,#353c40 49%,#1b2023 100%); }
 .homeModelStage:active { cursor: grabbing; }
 .homeModelStage .orientation { top: 22px; right: 22px; color: #ccd3d2; }
@@ -293,6 +322,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 .sourceBadge { padding: 7px 9px; border: 1px solid #b8bcb7; background: #efeee8; color: #687270; font-size: 16px; }
 .learningGrid { flex: 1 1 auto; min-height: 0; display: grid; grid-template-columns: minmax(0,1fr) clamp(330px,29vw,410px); gap: 12px; }
 .learningModelCard, .quizImageCard { min-height: 0; display: grid; grid-template-rows: auto minmax(0,1fr); overflow: hidden; border: 1px solid #c7cac4; background: #292e31; box-shadow: 0 10px 34px rgba(26,34,35,.1); }
+.quizImageCard { grid-template-rows: auto minmax(0,1fr) auto; }
 .learningModelCard .panelHead, .quizImageCard .panelHead { height: auto; min-height: 58px; padding-block: 7px; }
 .learningModelStage { height: auto; min-height: 0; cursor: grab; touch-action: none; user-select: none; background: radial-gradient(circle at 50% 44%,#515a5f 0,#343a3e 48%,#202528 100%); }
 .learningModelStage:active { cursor: grabbing; }
@@ -318,9 +348,9 @@ html, body, #root { height: 100%; overflow: hidden; }
 .neurovascularControls button i { width: 16px; height: 5px; border-radius: 4px; background: #747e80; box-shadow: 0 0 8px transparent; }
 .neurovascularControls button.vessels i { background: #d92e24; box-shadow: 0 0 8px #d92e2477; }
 .neurovascularControls button.nerves i { background: #f3cf66; box-shadow: 0 0 8px #f3cf6677; }
-.neurovascularLegend { position: absolute; z-index: 9; left: 18px; top: 18px; display: grid; grid-template-columns: auto auto; gap: 6px 13px; padding: 9px 11px; border: 1px solid #667174; background: rgba(19,25,27,.86); color: #d5dad8; font-size: 15px; pointer-events: none; }
-.neurovascularLegend span { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
-.neurovascularLegend i { width: 18px; height: 4px; border-radius: 4px; }
+.neurovascularLegend { position: absolute; z-index: 9; left: 14px; top: 14px; display: grid; grid-template-columns: auto auto; gap: 4px 9px; padding: 6px 8px; border: 1px solid #667174; background: rgba(19,25,27,.86); color: #d5dad8; font-size: 13px; line-height: 1.2; pointer-events: none; }
+.neurovascularLegend span { display: flex; align-items: center; gap: 5px; white-space: nowrap; }
+.neurovascularLegend i { width: 14px; height: 3px; border-radius: 4px; }
 .neurovascularLegend .arterialAnterior { background: #db2e24; }
 .neurovascularLegend .arterialPosterior { background: #a8281f; }
 .neurovascularLegend .nerveAnterior { background: #f5d46b; }
@@ -336,7 +366,6 @@ html, body, #root { height: 100%; overflow: hidden; }
 .neurovascularPicker button.active { border-color: #526e68; background: #dfe8e2; box-shadow: inset 4px 0 #fff; }
 .neurovascularPicker button span { min-width: 0; font-size: 14px; font-weight: 800; }
 .neurovascularPicker button small { display: block; max-width: 105px; margin-top: 2px; overflow: hidden; color: #818a88; font: 15px Georgia,serif; text-overflow: ellipsis; white-space: nowrap; }
-.neurovascularPicker button > b { color: #66726f; font-size: 15px; white-space: nowrap; }
 .neurovascularPicker > p { display: grid; gap: 3px; margin: 8px 0 0; padding: 9px 10px; border-left: 3px solid #f3f1eb; background: #d7d9d3; color: #5a6462; font-size: 16px; line-height: 1.6; }
 .neurovascularPicker > p b { color: #293432; font-size: 14px; }
 .specimenLayerPicker { margin-top: 18px; padding: 13px 14px; border: 1px solid #bcc2bb; background: #f0eee8; }
@@ -390,6 +419,17 @@ html, body, #root { height: 100%; overflow: hidden; }
 .learningGuide li { display: grid; grid-template-columns: 34px 1fr; align-items: center; min-height: 44px; border-bottom: 1px solid #c5c8c2; }
 .learningGuide li i { color: #999f9d; font: 15px monospace; font-style: normal; }
 .learningGuide li span { font-size: 16px; font-weight: 700; }
+.blockIntroPage { display: grid; place-items: center; padding: clamp(24px,6vw,80px); background: radial-gradient(circle at 50% 38%,#f4f1e9 0,#e4e1da 72%); }
+.blockIntroCard { width: min(660px,100%); padding: clamp(28px,5vw,58px); border: 1px solid #c5b9ad; border-top: 6px solid #c44737; background: #f8f6f0; box-shadow: 0 22px 65px rgba(35,31,28,.14); text-align: center; }
+.blockIntroCard > span { color: #b53b2e; font: 900 15px monospace; letter-spacing: .18em; }
+.blockIntroCard h1 { margin: 12px 0 14px; color: #2c3534; font: 400 clamp(28px,4vw,40px) Georgia,"Yu Mincho",serif; }
+.blockIntroCard p { max-width: 560px; margin: 0 auto; color: #596260; font-size: 17px; line-height: 1.9; }
+.blockIntroCard > div { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 25px; }
+.blockIntroCard button { padding: 10px 16px; border: 1px solid #404b49; background: #263331; color: #fff; font-size: 15px; font-weight: 800; }
+.blockIntroCard button + button { border-color: #b66a5d; background: transparent; color: #7f3b31; }
+.blockReleaseNote { display: flex; align-items: center; gap: 7px; }
+.blockReleaseNote button { padding: 7px 10px; border: 1px solid #b85e4c; background: #f4e4df; color: #823d31; font-size: 14px; font-weight: 800; white-space: nowrap; }
+.blockReleaseNote button:hover { background: #ead0c8; }
 .surfaceRegionPicker { margin-top: 22px; padding-top: 15px; border-top: 1px solid #c3c7c1; }
 .surfaceRegionPicker > header { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
 .surfaceRegionPicker > header div { display: grid; gap: 2px; }
@@ -495,6 +535,13 @@ html, body, #root { height: 100%; overflow: hidden; }
 .quizTargetTag > i { align-self: stretch; width: 8px; min-height: 34px; border-radius: 5px; box-shadow: 0 0 12px currentColor; }
 .quizTargetTag b { display: block; font-size: 15px; }
 .quizTargetTag small { display: block; margin-top: 2px; color: #acb7b5; font-size: 15px; font-weight: 400; }
+.quizSliceNavigator { display: grid; grid-template-columns: minmax(0,1fr) minmax(180px,2fr) 42px auto; align-items: center; gap: 12px; min-height: 58px; padding: 9px 14px; border-top: 1px solid #505a5b; background: #202628; color: #e6e9e6; }
+.quizSliceNavigator > div { display: flex; justify-content: space-between; gap: 9px; color: #acb5b3; font-size: 12px; }
+.quizSliceNavigator > div b { color: #eef0ed; font-size: 13px; }
+.quizSliceNavigator input { width: 100%; accent-color: #e36e57; }
+.quizSliceNavigator output { padding: 5px; border: 1px solid #697374; text-align: center; font: 700 14px monospace; }
+.quizSliceNavigator button { padding: 7px 9px; border: 1px solid #87908e; background: #eef0ec; color: #263230; font-size: 13px; font-weight: 700; white-space: nowrap; }
+.quizSliceNavigator button:disabled { opacity: .45; }
 .quizQuestionCard { min-height: 0; overflow-y: auto; padding: 26px 28px; border: 1px solid #c7cac4; background: #e7e5df; }
 .quizQuestionCard h2 { margin: 10px 0 20px; font: 400 23px/1.55 Georgia,"Yu Mincho",serif; }
 .quizOptions { display: grid; gap: 7px; }
@@ -636,10 +683,12 @@ html, body, #root { height: 100%; overflow: hidden; }
 @media(max-width:1320px){.learningModelCard .panelHead>span,.learningModelCard .panelActions>span,.specimenTissueControls>span,.specimenRotationHint{display:none}.workspaceSwitch button{min-width:82px;padding-inline:8px}.neurovascularPicker>div{grid-template-columns:1fr}.neurovascularPicker button{min-width:0}.neurovascularPicker button small{max-width:none}}
 @media(max-width:1120px){.workspaceSwitch button{min-width:82px;padding-inline:8px}.workspaceSwitch button>span{font-size:16px}.learningGrid,.quizWorkspace,.segWorkbench{grid-template-columns:minmax(0,1fr) 350px}.topActions>span{display:none}.surfaceRegionPicker>div,.surfaceLandmarkPicker>div{grid-template-columns:1fr}.learningGuide{padding-inline:20px}}
 @media(max-width:900px){.workspaceSwitch button{min-width:68px}.workspaceSwitch button>i{display:none}.homeHero{grid-template-columns:minmax(300px,43%) minmax(0,1fr)}.homeIntro{padding:28px}.homeModeGrid{grid-template-columns:1fr 1fr}.homeModeGrid button{min-height:72px}.homeModeGrid small{display:none}.learningGrid,.quizWorkspace,.segWorkbench{grid-template-columns:minmax(0,1fr) minmax(270px,34vw,310px)}.learningGuide,.quizQuestionCard,.segControls{padding-inline:18px}.legalColumns{grid-template-columns:1fr}.legalColumns article+article{padding-left:0;border-left:0}}
-@media(max-height:820px) and (min-width:761px){.homeArea{gap:8px;padding:12px 22px 10px}.homeIntro{padding:clamp(22px,3vw,42px)}.homeBadges{margin-bottom:8px}.homeIntro h1{margin:8px 0 11px;font-size:clamp(34px,3.6vw,52px)}.homeLead{line-height:1.65}.homeModeGrid button{min-height:76px;padding-block:10px}.homeFooter{min-height:30px}}
-@media(max-width:760px){.topbar{padding-inline:5px;gap:3px}.brand{min-width:auto}.brand>span:last-child{display:none}.workspaceSwitch{display:flex;min-width:0;overflow-x:auto;scrollbar-width:none}.workspaceSwitch::-webkit-scrollbar{display:none}.workspaceSwitch button{min-width:52px;padding:7px 3px}.workspaceSwitch button>span{font-size:15px}.topActions{gap:2px}.topActions>span{display:none}.legalButton{padding:7px 3px;font-size:15px;white-space:nowrap}.feedbackButton{display:block;width:38px;padding:7px 2px;font-size:0;white-space:nowrap}.feedbackButton::after{content:"協力";font-size:15px}.compactToggle{border:0;padding-left:0}.learningArea,.quizArea,.segmentationArea{min-height:800px}.learningGrid,.quizWorkspace,.segWorkbench{display:block}.learningModelCard,.quizImageCard,.segCanvasCard{height:520px}.learningGuide,.quizQuestionCard,.segControls{max-height:none;margin-top:10px}.neurovascularControls{left:8px;bottom:8px}.neurovascularControls button{padding:6px}.neurovascularLegend{left:8px;top:8px;right:auto;bottom:auto;grid-template-columns:repeat(3,auto);gap:5px 8px;padding:7px 8px;font-size:12px}.neurovascularLegend i{width:13px}.feedbackOptions{grid-template-columns:1fr}.legalBackdrop{padding:8px}.legalDialog>footer{display:block}.legalDialog footer div{margin-top:8px}}
+@media(max-height:820px) and (min-width:761px){.homeArea{gap:8px;padding:12px 22px 10px}.homeIntro{padding:clamp(22px,3vw,42px)}.homeBadges{margin-bottom:8px}.homeIntro h1{margin:8px 0 11px;font-size:clamp(34px,3.6vw,52px)}.homeLead{line-height:1.65}.homeAccuracyWarning{margin-top:9px;padding-block:7px;font-size:14px}.homeModeGrid button{min-height:76px;padding-block:10px}.homeFooter{min-height:30px}}
+@media(max-width:760px){.topbar{padding-inline:5px;gap:3px}.brand{min-width:auto}.brand>span:last-child{display:none}.workspaceSwitch{display:flex;min-width:0;overflow-x:auto;scrollbar-width:none}.workspaceSwitch::-webkit-scrollbar{display:none}.workspaceSwitch button{min-width:52px;padding:7px 3px}.workspaceSwitch button>span{font-size:15px}.topActions{gap:2px}.topActions>span{display:none}.legalButton{padding:7px 3px;font-size:15px;white-space:nowrap}.feedbackButton{display:block;width:38px;padding:7px 2px;font-size:0;white-space:nowrap}.feedbackButton::after{content:"協力";font-size:15px}.compactToggle{border:0;padding-left:0}.learningArea,.quizArea,.segmentationArea{min-height:800px}.learningGrid,.quizWorkspace,.segWorkbench{display:block}.learningModelCard,.quizImageCard,.segCanvasCard{height:520px}.learningGuide,.quizQuestionCard,.segControls{max-height:none;margin-top:10px}.neurovascularControls{left:8px;bottom:8px}.neurovascularControls button{padding:6px}.neurovascularLegend{left:8px;top:8px;right:auto;bottom:auto;grid-template-columns:repeat(3,auto);gap:5px 8px;padding:7px 8px;font-size:12px}.neurovascularLegend i{width:13px}.blockReleaseNote .sourceBadge{display:none}.feedbackOptions{grid-template-columns:1fr}.legalBackdrop{padding:8px}.legalDialog>footer{display:block}.legalDialog footer div{margin-top:8px}}
+@media(max-width:760px){.quizSliceNavigator{grid-template-columns:minmax(0,1fr) 38px auto;gap:7px;padding-inline:9px}.quizSliceNavigator>div{display:none}.quizSliceNavigator button{padding-inline:6px}}
+@media(max-width:760px){.sectionLayoutSwitch{width:100%}.sectionLayoutSwitch button{flex:1;padding-inline:4px;font-size:12px}.sliceStage.layout-slice,.sliceStage.layout-model{grid-template-rows:minmax(0,1fr)}.sliceStage.layout-model .insetViews{grid-template-columns:1fr 1fr;grid-template-rows:1fr}}
 @media(max-width:760px){.specimenViewControls{right:8px;bottom:8px}.specimenViewControls>span{display:none}.specimenViewControls button{padding-inline:6px}.specimenRotationHint{display:none}}
-@media(max-width:760px){.homeArea{display:block;overflow:visible;padding:12px}.homeHero{display:block}.homeIntro{padding:30px 22px;border-right:0;border-bottom:1px solid #c9cbc5}.homeIntro h1{font-size:40px}.homeModelStage{height:380px}.homeModeGrid{grid-template-columns:1fr;margin-top:10px}.homeModeGrid button{min-height:78px}.homeModeGrid small{display:block}.homeFooter{display:block;padding:13px 2px}.homeFooter div{margin-top:9px}}
+@media(max-width:760px){.homeArea{display:block;overflow:visible;padding:12px}.homeHero{display:block}.homeIntro{padding:30px 22px;border-right:0;border-bottom:1px solid #c9cbc5}.homeIntro h1{font-size:40px}.homeAccuracyWarning{grid-template-columns:1fr;gap:3px}.homeModelStage{height:380px}.homeModeGrid{grid-template-columns:1fr;margin-top:10px}.homeModeGrid button{min-height:78px}.homeModeGrid small{display:block}.homeFooter{display:block;padding:13px 2px}.homeFooter div{margin-top:9px}}
 @media(max-width:380px){.learningModelCard .panelHead{min-width:0;flex-wrap:wrap;align-content:center;gap:5px}.learningModelCard .panelHead>div:first-child{min-width:0;flex:1 1 120px}.learningModelCard .panelActions{min-width:0;flex:1 1 auto;gap:4px;justify-content:flex-end}.learningModelCard .panelActions button{padding-inline:6px;font-size:14px}}
 
 /* Readability pass: keep secondary text visibly separate from both paper and 3D backgrounds. */

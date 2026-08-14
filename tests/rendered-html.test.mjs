@@ -38,6 +38,23 @@ function readVolumeHeader(buffer, expectedMagic) {
   return { payload, dims, voxelCount };
 }
 
+function readMeshVertices(buffer) {
+  const count = buffer.readUInt32LE(4);
+  return Array.from({length:count}, (_, index) => {
+    const offset = 12 + index * 12;
+    return [buffer.readFloatLE(offset), buffer.readFloatLE(offset + 4), buffer.readFloatLE(offset + 8)];
+  });
+}
+
+function minimumVertexDistance(first, second) {
+  let minimumSquared = Infinity;
+  for (const a of first) for (const b of second) {
+    const dz=a[0]-b[0], dy=a[1]-b[1], dx=a[2]-b[2];
+    minimumSquared=Math.min(minimumSquared,dz*dz+dy*dy+dx*dx);
+  }
+  return Math.sqrt(minimumSquared);
+}
+
 test("uses an exact coordinate-matched BigBrain image and manual label grid", async () => {
   const [imageFile, labelFile, metadataFile] = await Promise.all([
     readFile(new URL("public/atlas/bigbrain-icbm500.bin.gz", root)),
@@ -197,7 +214,15 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /切る前から立体で。/);
   assert.match(page, /className="homeModelStage[\s\S]{0,700}view="inside"/);
   assert.match(page, /OPEN ALPHA/);
-  assert.match(page, /公開α準備中・非営利教育用/);
+  assert.match(page, /公開α版・非営利教育用/);
+  assert.match(page, /className="homeAccuracyWarning"/);
+  assert.match(page, /解剖学的正確性は保証できません。学習時は教科書・実標本・検証済み資料と照合してください/);
+  assert.match(page, /試作中・解剖学的正確性は未保証/);
+  assert.match(page, /ブロック標本（試作中）/);
+  assert.match(page, /key:"blocks",label:"ブロック標本",sub:"試作品"/);
+  assert.match(page, /blockIntroOpen&&<section className="workArea blockIntroPage"/);
+  assert.match(page, /ブロック標本は試作中です/);
+  assert.match(page, /形状・範囲・接続関係の完全性や解剖学的正確性は保証しません/);
   assert.doesNotMatch(page, /OPEN BETA|β版・非営利教育用/);
   assert.doesNotMatch(page, /を連続して追う/);
   assert.match(page, /VITE_FEEDBACK_FORM_URL/);
@@ -258,18 +283,62 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /defaultMedialDeepLandmarks:SurfaceDeepLandmarkKey\[]\=\[]/);
   assert.match(page, /初期状態は非表示・左側だけを描画/);
   assert.match(canvas, /conservativeSeptumMesh/);
-  assert.match(page, /surfaceView!=="cranialNerves"&&surfaceView!=="medial"/);
+  assert.match(page, /surfaceView!=="cranialNerves"&&surfaceView!=="arteries"&&surfaceView!=="medial"/);
   assert.match(page, /setSurfaceCerebellum\(key!=="medial"&&key!=="inferior"\)/);
-  assert.match(page, /useState\(surfaceView!=="cranialNerves"&&surfaceView!=="medial"&&surfaceView!=="inferior"\)/);
+  assert.match(page, /useState\(surfaceView!=="cranialNerves"&&surfaceView!=="arteries"&&surfaceView!=="medial"&&surfaceView!=="inferior"\)/);
   assert.match(page, /medial:\["cingulate","paracentral","precuneus","cuneus","lingual"\]/);
   assert.doesNotMatch(page, /medial:\[[^\n]+"pericalcarine"/);
   assert.match(page, /key==="cuneus"\?\{ids:surfaceRegions\.pericalcarine\.ids,axis:0,min:-14\}/);
   assert.match(page, /key==="lingual"\?\{ids:surfaceRegions\.pericalcarine\.ids,axis:0,max:-14\}/);
   assert.match(page, /複数選択/);
+  assert.match(page, /useState<"inside" \| "ghost" \| "extracted" \| "segmented">\("ghost"\)/);
+  assert.match(page, /useState<"both"\|"slice"\|"model">\("both"\)/);
+  assert.match(page, /className="sectionLayoutSwitch" aria-label="断面と全脳3Dの表示"/);
+  assert.match(page, /断面＋3D/);
+  assert.match(page, /断面のみ/);
+  assert.match(page, /3Dのみ/);
+  assert.match(page, /sectionLayout!=="model"&&<div className="sliceViewport">/);
+  assert.match(page, /sectionLayout!=="slice"&&<aside className="modelInset"/);
+  assert.match(page, /const sectionModelRotations:Rotation\[]=\[rotation,\{\.\.\.rotation,y:wrapAngle\(rotation\.y\+90\)\}\]/);
+  assert.match(page, /className="insetViews"/);
+  assert.match(page, /"90°直交"/);
+  assert.match(page, /const sectionSelectionMeshLayers=activeVisibleStructures\.flatMap/);
+  assert.match(page, /selectionMeshLayers=\{sectionSelectionMeshLayers\}/);
+  assert.doesNotMatch(page, /className="modelFocusTag"/);
+  assert.match(page, /accumbens:\["section-accumbens"\]/);
+  assert.match(page, /opticChiasm:\["section-optic-chiasm"\],insula:\["section-insula"\]/);
+  assert.doesNotMatch(page, /setBlock\("inside"\)\}\}>脳表<\/button>/);
+  assert.match(canvas, /selectionMeshLayers=\[\]/);
+  assert.match(canvas, /if\(showFocus&&selectionLayers\.length\)/);
+  assert.match(canvas, /selectionLayers\.forEach\(layer=>layer\.meshes\.forEach/);
+  assert.match(canvasCss, /\.insetViews \{[^}]*grid-template-rows: repeat\(2,minmax\(0,1fr\)\)/);
+  assert.match(canvasCss, /\.sliceStage\.layout-model \.insetViews \{ grid-template-columns: repeat\(2,minmax\(0,1fr\)\); grid-template-rows: minmax\(0,1fr\); \}/);
+  assert.match(page, /const sectionDeveloperControls=\(import\.meta\.env\.VITE_SECTION_DEVELOPER_CONTROLS as string\|undefined\)==="true"/);
+  assert.match(page, /位置 \{position\}・単一標本脳 0\.5 mm（同一格子で検証済み）・実習標本調/);
+  assert.match(page, /\{sectionDeveloperControls&&<><div className="contrastSwitch" aria-label="開発者用・断面画像ソース"/);
+  assert.match(page, /className="displaySwitch" aria-label="開発者用・断面表示調"/);
   assert.match(page, /structureAvailable/);
   assert.match(page, /現在の画像ソースには対応ラベルがありません/);
   assert.match(page, /現在の画像ソースでは未分節・着色できません/);
   assert.match(canvasCss, /\.structureBtn\.unavailable/);
+  assert.doesNotMatch(page, /active&&<small>\{item\.note\}/);
+  assert.match(page, /className="selectedStructureList" aria-label="選択中の構造と解説"/);
+  assert.match(page, /activeVisibleStructures\.map\(key=>/);
+  assert.match(page, /item\.note\).*item\.relation/);
+  assert.doesNotMatch(page, /landmarks\.map\(mark/);
+  assert.doesNotMatch(page, /目印をクリックすると/);
+  assert.match(canvasCss, /\.workspace-sections \.workArea \{ overflow-y: auto/);
+  assert.match(canvasCss, /\.workspace-sections \.slicePanel \{ height: auto; grid-template-rows: auto clamp\(520px,65vh,760px\) auto auto; \}/);
+  assert.match(page, /sectionDeveloperControls&&key===selectedStructure\?currentSourceNote:item\.note/);
+  assert.match(page, /sectionDeveloperControls&&<small>\{identified\.certainty/);
+  assert.match(page, /sectionDeveloperControls&&quizSource&&<small>/);
+  assert.match(page, /const \[quizSlicePosition,setQuizSlicePosition\]=useState\(52\)/);
+  assert.match(page, /position=\{quizSlicePosition\}/);
+  assert.match(page, /className="quizSliceNavigator"/);
+  assert.match(page, /出題位置へ戻す/);
+  assert.match(canvasCss, /\.quizSliceNavigator/);
+  assert.match(page, /\{sectionDeveloperControls&&<p className="atlasCredit">/);
+  assert.match(canvasCss, /\.selectedStructureList/);
   assert.match(page, /surfaceHighlights/);
   assert.match(page, /脳表を透過/);
   assert.match(page, /脳表・主要脳回/);
@@ -283,20 +352,66 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /neurovascularHighlights/);
   assert.match(page, /個別に同定/);
   assert.match(page, /選択した管・神経根を白色で強調/);
+  assert.match(page, /arteries:\{name:"脳底の主要動脈"[^\n]+rotation:\{x:110,y:2,z:180\}/);
+  assert.match(page, /surfaceView==="cranialNerves"\?"brainstem-only":surfaceView==="arteries"\?"without-brainstem-patches":"all"/);
+  assert.match(canvas, /hideBrainstemPatches=basalLandmark==="without-brainstem-patches"/);
+  assert.match(canvas, /brainstemOnly=basalLandmark==="brainstem-only"/);
+  assert.match(canvas, /nerveOverlayVisible=neurovascularOverlay==="nerves"\|\|neurovascularOverlay==="both"/);
+  assert.match(canvas, /nerveOverlayVisible&&\(\["olfactory","optic"\]/);
+  assert.match(page, /renderedSurfaceNerves=surfaceView==="inferior"\|\|surfaceView==="free"\?true:surfaceNerves/);
+  assert.match(page, /view=\{\(surfaceNeurovascular\|\|surfaceView==="free"\)&&surfaceGhost\?"ghost":"inside"\}/);
+  assert.match(page, /surfaceView==="free"&&<div className="freeObservationControls"[\s\S]*?脳表を透過/);
+  assert.match(page, /showBrainstemNerves=\{surfaceView==="inferior"\|\|surfaceView==="free"\?surfacePonsMedulla:surfaceNerves\}/);
+  assert.match(page, /function toggleInferiorHindbrain\(\)/);
+  assert.match(page, />橋・延髄<\/button>/);
+  assert.doesNotMatch(page, /橋・延髄＋V–XII/);
+  assert.match(page, /arteries:\{name:"脳底の主要動脈"[^\n]+rotation:\{x:110,y:2,z:180\}/);
+  assert.match(page, /脳底構造は常時表示し、選択した構造を着色/);
+  assert.match(page, /inferiorCanonicalNerveHighlights/);
+  assert.match(page, /neurovascularStructures\.cn1\.ids/);
+  assert.match(page, /neurovascularStructures\.cn2\.ids,\.\.\.neurovascularStructures\.opticChiasm\.ids/);
+  assert.match(canvas, /if\(showBrainstemNerves\)\{draw\(overlays\[3\]/);
+  assert.doesNotMatch(canvas, /neurovascularOnTop/);
+  assert.match(page, /useState\(surfaceView==="cranialNerves"\|\|surfaceView==="arteries"\)/);
+  assert.match(page, /if\(key==="arteries"\)\{setSurfaceVessels\(true\);setSurfaceNerves\(true\);setSurfaceCerebellum\(false\)/);
+  assert.doesNotMatch(page, /active\?"表示中":"表示"/);
+  const neurovascularControls = page.match(/\{surfaceNeurovascular&&<div className="neurovascularControls specimenPartControls"[^\n]+<\/div>\}/)?.[0] ?? "";
+  assert.ok(neurovascularControls);
+  assert.doesNotMatch(neurovascularControls, /surfacePonsMedulla|橋・延髄/);
   assert.match(page, /key==="cranialNerves"\)\{setSurfaceVessels\(false\);setSurfaceNerves\(true\)/);
+  assert.match(page, /cranialNerves:\{name:"脳神経・脳幹"[^\n]+rotation:\{x:-42,y:2,z:0\}/);
+  assert.match(page, /const cranialNerveBrainstemKeys:BasalLandmarkPartKey\[]=\["midbrain","pons","medulla","peduncles","pyramids","olives","superior-colliculi","inferior-colliculi"\]/);
+  assert.match(page, /脳幹の位置関係/);
+  assert.match(page, /上丘・下丘とIVは背側から観察します/);
   assert.doesNotMatch(page, /blockSpecimen==="arteries"|blockSpecimen==="cranialNerves"/);
   assert.match(page, /surfaceView==="inferior"&&<div className="basalLandmarkPicker surfaceRegionPicker"/);
   assert.match(page, /surfaceVisibleBasalLandmarks/);
   assert.match(page, /toggleBasalLandmark/);
   assert.match(page, /setSurfaceVisibleBasalLandmarks\(basalLandmarkKeys\)/);
+  for (const target of ["視床下部領域","中脳","上丘","下丘","橋","延髄"]) assert.match(page, new RegExp(`name:\"${target}\"`));
+  assert.match(canvas, /basalHighlights\.includes\("hypothalamus"\)\)draw\(deep\[4\]/);
+  assert.match(page, /上丘・下丘は中脳背側の構造です/);
+  assert.match(canvas, /brainstemLevelMesh\(surface\[3\],"pons"\)/);
+  assert.match(canvas, /brainstemLevelMesh\(surface\[3\],"medulla"\)/);
+  assert.match(canvas, /basalHighlights\.includes\("midbrain"\)\)draw\(surface\[4\]/);
+  assert.match(canvas, /basalHighlights\.includes\("superior-colliculi"\)\)draw\(midbrainDorsalPatchMesh\(surface\[4\],"superior-colliculi"\)/);
+  assert.match(canvas, /basalHighlights\.includes\("inferior-colliculi"\)\)draw\(midbrainDorsalPatchMesh\(surface\[4\],"inferior-colliculi"\)/);
+  assert.match(canvas, /positions\.push\(mesh\.vertices\[offset\],mesh\.vertices\[offset\+1\],mesh\.vertices\[offset\+2\]\)/);
+  assert.doesNotMatch(canvas, /draw\(brainstemLandmarks/);
+  for (const color of ["#c45783","#4fa5a0","#4f79b7","#7667af","#d95365","#e38a42","#369a9a","#659b68"]) assert.match(page, new RegExp(color));
   assert.match(page, /setSurfaceVisibleRegions\(\[\]\)/);
   assert.match(page, /setSurfaceVisibleLandmarks\(\[\]\)/);
   assert.match(page, /setSurfaceVisibleBasalLandmarks\(\[\]\)/);
   assert.match(page, /basalHighlights/);
   assert.match(page, /aria-label="下面の補助レイヤー"/);
   assert.match(page, /surfaceNeurovascular\|\|surfaceView==="inferior"\|\|surfaceView==="free"\?surfaceOverlay:"none"/);
-  assert.match(page, /showBasalLandmarks=\{surfaceView==="inferior"\|\|surfaceView==="free"\}/);
-  assert.match(page, /basalOnlySelected=\{surfaceView==="inferior"\|\|surfaceView==="free"\}/);
+  assert.match(page, /showBasalLandmarks=\{surfaceView==="inferior"\|\|surfaceView==="arteries"\|\|surfaceView==="cranialNerves"\|\|surfaceView==="free"\}/);
+  assert.match(page, /basalOnlySelected=\{false\}/);
+  assert.match(page, /const detachableBrainstemNerveKeys:NeurovascularStructureKey\[]=\["cn5","cn6","cn7","cn8","cn9","cn10","cn11","cn12"\]/);
+  assert.match(page, /function toggleFreeHindbrain\(\)/);
+  assert.match(page, /aria-label="自由観察の表示レイヤー"[^\n]+>橋・延髄<\/button>/);
+  assert.doesNotMatch(page, /aria-label="自由観察の表示レイヤー"[^\n]+>脳神経<\/button>/);
+  assert.match(canvas, /else if\(!basalOnlySelected&&basalLandmark==="all"\)draw\(deep\[4\],neutral,0\)/);
   assert.match(page, /free:\{name:"自由観察"/);
   assert.match(page, /文字検索または分類別索引から追加/);
   assert.match(page, /構造索引/);
@@ -318,7 +433,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(canvas, /frontY-5/);
   assert.match(canvas, /component\.length>largest\.length/);
   assert.match(canvas, /ventralSurfacePatchMesh\(surface\[3\],key\)/);
-  assert.match(canvas, /if\(showPonsMedulla\)draw\(ventralSurfacePatchMesh\(surface\[3\],key\)/);
+  assert.match(canvas, /if\(active&&showPonsMedulla\)draw\(ventralSurfacePatchMesh\(surface\[3\],key\)/);
   assert.match(canvas, /ventralSurfacePatchMesh\(ponsSurface,part\.definition\.key\)/);
   assert.match(canvas, /const ponsSurface=showPonsMedulla\?/);
   assert.match(canvas, /if\(part\.definition\.key==="pyramids"\|\|part\.definition\.key==="olives"\)\{if\(ponsSurface\)draw/);
@@ -475,6 +590,13 @@ test("draws toggleable sulci from cortical region boundaries", async () => {
   assert.match(canvas, /SURFACE_BOUNDARY_LABELS/);
   assert.match(canvas, /surfaceBoundaryMesh/);
   assert.match(canvas, /surfaceLevelMesh/);
+  assert.match(canvas, /surfaceRegionUpperRimMesh/);
+  assert.match(canvas, /surfaceRegionUpperRimMesh\(part,\[96,45\],2\.05,\.9\)/);
+  assert.match(canvas, /for\(let anteriorPosterior=36;anteriorPosterior>=-24;anteriorPosterior-=2\)/);
+  assert.match(canvas, /anteriorExpansion=Math\.max\(0,Math\.min\(1,\(midAnteriorPosterior\+4\)\/32\)\)/);
+  assert.match(canvas, /definition\.key==="longitudinal-fissure"\)draw\(landmarks\[index\]/);
+  assert.doesNotMatch(canvas, /definition\.key==="longitudinal-fissure"\|\|definition\.key==="lateral-sulcus"/);
+  assert.doesNotMatch(canvas, /definition\.key==="longitudinal-fissure"\|\|definition\.key==="central-sulcus"/);
   assert.match(canvas, /surfaceLevelMesh\(part,\[57,6\],0,-14,\.9\)/);
   assert.doesNotMatch(canvas, /surfaceDeepLandmarks\.length&&blockMeshes===null\)\{\s*if\(hemisphere!=="both"\)gl\.clear/);
   assert.match(canvas, /locallyFilledSurfacePoint/);
@@ -483,7 +605,7 @@ test("draws toggleable sulci from cortical region boundaries", async () => {
 
 test("bundles the practical ventral-brain landmarks in anatomical order", async () => {
   const metadata = JSON.parse(await readFile(new URL("public/atlas/basal-landmarks.json", root), "utf8"));
-  assert.equal(metadata.version, 1);
+  assert.equal(metadata.version, 2);
   assert.match(metadata.coordinateSpace, /manually approximated/);
   assert.deepEqual(metadata.displayShiftMm, [0, 18, -18]);
   assert.match(metadata.alignmentPolicy, /same.*display shift.*pial/i);
@@ -492,6 +614,7 @@ test("bundles the practical ventral-brain landmarks in anatomical order", async 
     "olfactory bulbs/tracts", "anterior perforated substance", "optic nerves/chiasm", "infundibulum", "mammillary bodies",
   ]);
   assert.match(metadata.specimenNote, /pituitary gland is not shown/);
+  assert.match(metadata.attachmentPolicy, /overlap the inferior hypothalamic teaching surface/);
   assert.deepEqual(metadata.meshes.map(mesh => mesh.label), [
     "嗅球・嗅索", "視神経・視交叉・視索", "漏斗（下垂体茎）", "乳頭体", "前有孔質（位置目安）",
   ]);
@@ -504,6 +627,13 @@ test("bundles the practical ventral-brain landmarks in anatomical order", async 
     assert.equal(mesh.readUInt32LE(8), item.faces);
     assert.equal(mesh.length, 12 + item.vertices * 24 + item.faces * 12);
   }
+  const [hypothalamus, infundibulum, mammillaryBodies] = await Promise.all([
+    readFile(new URL("public/atlas/block-diencephalon-hypothalamus.mesh", root)),
+    readFile(new URL("public/atlas/landmark-infundibulum.mesh", root)),
+    readFile(new URL("public/atlas/landmark-mammillary-bodies.mesh", root)),
+  ]).then(files=>files.map(readMeshVertices));
+  assert.ok(minimumVertexDistance(hypothalamus,infundibulum)<1, "infundibulum must meet the hypothalamic surface");
+  assert.ok(minimumVertexDistance(hypothalamus,mammillaryBodies)<1, "mammillary bodies must meet the hypothalamic surface");
 });
 
 test("maps major CerebrA cortical regions onto both high-density pial surfaces", async () => {
@@ -551,6 +681,9 @@ test("connects medial-surface study targets to visible surface or deep component
   ]);
   assert.match(page, /cingulate:\{name:"帯状回"/);
   assert.match(page, /ids:\[81,30,59,8,98,47,84,33\]/);
+  assert.match(page, /const medialDeepLandmarkKeys:SurfaceDeepLandmarkKey\[\]=\["corpus-callosum","thalami","hypothalamus"\]/);
+  assert.match(page, /この標本では脳弓と透明中隔を表示しません/);
+  assert.match(page, /尾状核は側脳室に沿うため/);
   for (const key of ["corpus-callosum", "septum-pellucidum", "fornix", "thalami", "hypothalamus"]) {
     assert.match(page, new RegExp(key));
     assert.match(canvas, new RegExp(`key:\"${key}\"`));
@@ -565,12 +698,19 @@ test("connects medial-surface study targets to visible surface or deep component
 
 test("bundles simplified neurovascular overlays as separately disclosed teaching meshes", async () => {
   const metadata = JSON.parse(await readFile(new URL("public/atlas/neurovascular-overlays.json", root), "utf8"));
-  assert.equal(metadata.version, 1);
+  assert.equal(metadata.version, 2);
   assert.match(metadata.coordinateSpace, /manually approximated/);
   assert.deepEqual(metadata.displayShiftMm, [0, 18, -18]);
-  assert.match(metadata.alignmentPolicy, /arteries retain the pial display shift/i);
-  assert.match(metadata.alignmentPolicy, /roots are anchored directly.*brainstem segmentation/i);
+  assert.match(metadata.alignmentPolicy, /anterior arteries and forebrain-associated cranial nerves I-II retain the pial display shift/i);
+  assert.match(metadata.alignmentPolicy, /vertebrobasilar arteries and cranial-nerve roots III-XII are anchored directly.*brainstem segmentation/i);
+  assert.match(metadata.vertebrobasilarCalibration, /ventrolateral medulla.*pontomedullary junction.*ventral pons/i);
+  assert.match(metadata.forebrainNerveCalibration, /olfactory bulbs and tracts.*optic nerves and chiasm.*exposed on the inferior surface/i);
   assert.match(metadata.cranialNerveRootCalibration, /within 2 mm.*label 27 surface/i);
+  assert.match(metadata.cranialNerveRootTopography.III, /interpeduncular fossa/i);
+  assert.match(metadata.cranialNerveRootTopography.IV, /inferior colliculi/i);
+  assert.match(metadata.cranialNerveRootTopography["IX-XI"], /post-olivary sulcus/i);
+  assert.match(metadata.cranialNerveRootTopography.XII, /between pyramid and olive/i);
+  assert.equal(metadata.anatomyReferences.length, 3);
   assert.match(metadata.status, /not validated morphometry/);
   assert.equal(metadata.groups.length, 5);
   assert.ok(metadata.omissions.includes("small perforators"));
@@ -589,7 +729,7 @@ test("bundles simplified neurovascular overlays as separately disclosed teaching
     assert.ok(group.faces >= 2000);
     assert.ok(group.structures.length >= 8);
     assert.ok(group.structures.every(structure => Number.isInteger(structure.id) && structure.id > 0));
-    assert.equal(group.displayShiftApplied, group.file.startsWith("overlay-arteries"));
+    assert.equal(group.displayShiftApplied, group.file === "overlay-arteries-anterior.mesh");
     assert.equal(new Set(group.structures.map(structure => structure.id)).size, group.structures.length);
     const mesh = await readFile(new URL(`public/atlas/${group.file}`, root));
     assert.equal(mesh.subarray(0, 4).toString("ascii"), "BNM3");
@@ -604,6 +744,10 @@ test("bundles simplified neurovascular overlays as separately disclosed teaching
     assert.deepEqual(meshIds, new Set(group.structures.map(structure => structure.id)));
   }
   assert.equal(expected.size, 0);
+  const anteriorNerves = metadata.groups.find(group => group.file === "overlay-nerves-anterior.mesh");
+  assert.ok(anteriorNerves);
+  assert.ok(anteriorNerves.structures.filter(structure => structure.id >= 21 && structure.id <= 25).every(structure => structure.displayShiftApplied));
+  assert.ok(anteriorNerves.structures.filter(structure => structure.id >= 26).every(structure => !structure.displayShiftApplied));
 });
 
 test("bundles structure-focused specimens and distinguishes derived from schematic parts", async () => {
@@ -806,6 +950,9 @@ test("anchors cranial nerve roots at the intended brainstem levels", async () =>
     assert.ok(actual, `root ${id}`);
     expected.forEach((value, axis) => assert.ok(Math.abs(actual[axis] - value) < tolerance, `root ${id} axis ${axis}: ${actual[axis]}`));
   };
+  near(21, [-14, 80, -41]); // I, left olfactory bulb seated in the olfactory sulcus
+  near(23, [-23, 43, -42]); // II, short left prechiasmatic nerve directed anteriorly
+  near(25, [-9, 22, -42]);  // transverse body of the optic chiasm
   near(27, [4, -6, -30]);   // III, interpeduncular fossa
   near(29, [7, -20, -35]);  // IV, dorsal caudal midbrain
   near(31, [17, -6, -46]);  // V, anterolateral pons
@@ -816,6 +963,71 @@ test("anchors cranial nerve roots at the intended brainstem levels", async () =>
   near(41, [10.5, -25, -68]); // X, post-olivary rootlets below IX
   near(43, [9, -25, -76]);  // XI, caudal rootlets
   near(45, [7, -8, -66]);   // XII, pre-olivary sulcus
+});
+
+test("keeps the vertebrobasilar trunk on the ventral brainstem surface", async () => {
+  const [mesh, brainstem] = await Promise.all([
+    readFile(new URL("public/atlas/overlay-arteries-posterior.mesh", root)),
+    readFile(new URL("public/atlas/segment-brainstem.mesh", root)),
+  ]);
+  const vertices = mesh.readUInt32LE(4);
+  const regionOffset = 12 + vertices * 28;
+  const firstRingById = new Map();
+  for (let index = 0; index < vertices; index += 1) {
+    const id = Math.round(mesh.readFloatLE(regionOffset + index * 4));
+    if (firstRingById.has(id)) continue;
+    const ring = [];
+    for (let side = 0; side < 10; side += 1) {
+      const offset = 12 + (index + side) * 12;
+      ring.push([
+        mesh.readFloatLE(offset + 8),
+        mesh.readFloatLE(offset + 4),
+        mesh.readFloatLE(offset),
+      ]);
+    }
+    firstRingById.set(id, ring.reduce(
+      (sum, point) => sum.map((value, axis) => value + point[axis]),
+      [0, 0, 0],
+    ).map(value => value / ring.length));
+  }
+  const near = (id, expected, tolerance = 0.8) => {
+    const actual = firstRingById.get(id);
+    assert.ok(actual, `artery ${id}`);
+    expected.forEach((value, axis) => assert.ok(
+      Math.abs(actual[axis] - value) < tolerance,
+      `artery ${id} axis ${axis}: ${actual[axis]}`,
+    ));
+  };
+  near(11, [7, -12, -82]); // right vertebral artery on caudal ventrolateral medulla
+  near(12, [0, 7, -58]);   // basilar origin at the pontomedullary junction
+
+  const brainstemVertices = brainstem.readUInt32LE(4);
+  const surface = Array.from({ length: brainstemVertices }, (_, index) => {
+    const offset = 12 + index * 12;
+    return [
+      brainstem.readFloatLE(offset + 8),
+      brainstem.readFloatLE(offset + 4),
+      brainstem.readFloatLE(offset),
+    ];
+  });
+  for (let index = 0; index < vertices; index += 10) {
+    const id = Math.round(mesh.readFloatLE(regionOffset + index * 4));
+    if (![10, 11, 12].includes(id)) continue;
+    const center = [0, 0, 0];
+    for (let side = 0; side < 10; side += 1) {
+      const offset = 12 + (index + side) * 12;
+      center[0] += mesh.readFloatLE(offset + 8) / 10;
+      center[1] += mesh.readFloatLE(offset + 4) / 10;
+      center[2] += mesh.readFloatLE(offset) / 10;
+    }
+    const localSurface = surface.filter(point => (
+      Math.abs(point[0] - center[0]) < 2.5
+      && Math.abs(point[2] - center[2]) < 1.5
+    ));
+    assert.ok(localSurface.length > 0, `brainstem surface near artery ${id}`);
+    const ventralY = Math.max(...localSurface.map(point => point[1]));
+    assert.ok(center[1] > ventralY + 0.5, `artery ${id} remains ventral: ${center[1]} > ${ventralY}`);
+  }
 });
 
 test("block specimens support continuous rotation and reuse the shared WebGL renderer", async () => {
@@ -977,7 +1189,9 @@ test("complex workspaces expose visible keyboard focus and a main-content shortc
     readFile(new URL("app/ManualSegmentationWorkbench.tsx", root), "utf8"),
   ]);
   assert.match(page, /className="skipLink" onClick=\{\(\)=>document\.getElementById\("workspace"\)\?\.focus\(\)\}/);
-  assert.equal((page.match(/id="workspace" tabIndex=\{-1\}/g) ?? []).length, 6);
+  assert.equal((page.match(/id="workspace" tabIndex=\{-1\}/g) ?? []).length, 7);
+  assert.match(page, /workspace==="blocks"&&blockIntroOpen/);
+  assert.match(page, /workspace==="blocks"&&!blockIntroOpen/);
   assert.ok((page.match(/aria-current=\{/g) ?? []).length >= 4);
   assert.match(page, /role="group" aria-label="構造グループの一括表示"/);
   assert.match(css, /:focus-visible \{ outline: 3px solid #e36e57/);
@@ -995,7 +1209,7 @@ test("narrow layouts keep destination rails and full workflow panels distinct", 
   assert.match(page, /aria-label="意見・共同制作を表示"/);
   assert.match(css, /\.leftRail \.lessonRailBtn\{min-width:136px;display:grid/);
   assert.match(css, /\.leftRail \.planeBtn small\{display:none\}/);
-  assert.match(css, /\.rangeWrap button span\{display:none\}/);
+  assert.doesNotMatch(page, /landmarks\.map\(mark/);
   assert.match(css, /\.workspace-quiz \.leftRail,/);
   assert.match(css, /\.workspace-segment \.leftRail\{position:static/);
   assert.match(css, /\.workspace-quiz \.quizSetup\{margin:10px 0 0\}/);
@@ -1048,7 +1262,14 @@ test("3D viewers expose orientation, keyboard rotation, reset, and visible zoom 
   assert.match(page, /event\.key\.toLowerCase\(\)==="r"/);
   assert.match(canvas, /className="modelZoomControls"/);
   assert.match(canvas, /aria-label="拡大率を100パーセントに戻す"/);
+  assert.match(canvas, /showZoomControls=true/);
+  assert.match(page, /showZoomControls=\{false\}/);
+  assert.match(page, /<OrientationCompass rotation=\{modelRotation\} compact\/>/);
+  assert.match(page, /復習問題の脳表3Dモデル。ドラッグまたは矢印キーで回転/);
+  assert.match(page, /surfaceQuiz\?<><AtlasVolumeCanvas[^>]+rotation=\{rotation\}[^>]+surfaceHighlights=\{quizSurfaceHighlight\}/);
+  assert.match(page, /workspace==="quiz"&&isSurfaceQuiz\(quizQuestion\)/);
   assert.match(css, /\.modelStage:focus-visible/);
   assert.match(css, /\.orientationCompass/);
+  assert.match(css, /\.orientationCompass\.compact/);
   assert.match(css, /\.modelZoomControls/);
 });

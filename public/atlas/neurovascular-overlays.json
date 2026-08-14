@@ -1,13 +1,30 @@
 {
-  "version": 1,
+  "version": 2,
   "coordinateSpace": "manually approximated MNI-oriented display space",
   "displayShiftMm": [
     0.0,
     18.0,
     -18.0
   ],
-  "alignmentPolicy": "arteries retain the pial display shift; cranial-nerve roots are anchored directly to the ICBM500 brainstem segmentation",
+  "alignmentPolicy": "anterior arteries and forebrain-associated cranial nerves I-II retain the pial display shift; vertebrobasilar arteries and cranial-nerve roots III-XII are anchored directly to the ICBM500 brainstem segmentation",
+  "vertebrobasilarCalibration": "vertebral arteries track the ventrolateral medulla, unite at the pontomedullary junction, and continue over the ventral pons; teaching approximation",
+  "forebrainNerveCalibration": "olfactory bulbs and tracts plus optic nerves and chiasm follow the shifted pial source so they remain exposed on the inferior surface; teaching approximation",
   "cranialNerveRootCalibration": "III-XII apparent origins placed on or within 2 mm of practical label 27 surface; teaching approximation",
+  "cranialNerveRootTopography": {
+    "I-II": "basal forebrain rather than brainstem roots",
+    "III": "ventral midbrain, interpeduncular fossa",
+    "IV": "dorsal caudal midbrain, just caudal to the inferior colliculi, then wraps laterally",
+    "V": "anterolateral mid-pons",
+    "VI": "medial pontomedullary sulcus",
+    "VII-VIII": "pontomedullary sulcus/cerebellopontine angle, lateral to VI; VII medial to VIII",
+    "IX-XI": "post-olivary sulcus, ordered superior to inferior",
+    "XII": "pre-olivary sulcus between pyramid and olive"
+  },
+  "anatomyReferences": [
+    "https://www.ncbi.nlm.nih.gov/books/NBK608599/",
+    "https://www.ncbi.nlm.nih.gov/books/NBK406/",
+    "https://www.ncbi.nlm.nih.gov/books/NBK544297/"
+  ],
   "status": "project-authored simplified teaching overlay; not validated morphometry",
   "scope": "major basal arteries and visible cranial-nerve roots only",
   "omissions": [
@@ -26,135 +43,164 @@
       "structures": [
         {
           "id": 1,
-          "name": "左内頸動脈"
+          "name": "左内頸動脈",
+          "displayShiftApplied": true
         },
         {
           "id": 2,
-          "name": "右内頸動脈"
+          "name": "右内頸動脈",
+          "displayShiftApplied": true
         },
         {
           "id": 3,
-          "name": "左前大脳動脈"
+          "name": "左前大脳動脈",
+          "displayShiftApplied": true
         },
         {
           "id": 4,
-          "name": "右前大脳動脈"
+          "name": "右前大脳動脈",
+          "displayShiftApplied": true
         },
         {
           "id": 5,
-          "name": "前交通動脈"
+          "name": "前交通動脈",
+          "displayShiftApplied": true
         },
         {
           "id": 6,
-          "name": "左中大脳動脈"
+          "name": "左中大脳動脈",
+          "displayShiftApplied": true
         },
         {
           "id": 7,
-          "name": "右中大脳動脈"
+          "name": "右中大脳動脈",
+          "displayShiftApplied": true
         },
         {
           "id": 8,
-          "name": "左後交通動脈"
+          "name": "左後交通動脈",
+          "displayShiftApplied": true
         },
         {
           "id": 9,
-          "name": "右後交通動脈"
+          "name": "右後交通動脈",
+          "displayShiftApplied": true
         }
       ]
     },
     {
       "file": "overlay-arteries-posterior.mesh",
-      "vertices": 1910,
-      "faces": 3600,
-      "displayShiftApplied": true,
+      "vertices": 2110,
+      "faces": 4000,
+      "displayShiftApplied": false,
       "structures": [
         {
           "id": 10,
-          "name": "左椎骨動脈"
+          "name": "左椎骨動脈",
+          "displayShiftApplied": false
         },
         {
           "id": 11,
-          "name": "右椎骨動脈"
+          "name": "右椎骨動脈",
+          "displayShiftApplied": false
         },
         {
           "id": 12,
-          "name": "脳底動脈"
+          "name": "脳底動脈",
+          "displayShiftApplied": false
         },
         {
           "id": 13,
-          "name": "左後大脳動脈"
+          "name": "左後大脳動脈",
+          "displayShiftApplied": false
         },
         {
           "id": 14,
-          "name": "右後大脳動脈"
+          "name": "右後大脳動脈",
+          "displayShiftApplied": false
         },
         {
           "id": 15,
-          "name": "左上小脳動脈"
+          "name": "左上小脳動脈",
+          "displayShiftApplied": false
         },
         {
           "id": 16,
-          "name": "右上小脳動脈"
+          "name": "右上小脳動脈",
+          "displayShiftApplied": false
         },
         {
           "id": 17,
-          "name": "左前下小脳動脈"
+          "name": "左前下小脳動脈",
+          "displayShiftApplied": false
         },
         {
           "id": 18,
-          "name": "右前下小脳動脈"
+          "name": "右前下小脳動脈",
+          "displayShiftApplied": false
         },
         {
           "id": 19,
-          "name": "左後下小脳動脈"
+          "name": "左後下小脳動脈",
+          "displayShiftApplied": false
         },
         {
           "id": 20,
-          "name": "右後下小脳動脈"
+          "name": "右後下小脳動脈",
+          "displayShiftApplied": false
         }
       ]
     },
     {
       "file": "overlay-nerves-anterior.mesh",
-      "vertices": 1490,
-      "faces": 2800,
+      "vertices": 1990,
+      "faces": 3800,
       "displayShiftApplied": false,
       "structures": [
         {
           "id": 21,
-          "name": "左I 嗅球・嗅索"
+          "name": "左I 嗅球・嗅索",
+          "displayShiftApplied": true
         },
         {
           "id": 22,
-          "name": "右I 嗅球・嗅索"
+          "name": "右I 嗅球・嗅索",
+          "displayShiftApplied": true
         },
         {
           "id": 23,
-          "name": "左II 視神経"
+          "name": "左II 視神経・視索",
+          "displayShiftApplied": true
         },
         {
           "id": 24,
-          "name": "右II 視神経"
+          "name": "右II 視神経・視索",
+          "displayShiftApplied": true
         },
         {
           "id": 25,
-          "name": "II 視交叉"
+          "name": "II 視交叉",
+          "displayShiftApplied": true
         },
         {
           "id": 26,
-          "name": "左III 動眼神経"
+          "name": "左III 動眼神経",
+          "displayShiftApplied": false
         },
         {
           "id": 27,
-          "name": "右III 動眼神経"
+          "name": "右III 動眼神経",
+          "displayShiftApplied": false
         },
         {
           "id": 28,
-          "name": "左IV 滑車神経"
+          "name": "左IV 滑車神経",
+          "displayShiftApplied": false
         },
         {
           "id": 29,
-          "name": "右IV 滑車神経"
+          "name": "右IV 滑車神経",
+          "displayShiftApplied": false
         }
       ]
     },
@@ -166,35 +212,43 @@
       "structures": [
         {
           "id": 30,
-          "name": "左V 三叉神経"
+          "name": "左V 三叉神経",
+          "displayShiftApplied": false
         },
         {
           "id": 31,
-          "name": "右V 三叉神経"
+          "name": "右V 三叉神経",
+          "displayShiftApplied": false
         },
         {
           "id": 32,
-          "name": "左VI 外転神経"
+          "name": "左VI 外転神経",
+          "displayShiftApplied": false
         },
         {
           "id": 33,
-          "name": "右VI 外転神経"
+          "name": "右VI 外転神経",
+          "displayShiftApplied": false
         },
         {
           "id": 34,
-          "name": "左VII 顔面神経"
+          "name": "左VII 顔面神経",
+          "displayShiftApplied": false
         },
         {
           "id": 35,
-          "name": "右VII 顔面神経"
+          "name": "右VII 顔面神経",
+          "displayShiftApplied": false
         },
         {
           "id": 36,
-          "name": "左VIII 内耳神経"
+          "name": "左VIII 内耳神経",
+          "displayShiftApplied": false
         },
         {
           "id": 37,
-          "name": "右VIII 内耳神経"
+          "name": "右VIII 内耳神経",
+          "displayShiftApplied": false
         }
       ]
     },
@@ -206,35 +260,43 @@
       "structures": [
         {
           "id": 38,
-          "name": "左IX 舌咽神経"
+          "name": "左IX 舌咽神経",
+          "displayShiftApplied": false
         },
         {
           "id": 39,
-          "name": "右IX 舌咽神経"
+          "name": "右IX 舌咽神経",
+          "displayShiftApplied": false
         },
         {
           "id": 40,
-          "name": "左X 迷走神経"
+          "name": "左X 迷走神経",
+          "displayShiftApplied": false
         },
         {
           "id": 41,
-          "name": "右X 迷走神経"
+          "name": "右X 迷走神経",
+          "displayShiftApplied": false
         },
         {
           "id": 42,
-          "name": "左XI 副神経"
+          "name": "左XI 副神経",
+          "displayShiftApplied": false
         },
         {
           "id": 43,
-          "name": "右XI 副神経"
+          "name": "右XI 副神経",
+          "displayShiftApplied": false
         },
         {
           "id": 44,
-          "name": "左XII 舌下神経"
+          "name": "左XII 舌下神経",
+          "displayShiftApplied": false
         },
         {
           "id": 45,
-          "name": "右XII 舌下神経"
+          "name": "右XII 舌下神経",
+          "displayShiftApplied": false
         }
       ]
     }
