@@ -345,6 +345,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 .learningModelStage { height: auto; min-height: 0; cursor: grab; touch-action: none; user-select: none; background: radial-gradient(circle at 50% 44%,#515a5f 0,#343a3e 48%,#202528 100%); }
 .learningModelStage:active { cursor: grabbing; }
 .modelComparisonArea{min-height:0}
+.modelComparisonMobileSwitch{display:none}
 .modelComparisonNotice{display:flex;align-items:baseline;gap:14px;margin:-7px 0 12px;padding:10px 13px;border-left:4px solid #4f756c;background:#e8efeb;color:#334b47}
 .modelComparisonNotice b{flex:0 0 auto;font-size:14px}
 .modelComparisonNotice p{margin:0;font-size:13px;line-height:1.55}
@@ -802,6 +803,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 @media(max-width:760px){.specimenViewControls{right:8px}.specimenViewControls>span{display:none}.specimenViewControls button{padding-inline:6px}.specimenRotationHint{display:none}}
 @media(max-width:760px){.homeArea{display:block;overflow:visible;padding:12px}.homeHero{display:block}.homeIntro{padding:30px 22px;border-right:0;border-bottom:1px solid #c9cbc5}.homeIntro h1{font-size:40px}.homeAccuracyWarning{grid-template-columns:1fr;gap:3px}.homeModelStage{height:380px}.homeModeGrid{grid-template-columns:1fr;margin-top:10px}.homeModeGrid button{min-height:78px}.homeModeGrid small{display:block}.homeFooter{display:block;padding:13px 2px}.homeFooter div{margin-top:9px}}
 @media(max-width:760px){.modelComparisonNotice{display:block;margin-top:0}.modelComparisonNotice p{margin-top:5px}.modelComparisonGrid{display:block}.modelComparisonCard+.modelComparisonCard{margin-top:10px}.modelComparisonStage{min-height:390px}.modelComparisonGuide{margin-top:10px;overflow:visible}.modelComparisonGuide dl{display:block}.modelComparisonGuide dl>div+div{margin-top:1px}}
+@media(max-width:760px){.modelComparisonMobileSwitch{display:grid;grid-template-columns:1fr 1fr;margin:0 0 10px;padding:4px;border:1px solid #b8bfba;background:#e6e5df}.modelComparisonMobileSwitch button{min-height:44px;border:1px solid transparent;background:transparent;color:#586461;font-size:14px;font-weight:700}.modelComparisonMobileSwitch button+button{border-left-color:#c4c8c2}.modelComparisonMobileSwitch button.active{border-color:#49746e;background:#315d57;color:#fff}.modelComparisonMobileSwitch b{margin-right:5px;font:700 13px monospace}}
 @media(max-width:380px){.learningModelCard .panelHead{min-width:0;flex-wrap:wrap;align-content:center;gap:5px}.learningModelCard .panelHead>div:first-child{min-width:0;flex:1 1 120px}.learningModelCard .panelActions{min-width:0;flex:1 1 auto;gap:4px;justify-content:flex-end}.learningModelCard .panelActions button{padding-inline:6px;font-size:14px}}
 
 /* Readability pass: keep secondary text visibly separate from both paper and 3D backgrounds. */
@@ -977,8 +979,8 @@ html, body, #root { height: 100%; overflow: hidden; }
    the viewport. Primary destinations live in a bottom dock; page-specific
    controls open as a labelled bottom sheet above it. */
 @media(max-width:760px){
-  .appShell{padding:54px 0 76px}
-  .topbar{height:54px;padding-inline:7px;gap:4px}
+  .appShell{padding:calc(54px + env(safe-area-inset-top,0px)) 0 calc(76px + env(safe-area-inset-bottom,0px))}
+  .topbar{height:calc(54px + env(safe-area-inset-top,0px));padding:env(safe-area-inset-top,0px) 7px 0;gap:4px}
   .brand{min-width:40px}
   .brandMark{width:38px;height:38px}
   .brand>span:last-child{display:none}
@@ -987,17 +989,17 @@ html, body, #root { height: 100%; overflow: hidden; }
   .helpButton::after{content:"操作";font-size:12px}
   .feedbackButton::after{content:"共同";font-size:12px}
   .legalButton::after{content:"条件";font-size:12px}
-  .workspaceSwitch{position:fixed;z-index:50;left:0;right:0;bottom:0;height:66px;display:grid;grid-template-columns:repeat(6,minmax(61px,1fr));gap:0;overflow-x:auto;border-top:1px solid #aeb4af;background:#f8f7f3;box-shadow:0 -8px 24px rgba(25,34,34,.12);scrollbar-width:none}
+  .workspaceSwitch{position:fixed;z-index:50;left:0;right:0;bottom:0;height:calc(66px + env(safe-area-inset-bottom,0px));display:grid;grid-template-columns:repeat(6,minmax(61px,1fr));gap:0;overflow-x:auto;padding-bottom:env(safe-area-inset-bottom,0px);border-top:1px solid #aeb4af;background:#f8f7f3;box-shadow:0 -8px 24px rgba(25,34,34,.12);scrollbar-width:none}
   .workspaceSwitch button{min-width:61px;height:65px;padding:7px 2px 5px;border:0;border-right:1px solid #d9dbd6;background:transparent}
   .workspaceSwitch button:last-child{border-right:0}
   .workspaceSwitch button.active{box-shadow:inset 0 3px #1d6e69;background:#e8efeb}
   .workspaceSwitch button>span{font-size:10px;line-height:1.25;white-space:normal}
   .workspaceSwitch button>i{display:block;margin-top:3px;font-size:9px;line-height:1}
-  .mobileContextToggle{position:fixed;z-index:43;right:12px;bottom:76px;display:flex;align-items:center;gap:9px;min-height:44px;padding:9px 12px;border:1px solid #527b76;border-radius:23px;background:#1f4542;color:#fff;box-shadow:0 7px 20px rgba(17,33,32,.28);font-size:13px;font-weight:700}
+  .mobileContextToggle{position:fixed;z-index:43;right:12px;bottom:calc(76px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:9px;min-height:44px;padding:9px 12px;border:1px solid #527b76;border-radius:23px;background:#1f4542;color:#fff;box-shadow:0 7px 20px rgba(17,33,32,.28);font-size:13px;font-weight:700}
   .mobileContextToggle b{font-size:10px;font-weight:500;opacity:.78}
-  .mobileRailBackdrop{position:fixed;z-index:44;inset:54px 0 66px;display:none;border:0;background:rgba(18,28,28,.46)}
+  .mobileRailBackdrop{position:fixed;z-index:44;inset:calc(54px + env(safe-area-inset-top,0px)) 0 calc(66px + env(safe-area-inset-bottom,0px));display:none;border:0;background:rgba(18,28,28,.46)}
   .mobileRailBackdrop.visible{display:block}
-  .appShell .leftRail{position:fixed;z-index:45;left:0;right:0;top:auto;bottom:66px;width:auto;height:auto;max-height:min(72vh,620px);display:block;padding:0 12px 18px;overflow-x:hidden;overflow-y:auto;border:1px solid #aeb4af;border-width:1px 0 0;background:#f5f3ed;box-shadow:0 -18px 44px rgba(18,28,28,.26);transform:translateY(calc(100% + 8px));visibility:hidden;pointer-events:none;transition:transform .2s ease,visibility .2s}
+  .appShell .leftRail{position:fixed;z-index:45;left:0;right:0;top:auto;bottom:calc(66px + env(safe-area-inset-bottom,0px));width:auto;height:auto;max-height:min(72dvh,620px);display:block;padding:0 12px 18px;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;border:1px solid #aeb4af;border-width:1px 0 0;background:#f5f3ed;box-shadow:0 -18px 44px rgba(18,28,28,.26);transform:translateY(calc(100% + 8px));visibility:hidden;pointer-events:none;transition:transform .2s ease,visibility .2s}
   .appShell .leftRail.mobileOpen{transform:translateY(0);visibility:visible;pointer-events:auto}
   .mobileRailSheetHead{position:sticky;z-index:3;top:0;display:flex;align-items:center;justify-content:space-between;min-height:52px;margin:0 -12px 10px;padding:8px 12px;border-bottom:1px solid #c5c8c2;background:#f5f3edf2;backdrop-filter:blur(8px)}
   .mobileRailSheetHead b{font-size:15px}
@@ -1015,6 +1017,7 @@ html, body, #root { height: 100%; overflow: hidden; }
   .leftRail .structureBtn{min-height:44px;padding:8px 9px;border:1px solid #ccd0ca}
   .mobileSectionStructurePicker{display:none}
   .workArea{padding-bottom:34px}
+  .inspectorBackdrop,.inspector{top:calc(54px + env(safe-area-inset-top,0px))}
 }
 
 @media(prefers-reduced-motion:reduce){
