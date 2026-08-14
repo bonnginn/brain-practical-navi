@@ -1660,6 +1660,19 @@ test("publishes beta-candidate changes and known limitations", async () => {
   assert.match(limitations, /診断、治療、手術計画、研究用の定量解析には使用できません/);
   assert.match(changelog, /Unreleased — β候補/);
   assert.match(changelog, /大脳基底核の一括選択/);
+  assert.doesNotMatch(limitations, /冠状断・矢状断は同じラベルを照合する編集表示をまだ備えていません/);
+  assert.match(limitations, /冠状断・矢状断には同じ交点、選択ラベル、未保存差分を同期表示できます/);
+});
+
+test("classifies every lecture target without treating schematic content as validated", async () => {
+  const [roadmap, coverage] = await Promise.all([
+    readFile(new URL("BETA_ROADMAP.md", root), "utf8"),
+    readFile(new URL("LECTURE_COVERAGE_AUDIT.md", root), "utf8"),
+  ]);
+  for(const classification of ["標本分節","試作分節","アトラス脳表","模式3D","位置目安","表記のみ","未収録"])assert.match(coverage,new RegExp(`\\| ${classification} \\|`));
+  assert.match(coverage,/2021年神経解剖学講義・課題スケッチ全6ファイル/);
+  assert.match(coverage,/構造境界の専門家確認を完了した記録ではありません/);
+  assert.match(roadmap,/\[x\] 講義資料の必修構造を再照合し、未収録と模式表示を区別する/);
 });
 
 test("packages expert anatomy review as reproducible screen-level decisions", async () => {
