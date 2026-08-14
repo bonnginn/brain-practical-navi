@@ -65,6 +65,7 @@
 .structureGroupGrid button.active { border-color: #4c7775; background: #dfe9e5; color: #203c3b; font-weight: 700; }
 .structureGroupGrid button.partial { border-color: #9fb5af; background: #eef3f0; }
 .structureGroupGrid button:disabled { cursor: default; opacity: .42; }
+.mobileSectionStructurePicker { display: none; }
 .bookNotice b { font-size: 15px; }
 .bookNotice p { font-size: 14px; }
 .bookNotice span { font-size: 15px; }
@@ -755,6 +756,21 @@ html, body, #root { height: 100%; overflow: hidden; }
 @media(max-width:760px){.topbar{padding-inline:5px;gap:3px}.brand{min-width:auto}.brand>span:last-child{display:none}.workspaceSwitch{display:flex;min-width:0;overflow-x:auto;scrollbar-width:none}.workspaceSwitch::-webkit-scrollbar{display:none}.workspaceSwitch button{min-width:52px;padding:7px 3px}.workspaceSwitch button>span{font-size:15px}.topActions{gap:2px}.topActions>span{display:none}.legalButton{padding:7px 3px;font-size:15px;white-space:nowrap}.feedbackButton{display:block;width:38px;padding:7px 2px;font-size:0;white-space:nowrap}.feedbackButton::after{content:"協力";font-size:15px}.compactToggle{border:0;padding-left:0}.learningArea,.quizArea,.segmentationArea{min-height:800px}.learningGrid,.quizWorkspace,.segWorkbench{display:block}.learningModelCard,.quizImageCard,.segCanvasCard{height:520px}.learningGuide,.quizQuestionCard,.segControls{max-height:none;margin-top:10px}.neurovascularControls{left:8px;bottom:8px}.neurovascularControls button{padding:6px}.neurovascularLegend{left:8px;top:8px;right:auto;bottom:auto;grid-template-columns:repeat(3,auto);gap:5px 8px;padding:7px 8px;font-size:12px}.neurovascularLegend i{width:13px}.blockReleaseNote .sourceBadge{display:none}.feedbackOptions{grid-template-columns:1fr}.legalBackdrop{padding:8px}.legalDialog>footer{display:block}.legalDialog footer div{margin-top:8px}}
 @media(max-width:760px){.quizSliceNavigator{grid-template-columns:minmax(0,1fr) 38px auto;gap:7px;padding-inline:9px}.quizSliceAxis{display:none}.quizSliceNavigator button{padding-inline:6px}.quizSliceControl{display:grid;grid-template-columns:30px minmax(0,1fr) 30px;gap:5px}.quizSliceControl button{width:30px;padding:0}}
 @media(max-width:760px){.sectionLayoutSwitch{width:100%}.sectionLayoutSwitch button{flex:1;padding-inline:4px;font-size:12px}.sliceStage.layout-slice,.sliceStage.layout-model{grid-template-rows:minmax(0,1fr)}.sliceStage.layout-model .insetViews{grid-template-columns:1fr 1fr;grid-template-rows:1fr}}
+@media(max-width:760px){
+  .mobileSectionStructurePicker{display:block;margin:0 0 10px;border:1px solid #bcc3bf;background:#f0eee8}
+  .mobileSectionStructurePicker>summary{display:flex;align-items:center;justify-content:space-between;min-height:48px;padding:10px 12px;cursor:pointer;color:#203c3b;font-weight:700;list-style:none}
+  .mobileSectionStructurePicker>summary::-webkit-details-marker{display:none}
+  .mobileSectionStructurePicker>summary:after{content:"＋";margin-left:9px;font:700 17px monospace;color:#477672}
+  .mobileSectionStructurePicker[open]>summary:after{content:"−"}
+  .mobileSectionStructurePicker>summary b{margin-left:auto;color:#66716f;font-size:13px;font-weight:500}
+  .mobileSectionStructurePicker>div{max-height:min(58vh,520px);padding:9px;overflow:auto;border-top:1px solid #c8cbc6}
+  .mobileSectionStructurePicker .structureGroupGrid{display:grid;grid-template-columns:1fr 1fr;margin:0 0 8px}
+  .mobileSectionStructurePicker .clearStructures{display:block;width:100%;margin:0 0 8px;min-height:38px;text-align:center}
+  .mobileSectionStructurePicker .sectionStructureButtons{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+  .mobileSectionStructurePicker .structureBtn{display:flex;min-width:0;min-height:44px;padding:8px 9px;border:1px solid #ccd0ca;background:#f7f6f2;font-size:14px;text-align:left}
+  .mobileSectionStructurePicker .structureBtn span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .mobileSectionStructurePicker .structureBtn.active{border-color:#79a6a1;background:#e0ece8}
+}
 @media(max-width:760px){.specimenViewControls{right:8px}.specimenViewControls>span{display:none}.specimenViewControls button{padding-inline:6px}.specimenRotationHint{display:none}}
 @media(max-width:760px){.homeArea{display:block;overflow:visible;padding:12px}.homeHero{display:block}.homeIntro{padding:30px 22px;border-right:0;border-bottom:1px solid #c9cbc5}.homeIntro h1{font-size:40px}.homeAccuracyWarning{grid-template-columns:1fr;gap:3px}.homeModelStage{height:380px}.homeModeGrid{grid-template-columns:1fr;margin-top:10px}.homeModeGrid button{min-height:78px}.homeModeGrid small{display:block}.homeFooter{display:block;padding:13px 2px}.homeFooter div{margin-top:9px}}
 @media(max-width:380px){.learningModelCard .panelHead{min-width:0;flex-wrap:wrap;align-content:center;gap:5px}.learningModelCard .panelHead>div:first-child{min-width:0;flex:1 1 120px}.learningModelCard .panelActions{min-width:0;flex:1 1 auto;gap:4px;justify-content:flex-end}.learningModelCard .panelActions button{padding-inline:6px;font-size:14px}}

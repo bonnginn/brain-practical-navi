@@ -17,7 +17,7 @@
 - [ ] 脳表の8本の溝・裂とCerebrA由来領域境界を、神経解剖学に詳しい協力者が方向別に確認する（左右の対応領域境界・前後・上下・内外側を `npm run audit:surface` の17関係で固定。溝の形状・分枝・個体差は専門家確認待ち）。
 - [ ] 脳底面の嗅覚路、視神経系、乳頭体、漏斗、前有孔質、中脳・橋・延髄の位置関係を確認する（公的解剖資料に基づく前後・正中・左右関係を `npm run audit:basal` で固定。形状と実標本での見え方は専門家確認待ち）。
 - [ ] 脳神経I–XIIの見かけの起始部と主要脳底動脈の走行を確認する（脳幹レベル、VI〜VIIIの内外側、IX〜XIの上下、XIIの内側、左右対、前交通・前／中大脳・椎骨脳底・小脳動脈の14関係を `npm run audit:basal` で固定。形状・径・個体差は専門家確認待ち）。
-- [ ] 断面の必修構造について、冠状・水平・矢状の連続断でラベルの位置と連続性を確認する（35ラベルの3方向空断面・6近傍成分・最大成分比を `npm run audit:sections` で再現可能にし、35/35が確度別回帰閾値に合格。脳室、脳梁、視交叉、右扁桃体の孤立片を専門家目視の優先対象として `SECTION_CONTINUITY_AUDIT.md` に固定）。
+- [ ] 断面の必修構造について、冠状・水平・矢状の連続断でラベルの位置と連続性を確認する（35ラベルの3方向空断面・6近傍成分・最大成分比を `npm run audit:sections`、左右・前後・上下・内外側の18関係を `npm run audit:deep` で再現可能にし、全回帰条件に合格。脳室、脳梁、視交叉、右扁桃体の孤立片を専門家目視の優先対象として監査文書に固定）。
 - [x] 脳梁・内包、視交叉・島皮質、脳室・脳幹・小脳候補の由来と確度を再確認する（13試作ID、9画面構造、7局所標本部品を `npm run audit:provenance` で照合し、構造別の再標本化・保護・領域制約を詳細パネルと `PROVENANCE_AUDIT.md` に明示。解剖学的境界は監修待ちを維持）。
 - [ ] 小脳脚、菱形窩、錐体、オリーブ、丘・膝状体、脚間窩を確認する（公的解剖資料に基づく12位置関係を `npm run audit:landmarks` で固定し、後脳・中脳標本の着脱と上下面をWindows実ブラウザで確認。橋・延髄を外した際のガイド消失を修正。形状・境界の専門家確認は `LANDMARK_RELATIONS_AUDIT.md` の対象として継続）。
 
@@ -166,6 +166,7 @@
 - [MEDIAL_TEMPORAL_AUDIT.md](MEDIAL_TEMPORAL_AUDIT.md): 海馬采・鉤の表示除外判断と根拠
 - [FORM_OPERATION_AUDIT.md](FORM_OPERATION_AUDIT.md): 公開回答画面の3分岐確認と管理者一往復試験
 - [SECTION_CONTINUITY_AUDIT.md](SECTION_CONTINUITY_AUDIT.md): 35断面ラベルの3方向連続性・孤立成分監査
+- [DEEP_RELATIONS_AUDIT.md](DEEP_RELATIONS_AUDIT.md): 深部35ラベルの左右・前後・上下・内外側関係と小画面選択UIの監査
 - [PROVENANCE_AUDIT.md](PROVENANCE_AUDIT.md): 試作断面ラベルの生成経路・画面表示・局所標本の由来照合
 - [LANDMARK_RELATIONS_AUDIT.md](LANDMARK_RELATIONS_AUDIT.md): 後脳・中脳模式部品の方向関係と着脱表示の監査
 - [BASAL_NEUROVASCULAR_AUDIT.md](BASAL_NEUROVASCULAR_AUDIT.md): 脳底面・脳神経・主要動脈の方向関係と初期表示の監査

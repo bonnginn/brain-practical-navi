@@ -192,6 +192,26 @@ test("audits every section label for three-plane continuity regressions", () => 
   assert.match(result.stdout, /WARN\t30\timage-guided\tcorpus callosum candidate[\s\S]*components=2[\s\S]*largest=98\.573%/);
 });
 
+test("audits deep-structure anatomical direction relations", async () => {
+  const result = spawnSync(process.execPath, [localPath("scripts/audit_deep_relations.mjs")], {
+    cwd: localPath("."),
+    encoding: "utf8",
+    maxBuffer: 4 * 1024 * 1024,
+  });
+  assert.equal(result.status, 0, result.stderr || result.stdout);
+  assert.match(result.stdout, /PASS\t18 deep-structure relations; 0 failures/);
+  assert.match(result.stdout, /PASS\tthird ventricle remains on the midline between the thalami/);
+  assert.match(result.stdout, /PASS\tleft internal capsule stays between caudate\/thalamus and lentiform nucleus/);
+  assert.match(result.stdout, /PASS\toptic chiasm candidate remains midline, inferior to the third ventricle, and anterior to brainstem/);
+  const [audit, packageText] = await Promise.all([
+    readFile(new URL("DEEP_RELATIONS_AUDIT.md", root), "utf8"),
+    readFile(new URL("package.json", root), "utf8"),
+  ]);
+  assert.match(audit, /18\/18の大きな方向関係が合格/);
+  assert.match(audit, /専門家レビューを代替しません/);
+  assert.match(packageText, /"audit:deep": "node scripts\/audit_deep_relations\.mjs"/);
+});
+
 test("keeps provisional structure provenance consistent across data and UI", () => {
   const result = spawnSync(process.execPath, [localPath("scripts/audit_structure_provenance.mjs")], {
     cwd: localPath("."),
@@ -1594,6 +1614,10 @@ test("narrow layouts keep destination rails and full workflow panels distinct", 
   assert.match(css, /html\{-webkit-text-size-adjust:100%;text-size-adjust:100%\}/);
   assert.match(css, /\.workspace-surface \.leftRail,[\s\S]*\.workspace-blocks \.leftRail\{position:static;z-index:18;top:auto;bottom:auto;height:70px/);
   assert.match(css, /\.workspace-surface \.leftRail \.lessonRailBtn,[\s\S]*\.workspace-blocks \.leftRail \.lessonRailBtn\{min-width:128px;scroll-snap-align:start\}/);
+  assert.match(page, /details className="mobileSectionStructurePicker"[\s\S]*構造を選ぶ[\s\S]*renderSectionStructureControls\(\)/);
+  assert.match(css, /\.mobileSectionStructurePicker\{display:block;[\s\S]*max-height:min\(58vh,520px\)/);
+  assert.match(css, /\.mobileSectionStructurePicker \.sectionStructureButtons\{display:grid;grid-template-columns:1fr 1fr/);
+  assert.match(css, /\.mobileSectionStructurePicker \.structureBtn\{display:flex;min-width:0;min-height:44px/);
   assert.doesNotMatch(page, /landmarks\.map\(mark/);
   assert.match(css, /\.workspace-quiz \.leftRail,/);
   assert.match(css, /\.workspace-segment \.leftRail\{position:static/);

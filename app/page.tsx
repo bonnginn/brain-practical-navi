@@ -717,6 +717,16 @@ export default function Home() {
   function restoreAllQuiz(){setQuizWrongOnly(false);setQuizCategory("all");setQuizIncludeProvisional(false);setQuizQueue(shuffledQuestions(standardQuizQuestions).slice(0,quizCount));resetQuiz()}
   function resetWrongHistory(){saveWrongTargets([]);if(quizWrongOnly){setQuizQueue([]);resetQuiz()}}
 
+  function renderSectionStructureControls(){return <>
+    <div className="structureGroupGrid" role="group" aria-label="構造グループの一括表示">
+      {structureGroups.map(group=>{const available=group.members.filter(structureAvailable),count=available.filter(key=>visibleSet.has(key)).length,all=available.length>0&&count===available.length;return <button key={group.key} className={`${all?"active":""} ${count>0&&!all?"partial":""}`} aria-pressed={all} onClick={()=>toggleGroup(group.members)} disabled={available.length===0}><i style={{background:group.color}}/><span>{group.name}</span><small>{count}/{available.length}</small></button>})}
+    </div>
+    <button className="clearStructures" onClick={()=>setVisibleStructures([])} disabled={visibleStructures.length===0}>すべて解除</button>
+    <div className="sectionStructureButtons">
+      {structureKeys.map(key => {const item=structures[key],available=structureAvailable(key),active=available&&visibleSet.has(key);return <button key={key} aria-pressed={active} aria-disabled={!available} className={`structureBtn ${active?"active":""} ${selectedStructure===key?"current":""} ${available?"":"unavailable"}`} title={available?`${item.name}を着色`:"現在の画像ソースには対応ラベルがありません"} onClick={()=>toggleStructure(key)}><i style={{background:item.color}}/><span>{item.name}</span><strong>{available?(active?"✓":"＋"):"—"}</strong></button>})}
+    </div>
+  </>}
+
   return <main className={`appShell workspace-${workspace} ${workspace==="home"?"homeShell":""}`}>
     <button className="skipLink" onClick={()=>document.getElementById("workspace")?.focus()}>本文へ移動</button>
     <header className="topbar">
@@ -733,11 +743,7 @@ export default function Home() {
         {(Object.keys(planeData) as Plane[]).map((p, i) => <button key={p} className={`planeBtn ${plane === p ? "active" : ""}`} aria-current={plane===p?"page":undefined} onClick={() => jump(p,p===plane?undefined:52)}><span>0{i + 1}</span><b>{planeData[p].ja}</b><small>{planeData[p].en}</small></button>)}
         <div className="railLine"/>
         <p className="eyebrow structureHeading">FOCUS STRUCTURE <small>複数選択</small></p>
-        <div className="structureGroupGrid" role="group" aria-label="構造グループの一括表示">
-          {structureGroups.map(group=>{const available=group.members.filter(structureAvailable),count=available.filter(key=>visibleSet.has(key)).length,all=available.length>0&&count===available.length;return <button key={group.key} className={`${all?"active":""} ${count>0&&!all?"partial":""}`} aria-pressed={all} onClick={()=>toggleGroup(group.members)} disabled={available.length===0}><i style={{background:group.color}}/><span>{group.name}</span><small>{count}/{available.length}</small></button>})}
-        </div>
-        <button className="clearStructures" onClick={()=>setVisibleStructures([])} disabled={visibleStructures.length===0}>すべて解除</button>
-        {structureKeys.map(key => {const item=structures[key],available=structureAvailable(key),active=available&&visibleSet.has(key);return <button key={key} aria-pressed={active} aria-disabled={!available} className={`structureBtn ${active?"active":""} ${selectedStructure===key?"current":""} ${available?"":"unavailable"}`} title={available?`${item.name}を着色`:"現在の画像ソースには対応ラベルがありません"} onClick={()=>toggleStructure(key)}><i style={{background:item.color}}/><span>{item.name}</span><strong>{available?(active?"✓":"＋"):"—"}</strong></button>})}
+        {renderSectionStructureControls()}
       </>}
       {workspace==="surface"&&<>
         <p className="eyebrow">SURFACE VIEW</p>
@@ -784,6 +790,7 @@ export default function Home() {
     </section>}
 
     {workspace==="sections"&&<section className="workArea" id="workspace" tabIndex={-1}><h1 className="srOnly">断面実習</h1>
+      <details className="mobileSectionStructurePicker"><summary><span>構造を選ぶ</span><b>{activeVisibleStructures.length}構造を表示中</b></summary><div>{renderSectionStructureControls()}</div></details>
       <div className="visualGrid"><section className="slicePanel">
         <div className="panelHead"><div><b>{planeData[plane].ja}</b><small>位置 {position}・単一標本脳 0.5 mm（同一格子で検証済み）・実習標本調</small></div><div className="sliceTools">{sectionDeveloperControls&&<><div className="contrastSwitch" aria-label="開発者用・断面画像ソース"><button className={contrast === "bigbrain" ? "active" : ""} onClick={() => setContrast("bigbrain")}>単一標本 0.5</button><button className={contrast === "single" ? "active" : ""} onClick={() => setContrast("single")}>単一固定脳 MRI 0.444 mm</button><button className={contrast === "t1" ? "active" : ""} onClick={() => setContrast("t1")}>平均T1</button><button className={contrast === "t2" ? "active" : ""} onClick={() => setContrast("t2")}>T2</button></div><div className="displaySwitch" aria-label="開発者用・断面表示調"><button className={display === "specimen" ? "active" : ""} onClick={() => setDisplay("specimen")}>実習標本調</button><button className={display === "diagram" ? "active" : ""} onClick={() => setDisplay("diagram")}>学習図</button><button className={display === "outline" ? "active" : ""} onClick={() => setDisplay("outline")}>輪郭</button></div></>}<div className="sectionLayoutSwitch" aria-label="断面と全脳3Dの表示"><button className={sectionLayout==="both"?"active":""} aria-pressed={sectionLayout==="both"} onClick={()=>setSectionLayout("both")}>断面＋3D</button><button className={sectionLayout==="slice"?"active":""} aria-pressed={sectionLayout==="slice"} onClick={()=>setSectionLayout("slice")}>断面のみ</button><button className={sectionLayout==="model"?"active":""} aria-pressed={sectionLayout==="model"} onClick={()=>setSectionLayout("model")}>3Dのみ</button></div><label className="labelToggle compactToggle"><input type="checkbox" checked={labels} onChange={e => setLabels(e.target.checked)}/><span/>構造表示</label></div></div>
         <div className={`sliceStage ${plane} ${sliceVariant(position)} layout-${sectionLayout}`}>
