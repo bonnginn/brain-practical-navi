@@ -29,6 +29,10 @@
 - `primaryPlane`: `horizontal`
 - `authorNote`: 編集者の説明
 - `authorGitHub`: Pull Requestと照合するGitHubユーザー名
+- `targetSide`: 左・右・両側・正中・混在のいずれか
+- `evidence`: 文献、公開データ、講義資料の参照箇所。第三者資料そのものは添付しない
+- `confidence`: 編集者自身による高・中・低の確度
+- `reviewStatus`: ブラウザからの書き出し時は必ず `unreviewed`。採否はPull Requestで別に記録
 - `editCount`: 変更指定したボクセル数
 - `runs`: 線形インデックス順に圧縮した `{start, length, label}`
 

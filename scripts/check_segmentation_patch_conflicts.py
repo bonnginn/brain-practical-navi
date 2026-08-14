@@ -34,6 +34,9 @@ def main():
         patch_summaries.append({
             "path": str(patch_path),
             "authorGitHub": patch.get("authorGitHub", ""),
+            "targetSide": patch.get("targetSide", "mixed"),
+            "confidence": patch.get("confidence", "medium"),
+            "reviewStatus": patch.get("reviewStatus", "unreviewed"),
             "editCount": len(edits),
         })
         for index, label in edits:

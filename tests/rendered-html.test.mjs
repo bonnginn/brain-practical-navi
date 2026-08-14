@@ -462,7 +462,12 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(editor, /差分JSONを書き出す/);
   assert.match(editor, /元へ戻す/);
   assert.match(editor, /端末内へ自動保存/);
+  assert.match(editor, /targetSide,evidence:evidence\.trim\(\),confidence,reviewStatus:"unreviewed"/);
+  assert.match(editor, /対象側/);
+  assert.match(editor, /根拠資料・参照箇所/);
+  assert.match(editor, /確認状態[\s\S]*未レビュー/);
   assert.match(workflow, /Pull Requestに必要な情報/);
+  assert.match(workflow, /`reviewStatus`[\s\S]*`unreviewed`/);
   assert.match(workflow, /apply_segmentation_patch\.py/);
   assert.equal(JSON.parse(packageJson).version, "0.1.0-alpha.1");
   assert.equal(JSON.parse(packageJson).license, "AGPL-3.0-or-later");
