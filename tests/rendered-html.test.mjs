@@ -1463,6 +1463,18 @@ test("defers the optional section 3D comparison on narrow screens", async () => 
   assert.match(page, /sectionLayout!=="slice"&&<aside className="modelInset"/);
   assert.match(page, /断面＋3D[\s\S]*断面のみ[\s\S]*3Dのみ/);
 });
+test("releases expanded atlas volumes after the last consuming canvas unmounts", async () => {
+  const [canvas, editor, performanceAudit] = await Promise.all([
+    readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8"),
+    readFile(new URL("app/ManualSegmentationWorkbench.tsx", root), "utf8"),
+    readFile(new URL("PERFORMANCE_AUDIT.md", root), "utf8"),
+  ]);
+  assert.match(canvas, /function clearLargeVolumeCaches\(\)\{volumeCache=null;bigBrainCache=null;fixedBrainCache=null;manualSegCache\.clear\(\)\}/);
+  assert.match(canvas, /largeVolumeConsumers>0[\s\S]*setTimeout\(\(\)=>\{if\(largeVolumeConsumers===0\)clearLargeVolumeCaches\(\)/);
+  assert.match(canvas, /if\(kind!=="slice"\)return;retainLargeVolumeCaches\(\);return releaseLargeVolumeCaches/);
+  assert.match(editor, /return\(\)=>\{active=false;dataCache=null\}/);
+  assert.match(performanceAudit, /ブラウザのHTTPキャッシュは消さない/);
+});
 test("skips canvas drawing while a responsive panel has zero size", async () => {
   const canvas = await readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8");
   assert.match(canvas, /w=el\.clientWidth,h=el\.clientHeight;if\(w<1\|\|h<1\)return;el\.width=/);
