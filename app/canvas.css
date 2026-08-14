@@ -251,9 +251,10 @@ html, body, #root { height: 100%; overflow: hidden; }
 .workspaceSwitch button.prototype.active > i { color: #a63326; }
 .topActions { display: flex; align-items: center; gap: 10px; }
 .topActions > span { padding: 5px 8px; border: 1px solid #d4b7ae; color: #9a574a; font-size: 16px; font-weight: 700; letter-spacing: .04em; }
-.legalButton, .feedbackButton { padding: 9px 12px; border: 1px solid #aeb5b1; background: #f7f6f2; font-size: 14px; font-weight: 700; }
+.legalButton, .feedbackButton, .helpButton { padding: 9px 12px; border: 1px solid #aeb5b1; background: #f7f6f2; font-size: 14px; font-weight: 700; }
 .feedbackButton { border-color: #6f9c96; background: #e3ece8; color: #214b48; }
-.legalButton:hover, .feedbackButton:hover { border-color: #1d6e69; color: #1d6e69; }
+.helpButton { border-color: #829a96; color: #355d58; }
+.legalButton:hover, .feedbackButton:hover, .helpButton:hover { border-color: #1d6e69; color: #1d6e69; }
 .compactToggle { margin-left: 4px; padding-left: 9px; border-left: 1px solid #c4c7c2; font-size: 16px; white-space: nowrap; }
 .panelActions { display: flex; align-items: center; gap: 10px; }
 .panelActions button { padding: 7px 9px; border: 1px solid #738082; background: #283033; color: #d4d9d6; font-size: 16px; font-weight: 700; }
@@ -634,6 +635,17 @@ html, body, #root { height: 100%; overflow: hidden; }
 .feedbackOptions a, .feedbackOptions button { display: block; width: 100%; padding: 10px; border: 0; background: #1d6e69; color: #fff; font-size: 16px; font-weight: 700; text-align: center; text-decoration: none; }
 .feedbackOptions button:disabled { background: #9ba4a1; cursor: default; }
 .feedbackConfig { margin: 0 24px 22px; padding: 11px 13px; border-left: 4px solid #e36e57; background: #eee7df; color: #6b7472; font-size: 15px; line-height: 1.65; }
+.helpDialog { width: min(840px,94vw); }
+.helpIntro { margin: 0; padding: 20px 24px 8px; color: #596562; font-size: 15px; line-height: 1.75; }
+.helpGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 12px 24px 24px; }
+.helpGrid article { padding: 17px 18px; border: 1px solid #c5c9c3; background: #ebeae4; }
+.helpGrid h3 { margin: 0 0 12px; color: #263b38; font-size: 17px; }
+.helpGrid dl { display: grid; gap: 10px; margin: 0; }
+.helpGrid dl > div { display: grid; grid-template-columns: 92px minmax(0,1fr); gap: 10px; }
+.helpGrid dt { font-weight: 800; }
+.helpGrid dd { margin: 0; color: #596562; line-height: 1.6; }
+.helpDialog kbd { display: inline-block; min-width: 22px; margin: 0 2px; padding: 1px 5px; border: 1px solid #aeb8b4; border-bottom-width: 2px; border-radius: 3px; background: #fff; color: #273c39; font: 700 13px monospace; text-align: center; }
+.helpDialog > footer button { padding: 8px 14px; border: 0; background: #1d6e69; color: #fff; font-size: 15px; font-weight: 800; }
 
 .segRailIntro { margin: 16px 18px 18px; padding: 14px; border: 1px solid #c5c9c3; background: #efeee8; }
 .segRailIntro > b { font-size: 16px; }
@@ -816,10 +828,10 @@ html, body, #root { height: 100%; overflow: hidden; }
 .workspaceSwitch button > span { font-size: 14px; }
 .workspaceSwitch button > i { font: 11px/1.2 monospace; }
 .topActions > span { font-size: 12px; }
-.legalButton, .feedbackButton { font-size: 13px; }
+.legalButton, .feedbackButton, .helpButton { font-size: 13px; }
 
 @media(max-width:1120px){.workspaceSwitch button>span{font-size:12px}}
-@media(max-width:760px){.workspaceSwitch button>span{font-size:10px}.legalButton{font-size:10px}.feedbackButton::after{font-size:10px}.workHead{display:block}.workHead h1{font-size:24px;line-height:1.25}.sourceBadge{display:inline-block;margin-top:10px}}
+@media(max-width:760px){.workspaceSwitch button>span{font-size:10px}.legalButton,.helpButton{font-size:10px}.feedbackButton::after{font-size:10px}.workHead{display:block}.workHead h1{font-size:24px;line-height:1.25}.sourceBadge{display:inline-block;margin-top:10px}}
 
 /* On narrow screens, preserve readable destinations instead of squeezing all
    six workspaces and the utility actions into a single 390 px row. */
@@ -833,7 +845,10 @@ html, body, #root { height: 100%; overflow: hidden; }
   .topActions{grid-column:3;grid-row:1}
   .feedbackButton{width:auto;padding-inline:8px;font-size:0}
   .feedbackButton::after{content:"共同制作";font-size:12px}
-  .legalButton{padding-inline:8px;font-size:12px}
+  .helpButton,.legalButton{padding-inline:7px;font-size:12px}
+  .helpGrid{grid-template-columns:1fr;padding:10px 14px 18px}
+  .helpGrid dl>div{grid-template-columns:82px minmax(0,1fr)}
+  .helpIntro{padding-inline:16px}
   .inspectorBackdrop,.inspector{top:104px}
   .leftRail .lessonRailBtn{min-width:136px;display:grid;grid-template-columns:22px minmax(0,1fr);align-items:center;padding:5px 8px;text-align:left}
   .leftRail .lessonRailBtn>span{grid-row:auto}

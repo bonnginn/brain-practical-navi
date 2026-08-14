@@ -183,7 +183,7 @@ test("presents the practical flow clearly and keeps interface text readable", as
   assert.match(canvasCss, /\.homeLead\s*\{[^}]*font-size:\s*clamp\(14px,1\.2vw,17px\)/);
   assert.match(canvasCss, /\.workspaceSwitch button > span\s*\{\s*font-size:\s*14px/);
   assert.match(canvasCss, /\.workspaceSwitch button > i\s*\{\s*font:\s*11px\/1\.2 monospace/);
-  assert.match(canvasCss, /\.legalButton, \.feedbackButton\s*\{\s*font-size:\s*13px/);
+  assert.match(canvasCss, /\.legalButton, \.feedbackButton, \.helpButton\s*\{\s*font-size:\s*13px/);
   assert.match(page, /aria-label="利用条件・クレジットを表示">利用条件<\/button>/);
   assert.match(globalsCss, /font-family/);
   assert.doesNotMatch(`${canvas}\n${editor}`, /font="(?:7|8|9|10|11|12|13)px/);
@@ -1221,15 +1221,17 @@ test("medial surface quiz keeps the same isolated-hemisphere anatomy as study mo
   assert.match(page, /showMidbrain=\{quizQuestion\.view!=="medial"\}/);
 });
 
-test("feedback and credit dialogs have durable shareable URLs", async () => {
+test("help, feedback, and credit dialogs have durable shareable URLs", async () => {
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
-  assert.match(page, /type OverlayMode = "feedback" \| "legal"/);
+  assert.match(page, /type OverlayMode = "help" \| "feedback" \| "legal"/);
   assert.match(page, /function overlayFromHash\(hash:string\):OverlayMode\|null/);
+  assert.match(page, /overlayFromHash\(window\.location\.hash\)==="help"/);
   assert.match(page, /overlayFromHash\(window\.location\.hash\)==="feedback"/);
   assert.match(page, /overlayFromHash\(window\.location\.hash\)==="legal"/);
   assert.match(page, /window\.history\.pushState\(null,"",`#workspace\/\$\{key\}`\)/);
   assert.match(page, /onClick=\{\(\)=>openOverlay\("feedback"\)\}/);
   assert.match(page, /onClick=\{\(\)=>openOverlay\("legal"\)\}/);
+  assert.match(page, /onClick=\{\(\)=>openOverlay\("help"\)\}/);
   assert.match(page, /document\.body\.style\.overflow="hidden"/);
   assert.match(page, /document\.querySelector<HTMLButtonElement>\('\.legalDialog header button'\)\?\.focus\(\)/);
   assert.match(page, /overlayReturnFocus\.current\?\.focus\(\)/);
@@ -1237,6 +1239,21 @@ test("feedback and credit dialogs have durable shareable URLs", async () => {
   assert.match(page, /!event\.shiftKey&&document\.activeElement===last/);
   assert.match(page, /onClick=\{closeOverlay\} aria-label="意見募集を閉じる"/);
   assert.match(page, /onClick=\{closeOverlay\} aria-label="利用条件とクレジット表示を閉じる"/);
+  assert.match(page, /onClick=\{closeOverlay\} aria-label="操作ガイドを閉じる"/);
+});
+
+test("publishes a durable keyboard and pointer operation guide", async () => {
+  const [page, css] = await Promise.all([
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("app/canvas.css", root), "utf8"),
+  ]);
+  assert.match(page, /type OverlayMode = "help" \| "feedback" \| "legal"/);
+  assert.match(page, /#workspace\/\$\{key\}/);
+  assert.match(page, /操作ガイドを表示/);
+  assert.match(page, /<kbd>Ctrl<\/kbd>／<kbd>⌘<\/kbd>＋<kbd>Z<\/kbd>/);
+  assert.match(page, /<kbd>Tab<\/kbd>で項目移動・<kbd>Esc<\/kbd>で閉じる/);
+  assert.match(css, /\.helpGrid\s*\{[^}]*grid-template-columns:\s*1fr 1fr/);
+  assert.match(css, /@media\(max-width:760px\)[\s\S]*\.helpGrid\{grid-template-columns:1fr/);
 });
 
 test("complex workspaces expose visible keyboard focus and a main-content shortcut", async () => {
@@ -1358,6 +1375,20 @@ test("failed atlas requests can clear rejected caches and retry in place", async
   assert.match(canvas, /role="alert"/);
   assert.match(canvas, />再読み込み<\/button>/);
   assert.match(css, /\.atlasLoading\.error button/);
+});
+
+test("accepts legacy meshes whose header stores triangle index count", async () => {
+  const [canvas, mesh] = await Promise.all([
+    readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8"),
+    readFile(new URL("public/atlas/section-accumbens.mesh", root)),
+  ]);
+  const vertices = mesh.readUInt32LE(4);
+  const declaredFaces = mesh.readUInt32LE(8);
+  const faceOffset = 12 + vertices * 28;
+  const storedFaces = (mesh.length - faceOffset) / 12;
+  assert.equal(declaredFaces, storedFaces * 3);
+  assert.match(canvas, /declaredFaces===storedFaces\*3\?storedFaces/);
+  assert.match(canvas, /face count does not match mesh length/);
 });
 
 test("free observation offers schematic pathway presets instead of textbook chapters", async () => {
