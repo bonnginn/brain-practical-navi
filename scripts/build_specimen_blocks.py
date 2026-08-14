@@ -4,7 +4,7 @@
 These are deliberately not generic thick slabs. Each specimen removes enough
 surrounding tissue to expose one practical-learning relationship. Tissue,
 ventricles and available nuclei are reconstructed from the co-registered volume.
-Fiber routes, choroid plexus, fimbria, fornix, thin midline structures and
+Fiber routes, choroid plexus, fornix, thin midline structures and
 regional markers are project-authored teaching approximations and are identified
 as such in the generated metadata.
 """
@@ -249,13 +249,12 @@ def specimen_definitions(raw: np.ndarray, seg: np.ndarray) -> dict[str, list[Par
     choroid &= choroid_region
 
     # 6) Medial temporal specimen: actual hippocampus/amygdala are separated from
-    # their local tissue block. Fimbria and uncus are explicit teaching markers.
+    # their local tissue block. Do not synthesize the fimbria or uncus: the
+    # current grid has no trustworthy boundary for either structure, and the
+    # former hand-drawn line/ellipsoid did not preserve their real continuity.
     temporal_box = bounds(zz, yy, xx, x=(3, 43), y=(-31, 35), z=(-54, -19))
     temporal_tissue = tissue & temporal_box & ~(hippocampus | amygdala)
     inferior_horn = right_ventricle & temporal_box
-    fimbria = polyline_mask(raw.shape, [(11, 5, -28), (13, -4, -31), (15, -13, -35), (18, -22, -38)], 1.5) & temporal_box
-    uncus = tissue & ellipse_mask(zz, yy, xx, (14, 20, -38), (8.5, 11, 8.5)) & temporal_box
-    temporal_tissue &= ~uncus
 
     # 7) Midbrain transverse specimen: a real 10 mm tissue slab at the level of
     # red nucleus and substantia nigra. The aqueduct is a through-slab cavity
@@ -380,8 +379,6 @@ def specimen_definitions(raw: np.ndarray, seg: np.ndarray) -> dict[str, list[Par
             Part("hippocampus", hippocampus & temporal_box, "海馬", "manual-segmentation", "#c8798d"),
             Part("amygdala", amygdala & temporal_box, "扁桃体", "manual-segmentation", "#9c6cae"),
             Part("inferior-horn", inferior_horn, "側脳室下角", "same-grid-segmentation", "#45aebd"),
-            Part("fimbria", fimbria, "海馬采", "schematic-3d", "#e3d8b0"),
-            Part("uncus", uncus, "鉤（位置目安）", "regional-approximation", "#b78165"),
         ],
         "midbrain-section": [
             Part("tissue", midbrain_slab, "中脳横断標本", "specimen-derived", "#c9a27d", "specimen"),

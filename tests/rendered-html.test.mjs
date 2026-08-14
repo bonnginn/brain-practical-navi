@@ -880,7 +880,7 @@ test("bundles structure-focused specimens and distinguishes derived from schemat
   assert.equal(metadata.sourceVoxelMm, 0.5);
   assert.equal(metadata.geometrySamplingMm, 1);
   assert.match(metadata.coordinateSpace, /x right, y anterior, z superior/);
-  assert.equal(Object.values(metadata.specimens).reduce((total, parts) => total + parts.length, 0), 57);
+  assert.equal(Object.values(metadata.specimens).reduce((total, parts) => total + parts.length, 0), 55);
   assert.deepEqual(Object.keys(metadata.specimens), ["lateral-ventricle", "diencephalon", "radiations", "commissural-system", "choroid-plexus", "medial-temporal", "midbrain-section", "hindbrain"]);
   assert.match(metadata.sourceTypeDefinitions["specimen-derived"], /histological volume/);
   assert.match(metadata.sourceTypeDefinitions["schematic-3d"], /teaching approximation/);
@@ -891,7 +891,10 @@ test("bundles structure-focused specimens and distinguishes derived from schemat
   assert.equal(metadata.specimens.radiations.some(part => part.part === "lentiform"), false);
   assert.equal(metadata.specimens.radiations.find(part => part.part === "optic-radiation").sourceType, "schematic-surface-guide");
   assert.equal(metadata.specimens["choroid-plexus"].find(part => part.part === "choroid-plexus").sourceType, "schematic-3d");
-  assert.equal(metadata.specimens["medial-temporal"].find(part => part.part === "uncus").sourceType, "regional-approximation");
+  assert.deepEqual(metadata.specimens["medial-temporal"].map(part => part.part), ["tissue", "hippocampus", "amygdala", "inferior-horn"]);
+  assert.equal(metadata.specimens["medial-temporal"].some(part => ["fimbria", "uncus"].includes(part.part)), false);
+  await assert.rejects(readFile(new URL("public/atlas/block-medial-temporal-fimbria.mesh", root)), { code: "ENOENT" });
+  await assert.rejects(readFile(new URL("public/atlas/block-medial-temporal-uncus.mesh", root)), { code: "ENOENT" });
   assert.equal(metadata.specimens.diencephalon.find(part => part.part === "hypothalamus").sourceType, "regional-approximation");
   assert.equal(metadata.specimens["commissural-system"].find(part => part.part === "fornix").sourceType, "schematic-3d");
   assert.equal(metadata.specimens["midbrain-section"].find(part => part.part === "red-nuclei").sourceType, "manual-segmentation");
@@ -1354,6 +1357,9 @@ test("presents sulci as teaching guides rather than segmentation boundaries", as
 
 test("describes specimen fidelity limits without implying anatomical validation", async () => {
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
+  assert.match(page, /"medial-temporal":\["hippocampus","amygdala","inferior-horn"\]/);
+  assert.doesNotMatch(page.split('"medial-temporal":{name:"海馬・扁桃体標本"')[1].split('"midbrain-section"')[0], /key:"(?:fimbria|uncus)"/);
+  assert.match(page, /海馬采・鉤は信頼できる境界データがなく3D未収録/);
   assert.match(page, /const blockSpecimenDisclaimer="褐色組織は位置関係を読むための表示で[\s\S]*見た目の実在感を形状や境界の正確性の根拠にせず/);
   assert.match(page, /caution:`\$\{blockSpecimenDisclaimer\} \$\{blockSpecimens\[blockSpecimen\]\.caution\}`/);
 });

@@ -355,8 +355,8 @@
     "medial-temporal": [
       {
         "file": "block-medial-temporal-tissue.mesh",
-        "vertices": 28253,
-        "faces": 56282,
+        "vertices": 28689,
+        "faces": 57182,
         "shadeMin": 0.0,
         "shadeMax": 1.0,
         "part": "tissue",
@@ -399,30 +399,6 @@
         "nameJa": "側脳室下角",
         "sourceType": "same-grid-segmentation",
         "color": "#45aebd",
-        "material": "model"
-      },
-      {
-        "file": "block-medial-temporal-fimbria.mesh",
-        "vertices": 560,
-        "faces": 1116,
-        "shadeMin": 0.82,
-        "shadeMax": 0.82,
-        "part": "fimbria",
-        "nameJa": "海馬采",
-        "sourceType": "schematic-3d",
-        "color": "#e3d8b0",
-        "material": "model"
-      },
-      {
-        "file": "block-medial-temporal-uncus.mesh",
-        "vertices": 2096,
-        "faces": 4196,
-        "shadeMin": 0.82,
-        "shadeMax": 0.82,
-        "part": "uncus",
-        "nameJa": "鉤（位置目安）",
-        "sourceType": "regional-approximation",
-        "color": "#b78165",
         "material": "model"
       }
     ],
