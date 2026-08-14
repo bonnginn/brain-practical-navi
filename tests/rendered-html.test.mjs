@@ -1439,6 +1439,8 @@ test("prioritizes beta specimen work without implying anatomical validation", as
   assert.match(page, /"medial-temporal":\["hippocampus","amygdala","inferior-horn"\]/);
   assert.doesNotMatch(page.split('"medial-temporal":{name:"海馬・扁桃体標本"')[1].split('"midbrain-section"')[0], /key:"(?:fimbria|uncus)"/);
   assert.match(page, /海馬采・鉤は信頼できる境界データがなく3D未収録/);
+  assert.doesNotMatch(page, /放線群、脈絡叢、海馬采、脳弓/);
+  assert.match(page, /旧海馬采・鉤メッシュは位置と連続性の根拠が不足するため、β候補の配布物から除外/);
   assert.match(page, /useState<string\[]>\(initialBlockLayers\(initialBlockSpecimen\)\)/);
   assert.match(page, /setBlockLayers\(initialBlockLayers\(key\)\)/);
   assert.match(css, /@media\(max-width:760px\)\{\.specimenViewControls\{right:8px;bottom:8px\}\.specimenAttachmentControls\{bottom:66px\}/);
@@ -1449,7 +1451,7 @@ test("prioritizes beta specimen work without implying anatomical validation", as
   assert.match(page, /const blockSpecimenDisclaimer="褐色組織は位置関係を読むための表示で[\s\S]*見た目の実在感を形状や境界の正確性の根拠にせず/);
   assert.match(page, /caution:`\$\{blockSpecimenDisclaimer\} \$\{blockSpecimens\[blockSpecimen\]\.caution\}`/);
   assert.match(roadmap, /\[x\] 8標本を一律に磨くのではなく[\s\S]*側脳室全景[\s\S]*レンズ核・投射線維[\s\S]*脈絡叢[\s\S]*内側側頭葉/);
-  assert.match(roadmap, /\[x\] 脳室全景、レンズ核と投射線維、脈絡叢、内側側頭葉[\s\S]*5\/7[\s\S]*3\/5/);
+  assert.match(roadmap, /\[x\] 脳室全景、レンズ核と投射線維、脈絡叢、内側側頭葉[\s\S]*5\/7[\s\S]*3\/3/);
   assert.match(roadmap, /\[x\] 正当に利用できる資料と監修がない限り/);
   assert.match(roadmap, /\[x\] βでも検証が不足する標本/);
 });
