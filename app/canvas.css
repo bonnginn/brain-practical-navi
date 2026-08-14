@@ -628,15 +628,16 @@ html, body, #root { height: 100%; overflow: hidden; }
 .legalDialog footer > span { color: #6e7775; font-size: 15px; }
 .legalDialog footer div { display: flex; gap: 13px; font-size: 16px; }
 .legalDialog footer .sourcePending { color: #9a574a; font-weight: 700; }
-.feedbackDialog { width: min(760px,94vw); }
+.feedbackDialog { width: min(1040px,94vw); }
 .feedbackIntro { padding: 22px 24px 8px; color: #5f6967; font-size: 15px; line-height: 1.8; }
-.feedbackOptions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 12px 24px 24px; }
+.feedbackOptions { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; padding: 12px 24px 24px; }
 .feedbackOptions article { padding: 18px; border: 1px solid #c5c8c2; background: #ebeae4; }
 .feedbackOptions h3 { margin: 0; font-size: 17px; }
 .feedbackOptions p { margin: 7px 0 14px; color: #626c6a; font-size: 16px; line-height: 1.7; }
 .feedbackOptions a, .feedbackOptions button { display: block; width: 100%; padding: 10px; border: 0; background: #1d6e69; color: #fff; font-size: 16px; font-weight: 700; text-align: center; text-decoration: none; }
 .feedbackOptions button:disabled { background: #9ba4a1; cursor: default; }
 .feedbackConfig { margin: 0 24px 22px; padding: 11px 13px; border-left: 4px solid #e36e57; background: #eee7df; color: #6b7472; font-size: 15px; line-height: 1.65; }
+@media(max-width:980px){.feedbackOptions{grid-template-columns:1fr}}
 .helpDialog { width: min(840px,94vw); }
 .helpIntro { margin: 0; padding: 20px 24px 8px; color: #596562; font-size: 15px; line-height: 1.75; }
 .helpGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 12px 24px 24px; }

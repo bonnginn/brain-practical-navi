@@ -254,7 +254,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /ブロック標本は試作中です/);
   assert.match(page, /形状・範囲・接続関係の完全性や解剖学的正確性は保証しません/);
   assert.match(page, /Cloudflare Web Analytics/);
-  assert.match(page, /Cookieを使用せず、訪問者の個人データを収集・利用しません/);
+  assert.match(page, /CookieやlocalStorageを使わず、訪問者の個人データを収集・利用しません/);
   assert.match(readme, /Cloudflare Web Analytics/);
   assert.match(licenses, /Data origin and collection/);
   assert.doesNotMatch(page, /OPEN BETA|β版・非営利教育用/);
@@ -508,6 +508,22 @@ test("connects only the public Google Form responder URL", async () => {
   assert.match(publishedText, /1FAIpQLSeM5Kge0Zl9Q0lCHMEP1g____uHvDZsfzjSGA0FzeT9Gf75dA\/viewform/);
   assert.doesNotMatch(publishedText, /15c95KrcMeKccBxyBWiotKO3s_5xcF8NNHqkRf6n0Dx4/);
   assert.doesNotMatch(publishedText, /1nW-udpo6EAhG7Fi0D0VCpUTngjQ8ldIKUoECAFwxvv0/);
+});
+
+test("separates private feedback, public discussion, and pull requests", async () => {
+  const [page, feedback, contributing] = await Promise.all([
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("ALPHA_FEEDBACK.md", root), "utf8"),
+    readFile(new URL("CONTRIBUTING.md", root), "utf8"),
+  ]);
+  assert.match(page, /匿名で報告・参加相談[\s\S]*Google Formを開く/);
+  assert.match(page, /公開して相談・追跡[\s\S]*GitHub Issuesを開く/);
+  assert.match(page, /変更を提案[\s\S]*共同制作ガイドを読む/);
+  assert.match(page, /解剖監修・セグメンテーション・3D造形・Web実装/);
+  assert.match(feedback, /ログインしていないブラウザ[\s\S]*3\/3ページの送信ボタン/);
+  assert.match(feedback, /Google Forms側にも回答が残る/);
+  assert.match(feedback, /回答を実際に作成・削除する一往復試験は/);
+  assert.match(contributing, /改善への効果を累積してクレジット/);
 });
 
 test("validates browser segmentation patches against the bundled BBS1 grid", () => {
@@ -1429,6 +1445,11 @@ test("failed atlas requests can clear rejected caches and retry in place", async
   assert.match(canvas, /role="alert"/);
   assert.match(canvas, />再読み込み<\/button>/);
   assert.match(css, /\.atlasLoading\.error button/);
+});
+
+test("skips canvas drawing while a responsive panel has zero size", async () => {
+  const canvas = await readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8");
+  assert.match(canvas, /w=el\.clientWidth,h=el\.clientHeight;if\(w<1\|\|h<1\)return;el\.width=/);
 });
 
 test("accepts legacy meshes whose header stores triangle index count", async () => {
