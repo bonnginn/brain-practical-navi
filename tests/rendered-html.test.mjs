@@ -1546,6 +1546,26 @@ test("publishes beta-candidate changes and known limitations", async () => {
   assert.match(changelog, /大脳基底核の一括選択/);
 });
 
+test("packages expert anatomy review as reproducible screen-level decisions", async () => {
+  const [review, provenance, readme] = await Promise.all([
+    readFile(new URL("EXPERT_REVIEW_CHECKLIST.md", root), "utf8"),
+    readFile(new URL("STRUCTURE_PROVENANCE.md", root), "utf8"),
+    readFile(new URL("README.md", root), "utf8"),
+  ]);
+  for (const route of [
+    "#workspace/surface/lateral", "#workspace/surface/superior", "#workspace/surface/inferior",
+    "#workspace/surface/medial", "#workspace/surface/arteries", "#workspace/surface/nerves",
+    "#workspace/sections/coronal", "#workspace/sections/horizontal", "#workspace/sections/sagittal",
+    "#workspace/blocks/lateral-ventricle", "#workspace/blocks/radiations",
+    "#workspace/blocks/choroid-plexus", "#workspace/blocks/medial-temporal",
+  ]) assert.ok(review.includes(route), route);
+  assert.match(review, /採用可.*注意書き付きで採用可.*要修正.*判定保留/);
+  assert.match(review, /位置、範囲、左右、連続性、表面からの可視性/);
+  assert.match(review, /第三者の教科書・講義・標本画像を含めず/);
+  assert.match(provenance, /EXPERT_REVIEW_CHECKLIST\.md/);
+  assert.match(readme, /EXPERT_REVIEW_CHECKLIST\.md/);
+});
+
 test("keeps the internal capsule distinct from adjacent basal nuclei", async () => {
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
   const colour = key => {
