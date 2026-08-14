@@ -179,6 +179,19 @@ test("keeps every section structure colourable in the default BigBrain source", 
   assert.match(page, /insula:[^\n]+bigbrainIds:\[34,35\]/);
 });
 
+test("audits every section label for three-plane continuity regressions", () => {
+  const result = spawnSync(process.execPath, [localPath("scripts/audit_section_continuity.mjs")], {
+    cwd: localPath("."),
+    encoding: "utf8",
+    maxBuffer: 4 * 1024 * 1024,
+  });
+  assert.equal(result.status, 0, result.stderr || result.stdout);
+  assert.match(result.stdout, /PASS\t35 labels; 17 require visual review; 0 below source-specific largest-component thresholds/);
+  assert.match(result.stdout, /WARN\t22\tmanual\tright amygdala[\s\S]*secondary=1@x168-168\/y285-285\/z124-124/);
+  assert.match(result.stdout, /WARN\t24\tatlas-derived\tright lateral ventricle[\s\S]*largest=96\.388%/);
+  assert.match(result.stdout, /WARN\t30\timage-guided\tcorpus callosum candidate[\s\S]*components=2[\s\S]*largest=98\.573%/);
+});
+
 test("presents the practical flow clearly and keeps interface text readable", async () => {
   const [page, main, globalsCss, canvasCss, canvas, editor] = await Promise.all([
     readFile(new URL("app/page.tsx", root), "utf8"),
