@@ -10,6 +10,11 @@
   "createdAt": "2026-08-13T00:00:00.000Z",
   "authorNote": "validator smoke test",
   "authorGitHub": "",
+  "reviewStatus": "unreviewed",
+  "reviewer": "",
+  "reviewedAt": "",
+  "proposedLabels": [],
+  "affectedHorizontalSlices": {"min": 0, "max": 0, "indices": [0]},
   "editCount": 1,
   "runs": [{"start": 0, "length": 1, "label": 0}]
 }

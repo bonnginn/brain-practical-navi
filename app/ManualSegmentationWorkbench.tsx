@@ -8,6 +8,8 @@ type TargetSide="left"|"right"|"bilateral"|"midline"|"mixed";
 type EditConfidence="high"|"medium"|"low";
 type StrokeChange={index:number;had:boolean;value:number};
 type PatchRun={start:number;length:number;label:number};
+type PatchLabel={id:number;name:string};
+type PatchSliceRange={min:number;max:number;indices:number[]};
 type SegmentationPatch={
   format:"brain-practical-segmentation-patch";
   version:1;
@@ -24,6 +26,10 @@ type SegmentationPatch={
   evidence?:string;
   confidence?:EditConfidence;
   reviewStatus?:"unreviewed";
+  reviewer?:string;
+  reviewedAt?:string;
+  proposedLabels?:PatchLabel[];
+  affectedHorizontalSlices?:PatchSliceRange|null;
   editCount:number;
   runs:PatchRun[];
 };
@@ -75,7 +81,10 @@ function fromRuns(runs:PatchRun[],voxelCount:number){
   return edits;
 }
 function removeNoops(edits:Map<number,number>,original:Uint8Array){for(const[index,label]of edits)if(original[index]===label)edits.delete(index);return edits}
-function makePatch(edits:Map<number,number>,note:string,authorGitHub:string,targetSide:TargetSide,evidence:string,confidence:EditConfidence):SegmentationPatch{return{format:"brain-practical-segmentation-patch",version:1,sourceImage:IMAGE_URL,sourceLabels:LABEL_URL,sourceLabelsSha256:LABEL_SHA256,dims:[394,466,378],voxelSizeMm:[.5,.5,.5],primaryPlane:"horizontal",createdAt:new Date().toISOString(),authorNote:note.trim(),authorGitHub:authorGitHub.trim().replace(/^@/,""),targetSide,evidence:evidence.trim(),confidence,reviewStatus:"unreviewed",editCount:edits.size,runs:toRuns(edits)}}
+function makePatch(edits:Map<number,number>,note:string,authorGitHub:string,targetSide:TargetSide,evidence:string,confidence:EditConfidence):SegmentationPatch{
+  const area=394*466,slices=[...new Set([...edits.keys()].map(index=>Math.floor(index/area)))].sort((a,b)=>a-b),ids=[...new Set(edits.values())].filter(id=>id>0).sort((a,b)=>a-b);
+  return{format:"brain-practical-segmentation-patch",version:1,sourceImage:IMAGE_URL,sourceLabels:LABEL_URL,sourceLabelsSha256:LABEL_SHA256,dims:[394,466,378],voxelSizeMm:[.5,.5,.5],primaryPlane:"horizontal",createdAt:new Date().toISOString(),authorNote:note.trim(),authorGitHub:authorGitHub.trim().replace(/^@/,""),targetSide,evidence:evidence.trim(),confidence,reviewStatus:"unreviewed",reviewer:"",reviewedAt:"",proposedLabels:ids.map(id=>({id,name:labelName.get(id)??`label ${id}`})),affectedHorizontalSlices:slices.length?{min:slices[0],max:slices.at(-1)!,indices:slices}:null,editCount:edits.size,runs:toRuns(edits)}
+}
 
 export function ManualSegmentationWorkbench(){
   const canvasRef=useRef<HTMLCanvasElement>(null),coronalRef=useRef<HTMLCanvasElement>(null),sagittalRef=useRef<HTMLCanvasElement>(null),fileRef=useRef<HTMLInputElement>(null),editsRef=useRef(new Map<number,number>()),strokeRef=useRef<StrokeChange[]|null>(null),strokeSeen=useRef(new Set<number>()),panRef=useRef<{x:number;y:number;pan:{x:number;y:number}}|null>(null);

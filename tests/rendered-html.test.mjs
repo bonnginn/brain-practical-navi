@@ -538,6 +538,29 @@ test("validates browser segmentation patches against the bundled BBS1 grid", () 
   assert.deepEqual(audit.dims, [394, 466, 378]);
   assert.equal(audit.editCount, 1);
   assert.equal(audit.changedVoxelCount + audit.unchangedVoxelCount, 1);
+  assert.deepEqual(audit.affectedHorizontalSlices, {min: 0, max: 0, indices: [0]});
+  assert.deepEqual(audit.proposedLabels, []);
+  assert.equal(audit.reviewStatus, "unreviewed");
+  assert.equal(audit.reviewer, "");
+});
+
+test("tracks segmentation scope and review decisions from export through pull request", async () => {
+  const [editor, workflow, pullRequest, issueTemplate, roadmap] = await Promise.all([
+    readFile(new URL("app/ManualSegmentationWorkbench.tsx", root), "utf8"),
+    readFile(new URL("SEGMENTATION_WORKFLOW.md", root), "utf8"),
+    readFile(new URL(".github/PULL_REQUEST_TEMPLATE.md", root), "utf8"),
+    readFile(new URL(".github/ISSUE_TEMPLATE/segmentation.yml", root), "utf8"),
+    readFile(new URL("BETA_ROADMAP.md", root), "utf8"),
+  ]);
+  assert.match(editor, /reviewStatus:"unreviewed",reviewer:"",reviewedAt:""/);
+  assert.match(editor, /proposedLabels:ids\.map/);
+  assert.match(editor, /affectedHorizontalSlices:slices\.length/);
+  assert.match(workflow, /`proposedLabels`[\s\S]*`affectedHorizontalSlices`/);
+  assert.match(pullRequest, /変更前スクリーンショット[\s\S]*変更後スクリーンショット/);
+  assert.match(pullRequest, /レビュー判断（確認者が記入）[\s\S]*差し戻し[\s\S]*判断理由/);
+  assert.match(issueTemplate, /id: comparison[\s\S]*required: true/);
+  assert.match(roadmap, /\[x\] 構造、左右、断面範囲、根拠資料、確認者、確度/);
+  assert.match(roadmap, /\[x\] 採用前後の比較と、差し戻し理由/);
 });
 
 test("pins segmentation patches to the exact bundled label revision", async () => {
