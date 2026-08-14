@@ -263,6 +263,8 @@ const blockPriorities:Record<BlockSpecimenKey,{level:"beta"|"later";label:string
   hindbrain:{level:"later",label:"発展枠",reason:"小脳脚・菱形窩の模式表示を監修後に改善"},
 };
 
+const blockSpecimenDisclaimer="褐色組織は位置関係を読むための表示で、湿潤感・線維感・切断面など実標本の質感は再現していません。見た目の実在感を形状や境界の正確性の根拠にせず、実標本・検証済み資料と照合してください。";
+
 const blockInitialRotations:Record<BlockSpecimenKey,Rotation>={
   "lateral-ventricle":{x:-14,y:-64,z:4},
   diencephalon:{x:-8,y:-38,z:0},
@@ -571,7 +573,7 @@ export default function Home() {
   const freeFocusedItem=freeFocusedKey?freeObservationByKey.get(freeFocusedKey):undefined;
   const activePathway=selectedPathway?pathwayPresets[selectedPathway]:null;
   const freePathwayMeshLayers=useMemo(()=>activePathway?[...activePathway.sectionKeys.flatMap(key=>{const files=structureMeshFiles[key]??[];return files.length?[{files,color:structures[key].rgb}]:[]}),...(activePathway.extraLayers??[])]:[],[activePathway]);
-  const specimenLesson=blockSpecimens[blockSpecimen];
+  const specimenLesson={...blockSpecimens[blockSpecimen],caution:`${blockSpecimenDisclaimer} ${blockSpecimens[blockSpecimen].caution}`};
   const renderedSurfaceNerves=surfaceView==="inferior"||surfaceView==="free"?true:surfaceNerves;
   const surfaceOverlay=surfaceVessels&&renderedSurfaceNerves?"both":surfaceVessels?"vessels":renderedSurfaceNerves?"nerves":"none";
   const selectedNeurovascular=neurovascularStructures[selectedNeurovascularStructure];

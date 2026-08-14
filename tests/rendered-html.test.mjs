@@ -1401,7 +1401,11 @@ test("prioritizes beta specimen work without implying anatomical validation", as
   assert.equal((priorities.match(/label:"β重点"/g)??[]).length, 4);
   assert.equal((priorities.match(/label:"発展枠"/g)??[]).length, 4);
   assert.match(page, /試作中・解剖学的正確性は未保証/);
+  assert.match(page, /const blockSpecimenDisclaimer="褐色組織は位置関係を読むための表示で[\s\S]*見た目の実在感を形状や境界の正確性の根拠にせず/);
+  assert.match(page, /caution:`\$\{blockSpecimenDisclaimer\} \$\{blockSpecimens\[blockSpecimen\]\.caution\}`/);
   assert.match(roadmap, /\[x\] 8標本を一律に磨くのではなく[\s\S]*側脳室全景[\s\S]*レンズ核・投射線維[\s\S]*脈絡叢[\s\S]*内側側頭葉/);
+  assert.match(roadmap, /\[x\] 正当に利用できる資料と監修がない限り/);
+  assert.match(roadmap, /\[x\] βでも検証が不足する標本/);
 });
 
 test("keeps provisional and expert-unreviewed structures out of the default quiz", async () => {
