@@ -155,7 +155,18 @@ async function loadFixedBrain(){
 async function loadManualSeg(name:"icbm500"){
   if(!manualSegCache.has(name))manualSegCache.set(name,fetch(`${ASSET_BASE}atlas/bigbrain-practical-segmentation-${name}.bin.gz`).then(async r=>{if(!r.ok)throw new Error(`practical segmentation HTTP ${r.status}`);let buf=await r.arrayBuffer(),v=new DataView(buf);if(v.getUint32(0,false)!==0x42425331&&v.getUint16(0,false)===0x1f8b){const stream=new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));buf=await new Response(stream).arrayBuffer();v=new DataView(buf)}if(v.getUint32(0,false)!==0x42425331)throw new Error("invalid practical segmentation header");const dims:[number,number,number]=[v.getUint16(4,true),v.getUint16(6,true),v.getUint16(8,true)],n=dims[0]*dims[1]*dims[2];return{dims,labels:new Uint8Array(buf,10,n)}}));return manualSegCache.get(name)!;
 }
-function loadMesh(name:string){if(!meshCache.has(name))meshCache.set(name,fetch(`${ASSET_BASE}atlas/${name}.mesh`).then(r=>{if(!r.ok)throw new Error(`${name} HTTP ${r.status}`);return r.arrayBuffer()}).then(buf=>{const v=new DataView(buf),magic=v.getUint32(0,false),nv=v.getUint32(4,true),nf=v.getUint32(8,true),hasShade=magic===0x424e4d32||magic===0x424e4d33,vertices=new Float32Array(buf,12,nv*3),normals=new Float32Array(buf,12+nv*12,nv*3),shade=hasShade?new Float32Array(buf,12+nv*24,nv):new Float32Array(nv).fill(1),regions=magic===0x424e4d33?new Float32Array(buf,12+nv*28,nv):new Float32Array(nv),faceOffset=magic===0x424e4d33?12+nv*32:magic===0x424e4d32?12+nv*28:12+nv*24,faces=new Uint32Array(buf,faceOffset,nf*3);return{vertices,normals,shade,regions,faces}}));return meshCache.get(name)!}
+function loadMesh(name:string){
+  if(!meshCache.has(name))meshCache.set(name,fetch(`${ASSET_BASE}atlas/${name}.mesh`).then(r=>{if(!r.ok)throw new Error(`${name} HTTP ${r.status}`);return r.arrayBuffer()}).then(buf=>{
+    const v=new DataView(buf),magic=v.getUint32(0,false),nv=v.getUint32(4,true),declaredFaces=v.getUint32(8,true),hasShade=magic===0x424e4d32||magic===0x424e4d33;
+    if(magic!==0x424e4d31&&magic!==0x424e4d32&&magic!==0x424e4d33)throw new Error(`${name} invalid mesh header`);
+    const faceOffset=magic===0x424e4d33?12+nv*32:magic===0x424e4d32?12+nv*28:12+nv*24,faceBytes=buf.byteLength-faceOffset;
+    if(faceBytes<0||faceBytes%12!==0)throw new Error(`${name} invalid mesh length`);
+    const storedFaces=faceBytes/12,nf=declaredFaces===storedFaces?storedFaces:declaredFaces===storedFaces*3?storedFaces:0;
+    if(!nf)throw new Error(`${name} face count does not match mesh length`);
+    const vertices=new Float32Array(buf,12,nv*3),normals=new Float32Array(buf,12+nv*12,nv*3),shade=hasShade?new Float32Array(buf,12+nv*24,nv):new Float32Array(nv).fill(1),regions=magic===0x424e4d33?new Float32Array(buf,12+nv*28,nv):new Float32Array(nv),faces=new Uint32Array(buf,faceOffset,nf*3);
+    return{vertices,normals,shade,regions,faces};
+  }));return meshCache.get(name)!
+}
 
 function conservativeSeptumMesh(mesh:Mesh){
   const cached=conservativeSeptumCache.get(mesh);if(cached)return cached;
