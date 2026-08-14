@@ -326,7 +326,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /key==="lingual"\?\{ids:surfaceRegions\.pericalcarine\.ids,axis:0,max:-14\}/);
   assert.match(page, /複数選択/);
   assert.match(page, /useState<"inside" \| "ghost" \| "extracted" \| "segmented">\("ghost"\)/);
-  assert.match(page, /useState<"both"\|"slice"\|"model">\("both"\)/);
+  assert.match(page, /useState<"both"\|"slice"\|"model">\(\(\)=>typeof window/);
   assert.match(page, /className="sectionLayoutSwitch" aria-label="断面と全脳3Dの表示"/);
   assert.match(page, /断面＋3D/);
   assert.match(page, /断面のみ/);
@@ -1457,6 +1457,12 @@ test("failed atlas requests can clear rejected caches and retry in place", async
   assert.match(css, /\.atlasLoading\.error button/);
 });
 
+test("defers the optional section 3D comparison on narrow screens", async () => {
+  const page = await readFile(new URL("app/page.tsx", root), "utf8");
+  assert.match(page, /matchMedia\("\(max-width: 760px\)"\)\.matches\?"slice":"both"/);
+  assert.match(page, /sectionLayout!=="slice"&&<aside className="modelInset"/);
+  assert.match(page, /断面＋3D[\s\S]*断面のみ[\s\S]*3Dのみ/);
+});
 test("skips canvas drawing while a responsive panel has zero size", async () => {
   const canvas = await readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8");
   assert.match(canvas, /w=el\.clientWidth,h=el\.clientHeight;if\(w<1\|\|h<1\)return;el\.width=/);
