@@ -1415,3 +1415,18 @@ test("section quiz slices can be stepped without dragging the range control", as
   assert.match(page, /Math\.min\(100,value\+1\)/);
   assert.match(css, /\.quizSliceControl\s*\{[^}]*grid-template-columns:\s*32px minmax\(0,1fr\) 32px/);
 });
+test("keeps the internal capsule distinct from adjacent basal nuclei", async () => {
+  const page = await readFile(new URL("app/page.tsx", root), "utf8");
+  const colour = key => {
+    const match = page.match(new RegExp(`${key}: \\{[^\\n]+color:\\s*\"(#[0-9a-f]{6})\"`));
+    assert.ok(match, `${key} colour`);
+    return match[1];
+  };
+  const rgb = hex => [1, 3, 5].map(index => Number.parseInt(hex.slice(index, index + 2), 16));
+  const distance = (left, right) => Math.hypot(...rgb(left).map((value, index) => value - rgb(right)[index]));
+  const internalCapsule = colour("internalCapsule");
+  for (const neighbour of ["caudate", "putamen", "pallidumExternal", "pallidumInternal", "thalamus"]) {
+    assert.ok(distance(internalCapsule, colour(neighbour)) >= 60, `internal capsule versus ${neighbour}`);
+  }
+  assert.match(page, /key:"internal-capsule"[^\n]+color:"#e3d8b0"/);
+});
