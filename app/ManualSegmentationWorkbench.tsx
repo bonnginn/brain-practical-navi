@@ -22,8 +22,9 @@ type SegmentationPatch={
   runs:PatchRun[];
 };
 
-const IMAGE_URL="/atlas/bigbrain-icbm500.bin.gz";
-const LABEL_URL="/atlas/bigbrain-practical-segmentation-icbm500.bin.gz";
+const ASSET_BASE=import.meta.env.BASE_URL;
+const IMAGE_URL=`${ASSET_BASE}atlas/bigbrain-icbm500.bin.gz`;
+const LABEL_URL=`${ASSET_BASE}atlas/bigbrain-practical-segmentation-icbm500.bin.gz`;
 const LABEL_SHA256="de30b5c77f4ed4f2902564a5d238b0e733413c247643ef828fb66aa03d8cc8be";
 const DRAFT_KEY="brain-practical-segmentation-draft-v1";
 const palette:Record<number,[number,number,number]>={

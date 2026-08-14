@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 
+const ASSET_BASE=import.meta.env.BASE_URL;
+
 type Plane="coronal"|"horizontal"|"sagittal";type Focus="ventricle"|"caudate"|"hippocampus"|"thalamus";type Display="specimen"|"diagram"|"outline";
 type Volume={dims:[number,number,number];t1:Uint8Array;t2:Uint8Array;labels:Uint8Array;mask:Uint8Array;gm:Uint8Array;wm:Uint8Array;csf:Uint8Array};type Mesh={vertices:Float32Array;normals:Float32Array;shade:Float32Array;regions:Float32Array;faces:Uint32Array};
 type BigBrain={dims:[number,number,number];values:Uint8Array};
@@ -133,26 +135,26 @@ const SPECIMEN_PARTS:Record<Exclude<SpecimenBlock,"none">,SpecimenPartDefinition
 let volumeCache:Promise<Volume>|null=null,bigBrainCache:Promise<BigBrain>|null=null,fixedBrainCache:Promise<FixedBrain>|null=null;const manualSegCache=new Map<string,Promise<ManualSeg>>(),meshCache=new Map<string,Promise<Mesh>>(),zeroHighlightCache=new WeakMap<Mesh,Float32Array>(),surfaceHighlightCache=new WeakMap<Mesh,Map<string,Float32Array>>(),surfaceBoundaryCache=new WeakMap<Mesh,Map<string,Mesh>>(),surfaceRimCache=new WeakMap<Mesh,Map<string,Mesh>>(),surfaceLevelCache=new WeakMap<Mesh,Map<string,Mesh>>(),ventralSurfacePatchCache=new WeakMap<Mesh,Map<string,Mesh>>(),brainstemLevelCache=new WeakMap<Mesh,Map<string,Mesh>>(),midbrainDorsalPatchCache=new WeakMap<Mesh,Map<string,Mesh>>(),surfaceSpatialCache=new WeakMap<Mesh,Map<string,number[]>>(),surfaceFilledPointCache=new WeakMap<Mesh,Map<string,{point:number[];normal:number[]}>>(),conservativeSeptumCache=new WeakMap<Mesh,Mesh>();
 
 async function loadVolume(){
-  if(!volumeCache)volumeCache=fetch("/atlas/mni-cerebra-1mm.bin.gz").then(async r=>{
+  if(!volumeCache)volumeCache=fetch(`${ASSET_BASE}atlas/mni-cerebra-1mm.bin.gz`).then(async r=>{
     if(!r.ok)throw new Error(`volume HTTP ${r.status}`);let buf=await r.arrayBuffer(),v=new DataView(buf);if(v.getUint32(0,false)!==0x424e5634&&v.getUint16(0,false)===0x1f8b){const stream=new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));buf=await new Response(stream).arrayBuffer();v=new DataView(buf)}if(v.getUint32(0,false)!==0x424e5634)throw new Error("invalid volume header");const dims:[number,number,number]=[v.getUint16(4,true),v.getUint16(6,true),v.getUint16(8,true)],n=dims[0]*dims[1]*dims[2];return{dims,t1:new Uint8Array(buf,10,n),t2:new Uint8Array(buf,10+n,n),labels:new Uint8Array(buf,10+2*n,n),mask:new Uint8Array(buf,10+3*n,n),gm:new Uint8Array(buf,10+4*n,n),wm:new Uint8Array(buf,10+5*n,n),csf:new Uint8Array(buf,10+6*n,n)};
   });return volumeCache;
 }
 async function loadBigBrain(){
-  if(!bigBrainCache)bigBrainCache=fetch("/atlas/bigbrain-icbm500.bin.gz").then(async r=>{
+  if(!bigBrainCache)bigBrainCache=fetch(`${ASSET_BASE}atlas/bigbrain-icbm500.bin.gz`).then(async r=>{
     if(!r.ok)throw new Error(`BigBrain HTTP ${r.status}`);let buf=await r.arrayBuffer(),v=new DataView(buf);
     if(v.getUint32(0,false)!==0x42425631&&v.getUint16(0,false)===0x1f8b){const stream=new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));buf=await new Response(stream).arrayBuffer();v=new DataView(buf)}
     if(v.getUint32(0,false)!==0x42425631)throw new Error("invalid BigBrain header");const dims:[number,number,number]=[v.getUint16(4,true),v.getUint16(6,true),v.getUint16(8,true)],n=dims[0]*dims[1]*dims[2];return{dims,values:new Uint8Array(buf,10,n)};
   });return bigBrainCache;
 }
 async function loadFixedBrain(){
-  if(!fixedBrainCache)fixedBrainCache=fetch("/atlas/bigbrain-fixed-mri-0444.bin.gz").then(async r=>{
+  if(!fixedBrainCache)fixedBrainCache=fetch(`${ASSET_BASE}atlas/bigbrain-fixed-mri-0444.bin.gz`).then(async r=>{
     if(!r.ok)throw new Error(`fixed MRI HTTP ${r.status}`);let buf=await r.arrayBuffer(),v=new DataView(buf),magic=v.getUint32(0,false);if(magic!==0x42464d31&&magic!==0x42464d32&&v.getUint16(0,false)===0x1f8b){const stream=new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));buf=await new Response(stream).arrayBuffer();v=new DataView(buf);magic=v.getUint32(0,false)}if(magic!==0x42464d31&&magic!==0x42464d32)throw new Error("invalid fixed MRI header");const dims:[number,number,number]=[v.getUint16(4,true),v.getUint16(6,true),v.getUint16(8,true)],n=dims[0]*dims[1]*dims[2],values=new Uint8Array(buf,10,n);return{dims,values,mask:new Uint8Array(buf,10+(magic===0x42464d32?2:1)*n,n)};
   });return fixedBrainCache;
 }
 async function loadManualSeg(name:"icbm500"){
-  if(!manualSegCache.has(name))manualSegCache.set(name,fetch(`/atlas/bigbrain-practical-segmentation-${name}.bin.gz`).then(async r=>{if(!r.ok)throw new Error(`practical segmentation HTTP ${r.status}`);let buf=await r.arrayBuffer(),v=new DataView(buf);if(v.getUint32(0,false)!==0x42425331&&v.getUint16(0,false)===0x1f8b){const stream=new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));buf=await new Response(stream).arrayBuffer();v=new DataView(buf)}if(v.getUint32(0,false)!==0x42425331)throw new Error("invalid practical segmentation header");const dims:[number,number,number]=[v.getUint16(4,true),v.getUint16(6,true),v.getUint16(8,true)],n=dims[0]*dims[1]*dims[2];return{dims,labels:new Uint8Array(buf,10,n)}}));return manualSegCache.get(name)!;
+  if(!manualSegCache.has(name))manualSegCache.set(name,fetch(`${ASSET_BASE}atlas/bigbrain-practical-segmentation-${name}.bin.gz`).then(async r=>{if(!r.ok)throw new Error(`practical segmentation HTTP ${r.status}`);let buf=await r.arrayBuffer(),v=new DataView(buf);if(v.getUint32(0,false)!==0x42425331&&v.getUint16(0,false)===0x1f8b){const stream=new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));buf=await new Response(stream).arrayBuffer();v=new DataView(buf)}if(v.getUint32(0,false)!==0x42425331)throw new Error("invalid practical segmentation header");const dims:[number,number,number]=[v.getUint16(4,true),v.getUint16(6,true),v.getUint16(8,true)],n=dims[0]*dims[1]*dims[2];return{dims,labels:new Uint8Array(buf,10,n)}}));return manualSegCache.get(name)!;
 }
-function loadMesh(name:string){if(!meshCache.has(name))meshCache.set(name,fetch(`/atlas/${name}.mesh`).then(r=>{if(!r.ok)throw new Error(`${name} HTTP ${r.status}`);return r.arrayBuffer()}).then(buf=>{const v=new DataView(buf),magic=v.getUint32(0,false),nv=v.getUint32(4,true),nf=v.getUint32(8,true),hasShade=magic===0x424e4d32||magic===0x424e4d33,vertices=new Float32Array(buf,12,nv*3),normals=new Float32Array(buf,12+nv*12,nv*3),shade=hasShade?new Float32Array(buf,12+nv*24,nv):new Float32Array(nv).fill(1),regions=magic===0x424e4d33?new Float32Array(buf,12+nv*28,nv):new Float32Array(nv),faceOffset=magic===0x424e4d33?12+nv*32:magic===0x424e4d32?12+nv*28:12+nv*24,faces=new Uint32Array(buf,faceOffset,nf*3);return{vertices,normals,shade,regions,faces}}));return meshCache.get(name)!}
+function loadMesh(name:string){if(!meshCache.has(name))meshCache.set(name,fetch(`${ASSET_BASE}atlas/${name}.mesh`).then(r=>{if(!r.ok)throw new Error(`${name} HTTP ${r.status}`);return r.arrayBuffer()}).then(buf=>{const v=new DataView(buf),magic=v.getUint32(0,false),nv=v.getUint32(4,true),nf=v.getUint32(8,true),hasShade=magic===0x424e4d32||magic===0x424e4d33,vertices=new Float32Array(buf,12,nv*3),normals=new Float32Array(buf,12+nv*12,nv*3),shade=hasShade?new Float32Array(buf,12+nv*24,nv):new Float32Array(nv).fill(1),regions=magic===0x424e4d33?new Float32Array(buf,12+nv*28,nv):new Float32Array(nv),faceOffset=magic===0x424e4d33?12+nv*32:magic===0x424e4d32?12+nv*28:12+nv*24,faces=new Uint32Array(buf,faceOffset,nf*3);return{vertices,normals,shade,regions,faces}}));return meshCache.get(name)!}
 
 function conservativeSeptumMesh(mesh:Mesh){
   const cached=conservativeSeptumCache.get(mesh);if(cached)return cached;
