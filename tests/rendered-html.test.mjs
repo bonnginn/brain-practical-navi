@@ -1520,6 +1520,13 @@ test("releases expanded atlas volumes after the last consuming canvas unmounts",
   assert.match(editor, /return\(\)=>\{active=false;dataCache=null\}/);
   assert.match(performanceAudit, /ブラウザのHTTPキャッシュは消さない/);
 });
+test("releases decoded 3D mesh caches after the last surface canvas unmounts", async () => {
+  const canvas = await readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8");
+  assert.match(canvas,/surfaceMeshConsumers=0,surfaceMeshReleaseTimer:number\|null=null/);
+  assert.match(canvas,/function retainSurfaceMeshCaches\(\)\{surfaceMeshConsumers\+\+/);
+  assert.match(canvas,/function releaseSurfaceMeshCaches\(\)[\s\S]*if\(surfaceMeshConsumers===0\)meshCache\.clear\(\)/);
+  assert.match(canvas,/if\(kind!=="surface"\)return;retainSurfaceMeshCaches\(\);return releaseSurfaceMeshCaches/);
+});
 test("skips canvas drawing while a responsive panel has zero size", async () => {
   const canvas = await readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8");
   assert.match(canvas, /w=el\.clientWidth,h=el\.clientHeight;if\(w<1\|\|h<1\)return;el\.width=/);
