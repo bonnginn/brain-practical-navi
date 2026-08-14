@@ -14,7 +14,8 @@
 .atlasCanvas.zoomed { cursor: crosshair; }
 .zoomReadout { position: absolute; z-index: 9; right: 14px; bottom: 14px; min-width: 82px; padding: 7px 9px; border: 1px solid #7b8585; background: #172126d9; color: #f4f2eb; font: 700 16px monospace; box-shadow: 0 4px 12px #0005; }
 .zoomReadout small { margin-left: 5px; color: #b9c1bf; font: 15px sans-serif; }
-.atlasLoading { position: absolute; z-index: 7; left: 50%; top: 50%; transform: translate(-50%,-50%); padding: 10px 14px; background: #f5f3ed; border: 1px solid #c7c4bc; color: #596264; font-size: 14px; white-space: nowrap; }
+.atlasLoading { position: absolute; z-index: 7; left: 50%; top: 50%; transform: translate(-50%,-50%); display: grid; gap: 8px; justify-items: center; padding: 10px 14px; background: #f5f3ed; border: 1px solid #c7c4bc; color: #596264; font-size: 14px; white-space: nowrap; }
+.atlasLoading progress { width: min(210px,64vw); height: 6px; accent-color: #4d777d; }
 .atlasLoading.error { color: #a2473c; border-color: #d6a49b; }
 .atlasLoading.error { display: grid; justify-items: center; gap: 8px; white-space: normal; text-align: center; }
 .atlasLoading.error button { min-width: 112px; padding: 7px 12px; border: 1px solid #a2473c; background: #fff; color: #8f392f; font-size: 14px; font-weight: 700; cursor: pointer; }
