@@ -76,9 +76,9 @@ Windows側のCodexへ開発を引き継ぐ場合は、取得手順、実画面�
 | IDs 30–32 | 本プロジェクトの画像誘導試作 | 正解ラベルではない。BigBrain派生表示とともに配布する場合は CC BY-NC-SA 4.0 | 脳梁・内包候補を計算生成 |
 | 模式3D局所補助・脳表／脳底・神経血管 | 本プロジェクトの手作業経路・形状 | CC BY-NC-SA 4.0 | 主要な溝・裂の線状ガイド、放線群、脈絡叢、海馬采、小脳脚、丘・膝状体、菱形窩・錐体・オリーブ等の位置目安、脳弓・乳頭体・中脳水道、前有孔質、嗅球を含む脳底ランドマーク・神経血管の重ね合わせ |
 
-完全な出典、必須表示、改変内容、引用文献、公開前チェックは [DATA_AND_LICENSES.md](DATA_AND_LICENSES.md) を参照してください。アプリ右上の「利用条件・クレジット」にも同じ要点を表示します。
+完全な出典、必須表示、改変内容、引用文献、公開前チェックは [DATA_AND_LICENSES.md](DATA_AND_LICENSES.md) を参照してください。公開配布する `public/atlas/` の全ファイルは [DATA-MANIFEST.json](public/atlas/DATA-MANIFEST.json) で出典群、改変、ライセンス、表示義務、同梱通知へ機械的に対応づけています。SNS共有画像を含む公開視覚素材は [ASSET-NOTICE.txt](public/ASSET-NOTICE.txt) で用途と非転載を明示しています。アプリ右上の「利用条件・クレジット」にも同じ要点を表示します。
 
-公開版では利用状況と表示性能の把握に [Cloudflare Web Analytics](https://developers.cloudflare.com/web-analytics/about/) を使用します。Cloudflareの説明ではCookieを使用せず、訪問者の個人データを収集・利用しません。本アプリ側でも利用者を識別する独自IDは付与しません。
+公開HTTPSホストの本番版だけで、利用状況と表示性能の把握に [Cloudflare Web Analytics](https://developers.cloudflare.com/web-analytics/about/) を使用します。localhost、127.0.0.1、開発ビルドではビーコンを読み込みません。Cloudflareの説明ではCookieやlocalStorageを使わず、訪問者の個人データを収集・利用しません。本アプリ側でも利用者を識別する独自IDは付与しません。
 
 ## 引用
 

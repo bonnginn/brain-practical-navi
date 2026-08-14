@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "updated": "2026-08-14",
+  "scope": "Every file distributed under public/atlas except this manifest itself must match exactly one group pattern.",
+  "groups": [
+    {
+      "id": "bigbrain-browser-derivatives",
+      "pattern": "^(bigbrain-icbm500\\.bin\\.gz|bigbrain-fixed-mri-0444\\.bin\\.gz|bigbrain-icbm500-validation\\.json)$",
+      "source": "BigBrain, McGill University",
+      "sourceUrl": "https://bigbrainproject.org/",
+      "license": "CC BY-NC-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+      "modifications": "Grid selection or resampling, 8-bit conversion, compression, background masking, validation metadata and display tone mapping.",
+      "displayObligation": "Credit BigBrain and Amunts et al.; link the license; identify modifications; retain non-commercial and share-alike terms; imply no endorsement.",
+      "bundledNotice": "BIGBRAIN-DATA-LICENSE.txt"
+    },
+    {
+      "id": "bigbrain-manual-labels",
+      "pattern": "^(bigbrain-manual-subcortical-icbm500\\.bin\\.gz|section-accumbens\\.mesh)$",
+      "source": "BigBrain co-registration/manual subcortical segmentation, Xiao et al.",
+      "sourceUrl": "https://nist.mni.mcgill.ca/multi-contrast-pd25-atlas/",
+      "license": "CC BY 4.0 for the co-registration labels; underlying BigBrain terms remain applicable where BigBrain material is present",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "modifications": "Label-number conversion, storage on the exact 0.5 mm ICBM500 grid, compression, and 1 mm display-mesh extraction.",
+      "displayObligation": "Credit Xiao and collaborators; link CC BY 4.0; retain the separate BigBrain notice and do not imply expert validation.",
+      "bundledNotice": "BIGBRAIN-MANUAL-LICENSE.txt"
+    },
+    {
+      "id": "combined-practical-segmentation",
+      "pattern": "^bigbrain-practical-segmentation-icbm500(?:\\.bin\\.gz|-validation\\.json)$",
+      "source": "Combined exact-grid teaching labels: Xiao manual labels, CerebrA-derived provisional masks, and project-authored image-guided candidates",
+      "sourceUrl": "https://github.com/bonnginn/brain-practical-navi/blob/main/DATA_AND_LICENSES.md",
+      "license": "Mixed by label source; distributed with the non-commercial BigBrain teaching package",
+      "licenseUrl": "https://github.com/bonnginn/brain-practical-navi/blob/main/LICENSES.md",
+      "modifications": "Merge into unused label IDs, exact-grid validation, compression, provenance and confidence metadata.",
+      "displayObligation": "Show manual, atlas-provisional and image-guided status separately; retain all BigBrain, Xiao, MNI and project notices; never describe the combined file as anatomical ground truth.",
+      "bundledNotice": "ATTRIBUTION.txt"
+    },
+    {
+      "id": "mni-cerebra-browser-assets",
+      "pattern": "^(mni-cerebra-1mm\\.bin\\.gz|labels\\.json|pial-(left|right)\\.mesh|(?:caudate|hippocampus|thalamus|ventricle)\\.mesh|segment-[^.]+\\.mesh|surface-region-labels\\.json|section-(optic-chiasm|insula)\\.mesh)$",
+      "source": "MNI152NLin2009cSym, CerebrA and MNI152 high-density white surfaces via TemplateFlow/BigBrainWarp",
+      "sourceUrl": "https://github.com/templateflow/tpl-MNI152NLin2009cSym",
+      "license": "MNI data license",
+      "licenseUrl": "https://github.com/templateflow/tpl-MNI152NLin2009cSym/blob/master/License.txt",
+      "modifications": "1 mm browser volume, label lookup, pial-like normal expansion, sulcal shading, volumetric mesh extraction, surface-region sampling, and provisional exact-grid mesh extraction.",
+      "displayObligation": "Retain the MNI copyright notice in every copy; identify CerebrA and derived/provisional transformations; do not imply endorsement or validated morphometry.",
+      "bundledNotice": "LICENSE.txt"
+    },
+    {
+      "id": "specimen-block-assets",
+      "pattern": "^(specimen-blocks\\.json|block-[^.]+\\.mesh)$",
+      "source": "Mixed per-file sources recorded in specimen-blocks.json: BigBrain-derived tissue, manual labels, provisional same-grid labels, and project-authored schematic parts",
+      "sourceUrl": "https://github.com/bonnginn/brain-practical-navi/blob/main/public/atlas/specimen-blocks.json",
+      "license": "Per sourceType; the distributed specimen package retains CC BY-NC-SA 4.0 for BigBrain derivatives and project teaching parts, CC BY 4.0 attribution for Xiao labels, and MNI terms where applicable",
+      "licenseUrl": "https://github.com/bonnginn/brain-practical-navi/blob/main/DATA_AND_LICENSES.md",
+      "modifications": "BigBrain tissue reduced to 1 mm geometry with shade values; labelled and schematic structures separated into detachable parts.",
+      "displayObligation": "Use each file's sourceType; show specimen-derived, manual/provisional segmentation and schematic parts separately; retain non-commercial teaching-package notice and no-ground-truth disclaimer.",
+      "bundledNotice": "BIGBRAIN-DATA-LICENSE.txt"
+    },
+    {
+      "id": "project-authored-teaching-overlays",
+      "pattern": "^(surface-landmarks\\.json|surface-landmark-[^.]+\\.mesh|basal-landmarks\\.json|landmark-[^.]+\\.mesh|neurovascular-overlays\\.json|overlay-[^.]+\\.mesh)$",
+      "source": "Brain Practical Navigator contributors; manually placed or procedurally generated teaching paths and shapes",
+      "sourceUrl": "https://github.com/bonnginn/brain-practical-navi",
+      "license": "CC BY-NC-SA 4.0 for generated teaching data; generator source is AGPL-3.0-or-later",
+      "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+      "modifications": "Projection to the application display space and conversion into lightweight WebGL meshes with selectable IDs where applicable.",
+      "displayObligation": "Identify as schematic or position guide; state major omissions; prohibit clinical or quantitative interpretation; imply no validation or endorsement.",
+      "bundledNotice": "PROCEDURAL-NEUROVASCULAR-NOTICE.txt"
+    },
+    {
+      "id": "notices-and-attribution",
+      "pattern": "^(ATTRIBUTION\\.txt|BIGBRAIN-DATA-LICENSE\\.txt|BIGBRAIN-MANUAL-LICENSE\\.txt|LICENSE\\.txt|PROCEDURAL-NEUROVASCULAR-NOTICE\\.txt)$",
+      "source": "License, attribution and disclosure texts accompanying the distributed data",
+      "sourceUrl": "https://github.com/bonnginn/brain-practical-navi/blob/main/DATA_AND_LICENSES.md",
+      "license": "Informational notices; underlying terms are named in each file",
+      "licenseUrl": "https://github.com/bonnginn/brain-practical-navi/blob/main/LICENSES.md",
+      "modifications": "Project-maintained distribution notices.",
+      "displayObligation": "Ship these notices unchanged with every copy of the corresponding browser assets.",
+      "bundledNotice": "ATTRIBUTION.txt"
+    }
+  ]
+}

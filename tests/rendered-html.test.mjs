@@ -116,6 +116,27 @@ test("publishes complete browser and social metadata", async () => {
   assert.match(favicon, /stroke="#e36e57"/);
 });
 
+test("loads privacy-first analytics only on public production hosts", async () => {
+  const [html, analytics, main, env, readme] = await Promise.all([
+    readFile(new URL("index.html", root), "utf8"),
+    readFile(new URL("src/analytics.ts", root), "utf8"),
+    readFile(new URL("src/main.tsx", root), "utf8"),
+    readFile(new URL(".env.example", root), "utf8"),
+    readFile(new URL("README.md", root), "utf8"),
+  ]);
+  assert.doesNotMatch(html, /static\.cloudflareinsights\.com/);
+  assert.match(main, /installPublicAnalytics\(\)/);
+  assert.match(analytics, /!import\.meta\.env\.PROD/);
+  assert.match(analytics, /location\.protocol !== "https:"/);
+  assert.match(analytics, /LOCAL_HOSTS\.has\(location\.hostname\)/);
+  assert.match(analytics, /localhost/);
+  assert.match(analytics, /127\.0\.0\.1/);
+  assert.match(analytics, /data-brain-practical-analytics/);
+  assert.match(env, /VITE_CLOUDFLARE_ANALYTICS_TOKEN=/);
+  assert.match(readme, /公開HTTPSホストの本番版だけ/);
+  assert.match(readme, /CookieやlocalStorageを使わず/);
+});
+
 test("keeps official labels separate from provisional teaching overlays", async () => {
   const [labelFile, metadataFile] = await Promise.all([
     readFile(new URL("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz", root)),
@@ -571,6 +592,54 @@ test("bundles valid WebGL meshes and the required data notices", async () => {
   assert.ok(notices.every(text => text.trim().length > 200));
   assert.match(notices[0], /procedurally generated teaching meshes/);
   assert.match(notices.at(-1), /not\s+extracted from BigBrain histology/);
+});
+
+test("maps every distributed atlas file to source, changes, license, and display duties", async () => {
+  const atlasUrl = new URL("public/atlas/", root);
+  const manifest = JSON.parse(await readFile(new URL("DATA-MANIFEST.json", atlasUrl), "utf8"));
+  const files = (await readdir(atlasUrl)).filter(name => name !== "DATA-MANIFEST.json").sort();
+  assert.ok(manifest.groups.length >= 7);
+  for (const group of manifest.groups) {
+    assert.ok(group.id && group.pattern && group.source && group.license && group.modifications && group.displayObligation && group.bundledNotice, group.id);
+    await stat(new URL(group.bundledNotice, atlasUrl));
+  }
+  for (const file of files) {
+    const matches = manifest.groups.filter(group => new RegExp(group.pattern).test(file));
+    assert.equal(matches.length, 1, `${file} provenance groups: ${matches.map(group => group.id).join(", ")}`);
+  }
+
+  const specimen = JSON.parse(await readFile(new URL("specimen-blocks.json", atlasUrl), "utf8"));
+  const recordedBlockFiles = new Set(Object.values(specimen.specimens).flat().map(part => part.file));
+  const distributedBlockFiles = new Set(files.filter(name => name.startsWith("block-") && name.endsWith(".mesh")));
+  assert.deepEqual(recordedBlockFiles, distributedBlockFiles);
+  for (const part of Object.values(specimen.specimens).flat()) assert.ok(part.sourceType, part.file);
+
+  const [surface, basal, neurovascular] = await Promise.all([
+    readFile(new URL("surface-landmarks.json", atlasUrl), "utf8").then(JSON.parse),
+    readFile(new URL("basal-landmarks.json", atlasUrl), "utf8").then(JSON.parse),
+    readFile(new URL("neurovascular-overlays.json", atlasUrl), "utf8").then(JSON.parse),
+  ]);
+  const recordedProjectMeshes = new Set([
+    ...surface.landmarks.map(item => item.file),
+    ...basal.meshes.map(item => item.file),
+    ...neurovascular.groups.map(item => item.file),
+  ]);
+  const distributedProjectMeshes = new Set(files.filter(name => /^(surface-landmark-|landmark-|overlay-).+\.mesh$/.test(name)));
+  assert.deepEqual(recordedProjectMeshes, distributedProjectMeshes);
+});
+
+test("does not distribute third-party lecture or specimen imagery", async () => {
+  const [publicEntries, notice] = await Promise.all([
+    readdir(new URL("public/", root), { recursive: true }),
+    readFile(new URL("public/ASSET-NOTICE.txt", root), "utf8"),
+  ]);
+  const rasterOrDocuments = publicEntries
+    .map(path => String(path).replaceAll("\\", "/"))
+    .filter(path => /\.(png|jpe?g|webp|gif|tiff?|pdf|pptx?|docx?)$/i.test(path));
+  assert.deepEqual(rasterOrDocuments, ["og.png"]);
+  assert.match(notice, /not a scan, photograph, or reproduction/);
+  assert.match(notice, /not used as anatomical evidence/);
+  assert.match(notice, /No lecture slides, textbook figures, web specimen photographs/);
 });
 
 test("keeps the browser distribution below the beta asset budget", async () => {
