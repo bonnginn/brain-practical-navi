@@ -66,6 +66,7 @@
 .structureGroupGrid button.partial { border-color: #9fb5af; background: #eef3f0; }
 .structureGroupGrid button:disabled { cursor: default; opacity: .42; }
 .mobileSectionStructurePicker { display: none; }
+.mobileContextToggle,.mobileRailBackdrop,.mobileRailSheetHead { display: none; }
 .bookNotice b { font-size: 15px; }
 .bookNotice p { font-size: 14px; }
 .bookNotice span { font-size: 15px; }
@@ -942,6 +943,54 @@ html, body, #root { height: 100%; overflow: hidden; }
   .legalButton::after{content:"条件";font-size:12px}
   .workspaceSwitch button{min-width:84px}
   .specimenAttachmentControls{left:8px;right:64px;max-width:none}
+}
+
+/* Phone workspace: keep every tool, but stop shrinking the desktop rails into
+   the viewport. Primary destinations live in a bottom dock; page-specific
+   controls open as a labelled bottom sheet above it. */
+@media(max-width:760px){
+  .appShell{padding:54px 0 76px}
+  .topbar{height:54px;padding-inline:7px;gap:4px}
+  .brand{min-width:40px}
+  .brandMark{width:38px;height:38px}
+  .brand>span:last-child{display:none}
+  .topActions{margin-left:auto;gap:3px}
+  .helpButton,.feedbackButton,.legalButton{min-width:42px;padding:7px 4px;font-size:0;white-space:nowrap}
+  .helpButton::after{content:"操作";font-size:12px}
+  .feedbackButton::after{content:"共同";font-size:12px}
+  .legalButton::after{content:"条件";font-size:12px}
+  .workspaceSwitch{position:fixed;z-index:50;left:0;right:0;bottom:0;height:66px;display:grid;grid-template-columns:repeat(6,minmax(61px,1fr));gap:0;overflow-x:auto;border-top:1px solid #aeb4af;background:#f8f7f3;box-shadow:0 -8px 24px rgba(25,34,34,.12);scrollbar-width:none}
+  .workspaceSwitch button{min-width:61px;height:65px;padding:7px 2px 5px;border:0;border-right:1px solid #d9dbd6;background:transparent}
+  .workspaceSwitch button:last-child{border-right:0}
+  .workspaceSwitch button.active{box-shadow:inset 0 3px #1d6e69;background:#e8efeb}
+  .workspaceSwitch button>span{font-size:10px;line-height:1.25;white-space:normal}
+  .workspaceSwitch button>i{display:block;margin-top:3px;font-size:9px;line-height:1}
+  .mobileContextToggle{position:fixed;z-index:43;right:12px;bottom:76px;display:flex;align-items:center;gap:9px;min-height:44px;padding:9px 12px;border:1px solid #527b76;border-radius:23px;background:#1f4542;color:#fff;box-shadow:0 7px 20px rgba(17,33,32,.28);font-size:13px;font-weight:700}
+  .mobileContextToggle b{font-size:10px;font-weight:500;opacity:.78}
+  .mobileRailBackdrop{position:fixed;z-index:44;inset:54px 0 66px;display:none;border:0;background:rgba(18,28,28,.46)}
+  .mobileRailBackdrop.visible{display:block}
+  .appShell .leftRail{position:fixed;z-index:45;left:0;right:0;top:auto;bottom:66px;width:auto;height:auto;max-height:min(72vh,620px);display:block;padding:0 12px 18px;overflow-x:hidden;overflow-y:auto;border:1px solid #aeb4af;border-width:1px 0 0;background:#f5f3ed;box-shadow:0 -18px 44px rgba(18,28,28,.26);transform:translateY(calc(100% + 8px));visibility:hidden;pointer-events:none;transition:transform .2s ease,visibility .2s}
+  .appShell .leftRail.mobileOpen{transform:translateY(0);visibility:visible;pointer-events:auto}
+  .mobileRailSheetHead{position:sticky;z-index:3;top:0;display:flex;align-items:center;justify-content:space-between;min-height:52px;margin:0 -12px 10px;padding:8px 12px;border-bottom:1px solid #c5c8c2;background:#f5f3edf2;backdrop-filter:blur(8px)}
+  .mobileRailSheetHead b{font-size:15px}
+  .mobileRailSheetHead button{width:38px;height:38px;border:1px solid #b8bcb6;border-radius:50%;background:#fff;font-size:21px}
+  .leftRail>.eyebrow,.leftRail .railLine,.leftRail .structureBtn,.leftRail .bookNotice{display:flex}
+  .leftRail>.eyebrow{margin:12px 0 8px}
+  .leftRail .railLine{display:block}
+  .leftRail .planeBtn{width:100%;min-width:0;display:grid;grid-template-columns:40px minmax(0,1fr);padding:11px 10px;text-align:left}
+  .appShell .leftRail .lessonRailBtn{min-width:0}
+  .leftRail .planeBtn>span,.leftRail .planeBtn small{display:block}
+  .leftRail .planeBtn.active:before{inset:0 auto 0 0;width:3px;height:auto}
+  .leftRail .structureGroupGrid{display:grid;grid-template-columns:1fr 1fr;margin-inline:0}
+  .leftRail .clearStructures{display:block;width:100%;margin-inline:0;min-height:38px;text-align:center}
+  .leftRail .sectionStructureButtons{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+  .leftRail .structureBtn{min-height:44px;padding:8px 9px;border:1px solid #ccd0ca}
+  .mobileSectionStructurePicker{display:none}
+  .workArea{padding-bottom:34px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .leftRail{transition:none}
 }
 
 /* Accessibility contrast pass for small text on the paper-coloured UI.

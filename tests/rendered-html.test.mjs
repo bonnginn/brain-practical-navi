@@ -1602,31 +1602,29 @@ test("complex workspaces expose visible keyboard focus and a main-content shortc
   assert.match(editor, /aria-label="差分JSONファイルを選択"/);
 });
 
-test("narrow layouts keep destination rails and full workflow panels distinct", async () => {
+test("phone layouts use a bottom workspace dock and a complete context sheet", async () => {
   const [page, css] = await Promise.all([
     readFile(new URL("app/page.tsx", root), "utf8"),
     readFile(new URL("app/canvas.css", root), "utf8"),
   ]);
   assert.match(page, /appShell workspace-\$\{workspace\}/);
   assert.match(page, /aria-label="意見・共同制作を表示"/);
-  assert.match(css, /\.leftRail \.lessonRailBtn\{min-width:136px;display:grid/);
-  assert.match(css, /\.leftRail \.planeBtn small\{display:none\}/);
   assert.match(css, /html\{-webkit-text-size-adjust:100%;text-size-adjust:100%\}/);
-  assert.match(css, /\.workspace-surface \.leftRail,[\s\S]*\.workspace-blocks \.leftRail\{position:static;z-index:18;top:auto;bottom:auto;height:70px/);
-  assert.match(css, /\.workspace-surface \.leftRail \.lessonRailBtn,[\s\S]*\.workspace-blocks \.leftRail \.lessonRailBtn\{min-width:128px;scroll-snap-align:start\}/);
-  assert.match(page, /details className="mobileSectionStructurePicker"[\s\S]*構造を選ぶ[\s\S]*renderSectionStructureControls\(\)/);
-  assert.match(css, /\.mobileSectionStructurePicker\{display:block;[\s\S]*max-height:min\(58vh,520px\)/);
-  assert.match(css, /\.mobileSectionStructurePicker \.sectionStructureButtons\{display:grid;grid-template-columns:1fr 1fr/);
-  assert.match(css, /\.mobileSectionStructurePicker \.structureBtn\{display:flex;min-width:0;min-height:44px/);
+  assert.match(page, /className=\{`mobileRailBackdrop \$\{mobileRailOpen\?"visible":""\}`\}/);
+  assert.match(page, /className="mobileContextToggle" aria-expanded=\{mobileRailOpen\}/);
+  assert.match(page, /id="mobile-context-panel" className=\{`leftRail rail-\$\{workspace\} \$\{mobileRailOpen\?"mobileOpen":""\}`\}/);
+  assert.match(page, /断面と表示構造[\s\S]*復習クイズの設定[\s\S]*編集ツールの手順/);
+  assert.match(css, /\.workspaceSwitch\{position:fixed;z-index:50;left:0;right:0;bottom:0;height:66px/);
+  assert.match(css, /\.mobileContextToggle\{position:fixed;z-index:43;right:12px;bottom:76px/);
+  assert.match(css, /\.appShell \.leftRail\{position:fixed;z-index:45;[\s\S]*bottom:66px;[\s\S]*max-height:min\(72vh,620px\)/);
+  assert.match(css, /\.appShell \.leftRail\.mobileOpen\{transform:translateY\(0\);visibility:visible;pointer-events:auto\}/);
+  assert.match(css, /\.leftRail \.sectionStructureButtons\{display:grid;grid-template-columns:1fr 1fr/);
+  assert.match(css, /\.mobileSectionStructurePicker\{display:none\}/);
   assert.doesNotMatch(page, /landmarks\.map\(mark/);
-  assert.match(css, /\.workspace-quiz \.leftRail,/);
-  assert.match(css, /\.workspace-segment \.leftRail\{position:static/);
-  assert.match(css, /\.workspace-quiz \.quizSetup\{margin:10px 0 0\}/);
   assert.match(css, /@media\(max-width:380px\)\{\.learningModelCard \.panelHead\{min-width:0;flex-wrap:wrap/);
-  assert.match(css, /@media\(max-width:380px\)[\s\S]*\.helpButton::after\{content:"操作";font-size:12px\}/);
-  assert.match(css, /@media\(max-width:380px\)[\s\S]*\.feedbackButton::after\{content:"共同";font-size:12px\}/);
-  assert.match(css, /@media\(max-width:380px\)[\s\S]*\.legalButton::after\{content:"条件";font-size:12px\}/);
-  assert.match(css, /@media\(max-width:380px\)[\s\S]*\.workspaceSwitch button\{min-width:84px\}/);
+  assert.match(css, /\.helpButton::after\{content:"操作";font-size:12px\}/);
+  assert.match(css, /\.feedbackButton::after\{content:"共同";font-size:12px\}/);
+  assert.match(css, /\.legalButton::after\{content:"条件";font-size:12px\}/);
   assert.match(css, /@media\(max-width:380px\)[\s\S]*\.specimenAttachmentControls\{left:8px;right:64px;max-width:none\}/);
 });
 
