@@ -914,6 +914,20 @@ html, body, #root { height: 100%; overflow: hidden; }
 
 @media(max-width:760px){.specimenViewControls{right:8px;bottom:8px}.specimenAttachmentControls{bottom:66px}}
 
+/* A 320 px phone cannot carry desktop-length utility labels beside the brand.
+   Keep the same destinations and accessible names, but give the mobile header
+   its own concise visual vocabulary instead of allowing labels to stack. */
+@media(max-width:380px){
+  .topbar{grid-template-columns:44px minmax(0,1fr) auto;column-gap:4px;padding-inline:4px}
+  .topActions{gap:2px}
+  .helpButton,.feedbackButton,.legalButton{min-width:44px;padding-inline:5px;font-size:0;white-space:nowrap}
+  .helpButton::after{content:"操作";font-size:12px}
+  .feedbackButton::after{content:"共同";font-size:12px}
+  .legalButton::after{content:"条件";font-size:12px}
+  .workspaceSwitch button{min-width:84px}
+  .specimenAttachmentControls{left:8px;right:64px;max-width:none}
+}
+
 /* Accessibility contrast pass for small text on the paper-coloured UI.
    These are functional labels rather than decorative watermark text. */
 .brand small { color: #596360; }

@@ -1555,6 +1555,11 @@ test("narrow layouts keep destination rails and full workflow panels distinct", 
   assert.match(css, /\.workspace-segment \.leftRail\{position:static/);
   assert.match(css, /\.workspace-quiz \.quizSetup\{margin:10px 0 0\}/);
   assert.match(css, /@media\(max-width:380px\)\{\.learningModelCard \.panelHead\{min-width:0;flex-wrap:wrap/);
+  assert.match(css, /@media\(max-width:380px\)[\s\S]*\.helpButton::after\{content:"操作";font-size:12px\}/);
+  assert.match(css, /@media\(max-width:380px\)[\s\S]*\.feedbackButton::after\{content:"共同";font-size:12px\}/);
+  assert.match(css, /@media\(max-width:380px\)[\s\S]*\.legalButton::after\{content:"条件";font-size:12px\}/);
+  assert.match(css, /@media\(max-width:380px\)[\s\S]*\.workspaceSwitch button\{min-width:84px\}/);
+  assert.match(css, /@media\(max-width:380px\)[\s\S]*\.specimenAttachmentControls\{left:8px;right:64px;max-width:none\}/);
 });
 
 test("ships a reproducible Google Form generator for feedback and collaborators", async () => {
