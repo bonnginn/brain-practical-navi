@@ -978,7 +978,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 /* Phone workspace: keep every tool, but stop shrinking the desktop rails into
    the viewport. Primary destinations live in a bottom dock; page-specific
    controls open as a labelled bottom sheet above it. */
-@media(max-width:760px){
+@media(max-width:760px) and (hover:none) and (pointer:coarse){
   .appShell{padding:calc(54px + env(safe-area-inset-top,0px)) 0 calc(76px + env(safe-area-inset-bottom,0px))}
   .topbar{height:calc(54px + env(safe-area-inset-top,0px));padding:env(safe-area-inset-top,0px) 7px 0;gap:4px}
   .brand{min-width:40px}

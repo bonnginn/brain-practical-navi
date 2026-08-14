@@ -1612,13 +1612,14 @@ test("phone layouts use a bottom workspace dock and a complete context sheet", a
   assert.match(css, /html\{-webkit-text-size-adjust:100%;text-size-adjust:100%\}/);
   assert.match(page, /className=\{`mobileRailBackdrop \$\{mobileRailOpen\?"visible":""\}`\}/);
   assert.match(page, /className="mobileContextToggle" aria-expanded=\{mobileRailOpen\}/);
-  assert.match(page, /id="mobile-context-panel" className=\{`leftRail rail-\$\{workspace\} \$\{mobileRailOpen\?"mobileOpen":""\}`\} role=\{compactViewport\?"dialog":undefined\}/);
-  assert.match(page, /aria-modal=\{compactViewport&&mobileRailOpen\?true:undefined\}/);
+  assert.match(page, /matchMedia\("\(max-width: 760px\) and \(hover: none\) and \(pointer: coarse\)"\)/);
+  assert.match(page, /id="mobile-context-panel" className=\{`leftRail rail-\$\{workspace\} \$\{mobileRailOpen\?"mobileOpen":""\}`\} role=\{phoneViewport\?"dialog":undefined\}/);
+  assert.match(page, /aria-modal=\{phoneViewport&&mobileRailOpen\?true:undefined\}/);
   assert.match(page, /断面と表示構造[\s\S]*復習クイズの設定[\s\S]*編集ツールの手順/);
   assert.match(page, /document\.body\.style\.overflow="hidden"/);
   assert.match(page, /\.mobileRailSheetHead button[\s\S]*focus\(\{preventScroll:true\}\)/);
   assert.match(page, /if\(event\.shiftKey&&document\.activeElement===first\)[\s\S]*last\.focus\(\)/);
-  assert.match(css, /\.workspaceSwitch\{position:fixed;z-index:50;left:0;right:0;bottom:0;height:calc\(66px \+ env\(safe-area-inset-bottom,0px\)\)/);
+  assert.match(css, /@media\(max-width:760px\) and \(hover:none\) and \(pointer:coarse\)\{[\s\S]*\.workspaceSwitch\{position:fixed;z-index:50;left:0;right:0;bottom:0;height:calc\(66px \+ env\(safe-area-inset-bottom,0px\)\)/);
   assert.match(css, /\.mobileContextToggle\{position:fixed;z-index:43;right:12px;bottom:calc\(76px \+ env\(safe-area-inset-bottom,0px\)\)/);
   assert.match(css, /\.appShell \.leftRail\{position:fixed;z-index:45;[\s\S]*bottom:calc\(66px \+ env\(safe-area-inset-bottom,0px\)\);[\s\S]*max-height:min\(72dvh,620px\)/);
   assert.match(css, /\.appShell \.leftRail\.mobileOpen\{transform:translateY\(0\);visibility:visible;pointer-events:auto\}/);
