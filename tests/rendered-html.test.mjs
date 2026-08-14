@@ -1213,7 +1213,7 @@ test("block specimens support continuous rotation and reuse the shared WebGL ren
   assert.match(canvas, /const loadOptional=\(needed:boolean,name:string\)=>needed\?loadMesh\(name\):Promise\.resolve\(EMPTY_MESH\)/);
   assert.match(canvas, /loadOptional\(wantVessels,"overlay-arteries-anterior"\)/);
   assert.match(canvas, /loadOptional\(surfaceLandmarks\.includes\(item\.key\),`surface-landmark-\$\{item\.key\}`\)/);
-  assert.match(canvas, /\[kind,specimenBlock,view,neurovascularOverlay,showBasalLandmarks,surfaceLandmarkKey,surfaceDeepLandmarkKey,retryVersion\]/);
+  assert.match(canvas, /\[kind,specimenBlock,effectiveSurfaceView,effectiveNeurovascularOverlay,showBasalLandmarks,surfaceLandmarkKey,surfaceDeepLandmarkKey,surfaceHighlightKey,retryVersion\]/);
   assert.match(canvas, /let active=true;setBlockMeshes\(null\);setError\(""\)/);
   assert.match(canvas, /return\(\)=>\{active=false\}/);
   assert.match(canvas, /az=\(rot\.z\?\?0\)\*Math\.PI\/180/);
@@ -1320,6 +1320,32 @@ test("surface quiz questions use labelled high-density pial regions", async () =
   assert.match(page, /function shuffledItems<T>\(items:readonly T\[\]\)/);
   assert.match(page, /options:shuffledItems\(question\.options\)/);
   assert.match(page, /useState<QuizQuestion\[\]>\(\(\)=>shuffledQuestions\(standardQuizQuestions\)\.slice\(0,10\)\)/);
+});
+
+test("neurovascular quiz stays opt-in and highlights decoded overlay structures", async () => {
+  const [page, canvas] = await Promise.all([
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8"),
+  ]);
+  const pattern = /\{target:"(quiz[^"]+)",category:"neurovascular",view:"(arteries|cranialNerves)",prompt:"[^"]+",options:\[([^\]]+)\]\}/g;
+  const questions = [...page.matchAll(pattern)];
+  assert.equal(questions.length, 9);
+  for (const [, target, view, rawOptions] of questions) {
+    const options = [...rawOptions.matchAll(/"([^"]+)"/g)].map(match => match[1]);
+    assert.equal(options.length, 4);
+    assert.ok(options.includes(target), `${target} must be an option`);
+    assert.ok(options.every(option => option.startsWith("quiz")));
+    assert.equal(view, target.startsWith("quizCn") ? "cranialNerves" : "arteries");
+  }
+  assert.match(page, /surfaceRegionKeys=.*filter\(key=>!key\.startsWith\("quiz"\)\)/);
+  assert.match(page, /function isProvisionalQuiz\(question:QuizQuestion\)\{return isSurfaceQuiz\(question\)/);
+  assert.match(page, /isNeurovascularQuizTarget\(question\.target\)[\s\S]*setSelectedNeurovascularStructure\(neurovascularQuizTargets\[question\.target\]\)/);
+  assert.match(canvas, /QUIZ_VESSEL_ID_OFFSET=1000,QUIZ_NERVE_ID_OFFSET=2000/);
+  assert.match(canvas, /effectiveNeurovascularOverlay=neurovascularOverlay!=="none"\?neurovascularOverlay:quizNeurovascularOverlay/);
+  assert.match(canvas, /effectiveSurfaceView=quizNeurovascularOverlay!=="none"\?"ghost":view/);
+  assert.match(canvas, /effectiveShowCerebellum=quizNeurovascularOverlay!=="none"\?false:showCerebellum/);
+  assert.match(canvas, /id>=QUIZ_NERVE_ID_OFFSET\?id-QUIZ_NERVE_ID_OFFSET:id-QUIZ_VESSEL_ID_OFFSET/);
+  assert.match(canvas, /effectiveSurfaceHighlights=surfaceHighlights[\s\S]*id<QUIZ_VESSEL_ID_OFFSET/);
 });
 
 test("medial surface quiz keeps the same isolated-hemisphere anatomy as study mode", async () => {

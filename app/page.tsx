@@ -11,7 +11,8 @@ type OverlayMode = "help" | "feedback" | "legal";
 type SurfaceViewKey = "lateral" | "superior" | "inferior" | "medial" | "arteries" | "cranialNerves" | "free";
 const surfaceViewKeys:SurfaceViewKey[]=["lateral","superior","inferior","medial","arteries","cranialNerves","free"];
 const planeKeys:Plane[]=["coronal","horizontal","sagittal"];
-type SurfaceRegionKey = "precentral" | "postcentral" | "superiorFrontal" | "rostralMiddleFrontal" | "caudalMiddleFrontal" | "inferiorFrontal" | "parsOrbitalis" | "superiorTemporal" | "middleTemporal" | "inferiorTemporal" | "transverseTemporal" | "supramarginal" | "superiorParietal" | "inferiorParietal" | "paracentral" | "precuneus" | "cuneus" | "pericalcarine" | "lingual" | "fusiform" | "parahippocampal" | "entorhinal" | "insula" | "orbitofrontal" | "lateralOccipital" | "cingulate";
+type NeurovascularQuizRegionKey = "quizIca" | "quizAca" | "quizMca" | "quizBasilar" | "quizPca" | "quizCn3" | "quizCn5" | "quizCn7" | "quizCn10" | "quizCn12";
+type SurfaceRegionKey = "precentral" | "postcentral" | "superiorFrontal" | "rostralMiddleFrontal" | "caudalMiddleFrontal" | "inferiorFrontal" | "parsOrbitalis" | "superiorTemporal" | "middleTemporal" | "inferiorTemporal" | "transverseTemporal" | "supramarginal" | "superiorParietal" | "inferiorParietal" | "paracentral" | "precuneus" | "cuneus" | "pericalcarine" | "lingual" | "fusiform" | "parahippocampal" | "entorhinal" | "insula" | "orbitofrontal" | "lateralOccipital" | "cingulate" | NeurovascularQuizRegionKey;
 type SurfaceLandmarkKey = "central-sulcus" | "precentral-sulcus" | "lateral-sulcus" | "superior-frontal-sulcus" | "parieto-occipital-sulcus" | "calcarine-sulcus" | "olfactory-sulcus" | "longitudinal-fissure";
 type SurfaceDeepLandmarkKey = "corpus-callosum" | "septum-pellucidum" | "fornix" | "thalami" | "hypothalamus";
 type BasalLandmarkKey = "all" | "olfactory" | "optic" | "hypothalamus" | "infundibulum" | "mammillary" | "perforated" | "peduncles" | "midbrain" | "superior-colliculi" | "inferior-colliculi" | "pons" | "medulla" | "pyramids" | "olives";
@@ -33,10 +34,10 @@ const labelSourceDisplay:Record<LabelSource,{label:string;detail:string;classNam
   "atlas-provisional":{label:"アトラス照合・試作",detail:"別アトラスを位置照合した教育用候補です。手動正解分節ではありません。",className:"provisional"},
   "image-guided":{label:"画像誘導・試作",detail:"画像を参照して作成した未確定の教育用候補です。",className:"provisional"},
 };
-type QuizCategory = "basal" | "limbic" | "midbrain" | "ventricles" | "connections" | "hindbrain" | "surface";
+type QuizCategory = "basal" | "limbic" | "midbrain" | "ventricles" | "connections" | "hindbrain" | "surface" | "neurovascular";
 type QuizTargetKey = StructureKey | SurfaceRegionKey;
-type SectionQuizQuestion = { target: StructureKey; category: Exclude<QuizCategory,"surface">; plane: Plane; position: number; prompt: string; options: StructureKey[] };
-type SurfaceQuizQuestion = { target: SurfaceRegionKey; category: "surface"; view: SurfaceViewKey; prompt: string; options: SurfaceRegionKey[] };
+type SectionQuizQuestion = { target: StructureKey; category: Exclude<QuizCategory,"surface" | "neurovascular">; plane: Plane; position: number; prompt: string; options: StructureKey[] };
+type SurfaceQuizQuestion = { target: SurfaceRegionKey; category: "surface" | "neurovascular"; view: SurfaceViewKey; prompt: string; options: SurfaceRegionKey[] };
 type QuizQuestion = SectionQuizQuestion | SurfaceQuizQuestion;
 
 const planeData: Record<Plane, { ja: string; en: string; axis: string; from: string; to: string }> = {
@@ -74,6 +75,7 @@ const quizCategories:{key:"all"|QuizCategory;label:string}[]=[
   {key:"connections",label:"間脳・白質"},
   {key:"hindbrain",label:"脳幹・小脳"},
   {key:"surface",label:"脳表・主要脳回"},
+  {key:"neurovascular",label:"脳底血管・脳神経（試作）"},
 ];
 const QUIZ_WRONG_CACHE_KEY="brain-practical-quiz-wrong-v1";
 
@@ -114,8 +116,18 @@ const surfaceRegions:Record<SurfaceRegionKey,{name:string;latin:string;ids:numbe
   orbitofrontal:{name:"眼窩前頭皮質",latin:"Cortex orbitofrontalis",ids:[58,7,66,15],color:"#d4775b",rgb:[212,119,91],note:"前頭葉下面の眼窩面"},
   lateralOccipital:{name:"外側後頭皮質",latin:"Cortex occipitalis lateralis",ids:[85,34],color:"#4d7e97",rgb:[77,126,151],note:"後頭葉外側面の広い領域"},
   cingulate:{name:"帯状回",latin:"Gyrus cinguli",ids:[81,30,59,8,98,47,84,33],color:"#c86044",rgb:[200,96,68],note:"脳梁の上方を前後へ取り巻く内側面の脳回"},
+  quizIca:{name:"内頸動脈",latin:"Internal carotid artery",ids:[1001,1002],color:"#f4f5f0",rgb:[244,245,240],note:"前方循環の入口で、脳底部から前大脳動脈と中大脳動脈へ分かれる。表示は標準的な位置関係を示す模式3Dです。"},
+  quizAca:{name:"前大脳動脈",latin:"Anterior cerebral artery",ids:[1003,1004],color:"#f4f5f0",rgb:[244,245,240],note:"視交叉の上方から大脳縦裂へ入り、内側面を前上方へ走る。表示は標準的な位置関係を示す模式3Dです。"},
+  quizMca:{name:"中大脳動脈",latin:"Middle cerebral artery",ids:[1006,1007],color:"#f4f5f0",rgb:[244,245,240],note:"内頸動脈から外側へ分かれ、外側溝へ向かう太い枝。表示は標準的な位置関係を示す模式3Dです。"},
+  quizBasilar:{name:"脳底動脈",latin:"Basilar artery",ids:[1012],color:"#f4f5f0",rgb:[244,245,240],note:"左右の椎骨動脈が合流し、橋腹側正中を上行して後大脳動脈へ分かれる。表示は模式3Dです。"},
+  quizPca:{name:"後大脳動脈",latin:"Posterior cerebral artery",ids:[1013,1014],color:"#f4f5f0",rgb:[244,245,240],note:"脳底動脈終末から中脳周囲を外側・後方へ回る。表示は標準的な位置関係を示す模式3Dです。"},
+  quizCn3:{name:"III 動眼神経",latin:"Oculomotor nerve",ids:[2026,2027],color:"#f4f5f0",rgb:[244,245,240],note:"中脳腹側の脚間窩から現れる。神経の太さと遠位走行は再現しない模式3Dです。"},
+  quizCn5:{name:"V 三叉神経",latin:"Trigeminal nerve",ids:[2030,2031],color:"#f4f5f0",rgb:[244,245,240],note:"橋外側から太い根として現れる。神経の太さと遠位走行は再現しない模式3Dです。"},
+  quizCn7:{name:"VII 顔面神経",latin:"Facial nerve",ids:[2034,2035],color:"#f4f5f0",rgb:[244,245,240],note:"橋延髄境界の外側で内耳神経の内側に並ぶ。表示は近位部のみの模式3Dです。"},
+  quizCn10:{name:"X 迷走神経",latin:"Vagus nerve",ids:[2040,2041],color:"#f4f5f0",rgb:[244,245,240],note:"舌咽神経の下方、延髄のオリーブ後溝に沿って現れる。表示は近位部のみの模式3Dです。"},
+  quizCn12:{name:"XII 舌下神経",latin:"Hypoglossal nerve",ids:[2044,2045],color:"#f4f5f0",rgb:[244,245,240],note:"延髄の錐体とオリーブの間にあるオリーブ前溝から現れる。表示は近位部のみの模式3Dです。"},
 };
-const surfaceRegionKeys=Object.keys(surfaceRegions) as SurfaceRegionKey[];
+const surfaceRegionKeys=(Object.keys(surfaceRegions) as SurfaceRegionKey[]).filter(key=>!key.startsWith("quiz"));
 
 const surfaceViewRegions:Record<SurfaceViewKey,SurfaceRegionKey[]>={
   lateral:["precentral","postcentral","inferiorFrontal","superiorTemporal","supramarginal","lateralOccipital"],
@@ -303,6 +315,11 @@ const neurovascularStructures:Record<NeurovascularStructureKey,{name:string;lati
   cn12:{name:"XII 舌下神経",latin:"Hypoglossal nerve",kind:"nerves",ids:[44,45],note:"錐体とオリーブの間にあるオリーブ前溝から現れる。"},
 };
 const neurovascularStructureKeys=Object.keys(neurovascularStructures) as NeurovascularStructureKey[];
+const neurovascularQuizTargets:Record<NeurovascularQuizRegionKey,NeurovascularStructureKey>={
+  quizIca:"ica",quizAca:"aca",quizMca:"mca",quizBasilar:"basilar",quizPca:"pca",
+  quizCn3:"cn3",quizCn5:"cn5",quizCn7:"cn7",quizCn10:"cn10",quizCn12:"cn12",
+};
+function isNeurovascularQuizTarget(key:SurfaceRegionKey):key is NeurovascularQuizRegionKey{return key in neurovascularQuizTargets}
 type FreeObservationKey=`region:${SurfaceRegionKey}`|`landmark:${SurfaceLandmarkKey}`|`deep:${SurfaceDeepLandmarkKey}`|`basal:${BasalLandmarkPartKey}`|`neuro:${NeurovascularStructureKey}`;
 type FreeObservationKind="脳回・皮質"|"溝・裂"|"深部構造"|"脳底構造"|"血管"|"脳神経";
 type FreeObservationItem={key:FreeObservationKey;kind:FreeObservationKind;name:string;latin:string;color:string;source:string;note:string};
@@ -421,6 +438,15 @@ const quizQuestions:QuizQuestion[]=[
   {target:"precuneus",category:"surface",view:"medial",prompt:"中心傍小葉の後方、頭頂後頭溝の前方にある領域はどれですか？",options:["precuneus","paracentral","cuneus","pericalcarine"]},
   {target:"cuneus",category:"surface",view:"medial",prompt:"頭頂後頭溝と鳥距溝に挟まれる領域はどれですか？",options:["cuneus","precuneus","lingual","pericalcarine"]},
   {target:"fusiform",category:"surface",view:"inferior",prompt:"側頭葉・後頭葉下面で内外側の溝間にある脳回はどれですか？",options:["fusiform","lingual","middleTemporal","orbitofrontal"]},
+  {target:"quizIca",category:"neurovascular",view:"arteries",prompt:"前方循環の入口となり、前大脳動脈と中大脳動脈へ分かれる血管はどれですか？",options:["quizIca","quizAca","quizMca","quizBasilar"]},
+  {target:"quizMca",category:"neurovascular",view:"arteries",prompt:"内頸動脈から外側へ分かれ、外側溝へ向かう血管はどれですか？",options:["quizMca","quizAca","quizPca","quizBasilar"]},
+  {target:"quizBasilar",category:"neurovascular",view:"arteries",prompt:"左右の椎骨動脈が合流し、橋腹側の正中を上行する血管はどれですか？",options:["quizBasilar","quizIca","quizAca","quizPca"]},
+  {target:"quizPca",category:"neurovascular",view:"arteries",prompt:"脳底動脈終末から中脳周囲を外側・後方へ回る血管はどれですか？",options:["quizPca","quizMca","quizAca","quizIca"]},
+  {target:"quizCn3",category:"neurovascular",view:"cranialNerves",prompt:"中脳腹側の脚間窩から現れる脳神経はどれですか？",options:["quizCn3","quizCn5","quizCn7","quizCn12"]},
+  {target:"quizCn5",category:"neurovascular",view:"cranialNerves",prompt:"橋外側から太い根として現れる脳神経はどれですか？",options:["quizCn5","quizCn3","quizCn7","quizCn10"]},
+  {target:"quizCn7",category:"neurovascular",view:"cranialNerves",prompt:"橋延髄境界の外側で、内耳神経の内側に並ぶ脳神経はどれですか？",options:["quizCn7","quizCn5","quizCn10","quizCn12"]},
+  {target:"quizCn10",category:"neurovascular",view:"cranialNerves",prompt:"延髄のオリーブ後溝で、舌咽神経の下方に現れる脳神経はどれですか？",options:["quizCn10","quizCn7","quizCn12","quizCn3"]},
+  {target:"quizCn12",category:"neurovascular",view:"cranialNerves",prompt:"延髄の錐体とオリーブの間から現れる脳神経はどれですか？",options:["quizCn12","quizCn10","quizCn7","quizCn5"]},
 ];
 
 function isSurfaceQuiz(question:QuizQuestion):question is SurfaceQuizQuestion{return "view" in question}
@@ -682,7 +708,7 @@ export default function Home() {
   function answerQuiz(key:QuizTargetKey){if(quizChoice||quizEmpty)return;setQuizChoice(key);const correct=key===quizQuestion.target;if(correct){setQuizScore(score=>score+1);if(wrongTargets.includes(quizQuestion.target))saveWrongTargets(wrongTargets.filter(target=>target!==quizQuestion.target))}else{setQuizMisses(previous=>previous.includes(quizQuestion.target)?previous:[...previous,quizQuestion.target]);if(!wrongTargets.includes(quizQuestion.target))saveWrongTargets([...wrongTargets,quizQuestion.target])}}
   function nextQuiz(){if(quizIndex>=quizQueue.length-1){setQuizChoice(null);setQuizFinished(true);return}setQuizChoice(null);setQuizIndex(index=>index+1)}
   function resetQuiz(){setQuizIndex(0);setQuizChoice(null);setQuizScore(0);setQuizMisses([]);setQuizFinished(false)}
-  function reviewQuizQuestion(question:QuizQuestion){if(isSurfaceQuiz(question)){openWorkspace("surface");chooseSurface(question.view);setSurfaceVisibleRegions([question.target]);return}openWorkspace("sections");window.history.replaceState(null,"",workspaceHash("sections",surfaceView,question.plane,blockSpecimen));setPlane(question.plane);setPosition(question.position);setVisibleStructures([question.target]);focusStructure(question.target,true);setLabels(true)}
+  function reviewQuizQuestion(question:QuizQuestion){if(isSurfaceQuiz(question)){openWorkspace("surface");chooseSurface(question.view);if(isNeurovascularQuizTarget(question.target)){setSurfaceVisibleRegions([]);setSelectedNeurovascularStructure(neurovascularQuizTargets[question.target])}else setSurfaceVisibleRegions([question.target]);return}openWorkspace("sections");window.history.replaceState(null,"",workspaceHash("sections",surfaceView,question.plane,blockSpecimen));setPlane(question.plane);setPosition(question.position);setVisibleStructures([question.target]);focusStructure(question.target,true);setLabels(true)}
   function retryQuiz(){setQuizQueue(previous=>shuffledQuestions(previous));resetQuiz()}
   function restoreAllQuiz(){setQuizWrongOnly(false);setQuizCategory("all");setQuizIncludeProvisional(false);setQuizQueue(shuffledQuestions(standardQuizQuestions).slice(0,quizCount));resetQuiz()}
   function resetWrongHistory(){saveWrongTargets([]);if(quizWrongOnly){setQuizQueue([]);resetQuiz()}}
