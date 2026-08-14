@@ -6,7 +6,7 @@
 
 現在は**公開α版**です。未収録・専門家未確認の構造を明示したうえで、神経解剖学の監修、セグメンテーション確認、3Dモデル、教材設計、Web実装の共同制作者を募集できる導線をアプリ内に用意しています。ブロック標本は位置関係を学ぶための試作教材として提供し、形状・範囲・接続関係の完全性や解剖学的正確性は保証しません。
 
-β版では、現行の断面・アトラス再構成モデルに加え、解剖知識に基づいて一から造形する教育用3Dモデルを試作し、同定しやすさと表示品質を比較する予定です。β版までの優先順位、完了条件、公開判断は [BETA_ROADMAP.md](BETA_ROADMAP.md)、利用前に確認すべき未完了事項は [KNOWN_LIMITATIONS.md](KNOWN_LIMITATIONS.md)、利用者に影響する更新は [CHANGELOG.md](CHANGELOG.md) に整理しています。
+β版では、現行の断面・アトラス再構成モデルに加え、解剖知識に基づいて一から造形する教育用3Dモデルを試作し、同定しやすさと表示品質を比較する予定です。β版までの優先順位、完了条件、公開判断は [BETA_ROADMAP.md](BETA_ROADMAP.md)、条件別の現在の証拠と待ち項目は [BETA_GATE_AUDIT.md](BETA_GATE_AUDIT.md)、利用前に確認すべき未完了事項は [KNOWN_LIMITATIONS.md](KNOWN_LIMITATIONS.md)、利用者に影響する更新は [CHANGELOG.md](CHANGELOG.md) に整理しています。
 
 > **公開条件（重要）**
 > 現在の配布物には BigBrain 由来データが含まれるため、公開・再配布は **非営利目的に限られます**。BigBrain 由来の改変データは CC BY-NC-SA 4.0 の表示・非営利・継承条件に従う必要があります。商用利用には権利者から別途許諾を得るか、該当データを商用利用可能な素材へ差し替えてください。
@@ -34,7 +34,7 @@
 
 本アプリは教育用です。診断、治療方針の決定、研究用の定量解析には使用できません。試作ラベルは解剖学的正解データではありません。
 
-講義範囲に対する実装状況と、必修／発展の優先順位は [LEARNING_SCOPE.md](LEARNING_SCOPE.md) に整理しています。全6資料との構造単位の照合と、標本分節・模式表示・未収録を区別した結果は [LECTURE_COVERAGE_AUDIT.md](LECTURE_COVERAGE_AUDIT.md)、構造表示の由来・確度・監修状況は [STRUCTURE_PROVENANCE.md](STRUCTURE_PROVENANCE.md)、専門家が画面別に判定する手順は [EXPERT_REVIEW_CHECKLIST.md](EXPERT_REVIEW_CHECKLIST.md)、公開α版の監査結果は [ALPHA_RELEASE_AUDIT.md](ALPHA_RELEASE_AUDIT.md)、β版への作業計画は [BETA_ROADMAP.md](BETA_ROADMAP.md)、既知の制限は [KNOWN_LIMITATIONS.md](KNOWN_LIMITATIONS.md)、変更履歴は [CHANGELOG.md](CHANGELOG.md) に記録しています。
+講義範囲に対する実装状況と、必修／発展の優先順位は [LEARNING_SCOPE.md](LEARNING_SCOPE.md) に整理しています。全6資料との構造単位の照合と、標本分節・模式表示・未収録を区別した結果は [LECTURE_COVERAGE_AUDIT.md](LECTURE_COVERAGE_AUDIT.md)、構造表示の由来・確度・監修状況は [STRUCTURE_PROVENANCE.md](STRUCTURE_PROVENANCE.md)、専門家が画面別に判定する手順は [EXPERT_REVIEW_CHECKLIST.md](EXPERT_REVIEW_CHECKLIST.md)、公開α版の監査結果は [ALPHA_RELEASE_AUDIT.md](ALPHA_RELEASE_AUDIT.md)、β版への作業計画は [BETA_ROADMAP.md](BETA_ROADMAP.md)、Go / No-Go証拠は [BETA_GATE_AUDIT.md](BETA_GATE_AUDIT.md)、既知の制限は [KNOWN_LIMITATIONS.md](KNOWN_LIMITATIONS.md)、変更履歴は [CHANGELOG.md](CHANGELOG.md) に記録しています。
 
 ## ローカル実行
 

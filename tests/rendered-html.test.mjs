@@ -697,18 +697,26 @@ test("keeps the browser distribution below the beta asset budget", async () => {
 });
 
 test("keeps representative first-view atlas payloads within measured M1 budgets", async () => {
-  const bytes = async names => (await Promise.all(names.map(name => stat(new URL(`public/atlas/${name}`, root))))).reduce((sum, item) => sum + item.size, 0);
-  const surface = await bytes([
-    "pial-left.mesh", "pial-right.mesh", "segment-cerebellum.mesh", "segment-pons-medulla.mesh", "segment-midbrain.mesh",
+  const { collectAssetAudit } = await import(new URL("scripts/audit_asset_budgets.mjs", root));
+  const audit = await collectAssetAudit();
+  for (const [name, result] of [["public", audit.public], ...Object.entries(audit.routes)]) {
+    assert.ok(result.bytes < result.limit, `${name} is ${(result.bytes / 1024 / 1024).toFixed(1)} MiB`);
+  }
+});
+
+test("keeps beta gates evidence-based without claiming release readiness", async () => {
+  const [gate, roadmap, performance, pkg] = await Promise.all([
+    readFile(new URL("BETA_GATE_AUDIT.md", root), "utf8"),
+    readFile(new URL("BETA_ROADMAP.md", root), "utf8"),
+    readFile(new URL("PERFORMANCE_AUDIT.md", root), "utf8"),
+    readFile(new URL("package.json", root), "utf8"),
   ]);
-  const section = surface + await bytes(["bigbrain-icbm500.bin.gz", "bigbrain-practical-segmentation-icbm500.bin.gz"]);
-  const lateralVentricle = await bytes([
-    "block-lateral-ventricle-tissue.mesh", "block-lateral-ventricle-ventricular-cavity.mesh",
-    "block-lateral-ventricle-caudate.mesh", "block-lateral-ventricle-thalamus.mesh", "block-lateral-ventricle-hippocampus.mesh",
-  ]);
-  assert.ok(surface < 22 * 1024 * 1024, `surface core assets are ${(surface / 1024 / 1024).toFixed(1)} MiB`);
-  assert.ok(section < 34 * 1024 * 1024, `section core assets are ${(section / 1024 / 1024).toFixed(1)} MiB`);
-  assert.ok(lateralVentricle < 3 * 1024 * 1024, `lateral ventricle assets are ${(lateralVentricle / 1024 / 1024).toFixed(1)} MiB`);
+  assert.match(gate, /No-Go（β候補のローカル検証中）/);
+  assert.equal((gate.match(/\| (ローカル合格|実機待ち|公開待ち|管理者待ち|専門家待ち) \|/g) ?? []).length, 10);
+  assert.match(gate, /実スマートフォン[\s\S]*公開URL[\s\S]*Google Form[\s\S]*専門家レビュー/);
+  assert.match(roadmap, /BETA_GATE_AUDIT\.md/);
+  assert.match(performance, /小画面水平断（画像・ラベル、3D遅延） \| 11\.6 MiB/);
+  assert.equal(JSON.parse(pkg).scripts["audit:assets"], "node scripts/audit_asset_budgets.mjs");
 });
 
 test("shows load progress and retries every failed atlas canvas together", async () => {
