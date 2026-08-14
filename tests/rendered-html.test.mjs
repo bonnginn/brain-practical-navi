@@ -219,6 +219,26 @@ test("audits hindbrain and midbrain teaching-landmark relations", async () => {
   assert.match(canvas, /part\.definition\.key==="pyramids"\|\|part\.definition\.key==="olives"[\s\S]*if\(ponsSurface\)draw/);
 });
 
+test("audits basal landmarks, cranial nerves, and major arteries", async () => {
+  const result = spawnSync(process.execPath, [localPath("scripts/audit_basal_neurovascular_relations.mjs")], {
+    cwd: localPath("."),
+    encoding: "utf8",
+  });
+  assert.equal(result.status, 0, result.stderr || result.stdout);
+  assert.match(result.stdout, /PASS\t14 basal\/neurovascular relations; 0 failures/);
+  const [basal, neurovascular, audit, packageText] = await Promise.all([
+    readFile(new URL("public/atlas/basal-landmarks.json", root), "utf8").then(JSON.parse),
+    readFile(new URL("public/atlas/neurovascular-overlays.json", root), "utf8").then(JSON.parse),
+    readFile(new URL("BASAL_NEUROVASCULAR_AUDIT.md", root), "utf8"),
+    readFile(new URL("package.json", root), "utf8"),
+  ]);
+  assert.equal(basal.anatomyReferences.length, 3);
+  assert.equal(neurovascular.anatomyReferences.length, 3);
+  assert.match(audit, /14\/14の大きな位置関係が合格/);
+  assert.match(audit, /専門家レビューを代替しません/);
+  assert.match(packageText, /"audit:basal": "node scripts\/audit_basal_neurovascular_relations\.mjs"/);
+});
+
 test("presents the practical flow clearly and keeps interface text readable", async () => {
   const [page, main, globalsCss, canvasCss, canvas, editor] = await Promise.all([
     readFile(new URL("app/page.tsx", root), "utf8"),
@@ -447,7 +467,8 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(canvas, /if\(showBrainstemNerves\)\{draw\(overlays\[3\]/);
   assert.doesNotMatch(canvas, /neurovascularOnTop/);
   assert.match(page, /useState\(surfaceView==="cranialNerves"\|\|surfaceView==="arteries"\)/);
-  assert.match(page, /if\(key==="arteries"\)\{setSurfaceVessels\(true\);setSurfaceNerves\(true\);setSurfaceCerebellum\(false\)/);
+  assert.match(page, /useState\(surfaceView==="cranialNerves"\|\|surfaceView==="inferior"\)/);
+  assert.match(page, /if\(key==="arteries"\)\{setSurfaceVessels\(true\);setSurfaceNerves\(false\);setSurfaceCerebellum\(false\)/);
   assert.doesNotMatch(page, /active\?"表示中":"表示"/);
   const neurovascularControls = page.match(/\{surfaceNeurovascular&&<div className="neurovascularControls specimenPartControls"[^\n]+<\/div>\}/)?.[0] ?? "";
   assert.ok(neurovascularControls);

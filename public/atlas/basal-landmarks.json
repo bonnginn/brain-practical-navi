@@ -17,6 +17,11 @@
   ],
   "specimenNote": "the pituitary gland is not shown; a brain specimen may retain only a cut stalk",
   "attachmentPolicy": "infundibulum and mammillary bodies overlap the inferior hypothalamic teaching surface; no detached floating landmarks",
+  "anatomyReferences": [
+    "https://www.ncbi.nlm.nih.gov/books/NBK575742/",
+    "https://www.ncbi.nlm.nih.gov/books/NBK279126/",
+    "https://www.ncbi.nlm.nih.gov/books/NBK549840/"
+  ],
   "meshes": [
     {
       "file": "landmark-olfactory-pathway.mesh",

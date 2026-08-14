@@ -533,7 +533,7 @@ export default function Home() {
   const [surfaceVisibleDeepLandmarks,setSurfaceVisibleDeepLandmarks]=useState<SurfaceDeepLandmarkKey[]>(surfaceView==="medial"?defaultMedialDeepLandmarks:[]);
   const [surfaceVisibleBasalLandmarks,setSurfaceVisibleBasalLandmarks]=useState<BasalLandmarkPartKey[]>([]);
   const [surfaceVessels,setSurfaceVessels]=useState(surfaceView==="arteries");
-  const [surfaceNerves,setSurfaceNerves]=useState(surfaceView==="cranialNerves"||surfaceView==="arteries"||surfaceView==="inferior");
+  const [surfaceNerves,setSurfaceNerves]=useState(surfaceView==="cranialNerves"||surfaceView==="inferior");
   const [surfaceGhost,setSurfaceGhost]=useState(surfaceView==="cranialNerves"||surfaceView==="arteries");
   const [surfacePonsMedulla,setSurfacePonsMedulla]=useState(surfaceView!=="medial");
   const [selectedNeurovascularStructure,setSelectedNeurovascularStructure]=useState<NeurovascularStructureKey>(surfaceView==="cranialNerves"?"cn1":"ica");
@@ -686,7 +686,7 @@ export default function Home() {
     const match=structureKeys.find(key=>(bigbrain?structures[key].bigbrainIds:structures[key].ids)?.includes(point.id));if(match)focusStructure(match,true);
   }
 
-  function chooseSurface(key:SurfaceViewKey){const next=surfaceViews[key];window.history.replaceState(null,"",workspaceHash("surface",key));setSurfaceView(key);setRotation(next.rotation);setSurfaceVisibleRegions([]);setSurfaceVisibleLandmarks([]);setSurfaceVisibleDeepLandmarks(key==="medial"?defaultMedialDeepLandmarks:[]);setSurfaceVisibleBasalLandmarks([]);setSurfaceGhost(key==="cranialNerves"||key==="arteries");setSurfacePonsMedulla(key!=="medial");if(key==="arteries"){setSurfaceVessels(true);setSurfaceNerves(true);setSurfaceCerebellum(false);setSelectedNeurovascularStructure("ica")}else if(key==="cranialNerves"){setSurfaceVessels(false);setSurfaceNerves(true);setSurfaceCerebellum(false);setSelectedNeurovascularStructure("cn1")}else{setSurfaceVessels(false);setSurfaceNerves(key==="inferior");setSurfaceCerebellum(key!=="medial"&&key!=="inferior")}}
+  function chooseSurface(key:SurfaceViewKey){const next=surfaceViews[key];window.history.replaceState(null,"",workspaceHash("surface",key));setSurfaceView(key);setRotation(next.rotation);setSurfaceVisibleRegions([]);setSurfaceVisibleLandmarks([]);setSurfaceVisibleDeepLandmarks(key==="medial"?defaultMedialDeepLandmarks:[]);setSurfaceVisibleBasalLandmarks([]);setSurfaceGhost(key==="cranialNerves"||key==="arteries");setSurfacePonsMedulla(key!=="medial");if(key==="arteries"){setSurfaceVessels(true);setSurfaceNerves(false);setSurfaceCerebellum(false);setSelectedNeurovascularStructure("ica")}else if(key==="cranialNerves"){setSurfaceVessels(false);setSurfaceNerves(true);setSurfaceCerebellum(false);setSelectedNeurovascularStructure("cn1")}else{setSurfaceVessels(false);setSurfaceNerves(key==="inferior");setSurfaceCerebellum(key!=="medial"&&key!=="inferior")}}
   function toggleInferiorHindbrain(){const next=!(surfacePonsMedulla&&surfaceNerves);setSurfacePonsMedulla(next);setSurfaceNerves(next)}
   function toggleFreeHindbrain(){setSurfacePonsMedulla(value=>!value)}
   function toggleSurfaceRegion(key:SurfaceRegionKey){setSurfaceVisibleRegions(previous=>previous.includes(key)?previous.filter(item=>item!==key):[...previous,key])}
