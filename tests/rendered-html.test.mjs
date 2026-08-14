@@ -1944,3 +1944,16 @@ test("aggregates every local beta audit without converting external waits into p
   assert.match(result.stdout,/SUMMARY\t3 local gates passed; 7 external-evidence gates remain/);
   assert.match(result.stdout,/PASS\tbeta-candidate local audits complete; release remains No-Go/);
 });
+
+test("keeps the Windows handoff at the current beta-candidate gate instead of historical milestones", async () => {
+  const handoff=await readFile(new URL("WINDOWS_HANDOFF.md",root),"utf8");
+  assert.match(handoff,/対象ブランチ: `codex\/beta-candidate`/);
+  assert.match(handoff,/自動テスト: 75件全件合格/);
+  assert.match(handoff,/`npm run audit:beta`/);
+  assert.match(handoff,/ローカル合格3条件、外部証拠待ち7条件/);
+  assert.match(handoff,/No-Go（β候補のローカル検証中）/);
+  assert.match(handoff,/未pushならremoteの同名ブランチだけでは現在状態を再現できません/);
+  assert.match(handoff,/実スマートフォン1台以上/);
+  assert.match(handoff,/少なくとも1名の検証済み記名JSON/);
+  assert.doesNotMatch(handoff,/9c1a962|自動テスト \*\*40件\*\*|Mac側で残した未着手事項|現在の検証基準は\d+\/\d+/);
+});
