@@ -28,7 +28,7 @@ type BlockLesson = {name:string;en:string;visual:BlockVisual;plane:Plane;positio
 type NeurovascularStructureKey = "ica" | "aca" | "acomm" | "mca" | "pcomm" | "vertebral" | "basilar" | "pca" | "cerebellarArteries" | "cn1" | "cn2" | "opticChiasm" | "cn3" | "cn4" | "cn5" | "cn6" | "cn7" | "cn8" | "cn9" | "cn10" | "cn11" | "cn12";
 type StructureKey = Focus | "thirdVentricle" | "fourthVentricle" | "corpusCallosum" | "internalCapsule" | "putamen" | "pallidumExternal" | "pallidumInternal" | "pallidum" | "amygdala" | "accumbens" | "redNucleus" | "substantiaNigra" | "subthalamic" | "brainstem" | "cerebellum" | "opticChiasm" | "insula";
 type LabelSource = "manual" | "atlas-provisional" | "image-guided";
-type StructureInfo = { name: string; latin: string; color: string; rgb: [number,number,number]; ids: number[]; bigbrainIds?: number[]; labelSource?: LabelSource; note: string; relation: string; meshFocus?: Focus };
+type StructureInfo = { name: string; latin: string; color: string; rgb: [number,number,number]; ids: number[]; bigbrainIds?: number[]; labelSource?: LabelSource; sourceDetail?: string; note: string; relation: string; meshFocus?: Focus };
 const labelSourceDisplay:Record<LabelSource,{label:string;detail:string;className:"source"|"provisional"}>={
   manual:{label:"標本同一格子・手動分節",detail:"BigBrain画像と同じ格子で公開された手動ラベルです。構造範囲の最終的な解剖学監修は継続中です。",className:"source"},
   "atlas-provisional":{label:"アトラス照合・試作",detail:"別アトラスを位置照合した教育用候補です。手動正解分節ではありません。",className:"provisional"},
@@ -346,11 +346,11 @@ const pathwayPresets:Record<PathwayPresetKey,PathwayPreset>={
 const pathwayPresetKeys=Object.keys(pathwayPresets) as PathwayPresetKey[];
 
 const structures: Record<StructureKey, StructureInfo> = {
-  ventricle: { name: "側脳室", latin: "Ventriculus lateralis", color: "#49a9b4", rgb:[73,169,180], ids:[92,41,56,5], bigbrainIds:[23,24], labelSource:"atlas-provisional", meshFocus:"ventricle", note: "前角・体部・後角・下角が連続する空間です。断面を動かして形の変化を追います。", relation: "脳梁の下方、尾状核・視床の内側" },
-  thirdVentricle: { name:"第三脳室", latin:"Ventriculus tertius", color:"#58aeb8", rgb:[88,174,184], ids:[80,29], bigbrainIds:[25], labelSource:"atlas-provisional", meshFocus:"ventricle", note:"左右の視床間にある正中の細い腔です。水平断・冠状断で側脳室との連続を確認します。", relation:"左右視床の間、視床下部の上方" },
-  fourthVentricle: { name:"第四脳室", latin:"Ventriculus quartus", color:"#4997b0", rgb:[73,151,176], ids:[88,37], bigbrainIds:[26], labelSource:"atlas-provisional", meshFocus:"ventricle", note:"橋・延髄と小脳の間にある腔です。矢状断で中脳水道から中心管への連続を追います。", relation:"脳幹の背側、小脳の腹側" },
-  corpusCallosum: { name:"脳梁", latin:"Corpus callosum", color:"#dbc270", rgb:[219,194,112], ids:[], bigbrainIds:[30], labelSource:"image-guided", note:"左右大脳半球を結ぶ交連線維です。矢状断で膝・幹・膨大を連続して確認します。", relation:"側脳室の上方、帯状回の下方" },
-  internalCapsule: { name:"内包", latin:"Capsula interna", color:"#e3d8b0", rgb:[227,216,176], ids:[], bigbrainIds:[31,32], labelSource:"image-guided", note:"尾状核・視床とレンズ核の間を走る白質路です。冠状断で前脚・膝・後脚の曲がりを追います。", relation:"尾状核・視床の外側、被殻・淡蒼球の内側" },
+  ventricle: { name: "側脳室", latin: "Ventriculus lateralis", color: "#49a9b4", rgb:[73,169,180], ids:[92,41,56,5], bigbrainIds:[23,24], labelSource:"atlas-provisional", sourceDetail:"CerebrAの脳室ラベルをBigBrain 0.5 mm格子へ最近傍再標本化し、手動ラベルを保護したうえで組織像の空隙に限定した候補です。手動で腔境界を確定したものではありません。", meshFocus:"ventricle", note: "前角・体部・後角・下角が連続する空間です。断面を動かして形の変化を追います。", relation: "脳梁の下方、尾状核・視床の内側" },
+  thirdVentricle: { name:"第三脳室", latin:"Ventriculus tertius", color:"#58aeb8", rgb:[88,174,184], ids:[80,29], bigbrainIds:[25], labelSource:"atlas-provisional", sourceDetail:"CerebrAの脳室ラベルをBigBrain 0.5 mm格子へ最近傍再標本化し、手動ラベルを保護したうえで組織像の空隙に限定した候補です。手動で腔境界を確定したものではありません。", meshFocus:"ventricle", note:"左右の視床間にある正中の細い腔です。水平断・冠状断で側脳室との連続を確認します。", relation:"左右視床の間、視床下部の上方" },
+  fourthVentricle: { name:"第四脳室", latin:"Ventriculus quartus", color:"#4997b0", rgb:[73,151,176], ids:[88,37], bigbrainIds:[26], labelSource:"atlas-provisional", sourceDetail:"CerebrAの脳室ラベルをBigBrain 0.5 mm格子へ最近傍再標本化し、手動ラベルを保護したうえで組織像の空隙に限定した候補です。手動で腔境界を確定したものではありません。", meshFocus:"ventricle", note:"橋・延髄と小脳の間にある腔です。矢状断で中脳水道から中心管への連続を追います。", relation:"脳幹の背側、小脳の腹側" },
+  corpusCallosum: { name:"脳梁", latin:"Corpus callosum", color:"#dbc270", rgb:[219,194,112], ids:[], bigbrainIds:[30], labelSource:"image-guided", sourceDetail:"CerebrA白質確率と正中・脳室近傍の位置条件から本プロジェクトが生成し、BigBrain格子へ再標本化した候補です。手動分節や線維追跡の結果ではありません。", note:"左右大脳半球を結ぶ交連線維です。矢状断で膝・幹・膨大を連続して確認します。", relation:"側脳室の上方、帯状回の下方" },
+  internalCapsule: { name:"内包", latin:"Capsula interna", color:"#e3d8b0", rgb:[227,216,176], ids:[], bigbrainIds:[31,32], labelSource:"image-guided", sourceDetail:"CerebrA白質確率と尾状核・視床・レンズ核への近接条件から本プロジェクトが生成し、BigBrain格子へ再標本化した候補です。前脚・膝・後脚を手動確定したものではありません。", note:"尾状核・視床とレンズ核の間を走る白質路です。冠状断で前脚・膝・後脚の曲がりを追います。", relation:"尾状核・視床の外側、被殻・淡蒼球の内側" },
   caudate: { name: "尾状核", latin: "Nucleus caudatus", color: "#e19749", rgb:[225,151,73], ids:[100,49], bigbrainIds:[7,8], labelSource:"manual", meshFocus:"caudate", note: "側脳室に沿って前後へ連続する核です。断面を移動して頭・体・尾の位置変化を追います。", relation: "側脳室の外側、内包の内側" },
   putamen: { name:"被殻", latin:"Putamen", color:"#d9854f", rgb:[217,133,79], ids:[72,21], bigbrainIds:[9,10], labelSource:"manual", note:"レンズ核の外側部です。淡蒼球との境界と、外側を走る外包を確認します。", relation:"淡蒼球の外側、島皮質の内側" },
   pallidumExternal: { name:"淡蒼球外節", latin:"Globus pallidus externus", color:"#d0ae5c", rgb:[208,174,92], ids:[], bigbrainIds:[11,12], labelSource:"manual", note:"淡蒼球の外側区画です。内外の髄板を手がかりに、内節と分けて確認します。", relation:"被殻の内側、淡蒼球内節の外側" },
@@ -363,10 +363,10 @@ const structures: Record<StructureKey, StructureInfo> = {
   redNucleus: { name:"赤核", latin:"Nucleus ruber", color:"#d24f49", rgb:[210,79,73], ids:[], bigbrainIds:[1,2], labelSource:"manual", note:"中脳被蓋にある円形の核です。黒質・中脳水道との位置関係を確認します。", relation:"中脳水道の腹外側、黒質の背内側" },
   substantiaNigra: { name:"黒質", latin:"Substantia nigra", color:"#716387", rgb:[113,99,135], ids:[], bigbrainIds:[3,4], labelSource:"manual", note:"中脳脚と被蓋の境界に沿う帯状の核です。赤核より腹側に位置します。", relation:"大脳脚の背側、赤核の腹外側" },
   subthalamic: { name:"視床下核", latin:"Nucleus subthalamicus", color:"#e0ad45", rgb:[224,173,69], ids:[], bigbrainIds:[5,6], labelSource:"manual", note:"小さなレンズ状の核です。淡蒼球内節・黒質との位置関係を連続断面で追います。", relation:"視床の腹側、黒質の背側、内包の内側" },
-  brainstem: { name:"脳幹", latin:"Truncus encephali", color:"#739b72", rgb:[115,155,114], ids:[62,11], bigbrainIds:[27], labelSource:"atlas-provisional", note:"中脳・橋・延髄へ連続する軸性構造です。脳神経の出入口を考える基準になります。", relation:"間脳の下方、小脳の前方" },
-  cerebellum: { name:"小脳", latin:"Cerebellum", color:"#8ba867", rgb:[139,168,103], ids:[97,46,90,39], bigbrainIds:[28,29], labelSource:"atlas-provisional", note:"皮質と白質、正中の虫部を区別します。水平断と矢状断で小脳脚との連続を追います。", relation:"脳幹の後方、後頭葉の下方" },
-  opticChiasm: { name:"視交叉", latin:"Chiasma opticum", color:"#d4b65b", rgb:[212,182,91], ids:[68,17], bigbrainIds:[33], labelSource:"atlas-provisional", note:"左右の視神経線維が交叉する正中構造です。小さいため前後の断面を細かく動かします。", relation:"視床下部の前下方、下垂体柄の前方" },
-  insula: { name:"島皮質", latin:"Insula", color:"#6f9db0", rgb:[111,157,176], ids:[74,23], bigbrainIds:[34,35], labelSource:"atlas-provisional", note:"外側溝の深部にある皮質です。弁蓋を除いた位置関係を断面で確認します。", relation:"被殻・外包の外側、前頭・頭頂・側頭弁蓋の深部" },
+  brainstem: { name:"脳幹", latin:"Truncus encephali", color:"#739b72", rgb:[115,155,114], ids:[62,11], bigbrainIds:[27], labelSource:"atlas-provisional", sourceDetail:"CerebrAの脳幹ラベルをBigBrain 0.5 mm格子へ最近傍再標本化し、同一格子の手動ラベルを上書きしないよう追加した候補です。中脳・橋・延髄の境界を手動確定したものではありません。", note:"中脳・橋・延髄へ連続する軸性構造です。脳神経の出入口を考える基準になります。", relation:"間脳の下方、小脳の前方" },
+  cerebellum: { name:"小脳", latin:"Cerebellum", color:"#8ba867", rgb:[139,168,103], ids:[97,46,90,39], bigbrainIds:[28,29], labelSource:"atlas-provisional", sourceDetail:"CerebrAの小脳ラベルをBigBrain 0.5 mm格子へ最近傍再標本化し、同一格子の手動ラベルを上書きしないよう追加した候補です。小脳葉・核・脚の境界は含みません。", note:"皮質と白質、正中の虫部を区別します。水平断と矢状断で小脳脚との連続を追います。", relation:"脳幹の後方、後頭葉の下方" },
+  opticChiasm: { name:"視交叉", latin:"Chiasma opticum", color:"#d4b65b", rgb:[212,182,91], ids:[68,17], bigbrainIds:[33], labelSource:"atlas-provisional", sourceDetail:"CerebrAの視交叉候補をBigBrain 0.5 mm格子へ最近傍再標本化し、既存ラベルを保護して組織領域内だけへ追加した候補です。線維交叉を追跡したものではありません。", note:"左右の視神経線維が交叉する正中構造です。小さいため前後の断面を細かく動かします。", relation:"視床下部の前下方、下垂体柄の前方" },
+  insula: { name:"島皮質", latin:"Insula", color:"#6f9db0", rgb:[111,157,176], ids:[74,23], bigbrainIds:[34,35], labelSource:"atlas-provisional", sourceDetail:"CerebrAの左右島皮質ラベルをBigBrain 0.5 mm格子へ最近傍再標本化し、既存ラベルを保護して組織領域内だけへ追加した候補です。弁蓋との境界を手動確定したものではありません。", note:"外側溝の深部にある皮質です。弁蓋を除いた位置関係を断面で確認します。", relation:"被殻・外包の外側、前頭・頭頂・側頭弁蓋の深部" },
 };
 const structureMeshFiles:Partial<Record<StructureKey,string[]>>={
   ventricle:["ventricle"],thirdVentricle:["block-diencephalon-third-ventricle"],fourthVentricle:["block-hindbrain-fourth-ventricle"],
@@ -887,7 +887,7 @@ export default function Home() {
       <div className="inspectorTop"><div className="inspectIndex"><span>STRUCTURE GUIDE</span><b>{String(structureKeys.indexOf(selectedStructure)+1).padStart(2,"0")} / {structureKeys.length}</b></div><button className="inspectorClose" onClick={()=>setDetailsOpen(false)} aria-label="解説を閉じる">×</button></div>
       <div className="structureColor" style={{background:current.color}}/>
       <h2>{current.name}</h2><em>{current.latin}</em>
-      {current.labelSource&&<div className={`structureProvenance ${labelSourceDisplay[current.labelSource].className}`}><b>{labelSourceDisplay[current.labelSource].label}</b><span>{labelSourceDisplay[current.labelSource].detail}</span></div>}
+      {current.labelSource&&<div className={`structureProvenance ${labelSourceDisplay[current.labelSource].className}`}><b>{labelSourceDisplay[current.labelSource].label}</b><span>{current.sourceDetail??labelSourceDisplay[current.labelSource].detail}</span></div>}
       <div className="rule"/><h3>主な役割</h3><p>{structureFunctions[selectedStructure]}</p>
       <h3>この断面で見ること</h3><p>{current.note}</p>
       <dl><div><dt>位置関係</dt><dd>{current.relation}</dd></div><div><dt>現在の断面</dt><dd>{planeData[plane].ja}・位置 {position}</dd></div></dl>
