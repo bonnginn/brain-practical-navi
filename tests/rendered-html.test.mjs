@@ -1472,6 +1472,21 @@ test("failed atlas requests can clear rejected caches and retry in place", async
   assert.match(css, /\.atlasLoading\.error button/);
 });
 
+test("cross-checks segmentation edits in coronal and sagittal planes", async () => {
+  const [editor, css] = await Promise.all([
+    readFile(new URL("app/ManualSegmentationWorkbench.tsx", root), "utf8"),
+    readFile(new URL("app/canvas.css", root), "utf8"),
+  ]);
+  assert.match(editor, /coronalRef=useRef<HTMLCanvasElement>/);
+  assert.match(editor, /sagittalRef=useRef<HTMLCanvasElement>/);
+  assert.match(editor, /plane:"coronal"\|"sagittal"/);
+  assert.match(editor, /effective=editsRef\.current\.get\(index\)\?\?data\.labels\[index\]/);
+  assert.match(editor, /setReviewPoint\(\{x:selected\.x,y:data\.dims\[1\]-1-selected\.b\}\)/);
+  assert.match(editor, /3方向照合/);
+  assert.match(editor, /未保存の差分も選択ラベルの色で反映/);
+  assert.match(css, /\.segOrthogonalReview canvas/);
+});
+
 test("skips canvas drawing while a responsive panel has zero size", async () => {
   const canvas = await readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8");
   assert.match(canvas, /w=el\.clientWidth,h=el\.clientHeight;if\(w<1\|\|h<1\)return;el\.width=/);

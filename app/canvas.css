@@ -697,6 +697,18 @@ html, body, #root { height: 100%; overflow: hidden; }
 .segSelected span { display: grid; gap: 2px; }
 .segSelected b { font-size: 14px; }
 .segSelected small { color: #7c8583; font-size: 15px; }
+.segOrthogonalReview { margin: 12px 0; padding: 10px; border: 1px solid #aeb6b1; background: #d9dad4; }
+.segOrthogonalReview > header { display: flex; align-items: end; justify-content: space-between; gap: 8px; }
+.segOrthogonalReview > header div { display: grid; gap: 2px; }
+.segOrthogonalReview > header b { color: #263431; font-size: 14px; }
+.segOrthogonalReview > header small { color: #67726e; font-size: 11px; }
+.segOrthogonalReview > header > span { color: #53605c; font: 11px monospace; white-space: nowrap; }
+.segOrthogonalReview > div { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-top: 8px; }
+.segOrthogonalReview figure { min-width: 0; margin: 0; border: 1px solid #596467; background: #151b1d; }
+.segOrthogonalReview canvas { display: block; width: 100%; height: 112px; object-fit: contain; image-rendering: pixelated; }
+.segOrthogonalReview figcaption { display: flex; justify-content: space-between; gap: 5px; padding: 4px 6px; border-top: 1px solid #596467; color: #eef1ed; font-size: 11px; }
+.segOrthogonalReview figcaption span { color: #aeb9b7; font: 10px monospace; }
+.segOrthogonalReview > p { margin: 7px 0 0 !important; color: #5b6662 !important; font-size: 11px !important; line-height: 1.45 !important; }
 .segCheck { display: flex; align-items: center; gap: 8px; margin-top: 13px; color: #586260; font-size: 16px; }
 .segCheck input { accent-color: #1d6e69; }
 .segStats { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-top: 13px; }
