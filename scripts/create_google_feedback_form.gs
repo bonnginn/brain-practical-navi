@@ -17,7 +17,7 @@ var CONFIG = {
   RESPONSE_SHEET_TITLE: '脳実習ナビ α版｜フォーム回答・運用管理',
   PROJECT_NAME: '脳実習ナビ',
   CONTACT_TEXT: '不具合・修正提案：https://github.com/bonnginn/brain-practical-navi/issues',
-  RETENTION_TEXT: '保存期間：α版の改善と共同制作の連絡に必要な期間。不要になった連絡先は削除します。',
+  RETENTION_TEXT: '保存期間：β版の改善と共同制作の連絡に必要な期間。不要になった連絡先は削除します。',
 };
 
 function createBrainPracticalFeedbackForm() {

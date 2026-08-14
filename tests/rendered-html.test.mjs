@@ -1518,9 +1518,10 @@ test("narrow layouts keep destination rails and full workflow panels distinct", 
 });
 
 test("ships a reproducible Google Form generator for feedback and collaborators", async () => {
-  const [script, guide] = await Promise.all([
+  const [script, guide, audit] = await Promise.all([
     readFile(new URL("scripts/create_google_feedback_form.gs", root), "utf8"),
     readFile(new URL("ALPHA_FEEDBACK.md", root), "utf8"),
+    readFile(new URL("FORM_OPERATION_AUDIT.md", root), "utf8"),
   ]);
   assert.match(script, /function createBrainPracticalFeedbackForm\(\)/);
   assert.match(script, /FormApp\.create\(CONFIG\.FORM_TITLE, true\)/);
@@ -1528,6 +1529,7 @@ test("ships a reproducible Google Form generator for feedback and collaborators"
   assert.match(script, /routeItem\.createChoice\('修正提案・不具合・使いにくさを送る', feedbackPage\)/);
   assert.match(script, /routeItem\.createChoice\('共同制作者として参加したい', collaborationPage\)/);
   assert.match(script, /FormApp\.PageNavigationType\.SUBMIT/);
+  assert.match(script, /RETENTION_TEXT: '保存期間：β版の改善と共同制作の連絡に必要な期間。不要になった連絡先は削除します。'/);
   assert.match(script, /refreshExistingForm_\(existingForm, existingSheet\)/);
   assert.match(script, /form\.setTitle\(CONFIG\.FORM_TITLE\)\.setDescription\(buildDescription_\(\)\)/);
   assert.match(script, /spreadsheet\.rename\(CONFIG\.RESPONSE_SHEET_TITLE\)/);
@@ -1535,6 +1537,9 @@ test("ships a reproducible Google Form generator for feedback and collaborators"
   assert.doesNotMatch(script, /addFileUploadItem/);
   assert.match(guide, /リンクを知っている全員/);
   assert.match(guide, /CONTACT_TEXT/);
+  assert.match(guide, /\[BETA FORM DELETE TEST YYYY-MM-DD\]/);
+  assert.match(audit, /未ログインのWindows Chromium/);
+  assert.match(audit, /回答シートとGoogle Forms個別回答の双方から同じ回答を削除/);
 });
 
 test("research-backed anatomy cautions distinguish source data from teaching schematics", async () => {
