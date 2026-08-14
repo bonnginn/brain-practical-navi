@@ -1078,7 +1078,7 @@ test("block specimens support continuous rotation and reuse the shared WebGL ren
   assert.match(canvas, /const loadOptional=\(needed:boolean,name:string\)=>needed\?loadMesh\(name\):Promise\.resolve\(EMPTY_MESH\)/);
   assert.match(canvas, /loadOptional\(wantVessels,"overlay-arteries-anterior"\)/);
   assert.match(canvas, /loadOptional\(surfaceLandmarks\.includes\(item\.key\),`surface-landmark-\$\{item\.key\}`\)/);
-  assert.match(canvas, /\[kind,specimenBlock,view,neurovascularOverlay,showBasalLandmarks,surfaceLandmarkKey,surfaceDeepLandmarkKey\]/);
+  assert.match(canvas, /\[kind,specimenBlock,view,neurovascularOverlay,showBasalLandmarks,surfaceLandmarkKey,surfaceDeepLandmarkKey,retryVersion\]/);
   assert.match(canvas, /let active=true;setBlockMeshes\(null\);setError\(""\)/);
   assert.match(canvas, /return\(\)=>\{active=false\}/);
   assert.match(canvas, /az=\(rot\.z\?\?0\)\*Math\.PI\/180/);
@@ -1302,4 +1302,61 @@ test("3D viewers expose orientation, keyboard rotation, reset, and visible zoom 
   assert.match(css, /\.orientationCompass/);
   assert.match(css, /\.orientationCompass\.compact/);
   assert.match(css, /\.modelZoomControls/);
+});
+
+test("ordinary study views disclose structure provenance without claiming expert validation", async () => {
+  const [page, css, audit] = await Promise.all([
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("app/canvas.css", root), "utf8"),
+    readFile(new URL("STRUCTURE_PROVENANCE.md", root), "utf8"),
+  ]);
+  assert.match(page, /manual:\{label:"標本同一格子・手動分節"/);
+  assert.match(page, /"atlas-provisional":\{label:"アトラス照合・試作"/);
+  assert.match(page, /"image-guided":\{label:"画像誘導・試作"/);
+  assert.match(page, /className=\{`provenanceBadge \$\{source\.className\}`\}/);
+  assert.match(page, /item\.kind\} · \{item\.source/);
+  assert.match(css, /\.provenanceBadge\.provisional/);
+  assert.match(audit, /位置合わせや手動分節が済んでいることと、神経解剖学の専門家による最終確認は同義ではありません/);
+  assert.match(audit, /監修待ち/);
+});
+
+test("failed atlas requests can clear rejected caches and retry in place", async () => {
+  const [canvas, css] = await Promise.all([
+    readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8"),
+    readFile(new URL("app/canvas.css", root), "utf8"),
+  ]);
+  assert.match(canvas, /function retryLoad\(\)/);
+  assert.match(canvas, /manualSegCache\.delete\("icbm500"\)/);
+  assert.match(canvas, /meshCache\.clear\(\)/);
+  assert.match(canvas, /role="alert"/);
+  assert.match(canvas, />再読み込み<\/button>/);
+  assert.match(css, /\.atlasLoading\.error button/);
+});
+
+test("free observation offers schematic pathway presets instead of textbook chapters", async () => {
+  const [page, css] = await Promise.all([
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("app/canvas.css", root), "utf8"),
+  ]);
+  assert.match(page, /visual:\{name:"視覚路"/);
+  assert.match(page, /papez:\{name:"Papez回路"/);
+  assert.match(page, /"basal-ganglia":\{name:"大脳基底核回路"/);
+  assert.match(page, /経路観察（試作）/);
+  assert.match(page, /線維の全経路、核内結合、興奮性／抑制性、個体差は再現していません/);
+  assert.match(page, /selectionMeshLayers=\{surfaceView==="free"\?freePathwayMeshLayers:\[\]\}/);
+  assert.match(css, /\.pathwayPresets/);
+});
+
+test("quiz mistakes link back to the exact study view", async () => {
+  const [page, css] = await Promise.all([
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("app/canvas.css", root), "utf8"),
+  ]);
+  assert.match(page, /const \[quizMisses,setQuizMisses\]=useState<QuizTargetKey\[]>\(\[\]\)/);
+  assert.match(page, /function reviewQuizQuestion\(question:QuizQuestion\)/);
+  assert.match(page, /setPlane\(question\.plane\);setPosition\(question\.position\);setVisibleStructures\(\[question\.target\]\)/);
+  assert.match(page, /className="quizReviewTargets" aria-label="今回間違えた構造"/);
+  assert.match(page, /観察画面で復習/);
+  assert.match(page, /labelSourceDisplay\[sectionQuizTarget\.labelSource\]\.label/);
+  assert.match(css, /\.quizReviewTargets/);
 });
