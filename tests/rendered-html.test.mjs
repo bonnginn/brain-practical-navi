@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { readFile, readdir, stat } from "node:fs/promises";
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import test from "node:test";
@@ -53,6 +53,15 @@ function minimumVertexDistance(first, second) {
     minimumSquared=Math.min(minimumSquared,dz*dz+dy*dy+dx*dx);
   }
   return Math.sqrt(minimumSquared);
+}
+
+async function directoryBytes(url) {
+  let total = 0;
+  for (const entry of await readdir(url, { withFileTypes: true })) {
+    const child = new URL(`${entry.name}${entry.isDirectory() ? "/" : ""}`, url);
+    total += entry.isDirectory() ? await directoryBytes(child) : (await stat(child)).size;
+  }
+  return total;
 }
 
 test("uses an exact coordinate-matched BigBrain image and manual label grid", async () => {
@@ -223,6 +232,10 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /blockIntroOpen&&<section className="workArea blockIntroPage"/);
   assert.match(page, /ブロック標本は試作中です/);
   assert.match(page, /形状・範囲・接続関係の完全性や解剖学的正確性は保証しません/);
+  assert.match(page, /Cloudflare Web Analytics/);
+  assert.match(page, /Cookieを使用せず、訪問者の個人データを収集・利用しません/);
+  assert.match(readme, /Cloudflare Web Analytics/);
+  assert.match(licenses, /Data origin and collection/);
   assert.doesNotMatch(page, /OPEN BETA|β版・非営利教育用/);
   assert.doesNotMatch(page, /を連続して追う/);
   assert.match(page, /VITE_FEEDBACK_FORM_URL/);
@@ -512,7 +525,6 @@ test("detects voxel-level conflicts between contributor segmentation patches", (
 
 test("bundles valid WebGL meshes and the required data notices", async () => {
   const meshNames = [
-    "brain.mesh",
     "caudate.mesh",
     "hippocampus.mesh",
     "thalamus.mesh",
@@ -554,6 +566,21 @@ test("bundles valid WebGL meshes and the required data notices", async () => {
   assert.ok(notices.every(text => text.trim().length > 200));
   assert.match(notices[0], /procedurally generated teaching meshes/);
   assert.match(notices.at(-1), /not\s+extracted from BigBrain histology/);
+});
+
+test("keeps the browser distribution below the beta asset budget", async () => {
+  const publicBytes = await directoryBytes(new URL("public/", root));
+  assert.ok(publicBytes < 100 * 1024 * 1024, `public assets are ${(publicBytes / 1024 / 1024).toFixed(1)} MiB`);
+
+  for (const obsolete of [
+    "mni-cerebra-1mm.bin",
+    "bigbrain-400um.bin.gz",
+    "brain.mesh",
+    "segment-cortex.mesh",
+    "brain-practical-segmented-v2.glb",
+  ]) {
+    await assert.rejects(readFile(new URL(`public/atlas/${obsolete}`, root)), { code: "ENOENT" });
+  }
 });
 
 test("draws toggleable sulci from cortical region boundaries", async () => {
@@ -1047,8 +1074,11 @@ test("block specimens support continuous rotation and reuse the shared WebGL ren
   assert.match(canvas, /if\(!ext\)\{gl\.deleteProgram\(prog\);return\}/);
   assert.match(canvas, /gl\.deleteProgram\(prog\)/);
   assert.doesNotMatch(canvas, /Promise\.all\(\["brain",focus/);
-  assert.match(canvas, /if\(specimenBlock!=="none"\)\{setMeshes\(\{focus:EMPTY_MESH,surface:\[\],segments:\[\],overlays:\[\],basal:\[\],deep:\[\],landmarks:\[\]\}\);return\}/);
-  assert.match(canvas, /\[kind,focus,specimenBlock\]/);
+  assert.doesNotMatch(canvas, /focus:Mesh/);
+  assert.match(canvas, /const loadOptional=\(needed:boolean,name:string\)=>needed\?loadMesh\(name\):Promise\.resolve\(EMPTY_MESH\)/);
+  assert.match(canvas, /loadOptional\(wantVessels,"overlay-arteries-anterior"\)/);
+  assert.match(canvas, /loadOptional\(surfaceLandmarks\.includes\(item\.key\),`surface-landmark-\$\{item\.key\}`\)/);
+  assert.match(canvas, /\[kind,specimenBlock,view,neurovascularOverlay,showBasalLandmarks,surfaceLandmarkKey,surfaceDeepLandmarkKey\]/);
   assert.match(canvas, /let active=true;setBlockMeshes\(null\);setError\(""\)/);
   assert.match(canvas, /return\(\)=>\{active=false\}/);
   assert.match(canvas, /az=\(rot\.z\?\?0\)\*Math\.PI\/180/);

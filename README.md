@@ -78,6 +78,8 @@ Windows側のCodexへ開発を引き継ぐ場合は、取得手順、実画面�
 
 完全な出典、必須表示、改変内容、引用文献、公開前チェックは [DATA_AND_LICENSES.md](DATA_AND_LICENSES.md) を参照してください。アプリ右上の「利用条件・クレジット」にも同じ要点を表示します。
 
+公開版では利用状況と表示性能の把握に [Cloudflare Web Analytics](https://developers.cloudflare.com/web-analytics/about/) を使用します。Cloudflareの説明ではCookieを使用せず、訪問者の個人データを収集・利用しません。本アプリ側でも利用者を識別する独自IDは付与しません。
+
 ## 引用
 
 本データを用いた成果物では、少なくとも次を引用してください。

@@ -1,6 +1,6 @@
 # データ、権利、出典
 
-更新日: 2026-08-13
+更新日: 2026-08-14
 
 この文書は「脳実習ナビ」に同梱するデータの来歴、ライセンス、改変内容、公開条件を追跡するための監査記録です。ライセンス原文が本書と異なる場合は原文が優先します。本書は法的助言ではありません。
 
@@ -88,7 +88,8 @@
 対象ファイル:
 
 - `public/atlas/mni-cerebra-1mm.bin.gz`
-- `public/atlas/brain.mesh`
+- `public/atlas/pial-left.mesh`
+- `public/atlas/pial-right.mesh`
 - `public/atlas/caudate.mesh`
 - `public/atlas/hippocampus.mesh`
 - `public/atlas/thalamus.mesh`
@@ -116,6 +117,13 @@
 - CerebrA由来の脳室・脳幹・小脳・視交叉・島皮質候補をBigBrain 0.5 mm格子へ最近傍再標本化し、既存ラベルの空き領域へ限定
 
 IDs 23–29、33–35は手動正解ラベルではありません。アプリでは「試作」または「位置照合済みアトラス由来」と明記します。
+
+## 3.1 アクセス解析
+
+公開版では、利用状況と表示性能の把握に Cloudflare Web Analytics のJavaScriptビーコンを使用します。Cloudflareの公式説明では、Web AnalyticsはCookieやローカルストレージを利用せず、訪問者の個人データを収集・利用しません。本アプリも利用者を識別する独自IDを付与しません。
+
+- [Cloudflare Web Analytics: About](https://developers.cloudflare.com/web-analytics/about/)
+- [Data origin and collection](https://developers.cloudflare.com/web-analytics/data-metrics/data-origin-and-collection/)
 
 ## 4. 全脳表面モデル
 
