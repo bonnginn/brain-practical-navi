@@ -1350,6 +1350,19 @@ test("help, feedback, and credit dialogs have durable shareable URLs", async () 
   assert.match(page, /onClick=\{closeOverlay\} aria-label="操作ガイドを閉じる"/);
 });
 
+test("prioritizes beta specimen work without implying anatomical validation", async () => {
+  const [page, roadmap] = await Promise.all([
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("BETA_ROADMAP.md", root), "utf8"),
+  ]);
+  assert.match(page, /const blockPriorities:Record<BlockSpecimenKey/);
+  const priorities = page.split("const blockPriorities")[1].split("const blockInitialRotations")[0];
+  assert.equal((priorities.match(/label:"β重点"/g)??[]).length, 4);
+  assert.equal((priorities.match(/label:"発展枠"/g)??[]).length, 4);
+  assert.match(page, /試作中・解剖学的正確性は未保証/);
+  assert.match(roadmap, /\[x\] 8標本を一律に磨くのではなく[\s\S]*側脳室全景[\s\S]*レンズ核・投射線維[\s\S]*脈絡叢[\s\S]*内側側頭葉/);
+});
+
 test("keeps provisional and expert-unreviewed structures out of the default quiz", async () => {
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
   assert.match(page, /function isProvisionalQuiz\(question:QuizQuestion\)\{return isSurfaceQuiz\(question\)\|\|structures\[question\.target\]\.labelSource!=="manual"\}/);

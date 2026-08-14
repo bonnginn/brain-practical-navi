@@ -252,6 +252,17 @@ const blockSpecimens:Record<BlockSpecimenKey,BlockLesson>={
 };
 
 // Each specimen opens in a three-quarter or near-orthogonal view chosen to expose its teaching structures.
+const blockPriorities:Record<BlockSpecimenKey,{level:"beta"|"later";label:string;reason:string}>={
+  "lateral-ventricle":{level:"beta",label:"β重点",reason:"脳室全景と周囲構造の連続を最優先で確認"},
+  radiations:{level:"beta",label:"β重点",reason:"レンズ核・内包・投射線維の位置関係を優先"},
+  "choroid-plexus":{level:"beta",label:"β重点",reason:"脳室腔と脈絡叢の付着方向を優先"},
+  "medial-temporal":{level:"beta",label:"β重点",reason:"海馬・扁桃体・下角の前後関係を優先"},
+  diencephalon:{level:"later",label:"発展枠",reason:"β重点標本の後に形状と境界を再検討"},
+  "commissural-system":{level:"later",label:"発展枠",reason:"模式補助が多いため専門家レビュー後に再検討"},
+  "midbrain-section":{level:"later",label:"発展枠",reason:"丘・膝状体など位置目安の監修を先に行う"},
+  hindbrain:{level:"later",label:"発展枠",reason:"小脳脚・菱形窩の模式表示を監修後に改善"},
+};
+
 const blockInitialRotations:Record<BlockSpecimenKey,Rotation>={
   "lateral-ventricle":{x:-14,y:-64,z:4},
   diencephalon:{x:-8,y:-38,z:0},
@@ -703,7 +714,7 @@ export default function Home() {
       </>}
       {workspace==="blocks"&&<>
         <p className="eyebrow">SPECIMEN BLOCK</p>
-        {(Object.keys(blockSpecimens) as BlockSpecimenKey[]).map((key,i)=><button key={key} className={`planeBtn lessonRailBtn ${blockSpecimen===key?"active":""}`} aria-current={blockSpecimen===key?"page":undefined} onClick={()=>chooseBlock(key)}><span>0{i+1}</span><b>{blockSpecimens[key].name}</b><small>{blockSpecimens[key].en}</small></button>)}
+        {(Object.keys(blockSpecimens) as BlockSpecimenKey[]).map((key,i)=><button key={key} className={`planeBtn lessonRailBtn ${blockSpecimen===key?"active":""}`} aria-current={blockSpecimen===key?"page":undefined} onClick={()=>chooseBlock(key)}><span>0{i+1}</span><b>{blockSpecimens[key].name}</b><small>{blockSpecimens[key].en} · {blockPriorities[key].label}</small></button>)}
         <div className="railLine"/><p className="railMemo">「切り離した途端に位置関係が分からない」を避けるため、全脳の中での位置を残したまま観察します。</p>
       </>}
       {workspace==="quiz"&&<>
@@ -809,7 +820,7 @@ export default function Home() {
     </section>}
 
     {workspace==="blocks"&&!blockIntroOpen&&<section className="workArea learningArea" id="workspace" tabIndex={-1}>
-      <div className="workHead"><div><span className="eyebrow">LOCAL SPECIMEN</span><h1>標本観察</h1></div><div className="blockReleaseNote"><span className="sourceBadge">試作中・解剖学的正確性は未保証</span><button onClick={()=>openOverlay("feedback")}>誤りを報告</button></div></div>
+      <div className="workHead"><div><span className="eyebrow">LOCAL SPECIMEN</span><h1>標本観察</h1></div><div className="blockReleaseNote"><span className={`specimenPriorityBadge ${blockPriorities[blockSpecimen].level}`} title={blockPriorities[blockSpecimen].reason}>{blockPriorities[blockSpecimen].label}</span><span className="sourceBadge">試作中・解剖学的正確性は未保証</span><button onClick={()=>openOverlay("feedback")}>誤りを報告</button></div></div>
       <div className="learningGrid">
         <section className="learningModelCard"><div className="panelHead"><div><b>{specimenLesson.name}</b><small>{specimenLesson.en}・ドラッグ：回転／Shift・右：傾き</small></div><span>SPECIMEN + SELECTABLE PARTS</span></div>
           <div className="learningModelStage modelStage" tabIndex={0} aria-label="局所標本3Dモデル。ドラッグまたは矢印キーで回転、Rキーで向きを戻す" onKeyDown={handleModelKey} onPointerDown={beginRotation} onPointerMove={move} onPointerUp={()=>setDrag(null)} onPointerCancel={()=>setDrag(null)} onContextMenu={event=>event.preventDefault()}>

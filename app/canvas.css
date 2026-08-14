@@ -445,6 +445,8 @@ html, body, #root { height: 100%; overflow: hidden; }
 .blockIntroCard button + button { border-color: #b66a5d; background: transparent; color: #7f3b31; }
 .blockReleaseNote { display: flex; align-items: center; gap: 7px; }
 .blockReleaseNote button { padding: 7px 10px; border: 1px solid #b85e4c; background: #f4e4df; color: #823d31; font-size: 14px; font-weight: 800; white-space: nowrap; }
+.specimenPriorityBadge { padding: 7px 9px; border: 1px solid #aa9b81; background: #ece5d8; color: #705c3d; font-size: 13px; font-weight: 800; letter-spacing: .06em; white-space: nowrap; }
+.specimenPriorityBadge.beta { border-color: #6f948a; background: #dfeae5; color: #315c54; }
 .blockReleaseNote button:hover { background: #ead0c8; }
 .surfaceRegionPicker { margin-top: 22px; padding-top: 15px; border-top: 1px solid #c3c7c1; }
 .surfaceRegionPicker > header { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
