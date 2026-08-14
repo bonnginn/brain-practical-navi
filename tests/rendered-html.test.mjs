@@ -292,7 +292,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   for (const provenance of ["標本分節", "試作分節", "模式補助", "位置目安"]) assert.match(page, new RegExp(provenance));
   assert.match(page, /同定する構造/);
   assert.match(page, /無着色の標本から、確認する構造だけを追加/);
-  assert.match(page, /両岸の間を仮想的な色面で埋めて表示しています/);
+  assert.match(page, /両岸の間を仮想的な色面で埋めており/);
   assert.match(page, /setSurfaceVisibleRegions\(surfaceViewRegions\[surfaceView\]\)/);
   assert.match(page, /setSurfaceVisibleLandmarks\(surfaceViewLandmarks\[surfaceView\]\)/);
   assert.match(page, /medial:\{name:"左半球・内側面"/);
@@ -708,7 +708,7 @@ test("draws toggleable sulci from cortical region boundaries", async () => {
   for (const name of ["中心溝", "中心前溝", "外側溝", "上前頭溝", "頭頂後頭溝", "鳥距溝", "嗅溝", "大脳縦裂"]) {
     assert.match(page, new RegExp(name));
   }
-  assert.match(page, /両岸の間を仮想的な色面で埋めて表示しています/);
+  assert.match(page, /両岸の間を仮想的な色面で埋めており/);
   assert.match(canvas, /SURFACE_LANDMARKS/);
   assert.match(canvas, /surface-landmark-\$\{item\.key\}/);
   assert.match(canvas, /SURFACE_BOUNDARY_LABELS/);
@@ -1333,6 +1333,25 @@ test("keeps simultaneously selectable surface colours distinct on the dark model
   assert.match(page, /aria-pressed=\{active\}/);
   assert.match(audit, /色だけに依存せず/);
 });
+test("smooths cerebellar shading without moving the atlas boundary", async () => {
+  const atlasCanvas = await readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8");
+  assert.match(atlasCanvas,/name==="segment-cerebellum"\|\|name==="block-hindbrain-cerebellum"\?smoothCerebellarDisplayNormals\(mesh\):mesh/);
+  assert.match(atlasCanvas,/only display normals are[\s\S]*crease threshold/);
+  assert.match(atlasCanvas,/creaseDot=\.18/);
+  assert.match(atlasCanvas,/pass<4/);
+  assert.match(atlasCanvas,/const mesh=\{vertices,normals,shade,regions,faces\}/);
+  assert.match(atlasCanvas,/\[\.78,\.80,\.79,alpha\][\s\S]*\[\.62,\.54,\.42,alpha\]/);
+});
+
+test("presents sulci as teaching guides rather than segmentation boundaries", async () => {
+  const page = await readFile(new URL("app/page.tsx", root), "utf8");
+  const guides = page.split("const surfaceLandmarks")[1].split("const surfaceLandmarkKeys")[0];
+  assert.equal((guides.match(/note:"[^"]*位置目安です。"/g)??[]).length,7);
+  assert.match(guides,/longitudinal-fissure[\s\S]*正中の裂を示します/);
+  assert.match(page,/source:"模式ガイド"/);
+  assert.match(page,/脳回間の位置関係を読む教材ガイドです。[\s\S]*厳密な溝の輪郭や分節境界ではありません/);
+});
+
 test("keeps provisional and expert-unreviewed structures out of the default quiz", async () => {
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
   assert.match(page, /function isProvisionalQuiz\(question:QuizQuestion\)\{return isSurfaceQuiz\(question\)\|\|structures\[question\.target\]\.labelSource!=="manual"\}/);

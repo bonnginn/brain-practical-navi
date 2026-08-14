@@ -168,8 +168,34 @@ function loadMesh(name:string){
     const storedFaces=faceBytes/12,nf=declaredFaces===storedFaces?storedFaces:declaredFaces===storedFaces*3?storedFaces:0;
     if(!nf)throw new Error(`${name} face count does not match mesh length`);
     const vertices=new Float32Array(buf,12,nv*3),normals=new Float32Array(buf,12+nv*12,nv*3),shade=hasShade?new Float32Array(buf,12+nv*24,nv):new Float32Array(nv).fill(1),regions=magic===0x424e4d33?new Float32Array(buf,12+nv*28,nv):new Float32Array(nv),faces=new Uint32Array(buf,faceOffset,nf*3);
-    return{vertices,normals,shade,regions,faces};
+    const mesh={vertices,normals,shade,regions,faces};
+    return name==="segment-cerebellum"||name==="block-hindbrain-cerebellum"?smoothCerebellarDisplayNormals(mesh):mesh;
   }));return meshCache.get(name)!
+}
+
+function smoothCerebellarDisplayNormals(mesh:Mesh){
+  // The CerebrA voxel boundary is kept bit-for-bit: only display normals are
+  // averaged. A crease threshold avoids blending opposing banks of deep folia.
+  let current=new Float32Array(mesh.normals),next=new Float32Array(current.length);
+  const counts=new Uint16Array(current.length/3),blend=.42,creaseDot=.18;
+  for(let pass=0;pass<4;pass++){
+    next.set(current);counts.fill(1);
+    const addNeighbour=(target:number,source:number)=>{
+      const to=target*3,from=source*3,dot=current[to]*current[from]+current[to+1]*current[from+1]+current[to+2]*current[from+2];
+      if(dot<creaseDot)return;
+      next[to]+=current[from];next[to+1]+=current[from+1];next[to+2]+=current[from+2];counts[target]++;
+    };
+    for(let offset=0;offset<mesh.faces.length;offset+=3){
+      const a=mesh.faces[offset],b=mesh.faces[offset+1],c=mesh.faces[offset+2];
+      addNeighbour(a,b);addNeighbour(b,a);addNeighbour(b,c);addNeighbour(c,b);addNeighbour(c,a);addNeighbour(a,c);
+    }
+    for(let vertex=0;vertex<counts.length;vertex++){
+      const offset=vertex*3,weight=counts[vertex],x=current[offset]*(1-blend)+next[offset]/weight*blend,y=current[offset+1]*(1-blend)+next[offset+1]/weight*blend,z=current[offset+2]*(1-blend)+next[offset+2]/weight*blend,length=Math.hypot(x,y,z)||1;
+      next[offset]=x/length;next[offset+1]=y/length;next[offset+2]=z/length;
+    }
+    [current,next]=[next,current];
+  }
+  return{...mesh,normals:current};
 }
 
 function conservativeSeptumMesh(mesh:Mesh){
@@ -434,8 +460,8 @@ function drawWebGL(canvas:HTMLCanvasElement,selectionLayers:{meshes:Mesh[];color
       const ponsSurface=showPonsMedulla?blockMeshes?.find(part=>part.definition.key==="pons-medulla")?.mesh:undefined;structures.forEach(part=>{if(part.definition.key==="pyramids"||part.definition.key==="olives"){if(ponsSurface)draw(ventralSurfacePatchMesh(ponsSurface,part.definition.key),part.definition.color,3);return}if(part.definition.key==="septum-pellucidum"){gl.uniform1f(gl.getUniformLocation(prog,"depthBias"),.006);draw(conservativeSeptumMesh(part.mesh),part.definition.color,part.definition.material);gl.uniform1f(gl.getUniformLocation(prog,"depthBias"),0);return}draw(part.mesh,part.definition.color,part.definition.material)});
     }
   }
-  else if(view==="segmented"){const palette=[[.72,.78,.81,1],[.83,.86,.87,1],[.62,.70,.72,1],[.52,.62,.65,1],[.67,.55,.48,1],[.78,.48,.44,1],[.25,.68,.75,1]];gl.disable(gl.CULL_FACE);visibleSegments.forEach(part=>{const i=segments.indexOf(part);draw(part,palette[i],2)});}
-  else{const alpha=view==="ghost"?.13:view==="extracted"?.92:1,shellColors=[[.77,.81,.83,alpha],[.84,.86,.87,alpha],[.69,.75,.77,alpha],[.57,.66,.69,view==="ghost"?.78:alpha],[.66,.59,.54,view==="ghost"?.78:alpha]];visibleSurface.forEach(part=>{const i=surface.indexOf(part);draw(part,shellColors[i],0,gl.TRIANGLES,i<2?surfaceHighlights:[])});}
+  else if(view==="segmented"){const palette=[[.72,.78,.81,1],[.83,.86,.87,1],[.68,.56,.38,1],[.52,.62,.65,1],[.67,.55,.48,1],[.78,.48,.44,1],[.25,.68,.75,1]];gl.disable(gl.CULL_FACE);visibleSegments.forEach(part=>{const i=segments.indexOf(part);draw(part,palette[i],2)});}
+  else{const alpha=view==="ghost"?.13:view==="extracted"?.92:1,shellColors=[[.78,.80,.79,alpha],[.84,.85,.83,alpha],[.62,.54,.42,alpha],[.57,.66,.69,view==="ghost"?.78:alpha],[.66,.59,.54,view==="ghost"?.78:alpha]];visibleSurface.forEach(part=>{const i=surface.indexOf(part);draw(part,shellColors[i],0,gl.TRIANGLES,i<2?surfaceHighlights:[])});}
   if(showFocus&&selectionLayers.length){gl.clear(gl.DEPTH_BUFFER_BIT);gl.disable(gl.CULL_FACE);gl.uniform1f(gl.getUniformLocation(prog,"clipOn"),view==="extracted"?1:0);selectionLayers.forEach(layer=>layer.meshes.forEach(part=>draw(part,[layer.color[0]/255,layer.color[1]/255,layer.color[2]/255,1],1)));}
   if(surfaceLandmarks.length&&blockMeshes===null){
     gl.uniform1f(gl.getUniformLocation(prog,"clipOn"),0);gl.uniform1f(gl.getUniformLocation(prog,"hemiMode"),hemisphere==="left"?-1:hemisphere==="right"?1:0);gl.disable(gl.CULL_FACE);gl.depthFunc(gl.LEQUAL);
