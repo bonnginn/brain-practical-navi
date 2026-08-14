@@ -1352,6 +1352,11 @@ test("presents sulci as teaching guides rather than segmentation boundaries", as
   assert.match(page,/脳回間の位置関係を読む教材ガイドです。[\s\S]*厳密な溝の輪郭や分節境界ではありません/);
 });
 
+test("describes specimen fidelity limits without implying anatomical validation", async () => {
+  const page = await readFile(new URL("app/page.tsx", root), "utf8");
+  assert.match(page, /const blockSpecimenDisclaimer="褐色組織は位置関係を読むための表示で[\s\S]*見た目の実在感を形状や境界の正確性の根拠にせず/);
+  assert.match(page, /caution:`\$\{blockSpecimenDisclaimer\} \$\{blockSpecimens\[blockSpecimen\]\.caution\}`/);
+});
 test("keeps provisional and expert-unreviewed structures out of the default quiz", async () => {
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
   assert.match(page, /function isProvisionalQuiz\(question:QuizQuestion\)\{return isSurfaceQuiz\(question\)\|\|structures\[question\.target\]\.labelSource!=="manual"\}/);
