@@ -1430,3 +1430,18 @@ test("section quiz slices can be stepped without dragging the range control", as
   assert.match(page, /Math\.min\(100,value\+1\)/);
   assert.match(css, /\.quizSliceControl\s*\{[^}]*grid-template-columns:\s*32px minmax\(0,1fr\) 32px/);
 });
+
+test("publishes beta-candidate changes and known limitations", async () => {
+  const [readme, limitations, changelog] = await Promise.all([
+    readFile(new URL("README.md", root), "utf8"),
+    readFile(new URL("KNOWN_LIMITATIONS.md", root), "utf8"),
+    readFile(new URL("CHANGELOG.md", root), "utf8"),
+  ]);
+  assert.match(readme, /\[KNOWN_LIMITATIONS\.md\]\(KNOWN_LIMITATIONS\.md\)/);
+  assert.match(readme, /\[CHANGELOG\.md\]\(CHANGELOG\.md\)/);
+  assert.match(limitations, /専門家による確認を意味しません/);
+  assert.match(limitations, /実機スマートフォン/);
+  assert.match(limitations, /診断、治療、手術計画、研究用の定量解析には使用できません/);
+  assert.match(changelog, /Unreleased — β候補/);
+  assert.match(changelog, /大脳基底核の一括選択/);
+});
