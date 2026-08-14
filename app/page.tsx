@@ -472,7 +472,7 @@ export default function Home() {
   const [identified, setIdentified] = useState<(IdentifiedPoint & {name:string;side:string}) | null>(null);
   const [labels, setLabels] = useState(true);
   const [block, setBlock] = useState<"inside" | "ghost" | "extracted" | "segmented">("ghost");
-  const [sectionLayout,setSectionLayout]=useState<"both"|"slice"|"model">("both");
+  const [sectionLayout,setSectionLayout]=useState<"both"|"slice"|"model">(()=>typeof window!=="undefined"&&window.matchMedia("(max-width: 760px)").matches?"slice":"both");
   const [display, setDisplay] = useState<"specimen" | "diagram" | "outline">("specimen");
   const [contrast, setContrast] = useState<"t1" | "t2" | "bigbrain" | "single">("bigbrain");
   const [rotation, setRotation] = useState<Rotation>(()=>workspace==="sections"?{x:-7,y:-18,z:0}:workspace==="surface"?surfaceViews[surfaceView].rotation:workspace==="blocks"?blockInitialRotations[initialBlockSpecimen]:{...homeRotation});
