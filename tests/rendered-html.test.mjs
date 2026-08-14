@@ -1350,6 +1350,28 @@ test("help, feedback, and credit dialogs have durable shareable URLs", async () 
   assert.match(page, /onClick=\{closeOverlay\} aria-label="操作ガイドを閉じる"/);
 });
 
+test("keeps simultaneously selectable surface colours distinct on the dark model", async () => {
+  const [page, audit] = await Promise.all([
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("VISUAL_CONTRAST_AUDIT.md", root), "utf8"),
+  ]);
+  const block = page.split("const surfaceRegions")[1].split("const surfaceRegionKeys")[0];
+  const entries = [...block.matchAll(/\s([A-Za-z]+):\{name:"([^"]+)"[^\n]+rgb:\[(\d+),(\d+),(\d+)\]/g)].map(match=>[match[1],[Number(match[3]),Number(match[4]),Number(match[5])]]);
+  const colours = new Map(entries);
+  const views = [
+    ["precentral","postcentral","inferiorFrontal","superiorTemporal","supramarginal","lateralOccipital"],
+    ["superiorFrontal","precentral","postcentral","superiorParietal","paracentral"],
+    ["orbitofrontal","superiorTemporal","middleTemporal","fusiform","lingual","lateralOccipital"],
+    ["cingulate","paracentral","precuneus","cuneus","lingual"],
+  ];
+  const luminance = colour=>colour.map(value=>value/255).map(value=>value<=.04045?value/12.92:((value+.055)/1.055)**2.4).reduce((sum,value,index)=>sum+value*[.2126,.7152,.0722][index],0);
+  const background = luminance([26,31,33]);
+  for(const keys of views)for(let left=0;left<keys.length;left++)for(let right=left+1;right<keys.length;right++)assert.ok(Math.hypot(...colours.get(keys[left]).map((value,index)=>value-colours.get(keys[right])[index]))>=35,`${keys[left]} and ${keys[right]} are too similar`);
+  for(const [key,colour] of colours){const value=luminance(colour),ratio=(Math.max(value,background)+.05)/(Math.min(value,background)+.05);assert.ok(ratio>=3,`${key} is too dark on the model background`)}
+  assert.match(page, /aria-pressed=\{active\}/);
+  assert.match(audit, /色だけに依存せず/);
+});
+
 test("prioritizes beta specimen work without implying anatomical validation", async () => {
   const [page, roadmap] = await Promise.all([
     readFile(new URL("app/page.tsx", root), "utf8"),

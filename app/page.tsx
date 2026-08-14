@@ -96,10 +96,10 @@ const surfaceRegions:Record<SurfaceRegionKey,{name:string;latin:string;ids:numbe
   inferiorFrontal:{name:"下前頭回 弁蓋部・三角部",latin:"Pars opercularis et triangularis",ids:[83,32,73,22],color:"#dd9650",rgb:[221,150,80],note:"外側溝前方、上行枝・前枝に区切られる領域"},
   parsOrbitalis:{name:"下前頭回 眼窩部",latin:"Pars orbitalis gyri frontalis inferioris",ids:[95,44],color:"#d7a16a",rgb:[215,161,106],note:"下前頭回の前下方で眼窩面へ続く部分"},
   superiorTemporal:{name:"上側頭回",latin:"Gyrus temporalis superior",ids:[96,45],color:"#9970b4",rgb:[153,112,180],note:"外側溝の下縁に沿う側頭葉上部"},
-  middleTemporal:{name:"中側頭回",latin:"Gyrus temporalis medius",ids:[79,28],color:"#a46996",rgb:[164,105,150],note:"上・下側頭溝の間にある側頭葉外側面"},
+  middleTemporal:{name:"中側頭回",latin:"Gyrus temporalis medius",ids:[79,28],color:"#7d5aa8",rgb:[125,90,168],note:"上・下側頭溝の間にある側頭葉外側面"},
   inferiorTemporal:{name:"下側頭回",latin:"Gyrus temporalis inferior",ids:[54,3],color:"#9a6885",rgb:[154,104,133],note:"下側頭溝の下方で側頭葉下面へ続く脳回"},
   transverseTemporal:{name:"横側頭回",latin:"Gyri temporales transversi",ids:[65,14],color:"#8266a9",rgb:[130,102,169],note:"外側溝の深部に位置する聴覚皮質周辺の横走脳回"},
-  supramarginal:{name:"縁上回",latin:"Gyrus supramarginalis",ids:[102,51],color:"#4d86b2",rgb:[77,134,178],note:"外側溝後端を取り囲む下頭頂小葉"},
+  supramarginal:{name:"縁上回",latin:"Gyrus supramarginalis",ids:[102,51],color:"#5967c2",rgb:[89,103,194],note:"外側溝後端を取り囲む下頭頂小葉"},
   superiorParietal:{name:"上頭頂小葉",latin:"Lobulus parietalis superior",ids:[60,9],color:"#68a06c",rgb:[104,160,108],note:"頭頂間溝の上方に広がる頭頂葉領域"},
   inferiorParietal:{name:"下頭頂小葉",latin:"Lobulus parietalis inferior",ids:[61,10],color:"#5b91a4",rgb:[91,145,164],note:"頭頂間溝の下方で縁上回・角回周辺を含む領域"},
   paracentral:{name:"中心傍小葉",latin:"Lobulus paracentralis",ids:[67,16],color:"#ad708c",rgb:[173,112,140],note:"中心前回・後回が内側面へ連続する部分"},
@@ -111,9 +111,9 @@ const surfaceRegions:Record<SurfaceRegionKey,{name:string;latin:string;ids:numbe
   parahippocampal:{name:"海馬傍回",latin:"Gyrus parahippocampalis",ids:[69,18],color:"#9b795d",rgb:[155,121,93],note:"側頭葉内側面で海馬形成を外側から取り巻く脳回"},
   entorhinal:{name:"嗅内野",latin:"Cortex entorhinalis",ids:[87,36],color:"#b06f62",rgb:[176,111,98],note:"海馬傍回前部に位置し、海馬への主要な皮質入力となる領域"},
   insula:{name:"島皮質",latin:"Cortex insularis",ids:[74,23],color:"#5d8f87",rgb:[93,143,135],note:"外側溝の深部で前頭・頭頂・側頭弁蓋に覆われる皮質"},
-  orbitofrontal:{name:"眼窩前頭皮質",latin:"Cortex orbitofrontalis",ids:[58,7,66,15],color:"#c38b65",rgb:[195,139,101],note:"前頭葉下面の眼窩面"},
-  lateralOccipital:{name:"外側後頭皮質",latin:"Cortex occipitalis lateralis",ids:[85,34],color:"#638db3",rgb:[99,141,179],note:"後頭葉外側面の広い領域"},
-  cingulate:{name:"帯状回",latin:"Gyrus cinguli",ids:[81,30,59,8,98,47,84,33],color:"#b48355",rgb:[180,131,85],note:"脳梁の上方を前後へ取り巻く内側面の脳回"},
+  orbitofrontal:{name:"眼窩前頭皮質",latin:"Cortex orbitofrontalis",ids:[58,7,66,15],color:"#d4775b",rgb:[212,119,91],note:"前頭葉下面の眼窩面"},
+  lateralOccipital:{name:"外側後頭皮質",latin:"Cortex occipitalis lateralis",ids:[85,34],color:"#4d7e97",rgb:[77,126,151],note:"後頭葉外側面の広い領域"},
+  cingulate:{name:"帯状回",latin:"Gyrus cinguli",ids:[81,30,59,8,98,47,84,33],color:"#c86044",rgb:[200,96,68],note:"脳梁の上方を前後へ取り巻く内側面の脳回"},
 };
 const surfaceRegionKeys=Object.keys(surfaceRegions) as SurfaceRegionKey[];
 
