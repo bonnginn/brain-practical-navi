@@ -275,6 +275,12 @@ const blockPriorities:Record<BlockSpecimenKey,{level:"beta"|"later";label:string
   hindbrain:{level:"later",label:"発展枠",reason:"小脳脚・菱形窩の模式表示を監修後に改善"},
 };
 
+const blockGuidedInitialLayers:Partial<Record<BlockSpecimenKey,string[]>>={
+  radiations:["putamen","pallidum-external","pallidum-internal","internal-capsule","corona-radiata"],
+  "medial-temporal":["hippocampus","amygdala","inferior-horn"],
+};
+function initialBlockLayers(key:BlockSpecimenKey){return blockGuidedInitialLayers[key]??blockSpecimens[key].layers.map(layer=>layer.key)}
+
 const blockSpecimenDisclaimer="褐色組織は位置関係を読むための表示で、湿潤感・線維感・切断面など実標本の質感は再現していません。見た目の実在感を形状や境界の正確性の根拠にせず、実標本・検証済み資料と照合してください。";
 
 const blockInitialRotations:Record<BlockSpecimenKey,Rotation>={
@@ -539,7 +545,7 @@ export default function Home() {
   const [freeFocusedKey,setFreeFocusedKey]=useState<FreeObservationKey|null>(null);
   const [selectedPathway,setSelectedPathway]=useState<PathwayPresetKey|null>(null);
   const [blockSpecimen,setBlockSpecimen]=useState<BlockSpecimenKey>(initialBlockSpecimen);
-  const [blockLayers,setBlockLayers]=useState<string[]>(blockSpecimens[initialBlockSpecimen].layers.map(layer=>layer.key));
+  const [blockLayers,setBlockLayers]=useState<string[]>(initialBlockLayers(initialBlockSpecimen));
   const [blockLayerFocus,setBlockLayerFocus]=useState(blockSpecimens[initialBlockSpecimen].layers[0]?.key??"");
   const [blockTissueMode,setBlockTissueMode]=useState<SpecimenTissueMode>("ghost");
   const [blockCerebellum,setBlockCerebellum]=useState(true);
@@ -697,7 +703,7 @@ export default function Home() {
   function identifyFreeSurface(point:{source:"surface"|"neurovascular";id:number}){if(point.source==="surface"){const key=surfaceRegionKeys.find(regionKey=>surfaceRegions[regionKey].ids.includes(point.id));if(key)toggleFreeObservation(`region:${key}`);return}const key=neurovascularStructureKeys.find(structureKey=>neurovascularStructures[structureKey].ids.includes(point.id));if(key)toggleFreeObservation(`neuro:${key}`)}
   function blockPresetRotation(preset:BlockViewPreset):Rotation{const initial=blockInitialRotations[blockSpecimen];if(preset==="opposite")return{...initial,y:wrapAngle(initial.y+180)};if(preset==="superior")return{x:-82,y:0,z:0};if(preset==="inferior")return{x:82,y:0,z:0};return{...initial}}
   function chooseBlockView(preset:BlockViewPreset){setBlockViewPreset(preset);setRotation(blockPresetRotation(preset))}
-  function chooseBlock(key:BlockSpecimenKey){const next=blockSpecimens[key];if(workspace==="blocks")window.history.replaceState(null,"",workspaceHash("blocks",surfaceView,plane,key));setBlockIntroOpen(false);setBlockSpecimen(key);setBlockLayers(next.layers.map(layer=>layer.key));setBlockLayerFocus(next.layers[0]?.key??"");setBlockTissueMode(next.layers.length?"ghost":"solid");setRotation({...blockInitialRotations[key]});setBlockViewPreset("initial");setBlockPonsMedulla(true);setBlockCerebellum(true)}
+  function chooseBlock(key:BlockSpecimenKey){const next=blockSpecimens[key];if(workspace==="blocks")window.history.replaceState(null,"",workspaceHash("blocks",surfaceView,plane,key));setBlockIntroOpen(false);setBlockSpecimen(key);setBlockLayers(initialBlockLayers(key));setBlockLayerFocus(next.layers[0]?.key??"");setBlockTissueMode(next.layers.length?"ghost":"solid");setRotation({...blockInitialRotations[key]});setBlockViewPreset("initial");setBlockPonsMedulla(true);setBlockCerebellum(true)}
   function toggleBlockLayer(key:string){setBlockLayerFocus(key);setBlockLayers(previous=>previous.includes(key)?previous.filter(item=>item!==key):[...previous,key])}
   function chooseNeurovascularStructure(key:NeurovascularStructureKey){const item=neurovascularStructures[key];setSelectedNeurovascularStructure(key);if(item.kind==="arteries")setSurfaceVessels(true);else setSurfaceNerves(true)}
   function closeOverlay(){setHelpOpen(false);setFeedbackOpen(false);setLegalOpen(false);const nextHash=workspaceHash(workspace,surfaceView,plane,blockSpecimen);if(window.location.hash!==nextHash)window.history.replaceState(null,"",nextHash)}
