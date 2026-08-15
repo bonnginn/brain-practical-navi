@@ -1891,13 +1891,16 @@ test("phone layouts use a bottom workspace dock and a complete context sheet", a
 });
 
 test("touch section slices preserve vertical page scrolling while keeping tap identification", async () => {
-  const [canvas, css] = await Promise.all([
+  const [canvas, css, page] = await Promise.all([
     readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8"),
     readFile(new URL("app/canvas.css", root), "utf8"),
+    readFile(new URL("app/page.tsx", root), "utf8"),
   ]);
   assert.match(css, /\.sliceStage \.atlasCanvas\.identifiable \{ touch-action: pan-y; \}/);
   assert.match(css, /\.workspace-sections \.sliceStage \.atlasCanvas \{ pointer-events:none; touch-action:auto; \}/);
   assert.match(css, /\.workspace-sections \.sliceStage\.layout-slice \{ pointer-events:none; touch-action:auto; \}/);
+  assert.match(page, /document\.addEventListener\("touchmove",move,\{capture:true,passive:false\}\)/);
+  assert.match(page, /window\.scrollBy\(0,delta\)/);
   assert.match(canvas, /sliceTouchClick=useRef/);
   assert.match(canvas, /kind==="slice"&&e\.pointerType==="touch"/);
   assert.match(canvas, /if\(!click\.moved\)identify\(e\)/);
