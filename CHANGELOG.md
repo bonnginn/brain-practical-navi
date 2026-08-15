@@ -2,6 +2,8 @@
 
 ## 2026-08-15 実機証拠と対象ビルドの固定
 
+- スマートフォンの3D内部初期倍率を87%へ調整し、利用者向けにはその適合状態を100%と表示します。2本指のピンチ拡大・縮小を追加し、1本指の回転と2本指の拡縮を分離しました。
+
 - 実機診断をschema v5、性能セッションをschema v2へ更新し、40桁commit、dirty状態、base URL、実行URLを記録するようにしました。ビルドが変わると古い下書き・性能セッションは引き継ぎません。
 - validatorは検証対象の40桁SHAを必須にし、GitHub Pagesの正規HTTPS URL、クリーンビルド、診断と性能セッションの同一commitを確認します。
 - GitHub Pages成果物へ `build-info.json` を追加し、commit、dirty状態、正規サブパス、HTML資源、manifest、Service Worker shell、QRをアップロード前に検査します。Pages成果物からSites専用の内部設定・worker資材を除外し、CIとPagesの依存導入をlockfile固定へ変更しました。

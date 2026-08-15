@@ -1967,7 +1967,12 @@ test("3D viewers expose orientation, keyboard rotation, reset, and visible zoom 
   assert.ok((page.match(/onKeyDown=\{handleModelKey\}/g) ?? []).length >= 4);
   assert.match(page, /event\.key\.toLowerCase\(\)==="r"/);
   assert.match(canvas, /className="modelZoomControls"/);
-  assert.match(canvas, /aria-label="拡大率を100パーセントに戻す"/);
+  assert.match(canvas, /aria-label="表示倍率を100パーセントに戻す"/);
+  assert.match(canvas, /Math\.round\(zoom\/initialZoom\.current\*100\)/);
+  assert.match(canvas, /matchMedia\("\(max-width: 760px\) and \(hover: none\) and \(pointer: coarse\)"\)\.matches\?\.87:1/);
+  assert.match(canvas, /function pinchMove[\s\S]*pinch\.current\.zoom\*distance\/pinch\.current\.distance/);
+  assert.match(canvas, /onTouchStart=\{pinchStart\} onTouchMove=\{pinchMove\}/);
+  assert.match(page, /activeModelTouches\.current\.size>1/);
   assert.match(canvas, /showZoomControls=true/);
   assert.match(page, /showZoomControls=\{false\}/);
   assert.match(page, /<OrientationCompass rotation=\{modelRotation\} compact\/>/);
