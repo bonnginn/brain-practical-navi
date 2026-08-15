@@ -1363,11 +1363,12 @@ test("describes specimen fidelity limits without implying anatomical validation"
   assert.match(page, /const blockSpecimenDisclaimer="褐色組織は位置関係を読むための表示で[\s\S]*見た目の実在感を形状や境界の正確性の根拠にせず/);
   assert.match(page, /caution:`\$\{blockSpecimenDisclaimer\} \$\{blockSpecimens\[blockSpecimen\]\.caution\}`/);
 });
-test("keeps provisional and expert-unreviewed structures out of the default quiz", async () => {
+test("labels provisional questions and includes them in the default quiz setup", async () => {
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
   assert.match(page, /function isProvisionalQuiz\(question:QuizQuestion\)\{return isSurfaceQuiz\(question\)\|\|structures\[question\.target\]\.labelSource!=="manual"\}/);
   assert.match(page, /standardQuizQuestions=quizQuestions\.filter\(question=>!isProvisionalQuiz\(question\)\)/);
   assert.match(page, /useState<QuizQuestion\[]>\(\(\)=>shuffledQuestions\(standardQuizQuestions\)/);
+  assert.match(page, /quizIncludeProvisional,setQuizIncludeProvisional\]=useState\(true\)/);
   assert.match(page, /quizIncludeProvisional\|\|!isProvisionalQuiz\(question\)/);
   assert.match(page, /試作問題を含む[\s\S]*専門家未確認・位置照合ラベル/);
   assert.match(page, /試作・専門家未確認/);

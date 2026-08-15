@@ -511,7 +511,7 @@ export default function Home() {
   const [quizCategory,setQuizCategory]=useState<"all"|QuizCategory>("all");
   const [quizCount,setQuizCount]=useState<5|10|15|20>(10);
   const [quizWrongOnly,setQuizWrongOnly]=useState(false);
-  const [quizIncludeProvisional,setQuizIncludeProvisional]=useState(false);
+  const [quizIncludeProvisional,setQuizIncludeProvisional]=useState(true);
   const [wrongTargets,setWrongTargets]=useState<QuizTargetKey[]>([]);
   const [quizChoice,setQuizChoice]=useState<QuizTargetKey|null>(null);
   const [quizScore,setQuizScore]=useState(0);
