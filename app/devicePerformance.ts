@@ -39,6 +39,7 @@ export type DevicePerformanceSession={
 const PERFORMANCE_KEY="brain-practical-device-performance-v2";
 const LEGACY_PERFORMANCE_KEY="brain-practical-device-performance-v1";
 const LAST_CONTENT_ROUTE_KEY="brain-practical-last-content-route-v1";
+export const CONTENT_ROUTE_HISTORY_KEY="brainPracticalContentRoute";
 const routeKeys:DeviceRouteKey[]=["home","surface","sections","blocks","quiz","segment","offlineSurface","offlineSections","offlineBlocks","offlineQuiz"];
 const overlayPattern=/^#workspace\/(help|offline|device-check|feedback|legal)(?:\/|$)/;
 const round=(value:number,digits=1)=>Number(value.toFixed(digits));
@@ -55,17 +56,27 @@ function writeSession(session:DevicePerformanceSession){
   return session;
 }
 
-function rememberContentRoute(){
-  if(!location.hash||overlayPattern.test(location.hash))return;
-  try{sessionStorage.setItem(LAST_CONTENT_ROUTE_KEY,location.hash)}catch{/* route hint is best effort */}
+export function rememberDeviceContentRoute(hash=location.hash){
+  if(!hash||overlayPattern.test(hash))return;
+  try{sessionStorage.setItem(LAST_CONTENT_ROUTE_KEY,hash)}catch{/* route hint is best effort */}
+}
+
+function routeHashForEvidence(){
+  let routeHash=location.hash;
+  if(!overlayPattern.test(routeHash))return routeHash;
+  try{
+    const historyRoute=(history.state as Record<string,unknown>|null)?.[CONTENT_ROUTE_HISTORY_KEY];
+    if(typeof historyRoute==="string"&&historyRoute&&!overlayPattern.test(historyRoute))return historyRoute;
+    return sessionStorage.getItem(LAST_CONTENT_ROUTE_KEY)??routeHash;
+  }catch{return routeHash}
 }
 
 export function getDevicePerformanceSession(){return typeof window==="undefined"?null:readSession()}
 
 export function startDevicePerformanceSession(){
-  rememberContentRoute();
+  rememberDeviceContentRoute();
   const current=memory(),recordedAt=new Date().toISOString(),resources=performance.getEntriesByType("resource") as PerformanceResourceTiming[],navigation=performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming|undefined;
-  let routeHash=location.hash;if(overlayPattern.test(routeHash))try{routeHash=sessionStorage.getItem(LAST_CONTENT_ROUTE_KEY)??routeHash}catch{/* keep current hash */}
+  const routeHash=routeHashForEvidence();
   const coldStart:DeviceColdStartObservation={key:"coldHome",recordedAt,routeHash,online:navigator.onLine,viewport:{width:innerWidth,height:innerHeight},canvasCount:document.querySelectorAll("canvas").length,horizontalOverflowPx:Math.max(0,document.documentElement.scrollWidth-document.documentElement.clientWidth),resourceCount:resources.length,transferBytes:resources.reduce((sum,entry)=>sum+entry.transferSize,0),encodedBodyBytes:resources.reduce((sum,entry)=>sum+entry.encodedBodySize,0),decodedBodyBytes:resources.reduce((sum,entry)=>sum+entry.decodedBodySize,0),longestResourceMs:round(Math.max(0,...resources.map(entry=>entry.duration))),navigation:navigation?{type:navigation.type,durationMs:round(navigation.duration),domContentLoadedMs:round(navigation.domContentLoadedEventEnd),loadMs:round(navigation.loadEventEnd),transferBytes:navigation.transferSize,encodedBodyBytes:navigation.encodedBodySize,decodedBodyBytes:navigation.decodedBodySize}:null,currentJsHeapBytes:current,peakJsHeapBytes:current};
   sampledPeak=current;lastPeakPersistedAt=Date.now();performance.setResourceTimingBufferSize?.(500);
   const session=writeSession({format:"brain-practical-device-performance",schemaVersion:2,application:{...appBuildInfo,runtimeBaseUrl:currentAppBaseUrl()},origin:location.origin,startedAt:recordedAt,stoppedAt:null,active:true,memorySupported:current!==null,peakJsHeapBytes:current,coldStart,observations:{}});
@@ -79,9 +90,9 @@ export function resetDevicePerformanceSession(){
 }
 
 export function startDevicePerformanceSampler(){
-  rememberContentRoute();
+  rememberDeviceContentRoute();
   sampledPeak=readSession()?.peakJsHeapBytes??sampledPeak;
-  const routeListener=()=>rememberContentRoute();
+  const routeListener=()=>rememberDeviceContentRoute();
   const timer=window.setInterval(()=>{
     const session=readSession(),current=memory();
     if(!session?.active||current===null)return;
@@ -100,8 +111,7 @@ export function recordDevicePerformanceObservation(key:DeviceRouteKey,recordedAt
   const current=memory(),peak=Math.max(session.peakJsHeapBytes??0,sampledPeak??0,current??0)||null;
   const resources=performance.getEntriesByType("resource") as PerformanceResourceTiming[];
   const navigation=performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming|undefined;
-  let routeHash=location.hash;
-  if(overlayPattern.test(routeHash))try{routeHash=sessionStorage.getItem(LAST_CONTENT_ROUTE_KEY)??routeHash}catch{/* keep current hash */}
+  const routeHash=routeHashForEvidence();
   const observation:DevicePerformanceObservation={
     key,recordedAt,routeHash,online:navigator.onLine,viewport:{width:innerWidth,height:innerHeight},canvasCount:document.querySelectorAll("canvas").length,
     horizontalOverflowPx:Math.max(0,document.documentElement.scrollWidth-document.documentElement.clientWidth),resourceCount:resources.length,

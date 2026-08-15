@@ -1520,7 +1520,7 @@ test("help, diagnostics, feedback, and credit dialogs have durable shareable URL
   assert.match(page, /overlayFromHash\(window\.location\.hash\)==="device-check"/);
   assert.match(page, /overlayFromHash\(window\.location\.hash\)==="feedback"/);
   assert.match(page, /overlayFromHash\(window\.location\.hash\)==="legal"/);
-  assert.match(page, /window\.history\.pushState\(null,"",`#workspace\/\$\{key\}`\)/);
+  assert.match(page, /window\.history\.pushState\(\{\[CONTENT_ROUTE_HISTORY_KEY\]:contentRoute\},"",`#workspace\/\$\{key\}`\)/);
   assert.match(page, /onClick=\{\(\)=>openOverlay\("feedback"\)\}/);
   assert.match(page, /onClick=\{\(\)=>openOverlay\("legal"\)\}/);
   assert.match(page, /onClick=\{\(\)=>openOverlay\("help"\)\}/);
@@ -1637,7 +1637,11 @@ test("records reproducible real-device diagnostics without treating them as a ga
   assert.match(diagnostics, /cachedResources===pack\.resources\.length/);
   assert.match(diagnostics, /recordDevicePerformanceObservation/);
   assert.match(page, /startDevicePerformanceSampler\(\)/);
+  assert.match(page, /rememberDeviceContentRoute\(expected\)/);
+  assert.match(page, /pushState\(\{\[CONTENT_ROUTE_HISTORY_KEY\]:contentRoute\}/);
   assert.match(performanceRecorder, /brain-practical-device-performance-v2/);
+  assert.match(performanceRecorder, /export function rememberDeviceContentRoute/);
+  assert.match(performanceRecorder, /history\.state as Record<string,unknown>/);
   assert.match(performanceRecorder, /value\?\.application\?\.commit===appBuildInfo\.commit/);
   assert.match(performanceRecorder, /performance\.clearResourceTimings\(\)/);
   assert.match(performanceRecorder, /horizontalOverflowPx/);

@@ -160,7 +160,9 @@ Windows Chromium 391 × 639 px相当でA/B双方を実操作し、各状態でCa
 
 # 2026-08-15 公開回線・経路性能セッション
 
-診断JSONをschema v4へ更新し、公開候補HTTPSのホーム初回読込をNavigation / Resource Timingから即時採取した後、オンライン6経路と機内モード4経路を区間別に記録できるようにしました。各区間は取得量、encoded / decoded body、最長resource duration、Canvas数、viewport、横はみ出しを持ち、利用可能なChromium系ブラウザではアプリ起動中に250 ms間隔でJS heapを観測して最大値を保持します。教材3セット保存後のオンラインPWAチェックポイントでResource Timingを区切り、大容量保存通信を次の観察経路へ混入させません。
+診断JSONをschema v5、性能セッションをschema v2へ更新し、公開候補HTTPSのホーム初回読込をNavigation / Resource Timingから即時採取した後、オンライン6経路と機内モード4経路を区間別に記録できるようにしました。各区間は取得量、encoded / decoded body、最長resource duration、Canvas数、viewport、横はみ出しを持ち、利用可能なChromium系ブラウザではアプリ起動中に250 ms間隔でJS heapを観測して最大値を保持します。教材3セット保存後のオンラインPWAチェックポイントでResource Timingを区切り、大容量保存通信を次の観察経路へ混入させません。
+
+History APIによるアプリ内移動が `hashchange` を発生させず、診断画面で古い教材URLを観測へ結び付ける問題を修正しました。教材状態の変更時と補助画面を開く時点で戻り先URLを同期し、ホーム開始→脳表移動→診断画面で確認の通し回帰により `surface` 観測が `#workspace/surface/lateral` を保持することを確認しました。これにより実機JSONが経路不一致で無効になる回帰を防ぎます。
 
 validatorはlocalhostを正式証拠として拒否し、初回ホーム、10経路の順序・URL・接続状態、Canvas表示、横はみ出し0、オフライン4経路の転送量0を必須にします。ただしJS heap APIを公開しないブラウザ、OS・GPU・ネイティブ領域、250 msサンプル間の瞬間ピークは取得できません。実スマートフォンと公開候補URLのJSONを受領するまでGate 4は「実機待ち」のままです。
 

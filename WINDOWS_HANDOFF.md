@@ -64,7 +64,7 @@ npm run build
 
 ### M1 実ブラウザ回帰・性能・表示安定性
 
-- 旧23経路をPC／390 px相当、現行26コア経路を907 px PC分割表示で巡回し、直接URL、再読み込み、主要操作、横はみ出し、Canvas、読込エラーを確認。現行一覧は `app/browser-route-targets.json`、静的整合は `npm run audit:routes` を正本とする。
+- 現行26コア経路を907 px省スペースPCと390 × 844 pxタッチ主体UIで巡回し、直接URL、再読み込み、主要操作、横はみ出し、Canvas、読込エラーを確認。現行一覧と両viewport条件は `app/browser-route-targets.json`、静的整合は `npm run audit:routes` を正本とする。
 - 大容量アセットを必要時読込へ変更し、左右高密度脳表を内容不変のgzip配信にして公開物を70.6 MiBへ削減。経路別予算を `npm run audit:assets` で固定。
 - 読込進捗、失敗時再試行、離脱時の画像・メッシュ参照解放、再訪復帰を実装。
 - 操作ガイド、キーボードフォーカス、断面送り戻し、クイズから正確な復習画面へ戻る導線を追加。
