@@ -1,4 +1,4 @@
-import { access, readFile, stat } from "node:fs/promises";
+import { access, readFile, readdir, stat } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -19,8 +19,11 @@ check(/rel="manifest"/.test(index)&&/apple-mobile-web-app-capable/.test(index),"
 check(/import\.meta\.env\.PROD/.test(registration)&&/new URL\("sw\.js",document\.baseURI\)/.test(registration),"service worker registration must be production-only and base-relative");
 check(/beforeinstallprompt/.test(registration)&&/event\.preventDefault\(\)/.test(registration)&&/appinstalled/.test(registration),"install prompt lifecycle is not exposed to the offline manager");
 check(/networkThenCache/.test(builder)&&/request\.mode==="navigate"/.test(builder)&&/\/atlas\//.test(builder),"worker must provide navigation fallback and atlas runtime caching");
+check(/ATLAS_BYTES/.test(builder)&&/healthyAtlasResponse/.test(builder)&&/text\/html/.test(builder)&&/Content-Length/.test(builder)&&/Content-Encoding/.test(builder)&&/response=>healthyAtlasResponse\(request,response\)/.test(builder),"atlas runtime cache must reject HTTP failures, HTML fallbacks, and unencoded declared-size mismatches");
+check(/builderSource=await readFile\(fileURLToPath\(import\.meta\.url\)/.test(builder)&&/builderSource\)\.digest/.test(builder),"worker logic changes must rotate generated cache versions");
 check(/url\.pathname\.endsWith\("\/offline-packs\.json"\)/.test(builder)&&/controllerchange/.test(manager),"offline catalog updates must cross service worker version changes");
 check(/request\.cache==="reload"/.test(builder),"explicit pack downloads must bypass runtime-cache duplication");
+check(/caches\.open\(PACK_CACHE\).*cache\.match\(request\).*hit&&healthyAtlasResponse\(request,hit\)\?hit:networkThenCache/s.test(builder),"healthy explicit pack resources must be served before waiting for the network");
 check(/PACK_CACHE="brain-practical-offline-packs"/.test(manager)&&/cache:\s*"reload"/.test(manager)&&/removeFromRuntime/.test(manager),"pack manager must use a stable explicit cache and remove duplicate runtime entries");
 check(/X-Brain-Practical-Pack-Version/.test(manager)&&/X-Brain-Practical-Pack-Complete/.test(manager)&&/state==="stale"\?"更新が必要"/.test(manager),"pack versions must distinguish current, interrupted, and stale offline data");
 check(/protectedPaths/.test(manager)&&/otherComplete/.test(manager)&&/!protectedPaths\.has\(path\)/.test(manager),"deleting one pack must preserve resources owned by another complete pack");
@@ -53,6 +56,11 @@ for(const pack of catalog.packs){
 }
 check(expected.size===0,"required pack missing");
 check(new Set(catalog.packs.map(pack=>pack.version)).size===catalog.packs.length,"pack content versions must be independent");
+const unpackedTeachingFiles=(await readdir(resolve(root,"public","atlas"),{withFileTypes:true}))
+  .filter(entry=>entry.isFile()&&!/LICENSE|NOTICE|ATTRIBUTION|DATA-MANIFEST/.test(entry.name))
+  .map(entry=>`atlas/${entry.name}`)
+  .filter(path=>!union.has(path));
+check(unpackedTeachingFiles.length===0,`teaching resources missing from offline packs: ${unpackedTeachingFiles.join(", ")}`);
 const sharedSurfaceSections=catalog.packs.find(pack=>pack.id==="sections").urls.filter(path=>catalog.packs.find(pack=>pack.id==="surface").urls.includes(path));
 check(sharedSurfaceSections.length===10,"surface/sections shared resource count changed; re-audit pack deletion ownership");
 check(largest<45*1048576,"a single optional pack exceeds the 45 MiB mobile budget");

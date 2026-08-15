@@ -15,7 +15,7 @@ export function offlineResourceResponseError(expectedBytes:number,response:Respo
   if(!response.ok)return `HTTP ${response.status}`;
   const contentType=response.headers.get("Content-Type")?.toLowerCase()??"";
   if(contentType.includes("text/html"))return "HTML fallback";
-  const contentLength=response.headers.get("Content-Length");
-  if(contentLength!==null){const measured=Number(contentLength);if(!Number.isFinite(measured)||measured!==expectedBytes)return `size ${contentLength}, expected ${expectedBytes}`}
+  const contentEncoding=response.headers.get("Content-Encoding")?.toLowerCase()??"",contentLength=response.headers.get("Content-Length");
+  if(contentLength!==null&&(!contentEncoding||contentEncoding==="identity")){const measured=Number(contentLength);if(!Number.isFinite(measured)||measured!==expectedBytes)return `size ${contentLength}, expected ${expectedBytes}`}
   return null;
 }

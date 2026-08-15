@@ -66,7 +66,21 @@ Vite previewでは存在しないatlas URLもHTTP 200のSPA HTMLを返すこと�
 
 - HTTP成功であること。
 - `Content-Type` が `text/html` ではないこと。
-- `Content-Length` が提供される場合、カタログの実ファイルサイズと一致すること。CDN等が長さを公開しない場合は本文を全展開せず、この検査だけを省略する。
+- 未圧縮応答で `Content-Length` が提供される場合、カタログの実ファイルサイズと一致すること。CDN等が長さを公開しない場合、またはHTTP gzip / Brotli等の `Content-Encoding` がある場合は転送サイズと元サイズが異なるため、本文を全展開せず長さ検査だけを省略する。
 - 異常応答は完了数へ含めず、再保存対象として必要量へ戻す。
 
 正常な高密度脳表は `Content-Type: model/mesh`、`Content-Length: 4996611`、正常JSONは `application/json` と実サイズを返し、欠損URLは `text/html` でした。HTMLフォールバック、サイズ不一致、HTTP 404の拒否を自動テストへ固定しました。本番ビルドのWindows Chromiumでは既存3セットが正常に保存済み、部分保存0、console error 0として再認識されました。本文SHA-256の再計算は大容量配列を端末メモリへ二重展開するため行いません。
+
+## 2026-08-15 ランタイムキャッシュと厳密なサーバー停止回帰
+
+明示保存画面とは別に、Service Workerの通常閲覧キャッシュもatlas応答のHTTP状態、HTML除外、既知のContent-Length一致を確認してから保存するようにしました。欠損 `atlas/runtime-health-probe.mesh` はオンライン時に `200 text/html` でしたがruntime cacheには保存されず、preview停止後は全キャッシュに不在のまま `AbortError` となり、HTML教材として解決されませんでした。
+
+初回のサーバー停止試験では、保存済み後脳標本がネットワーク失敗を待ってからCache Storageへフォールバックし、5秒時点では読込中、約17秒後に描画完了しました。明示保存した健全な教材をatlas要求で最優先するよう変更後、次を `127.0.0.1:4174` のLISTENINGプロセス停止中に完全再読込しました。
+
+- 左外側脳表: 1 Canvas描画、読込中なし、画面内エラーなし。
+- 水平断: 断面・2つの比較3Dを含む3 Canvas描画、読込中なし、画面内エラーなし。
+- 後脳標本: 試作注意を確認後1.5秒時点で10レイヤー・1 Canvas描画、読込中なし、画面内エラーなし。
+- 標準クイズ: 1 Canvasと4選択肢を表示し、回答後の正誤・次問題導線まで動作。
+- console error 0。試験後は同じ本番ビルドのpreviewを4174で再起動し、3セット保存済み、部分保存0を再確認。
+
+Worker生成スクリプト自身をキャッシュ世代ハッシュへ含めたため、Workerロジックだけを変更した場合も旧core/runtime cacheを退役できます。明示更新要求は `cache: reload` でこのcache-first経路を迂回し、現行教材を取得します。このWindows結果はiOS / Androidのホーム画面起動、OS退避、容量不足、バックグラウンド復帰の代替証拠にはしません。

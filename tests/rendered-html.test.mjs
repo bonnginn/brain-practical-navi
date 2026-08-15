@@ -1527,6 +1527,14 @@ test("PWA manager reports install, connectivity, persistence, and pack freshness
   assert.match(manager, /markerVersion===pack\.version/);
   assert.match(manager, /controllerchange/);
   assert.match(workerBuilder, /url\.pathname\.endsWith\("\/offline-packs\.json"\)/);
+  assert.match(workerBuilder, /const ATLAS_BYTES=/);
+  assert.match(workerBuilder, /function healthyAtlasResponse\(request,response\)/);
+  assert.match(workerBuilder, /contentType\.includes\("text\/html"\)/);
+  assert.match(workerBuilder, /Content-Encoding/);
+  assert.match(workerBuilder, /Number\(contentLength\)===expected/);
+  assert.match(workerBuilder, /response=>healthyAtlasResponse\(request,response\)/);
+  assert.match(workerBuilder, /hit&&healthyAtlasResponse\(request,hit\)\?hit:networkThenCache/);
+  assert.match(workerBuilder, /builderSource=await readFile\(fileURLToPath\(import\.meta\.url\)/);
   assert.match(manager, /X-Brain-Practical-Pack-Complete/);
   assert.match(manager, /state==="stale"\?"更新が必要"/);
   assert.match(manager, /protectedPaths/);
@@ -1549,6 +1557,7 @@ test("PWA manager reports install, connectivity, persistence, and pack freshness
   assert.equal(capacity.offlineResourceResponseError(3,new Response("abc",{headers:{"Content-Type":"application/octet-stream","Content-Length":"3"}})),null);
   assert.match(capacity.offlineResourceResponseError(3,new Response("abc",{headers:{"Content-Type":"text/html","Content-Length":"3"}})),/HTML fallback/);
   assert.match(capacity.offlineResourceResponseError(4,new Response("abc",{headers:{"Content-Type":"application/octet-stream","Content-Length":"3"}})),/size 3, expected 4/);
+  assert.equal(capacity.offlineResourceResponseError(4,new Response("abc",{headers:{"Content-Type":"application/octet-stream","Content-Encoding":"gzip","Content-Length":"3"}})),null);
   assert.match(capacity.offlineResourceResponseError(3,new Response("",{status:404})),/HTTP 404/);
 });
 
