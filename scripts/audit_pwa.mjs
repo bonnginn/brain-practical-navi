@@ -35,6 +35,8 @@ for(const pack of catalog.packs){
   check(expected.delete(pack.id),`unexpected or duplicate pack ${pack.id}`);
   check(/^[0-9a-f]{12}$/.test(pack.version),`invalid content version in ${pack.id}`);
   check(pack.urls.length>0&&pack.bytes>0,`empty pack ${pack.id}`);
+  check(Array.isArray(pack.resources)&&pack.resources.length===pack.urls.length,`resource size table missing in ${pack.id}`);
+  check(pack.resources.every((resource,index)=>resource.url===pack.urls[index]&&Number.isInteger(resource.bytes)&&resource.bytes>0),`resource size table invalid in ${pack.id}`);
   let measured=0;const versionEntries=[];
   for(const item of pack.urls){
     check(!item.startsWith("/")&&!item.includes(".."),`pack URL must be safe and base-relative: ${item}`);
@@ -42,6 +44,7 @@ for(const pack of catalog.packs){
     versionEntries.push({url:item,bytes:size,digest:createHash("sha256").update(bytes).digest("hex")});
   }
   check(measured===pack.bytes,`size drift in ${pack.id}: catalog ${pack.bytes}, measured ${measured}`);
+  check(pack.resources.reduce((sum,resource)=>sum+resource.bytes,0)===pack.bytes,`resource size total drift in ${pack.id}`);
   const measuredVersion=createHash("sha256").update(JSON.stringify(versionEntries)).digest("hex").slice(0,12);
   check(measuredVersion===pack.version,`content version drift in ${pack.id}: catalog ${pack.version}, measured ${measuredVersion}`);
   largest=Math.max(largest,pack.bytes);totalReferences+=pack.bytes;

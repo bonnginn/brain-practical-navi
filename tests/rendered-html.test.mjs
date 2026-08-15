@@ -1514,8 +1514,9 @@ test("help, diagnostics, feedback, and credit dialogs have durable shareable URL
 });
 
 test("PWA manager reports install, connectivity, persistence, and pack freshness", async () => {
-  const [manager, registration, workerBuilder, css] = await Promise.all([
+  const [manager, capacity, registration, workerBuilder, css] = await Promise.all([
     readFile(new URL("app/OfflineManager.tsx", root), "utf8"),
+    import(new URL("app/offlineCapacity.ts", root)),
     readFile(new URL("src/pwa.ts", root), "utf8"),
     readFile(new URL("scripts/build_service_worker.mjs", root), "utf8"),
     readFile(new URL("app/canvas.css", root), "utf8"),
@@ -1534,7 +1535,17 @@ test("PWA manager reports install, connectivity, persistence, and pack freshness
   assert.match(manager, /navigator\.onLine/);
   assert.match(manager, /永続保存が許可済み/);
   assert.match(manager, />インストール<\/button>/);
+  assert.match(manager, /requiredDownloadBytes/);
+  assert.match(manager, /storageCapacityRisk\(downloadBytes,availableBytes\)/);
+  assert.match(manager, /不足の可能性を了承して保存/);
+  assert.match(manager, /QuotaExceededError/);
+  assert.match(manager, /保存領域が不足しました/);
   assert.match(css, /\.offlineState\.stale/);
+  assert.match(css, /\.offlineCapacityWarning/);
+  assert.equal(capacity.storageCapacityRisk(20*1048576,30*1048576),null);
+  assert.deepEqual(capacity.storageCapacityRisk(20*1048576,24*1048576),{downloadBytes:20*1048576,reserveBytes:5*1048576,availableBytes:24*1048576});
+  assert.equal(capacity.storageCapacityRisk(0,0),null);
+  assert.equal(capacity.staleReplacementBytes([{bytes:3},{bytes:12},{bytes:7}]),12);
 });
 
 test("records reproducible real-device diagnostics without treating them as a gate pass", async () => {

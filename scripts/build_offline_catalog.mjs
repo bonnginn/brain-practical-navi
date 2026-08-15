@@ -27,6 +27,7 @@ const pack=(id,name,description,items)=>{
     version:createHash("sha256").update(JSON.stringify(sorted.map(({url,bytes,digest})=>({url,bytes,digest})))).digest("hex").slice(0,12),
     bytes:sorted.reduce((sum,item)=>sum+item.bytes,0),
     urls:sorted.map(item=>item.url),
+    resources:sorted.map(({url,bytes})=>({url,bytes})),
   };
 };
 const packs=[
