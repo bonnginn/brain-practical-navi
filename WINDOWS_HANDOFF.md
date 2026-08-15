@@ -2,7 +2,7 @@
 
 更新日: 2026-08-15
 対象ブランチ: `codex/beta-candidate`
-基準実装コミット: `232329c Refresh beta candidate handoff`（PWA実装前の基準）
+基準実装コミット: `c37d665 Add installable offline teaching packs`（このレビュー票改善の直前）
 
 ## 1. 現在地
 
@@ -101,7 +101,7 @@ npm run build
 - `/?review=<ID>&commit=<SHA>#workspace/...` で固定画面と判定票を同時表示。
 - 記名、所属、専門領域、Git SHA、判定、理由、根拠URL、画面条件をローカルJSONへ書き出す。自動保存・送信なし。
 - `npm run audit:expert-review` で対象台帳、`npm run validate:expert-review -- <record.json>` で記録を検証。
-- Windows Chromium 970 × 545 pxで入力制御、JSON出力、A1→A2移動、コミット維持、折りたたみを確認。新規票の760 px未満実ブラウザ操作は未確認。
+- Windows Chromium 970 × 545 pxで入力制御、JSON出力、A1→A2移動、コミット維持、折りたたみを確認。加えてviewport override 390 × 844（右ペイン内の実効CSS viewport 295 × 639）でA1・A2を操作し、横はみ出し0、Canvas 1、「観察へ／レビュー票へ戻る」、未書き出し入力の画面内保護、JSON出力、前後移動を確認。
 
 ## 5. 現在のGo / No-Go
 

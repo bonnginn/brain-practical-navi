@@ -26,5 +26,7 @@ if(!errors.some(error=>error.includes("checklist mapping")))pass("checklist ID a
 if(!errors.some(error=>error.includes("audit document")))pass("referenced audit documents exist");
 if(!page.includes('new URLSearchParams(window.location.search).get("review")')||!page.includes('format:"brain-practical-expert-review"'))errors.push("application review mode or export format is missing");else pass("application review route and JSON export contract");
 if(!page.includes("入力はこの端末の画面内だけで保持され、自動保存・送信されません"))errors.push("local-only privacy notice is missing");else pass("local-only privacy disclosure");
+if(!page.includes("未書き出しの入力があります")||!page.includes("prepareReviewNavigation")||!page.includes("破棄して移動"))errors.push("unsaved review navigation guard is missing");else pass("unsaved review navigation guard");
+if(!page.includes("レビュー票へ戻る")||!page.includes("観察へ"))errors.push("compact observe/review switch is missing");else pass("compact observe/review switch");
 
 if(errors.length){for(const error of errors)console.error(`FAIL\t${error}`);process.exitCode=1}else console.log("PASS\texpert review target audit complete");

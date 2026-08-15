@@ -1911,8 +1911,14 @@ test("packages expert anatomy review as reproducible screen-level decisions", as
   assert.match(page,/format:"brain-practical-expert-review"/);
   assert.match(page,/入力はこの端末の画面内だけで保持され、自動保存・送信されません/);
   assert.match(page,/検証用JSONを書き出す/);
+  assert.match(page,/未書き出しの入力があります/);
+  assert.match(page,/入力を続ける/);
+  assert.match(page,/破棄して移動/);
+  assert.match(page,/レビュー票へ戻る/);
+  assert.match(page,/reviewCollapseMobile">観察へ/);
   assert.match(css,/\.expertReviewPanel\{position:fixed/);
   assert.match(css,/@media\(max-width:760px\)[\s\S]*\.expertReviewPanel\{top:auto;left:8px/);
+  assert.match(css,/\.reviewCollapseMobile\{display:none\}[\s\S]*@media\(max-width:760px\)[\s\S]*\.reviewCollapseMobile\{display:inline\}/);
   const audit=spawnSync(process.execPath,[localPath("scripts/audit_expert_review_targets.mjs")],{encoding:"utf8",cwd:localPath(".")});
   assert.equal(audit.status,0,audit.stderr);
   assert.match(audit.stdout,/PASS\texpert review target audit complete/);

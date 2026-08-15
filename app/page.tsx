@@ -1,6 +1,6 @@
 "use client";
 
-import { KeyboardEvent as ReactKeyboardEvent, PointerEvent, useEffect, useMemo, useRef, useState } from "react";
+import { KeyboardEvent as ReactKeyboardEvent, MouseEvent as ReactMouseEvent, PointerEvent, useEffect, useMemo, useRef, useState } from "react";
 import { AtlasVolumeCanvas, type HighlightLayer, type IdentifiedPoint } from "./AtlasVolumeCanvas";
 import { ManualSegmentationWorkbench } from "./ManualSegmentationWorkbench";
 import { OfflineManager } from "./OfflineManager";
@@ -577,6 +577,7 @@ export default function Home() {
   const [reviewEvidence,setReviewEvidence]=useState("");
   const [reviewScreenshot,setReviewScreenshot]=useState("");
   const [reviewExportStatus,setReviewExportStatus]=useState("");
+  const [pendingReviewHref,setPendingReviewHref]=useState<string|null>(null);
   const mobileRailReturnFocus=useRef<HTMLElement|null>(null);
   const [quizIndex,setQuizIndex]=useState(0);
   const [quizQueue,setQuizQueue]=useState<QuizQuestion[]>(()=>shuffledQuestions(standardQuizQuestions).slice(0,10));
@@ -654,6 +655,7 @@ export default function Home() {
   const reviewEvidenceValid=reviewEvidenceUrls.every(value=>{try{const url=new URL(value);return url.protocol==="http:"||url.protocol==="https:"}catch{return false}});
   const reviewScreenshotValid=!reviewScreenshot.trim()||(!reviewScreenshot.includes("/")&&!reviewScreenshot.includes("\\"));
   const reviewCanExport=!!expertReviewTarget&&/^[0-9a-f]{7,40}$/i.test(reviewTargetCommit.trim())&&!!reviewerName.trim()&&!!reviewerAffiliation.trim()&&!!reviewerExpertise.trim()&&!!reviewDecision&&!!reviewReason.trim()&&reviewEvidenceValid&&reviewScreenshotValid;
+  const reviewDirty=reviewTargetCommit!==requestedReviewCommit||!!reviewerName||!!reviewerAffiliation||!!reviewerExpertise||!!reviewDecision||!!reviewReason||!!reviewEvidence||!!reviewScreenshot;
   useEffect(() => { if (!playing) return; const timer = window.setInterval(() => setPosition(p => p >= 95 ? 5 : p + 1), 90); return () => window.clearInterval(timer); }, [playing]);
   useEffect(()=>setIdentified(null),[plane,position,contrast]);
   useEffect(()=>{setDetailsOpen(false);setPlaying(false)},[workspace]);
@@ -758,6 +760,7 @@ export default function Home() {
   function resetWrongHistory(){saveWrongTargets([]);if(quizWrongOnly){setQuizQueue([]);resetQuiz()}}
 
   function expertReviewHref(target:ExpertReviewTarget){const params=new URLSearchParams({review:target.id});if(reviewTargetCommit.trim())params.set("commit",reviewTargetCommit.trim());return `?${params.toString()}${target.route}`}
+  function prepareReviewNavigation(event:ReactMouseEvent<HTMLAnchorElement>){if(reviewDirty&&!reviewExportStatus){event.preventDefault();setPendingReviewHref(event.currentTarget.href)}}
   function downloadExpertReviewRecord(){
     if(!expertReviewTarget||!reviewCanExport)return;
     const record={
@@ -777,6 +780,7 @@ export default function Home() {
     const blob=new Blob([`${JSON.stringify(record,null,2)}\n`],{type:"application/json"});
     const url=URL.createObjectURL(blob),link=document.createElement("a");
     link.href=url;link.download=`expert-review-${expertReviewTarget.id}-${reviewTargetCommit.trim().slice(0,12)}.json`;link.click();URL.revokeObjectURL(url);
+    setPendingReviewHref(null);
     setReviewExportStatus(`${expertReviewTarget.id} のレビュー記録を書き出しました。送信はしていません。`);
   }
 
@@ -801,27 +805,27 @@ export default function Home() {
     </header>
 
     {requestedReviewId&&!expertReviewTarget&&<aside className="expertReviewInvalid" role="alert"><b>レビュー対象が見つかりません</b><span><code>{requestedReviewId}</code> は台帳にありません。</span><a href="#workspace/home">通常画面へ戻る</a></aside>}
-    {expertReviewTarget&&!expertReviewOpen&&<button className="expertReviewToggle" onClick={()=>setExpertReviewOpen(true)}><b>{expertReviewTarget.id}</b> レビュー票を開く</button>}
+    {expertReviewTarget&&!expertReviewOpen&&<button className="expertReviewToggle" onClick={()=>setExpertReviewOpen(true)}><b>{expertReviewTarget.id}</b> レビュー票へ戻る</button>}
     {expertReviewTarget&&expertReviewOpen&&<aside className="expertReviewPanel" aria-label={`${expertReviewTarget.id} 専門家レビュー票`}>
-      <header><div><span>EXPERT REVIEW · {expertReviewTarget.id}</span><b>{expertReviewTarget.title}</b><small>{expertReviewTarget.group}</small></div><button onClick={()=>setExpertReviewOpen(false)} aria-label="専門家レビュー票を折りたたむ">−</button></header>
+      <header><div><span>EXPERT REVIEW · {expertReviewTarget.id}</span><b>{expertReviewTarget.title}</b><small>{expertReviewTarget.group}</small></div><button onClick={()=>setExpertReviewOpen(false)} aria-label="専門家レビュー票を折りたたんで観察画面を表示"><span className="reviewCollapseDesktop">−</span><span className="reviewCollapseMobile">観察へ</span></button></header>
       <div className="expertReviewScroll">
         <section className="expertReviewTarget"><p><b>固定方向</b>{expertReviewTarget.direction}</p><p><b>確認構造</b>{expertReviewTarget.structures.join("、")}</p><p><b>合否基準</b>{expertReviewTarget.criterion}</p><p><b>監査資料</b><code>{expertReviewTarget.audit}</code></p></section>
         <p className="expertReviewPrivacy">入力はこの端末の画面内だけで保持され、自動保存・送信されません。患者情報、第三者画像、非公開資料は入力しないでください。</p>
         <div className="expertReviewFields">
-          <label><span>対象コミット <b>必須</b></span><input value={reviewTargetCommit} onChange={event=>setReviewTargetCommit(event.target.value)} placeholder="7〜40桁のGit SHA" autoComplete="off"/></label>
-          <label><span>確認者氏名 <b>必須</b></span><input value={reviewerName} onChange={event=>setReviewerName(event.target.value)} autoComplete="name"/></label>
-          <label><span>所属 <b>必須</b></span><input value={reviewerAffiliation} onChange={event=>setReviewerAffiliation(event.target.value)} autoComplete="organization"/></label>
-          <label><span>専門領域 <b>必須</b></span><input value={reviewerExpertise} onChange={event=>setReviewerExpertise(event.target.value)} placeholder="例：神経解剖学"/></label>
-          <label><span>判定 <b>必須</b></span><select value={reviewDecision} onChange={event=>setReviewDecision(event.target.value as ExpertReviewDecision|"")}><option value="">選択してください</option>{expertReviewDecisions.map(decision=><option key={decision} value={decision}>{decision}</option>)}</select></label>
-          <label><span>判定理由・修正指示 <b>必須</b></span><textarea value={reviewReason} onChange={event=>setReviewReason(event.target.value)} rows={4}/></label>
-          <label><span>根拠URL（任意・1行1件）</span><textarea value={reviewEvidence} onChange={event=>setReviewEvidence(event.target.value)} rows={3} placeholder="https://…" aria-invalid={!reviewEvidenceValid}/>{!reviewEvidenceValid&&<small role="alert">http(s) URLを1行ずつ入力してください。</small>}</label>
-          <label><span>アプリ画面のみのスクリーンショット名（任意）</span><input value={reviewScreenshot} onChange={event=>setReviewScreenshot(event.target.value)} placeholder="A1-app-only.png" aria-invalid={!reviewScreenshotValid}/>{!reviewScreenshotValid&&<small role="alert">フォルダーを含まないファイル名だけを入力してください。</small>}</label>
+          <label><span>対象コミット <b>必須</b></span><input value={reviewTargetCommit} onChange={event=>{setReviewExportStatus("");setReviewTargetCommit(event.target.value)}} placeholder="7〜40桁のGit SHA" autoComplete="off"/></label>
+          <label><span>確認者氏名 <b>必須</b></span><input value={reviewerName} onChange={event=>{setReviewExportStatus("");setReviewerName(event.target.value)}} autoComplete="name"/></label>
+          <label><span>所属 <b>必須</b></span><input value={reviewerAffiliation} onChange={event=>{setReviewExportStatus("");setReviewerAffiliation(event.target.value)}} autoComplete="organization"/></label>
+          <label><span>専門領域 <b>必須</b></span><input value={reviewerExpertise} onChange={event=>{setReviewExportStatus("");setReviewerExpertise(event.target.value)}} placeholder="例：神経解剖学"/></label>
+          <label><span>判定 <b>必須</b></span><select value={reviewDecision} onChange={event=>{setReviewExportStatus("");setReviewDecision(event.target.value as ExpertReviewDecision|"")}}><option value="">選択してください</option>{expertReviewDecisions.map(decision=><option key={decision} value={decision}>{decision}</option>)}</select></label>
+          <label><span>判定理由・修正指示 <b>必須</b></span><textarea value={reviewReason} onChange={event=>{setReviewExportStatus("");setReviewReason(event.target.value)}} rows={4}/></label>
+          <label><span>根拠URL（任意・1行1件）</span><textarea value={reviewEvidence} onChange={event=>{setReviewExportStatus("");setReviewEvidence(event.target.value)}} rows={3} placeholder="https://…" aria-invalid={!reviewEvidenceValid}/>{!reviewEvidenceValid&&<small role="alert">http(s) URLを1行ずつ入力してください。</small>}</label>
+          <label><span>アプリ画面のみのスクリーンショット名（任意）</span><input value={reviewScreenshot} onChange={event=>{setReviewExportStatus("");setReviewScreenshot(event.target.value)}} placeholder="A1-app-only.png" aria-invalid={!reviewScreenshotValid}/>{!reviewScreenshotValid&&<small role="alert">フォルダーを含まないファイル名だけを入力してください。</small>}</label>
         </div>
         <button className="expertReviewExport" disabled={!reviewCanExport} onClick={downloadExpertReviewRecord}>検証用JSONを書き出す</button>
         {!reviewCanExport&&<p className="expertReviewIncomplete">必須項目、Git SHA、URL形式を確認すると書き出せます。</p>}
         <p className="expertReviewStatus" role="status" aria-live="polite">{reviewExportStatus}</p>
       </div>
-      <footer>{(()=>{const index=expertReviewTargets.indexOf(expertReviewTarget),previous=expertReviewTargets[index-1],next=expertReviewTargets[index+1];return <><span>{index+1} / {expertReviewTargets.length}</span><nav>{previous&&<a href={expertReviewHref(previous)}>← {previous.id}</a>}<a href={expertReviewTarget.route}>レビュー終了</a>{next&&<a href={expertReviewHref(next)}>{next.id} →</a>}</nav></>})()}</footer>
+      <footer>{pendingReviewHref&&<div className="expertReviewDiscard" role="alert"><span>未書き出しの入力があります。</span><button onClick={()=>setPendingReviewHref(null)}>入力を続ける</button><button className="danger" onClick={()=>{window.location.href=pendingReviewHref}}>破棄して移動</button></div>}{(()=>{const index=expertReviewTargets.indexOf(expertReviewTarget),previous=expertReviewTargets[index-1],next=expertReviewTargets[index+1];return <><span>{index+1} / {expertReviewTargets.length}{reviewDirty&&!reviewExportStatus&&<b>未書き出し</b>}</span><nav>{previous&&<a href={expertReviewHref(previous)} onClick={prepareReviewNavigation}>← {previous.id}</a>}<a href={expertReviewTarget.route} onClick={prepareReviewNavigation}>レビュー終了</a>{next&&<a href={expertReviewHref(next)} onClick={prepareReviewNavigation}>{next.id} →</a>}</nav></>})()}</footer>
     </aside>}
 
     {workspace!=="home"&&<><button className={`mobileRailBackdrop ${mobileRailOpen?"visible":""}`} aria-label="画面設定を閉じる" tabIndex={-1} onClick={closeMobileRail}/><button className="mobileContextToggle" aria-expanded={mobileRailOpen} aria-controls="mobile-context-panel" onClick={toggleMobileRail}><span>{workspace==="sections"?"断面・構造":workspace==="surface"?"観察方向":workspace==="blocks"?"標本を選ぶ":workspace==="quiz"?"出題設定":"編集手順"}</span><b>{mobileRailOpen?"閉じる":"開く"}</b></button></>}

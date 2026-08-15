@@ -1062,6 +1062,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 .expertReviewPanel>header b{font-size:17px}
 .expertReviewPanel>header small{color:#d2dfdc;font-size:12px}
 .expertReviewPanel>header button{flex:0 0 36px;width:36px;height:36px;border:1px solid #76908b;background:transparent;color:#fff;font-size:22px}
+.reviewCollapseMobile{display:none}
 .expertReviewScroll{min-height:0;padding:12px;overflow-y:auto;overscroll-behavior:contain}
 .expertReviewTarget{display:grid;gap:8px;padding:10px;border-left:4px solid #4f7771;background:#e4ece8}
 .expertReviewTarget p{display:grid;grid-template-columns:70px minmax(0,1fr);gap:7px;margin:0;font-size:13px;line-height:1.55}
@@ -1079,7 +1080,13 @@ html, body, #root { height: 100%; overflow: hidden; }
 .expertReviewExport{width:100%;min-height:42px;margin-top:12px;border:0;background:#1d6e69;color:#fff;font-size:14px;font-weight:800}
 .expertReviewExport:disabled{background:#c8cdca;color:#6b7472}
 .expertReviewIncomplete,.expertReviewStatus{margin:6px 0 0;color:#5b6663;font-size:11px;line-height:1.45}
-.expertReviewPanel>footer{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 11px;border-top:1px solid #c6cac5;background:#e9e8e2;font-size:12px}
+.expertReviewPanel>footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;padding:9px 11px;border-top:1px solid #c6cac5;background:#e9e8e2;font-size:12px}
+.expertReviewPanel>footer>span{display:flex;align-items:center;gap:6px}
+.expertReviewPanel>footer>span b{padding:2px 4px;border:1px solid #c28f68;background:#fff2e4;color:#8b4c2e;font-size:10px;white-space:nowrap}
+.expertReviewDiscard{flex:0 0 100%;display:flex;align-items:center;gap:6px;padding:7px;border:1px solid #d2a47d;background:#fff2e4;color:#75482e}
+.expertReviewDiscard span{margin-right:auto;font-weight:700}
+.expertReviewDiscard button{min-height:34px;padding:5px 7px;border:1px solid #aeb5b0;background:#fff;color:#315b55;font-weight:700}
+.expertReviewDiscard button.danger{border-color:#a85b4c;background:#9d493c;color:#fff}
 .expertReviewPanel>footer nav{display:flex;align-items:center;gap:5px}
 .expertReviewPanel>footer a{padding:5px 6px;border:1px solid #adb5b0;background:#fff;color:#315b55;font-weight:700;text-decoration:none}
 .expertReviewToggle{position:fixed;z-index:49;right:12px;bottom:14px;min-height:42px;padding:9px 12px;border:1px solid #315b55;border-radius:22px;background:#1f4542;color:#fff;box-shadow:0 7px 22px rgba(17,29,28,.25);font-size:13px}
@@ -1090,7 +1097,11 @@ html, body, #root { height: 100%; overflow: hidden; }
 @media(max-width:760px){
   .expertReviewPanel{top:auto;left:8px;right:8px;bottom:8px;width:auto;max-height:min(72dvh,660px)}
   .expertReviewPanel>header{padding-block:9px}
+  .expertReviewPanel>header button{flex-basis:auto;width:auto;min-width:66px;padding:0 9px;font-size:12px;font-weight:800}
+  .reviewCollapseDesktop{display:none}
+  .reviewCollapseMobile{display:inline}
   .expertReviewPanel>footer{display:grid;grid-template-columns:auto minmax(0,1fr)}
+  .expertReviewDiscard{grid-column:1/-1}
   .expertReviewPanel>footer nav{justify-content:flex-end;flex-wrap:wrap}
   .expertReviewToggle{right:10px;bottom:10px}
   .expertReviewInvalid{top:66px;left:8px;right:8px;max-width:none}
