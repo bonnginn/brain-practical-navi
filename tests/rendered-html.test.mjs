@@ -1890,17 +1890,16 @@ test("phone layouts use a bottom workspace dock and a complete context sheet", a
   assert.match(css, /@media\(max-width:380px\)[\s\S]*\.specimenAttachmentControls\{left:8px;right:64px;max-width:none\}/);
 });
 
-test("touch section slices preserve vertical page scrolling while keeping tap identification", async () => {
+test("touch section slices hand vertical scrolling to the document while keeping tap identification", async () => {
   const [canvas, css, page] = await Promise.all([
     readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8"),
     readFile(new URL("app/canvas.css", root), "utf8"),
     readFile(new URL("app/page.tsx", root), "utf8"),
   ]);
   assert.match(css, /\.sliceStage \.atlasCanvas\.identifiable \{ touch-action: pan-y; \}/);
-  assert.match(css, /\.workspace-sections \.sliceStage \.atlasCanvas \{ pointer-events:none; touch-action:auto; \}/);
-  assert.match(css, /\.workspace-sections \.sliceStage\.layout-slice \{ pointer-events:none; touch-action:auto; \}/);
-  assert.match(page, /document\.addEventListener\("touchmove",move,\{capture:true,passive:false\}\)/);
-  assert.match(page, /window\.scrollBy\(0,delta\)/);
+  assert.match(css, /\.workspace-sections \.workArea\{overflow:visible;overscroll-behavior:auto;scrollbar-width:auto\}/);
+  assert.doesNotMatch(page, /document\.addEventListener\("touchmove",move/);
+  assert.doesNotMatch(page, /window\.scrollBy\(0,delta\)/);
   assert.match(canvas, /sliceTouchClick=useRef/);
   assert.match(canvas, /kind==="slice"&&e\.pointerType==="touch"/);
   assert.match(canvas, /if\(!click\.moved\)identify\(e\)/);

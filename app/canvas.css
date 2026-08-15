@@ -1124,9 +1124,7 @@ html, body, #root { height: 100%; overflow: hidden; }
    the viewport. The contributor editor stays on PC; page-specific controls
    open as a labelled bottom sheet above the five-item learning dock. */
 @media(max-width:760px) and (hover:none) and (pointer:coarse){
-  .workspace-sections .sliceStage.layout-slice { pointer-events:none; touch-action:auto; }
-  .workspace-sections .sliceStage .atlasCanvas { pointer-events:none; touch-action:auto; }
-  .workspace-sections .sliceStage .zoomReadout { pointer-events:auto; }
+  .workspace-sections .workArea{overflow:visible;overscroll-behavior:auto;scrollbar-width:auto}
   .appShell{padding:calc(54px + env(safe-area-inset-top,0px)) 0 calc(76px + env(safe-area-inset-bottom,0px))}
   .topbar{height:calc(54px + env(safe-area-inset-top,0px));padding:env(safe-area-inset-top,0px) 7px 0;gap:4px}
   .brand{min-width:40px}
