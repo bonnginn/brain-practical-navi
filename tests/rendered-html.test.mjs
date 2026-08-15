@@ -1929,7 +1929,8 @@ test("ships a reproducible Google Form generator for feedback and collaborators"
   assert.match(guide, /CONTACT_TEXT/);
   assert.match(guide, /\[BETA FORM DELETE TEST YYYY-MM-DD\]/);
   assert.match(audit, /未ログインのWindows Chromium/);
-  assert.match(audit, /回答シートとGoogle Forms個別回答の双方から同じ回答を削除/);
+  assert.match(audit, /回答スプレッドシートの該当行とGoogle Formsの個別回答を順に削除/);
+  assert.match(audit, /回答件数が試験前の0件へ戻った/);
 });
 
 test("research-backed anatomy cautions distinguish source data from teaching schematics", async () => {
@@ -2229,7 +2230,7 @@ test("aggregates every local beta audit without converting external waits into p
   assert.match(script,/WAIT \$\{row\.status\}/);
   const result=spawnSync(process.execPath,[localPath("scripts/audit_beta_candidate.mjs")],{encoding:"utf8",cwd:localPath("."),maxBuffer:10*1024*1024});
   assert.equal(result.status,0,result.stderr);
-  assert.match(result.stdout,/SUMMARY\t3 local gates passed; 7 external-evidence gates remain/);
+  assert.match(result.stdout,/SUMMARY\t4 local gates passed; 6 external-evidence gates remain/);
   assert.match(result.stdout,/PASS\tbeta-candidate local audits complete; release remains No-Go/);
 });
 
@@ -2238,7 +2239,7 @@ test("keeps the Windows handoff at the current beta-candidate gate instead of hi
   assert.match(handoff,/対象ブランチ: `codex\/beta-candidate`/);
   assert.match(handoff,/自動テスト: 83件全件合格/);
   assert.match(handoff,/`npm run audit:beta`/);
-  assert.match(handoff,/ローカル合格3条件、外部証拠待ち7条件/);
+  assert.match(handoff,/ローカル合格4条件、外部証拠待ち6条件/);
   assert.match(handoff,/No-Go（β候補のローカル検証中）/);
   assert.match(handoff,/未pushならremoteの同名ブランチだけでは現在状態を再現できません/);
   assert.match(handoff,/実スマートフォン1台以上/);

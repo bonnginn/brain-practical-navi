@@ -66,7 +66,7 @@ npm run audit:routes
 npm run audit:beta
 ```
 
-`audit:routes` は現行26コア経路の過不足と、M2・専門家票の拡張手順を検査します。`audit:beta` はこれを含む12系統のローカル監査をまとめ、Go / No-Go表の外部待ちを合格と混同せず表示します。成功しても、専門家・実スマートフォン・公開URL・管理者操作の証拠が揃うまではβ公開可を意味しません。PWAの設計、容量、通信遮断試験は [PWA_OFFLINE_AUDIT.md](PWA_OFFLINE_AUDIT.md) を参照してください。
+`audit:routes` は現行26コア経路の過不足と、M2・専門家票の拡張手順を検査します。`audit:beta` はこれを含む12系統のローカル監査をまとめ、Go / No-Go表の外部待ちを合格と混同せず表示します。成功しても、専門家・実スマートフォン・公開URLの証拠が揃うまではβ公開可を意味しません。PWAの設計、容量、通信遮断試験は [PWA_OFFLINE_AUDIT.md](PWA_OFFLINE_AUDIT.md) を参照してください。
 
 Windows側のCodexへ開発を引き継ぐ場合は、取得手順、実画面の確認順、既知の注意点をまとめた [WINDOWS_HANDOFF.md](WINDOWS_HANDOFF.md) を参照してください。
 
