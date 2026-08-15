@@ -641,6 +641,8 @@ test("separates private feedback, public discussion, and pull requests", async (
   assert.match(page, /匿名で報告・参加相談[\s\S]*Google Formを開く/);
   assert.match(page, /公開して相談・追跡[\s\S]*GitHub Issuesを開く/);
   assert.match(page, /変更を提案[\s\S]*共同制作ガイドを読む/);
+  assert.match(contributing, /^# 共同制作ガイド$/m);
+  assert.doesNotMatch(contributing, /公開前ドラフト|共同制作条件の最終確認前/);
   assert.match(page, /解剖監修・セグメンテーション・3D造形・Web実装/);
   assert.match(feedback, /ログインしていないブラウザ[\s\S]*3\/3ページの送信ボタン/);
   assert.match(feedback, /Google Forms側にも回答が残る/);
