@@ -1488,12 +1488,13 @@ test("medial surface quiz keeps the same isolated-hemisphere anatomy as study mo
   assert.match(page, /showMidbrain=\{quizQuestion\.view!=="medial"\}/);
 });
 
-test("help, feedback, and credit dialogs have durable shareable URLs", async () => {
+test("help, diagnostics, feedback, and credit dialogs have durable shareable URLs", async () => {
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
-  assert.match(page, /type OverlayMode = "help" \| "offline" \| "feedback" \| "legal"/);
+  assert.match(page, /type OverlayMode = "help" \| "offline" \| "device-check" \| "feedback" \| "legal"/);
   assert.match(page, /function overlayFromHash\(hash:string\):OverlayMode\|null/);
   assert.match(page, /overlayFromHash\(window\.location\.hash\)==="help"/);
   assert.match(page, /overlayFromHash\(window\.location\.hash\)==="offline"/);
+  assert.match(page, /overlayFromHash\(window\.location\.hash\)==="device-check"/);
   assert.match(page, /overlayFromHash\(window\.location\.hash\)==="feedback"/);
   assert.match(page, /overlayFromHash\(window\.location\.hash\)==="legal"/);
   assert.match(page, /window\.history\.pushState\(null,"",`#workspace\/\$\{key\}`\)/);
@@ -1534,6 +1535,32 @@ test("PWA manager reports install, connectivity, persistence, and pack freshness
   assert.match(manager, /永続保存が許可済み/);
   assert.match(manager, />インストール<\/button>/);
   assert.match(css, /\.offlineState\.stale/);
+});
+
+test("records reproducible real-device diagnostics without treating them as a gate pass", async () => {
+  const [page, manager, diagnostics, html, css] = await Promise.all([
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("app/OfflineManager.tsx", root), "utf8"),
+    readFile(new URL("app/DeviceDiagnostics.tsx", root), "utf8"),
+    readFile(new URL("index.html", root), "utf8"),
+    readFile(new URL("app/canvas.css", root), "utf8"),
+  ]);
+  assert.match(page, /deviceCheckOpen&&/);
+  assert.match(page, /<DeviceDiagnostics\/>/);
+  assert.match(manager, /href="#workspace\/device-check"/);
+  assert.match(diagnostics, /format:"brain-practical-device-check"/);
+  assert.match(diagnostics, /schemaVersion:1/);
+  assert.match(diagnostics, /event\.pointerType!=="touch"/);
+  assert.match(diagnostics, /navigator\.storage\?\.estimate/);
+  assert.match(diagnostics, /navigator\.serviceWorker\?\.controller/);
+  assert.match(diagnostics, /WEBGL_debug_renderer_info/);
+  assert.match(diagnostics, /safe-area-inset-top/);
+  assert.match(diagnostics, /requestAnimationFrame\(tick\)/);
+  assert.match(diagnostics, /JSON\.stringify/);
+  assert.match(diagnostics, /gateDisclaimer:disclaimer/);
+  assert.match(diagnostics, /this record alone|\u3053\u306e\u8a18\u9332\u3060\u3051/);
+  assert.match(html, /viewport-fit=cover/);
+  assert.match(css, /\.deviceTouchState\.confirmed/);
 });
 
 test("keeps simultaneously selectable surface colours distinct on the dark model", async () => {
@@ -1620,7 +1647,7 @@ test("publishes a durable keyboard and pointer operation guide", async () => {
     readFile(new URL("app/page.tsx", root), "utf8"),
     readFile(new URL("app/canvas.css", root), "utf8"),
   ]);
-  assert.match(page, /type OverlayMode = "help" \| "offline" \| "feedback" \| "legal"/);
+  assert.match(page, /type OverlayMode = "help" \| "offline" \| "device-check" \| "feedback" \| "legal"/);
   assert.match(page, /#workspace\/\$\{key\}/);
   assert.match(page, /操作ガイドを表示/);
   assert.match(page, /<kbd>Ctrl<\/kbd>／<kbd>⌘<\/kbd>＋<kbd>Z<\/kbd>/);

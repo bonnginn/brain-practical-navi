@@ -186,3 +186,10 @@
 - [LANDMARK_RELATIONS_AUDIT.md](LANDMARK_RELATIONS_AUDIT.md): 後脳・中脳模式部品の方向関係と着脱表示の監査
 - [BASAL_NEUROVASCULAR_AUDIT.md](BASAL_NEUROVASCULAR_AUDIT.md): 脳底面・脳神経・主要動脈の方向関係と初期表示の監査
 - [SURFACE_RELATIONS_AUDIT.md](SURFACE_RELATIONS_AUDIT.md): 脳表8溝・裂とCerebrA領域境界の方向関係監査
+# 2026-08-15 実機証拠採取の準備
+
+- `#workspace/device-check` で実機の画面・入力・PWA・保存領域・WebGL・安全域・短時間の描画間隔を端末内だけで採取し、JSONへ書き出せるようにした。
+- タッチ確認は `pointerType === "touch"` の実入力に限定し、PCマウスによる誤判定を防いだ。
+- iOS安全域を利用するためviewportへ `viewport-fit=cover` を追加した。
+- `DEVICE_CHECK_AUDIT.md` に公開候補URLでの一周、PWA単独起動、機内モード復帰、実機ピークメモリの採取手順を固定した。
+- これはGate 3・4の証拠収集補助であり、実スマートフォンと公開回線の実測が完了するまでβ公開可とは判定しない。

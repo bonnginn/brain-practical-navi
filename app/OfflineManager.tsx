@@ -112,6 +112,7 @@ export function OfflineManager(){
     <p className="offlineNotice">大容量通信を避けるため教材全体は自動取得しません。Wi-Fi接続中に必要なセットを保存してください。端末やブラウザが容量確保のためキャッシュを削除する場合があります。</p>
     {!supported?<p role="alert">HTTPSまたはlocalhostで、Service WorkerとCache Storageに対応したブラウザを使用してください。</p>:!catalog?<p role="status">教材セットを確認中…</p>:<div className="offlinePacks">{catalog.packs.map(pack=>{const state=states[pack.id]??"checking",working=state==="working";return <article key={pack.id}><div><h3>{pack.name}</h3><b>{formatMiB(pack.bytes)}</b></div><p>{pack.description}</p><div className="offlinePackActions"><span className={`offlineState ${state}`}>{working?`保存中 ${progress[pack.id]??0}%`:state==="saved"?"端末に保存済み":state==="stale"?"更新が必要":state==="partial"?"一部保存済み":state==="error"?"保存エラー":"未保存"}</span><button className="primary" disabled={busy||!online} onClick={()=>void save(pack)}>{state==="saved"?"再確認・更新":"端末へ保存"}</button><button disabled={busy||state==="missing"} onClick={()=>void remove(pack)}>削除</button></div>{working&&<progress max="100" value={progress[pack.id]??0} aria-label={`${pack.name}の保存進捗`}/>}</article>})}</div>}
     {message&&<p className="offlineMessage" role="status">{message}</p>}
+    <a className="deviceCheckLink" href="#workspace/device-check"><b>実機診断を開始</b><span>画面・タッチ・PWA・保存容量・WebGLの確認記録を端末内で作成します。</span><i>診断画面へ →</i></a>
     <p className="offlineFootnote">クイズは保存済みの脳表・断面教材を使います。初回保存後は機内モード等でも主要な観察・クイズを利用できます。共同制作フォーム、GitHub、更新取得には通信が必要です。</p>
   </div>;
 }
