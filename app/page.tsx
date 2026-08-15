@@ -723,7 +723,6 @@ export default function Home() {
           <h1>脳実習を、<br/><em>切る前から立体で。</em></h1>
           <p className="homeLead">全脳の表面を観察し、連続断面と局所標本へ進みながら、構造の位置関係を立体モデルと標本像の両方から学ぶ実習補助アプリです。</p>
           <p className="homeAccuracyWarning"><b>公開α版の注意</b><span>解剖学的正確性は保証できません。学習時は教科書・実標本・検証済み資料と照合してください。</span></p>
-          <p className="homeIndependenceNotice"><b>運営上の位置づけ</b><span>稲葉弘哲が個人の教育開発として運営する試作教材です。三重大学および所属部局の公式教材・公式見解ではなく、大学による内容の承認を示すものではありません。</span></p>
         </div>
         <div className="homeModelStage modelStage" tabIndex={0} aria-label="全脳3Dモデル。ドラッグまたは矢印キーで回転、Rキーで向きを戻す" onKeyDown={handleModelKey} onPointerDown={beginRotation} onPointerMove={move} onPointerUp={()=>setDrag(null)} onPointerCancel={()=>setDrag(null)} onContextMenu={event=>event.preventDefault()}>
           <AtlasVolumeCanvas kind="surface" plane="sagittal" position={50} focus="thalamus" display="specimen" rotation={rotation} view="inside" contrast="bigbrain" showFocus={false} showCutPlane={false}/>
@@ -737,7 +736,7 @@ export default function Home() {
         <button onClick={()=>openWorkspace("blocks")}><span><b>ブロック標本</b><small>脳室・辺縁系・投射線維などを局所標本として分解</small></span><em>→</em></button>
         <button onClick={()=>openWorkspace("quiz")}><span><b>復習クイズ</b><small>項目・問題数・間違い履歴を指定して構造同定を復習</small></span><em>→</em></button>
       </div>
-      <footer className="homeFooter"><p><b>個人運営・非公式</b> 三重大学・所属部局の公式教材／見解ではありません。診断・治療・手術計画には使用できません。</p><div><button onClick={()=>openOverlay("feedback")}>意見・共同制作</button><a href={sourceRepositoryUrl} target="_blank" rel="noreferrer">GitHub</a><button onClick={()=>openOverlay("legal")}>利用条件・クレジット</button></div></footer>
+      <footer className="homeFooter"><p><b>公開α版</b> 解剖学的誤りや使いにくさの指摘を受けながら改善します。診断・治療・手術計画には使用できません。</p><div><button onClick={()=>openOverlay("feedback")}>意見・共同制作</button><a href={sourceRepositoryUrl} target="_blank" rel="noreferrer">GitHub</a><button onClick={()=>openOverlay("legal")}>利用条件・クレジット</button></div></footer>
     </section>}
 
     {workspace==="sections"&&<section className="workArea" id="workspace" tabIndex={-1}><h1 className="srOnly">断面実習</h1>
