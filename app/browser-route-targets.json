@@ -32,5 +32,9 @@
   "extendedProtocols": [
     { "id": "m2-hindbrain", "query": "?m2=compare", "hash": "#workspace/blocks/hindbrain", "expectedCanvas": { "min": 1, "max": 2 } },
     { "id": "expert-review", "query": "?review=<ID>&commit=<40-char-SHA>", "hash": "<target-route>", "expectedCanvas": { "min": 1, "max": 3 } }
+  ],
+  "viewportProtocols": [
+    { "id": "desktop-split", "viewport": { "width": 907, "height": 691 }, "input": { "hover": "hover", "pointer": "fine" }, "expectedLayout": "compact-pc", "routeSet": "core", "expectedHorizontalOverflowPx": 0 },
+    { "id": "phone-touch", "viewport": { "width": 390, "height": 844 }, "input": { "hover": "none", "pointer": "coarse" }, "expectedLayout": "phone", "routeSet": "core", "expectedHorizontalOverflowPx": 0 }
   ]
 }

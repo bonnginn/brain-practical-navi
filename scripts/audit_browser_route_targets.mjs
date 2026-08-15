@@ -27,7 +27,7 @@ const expectedHashes=new Set([
   ...overlays.map(key=>`#workspace/${key}`),
 ]);
 
-if(catalog?.format!=="brain-practical-browser-route-targets"||catalog?.schemaVersion!==1||!Array.isArray(catalog?.routes)||!Array.isArray(catalog?.extendedProtocols))errors.push("unsupported browser route catalog format/schemaVersion");
+if(catalog?.format!=="brain-practical-browser-route-targets"||catalog?.schemaVersion!==1||!Array.isArray(catalog?.routes)||!Array.isArray(catalog?.extendedProtocols)||!Array.isArray(catalog?.viewportProtocols))errors.push("unsupported browser route catalog format/schemaVersion");
 const routes=Array.isArray(catalog?.routes)?catalog.routes:[];
 const ids=routes.map(route=>route?.id),hashes=routes.map(route=>route?.hash);
 if(new Set(ids).size!==ids.length)errors.push("route ids must be unique");
@@ -53,8 +53,19 @@ if(routes.length!==26)errors.push(`expected 26 core browser routes, found ${rout
 if(catalog.extendedProtocols.length!==2)errors.push("expected M2 and expert-review extended protocols");
 if(!catalog.extendedProtocols.some(protocol=>protocol?.query==="?m2=compare"&&protocol?.hash==="#workspace/blocks/hindbrain"))errors.push("M2 comparison protocol is missing");
 if(!catalog.extendedProtocols.some(protocol=>protocol?.query?.includes("<40-char-SHA>")&&protocol?.hash==="<target-route>"))errors.push("expert-review protocol is missing its commit-pinned template");
+const viewportProtocols=Array.isArray(catalog.viewportProtocols)?catalog.viewportProtocols:[];
+if(viewportProtocols.length!==2)errors.push("expected desktop-split and phone-touch viewport protocols");
+for(const protocol of viewportProtocols){
+  if(!Number.isInteger(protocol?.viewport?.width)||!Number.isInteger(protocol?.viewport?.height)||protocol.viewport.width<320||protocol.viewport.height<600)errors.push(`${protocol?.id??"unknown"}: invalid viewport`);
+  if(protocol?.routeSet!=="core"||protocol?.expectedHorizontalOverflowPx!==0)errors.push(`${protocol?.id??"unknown"}: viewport protocol must cover the overflow-free core route set`);
+}
+const desktopSplit=viewportProtocols.find(protocol=>protocol?.id==="desktop-split");
+if(desktopSplit?.viewport?.width!==907||desktopSplit?.input?.hover!=="hover"||desktopSplit?.input?.pointer!=="fine"||desktopSplit?.expectedLayout!=="compact-pc")errors.push("desktop-split viewport protocol is incomplete");
+const phoneTouch=viewportProtocols.find(protocol=>protocol?.id==="phone-touch");
+if(phoneTouch?.viewport?.width!==390||phoneTouch?.viewport?.height!==844||phoneTouch?.input?.hover!=="none"||phoneTouch?.input?.pointer!=="coarse"||phoneTouch?.expectedLayout!=="phone")errors.push("phone-touch viewport protocol is incomplete");
 
 if(errors.length){for(const error of errors)console.error(`FAIL\t${error}`);process.exitCode=1}else{
   console.log(`PASS\textended browser protocols: ${catalog.extendedProtocols.map(protocol=>protocol.id).join(", ")}`);
+  console.log(`PASS\tviewport protocols: ${viewportProtocols.map(protocol=>`${protocol.id} ${protocol.viewport.width}x${protocol.viewport.height}`).join(", ")}`);
   console.log(`PASS\tbrowser routes: ${routes.length} core routes; ${surface.length} surface, ${sections.length} section, ${blocks.length} gated specimen, ${overlays.length} overlay; extended ${catalog.extendedProtocols.length}`);
 }

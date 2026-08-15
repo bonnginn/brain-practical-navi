@@ -1545,9 +1545,12 @@ test("keeps the complete browser route matrix machine-auditable", async () => {
   assert.equal(new Set(catalog.routes.map(route=>route.hash)).size,26);
   assert.ok(catalog.routes.filter(route=>route.group==="blocks").every(route=>route.prerequisite==="prototype-warning"));
   assert.deepEqual(catalog.extendedProtocols.map(protocol=>protocol.id),["m2-hindbrain","expert-review"]);
+  assert.deepEqual(catalog.viewportProtocols.map(protocol=>protocol.id),["desktop-split","phone-touch"]);
+  assert.deepEqual(catalog.viewportProtocols.find(protocol=>protocol.id==="phone-touch"),{id:"phone-touch",viewport:{width:390,height:844},input:{hover:"none",pointer:"coarse"},expectedLayout:"phone",routeSet:"core",expectedHorizontalOverflowPx:0});
   const result=spawnSync(process.execPath,[localPath("scripts/audit_browser_route_targets.mjs")],{encoding:"utf8",cwd:localPath(".")});
   assert.equal(result.status,0,result.stderr);
   assert.match(result.stdout,/26 core routes; 7 surface, 3 section, 8 gated specimen, 5 overlay/);
+  assert.match(result.stdout,/phone-touch 390x844/);
 });
 
 test("PWA manager reports install, connectivity, persistence, and pack freshness", async () => {
