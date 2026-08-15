@@ -247,8 +247,10 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /公開α版・非営利教育用/);
   assert.match(page, /className="homeAccuracyWarning"/);
   assert.match(page, /解剖学的正確性は保証できません。学習時は教科書・実標本・検証済み資料と照合してください/);
-  assert.match(page, /className="homeIndependenceNotice"/);
-  assert.match(page, /<b>個人運営・非公式<\/b> 三重大学・所属部局の公式教材／見解ではありません/);
+  const homeStart = page.indexOf('{workspace==="home"&&<section');
+  const homeWorkspace = page.slice(homeStart, page.indexOf('{workspace==="sections"&&<section', homeStart));
+  assert.doesNotMatch(homeWorkspace, /稲葉弘哲|稲葉 弘哲|運営上の位置づけ|個人運営・非公式|三重大学/);
+  assert.match(homeWorkspace, /<b>公開α版<\/b> 解剖学的誤りや使いにくさの指摘を受けながら改善します/);
   assert.match(page, /三重大学および所属部局の公式教材・公式見解ではなく、大学による内容の承認を示すものではありません/);
   assert.match(page, /className="projectIndependence"/);
   assert.match(page, /提供者は死後組織の研究・教育目的の一般利用に書面同意/);
