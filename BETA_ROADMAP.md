@@ -118,6 +118,14 @@
 - [ ] α版のアクセス状況と意見を定期的に確認し、個人を追跡せず優先順位の判断材料にする。
 - [x] 変更履歴と、βで修正した既知の問題を公開する（`CHANGELOG.md` と `KNOWN_LIMITATIONS.md` を追加し、READMEから案内）。
 
+### 11. PWA・オフライン教材
+
+- [x] App Store等へ別アプリを配布せず、同じWeb版をインストール可能なPWAにする。
+- [x] 約78 MiBを初回に強制取得せず、アプリシェル自動保存、閲覧済み教材の逐次保存、脳表・断面・局所標本の選択保存へ分離する。
+- [x] 保存・更新・削除、進捗、実測容量、ブラウザ割当容量、オフライン対象外を `#workspace/offline` に表示する。
+- [x] Windows Chromiumで18.8 MiB・56ファイルの局所標本を保存し、通信遮断後の新規読込で後脳3D比較を復元する。
+- [ ] iOS Safari / Android Chrome実機でホーム画面追加、キャッシュ退避、容量不足、復帰を確認する。
+
 ## P2: β公開を妨げない発展項目
 
 - XI脳神経の脊髄根、脳神経核、頭蓋孔、遠位走行
@@ -141,7 +149,7 @@
 
 各条件の現在の証拠、ローカル合格、実機・公開・管理者・専門家待ちの区分は [BETA_GATE_AUDIT.md](BETA_GATE_AUDIT.md) に集約します。
 
-ローカル監査は `npm run audit:beta` で9系統を一括再実行できます。コマンドはGo / No-Go表も読み取り、現在の3ローカル合格と7外部証拠待ちを分離して出力します。外部待ちはコマンド成功だけで完了扱いにしません。
+ローカル監査は `npm run audit:beta` で10系統を一括再実行できます。コマンドはGo / No-Go表も読み取り、現在の3ローカル合格と7外部証拠待ちを分離して出力します。外部待ちはコマンド成功だけで完了扱いにしません。
 
 - [ ] 必修構造は、検証済みか、模式・推定であることが画面上で判別できる。
 - [ ] 学習対象の明らかな欠落、二重表示、遊離、空着色がない。
@@ -167,6 +175,7 @@
 - [MESH_VISIBILITY_AUDIT.md](MESH_VISIBILITY_AUDIT.md): 小脳法線平滑化と大脳・小脳配色の監査
 - [CONTRIBUTING.md](CONTRIBUTING.md): 共同制作の入口
 - [MOBILE_UI_AUDIT.md](MOBILE_UI_AUDIT.md): スマートフォン専用Web UIの方針・実ブラウザ回帰・実機待ち
+- [PWA_OFFLINE_AUDIT.md](PWA_OFFLINE_AUDIT.md): PWA配布、選択式教材キャッシュ、通信遮断回帰
 - [MEDIAL_TEMPORAL_AUDIT.md](MEDIAL_TEMPORAL_AUDIT.md): 海馬采・鉤の表示除外判断と根拠
 - [FORM_OPERATION_AUDIT.md](FORM_OPERATION_AUDIT.md): 公開回答画面の3分岐確認と管理者一往復試験
 - [SECTION_CONTINUITY_AUDIT.md](SECTION_CONTINUITY_AUDIT.md): 35断面ラベルの3方向連続性・孤立成分監査

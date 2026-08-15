@@ -1,0 +1,21 @@
+{
+  "name": "脳実習ナビ",
+  "short_name": "脳実習ナビ",
+  "description": "断面・立体・標本作製をつなぐ脳解剖実習の学習補助アプリ",
+  "lang": "ja",
+  "start_url": "./#workspace/home",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f8f7f3",
+  "theme_color": "#183238",
+  "categories": ["education", "medical"],
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -253,10 +253,12 @@ html, body, #root { height: 100%; overflow: hidden; }
 .workspaceSwitch button.prototype.active > i { color: #a63326; }
 .topActions { display: flex; align-items: center; gap: 10px; }
 .topActions > span { padding: 5px 8px; border: 1px solid #d4b7ae; color: #9a574a; font-size: 16px; font-weight: 700; letter-spacing: .04em; }
-.legalButton, .feedbackButton, .helpButton { padding: 9px 12px; border: 1px solid #aeb5b1; background: #f7f6f2; font-size: 14px; font-weight: 700; }
+.legalButton, .feedbackButton, .helpButton, .offlineButton { padding: 9px 12px; border: 1px solid #aeb5b1; background: #f7f6f2; font-size: 14px; font-weight: 700; }
 .feedbackButton { border-color: #6f9c96; background: #e3ece8; color: #214b48; }
 .helpButton { border-color: #829a96; color: #355d58; }
-.legalButton:hover, .feedbackButton:hover, .helpButton:hover { border-color: #1d6e69; color: #1d6e69; }
+.offlineButton { border-color: #547c76; background: #183f3c; color: #fff; }
+.legalButton:hover, .feedbackButton:hover, .helpButton:hover, .offlineButton:hover { border-color: #1d6e69; color: #1d6e69; }
+.offlineButton:hover { background: #f7f6f2; }
 .compactToggle { margin-left: 4px; padding-left: 9px; border-left: 1px solid #c4c7c2; font-size: 16px; white-space: nowrap; }
 .panelActions { display: flex; align-items: center; gap: 10px; }
 .panelActions button { padding: 7px 9px; border: 1px solid #738082; background: #283033; color: #d4d9d6; font-size: 16px; font-weight: 700; }
@@ -685,6 +687,31 @@ html, body, #root { height: 100%; overflow: hidden; }
 .helpGrid dd { margin: 0; color: #596562; line-height: 1.6; }
 .helpDialog kbd { display: inline-block; min-width: 22px; margin: 0 2px; padding: 1px 5px; border: 1px solid #aeb8b4; border-bottom-width: 2px; border-radius: 3px; background: #fff; color: #273c39; font: 700 13px monospace; text-align: center; }
 .helpDialog > footer button { padding: 8px 14px; border: 0; background: #1d6e69; color: #fff; font-size: 15px; font-weight: 800; }
+.offlineDialog { width: min(860px,94vw); }
+.offlineDialog > footer button { flex: 0 0 auto; padding: 8px 14px; border: 0; background: #1d6e69; color: #fff; font-weight: 800; }
+.offlineManager { padding: 22px 24px 26px; }
+.offlineSummary { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; }
+.offlineSummary > div { display: grid; gap: 4px; }
+.offlineSummary b { color: #183f3c; font-size: 20px; }
+.offlineSummary span, .offlineSummary small { color: #5f6d69; }
+.offlineSummary small { flex: 0 0 auto; padding: 6px 8px; border: 1px solid #bdc8c3; background: #fff; }
+.offlineNotice, .offlineFootnote { margin: 14px 0; padding: 11px 13px; border-left: 4px solid #c28155; background: #f3e9dc; color: #594c43; line-height: 1.65; }
+.offlineFootnote { margin-bottom: 0; border-color: #5b827c; background: #e5edeb; color: #344844; }
+.offlinePacks { display: grid; gap: 10px; }
+.offlinePacks article { padding: 15px; border: 1px solid #bfc7c3; background: #faf9f5; }
+.offlinePacks article > div:first-child { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.offlinePacks h3 { margin: 0; color: #243d3a; font-size: 18px; }
+.offlinePacks article > div:first-child > b { color: #64736f; font: 700 13px monospace; }
+.offlinePacks p { margin: 7px 0 12px; color: #56615f; line-height: 1.55; }
+.offlinePackActions { display: flex; align-items: center; gap: 8px; }
+.offlinePackActions button { min-height: 38px; padding: 7px 12px; border: 1px solid #aeb9b4; background: #fff; font-weight: 700; }
+.offlinePackActions button.primary { margin-left: auto; border-color: #316e68; background: #2a6862; color: #fff; }
+.offlinePackActions button:disabled { opacity: .5; }
+.offlineState { color: #7b6254; font-size: 13px; font-weight: 800; }
+.offlineState.saved { color: #27665d; }
+.offlineState.error { color: #9a4035; }
+.offlinePacks progress { width: 100%; height: 7px; margin-top: 10px; accent-color: #2a6862; }
+.offlineMessage { margin: 12px 0 0; color: #1f5d57; font-weight: 700; }
 
 .segRailIntro { margin: 16px 18px 18px; padding: 14px; border: 1px solid #c5c9c3; background: #efeee8; }
 .segRailIntro > b { font-size: 16px; }
@@ -782,7 +809,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 @media(max-width:1180px){.modelComparisonGrid{grid-template-columns:1fr 1fr}.modelComparisonGuide{grid-column:1/3;overflow:visible}.modelComparisonGuide dl{grid-template-columns:1fr 1fr}.modelComparisonGuide dl>div{grid-template-columns:58px minmax(0,1fr)}}
 @media(max-width:900px){.workspaceSwitch button{min-width:68px}.workspaceSwitch button>i{display:none}.homeHero{grid-template-columns:minmax(300px,43%) minmax(0,1fr)}.homeIntro{padding:28px}.homeModeGrid{grid-template-columns:1fr 1fr}.homeModeGrid button{min-height:72px}.homeModeGrid small{display:none}.learningGrid,.quizWorkspace,.segWorkbench{grid-template-columns:minmax(0,1fr) minmax(270px,34vw,310px)}.learningGuide,.quizQuestionCard,.segControls{padding-inline:18px}.legalColumns{grid-template-columns:1fr}.legalColumns article+article{padding-left:0;border-left:0}}
 @media(max-height:820px) and (min-width:761px){.homeArea{gap:8px;padding:12px 22px 10px}.homeIntro{padding:clamp(22px,3vw,42px)}.homeBadges{margin-bottom:8px}.homeIntro h1{margin:8px 0 11px;font-size:clamp(34px,3.6vw,52px)}.homeLead{line-height:1.65}.homeAccuracyWarning{margin-top:9px;padding-block:7px;font-size:14px}.homeModeGrid button{min-height:76px;padding-block:10px}.homeFooter{min-height:30px}}
-@media(max-width:760px){.topbar{padding-inline:5px;gap:3px}.brand{min-width:auto}.brand>span:last-child{display:none}.workspaceSwitch{display:flex;min-width:0;overflow-x:auto;scrollbar-width:none}.workspaceSwitch::-webkit-scrollbar{display:none}.workspaceSwitch button{min-width:52px;padding:7px 3px}.workspaceSwitch button>span{font-size:15px}.topActions{gap:2px}.topActions>span{display:none}.legalButton{padding:7px 3px;font-size:15px;white-space:nowrap}.feedbackButton{display:block;width:38px;padding:7px 2px;font-size:0;white-space:nowrap}.feedbackButton::after{content:"協力";font-size:15px}.compactToggle{border:0;padding-left:0}.learningArea,.quizArea,.segmentationArea{min-height:800px}.learningGrid,.quizWorkspace,.segWorkbench{display:block}.learningModelCard,.quizImageCard,.segCanvasCard{height:520px}.learningGuide,.quizQuestionCard,.segControls{max-height:none;margin-top:10px}.neurovascularControls{left:8px;bottom:8px}.neurovascularControls button{padding:6px}.neurovascularLegend{left:8px;top:8px;right:auto;bottom:auto;grid-template-columns:repeat(3,auto);gap:5px 8px;padding:7px 8px;font-size:12px}.neurovascularLegend i{width:13px}.blockReleaseNote .sourceBadge{display:none}.feedbackOptions{grid-template-columns:1fr}.legalBackdrop{padding:8px}.legalDialog>footer{display:block}.legalDialog footer div{margin-top:8px}}
+@media(max-width:760px){.topbar{padding-inline:5px;gap:3px}.brand{min-width:auto}.brand>span:last-child{display:none}.workspaceSwitch{display:flex;min-width:0;overflow-x:auto;scrollbar-width:none}.workspaceSwitch::-webkit-scrollbar{display:none}.workspaceSwitch button{min-width:52px;padding:7px 3px}.workspaceSwitch button>span{font-size:15px}.topActions{gap:2px}.topActions>span{display:none}.legalButton{padding:7px 3px;font-size:15px;white-space:nowrap}.feedbackButton{display:block;width:38px;padding:7px 2px;font-size:0;white-space:nowrap}.feedbackButton::after{content:"協力";font-size:15px}.compactToggle{border:0;padding-left:0}.learningArea,.quizArea,.segmentationArea{min-height:800px}.learningGrid,.quizWorkspace,.segWorkbench{display:block}.learningModelCard,.quizImageCard,.segCanvasCard{height:520px}.learningGuide,.quizQuestionCard,.segControls{max-height:none;margin-top:10px}.neurovascularControls{left:8px;bottom:8px}.neurovascularControls button{padding:6px}.neurovascularLegend{left:8px;top:8px;right:auto;bottom:auto;grid-template-columns:repeat(3,auto);gap:5px 8px;padding:7px 8px;font-size:12px}.neurovascularLegend i{width:13px}.blockReleaseNote .sourceBadge{display:none}.feedbackOptions{grid-template-columns:1fr}.legalBackdrop{padding:8px}.legalDialog>header{padding:14px}.legalDialog>footer{display:block}.legalDialog footer div{margin-top:8px}.offlineDialog h2{font-size:25px}.offlineManager{padding:16px 14px 20px}.offlineSummary{display:block}.offlineSummary small{display:inline-block;margin-top:10px}.offlinePackActions{flex-wrap:wrap}.offlinePackActions .primary{margin-left:0}.offlineState{flex-basis:100%}}
 @media(max-width:760px){.quizSliceNavigator{grid-template-columns:minmax(0,1fr) 38px auto;gap:7px;padding-inline:9px}.quizSliceAxis{display:none}.quizSliceNavigator button{padding-inline:6px}.quizSliceControl{display:grid;grid-template-columns:30px minmax(0,1fr) 30px;gap:5px}.quizSliceControl button{width:30px;padding:0}}
 @media(max-width:760px){.sectionLayoutSwitch{width:100%}.sectionLayoutSwitch button{flex:1;padding-inline:4px;font-size:12px}.sliceStage.layout-slice,.sliceStage.layout-model{grid-template-rows:minmax(0,1fr)}.sliceStage.layout-model .insetViews{grid-template-columns:1fr 1fr;grid-template-rows:1fr}}
 @media(max-width:760px){
@@ -897,10 +924,10 @@ html, body, #root { height: 100%; overflow: hidden; }
 .workspaceSwitch button > span { font-size: 14px; }
 .workspaceSwitch button > i { font: 11px/1.2 monospace; }
 .topActions > span { font-size: 12px; }
-.legalButton, .feedbackButton, .helpButton { font-size: 13px; }
+.legalButton, .feedbackButton, .helpButton, .offlineButton { font-size: 13px; }
 
 @media(max-width:1120px){.workspaceSwitch button>span{font-size:12px}}
-@media(max-width:760px){.workspaceSwitch button>span{font-size:10px}.legalButton,.helpButton{font-size:10px}.feedbackButton::after{font-size:10px}.workHead{display:block}.workHead h1{font-size:24px;line-height:1.25}.sourceBadge{display:inline-block;margin-top:10px}}
+@media(max-width:760px){.workspaceSwitch button>span{font-size:10px}.legalButton,.helpButton,.offlineButton{font-size:10px}.feedbackButton::after{font-size:10px}.workHead{display:block}.workHead h1{font-size:24px;line-height:1.25}.sourceBadge{display:inline-block;margin-top:10px}}
 
 /* On narrow screens, preserve readable destinations instead of squeezing all
    six workspaces and the utility actions into a single 390 px row. */
@@ -915,7 +942,7 @@ html, body, #root { height: 100%; overflow: hidden; }
   .topActions{grid-column:3;grid-row:1}
   .feedbackButton{width:auto;padding-inline:8px;font-size:0}
   .feedbackButton::after{content:"共同制作";font-size:12px}
-  .helpButton,.legalButton{padding-inline:7px;font-size:12px}
+  .helpButton,.offlineButton,.legalButton{padding-inline:7px;font-size:12px}
   .helpGrid{grid-template-columns:1fr;padding:10px 14px 18px}
   .helpGrid dl>div{grid-template-columns:82px minmax(0,1fr)}
   .helpIntro{padding-inline:16px}
@@ -967,8 +994,9 @@ html, body, #root { height: 100%; overflow: hidden; }
 @media(max-width:380px){
   .topbar{grid-template-columns:44px minmax(0,1fr) auto;column-gap:4px;padding-inline:4px}
   .topActions{gap:2px}
-  .helpButton,.feedbackButton,.legalButton{min-width:44px;padding-inline:5px;font-size:0;white-space:nowrap}
+  .helpButton,.offlineButton,.feedbackButton,.legalButton{min-width:44px;padding-inline:5px;font-size:0;white-space:nowrap}
   .helpButton::after{content:"操作";font-size:12px}
+  .offlineButton::after{content:"保存";font-size:12px}
   .feedbackButton::after{content:"共同";font-size:12px}
   .legalButton::after{content:"条件";font-size:12px}
   .workspaceSwitch button{min-width:84px}
@@ -985,8 +1013,9 @@ html, body, #root { height: 100%; overflow: hidden; }
   .brandMark{width:38px;height:38px}
   .brand>span:last-child{display:none}
   .topActions{margin-left:auto;gap:3px}
-  .helpButton,.feedbackButton,.legalButton{min-width:42px;padding:7px 4px;font-size:0;white-space:nowrap}
+  .helpButton,.offlineButton,.feedbackButton,.legalButton{min-width:42px;padding:7px 4px;font-size:0;white-space:nowrap}
   .helpButton::after{content:"操作";font-size:12px}
+  .offlineButton::after{content:"保存";font-size:12px}
   .feedbackButton::after{content:"共同";font-size:12px}
   .legalButton::after{content:"条件";font-size:12px}
   .workspaceSwitch{position:fixed;z-index:50;left:0;right:0;bottom:0;height:calc(66px + env(safe-area-inset-bottom,0px));display:grid;grid-template-columns:repeat(6,minmax(61px,1fr));gap:0;overflow-x:auto;padding-bottom:env(safe-area-inset-bottom,0px);border-top:1px solid #aeb4af;background:#f8f7f3;box-shadow:0 -8px 24px rgba(25,34,34,.12);scrollbar-width:none}

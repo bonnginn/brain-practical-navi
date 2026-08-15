@@ -2,7 +2,7 @@
 
 更新日: 2026-08-15
 対象ブランチ: `codex/beta-candidate`
-基準実装コミット: `38890d3 Aggregate beta candidate audits`（この文書更新の直前）
+基準実装コミット: `232329c Refresh beta candidate handoff`（PWA実装前の基準）
 
 ## 1. 現在地
 
@@ -13,7 +13,7 @@
 - 自動テスト: 75件全件合格
 - TypeScript: 合格
 - 本番Viteビルド: 合格
-- `npm run audit:beta`: 9監査合格
+- `npm run audit:beta`: 10監査合格
 - Go / No-Go: ローカル合格3条件、外部証拠待ち7条件
 - 結論: **No-Go（β候補のローカル検証中）**
 
@@ -38,7 +38,7 @@ npm run build
 - ブランチは `codex/beta-candidate`
 - 作業ツリーはクリーン
 - `38890d3` 以降のコミットが存在
-- `audit:beta` は9監査に合格し、3ローカル合格／7外部証拠待ち、No-Goを表示
+- `audit:beta` は10監査に合格し、3ローカル合格／7外部証拠待ち、No-Goを表示
 - テストと本番ビルドが合格
 
 別PCへ移す場合、この文書より新しいローカルコミットがGitHubへpush済みかを管理者へ確認してください。未pushならremoteの同名ブランチだけでは現在状態を再現できません。許可なくpush、公開、PRのReady化、`main`統合を行いません。
@@ -68,6 +68,7 @@ npm run build
 - 大容量アセットを必要時読込へ変更し、公開物を78.4 MiBへ削減。経路別予算を `npm run audit:assets` で固定。
 - 読込進捗、失敗時再試行、離脱時の画像・メッシュ参照解放、再訪復帰を実装。
 - 操作ガイド、キーボードフォーカス、断面送り戻し、クイズから正確な復習画面へ戻る導線を追加。
+- Web版をPWA化。アプリシェルと閲覧済み教材を自動キャッシュし、脳表26.4 MiB／断面39.3 MiB／局所標本18.8 MiBを選択保存できる管理画面を追加。Windows Chromiumで局所標本56ファイル保存後、通信遮断下の後脳3D再読込に合格。
 
 ### 解剖学的整合性の機械監査
 
@@ -85,7 +86,7 @@ npm run build
 - 狭幅PCは省スペースPC配置、狭幅かつ `hover: none`・`pointer: coarse` のタッチ主体端末は専用スマートフォンUIへ分離。
 - スマートフォンUIは6ワークスペース下部ドック、画面別設定シート、安全域、フォーカス循環・復帰、背景スクロール停止を実装。
 - PCの分割表示やブラウザズームだけで電話UIへ切り替わらない。
-- 実スマートフォンは未確認。PWA／ネイティブアプリ化は実機Web評価後の判断事項。
+- 実スマートフォンは未確認。PWA方針は実装済みで、iOS / Androidのホーム画面追加、キャッシュ退避、容量不足時は実機待ち。端末固有APIが必要になるまではネイティブアプリを別保守しない。
 
 ### 標本・比較・共同編集
 
@@ -117,7 +118,7 @@ npm run build
 | 9 | 神経解剖学専門家レビュー | 専門家待ち | 少なくとも1名の検証済み記名JSONと台帳反映 |
 | 10 | 未完成項目の公開 | 公開待ち | β候補公開URLで既知の制限を確認 |
 
-詳細と証拠は `BETA_GATE_AUDIT.md` が正本です。`npm run audit:beta` は9つのローカル監査とこの状態区分を再検証しますが、外部証拠待ちを完了へ変更しません。
+詳細と証拠は `BETA_GATE_AUDIT.md` が正本です。`npm run audit:beta` は10のローカル監査とこの状態区分を再検証しますが、外部証拠待ちを完了へ変更しません。
 
 ## 6. 次に進める順序
 
@@ -138,7 +139,7 @@ npm run build
 - 局所標本: `lateral-ventricle`、`diencephalon`、`radiations`、`commissural-system`、`choroid-plexus`、`medial-temporal`、`midbrain-section`、`hindbrain`
 - 復習クイズ: `#workspace/quiz`
 - 編集ツール: `#workspace/segment`
-- 操作ガイド・意見・利用条件: `#workspace/help`、`#workspace/feedback`、`#workspace/legal`
+- 操作ガイド・オフライン教材・意見・利用条件: `#workspace/help`、`#workspace/offline`、`#workspace/feedback`、`#workspace/legal`
 - M2比較: `/?m2=compare#workspace/blocks/hindbrain`
 - 専門家票例: `/?review=A1&commit=<SHA>#workspace/surface/lateral`
 

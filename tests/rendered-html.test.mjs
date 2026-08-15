@@ -303,7 +303,7 @@ test("presents the practical flow clearly and keeps interface text readable", as
   assert.match(canvasCss, /\.homeLead\s*\{[^}]*font-size:\s*clamp\(14px,1\.2vw,17px\)/);
   assert.match(canvasCss, /\.workspaceSwitch button > span\s*\{\s*font-size:\s*14px/);
   assert.match(canvasCss, /\.workspaceSwitch button > i\s*\{\s*font:\s*11px\/1\.2 monospace/);
-  assert.match(canvasCss, /\.legalButton, \.feedbackButton, \.helpButton\s*\{\s*font-size:\s*13px/);
+  assert.match(canvasCss, /\.legalButton, \.feedbackButton, \.helpButton, \.offlineButton\s*\{\s*font-size:\s*13px/);
   assert.match(page, /aria-label="利用条件・クレジットを表示">利用条件<\/button>/);
   assert.match(globalsCss, /font-family/);
   assert.doesNotMatch(`${canvas}\n${editor}`, /font="(?:7|8|9|10|11|12|13)px/);
@@ -1472,15 +1472,17 @@ test("medial surface quiz keeps the same isolated-hemisphere anatomy as study mo
 
 test("help, feedback, and credit dialogs have durable shareable URLs", async () => {
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
-  assert.match(page, /type OverlayMode = "help" \| "feedback" \| "legal"/);
+  assert.match(page, /type OverlayMode = "help" \| "offline" \| "feedback" \| "legal"/);
   assert.match(page, /function overlayFromHash\(hash:string\):OverlayMode\|null/);
   assert.match(page, /overlayFromHash\(window\.location\.hash\)==="help"/);
+  assert.match(page, /overlayFromHash\(window\.location\.hash\)==="offline"/);
   assert.match(page, /overlayFromHash\(window\.location\.hash\)==="feedback"/);
   assert.match(page, /overlayFromHash\(window\.location\.hash\)==="legal"/);
   assert.match(page, /window\.history\.pushState\(null,"",`#workspace\/\$\{key\}`\)/);
   assert.match(page, /onClick=\{\(\)=>openOverlay\("feedback"\)\}/);
   assert.match(page, /onClick=\{\(\)=>openOverlay\("legal"\)\}/);
   assert.match(page, /onClick=\{\(\)=>openOverlay\("help"\)\}/);
+  assert.match(page, /onClick=\{\(\)=>openOverlay\("offline"\)\}/);
   assert.match(page, /document\.body\.style\.overflow="hidden"/);
   assert.match(page, /document\.querySelector<HTMLButtonElement>\('\.legalDialog header button'\)\?\.focus\(\)/);
   assert.match(page, /overlayReturnFocus\.current\?\.focus\(\)/);
@@ -1489,6 +1491,7 @@ test("help, feedback, and credit dialogs have durable shareable URLs", async () 
   assert.match(page, /onClick=\{closeOverlay\} aria-label="意見募集を閉じる"/);
   assert.match(page, /onClick=\{closeOverlay\} aria-label="利用条件とクレジット表示を閉じる"/);
   assert.match(page, /onClick=\{closeOverlay\} aria-label="操作ガイドを閉じる"/);
+  assert.match(page, /onClick=\{closeOverlay\} aria-label="オフライン教材を閉じる"/);
 });
 
 test("keeps simultaneously selectable surface colours distinct on the dark model", async () => {
@@ -1575,7 +1578,7 @@ test("publishes a durable keyboard and pointer operation guide", async () => {
     readFile(new URL("app/page.tsx", root), "utf8"),
     readFile(new URL("app/canvas.css", root), "utf8"),
   ]);
-  assert.match(page, /type OverlayMode = "help" \| "feedback" \| "legal"/);
+  assert.match(page, /type OverlayMode = "help" \| "offline" \| "feedback" \| "legal"/);
   assert.match(page, /#workspace\/\$\{key\}/);
   assert.match(page, /操作ガイドを表示/);
   assert.match(page, /<kbd>Ctrl<\/kbd>／<kbd>⌘<\/kbd>＋<kbd>Z<\/kbd>/);

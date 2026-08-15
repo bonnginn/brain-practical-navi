@@ -14,6 +14,7 @@ const audits=[
   ["surface","scripts/audit_surface_relations.mjs"],
   ["model comparison","scripts/audit_model_comparison.mjs"],
   ["expert review targets","scripts/audit_expert_review_targets.mjs"],
+  ["PWA offline","scripts/audit_pwa.mjs"],
 ];
 
 for(const [label,script] of audits){
