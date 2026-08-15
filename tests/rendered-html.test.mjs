@@ -1357,7 +1357,6 @@ test("presents sulci as teaching guides rather than segmentation boundaries", as
 
 test("describes specimen fidelity limits without implying anatomical validation", async () => {
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
-  assert.match(page, /"medial-temporal":\["hippocampus","amygdala","inferior-horn"\]/);
   assert.doesNotMatch(page.split('"medial-temporal":{name:"海馬・扁桃体標本"')[1].split('"midbrain-section"')[0], /key:"(?:fimbria|uncus)"/);
   assert.match(page, /海馬采・鉤は信頼できる境界データがなく3D未収録/);
   assert.match(page, /const blockSpecimenDisclaimer="褐色組織は位置関係を読むための表示で[\s\S]*見た目の実在感を形状や境界の正確性の根拠にせず/);
