@@ -11,6 +11,7 @@
 .brandMark { font: 700 15px/1 "Yu Mincho", serif !important; letter-spacing: 0 !important; }
 .atlasCanvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .atlasCanvas.identifiable { cursor: crosshair; touch-action: none; }
+.sliceStage .atlasCanvas.identifiable { touch-action: pan-y; }
 .atlasCanvas.zoomed { cursor: crosshair; }
 .zoomReadout { position: absolute; z-index: 9; right: 14px; bottom: 14px; min-width: 82px; padding: 7px 9px; border: 1px solid #7b8585; background: #172126d9; color: #f4f2eb; font: 700 16px monospace; box-shadow: 0 4px 12px #0005; }
 .zoomReadout small { margin-left: 5px; color: #b9c1bf; font: 15px sans-serif; }

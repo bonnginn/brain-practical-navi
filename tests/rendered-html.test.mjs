@@ -1890,6 +1890,17 @@ test("phone layouts use a bottom workspace dock and a complete context sheet", a
   assert.match(css, /@media\(max-width:380px\)[\s\S]*\.specimenAttachmentControls\{left:8px;right:64px;max-width:none\}/);
 });
 
+test("touch section slices preserve vertical page scrolling while keeping tap identification", async () => {
+  const [canvas, css] = await Promise.all([
+    readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8"),
+    readFile(new URL("app/canvas.css", root), "utf8"),
+  ]);
+  assert.match(css, /\.sliceStage \.atlasCanvas\.identifiable \{ touch-action: pan-y; \}/);
+  assert.match(canvas, /sliceTouchClick=useRef/);
+  assert.match(canvas, /kind==="slice"&&e\.pointerType==="touch"/);
+  assert.match(canvas, /if\(!click\.moved\)identify\(e\)/);
+});
+
 test("M2 compares data-anchored and schematic hindbrain models without conflating provenance", async () => {
   const [page, css, pkg, audit, record] = await Promise.all([
     readFile(new URL("app/page.tsx", root), "utf8"),
