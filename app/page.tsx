@@ -507,7 +507,7 @@ export default function Home() {
   const [blockViewPreset,setBlockViewPreset]=useState<BlockViewPreset|"custom">("initial");
   const [blockIntroOpen,setBlockIntroOpen]=useState(workspace==="blocks");
   const [quizIndex,setQuizIndex]=useState(0);
-  const [quizQueue,setQuizQueue]=useState<QuizQuestion[]>(()=>shuffledQuestions(standardQuizQuestions).slice(0,10));
+  const [quizQueue,setQuizQueue]=useState<QuizQuestion[]>(()=>shuffledQuestions(quizQuestions).slice(0,10));
   const [quizCategory,setQuizCategory]=useState<"all"|QuizCategory>("all");
   const [quizCount,setQuizCount]=useState<5|10|15|20>(10);
   const [quizWrongOnly,setQuizWrongOnly]=useState(false);
