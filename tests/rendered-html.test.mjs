@@ -273,6 +273,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(canvasCss, /\.homeModelStage\s*\{[^}]*height:\s*auto/);
   assert.match(canvasCss, /\.quizWorkspace\s*\{[^}]*display:\s*grid/);
   assert.match(canvasCss, /\.quizImageStage\s*\{[^}]*position:\s*relative/);
+  assert.match(canvasCss, /\.quizImageStage\.modelStage\s*\{[^}]*height:\s*auto/);
   assert.match(canvasCss, /\.quizTargetTag\s*\{[^}]*position:\s*absolute/);
   assert.match(canvasCss, /\.learningGrid,\.quizWorkspace,\.segWorkbench\{grid-template-columns:minmax\(0,1fr\) minmax\(270px,34vw,310px\)\}/);
   assert.doesNotMatch(canvasCss, /@media\(max-width:900px\)[^\n]*\.learningGrid,\.quizWorkspace,\.segWorkbench\{grid-template-columns:1fr\}/);
