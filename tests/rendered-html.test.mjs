@@ -247,6 +247,13 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /公開α版・非営利教育用/);
   assert.match(page, /className="homeAccuracyWarning"/);
   assert.match(page, /解剖学的正確性は保証できません。学習時は教科書・実標本・検証済み資料と照合してください/);
+  assert.match(page, /className="homeIndependenceNotice"/);
+  assert.match(page, /<b>個人運営・非公式<\/b> 三重大学・所属部局の公式教材／見解ではありません/);
+  assert.match(page, /三重大学および所属部局の公式教材・公式見解ではなく、大学による内容の承認を示すものではありません/);
+  assert.match(page, /className="projectIndependence"/);
+  assert.match(page, /提供者は死後組織の研究・教育目的の一般利用に書面同意/);
+  assert.match(page, /Heinrich Heine University Düsseldorf医学部倫理委員会の承認（#4863）/);
+  assert.match(page, /https:\/\/bigbrainproject\.org\/about\.html/);
   assert.match(page, /試作中・解剖学的正確性は未保証/);
   assert.match(page, /ブロック標本（試作中）/);
   assert.match(page, /key:"blocks",label:"ブロック標本",sub:"試作品"/);
@@ -349,7 +356,8 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(canvasCss, /\.insetViews \{[^}]*grid-template-rows: repeat\(2,minmax\(0,1fr\)\)/);
   assert.match(canvasCss, /\.sliceStage\.layout-model \.insetViews \{ grid-template-columns: repeat\(2,minmax\(0,1fr\)\); grid-template-rows: minmax\(0,1fr\); \}/);
   assert.match(page, /const sectionDeveloperControls=\(import\.meta\.env\.VITE_SECTION_DEVELOPER_CONTROLS as string\|undefined\)==="true"/);
-  assert.match(page, /位置 \{position\}・単一標本脳 0\.5 mm（同一格子で検証済み）・実習標本調/);
+  assert.match(page, /位置 \{position\}・BigBrain公開組織画像 0\.5 mm（表示用再標本化・同一格子で検証済み）・実習標本調/);
+  assert.match(page, /BigBrain公開組織画像 0\.5 mm/);
   assert.match(page, /\{sectionDeveloperControls&&<><div className="contrastSwitch" aria-label="開発者用・断面画像ソース"/);
   assert.match(page, /className="displaySwitch" aria-label="開発者用・断面表示調"/);
   assert.match(page, /structureAvailable/);
