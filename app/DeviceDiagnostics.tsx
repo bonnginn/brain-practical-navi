@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { offlineResourceResponseError } from "./offlineCapacity";
 import { getDevicePerformanceSession, recordDevicePerformanceObservation, removeDevicePerformanceObservation, resetDevicePerformanceSession, startDevicePerformanceSession, type DevicePerformanceSession, type DeviceRouteKey } from "./devicePerformance";
+import { appBuildInfo, currentAppBaseUrl, validBuildCommit, type AppBuildInfo } from "./buildInfo";
 
 type PackEvidence={id:string;name:string;version:string;expectedResources:number;cachedResources:number;markerVersion:string|null;markerComplete:boolean;current:boolean};
 type PwaCheckpoint={kind:"online"|"offline"|"restored";recordedAt:string;online:boolean;standalone:boolean;serviceWorkerControlled:boolean;catalogVersion:string|null;packs:PackEvidence[]};
@@ -10,7 +11,8 @@ type WalkthroughState={confirmed:boolean;recordedAt:string|null};
 
 type DiagnosticReport={
   format:"brain-practical-device-check";
-  schemaVersion:4;
+  schemaVersion:5;
+  application:AppBuildInfo&{runtimeBaseUrl:string};
   recordedAt:string;
   deviceLabel:string;
   route:{pathname:string;hash:string};
@@ -43,9 +45,9 @@ const walkthroughItems:{key:WalkthroughKey;label:string;detail:string}[]=[
 ];
 const initialWalkthrough=()=>Object.fromEntries(walkthroughItems.map(item=>[item.key,{confirmed:false,recordedAt:null}])) as Record<WalkthroughKey,WalkthroughState>;
 const initialPwaEvidence=():PwaEvidence=>({online:null,offline:null,restored:null});
-const DRAFT_KEY="brain-practical-device-check-draft-v4";
-type DiagnosticDraft={schemaVersion:4;deviceLabel:string;report:DiagnosticReport|null;touch:DiagnosticReport["touch"];walkthrough:Record<WalkthroughKey,WalkthroughState>;pwaEvidence:PwaEvidence;performanceSession:DevicePerformanceSession|null;problemNotes:string};
-function loadDraft():DiagnosticDraft|null{try{if(typeof localStorage==="undefined")return null;const value=JSON.parse(localStorage.getItem(DRAFT_KEY)??"null");if(value?.schemaVersion!==4||!walkthroughItems.every(item=>typeof value.walkthrough?.[item.key]?.confirmed==="boolean")||walkthroughItems.some(item=>value.walkthrough[item.key].confirmed)&&value.performanceSession?.coldStart?.key!=="coldHome")return null;return value}catch{return null}}
+const DRAFT_KEY="brain-practical-device-check-draft-v5",LEGACY_DRAFT_KEY="brain-practical-device-check-draft-v4";
+type DiagnosticDraft={schemaVersion:5;application:AppBuildInfo;deviceLabel:string;report:DiagnosticReport|null;touch:DiagnosticReport["touch"];walkthrough:Record<WalkthroughKey,WalkthroughState>;pwaEvidence:PwaEvidence;performanceSession:DevicePerformanceSession|null;problemNotes:string};
+function loadDraft():DiagnosticDraft|null{try{if(typeof localStorage==="undefined")return null;const value=JSON.parse(localStorage.getItem(DRAFT_KEY)??"null");if(value?.schemaVersion!==5||value?.application?.commit!==appBuildInfo.commit||value?.application?.dirty!==appBuildInfo.dirty||value?.application?.basePath!==appBuildInfo.basePath||!walkthroughItems.every(item=>typeof value.walkthrough?.[item.key]?.confirmed==="boolean")||walkthroughItems.some(item=>value.walkthrough[item.key].confirmed)&&value.performanceSession?.coldStart?.key!=="coldHome")return null;return value}catch{return null}}
 
 const disclaimer="この記録だけでは実機ゲート合格になりません。実際のスマートフォンで主要ルートを一周し、操作・表示・ピークメモリを確認してください。";
 const round=(value:number,digits=1)=>Number(value.toFixed(digits));
@@ -88,7 +90,7 @@ export function DeviceDiagnostics(){
   const [problemNotes,setProblemNotes]=useState(initialDraft?.problemNotes??"");
   const [message,setMessage]=useState("");
 
-  useEffect(()=>{try{localStorage.setItem(DRAFT_KEY,JSON.stringify({schemaVersion:4,deviceLabel,report,touch,walkthrough,pwaEvidence,performanceSession,problemNotes} satisfies DiagnosticDraft))}catch{/* local draft is best effort */}},[deviceLabel,report,touch,walkthrough,pwaEvidence,performanceSession,problemNotes]);
+  useEffect(()=>{try{localStorage.setItem(DRAFT_KEY,JSON.stringify({schemaVersion:5,application:appBuildInfo,deviceLabel,report,touch,walkthrough,pwaEvidence,performanceSession,problemNotes} satisfies DiagnosticDraft))}catch{/* local draft is best effort */}},[deviceLabel,report,touch,walkthrough,pwaEvidence,performanceSession,problemNotes]);
   useEffect(()=>{const sync=(event:Event)=>setPerformanceSession((event as CustomEvent<DevicePerformanceSession|null>).detail);window.addEventListener("brain-practical-performance-change",sync);return()=>window.removeEventListener("brain-practical-performance-change",sync)},[]);
 
   function beginPerformanceSession(){
@@ -148,7 +150,7 @@ export function DeviceDiagnostics(){
     const visual=window.visualViewport;
     const orientation=screen.orientation;
     const next:DiagnosticReport={
-      format:"brain-practical-device-check",schemaVersion:4,recordedAt:new Date().toISOString(),deviceLabel:deviceLabel.trim(),
+      format:"brain-practical-device-check",schemaVersion:5,application:{...appBuildInfo,runtimeBaseUrl:currentAppBaseUrl()},recordedAt:new Date().toISOString(),deviceLabel:deviceLabel.trim(),
       route:{pathname:location.pathname,hash:location.hash},
       environment:{userAgent:navigator.userAgent,platform:navigator.platform,language:navigator.language,online:navigator.onLine,viewport:{width:innerWidth,height:innerHeight},visualViewport:visual?{width:round(visual.width),height:round(visual.height),scale:visual.scale}:null,screen:{width:screen.width,height:screen.height,orientation:orientation?.type??null},devicePixelRatio,hardwareConcurrency:navigator.hardwareConcurrency??null,deviceMemory:(navigator as Navigator&{deviceMemory?:number}).deviceMemory??null,maxTouchPoints:navigator.maxTouchPoints},
       capabilities:{pointerCoarse:matchMedia("(pointer: coarse)").matches,pointerFine:matchMedia("(pointer: fine)").matches,hover:matchMedia("(hover: hover)").matches,standalone:matchMedia("(display-mode: standalone)").matches||Boolean((navigator as Navigator&{standalone?:boolean}).standalone),serviceWorker:"serviceWorker" in navigator,serviceWorkerControlled:Boolean(navigator.serviceWorker?.controller),cacheStorage:"caches" in window,network:connection?{effectiveType:connection.effectiveType??null,downlinkMbps:connection.downlink??null,rttMs:connection.rtt??null,saveData:connection.saveData??null}:null,performanceMemory:memory?{usedJSHeapBytes:memory.usedJSHeapSize,heapLimitBytes:memory.jsHeapSizeLimit}:null},
@@ -167,12 +169,13 @@ export function DeviceDiagnostics(){
   }
 
   function clearDraft(){
-    try{localStorage.removeItem(DRAFT_KEY)}catch{/* nothing to clear */}
+    try{localStorage.removeItem(DRAFT_KEY);localStorage.removeItem(LEGACY_DRAFT_KEY)}catch{/* nothing to clear */}
     resetDevicePerformanceSession();setDeviceLabel("");setReport(null);setTouch({confirmed:false,pointerType:null,recordedAt:null});setWalkthrough(initialWalkthrough());setPwaEvidence(initialPwaEvidence());setPerformanceSession(null);setProblemNotes("");setMessage("この端末の診断下書きと性能記録を初期状態へ戻しました。");
   }
 
   return <div className="deviceCheck">
     <div className="deviceCheckNotice"><b>端末内だけで診断・画面を移動して再開</b><p>氏名・メールアドレスは不要です。下書きはこのブラウザだけに保存され、結果は自動送信されません。「JSONを書き出す」を選んだ場合だけファイルになります。</p></div>
+    <div className={`deviceBuildEvidence ${validBuildCommit(appBuildInfo.commit)&&!appBuildInfo.dirty&&currentAppBaseUrl()===appBuildInfo.publicBaseUrl?"formal":"local"}`}><div><b>対象ビルド</b><code>{validBuildCommit(appBuildInfo.commit)?appBuildInfo.commit:"unknown"}</code></div><span>{appBuildInfo.dirty?"未コミット変更を含む":currentAppBaseUrl()===appBuildInfo.publicBaseUrl?"公開候補・クリーン":"local・クリーン"}</span><small>正式証拠は、検証対象と40桁SHAが一致する公開GitHub Pagesのクリーンビルドだけです。</small></div>
     <label className="deviceCheckLabel"><span>端末メモ（任意）</span><input value={deviceLabel} onChange={event=>setDeviceLabel(event.target.value)} placeholder="例: iPhone 15 / Safari" maxLength={80}/></label>
     <div className="deviceCheckActions"><button className="primary" onClick={()=>void run()} disabled={running}>{running?"採取中…":"端末診断を開始"}</button><button onPointerDown={confirmTouch} className={touch.confirmed?"confirmed":""}>{touch.confirmed?"タッチ確認済み":"ここを指でタッチ"}</button><button onClick={download} disabled={!report}>JSONを書き出す</button><button onClick={clearDraft} disabled={running}>下書きを初期化</button></div>
     <p className={`deviceTouchState ${touch.confirmed?"confirmed":"pending"}`}><b>タッチ操作: {touch.confirmed?"確認済み":"未確認"}</b><span>{touch.confirmed?"touch pointer を記録しました。":"マウスやペンでは確認済みになりません。"}</span></p>

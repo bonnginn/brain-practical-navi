@@ -742,6 +742,11 @@ html, body, #root { height: 100%; overflow: hidden; }
 .deviceCheck { padding: 20px 24px 24px; }
 .deviceCheckNotice,.deviceGateDisclaimer { padding: 12px 14px; border-left: 4px solid #1d6e69; background: #e5edeb; color: #344844; }
 .deviceCheckNotice p,.deviceGateDisclaimer { margin: 4px 0 0; line-height: 1.6; }
+.deviceBuildEvidence { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 6px 14px; margin-top: 12px; padding: 11px 14px; border: 1px solid #b8c8c3; background: #f7f9f7; color: #425752; }
+.deviceBuildEvidence > div { display: grid; gap: 3px; min-width: 0; }
+.deviceBuildEvidence code { min-width: 0; overflow-wrap: anywhere; font-size: 11px; }
+.deviceBuildEvidence > span { align-self: start; color: #315d54; font-size: 12px; font-weight: 800; }
+.deviceBuildEvidence > small { grid-column: 1 / -1; margin: 0; color: #687570; font-size: 12px; line-height: 1.55; }
 .deviceCheckLabel { display: grid; gap: 5px; margin-top: 14px; color: #4c5956; font-size: 13px; font-weight: 700; }
 .deviceCheckLabel input { padding: 10px; border: 1px solid #adb8b4; background: #fff; color: #263432; font-size: 16px; }
 .deviceCheckActions { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-top: 12px; }
@@ -802,7 +807,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 .deviceProblemNotes textarea { min-height: 72px; resize: vertical; padding: 9px; border: 1px solid #adb8b4; background: #fff; color: #263432; font: 14px/1.55 sans-serif; }
 .deviceGateDisclaimer { margin-top: 14px; border-left-color: #c28155; background: #f3e9dc; color: #594c43; font-weight: 700; }
 @media(max-width:520px){.offlineInstall,.offlineCapacityWarning{align-items:stretch;flex-direction:column}.offlineInstall button,.offlineCapacityWarning button{width:100%}.offlineCapacityWarning>div:last-child{display:grid}}
-@media(max-width:760px){.deviceCheck{padding:14px}.deviceCheckActions,.deviceCheckResults,.devicePerformanceSession dl,.devicePwaCheckpoints>div,.deviceRouteChecklist>div{grid-template-columns:1fr}.deviceTouchState,.devicePerformanceSession>header,.devicePwaCheckpoints>header,.deviceRouteChecklist>header{align-items:flex-start;flex-direction:column;gap:3px}.deviceCheckLink{grid-template-columns:1fr}.deviceCheckLink i{grid-column:1;grid-row:auto}}
+@media(max-width:760px){.deviceCheck{padding:14px}.deviceCheckActions,.deviceCheckResults,.devicePerformanceSession dl,.devicePwaCheckpoints>div,.deviceRouteChecklist>div,.deviceBuildEvidence{grid-template-columns:1fr}.deviceBuildEvidence>small{grid-column:1}.deviceTouchState,.devicePerformanceSession>header,.devicePwaCheckpoints>header,.deviceRouteChecklist>header{align-items:flex-start;flex-direction:column;gap:3px}.deviceCheckLink{grid-template-columns:1fr}.deviceCheckLink i{grid-column:1;grid-row:auto}}
 
 .segRailIntro { margin: 16px 18px 18px; padding: 14px; border: 1px solid #c5c9c3; background: #efeee8; }
 .segRailIntro > b { font-size: 16px; }

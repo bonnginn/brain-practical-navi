@@ -1,3 +1,5 @@
+import { appBuildInfo, currentAppBaseUrl, type AppBuildInfo } from "./buildInfo";
+
 export type DeviceRouteKey="home"|"surface"|"sections"|"blocks"|"quiz"|"segment"|"offlineSurface"|"offlineSections"|"offlineBlocks"|"offlineQuiz";
 
 export type DevicePerformanceObservation={
@@ -22,7 +24,8 @@ export type DeviceColdStartObservation=Omit<DevicePerformanceObservation,"key">&
 
 export type DevicePerformanceSession={
   format:"brain-practical-device-performance";
-  schemaVersion:1;
+  schemaVersion:2;
+  application:AppBuildInfo&{runtimeBaseUrl:string};
   origin:string;
   startedAt:string;
   stoppedAt:string|null;
@@ -33,7 +36,8 @@ export type DevicePerformanceSession={
   observations:Partial<Record<DeviceRouteKey,DevicePerformanceObservation>>;
 };
 
-const PERFORMANCE_KEY="brain-practical-device-performance-v1";
+const PERFORMANCE_KEY="brain-practical-device-performance-v2";
+const LEGACY_PERFORMANCE_KEY="brain-practical-device-performance-v1";
 const LAST_CONTENT_ROUTE_KEY="brain-practical-last-content-route-v1";
 const routeKeys:DeviceRouteKey[]=["home","surface","sections","blocks","quiz","segment","offlineSurface","offlineSections","offlineBlocks","offlineQuiz"];
 const overlayPattern=/^#workspace\/(help|offline|device-check|feedback|legal)(?:\/|$)/;
@@ -42,7 +46,7 @@ const memory=()=>((performance as Performance&{memory?:{usedJSHeapSize:number}})
 let sampledPeak:number|null=null,lastPeakPersistedAt=0;
 
 function readSession(){
-  try{const value=JSON.parse(localStorage.getItem(PERFORMANCE_KEY)??"null");return value?.format==="brain-practical-device-performance"&&value?.schemaVersion===1&&value?.coldStart?.key==="coldHome"?value as DevicePerformanceSession:null}catch{return null}
+  try{const value=JSON.parse(localStorage.getItem(PERFORMANCE_KEY)??"null");return value?.format==="brain-practical-device-performance"&&value?.schemaVersion===2&&value?.application?.commit===appBuildInfo.commit&&value?.application?.dirty===appBuildInfo.dirty&&value?.application?.basePath===appBuildInfo.basePath&&value?.coldStart?.key==="coldHome"?value as DevicePerformanceSession:null}catch{return null}
 }
 
 function writeSession(session:DevicePerformanceSession){
@@ -64,13 +68,13 @@ export function startDevicePerformanceSession(){
   let routeHash=location.hash;if(overlayPattern.test(routeHash))try{routeHash=sessionStorage.getItem(LAST_CONTENT_ROUTE_KEY)??routeHash}catch{/* keep current hash */}
   const coldStart:DeviceColdStartObservation={key:"coldHome",recordedAt,routeHash,online:navigator.onLine,viewport:{width:innerWidth,height:innerHeight},canvasCount:document.querySelectorAll("canvas").length,horizontalOverflowPx:Math.max(0,document.documentElement.scrollWidth-document.documentElement.clientWidth),resourceCount:resources.length,transferBytes:resources.reduce((sum,entry)=>sum+entry.transferSize,0),encodedBodyBytes:resources.reduce((sum,entry)=>sum+entry.encodedBodySize,0),decodedBodyBytes:resources.reduce((sum,entry)=>sum+entry.decodedBodySize,0),longestResourceMs:round(Math.max(0,...resources.map(entry=>entry.duration))),navigation:navigation?{type:navigation.type,durationMs:round(navigation.duration),domContentLoadedMs:round(navigation.domContentLoadedEventEnd),loadMs:round(navigation.loadEventEnd),transferBytes:navigation.transferSize,encodedBodyBytes:navigation.encodedBodySize,decodedBodyBytes:navigation.decodedBodySize}:null,currentJsHeapBytes:current,peakJsHeapBytes:current};
   sampledPeak=current;lastPeakPersistedAt=Date.now();performance.setResourceTimingBufferSize?.(500);
-  const session=writeSession({format:"brain-practical-device-performance",schemaVersion:1,origin:location.origin,startedAt:recordedAt,stoppedAt:null,active:true,memorySupported:current!==null,peakJsHeapBytes:current,coldStart,observations:{}});
+  const session=writeSession({format:"brain-practical-device-performance",schemaVersion:2,application:{...appBuildInfo,runtimeBaseUrl:currentAppBaseUrl()},origin:location.origin,startedAt:recordedAt,stoppedAt:null,active:true,memorySupported:current!==null,peakJsHeapBytes:current,coldStart,observations:{}});
   performance.clearResourceTimings();return session;
 }
 
 export function resetDevicePerformanceSession(){
   sampledPeak=null;lastPeakPersistedAt=0;
-  try{localStorage.removeItem(PERFORMANCE_KEY)}catch{/* nothing to clear */}
+  try{localStorage.removeItem(PERFORMANCE_KEY);localStorage.removeItem(LEGACY_PERFORMANCE_KEY)}catch{/* nothing to clear */}
   window.dispatchEvent(new CustomEvent("brain-practical-performance-change",{detail:null}));
 }
 

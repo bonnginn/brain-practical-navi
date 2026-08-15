@@ -178,4 +178,5 @@ npm run build
 - 実スマートフォンで診断を実行し、指タッチ確認後にJSONを書き出してください。詳細は `DEVICE_CHECK_AUDIT.md` です。
 - Windowsのマウスではタッチ確認済みにならないのが正常です。
 - 診断画面だけではGate 3・4を合格にしません。公開候補HTTPS URL、実スマートフォン一周、PWA単独起動・機内モード復帰、公開回線・ピークメモリの証拠が必要です。
-- schema v4では画面移動・PWA再起動後も端末内下書きと性能セッションを復元し、公開HTTPSの初回ホーム、オンライン6経路・機内モード4経路の取得量・Canvas・横はみ出し・取得可能なJS heap観測、保存後オンライン・機内モード起動・再接続後の3チェックポイントを保存します。受領後は `npm run validate:device-check -- <record.json>` を実行し、localhost、経路順、オフライン転送、教材3セットの欠落を確認してください。検証成功はGate承認ではありません。
+- schema v5では診断とschema v2性能セッションへ対象の40桁commit、dirty状態、base URL、実行URLを保存し、ビルド変更後に古い下書きを復元しません。公開HTTPSの初回ホーム、オンライン6経路・機内モード4経路の取得量・Canvas・横はみ出し・取得可能なJS heap観測、保存後オンライン・機内モード起動・再接続後の3チェックポイントを保存します。受領後は `npm run validate:device-check -- <record.json> --commit <検証対象の40桁SHA>` を実行し、commit不一致、dirty、非正規GitHub Pages URL、経路順、オフライン転送、教材3セットの欠落を確認してください。検証成功はGate承認ではありません。
+> 現在のローカル基準コミット（本追記直前）: `e9b7506 Harden expert review evidence`。以下に残る古い基準コミット表記より、この行を優先してください。

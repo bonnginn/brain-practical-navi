@@ -1,9 +1,10 @@
 {
   "format": "brain-practical-device-check",
-  "schemaVersion": 4,
+  "schemaVersion": 5,
+  "application": { "commit": "e9b7506fd10ba786119f39cb237963416d3e27c6", "dirty": false, "basePath": "/brain-practical-navi/", "publicBaseUrl": "https://bonnginn.github.io/brain-practical-navi/", "runtimeBaseUrl": "https://bonnginn.github.io/brain-practical-navi/" },
   "recordedAt": "2026-08-15T12:00:00.000Z",
   "deviceLabel": "Test phone / Test browser",
-  "route": { "pathname": "/", "hash": "#workspace/device-check" },
+  "route": { "pathname": "/brain-practical-navi/", "hash": "#workspace/device-check" },
   "environment": {
     "userAgent": "Device check validator fixture",
     "viewport": { "width": 390, "height": 844 },
@@ -60,7 +61,7 @@
     }
   },
   "performanceSession": {
-    "format": "brain-practical-device-performance", "schemaVersion": 1, "origin": "https://beta.example.edu", "startedAt": "2026-08-15T12:00:00.500Z", "stoppedAt": "2026-08-15T12:04:00.000Z", "active": false, "memorySupported": true, "peakJsHeapBytes": 78000000,
+    "format": "brain-practical-device-performance", "schemaVersion": 2, "application": { "commit": "e9b7506fd10ba786119f39cb237963416d3e27c6", "dirty": false, "basePath": "/brain-practical-navi/", "publicBaseUrl": "https://bonnginn.github.io/brain-practical-navi/", "runtimeBaseUrl": "https://bonnginn.github.io/brain-practical-navi/" }, "origin": "https://bonnginn.github.io", "startedAt": "2026-08-15T12:00:00.500Z", "stoppedAt": "2026-08-15T12:04:00.000Z", "active": false, "memorySupported": true, "peakJsHeapBytes": 78000000,
     "coldStart": { "key": "coldHome", "recordedAt": "2026-08-15T12:00:00.500Z", "routeHash": "#workspace/home", "online": true, "viewport": { "width": 390, "height": 844 }, "canvasCount": 1, "horizontalOverflowPx": 0, "resourceCount": 15, "transferBytes": 21000000, "encodedBodyBytes": 20900000, "decodedBodyBytes": 32000000, "longestResourceMs": 3200, "navigation": { "type": "navigate", "durationMs": 3600, "domContentLoadedMs": 500, "loadMs": 3550, "transferBytes": 1500, "encodedBodyBytes": 1400, "decodedBodyBytes": 4000 }, "currentJsHeapBytes": 42000000, "peakJsHeapBytes": 42000000 },
     "observations": {
       "home": { "key": "home", "recordedAt": "2026-08-15T12:01:00.000Z", "routeHash": "#workspace/home", "online": true, "viewport": { "width": 390, "height": 844 }, "canvasCount": 1, "horizontalOverflowPx": 0, "resourceCount": 15, "transferBytes": 21000000, "encodedBodyBytes": 20900000, "decodedBodyBytes": 32000000, "longestResourceMs": 3200, "navigation": { "type": "navigate", "durationMs": 3600, "domContentLoadedMs": 500, "loadMs": 3550, "transferBytes": 1500, "encodedBodyBytes": 1400, "decodedBodyBytes": 4000 }, "currentJsHeapBytes": 42000000, "peakJsHeapBytes": 44000000 },

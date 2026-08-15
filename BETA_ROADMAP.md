@@ -199,4 +199,4 @@
 - iOS安全域を利用するためviewportへ `viewport-fit=cover` を追加した。
 - `DEVICE_CHECK_AUDIT.md` に公開候補URLでの一周、PWA単独起動、機内モード復帰、実機ピークメモリの採取手順を固定した。
 - これはGate 3・4の証拠収集補助であり、実スマートフォンと公開回線の実測が完了するまでβ公開可とは判定しない。
-- 診断JSONをschema v4へ更新し、画面移動・PWA再起動後も端末内下書きと性能セッションを復元する。公開HTTPSの初回ホーム、オンライン6経路・機内モード4経路の区間取得量・Canvas・横はみ出し・取得可能なJS heap観測、保存後オンライン・機内モード起動・再接続後の3チェックポイントを記録する。`npm run validate:device-check -- <record.json>` はlocalhost、実タッチ欠落、10/10未完走、経路順・接続・オフライン転送、3段階の順序・保存欠落を検出するが、実機Gateを自動承認しない。
+- 診断JSONをschema v5、性能セッションをschema v2へ更新し、対象の40桁commit、dirty状態、base URL、実行URLを記録する。同じ対象ビルドでは画面移動・PWA再起動後も端末内下書きを復元し、ビルド変更時は古い証拠を引き継がない。公開HTTPSの初回ホーム、オンライン6経路・機内モード4経路の区間取得量・Canvas・横はみ出し・取得可能なJS heap観測、保存後オンライン・機内モード起動・再接続後の3チェックポイントを記録する。`npm run validate:device-check -- <record.json> --commit <40桁SHA>` はcommit不一致、dirty、非正規GitHub Pages URL、実タッチ欠落、10/10未完走、経路順・接続・オフライン転送、3段階の順序・保存欠落を検出するが、実機Gateを自動承認しない。

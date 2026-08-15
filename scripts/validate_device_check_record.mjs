@@ -1,8 +1,10 @@
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
-const recordPath=process.argv.slice(2).find(argument=>argument!=="--");
-if(!recordPath){console.error("Usage: npm run validate:device-check -- <record.json>");process.exit(2)}
+const args=process.argv.slice(2).filter(argument=>argument!=="--");
+const commitIndex=args.indexOf("--commit"),recordPath=args.find((argument,index)=>argument!=="--commit"&&index!==commitIndex+1);
+const expectedCommit=commitIndex>=0?args[commitIndex+1]:"";
+if(!recordPath||!/^[0-9a-f]{40}$/i.test(expectedCommit)){console.error("Usage: npm run validate:device-check -- <record.json> --commit <40-char-SHA>");process.exit(2)}
 
 let record;
 try{record=JSON.parse(await readFile(resolve(process.cwd(),recordPath),"utf8"))}
@@ -16,11 +18,18 @@ const routePatterns={home:/^#workspace\/home$/,surface:/^#workspace\/surface\//,
 const finite=(value)=>typeof value==="number"&&Number.isFinite(value);
 const validDate=(value)=>typeof value==="string"&&!Number.isNaN(Date.parse(value));
 
-if(record?.format!=="brain-practical-device-check"||record?.schemaVersion!==4)errors.push("unsupported format or schemaVersion (expected schemaVersion 4)");
+if(record?.format!=="brain-practical-device-check"||record?.schemaVersion!==5)errors.push("unsupported format or schemaVersion (expected schemaVersion 5)");
+const expectedApplication={commit:expectedCommit.toLowerCase(),dirty:false,basePath:"/brain-practical-navi/",publicBaseUrl:"https://bonnginn.github.io/brain-practical-navi/",runtimeBaseUrl:"https://bonnginn.github.io/brain-practical-navi/"};
+const application=record?.application;
+if(!/^[0-9a-f]{40}$/i.test(application?.commit??""))errors.push("application.commit must be a full 40-character commit SHA");
+else if(application.commit.toLowerCase()!==expectedApplication.commit)errors.push("application.commit must match --commit");
+if(application?.dirty!==false)errors.push("application.dirty must be false for formal evidence");
+for(const key of ["basePath","publicBaseUrl","runtimeBaseUrl"])if(application?.[key]!==expectedApplication[key])errors.push(`application.${key} must be ${expectedApplication[key]}`);
 if(!validDate(record?.recordedAt))errors.push("recordedAt must be an ISO date");
 if(typeof record?.deviceLabel!=="string")errors.push("deviceLabel must be a string");
 else if(!record.deviceLabel.trim())warnings.push("deviceLabel is empty; identify the device and browser before review");
 if(record?.route?.hash!=="#workspace/device-check")errors.push("route.hash must be #workspace/device-check");
+if(record?.route?.pathname!==expectedApplication.basePath)errors.push(`route.pathname must be ${expectedApplication.basePath}`);
 if(typeof record?.environment?.userAgent!=="string"||!record.environment.userAgent.trim())errors.push("environment.userAgent is required");
 if(!finite(record?.environment?.viewport?.width)||record.environment.viewport.width<=0||!finite(record?.environment?.viewport?.height)||record.environment.viewport.height<=0)errors.push("environment.viewport must contain positive width and height");
 if(!Number.isInteger(record?.environment?.maxTouchPoints)||record.environment.maxTouchPoints<1)errors.push("environment.maxTouchPoints must show touch capability");
@@ -35,9 +44,10 @@ for(const metric of ["medianIntervalMs","p95IntervalMs","maxIntervalMs"])if(!fin
 if(!record?.walkthrough||typeof record.walkthrough!=="object")errors.push("walkthrough is required");
 else for(const key of walkthroughKeys){const item=record.walkthrough[key];if(item?.confirmed!==true)errors.push(`walkthrough.${key} is not confirmed`);if(!validDate(item?.recordedAt))errors.push(`walkthrough.${key}.recordedAt must be an ISO date`)}
 const performanceSession=record?.performanceSession;
-if(performanceSession?.format!=="brain-practical-device-performance"||performanceSession?.schemaVersion!==1)errors.push("performanceSession format/schemaVersion is invalid");
+if(performanceSession?.format!=="brain-practical-device-performance"||performanceSession?.schemaVersion!==2)errors.push("performanceSession format/schemaVersion is invalid");
 else{
-  try{const origin=new URL(performanceSession.origin);if(origin.protocol!=="https:"||["localhost","127.0.0.1","::1"].includes(origin.hostname))errors.push("performanceSession.origin must be a public HTTPS origin")}catch{errors.push("performanceSession.origin must be a valid URL origin")}
+  if(performanceSession.origin!=="https://bonnginn.github.io")errors.push("performanceSession.origin must be https://bonnginn.github.io");
+  for(const key of ["commit","dirty","basePath","publicBaseUrl","runtimeBaseUrl"])if(performanceSession.application?.[key]!==application?.[key])errors.push(`performanceSession.application.${key} must match application.${key}`);
   if(!validDate(performanceSession.startedAt))errors.push("performanceSession.startedAt must be an ISO date");
   if(!validDate(performanceSession.stoppedAt))errors.push("performanceSession.stoppedAt must be an ISO date");
   if(performanceSession.active!==false)errors.push("performanceSession must be stopped after all routes are recorded");

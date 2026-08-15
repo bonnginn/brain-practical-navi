@@ -10,6 +10,7 @@ import { gunzipSync } from "node:zlib";
 
 const root = new URL("../", import.meta.url);
 const localPath = (path) => fileURLToPath(new URL(path, root));
+const deviceFixtureCommit = "e9b7506fd10ba786119f39cb237963416d3e27c6";
 
 function resolvePython() {
   const configured = process.env.PYTHON?.trim();
@@ -1581,11 +1582,13 @@ test("PWA manager reports install, connectivity, persistence, and pack freshness
 });
 
 test("records reproducible real-device diagnostics without treating them as a gate pass", async () => {
-  const [page, manager, diagnostics, performanceRecorder, validator, packageJson, html, css] = await Promise.all([
+  const [page, manager, diagnostics, performanceRecorder, buildInfo, viteConfig, validator, packageJson, html, css] = await Promise.all([
     readFile(new URL("app/page.tsx", root), "utf8"),
     readFile(new URL("app/OfflineManager.tsx", root), "utf8"),
     readFile(new URL("app/DeviceDiagnostics.tsx", root), "utf8"),
     readFile(new URL("app/devicePerformance.ts", root), "utf8"),
+    readFile(new URL("app/buildInfo.ts", root), "utf8"),
+    readFile(new URL("vite.config.ts", root), "utf8"),
     readFile(new URL("scripts/validate_device_check_record.mjs", root), "utf8"),
     readFile(new URL("package.json", root), "utf8"),
     readFile(new URL("index.html", root), "utf8"),
@@ -1595,7 +1598,8 @@ test("records reproducible real-device diagnostics without treating them as a ga
   assert.match(page, /<DeviceDiagnostics\/>/);
   assert.match(manager, /href="#workspace\/device-check"/);
   assert.match(diagnostics, /format:"brain-practical-device-check"/);
-  assert.match(diagnostics, /schemaVersion:4/);
+  assert.match(diagnostics, /schemaVersion:5/);
+  assert.match(diagnostics, /application:\{\.\.\.appBuildInfo,runtimeBaseUrl:currentAppBaseUrl\(\)\}/);
   assert.match(diagnostics, /event\.pointerType!=="touch"/);
   assert.match(diagnostics, /navigator\.storage\?\.estimate/);
   assert.match(diagnostics, /navigator\.serviceWorker\?\.controller/);
@@ -1607,13 +1611,14 @@ test("records reproducible real-device diagnostics without treating them as a ga
   assert.match(diagnostics, /walkthrough:\{\.\.\.walkthrough\}/);
   assert.match(diagnostics, /problemNotes:problemNotes\.trim\(\)/);
   assert.match(diagnostics, /walkthroughItems\.map/);
-  assert.match(diagnostics, /brain-practical-device-check-draft-v4/);
+  assert.match(diagnostics, /brain-practical-device-check-draft-v5/);
   assert.match(diagnostics, /localStorage\.setItem\(DRAFT_KEY/);
   assert.match(diagnostics, /capturePwaCheckpoint/);
   assert.match(diagnostics, /cachedResources===pack\.resources\.length/);
   assert.match(diagnostics, /recordDevicePerformanceObservation/);
   assert.match(page, /startDevicePerformanceSampler\(\)/);
-  assert.match(performanceRecorder, /brain-practical-device-performance-v1/);
+  assert.match(performanceRecorder, /brain-practical-device-performance-v2/);
+  assert.match(performanceRecorder, /value\?\.application\?\.commit===appBuildInfo\.commit/);
   assert.match(performanceRecorder, /performance\.clearResourceTimings\(\)/);
   assert.match(performanceRecorder, /horizontalOverflowPx/);
   assert.match(performanceRecorder, /peakJsHeapBytes/);
@@ -1622,25 +1627,34 @@ test("records reproducible real-device diagnostics without treating them as a ga
   assert.match(diagnostics, /this record alone|\u3053\u306e\u8a18\u9332\u3060\u3051/);
   assert.match(validator, /walkthroughKeys=\["home","surface","sections","blocks","quiz","segment","offlineSurface","offlineSections","offlineBlocks","offlineQuiz"\]/);
   assert.match(validator, /PWA checkpoints must be ordered online, offline, restored/);
-  assert.match(validator, /performanceSession\.origin must be a public HTTPS origin/);
+  assert.match(buildInfo, /https:\/\/bonnginn\.github\.io\/brain-practical-navi\//);
+  assert.match(viteConfig, /gitOutput\(\["rev-parse","HEAD"\]\)/);
+  assert.match(viteConfig, /__APP_BUILD_COMMIT__/);
+  assert.match(validator, /application\.commit must match --commit/);
+  assert.match(validator, /performanceSession\.origin must be https:\/\/bonnginn\.github\.io/);
   assert.match(validator, /performance observations must follow the documented route order/);
   assert.match(validator, /pointerType!=="touch"/);
   assert.match(validator, /this is not beta gate approval/);
   assert.match(packageJson, /"validate:device-check": "node scripts\/validate_device_check_record\.mjs"/);
   assert.match(html, /viewport-fit=cover/);
   assert.match(css, /\.deviceTouchState\.confirmed/);
-  const valid=spawnSync(process.execPath,[localPath("scripts/validate_device_check_record.mjs"),localPath("tests/fixtures/device-check-valid.json")],{encoding:"utf8"});
+  const valid=spawnSync(process.execPath,[localPath("scripts/validate_device_check_record.mjs"),localPath("tests/fixtures/device-check-valid.json"),"--commit",deviceFixtureCommit],{encoding:"utf8"});
   assert.equal(valid.status,0,valid.stderr);
   assert.match(valid.stdout,/confirmed touch, 10\/10 route\/performance observations, and 3\/3 PWA checkpoints/);
-  const incomplete=spawnSync(process.execPath,[localPath("scripts/validate_device_check_record.mjs"),localPath("tests/fixtures/device-check-incomplete.json")],{encoding:"utf8"});
+  const incomplete=spawnSync(process.execPath,[localPath("scripts/validate_device_check_record.mjs"),localPath("tests/fixtures/device-check-incomplete.json"),"--commit",deviceFixtureCommit],{encoding:"utf8"});
   assert.equal(incomplete.status,1);
   assert.match(incomplete.stderr,/touch must contain a confirmed touch pointer/);
   assert.match(incomplete.stderr,/walkthrough\.surface is not confirmed/);
   assert.match(incomplete.stderr,/PWA checkpoints must be ordered online, offline, restored/);
   assert.match(incomplete.stderr,/pwaEvidence\.offline\.packs must contain one surface pack/);
-  assert.match(incomplete.stderr,/performanceSession\.origin must be a public HTTPS origin/);
+  assert.match(incomplete.stderr,/application\.commit must match --commit/);
+  assert.match(incomplete.stderr,/application\.dirty must be false/);
+  assert.match(incomplete.stderr,/performanceSession\.origin must be https:\/\/bonnginn\.github\.io/);
   assert.match(incomplete.stderr,/performanceSession\.observations\.home is required/);
   assert.match(incomplete.stderr,/performanceSession\.coldStart is required/);
+  const missingCommit=spawnSync(process.execPath,[localPath("scripts/validate_device_check_record.mjs"),localPath("tests/fixtures/device-check-valid.json")],{encoding:"utf8"});
+  assert.equal(missingCommit.status,2);
+  assert.match(missingCommit.stderr,/--commit <40-char-SHA>/);
 });
 
 test("keeps simultaneously selectable surface colours distinct on the dark model", async () => {

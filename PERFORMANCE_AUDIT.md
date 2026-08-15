@@ -163,3 +163,5 @@ Windows Chromium 391 × 639 px相当でA/B双方を実操作し、各状態でCa
 診断JSONをschema v4へ更新し、公開候補HTTPSのホーム初回読込をNavigation / Resource Timingから即時採取した後、オンライン6経路と機内モード4経路を区間別に記録できるようにしました。各区間は取得量、encoded / decoded body、最長resource duration、Canvas数、viewport、横はみ出しを持ち、利用可能なChromium系ブラウザではアプリ起動中に250 ms間隔でJS heapを観測して最大値を保持します。教材3セット保存後のオンラインPWAチェックポイントでResource Timingを区切り、大容量保存通信を次の観察経路へ混入させません。
 
 validatorはlocalhostを正式証拠として拒否し、初回ホーム、10経路の順序・URL・接続状態、Canvas表示、横はみ出し0、オフライン4経路の転送量0を必須にします。ただしJS heap APIを公開しないブラウザ、OS・GPU・ネイティブ領域、250 msサンプル間の瞬間ピークは取得できません。実スマートフォンと公開候補URLのJSONを受領するまでGate 4は「実機待ち」のままです。
+
+診断schema v5と性能セッションschema v2では、双方に40桁commit、dirty状態、base URL、実行URLを記録します。validatorは明示された検証対象commitとの一致、クリーンなGitHub Pages正規HTTPS配信、診断・性能セッション間の一致も必須にします。これにより、旧ビルドやローカル計測が新しいβ候補の正式証拠へ混入することを防ぎます。
