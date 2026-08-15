@@ -90,8 +90,8 @@
 対象ファイル:
 
 - `public/atlas/mni-cerebra-1mm.bin.gz`
-- `public/atlas/pial-left.mesh`
-- `public/atlas/pial-right.mesh`
+- `public/atlas/pial-left.mesh.gz`
+- `public/atlas/pial-right.mesh.gz`
 - `public/atlas/caudate.mesh`
 - `public/atlas/hippocampus.mesh`
 - `public/atlas/thalamus.mesh`
@@ -131,8 +131,8 @@ IDs 23–29、33–35は手動正解ラベルではありません。アプリ�
 
 対象ファイル:
 
-- `public/atlas/pial-left.mesh`
-- `public/atlas/pial-right.mesh`
+- `public/atlas/pial-left.mesh.gz`
+- `public/atlas/pial-right.mesh.gz`
 - `public/atlas/surface-region-labels.json`
 - `public/atlas/surface-landmark-*.mesh`
 - `public/atlas/surface-landmarks.json`
@@ -146,6 +146,7 @@ IDs 23–29、33–35は手動正解ラベルではありません。アプリ�
 - 同じMNI152NLin2009cSym空間のCerebrA皮質領域を、対応白質表面の法線方向±3 mm以内で標本化
 - 左右各163,842頂点の93.6%へCerebrA領域IDを格納
 - WebGL表示用の独自メッシュ形式へ変換
+- 左右高密度脳表メッシュを内容を変えずgzip圧縮して配信
 - 本プロジェクトが置いた8本の種曲線を最寄りの高密度脳表頂点へ投影し、細い管状ガイドへ変換
 
 脳表領域IDはアトラス由来の教育用対応であり、専門家がpial表面を手動区画した正解データではありません。線状ガイドも献体脳の溝をトレースした境界ではなく、中心溝、中心前溝、外側溝、上前頭溝、大脳縦裂、頭頂後頭溝、鳥距溝、嗅溝の模式位置です。脳溝境界の厳密な判定、皮質面積・厚さ等の定量解析には使用できません。

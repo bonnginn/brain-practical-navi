@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "source": "project-authored seed curves projected to pial-left/right.mesh",
+  "source": "project-authored seed curves projected to pial-left/right.mesh.gz",
   "status": "schematic surface guides; not donor-traced or validated sulcal curves",
   "method": "nearest high-density pial vertex projection followed by thin tube generation; the longitudinal fissure uses an anterior-posterior extended midpoint filler recessed between left and right medial banks",
   "displayPolicy": "region-boundary guides are derived at runtime from CerebrA-labelled pial neighbours; the packaged longitudinal-fissure guide is narrowed to 22 percent of its tube radius and recessed 0.8 mm at runtime so it cannot read as a solid midline structure",

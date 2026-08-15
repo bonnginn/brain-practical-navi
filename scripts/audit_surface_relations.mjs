@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { readFile } from "node:fs/promises";
+import { gunzipSync } from "node:zlib";
 
 const root = new URL("../", import.meta.url);
 const landmarkMetadata = JSON.parse(await readFile(new URL("public/atlas/surface-landmarks.json", root), "utf8"));
@@ -29,7 +30,7 @@ function pointAt(mesh, index) {
 }
 
 async function readPial(file) {
-  const mesh = await readFile(new URL(`public/atlas/${file}`, root));
+  const mesh = gunzipSync(await readFile(new URL(`public/atlas/${file}`, root)));
   if (mesh.subarray(0, 4).toString("ascii") !== "BNM3") throw new Error(`${file} is not a regional pial mesh`);
   const vertices = mesh.readUInt32LE(4), faces = mesh.readUInt32LE(8);
   const regionOffset = 12 + vertices * 28, faceOffset = 12 + vertices * 32;
@@ -95,7 +96,7 @@ function weightedMeanAbsX(pial, ids) {
   return total / count;
 }
 
-const [left, right] = await Promise.all([readPial("pial-left.mesh"), readPial("pial-right.mesh")]);
+const [left, right] = await Promise.all([readPial("pial-left.mesh.gz"), readPial("pial-right.mesh.gz")]);
 const landmarks = Object.fromEntries(await Promise.all(landmarkMetadata.landmarks.map(async item => [item.key, await readLandmark(item.file)])));
 const hemispheres = [
   { name: "left", pial: left, precentral: 86, postcentral: 64, frontal: [89, 93, 52, 83, 73], superiorFrontal: 89, middleFrontal: [93, 52], superiorTemporal: 96, opercular: [83, 73, 102], precuneus: 82, cuneus: 94, pericalcarine: 57, lingual: 63, medialOrbitofrontal: 66, lateralOrbitofrontal: 58 },

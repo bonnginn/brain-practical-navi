@@ -56,6 +56,10 @@ self.addEventListener("fetch",event=>{
     event.respondWith(networkThenCache(request,RUNTIME_CACHE).catch(()=>caches.match(scoped("index.html"))));
     return;
   }
+  if(url.pathname.endsWith("/offline-packs.json")){
+    event.respondWith(networkThenCache(request,RUNTIME_CACHE).catch(()=>caches.match(scoped("offline-packs.json"))));
+    return;
+  }
   if(url.pathname.includes("/atlas/")){
     if(request.cache==="reload"){event.respondWith(fetch(request));return;}
     event.respondWith(networkThenCache(request,RUNTIME_CACHE));

@@ -6,7 +6,7 @@ const atlas = new URL("public/atlas/", root);
 const MiB = 1024 * 1024;
 
 const surfaceCore = [
-  "pial-left.mesh", "pial-right.mesh", "segment-cerebellum.mesh",
+  "pial-left.mesh.gz", "pial-right.mesh.gz", "segment-cerebellum.mesh",
   "segment-pons-medulla.mesh", "segment-midbrain.mesh",
 ];
 const sectionImages = ["bigbrain-icbm500.bin.gz", "bigbrain-practical-segmentation-icbm500.bin.gz"];
@@ -42,11 +42,11 @@ export async function collectAssetAudit() {
   return {
     public: { bytes: publicTotal, limit: 100 * MiB },
     routes: {
-      surface: { bytes: surface, limit: 22 * MiB },
-      sectionDesktop: { bytes: surface + section, limit: 34 * MiB },
+      surface: { bytes: surface, limit: 14 * MiB },
+      sectionDesktop: { bytes: surface + section, limit: 26 * MiB },
       sectionCompact: { bytes: section, limit: 13 * MiB },
       lateralVentricle: { bytes: specimen, limit: 3 * MiB },
-      neurovascular: { bytes: surface + neurovascular, limit: 23 * MiB },
+      neurovascular: { bytes: surface + neurovascular, limit: 15 * MiB },
     },
   };
 }

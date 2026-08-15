@@ -1,12 +1,13 @@
 {
   "format": "brain-practical-offline-packs",
-  "version": "4fdd69c4126c",
+  "version": "d61261d04f9d",
   "packs": [
     {
       "id": "surface",
       "name": "脳表・3D観察",
       "description": "左右半球、主要な溝・領域、深部構造、脳底の血管・脳神経を保存します。",
-      "bytes": 27702154,
+      "version": "f0414c05fac5",
+      "bytes": 19455013,
       "urls": [
         "atlas/basal-landmarks.json",
         "atlas/caudate.mesh",
@@ -22,8 +23,8 @@
         "atlas/overlay-nerves-anterior.mesh",
         "atlas/overlay-nerves-medullary.mesh",
         "atlas/overlay-nerves-pontine.mesh",
-        "atlas/pial-left.mesh",
-        "atlas/pial-right.mesh",
+        "atlas/pial-left.mesh.gz",
+        "atlas/pial-right.mesh.gz",
         "atlas/segment-brainstem.mesh",
         "atlas/segment-cerebellum.mesh",
         "atlas/segment-deep.mesh",
@@ -48,6 +49,7 @@
       "id": "sections",
       "name": "連続断面・構造同定",
       "description": "BigBrain連続断面、固定脳MRI、分節ラベルと断面用3D構造を保存します。",
+      "version": "4e0202ed1710",
       "bytes": 41193901,
       "urls": [
         "atlas/bigbrain-fixed-mri-0444.bin.gz",
@@ -77,6 +79,7 @@
       "id": "blocks",
       "name": "局所ブロック標本",
       "description": "8種類の局所標本と分離表示する構造部品を保存します。",
+      "version": "a106a5f67292",
       "bytes": 19762338,
       "urls": [
         "atlas/block-choroid-plexus-choroid-plexus.mesh",

@@ -694,8 +694,8 @@ test("bundles valid WebGL meshes and the required data notices", async () => {
     "hippocampus.mesh",
     "thalamus.mesh",
     "ventricle.mesh",
-    "pial-left.mesh",
-    "pial-right.mesh",
+    "pial-left.mesh.gz",
+    "pial-right.mesh.gz",
     "segment-brainstem.mesh",
     "segment-midbrain.mesh",
     "segment-pons-medulla.mesh",
@@ -715,7 +715,8 @@ test("bundles valid WebGL meshes and the required data notices", async () => {
   ];
 
   for (const name of meshNames) {
-    const mesh = await readFile(new URL(`public/atlas/${name}`, root));
+    const stored = await readFile(new URL(`public/atlas/${name}`, root));
+    const mesh = name.endsWith(".gz") ? gunzipSync(stored) : stored;
     assert.ok(["BNM1", "BNM2", "BNM3"].includes(mesh.subarray(0, 4).toString("ascii")), `${name} magic`);
     assert.ok(mesh.readUInt32LE(4) > 100, `${name} vertex count`);
     assert.ok(mesh.readUInt32LE(8) > 100, `${name} face count`);
@@ -802,6 +803,23 @@ test("keeps representative first-view atlas payloads within measured M1 budgets"
   for (const [name, result] of [["public", audit.public], ...Object.entries(audit.routes)]) {
     assert.ok(result.bytes < result.limit, `${name} is ${(result.bytes / 1024 / 1024).toFixed(1)} MiB`);
   }
+});
+
+test("ships the labelled high-density pial meshes with lossless gzip delivery", async () => {
+  const [leftStored, rightStored, canvas] = await Promise.all([
+    readFile(new URL("public/atlas/pial-left.mesh.gz", root)),
+    readFile(new URL("public/atlas/pial-right.mesh.gz", root)),
+    readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8"),
+  ]);
+  for (const [side, stored] of [["left", leftStored], ["right", rightStored]]) {
+    const mesh = gunzipSync(stored);
+    assert.equal(mesh.subarray(0, 4).toString("ascii"), "BNM3", `${side} pial magic`);
+    assert.equal(mesh.readUInt32LE(4), 163842, `${side} pial vertices`);
+    assert.ok(stored.length / mesh.length < .57, `${side} pial gzip ratio`);
+    await assert.rejects(readFile(new URL(`public/atlas/pial-${side}.mesh`, root)), {code:"ENOENT"});
+  }
+  assert.match(canvas, /`\$\{name\}\.mesh\.gz`/);
+  assert.match(canvas, /new DecompressionStream\("gzip"\)/);
 });
 
 test("keeps beta gates evidence-based without claiming release readiness", async () => {
@@ -913,8 +931,8 @@ test("bundles the practical ventral-brain landmarks in anatomical order", async 
 test("maps major CerebrA cortical regions onto both high-density pial surfaces", async () => {
   const [metadataText, left, right, page] = await Promise.all([
     readFile(new URL("public/atlas/surface-region-labels.json", root), "utf8"),
-    readFile(new URL("public/atlas/pial-left.mesh", root)),
-    readFile(new URL("public/atlas/pial-right.mesh", root)),
+    readFile(new URL("public/atlas/pial-left.mesh.gz", root)).then(gunzipSync),
+    readFile(new URL("public/atlas/pial-right.mesh.gz", root)).then(gunzipSync),
     readFile(new URL("app/page.tsx", root), "utf8"),
   ]);
   const metadata = JSON.parse(metadataText);
@@ -1495,14 +1513,18 @@ test("help, feedback, and credit dialogs have durable shareable URLs", async () 
 });
 
 test("PWA manager reports install, connectivity, persistence, and pack freshness", async () => {
-  const [manager, registration, css] = await Promise.all([
+  const [manager, registration, workerBuilder, css] = await Promise.all([
     readFile(new URL("app/OfflineManager.tsx", root), "utf8"),
     readFile(new URL("src/pwa.ts", root), "utf8"),
+    readFile(new URL("scripts/build_service_worker.mjs", root), "utf8"),
     readFile(new URL("app/canvas.css", root), "utf8"),
   ]);
   assert.match(registration, /beforeinstallprompt/);
   assert.match(registration, /pendingInstallPrompt=null;\s*notifyInstallPrompt\(\);\s*await prompt\.prompt\(\)/);
   assert.match(manager, /X-Brain-Practical-Pack-Version/);
+  assert.match(manager, /markerVersion===pack\.version/);
+  assert.match(manager, /controllerchange/);
+  assert.match(workerBuilder, /url\.pathname\.endsWith\("\/offline-packs\.json"\)/);
   assert.match(manager, /X-Brain-Practical-Pack-Complete/);
   assert.match(manager, /state==="stale"\?"更新が必要"/);
   assert.match(manager, /protectedPaths/);

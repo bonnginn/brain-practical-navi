@@ -7,6 +7,7 @@ normal (up to 3 mm) to avoid boundary holes, then stored as BNM3 float values.
 """
 
 import csv
+import gzip
 import json
 import struct
 import sys
@@ -27,6 +28,8 @@ OFFSETS_MM = [0, -.5, .5, -1, 1, -1.5, 1.5, -2, 2, -3, 3]
 
 def read_mesh(path):
     raw = path.read_bytes()
+    if path.suffix == ".gz":
+        raw = gzip.decompress(raw)
     magic = raw[:4]
     if magic not in (b"BNM2", b"BNM3"):
         raise ValueError(f"{path.name}: expected BNM2 or BNM3")
@@ -40,13 +43,12 @@ def read_mesh(path):
 
 
 def write_mesh(path, vertices, normals, shade, region_ids, faces):
-    with path.open("wb") as handle:
-        handle.write(b"BNM3" + struct.pack("<II", len(vertices), len(faces)))
-        handle.write(vertices.astype("<f4").tobytes())
-        handle.write(normals.astype("<f4").tobytes())
-        handle.write(shade.astype("<f4").tobytes())
-        handle.write(region_ids.astype("<f4").tobytes())
-        handle.write(faces.astype("<u4").tobytes())
+    payload = (b"BNM3" + struct.pack("<II", len(vertices), len(faces)) +
+               vertices.astype("<f4").tobytes() + normals.astype("<f4").tobytes() +
+               shade.astype("<f4").tobytes() + region_ids.astype("<f4").tobytes() +
+               faces.astype("<u4").tobytes())
+    with gzip.open(path, "wb", compresslevel=9) as handle:
+        handle.write(payload)
 
 
 def label_surface(hemisphere, label_image, label_data, rows):
@@ -89,12 +91,14 @@ def main():
         "hemispheres": {},
     }
     for hemisphere in ("left", "right"):
-        path = OUT / f"pial-{hemisphere}.mesh"
-        vertices, normals, shade, faces = read_mesh(path)
+        raw_path = OUT / f"pial-{hemisphere}.mesh"
+        path = OUT / f"pial-{hemisphere}.mesh.gz"
+        vertices, normals, shade, faces = read_mesh(raw_path if raw_path.exists() else path)
         region_ids = label_surface(hemisphere, label_image, label_data, rows)
         if len(region_ids) != len(vertices):
             raise ValueError(f"{hemisphere}: GIFTI and pial mesh vertex count differ")
         write_mesh(path, vertices, normals, shade, region_ids, faces)
+        raw_path.unlink(missing_ok=True)
         ids, counts = np.unique(region_ids, return_counts=True)
         label_counts = {
             str(int(label_id)): {

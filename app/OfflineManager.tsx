@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getPwaInstallPrompt, isPwaStandalone, promptPwaInstall, subscribePwaInstallPrompt } from "../src/pwa";
 
-type OfflinePack={id:string;name:string;description:string;bytes:number;urls:string[]};
+type OfflinePack={id:string;name:string;description:string;version:string;bytes:number;urls:string[]};
 type OfflineCatalog={format:string;version:string;packs:OfflinePack[]};
 type PackState="checking"|"missing"|"partial"|"stale"|"saved"|"working"|"error";
 const PACK_CACHE="brain-practical-offline-packs";
@@ -31,7 +31,7 @@ export function OfflineManager(){
       const markerCompleteValue=marker?.headers.get("X-Brain-Practical-Pack-Complete");
       const markerComplete=markerCompleteValue==="true";
       if(count===pack.urls.length){
-        next[pack.id]=markerComplete&&markerVersion===nextCatalog.version?"saved":markerComplete||!marker||markerCompleteValue===null?"stale":"partial";
+        next[pack.id]=markerComplete&&markerVersion===pack.version?"saved":markerComplete||!marker||markerCompleteValue===null?"stale":"partial";
       }else next[pack.id]=count&&marker?"partial":"missing";
     }
     setStates(next);
@@ -47,11 +47,16 @@ export function OfflineManager(){
   useEffect(()=>{
     if(!supported)return;
     let alive=true;
-    fetch(new URL("offline-packs.json",document.baseURI),{cache:"no-store"}).then(response=>{
-      if(!response.ok)throw new Error(`HTTP ${response.status}`);
-      return response.json() as Promise<OfflineCatalog>;
-    }).then(data=>{if(alive){setCatalog(data);void refresh(data)}}).catch(()=>alive&&setMessage("教材一覧を読み込めませんでした。オンラインで再度開いてください。"));
-    return()=>{alive=false};
+    const loadCatalog=()=>fetch(new URL("offline-packs.json",document.baseURI),{cache:"no-store"}).then(response=>{
+        if(!response.ok)throw new Error(`HTTP ${response.status}`);
+        return response.json() as Promise<OfflineCatalog>;
+      }).then(data=>{
+        if(data.format!=="brain-practical-offline-packs"||!data.packs.every(pack=>/^[0-9a-f]{12}$/.test(pack.version)))throw new Error("invalid offline catalog");
+        if(alive){setCatalog(data);void refresh(data)}
+      }).catch(()=>alive&&setMessage("教材一覧を読み込めませんでした。オンラインで再度開いてください。"));
+    void loadCatalog();
+    navigator.serviceWorker.addEventListener("controllerchange",loadCatalog);
+    return()=>{alive=false;navigator.serviceWorker.removeEventListener("controllerchange",loadCatalog)};
   },[supported]);
 
   useEffect(()=>{
@@ -66,7 +71,7 @@ export function OfflineManager(){
     setStates(previous=>({...previous,[pack.id]:"working"}));setProgress(previous=>({...previous,[pack.id]:0}));setMessage("");
     try{
       const cache=await caches.open(PACK_CACHE);
-      await cache.put(new URL(markerPath(pack),document.baseURI),new Response(JSON.stringify({format:"brain-practical-offline-pack-state",id:pack.id,version:catalog?.version,complete:false}),{headers:{"Content-Type":"application/json","X-Brain-Practical-Pack-Version":catalog?.version??"","X-Brain-Practical-Pack-Complete":"false"}}));
+      await cache.put(new URL(markerPath(pack),document.baseURI),new Response(JSON.stringify({format:"brain-practical-offline-pack-state",id:pack.id,version:pack.version,complete:false}),{headers:{"Content-Type":"application/json","X-Brain-Practical-Pack-Version":pack.version,"X-Brain-Practical-Pack-Complete":"false"}}));
       for(let index=0;index<pack.urls.length;index++){
         const url=new URL(pack.urls[index],document.baseURI);
         const response=await fetch(url,{cache:"reload"});
@@ -74,7 +79,7 @@ export function OfflineManager(){
         await cache.put(url,response);await removeFromRuntime(url);
         setProgress(previous=>({...previous,[pack.id]:Math.round((index+1)/pack.urls.length*100)}));
       }
-      await cache.put(new URL(markerPath(pack),document.baseURI),new Response(JSON.stringify({format:"brain-practical-offline-pack-state",id:pack.id,version:catalog?.version,complete:true}),{headers:{"Content-Type":"application/json","X-Brain-Practical-Pack-Version":catalog?.version??"","X-Brain-Practical-Pack-Complete":"true"}}));
+      await cache.put(new URL(markerPath(pack),document.baseURI),new Response(JSON.stringify({format:"brain-practical-offline-pack-state",id:pack.id,version:pack.version,complete:true}),{headers:{"Content-Type":"application/json","X-Brain-Practical-Pack-Version":pack.version,"X-Brain-Practical-Pack-Complete":"true"}}));
       setStates(previous=>({...previous,[pack.id]:"saved"}));setMessage(`${pack.name}を端末へ保存しました。`);
       if(navigator.storage?.persist)try{setPersistent(await navigator.storage.persist())}catch{setPersistent(null)}
       await refresh();

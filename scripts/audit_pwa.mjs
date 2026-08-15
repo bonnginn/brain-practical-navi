@@ -1,4 +1,5 @@
 import { access, readFile, stat } from "node:fs/promises";
+import { createHash } from "node:crypto";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -18,6 +19,7 @@ check(/rel="manifest"/.test(index)&&/apple-mobile-web-app-capable/.test(index),"
 check(/import\.meta\.env\.PROD/.test(registration)&&/new URL\("sw\.js",document\.baseURI\)/.test(registration),"service worker registration must be production-only and base-relative");
 check(/beforeinstallprompt/.test(registration)&&/event\.preventDefault\(\)/.test(registration)&&/appinstalled/.test(registration),"install prompt lifecycle is not exposed to the offline manager");
 check(/networkThenCache/.test(builder)&&/request\.mode==="navigate"/.test(builder)&&/\/atlas\//.test(builder),"worker must provide navigation fallback and atlas runtime caching");
+check(/url\.pathname\.endsWith\("\/offline-packs\.json"\)/.test(builder)&&/controllerchange/.test(manager),"offline catalog updates must cross service worker version changes");
 check(/request\.cache==="reload"/.test(builder),"explicit pack downloads must bypass runtime-cache duplication");
 check(/PACK_CACHE="brain-practical-offline-packs"/.test(manager)&&/cache:\s*"reload"/.test(manager)&&/removeFromRuntime/.test(manager),"pack manager must use a stable explicit cache and remove duplicate runtime entries");
 check(/X-Brain-Practical-Pack-Version/.test(manager)&&/X-Brain-Practical-Pack-Complete/.test(manager)&&/state==="stale"\?"更新が必要"/.test(manager),"pack versions must distinguish current, interrupted, and stale offline data");
@@ -31,17 +33,22 @@ const expected=new Set(["surface","sections","blocks"]),union=new Set();
 let largest=0,totalReferences=0;
 for(const pack of catalog.packs){
   check(expected.delete(pack.id),`unexpected or duplicate pack ${pack.id}`);
+  check(/^[0-9a-f]{12}$/.test(pack.version),`invalid content version in ${pack.id}`);
   check(pack.urls.length>0&&pack.bytes>0,`empty pack ${pack.id}`);
-  let measured=0;
+  let measured=0;const versionEntries=[];
   for(const item of pack.urls){
     check(!item.startsWith("/")&&!item.includes(".."),`pack URL must be safe and base-relative: ${item}`);
-    const target=resolve(root,"public",item);await access(target);measured+=(await stat(target)).size;union.add(item);
+    const target=resolve(root,"public",item);await access(target);const size=(await stat(target)).size,bytes=await readFile(target);measured+=size;union.add(item);
+    versionEntries.push({url:item,bytes:size,digest:createHash("sha256").update(bytes).digest("hex")});
   }
   check(measured===pack.bytes,`size drift in ${pack.id}: catalog ${pack.bytes}, measured ${measured}`);
+  const measuredVersion=createHash("sha256").update(JSON.stringify(versionEntries)).digest("hex").slice(0,12);
+  check(measuredVersion===pack.version,`content version drift in ${pack.id}: catalog ${pack.version}, measured ${measuredVersion}`);
   largest=Math.max(largest,pack.bytes);totalReferences+=pack.bytes;
   console.log(`PASS\tpwa pack ${pack.id}: ${(pack.bytes/1048576).toFixed(1)} MiB, ${pack.urls.length} files`);
 }
 check(expected.size===0,"required pack missing");
+check(new Set(catalog.packs.map(pack=>pack.version)).size===catalog.packs.length,"pack content versions must be independent");
 const sharedSurfaceSections=catalog.packs.find(pack=>pack.id==="sections").urls.filter(path=>catalog.packs.find(pack=>pack.id==="surface").urls.includes(path));
 check(sharedSurfaceSections.length===10,"surface/sections shared resource count changed; re-audit pack deletion ownership");
 check(largest<45*1048576,"a single optional pack exceeds the 45 MiB mobile budget");
