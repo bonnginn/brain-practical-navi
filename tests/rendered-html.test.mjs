@@ -1494,6 +1494,26 @@ test("help, feedback, and credit dialogs have durable shareable URLs", async () 
   assert.match(page, /onClick=\{closeOverlay\} aria-label="オフライン教材を閉じる"/);
 });
 
+test("PWA manager reports install, connectivity, persistence, and pack freshness", async () => {
+  const [manager, registration, css] = await Promise.all([
+    readFile(new URL("app/OfflineManager.tsx", root), "utf8"),
+    readFile(new URL("src/pwa.ts", root), "utf8"),
+    readFile(new URL("app/canvas.css", root), "utf8"),
+  ]);
+  assert.match(registration, /beforeinstallprompt/);
+  assert.match(registration, /pendingInstallPrompt=null;\s*notifyInstallPrompt\(\);\s*await prompt\.prompt\(\)/);
+  assert.match(manager, /X-Brain-Practical-Pack-Version/);
+  assert.match(manager, /X-Brain-Practical-Pack-Complete/);
+  assert.match(manager, /state==="stale"\?"更新が必要"/);
+  assert.match(manager, /protectedPaths/);
+  assert.match(manager, /otherComplete/);
+  assert.match(manager, /busy=Object\.values\(states\)\.includes\("working"\)/);
+  assert.match(manager, /navigator\.onLine/);
+  assert.match(manager, /永続保存が許可済み/);
+  assert.match(manager, />インストール<\/button>/);
+  assert.match(css, /\.offlineState\.stale/);
+});
+
 test("keeps simultaneously selectable surface colours distinct on the dark model", async () => {
   const [page, audit] = await Promise.all([
     readFile(new URL("app/page.tsx", root), "utf8"),

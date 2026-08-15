@@ -695,6 +695,14 @@ html, body, #root { height: 100%; overflow: hidden; }
 .offlineSummary b { color: #183f3c; font-size: 20px; }
 .offlineSummary span, .offlineSummary small { color: #5f6d69; }
 .offlineSummary small { flex: 0 0 auto; padding: 6px 8px; border: 1px solid #bdc8c3; background: #fff; }
+.offlineStatus { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.offlineStatus span { padding: 3px 7px; border: 1px solid #c3cbc7; background: #fff; color: #53615d; font-size: 12px; font-weight: 700; }
+.offlineStatus .online { border-color: #8eb3a9; color: #27665d; }
+.offlineStatus .offline { border-color: #d4a083; color: #8c4939; }
+.offlineInstall { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 14px; padding: 12px 14px; border: 1px solid #aebfba; background: #edf2f0; }
+.offlineInstall > div { display: grid; gap: 3px; }
+.offlineInstall span { color: #53615d; font-size: 13px; line-height: 1.5; }
+.offlineInstall button { flex: 0 0 auto; min-height: 40px; padding: 8px 14px; border: 0; background: #2a6862; color: #fff; font-weight: 800; }
 .offlineNotice, .offlineFootnote { margin: 14px 0; padding: 11px 13px; border-left: 4px solid #c28155; background: #f3e9dc; color: #594c43; line-height: 1.65; }
 .offlineFootnote { margin-bottom: 0; border-color: #5b827c; background: #e5edeb; color: #344844; }
 .offlinePacks { display: grid; gap: 10px; }
@@ -709,9 +717,11 @@ html, body, #root { height: 100%; overflow: hidden; }
 .offlinePackActions button:disabled { opacity: .5; }
 .offlineState { color: #7b6254; font-size: 13px; font-weight: 800; }
 .offlineState.saved { color: #27665d; }
+.offlineState.stale { color: #9a5b2f; }
 .offlineState.error { color: #9a4035; }
 .offlinePacks progress { width: 100%; height: 7px; margin-top: 10px; accent-color: #2a6862; }
 .offlineMessage { margin: 12px 0 0; color: #1f5d57; font-weight: 700; }
+@media(max-width:520px){.offlineInstall{align-items:stretch;flex-direction:column}.offlineInstall button{width:100%}}
 
 .segRailIntro { margin: 16px 18px 18px; padding: 14px; border: 1px solid #c5c9c3; background: #efeee8; }
 .segRailIntro > b { font-size: 16px; }
