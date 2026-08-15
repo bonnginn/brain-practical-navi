@@ -1897,6 +1897,7 @@ test("touch section slices preserve vertical page scrolling while keeping tap id
   ]);
   assert.match(css, /\.sliceStage \.atlasCanvas\.identifiable \{ touch-action: pan-y; \}/);
   assert.match(css, /\.workspace-sections \.sliceStage \.atlasCanvas \{ pointer-events:none; touch-action:auto; \}/);
+  assert.match(css, /\.workspace-sections \.sliceStage\.layout-slice \{ pointer-events:none; touch-action:auto; \}/);
   assert.match(canvas, /sliceTouchClick=useRef/);
   assert.match(canvas, /kind==="slice"&&e\.pointerType==="touch"/);
   assert.match(canvas, /if\(!click\.moved\)identify\(e\)/);
