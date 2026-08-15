@@ -1,6 +1,6 @@
 {
   "format": "brain-practical-device-check",
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "recordedAt": "2026-08-15T12:00:00.000Z",
   "deviceLabel": "Test phone / Test browser",
   "route": { "pathname": "/", "hash": "#workspace/device-check" },
@@ -21,7 +21,44 @@
   "safeArea": { "top": 47, "right": 0, "bottom": 34, "left": 0 },
   "frameSample": { "durationMs": 1100, "frames": 65, "medianIntervalMs": 16.7, "p95IntervalMs": 18.2, "maxIntervalMs": 25.1 },
   "touch": { "confirmed": true, "pointerType": "touch", "recordedAt": "2026-08-15T12:00:01.000Z" },
-  "walkthrough": { "home": true, "surface": true, "sections": true, "blocks": true, "quiz": true, "segment": true, "pwaOffline": true },
+  "walkthrough": {
+    "home": { "confirmed": true, "recordedAt": "2026-08-15T12:01:00.000Z" },
+    "surface": { "confirmed": true, "recordedAt": "2026-08-15T12:01:10.000Z" },
+    "sections": { "confirmed": true, "recordedAt": "2026-08-15T12:01:20.000Z" },
+    "blocks": { "confirmed": true, "recordedAt": "2026-08-15T12:01:30.000Z" },
+    "quiz": { "confirmed": true, "recordedAt": "2026-08-15T12:01:40.000Z" },
+    "segment": { "confirmed": true, "recordedAt": "2026-08-15T12:01:50.000Z" },
+    "offlineSurface": { "confirmed": true, "recordedAt": "2026-08-15T12:03:00.000Z" },
+    "offlineSections": { "confirmed": true, "recordedAt": "2026-08-15T12:03:20.000Z" },
+    "offlineBlocks": { "confirmed": true, "recordedAt": "2026-08-15T12:03:40.000Z" },
+    "offlineQuiz": { "confirmed": true, "recordedAt": "2026-08-15T12:04:00.000Z" }
+  },
+  "pwaEvidence": {
+    "online": {
+      "kind": "online", "recordedAt": "2026-08-15T12:00:02.000Z", "online": true, "standalone": true, "serviceWorkerControlled": true, "catalogVersion": "d61261d04f9d",
+      "packs": [
+        { "id": "surface", "name": "Surface", "version": "f0414c05fac5", "expectedResources": 34, "cachedResources": 34, "markerVersion": "f0414c05fac5", "markerComplete": true, "current": true },
+        { "id": "sections", "name": "Sections", "version": "4e0202ed1710", "expectedResources": 21, "cachedResources": 21, "markerVersion": "4e0202ed1710", "markerComplete": true, "current": true },
+        { "id": "blocks", "name": "Blocks", "version": "a106a5f67292", "expectedResources": 56, "cachedResources": 56, "markerVersion": "a106a5f67292", "markerComplete": true, "current": true }
+      ]
+    },
+    "offline": {
+      "kind": "offline", "recordedAt": "2026-08-15T12:05:00.000Z", "online": false, "standalone": true, "serviceWorkerControlled": true, "catalogVersion": "d61261d04f9d",
+      "packs": [
+        { "id": "surface", "name": "Surface", "version": "f0414c05fac5", "expectedResources": 34, "cachedResources": 34, "markerVersion": "f0414c05fac5", "markerComplete": true, "current": true },
+        { "id": "sections", "name": "Sections", "version": "4e0202ed1710", "expectedResources": 21, "cachedResources": 21, "markerVersion": "4e0202ed1710", "markerComplete": true, "current": true },
+        { "id": "blocks", "name": "Blocks", "version": "a106a5f67292", "expectedResources": 56, "cachedResources": 56, "markerVersion": "a106a5f67292", "markerComplete": true, "current": true }
+      ]
+    },
+    "restored": {
+      "kind": "restored", "recordedAt": "2026-08-15T12:10:00.000Z", "online": true, "standalone": true, "serviceWorkerControlled": true, "catalogVersion": "d61261d04f9d",
+      "packs": [
+        { "id": "surface", "name": "Surface", "version": "f0414c05fac5", "expectedResources": 34, "cachedResources": 34, "markerVersion": "f0414c05fac5", "markerComplete": true, "current": true },
+        { "id": "sections", "name": "Sections", "version": "4e0202ed1710", "expectedResources": 21, "cachedResources": 21, "markerVersion": "4e0202ed1710", "markerComplete": true, "current": true },
+        { "id": "blocks", "name": "Blocks", "version": "a106a5f67292", "expectedResources": 56, "cachedResources": 56, "markerVersion": "a106a5f67292", "markerComplete": true, "current": true }
+      ]
+    }
+  },
   "problemNotes": "問題なし",
   "gateDisclaimer": "この記録だけでは実機ゲート合格になりません。"
 }

@@ -1575,7 +1575,7 @@ test("records reproducible real-device diagnostics without treating them as a ga
   assert.match(page, /<DeviceDiagnostics\/>/);
   assert.match(manager, /href="#workspace\/device-check"/);
   assert.match(diagnostics, /format:"brain-practical-device-check"/);
-  assert.match(diagnostics, /schemaVersion:2/);
+  assert.match(diagnostics, /schemaVersion:3/);
   assert.match(diagnostics, /event\.pointerType!=="touch"/);
   assert.match(diagnostics, /navigator\.storage\?\.estimate/);
   assert.match(diagnostics, /navigator\.serviceWorker\?\.controller/);
@@ -1587,8 +1587,13 @@ test("records reproducible real-device diagnostics without treating them as a ga
   assert.match(diagnostics, /walkthrough:\{\.\.\.walkthrough\}/);
   assert.match(diagnostics, /problemNotes:problemNotes\.trim\(\)/);
   assert.match(diagnostics, /walkthroughItems\.map/);
+  assert.match(diagnostics, /brain-practical-device-check-draft-v3/);
+  assert.match(diagnostics, /localStorage\.setItem\(DRAFT_KEY/);
+  assert.match(diagnostics, /capturePwaCheckpoint/);
+  assert.match(diagnostics, /cachedResources===pack\.resources\.length/);
   assert.match(diagnostics, /this record alone|\u3053\u306e\u8a18\u9332\u3060\u3051/);
-  assert.match(validator, /walkthroughKeys=\["home","surface","sections","blocks","quiz","segment","pwaOffline"\]/);
+  assert.match(validator, /walkthroughKeys=\["home","surface","sections","blocks","quiz","segment","offlineSurface","offlineSections","offlineBlocks","offlineQuiz"\]/);
+  assert.match(validator, /PWA checkpoints must be ordered online, offline, restored/);
   assert.match(validator, /pointerType!=="touch"/);
   assert.match(validator, /this is not beta gate approval/);
   assert.match(packageJson, /"validate:device-check": "node scripts\/validate_device_check_record\.mjs"/);
@@ -1596,11 +1601,13 @@ test("records reproducible real-device diagnostics without treating them as a ga
   assert.match(css, /\.deviceTouchState\.confirmed/);
   const valid=spawnSync(process.execPath,[localPath("scripts/validate_device_check_record.mjs"),localPath("tests/fixtures/device-check-valid.json")],{encoding:"utf8"});
   assert.equal(valid.status,0,valid.stderr);
-  assert.match(valid.stdout,/confirmed touch and 7\/7 walkthrough items/);
+  assert.match(valid.stdout,/confirmed touch, 10\/10 walkthrough items, and 3\/3 PWA checkpoints/);
   const incomplete=spawnSync(process.execPath,[localPath("scripts/validate_device_check_record.mjs"),localPath("tests/fixtures/device-check-incomplete.json")],{encoding:"utf8"});
   assert.equal(incomplete.status,1);
   assert.match(incomplete.stderr,/touch must contain a confirmed touch pointer/);
   assert.match(incomplete.stderr,/walkthrough\.surface is not confirmed/);
+  assert.match(incomplete.stderr,/PWA checkpoints must be ordered online, offline, restored/);
+  assert.match(incomplete.stderr,/pwaEvidence\.offline\.packs must contain one surface pack/);
 });
 
 test("keeps simultaneously selectable surface colours distinct on the dark model", async () => {

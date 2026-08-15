@@ -1,6 +1,6 @@
 {
   "format": "brain-practical-device-check",
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "recordedAt": "2026-08-15T12:00:00.000Z",
   "deviceLabel": "Incomplete fixture",
   "route": { "pathname": "/", "hash": "#workspace/device-check" },
@@ -11,7 +11,23 @@
   "safeArea": { "top": 0, "right": 0, "bottom": 0, "left": 0 },
   "frameSample": { "durationMs": 1100, "frames": 60, "medianIntervalMs": 16.7, "p95IntervalMs": 18, "maxIntervalMs": 24 },
   "touch": { "confirmed": false, "pointerType": "mouse", "recordedAt": null },
-  "walkthrough": { "home": true, "surface": false, "sections": false, "blocks": false, "quiz": false, "segment": false, "pwaOffline": false },
+  "walkthrough": {
+    "home": { "confirmed": true, "recordedAt": "2026-08-15T12:01:00.000Z" },
+    "surface": { "confirmed": false, "recordedAt": null },
+    "sections": { "confirmed": false, "recordedAt": null },
+    "blocks": { "confirmed": false, "recordedAt": null },
+    "quiz": { "confirmed": false, "recordedAt": null },
+    "segment": { "confirmed": false, "recordedAt": null },
+    "offlineSurface": { "confirmed": false, "recordedAt": null },
+    "offlineSections": { "confirmed": false, "recordedAt": null },
+    "offlineBlocks": { "confirmed": false, "recordedAt": null },
+    "offlineQuiz": { "confirmed": false, "recordedAt": null }
+  },
+  "pwaEvidence": {
+    "online": { "kind": "online", "recordedAt": "2026-08-15T12:10:00.000Z", "online": true, "standalone": false, "serviceWorkerControlled": true, "catalogVersion": "d61261d04f9d", "packs": [] },
+    "offline": { "kind": "offline", "recordedAt": "2026-08-15T12:05:00.000Z", "online": false, "standalone": false, "serviceWorkerControlled": true, "catalogVersion": "d61261d04f9d", "packs": [] },
+    "restored": { "kind": "restored", "recordedAt": "2026-08-15T12:00:00.000Z", "online": true, "standalone": false, "serviceWorkerControlled": true, "catalogVersion": "d61261d04f9d", "packs": [] }
+  },
   "problemNotes": "",
   "gateDisclaimer": "この記録だけでは実機ゲート合格になりません。"
 }
