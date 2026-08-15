@@ -1,0 +1,27 @@
+{
+  "format": "brain-practical-device-check",
+  "schemaVersion": 2,
+  "recordedAt": "2026-08-15T12:00:00.000Z",
+  "deviceLabel": "Test phone / Test browser",
+  "route": { "pathname": "/", "hash": "#workspace/device-check" },
+  "environment": {
+    "userAgent": "Device check validator fixture",
+    "viewport": { "width": 390, "height": 844 },
+    "maxTouchPoints": 5
+  },
+  "capabilities": {
+    "standalone": true,
+    "serviceWorkerControlled": true,
+    "cacheStorage": true,
+    "performanceMemory": { "usedJSHeapBytes": 1000000, "heapLimitBytes": 100000000 },
+    "network": { "effectiveType": "4g", "downlinkMbps": 10, "rttMs": 50, "saveData": false }
+  },
+  "storage": { "usageBytes": 1000000, "quotaBytes": 100000000, "persisted": true },
+  "graphics": { "webgl": true, "webgl2": true, "renderer": "Test renderer" },
+  "safeArea": { "top": 47, "right": 0, "bottom": 34, "left": 0 },
+  "frameSample": { "durationMs": 1100, "frames": 65, "medianIntervalMs": 16.7, "p95IntervalMs": 18.2, "maxIntervalMs": 25.1 },
+  "touch": { "confirmed": true, "pointerType": "touch", "recordedAt": "2026-08-15T12:00:01.000Z" },
+  "walkthrough": { "home": true, "surface": true, "sections": true, "blocks": true, "quiz": true, "segment": true, "pwaOffline": true },
+  "problemNotes": "問題なし",
+  "gateDisclaimer": "この記録だけでは実機ゲート合格になりません。"
+}

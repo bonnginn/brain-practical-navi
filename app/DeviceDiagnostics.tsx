@@ -2,7 +2,7 @@ import { useState } from "react";
 
 type DiagnosticReport={
   format:"brain-practical-device-check";
-  schemaVersion:1;
+  schemaVersion:2;
   recordedAt:string;
   deviceLabel:string;
   route:{pathname:string;hash:string};
@@ -13,8 +13,22 @@ type DiagnosticReport={
   safeArea:Record<string,number>;
   frameSample:Record<string,number>;
   touch:{confirmed:boolean;pointerType:string|null;recordedAt:string|null};
+  walkthrough:Record<WalkthroughKey,boolean>;
+  problemNotes:string;
   gateDisclaimer:string;
 };
+
+type WalkthroughKey="home"|"surface"|"sections"|"blocks"|"quiz"|"segment"|"pwaOffline";
+const walkthroughItems:{key:WalkthroughKey;label:string;detail:string}[]=[
+  {key:"home",label:"ホーム",detail:"初期表示、教材入口、注意表示"},
+  {key:"surface",label:"脳表",detail:"回転、拡大、構造選択、全解除"},
+  {key:"sections",label:"断面",detail:"位置変更、構造選択、2D/3D切替"},
+  {key:"blocks",label:"局所標本",detail:"組織表示、着脱、比較"},
+  {key:"quiz",label:"クイズ",detail:"回答、断面移動、観察画面で復習"},
+  {key:"segment",label:"編集ツール",detail:"描画、3方向照合、元に戻す"},
+  {key:"pwaOffline",label:"PWA・オフライン",detail:"単独起動、保存済み教材の機内モード復帰"},
+];
+const initialWalkthrough=()=>Object.fromEntries(walkthroughItems.map(item=>[item.key,false])) as Record<WalkthroughKey,boolean>;
 
 const disclaimer="この記録だけでは実機ゲート合格になりません。実際のスマートフォンで主要ルートを一周し、操作・表示・ピークメモリを確認してください。";
 const round=(value:number,digits=1)=>Number(value.toFixed(digits));
@@ -50,6 +64,8 @@ export function DeviceDiagnostics(){
   const [report,setReport]=useState<DiagnosticReport|null>(null);
   const [running,setRunning]=useState(false);
   const [touch,setTouch]=useState<DiagnosticReport["touch"]>({confirmed:false,pointerType:null,recordedAt:null});
+  const [walkthrough,setWalkthrough]=useState<Record<WalkthroughKey,boolean>>(initialWalkthrough);
+  const [problemNotes,setProblemNotes]=useState("");
   const [message,setMessage]=useState("");
 
   async function run(){
@@ -63,11 +79,11 @@ export function DeviceDiagnostics(){
     const visual=window.visualViewport;
     const orientation=screen.orientation;
     const next:DiagnosticReport={
-      format:"brain-practical-device-check",schemaVersion:1,recordedAt:new Date().toISOString(),deviceLabel:deviceLabel.trim(),
+      format:"brain-practical-device-check",schemaVersion:2,recordedAt:new Date().toISOString(),deviceLabel:deviceLabel.trim(),
       route:{pathname:location.pathname,hash:location.hash},
       environment:{userAgent:navigator.userAgent,platform:navigator.platform,language:navigator.language,online:navigator.onLine,viewport:{width:innerWidth,height:innerHeight},visualViewport:visual?{width:round(visual.width),height:round(visual.height),scale:visual.scale}:null,screen:{width:screen.width,height:screen.height,orientation:orientation?.type??null},devicePixelRatio,hardwareConcurrency:navigator.hardwareConcurrency??null,deviceMemory:(navigator as Navigator&{deviceMemory?:number}).deviceMemory??null,maxTouchPoints:navigator.maxTouchPoints},
       capabilities:{pointerCoarse:matchMedia("(pointer: coarse)").matches,pointerFine:matchMedia("(pointer: fine)").matches,hover:matchMedia("(hover: hover)").matches,standalone:matchMedia("(display-mode: standalone)").matches||Boolean((navigator as Navigator&{standalone?:boolean}).standalone),serviceWorker:"serviceWorker" in navigator,serviceWorkerControlled:Boolean(navigator.serviceWorker?.controller),cacheStorage:"caches" in window,network:connection?{effectiveType:connection.effectiveType??null,downlinkMbps:connection.downlink??null,rttMs:connection.rtt??null,saveData:connection.saveData??null}:null,performanceMemory:memory?{usedJSHeapBytes:memory.usedJSHeapSize,heapLimitBytes:memory.jsHeapSizeLimit}:null},
-      storage:{usageBytes:estimate.usage??null,quotaBytes:estimate.quota??null,persisted},graphics:getGraphics(),safeArea:measureSafeArea(),frameSample,touch,gateDisclaimer:disclaimer
+      storage:{usageBytes:estimate.usage??null,quotaBytes:estimate.quota??null,persisted},graphics:getGraphics(),safeArea:measureSafeArea(),frameSample,touch,walkthrough:{...walkthrough},problemNotes:problemNotes.trim(),gateDisclaimer:disclaimer
     };
     setReport(next);setRunning(false);setMessage("診断を記録しました。結果はこの端末内だけに表示されています。");
   }
@@ -78,7 +94,7 @@ export function DeviceDiagnostics(){
   }
 
   function download(){
-    if(!report)return;const blob=new Blob([JSON.stringify({...report,deviceLabel:deviceLabel.trim(),touch},null,2)],{type:"application/json"});const url=URL.createObjectURL(blob),link=document.createElement("a");link.href=url;link.download=`brain-practical-device-check-${new Date().toISOString().replace(/[:.]/g,"-")}.json`;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);setMessage("診断JSONを書き出しました。アプリから外部へ自動送信はしていません。");
+    if(!report)return;const blob=new Blob([JSON.stringify({...report,deviceLabel:deviceLabel.trim(),touch,walkthrough:{...walkthrough},problemNotes:problemNotes.trim()},null,2)],{type:"application/json"});const url=URL.createObjectURL(blob),link=document.createElement("a");link.href=url;link.download=`brain-practical-device-check-${new Date().toISOString().replace(/[:.]/g,"-")}.json`;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);setMessage("診断JSONを書き出しました。アプリから外部へ自動送信はしていません。");
   }
 
   return <div className="deviceCheck">
@@ -92,7 +108,7 @@ export function DeviceDiagnostics(){
       <article><h3>PWA・保存</h3><dl><div><dt>Service Worker</dt><dd>{report.capabilities.serviceWorkerControlled?"制御中":report.capabilities.serviceWorker?"対応・未制御":"非対応"}</dd></div><div><dt>単独起動</dt><dd>{report.capabilities.standalone?"はい":"いいえ"}</dd></div><div><dt>使用量</dt><dd>{formatBytes(report.storage.usageBytes)}</dd></div><div><dt>利用可能枠</dt><dd>{formatBytes(report.storage.quotaBytes)}</dd></div></dl></article>
       <article><h3>描画</h3><dl><div><dt>WebGL 2</dt><dd>{report.graphics.webgl2?"対応":"非対応"}</dd></div><div><dt>renderer</dt><dd>{String(report.graphics.renderer??"取得不可")}</dd></div><div><dt>中央値</dt><dd>{report.frameSample.medianIntervalMs} ms</dd></div><div><dt>p95</dt><dd>{report.frameSample.p95IntervalMs} ms</dd></div></dl><small>約1秒の静止画面サンプルです。公開環境の性能測定や操作中のピーク値ではありません。</small></article>
     </div>}
-    <div className="deviceRouteChecklist"><h3>実機で一周するルート</h3><ol><li>ホーム → 脳表（回転・拡大・構造選択）</li><li>断面（位置変更・構造選択・2D/3D切替）</li><li>局所標本（組織表示・脱着・比較）</li><li>クイズ（回答・復習）とセグメンテーション</li><li>PWA単独起動 → 機内モードで保存済み教材を再確認</li></ol></div>
+    <div className="deviceRouteChecklist"><header><div><h3>実機で一周したルート</h3><small>確認済み {Object.values(walkthrough).filter(Boolean).length} / {walkthroughItems.length}</small></div><p>各画面を実際に操作した後でチェックしてください。チェックだけでは自動的にGate合格になりません。</p></header><div>{walkthroughItems.map(item=><label key={item.key}><input type="checkbox" checked={walkthrough[item.key]} onChange={event=>setWalkthrough(previous=>({...previous,[item.key]:event.target.checked}))}/><span><b>{item.label}</b><small>{item.detail}</small></span></label>)}</div><label className="deviceProblemNotes"><span>問題・再現手順（問題なしの場合は「問題なし」）</span><textarea value={problemNotes} onChange={event=>setProblemNotes(event.target.value)} placeholder="例: 水平断から脳表へ戻ると再読み込みされた" maxLength={2000}/></label></div>
     <p className="deviceGateDisclaimer">{disclaimer}</p>
   </div>;
 }

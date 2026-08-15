@@ -1,0 +1,17 @@
+{
+  "format": "brain-practical-device-check",
+  "schemaVersion": 2,
+  "recordedAt": "2026-08-15T12:00:00.000Z",
+  "deviceLabel": "Incomplete fixture",
+  "route": { "pathname": "/", "hash": "#workspace/device-check" },
+  "environment": { "userAgent": "Incomplete fixture", "viewport": { "width": 390, "height": 844 }, "maxTouchPoints": 5 },
+  "capabilities": { "serviceWorkerControlled": true, "cacheStorage": true },
+  "storage": {},
+  "graphics": { "webgl": true },
+  "safeArea": { "top": 0, "right": 0, "bottom": 0, "left": 0 },
+  "frameSample": { "durationMs": 1100, "frames": 60, "medianIntervalMs": 16.7, "p95IntervalMs": 18, "maxIntervalMs": 24 },
+  "touch": { "confirmed": false, "pointerType": "mouse", "recordedAt": null },
+  "walkthrough": { "home": true, "surface": false, "sections": false, "blocks": false, "quiz": false, "segment": false, "pwaOffline": false },
+  "problemNotes": "",
+  "gateDisclaimer": "この記録だけでは実機ゲート合格になりません。"
+}

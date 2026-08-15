@@ -193,3 +193,4 @@
 - iOS安全域を利用するためviewportへ `viewport-fit=cover` を追加した。
 - `DEVICE_CHECK_AUDIT.md` に公開候補URLでの一周、PWA単独起動、機内モード復帰、実機ピークメモリの採取手順を固定した。
 - これはGate 3・4の証拠収集補助であり、実スマートフォンと公開回線の実測が完了するまでβ公開可とは判定しない。
+- 診断JSONをschema v2へ更新し、ホーム、脳表、断面、局所標本、クイズ、編集、PWA・オフラインの7/7完走と問題メモを構造化した。`npm run validate:device-check -- <record.json>` は実タッチ、主要能力、全項目の欠落を検出するが、実機Gateを自動承認しない。

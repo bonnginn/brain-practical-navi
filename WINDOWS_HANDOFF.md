@@ -2,7 +2,7 @@
 
 更新日: 2026-08-15
 対象ブランチ: `codex/beta-candidate`
-基準実装コミット: `c37d665 Add installable offline teaching packs`（このレビュー票改善の直前）
+基準実装コミット: `1444a2d Add reproducible real-device diagnostics`（schema v2改善の直前）
 
 ## 1. 現在地
 
@@ -10,7 +10,7 @@
 
 直近のローカル検証:
 
-- 自動テスト: 75件全件合格
+- 自動テスト: 78件全件合格
 - TypeScript: 合格
 - 本番Viteビルド: 合格
 - `npm run audit:beta`: 10監査合格
@@ -175,3 +175,4 @@ npm run build
 - 実スマートフォンで診断を実行し、指タッチ確認後にJSONを書き出してください。詳細は `DEVICE_CHECK_AUDIT.md` です。
 - Windowsのマウスではタッチ確認済みにならないのが正常です。
 - 診断画面だけではGate 3・4を合格にしません。公開候補HTTPS URL、実スマートフォン一周、PWA単独起動・機内モード復帰、公開回線・ピークメモリの証拠が必要です。
+- schema v2では主要7項目の完走と問題メモも保存します。受領後は `npm run validate:device-check -- <record.json>` を実行し、欠落を確認してください。検証成功はGate承認ではありません。

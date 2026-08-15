@@ -1538,10 +1538,12 @@ test("PWA manager reports install, connectivity, persistence, and pack freshness
 });
 
 test("records reproducible real-device diagnostics without treating them as a gate pass", async () => {
-  const [page, manager, diagnostics, html, css] = await Promise.all([
+  const [page, manager, diagnostics, validator, packageJson, html, css] = await Promise.all([
     readFile(new URL("app/page.tsx", root), "utf8"),
     readFile(new URL("app/OfflineManager.tsx", root), "utf8"),
     readFile(new URL("app/DeviceDiagnostics.tsx", root), "utf8"),
+    readFile(new URL("scripts/validate_device_check_record.mjs", root), "utf8"),
+    readFile(new URL("package.json", root), "utf8"),
     readFile(new URL("index.html", root), "utf8"),
     readFile(new URL("app/canvas.css", root), "utf8"),
   ]);
@@ -1549,7 +1551,7 @@ test("records reproducible real-device diagnostics without treating them as a ga
   assert.match(page, /<DeviceDiagnostics\/>/);
   assert.match(manager, /href="#workspace\/device-check"/);
   assert.match(diagnostics, /format:"brain-practical-device-check"/);
-  assert.match(diagnostics, /schemaVersion:1/);
+  assert.match(diagnostics, /schemaVersion:2/);
   assert.match(diagnostics, /event\.pointerType!=="touch"/);
   assert.match(diagnostics, /navigator\.storage\?\.estimate/);
   assert.match(diagnostics, /navigator\.serviceWorker\?\.controller/);
@@ -1558,9 +1560,23 @@ test("records reproducible real-device diagnostics without treating them as a ga
   assert.match(diagnostics, /requestAnimationFrame\(tick\)/);
   assert.match(diagnostics, /JSON\.stringify/);
   assert.match(diagnostics, /gateDisclaimer:disclaimer/);
+  assert.match(diagnostics, /walkthrough:\{\.\.\.walkthrough\}/);
+  assert.match(diagnostics, /problemNotes:problemNotes\.trim\(\)/);
+  assert.match(diagnostics, /walkthroughItems\.map/);
   assert.match(diagnostics, /this record alone|\u3053\u306e\u8a18\u9332\u3060\u3051/);
+  assert.match(validator, /walkthroughKeys=\["home","surface","sections","blocks","quiz","segment","pwaOffline"\]/);
+  assert.match(validator, /pointerType!=="touch"/);
+  assert.match(validator, /this is not beta gate approval/);
+  assert.match(packageJson, /"validate:device-check": "node scripts\/validate_device_check_record\.mjs"/);
   assert.match(html, /viewport-fit=cover/);
   assert.match(css, /\.deviceTouchState\.confirmed/);
+  const valid=spawnSync(process.execPath,[localPath("scripts/validate_device_check_record.mjs"),localPath("tests/fixtures/device-check-valid.json")],{encoding:"utf8"});
+  assert.equal(valid.status,0,valid.stderr);
+  assert.match(valid.stdout,/confirmed touch and 7\/7 walkthrough items/);
+  const incomplete=spawnSync(process.execPath,[localPath("scripts/validate_device_check_record.mjs"),localPath("tests/fixtures/device-check-incomplete.json")],{encoding:"utf8"});
+  assert.equal(incomplete.status,1);
+  assert.match(incomplete.stderr,/touch must contain a confirmed touch pointer/);
+  assert.match(incomplete.stderr,/walkthrough\.surface is not confirmed/);
 });
 
 test("keeps simultaneously selectable surface colours distinct on the dark model", async () => {
@@ -2026,7 +2042,7 @@ test("aggregates every local beta audit without converting external waits into p
 test("keeps the Windows handoff at the current beta-candidate gate instead of historical milestones", async () => {
   const handoff=await readFile(new URL("WINDOWS_HANDOFF.md",root),"utf8");
   assert.match(handoff,/対象ブランチ: `codex\/beta-candidate`/);
-  assert.match(handoff,/自動テスト: 75件全件合格/);
+  assert.match(handoff,/自動テスト: 78件全件合格/);
   assert.match(handoff,/`npm run audit:beta`/);
   assert.match(handoff,/ローカル合格3条件、外部証拠待ち7条件/);
   assert.match(handoff,/No-Go（β候補のローカル検証中）/);
