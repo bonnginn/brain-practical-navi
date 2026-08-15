@@ -16,6 +16,8 @@ const viteConfig=await readFile(resolve(root,"vite.config.ts"),"utf8");
 const buildInfo=await readFile(resolve(root,"app","buildInfo.ts"),"utf8");
 const diagnostics=await readFile(resolve(root,"app","DeviceDiagnostics.tsx"),"utf8");
 const deviceValidator=await readFile(resolve(root,"scripts","validate_device_check_record.mjs"),"utf8");
+const pagesValidator=await readFile(resolve(root,"scripts","validate_pages_build.mjs"),"utf8");
+const pagesWorkflow=await readFile(resolve(root,".github","workflows","pages.yml"),"utf8");
 
 function check(value,message){if(!value)throw new Error(message)}
 check(manifest.name==="脳実習ナビ","manifest name must be Japanese product name");
@@ -32,6 +34,8 @@ check(/data:image\/png;base64,iVBORw0KGgo/.test(phoneQr)&&!/api\.qrserver|chart\
 check(/gitOutput\(\["rev-parse","HEAD"\]\)/.test(viteConfig)&&/__APP_BUILD_COMMIT__/.test(viteConfig)&&/__APP_BUILD_DIRTY__/.test(viteConfig),"build must inject commit and dirty provenance");
 check(/https:\/\/bonnginn\.github\.io\/brain-practical-navi\//.test(buildInfo)&&/schemaVersion:5/.test(diagnostics)&&/runtimeBaseUrl:currentAppBaseUrl\(\)/.test(diagnostics),"device evidence must capture the canonical public build identity");
 check(/--commit <40-char-SHA>/.test(deviceValidator)&&/application\.commit must match --commit/.test(deviceValidator)&&/application\.dirty must be false/.test(deviceValidator),"device validator must bind evidence to a clean target commit");
+check(/build-info\.json commit must match --commit/.test(pagesValidator)&&/GitHub Pages artifact must not contain Sites runtime metadata/.test(pagesValidator)&&/service worker core cache/.test(pagesValidator),"Pages artifact validator must bind commit, base path, and PWA shell content");
+check(/npm ci --no-audit --no-fund/.test(pagesWorkflow)&&/validate:pages-build -- --commit "\$\{GITHUB_SHA\}"/.test(pagesWorkflow),"Pages workflow must install reproducibly and validate the exact deployment commit");
 check(/url\.pathname\.endsWith\("\/offline-packs\.json"\)/.test(builder)&&/controllerchange/.test(manager),"offline catalog updates must cross service worker version changes");
 check(/request\.cache==="reload"/.test(builder),"explicit pack downloads must bypass runtime-cache duplication");
 check(/caches\.open\(PACK_CACHE\).*cache\.match\(request\).*hit&&healthyAtlasResponse\(request,hit\)\?hit:networkThenCache/s.test(builder),"healthy explicit pack resources must be served before waiting for the network");

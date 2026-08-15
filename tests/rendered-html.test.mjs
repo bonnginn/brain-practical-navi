@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdtemp, readFile, readdir, rm, stat, unlink, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, readdir, rm, stat, unlink, writeFile } from "node:fs/promises";
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import test from "node:test";
@@ -1655,6 +1655,32 @@ test("records reproducible real-device diagnostics without treating them as a ga
   const missingCommit=spawnSync(process.execPath,[localPath("scripts/validate_device_check_record.mjs"),localPath("tests/fixtures/device-check-valid.json")],{encoding:"utf8"});
   assert.equal(missingCommit.status,2);
   assert.match(missingCommit.stderr,/--commit <40-char-SHA>/);
+});
+
+test("rejects stale or polluted GitHub Pages deployment artifacts", async () => {
+  const artifact=await mkdtemp(join(tmpdir(),"brain-practical-pages-"));
+  const commit="1234567890abcdef1234567890abcdef12345678",base="/brain-practical-navi/";
+  try{
+    await mkdir(join(artifact,"assets"),{recursive:true});
+    await Promise.all([
+      writeFile(join(artifact,"index.html"),`<link rel="icon" href="${base}favicon.svg"><link rel="manifest" href="${base}manifest.webmanifest"><script src="${base}assets/app.js"></script><link rel="stylesheet" href="${base}assets/app.css">`),
+      writeFile(join(artifact,"manifest.webmanifest"),JSON.stringify({start_url:"./#workspace/home",scope:"./",display:"standalone"})),
+      writeFile(join(artifact,"build-info.json"),JSON.stringify({format:"brain-practical-build-info",schemaVersion:1,commit,dirty:false,basePath:base,publicBaseUrl:"https://bonnginn.github.io/brain-practical-navi/"})),
+      writeFile(join(artifact,"sw.js"),'const CORE_PATHS=["","assets/app.css","assets/app.js","build-info.json","favicon.svg","index.html","manifest.webmanifest","offline-packs.json","phone-home-qr.svg"];const scoped=path=>new URL(path,self.registration.scope).href;'),
+      writeFile(join(artifact,"phone-home-qr.svg"),'<svg><desc>https://bonnginn.github.io/brain-practical-navi/#workspace/home</desc></svg>'),
+      writeFile(join(artifact,"offline-packs.json"),"{}"),writeFile(join(artifact,"favicon.svg"),"<svg/>"),writeFile(join(artifact,"assets","app.js"),"export{}"),writeFile(join(artifact,"assets","app.css"),"body{}"),
+    ]);
+    const valid=spawnSync(process.execPath,[localPath("scripts/validate_pages_build.mjs"),"--commit",commit,"--dir",artifact],{encoding:"utf8"});
+    assert.equal(valid.status,0,valid.stderr);
+    assert.match(valid.stdout,/Pages artifact excludes Sites-only runtime files/);
+    await mkdir(join(artifact,"server"));
+    const polluted=spawnSync(process.execPath,[localPath("scripts/validate_pages_build.mjs"),"--commit",commit,"--dir",artifact],{encoding:"utf8"});
+    assert.equal(polluted.status,1);
+    assert.match(polluted.stderr,/must not contain the Sites worker entry/);
+    const stale=spawnSync(process.execPath,[localPath("scripts/validate_pages_build.mjs"),"--commit","aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","--dir",artifact],{encoding:"utf8"});
+    assert.equal(stale.status,1);
+    assert.match(stale.stderr,/commit must match --commit/);
+  }finally{await rm(artifact,{recursive:true,force:true})}
 });
 
 test("keeps simultaneously selectable surface colours distinct on the dark model", async () => {

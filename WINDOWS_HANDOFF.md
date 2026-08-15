@@ -180,3 +180,10 @@ npm run build
 - 診断画面だけではGate 3・4を合格にしません。公開候補HTTPS URL、実スマートフォン一周、PWA単独起動・機内モード復帰、公開回線・ピークメモリの証拠が必要です。
 - schema v5では診断とschema v2性能セッションへ対象の40桁commit、dirty状態、base URL、実行URLを保存し、ビルド変更後に古い下書きを復元しません。公開HTTPSの初回ホーム、オンライン6経路・機内モード4経路の取得量・Canvas・横はみ出し・取得可能なJS heap観測、保存後オンライン・機内モード起動・再接続後の3チェックポイントを保存します。受領後は `npm run validate:device-check -- <record.json> --commit <検証対象の40桁SHA>` を実行し、commit不一致、dirty、非正規GitHub Pages URL、経路順、オフライン転送、教材3セットの欠落を確認してください。検証成功はGate承認ではありません。
 > 現在のローカル基準コミット（本追記直前）: `e9b7506 Harden expert review evidence`。以下に残る古い基準コミット表記より、この行を優先してください。
+
+# 2026-08-15 追記: Pages成果物のデプロイ前検証
+
+- GitHub Pagesビルドは `build-info.json` に40桁commit、dirty状態、base pathを記録します。
+- Actionsは `npm ci` でlockfileどおりに導入し、アップロード前に `npm run validate:pages-build -- --commit "$GITHUB_SHA"` を実行します。
+- validatorは `/brain-practical-navi/` 配下のHTML資源、manifest、Service Worker shell、スマートフォンQRを確認し、Sites専用の `.openai` とworker資材がPagesへ混入した場合は失敗します。
+- ローカル検証が成功しても公開後の全経路巡回を代替しないため、Gate 5は公開待ち、全体はNo-Goを維持します。
