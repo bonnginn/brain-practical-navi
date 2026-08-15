@@ -1536,6 +1536,20 @@ test("help, diagnostics, feedback, and credit dialogs have durable shareable URL
   assert.match(page, /onClick=\{closeOverlay\} aria-label="オフライン教材を閉じる"/);
 });
 
+test("keeps the complete browser route matrix machine-auditable", async () => {
+  const catalog=JSON.parse(await readFile(new URL("app/browser-route-targets.json",root),"utf8"));
+  assert.equal(catalog.format,"brain-practical-browser-route-targets");
+  assert.equal(catalog.schemaVersion,1);
+  assert.equal(catalog.routes.length,26);
+  assert.deepEqual(Object.fromEntries(["home","surface","sections","blocks","quiz","segment","overlay"].map(group=>[group,catalog.routes.filter(route=>route.group===group).length])),{home:1,surface:7,sections:3,blocks:8,quiz:1,segment:1,overlay:5});
+  assert.equal(new Set(catalog.routes.map(route=>route.hash)).size,26);
+  assert.ok(catalog.routes.filter(route=>route.group==="blocks").every(route=>route.prerequisite==="prototype-warning"));
+  assert.deepEqual(catalog.extendedProtocols.map(protocol=>protocol.id),["m2-hindbrain","expert-review"]);
+  const result=spawnSync(process.execPath,[localPath("scripts/audit_browser_route_targets.mjs")],{encoding:"utf8",cwd:localPath(".")});
+  assert.equal(result.status,0,result.stderr);
+  assert.match(result.stdout,/26 core routes; 7 surface, 3 section, 8 gated specimen, 5 overlay/);
+});
+
 test("PWA manager reports install, connectivity, persistence, and pack freshness", async () => {
   const [manager, capacity, registration, workerBuilder, css] = await Promise.all([
     readFile(new URL("app/OfflineManager.tsx", root), "utf8"),
@@ -2197,7 +2211,7 @@ test("keeps the internal capsule distinct from adjacent basal nuclei", async () 
 
 test("aggregates every local beta audit without converting external waits into passes", async () => {
   const script=await readFile(new URL("scripts/audit_beta_candidate.mjs",root),"utf8");
-  for(const audit of ["audit_asset_budgets","audit_section_continuity","audit_deep_relations","audit_structure_provenance","audit_specimen_relations","audit_basal_neurovascular_relations","audit_surface_relations","audit_model_comparison","audit_expert_review_targets","audit_quiz_review_ledger"])assert.match(script,new RegExp(audit));
+  for(const audit of ["audit_asset_budgets","audit_section_continuity","audit_deep_relations","audit_structure_provenance","audit_specimen_relations","audit_basal_neurovascular_relations","audit_surface_relations","audit_model_comparison","audit_expert_review_targets","audit_quiz_review_ledger","audit_browser_route_targets"])assert.match(script,new RegExp(audit));
   assert.match(script,/release remains No-Go/);
   assert.match(script,/WAIT \$\{row\.status\}/);
   const result=spawnSync(process.execPath,[localPath("scripts/audit_beta_candidate.mjs")],{encoding:"utf8",cwd:localPath("."),maxBuffer:10*1024*1024});
@@ -2209,7 +2223,7 @@ test("aggregates every local beta audit without converting external waits into p
 test("keeps the Windows handoff at the current beta-candidate gate instead of historical milestones", async () => {
   const handoff=await readFile(new URL("WINDOWS_HANDOFF.md",root),"utf8");
   assert.match(handoff,/対象ブランチ: `codex\/beta-candidate`/);
-  assert.match(handoff,/自動テスト: 82件全件合格/);
+  assert.match(handoff,/自動テスト: 83件全件合格/);
   assert.match(handoff,/`npm run audit:beta`/);
   assert.match(handoff,/ローカル合格3条件、外部証拠待ち7条件/);
   assert.match(handoff,/No-Go（β候補のローカル検証中）/);

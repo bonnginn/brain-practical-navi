@@ -15,6 +15,7 @@ const audits=[
   ["model comparison","scripts/audit_model_comparison.mjs"],
   ["expert review targets","scripts/audit_expert_review_targets.mjs"],
   ["quiz review ledger","scripts/audit_quiz_review_ledger.mjs"],
+  ["browser route catalog","scripts/audit_browser_route_targets.mjs"],
   ["PWA offline","scripts/audit_pwa.mjs"],
 ];
 
