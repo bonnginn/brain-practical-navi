@@ -1,0 +1,79 @@
+{
+  "format": "brain-practical-device-check",
+  "schemaVersion": 5,
+  "application": { "commit": "e9b7506fd10ba786119f39cb237963416d3e27c6", "dirty": false, "basePath": "/brain-practical-navi/", "publicBaseUrl": "https://bonnginn.github.io/brain-practical-navi/", "runtimeBaseUrl": "https://bonnginn.github.io/brain-practical-navi/" },
+  "recordedAt": "2026-08-15T12:00:00.000Z",
+  "deviceLabel": "Test phone / Test browser",
+  "route": { "pathname": "/brain-practical-navi/", "hash": "#workspace/device-check" },
+  "environment": {
+    "userAgent": "Device check validator fixture",
+    "viewport": { "width": 390, "height": 844 },
+    "maxTouchPoints": 5
+  },
+  "capabilities": {
+    "standalone": true,
+    "serviceWorkerControlled": true,
+    "cacheStorage": true,
+    "performanceMemory": { "usedJSHeapBytes": 1000000, "heapLimitBytes": 100000000 },
+    "network": { "effectiveType": "4g", "downlinkMbps": 10, "rttMs": 50, "saveData": false }
+  },
+  "storage": { "usageBytes": 1000000, "quotaBytes": 100000000, "persisted": true },
+  "graphics": { "webgl": true, "webgl2": true, "renderer": "Test renderer" },
+  "safeArea": { "top": 47, "right": 0, "bottom": 34, "left": 0 },
+  "frameSample": { "durationMs": 1100, "frames": 65, "medianIntervalMs": 16.7, "p95IntervalMs": 18.2, "maxIntervalMs": 25.1 },
+  "touch": { "confirmed": true, "pointerType": "touch", "recordedAt": "2026-08-15T12:00:01.000Z" },
+  "walkthrough": {
+    "home": { "confirmed": true, "recordedAt": "2026-08-15T12:01:00.000Z" },
+    "surface": { "confirmed": true, "recordedAt": "2026-08-15T12:01:10.000Z" },
+    "sections": { "confirmed": true, "recordedAt": "2026-08-15T12:01:20.000Z" },
+    "blocks": { "confirmed": true, "recordedAt": "2026-08-15T12:01:30.000Z" },
+    "quiz": { "confirmed": true, "recordedAt": "2026-08-15T12:01:40.000Z" },
+    "offlineSurface": { "confirmed": true, "recordedAt": "2026-08-15T12:03:00.000Z" },
+    "offlineSections": { "confirmed": true, "recordedAt": "2026-08-15T12:03:20.000Z" },
+    "offlineBlocks": { "confirmed": true, "recordedAt": "2026-08-15T12:03:40.000Z" },
+    "offlineQuiz": { "confirmed": true, "recordedAt": "2026-08-15T12:04:00.000Z" }
+  },
+  "pwaEvidence": {
+    "online": {
+      "kind": "online", "recordedAt": "2026-08-15T12:00:02.000Z", "online": true, "standalone": true, "serviceWorkerControlled": true, "catalogVersion": "d61261d04f9d",
+      "packs": [
+        { "id": "surface", "name": "Surface", "version": "f0414c05fac5", "expectedResources": 34, "cachedResources": 34, "markerVersion": "f0414c05fac5", "markerComplete": true, "current": true },
+        { "id": "sections", "name": "Sections", "version": "4e0202ed1710", "expectedResources": 21, "cachedResources": 21, "markerVersion": "4e0202ed1710", "markerComplete": true, "current": true },
+        { "id": "blocks", "name": "Blocks", "version": "a106a5f67292", "expectedResources": 56, "cachedResources": 56, "markerVersion": "a106a5f67292", "markerComplete": true, "current": true }
+      ]
+    },
+    "offline": {
+      "kind": "offline", "recordedAt": "2026-08-15T12:05:00.000Z", "online": false, "standalone": true, "serviceWorkerControlled": true, "catalogVersion": "d61261d04f9d",
+      "packs": [
+        { "id": "surface", "name": "Surface", "version": "f0414c05fac5", "expectedResources": 34, "cachedResources": 34, "markerVersion": "f0414c05fac5", "markerComplete": true, "current": true },
+        { "id": "sections", "name": "Sections", "version": "4e0202ed1710", "expectedResources": 21, "cachedResources": 21, "markerVersion": "4e0202ed1710", "markerComplete": true, "current": true },
+        { "id": "blocks", "name": "Blocks", "version": "a106a5f67292", "expectedResources": 56, "cachedResources": 56, "markerVersion": "a106a5f67292", "markerComplete": true, "current": true }
+      ]
+    },
+    "restored": {
+      "kind": "restored", "recordedAt": "2026-08-15T12:10:00.000Z", "online": true, "standalone": true, "serviceWorkerControlled": true, "catalogVersion": "d61261d04f9d",
+      "packs": [
+        { "id": "surface", "name": "Surface", "version": "f0414c05fac5", "expectedResources": 34, "cachedResources": 34, "markerVersion": "f0414c05fac5", "markerComplete": true, "current": true },
+        { "id": "sections", "name": "Sections", "version": "4e0202ed1710", "expectedResources": 21, "cachedResources": 21, "markerVersion": "4e0202ed1710", "markerComplete": true, "current": true },
+        { "id": "blocks", "name": "Blocks", "version": "a106a5f67292", "expectedResources": 56, "cachedResources": 56, "markerVersion": "a106a5f67292", "markerComplete": true, "current": true }
+      ]
+    }
+  },
+  "performanceSession": {
+    "format": "brain-practical-device-performance", "schemaVersion": 2, "application": { "commit": "e9b7506fd10ba786119f39cb237963416d3e27c6", "dirty": false, "basePath": "/brain-practical-navi/", "publicBaseUrl": "https://bonnginn.github.io/brain-practical-navi/", "runtimeBaseUrl": "https://bonnginn.github.io/brain-practical-navi/" }, "origin": "https://bonnginn.github.io", "startedAt": "2026-08-15T12:00:00.500Z", "stoppedAt": "2026-08-15T12:04:00.000Z", "active": false, "memorySupported": true, "peakJsHeapBytes": 78000000,
+    "coldStart": { "key": "coldHome", "recordedAt": "2026-08-15T12:00:00.500Z", "routeHash": "#workspace/home", "online": true, "viewport": { "width": 390, "height": 844 }, "canvasCount": 1, "horizontalOverflowPx": 0, "resourceCount": 15, "transferBytes": 21000000, "encodedBodyBytes": 20900000, "decodedBodyBytes": 32000000, "longestResourceMs": 3200, "navigation": { "type": "navigate", "durationMs": 3600, "domContentLoadedMs": 500, "loadMs": 3550, "transferBytes": 1500, "encodedBodyBytes": 1400, "decodedBodyBytes": 4000 }, "currentJsHeapBytes": 42000000, "peakJsHeapBytes": 42000000 },
+    "observations": {
+      "home": { "key": "home", "recordedAt": "2026-08-15T12:01:00.000Z", "routeHash": "#workspace/home", "online": true, "viewport": { "width": 390, "height": 844 }, "canvasCount": 1, "horizontalOverflowPx": 0, "resourceCount": 15, "transferBytes": 21000000, "encodedBodyBytes": 20900000, "decodedBodyBytes": 32000000, "longestResourceMs": 3200, "navigation": { "type": "navigate", "durationMs": 3600, "domContentLoadedMs": 500, "loadMs": 3550, "transferBytes": 1500, "encodedBodyBytes": 1400, "decodedBodyBytes": 4000 }, "currentJsHeapBytes": 42000000, "peakJsHeapBytes": 44000000 },
+      "surface": { "key": "surface", "recordedAt": "2026-08-15T12:01:10.000Z", "routeHash": "#workspace/surface/lateral", "online": true, "viewport": { "width": 390, "height": 844 }, "canvasCount": 1, "horizontalOverflowPx": 0, "resourceCount": 4, "transferBytes": 12000000, "encodedBodyBytes": 11800000, "decodedBodyBytes": 18000000, "longestResourceMs": 2100, "navigation": null, "currentJsHeapBytes": 55000000, "peakJsHeapBytes": 56000000 },
+      "sections": { "key": "sections", "recordedAt": "2026-08-15T12:01:20.000Z", "routeHash": "#workspace/sections/horizontal", "online": true, "viewport": { "width": 390, "height": 844 }, "canvasCount": 1, "horizontalOverflowPx": 0, "resourceCount": 6, "transferBytes": 11500000, "encodedBodyBytes": 11400000, "decodedBodyBytes": 90000000, "longestResourceMs": 2800, "navigation": null, "currentJsHeapBytes": 69000000, "peakJsHeapBytes": 71000000 },
+      "blocks": { "key": "blocks", "recordedAt": "2026-08-15T12:01:30.000Z", "routeHash": "#workspace/blocks/medial-temporal", "online": true, "viewport": { "width": 390, "height": 844 }, "canvasCount": 1, "horizontalOverflowPx": 0, "resourceCount": 5, "transferBytes": 2700000, "encodedBodyBytes": 2600000, "decodedBodyBytes": 5500000, "longestResourceMs": 900, "navigation": null, "currentJsHeapBytes": 60000000, "peakJsHeapBytes": 71000000 },
+      "quiz": { "key": "quiz", "recordedAt": "2026-08-15T12:01:40.000Z", "routeHash": "#workspace/quiz", "online": true, "viewport": { "width": 390, "height": 844 }, "canvasCount": 1, "horizontalOverflowPx": 0, "resourceCount": 2, "transferBytes": 1000, "encodedBodyBytes": 900, "decodedBodyBytes": 2000, "longestResourceMs": 50, "navigation": null, "currentJsHeapBytes": 58000000, "peakJsHeapBytes": 71000000 },
+      "offlineSurface": { "key": "offlineSurface", "recordedAt": "2026-08-15T12:03:00.000Z", "routeHash": "#workspace/surface/lateral", "online": false, "viewport": { "width": 390, "height": 844 }, "canvasCount": 1, "horizontalOverflowPx": 0, "resourceCount": 4, "transferBytes": 0, "encodedBodyBytes": 11800000, "decodedBodyBytes": 18000000, "longestResourceMs": 120, "navigation": null, "currentJsHeapBytes": 59000000, "peakJsHeapBytes": 78000000 },
+      "offlineSections": { "key": "offlineSections", "recordedAt": "2026-08-15T12:03:20.000Z", "routeHash": "#workspace/sections/horizontal", "online": false, "viewport": { "width": 390, "height": 844 }, "canvasCount": 1, "horizontalOverflowPx": 0, "resourceCount": 6, "transferBytes": 0, "encodedBodyBytes": 11400000, "decodedBodyBytes": 90000000, "longestResourceMs": 180, "navigation": null, "currentJsHeapBytes": 65000000, "peakJsHeapBytes": 78000000 },
+      "offlineBlocks": { "key": "offlineBlocks", "recordedAt": "2026-08-15T12:03:40.000Z", "routeHash": "#workspace/blocks/hindbrain", "online": false, "viewport": { "width": 390, "height": 844 }, "canvasCount": 1, "horizontalOverflowPx": 0, "resourceCount": 5, "transferBytes": 0, "encodedBodyBytes": 2600000, "decodedBodyBytes": 5500000, "longestResourceMs": 100, "navigation": null, "currentJsHeapBytes": 61000000, "peakJsHeapBytes": 78000000 },
+      "offlineQuiz": { "key": "offlineQuiz", "recordedAt": "2026-08-15T12:04:00.000Z", "routeHash": "#workspace/quiz", "online": false, "viewport": { "width": 390, "height": 844 }, "canvasCount": 1, "horizontalOverflowPx": 0, "resourceCount": 2, "transferBytes": 0, "encodedBodyBytes": 900, "decodedBodyBytes": 2000, "longestResourceMs": 30, "navigation": null, "currentJsHeapBytes": 57000000, "peakJsHeapBytes": 78000000 }
+    }
+  },
+  "problemNotes": "問題なし",
+  "gateDisclaimer": "この記録だけでは実機ゲート合格になりません。"
+}

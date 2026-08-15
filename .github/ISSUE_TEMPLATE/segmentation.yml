@@ -41,6 +41,13 @@ body:
     attributes:
       label: 差分JSONまたはPull Request
       description: 作成済みの場合だけURLまたはファイル名を記載してください。
+  - type: textarea
+    id: comparison
+    attributes:
+      label: 変更前後の比較
+      description: 同じ断面・表示条件で、変更前と提案後の違いを説明してください。画像はアプリ内表示のスクリーンショットだけを使用してください。
+    validations:
+      required: true
   - type: dropdown
     id: review
     attributes:

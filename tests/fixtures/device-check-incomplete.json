@@ -1,0 +1,34 @@
+{
+  "format": "brain-practical-device-check",
+  "schemaVersion": 5,
+  "application": { "commit": "0000000000000000000000000000000000000000", "dirty": true, "basePath": "/", "publicBaseUrl": "https://bonnginn.github.io/brain-practical-navi/", "runtimeBaseUrl": "http://127.0.0.1:4174/" },
+  "recordedAt": "2026-08-15T12:00:00.000Z",
+  "deviceLabel": "Incomplete fixture",
+  "route": { "pathname": "/", "hash": "#workspace/device-check" },
+  "environment": { "userAgent": "Incomplete fixture", "viewport": { "width": 390, "height": 844 }, "maxTouchPoints": 5 },
+  "capabilities": { "serviceWorkerControlled": true, "cacheStorage": true },
+  "storage": {},
+  "graphics": { "webgl": true },
+  "safeArea": { "top": 0, "right": 0, "bottom": 0, "left": 0 },
+  "frameSample": { "durationMs": 1100, "frames": 60, "medianIntervalMs": 16.7, "p95IntervalMs": 18, "maxIntervalMs": 24 },
+  "touch": { "confirmed": false, "pointerType": "mouse", "recordedAt": null },
+  "walkthrough": {
+    "home": { "confirmed": true, "recordedAt": "2026-08-15T12:01:00.000Z" },
+    "surface": { "confirmed": false, "recordedAt": null },
+    "sections": { "confirmed": false, "recordedAt": null },
+    "blocks": { "confirmed": false, "recordedAt": null },
+    "quiz": { "confirmed": false, "recordedAt": null },
+    "offlineSurface": { "confirmed": false, "recordedAt": null },
+    "offlineSections": { "confirmed": false, "recordedAt": null },
+    "offlineBlocks": { "confirmed": false, "recordedAt": null },
+    "offlineQuiz": { "confirmed": false, "recordedAt": null }
+  },
+  "pwaEvidence": {
+    "online": { "kind": "online", "recordedAt": "2026-08-15T12:10:00.000Z", "online": true, "standalone": false, "serviceWorkerControlled": true, "catalogVersion": "d61261d04f9d", "packs": [] },
+    "offline": { "kind": "offline", "recordedAt": "2026-08-15T12:05:00.000Z", "online": false, "standalone": false, "serviceWorkerControlled": true, "catalogVersion": "d61261d04f9d", "packs": [] },
+    "restored": { "kind": "restored", "recordedAt": "2026-08-15T12:00:00.000Z", "online": true, "standalone": false, "serviceWorkerControlled": true, "catalogVersion": "d61261d04f9d", "packs": [] }
+  },
+  "performanceSession": { "format": "brain-practical-device-performance", "schemaVersion": 2, "application": { "commit": "1111111111111111111111111111111111111111", "dirty": true, "basePath": "/", "publicBaseUrl": "https://bonnginn.github.io/brain-practical-navi/", "runtimeBaseUrl": "http://127.0.0.1:4174/" }, "origin": "http://127.0.0.1:4174", "startedAt": "2026-08-15T12:00:00.000Z", "stoppedAt": null, "active": true, "memorySupported": false, "peakJsHeapBytes": null, "observations": {} },
+  "problemNotes": "",
+  "gateDisclaimer": "この記録だけでは実機ゲート合格になりません。"
+}

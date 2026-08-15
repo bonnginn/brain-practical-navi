@@ -1,0 +1,31 @@
+{
+  "format": "brain-practical-expert-review",
+  "version": 2,
+  "target": {
+    "id": "A1",
+    "group": "脳表と溝・裂",
+    "title": "左外側面",
+    "route": "#workspace/surface/lateral",
+    "direction": "左外側面。領域と溝を順に単独表示",
+    "structures": ["外側溝", "中心溝", "中心前溝", "上前頭溝", "中心前回・後回", "上側頭回", "下前頭回"],
+    "criterion": "溝ガイドが対応する脳回間を走り、皮質領域の境界面と誤認されない",
+    "audit": "SURFACE_RELATIONS_AUDIT.md"
+  },
+  "targetCommit": "edfd50e214fd3684a7446274bb166eb8a4e44423",
+  "reviewer": {
+    "name": "Review Fixture",
+    "affiliation": "Automated test only",
+    "expertise": "Schema validation"
+  },
+  "reviewedAt": "2026-08-15T00:00:00.000Z",
+  "decision": "判定保留",
+  "reason": "Automated schema fixture only; this is not an anatomical decision.",
+  "evidenceUrls": ["https://doi.org/10.1038/s41597-020-0557-9"],
+  "screenshotName": "A1-app-only.png",
+  "appUrl": "https://bonnginn.github.io/brain-practical-navi/?review=A1&commit=edfd50e214fd3684a7446274bb166eb8a4e44423#workspace/surface/lateral",
+  "environment": {
+    "userAgent": "Automated schema fixture",
+    "viewport": {"width": 1364, "height": 768},
+    "devicePixelRatio": 1
+  }
+}

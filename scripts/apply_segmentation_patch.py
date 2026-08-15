@@ -53,6 +53,28 @@ def read_patch(path: Path, dims, voxel_count: int):
             edits.append((index, label))
     if patch.get("editCount") != len(edits):
         raise ValueError(f"{path}: editCount does not match expanded runs")
+    area = dims[0] * dims[1]
+    affected_slices = sorted({index // area for index, _label in edits})
+    declared_slices = patch.get("affectedHorizontalSlices")
+    if declared_slices is not None:
+        expected = {
+            "min": affected_slices[0] if affected_slices else None,
+            "max": affected_slices[-1] if affected_slices else None,
+            "indices": affected_slices,
+        }
+        if declared_slices != expected:
+            raise ValueError(f"{path}: affectedHorizontalSlices does not match expanded runs")
+    proposed_ids = sorted({label for _index, label in edits if label > 0})
+    declared_labels = patch.get("proposedLabels")
+    if declared_labels is not None:
+        if not isinstance(declared_labels, list) or any(
+            not isinstance(item, dict) or not isinstance(item.get("id"), int)
+            for item in declared_labels
+        ):
+            raise ValueError(f"{path}: proposedLabels must contain integer ids")
+        declared_ids = sorted(item["id"] for item in declared_labels)
+        if declared_ids != proposed_ids:
+            raise ValueError(f"{path}: proposedLabels does not match expanded runs")
     return patch, edits
 
 
@@ -98,6 +120,10 @@ def main():
         "evidence": patch.get("evidence", ""),
         "confidence": patch.get("confidence", "medium"),
         "reviewStatus": patch.get("reviewStatus", "unreviewed"),
+        "reviewer": patch.get("reviewer", ""),
+        "reviewedAt": patch.get("reviewedAt", ""),
+        "proposedLabels": patch.get("proposedLabels", []),
+        "affectedHorizontalSlices": patch.get("affectedHorizontalSlices"),
         "editCount": len(edits),
         "changedVoxelCount": len(edits) - unchanged,
         "unchangedVoxelCount": unchanged,

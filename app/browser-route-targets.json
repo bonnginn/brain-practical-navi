@@ -1,0 +1,40 @@
+{
+  "format": "brain-practical-browser-route-targets",
+  "schemaVersion": 1,
+  "routes": [
+    { "id": "home", "group": "home", "title": "トップ", "hash": "#workspace/home", "expectedCanvas": { "min": 1, "max": 1 } },
+    { "id": "surface-lateral", "group": "surface", "title": "脳表・左外側面", "hash": "#workspace/surface/lateral", "expectedCanvas": { "min": 1, "max": 1 } },
+    { "id": "surface-superior", "group": "surface", "title": "脳表・上面", "hash": "#workspace/surface/superior", "expectedCanvas": { "min": 1, "max": 1 } },
+    { "id": "surface-inferior", "group": "surface", "title": "脳表・下面", "hash": "#workspace/surface/inferior", "expectedCanvas": { "min": 1, "max": 1 } },
+    { "id": "surface-medial", "group": "surface", "title": "脳表・左内側面", "hash": "#workspace/surface/medial", "expectedCanvas": { "min": 1, "max": 1 } },
+    { "id": "surface-arteries", "group": "surface", "title": "脳表・主要動脈", "hash": "#workspace/surface/arteries", "expectedCanvas": { "min": 1, "max": 1 } },
+    { "id": "surface-nerves", "group": "surface", "title": "脳表・脳神経", "hash": "#workspace/surface/nerves", "expectedCanvas": { "min": 1, "max": 1 } },
+    { "id": "surface-free", "group": "surface", "title": "脳表・自由観察", "hash": "#workspace/surface/free", "expectedCanvas": { "min": 1, "max": 1 } },
+    { "id": "sections-coronal", "group": "sections", "title": "断面・冠状断", "hash": "#workspace/sections/coronal", "expectedCanvas": { "min": 1, "max": 3 } },
+    { "id": "sections-horizontal", "group": "sections", "title": "断面・水平断", "hash": "#workspace/sections/horizontal", "expectedCanvas": { "min": 1, "max": 3 } },
+    { "id": "sections-sagittal", "group": "sections", "title": "断面・矢状断", "hash": "#workspace/sections/sagittal", "expectedCanvas": { "min": 1, "max": 3 } },
+    { "id": "blocks-lateral-ventricle", "group": "blocks", "title": "標本・側脳室全景", "hash": "#workspace/blocks/lateral-ventricle", "prerequisite": "prototype-warning", "expectedCanvas": { "min": 1, "max": 1 } },
+    { "id": "blocks-diencephalon", "group": "blocks", "title": "標本・視床と視床下部", "hash": "#workspace/blocks/diencephalon", "prerequisite": "prototype-warning", "expectedCanvas": { "min": 1, "max": 1 } },
+    { "id": "blocks-radiations", "group": "blocks", "title": "標本・レンズ核と投射線維", "hash": "#workspace/blocks/radiations", "prerequisite": "prototype-warning", "expectedCanvas": { "min": 1, "max": 1 } },
+    { "id": "blocks-commissural-system", "group": "blocks", "title": "標本・脳梁と脳弓", "hash": "#workspace/blocks/commissural-system", "prerequisite": "prototype-warning", "expectedCanvas": { "min": 1, "max": 1 } },
+    { "id": "blocks-choroid-plexus", "group": "blocks", "title": "標本・脈絡叢", "hash": "#workspace/blocks/choroid-plexus", "prerequisite": "prototype-warning", "expectedCanvas": { "min": 1, "max": 1 } },
+    { "id": "blocks-medial-temporal", "group": "blocks", "title": "標本・内側側頭葉", "hash": "#workspace/blocks/medial-temporal", "prerequisite": "prototype-warning", "expectedCanvas": { "min": 1, "max": 1 } },
+    { "id": "blocks-midbrain-section", "group": "blocks", "title": "標本・中脳横断", "hash": "#workspace/blocks/midbrain-section", "prerequisite": "prototype-warning", "expectedCanvas": { "min": 1, "max": 1 } },
+    { "id": "blocks-hindbrain", "group": "blocks", "title": "標本・脳幹と小脳", "hash": "#workspace/blocks/hindbrain", "prerequisite": "prototype-warning", "expectedCanvas": { "min": 1, "max": 1 } },
+    { "id": "quiz", "group": "quiz", "title": "復習クイズ", "hash": "#workspace/quiz", "expectedCanvas": { "min": 1, "max": 1 } },
+    { "id": "segment", "group": "segment", "title": "編集ツール", "hash": "#workspace/segment", "expectedCanvas": { "min": 3, "max": 3 } },
+    { "id": "help", "group": "overlay", "title": "操作ガイド", "hash": "#workspace/help", "expectedCanvas": { "min": 1, "max": 1 } },
+    { "id": "offline", "group": "overlay", "title": "オフライン教材", "hash": "#workspace/offline", "expectedCanvas": { "min": 1, "max": 1 } },
+    { "id": "device-check", "group": "overlay", "title": "実機診断", "hash": "#workspace/device-check", "expectedCanvas": { "min": 1, "max": 1 } },
+    { "id": "feedback", "group": "overlay", "title": "意見と共同制作", "hash": "#workspace/feedback", "expectedCanvas": { "min": 1, "max": 1 } },
+    { "id": "legal", "group": "overlay", "title": "利用条件とクレジット", "hash": "#workspace/legal", "expectedCanvas": { "min": 1, "max": 1 } }
+  ],
+  "extendedProtocols": [
+    { "id": "m2-hindbrain", "query": "?m2=compare", "hash": "#workspace/blocks/hindbrain", "expectedCanvas": { "min": 1, "max": 2 } },
+    { "id": "expert-review", "query": "?review=<ID>&commit=<40-char-SHA>", "hash": "<target-route>", "expectedCanvas": { "min": 1, "max": 3 } }
+  ],
+  "viewportProtocols": [
+    { "id": "desktop-split", "viewport": { "width": 907, "height": 691 }, "input": { "hover": "hover", "pointer": "fine" }, "expectedLayout": "compact-pc", "routeSet": "core", "expectedHorizontalOverflowPx": 0 },
+    { "id": "phone-touch", "viewport": { "width": 390, "height": 844 }, "input": { "hover": "none", "pointer": "coarse" }, "expectedLayout": "phone", "routeSet": "core", "expectedHorizontalOverflowPx": 0 }
+  ]
+}

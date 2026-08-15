@@ -23,11 +23,13 @@ jobs:
         with:
           node-version: 22
       - name: Install dependencies
-        run: npm install --no-audit --no-fund
+        run: npm ci --no-audit --no-fund
       - name: Build for GitHub Pages
         run: npm run build
         env:
           DEPLOY_GITHUB_PAGES: "true"
+      - name: Validate GitHub Pages artifact
+        run: npm run validate:pages-build -- --commit "${GITHUB_SHA}"
       - uses: actions/configure-pages@v5
         with:
           enablement: true

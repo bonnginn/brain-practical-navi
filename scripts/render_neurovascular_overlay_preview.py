@@ -2,6 +2,7 @@
 """Render orthographic QA views of the procedural neurovascular overlays."""
 
 import struct
+import gzip
 import sys
 from pathlib import Path
 
@@ -17,7 +18,8 @@ OUTPUT = ROOT / "work" / "neurovascular-overlay-qa.png"
 
 
 def vertices(name):
-    raw = (ATLAS / f"{name}.mesh").read_bytes()
+    path = ATLAS / (f"{name}.mesh.gz" if name in ("pial-left", "pial-right") else f"{name}.mesh")
+    raw = gzip.decompress(path.read_bytes()) if path.suffix == ".gz" else path.read_bytes()
     count = struct.unpack_from("<I", raw, 4)[0]
     stored = np.frombuffer(raw, dtype="<f4", count=count * 3, offset=12).reshape(-1, 3)
     return stored[:, [2, 1, 0]]  # anatomical x, y, z

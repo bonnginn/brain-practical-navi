@@ -6,7 +6,7 @@
 
 現在は**公開α版**です。未収録・専門家未確認の構造を明示したうえで、神経解剖学の監修、セグメンテーション確認、3Dモデル、教材設計、Web実装の共同制作者を募集できる導線をアプリ内に用意しています。ブロック標本は位置関係を学ぶための試作教材として提供し、形状・範囲・接続関係の完全性や解剖学的正確性は保証しません。
 
-β版では、現行の断面・アトラス再構成モデルに加え、解剖知識に基づいて一から造形する教育用3Dモデルを試作し、同定しやすさと表示品質を比較する予定です。β版までの優先順位、完了条件、公開判断は [BETA_ROADMAP.md](BETA_ROADMAP.md) に整理しています。
+β版では、現行の断面・アトラス再構成モデルに加え、解剖知識に基づいて一から造形する教育用3Dモデルを試作し、同定しやすさと表示品質を比較する予定です。β版までの優先順位、完了条件、公開判断は [BETA_ROADMAP.md](BETA_ROADMAP.md)、条件別の現在の証拠と待ち項目は [BETA_GATE_AUDIT.md](BETA_GATE_AUDIT.md)、利用前に確認すべき未完了事項は [KNOWN_LIMITATIONS.md](KNOWN_LIMITATIONS.md)、利用者に影響する更新は [CHANGELOG.md](CHANGELOG.md) に整理しています。
 
 > **公開条件（重要）**
 > 現在の配布物には BigBrain 由来データが含まれるため、公開・再配布は **非営利目的に限られます**。BigBrain 由来の改変データは CC BY-NC-SA 4.0 の表示・非営利・継承条件に従う必要があります。商用利用には権利者から別途許諾を得るか、該当データを商用利用可能な素材へ差し替えてください。
@@ -16,7 +16,7 @@
 - BigBrain 0.5 mm 単一標本脳を用いた冠状断・水平断・矢状断の連続観察
 - 固定脳 MRI 0.444 mm、平均 T1/T2 の比較表示
 - 複数構造の同時着色、クリック同定、ホイール拡大、Shift + ドラッグ移動
-- 全脳3Dモデル上での切断位置確認、脳表・分節・透過・切断表示、ホイール拡大
+- 全脳3Dモデル上での切断位置確認、脳表・分節・透過・切断表示、ホイール／2本指ピンチ拡大
 - 脳表モデルの小脳脱着
 - BigBrain 0.5 mm単一標本から1 mm形状で再構成した、側脳室、視床・視床下部、レンズ核・投射線維、脳梁・脳弓、脈絡叢、海馬・扁桃体、中脳横断、後脳の8種の局所3D標本
 - 局所標本の構造部品を複数同時に着脱し、標本組織を通常・透過・非表示へ切替、選択構造だけを単独表示
@@ -28,13 +28,15 @@
 - 下面の嗅球・嗅索、大脳脚、錐体、オリーブと、内側面の脳梁・脳弓・視床・視床下部を個別に着脱する立体部品
 - 大脳基底核、脳室系、辺縁系などの一括表示
 - 実習講義の到達目標を基にした脳表4方向＋脳底動脈・脳神経、8種の局所標本、断面17問・脳表6問の構造同定クイズ
-- クイズの5/10/15/20問指定・項目指定、間違い問題の端末内保存と履歴消去
+- クイズの5/10/15/20問指定・項目指定、間違い問題の端末内保存と履歴消去。試作問題の標準昇格は19/19の専門家証拠と管理上の採用を検査する監修台帳へ連動
 - 脳表観察内で高密度全脳モデルへ主要脳底動脈と脳神経根を重ねる、脱着・脳表透過・個別構造強調が可能な教育用模式3Dレイヤー
 - 共同制作者向けの水平断手動セグメンテーション編集、ブラシ・消去・差分取消・Undo/Redo・端末内自動保存・版固定差分JSON入出力・複数差分の競合監査
+- PWAとしてホーム画面へ追加でき、アプリ本体・閲覧済み教材を自動キャッシュし、脳表18.6 MiB／断面39.3 MiB／局所標本18.8 MiBを必要なセットだけ明示保存・更新・削除できるオフライン教材管理。保存版・完了状態を検査し、セット間の共有教材を安全に保持
+- トップ画面から公開ホームを開ける、外部QR画像APIを実行時に使わない同梱スマートフォン用QRコード
 
 本アプリは教育用です。診断、治療方針の決定、研究用の定量解析には使用できません。試作ラベルは解剖学的正解データではありません。
 
-講義範囲に対する実装状況と、必修／発展の優先順位は [LEARNING_SCOPE.md](LEARNING_SCOPE.md) に整理しています。全6資料との構造単位の照合と、標本分節・模式表示・未収録を区別した結果は [LECTURE_COVERAGE_AUDIT.md](LECTURE_COVERAGE_AUDIT.md)、構造表示の由来・確度・監修状況は [STRUCTURE_PROVENANCE.md](STRUCTURE_PROVENANCE.md)、公開α版の監査結果は [ALPHA_RELEASE_AUDIT.md](ALPHA_RELEASE_AUDIT.md)、β版への作業計画は [BETA_ROADMAP.md](BETA_ROADMAP.md) に記録しています。
+講義範囲に対する実装状況と、必修／発展の優先順位は [LEARNING_SCOPE.md](LEARNING_SCOPE.md) に整理しています。全6資料との構造単位の照合と、標本分節・模式表示・未収録を区別した結果は [LECTURE_COVERAGE_AUDIT.md](LECTURE_COVERAGE_AUDIT.md)、構造表示の由来・確度・監修状況は [STRUCTURE_PROVENANCE.md](STRUCTURE_PROVENANCE.md)、専門家が画面別に判定する手順は [EXPERT_REVIEW_CHECKLIST.md](EXPERT_REVIEW_CHECKLIST.md)、試作問題の昇格条件は [QUIZ_REVIEW_LEDGER.md](QUIZ_REVIEW_LEDGER.md)、公開α版の監査結果は [ALPHA_RELEASE_AUDIT.md](ALPHA_RELEASE_AUDIT.md)、β版への作業計画は [BETA_ROADMAP.md](BETA_ROADMAP.md)、Go / No-Go証拠は [BETA_GATE_AUDIT.md](BETA_GATE_AUDIT.md)、既知の制限は [KNOWN_LIMITATIONS.md](KNOWN_LIMITATIONS.md)、変更履歴は [CHANGELOG.md](CHANGELOG.md) に記録しています。
 
 ## ローカル実行
 
@@ -53,12 +55,18 @@ npm run dev
 
 手動セグメンテーションの差分形式、Pull Requestに必要な情報、検証・統合方法は [SEGMENTATION_WORKFLOW.md](SEGMENTATION_WORKFLOW.md) を参照してください。ブラウザ編集は元ラベルを直接変更せず、採用前の差分だけを作成します。
 
+専門家レビューは公開候補HTTPSを `/?review=A1&commit=<40桁SHA>#workspace/surface/lateral` の形式で開き、アプリ内票からversion 2記名JSONを書き出します。localhost、短縮SHA、空の根拠、画面証拠なしは正式記録にできません。単票は `npm run validate:expert-review -- <record.json>`、19対象の同一コミット網羅は `npm run validate:expert-review-bundle -- <records-directory>` で検査します。入力は自動保存・送信されません。
+
 ビルド確認:
 
 ```bash
 npm run build
 npm test
+npm run audit:routes
+npm run audit:beta
 ```
+
+`audit:routes` は現行26コア経路の過不足と、M2・専門家票の拡張手順を検査します。`audit:beta` はこれを含む12系統のローカル監査をまとめ、Go / No-Go表の外部待ちを合格と混同せず表示します。成功しても、専門家・実スマートフォン・公開URLの証拠が揃うまではβ公開可を意味しません。PWAの設計、容量、通信遮断試験は [PWA_OFFLINE_AUDIT.md](PWA_OFFLINE_AUDIT.md) を参照してください。
 
 Windows側のCodexへ開発を引き継ぐ場合は、取得手順、実画面の確認順、既知の注意点をまとめた [WINDOWS_HANDOFF.md](WINDOWS_HANDOFF.md) を参照してください。
 
@@ -120,3 +128,8 @@ Windows側のCodexへ開発を引き継ぐ場合は、取得手順、実画面�
 - [x] 公開URLでデータ取得と権利表示が正常に動くことを確認する
 
 この文書は開発上のライセンス監査結果であり、法的助言ではありません。判断が重要な公開・共同研究・商用利用では、所属機関の知財担当者または法律専門家へ確認してください。
+# 実機診断
+
+オフライン教材画面の「実機診断を開始」、または `#workspace/device-check` から、スマートフォンの画面・タッチ・PWA・保存領域・WebGL・安全域を端末内で確認し、JSONへ書き出せます。診断結果は自動送信されません。これは実機回帰を再現可能に記録する補助であり、診断だけでβ公開可とは判定しません。手順は `DEVICE_CHECK_AUDIT.md` を参照してください。
+
+診断下書きは画面移動やPWA再起動後も同じ対象ビルド内で再開できます。schema v5は対象の40桁commitと配信URL、公開HTTPSの初回ホーム、オンライン5経路・機内モード4経路の区間取得量・表示状態・取得可能なJS heap観測と、保存後・機内モード・再接続後の3時点における教材キャッシュ状態を記録します。共同制作向け編集ツールはPC専用で、スマートフォンの必須経路には含めません。受領した記録は `npm run validate:device-check -- <record.json> --commit <40桁SHA>` で検査できます。別ビルド、dirtyビルド、localhostの記録は正式証拠として拒否します。成功しても実機操作の内容やβ公開可否を自動承認するものではありません。

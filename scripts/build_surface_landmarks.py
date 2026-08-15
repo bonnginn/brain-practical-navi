@@ -9,6 +9,7 @@ high-density left/right pial-like surfaces before being converted to thin tubes.
 from __future__ import annotations
 
 import json
+import gzip
 import struct
 import sys
 from pathlib import Path
@@ -24,7 +25,7 @@ SIDES = 8
 
 
 def read_pial(path: Path) -> np.ndarray:
-    payload = path.read_bytes()
+    payload = gzip.decompress(path.read_bytes()) if path.suffix == ".gz" else path.read_bytes()
     if payload[:4] != b"BNM3":
         raise ValueError(f"{path.name}: expected BNM3")
     vertices = struct.unpack_from("<I", payload, 4)[0]
@@ -103,8 +104,8 @@ def write_mesh(name: str, geometry: tuple[np.ndarray, np.ndarray, np.ndarray]) -
 
 
 def main() -> None:
-    left = read_pial(OUT / "pial-left.mesh")
-    right = read_pial(OUT / "pial-right.mesh")
+    left = read_pial(OUT / "pial-left.mesh.gz")
+    right = read_pial(OUT / "pial-right.mesh.gz")
     trees = {"left": cKDTree(left), "right": cKDTree(right)}
     vertices = {"left": left, "right": right}
 
@@ -160,7 +161,7 @@ def main() -> None:
 
     metadata = {
         "version": 1,
-        "source": "project-authored seed curves projected to pial-left/right.mesh",
+        "source": "project-authored seed curves projected to pial-left/right.mesh.gz",
         "status": "schematic surface guides; not donor-traced or validated sulcal curves",
         "method": "nearest high-density pial vertex projection followed by thin tube generation; the longitudinal fissure uses an anterior-posterior extended midpoint filler recessed between left and right medial banks",
         "landmarks": results,

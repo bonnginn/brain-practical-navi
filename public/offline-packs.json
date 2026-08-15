@@ -1,0 +1,594 @@
+{
+  "format": "brain-practical-offline-packs",
+  "version": "d61261d04f9d",
+  "packs": [
+    {
+      "id": "surface",
+      "name": "脳表・3D観察",
+      "description": "左右半球、主要な溝・領域、深部構造、脳底の血管・脳神経を保存します。",
+      "version": "f0414c05fac5",
+      "bytes": 19455013,
+      "urls": [
+        "atlas/basal-landmarks.json",
+        "atlas/caudate.mesh",
+        "atlas/hippocampus.mesh",
+        "atlas/landmark-anterior-perforated-substance.mesh",
+        "atlas/landmark-infundibulum.mesh",
+        "atlas/landmark-mammillary-bodies.mesh",
+        "atlas/landmark-olfactory-pathway.mesh",
+        "atlas/landmark-optic-pathway.mesh",
+        "atlas/neurovascular-overlays.json",
+        "atlas/overlay-arteries-anterior.mesh",
+        "atlas/overlay-arteries-posterior.mesh",
+        "atlas/overlay-nerves-anterior.mesh",
+        "atlas/overlay-nerves-medullary.mesh",
+        "atlas/overlay-nerves-pontine.mesh",
+        "atlas/pial-left.mesh.gz",
+        "atlas/pial-right.mesh.gz",
+        "atlas/segment-brainstem.mesh",
+        "atlas/segment-cerebellum.mesh",
+        "atlas/segment-deep.mesh",
+        "atlas/segment-midbrain.mesh",
+        "atlas/segment-pons-medulla.mesh",
+        "atlas/segment-ventricles.mesh",
+        "atlas/surface-landmark-calcarine-sulcus.mesh",
+        "atlas/surface-landmark-central-sulcus.mesh",
+        "atlas/surface-landmark-lateral-sulcus.mesh",
+        "atlas/surface-landmark-longitudinal-fissure.mesh",
+        "atlas/surface-landmark-olfactory-sulcus.mesh",
+        "atlas/surface-landmark-parieto-occipital-sulcus.mesh",
+        "atlas/surface-landmark-precentral-sulcus.mesh",
+        "atlas/surface-landmark-superior-frontal-sulcus.mesh",
+        "atlas/surface-landmarks.json",
+        "atlas/surface-region-labels.json",
+        "atlas/thalamus.mesh",
+        "atlas/ventricle.mesh"
+      ],
+      "resources": [
+        {
+          "url": "atlas/basal-landmarks.json",
+          "bytes": 1732
+        },
+        {
+          "url": "atlas/caudate.mesh",
+          "bytes": 361836
+        },
+        {
+          "url": "atlas/hippocampus.mesh",
+          "bytes": 363180
+        },
+        {
+          "url": "atlas/landmark-anterior-perforated-substance.mesh",
+          "bytes": 42636
+        },
+        {
+          "url": "atlas/landmark-infundibulum.mesh",
+          "bytes": 30828
+        },
+        {
+          "url": "atlas/landmark-mammillary-bodies.mesh",
+          "bytes": 42636
+        },
+        {
+          "url": "atlas/landmark-olfactory-pathway.mesh",
+          "bytes": 63948
+        },
+        {
+          "url": "atlas/landmark-optic-pathway.mesh",
+          "bytes": 63084
+        },
+        {
+          "url": "atlas/neurovascular-overlays.json",
+          "bytes": 8554
+        },
+        {
+          "url": "atlas/overlay-arteries-anterior.mesh",
+          "bytes": 86892
+        },
+        {
+          "url": "atlas/overlay-arteries-posterior.mesh",
+          "bytes": 115532
+        },
+        {
+          "url": "atlas/overlay-nerves-anterior.mesh",
+          "bytes": 109292
+        },
+        {
+          "url": "atlas/overlay-nerves-medullary.mesh",
+          "bytes": 69772
+        },
+        {
+          "url": "atlas/overlay-nerves-pontine.mesh",
+          "bytes": 69772
+        },
+        {
+          "url": "atlas/pial-left.mesh.gz",
+          "bytes": 4996611
+        },
+        {
+          "url": "atlas/pial-right.mesh.gz",
+          "bytes": 5106478
+        },
+        {
+          "url": "atlas/segment-brainstem.mesh",
+          "bytes": 570132
+        },
+        {
+          "url": "atlas/segment-cerebellum.mesh",
+          "bytes": 1900428
+        },
+        {
+          "url": "atlas/segment-deep.mesh",
+          "bytes": 2084556
+        },
+        {
+          "url": "atlas/segment-midbrain.mesh",
+          "bytes": 197772
+        },
+        {
+          "url": "atlas/segment-pons-medulla.mesh",
+          "bytes": 430980
+        },
+        {
+          "url": "atlas/segment-ventricles.mesh",
+          "bytes": 1112076
+        },
+        {
+          "url": "atlas/surface-landmark-calcarine-sulcus.mesh",
+          "bytes": 11916
+        },
+        {
+          "url": "atlas/surface-landmark-central-sulcus.mesh",
+          "bytes": 11916
+        },
+        {
+          "url": "atlas/surface-landmark-lateral-sulcus.mesh",
+          "bytes": 11916
+        },
+        {
+          "url": "atlas/surface-landmark-longitudinal-fissure.mesh",
+          "bytes": 19404
+        },
+        {
+          "url": "atlas/surface-landmark-olfactory-sulcus.mesh",
+          "bytes": 8076
+        },
+        {
+          "url": "atlas/surface-landmark-parieto-occipital-sulcus.mesh",
+          "bytes": 8076
+        },
+        {
+          "url": "atlas/surface-landmark-precentral-sulcus.mesh",
+          "bytes": 8076
+        },
+        {
+          "url": "atlas/surface-landmark-superior-frontal-sulcus.mesh",
+          "bytes": 8076
+        },
+        {
+          "url": "atlas/surface-landmarks.json",
+          "bytes": 2800
+        },
+        {
+          "url": "atlas/surface-region-labels.json",
+          "bytes": 6294
+        },
+        {
+          "url": "atlas/thalamus.mesh",
+          "bytes": 417660
+        },
+        {
+          "url": "atlas/ventricle.mesh",
+          "bytes": 1112076
+        }
+      ]
+    },
+    {
+      "id": "sections",
+      "name": "連続断面・構造同定",
+      "description": "BigBrain連続断面、固定脳MRI、分節ラベルと断面用3D構造を保存します。",
+      "version": "4e0202ed1710",
+      "bytes": 41193901,
+      "urls": [
+        "atlas/bigbrain-fixed-mri-0444.bin.gz",
+        "atlas/bigbrain-icbm500-validation.json",
+        "atlas/bigbrain-icbm500.bin.gz",
+        "atlas/bigbrain-manual-subcortical-icbm500.bin.gz",
+        "atlas/bigbrain-practical-segmentation-icbm500-validation.json",
+        "atlas/bigbrain-practical-segmentation-icbm500.bin.gz",
+        "atlas/caudate.mesh",
+        "atlas/hippocampus.mesh",
+        "atlas/labels.json",
+        "atlas/mni-cerebra-1mm.bin.gz",
+        "atlas/section-accumbens.mesh",
+        "atlas/section-insula.mesh",
+        "atlas/section-optic-chiasm.mesh",
+        "atlas/segment-brainstem.mesh",
+        "atlas/segment-cerebellum.mesh",
+        "atlas/segment-deep.mesh",
+        "atlas/segment-midbrain.mesh",
+        "atlas/segment-pons-medulla.mesh",
+        "atlas/segment-ventricles.mesh",
+        "atlas/thalamus.mesh",
+        "atlas/ventricle.mesh"
+      ],
+      "resources": [
+        {
+          "url": "atlas/bigbrain-fixed-mri-0444.bin.gz",
+          "bytes": 8586447
+        },
+        {
+          "url": "atlas/bigbrain-icbm500-validation.json",
+          "bytes": 3045
+        },
+        {
+          "url": "atlas/bigbrain-icbm500.bin.gz",
+          "bytes": 11904805
+        },
+        {
+          "url": "atlas/bigbrain-manual-subcortical-icbm500.bin.gz",
+          "bytes": 127495
+        },
+        {
+          "url": "atlas/bigbrain-practical-segmentation-icbm500-validation.json",
+          "bytes": 2232
+        },
+        {
+          "url": "atlas/bigbrain-practical-segmentation-icbm500.bin.gz",
+          "bytes": 256380
+        },
+        {
+          "url": "atlas/caudate.mesh",
+          "bytes": 361836
+        },
+        {
+          "url": "atlas/hippocampus.mesh",
+          "bytes": 363180
+        },
+        {
+          "url": "atlas/labels.json",
+          "bytes": 5308
+        },
+        {
+          "url": "atlas/mni-cerebra-1mm.bin.gz",
+          "bytes": 9129393
+        },
+        {
+          "url": "atlas/section-accumbens.mesh",
+          "bytes": 138732
+        },
+        {
+          "url": "atlas/section-insula.mesh",
+          "bytes": 2222796
+        },
+        {
+          "url": "atlas/section-optic-chiasm.mesh",
+          "bytes": 266572
+        },
+        {
+          "url": "atlas/segment-brainstem.mesh",
+          "bytes": 570132
+        },
+        {
+          "url": "atlas/segment-cerebellum.mesh",
+          "bytes": 1900428
+        },
+        {
+          "url": "atlas/segment-deep.mesh",
+          "bytes": 2084556
+        },
+        {
+          "url": "atlas/segment-midbrain.mesh",
+          "bytes": 197772
+        },
+        {
+          "url": "atlas/segment-pons-medulla.mesh",
+          "bytes": 430980
+        },
+        {
+          "url": "atlas/segment-ventricles.mesh",
+          "bytes": 1112076
+        },
+        {
+          "url": "atlas/thalamus.mesh",
+          "bytes": 417660
+        },
+        {
+          "url": "atlas/ventricle.mesh",
+          "bytes": 1112076
+        }
+      ]
+    },
+    {
+      "id": "blocks",
+      "name": "局所ブロック標本",
+      "description": "8種類の局所標本と分離表示する構造部品を保存します。",
+      "version": "a106a5f67292",
+      "bytes": 19762338,
+      "urls": [
+        "atlas/block-choroid-plexus-choroid-plexus.mesh",
+        "atlas/block-choroid-plexus-hippocampus.mesh",
+        "atlas/block-choroid-plexus-tissue.mesh",
+        "atlas/block-choroid-plexus-ventricular-cavity.mesh",
+        "atlas/block-commissural-system-corpus-callosum.mesh",
+        "atlas/block-commissural-system-fornix.mesh",
+        "atlas/block-commissural-system-lateral-ventricles.mesh",
+        "atlas/block-commissural-system-septum-pellucidum.mesh",
+        "atlas/block-commissural-system-tissue.mesh",
+        "atlas/block-diencephalon-hypothalamus.mesh",
+        "atlas/block-diencephalon-mammillary-bodies.mesh",
+        "atlas/block-diencephalon-subthalamic-nuclei.mesh",
+        "atlas/block-diencephalon-thalami.mesh",
+        "atlas/block-diencephalon-third-ventricle.mesh",
+        "atlas/block-diencephalon-tissue.mesh",
+        "atlas/block-hindbrain-cerebellum.mesh",
+        "atlas/block-hindbrain-facial-colliculi.mesh",
+        "atlas/block-hindbrain-fourth-ventricle.mesh",
+        "atlas/block-hindbrain-hypoglossal-trigones.mesh",
+        "atlas/block-hindbrain-inferior-cerebellar-peduncles.mesh",
+        "atlas/block-hindbrain-midbrain.mesh",
+        "atlas/block-hindbrain-middle-cerebellar-peduncles.mesh",
+        "atlas/block-hindbrain-olives.mesh",
+        "atlas/block-hindbrain-pons-medulla.mesh",
+        "atlas/block-hindbrain-pyramids.mesh",
+        "atlas/block-hindbrain-superior-cerebellar-peduncles.mesh",
+        "atlas/block-hindbrain-vagal-trigones.mesh",
+        "atlas/block-hindbrain-vestibular-areas.mesh",
+        "atlas/block-lateral-ventricle-caudate.mesh",
+        "atlas/block-lateral-ventricle-hippocampus.mesh",
+        "atlas/block-lateral-ventricle-thalamus.mesh",
+        "atlas/block-lateral-ventricle-tissue.mesh",
+        "atlas/block-lateral-ventricle-ventricular-cavity.mesh",
+        "atlas/block-medial-temporal-amygdala.mesh",
+        "atlas/block-medial-temporal-hippocampus.mesh",
+        "atlas/block-medial-temporal-inferior-horn.mesh",
+        "atlas/block-medial-temporal-tissue.mesh",
+        "atlas/block-midbrain-section-aqueduct.mesh",
+        "atlas/block-midbrain-section-cerebral-peduncles.mesh",
+        "atlas/block-midbrain-section-inferior-colliculi.mesh",
+        "atlas/block-midbrain-section-interpeduncular-fossa.mesh",
+        "atlas/block-midbrain-section-lateral-geniculate-bodies.mesh",
+        "atlas/block-midbrain-section-medial-geniculate-bodies.mesh",
+        "atlas/block-midbrain-section-red-nuclei.mesh",
+        "atlas/block-midbrain-section-substantia-nigra.mesh",
+        "atlas/block-midbrain-section-superior-colliculi.mesh",
+        "atlas/block-midbrain-section-tissue.mesh",
+        "atlas/block-radiations-auditory-radiation.mesh",
+        "atlas/block-radiations-corona-radiata.mesh",
+        "atlas/block-radiations-internal-capsule.mesh",
+        "atlas/block-radiations-optic-radiation.mesh",
+        "atlas/block-radiations-pallidum-external.mesh",
+        "atlas/block-radiations-pallidum-internal.mesh",
+        "atlas/block-radiations-putamen.mesh",
+        "atlas/block-radiations-tissue.mesh",
+        "atlas/specimen-blocks.json"
+      ],
+      "resources": [
+        {
+          "url": "atlas/block-choroid-plexus-choroid-plexus.mesh",
+          "bytes": 81300
+        },
+        {
+          "url": "atlas/block-choroid-plexus-hippocampus.mesh",
+          "bytes": 177180
+        },
+        {
+          "url": "atlas/block-choroid-plexus-tissue.mesh",
+          "bytes": 921908
+        },
+        {
+          "url": "atlas/block-choroid-plexus-ventricular-cavity.mesh",
+          "bytes": 415188
+        },
+        {
+          "url": "atlas/block-commissural-system-corpus-callosum.mesh",
+          "bytes": 688492
+        },
+        {
+          "url": "atlas/block-commissural-system-fornix.mesh",
+          "bytes": 133036
+        },
+        {
+          "url": "atlas/block-commissural-system-lateral-ventricles.mesh",
+          "bytes": 566228
+        },
+        {
+          "url": "atlas/block-commissural-system-septum-pellucidum.mesh",
+          "bytes": 46452
+        },
+        {
+          "url": "atlas/block-commissural-system-tissue.mesh",
+          "bytes": 1006612
+        },
+        {
+          "url": "atlas/block-diencephalon-hypothalamus.mesh",
+          "bytes": 179420
+        },
+        {
+          "url": "atlas/block-diencephalon-mammillary-bodies.mesh",
+          "bytes": 27164
+        },
+        {
+          "url": "atlas/block-diencephalon-subthalamic-nuclei.mesh",
+          "bytes": 29348
+        },
+        {
+          "url": "atlas/block-diencephalon-thalami.mesh",
+          "bytes": 331052
+        },
+        {
+          "url": "atlas/block-diencephalon-third-ventricle.mesh",
+          "bytes": 102996
+        },
+        {
+          "url": "atlas/block-diencephalon-tissue.mesh",
+          "bytes": 1571544
+        },
+        {
+          "url": "atlas/block-hindbrain-cerebellum.mesh",
+          "bytes": 2390976
+        },
+        {
+          "url": "atlas/block-hindbrain-facial-colliculi.mesh",
+          "bytes": 15516
+        },
+        {
+          "url": "atlas/block-hindbrain-fourth-ventricle.mesh",
+          "bytes": 65236
+        },
+        {
+          "url": "atlas/block-hindbrain-hypoglossal-trigones.mesh",
+          "bytes": 13852
+        },
+        {
+          "url": "atlas/block-hindbrain-inferior-cerebellar-peduncles.mesh",
+          "bytes": 79164
+        },
+        {
+          "url": "atlas/block-hindbrain-midbrain.mesh",
+          "bytes": 207968
+        },
+        {
+          "url": "atlas/block-hindbrain-middle-cerebellar-peduncles.mesh",
+          "bytes": 117228
+        },
+        {
+          "url": "atlas/block-hindbrain-olives.mesh",
+          "bytes": 107036
+        },
+        {
+          "url": "atlas/block-hindbrain-pons-medulla.mesh",
+          "bytes": 451892
+        },
+        {
+          "url": "atlas/block-hindbrain-pyramids.mesh",
+          "bytes": 73548
+        },
+        {
+          "url": "atlas/block-hindbrain-superior-cerebellar-peduncles.mesh",
+          "bytes": 71468
+        },
+        {
+          "url": "atlas/block-hindbrain-vagal-trigones.mesh",
+          "bytes": 13852
+        },
+        {
+          "url": "atlas/block-hindbrain-vestibular-areas.mesh",
+          "bytes": 33820
+        },
+        {
+          "url": "atlas/block-lateral-ventricle-caudate.mesh",
+          "bytes": 168764
+        },
+        {
+          "url": "atlas/block-lateral-ventricle-hippocampus.mesh",
+          "bytes": 177180
+        },
+        {
+          "url": "atlas/block-lateral-ventricle-thalamus.mesh",
+          "bytes": 168860
+        },
+        {
+          "url": "atlas/block-lateral-ventricle-tissue.mesh",
+          "bytes": 1773868
+        },
+        {
+          "url": "atlas/block-lateral-ventricle-ventricular-cavity.mesh",
+          "bytes": 438668
+        },
+        {
+          "url": "atlas/block-medial-temporal-amygdala.mesh",
+          "bytes": 61740
+        },
+        {
+          "url": "atlas/block-medial-temporal-hippocampus.mesh",
+          "bytes": 159084
+        },
+        {
+          "url": "atlas/block-medial-temporal-inferior-horn.mesh",
+          "bytes": 42108
+        },
+        {
+          "url": "atlas/block-medial-temporal-tissue.mesh",
+          "bytes": 1489488
+        },
+        {
+          "url": "atlas/block-midbrain-section-aqueduct.mesh",
+          "bytes": 13588
+        },
+        {
+          "url": "atlas/block-midbrain-section-cerebral-peduncles.mesh",
+          "bytes": 151020
+        },
+        {
+          "url": "atlas/block-midbrain-section-inferior-colliculi.mesh",
+          "bytes": 24668
+        },
+        {
+          "url": "atlas/block-midbrain-section-interpeduncular-fossa.mesh",
+          "bytes": 11092
+        },
+        {
+          "url": "atlas/block-midbrain-section-lateral-geniculate-bodies.mesh",
+          "bytes": 35484
+        },
+        {
+          "url": "atlas/block-midbrain-section-medial-geniculate-bodies.mesh",
+          "bytes": 25084
+        },
+        {
+          "url": "atlas/block-midbrain-section-red-nuclei.mesh",
+          "bytes": 31428
+        },
+        {
+          "url": "atlas/block-midbrain-section-substantia-nigra.mesh",
+          "bytes": 74900
+        },
+        {
+          "url": "atlas/block-midbrain-section-superior-colliculi.mesh",
+          "bytes": 29036
+        },
+        {
+          "url": "atlas/block-midbrain-section-tissue.mesh",
+          "bytes": 116336
+        },
+        {
+          "url": "atlas/block-radiations-auditory-radiation.mesh",
+          "bytes": 62780
+        },
+        {
+          "url": "atlas/block-radiations-corona-radiata.mesh",
+          "bytes": 125284
+        },
+        {
+          "url": "atlas/block-radiations-internal-capsule.mesh",
+          "bytes": 318900
+        },
+        {
+          "url": "atlas/block-radiations-optic-radiation.mesh",
+          "bytes": 115804
+        },
+        {
+          "url": "atlas/block-radiations-pallidum-external.mesh",
+          "bytes": 83060
+        },
+        {
+          "url": "atlas/block-radiations-pallidum-internal.mesh",
+          "bytes": 40212
+        },
+        {
+          "url": "atlas/block-radiations-putamen.mesh",
+          "bytes": 181084
+        },
+        {
+          "url": "atlas/block-radiations-tissue.mesh",
+          "bytes": 3902232
+        },
+        {
+          "url": "atlas/specimen-blocks.json",
+          "bytes": 21110
+        }
+      ]
+    }
+  ]
+}

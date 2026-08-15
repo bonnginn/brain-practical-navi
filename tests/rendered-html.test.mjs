@@ -1,14 +1,16 @@
 import assert from "node:assert/strict";
-import { readFile, readdir, stat } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, readdir, rm, stat, unlink, writeFile } from "node:fs/promises";
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import test from "node:test";
 import { join } from "node:path";
+import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
 import { gunzipSync } from "node:zlib";
 
 const root = new URL("../", import.meta.url);
 const localPath = (path) => fileURLToPath(new URL(path, root));
+const deviceFixtureCommit = "e9b7506fd10ba786119f39cb237963416d3e27c6";
 
 function resolvePython() {
   const configured = process.env.PYTHON?.trim();
@@ -179,6 +181,105 @@ test("keeps every section structure colourable in the default BigBrain source", 
   assert.match(page, /insula:[^\n]+bigbrainIds:\[34,35\]/);
 });
 
+test("audits every section label for three-plane continuity regressions", () => {
+  const result = spawnSync(process.execPath, [localPath("scripts/audit_section_continuity.mjs")], {
+    cwd: localPath("."),
+    encoding: "utf8",
+    maxBuffer: 4 * 1024 * 1024,
+  });
+  assert.equal(result.status, 0, result.stderr || result.stdout);
+  assert.match(result.stdout, /PASS\t35 labels; 17 require visual review; 0 below source-specific largest-component thresholds/);
+  assert.match(result.stdout, /WARN\t22\tmanual\tright amygdala[\s\S]*secondary=1@x168-168\/y285-285\/z124-124/);
+  assert.match(result.stdout, /WARN\t24\tatlas-derived\tright lateral ventricle[\s\S]*largest=96\.388%/);
+  assert.match(result.stdout, /WARN\t30\timage-guided\tcorpus callosum candidate[\s\S]*components=2[\s\S]*largest=98\.573%/);
+});
+
+test("audits deep-structure anatomical direction relations", async () => {
+  const result = spawnSync(process.execPath, [localPath("scripts/audit_deep_relations.mjs")], {
+    cwd: localPath("."),
+    encoding: "utf8",
+    maxBuffer: 4 * 1024 * 1024,
+  });
+  assert.equal(result.status, 0, result.stderr || result.stdout);
+  assert.match(result.stdout, /PASS\t18 deep-structure relations; 0 failures/);
+  assert.match(result.stdout, /PASS\tthird ventricle remains on the midline between the thalami/);
+  assert.match(result.stdout, /PASS\tleft internal capsule stays between caudate\/thalamus and lentiform nucleus/);
+  assert.match(result.stdout, /PASS\toptic chiasm candidate remains midline, inferior to the third ventricle, and anterior to brainstem/);
+  const [audit, packageText] = await Promise.all([
+    readFile(new URL("DEEP_RELATIONS_AUDIT.md", root), "utf8"),
+    readFile(new URL("package.json", root), "utf8"),
+  ]);
+  assert.match(audit, /18\/18の大きな方向関係が合格/);
+  assert.match(audit, /専門家レビューを代替しません/);
+  assert.match(packageText, /"audit:deep": "node scripts\/audit_deep_relations\.mjs"/);
+});
+
+test("keeps provisional structure provenance consistent across data and UI", () => {
+  const result = spawnSync(process.execPath, [localPath("scripts/audit_structure_provenance.mjs")], {
+    cwd: localPath("."),
+    encoding: "utf8",
+  });
+  assert.equal(result.status, 0, result.stderr || result.stdout);
+  assert.match(result.stdout, /PASS\t13 provisional IDs; 9 UI structures; 7 specimen parts; manual labels preserved; ventricle tissue overlap 0/);
+});
+
+test("audits hindbrain and midbrain teaching-landmark relations", async () => {
+  const result = spawnSync(process.execPath, [localPath("scripts/audit_specimen_relations.mjs")], {
+    cwd: localPath("."),
+    encoding: "utf8",
+  });
+  assert.equal(result.status, 0, result.stderr || result.stdout);
+  assert.match(result.stdout, /PASS\t12 landmark relations; 0 failures/);
+  const [page, canvas] = await Promise.all([
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8"),
+  ]);
+  assert.match(page, /橋・延髄を外した時も小脳脚と菱形窩の位置ガイドは元の座標に残し/);
+  assert.match(page, /残るガイドは元の位置を示す比較用/);
+  assert.match(canvas, /showPonsMedulla\|\|part\.definition\.key!=="pons-medulla"/);
+  assert.doesNotMatch(canvas, /part\.definition\.attachment!=="pons-medulla"/);
+  assert.match(canvas, /part\.definition\.key==="pyramids"\|\|part\.definition\.key==="olives"[\s\S]*if\(ponsSurface\)draw/);
+});
+
+test("audits basal landmarks, cranial nerves, and major arteries", async () => {
+  const result = spawnSync(process.execPath, [localPath("scripts/audit_basal_neurovascular_relations.mjs")], {
+    cwd: localPath("."),
+    encoding: "utf8",
+  });
+  assert.equal(result.status, 0, result.stderr || result.stdout);
+  assert.match(result.stdout, /PASS\t14 basal\/neurovascular relations; 0 failures/);
+  const [basal, neurovascular, audit, packageText] = await Promise.all([
+    readFile(new URL("public/atlas/basal-landmarks.json", root), "utf8").then(JSON.parse),
+    readFile(new URL("public/atlas/neurovascular-overlays.json", root), "utf8").then(JSON.parse),
+    readFile(new URL("BASAL_NEUROVASCULAR_AUDIT.md", root), "utf8"),
+    readFile(new URL("package.json", root), "utf8"),
+  ]);
+  assert.equal(basal.anatomyReferences.length, 3);
+  assert.equal(neurovascular.anatomyReferences.length, 3);
+  assert.match(audit, /14\/14の大きな位置関係が合格/);
+  assert.match(audit, /専門家レビューを代替しません/);
+  assert.match(packageText, /"audit:basal": "node scripts\/audit_basal_neurovascular_relations\.mjs"/);
+});
+
+test("audits cortical surface landmark relations", async () => {
+  const result = spawnSync(process.execPath, [localPath("scripts/audit_surface_relations.mjs")], {
+    cwd: localPath("."),
+    encoding: "utf8",
+  });
+  assert.equal(result.status, 0, result.stderr || result.stdout);
+  assert.match(result.stdout, /PASS\t17 surface relations; 0 failures/);
+  const [metadata, audit, packageText] = await Promise.all([
+    readFile(new URL("public/atlas/surface-landmarks.json", root), "utf8").then(JSON.parse),
+    readFile(new URL("SURFACE_RELATIONS_AUDIT.md", root), "utf8"),
+    readFile(new URL("package.json", root), "utf8"),
+  ]);
+  assert.equal(metadata.anatomyReferences.length, 4);
+  assert.match(metadata.displayPolicy, /narrowed to 22 percent.*recessed 0\.8 mm/);
+  assert.match(audit, /17\/17の位置関係が合格/);
+  assert.match(audit, /個体脳の溝を追跡した曲線でも/);
+  assert.match(packageText, /"audit:surface": "node scripts\/audit_surface_relations\.mjs"/);
+});
+
 test("presents the practical flow clearly and keeps interface text readable", async () => {
   const [page, main, globalsCss, canvasCss, canvas, editor] = await Promise.all([
     readFile(new URL("app/page.tsx", root), "utf8"),
@@ -204,7 +305,9 @@ test("presents the practical flow clearly and keeps interface text readable", as
   assert.match(canvasCss, /\.homeLead\s*\{[^}]*font-size:\s*clamp\(14px,1\.2vw,17px\)/);
   assert.match(canvasCss, /\.workspaceSwitch button > span\s*\{\s*font-size:\s*14px/);
   assert.match(canvasCss, /\.workspaceSwitch button > i\s*\{\s*font:\s*11px\/1\.2 monospace/);
-  assert.match(canvasCss, /\.legalButton, \.feedbackButton, \.helpButton\s*\{\s*font-size:\s*13px/);
+  assert.match(canvasCss, /\.legalButton, \.feedbackButton, \.helpButton, \.offlineButton\s*\{\s*font-size:\s*13px/);
+  assert.match(canvasCss, /@media\(min-width:761px\) and \(max-width:1199px\)\{[\s\S]*\.appShell\{grid-template-rows:126px minmax\(0,1fr\)\}[\s\S]*\.topbar\{display:grid;grid-template-columns:auto minmax\(0,1fr\);grid-template-rows:58px 68px/);
+  assert.match(canvasCss, /@media\(min-width:761px\) and \(max-width:1199px\)\{[\s\S]*\.workspaceSwitch\{grid-column:1\/3;grid-row:2;width:100%;display:grid;grid-template-columns:repeat\(6,minmax\(0,1fr\)\)/);
   assert.match(page, /aria-label="利用条件・クレジットを表示">利用条件<\/button>/);
   assert.match(globalsCss, /font-family/);
   assert.doesNotMatch(`${canvas}\n${editor}`, /font="(?:7|8|9|10|11|12|13)px/);
@@ -232,6 +335,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /useState<WorkspaceMode>\(\(\)=>typeof window==="undefined"\?"home":workspaceFromHash\(window.location.hash\)\)/);
   assert.match(page, /window\.addEventListener\("hashchange",restore\)/);
   assert.match(page, /window\.addEventListener\("popstate",restore\)/);
+  assert.match(page, /setLegalOpen\(overlay==="legal"\);if\(overlay\)return;const nextWorkspace/);
   assert.match(page, /window\.history\.pushState\(null,"",nextHash\)/);
   assert.match(page, /surfaceViewFromHash\(window\.location\.hash\)/);
   assert.match(page, /workspaceHash\("surface",key\)/);
@@ -250,7 +354,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /試作中・解剖学的正確性は未保証/);
   assert.match(page, /ブロック標本（試作中）/);
   assert.match(page, /key:"blocks",label:"ブロック標本",sub:"試作品"/);
-  assert.match(page, /blockIntroOpen&&<section className="workArea blockIntroPage"/);
+  assert.match(page, /blockIntroOpen&&!m2Comparison&&<section className="workArea blockIntroPage"/);
   assert.match(page, /ブロック標本は試作中です/);
   assert.match(page, /形状・範囲・接続関係の完全性や解剖学的正確性は保証しません/);
   assert.match(page, /Cloudflare Web Analytics/);
@@ -273,6 +377,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(canvasCss, /\.homeModelStage\s*\{[^}]*height:\s*auto/);
   assert.match(canvasCss, /\.quizWorkspace\s*\{[^}]*display:\s*grid/);
   assert.match(canvasCss, /\.quizImageStage\s*\{[^}]*position:\s*relative/);
+  assert.match(canvasCss, /\.quizImageStage\.modelStage\s*\{[^}]*height:\s*auto/);
   assert.match(canvasCss, /\.quizTargetTag\s*\{[^}]*position:\s*absolute/);
   assert.match(canvasCss, /\.learningGrid,\.quizWorkspace,\.segWorkbench\{grid-template-columns:minmax\(0,1fr\) minmax\(270px,34vw,310px\)\}/);
   assert.doesNotMatch(canvasCss, /@media\(max-width:900px\)[^\n]*\.learningGrid,\.quizWorkspace,\.segWorkbench\{grid-template-columns:1fr\}/);
@@ -407,7 +512,8 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(canvas, /if\(showBrainstemNerves\)\{draw\(overlays\[3\]/);
   assert.doesNotMatch(canvas, /neurovascularOnTop/);
   assert.match(page, /useState\(surfaceView==="cranialNerves"\|\|surfaceView==="arteries"\)/);
-  assert.match(page, /if\(key==="arteries"\)\{setSurfaceVessels\(true\);setSurfaceNerves\(true\);setSurfaceCerebellum\(false\)/);
+  assert.match(page, /useState\(surfaceView==="cranialNerves"\|\|surfaceView==="inferior"\)/);
+  assert.match(page, /if\(key==="arteries"\)\{setSurfaceVessels\(true\);setSurfaceNerves\(false\);setSurfaceCerebellum\(false\)/);
   assert.doesNotMatch(page, /active\?"表示中":"表示"/);
   const neurovascularControls = page.match(/\{surfaceNeurovascular&&<div className="neurovascularControls specimenPartControls"[^\n]+<\/div>\}/)?.[0] ?? "";
   assert.ok(neurovascularControls);
@@ -510,6 +616,23 @@ test("connects only the public Google Form responder URL", async () => {
   assert.doesNotMatch(publishedText, /1nW-udpo6EAhG7Fi0D0VCpUTngjQ8ldIKUoECAFwxvv0/);
 });
 
+test("publishes a local smartphone QR entry without a runtime tracking service", async () => {
+  const [page,css,qr]=await Promise.all([
+    readFile(new URL("app/page.tsx",root),"utf8"),
+    readFile(new URL("app/canvas.css",root),"utf8"),
+    readFile(new URL("public/phone-home-qr.svg",root),"utf8"),
+  ]);
+  assert.match(page,/const publicAppHome="https:\/\/bonnginn\.github\.io\/brain-practical-navi\/#workspace\/home"/);
+  assert.match(page,/className="homePhoneInstall"/);
+  assert.match(page,/phone-home-qr\.svg/);
+  assert.match(page,/QRコードのホームURLを開く/);
+  assert.match(page,/closest\("button,a"\)/);
+  assert.doesNotMatch(page,/api\.qrserver|chart\.googleapis|quickchart/);
+  assert.match(css,/\.homePhoneInstall\s*\{/);
+  assert.match(qr,/data:image\/png;base64,iVBORw0KGgo/);
+  assert.match(qr,/https:\/\/bonnginn\.github\.io\/brain-practical-navi\/#workspace\/home/);
+});
+
 test("separates private feedback, public discussion, and pull requests", async () => {
   const [page, feedback, contributing] = await Promise.all([
     readFile(new URL("app/page.tsx", root), "utf8"),
@@ -519,6 +642,8 @@ test("separates private feedback, public discussion, and pull requests", async (
   assert.match(page, /匿名で報告・参加相談[\s\S]*Google Formを開く/);
   assert.match(page, /公開して相談・追跡[\s\S]*GitHub Issuesを開く/);
   assert.match(page, /変更を提案[\s\S]*共同制作ガイドを読む/);
+  assert.match(contributing, /^# 共同制作ガイド$/m);
+  assert.doesNotMatch(contributing, /公開前ドラフト|共同制作条件の最終確認前/);
   assert.match(page, /解剖監修・セグメンテーション・3D造形・Web実装/);
   assert.match(feedback, /ログインしていないブラウザ[\s\S]*3\/3ページの送信ボタン/);
   assert.match(feedback, /Google Forms側にも回答が残る/);
@@ -538,6 +663,29 @@ test("validates browser segmentation patches against the bundled BBS1 grid", () 
   assert.deepEqual(audit.dims, [394, 466, 378]);
   assert.equal(audit.editCount, 1);
   assert.equal(audit.changedVoxelCount + audit.unchangedVoxelCount, 1);
+  assert.deepEqual(audit.affectedHorizontalSlices, {min: 0, max: 0, indices: [0]});
+  assert.deepEqual(audit.proposedLabels, []);
+  assert.equal(audit.reviewStatus, "unreviewed");
+  assert.equal(audit.reviewer, "");
+});
+
+test("tracks segmentation scope and review decisions from export through pull request", async () => {
+  const [editor, workflow, pullRequest, issueTemplate, roadmap] = await Promise.all([
+    readFile(new URL("app/ManualSegmentationWorkbench.tsx", root), "utf8"),
+    readFile(new URL("SEGMENTATION_WORKFLOW.md", root), "utf8"),
+    readFile(new URL(".github/PULL_REQUEST_TEMPLATE.md", root), "utf8"),
+    readFile(new URL(".github/ISSUE_TEMPLATE/segmentation.yml", root), "utf8"),
+    readFile(new URL("BETA_ROADMAP.md", root), "utf8"),
+  ]);
+  assert.match(editor, /reviewStatus:"unreviewed",reviewer:"",reviewedAt:""/);
+  assert.match(editor, /proposedLabels:ids\.map/);
+  assert.match(editor, /affectedHorizontalSlices:slices\.length/);
+  assert.match(workflow, /`proposedLabels`[\s\S]*`affectedHorizontalSlices`/);
+  assert.match(pullRequest, /変更前スクリーンショット[\s\S]*変更後スクリーンショット/);
+  assert.match(pullRequest, /レビュー判断（確認者が記入）[\s\S]*差し戻し[\s\S]*判断理由/);
+  assert.match(issueTemplate, /id: comparison[\s\S]*required: true/);
+  assert.match(roadmap, /\[x\] 構造、左右、断面範囲、根拠資料、確認者、確度/);
+  assert.match(roadmap, /\[x\] 採用前後の比較と、差し戻し理由/);
 });
 
 test("pins segmentation patches to the exact bundled label revision", async () => {
@@ -571,8 +719,8 @@ test("bundles valid WebGL meshes and the required data notices", async () => {
     "hippocampus.mesh",
     "thalamus.mesh",
     "ventricle.mesh",
-    "pial-left.mesh",
-    "pial-right.mesh",
+    "pial-left.mesh.gz",
+    "pial-right.mesh.gz",
     "segment-brainstem.mesh",
     "segment-midbrain.mesh",
     "segment-pons-medulla.mesh",
@@ -592,7 +740,8 @@ test("bundles valid WebGL meshes and the required data notices", async () => {
   ];
 
   for (const name of meshNames) {
-    const mesh = await readFile(new URL(`public/atlas/${name}`, root));
+    const stored = await readFile(new URL(`public/atlas/${name}`, root));
+    const mesh = name.endsWith(".gz") ? gunzipSync(stored) : stored;
     assert.ok(["BNM1", "BNM2", "BNM3"].includes(mesh.subarray(0, 4).toString("ascii")), `${name} magic`);
     assert.ok(mesh.readUInt32LE(4) > 100, `${name} vertex count`);
     assert.ok(mesh.readUInt32LE(8) > 100, `${name} face count`);
@@ -673,6 +822,46 @@ test("keeps the browser distribution below the beta asset budget", async () => {
   }
 });
 
+test("keeps representative first-view atlas payloads within measured M1 budgets", async () => {
+  const { collectAssetAudit } = await import(new URL("scripts/audit_asset_budgets.mjs", root));
+  const audit = await collectAssetAudit();
+  for (const [name, result] of [["public", audit.public], ...Object.entries(audit.routes)]) {
+    assert.ok(result.bytes < result.limit, `${name} is ${(result.bytes / 1024 / 1024).toFixed(1)} MiB`);
+  }
+});
+
+test("ships the labelled high-density pial meshes with lossless gzip delivery", async () => {
+  const [leftStored, rightStored, canvas] = await Promise.all([
+    readFile(new URL("public/atlas/pial-left.mesh.gz", root)),
+    readFile(new URL("public/atlas/pial-right.mesh.gz", root)),
+    readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8"),
+  ]);
+  for (const [side, stored] of [["left", leftStored], ["right", rightStored]]) {
+    const mesh = gunzipSync(stored);
+    assert.equal(mesh.subarray(0, 4).toString("ascii"), "BNM3", `${side} pial magic`);
+    assert.equal(mesh.readUInt32LE(4), 163842, `${side} pial vertices`);
+    assert.ok(stored.length / mesh.length < .57, `${side} pial gzip ratio`);
+    await assert.rejects(readFile(new URL(`public/atlas/pial-${side}.mesh`, root)), {code:"ENOENT"});
+  }
+  assert.match(canvas, /`\$\{name\}\.mesh\.gz`/);
+  assert.match(canvas, /new DecompressionStream\("gzip"\)/);
+});
+
+test("keeps beta gates evidence-based without claiming release readiness", async () => {
+  const [gate, roadmap, performance, pkg] = await Promise.all([
+    readFile(new URL("BETA_GATE_AUDIT.md", root), "utf8"),
+    readFile(new URL("BETA_ROADMAP.md", root), "utf8"),
+    readFile(new URL("PERFORMANCE_AUDIT.md", root), "utf8"),
+    readFile(new URL("package.json", root), "utf8"),
+  ]);
+  assert.match(gate, /No-Go（β候補のローカル検証中）/);
+  assert.equal((gate.match(/\| (ローカル合格|実機待ち|公開待ち|管理者待ち|専門家待ち) \|/g) ?? []).length, 10);
+  assert.match(gate, /実スマートフォン[\s\S]*公開URL[\s\S]*Google Form[\s\S]*専門家レビュー/);
+  assert.match(roadmap, /BETA_GATE_AUDIT\.md/);
+  assert.match(performance, /小画面水平断（画像・ラベル、3D遅延） \| 11\.6 MiB/);
+  assert.equal(JSON.parse(pkg).scripts["audit:assets"], "node scripts/audit_asset_budgets.mjs");
+});
+
 test("shows load progress and retries every failed atlas canvas together", async () => {
   const canvas = await readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8");
   assert.match(canvas, /<progress aria-label="データ読込の進捗" \/>/);
@@ -718,7 +907,11 @@ test("draws toggleable sulci from cortical region boundaries", async () => {
   assert.match(canvas, /surfaceRegionUpperRimMesh\(part,\[96,45\],2\.05,\.9\)/);
   assert.match(canvas, /for\(let anteriorPosterior=36;anteriorPosterior>=-24;anteriorPosterior-=2\)/);
   assert.match(canvas, /anteriorExpansion=Math\.max\(0,Math\.min\(1,\(midAnteriorPosterior\+4\)\/32\)\)/);
-  assert.match(canvas, /definition\.key==="longitudinal-fissure"\)draw\(landmarks\[index\]/);
+  assert.match(canvas, /function longitudinalFissureGuideMesh/);
+  assert.match(canvas, /vertices\[offset\]=center\[axis\]\+\(vertices\[offset\]-center\[axis\]\)\*\.22/);
+  assert.match(canvas, /vertices\[\(ring\+side\)\*3\]-=\.8/);
+  assert.match(canvas, /definition\.key==="longitudinal-fissure"\)draw\(longitudinalFissureGuideMesh\(landmarks\[index\]\)/);
+  assert.match(page, /大脳縦裂[^\n]+実在する棒状構造ではありません/);
   assert.doesNotMatch(canvas, /definition\.key==="longitudinal-fissure"\|\|definition\.key==="lateral-sulcus"/);
   assert.doesNotMatch(canvas, /definition\.key==="longitudinal-fissure"\|\|definition\.key==="central-sulcus"/);
   assert.match(canvas, /surfaceLevelMesh\(part,\[57,6\],0,-14,\.9\)/);
@@ -763,8 +956,8 @@ test("bundles the practical ventral-brain landmarks in anatomical order", async 
 test("maps major CerebrA cortical regions onto both high-density pial surfaces", async () => {
   const [metadataText, left, right, page] = await Promise.all([
     readFile(new URL("public/atlas/surface-region-labels.json", root), "utf8"),
-    readFile(new URL("public/atlas/pial-left.mesh", root)),
-    readFile(new URL("public/atlas/pial-right.mesh", root)),
+    readFile(new URL("public/atlas/pial-left.mesh.gz", root)).then(gunzipSync),
+    readFile(new URL("public/atlas/pial-right.mesh.gz", root)).then(gunzipSync),
     readFile(new URL("app/page.tsx", root), "utf8"),
   ]);
   const metadata = JSON.parse(metadataText);
@@ -1178,7 +1371,7 @@ test("block specimens support continuous rotation and reuse the shared WebGL ren
   assert.match(canvas, /const loadOptional=\(needed:boolean,name:string\)=>needed\?loadMesh\(name\):Promise\.resolve\(EMPTY_MESH\)/);
   assert.match(canvas, /loadOptional\(wantVessels,"overlay-arteries-anterior"\)/);
   assert.match(canvas, /loadOptional\(surfaceLandmarks\.includes\(item\.key\),`surface-landmark-\$\{item\.key\}`\)/);
-  assert.match(canvas, /\[kind,specimenBlock,view,neurovascularOverlay,showBasalLandmarks,surfaceLandmarkKey,surfaceDeepLandmarkKey,retryVersion\]/);
+  assert.match(canvas, /\[kind,specimenBlock,effectiveSurfaceView,effectiveNeurovascularOverlay,showBasalLandmarks,surfaceLandmarkKey,surfaceDeepLandmarkKey,surfaceHighlightKey,retryVersion\]/);
   assert.match(canvas, /let active=true;setBlockMeshes\(null\);setError\(""\)/);
   assert.match(canvas, /return\(\)=>\{active=false\}/);
   assert.match(canvas, /az=\(rot\.z\?\?0\)\*Math\.PI\/180/);
@@ -1287,6 +1480,33 @@ test("surface quiz questions use labelled high-density pial regions", async () =
   assert.match(page, /useState<QuizQuestion\[\]>\(\(\)=>shuffledQuestions\(standardQuizQuestions\)\.slice\(0,10\)\)/);
 });
 
+test("neurovascular quiz stays opt-in and highlights decoded overlay structures", async () => {
+  const [page, canvas] = await Promise.all([
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8"),
+  ]);
+  const pattern = /\{target:"(quiz[^"]+)",category:"neurovascular",view:"(arteries|cranialNerves)",prompt:"[^"]+",options:\[([^\]]+)\]\}/g;
+  const questions = [...page.matchAll(pattern)];
+  assert.equal(questions.length, 9);
+  for (const [, target, view, rawOptions] of questions) {
+    const options = [...rawOptions.matchAll(/"([^"]+)"/g)].map(match => match[1]);
+    assert.equal(options.length, 4);
+    assert.ok(options.includes(target), `${target} must be an option`);
+    assert.ok(options.every(option => option.startsWith("quiz")));
+    assert.equal(view, target.startsWith("quizCn") ? "cranialNerves" : "arteries");
+  }
+  assert.match(page, /surfaceRegionKeys=.*filter\(key=>!key\.startsWith\("quiz"\)\)/);
+  assert.match(page, /function hasProvisionalQuizSource\(question:QuizQuestion\)\{return isSurfaceQuiz\(question\)/);
+  assert.match(page, /function isProvisionalQuiz\(question:QuizQuestion\)\{return hasProvisionalQuizSource\(question\)&&!quizReviewApprovalFor\(question\.target\)\}/);
+  assert.match(page, /isNeurovascularQuizTarget\(question\.target\)[\s\S]*setSelectedNeurovascularStructure\(neurovascularQuizTargets\[question\.target\]\)/);
+  assert.match(canvas, /QUIZ_VESSEL_ID_OFFSET=1000,QUIZ_NERVE_ID_OFFSET=2000/);
+  assert.match(canvas, /effectiveNeurovascularOverlay=neurovascularOverlay!=="none"\?neurovascularOverlay:quizNeurovascularOverlay/);
+  assert.match(canvas, /effectiveSurfaceView=quizNeurovascularOverlay!=="none"\?"ghost":view/);
+  assert.match(canvas, /effectiveShowCerebellum=quizNeurovascularOverlay!=="none"\?false:showCerebellum/);
+  assert.match(canvas, /id>=QUIZ_NERVE_ID_OFFSET\?id-QUIZ_NERVE_ID_OFFSET:id-QUIZ_VESSEL_ID_OFFSET/);
+  assert.match(canvas, /effectiveSurfaceHighlights=surfaceHighlights[\s\S]*id<QUIZ_VESSEL_ID_OFFSET/);
+});
+
 test("medial surface quiz keeps the same isolated-hemisphere anatomy as study mode", async () => {
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
   assert.match(page, /showCerebellum=\{quizQuestion\.view!=="medial"\}/);
@@ -1294,17 +1514,20 @@ test("medial surface quiz keeps the same isolated-hemisphere anatomy as study mo
   assert.match(page, /showMidbrain=\{quizQuestion\.view!=="medial"\}/);
 });
 
-test("help, feedback, and credit dialogs have durable shareable URLs", async () => {
+test("help, diagnostics, feedback, and credit dialogs have durable shareable URLs", async () => {
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
-  assert.match(page, /type OverlayMode = "help" \| "feedback" \| "legal"/);
+  assert.match(page, /type OverlayMode = "help" \| "offline" \| "device-check" \| "feedback" \| "legal"/);
   assert.match(page, /function overlayFromHash\(hash:string\):OverlayMode\|null/);
   assert.match(page, /overlayFromHash\(window\.location\.hash\)==="help"/);
+  assert.match(page, /overlayFromHash\(window\.location\.hash\)==="offline"/);
+  assert.match(page, /overlayFromHash\(window\.location\.hash\)==="device-check"/);
   assert.match(page, /overlayFromHash\(window\.location\.hash\)==="feedback"/);
   assert.match(page, /overlayFromHash\(window\.location\.hash\)==="legal"/);
-  assert.match(page, /window\.history\.pushState\(null,"",`#workspace\/\$\{key\}`\)/);
+  assert.match(page, /window\.history\.pushState\(\{\[CONTENT_ROUTE_HISTORY_KEY\]:contentRoute\},"",`#workspace\/\$\{key\}`\)/);
   assert.match(page, /onClick=\{\(\)=>openOverlay\("feedback"\)\}/);
   assert.match(page, /onClick=\{\(\)=>openOverlay\("legal"\)\}/);
   assert.match(page, /onClick=\{\(\)=>openOverlay\("help"\)\}/);
+  assert.match(page, /onClick=\{\(\)=>openOverlay\("offline"\)\}/);
   assert.match(page, /document\.body\.style\.overflow="hidden"/);
   assert.match(page, /document\.querySelector<HTMLButtonElement>\('\.legalDialog header button'\)\?\.focus\(\)/);
   assert.match(page, /overlayReturnFocus\.current\?\.focus\(\)/);
@@ -1313,6 +1536,186 @@ test("help, feedback, and credit dialogs have durable shareable URLs", async () 
   assert.match(page, /onClick=\{closeOverlay\} aria-label="意見募集を閉じる"/);
   assert.match(page, /onClick=\{closeOverlay\} aria-label="利用条件とクレジット表示を閉じる"/);
   assert.match(page, /onClick=\{closeOverlay\} aria-label="操作ガイドを閉じる"/);
+  assert.match(page, /onClick=\{closeOverlay\} aria-label="オフライン教材を閉じる"/);
+});
+
+test("keeps the complete browser route matrix machine-auditable", async () => {
+  const catalog=JSON.parse(await readFile(new URL("app/browser-route-targets.json",root),"utf8"));
+  assert.equal(catalog.format,"brain-practical-browser-route-targets");
+  assert.equal(catalog.schemaVersion,1);
+  assert.equal(catalog.routes.length,26);
+  assert.deepEqual(Object.fromEntries(["home","surface","sections","blocks","quiz","segment","overlay"].map(group=>[group,catalog.routes.filter(route=>route.group===group).length])),{home:1,surface:7,sections:3,blocks:8,quiz:1,segment:1,overlay:5});
+  assert.equal(new Set(catalog.routes.map(route=>route.hash)).size,26);
+  assert.ok(catalog.routes.filter(route=>route.group==="blocks").every(route=>route.prerequisite==="prototype-warning"));
+  assert.deepEqual(catalog.extendedProtocols.map(protocol=>protocol.id),["m2-hindbrain","expert-review"]);
+  assert.deepEqual(catalog.viewportProtocols.map(protocol=>protocol.id),["desktop-split","phone-touch"]);
+  assert.deepEqual(catalog.viewportProtocols.find(protocol=>protocol.id==="phone-touch"),{id:"phone-touch",viewport:{width:390,height:844},input:{hover:"none",pointer:"coarse"},expectedLayout:"phone",routeSet:"core",expectedHorizontalOverflowPx:0});
+  const result=spawnSync(process.execPath,[localPath("scripts/audit_browser_route_targets.mjs")],{encoding:"utf8",cwd:localPath(".")});
+  assert.equal(result.status,0,result.stderr);
+  assert.match(result.stdout,/26 core routes; 7 surface, 3 section, 8 gated specimen, 5 overlay/);
+  assert.match(result.stdout,/phone-touch 390x844/);
+});
+
+test("PWA manager reports install, connectivity, persistence, and pack freshness", async () => {
+  const [manager, capacity, registration, workerBuilder, css] = await Promise.all([
+    readFile(new URL("app/OfflineManager.tsx", root), "utf8"),
+    import(new URL("app/offlineCapacity.ts", root)),
+    readFile(new URL("src/pwa.ts", root), "utf8"),
+    readFile(new URL("scripts/build_service_worker.mjs", root), "utf8"),
+    readFile(new URL("app/canvas.css", root), "utf8"),
+  ]);
+  assert.match(registration, /beforeinstallprompt/);
+  assert.match(registration, /pendingInstallPrompt=null;\s*notifyInstallPrompt\(\);\s*await prompt\.prompt\(\)/);
+  assert.match(manager, /X-Brain-Practical-Pack-Version/);
+  assert.match(manager, /markerVersion===pack\.version/);
+  assert.match(manager, /controllerchange/);
+  assert.match(workerBuilder, /url\.pathname\.endsWith\("\/offline-packs\.json"\)/);
+  assert.match(workerBuilder, /const ATLAS_BYTES=/);
+  assert.match(workerBuilder, /function healthyAtlasResponse\(request,response\)/);
+  assert.match(workerBuilder, /contentType\.includes\("text\/html"\)/);
+  assert.match(workerBuilder, /Content-Encoding/);
+  assert.match(workerBuilder, /Number\(contentLength\)===expected/);
+  assert.match(workerBuilder, /response=>healthyAtlasResponse\(request,response\)/);
+  assert.match(workerBuilder, /hit&&healthyAtlasResponse\(request,hit\)\?hit:networkThenCache/);
+  assert.match(workerBuilder, /builderSource=await readFile\(fileURLToPath\(import\.meta\.url\)/);
+  assert.match(manager, /X-Brain-Practical-Pack-Complete/);
+  assert.match(manager, /state==="stale"\?"更新が必要"/);
+  assert.match(manager, /protectedPaths/);
+  assert.match(manager, /otherComplete/);
+  assert.match(manager, /busy=Object\.values\(states\)\.includes\("working"\)/);
+  assert.match(manager, /navigator\.onLine/);
+  assert.match(manager, /永続保存が許可済み/);
+  assert.match(manager, />インストール<\/button>/);
+  assert.match(manager, /requiredDownloadBytes/);
+  assert.match(manager, /storageCapacityRisk\(downloadBytes,availableBytes\)/);
+  assert.match(manager, /不足の可能性を了承して保存/);
+  assert.match(manager, /QuotaExceededError/);
+  assert.match(manager, /保存領域が不足しました/);
+  assert.match(css, /\.offlineState\.stale/);
+  assert.match(css, /\.offlineCapacityWarning/);
+  assert.equal(capacity.storageCapacityRisk(20*1048576,30*1048576),null);
+  assert.deepEqual(capacity.storageCapacityRisk(20*1048576,24*1048576),{downloadBytes:20*1048576,reserveBytes:5*1048576,availableBytes:24*1048576});
+  assert.equal(capacity.storageCapacityRisk(0,0),null);
+  assert.equal(capacity.staleReplacementBytes([{bytes:3},{bytes:12},{bytes:7}]),12);
+  assert.equal(capacity.offlineResourceResponseError(3,new Response("abc",{headers:{"Content-Type":"application/octet-stream","Content-Length":"3"}})),null);
+  assert.match(capacity.offlineResourceResponseError(3,new Response("abc",{headers:{"Content-Type":"text/html","Content-Length":"3"}})),/HTML fallback/);
+  assert.match(capacity.offlineResourceResponseError(4,new Response("abc",{headers:{"Content-Type":"application/octet-stream","Content-Length":"3"}})),/size 3, expected 4/);
+  assert.equal(capacity.offlineResourceResponseError(4,new Response("abc",{headers:{"Content-Type":"application/octet-stream","Content-Encoding":"gzip","Content-Length":"3"}})),null);
+  assert.match(capacity.offlineResourceResponseError(3,new Response("",{status:404})),/HTTP 404/);
+});
+
+test("records reproducible real-device diagnostics without treating them as a gate pass", async () => {
+  const [page, manager, diagnostics, performanceRecorder, buildInfo, viteConfig, validator, packageJson, html, css] = await Promise.all([
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("app/OfflineManager.tsx", root), "utf8"),
+    readFile(new URL("app/DeviceDiagnostics.tsx", root), "utf8"),
+    readFile(new URL("app/devicePerformance.ts", root), "utf8"),
+    readFile(new URL("app/buildInfo.ts", root), "utf8"),
+    readFile(new URL("vite.config.ts", root), "utf8"),
+    readFile(new URL("scripts/validate_device_check_record.mjs", root), "utf8"),
+    readFile(new URL("package.json", root), "utf8"),
+    readFile(new URL("index.html", root), "utf8"),
+    readFile(new URL("app/canvas.css", root), "utf8"),
+  ]);
+  assert.match(page, /deviceCheckOpen&&/);
+  assert.match(page, /<DeviceDiagnostics\/>/);
+  assert.match(manager, /href="#workspace\/device-check"/);
+  assert.match(diagnostics, /format:"brain-practical-device-check"/);
+  assert.match(diagnostics, /schemaVersion:5/);
+  assert.match(diagnostics, /application:\{\.\.\.appBuildInfo,runtimeBaseUrl:currentAppBaseUrl\(\)\}/);
+  assert.match(diagnostics, /event\.pointerType!=="touch"/);
+  assert.match(diagnostics, /navigator\.storage\?\.estimate/);
+  assert.match(diagnostics, /navigator\.serviceWorker\?\.controller/);
+  assert.match(diagnostics, /WEBGL_debug_renderer_info/);
+  assert.match(diagnostics, /safe-area-inset-top/);
+  assert.match(diagnostics, /requestAnimationFrame\(tick\)/);
+  assert.match(diagnostics, /JSON\.stringify/);
+  assert.match(diagnostics, /gateDisclaimer:disclaimer/);
+  assert.match(diagnostics, /walkthrough:\{\.\.\.walkthrough\}/);
+  assert.match(diagnostics, /problemNotes:problemNotes\.trim\(\)/);
+  assert.match(diagnostics, /walkthroughItems\.map/);
+  assert.match(diagnostics, /brain-practical-device-check-draft-v5/);
+  assert.match(diagnostics, /localStorage\.setItem\(DRAFT_KEY/);
+  assert.match(diagnostics, /capturePwaCheckpoint/);
+  assert.match(diagnostics, /cachedResources===pack\.resources\.length/);
+  assert.match(diagnostics, /recordDevicePerformanceObservation/);
+  assert.match(diagnostics, /walkthroughRoutePatterns/);
+  assert.match(diagnostics, /missingPrevious=walkthroughItems\.slice\(0,index\)\.find/);
+  assert.match(diagnostics, /routeRule\.pattern\.test\(routeHash\)/);
+  assert.match(diagnostics, /walkthroughItems\.slice\(index\)/);
+  assert.match(diagnostics, /disabled=\{waiting\}/);
+  assert.match(page, /startDevicePerformanceSampler\(\)/);
+  assert.match(page, /rememberDeviceContentRoute\(expected\)/);
+  assert.match(page, /pushState\(\{\[CONTENT_ROUTE_HISTORY_KEY\]:contentRoute\}/);
+  assert.match(performanceRecorder, /brain-practical-device-performance-v2/);
+  assert.match(performanceRecorder, /export function rememberDeviceContentRoute/);
+  assert.match(performanceRecorder, /export function deviceEvidenceRouteHash/);
+  assert.match(performanceRecorder, /history\.state as Record<string,unknown>/);
+  assert.match(performanceRecorder, /value\?\.application\?\.commit===appBuildInfo\.commit/);
+  assert.match(performanceRecorder, /performance\.clearResourceTimings\(\)/);
+  assert.match(performanceRecorder, /horizontalOverflowPx/);
+  assert.match(performanceRecorder, /peakJsHeapBytes/);
+  assert.match(performanceRecorder, /coldStart:DeviceColdStartObservation/);
+  assert.match(performanceRecorder, /localStorage\.setItem\(LAST_CONTENT_ROUTE_KEY,hash\)/);
+  assert.match(page, /if\(typeof historyRoute==="string"\)rememberDeviceContentRoute\(historyRoute\);return/);
+  assert.match(diagnostics, /next\.coldStart\.routeHash!=="#workspace\/home"/);
+  assert.match(diagnostics, /this record alone|\u3053\u306e\u8a18\u9332\u3060\u3051/);
+  assert.match(validator, /walkthroughKeys=\["home","surface","sections","blocks","quiz","offlineSurface","offlineSections","offlineBlocks","offlineQuiz"\]/);
+  assert.match(validator, /PWA checkpoints must be ordered online, offline, restored/);
+  assert.match(buildInfo, /https:\/\/bonnginn\.github\.io\/brain-practical-navi\//);
+  assert.match(viteConfig, /gitOutput\(\["rev-parse","HEAD"\]\)/);
+  assert.match(viteConfig, /__APP_BUILD_COMMIT__/);
+  assert.match(validator, /application\.commit must match --commit/);
+  assert.match(validator, /performanceSession\.origin must be https:\/\/bonnginn\.github\.io/);
+  assert.match(validator, /performance observations must follow the documented route order/);
+  assert.match(validator, /pointerType!=="touch"/);
+  assert.match(validator, /this is not beta gate approval/);
+  assert.match(packageJson, /"validate:device-check": "node scripts\/validate_device_check_record\.mjs"/);
+  assert.match(html, /viewport-fit=cover/);
+  assert.match(css, /\.deviceTouchState\.confirmed/);
+  const valid=spawnSync(process.execPath,[localPath("scripts/validate_device_check_record.mjs"),localPath("tests/fixtures/device-check-valid.json"),"--commit",deviceFixtureCommit],{encoding:"utf8"});
+  assert.equal(valid.status,0,valid.stderr);
+  assert.match(valid.stdout,/confirmed touch, 9\/9 route\/performance observations, and 3\/3 PWA checkpoints/);
+  const incomplete=spawnSync(process.execPath,[localPath("scripts/validate_device_check_record.mjs"),localPath("tests/fixtures/device-check-incomplete.json"),"--commit",deviceFixtureCommit],{encoding:"utf8"});
+  assert.equal(incomplete.status,1);
+  assert.match(incomplete.stderr,/touch must contain a confirmed touch pointer/);
+  assert.match(incomplete.stderr,/walkthrough\.surface is not confirmed/);
+  assert.match(incomplete.stderr,/PWA checkpoints must be ordered online, offline, restored/);
+  assert.match(incomplete.stderr,/pwaEvidence\.offline\.packs must contain one surface pack/);
+  assert.match(incomplete.stderr,/application\.commit must match --commit/);
+  assert.match(incomplete.stderr,/application\.dirty must be false/);
+  assert.match(incomplete.stderr,/performanceSession\.origin must be https:\/\/bonnginn\.github\.io/);
+  assert.match(incomplete.stderr,/performanceSession\.observations\.home is required/);
+  assert.match(incomplete.stderr,/performanceSession\.coldStart is required/);
+  const missingCommit=spawnSync(process.execPath,[localPath("scripts/validate_device_check_record.mjs"),localPath("tests/fixtures/device-check-valid.json")],{encoding:"utf8"});
+  assert.equal(missingCommit.status,2);
+  assert.match(missingCommit.stderr,/--commit <40-char-SHA>/);
+});
+
+test("rejects stale or polluted GitHub Pages deployment artifacts", async () => {
+  const artifact=await mkdtemp(join(tmpdir(),"brain-practical-pages-"));
+  const commit="1234567890abcdef1234567890abcdef12345678",base="/brain-practical-navi/";
+  try{
+    await mkdir(join(artifact,"assets"),{recursive:true});
+    await Promise.all([
+      writeFile(join(artifact,"index.html"),`<link rel="icon" href="${base}favicon.svg"><link rel="manifest" href="${base}manifest.webmanifest"><script src="${base}assets/app.js"></script><link rel="stylesheet" href="${base}assets/app.css">`),
+      writeFile(join(artifact,"manifest.webmanifest"),JSON.stringify({start_url:"./#workspace/home",scope:"./",display:"standalone"})),
+      writeFile(join(artifact,"build-info.json"),JSON.stringify({format:"brain-practical-build-info",schemaVersion:1,commit,dirty:false,basePath:base,publicBaseUrl:"https://bonnginn.github.io/brain-practical-navi/"})),
+      writeFile(join(artifact,"sw.js"),'const CORE_PATHS=["","assets/app.css","assets/app.js","build-info.json","favicon.svg","index.html","manifest.webmanifest","offline-packs.json","phone-home-qr.svg"];const scoped=path=>new URL(path,self.registration.scope).href;'),
+      writeFile(join(artifact,"phone-home-qr.svg"),'<svg><desc>https://bonnginn.github.io/brain-practical-navi/#workspace/home</desc></svg>'),
+      writeFile(join(artifact,"offline-packs.json"),"{}"),writeFile(join(artifact,"favicon.svg"),"<svg/>"),writeFile(join(artifact,"assets","app.js"),"export{}"),writeFile(join(artifact,"assets","app.css"),"body{}"),
+    ]);
+    const valid=spawnSync(process.execPath,[localPath("scripts/validate_pages_build.mjs"),"--commit",commit,"--dir",artifact],{encoding:"utf8"});
+    assert.equal(valid.status,0,valid.stderr);
+    assert.match(valid.stdout,/Pages artifact excludes Sites-only runtime files/);
+    await mkdir(join(artifact,"server"));
+    const polluted=spawnSync(process.execPath,[localPath("scripts/validate_pages_build.mjs"),"--commit",commit,"--dir",artifact],{encoding:"utf8"});
+    assert.equal(polluted.status,1);
+    assert.match(polluted.stderr,/must not contain the Sites worker entry/);
+    const stale=spawnSync(process.execPath,[localPath("scripts/validate_pages_build.mjs"),"--commit","aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","--dir",artifact],{encoding:"utf8"});
+    assert.equal(stale.status,1);
+    assert.match(stale.stderr,/commit must match --commit/);
+  }finally{await rm(artifact,{recursive:true,force:true})}
 });
 
 test("keeps simultaneously selectable surface colours distinct on the dark model", async () => {
@@ -1336,6 +1739,7 @@ test("keeps simultaneously selectable surface colours distinct on the dark model
   assert.match(page, /aria-pressed=\{active\}/);
   assert.match(audit, /色だけに依存せず/);
 });
+
 test("smooths cerebellar shading without moving the atlas boundary", async () => {
   const atlasCanvas = await readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8");
   assert.match(atlasCanvas,/name==="segment-cerebellum"\|\|name==="block-hindbrain-cerebellum"\?smoothCerebellarDisplayNormals\(mesh\):mesh/);
@@ -1350,26 +1754,73 @@ test("presents sulci as teaching guides rather than segmentation boundaries", as
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
   const guides = page.split("const surfaceLandmarks")[1].split("const surfaceLandmarkKeys")[0];
   assert.equal((guides.match(/note:"[^"]*位置目安です。"/g)??[]).length,7);
-  assert.match(guides,/longitudinal-fissure[\s\S]*正中の裂を示します/);
+  assert.match(guides,/longitudinal-fissure[\s\S]*正中の裂を、細い低彩度ガイドで示します。[\s\S]*実在する棒状構造ではありません/);
   assert.match(page,/source:"模式ガイド"/);
   assert.match(page,/脳回間の位置関係を読む教材ガイドです。[\s\S]*厳密な溝の輪郭や分節境界ではありません/);
 });
 
-test("describes specimen fidelity limits without implying anatomical validation", async () => {
-  const page = await readFile(new URL("app/page.tsx", root), "utf8");
+test("prioritizes beta specimen work without implying anatomical validation", async () => {
+  const [page, roadmap, css] = await Promise.all([
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("BETA_ROADMAP.md", root), "utf8"),
+    readFile(new URL("app/canvas.css", root), "utf8"),
+  ]);
+  assert.match(page, /const blockPriorities:Record<BlockSpecimenKey/);
+  assert.match(page, /radiations:\["putamen","pallidum-external","pallidum-internal","internal-capsule","corona-radiata"\]/);
+  assert.match(page, /"medial-temporal":\["hippocampus","amygdala","inferior-horn"\]/);
   assert.doesNotMatch(page.split('"medial-temporal":{name:"海馬・扁桃体標本"')[1].split('"midbrain-section"')[0], /key:"(?:fimbria|uncus)"/);
   assert.match(page, /海馬采・鉤は信頼できる境界データがなく3D未収録/);
+  assert.doesNotMatch(page, /放線群、脈絡叢、海馬采、脳弓/);
+  assert.match(page, /旧海馬采・鉤メッシュは位置と連続性の根拠が不足するため、β候補の配布物から除外/);
+  assert.match(page, /useState<string\[]>\(initialBlockLayers\(initialBlockSpecimen\)\)/);
+  assert.match(page, /setBlockLayers\(initialBlockLayers\(key\)\)/);
+  assert.match(css, /@media\(max-width:760px\)\{\.specimenViewControls\{right:8px;bottom:8px\}\.specimenAttachmentControls\{bottom:66px\}/);
+  const priorities = page.split("const blockPriorities")[1].split("const blockInitialRotations")[0];
+  assert.equal((priorities.match(/label:"β重点"/g)??[]).length, 4);
+  assert.equal((priorities.match(/label:"発展枠"/g)??[]).length, 4);
+  assert.match(page, /試作中・解剖学的正確性は未保証/);
   assert.match(page, /const blockSpecimenDisclaimer="褐色組織は位置関係を読むための表示で[\s\S]*見た目の実在感を形状や境界の正確性の根拠にせず/);
   assert.match(page, /caution:`\$\{blockSpecimenDisclaimer\} \$\{blockSpecimens\[blockSpecimen\]\.caution\}`/);
+  assert.match(roadmap, /\[x\] 8標本を一律に磨くのではなく[\s\S]*側脳室全景[\s\S]*レンズ核・投射線維[\s\S]*脈絡叢[\s\S]*内側側頭葉/);
+  assert.match(roadmap, /\[x\] 脳室全景、レンズ核と投射線維、脈絡叢、内側側頭葉[\s\S]*5\/7[\s\S]*3\/3/);
+  assert.match(roadmap, /\[x\] 正当に利用できる資料と監修がない限り/);
+  assert.match(roadmap, /\[x\] βでも検証が不足する標本/);
 });
+
 test("keeps provisional and expert-unreviewed structures out of the default quiz", async () => {
-  const page = await readFile(new URL("app/page.tsx", root), "utf8");
-  assert.match(page, /function isProvisionalQuiz\(question:QuizQuestion\)\{return isSurfaceQuiz\(question\)\|\|structures\[question\.target\]\.labelSource!=="manual"\}/);
+  const [page,ledgerModule,ledger,css] = await Promise.all([readFile(new URL("app/page.tsx", root), "utf8"),readFile(new URL("app/quizReviewLedger.ts",root),"utf8"),readFile(new URL("app/quiz-review-ledger.json",root),"utf8").then(JSON.parse),readFile(new URL("app/canvas.css",root),"utf8")]);
+  assert.match(page, /function hasProvisionalQuizSource\(question:QuizQuestion\)\{return isSurfaceQuiz\(question\)\|\|structures\[question\.target\]\.labelSource!=="manual"\}/);
+  assert.match(page, /function isProvisionalQuiz\(question:QuizQuestion\)\{return hasProvisionalQuizSource\(question\)&&!quizReviewApprovalFor\(question\.target\)\}/);
   assert.match(page, /standardQuizQuestions=quizQuestions\.filter\(question=>!isProvisionalQuiz\(question\)\)/);
   assert.match(page, /useState<QuizQuestion\[]>\(\(\)=>shuffledQuestions\(standardQuizQuestions\)/);
   assert.match(page, /quizIncludeProvisional\|\|!isProvisionalQuiz\(question\)/);
-  assert.match(page, /試作問題を含む[\s\S]*専門家未確認・位置照合ラベル/);
-  assert.match(page, /試作・専門家未確認/);
+  assert.match(page, /標準問題[\s\S]*手動分節＋監修台帳承認/);
+  assert.match(page, /試作問題を含む[\s\S]*監修台帳未承認・位置照合ラベル/);
+  assert.match(page, /試作・監修台帳未承認/);
+  assert.match(page, /監修台帳・標準問題/);
+  assert.match(ledgerModule,/approvalsByTarget[\s\S]*quizReviewApprovalFor/);
+  assert.equal(ledger.format,"brain-practical-quiz-review-ledger");
+  assert.equal(ledger.schemaVersion,1);
+  assert.deepEqual(ledger.approvals,[]);
+  assert.match(css,/\.quizStandardScope/);
+  assert.match(css,/\.reviewedQuizFlag/);
+});
+
+test("requires complete expert and governance evidence before promoting a trial quiz", async () => {
+  const packageData=JSON.parse(await readFile(new URL("package.json",root),"utf8"));
+  assert.match(packageData.scripts.build,/^node scripts\/audit_quiz_review_ledger\.mjs &&/);
+  const real=spawnSync(process.execPath,[localPath("scripts/audit_quiz_review_ledger.mjs")],{encoding:"utf8",cwd:localPath(".")});
+  assert.equal(real.status,0,real.stderr);
+  assert.match(real.stdout,/0 approved trial target\(s\), 22 remain evidence-gated/);
+  const directory=await mkdtemp(join(tmpdir(),"brain-practical-quiz-ledger-")),ledgerPath=join(directory,"invalid.json");
+  try{
+    await writeFile(ledgerPath,JSON.stringify({format:"brain-practical-quiz-review-ledger",schemaVersion:1,approvals:[{target:"ventricle",reviewedCommit:"short",evidenceTargetIds:["C1"],bundleDirectory:"tests/fixtures",adoptedAt:"invalid",adoptedBy:"",reason:"too short",caution:""}]}));
+    const invalid=spawnSync(process.execPath,[localPath("scripts/audit_quiz_review_ledger.mjs"),ledgerPath],{encoding:"utf8",cwd:localPath(".")});
+    assert.equal(invalid.status,1);
+    assert.match(invalid.stderr,/reviewedCommit must be a full 40-character SHA/);
+    assert.match(invalid.stderr,/adoptedBy is required/);
+    assert.match(invalid.stderr,/bundleDirectory must be expert-review-records/);
+  }finally{await rm(directory,{recursive:true,force:true})}
 });
 
 test("publishes a durable keyboard and pointer operation guide", async () => {
@@ -1377,7 +1828,7 @@ test("publishes a durable keyboard and pointer operation guide", async () => {
     readFile(new URL("app/page.tsx", root), "utf8"),
     readFile(new URL("app/canvas.css", root), "utf8"),
   ]);
-  assert.match(page, /type OverlayMode = "help" \| "feedback" \| "legal"/);
+  assert.match(page, /type OverlayMode = "help" \| "offline" \| "device-check" \| "feedback" \| "legal"/);
   assert.match(page, /#workspace\/\$\{key\}/);
   assert.match(page, /操作ガイドを表示/);
   assert.match(page, /<kbd>Ctrl<\/kbd>／<kbd>⌘<\/kbd>＋<kbd>Z<\/kbd>/);
@@ -1393,7 +1844,7 @@ test("complex workspaces expose visible keyboard focus and a main-content shortc
     readFile(new URL("app/ManualSegmentationWorkbench.tsx", root), "utf8"),
   ]);
   assert.match(page, /className="skipLink" onClick=\{\(\)=>document\.getElementById\("workspace"\)\?\.focus\(\)\}/);
-  assert.equal((page.match(/id="workspace" tabIndex=\{-1\}/g) ?? []).length, 7);
+  assert.equal((page.match(/id="workspace" tabIndex=\{-1\}/g) ?? []).length, 8);
   assert.match(page, /workspace==="blocks"&&blockIntroOpen/);
   assert.match(page, /workspace==="blocks"&&!blockIntroOpen/);
   assert.ok((page.match(/aria-current=\{/g) ?? []).length >= 4);
@@ -1404,26 +1855,88 @@ test("complex workspaces expose visible keyboard focus and a main-content shortc
   assert.match(editor, /aria-label="差分JSONファイルを選択"/);
 });
 
-test("narrow layouts keep destination rails and full workflow panels distinct", async () => {
+test("phone layouts use a bottom workspace dock and a complete context sheet", async () => {
   const [page, css] = await Promise.all([
     readFile(new URL("app/page.tsx", root), "utf8"),
     readFile(new URL("app/canvas.css", root), "utf8"),
   ]);
   assert.match(page, /appShell workspace-\$\{workspace\}/);
   assert.match(page, /aria-label="意見・共同制作を表示"/);
-  assert.match(css, /\.leftRail \.lessonRailBtn\{min-width:136px;display:grid/);
-  assert.match(css, /\.leftRail \.planeBtn small\{display:none\}/);
+  assert.match(css, /html\{-webkit-text-size-adjust:100%;text-size-adjust:100%\}/);
+  assert.match(page, /className=\{`mobileRailBackdrop \$\{mobileRailOpen\?"visible":""\}`\}/);
+  assert.match(page, /className="mobileContextToggle" aria-expanded=\{mobileRailOpen\}/);
+  assert.match(page, /matchMedia\("\(max-width: 760px\) and \(hover: none\) and \(pointer: coarse\)"\)/);
+  assert.match(page, /id="mobile-context-panel" className=\{`leftRail rail-\$\{workspace\} \$\{mobileRailOpen\?"mobileOpen":""\}`\} role=\{phoneViewport\?"dialog":undefined\}/);
+  assert.match(page, /aria-modal=\{phoneViewport&&mobileRailOpen\?true:undefined\}/);
+  assert.match(page, /workspaceModes\.filter\(item=>!phoneViewport\|\|item\.key!=="segment"\)/);
+  assert.match(page, /断面と表示構造[\s\S]*復習クイズの設定/);
+  assert.match(page, /!phoneViewport&&<button className=\{sectionLayout==="both"/);
+  assert.match(page, /sectionModelRotations\.slice\(0,phoneViewport\?1:2\)/);
+  assert.match(css, /grid-template-columns:repeat\(5,minmax\(0,1fr\)\)/);
+  assert.match(css, /\.homePhoneInstall\{display:none\}/);
+  assert.match(page, /document\.body\.style\.overflow="hidden"/);
+  assert.match(page, /\.mobileRailSheetHead button[\s\S]*focus\(\{preventScroll:true\}\)/);
+  assert.match(page, /if\(event\.shiftKey&&document\.activeElement===first\)[\s\S]*last\.focus\(\)/);
+  assert.match(css, /@media\(max-width:760px\) and \(hover:none\) and \(pointer:coarse\)\{[\s\S]*\.workspaceSwitch\{position:fixed;z-index:50;left:0;right:0;bottom:0;height:calc\(66px \+ env\(safe-area-inset-bottom,0px\)\)/);
+  assert.match(css, /\.mobileContextToggle\{position:fixed;z-index:43;right:12px;bottom:calc\(76px \+ env\(safe-area-inset-bottom,0px\)\)/);
+  assert.match(css, /\.appShell \.leftRail\{position:fixed;z-index:45;[\s\S]*bottom:calc\(66px \+ env\(safe-area-inset-bottom,0px\)\);[\s\S]*max-height:min\(72dvh,620px\)/);
+  assert.match(css, /\.appShell \.leftRail\.mobileOpen\{transform:translateY\(0\);visibility:visible;pointer-events:auto\}/);
+  assert.match(css, /\.leftRail \.sectionStructureButtons\{display:grid;grid-template-columns:1fr 1fr/);
+  assert.match(css, /\.mobileSectionStructurePicker\{display:none\}/);
   assert.doesNotMatch(page, /landmarks\.map\(mark/);
-  assert.match(css, /\.workspace-quiz \.leftRail,/);
-  assert.match(css, /\.workspace-segment \.leftRail\{position:static/);
-  assert.match(css, /\.workspace-quiz \.quizSetup\{margin:10px 0 0\}/);
   assert.match(css, /@media\(max-width:380px\)\{\.learningModelCard \.panelHead\{min-width:0;flex-wrap:wrap/);
+  assert.match(css, /\.helpButton::after\{content:"操作";font-size:12px\}/);
+  assert.match(css, /\.feedbackButton::after\{content:"共同";font-size:12px\}/);
+  assert.match(css, /\.legalButton::after\{content:"条件";font-size:12px\}/);
+  assert.match(css, /@media\(max-width:380px\)[\s\S]*\.specimenAttachmentControls\{left:8px;right:64px;max-width:none\}/);
+});
+
+test("touch section slices hand vertical scrolling to the document while keeping tap identification", async () => {
+  const [canvas, css, page] = await Promise.all([
+    readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8"),
+    readFile(new URL("app/canvas.css", root), "utf8"),
+    readFile(new URL("app/page.tsx", root), "utf8"),
+  ]);
+  assert.match(css, /\.sliceStage \.atlasCanvas\.identifiable \{ touch-action: pan-y; \}/);
+  assert.match(css, /\.workspace-sections \.workArea\{overflow:visible;overscroll-behavior:auto;scrollbar-width:auto\}/);
+  assert.doesNotMatch(page, /document\.addEventListener\("touchmove",move/);
+  assert.doesNotMatch(page, /window\.scrollBy\(0,delta\)/);
+  assert.match(canvas, /sliceTouchClick=useRef/);
+  assert.match(canvas, /kind==="slice"&&e\.pointerType==="touch"/);
+  assert.match(canvas, /if\(!click\.moved\)identify\(e\)/);
+});
+
+test("M2 compares data-anchored and schematic hindbrain models without conflating provenance", async () => {
+  const [page, css, pkg, audit, record] = await Promise.all([
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("app/canvas.css", root), "utf8"),
+    readFile(new URL("package.json", root), "utf8"),
+    readFile(new URL("scripts/audit_model_comparison.mjs", root), "utf8"),
+    readFile(new URL("MODEL_COMPARISON_AUDIT.md", root), "utf8"),
+  ]);
+  assert.match(page, /new URLSearchParams\(window\.location\.search\)\.get\("m2"\)==="compare"/);
+  assert.match(page, /DATA-ANCHORED[\s\S]*PROJECT-AUTHORED/);
+  assert.match(page, /showComparisonReconstruction=!compactViewport\|\|comparisonMobileMode==="reconstruction"/);
+  assert.match(page, /showComparisonSchematic=!compactViewport\|\|comparisonMobileMode==="schematic"/);
+  assert.match(page, /role="group" aria-label="スマートフォンで比較するモデル"/);
+  assert.match(page, /\{showComparisonReconstruction&&<section className="modelComparisonCard"/);
+  assert.match(page, /\{showComparisonSchematic&&<section className="modelComparisonCard"/);
+  assert.match(page, /specimenLayers=\{hindbrainReconstructionComparisonLayers\}[\s\S]*specimenLayers=\{hindbrainSchematicComparisonLayers\}/);
+  assert.match(page, /specimenTissueMode="solid"[\s\S]*specimenTissueMode="hidden"/);
+  assert.match(css, /\.modelComparisonGrid\{[\s\S]*grid-template-columns:minmax\(0,1fr\) minmax\(0,1fr\)/);
+  assert.match(css, /@media\(max-width:760px\)\{\.modelComparisonNotice[\s\S]*\.modelComparisonGrid\{display:block\}/);
+  assert.match(css, /\.modelComparisonMobileSwitch\{display:grid;grid-template-columns:1fr 1fr/);
+  assert.match(pkg, /"audit:models": "node scripts\/audit_model_comparison\.mjs"/);
+  assert.match(audit, /comparison-sets-disjoint/);
+  assert.match(record, /β本体はAの標本再構成を基盤にし/);
+  assert.match(record, /専門家による形状承認ではありません/);
 });
 
 test("ships a reproducible Google Form generator for feedback and collaborators", async () => {
-  const [script, guide] = await Promise.all([
+  const [script, guide, audit] = await Promise.all([
     readFile(new URL("scripts/create_google_feedback_form.gs", root), "utf8"),
     readFile(new URL("ALPHA_FEEDBACK.md", root), "utf8"),
+    readFile(new URL("FORM_OPERATION_AUDIT.md", root), "utf8"),
   ]);
   assert.match(script, /function createBrainPracticalFeedbackForm\(\)/);
   assert.match(script, /FormApp\.create\(CONFIG\.FORM_TITLE, true\)/);
@@ -1431,6 +1944,7 @@ test("ships a reproducible Google Form generator for feedback and collaborators"
   assert.match(script, /routeItem\.createChoice\('修正提案・不具合・使いにくさを送る', feedbackPage\)/);
   assert.match(script, /routeItem\.createChoice\('共同制作者として参加したい', collaborationPage\)/);
   assert.match(script, /FormApp\.PageNavigationType\.SUBMIT/);
+  assert.match(script, /RETENTION_TEXT: '保存期間：β版の改善と共同制作の連絡に必要な期間。不要になった連絡先は削除します。'/);
   assert.match(script, /refreshExistingForm_\(existingForm, existingSheet\)/);
   assert.match(script, /form\.setTitle\(CONFIG\.FORM_TITLE\)\.setDescription\(buildDescription_\(\)\)/);
   assert.match(script, /spreadsheet\.rename\(CONFIG\.RESPONSE_SHEET_TITLE\)/);
@@ -1438,6 +1952,10 @@ test("ships a reproducible Google Form generator for feedback and collaborators"
   assert.doesNotMatch(script, /addFileUploadItem/);
   assert.match(guide, /リンクを知っている全員/);
   assert.match(guide, /CONTACT_TEXT/);
+  assert.match(guide, /\[BETA FORM DELETE TEST YYYY-MM-DD\]/);
+  assert.match(audit, /未ログインのWindows Chromium/);
+  assert.match(audit, /回答スプレッドシートの該当行とGoogle Formsの個別回答を順に削除/);
+  assert.match(audit, /回答件数が試験前の0件へ戻った/);
 });
 
 test("research-backed anatomy cautions distinguish source data from teaching schematics", async () => {
@@ -1465,7 +1983,12 @@ test("3D viewers expose orientation, keyboard rotation, reset, and visible zoom 
   assert.ok((page.match(/onKeyDown=\{handleModelKey\}/g) ?? []).length >= 4);
   assert.match(page, /event\.key\.toLowerCase\(\)==="r"/);
   assert.match(canvas, /className="modelZoomControls"/);
-  assert.match(canvas, /aria-label="拡大率を100パーセントに戻す"/);
+  assert.match(canvas, /aria-label="表示倍率を100パーセントに戻す"/);
+  assert.match(canvas, /Math\.round\(zoom\/initialZoom\.current\*100\)/);
+  assert.match(canvas, /matchMedia\("\(max-width: 760px\) and \(hover: none\) and \(pointer: coarse\)"\)\.matches\?\.87:1/);
+  assert.match(canvas, /function pinchMove[\s\S]*pinch\.current\.zoom\*distance\/pinch\.current\.distance/);
+  assert.match(canvas, /onTouchStart=\{pinchStart\} onTouchMove=\{pinchMove\}/);
+  assert.match(page, /activeModelTouches\.current\.size>1/);
   assert.match(canvas, /showZoomControls=true/);
   assert.match(page, /showZoomControls=\{false\}/);
   assert.match(page, /<OrientationCompass rotation=\{modelRotation\} compact\/>/);
@@ -1513,6 +2036,7 @@ test("defers the optional section 3D comparison on narrow screens", async () => 
   assert.match(page, /sectionLayout!=="slice"&&<aside className="modelInset"/);
   assert.match(page, /断面＋3D[\s\S]*断面のみ[\s\S]*3Dのみ/);
 });
+
 test("releases expanded atlas volumes after the last consuming canvas unmounts", async () => {
   const [canvas, editor, performanceAudit] = await Promise.all([
     readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8"),
@@ -1525,6 +2049,7 @@ test("releases expanded atlas volumes after the last consuming canvas unmounts",
   assert.match(editor, /return\(\)=>\{active=false;dataCache=null\}/);
   assert.match(performanceAudit, /ブラウザのHTTPキャッシュは消さない/);
 });
+
 test("releases decoded 3D mesh caches after the last surface canvas unmounts", async () => {
   const canvas = await readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8");
   assert.match(canvas,/surfaceMeshConsumers=0,surfaceMeshReleaseTimer:number\|null=null/);
@@ -1532,6 +2057,22 @@ test("releases decoded 3D mesh caches after the last surface canvas unmounts", a
   assert.match(canvas,/function releaseSurfaceMeshCaches\(\)[\s\S]*if\(surfaceMeshConsumers===0\)meshCache\.clear\(\)/);
   assert.match(canvas,/if\(kind!=="surface"\)return;retainSurfaceMeshCaches\(\);return releaseSurfaceMeshCaches/);
 });
+
+test("cross-checks segmentation edits in coronal and sagittal planes", async () => {
+  const [editor, css] = await Promise.all([
+    readFile(new URL("app/ManualSegmentationWorkbench.tsx", root), "utf8"),
+    readFile(new URL("app/canvas.css", root), "utf8"),
+  ]);
+  assert.match(editor, /coronalRef=useRef<HTMLCanvasElement>/);
+  assert.match(editor, /sagittalRef=useRef<HTMLCanvasElement>/);
+  assert.match(editor, /plane:"coronal"\|"sagittal"/);
+  assert.match(editor, /effective=editsRef\.current\.get\(index\)\?\?data\.labels\[index\]/);
+  assert.match(editor, /setReviewPoint\(\{x:selected\.x,y:data\.dims\[1\]-1-selected\.b\}\)/);
+  assert.match(editor, /3方向照合/);
+  assert.match(editor, /未保存の差分も選択ラベルの色で反映/);
+  assert.match(css, /\.segOrthogonalReview canvas/);
+});
+
 test("skips canvas drawing while a responsive panel has zero size", async () => {
   const canvas = await readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8");
   assert.match(canvas, /w=el\.clientWidth,h=el\.clientHeight;if\(w<1\|\|h<1\)return;el\.width=/);
@@ -1590,6 +2131,112 @@ test("section quiz slices can be stepped without dragging the range control", as
   assert.match(page, /Math\.min\(100,value\+1\)/);
   assert.match(css, /\.quizSliceControl\s*\{[^}]*grid-template-columns:\s*32px minmax\(0,1fr\) 32px/);
 });
+
+test("publishes beta-candidate changes and known limitations", async () => {
+  const [readme, limitations, changelog] = await Promise.all([
+    readFile(new URL("README.md", root), "utf8"),
+    readFile(new URL("KNOWN_LIMITATIONS.md", root), "utf8"),
+    readFile(new URL("CHANGELOG.md", root), "utf8"),
+  ]);
+  assert.match(readme, /\[KNOWN_LIMITATIONS\.md\]\(KNOWN_LIMITATIONS\.md\)/);
+  assert.match(readme, /\[CHANGELOG\.md\]\(CHANGELOG\.md\)/);
+  assert.match(limitations, /専門家による確認を意味しません/);
+  assert.match(limitations, /実機スマートフォン/);
+  assert.match(limitations, /診断、治療、手術計画、研究用の定量解析には使用できません/);
+  assert.match(changelog, /Unreleased — β候補/);
+  assert.match(changelog, /大脳基底核の一括選択/);
+  assert.doesNotMatch(limitations, /冠状断・矢状断は同じラベルを照合する編集表示をまだ備えていません/);
+  assert.match(limitations, /冠状断・矢状断には同じ交点、選択ラベル、未保存差分を同期表示できます/);
+});
+
+test("classifies every lecture target without treating schematic content as validated", async () => {
+  const [roadmap, coverage] = await Promise.all([
+    readFile(new URL("BETA_ROADMAP.md", root), "utf8"),
+    readFile(new URL("LECTURE_COVERAGE_AUDIT.md", root), "utf8"),
+  ]);
+  for(const classification of ["標本分節","試作分節","アトラス脳表","模式3D","位置目安","表記のみ","未収録"])assert.match(coverage,new RegExp(`\\| ${classification} \\|`));
+  assert.match(coverage,/2021年神経解剖学講義・課題スケッチ全6ファイル/);
+  assert.match(coverage,/構造境界の専門家確認を完了した記録ではありません/);
+  assert.match(roadmap,/\[x\] 講義資料の必修構造を再照合し、未収録と模式表示を区別する/);
+});
+
+test("packages expert anatomy review as reproducible screen-level decisions", async () => {
+  const [review, provenance, readme, page, css, targets] = await Promise.all([
+    readFile(new URL("EXPERT_REVIEW_CHECKLIST.md", root), "utf8"),
+    readFile(new URL("STRUCTURE_PROVENANCE.md", root), "utf8"),
+    readFile(new URL("README.md", root), "utf8"),
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("app/canvas.css", root), "utf8"),
+    readFile(new URL("app/expert-review-targets.json", root), "utf8").then(JSON.parse),
+  ]);
+  for (const route of [
+    "#workspace/surface/lateral", "#workspace/surface/superior", "#workspace/surface/inferior",
+    "#workspace/surface/medial", "#workspace/surface/arteries", "#workspace/surface/nerves",
+    "#workspace/sections/coronal", "#workspace/sections/horizontal", "#workspace/sections/sagittal",
+    "#workspace/blocks/lateral-ventricle", "#workspace/blocks/radiations",
+    "#workspace/blocks/choroid-plexus", "#workspace/blocks/medial-temporal",
+  ]) assert.ok(review.includes(route), route);
+  assert.match(review, /採用可.*注意書き付きで採用可.*要修正.*判定保留/);
+  assert.match(review, /位置、範囲、左右、連続性、表面からの可視性/);
+  assert.match(review, /第三者の教科書・講義・標本画像を含めず/);
+  assert.match(provenance, /EXPERT_REVIEW_CHECKLIST\.md/);
+  assert.match(readme, /EXPERT_REVIEW_CHECKLIST\.md/);
+  assert.equal(targets.length,19);
+  assert.equal(new Set(targets.map(target=>target.id)).size,19);
+  assert.match(page,/get\("review"\)/);
+  assert.match(page,/format:"brain-practical-expert-review"/);
+  assert.match(page,/version:2/);
+  assert.match(page,/正式記録は公開候補HTTPS/);
+  assert.match(page,/\^\[0-9a-f\]\{40\}\$/);
+  assert.match(page,/根拠URL <b>必須/);
+  assert.match(page,/スクリーンショット名 <b>必須/);
+  assert.match(page,/入力はこの端末の画面内だけで保持され、自動保存・送信されません/);
+  assert.match(page,/検証用JSONを書き出す/);
+  assert.match(page,/未書き出しの入力があります/);
+  assert.match(page,/入力を続ける/);
+  assert.match(page,/破棄して移動/);
+  assert.match(page,/レビュー票へ戻る/);
+  assert.match(page,/reviewCollapseMobile">観察へ/);
+  assert.match(css,/\.expertReviewPanel\{position:fixed/);
+  assert.match(css,/@media\(max-width:760px\)[\s\S]*\.expertReviewPanel\{top:auto;left:8px/);
+  assert.match(css,/\.reviewCollapseMobile\{display:none\}[\s\S]*@media\(max-width:760px\)[\s\S]*\.reviewCollapseMobile\{display:inline\}/);
+  const audit=spawnSync(process.execPath,[localPath("scripts/audit_expert_review_targets.mjs")],{encoding:"utf8",cwd:localPath(".")});
+  assert.equal(audit.status,0,audit.stderr);
+  assert.match(audit.stdout,/PASS\texpert review target audit complete/);
+  const validation=spawnSync(process.execPath,[localPath("scripts/validate_expert_review_record.mjs"),localPath("tests/fixtures/expert-review-record-smoke.json")],{encoding:"utf8",cwd:localPath(".")});
+  assert.equal(validation.status,0,validation.stderr);
+  assert.match(validation.stdout,/PASS\texpert review record v2 is structurally valid/);
+  const incomplete=spawnSync(process.execPath,[localPath("scripts/validate_expert_review_record.mjs"),localPath("tests/fixtures/expert-review-record-incomplete.json")],{encoding:"utf8",cwd:localPath(".")});
+  assert.notEqual(incomplete.status,0);
+  assert.match(incomplete.stderr,/expected version 2/);
+  assert.match(incomplete.stderr,/complete canonical registry entry/);
+  assert.match(incomplete.stderr,/full 40-digit Git SHA/);
+  assert.match(incomplete.stderr,/at least one public HTTPS URL/);
+  assert.match(incomplete.stderr,/public review base/);
+  assert.match(incomplete.stderr,/bind the target ID, full commit, and canonical route/);
+  assert.match(incomplete.stderr,/image filename without directories/);
+});
+
+test("requires complete, single-commit expert review coverage before Gate 9 evidence can pass", async () => {
+  const targets=JSON.parse(await readFile(new URL("app/expert-review-targets.json",root),"utf8"));
+  const fixture=JSON.parse(await readFile(new URL("tests/fixtures/expert-review-record-smoke.json",root),"utf8"));
+  const directory=await mkdtemp(join(tmpdir(),"brain-practical-expert-review-"));
+  try{
+    for(const target of targets){
+      const record={...fixture,target,decision:"採用可",reviewer:{name:"Bundle Fixture",affiliation:"Automated test only",expertise:"神経解剖学 schema fixture"},reason:`${target.id} automated bundle fixture only; not an anatomical decision.`,screenshotName:`${target.id}-app-only.png`,appUrl:`https://bonnginn.github.io/brain-practical-navi/?review=${target.id}&commit=${fixture.targetCommit}${target.route}`};
+      await writeFile(join(directory,`${target.id}.json`),`${JSON.stringify(record,null,2)}\n`);
+    }
+    const complete=spawnSync(process.execPath,[localPath("scripts/validate_expert_review_bundle.mjs"),directory],{encoding:"utf8",cwd:localPath(".")});
+    assert.equal(complete.status,0,complete.stderr);
+    assert.match(complete.stdout,/PASS\t19\/19 canonical targets reviewed/);
+    assert.match(complete.stdout,/declared neuroanatomy expertise/);
+    await unlink(join(directory,"D5.json"));
+    const missing=spawnSync(process.execPath,[localPath("scripts/validate_expert_review_bundle.mjs"),directory],{encoding:"utf8",cwd:localPath(".")});
+    assert.notEqual(missing.status,0);
+    assert.match(missing.stderr,/missing canonical targets: D5/);
+  }finally{await rm(directory,{recursive:true,force:true})}
+});
+
 test("keeps the internal capsule distinct from adjacent basal nuclei", async () => {
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
   const colour = key => {
@@ -1604,4 +2251,28 @@ test("keeps the internal capsule distinct from adjacent basal nuclei", async () 
     assert.ok(distance(internalCapsule, colour(neighbour)) >= 60, `internal capsule versus ${neighbour}`);
   }
   assert.match(page, /key:"internal-capsule"[^\n]+color:"#e3d8b0"/);
+});
+
+test("aggregates every local beta audit without converting external waits into passes", async () => {
+  const script=await readFile(new URL("scripts/audit_beta_candidate.mjs",root),"utf8");
+  for(const audit of ["audit_asset_budgets","audit_section_continuity","audit_deep_relations","audit_structure_provenance","audit_specimen_relations","audit_basal_neurovascular_relations","audit_surface_relations","audit_model_comparison","audit_expert_review_targets","audit_quiz_review_ledger","audit_browser_route_targets"])assert.match(script,new RegExp(audit));
+  assert.match(script,/release remains No-Go/);
+  assert.match(script,/WAIT \$\{row\.status\}/);
+  const result=spawnSync(process.execPath,[localPath("scripts/audit_beta_candidate.mjs")],{encoding:"utf8",cwd:localPath("."),maxBuffer:10*1024*1024});
+  assert.equal(result.status,0,result.stderr);
+  assert.match(result.stdout,/SUMMARY\t4 local gates passed; 6 external-evidence gates remain/);
+  assert.match(result.stdout,/PASS\tbeta-candidate local audits complete; release remains No-Go/);
+});
+
+test("keeps the Windows handoff at the current beta-candidate gate instead of historical milestones", async () => {
+  const handoff=await readFile(new URL("WINDOWS_HANDOFF.md",root),"utf8");
+  assert.match(handoff,/対象ブランチ: `codex\/beta-candidate`/);
+  assert.match(handoff,/自動テスト: 83件全件合格/);
+  assert.match(handoff,/`npm run audit:beta`/);
+  assert.match(handoff,/ローカル合格4条件、外部証拠待ち6条件/);
+  assert.match(handoff,/No-Go（β候補のローカル検証中）/);
+  assert.match(handoff,/未pushならremoteの同名ブランチだけでは現在状態を再現できません/);
+  assert.match(handoff,/実スマートフォン1台以上/);
+  assert.match(handoff,/少なくとも1名の専門家を含む19\/19のv2記名JSON/);
+  assert.doesNotMatch(handoff,/9c1a962|自動テスト \*\*40件\*\*|Mac側で残した未着手事項|現在の検証基準は\d+\/\d+/);
 });
