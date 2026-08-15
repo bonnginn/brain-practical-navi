@@ -306,6 +306,8 @@ test("presents the practical flow clearly and keeps interface text readable", as
   assert.match(canvasCss, /\.workspaceSwitch button > span\s*\{\s*font-size:\s*14px/);
   assert.match(canvasCss, /\.workspaceSwitch button > i\s*\{\s*font:\s*11px\/1\.2 monospace/);
   assert.match(canvasCss, /\.legalButton, \.feedbackButton, \.helpButton, \.offlineButton\s*\{\s*font-size:\s*13px/);
+  assert.match(canvasCss, /@media\(min-width:761px\) and \(max-width:1199px\)\{[\s\S]*\.appShell\{grid-template-rows:126px minmax\(0,1fr\)\}[\s\S]*\.topbar\{display:grid;grid-template-columns:auto minmax\(0,1fr\);grid-template-rows:58px 68px/);
+  assert.match(canvasCss, /@media\(min-width:761px\) and \(max-width:1199px\)\{[\s\S]*\.workspaceSwitch\{grid-column:1\/3;grid-row:2;width:100%;display:grid;grid-template-columns:repeat\(6,minmax\(0,1fr\)\)/);
   assert.match(page, /aria-label="利用条件・クレジットを表示">利用条件<\/button>/);
   assert.match(globalsCss, /font-family/);
   assert.doesNotMatch(`${canvas}\n${editor}`, /font="(?:7|8|9|10|11|12|13)px/);

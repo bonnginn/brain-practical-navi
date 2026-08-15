@@ -6,6 +6,7 @@
 - validatorは検証対象の40桁SHAを必須にし、GitHub Pagesの正規HTTPS URL、クリーンビルド、診断と性能セッションの同一commitを確認します。
 - GitHub Pages成果物へ `build-info.json` を追加し、commit、dirty状態、正規サブパス、HTML資源、manifest、Service Worker shell、QRをアップロード前に検査します。Pages成果物からSites専用の内部設定・worker資材を除外し、CIとPagesの依存導入をlockfile固定へ変更しました。
 - 試作クイズの昇格を `quiz-review-ledger.json` へ連動しました。19/19の同一commit専門家レビュー、神経解剖学の専門性、未解決判定なし、個別画面との対応、管理上の採用理由が揃わない項目は標準問題へ入りません。現時点の承認は0件です。
+- ブラウザの分割表示や表示倍率でCSS viewportが907 pxになった際、上部の教材ナビと補助操作が重なる問題を修正しました。761–1199 pxのPCだけ二段ヘッダーとし、スマートフォン専用UIとは分離しています。
 
 このプロジェクトは、公開αからβ候補までの利用者に影響する変更を記録します。日付のない項目は未公開です。
 
