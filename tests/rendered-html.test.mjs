@@ -1491,7 +1491,8 @@ test("neurovascular quiz stays opt-in and highlights decoded overlay structures"
     assert.equal(view, target.startsWith("quizCn") ? "cranialNerves" : "arteries");
   }
   assert.match(page, /surfaceRegionKeys=.*filter\(key=>!key\.startsWith\("quiz"\)\)/);
-  assert.match(page, /function isProvisionalQuiz\(question:QuizQuestion\)\{return isSurfaceQuiz\(question\)/);
+  assert.match(page, /function hasProvisionalQuizSource\(question:QuizQuestion\)\{return isSurfaceQuiz\(question\)/);
+  assert.match(page, /function isProvisionalQuiz\(question:QuizQuestion\)\{return hasProvisionalQuizSource\(question\)&&!quizReviewApprovalFor\(question\.target\)\}/);
   assert.match(page, /isNeurovascularQuizTarget\(question\.target\)[\s\S]*setSelectedNeurovascularStructure\(neurovascularQuizTargets\[question\.target\]\)/);
   assert.match(canvas, /QUIZ_VESSEL_ID_OFFSET=1000,QUIZ_NERVE_ID_OFFSET=2000/);
   assert.match(canvas, /effectiveNeurovascularOverlay=neurovascularOverlay!=="none"\?neurovascularOverlay:quizNeurovascularOverlay/);
@@ -1753,13 +1754,39 @@ test("prioritizes beta specimen work without implying anatomical validation", as
 });
 
 test("keeps provisional and expert-unreviewed structures out of the default quiz", async () => {
-  const page = await readFile(new URL("app/page.tsx", root), "utf8");
-  assert.match(page, /function isProvisionalQuiz\(question:QuizQuestion\)\{return isSurfaceQuiz\(question\)\|\|structures\[question\.target\]\.labelSource!=="manual"\}/);
+  const [page,ledgerModule,ledger,css] = await Promise.all([readFile(new URL("app/page.tsx", root), "utf8"),readFile(new URL("app/quizReviewLedger.ts",root),"utf8"),readFile(new URL("app/quiz-review-ledger.json",root),"utf8").then(JSON.parse),readFile(new URL("app/canvas.css",root),"utf8")]);
+  assert.match(page, /function hasProvisionalQuizSource\(question:QuizQuestion\)\{return isSurfaceQuiz\(question\)\|\|structures\[question\.target\]\.labelSource!=="manual"\}/);
+  assert.match(page, /function isProvisionalQuiz\(question:QuizQuestion\)\{return hasProvisionalQuizSource\(question\)&&!quizReviewApprovalFor\(question\.target\)\}/);
   assert.match(page, /standardQuizQuestions=quizQuestions\.filter\(question=>!isProvisionalQuiz\(question\)\)/);
   assert.match(page, /useState<QuizQuestion\[]>\(\(\)=>shuffledQuestions\(standardQuizQuestions\)/);
   assert.match(page, /quizIncludeProvisional\|\|!isProvisionalQuiz\(question\)/);
-  assert.match(page, /試作問題を含む[\s\S]*専門家未確認・位置照合ラベル/);
-  assert.match(page, /試作・専門家未確認/);
+  assert.match(page, /標準問題[\s\S]*手動分節＋監修台帳承認/);
+  assert.match(page, /試作問題を含む[\s\S]*監修台帳未承認・位置照合ラベル/);
+  assert.match(page, /試作・監修台帳未承認/);
+  assert.match(page, /監修台帳・標準問題/);
+  assert.match(ledgerModule,/approvalsByTarget[\s\S]*quizReviewApprovalFor/);
+  assert.equal(ledger.format,"brain-practical-quiz-review-ledger");
+  assert.equal(ledger.schemaVersion,1);
+  assert.deepEqual(ledger.approvals,[]);
+  assert.match(css,/\.quizStandardScope/);
+  assert.match(css,/\.reviewedQuizFlag/);
+});
+
+test("requires complete expert and governance evidence before promoting a trial quiz", async () => {
+  const packageData=JSON.parse(await readFile(new URL("package.json",root),"utf8"));
+  assert.match(packageData.scripts.build,/^node scripts\/audit_quiz_review_ledger\.mjs &&/);
+  const real=spawnSync(process.execPath,[localPath("scripts/audit_quiz_review_ledger.mjs")],{encoding:"utf8",cwd:localPath(".")});
+  assert.equal(real.status,0,real.stderr);
+  assert.match(real.stdout,/0 approved trial target\(s\), 22 remain evidence-gated/);
+  const directory=await mkdtemp(join(tmpdir(),"brain-practical-quiz-ledger-")),ledgerPath=join(directory,"invalid.json");
+  try{
+    await writeFile(ledgerPath,JSON.stringify({format:"brain-practical-quiz-review-ledger",schemaVersion:1,approvals:[{target:"ventricle",reviewedCommit:"short",evidenceTargetIds:["C1"],bundleDirectory:"tests/fixtures",adoptedAt:"invalid",adoptedBy:"",reason:"too short",caution:""}]}));
+    const invalid=spawnSync(process.execPath,[localPath("scripts/audit_quiz_review_ledger.mjs"),ledgerPath],{encoding:"utf8",cwd:localPath(".")});
+    assert.equal(invalid.status,1);
+    assert.match(invalid.stderr,/reviewedCommit must be a full 40-character SHA/);
+    assert.match(invalid.stderr,/adoptedBy is required/);
+    assert.match(invalid.stderr,/bundleDirectory must be expert-review-records/);
+  }finally{await rm(directory,{recursive:true,force:true})}
 });
 
 test("publishes a durable keyboard and pointer operation guide", async () => {
@@ -2168,7 +2195,7 @@ test("keeps the internal capsule distinct from adjacent basal nuclei", async () 
 
 test("aggregates every local beta audit without converting external waits into passes", async () => {
   const script=await readFile(new URL("scripts/audit_beta_candidate.mjs",root),"utf8");
-  for(const audit of ["audit_asset_budgets","audit_section_continuity","audit_deep_relations","audit_structure_provenance","audit_specimen_relations","audit_basal_neurovascular_relations","audit_surface_relations","audit_model_comparison","audit_expert_review_targets"])assert.match(script,new RegExp(audit));
+  for(const audit of ["audit_asset_budgets","audit_section_continuity","audit_deep_relations","audit_structure_provenance","audit_specimen_relations","audit_basal_neurovascular_relations","audit_surface_relations","audit_model_comparison","audit_expert_review_targets","audit_quiz_review_ledger"])assert.match(script,new RegExp(audit));
   assert.match(script,/release remains No-Go/);
   assert.match(script,/WAIT \$\{row\.status\}/);
   const result=spawnSync(process.execPath,[localPath("scripts/audit_beta_candidate.mjs")],{encoding:"utf8",cwd:localPath("."),maxBuffer:10*1024*1024});
@@ -2180,7 +2207,7 @@ test("aggregates every local beta audit without converting external waits into p
 test("keeps the Windows handoff at the current beta-candidate gate instead of historical milestones", async () => {
   const handoff=await readFile(new URL("WINDOWS_HANDOFF.md",root),"utf8");
   assert.match(handoff,/対象ブランチ: `codex\/beta-candidate`/);
-  assert.match(handoff,/自動テスト: 80件全件合格/);
+  assert.match(handoff,/自動テスト: 82件全件合格/);
   assert.match(handoff,/`npm run audit:beta`/);
   assert.match(handoff,/ローカル合格3条件、外部証拠待ち7条件/);
   assert.match(handoff,/No-Go（β候補のローカル検証中）/);

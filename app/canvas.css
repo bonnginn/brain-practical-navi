@@ -288,6 +288,8 @@ html, body, #root { height: 100%; overflow: hidden; }
 .quizCountButtons button + button { margin-left: -1px; }
 .quizCountButtons button.active { border-color: #1d6e69; background: #1d6e69; color: #fff; }
 .quizSetup .wrongOnlyToggle { grid-template-columns: auto 1fr auto; align-items: center; }
+.quizStandardScope { display: grid; gap: 2px; margin: 0; padding: 8px; border-left: 3px solid #557b72; background: #f8faf7; color: #51625e; font-size: 12px; line-height: 1.45; }
+.quizStandardScope b { color: #315d54; font-size: 13px; }
 .quizSetup .provisionalQuizToggle { grid-template-columns: auto 1fr; align-items: start; padding: 8px; border: 1px solid #d4a676; background: #fff2e4; }
 .provisionalQuizToggle input { margin-top: 4px; }
 .provisionalQuizToggle span { color: #6f482d !important; }
@@ -614,6 +616,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 .quizQuestionCard { min-height: 0; overflow-y: auto; padding: 26px 28px; border: 1px solid #c7cac4; background: #e7e5df; }
 .quizQuestionCard h2 { margin: 10px 0 20px; font: 400 23px/1.55 Georgia,"Yu Mincho",serif; }
 .provisionalQuizFlag { display: inline-block; margin-top: 8px; padding: 3px 7px; border: 1px solid #d1a276; border-radius: 999px; background: #fff0df; color: #82502b; font-size: 12px; font-weight: 700; }
+.reviewedQuizFlag { display: inline-block; margin-top: 8px; padding: 3px 7px; border: 1px solid #7ba69a; border-radius: 999px; background: #e8f3ef; color: #315d54; font-size: 12px; font-weight: 700; }
 .quizOptions { display: grid; gap: 7px; }
 .quizOptions button { display: grid; grid-template-columns: 34px 1fr auto; align-items: center; gap: 10px; min-height: 58px; padding: 8px 12px; border: 1px solid #bdc1bb; background: #f6f4ef; text-align: left; }
 .quizOptions button > i { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: #e2e2dc; color: #6e7775; font: 700 16px monospace; font-style: normal; }

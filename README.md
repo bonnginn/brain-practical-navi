@@ -28,7 +28,7 @@
 - 下面の嗅球・嗅索、大脳脚、錐体、オリーブと、内側面の脳梁・脳弓・視床・視床下部を個別に着脱する立体部品
 - 大脳基底核、脳室系、辺縁系などの一括表示
 - 実習講義の到達目標を基にした脳表4方向＋脳底動脈・脳神経、8種の局所標本、断面17問・脳表6問の構造同定クイズ
-- クイズの5/10/15/20問指定・項目指定、間違い問題の端末内保存と履歴消去
+- クイズの5/10/15/20問指定・項目指定、間違い問題の端末内保存と履歴消去。試作問題の標準昇格は19/19の専門家証拠と管理上の採用を検査する監修台帳へ連動
 - 脳表観察内で高密度全脳モデルへ主要脳底動脈と脳神経根を重ねる、脱着・脳表透過・個別構造強調が可能な教育用模式3Dレイヤー
 - 共同制作者向けの水平断手動セグメンテーション編集、ブラシ・消去・差分取消・Undo/Redo・端末内自動保存・版固定差分JSON入出力・複数差分の競合監査
 - PWAとしてホーム画面へ追加でき、アプリ本体・閲覧済み教材を自動キャッシュし、脳表18.6 MiB／断面39.3 MiB／局所標本18.8 MiBを必要なセットだけ明示保存・更新・削除できるオフライン教材管理。保存版・完了状態を検査し、セット間の共有教材を安全に保持
@@ -36,7 +36,7 @@
 
 本アプリは教育用です。診断、治療方針の決定、研究用の定量解析には使用できません。試作ラベルは解剖学的正解データではありません。
 
-講義範囲に対する実装状況と、必修／発展の優先順位は [LEARNING_SCOPE.md](LEARNING_SCOPE.md) に整理しています。全6資料との構造単位の照合と、標本分節・模式表示・未収録を区別した結果は [LECTURE_COVERAGE_AUDIT.md](LECTURE_COVERAGE_AUDIT.md)、構造表示の由来・確度・監修状況は [STRUCTURE_PROVENANCE.md](STRUCTURE_PROVENANCE.md)、専門家が画面別に判定する手順は [EXPERT_REVIEW_CHECKLIST.md](EXPERT_REVIEW_CHECKLIST.md)、公開α版の監査結果は [ALPHA_RELEASE_AUDIT.md](ALPHA_RELEASE_AUDIT.md)、β版への作業計画は [BETA_ROADMAP.md](BETA_ROADMAP.md)、Go / No-Go証拠は [BETA_GATE_AUDIT.md](BETA_GATE_AUDIT.md)、既知の制限は [KNOWN_LIMITATIONS.md](KNOWN_LIMITATIONS.md)、変更履歴は [CHANGELOG.md](CHANGELOG.md) に記録しています。
+講義範囲に対する実装状況と、必修／発展の優先順位は [LEARNING_SCOPE.md](LEARNING_SCOPE.md) に整理しています。全6資料との構造単位の照合と、標本分節・模式表示・未収録を区別した結果は [LECTURE_COVERAGE_AUDIT.md](LECTURE_COVERAGE_AUDIT.md)、構造表示の由来・確度・監修状況は [STRUCTURE_PROVENANCE.md](STRUCTURE_PROVENANCE.md)、専門家が画面別に判定する手順は [EXPERT_REVIEW_CHECKLIST.md](EXPERT_REVIEW_CHECKLIST.md)、試作問題の昇格条件は [QUIZ_REVIEW_LEDGER.md](QUIZ_REVIEW_LEDGER.md)、公開α版の監査結果は [ALPHA_RELEASE_AUDIT.md](ALPHA_RELEASE_AUDIT.md)、β版への作業計画は [BETA_ROADMAP.md](BETA_ROADMAP.md)、Go / No-Go証拠は [BETA_GATE_AUDIT.md](BETA_GATE_AUDIT.md)、既知の制限は [KNOWN_LIMITATIONS.md](KNOWN_LIMITATIONS.md)、変更履歴は [CHANGELOG.md](CHANGELOG.md) に記録しています。
 
 ## ローカル実行
 
