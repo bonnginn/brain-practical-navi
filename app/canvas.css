@@ -305,7 +305,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 .homeShell .topbar { grid-column: 1; }
 .homeShell .leftRail { display: none; }
 .homeArea { grid-column: 1; grid-row: 2; width: 100%; min-width: 0; min-height: 0; display: grid; grid-template-rows: minmax(0,1fr) auto auto; gap: 12px; overflow: hidden; padding: 18px 28px 16px; background: #e7e5df; }
-.homeHero { width: 100%; min-width: 0; min-height: 0; display: grid; grid-template-columns: minmax(340px,42%) minmax(0,1fr); overflow: hidden; border: 1px solid #c3c7c1; background: #eeede7; box-shadow: 0 14px 38px rgba(22,31,31,.1); }
+.homeHero { width: 100%; min-width: 0; min-height: 0; display: grid; grid-template-columns: minmax(340px,42%) minmax(0,1fr); grid-template-rows:minmax(0,1fr); overflow: hidden; border: 1px solid #c3c7c1; background: #eeede7; box-shadow: 0 14px 38px rgba(22,31,31,.1); }
 .homeIntro { position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: center; min-width: 0; padding: clamp(28px,4vw,64px); border-right: 1px solid #c9cbc5; background: linear-gradient(135deg,#f4f2ec 0,#e8e6df 100%); }
 .homeBadges { display: flex; align-items: center; gap: 8px; margin-bottom: 13px; }
 .homeBadges span, .homeBadges b { padding: 5px 7px; border: 1px solid #c5aaa2; color: #9a574a; font-size: 15px; letter-spacing: .1em; }
@@ -317,12 +317,14 @@ html, body, #root { height: 100%; overflow: hidden; }
 .homeAccuracyWarning { display: grid; grid-template-columns: auto minmax(0,1fr); align-items: center; gap: 9px; max-width: 610px; margin: 14px 0 0; padding: 10px 12px; border: 1px solid #c97869; border-left: 5px solid #c44737; background: #f5e5e0; color: #713a32; font-size: 15px; line-height: 1.55; }
 .homeAccuracyWarning b { color: #a43529; white-space: nowrap; }
 .homeAccuracyWarning span { font-weight: 700; }
-.homePhoneInstall { position: absolute; z-index: 9; top: 18px; left: 18px; display: grid; grid-template-columns: 78px auto; align-items: center; gap: 8px; padding: 6px 9px 6px 6px; border: 1px solid #9fb2ad; background: rgba(246,248,245,.94); color: #263b37; text-decoration: none; box-shadow: 0 5px 18px rgba(4,12,13,.22); }
+.homeModelColumn { min-width: 0; min-height: 0; display: grid; grid-template-rows: minmax(0,1fr) auto; background: #dfe4e1; }
+.homeModelColumn .homeModelStage { min-height: 0; }
+.homePhoneInstall { position: static; z-index: 1; display: grid; grid-template-columns: 78px minmax(0,1fr); align-items: center; gap: 10px; min-height: 92px; padding: 7px 12px 7px 8px; border: 0; border-top: 1px solid #9fb2ad; background: #f1f4f0; color: #263b37; text-decoration: none; box-shadow: none; }
 .homePhoneInstall img { display: block; width: 78px; height: 78px; background: #fff; image-rendering: pixelated; }
 .homePhoneInstall span { display: grid; gap: 3px; }
 .homePhoneInstall small { color: #1d6e69; font: 700 10px monospace; letter-spacing: .1em; }
 .homePhoneInstall b { font-size: 13px; white-space: nowrap; }
-.homePhoneInstall:hover,.homePhoneInstall:focus-visible { border-color: #6bafa5; outline: 3px solid rgba(114,198,187,.4); outline-offset: 2px; }
+.homePhoneInstall:hover,.homePhoneInstall:focus-visible { background:#e6eeea; outline: 3px solid rgba(114,198,187,.4); outline-offset: -3px; }
 .homeModelStage { position: relative; width: 100%; height: auto; min-width: 0; min-height: 340px; overflow: hidden; cursor: grab; touch-action: none; background: radial-gradient(circle at 50% 43%,#596267 0,#353c40 49%,#1b2023 100%); }
 .homeModelStage:active { cursor: grabbing; }
 .homeModelStage .orientation { top: 22px; right: 22px; color: #ccd3d2; }
@@ -909,7 +911,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 @media(max-width:1120px){.workspaceSwitch button{min-width:82px;padding-inline:8px}.workspaceSwitch button>span{font-size:16px}.learningGrid,.quizWorkspace,.segWorkbench{grid-template-columns:minmax(0,1fr) 350px}.topActions>span{display:none}.surfaceRegionPicker>div,.surfaceLandmarkPicker>div{grid-template-columns:1fr}.learningGuide{padding-inline:20px}}
 @media(max-width:1180px){.modelComparisonGrid{grid-template-columns:1fr 1fr}.modelComparisonGuide{grid-column:1/3;overflow:visible}.modelComparisonGuide dl{grid-template-columns:1fr 1fr}.modelComparisonGuide dl>div{grid-template-columns:58px minmax(0,1fr)}}
 @media(max-width:900px){.workspaceSwitch button{min-width:68px}.workspaceSwitch button>i{display:none}.homeHero{grid-template-columns:minmax(300px,43%) minmax(0,1fr)}.homeIntro{padding:28px}.homeModeGrid{grid-template-columns:1fr 1fr}.homeModeGrid button{min-height:72px}.homeModeGrid small{display:none}.learningGrid,.quizWorkspace,.segWorkbench{grid-template-columns:minmax(0,1fr) minmax(270px,34vw,310px)}.learningGuide,.quizQuestionCard,.segControls{padding-inline:18px}.legalColumns{grid-template-columns:1fr}.legalColumns article+article{padding-left:0;border-left:0}}
-@media(max-height:820px) and (min-width:761px){.homeArea{gap:8px;padding:12px 22px 10px}.homeIntro{padding:clamp(22px,3vw,42px)}.homeBadges{margin-bottom:8px}.homeIntro h1{margin:8px 0 11px;font-size:clamp(34px,3.6vw,52px)}.homeLead{line-height:1.65}.homeAccuracyWarning{margin-top:9px;padding-block:7px;font-size:14px}.homeModeGrid button{min-height:76px;padding-block:10px}.homeFooter{min-height:30px}}
+@media(max-height:820px) and (min-width:761px){.homeArea{gap:8px;padding:12px 22px 10px}.homeIntro{padding:clamp(22px,3vw,42px)}.homeBadges{margin-bottom:8px}.homeIntro h1{margin:8px 0 11px;font-size:clamp(34px,3.6vw,52px)}.homeLead{line-height:1.65}.homeAccuracyWarning{margin-top:9px;padding-block:7px;font-size:14px}.homePhoneInstall{grid-template-columns:48px minmax(0,1fr);min-height:58px;padding:5px 10px 5px 6px}.homePhoneInstall img{width:48px;height:48px}.homeModeGrid button{min-height:76px;padding-block:10px}.homeFooter{min-height:30px}}
 @media(max-width:760px){.topbar{padding-inline:5px;gap:3px}.brand{min-width:auto}.brand>span:last-child{display:none}.workspaceSwitch{display:flex;min-width:0;overflow-x:auto;scrollbar-width:none}.workspaceSwitch::-webkit-scrollbar{display:none}.workspaceSwitch button{min-width:52px;padding:7px 3px}.workspaceSwitch button>span{font-size:15px}.topActions{gap:2px}.topActions>span{display:none}.legalButton{padding:7px 3px;font-size:15px;white-space:nowrap}.feedbackButton{display:block;width:38px;padding:7px 2px;font-size:0;white-space:nowrap}.feedbackButton::after{content:"協力";font-size:15px}.compactToggle{border:0;padding-left:0}.learningArea,.quizArea,.segmentationArea{min-height:800px}.learningGrid,.quizWorkspace,.segWorkbench{display:block}.learningModelCard,.quizImageCard,.segCanvasCard{height:520px}.learningGuide,.quizQuestionCard,.segControls{max-height:none;margin-top:10px}.neurovascularControls{left:8px;bottom:8px}.neurovascularControls button{padding:6px}.neurovascularLegend{left:8px;top:8px;right:auto;bottom:auto;grid-template-columns:repeat(3,auto);gap:5px 8px;padding:7px 8px;font-size:12px}.neurovascularLegend i{width:13px}.blockReleaseNote .sourceBadge{display:none}.feedbackOptions{grid-template-columns:1fr}.legalBackdrop{padding:8px}.legalDialog>header{padding:14px}.legalDialog>footer{display:block}.legalDialog footer div{margin-top:8px}.offlineDialog h2{font-size:25px}.offlineManager{padding:16px 14px 20px}.offlineSummary{display:block}.offlineSummary small{display:inline-block;margin-top:10px}.offlinePackActions{flex-wrap:wrap}.offlinePackActions .primary{margin-left:0}.offlineState{flex-basis:100%}}
 @media(max-width:760px){.quizSliceNavigator{grid-template-columns:minmax(0,1fr) 38px auto;gap:7px;padding-inline:9px}.quizSliceAxis{display:none}.quizSliceNavigator button{padding-inline:6px}.quizSliceControl{display:grid;grid-template-columns:30px minmax(0,1fr) 30px;gap:5px}.quizSliceControl button{width:30px;padding:0}}
 @media(max-width:760px){.sectionLayoutSwitch{width:100%}.sectionLayoutSwitch button{flex:1;padding-inline:4px;font-size:12px}.sliceStage.layout-slice,.sliceStage.layout-model{grid-template-rows:minmax(0,1fr)}.sliceStage.layout-model .insetViews{grid-template-columns:1fr 1fr;grid-template-rows:1fr}}
@@ -929,7 +931,7 @@ html, body, #root { height: 100%; overflow: hidden; }
   .mobileSectionStructurePicker .structureBtn.active{border-color:#79a6a1;background:#e0ece8}
 }
 @media(max-width:760px){.specimenViewControls{right:8px}.specimenViewControls>span{display:none}.specimenViewControls button{padding-inline:6px}.specimenRotationHint{display:none}}
-@media(max-width:760px){.homeArea{display:block;overflow:visible;padding:12px}.homeHero{display:block}.homeIntro{padding:30px 22px;border-right:0;border-bottom:1px solid #c9cbc5}.homeIntro h1{font-size:40px}.homeAccuracyWarning{grid-template-columns:1fr;gap:3px}.homePhoneInstall{top:12px;left:12px;grid-template-columns:68px auto}.homePhoneInstall img{width:68px;height:68px}.homeModelStage{height:380px}.homeModeGrid{grid-template-columns:1fr;margin-top:10px}.homeModeGrid button{min-height:78px}.homeModeGrid small{display:block}.homeFooter{display:block;padding:13px 2px}.homeFooter div{margin-top:9px}}
+@media(max-width:760px){.homeArea{display:block;overflow:visible;padding:12px}.homeHero{display:block}.homeIntro{padding:30px 22px;border-right:0;border-bottom:1px solid #c9cbc5}.homeIntro h1{font-size:40px}.homeAccuracyWarning{grid-template-columns:1fr;gap:3px}.homeModelColumn{display:block}.homePhoneInstall{display:none}.homeModelStage{height:380px}.homeModeGrid{grid-template-columns:1fr;margin-top:10px}.homeModeGrid button{min-height:78px}.homeModeGrid small{display:block}.homeFooter{display:block;padding:13px 2px}.homeFooter div{margin-top:9px}}
 @media(max-width:760px){.modelComparisonNotice{display:block;margin-top:0}.modelComparisonNotice p{margin-top:5px}.modelComparisonGrid{display:block}.modelComparisonCard+.modelComparisonCard{margin-top:10px}.modelComparisonStage{min-height:390px}.modelComparisonGuide{margin-top:10px;overflow:visible}.modelComparisonGuide dl{display:block}.modelComparisonGuide dl>div+div{margin-top:1px}}
 @media(max-width:760px){.modelComparisonMobileSwitch{display:grid;grid-template-columns:1fr 1fr;margin:0 0 10px;padding:4px;border:1px solid #b8bfba;background:#e6e5df}.modelComparisonMobileSwitch button{min-height:44px;border:1px solid transparent;background:transparent;color:#586461;font-size:14px;font-weight:700}.modelComparisonMobileSwitch button+button{border-left-color:#c4c8c2}.modelComparisonMobileSwitch button.active{border-color:#49746e;background:#315d57;color:#fff}.modelComparisonMobileSwitch b{margin-right:5px;font:700 13px monospace}}
 @media(max-width:380px){.learningModelCard .panelHead{min-width:0;flex-wrap:wrap;align-content:center;gap:5px}.learningModelCard .panelHead>div:first-child{min-width:0;flex:1 1 120px}.learningModelCard .panelActions{min-width:0;flex:1 1 auto;gap:4px;justify-content:flex-end}.learningModelCard .panelActions button{padding-inline:6px;font-size:14px}}
@@ -1117,9 +1119,9 @@ html, body, #root { height: 100%; overflow: hidden; }
   .specimenAttachmentControls{left:8px;right:64px;max-width:none}
 }
 
-/* Phone workspace: keep every tool, but stop shrinking the desktop rails into
-   the viewport. Primary destinations live in a bottom dock; page-specific
-   controls open as a labelled bottom sheet above it. */
+/* Phone workspace: keep learner tools without shrinking the desktop rails into
+   the viewport. The contributor editor stays on PC; page-specific controls
+   open as a labelled bottom sheet above the five-item learning dock. */
 @media(max-width:760px) and (hover:none) and (pointer:coarse){
   .appShell{padding:calc(54px + env(safe-area-inset-top,0px)) 0 calc(76px + env(safe-area-inset-bottom,0px))}
   .topbar{height:calc(54px + env(safe-area-inset-top,0px));padding:env(safe-area-inset-top,0px) 7px 0;gap:4px}
@@ -1132,7 +1134,7 @@ html, body, #root { height: 100%; overflow: hidden; }
   .offlineButton::after{content:"保存";font-size:12px}
   .feedbackButton::after{content:"共同";font-size:12px}
   .legalButton::after{content:"条件";font-size:12px}
-  .workspaceSwitch{position:fixed;z-index:50;left:0;right:0;bottom:0;height:calc(66px + env(safe-area-inset-bottom,0px));display:grid;grid-template-columns:repeat(6,minmax(61px,1fr));gap:0;overflow-x:auto;padding-bottom:env(safe-area-inset-bottom,0px);border-top:1px solid #aeb4af;background:#f8f7f3;box-shadow:0 -8px 24px rgba(25,34,34,.12);scrollbar-width:none}
+  .workspaceSwitch{position:fixed;z-index:50;left:0;right:0;bottom:0;height:calc(66px + env(safe-area-inset-bottom,0px));display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;overflow:hidden;padding-bottom:env(safe-area-inset-bottom,0px);border-top:1px solid #aeb4af;background:#f8f7f3;box-shadow:0 -8px 24px rgba(25,34,34,.12);scrollbar-width:none}
   .workspaceSwitch button{min-width:61px;height:65px;padding:7px 2px 5px;border:0;border-right:1px solid #d9dbd6;background:transparent}
   .workspaceSwitch button:last-child{border-right:0}
   .workspaceSwitch button.active{box-shadow:inset 0 3px #1d6e69;background:#e8efeb}
@@ -1159,6 +1161,7 @@ html, body, #root { height: 100%; overflow: hidden; }
   .leftRail .sectionStructureButtons{display:grid;grid-template-columns:1fr 1fr;gap:5px}
   .leftRail .structureBtn{min-height:44px;padding:8px 9px;border:1px solid #ccd0ca}
   .mobileSectionStructurePicker{display:none}
+  .sliceStage.layout-model .insetViews{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr)}
   .workArea{padding-bottom:34px}
   .inspectorBackdrop,.inspector{top:calc(54px + env(safe-area-inset-top,0px))}
 }

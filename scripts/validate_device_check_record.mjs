@@ -11,10 +11,10 @@ try{record=JSON.parse(await readFile(resolve(process.cwd(),recordPath),"utf8"))}
 catch(error){console.error(`FAIL\tcannot read device check JSON: ${error instanceof Error?error.message:String(error)}`);process.exit(1)}
 
 const errors=[],warnings=[];
-const walkthroughKeys=["home","surface","sections","blocks","quiz","segment","offlineSurface","offlineSections","offlineBlocks","offlineQuiz"];
+const walkthroughKeys=["home","surface","sections","blocks","quiz","offlineSurface","offlineSections","offlineBlocks","offlineQuiz"];
 const onlineWalkthroughKeys=walkthroughKeys.slice(0,6),offlineWalkthroughKeys=walkthroughKeys.slice(6);
 const packIds=["surface","sections","blocks"];
-const routePatterns={home:/^#workspace\/home$/,surface:/^#workspace\/surface\//,sections:/^#workspace\/sections\//,blocks:/^#workspace\/blocks\//,quiz:/^#workspace\/quiz$/,segment:/^#workspace\/segment$/,offlineSurface:/^#workspace\/surface\//,offlineSections:/^#workspace\/sections\//,offlineBlocks:/^#workspace\/blocks\//,offlineQuiz:/^#workspace\/quiz$/};
+const routePatterns={home:/^#workspace\/home$/,surface:/^#workspace\/surface\//,sections:/^#workspace\/sections\//,blocks:/^#workspace\/blocks\//,quiz:/^#workspace\/quiz$/,offlineSurface:/^#workspace\/surface\//,offlineSections:/^#workspace\/sections\//,offlineBlocks:/^#workspace\/blocks\//,offlineQuiz:/^#workspace\/quiz$/};
 const finite=(value)=>typeof value==="number"&&Number.isFinite(value);
 const validDate=(value)=>typeof value==="string"&&!Number.isNaN(Date.parse(value));
 

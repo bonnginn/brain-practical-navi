@@ -30,14 +30,13 @@ type DiagnosticReport={
   gateDisclaimer:string;
 };
 
-type WalkthroughKey=DeviceRouteKey;
+type WalkthroughKey=Exclude<DeviceRouteKey,"segment">;
 const walkthroughItems:{key:WalkthroughKey;label:string;detail:string}[]=[
   {key:"home",label:"ホーム",detail:"初期表示、教材入口、注意表示"},
   {key:"surface",label:"脳表",detail:"回転、拡大、構造選択、全解除"},
   {key:"sections",label:"断面",detail:"位置変更、構造選択、2D/3D切替"},
   {key:"blocks",label:"局所標本",detail:"組織表示、着脱、比較"},
   {key:"quiz",label:"クイズ",detail:"回答、断面移動、観察画面で復習"},
-  {key:"segment",label:"編集ツール",detail:"描画、3方向照合、元に戻す"},
   {key:"offlineSurface",label:"機内モード・脳表",detail:"完全再読込、回転、構造選択"},
   {key:"offlineSections",label:"機内モード・断面",detail:"完全再読込、断面移動、構造選択"},
   {key:"offlineBlocks",label:"機内モード・局所標本",detail:"完全再読込、組織表示、着脱"},
@@ -49,7 +48,6 @@ const walkthroughRoutePatterns:Record<WalkthroughKey,{pattern:RegExp;expected:st
   sections:{pattern:/^#workspace\/sections\/[a-z-]+$/,expected:"断面"},
   blocks:{pattern:/^#workspace\/blocks\/[a-z-]+$/,expected:"局所標本"},
   quiz:{pattern:/^#workspace\/quiz$/,expected:"クイズ"},
-  segment:{pattern:/^#workspace\/segment$/,expected:"編集ツール"},
   offlineSurface:{pattern:/^#workspace\/surface\/[a-z-]+$/,expected:"機内モードの脳表"},
   offlineSections:{pattern:/^#workspace\/sections\/[a-z-]+$/,expected:"機内モードの断面"},
   offlineBlocks:{pattern:/^#workspace\/blocks\/[a-z-]+$/,expected:"機内モードの局所標本"},
@@ -203,7 +201,7 @@ export function DeviceDiagnostics(){
       <article><h3>PWA・保存</h3><dl><div><dt>Service Worker</dt><dd>{report.capabilities.serviceWorkerControlled?"制御中":report.capabilities.serviceWorker?"対応・未制御":"非対応"}</dd></div><div><dt>単独起動</dt><dd>{report.capabilities.standalone?"はい":"いいえ"}</dd></div><div><dt>使用量</dt><dd>{formatBytes(report.storage.usageBytes)}</dd></div><div><dt>利用可能枠</dt><dd>{formatBytes(report.storage.quotaBytes)}</dd></div></dl></article>
       <article><h3>描画</h3><dl><div><dt>WebGL 2</dt><dd>{report.graphics.webgl2?"対応":"非対応"}</dd></div><div><dt>renderer</dt><dd>{String(report.graphics.renderer??"取得不可")}</dd></div><div><dt>中央値</dt><dd>{report.frameSample.medianIntervalMs} ms</dd></div><div><dt>p95</dt><dd>{report.frameSample.p95IntervalMs} ms</dd></div></dl><small>約1秒の静止画面サンプルです。公開環境の性能測定や操作中のピーク値ではありません。</small></article>
     </div>}
-    <div className="devicePerformanceSession"><header><div><h3>主要経路の性能記録</h3><small>初回ホーム＋記録済み {Object.keys(performanceSession?.observations??{}).length} / {walkthroughItems.length}</small></div><button onClick={beginPerformanceSession} disabled={running}>{performanceSession?"最初から計測":"性能記録を開始"}</button></header><p>公開候補HTTPSのホームを初回表示した直後に開始すると、その読込を初回値として保存します。その後、各画面を操作してから対応する経路へチェックし、取得量、Canvas、横はみ出し、利用可能なブラウザでは操作中の最大JS heapを端末内に記録します。</p>{performanceSession&&<dl><div><dt>計測元</dt><dd>{performanceSession.origin}</dd></div><div><dt>初回ホーム</dt><dd>{formatBytes(performanceSession.coldStart.transferBytes)} / {performanceSession.coldStart.navigation?.durationMs??"取得不可"} ms</dd></div><div><dt>状態</dt><dd>{performanceSession.active?"計測中":performanceSession.stoppedAt?"10経路完了":"停止"}</dd></div><div><dt>最大JS heap</dt><dd>{formatBytes(performanceSession.peakJsHeapBytes)}</dd></div></dl>}</div>
+    <div className="devicePerformanceSession"><header><div><h3>主要経路の性能記録</h3><small>初回ホーム＋記録済み {Object.keys(performanceSession?.observations??{}).length} / {walkthroughItems.length}</small></div><button onClick={beginPerformanceSession} disabled={running}>{performanceSession?"最初から計測":"性能記録を開始"}</button></header><p>公開候補HTTPSのホームを初回表示した直後に開始すると、その読込を初回値として保存します。その後、各画面を操作してから対応する経路へチェックし、取得量、Canvas、横はみ出し、利用可能なブラウザでは操作中の最大JS heapを端末内に記録します。編集ツールはPC向けの共同制作機能のため、スマートフォンの必須経路には含めません。</p>{performanceSession&&<dl><div><dt>計測元</dt><dd>{performanceSession.origin}</dd></div><div><dt>初回ホーム</dt><dd>{formatBytes(performanceSession.coldStart.transferBytes)} / {performanceSession.coldStart.navigation?.durationMs??"取得不可"} ms</dd></div><div><dt>状態</dt><dd>{performanceSession.active?"計測中":performanceSession.stoppedAt?`${walkthroughItems.length}経路完了`:"停止"}</dd></div><div><dt>最大JS heap</dt><dd>{formatBytes(performanceSession.peakJsHeapBytes)}</dd></div></dl>}</div>
     <div className="devicePwaCheckpoints"><header><div><h3>PWAの3段階記録</h3><small>記録済み {Object.values(pwaEvidence).filter(Boolean).length} / 3</small></div><p>ホーム画面から単独起動し、3教材セットを保存してからオンラインを記録します。機内モードで主要4経路を確認してオフラインを記録し、通信を戻した後に復帰を記録してください。</p></header><div>{(["online","offline","restored"] as const).map(kind=>{const checkpoint=pwaEvidence[kind],label=kind==="online"?"保存後・オンライン":kind==="offline"?"機内モード起動":"再接続後";return <article key={kind} className={checkpoint?"recorded":""}><div><b>{label}</b><small>{checkpoint?new Date(checkpoint.recordedAt).toLocaleString():"未記録"}</small></div>{checkpoint&&<dl><div><dt>接続</dt><dd>{checkpoint.online?"オンライン":"オフライン"}</dd></div><div><dt>単独起動</dt><dd>{checkpoint.standalone?"はい":"いいえ"}</dd></div><div><dt>SW制御</dt><dd>{checkpoint.serviceWorkerControlled?"はい":"いいえ"}</dd></div><div><dt>教材</dt><dd>{checkpoint.packs.filter(pack=>pack.current).length} / {checkpoint.packs.length} 保存済み</dd></div></dl>}<button disabled={running} onClick={()=>void capturePwaCheckpoint(kind)}>{checkpoint?"再記録":"この状態を記録"}</button></article>})}</div></div>
     <div className="deviceRouteChecklist"><header><div><h3>実機で一周したルート</h3><small>確認済み {Object.values(walkthrough).filter(item=>item.confirmed).length} / {walkthroughItems.length}</small></div><p>上から所定順に、各画面を実際に操作した後でチェックしてください。別画面・順不同・接続状態違いは記録しません。確認時刻と性能値を端末内JSONへ保存します。</p><code>直前画面: {deviceEvidenceRouteHash()||"取得不可"}</code></header><div>{walkthroughItems.map((item,index)=>{const observation=performanceSession?.observations[item.key],waiting=!walkthrough[item.key].confirmed&&walkthroughItems.slice(0,index).some(previous=>!walkthrough[previous.key].confirmed);return <label key={item.key} className={waiting?"waiting":""}><input type="checkbox" checked={walkthrough[item.key].confirmed} disabled={waiting} onChange={event=>confirmWalkthrough(item.key,event.target.checked)}/><span><b>{item.label}</b><small>{item.detail}</small>{waiting&&<small>前の項目を先に確認</small>}{observation&&<small className="deviceRouteMetric">取得 {formatBytes(observation.transferBytes)} · Canvas {observation.canvasCount} · overflow {observation.horizontalOverflowPx}px</small>}</span></label>})}</div><label className="deviceProblemNotes"><span>問題・再現手順（問題なしの場合は「問題なし」）</span><textarea value={problemNotes} onChange={event=>setProblemNotes(event.target.value)} placeholder="例: 水平断から脳表へ戻ると再読み込みされた" maxLength={2000}/></label></div>
     <p className="deviceGateDisclaimer">{disclaimer}</p>

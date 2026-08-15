@@ -1655,9 +1655,11 @@ test("records reproducible real-device diagnostics without treating them as a ga
   assert.match(performanceRecorder, /horizontalOverflowPx/);
   assert.match(performanceRecorder, /peakJsHeapBytes/);
   assert.match(performanceRecorder, /coldStart:DeviceColdStartObservation/);
+  assert.match(performanceRecorder, /localStorage\.setItem\(LAST_CONTENT_ROUTE_KEY,hash\)/);
+  assert.match(page, /if\(typeof historyRoute==="string"\)rememberDeviceContentRoute\(historyRoute\);return/);
   assert.match(diagnostics, /next\.coldStart\.routeHash!=="#workspace\/home"/);
   assert.match(diagnostics, /this record alone|\u3053\u306e\u8a18\u9332\u3060\u3051/);
-  assert.match(validator, /walkthroughKeys=\["home","surface","sections","blocks","quiz","segment","offlineSurface","offlineSections","offlineBlocks","offlineQuiz"\]/);
+  assert.match(validator, /walkthroughKeys=\["home","surface","sections","blocks","quiz","offlineSurface","offlineSections","offlineBlocks","offlineQuiz"\]/);
   assert.match(validator, /PWA checkpoints must be ordered online, offline, restored/);
   assert.match(buildInfo, /https:\/\/bonnginn\.github\.io\/brain-practical-navi\//);
   assert.match(viteConfig, /gitOutput\(\["rev-parse","HEAD"\]\)/);
@@ -1672,7 +1674,7 @@ test("records reproducible real-device diagnostics without treating them as a ga
   assert.match(css, /\.deviceTouchState\.confirmed/);
   const valid=spawnSync(process.execPath,[localPath("scripts/validate_device_check_record.mjs"),localPath("tests/fixtures/device-check-valid.json"),"--commit",deviceFixtureCommit],{encoding:"utf8"});
   assert.equal(valid.status,0,valid.stderr);
-  assert.match(valid.stdout,/confirmed touch, 10\/10 route\/performance observations, and 3\/3 PWA checkpoints/);
+  assert.match(valid.stdout,/confirmed touch, 9\/9 route\/performance observations, and 3\/3 PWA checkpoints/);
   const incomplete=spawnSync(process.execPath,[localPath("scripts/validate_device_check_record.mjs"),localPath("tests/fixtures/device-check-incomplete.json"),"--commit",deviceFixtureCommit],{encoding:"utf8"});
   assert.equal(incomplete.status,1);
   assert.match(incomplete.stderr,/touch must contain a confirmed touch pointer/);
@@ -1865,7 +1867,12 @@ test("phone layouts use a bottom workspace dock and a complete context sheet", a
   assert.match(page, /matchMedia\("\(max-width: 760px\) and \(hover: none\) and \(pointer: coarse\)"\)/);
   assert.match(page, /id="mobile-context-panel" className=\{`leftRail rail-\$\{workspace\} \$\{mobileRailOpen\?"mobileOpen":""\}`\} role=\{phoneViewport\?"dialog":undefined\}/);
   assert.match(page, /aria-modal=\{phoneViewport&&mobileRailOpen\?true:undefined\}/);
-  assert.match(page, /断面と表示構造[\s\S]*復習クイズの設定[\s\S]*編集ツールの手順/);
+  assert.match(page, /workspaceModes\.filter\(item=>!phoneViewport\|\|item\.key!=="segment"\)/);
+  assert.match(page, /断面と表示構造[\s\S]*復習クイズの設定/);
+  assert.match(page, /!phoneViewport&&<button className=\{sectionLayout==="both"/);
+  assert.match(page, /sectionModelRotations\.slice\(0,phoneViewport\?1:2\)/);
+  assert.match(css, /grid-template-columns:repeat\(5,minmax\(0,1fr\)\)/);
+  assert.match(css, /\.homePhoneInstall\{display:none\}/);
   assert.match(page, /document\.body\.style\.overflow="hidden"/);
   assert.match(page, /\.mobileRailSheetHead button[\s\S]*focus\(\{preventScroll:true\}\)/);
   assert.match(page, /if\(event\.shiftKey&&document\.activeElement===first\)[\s\S]*last\.focus\(\)/);

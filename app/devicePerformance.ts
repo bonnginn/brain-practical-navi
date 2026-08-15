@@ -40,7 +40,7 @@ const PERFORMANCE_KEY="brain-practical-device-performance-v2";
 const LEGACY_PERFORMANCE_KEY="brain-practical-device-performance-v1";
 const LAST_CONTENT_ROUTE_KEY="brain-practical-last-content-route-v1";
 export const CONTENT_ROUTE_HISTORY_KEY="brainPracticalContentRoute";
-const routeKeys:DeviceRouteKey[]=["home","surface","sections","blocks","quiz","segment","offlineSurface","offlineSections","offlineBlocks","offlineQuiz"];
+const routeKeys:DeviceRouteKey[]=["home","surface","sections","blocks","quiz","offlineSurface","offlineSections","offlineBlocks","offlineQuiz"];
 const overlayPattern=/^#workspace\/(help|offline|device-check|feedback|legal)(?:\/|$)/;
 const round=(value:number,digits=1)=>Number(value.toFixed(digits));
 const memory=()=>((performance as Performance&{memory?:{usedJSHeapSize:number}}).memory?.usedJSHeapSize??null);
@@ -58,7 +58,7 @@ function writeSession(session:DevicePerformanceSession){
 
 export function rememberDeviceContentRoute(hash=location.hash){
   if(!hash||overlayPattern.test(hash))return;
-  try{sessionStorage.setItem(LAST_CONTENT_ROUTE_KEY,hash)}catch{/* route hint is best effort */}
+  try{localStorage.setItem(LAST_CONTENT_ROUTE_KEY,hash)}catch{/* route hint is best effort */}
 }
 
 export function deviceEvidenceRouteHash(){
@@ -68,7 +68,7 @@ export function deviceEvidenceRouteHash(){
   try{
     const historyRoute=(history.state as Record<string,unknown>|null)?.[CONTENT_ROUTE_HISTORY_KEY];
     if(typeof historyRoute==="string"&&historyRoute&&!overlayPattern.test(historyRoute))return historyRoute;
-    return sessionStorage.getItem(LAST_CONTENT_ROUTE_KEY)??routeHash;
+    return localStorage.getItem(LAST_CONTENT_ROUTE_KEY)??routeHash;
   }catch{return routeHash}
 }
 

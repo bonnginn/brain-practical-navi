@@ -18,7 +18,6 @@
     "sections": { "confirmed": false, "recordedAt": null },
     "blocks": { "confirmed": false, "recordedAt": null },
     "quiz": { "confirmed": false, "recordedAt": null },
-    "segment": { "confirmed": false, "recordedAt": null },
     "offlineSurface": { "confirmed": false, "recordedAt": null },
     "offlineSections": { "confirmed": false, "recordedAt": null },
     "offlineBlocks": { "confirmed": false, "recordedAt": null },
