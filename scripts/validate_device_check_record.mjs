@@ -12,10 +12,11 @@ const errors=[],warnings=[];
 const walkthroughKeys=["home","surface","sections","blocks","quiz","segment","offlineSurface","offlineSections","offlineBlocks","offlineQuiz"];
 const onlineWalkthroughKeys=walkthroughKeys.slice(0,6),offlineWalkthroughKeys=walkthroughKeys.slice(6);
 const packIds=["surface","sections","blocks"];
+const routePatterns={home:/^#workspace\/home$/,surface:/^#workspace\/surface\//,sections:/^#workspace\/sections\//,blocks:/^#workspace\/blocks\//,quiz:/^#workspace\/quiz$/,segment:/^#workspace\/segment$/,offlineSurface:/^#workspace\/surface\//,offlineSections:/^#workspace\/sections\//,offlineBlocks:/^#workspace\/blocks\//,offlineQuiz:/^#workspace\/quiz$/};
 const finite=(value)=>typeof value==="number"&&Number.isFinite(value);
 const validDate=(value)=>typeof value==="string"&&!Number.isNaN(Date.parse(value));
 
-if(record?.format!=="brain-practical-device-check"||record?.schemaVersion!==3)errors.push("unsupported format or schemaVersion (expected schemaVersion 3)");
+if(record?.format!=="brain-practical-device-check"||record?.schemaVersion!==4)errors.push("unsupported format or schemaVersion (expected schemaVersion 4)");
 if(!validDate(record?.recordedAt))errors.push("recordedAt must be an ISO date");
 if(typeof record?.deviceLabel!=="string")errors.push("deviceLabel must be a string");
 else if(!record.deviceLabel.trim())warnings.push("deviceLabel is empty; identify the device and browser before review");
@@ -33,6 +34,52 @@ if(!Number.isInteger(record?.frameSample?.frames)||record.frameSample.frames<1)e
 for(const metric of ["medianIntervalMs","p95IntervalMs","maxIntervalMs"])if(!finite(record?.frameSample?.[metric])||record.frameSample[metric]<0)errors.push(`frameSample.${metric} must be a non-negative number`);
 if(!record?.walkthrough||typeof record.walkthrough!=="object")errors.push("walkthrough is required");
 else for(const key of walkthroughKeys){const item=record.walkthrough[key];if(item?.confirmed!==true)errors.push(`walkthrough.${key} is not confirmed`);if(!validDate(item?.recordedAt))errors.push(`walkthrough.${key}.recordedAt must be an ISO date`)}
+const performanceSession=record?.performanceSession;
+if(performanceSession?.format!=="brain-practical-device-performance"||performanceSession?.schemaVersion!==1)errors.push("performanceSession format/schemaVersion is invalid");
+else{
+  try{const origin=new URL(performanceSession.origin);if(origin.protocol!=="https:"||["localhost","127.0.0.1","::1"].includes(origin.hostname))errors.push("performanceSession.origin must be a public HTTPS origin")}catch{errors.push("performanceSession.origin must be a valid URL origin")}
+  if(!validDate(performanceSession.startedAt))errors.push("performanceSession.startedAt must be an ISO date");
+  if(!validDate(performanceSession.stoppedAt))errors.push("performanceSession.stoppedAt must be an ISO date");
+  if(performanceSession.active!==false)errors.push("performanceSession must be stopped after all routes are recorded");
+  if(typeof performanceSession.memorySupported!=="boolean")errors.push("performanceSession.memorySupported must be boolean");
+  if(performanceSession.memorySupported&&(!finite(performanceSession.peakJsHeapBytes)||performanceSession.peakJsHeapBytes<=0))errors.push("performanceSession.peakJsHeapBytes is required when memory is supported");
+  const coldStart=performanceSession.coldStart;
+  if(!coldStart||typeof coldStart!=="object")errors.push("performanceSession.coldStart is required");
+  else{
+    if(coldStart.key!=="coldHome"||coldStart.routeHash!=="#workspace/home"||coldStart.online!==true)errors.push("performanceSession.coldStart must describe the online home route");
+    if(!validDate(coldStart.recordedAt)||coldStart.recordedAt!==performanceSession.startedAt)errors.push("performanceSession.coldStart.recordedAt must match session start");
+    if(!finite(coldStart.viewport?.width)||coldStart.viewport.width<=0||!finite(coldStart.viewport?.height)||coldStart.viewport.height<=0||!Number.isInteger(coldStart.canvasCount)||coldStart.canvasCount<1||coldStart.horizontalOverflowPx!==0)errors.push("performanceSession.coldStart must confirm a rendered, overflow-free viewport");
+    if(!Number.isInteger(coldStart.resourceCount)||coldStart.resourceCount<1)errors.push("performanceSession.coldStart.resourceCount must capture the initial load");
+    for(const metric of ["transferBytes","encodedBodyBytes","decodedBodyBytes","longestResourceMs"])if(!finite(coldStart[metric])||coldStart[metric]<0)errors.push(`performanceSession.coldStart.${metric} must be non-negative`);
+    if(coldStart.transferBytes===0)warnings.push("cold-start transfer is zero; confirm that a cleared-site-data first load was measured on the target device");
+    const navigation=coldStart.navigation;if(!navigation||!["navigate","reload"].includes(navigation.type)||!["durationMs","domContentLoadedMs","loadMs","transferBytes","encodedBodyBytes","decodedBodyBytes"].every(metric=>finite(navigation[metric])&&navigation[metric]>=0))errors.push("performanceSession.coldStart navigation timing is required");
+  }
+  if(!performanceSession.observations||typeof performanceSession.observations!=="object")errors.push("performanceSession.observations is required");
+  else{
+    const observationTimes=[];
+    for(const key of walkthroughKeys){
+      const observation=performanceSession.observations[key];
+      if(!observation||typeof observation!=="object"){errors.push(`performanceSession.observations.${key} is required`);continue}
+      if(observation.key!==key)errors.push(`performanceSession.observations.${key}.key must be ${key}`);
+      if(!validDate(observation.recordedAt))errors.push(`performanceSession.observations.${key}.recordedAt must be an ISO date`);else observationTimes.push(Date.parse(observation.recordedAt));
+      if(observation.recordedAt!==record?.walkthrough?.[key]?.recordedAt)errors.push(`performanceSession.observations.${key}.recordedAt must match walkthrough.${key}`);
+      if(typeof observation.routeHash!=="string"||!routePatterns[key].test(observation.routeHash))errors.push(`performanceSession.observations.${key}.routeHash does not match the route`);
+      if(observation.online!==!key.startsWith("offline"))errors.push(`performanceSession.observations.${key}.online is invalid`);
+      if(!finite(observation.viewport?.width)||observation.viewport.width<=0||!finite(observation.viewport?.height)||observation.viewport.height<=0)errors.push(`performanceSession.observations.${key}.viewport is invalid`);
+      if(!Number.isInteger(observation.canvasCount)||observation.canvasCount<1)errors.push(`performanceSession.observations.${key}.canvasCount must confirm rendered content`);
+      if(observation.horizontalOverflowPx!==0)errors.push(`performanceSession.observations.${key}.horizontalOverflowPx must be zero`);
+      if(!Number.isInteger(observation.resourceCount)||observation.resourceCount<0)errors.push(`performanceSession.observations.${key}.resourceCount is invalid`);
+      for(const metric of ["transferBytes","encodedBodyBytes","decodedBodyBytes","longestResourceMs"])if(!finite(observation[metric])||observation[metric]<0)errors.push(`performanceSession.observations.${key}.${metric} must be non-negative`);
+      if(key.startsWith("offline")&&observation.transferBytes!==0)errors.push(`performanceSession.observations.${key}.transferBytes must be zero offline`);
+      if(performanceSession.memorySupported){if(!finite(observation.currentJsHeapBytes)||observation.currentJsHeapBytes<=0||!finite(observation.peakJsHeapBytes)||observation.peakJsHeapBytes<observation.currentJsHeapBytes||observation.peakJsHeapBytes>performanceSession.peakJsHeapBytes)errors.push(`performanceSession.observations.${key} heap values are invalid`)}
+    }
+    if(observationTimes.length===walkthroughKeys.length&&observationTimes.some((time,index)=>index>0&&time<=observationTimes[index-1]))errors.push("performance observations must follow the documented route order");
+    if(observationTimes.length&&validDate(performanceSession.startedAt)&&Date.parse(performanceSession.startedAt)>=observationTimes[0])errors.push("performanceSession must start before the first observation");
+    if(observationTimes.length&&validDate(performanceSession.stoppedAt)&&Date.parse(performanceSession.stoppedAt)<observationTimes.at(-1))errors.push("performanceSession.stoppedAt must follow the final observation");
+    const homeNavigation=performanceSession.observations.home?.navigation;
+    if(!homeNavigation||!["navigate","reload"].includes(homeNavigation.type)||!["durationMs","domContentLoadedMs","loadMs","transferBytes","encodedBodyBytes","decodedBodyBytes"].every(metric=>finite(homeNavigation[metric])&&homeNavigation[metric]>=0))errors.push("performanceSession home navigation timing is required");
+  }
+}
 const checkpoints={};
 for(const [kind,expectedOnline] of [["online",true],["offline",false],["restored",true]]){
   const checkpoint=record?.pwaEvidence?.[kind];checkpoints[kind]=checkpoint;
@@ -70,10 +117,11 @@ if(record?.capabilities?.standalone!==true)warnings.push("PWA standalone mode wa
 if(record?.storage?.persisted!==true)warnings.push("persistent storage was not confirmed");
 if(!record?.capabilities?.performanceMemory)warnings.push("browser did not expose JavaScript heap data; collect peak memory separately when possible");
 if(!record?.capabilities?.network)warnings.push("browser did not expose connection data; record public-network measurements separately");
+if(performanceSession?.memorySupported===false)warnings.push("browser did not expose route peak JavaScript heap; collect peak memory with platform tooling");
 
 for(const warning of warnings)console.warn(`WARN\t${warning}`);
 if(errors.length){for(const error of errors)console.error(`FAIL\t${error}`);process.exitCode=1}else{
   console.log(`PASS\tdevice check ${record.recordedAt}`);
-  console.log(`PASS\tconfirmed touch, ${walkthroughKeys.length}/${walkthroughKeys.length} walkthrough items, and 3/3 PWA checkpoints`);
+  console.log(`PASS\tconfirmed touch, ${walkthroughKeys.length}/${walkthroughKeys.length} route/performance observations, and 3/3 PWA checkpoints`);
   console.log("PASS\tdevice check record is structurally complete; this is not beta gate approval");
 }

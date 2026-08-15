@@ -157,3 +157,9 @@ Windows Chromium 391 × 639 px相当でA/B双方を実操作し、各状態でCa
 # 2026-08-15 実機診断の追加
 
 実機側の再現可能な採取入口として `#workspace/device-check` を追加しました。Storage Estimate、Service Worker制御、WebGL renderer、取得可能なJS heap、約1秒のフレーム間隔をJSONへ記録します。ただし静止画面の短時間サンプルであり、公開回線の初回転送量・表示時間や主要操作中の実機ピークメモリの代替にはしません。Gate 4は引き続き実機・公開環境待ちです。詳細は `DEVICE_CHECK_AUDIT.md` を参照してください。
+
+# 2026-08-15 公開回線・経路性能セッション
+
+診断JSONをschema v4へ更新し、公開候補HTTPSのホーム初回読込をNavigation / Resource Timingから即時採取した後、オンライン6経路と機内モード4経路を区間別に記録できるようにしました。各区間は取得量、encoded / decoded body、最長resource duration、Canvas数、viewport、横はみ出しを持ち、利用可能なChromium系ブラウザではアプリ起動中に250 ms間隔でJS heapを観測して最大値を保持します。教材3セット保存後のオンラインPWAチェックポイントでResource Timingを区切り、大容量保存通信を次の観察経路へ混入させません。
+
+validatorはlocalhostを正式証拠として拒否し、初回ホーム、10経路の順序・URL・接続状態、Canvas表示、横はみ出し0、オフライン4経路の転送量0を必須にします。ただしJS heap APIを公開しないブラウザ、OS・GPU・ネイティブ領域、250 msサンプル間の瞬間ピークは取得できません。実スマートフォンと公開候補URLのJSONを受領するまでGate 4は「実機待ち」のままです。

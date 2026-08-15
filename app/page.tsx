@@ -5,6 +5,7 @@ import { AtlasVolumeCanvas, type HighlightLayer, type IdentifiedPoint } from "./
 import { ManualSegmentationWorkbench } from "./ManualSegmentationWorkbench";
 import { OfflineManager } from "./OfflineManager";
 import { DeviceDiagnostics } from "./DeviceDiagnostics";
+import { startDevicePerformanceSampler } from "./devicePerformance";
 import expertReviewTargetsData from "./expert-review-targets.json";
 
 type Plane = "coronal" | "horizontal" | "sagittal";
@@ -594,6 +595,7 @@ export default function Home() {
   const [quizSlicePosition,setQuizSlicePosition]=useState(52);
   const [quizMisses,setQuizMisses]=useState<QuizTargetKey[]>([]);
   const feedbackFormUrl=(import.meta.env.VITE_FEEDBACK_FORM_URL as string|undefined)?.trim()||"https://docs.google.com/forms/d/e/1FAIpQLSeM5Kge0Zl9Q0lCHMEP1g____uHvDZsfzjSGA0FzeT9Gf75dA/viewform";
+  const publicAppHome="https://bonnginn.github.io/brain-practical-navi/#workspace/home";
   const sourceRepositoryUrl=(import.meta.env.VITE_SOURCE_REPOSITORY_URL as string|undefined)?.trim()||"https://github.com/bonnginn/brain-practical-navi";
   const repositoryBaseUrl=sourceRepositoryUrl.replace(/\/$/,"");
   const issueTrackerUrl=`${repositoryBaseUrl}/issues`;
@@ -666,17 +668,18 @@ export default function Home() {
   useEffect(()=>{if(isSurfaceQuiz(quizQuestion))setRotation({...surfaceViews[quizQuestion.view].rotation})},[quizQuestion]);
   useEffect(()=>{const close=(event:KeyboardEvent)=>{if(event.key==="Escape"){closeOverlay();setDetailsOpen(false);setMobileRailOpen(false);window.requestAnimationFrame(()=>mobileRailReturnFocus.current?.focus())}};window.addEventListener("keydown",close);return()=>window.removeEventListener("keydown",close)},[workspace,surfaceView,plane,blockSpecimen]);
   useEffect(()=>{const query=window.matchMedia("(max-width: 760px)");const update=(event:MediaQueryListEvent|MediaQueryList)=>{setCompactViewport(event.matches);if(!event.matches)setMobileRailOpen(false)};update(query);query.addEventListener("change",update);return()=>query.removeEventListener("change",update)},[]);
+  useEffect(()=>startDevicePerformanceSampler(),[]);
   useEffect(()=>{const query=window.matchMedia("(max-width: 760px) and (hover: none) and (pointer: coarse)");const update=(event:MediaQueryListEvent|MediaQueryList)=>{setPhoneViewport(event.matches);if(!event.matches)setMobileRailOpen(false)};update(query);query.addEventListener("change",update);return()=>query.removeEventListener("change",update)},[]);
   useEffect(()=>{if(!phoneViewport||!mobileRailOpen)return;mobileRailReturnFocus.current=document.activeElement instanceof HTMLElement?document.activeElement:null;const previousOverflow=document.body.style.overflow;document.body.style.overflow="hidden";const focusTimer=window.setTimeout(()=>document.querySelector<HTMLButtonElement>(".mobileRailSheetHead button")?.focus({preventScroll:true}),50);const trap=(event:KeyboardEvent)=>{if(event.key!=="Tab")return;const panel=document.getElementById("mobile-context-panel");if(!panel)return;const focusable=[...panel.querySelectorAll<HTMLElement>('button:not(:disabled),a[href],input:not(:disabled),select:not(:disabled),textarea:not(:disabled),[tabindex]:not([tabindex="-1"])')].filter(element=>element.getClientRects().length>0);if(!focusable.length)return;const first=focusable[0],last=focusable.at(-1)!;if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus()}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus()}};window.addEventListener("keydown",trap);return()=>{window.clearTimeout(focusTimer);window.removeEventListener("keydown",trap);document.body.style.overflow=previousOverflow}},[phoneViewport,mobileRailOpen]);
   useEffect(()=>{if(!overlayOpen)return;const previousOverflow=document.body.style.overflow;document.body.style.overflow="hidden";const frame=window.requestAnimationFrame(()=>document.querySelector<HTMLButtonElement>('.legalDialog header button')?.focus());const trap=(event:KeyboardEvent)=>{if(event.key!=="Tab")return;const dialog=document.querySelector<HTMLElement>('.legalDialog');if(!dialog)return;const focusable=[...dialog.querySelectorAll<HTMLElement>('button:not(:disabled),a[href],input:not(:disabled),select:not(:disabled),textarea:not(:disabled),[tabindex]:not([tabindex="-1"])')].filter(element=>element.getClientRects().length>0);if(!focusable.length)return;const first=focusable[0],last=focusable.at(-1)!;if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus()}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus()}};window.addEventListener("keydown",trap);return()=>{window.cancelAnimationFrame(frame);window.removeEventListener("keydown",trap);document.body.style.overflow=previousOverflow;overlayReturnFocus.current?.focus()}},[overlayOpen]);
-  useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.hash);setHelpOpen(overlay==="help");setOfflineOpen(overlay==="offline");setDeviceCheckOpen(overlay==="device-check");setFeedbackOpen(overlay==="feedback");setLegalOpen(overlay==="legal");const nextWorkspace=workspaceFromHash(window.location.hash);setWorkspace(nextWorkspace);if(nextWorkspace==="surface")chooseSurface(surfaceViewFromHash(window.location.hash));else if(nextWorkspace==="sections")jump(planeFromHash(window.location.hash),52);else if(nextWorkspace==="blocks")chooseBlock(blockSpecimenFromHash(window.location.hash))};window.addEventListener("hashchange",restore);window.addEventListener("popstate",restore);return()=>{window.removeEventListener("hashchange",restore);window.removeEventListener("popstate",restore)}},[]);
+  useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.hash);setHelpOpen(overlay==="help");setOfflineOpen(overlay==="offline");setDeviceCheckOpen(overlay==="device-check");setFeedbackOpen(overlay==="feedback");setLegalOpen(overlay==="legal");if(overlay)return;const nextWorkspace=workspaceFromHash(window.location.hash);setWorkspace(nextWorkspace);if(nextWorkspace==="surface")chooseSurface(surfaceViewFromHash(window.location.hash));else if(nextWorkspace==="sections")jump(planeFromHash(window.location.hash),52);else if(nextWorkspace==="blocks")chooseBlock(blockSpecimenFromHash(window.location.hash))};window.addEventListener("hashchange",restore);window.addEventListener("popstate",restore);return()=>{window.removeEventListener("hashchange",restore);window.removeEventListener("popstate",restore)}},[]);
   useEffect(()=>{if(helpOpen||offlineOpen||deviceCheckOpen||feedbackOpen||legalOpen)return;const expected=workspaceHash(workspace,surfaceView,plane,blockSpecimen);if(window.location.hash!==expected)window.history.replaceState(null,"",expected)},[workspace,surfaceView,plane,blockSpecimen,helpOpen,offlineOpen,deviceCheckOpen,feedbackOpen,legalOpen]);
   useEffect(()=>{if(!window.matchMedia("(max-width: 760px)").matches)return;const frame=window.requestAnimationFrame(()=>{document.querySelector<HTMLElement>(".workspaceSwitch button.active")?.scrollIntoView({block:"nearest",inline:"center"});document.querySelector<HTMLElement>(".leftRail .planeBtn.active")?.scrollIntoView({block:"nearest",inline:"center"})});return()=>window.cancelAnimationFrame(frame)},[workspace,surfaceView,plane,blockSpecimen]);
 
   function wrapAngle(value:number){return ((value+180)%360+360)%360-180}
 
   function beginRotation(e:PointerEvent<HTMLDivElement>){
-    if((e.target as HTMLElement).closest("button"))return;
+    if((e.target as HTMLElement).closest("button,a"))return;
     e.preventDefault();
     e.currentTarget.focus();
     e.currentTarget.setPointerCapture?.(e.pointerId);
@@ -871,6 +874,7 @@ export default function Home() {
         </div>
         <div className="homeModelStage modelStage" tabIndex={0} aria-label="全脳3Dモデル。ドラッグまたは矢印キーで回転、Rキーで向きを戻す" onKeyDown={handleModelKey} onPointerDown={beginRotation} onPointerMove={move} onPointerUp={()=>setDrag(null)} onPointerCancel={()=>setDrag(null)} onContextMenu={event=>event.preventDefault()}>
           <AtlasVolumeCanvas kind="surface" plane="sagittal" position={50} focus="thalamus" display="specimen" rotation={rotation} view="inside" contrast="bigbrain" showFocus={false} showCutPlane={false}/>
+          <a className="homePhoneInstall" href={publicAppHome} target="_blank" rel="noreferrer" aria-label="QRコードのホームURLを開く"><img src={`${import.meta.env.BASE_URL}phone-home-qr.svg`} alt="脳実習ナビのスマートフォン用QRコード" width="232" height="232"/><span><small>PHONE · PWA</small><b>スマホで開く</b></span></a>
           <OrientationCompass rotation={rotation}/>
           <div className="homeModelLabel"><span>INTERACTIVE 3D</span><b>全脳表面モデル</b><small>ドラッグ／矢印キーで回転・Rで初期化</small></div>
         </div>

@@ -331,6 +331,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /useState<WorkspaceMode>\(\(\)=>typeof window==="undefined"\?"home":workspaceFromHash\(window.location.hash\)\)/);
   assert.match(page, /window\.addEventListener\("hashchange",restore\)/);
   assert.match(page, /window\.addEventListener\("popstate",restore\)/);
+  assert.match(page, /setLegalOpen\(overlay==="legal"\);if\(overlay\)return;const nextWorkspace/);
   assert.match(page, /window\.history\.pushState\(null,"",nextHash\)/);
   assert.match(page, /surfaceViewFromHash\(window\.location\.hash\)/);
   assert.match(page, /workspaceHash\("surface",key\)/);
@@ -608,6 +609,23 @@ test("connects only the public Google Form responder URL", async () => {
   assert.match(publishedText, /1FAIpQLSeM5Kge0Zl9Q0lCHMEP1g____uHvDZsfzjSGA0FzeT9Gf75dA\/viewform/);
   assert.doesNotMatch(publishedText, /15c95KrcMeKccBxyBWiotKO3s_5xcF8NNHqkRf6n0Dx4/);
   assert.doesNotMatch(publishedText, /1nW-udpo6EAhG7Fi0D0VCpUTngjQ8ldIKUoECAFwxvv0/);
+});
+
+test("publishes a local smartphone QR entry without a runtime tracking service", async () => {
+  const [page,css,qr]=await Promise.all([
+    readFile(new URL("app/page.tsx",root),"utf8"),
+    readFile(new URL("app/canvas.css",root),"utf8"),
+    readFile(new URL("public/phone-home-qr.svg",root),"utf8"),
+  ]);
+  assert.match(page,/const publicAppHome="https:\/\/bonnginn\.github\.io\/brain-practical-navi\/#workspace\/home"/);
+  assert.match(page,/className="homePhoneInstall"/);
+  assert.match(page,/phone-home-qr\.svg/);
+  assert.match(page,/QRコードのホームURLを開く/);
+  assert.match(page,/closest\("button,a"\)/);
+  assert.doesNotMatch(page,/api\.qrserver|chart\.googleapis|quickchart/);
+  assert.match(css,/\.homePhoneInstall\s*\{/);
+  assert.match(qr,/data:image\/png;base64,iVBORw0KGgo/);
+  assert.match(qr,/https:\/\/bonnginn\.github\.io\/brain-practical-navi\/#workspace\/home/);
 });
 
 test("separates private feedback, public discussion, and pull requests", async () => {
@@ -1562,10 +1580,11 @@ test("PWA manager reports install, connectivity, persistence, and pack freshness
 });
 
 test("records reproducible real-device diagnostics without treating them as a gate pass", async () => {
-  const [page, manager, diagnostics, validator, packageJson, html, css] = await Promise.all([
+  const [page, manager, diagnostics, performanceRecorder, validator, packageJson, html, css] = await Promise.all([
     readFile(new URL("app/page.tsx", root), "utf8"),
     readFile(new URL("app/OfflineManager.tsx", root), "utf8"),
     readFile(new URL("app/DeviceDiagnostics.tsx", root), "utf8"),
+    readFile(new URL("app/devicePerformance.ts", root), "utf8"),
     readFile(new URL("scripts/validate_device_check_record.mjs", root), "utf8"),
     readFile(new URL("package.json", root), "utf8"),
     readFile(new URL("index.html", root), "utf8"),
@@ -1575,7 +1594,7 @@ test("records reproducible real-device diagnostics without treating them as a ga
   assert.match(page, /<DeviceDiagnostics\/>/);
   assert.match(manager, /href="#workspace\/device-check"/);
   assert.match(diagnostics, /format:"brain-practical-device-check"/);
-  assert.match(diagnostics, /schemaVersion:3/);
+  assert.match(diagnostics, /schemaVersion:4/);
   assert.match(diagnostics, /event\.pointerType!=="touch"/);
   assert.match(diagnostics, /navigator\.storage\?\.estimate/);
   assert.match(diagnostics, /navigator\.serviceWorker\?\.controller/);
@@ -1587,13 +1606,23 @@ test("records reproducible real-device diagnostics without treating them as a ga
   assert.match(diagnostics, /walkthrough:\{\.\.\.walkthrough\}/);
   assert.match(diagnostics, /problemNotes:problemNotes\.trim\(\)/);
   assert.match(diagnostics, /walkthroughItems\.map/);
-  assert.match(diagnostics, /brain-practical-device-check-draft-v3/);
+  assert.match(diagnostics, /brain-practical-device-check-draft-v4/);
   assert.match(diagnostics, /localStorage\.setItem\(DRAFT_KEY/);
   assert.match(diagnostics, /capturePwaCheckpoint/);
   assert.match(diagnostics, /cachedResources===pack\.resources\.length/);
+  assert.match(diagnostics, /recordDevicePerformanceObservation/);
+  assert.match(page, /startDevicePerformanceSampler\(\)/);
+  assert.match(performanceRecorder, /brain-practical-device-performance-v1/);
+  assert.match(performanceRecorder, /performance\.clearResourceTimings\(\)/);
+  assert.match(performanceRecorder, /horizontalOverflowPx/);
+  assert.match(performanceRecorder, /peakJsHeapBytes/);
+  assert.match(performanceRecorder, /coldStart:DeviceColdStartObservation/);
+  assert.match(diagnostics, /next\.coldStart\.routeHash!=="#workspace\/home"/);
   assert.match(diagnostics, /this record alone|\u3053\u306e\u8a18\u9332\u3060\u3051/);
   assert.match(validator, /walkthroughKeys=\["home","surface","sections","blocks","quiz","segment","offlineSurface","offlineSections","offlineBlocks","offlineQuiz"\]/);
   assert.match(validator, /PWA checkpoints must be ordered online, offline, restored/);
+  assert.match(validator, /performanceSession\.origin must be a public HTTPS origin/);
+  assert.match(validator, /performance observations must follow the documented route order/);
   assert.match(validator, /pointerType!=="touch"/);
   assert.match(validator, /this is not beta gate approval/);
   assert.match(packageJson, /"validate:device-check": "node scripts\/validate_device_check_record\.mjs"/);
@@ -1601,13 +1630,16 @@ test("records reproducible real-device diagnostics without treating them as a ga
   assert.match(css, /\.deviceTouchState\.confirmed/);
   const valid=spawnSync(process.execPath,[localPath("scripts/validate_device_check_record.mjs"),localPath("tests/fixtures/device-check-valid.json")],{encoding:"utf8"});
   assert.equal(valid.status,0,valid.stderr);
-  assert.match(valid.stdout,/confirmed touch, 10\/10 walkthrough items, and 3\/3 PWA checkpoints/);
+  assert.match(valid.stdout,/confirmed touch, 10\/10 route\/performance observations, and 3\/3 PWA checkpoints/);
   const incomplete=spawnSync(process.execPath,[localPath("scripts/validate_device_check_record.mjs"),localPath("tests/fixtures/device-check-incomplete.json")],{encoding:"utf8"});
   assert.equal(incomplete.status,1);
   assert.match(incomplete.stderr,/touch must contain a confirmed touch pointer/);
   assert.match(incomplete.stderr,/walkthrough\.surface is not confirmed/);
   assert.match(incomplete.stderr,/PWA checkpoints must be ordered online, offline, restored/);
   assert.match(incomplete.stderr,/pwaEvidence\.offline\.packs must contain one surface pack/);
+  assert.match(incomplete.stderr,/performanceSession\.origin must be a public HTTPS origin/);
+  assert.match(incomplete.stderr,/performanceSession\.observations\.home is required/);
+  assert.match(incomplete.stderr,/performanceSession\.coldStart is required/);
 });
 
 test("keeps simultaneously selectable surface colours distinct on the dark model", async () => {

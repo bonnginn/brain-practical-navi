@@ -1,6 +1,6 @@
 {
   "format": "brain-practical-device-check",
-  "schemaVersion": 3,
+  "schemaVersion": 4,
   "recordedAt": "2026-08-15T12:00:00.000Z",
   "deviceLabel": "Incomplete fixture",
   "route": { "pathname": "/", "hash": "#workspace/device-check" },
@@ -28,6 +28,7 @@
     "offline": { "kind": "offline", "recordedAt": "2026-08-15T12:05:00.000Z", "online": false, "standalone": false, "serviceWorkerControlled": true, "catalogVersion": "d61261d04f9d", "packs": [] },
     "restored": { "kind": "restored", "recordedAt": "2026-08-15T12:00:00.000Z", "online": true, "standalone": false, "serviceWorkerControlled": true, "catalogVersion": "d61261d04f9d", "packs": [] }
   },
+  "performanceSession": { "format": "brain-practical-device-performance", "schemaVersion": 1, "origin": "http://127.0.0.1:4174", "startedAt": "2026-08-15T12:00:00.000Z", "stoppedAt": null, "active": true, "memorySupported": false, "peakJsHeapBytes": null, "observations": {} },
   "problemNotes": "",
   "gateDisclaimer": "この記録だけでは実機ゲート合格になりません。"
 }

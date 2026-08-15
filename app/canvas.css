@@ -315,6 +315,12 @@ html, body, #root { height: 100%; overflow: hidden; }
 .homeAccuracyWarning { display: grid; grid-template-columns: auto minmax(0,1fr); align-items: center; gap: 9px; max-width: 610px; margin: 14px 0 0; padding: 10px 12px; border: 1px solid #c97869; border-left: 5px solid #c44737; background: #f5e5e0; color: #713a32; font-size: 15px; line-height: 1.55; }
 .homeAccuracyWarning b { color: #a43529; white-space: nowrap; }
 .homeAccuracyWarning span { font-weight: 700; }
+.homePhoneInstall { position: absolute; z-index: 9; top: 18px; left: 18px; display: grid; grid-template-columns: 78px auto; align-items: center; gap: 8px; padding: 6px 9px 6px 6px; border: 1px solid #9fb2ad; background: rgba(246,248,245,.94); color: #263b37; text-decoration: none; box-shadow: 0 5px 18px rgba(4,12,13,.22); }
+.homePhoneInstall img { display: block; width: 78px; height: 78px; background: #fff; image-rendering: pixelated; }
+.homePhoneInstall span { display: grid; gap: 3px; }
+.homePhoneInstall small { color: #1d6e69; font: 700 10px monospace; letter-spacing: .1em; }
+.homePhoneInstall b { font-size: 13px; white-space: nowrap; }
+.homePhoneInstall:hover,.homePhoneInstall:focus-visible { border-color: #6bafa5; outline: 3px solid rgba(114,198,187,.4); outline-offset: 2px; }
 .homeModelStage { position: relative; width: 100%; height: auto; min-width: 0; min-height: 340px; overflow: hidden; cursor: grab; touch-action: none; background: radial-gradient(circle at 50% 43%,#596267 0,#353c40 49%,#1b2023 100%); }
 .homeModelStage:active { cursor: grabbing; }
 .homeModelStage .orientation { top: 22px; right: 22px; color: #ccd3d2; }
@@ -749,12 +755,22 @@ html, body, #root { height: 100%; overflow: hidden; }
 .deviceCheckMessage { margin: 10px 0 0; color: #1f5d57; font-size: 13px; font-weight: 700; }
 .deviceCheckResults { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-top: 14px; }
 .deviceCheckResults article { min-width: 0; padding: 13px; border: 1px solid #c0c8c4; background: #faf9f5; }
-.deviceCheckResults h3,.deviceRouteChecklist h3 { margin: 0 0 9px; color: #263f3b; font-size: 16px; }
+.deviceCheckResults h3,.devicePerformanceSession h3,.deviceRouteChecklist h3 { margin: 0 0 9px; color: #263f3b; font-size: 16px; }
 .deviceCheckResults dl { display: grid; gap: 6px; margin: 0; }
 .deviceCheckResults dl div { display: grid; grid-template-columns: 88px minmax(0,1fr); gap: 7px; padding-top: 5px; border-top: 1px solid #d7dcd8; }
 .deviceCheckResults dt { color: #66736f; font-size: 12px; }
 .deviceCheckResults dd { min-width: 0; margin: 0; overflow-wrap: anywhere; color: #34433f; font: 12px monospace; }
 .deviceCheckResults small { display: block; margin-top: 9px; color: #697471; line-height: 1.5; }
+.devicePerformanceSession { margin-top: 14px; padding: 13px 15px; border: 1px solid #a8b9b4; background: #edf1ee; color: #3c4e49; }
+.devicePerformanceSession > header { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.devicePerformanceSession > header h3 { margin-bottom: 2px; }
+.devicePerformanceSession > header small { color: #486963; font-weight: 800; }
+.devicePerformanceSession > header button { min-height: 38px; padding: 7px 11px; border: 1px solid #557b72; background: #fff; color: #315d54; font-weight: 800; }
+.devicePerformanceSession > p { margin: 9px 0 0; color: #5d6e69; font-size: 12px; line-height: 1.55; }
+.devicePerformanceSession dl { display: grid; grid-template-columns: minmax(0,1fr) repeat(3,minmax(110px,auto)); gap: 7px; margin: 10px 0 0; }
+.devicePerformanceSession dl div { display: grid; gap: 2px; min-width: 0; padding: 7px 9px; border: 1px solid #c9d1cd; background: #fafbf9; }
+.devicePerformanceSession dt { color: #687570; font-size: 11px; }
+.devicePerformanceSession dd { min-width: 0; margin: 0; overflow-wrap: anywhere; font: 12px monospace; }
 .devicePwaCheckpoints { margin-top: 14px; padding: 13px 15px; border: 1px solid #9db7b0; background: #e4ece8; }
 .devicePwaCheckpoints > header { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; }
 .devicePwaCheckpoints > header h3 { margin: 0 0 2px; color: #263f3b; font-size: 16px; }
@@ -781,11 +797,12 @@ html, body, #root { height: 100%; overflow: hidden; }
 .deviceRouteChecklist input { width: 18px; height: 18px; margin-top: 2px; accent-color: #1d6e69; }
 .deviceRouteChecklist label span { display: grid; gap: 2px; }
 .deviceRouteChecklist label small { color: #6a7572; line-height: 1.4; }
+.deviceRouteChecklist .deviceRouteMetric { color: #23645b; font: 11px/1.4 monospace; }
 .deviceProblemNotes { display: grid !important; gap: 5px !important; margin-top: 10px; color: #4c5956; font-size: 13px; font-weight: 700; }
 .deviceProblemNotes textarea { min-height: 72px; resize: vertical; padding: 9px; border: 1px solid #adb8b4; background: #fff; color: #263432; font: 14px/1.55 sans-serif; }
 .deviceGateDisclaimer { margin-top: 14px; border-left-color: #c28155; background: #f3e9dc; color: #594c43; font-weight: 700; }
 @media(max-width:520px){.offlineInstall,.offlineCapacityWarning{align-items:stretch;flex-direction:column}.offlineInstall button,.offlineCapacityWarning button{width:100%}.offlineCapacityWarning>div:last-child{display:grid}}
-@media(max-width:760px){.deviceCheck{padding:14px}.deviceCheckActions,.deviceCheckResults,.devicePwaCheckpoints>div,.deviceRouteChecklist>div{grid-template-columns:1fr}.deviceTouchState,.devicePwaCheckpoints>header,.deviceRouteChecklist>header{align-items:flex-start;flex-direction:column;gap:3px}.deviceCheckLink{grid-template-columns:1fr}.deviceCheckLink i{grid-column:1;grid-row:auto}}
+@media(max-width:760px){.deviceCheck{padding:14px}.deviceCheckActions,.deviceCheckResults,.devicePerformanceSession dl,.devicePwaCheckpoints>div,.deviceRouteChecklist>div{grid-template-columns:1fr}.deviceTouchState,.devicePerformanceSession>header,.devicePwaCheckpoints>header,.deviceRouteChecklist>header{align-items:flex-start;flex-direction:column;gap:3px}.deviceCheckLink{grid-template-columns:1fr}.deviceCheckLink i{grid-column:1;grid-row:auto}}
 
 .segRailIntro { margin: 16px 18px 18px; padding: 14px; border: 1px solid #c5c9c3; background: #efeee8; }
 .segRailIntro > b { font-size: 16px; }
@@ -902,7 +919,7 @@ html, body, #root { height: 100%; overflow: hidden; }
   .mobileSectionStructurePicker .structureBtn.active{border-color:#79a6a1;background:#e0ece8}
 }
 @media(max-width:760px){.specimenViewControls{right:8px}.specimenViewControls>span{display:none}.specimenViewControls button{padding-inline:6px}.specimenRotationHint{display:none}}
-@media(max-width:760px){.homeArea{display:block;overflow:visible;padding:12px}.homeHero{display:block}.homeIntro{padding:30px 22px;border-right:0;border-bottom:1px solid #c9cbc5}.homeIntro h1{font-size:40px}.homeAccuracyWarning{grid-template-columns:1fr;gap:3px}.homeModelStage{height:380px}.homeModeGrid{grid-template-columns:1fr;margin-top:10px}.homeModeGrid button{min-height:78px}.homeModeGrid small{display:block}.homeFooter{display:block;padding:13px 2px}.homeFooter div{margin-top:9px}}
+@media(max-width:760px){.homeArea{display:block;overflow:visible;padding:12px}.homeHero{display:block}.homeIntro{padding:30px 22px;border-right:0;border-bottom:1px solid #c9cbc5}.homeIntro h1{font-size:40px}.homeAccuracyWarning{grid-template-columns:1fr;gap:3px}.homePhoneInstall{top:12px;left:12px;grid-template-columns:68px auto}.homePhoneInstall img{width:68px;height:68px}.homeModelStage{height:380px}.homeModeGrid{grid-template-columns:1fr;margin-top:10px}.homeModeGrid button{min-height:78px}.homeModeGrid small{display:block}.homeFooter{display:block;padding:13px 2px}.homeFooter div{margin-top:9px}}
 @media(max-width:760px){.modelComparisonNotice{display:block;margin-top:0}.modelComparisonNotice p{margin-top:5px}.modelComparisonGrid{display:block}.modelComparisonCard+.modelComparisonCard{margin-top:10px}.modelComparisonStage{min-height:390px}.modelComparisonGuide{margin-top:10px;overflow:visible}.modelComparisonGuide dl{display:block}.modelComparisonGuide dl>div+div{margin-top:1px}}
 @media(max-width:760px){.modelComparisonMobileSwitch{display:grid;grid-template-columns:1fr 1fr;margin:0 0 10px;padding:4px;border:1px solid #b8bfba;background:#e6e5df}.modelComparisonMobileSwitch button{min-height:44px;border:1px solid transparent;background:transparent;color:#586461;font-size:14px;font-weight:700}.modelComparisonMobileSwitch button+button{border-left-color:#c4c8c2}.modelComparisonMobileSwitch button.active{border-color:#49746e;background:#315d57;color:#fff}.modelComparisonMobileSwitch b{margin-right:5px;font:700 13px monospace}}
 @media(max-width:380px){.learningModelCard .panelHead{min-width:0;flex-wrap:wrap;align-content:center;gap:5px}.learningModelCard .panelHead>div:first-child{min-width:0;flex:1 1 120px}.learningModelCard .panelActions{min-width:0;flex:1 1 auto;gap:4px;justify-content:flex-end}.learningModelCard .panelActions button{padding-inline:6px;font-size:14px}}

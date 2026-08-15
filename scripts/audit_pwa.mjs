@@ -10,6 +10,8 @@ const index=await readFile(resolve(root,"index.html"),"utf8");
 const registration=await readFile(resolve(root,"src","pwa.ts"),"utf8");
 const manager=await readFile(resolve(root,"app","OfflineManager.tsx"),"utf8");
 const builder=await readFile(resolve(root,"scripts","build_service_worker.mjs"),"utf8");
+const page=await readFile(resolve(root,"app","page.tsx"),"utf8");
+const phoneQr=await readFile(resolve(root,"public","phone-home-qr.svg"),"utf8");
 
 function check(value,message){if(!value)throw new Error(message)}
 check(manifest.name==="脳実習ナビ","manifest name must be Japanese product name");
@@ -21,6 +23,8 @@ check(/beforeinstallprompt/.test(registration)&&/event\.preventDefault\(\)/.test
 check(/networkThenCache/.test(builder)&&/request\.mode==="navigate"/.test(builder)&&/\/atlas\//.test(builder),"worker must provide navigation fallback and atlas runtime caching");
 check(/ATLAS_BYTES/.test(builder)&&/healthyAtlasResponse/.test(builder)&&/text\/html/.test(builder)&&/Content-Length/.test(builder)&&/Content-Encoding/.test(builder)&&/response=>healthyAtlasResponse\(request,response\)/.test(builder),"atlas runtime cache must reject HTTP failures, HTML fallbacks, and unencoded declared-size mismatches");
 check(/builderSource=await readFile\(fileURLToPath\(import\.meta\.url\)/.test(builder)&&/builderSource\)\.digest/.test(builder),"worker logic changes must rotate generated cache versions");
+check(/phone-home-qr\.svg/.test(page)&&/https:\/\/bonnginn\.github\.io\/brain-practical-navi\/#workspace\/home/.test(page),"home must expose the canonical smartphone QR link");
+check(/data:image\/png;base64,iVBORw0KGgo/.test(phoneQr)&&!/api\.qrserver|chart\.googleapis|quickchart/.test(page),"smartphone QR must be locally bundled without a runtime QR service");
 check(/url\.pathname\.endsWith\("\/offline-packs\.json"\)/.test(builder)&&/controllerchange/.test(manager),"offline catalog updates must cross service worker version changes");
 check(/request\.cache==="reload"/.test(builder),"explicit pack downloads must bypass runtime-cache duplication");
 check(/caches\.open\(PACK_CACHE\).*cache\.match\(request\).*hit&&healthyAtlasResponse\(request,hit\)\?hit:networkThenCache/s.test(builder),"healthy explicit pack resources must be served before waiting for the network");
