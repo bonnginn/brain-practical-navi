@@ -1285,7 +1285,7 @@ test("surface quiz questions use labelled high-density pial regions", async () =
   }
   assert.match(page, /function shuffledItems<T>\(items:readonly T\[\]\)/);
   assert.match(page, /options:shuffledItems\(question\.options\)/);
-  assert.match(page, /useState<QuizQuestion\[\]>\(\(\)=>shuffledQuestions\(standardQuizQuestions\)\.slice\(0,10\)\)/);
+  assert.match(page, /useState<QuizQuestion\[\]>\(\(\)=>shuffledQuestions\(quizQuestions\)\.slice\(0,10\)\)/);
 });
 
 test("medial surface quiz keeps the same isolated-hemisphere anatomy as study mode", async () => {
@@ -1367,7 +1367,7 @@ test("labels provisional questions and includes them in the default quiz setup",
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
   assert.match(page, /function isProvisionalQuiz\(question:QuizQuestion\)\{return isSurfaceQuiz\(question\)\|\|structures\[question\.target\]\.labelSource!=="manual"\}/);
   assert.match(page, /standardQuizQuestions=quizQuestions\.filter\(question=>!isProvisionalQuiz\(question\)\)/);
-  assert.match(page, /useState<QuizQuestion\[]>\(\(\)=>shuffledQuestions\(standardQuizQuestions\)/);
+  assert.match(page, /useState<QuizQuestion\[]>\(\(\)=>shuffledQuestions\(quizQuestions\)/);
   assert.match(page, /quizIncludeProvisional,setQuizIncludeProvisional\]=useState\(true\)/);
   assert.match(page, /quizIncludeProvisional\|\|!isProvisionalQuiz\(question\)/);
   assert.match(page, /試作問題を含む[\s\S]*専門家未確認・位置照合ラベル/);
