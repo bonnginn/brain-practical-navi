@@ -603,6 +603,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 .quizArea { display: flex; flex-direction: column; }
 .quizWorkspace { flex: 1 1 auto; min-height: 0; display: grid; grid-template-columns: minmax(0,1fr) clamp(340px,30vw,430px); gap: 12px; }
 .quizImageStage { position: relative; min-width: 0; min-height: 0; overflow: hidden; background: radial-gradient(circle at 50% 44%,#4b5559 0,#30373a 48%,#171c1e 100%); }
+.quizImageStage.modelStage { height: auto; }
 .quizTargetTag { position: absolute; z-index: 9; left: 18px; bottom: 18px; display: grid; grid-template-columns: 8px auto; align-items: center; gap: 9px; min-width: 210px; padding: 10px 13px; border: 1px solid rgba(220,228,227,.3); background: rgba(20,26,28,.88); color: #f2f3ef; box-shadow: 0 8px 24px rgba(0,0,0,.32); pointer-events: none; }
 .quizTargetTag > i { align-self: stretch; width: 8px; min-height: 34px; border-radius: 5px; box-shadow: 0 0 12px currentColor; }
 .quizTargetTag b { display: block; font-size: 15px; }
