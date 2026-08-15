@@ -53,7 +53,7 @@
 
 確認時は [EXPERT_REVIEW_CHECKLIST.md](EXPERT_REVIEW_CHECKLIST.md) を使い、方向・断面位置・左右・表示モード・問題のスクリーンショットまたは再現手順を記録します。修正が必要な場合はGitHub IssueまたはPull Requestへ結び付け、採否と理由を残します。
 
-アプリ内の `?review=<ID>&commit=<SHA>` は、19画面の固定条件を表示し、記名判定を `brain-practical-expert-review` version 1 JSONとしてローカルへ書き出します。`npm run audit:expert-review` でチェック票との対応、`npm run validate:expert-review -- <JSON>` で記録形式を検査します。JSONが合格しても上表は自動昇格せず、内容を専門家の署名・根拠と照合してから手作業で更新します。
+アプリ内の `?review=<ID>&commit=<40桁SHA>` は、19画面の固定条件を表示し、記名判定を `brain-practical-expert-review` version 2 JSONとしてローカルへ書き出します。正式記録は公開候補HTTPS、40桁SHA、公開根拠URL、アプリ画面画像を必須にします。`npm run validate:expert-review -- <JSON>` で単票、`npm run validate:expert-review-bundle -- <directory>` で同一コミット19/19の網羅・専門性・未解決判定を検査します。検査に合格しても上表は自動昇格せず、内容を専門家の署名・根拠と照合してから手作業で更新します。
 
 ## クイズへの採用基準
 

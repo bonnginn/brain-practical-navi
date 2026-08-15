@@ -23,7 +23,7 @@
 
 完了条件: 必修構造ごとに「検証済み」「模式表示」「推定」「未収録」のいずれかが記録され、未確認の表示を検証済みと誤認させない。明らかな位置誤り、二重表示、構造から遊離した部品を残さない。
 
-由来・確度の表示区分と監修台帳は [STRUCTURE_PROVENANCE.md](STRUCTURE_PROVENANCE.md) に集約します。対象URL、方向、構造、合否基準、記録欄は [EXPERT_REVIEW_CHECKLIST.md](EXPERT_REVIEW_CHECKLIST.md) にまとめました。19件を `?review=<ID>&commit=<SHA>` から固定条件で開き、記名判定をローカルJSONへ書き出し、対象台帳と記録形式を機械検査できます。通常画面にも「標本同一格子・手動分節」「アトラス照合・試作」「画像誘導・試作」等を表示済みです。検証済みの専門家記録が台帳へ反映されるまでは「検証済み」へ昇格しません。
+由来・確度の表示区分と監修台帳は [STRUCTURE_PROVENANCE.md](STRUCTURE_PROVENANCE.md) に集約します。対象URL、方向、構造、合否基準、記録欄は [EXPERT_REVIEW_CHECKLIST.md](EXPERT_REVIEW_CHECKLIST.md) にまとめました。19件を公開候補HTTPSの `?review=<ID>&commit=<40桁SHA>` から固定条件で開き、version 2記名JSONへ書き出します。単票は公開URL・完全SHA・根拠・画面証拠、一括は同一コミット19/19・専門性・未解決判定を機械検査できます。検証済みの専門家記録が台帳と画面へ反映されるまでは「検証済み」へ昇格しません。
 
 ### 2. 3Dモデル方針の比較試作
 

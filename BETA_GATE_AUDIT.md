@@ -23,7 +23,7 @@
 | 6 | クイズ対象が十分に見え、未確認構造を標準問題で要求しない | ローカル合格 | 断面着色面積試験、試作問題の既定OFF、脳表・神経血管の試作表示と復習回帰 | 試作問題を昇格する場合の専門家レビュー |
 | 7 | ライセンス、クレジット、免責、プライバシー、対応ソースが一致 | ローカル合格 | 配布マニフェスト、資産通知、利用条件・README・クレジットの相互照合試験 | 公開反映後の最終一致確認 |
 | 8 | Google FormとGitHubのフィードバック導線が機能する | 管理者待ち | 未ログインでFormの3分岐を送信直前まで確認、公開保存期間と生成スクリプトを同期、公開Issue・PR入口まで確認、`FORM_OPERATION_AUDIT.md` | テスト回答1件の作成とForms・回答シート双方からの削除 |
-| 9 | 神経解剖学に詳しい確認者の必修範囲レビュー記録がある | 専門家待ち | 19件の `?review=<ID>&commit=<SHA>` 固定画面、`app/expert-review-targets.json`、ローカル限定の記名JSON出力、`npm run audit:expert-review`、`npm run validate:expert-review`、`EXPERT_REVIEW_CHECKLIST.md`、PC・760 px未満実操作を記録した`EXPERT_REVIEW_AUDIT.md` | 少なくとも1名の検証済み記名レビューJSONと台帳への採否反映 |
+| 9 | 神経解剖学に詳しい確認者の必修範囲レビュー記録がある | 専門家待ち | 19件の固定画面、version 2記名JSON、公開HTTPS・40桁SHA・根拠・画面証拠を強制する `npm run validate:expert-review`、同一コミット19/19・専門性・未解決判定を検査する `npm run validate:expert-review-bundle` | 少なくとも1名の神経解剖学専門家による19/19検証済み記名JSON、未解決指摘の修正、台帳・画面への採否反映 |
 | 10 | βで未完成の項目を既知の制限として公開する | 公開待ち | `KNOWN_LIMITATIONS.md` とアプリ内の試作・模式表示 | β候補を公開URLへ反映後に確認 |
 
 ## 現在の結論

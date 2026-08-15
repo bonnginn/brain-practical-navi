@@ -1,6 +1,6 @@
 {
   "format": "brain-practical-expert-review",
-  "version": 1,
+  "version": 2,
   "target": {
     "id": "A1",
     "group": "脳表と溝・裂",
@@ -11,7 +11,7 @@
     "criterion": "溝ガイドが対応する脳回間を走り、皮質領域の境界面と誤認されない",
     "audit": "SURFACE_RELATIONS_AUDIT.md"
   },
-  "targetCommit": "60ca0f6",
+  "targetCommit": "edfd50e214fd3684a7446274bb166eb8a4e44423",
   "reviewer": {
     "name": "Review Fixture",
     "affiliation": "Automated test only",
@@ -20,9 +20,9 @@
   "reviewedAt": "2026-08-15T00:00:00.000Z",
   "decision": "判定保留",
   "reason": "Automated schema fixture only; this is not an anatomical decision.",
-  "evidenceUrls": ["https://example.invalid/review-evidence"],
+  "evidenceUrls": ["https://doi.org/10.1038/s41597-020-0557-9"],
   "screenshotName": "A1-app-only.png",
-  "appUrl": "http://127.0.0.1:4178/?review=A1#workspace/surface/lateral",
+  "appUrl": "https://bonnginn.github.io/brain-practical-navi/?review=A1&commit=edfd50e214fd3684a7446274bb166eb8a4e44423#workspace/surface/lateral",
   "environment": {
     "userAgent": "Automated schema fixture",
     "viewport": {"width": 1364, "height": 768},

@@ -2,7 +2,7 @@
 
 更新日: 2026-08-15
 対象ブランチ: `codex/beta-candidate`
-基準実装コミット: `fa0c9f5 Make real-device evidence resumable`（QR・性能セッション改善の直前）
+基準実装コミット: `edfd50e Add smartphone QR and route performance evidence`（専門家証拠v2強化の直前）
 
 ## 1. 現在地
 
@@ -10,7 +10,7 @@
 
 直近のローカル検証:
 
-- 自動テスト: 78件全件合格
+- 自動テスト: 80件全件合格
 - TypeScript: 合格
 - 本番Viteビルド: 合格
 - `npm run audit:beta`: 10監査合格
@@ -101,9 +101,9 @@ npm run build
 ### 専門家レビュー待ち化
 
 - A1〜D5の19対象を `app/expert-review-targets.json` へ正規化。
-- `/?review=<ID>&commit=<SHA>#workspace/...` で固定画面と判定票を同時表示。
-- 記名、所属、専門領域、Git SHA、判定、理由、根拠URL、画面条件をローカルJSONへ書き出す。自動保存・送信なし。
-- `npm run audit:expert-review` で対象台帳、`npm run validate:expert-review -- <record.json>` で記録を検証。
+- 公開候補HTTPSの `/?review=<ID>&commit=<40桁SHA>#workspace/...` で固定画面と判定票を同時表示。localhostでは正式記録を書き出さない。
+- version 2記名JSONは記名、所属、専門領域、40桁SHA、判定、20文字以上の理由、公開根拠URL、画面画像名、画面条件を必須化。自動保存・送信なし。
+- `npm run validate:expert-review -- <record.json>` で単票、`npm run validate:expert-review-bundle -- <directory>` で同一コミット19/19・専門性・未解決判定を検証。
 - Windows Chromium 970 × 545 pxで入力制御、JSON出力、A1→A2移動、コミット維持、折りたたみを確認。加えてviewport override 390 × 844（右ペイン内の実効CSS viewport 295 × 639）でA1・A2を操作し、横はみ出し0、Canvas 1、「観察へ／レビュー票へ戻る」、未書き出し入力の画面内保護、JSON出力、前後移動を確認。
 
 ## 5. 現在のGo / No-Go
@@ -118,7 +118,7 @@ npm run build
 | 6 | クイズの可視性・未確認構造の隔離 | ローカル合格 | 試作問題を昇格する場合の専門家判定 |
 | 7 | 権利・免責・プライバシー・ソース | ローカル合格 | 公開反映後の最終一致確認 |
 | 8 | Form・Issue・PR導線 | 管理者待ち | テスト回答1件の送信とForms／回答表からの二重削除 |
-| 9 | 神経解剖学専門家レビュー | 専門家待ち | 少なくとも1名の検証済み記名JSONと台帳反映 |
+| 9 | 神経解剖学専門家レビュー | 専門家待ち | 少なくとも1名の専門家を含む19/19のv2記名JSON、未解決指摘の修正、台帳・画面反映 |
 | 10 | 未完成項目の公開 | 公開待ち | β候補公開URLで既知の制限を確認 |
 
 詳細と証拠は `BETA_GATE_AUDIT.md` が正本です。`npm run audit:beta` は10のローカル監査とこの状態区分を再検証しますが、外部証拠待ちを完了へ変更しません。
@@ -126,7 +126,7 @@ npm run build
 ## 6. 次に進める順序
 
 1. 実スマートフォンでトップ、脳表、断面、局所標本、クイズ、編集ツール、専門家票を完走し、CPU／GPU、タッチ、OS文字サイズ、安全域、回線、ピークメモリを記録する。
-2. 神経解剖学の確認者へ `EXPERT_REVIEW_CHECKLIST.md` と固定URLを渡し、検証済みJSONを最低1件受領する。Codexは判定内容を代筆しない。
+2. 神経解剖学の確認者へ `EXPERT_REVIEW_CHECKLIST.md` と40桁SHA付き固定URLを渡し、19対象のv2記名JSONを受領する。一括検証後、指摘の修正と台帳・画面反映を別変更で行う。Codexは判定内容を代筆しない。
 3. 管理者が公開Formへ個人情報を含まないテスト回答を1件送り、Formsと回答スプレッドシート双方から削除する。
 4. 管理者が `CONTRIBUTING.md` の「公開前ドラフト」を正式版へするか判断する。
 5. 明示的な許可後にだけbeta branchをpushし、公開URLとGitHub Actionsを巡回する。公開・`main`統合は別判断。
@@ -144,7 +144,7 @@ npm run build
 - 編集ツール: `#workspace/segment`
 - 操作ガイド・オフライン教材・意見・利用条件: `#workspace/help`、`#workspace/offline`、`#workspace/feedback`、`#workspace/legal`
 - M2比較: `/?m2=compare#workspace/blocks/hindbrain`
-- 専門家票例: `/?review=A1&commit=<SHA>#workspace/surface/lateral`
+- 専門家票例: `/?review=A1&commit=<40桁SHA>#workspace/surface/lateral`
 
 各経路で、直接URL、再読み込み、アプリ内遷移、Canvas数、読込表示、横はみ出し、回転、ズーム、選択、全解除、着脱、スライダー、キーボードフォーカスを対象に応じて確認します。
 

@@ -1,0 +1,14 @@
+{
+  "format": "brain-practical-expert-review",
+  "version": 1,
+  "target": {"id":"A1","title":"Left lateral","route":"#workspace/surface/lateral","criterion":"Incomplete fixture"},
+  "targetCommit": "edfd50e",
+  "reviewer": {"name":"Fixture","affiliation":"Test","expertise":"Schema"},
+  "reviewedAt": "2026-08-15T00:00:00.000Z",
+  "decision": "判定保留",
+  "reason": "Too short",
+  "evidenceUrls": [],
+  "screenshotName": "",
+  "appUrl": "http://127.0.0.1:4178/?review=A1#workspace/surface/lateral",
+  "environment": {"userAgent":"Fixture","viewport":{"width":390,"height":844},"devicePixelRatio":1}
+}

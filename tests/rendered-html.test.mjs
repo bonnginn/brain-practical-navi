@@ -1,9 +1,10 @@
 import assert from "node:assert/strict";
-import { readFile, readdir, stat } from "node:fs/promises";
+import { mkdtemp, readFile, readdir, rm, stat, unlink, writeFile } from "node:fs/promises";
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import test from "node:test";
 import { join } from "node:path";
+import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
 import { gunzipSync } from "node:zlib";
 
@@ -2057,6 +2058,11 @@ test("packages expert anatomy review as reproducible screen-level decisions", as
   assert.equal(new Set(targets.map(target=>target.id)).size,19);
   assert.match(page,/get\("review"\)/);
   assert.match(page,/format:"brain-practical-expert-review"/);
+  assert.match(page,/version:2/);
+  assert.match(page,/正式記録は公開候補HTTPS/);
+  assert.match(page,/\^\[0-9a-f\]\{40\}\$/);
+  assert.match(page,/根拠URL <b>必須/);
+  assert.match(page,/スクリーンショット名 <b>必須/);
   assert.match(page,/入力はこの端末の画面内だけで保持され、自動保存・送信されません/);
   assert.match(page,/検証用JSONを書き出す/);
   assert.match(page,/未書き出しの入力があります/);
@@ -2072,7 +2078,36 @@ test("packages expert anatomy review as reproducible screen-level decisions", as
   assert.match(audit.stdout,/PASS\texpert review target audit complete/);
   const validation=spawnSync(process.execPath,[localPath("scripts/validate_expert_review_record.mjs"),localPath("tests/fixtures/expert-review-record-smoke.json")],{encoding:"utf8",cwd:localPath(".")});
   assert.equal(validation.status,0,validation.stderr);
-  assert.match(validation.stdout,/PASS\texpert review record is structurally valid/);
+  assert.match(validation.stdout,/PASS\texpert review record v2 is structurally valid/);
+  const incomplete=spawnSync(process.execPath,[localPath("scripts/validate_expert_review_record.mjs"),localPath("tests/fixtures/expert-review-record-incomplete.json")],{encoding:"utf8",cwd:localPath(".")});
+  assert.notEqual(incomplete.status,0);
+  assert.match(incomplete.stderr,/expected version 2/);
+  assert.match(incomplete.stderr,/complete canonical registry entry/);
+  assert.match(incomplete.stderr,/full 40-digit Git SHA/);
+  assert.match(incomplete.stderr,/at least one public HTTPS URL/);
+  assert.match(incomplete.stderr,/public review base/);
+  assert.match(incomplete.stderr,/bind the target ID, full commit, and canonical route/);
+  assert.match(incomplete.stderr,/image filename without directories/);
+});
+
+test("requires complete, single-commit expert review coverage before Gate 9 evidence can pass", async () => {
+  const targets=JSON.parse(await readFile(new URL("app/expert-review-targets.json",root),"utf8"));
+  const fixture=JSON.parse(await readFile(new URL("tests/fixtures/expert-review-record-smoke.json",root),"utf8"));
+  const directory=await mkdtemp(join(tmpdir(),"brain-practical-expert-review-"));
+  try{
+    for(const target of targets){
+      const record={...fixture,target,decision:"採用可",reviewer:{name:"Bundle Fixture",affiliation:"Automated test only",expertise:"神経解剖学 schema fixture"},reason:`${target.id} automated bundle fixture only; not an anatomical decision.`,screenshotName:`${target.id}-app-only.png`,appUrl:`https://bonnginn.github.io/brain-practical-navi/?review=${target.id}&commit=${fixture.targetCommit}${target.route}`};
+      await writeFile(join(directory,`${target.id}.json`),`${JSON.stringify(record,null,2)}\n`);
+    }
+    const complete=spawnSync(process.execPath,[localPath("scripts/validate_expert_review_bundle.mjs"),directory],{encoding:"utf8",cwd:localPath(".")});
+    assert.equal(complete.status,0,complete.stderr);
+    assert.match(complete.stdout,/PASS\t19\/19 canonical targets reviewed/);
+    assert.match(complete.stdout,/declared neuroanatomy expertise/);
+    await unlink(join(directory,"D5.json"));
+    const missing=spawnSync(process.execPath,[localPath("scripts/validate_expert_review_bundle.mjs"),directory],{encoding:"utf8",cwd:localPath(".")});
+    assert.notEqual(missing.status,0);
+    assert.match(missing.stderr,/missing canonical targets: D5/);
+  }finally{await rm(directory,{recursive:true,force:true})}
 });
 
 test("keeps the internal capsule distinct from adjacent basal nuclei", async () => {
@@ -2105,12 +2140,12 @@ test("aggregates every local beta audit without converting external waits into p
 test("keeps the Windows handoff at the current beta-candidate gate instead of historical milestones", async () => {
   const handoff=await readFile(new URL("WINDOWS_HANDOFF.md",root),"utf8");
   assert.match(handoff,/対象ブランチ: `codex\/beta-candidate`/);
-  assert.match(handoff,/自動テスト: 78件全件合格/);
+  assert.match(handoff,/自動テスト: 80件全件合格/);
   assert.match(handoff,/`npm run audit:beta`/);
   assert.match(handoff,/ローカル合格3条件、外部証拠待ち7条件/);
   assert.match(handoff,/No-Go（β候補のローカル検証中）/);
   assert.match(handoff,/未pushならremoteの同名ブランチだけでは現在状態を再現できません/);
   assert.match(handoff,/実スマートフォン1台以上/);
-  assert.match(handoff,/少なくとも1名の検証済み記名JSON/);
+  assert.match(handoff,/少なくとも1名の専門家を含む19\/19のv2記名JSON/);
   assert.doesNotMatch(handoff,/9c1a962|自動テスト \*\*40件\*\*|Mac側で残した未着手事項|現在の検証基準は\d+\/\d+/);
 });
