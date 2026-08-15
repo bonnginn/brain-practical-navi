@@ -1636,11 +1636,17 @@ test("records reproducible real-device diagnostics without treating them as a ga
   assert.match(diagnostics, /capturePwaCheckpoint/);
   assert.match(diagnostics, /cachedResources===pack\.resources\.length/);
   assert.match(diagnostics, /recordDevicePerformanceObservation/);
+  assert.match(diagnostics, /walkthroughRoutePatterns/);
+  assert.match(diagnostics, /missingPrevious=walkthroughItems\.slice\(0,index\)\.find/);
+  assert.match(diagnostics, /routeRule\.pattern\.test\(routeHash\)/);
+  assert.match(diagnostics, /walkthroughItems\.slice\(index\)/);
+  assert.match(diagnostics, /disabled=\{waiting\}/);
   assert.match(page, /startDevicePerformanceSampler\(\)/);
   assert.match(page, /rememberDeviceContentRoute\(expected\)/);
   assert.match(page, /pushState\(\{\[CONTENT_ROUTE_HISTORY_KEY\]:contentRoute\}/);
   assert.match(performanceRecorder, /brain-practical-device-performance-v2/);
   assert.match(performanceRecorder, /export function rememberDeviceContentRoute/);
+  assert.match(performanceRecorder, /export function deviceEvidenceRouteHash/);
   assert.match(performanceRecorder, /history\.state as Record<string,unknown>/);
   assert.match(performanceRecorder, /value\?\.application\?\.commit===appBuildInfo\.commit/);
   assert.match(performanceRecorder, /performance\.clearResourceTimings\(\)/);

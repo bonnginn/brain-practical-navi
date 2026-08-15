@@ -43,4 +43,6 @@ schema v5では対象の40桁commit、dirty状態、base URL、実行URLを診�
 
 History APIによる教材移動後に診断画面を開くと古いURLが性能観測へ入る回帰を修正し、ホームで計測開始→脳表へ移動→診断で記録の通し操作により `#workspace/surface/lateral` が保存されることも確認しました。実機採取時の経路不一致を防ぐ準備であり、Gate 3・4の実機待ちは維持します。
 
+診断画面は10経路を所定順に有効化し、項目と直前教材URL、オンライン／オフライン状態が一致しない記録を即時拒否します。途中を解除した際は後続観測も削除し、時系列の破損を残しません。形式上妥当な証拠を採りやすくする保護であり、実操作の合否や実機Gateを自動承認するものではありません。
+
 GitHub Pagesワークフローはlockfile固定の `npm ci` を使い、アップロード前に `validate:pages-build` を実行します。成果物内の `build-info.json` がActionsの40桁commitと一致してdirtyでないこと、全HTML資源が `/brain-practical-navi/` 配下に存在すること、manifestとService Worker shellが揃うこと、Sites専用の `.openai` とworker資材を静的Pagesへ混入させないことを確認します。これは公開後の全経路巡回を代替しないためGate 5は「公開待ち」のままです。
