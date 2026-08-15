@@ -14,7 +14,8 @@
 .atlasCanvas.zoomed { cursor: crosshair; }
 .zoomReadout { position: absolute; z-index: 9; right: 14px; bottom: 14px; min-width: 82px; padding: 7px 9px; border: 1px solid #7b8585; background: #172126d9; color: #f4f2eb; font: 700 16px monospace; box-shadow: 0 4px 12px #0005; }
 .zoomReadout small { margin-left: 5px; color: #b9c1bf; font: 15px sans-serif; }
-.atlasLoading { position: absolute; z-index: 7; left: 50%; top: 50%; transform: translate(-50%,-50%); padding: 10px 14px; background: #f5f3ed; border: 1px solid #c7c4bc; color: #596264; font-size: 14px; white-space: nowrap; }
+.atlasLoading { position: absolute; z-index: 7; left: 50%; top: 50%; transform: translate(-50%,-50%); display: grid; gap: 8px; justify-items: center; padding: 10px 14px; background: #f5f3ed; border: 1px solid #c7c4bc; color: #596264; font-size: 14px; white-space: nowrap; }
+.atlasLoading progress { width: min(210px,64vw); height: 6px; accent-color: #4d777d; }
 .atlasLoading.error { color: #a2473c; border-color: #d6a49b; }
 .atlasLoading.error { display: grid; justify-items: center; gap: 8px; white-space: normal; text-align: center; }
 .atlasLoading.error button { min-width: 112px; padding: 7px 12px; border: 1px solid #a2473c; background: #fff; color: #8f392f; font-size: 14px; font-weight: 700; cursor: pointer; }
@@ -250,9 +251,10 @@ html, body, #root { height: 100%; overflow: hidden; }
 .workspaceSwitch button.prototype.active > i { color: #a63326; }
 .topActions { display: flex; align-items: center; gap: 10px; }
 .topActions > span { padding: 5px 8px; border: 1px solid #d4b7ae; color: #9a574a; font-size: 16px; font-weight: 700; letter-spacing: .04em; }
-.legalButton, .feedbackButton { padding: 9px 12px; border: 1px solid #aeb5b1; background: #f7f6f2; font-size: 14px; font-weight: 700; }
+.legalButton, .feedbackButton, .helpButton { padding: 9px 12px; border: 1px solid #aeb5b1; background: #f7f6f2; font-size: 14px; font-weight: 700; }
 .feedbackButton { border-color: #6f9c96; background: #e3ece8; color: #214b48; }
-.legalButton:hover, .feedbackButton:hover { border-color: #1d6e69; color: #1d6e69; }
+.helpButton { border-color: #829a96; color: #355d58; }
+.legalButton:hover, .feedbackButton:hover, .helpButton:hover { border-color: #1d6e69; color: #1d6e69; }
 .compactToggle { margin-left: 4px; padding-left: 9px; border-left: 1px solid #c4c7c2; font-size: 16px; white-space: nowrap; }
 .panelActions { display: flex; align-items: center; gap: 10px; }
 .panelActions button { padding: 7px 9px; border: 1px solid #738082; background: #283033; color: #d4d9d6; font-size: 16px; font-weight: 700; }
@@ -282,6 +284,10 @@ html, body, #root { height: 100%; overflow: hidden; }
 .quizCountButtons button + button { margin-left: -1px; }
 .quizCountButtons button.active { border-color: #1d6e69; background: #1d6e69; color: #fff; }
 .quizSetup .wrongOnlyToggle { grid-template-columns: auto 1fr auto; align-items: center; }
+.quizSetup .provisionalQuizToggle { grid-template-columns: auto 1fr; align-items: start; padding: 8px; border: 1px solid #d4a676; background: #fff2e4; }
+.provisionalQuizToggle input { margin-top: 4px; }
+.provisionalQuizToggle span { color: #6f482d !important; }
+.provisionalQuizToggle small { display: block; margin-top: 2px; color: #8a654a; font-size: 11px; font-weight: 400; }
 .wrongOnlyToggle input { accent-color: #e36e57; }
 .wrongOnlyToggle b { display: grid; place-items: center; min-width: 22px; height: 22px; border-radius: 11px; background: #dddcd6; color: #59625f; font: 15px monospace; }
 .quizStart { padding: 9px; border: 0; background: #172126; color: #fff; font-size: 14px; font-weight: 700; }
@@ -558,14 +564,17 @@ html, body, #root { height: 100%; overflow: hidden; }
 .quizTargetTag b { display: block; font-size: 15px; }
 .quizTargetTag small { display: block; margin-top: 2px; color: #acb7b5; font-size: 15px; font-weight: 400; }
 .quizSliceNavigator { display: grid; grid-template-columns: minmax(0,1fr) minmax(180px,2fr) 42px auto; align-items: center; gap: 12px; min-height: 58px; padding: 9px 14px; border-top: 1px solid #505a5b; background: #202628; color: #e6e9e6; }
-.quizSliceNavigator > div { display: flex; justify-content: space-between; gap: 9px; color: #acb5b3; font-size: 12px; }
-.quizSliceNavigator > div b { color: #eef0ed; font-size: 13px; }
+.quizSliceAxis { display: flex; justify-content: space-between; gap: 9px; color: #acb5b3; font-size: 12px; }
+.quizSliceAxis b { color: #eef0ed; font-size: 13px; }
+.quizSliceControl { display: grid; grid-template-columns: 32px minmax(0,1fr) 32px; align-items: center; gap: 7px; }
 .quizSliceNavigator input { width: 100%; accent-color: #e36e57; }
 .quizSliceNavigator output { padding: 5px; border: 1px solid #697374; text-align: center; font: 700 14px monospace; }
 .quizSliceNavigator button { padding: 7px 9px; border: 1px solid #87908e; background: #eef0ec; color: #263230; font-size: 13px; font-weight: 700; white-space: nowrap; }
 .quizSliceNavigator button:disabled { opacity: .45; }
+.quizSliceControl button { width: 32px; height: 32px; padding: 0; font-size: 19px; line-height: 1; }
 .quizQuestionCard { min-height: 0; overflow-y: auto; padding: 26px 28px; border: 1px solid #c7cac4; background: #e7e5df; }
 .quizQuestionCard h2 { margin: 10px 0 20px; font: 400 23px/1.55 Georgia,"Yu Mincho",serif; }
+.provisionalQuizFlag { display: inline-block; margin-top: 8px; padding: 3px 7px; border: 1px solid #d1a276; border-radius: 999px; background: #fff0df; color: #82502b; font-size: 12px; font-weight: 700; }
 .quizOptions { display: grid; gap: 7px; }
 .quizOptions button { display: grid; grid-template-columns: 34px 1fr auto; align-items: center; gap: 10px; min-height: 58px; padding: 8px 12px; border: 1px solid #bdc1bb; background: #f6f4ef; text-align: left; }
 .quizOptions button > i { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: #e2e2dc; color: #6e7775; font: 700 16px monospace; font-style: normal; }
@@ -624,15 +633,27 @@ html, body, #root { height: 100%; overflow: hidden; }
 .legalDialog footer > span { color: #6e7775; font-size: 15px; }
 .legalDialog footer div { display: flex; gap: 13px; font-size: 16px; }
 .legalDialog footer .sourcePending { color: #9a574a; font-weight: 700; }
-.feedbackDialog { width: min(760px,94vw); }
+.feedbackDialog { width: min(1040px,94vw); }
 .feedbackIntro { padding: 22px 24px 8px; color: #5f6967; font-size: 15px; line-height: 1.8; }
-.feedbackOptions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 12px 24px 24px; }
+.feedbackOptions { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; padding: 12px 24px 24px; }
 .feedbackOptions article { padding: 18px; border: 1px solid #c5c8c2; background: #ebeae4; }
 .feedbackOptions h3 { margin: 0; font-size: 17px; }
 .feedbackOptions p { margin: 7px 0 14px; color: #626c6a; font-size: 16px; line-height: 1.7; }
 .feedbackOptions a, .feedbackOptions button { display: block; width: 100%; padding: 10px; border: 0; background: #1d6e69; color: #fff; font-size: 16px; font-weight: 700; text-align: center; text-decoration: none; }
 .feedbackOptions button:disabled { background: #9ba4a1; cursor: default; }
 .feedbackConfig { margin: 0 24px 22px; padding: 11px 13px; border-left: 4px solid #e36e57; background: #eee7df; color: #6b7472; font-size: 15px; line-height: 1.65; }
+@media(max-width:980px){.feedbackOptions{grid-template-columns:1fr}}
+.helpDialog { width: min(840px,94vw); }
+.helpIntro { margin: 0; padding: 20px 24px 8px; color: #596562; font-size: 15px; line-height: 1.75; }
+.helpGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 12px 24px 24px; }
+.helpGrid article { padding: 17px 18px; border: 1px solid #c5c9c3; background: #ebeae4; }
+.helpGrid h3 { margin: 0 0 12px; color: #263b38; font-size: 17px; }
+.helpGrid dl { display: grid; gap: 10px; margin: 0; }
+.helpGrid dl > div { display: grid; grid-template-columns: 92px minmax(0,1fr); gap: 10px; }
+.helpGrid dt { font-weight: 800; }
+.helpGrid dd { margin: 0; color: #596562; line-height: 1.6; }
+.helpDialog kbd { display: inline-block; min-width: 22px; margin: 0 2px; padding: 1px 5px; border: 1px solid #aeb8b4; border-bottom-width: 2px; border-radius: 3px; background: #fff; color: #273c39; font: 700 13px monospace; text-align: center; }
+.helpDialog > footer button { padding: 8px 14px; border: 0; background: #1d6e69; color: #fff; font-size: 15px; font-weight: 800; }
 
 .segRailIntro { margin: 16px 18px 18px; padding: 14px; border: 1px solid #c5c9c3; background: #efeee8; }
 .segRailIntro > b { font-size: 16px; }
@@ -718,7 +739,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 @media(max-width:900px){.workspaceSwitch button{min-width:68px}.workspaceSwitch button>i{display:none}.homeHero{grid-template-columns:minmax(300px,43%) minmax(0,1fr)}.homeIntro{padding:28px}.homeModeGrid{grid-template-columns:1fr 1fr}.homeModeGrid button{min-height:72px}.homeModeGrid small{display:none}.learningGrid,.quizWorkspace,.segWorkbench{grid-template-columns:minmax(0,1fr) minmax(270px,34vw,310px)}.learningGuide,.quizQuestionCard,.segControls{padding-inline:18px}.legalColumns{grid-template-columns:1fr}.legalColumns article+article{padding-left:0;border-left:0}}
 @media(max-height:820px) and (min-width:761px){.homeArea{gap:8px;padding:12px 22px 10px}.homeIntro{padding:clamp(22px,3vw,42px)}.homeBadges{margin-bottom:8px}.homeIntro h1{margin:8px 0 11px;font-size:clamp(34px,3.6vw,52px)}.homeLead{line-height:1.65}.homeAccuracyWarning{margin-top:9px;padding-block:7px;font-size:14px}.homeModeGrid button{min-height:76px;padding-block:10px}.homeFooter{min-height:30px}}
 @media(max-width:760px){.topbar{padding-inline:5px;gap:3px}.brand{min-width:auto}.brand>span:last-child{display:none}.workspaceSwitch{display:flex;min-width:0;overflow-x:auto;scrollbar-width:none}.workspaceSwitch::-webkit-scrollbar{display:none}.workspaceSwitch button{min-width:52px;padding:7px 3px}.workspaceSwitch button>span{font-size:15px}.topActions{gap:2px}.topActions>span{display:none}.legalButton{padding:7px 3px;font-size:15px;white-space:nowrap}.feedbackButton{display:block;width:38px;padding:7px 2px;font-size:0;white-space:nowrap}.feedbackButton::after{content:"協力";font-size:15px}.compactToggle{border:0;padding-left:0}.learningArea,.quizArea,.segmentationArea{min-height:800px}.learningGrid,.quizWorkspace,.segWorkbench{display:block}.learningModelCard,.quizImageCard,.segCanvasCard{height:520px}.learningGuide,.quizQuestionCard,.segControls{max-height:none;margin-top:10px}.neurovascularControls{left:8px;bottom:8px}.neurovascularControls button{padding:6px}.neurovascularLegend{left:8px;top:8px;right:auto;bottom:auto;grid-template-columns:repeat(3,auto);gap:5px 8px;padding:7px 8px;font-size:12px}.neurovascularLegend i{width:13px}.blockReleaseNote .sourceBadge{display:none}.feedbackOptions{grid-template-columns:1fr}.legalBackdrop{padding:8px}.legalDialog>footer{display:block}.legalDialog footer div{margin-top:8px}}
-@media(max-width:760px){.quizSliceNavigator{grid-template-columns:minmax(0,1fr) 38px auto;gap:7px;padding-inline:9px}.quizSliceNavigator>div{display:none}.quizSliceNavigator button{padding-inline:6px}}
+@media(max-width:760px){.quizSliceNavigator{grid-template-columns:minmax(0,1fr) 38px auto;gap:7px;padding-inline:9px}.quizSliceAxis{display:none}.quizSliceNavigator button{padding-inline:6px}.quizSliceControl{display:grid;grid-template-columns:30px minmax(0,1fr) 30px;gap:5px}.quizSliceControl button{width:30px;padding:0}}
 @media(max-width:760px){.sectionLayoutSwitch{width:100%}.sectionLayoutSwitch button{flex:1;padding-inline:4px;font-size:12px}.sliceStage.layout-slice,.sliceStage.layout-model{grid-template-rows:minmax(0,1fr)}.sliceStage.layout-model .insetViews{grid-template-columns:1fr 1fr;grid-template-rows:1fr}}
 @media(max-width:760px){.specimenViewControls{right:8px;bottom:8px}.specimenViewControls>span{display:none}.specimenViewControls button{padding-inline:6px}.specimenRotationHint{display:none}}
 @media(max-width:760px){.homeArea{display:block;overflow:visible;padding:12px}.homeHero{display:block}.homeIntro{padding:30px 22px;border-right:0;border-bottom:1px solid #c9cbc5}.homeIntro h1{font-size:40px}.homeAccuracyWarning{grid-template-columns:1fr;gap:3px}.homeModelStage{height:380px}.homeModeGrid{grid-template-columns:1fr;margin-top:10px}.homeModeGrid button{min-height:78px}.homeModeGrid small{display:block}.homeFooter{display:block;padding:13px 2px}.homeFooter div{margin-top:9px}}
@@ -815,10 +836,10 @@ html, body, #root { height: 100%; overflow: hidden; }
 .workspaceSwitch button > span { font-size: 14px; }
 .workspaceSwitch button > i { font: 11px/1.2 monospace; }
 .topActions > span { font-size: 12px; }
-.legalButton, .feedbackButton { font-size: 13px; }
+.legalButton, .feedbackButton, .helpButton { font-size: 13px; }
 
 @media(max-width:1120px){.workspaceSwitch button>span{font-size:12px}}
-@media(max-width:760px){.workspaceSwitch button>span{font-size:10px}.legalButton{font-size:10px}.feedbackButton::after{font-size:10px}.workHead{display:block}.workHead h1{font-size:24px;line-height:1.25}.sourceBadge{display:inline-block;margin-top:10px}}
+@media(max-width:760px){.workspaceSwitch button>span{font-size:10px}.legalButton,.helpButton{font-size:10px}.feedbackButton::after{font-size:10px}.workHead{display:block}.workHead h1{font-size:24px;line-height:1.25}.sourceBadge{display:inline-block;margin-top:10px}}
 
 /* On narrow screens, preserve readable destinations instead of squeezing all
    six workspaces and the utility actions into a single 390 px row. */
@@ -832,7 +853,10 @@ html, body, #root { height: 100%; overflow: hidden; }
   .topActions{grid-column:3;grid-row:1}
   .feedbackButton{width:auto;padding-inline:8px;font-size:0}
   .feedbackButton::after{content:"共同制作";font-size:12px}
-  .legalButton{padding-inline:8px;font-size:12px}
+  .helpButton,.legalButton{padding-inline:7px;font-size:12px}
+  .helpGrid{grid-template-columns:1fr;padding:10px 14px 18px}
+  .helpGrid dl>div{grid-template-columns:82px minmax(0,1fr)}
+  .helpIntro{padding-inline:16px}
   .inspectorBackdrop,.inspector{top:104px}
   .leftRail .lessonRailBtn{min-width:136px;display:grid;grid-template-columns:22px minmax(0,1fr);align-items:center;padding:5px 8px;text-align:left}
   .leftRail .lessonRailBtn>span{grid-row:auto}

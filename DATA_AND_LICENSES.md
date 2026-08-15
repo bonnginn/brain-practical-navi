@@ -4,6 +4,8 @@
 
 この文書は「脳実習ナビ」に同梱するデータの来歴、ライセンス、改変内容、公開条件を追跡するための監査記録です。ライセンス原文が本書と異なる場合は原文が優先します。本書は法的助言ではありません。
 
+2026-08-14再監査: [BigBrain公式ライセンス掲示](https://forum.bigbrainproject.org/t/bigbrain-license/129) でCC BY-NC-SA 4.0の表示・非営利・継承条件を再確認しました。[Cloudflare Web Analytics公式説明](https://developers.cloudflare.com/web-analytics/about/) と [データ収集説明](https://developers.cloudflare.com/web-analytics/data-metrics/data-origin-and-collection/) では、個人データを収集・利用せず、CookieやlocalStorageを使わず、性能計測に必要な情報を最小限収集する現行方針を確認しました。公開アセットは `public/atlas/DATA-MANIFEST.json` で全ファイルを出典群、改変、ライセンス、表示義務、同梱通知へ一意に対応づけています。
+
 ## 公開可否の結論
 
 現在のアプリは、**非営利の教育目的であれば一般公開可能と判断できる構成**です。ただし BigBrain 由来素材を含むため、次の条件が必須です。
@@ -48,7 +50,7 @@
 - 切断面濃淡の頂点値への格納、試作脳室ラベルの腔としての除外
 - 小脳と、脳幹ラベルz=-40 mm以上を中脳近似として別部品化
 
-局所3D標本の褐色組織はBigBrain由来の改変データであり、模式図ではありません。一方、形状は1 mm間隔へ縮約し、脳室、小脳、中脳、一部白質の境界には試作ラベルを使用しています。放線冠・視放線・聴放線、脈絡叢、海馬采、脳弓、乳頭体、中脳水道と、鉤・視床下部・透明中隔・大脳脚の位置目安は本プロジェクト独自の模式補助で、BigBrainから抽出したものではありません。各部品の区分は `public/atlas/specimen-blocks.json` の `sourceType` に記録しています。実標本の微細形態、切断変形、脈絡叢の実形態、厳密な線維束境界を再現する正解標本ではありません。
+局所3D標本の褐色組織はBigBrain由来の改変データであり、模式図ではありません。一方、形状は1 mm間隔へ縮約し、脳室、小脳、中脳、一部白質の境界には試作ラベルを使用しています。放線冠・視放線・聴放線、脈絡叢、脳弓、乳頭体、中脳水道と、視床下部・透明中隔・大脳脚の位置目安は本プロジェクト独自の模式補助で、BigBrainから抽出したものではありません。各部品の区分は `public/atlas/specimen-blocks.json` の `sourceType` に記録しています。旧海馬采・鉤メッシュは位置と連続性の根拠が不足するためβ候補から除外しました。実標本の微細形態、切断変形、脈絡叢の実形態、厳密な線維束境界を再現する正解標本ではありません。
 
 必須表示:
 
@@ -120,7 +122,7 @@ IDs 23–29、33–35は手動正解ラベルではありません。アプリ�
 
 ## 3.1 アクセス解析
 
-公開版では、利用状況と表示性能の把握に Cloudflare Web Analytics のJavaScriptビーコンを使用します。Cloudflareの公式説明では、Web AnalyticsはCookieやローカルストレージを利用せず、訪問者の個人データを収集・利用しません。本アプリも利用者を識別する独自IDを付与しません。
+公開HTTPSホストの本番版だけで、利用状況と表示性能の把握に Cloudflare Web Analytics のJavaScriptビーコンを使用します。localhost、127.0.0.1、開発ビルドではビーコンを読み込みません。Cloudflareの公式説明では、Web AnalyticsはCookieやローカルストレージを利用せず、訪問者の個人データを収集・利用しません。本アプリも利用者を識別する独自IDを付与しません。
 
 - [Cloudflare Web Analytics: About](https://developers.cloudflare.com/web-analytics/about/)
 - [Data origin and collection](https://developers.cloudflare.com/web-analytics/data-metrics/data-origin-and-collection/)
