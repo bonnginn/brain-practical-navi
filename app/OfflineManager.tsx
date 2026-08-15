@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getPwaInstallPrompt, isPwaStandalone, promptPwaInstall, subscribePwaInstallPrompt } from "../src/pwa";
-import { staleReplacementBytes, storageCapacityRisk } from "./offlineCapacity";
+import { offlineResourceResponseError, staleReplacementBytes, storageCapacityRisk } from "./offlineCapacity";
 
 type OfflineResource={url:string;bytes:number};
 type OfflinePack={id:string;name:string;description:string;version:string;bytes:number;urls:string[];resources:OfflineResource[]};
@@ -28,7 +28,7 @@ export function OfflineManager(){
     const cache=await caches.open(PACK_CACHE),next:Record<string,PackState>={};
     for(const pack of nextCatalog.packs){
       let count=0;
-      for(const path of pack.urls)if(await cache.match(new URL(path,document.baseURI)))count++;
+      for(const resource of pack.resources){const response=await cache.match(new URL(resource.url,document.baseURI));if(!offlineResourceResponseError(resource.bytes,response??null))count++}
       const marker=await cache.match(new URL(markerPath(pack),document.baseURI));
       const markerVersion=marker?.headers.get("X-Brain-Practical-Pack-Version");
       const markerCompleteValue=marker?.headers.get("X-Brain-Practical-Pack-Complete");
@@ -74,7 +74,7 @@ export function OfflineManager(){
     if(states[pack.id]==="saved")return 0;
     if(states[pack.id]==="stale")return staleReplacementBytes(pack.resources);
     let bytes=0;
-    for(const resource of pack.resources)if(!await cache.match(new URL(resource.url,document.baseURI)))bytes+=resource.bytes;
+    for(const resource of pack.resources){const response=await cache.match(new URL(resource.url,document.baseURI));if(offlineResourceResponseError(resource.bytes,response??null))bytes+=resource.bytes}
     return bytes;
   }
 
@@ -94,12 +94,13 @@ export function OfflineManager(){
     try{
       const cache=await caches.open(PACK_CACHE);
       await cache.put(new URL(markerPath(pack),document.baseURI),new Response(JSON.stringify({format:"brain-practical-offline-pack-state",id:pack.id,version:pack.version,complete:false}),{headers:{"Content-Type":"application/json","X-Brain-Practical-Pack-Version":pack.version,"X-Brain-Practical-Pack-Complete":"false"}}));
-      for(let index=0;index<pack.urls.length;index++){
-        const url=new URL(pack.urls[index],document.baseURI);
+      for(let index=0;index<pack.resources.length;index++){
+        const resource=pack.resources[index],url=new URL(resource.url,document.baseURI);
         const response=await fetch(url,{cache:"reload"});
-        if(!response.ok)throw new Error(`${pack.urls[index]}: HTTP ${response.status}`);
+        const responseError=offlineResourceResponseError(resource.bytes,response);
+        if(responseError)throw new Error(`${resource.url}: ${responseError}`);
         await cache.put(url,response);await removeFromRuntime(url);
-        setProgress(previous=>({...previous,[pack.id]:Math.round((index+1)/pack.urls.length*100)}));
+        setProgress(previous=>({...previous,[pack.id]:Math.round((index+1)/pack.resources.length*100)}));
       }
       await cache.put(new URL(markerPath(pack),document.baseURI),new Response(JSON.stringify({format:"brain-practical-offline-pack-state",id:pack.id,version:pack.version,complete:true}),{headers:{"Content-Type":"application/json","X-Brain-Practical-Pack-Version":pack.version,"X-Brain-Practical-Pack-Complete":"true"}}));
       setStates(previous=>({...previous,[pack.id]:"saved"}));setMessage(`${pack.name}を端末へ保存しました。`);

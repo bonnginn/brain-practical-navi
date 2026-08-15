@@ -1546,6 +1546,10 @@ test("PWA manager reports install, connectivity, persistence, and pack freshness
   assert.deepEqual(capacity.storageCapacityRisk(20*1048576,24*1048576),{downloadBytes:20*1048576,reserveBytes:5*1048576,availableBytes:24*1048576});
   assert.equal(capacity.storageCapacityRisk(0,0),null);
   assert.equal(capacity.staleReplacementBytes([{bytes:3},{bytes:12},{bytes:7}]),12);
+  assert.equal(capacity.offlineResourceResponseError(3,new Response("abc",{headers:{"Content-Type":"application/octet-stream","Content-Length":"3"}})),null);
+  assert.match(capacity.offlineResourceResponseError(3,new Response("abc",{headers:{"Content-Type":"text/html","Content-Length":"3"}})),/HTML fallback/);
+  assert.match(capacity.offlineResourceResponseError(4,new Response("abc",{headers:{"Content-Type":"application/octet-stream","Content-Length":"3"}})),/size 3, expected 4/);
+  assert.match(capacity.offlineResourceResponseError(3,new Response("",{status:404})),/HTTP 404/);
 });
 
 test("records reproducible real-device diagnostics without treating them as a gate pass", async () => {

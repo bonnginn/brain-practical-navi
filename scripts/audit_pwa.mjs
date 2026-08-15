@@ -26,6 +26,7 @@ check(/X-Brain-Practical-Pack-Version/.test(manager)&&/X-Brain-Practical-Pack-Co
 check(/protectedPaths/.test(manager)&&/otherComplete/.test(manager)&&/!protectedPaths\.has\(path\)/.test(manager),"deleting one pack must preserve resources owned by another complete pack");
 check(/busy=Object\.values\(states\)\.includes\("working"\)/.test(manager)&&/disabled=\{busy\|\|!online\}/.test(manager),"pack writes must be serialized");
 check(/navigator\.onLine/.test(manager)&&/navigator\.storage\?\.persisted/.test(manager)&&/navigator\.storage\?\.persist/.test(manager),"offline manager must report connection and storage persistence state");
+check(/offlineResourceResponseError/.test(manager)&&/responseError/.test(manager),"pack manager must reject HTTP failures, HTML fallbacks, and declared-size mismatches");
 check(catalog.format==="brain-practical-offline-packs"&&/^[0-9a-f]{12}$/.test(catalog.version),"offline catalog format/version invalid");
 check(Array.isArray(catalog.packs)&&catalog.packs.length===3,"exactly three user-facing packs are required");
 
