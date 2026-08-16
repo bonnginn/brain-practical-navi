@@ -176,6 +176,8 @@ test("keeps every section structure colourable in the default BigBrain source", 
     assert.match(page, new RegExp(`\\n  ${key}: \\{[^\\n]+bigbrainIds:\\[[^\\]]+\\]`), `${key} BigBrain labels`);
   }
   assert.match(page, /opticChiasm:[^\n]+bigbrainIds:\[33\]/);
+  assert.match(page, /opticChiasm: \{ name:"視交叉〜視索候補"/);
+  assert.match(page, /視交叉だけの境界や乳頭体の分節を示すものではありません/);
   assert.match(page, /insula:[^\n]+bigbrainIds:\[34,35\]/);
 });
 
@@ -349,6 +351,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.doesNotMatch(page, /className="modelFocusTag"/);
   assert.match(page, /accumbens:\["section-accumbens"\]/);
   assert.match(page, /opticChiasm:\["section-optic-chiasm"\],insula:\["section-insula"\]/);
+  assert.match(page, /basalLandmarkKeys\.filter\(key=>key!=="olfactory"&&key!=="optic"\)/);
   assert.doesNotMatch(page, /setBlock\("inside"\)\}\}>脳表<\/button>/);
   assert.match(canvas, /selectionMeshLayers=\[\]/);
   assert.match(canvas, /if\(showFocus&&selectionLayers\.length\)/);

@@ -296,7 +296,7 @@ const freeObservationItems:FreeObservationItem[]=[
   ...surfaceRegionKeys.map(key=>({key:`region:${key}` as const,kind:"脳回・皮質" as const,name:surfaceRegions[key].name,latin:surfaceRegions[key].latin,color:surfaceRegions[key].color,source:"CerebrAアトラス対応",note:surfaceRegions[key].note})),
   ...surfaceLandmarkKeys.map(key=>({key:`landmark:${key}` as const,kind:"溝・裂" as const,name:surfaceLandmarks[key].name,latin:surfaceLandmarks[key].latin,color:surfaceLandmarks[key].color,source:"模式ガイド",note:surfaceLandmarks[key].note})),
   ...surfaceDeepLandmarkKeys.map(key=>({key:`deep:${key}` as const,kind:"深部構造" as const,name:surfaceDeepLandmarks[key].name,latin:surfaceDeepLandmarks[key].latin,color:surfaceDeepLandmarks[key].color,source:surfaceDeepLandmarks[key].source,note:surfaceDeepLandmarks[key].note})),
-  ...basalLandmarkKeys.map(key=>({key:`basal:${key}` as const,kind:"脳底構造" as const,name:basalLandmarks[key].name,latin:basalLandmarks[key].latin,color:basalLandmarks[key].color,source:"模式・位置目安",note:basalLandmarks[key].note})),
+  ...basalLandmarkKeys.filter(key=>key!=="olfactory"&&key!=="optic").map(key=>({key:`basal:${key}` as const,kind:"脳底構造" as const,name:basalLandmarks[key].name,latin:basalLandmarks[key].latin,color:basalLandmarks[key].color,source:"模式・位置目安",note:basalLandmarks[key].note})),
   ...neurovascularStructureKeys.map(key=>{const item=neurovascularStructures[key];return{key:`neuro:${key}` as const,kind:item.kind==="arteries"?"血管" as const:"脳神経" as const,name:item.name,latin:item.latin,color:item.kind==="arteries"?"#d92e24":"#f3cf66",source:"模式3D",note:item.note}}),
 ];
 const freeObservationKinds:FreeObservationKind[]=["脳回・皮質","溝・裂","深部構造","脳底構造","血管","脳神経"];
@@ -330,7 +330,7 @@ const structures: Record<StructureKey, StructureInfo> = {
   subthalamic: { name:"視床下核", latin:"Nucleus subthalamicus", color:"#e0ad45", rgb:[224,173,69], ids:[], bigbrainIds:[5,6], labelSource:"manual", note:"小さなレンズ状の核です。淡蒼球内節・黒質との位置関係を連続断面で追います。", relation:"視床の腹側、黒質の背側、内包の内側" },
   brainstem: { name:"脳幹", latin:"Truncus encephali", color:"#739b72", rgb:[115,155,114], ids:[62,11], bigbrainIds:[27], labelSource:"atlas-provisional", note:"中脳・橋・延髄へ連続する軸性構造です。脳神経の出入口を考える基準になります。", relation:"間脳の下方、小脳の前方" },
   cerebellum: { name:"小脳", latin:"Cerebellum", color:"#8ba867", rgb:[139,168,103], ids:[97,46,90,39], bigbrainIds:[28,29], labelSource:"atlas-provisional", note:"皮質と白質、正中の虫部を区別します。水平断と矢状断で小脳脚との連続を追います。", relation:"脳幹の後方、後頭葉の下方" },
-  opticChiasm: { name:"視交叉", latin:"Chiasma opticum", color:"#d4b65b", rgb:[212,182,91], ids:[68,17], bigbrainIds:[33], labelSource:"atlas-provisional", note:"左右の視神経線維が交叉する正中構造です。小さいため前後の断面を細かく動かします。", relation:"視床下部の前下方、下垂体柄の前方" },
+  opticChiasm: { name:"視交叉〜視索候補", latin:"Chiasma et tractus optici (atlas candidate)", color:"#d4b65b", rgb:[212,182,91], ids:[68,17], bigbrainIds:[33], labelSource:"atlas-provisional", note:"CerebrAのOptic Chiasmラベルは、視交叉と視索の連続性を保つよう再定義された範囲です。視交叉だけの境界や乳頭体の分節を示すものではありません。", relation:"視床下部の前下方から視索方向へ連続し、模式乳頭体の前外側に近接" },
   insula: { name:"島皮質", latin:"Insula", color:"#6f9db0", rgb:[111,157,176], ids:[74,23], bigbrainIds:[34,35], labelSource:"atlas-provisional", note:"外側溝の深部にある皮質です。弁蓋を除いた位置関係を断面で確認します。", relation:"被殻・外包の外側、前頭・頭頂・側頭弁蓋の深部" },
 };
 const structureMeshFiles:Partial<Record<StructureKey,string[]>>={
@@ -397,7 +397,7 @@ const quizQuestions:QuizQuestion[]=[
   {target:"thalamus",category:"connections",plane:"coronal",position:49,prompt:"第三脳室の両側を占める大きな灰白質はどれですか？",options:["thalamus","caudate","hippocampus","subthalamic"]},
   {target:"corpusCallosum",category:"connections",plane:"sagittal",position:50,prompt:"正中矢状断で側脳室の上方を弓状に走る交連線維はどれですか？",options:["corpusCallosum","internalCapsule","thalamus","caudate"]},
   {target:"internalCapsule",category:"connections",plane:"coronal",position:58,prompt:"尾状核・視床とレンズ核の間を通る白質路はどれですか？",options:["internalCapsule","corpusCallosum","pallidum","insula"]},
-  {target:"opticChiasm",category:"connections",plane:"horizontal",position:70,prompt:"視床下部の前下方で、左右の視神経線維が交叉する構造はどれですか？",options:["opticChiasm","thirdVentricle","accumbens","amygdala"]},
+  {target:"opticChiasm",category:"connections",plane:"horizontal",position:70,prompt:"視交叉から後方の視索まで連続する、CerebrA由来の試作表示はどれですか？",options:["opticChiasm","thirdVentricle","accumbens","amygdala"]},
   {target:"insula",category:"connections",plane:"coronal",position:64,prompt:"外側溝の深部で、被殻・外包より外側にある皮質はどれですか？",options:["insula","putamen","internalCapsule","pallidum"]},
   {target:"brainstem",category:"hindbrain",plane:"horizontal",position:83,prompt:"第四脳室の腹側で中脳・橋・延髄へ連続する構造はどれですか？",options:["brainstem","cerebellum","thalamus","fourthVentricle"]},
   {target:"cerebellum",category:"hindbrain",plane:"horizontal",position:80,prompt:"橋・延髄の後方にあり、左右半球と虫部をもつ構造はどれですか？",options:["cerebellum","brainstem","thalamus","hippocampus"]},
