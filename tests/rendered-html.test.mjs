@@ -251,7 +251,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   const homeWorkspace = page.slice(homeStart, page.indexOf('{workspace==="sections"&&<section', homeStart));
   assert.doesNotMatch(homeWorkspace, /稲葉弘哲|稲葉 弘哲|運営上の位置づけ|個人運営・非公式|三重大学/);
   assert.match(homeWorkspace, /<b>公開α版<\/b> 解剖学的誤りや使いにくさの指摘を受けながら改善します/);
-  assert.match(page, /三重大学および所属部局の公式教材・公式見解ではなく、大学による内容の承認を示すものではありません/);
+  assert.match(page, /特定の教育機関・部局の公式教材、公式見解、内容の承認を示すものではありません/);
   assert.match(page, /className="projectIndependence"/);
   assert.match(page, /提供者は死後組織の研究・教育目的の一般利用に書面同意/);
   assert.match(page, /Heinrich Heine University Düsseldorf医学部倫理委員会の承認（#4863）/);
