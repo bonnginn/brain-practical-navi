@@ -715,28 +715,17 @@ export default function Home() {
       {workspace==="segment"&&<><p className="eyebrow">SEGMENTATION</p><div className="segRailIntro"><b>差分編集</b><p>元データを直接変更せず、修正したボクセルだけをJSONへ保存します。</p><ol><li>水平断を選ぶ</li><li>構造とブラシを選ぶ</li><li>境界を修正する</li><li>JSONをPRへ添付</li></ol></div><div className="railLine"/><p className="railMemo">共同制作者向けのα機能です。公式ラベルへの統合には、別のレビューと変換処理が必要です。</p></>}
     </aside>
 
-    {workspace==="home"&&<section className="homeArea" id="workspace" tabIndex={-1}>
-      <div className="homeHero">
-        <div className="homeIntro">
-          <div className="homeBadges"><span>OPEN ALPHA</span><b>非営利教育用</b></div>
-          <p className="homeEyebrow">BRAIN PRACTICAL LEARNING</p>
-          <h1>脳実習を、<br/><em>切る前から立体で。</em></h1>
-          <p className="homeLead">全脳の表面を観察し、連続断面と局所標本へ進みながら、構造の位置関係を立体モデルと標本像の両方から学ぶ実習補助アプリです。</p>
-          <p className="homeAccuracyWarning"><b>公開α版の注意</b><span>解剖学的正確性は保証できません。学習時は教科書・実標本・検証済み資料と照合してください。</span></p>
+    {workspace==="home"&&<section className="homeArea homeNoticeArea" id="workspace" tabIndex={-1}>
+      <article className="homeNotice">
+        <header><span>PUBLIC ALPHA · EDUCATIONAL USE ONLY</span><h1>脳実習ナビ</h1><p><strong>本アプリは、神経解剖学の教育・自主学習目的で提供しています。</strong>教育目的以外での利用はお控えください。</p></header>
+        <div className="homeNoticePoints">
+          <section><b>教育目的での利用</b><p>脳表、断面、3Dモデルを行き来しながら、構造の見え方と位置関係を確認する学習教材です。</p></section>
+          <section><b>公開α版</b><p>解剖学的表示は継続して確認・改訂しています。教科書や検証済み資料と照合して利用してください。</p></section>
+          <section><b>利用上の注意</b><p>診断、治療、手術計画、定量研究のためには使用できません。出典・利用条件は事前に確認してください。</p></section>
         </div>
-        <div className="homeModelStage modelStage" tabIndex={0} aria-label="全脳3Dモデル。ドラッグまたは矢印キーで回転、Rキーで向きを戻す" onKeyDown={handleModelKey} onPointerDown={beginRotation} onPointerMove={move} onPointerUp={()=>setDrag(null)} onPointerCancel={()=>setDrag(null)} onContextMenu={event=>event.preventDefault()}>
-          <AtlasVolumeCanvas kind="surface" plane="sagittal" position={50} focus="thalamus" display="specimen" rotation={rotation} view="inside" contrast="bigbrain" showFocus={false} showCutPlane={false}/>
-          <OrientationCompass rotation={rotation}/>
-          <div className="homeModelLabel"><span>INTERACTIVE 3D</span><b>全脳表面モデル</b><small>ドラッグ／矢印キーで回転・Rで初期化</small></div>
-        </div>
-      </div>
-      <div className="homeModeGrid" aria-label="学習メニュー">
-        <button onClick={()=>openWorkspace("surface")}><span><b>脳表観察</b><small>脳回・脳神経・脳底の主要動脈を回転可能な3Dで確認</small></span><em>→</em></button>
-        <button onClick={()=>openWorkspace("sections")}><span><b>断面実習</b><small>BigBrain公開組織画像の0.5 mm再標本化表示を連続して追い、複数構造を同時に同定</small></span><em>→</em></button>
-        <button onClick={()=>openWorkspace("blocks")}><span><b>ブロック標本</b><small>脳室・辺縁系・投射線維などを局所標本として分解</small></span><em>→</em></button>
-        <button onClick={()=>openWorkspace("quiz")}><span><b>復習クイズ</b><small>項目・問題数・間違い履歴を指定して構造同定を復習</small></span><em>→</em></button>
-      </div>
-      <footer className="homeFooter"><p><b>公開α版</b> 解剖学的誤りや使いにくさの指摘を受けながら改善します。診断・治療・手術計画には使用できません。</p><div><button onClick={()=>openOverlay("feedback")}>意見・共同制作</button><a href={sourceRepositoryUrl} target="_blank" rel="noreferrer">GitHub</a><button onClick={()=>openOverlay("legal")}>利用条件・クレジット</button></div></footer>
+        <footer><button className="homeEnter" onClick={()=>openWorkspace("surface")}>教育目的で教材を開く</button><button onClick={()=>openOverlay("legal")}>利用条件・データ・クレジット</button><button onClick={()=>openOverlay("feedback")}>意見・共同制作</button></footer>
+      </article>
+      <p className="homeQuietNote">教育目的の試作教材です。内容への懸念や解剖学的な指摘は、意見・共同制作窓口からお知らせください。</p>
     </section>}
 
     {workspace==="sections"&&<section className="workArea" id="workspace" tabIndex={-1}><h1 className="srOnly">断面実習</h1>

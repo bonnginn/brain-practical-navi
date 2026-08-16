@@ -193,9 +193,8 @@ test("presents the practical flow clearly and keeps interface text readable", as
   assert.ok(modeList.indexOf('{key:"surface"') < modeList.indexOf('{key:"sections"'));
   assert.ok(modeList.indexOf('{key:"sections"') < modeList.indexOf('{key:"blocks"'));
 
-  const homeMenu = page.slice(page.indexOf('<div className="homeModeGrid"'), page.indexOf('<footer className="homeFooter"'));
-  assert.ok(homeMenu.indexOf('openWorkspace("surface")') < homeMenu.indexOf('openWorkspace("sections")'));
-  assert.ok(homeMenu.indexOf('openWorkspace("sections")') < homeMenu.indexOf('openWorkspace("blocks")'));
+  const homeNotice = page.slice(page.indexOf('className="homeNotice"'), page.indexOf('{workspace==="sections"&&<section'));
+  assert.match(homeNotice, /onClick=\{\(\)=>openWorkspace\("surface"\)\}/);
   assert.doesNotMatch(page, /homeMetrics|日本語で|<i>0[1-4]<\/i>/);
   assert.doesNotMatch(page, /homeActions|脳表観察から始める|断面実習を見る/);
   assert.match(main, /import "\.\.\/app\/globals\.css"/);
@@ -240,17 +239,16 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /workspaceSwitch button\.active/);
   assert.match(page, /leftRail \.planeBtn\.active/);
   assert.match(page, /scrollIntoView\(\{block:"nearest",inline:"center"\}\)/);
-  assert.match(page, /脳実習を、/);
-  assert.match(page, /切る前から立体で。/);
-  assert.match(page, /className="homeModelStage[\s\S]{0,700}view="inside"/);
-  assert.match(page, /OPEN ALPHA/);
-  assert.match(page, /公開α版・非営利教育用/);
-  assert.match(page, /className="homeAccuracyWarning"/);
-  assert.match(page, /解剖学的正確性は保証できません。学習時は教科書・実標本・検証済み資料と照合してください/);
+  assert.match(page, /PUBLIC ALPHA · EDUCATIONAL USE ONLY/);
+  assert.match(page, /className="homeNotice"/);
+  assert.match(page, /教育目的以外での利用はお控えください/);
+  assert.match(page, /教育目的で教材を開く/);
+  assert.doesNotMatch(page, /脳実習を、|切る前から立体で。|className="homeModelStage"/);
   const homeStart = page.indexOf('{workspace==="home"&&<section');
   const homeWorkspace = page.slice(homeStart, page.indexOf('{workspace==="sections"&&<section', homeStart));
   assert.doesNotMatch(homeWorkspace, /稲葉弘哲|稲葉 弘哲|運営上の位置づけ|個人運営・非公式|三重大学/);
-  assert.match(homeWorkspace, /<b>公開α版<\/b> 解剖学的誤りや使いにくさの指摘を受けながら改善します/);
+  assert.match(homeWorkspace, /神経解剖学の教育・自主学習目的で提供しています/);
+  assert.match(homeWorkspace, /診断、治療、手術計画、定量研究のためには使用できません/);
   assert.match(page, /特定の教育機関・部局の公式教材、公式見解、内容の承認を示すものではありません/);
   assert.match(page, /className="projectIndependence"/);
   assert.match(page, /提供者は死後組織の研究・教育目的の一般利用に書面同意/);
@@ -1474,7 +1472,7 @@ test("3D viewers expose orientation, keyboard rotation, reset, and visible zoom 
   ]);
   assert.match(page, /function OrientationCompass/);
   assert.match(page, /R 右、L 左、A 前、P 後、S 上、I 下/);
-  assert.ok((page.match(/onKeyDown=\{handleModelKey\}/g) ?? []).length >= 4);
+  assert.ok((page.match(/onKeyDown=\{handleModelKey\}/g) ?? []).length >= 3);
   assert.match(page, /event\.key\.toLowerCase\(\)==="r"/);
   assert.match(canvas, /className="modelZoomControls"/);
   assert.match(canvas, /aria-label="拡大率を100パーセントに戻す"/);
