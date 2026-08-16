@@ -578,6 +578,27 @@ test("keeps the reviewed sparse mammillary-body patch separate from the publishe
   assert.match(patch.authorNote, /旧.*脳幹|脳幹試作ラベル/);
 });
 
+test("keeps contiguous mammillary candidates unreviewed and nested", async () => {
+  const [core, rim] = await Promise.all([
+    readFile(new URL("segmentation-patches/review/mammillary-bodies-horizontal-contiguous-core-candidate-2026-08-16.json", root), "utf8").then(JSON.parse),
+    readFile(new URL("segmentation-patches/review/mammillary-bodies-horizontal-core-plus-clear-rim-candidate-2026-08-16.json", root), "utf8").then(JSON.parse),
+  ]);
+  const expand = patch => {
+    const voxels = new Map();
+    for (const run of patch.runs) for (let offset=0; offset<run.length; offset++) voxels.set(run.start+offset, run.label);
+    return voxels;
+  };
+  const coreVoxels = expand(core), rimVoxels = expand(rim);
+  assert.equal(core.reviewStatus, "unreviewed");
+  assert.equal(rim.reviewStatus, "unreviewed");
+  assert.equal(coreVoxels.size, 1206);
+  assert.equal(rimVoxels.size, 1290);
+  assert.deepEqual([...new Set(rimVoxels.values())].sort((a,b)=>a-b), [39, 40]);
+  for (const [index, label] of coreVoxels) assert.equal(rimVoxels.get(index), label, `core voxel ${index} must remain unchanged`);
+  const area = rim.dims[0] * rim.dims[1];
+  assert.deepEqual([...new Set([...rimVoxels.keys()].map(index => Math.floor(index/area)))].sort((a,b)=>a-b), Array.from({length:15},(_,index)=>107+index));
+});
+
 test("detects voxel-level conflicts between contributor segmentation patches", () => {
   const result = spawnSync(python.command, [...python.prefix,
     localPath("scripts/check_segmentation_patch_conflicts.py"),
