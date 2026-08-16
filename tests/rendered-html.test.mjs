@@ -495,6 +495,9 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(governance, /運営承継/);
   assert.match(editor, /brain-practical-segmentation-patch/);
   assert.match(editor, /差分JSONを書き出す/);
+  assert.match(editor, />上へ1枚<\/button>/);
+  assert.match(editor, />下へ1枚<\/button>/);
+  assert.match(editor, /step=\{data\?100\/\(data\.dims\[2\]-1\):\.25\}/);
   assert.match(editor, /元へ戻す/);
   assert.match(editor, /端末内へ自動保存/);
   assert.match(editor, /targetSide,evidence:evidence\.trim\(\),confidence,reviewStatus:"unreviewed"/);
@@ -563,6 +566,16 @@ test("pins segmentation patches to the exact bundled label revision", async () =
   const digest = createHash("sha256").update(labels).digest("hex");
   assert.match(editor, new RegExp(`LABEL_SHA256="${digest}"`));
   assert.equal(JSON.parse(fixtureText).sourceLabelsSha256, digest);
+});
+
+test("keeps the reviewed sparse mammillary-body patch separate from the published labels", async () => {
+  const patch = JSON.parse(await readFile(new URL("segmentation-patches/review/mammillary-bodies-horizontal-sparse-2026-08-16.json", root), "utf8"));
+  assert.equal(patch.reviewStatus, "unreviewed");
+  assert.equal(patch.editCount, 311);
+  assert.deepEqual([...new Set(patch.runs.map(run => run.label))].sort((a,b)=>a-b), [39, 40]);
+  const area = patch.dims[0] * patch.dims[1];
+  assert.deepEqual([...new Set(patch.runs.map(run => Math.floor(run.start / area)))].sort((a,b)=>a-b), [109, 113, 117, 121]);
+  assert.match(patch.authorNote, /旧.*脳幹|脳幹試作ラベル/);
 });
 
 test("detects voxel-level conflicts between contributor segmentation patches", () => {
