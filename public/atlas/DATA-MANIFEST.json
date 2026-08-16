@@ -28,12 +28,12 @@
     {
       "id": "combined-practical-segmentation",
       "pattern": "^bigbrain-practical-segmentation-icbm500(?:\\.bin\\.gz|-validation\\.json)$",
-      "source": "Combined exact-grid teaching labels: Xiao manual labels, CerebrA-derived provisional masks, and project-authored image-guided candidates",
+      "source": "Combined exact-grid teaching labels: Xiao manual labels, CerebrA-derived provisional masks, project-authored image-guided candidates, and reviewed image-guided mammillary bodies",
       "sourceUrl": "https://github.com/bonnginn/brain-practical-navi/blob/main/DATA_AND_LICENSES.md",
       "license": "Mixed by label source; distributed with the non-commercial BigBrain teaching package",
       "licenseUrl": "https://github.com/bonnginn/brain-practical-navi/blob/main/LICENSES.md",
-      "modifications": "Merge into unused label IDs, exact-grid validation, compression, provenance and confidence metadata.",
-      "displayObligation": "Show manual, atlas-provisional and image-guided status separately; retain all BigBrain, Xiao, MNI and project notices; never describe the combined file as anatomical ground truth.",
+      "modifications": "Merge into unused label IDs, apply approved exact-grid segmentation patches, validate and compress, and record provenance and confidence metadata.",
+      "displayObligation": "Show manual, atlas-provisional, image-guided candidate and image-guided reviewed status separately; retain all BigBrain, Xiao, MNI and project notices; never describe the combined file as anatomical ground truth.",
       "bundledNotice": "ATTRIBUTION.txt"
     },
     {

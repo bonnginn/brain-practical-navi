@@ -155,9 +155,18 @@ test("keeps official labels separate from provisional teaching overlays", async 
   assert.equal(metadata.officialLabelsPreserved, true);
   assert.deepEqual(metadata.atlasDerivedIds, [23, 24, 25, 26, 27, 28, 29, 33, 34, 35]);
   assert.deepEqual(metadata.imageGuidedCandidateIds, [30, 31, 32]);
+  assert.deepEqual(metadata.imageGuidedReviewedIds, [39, 40]);
   for (const id of Array.from({ length: 35 }, (_, index) => index + 1)) {
     assert.ok(metadata.labelCounts[id] > 0, `label ${id} must contain voxels`);
   }
+  const values = labels.payload.subarray(10);
+  let leftMammillary=0,rightMammillary=0;
+  for(const value of values){if(value===39)leftMammillary++;else if(value===40)rightMammillary++}
+  assert.equal(leftMammillary, 561);
+  assert.equal(rightMammillary, 729);
+  assert.equal(metadata.labelCounts[39], 561);
+  assert.equal(metadata.labelCounts[40], 729);
+  assert.equal(metadata.reviewedPatchAudit.editCount, 1290);
   assert.equal(metadata.ventricleLabelsRestrictedToEmptySpace, true);
   assert.equal(metadata.ventricleTissueOverlap, 0);
   assert.match(metadata.coordinatePolicy, /exact BigBrain ICBM2009sym 0\.5 mm output grid/);
@@ -170,7 +179,7 @@ test("keeps reviewed section structures colourable and withholds the unsplit opt
     "ventricle", "thirdVentricle", "fourthVentricle", "corpusCallosum", "internalCapsule",
     "caudate", "putamen", "pallidumExternal", "pallidumInternal", "pallidum", "thalamus",
     "hippocampus", "amygdala", "accumbens", "redNucleus", "substantiaNigra", "subthalamic",
-    "brainstem", "cerebellum", "insula",
+    "brainstem", "cerebellum", "mammillaryBody", "insula",
   ];
   for (const key of expected) {
     assert.match(page, new RegExp(`\\n  ${key}: \\{[^\\n]+bigbrainIds:\\[[^\\]]+\\]`), `${key} BigBrain labels`);
@@ -181,6 +190,8 @@ test("keeps reviewed section structures colourable and withholds the unsplit opt
   assert.match(page, /filter\(key=>key!=="opticChiasm"\)/);
   assert.doesNotMatch(page, /\{target:"opticChiasm",category:/);
   assert.match(page, /insula:[^\n]+bigbrainIds:\[34,35\]/);
+  assert.match(page, /mammillaryBody:[^\n]+bigbrainIds:\[39,40\]/);
+  assert.match(page, /mammillaryBody:[^\n]+labelSource:"image-guided-reviewed"/);
 });
 
 test("presents the practical flow clearly and keeps interface text readable", async () => {
@@ -578,7 +589,7 @@ test("keeps the reviewed sparse mammillary-body patch separate from the publishe
   assert.match(patch.authorNote, /旧.*脳幹|脳幹試作ラベル/);
 });
 
-test("keeps contiguous mammillary candidates unreviewed and nested", async () => {
+test("keeps the approved mammillary patch nested over its core candidate", async () => {
   const [core, rim] = await Promise.all([
     readFile(new URL("segmentation-patches/review/mammillary-bodies-horizontal-contiguous-core-candidate-2026-08-16.json", root), "utf8").then(JSON.parse),
     readFile(new URL("segmentation-patches/review/mammillary-bodies-horizontal-core-plus-clear-rim-candidate-2026-08-16.json", root), "utf8").then(JSON.parse),
@@ -590,7 +601,7 @@ test("keeps contiguous mammillary candidates unreviewed and nested", async () =>
   };
   const coreVoxels = expand(core), rimVoxels = expand(rim);
   assert.equal(core.reviewStatus, "unreviewed");
-  assert.equal(rim.reviewStatus, "unreviewed");
+  assert.equal(rim.reviewStatus, "approved");
   assert.equal(coreVoxels.size, 1206);
   assert.equal(rimVoxels.size, 1290);
   assert.deepEqual([...new Set(rimVoxels.values())].sort((a,b)=>a-b), [39, 40]);
@@ -1278,11 +1289,11 @@ test("every section quiz shows a visible amount of its target label", async () =
     redNucleus: [1, 2], substantiaNigra: [3, 4], subthalamic: [5, 6],
     ventricle: [23, 24], thalamus: [15, 16], corpusCallosum: [30],
     internalCapsule: [31, 32], brainstem: [27], cerebellum: [28, 29],
-    opticChiasm: [33], insula: [34, 35],
+    opticChiasm: [33], mammillaryBody: [39, 40], insula: [34, 35],
   };
   const pattern = /\{target:"([^"]+)",category:"[^"]+",plane:"([^"]+)",position:(\d+),prompt:/g;
   const questions = [...page.matchAll(pattern)];
-  assert.equal(questions.length, 16);
+  assert.equal(questions.length, 17);
 
   for (const [, target, plane, rawPosition] of questions) {
     const ids = new Set(labelIds[target]);
@@ -1303,7 +1314,8 @@ test("every section quiz shows a visible amount of its target label", async () =
       const coordinate = plane === "sagittal" ? x : plane === "horizontal" ? z : y;
       if (coordinate === section) count += 1;
     }
-    assert.ok(count >= 200, `${target} must show at least 200 highlighted voxels, got ${count}`);
+    const minimumVisible = target === "mammillaryBody" ? 100 : 200;
+    assert.ok(count >= minimumVisible, `${target} must show at least ${minimumVisible} highlighted voxels, got ${count}`);
   }
 });
 
@@ -1412,13 +1424,14 @@ test("describes specimen fidelity limits without implying anatomical validation"
 });
 test("labels provisional questions and includes them in the default quiz setup", async () => {
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
-  assert.match(page, /function isProvisionalQuiz\(question:QuizQuestion\)\{return isSurfaceQuiz\(question\)\|\|structures\[question\.target\]\.labelSource!=="manual"\}/);
+  assert.match(page, /function isProvisionalQuiz\(question:QuizQuestion\)\{return isSurfaceQuiz\(question\)\|\|\["atlas-provisional","image-guided"\]\.includes/);
   assert.match(page, /standardQuizQuestions=quizQuestions\.filter\(question=>!isProvisionalQuiz\(question\)\)/);
   assert.match(page, /useState<QuizQuestion\[]>\(\(\)=>shuffledQuestions\(quizQuestions\)/);
   assert.match(page, /quizIncludeProvisional,setQuizIncludeProvisional\]=useState\(true\)/);
   assert.match(page, /quizIncludeProvisional\|\|!isProvisionalQuiz\(question\)/);
   assert.match(page, /試作問題を含む[\s\S]*専門家未確認・位置照合ラベル/);
   assert.match(page, /試作・専門家未確認/);
+  assert.match(page, /\{target:"mammillaryBody",category:"limbic",plane:"horizontal",position:69/);
 });
 
 test("publishes a durable keyboard and pointer operation guide", async () => {
@@ -1536,6 +1549,7 @@ test("ordinary study views disclose structure provenance without claiming expert
   assert.match(page, /manual:\{label:"標本同一格子・手動分節"/);
   assert.match(page, /"atlas-provisional":\{label:"アトラス照合・試作"/);
   assert.match(page, /"image-guided":\{label:"画像誘導・試作"/);
+  assert.match(page, /"image-guided-reviewed":\{label:"画像誘導・確認済み"/);
   assert.match(page, /className=\{`provenanceBadge \$\{source\.className\}`\}/);
   assert.match(page, /item\.kind\} · \{item\.source/);
   assert.match(css, /\.provenanceBadge\.provisional/);

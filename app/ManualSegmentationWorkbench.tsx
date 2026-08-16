@@ -23,7 +23,7 @@ type SegmentationPatch={
   targetSide?:TargetSide;
   evidence?:string;
   confidence?:EditConfidence;
-  reviewStatus?:"unreviewed";
+  reviewStatus?:"unreviewed"|"approved";
   editCount:number;
   runs:PatchRun[];
 };
@@ -31,7 +31,7 @@ type SegmentationPatch={
 const ASSET_BASE=import.meta.env.BASE_URL;
 const IMAGE_URL=`${ASSET_BASE}atlas/bigbrain-icbm500.bin.gz`;
 const LABEL_URL=`${ASSET_BASE}atlas/bigbrain-practical-segmentation-icbm500.bin.gz`;
-const LABEL_SHA256="de30b5c77f4ed4f2902564a5d238b0e733413c247643ef828fb66aa03d8cc8be";
+const LABEL_SHA256="6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56";
 const DRAFT_KEY="brain-practical-segmentation-draft-v1";
 const palette:Record<number,[number,number,number]>={
   1:[214,84,72],2:[214,84,72],3:[103,86,133],4:[103,86,133],5:[72,145,128],6:[72,145,128],

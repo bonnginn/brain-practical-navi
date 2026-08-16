@@ -21,7 +21,7 @@
   "targetSide": "bilateral",
   "evidence": "BigBrain公開組織画像 0.5 mm（アプリ同梱表示）、水平断 Z 117および隣接断面。位置関係と上下方向の連続性を目視確認。",
   "confidence": "medium",
-  "reviewStatus": "unreviewed",
+  "reviewStatus": "approved",
   "editCount": 1290,
   "runs": [
     {
