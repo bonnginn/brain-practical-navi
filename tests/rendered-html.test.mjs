@@ -164,13 +164,13 @@ test("keeps official labels separate from provisional teaching overlays", async 
   assert.match(metadata.teachingPolicy, /provisional teaching overlays/);
 });
 
-test("keeps every section structure colourable in the default BigBrain source", async () => {
+test("keeps reviewed section structures colourable and withholds the unsplit optic scaffold", async () => {
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
   const expected = [
     "ventricle", "thirdVentricle", "fourthVentricle", "corpusCallosum", "internalCapsule",
     "caudate", "putamen", "pallidumExternal", "pallidumInternal", "pallidum", "thalamus",
     "hippocampus", "amygdala", "accumbens", "redNucleus", "substantiaNigra", "subthalamic",
-    "brainstem", "cerebellum", "opticChiasm", "insula",
+    "brainstem", "cerebellum", "insula",
   ];
   for (const key of expected) {
     assert.match(page, new RegExp(`\\n  ${key}: \\{[^\\n]+bigbrainIds:\\[[^\\]]+\\]`), `${key} BigBrain labels`);
@@ -178,6 +178,8 @@ test("keeps every section structure colourable in the default BigBrain source", 
   assert.match(page, /opticChiasm:[^\n]+bigbrainIds:\[33\]/);
   assert.match(page, /opticChiasm: \{ name:"視交叉〜視索候補"/);
   assert.match(page, /視交叉だけの境界や乳頭体の分節を示すものではありません/);
+  assert.match(page, /filter\(key=>key!=="opticChiasm"\)/);
+  assert.doesNotMatch(page, /\{target:"opticChiasm",category:/);
   assert.match(page, /insula:[^\n]+bigbrainIds:\[34,35\]/);
 });
 
@@ -1246,7 +1248,7 @@ test("every section quiz shows a visible amount of its target label", async () =
   };
   const pattern = /\{target:"([^"]+)",category:"[^"]+",plane:"([^"]+)",position:(\d+),prompt:/g;
   const questions = [...page.matchAll(pattern)];
-  assert.equal(questions.length, 17);
+  assert.equal(questions.length, 16);
 
   for (const [, target, plane, rawPosition] of questions) {
     const ids = new Set(labelIds[target]);

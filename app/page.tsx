@@ -181,7 +181,9 @@ const basalLandmarks:Record<BasalLandmarkKey,{name:string;latin:string;note:stri
   pyramids:{name:"延髄錐体",latin:"Pyramides medullae oblongatae",note:"延髄腹側正中寄りを縦走する左右一対の位置目安です。",color:"#e2ae43"},
   olives:{name:"オリーブ",latin:"Olivae",note:"錐体の外側に並ぶ延髄腹外側の隆起を示す位置目安です。",color:"#d66a55"},
 };
-const basalLandmarkKeys=(Object.keys(basalLandmarks) as BasalLandmarkKey[]).filter((key):key is BasalLandmarkPartKey=>key!=="all");
+// The schematic mammillary bodies are retained as a source asset only. They are not
+// learner-facing substitutes for the mammillary bodies visible in the section volume.
+const basalLandmarkKeys=(Object.keys(basalLandmarks) as BasalLandmarkKey[]).filter((key):key is BasalLandmarkPartKey=>key!=="all"&&key!=="mammillary");
 const cranialNerveBrainstemKeys:BasalLandmarkPartKey[]=["midbrain","pons","medulla","peduncles","pyramids","olives","superior-colliculi","inferior-colliculi"];
 const detachableBrainstemNerveKeys:NeurovascularStructureKey[]=["cn5","cn6","cn7","cn8","cn9","cn10","cn11","cn12"];
 
@@ -192,12 +194,11 @@ const blockSpecimens:Record<BlockSpecimenKey,BlockLesson>={
     {key:"thalamus",name:"視床",latin:"Thalamus",color:"#8d82c4",source:"標本分節",note:"側脳室体部の床と第三脳室の外側に位置します。"},
     {key:"hippocampus",name:"海馬",latin:"Hippocampus",color:"#c8798d",source:"標本分節",note:"側脳室下角の床を内側から隆起させます。"},
   ]},
-  diencephalon:{name:"視床・視床下部標本",en:"DIENCEPHALON",visual:"model",plane:"sagittal",position:50,focus:"thalamus",view:"inside",rotation:{x:-10,y:-48},intro:"第三脳室を正中の空間基準にして、左右の視床、その腹側に続く視床下部領域、さらに腹外側の視床下核を一つの切り出しで比較します。構造を外しながら上下・内外・前後の関係を組み立てます。",observe:["左右の視床と第三脳室","第三脳室側壁に沿う視床と視床下部の上下関係","視床下核と視床・中脳の間の位置","第三脳室底へ続く視床下部領域","乳頭体の後下方への隆起"],caution:"視床と視床下核は手動分節、第三脳室は同一格子の試作分節です。視床下部は独立分節ではなく保守的な位置目安、乳頭体は模式3Dです。視床核群、視床下溝、視交叉、漏斗の厳密な境界はこの標本では示しません。",layers:[
+  diencephalon:{name:"視床・視床下部標本",en:"DIENCEPHALON",visual:"model",plane:"sagittal",position:50,focus:"thalamus",view:"inside",rotation:{x:-10,y:-48},intro:"第三脳室を正中の空間基準にして、左右の視床、その腹側に続く視床下部領域、さらに腹外側の視床下核を一つの切り出しで比較します。構造を外しながら上下・内外・前後の関係を組み立てます。",observe:["左右の視床と第三脳室","第三脳室側壁に沿う視床と視床下部の上下関係","視床下核と視床・中脳の間の位置","第三脳室底へ続く視床下部領域"],caution:"視床と視床下核は手動分節、第三脳室は同一格子の試作分節です。視床下部は独立分節ではなく保守的な位置目安です。乳頭体は原画像に沿う独立分節が未完了のため、後付けの模式部品では代用せず、この標本では表示しません。視床核群、視床下溝、視交叉、漏斗の厳密な境界も示しません。",layers:[
     {key:"thalami",name:"視床",latin:"Thalamus",color:"#8d82c4",source:"標本分節",note:"第三脳室を挟んで左右に並ぶ間脳背側部です。"},
     {key:"third-ventricle",name:"第三脳室",latin:"Ventriculus tertius",color:"#45aebd",source:"試作分節",note:"視床と視床下部の内側面を読む正中の空間基準です。"},
     {key:"hypothalamus",name:"視床下部領域",latin:"Hypothalamus",color:"#b97864",source:"位置目安",note:"視床腹側から第三脳室底へ続く領域を示します。核境界ではありません。"},
     {key:"subthalamic-nuclei",name:"視床下核",latin:"Nucleus subthalamicus",color:"#e0ad45",source:"標本分節",note:"視床腹側・中脳吻側の小さな核を左右表示します。"},
-    {key:"mammillary-bodies",name:"乳頭体",latin:"Corpora mamillaria",color:"#a8795f",source:"模式補助",note:"視床下部下面の後方にある一対の小隆起の位置を示します。"},
   ]},
   radiations:{name:"レンズ核・投射線維",en:"LENTIFORM & RADIATIONS",visual:"model",plane:"horizontal",position:53,focus:"caudate",view:"inside",rotation:{x:-58,y:-8},intro:"レンズ核と内包を含む水平切断標本に、放線冠・視放線・聴放線の走行目安を重ねます。被殻・淡蒼球外節・内節を別々に外しながら、内包を中心とする広がりを確認します。",observe:["被殻・淡蒼球外節・内節の層状配列","レンズ核内側の内包","上方へ扇状に広がる放線冠","外側膝状体から後頭葉へ向かう視放線","内側膝状体から側頭葉へ向かう聴放線"],caution:"被殻と淡蒼球外節・内節は手動分節、内包は画像誘導の試作分節です。3種類の放線は現在の組織像から抽出した線維束ではなく、切断面上へ投影した走行模式です。位置関係の学習用で、束の太さ・全線維・個人差は表しません。",layers:[
     {key:"putamen",name:"被殻",latin:"Putamen",color:"#d9854f",source:"標本分節",note:"レンズ核の外側部です。"},
@@ -304,8 +305,8 @@ const freeObservationByKey=new Map(freeObservationItems.map(item=>[item.key,item
 type PathwayPresetKey="visual"|"papez"|"basal-ganglia";
 type PathwayPreset={name:string;summary:string;steps:string[];freeKeys:FreeObservationKey[];sectionKeys:StructureKey[];extraLayers?:{files:string[];color:[number,number,number]}[]};
 const pathwayPresets:Record<PathwayPresetKey,PathwayPreset>={
-  visual:{name:"視覚路",summary:"視神経から視交叉・視索、視床後部、視放線、一次視覚野までの並びを追います。",steps:["視神経（II）","視交叉","視索","外側膝状体付近","視放線","鳥距溝周囲の視覚皮質"],freeKeys:["neuro:cn2","neuro:opticChiasm","deep:thalami","region:pericalcarine","region:cuneus","region:lingual"],sectionKeys:["opticChiasm","thalamus"],extraLayers:[{files:["block-radiations-optic-radiation"],color:[125,159,208]}]},
-  papez:{name:"Papez回路",summary:"内側側頭葉から脳弓・乳頭体・視床・帯状回を経て戻る位置関係を観察します。",steps:["海馬体","脳弓","乳頭体","視床前部付近","帯状回","海馬傍回・嗅内皮質"],freeKeys:["deep:fornix","basal:mammillary","deep:thalami","region:cingulate","region:parahippocampal","region:entorhinal"],sectionKeys:["hippocampus","thalamus"]},
+  visual:{name:"視覚路",summary:"視神経から視交叉・視索、視床後部、視放線、一次視覚野までの並びを追います。視交叉と左右視索の断面分節は再作業中です。",steps:["視神経（II）","視交叉・左右視索（画像由来分節待ち）","外側膝状体付近","視放線","鳥距溝周囲の視覚皮質"],freeKeys:["neuro:cn2","neuro:opticChiasm","deep:thalami","region:pericalcarine","region:cuneus","region:lingual"],sectionKeys:["thalamus"],extraLayers:[{files:["block-radiations-optic-radiation"],color:[125,159,208]}]},
+  papez:{name:"Papez回路",summary:"内側側頭葉から脳弓・乳頭体・視床・帯状回へ続く位置関係を観察します。乳頭体の画像由来分節は再作業中です。",steps:["海馬体","脳弓","乳頭体（画像由来分節待ち）","視床前部付近","帯状回","海馬傍回・嗅内皮質"],freeKeys:["deep:fornix","deep:thalami","region:cingulate","region:parahippocampal","region:entorhinal"],sectionKeys:["hippocampus","thalamus"]},
   "basal-ganglia":{name:"大脳基底核回路",summary:"線条体、淡蒼球、視床下核、黒質、視床の相互位置をまとめて観察します。",steps:["尾状核・被殻（線条体）","淡蒼球外節・内節","視床下核","黒質","視床","皮質へ戻る投射"],freeKeys:["deep:thalami"],sectionKeys:["caudate","putamen","pallidumExternal","pallidumInternal","subthalamic","substantiaNigra","thalamus"]},
 };
 const pathwayPresetKeys=Object.keys(pathwayPresets) as PathwayPresetKey[];
@@ -397,7 +398,6 @@ const quizQuestions:QuizQuestion[]=[
   {target:"thalamus",category:"connections",plane:"coronal",position:49,prompt:"第三脳室の両側を占める大きな灰白質はどれですか？",options:["thalamus","caudate","hippocampus","subthalamic"]},
   {target:"corpusCallosum",category:"connections",plane:"sagittal",position:50,prompt:"正中矢状断で側脳室の上方を弓状に走る交連線維はどれですか？",options:["corpusCallosum","internalCapsule","thalamus","caudate"]},
   {target:"internalCapsule",category:"connections",plane:"coronal",position:58,prompt:"尾状核・視床とレンズ核の間を通る白質路はどれですか？",options:["internalCapsule","corpusCallosum","pallidum","insula"]},
-  {target:"opticChiasm",category:"connections",plane:"horizontal",position:70,prompt:"視交叉から後方の視索まで連続する、CerebrA由来の試作表示はどれですか？",options:["opticChiasm","thirdVentricle","accumbens","amygdala"]},
   {target:"insula",category:"connections",plane:"coronal",position:64,prompt:"外側溝の深部で、被殻・外包より外側にある皮質はどれですか？",options:["insula","putamen","internalCapsule","pallidum"]},
   {target:"brainstem",category:"hindbrain",plane:"horizontal",position:83,prompt:"第四脳室の腹側で中脳・橋・延髄へ連続する構造はどれですか？",options:["brainstem","cerebellum","thalamus","fourthVentricle"]},
   {target:"cerebellum",category:"hindbrain",plane:"horizontal",position:80,prompt:"橋・延髄の後方にあり、左右半球と虫部をもつ構造はどれですか？",options:["cerebellum","brainstem","thalamus","hippocampus"]},
@@ -526,7 +526,9 @@ export default function Home() {
   const sectionDeveloperControls=(import.meta.env.VITE_SECTION_DEVELOPER_CONTROLS as string|undefined)==="true";
   const current = structures[selectedStructure];
   const cavitySelection=selectedStructure==="ventricle"||selectedStructure==="thirdVentricle"||selectedStructure==="fourthVentricle";
-  const structureKeys=Object.keys(structures) as StructureKey[];
+  // ID 33 is an atlas-derived scaffold that merges the optic chiasm and tracts.
+  // Keep it out of learner-facing identification until image-guided labels 36-38 are reviewed.
+  const structureKeys:StructureKey[]=(Object.keys(structures) as StructureKey[]).filter(key=>key!=="opticChiasm");
   const structureAvailable=(key:StructureKey)=>contrast==="single"?false:contrast==="bigbrain"?(structures[key].bigbrainIds?.length??0)>0:structures[key].ids.length>0;
   const activeVisibleStructures=visibleStructures.filter(structureAvailable);
   const visibleSet=useMemo(()=>new Set(visibleStructures),[visibleStructures]);
@@ -839,7 +841,7 @@ export default function Home() {
       <div className="identifyCard"><span>クリック同定</span>{contrast==="single"?<><b>画像参照モード</b><small>座標未確認のラベルは重ねません。照合済みの「BigBrain組織 0.5」を選択してください。</small></>:identified?<><b>{labels?`${identified.side}${identified.name}`:"解答非表示"}</b><small>{sectionDeveloperControls?(identified.certainty==="atlas"?"位置照合した試作ラベル":identified.certainty==="manual"?"画像と同一格子のBigBrain手動ラベル":"位置照合または画像誘導による試作ラベル"):current.note}</small></>:<><b>断面上をクリック</b><small>指した場所の構造名を表示します。ホイールで拡大縮小できます。</small></>}</div>
       <div className="continuity"><span>連続性</span><div><i style={{width:`${Math.max(18, 100-Math.abs(position-52)*1.35)}%`,background:current.color}}/></div><small>この断面での見えやすさ</small></div>
       <button className="quiz" onClick={() => setLabels(!labels)} disabled={contrast==="single"}>{contrast==="single"?"固定脳MRIは画像参照のみ":labels ? "ラベルを隠して確認" : "答えを表示"}<b>→</b></button>
-      {sectionDeveloperControls&&<p className="atlasCredit">解剖基盤：BigBrain（Amunts et al., 2013）、BigBrain manual subcortical segmentation（Xiao et al.）、CerebrA。BigBrainは単一個体の20 µm組織再構成で、本アプリでは表示用0.5 mmへ再標本化しています。1–22は同一格子の手動ラベル、脳室・脳幹・小脳・視交叉・島皮質は位置照合済みアトラス由来、脳梁・内包は画像誘導の試作です。試作輪郭は手動正解データではありません。診断用途ではありません。</p>}
+      {sectionDeveloperControls&&<p className="atlasCredit">解剖基盤：BigBrain（Amunts et al., 2013）、BigBrain manual subcortical segmentation（Xiao et al.）、CerebrA。BigBrainは単一個体の20 µm組織再構成で、本アプリでは表示用0.5 mmへ再標本化しています。1–22は同一格子の手動ラベル、脳室・脳幹・小脳・島皮質は位置照合済みアトラス由来、脳梁・内包は画像誘導の試作です。旧ID 33は視交叉と視索を未分割のため学習表示から除外しています。試作輪郭は手動正解データではありません。診断用途ではありません。</p>}
     </aside>}
 
     {helpOpen&&<div className="legalBackdrop" role="presentation" onMouseDown={event=>{if(event.target===event.currentTarget)closeOverlay()}}><section className="legalDialog helpDialog" role="dialog" aria-modal="true" aria-labelledby="help-title"><header><div><span>VIEWER CONTROLS</span><h2 id="help-title">操作ガイド</h2></div><button onClick={closeOverlay} aria-label="操作ガイドを閉じる">×</button></header><p className="helpIntro">マウス、トラックパッド、タッチ、キーボードで同じ教材を観察できます。操作に迷ったときは、この画面を閉じずに一覧を確認できます。</p><div className="helpGrid"><article><h3>3Dモデル</h3><dl><div><dt>回転</dt><dd>ドラッグ。キーボードでは<kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd></dd></div><div><dt>軸回転</dt><dd><kbd>Shift</kbd>＋ドラッグ、または右ドラッグ</dd></div><div><dt>拡大・縮小</dt><dd>ホイール／トラックパッド、画面上の<kbd>−</kbd><kbd>＋</kbd></dd></div><div><dt>向きを戻す</dt><dd><kbd>R</kbd>、ダブルクリック、または「向きを戻す」</dd></div></dl></article><article><h3>断面実習</h3><dl><div><dt>断面位置</dt><dd>スライダー、<kbd>←</kbd><kbd>→</kbd><kbd>Home</kbd><kbd>End</kbd></dd></div><div><dt>画像の拡大</dt><dd>ホイール。表示中の倍率を押すと100%へ戻る</dd></div><div><dt>画像の移動</dt><dd><kbd>Shift</kbd>＋ドラッグ、または中ドラッグ</dd></div><div><dt>構造の同定</dt><dd>断面をクリック。左欄では複数構造を同時選択できる</dd></div></dl></article><article><h3>脳表・局所標本</h3><dl><div><dt>着色</dt><dd>構造名を押して追加・解除。脳表では「全選択」「すべて解除」も利用可能</dd></div><div><dt>透過・単独表示</dt><dd>透過、選択だけ、組織表示、脱着の各ボタンを使う</dd></div><div><dt>自由観察</dt><dd>構造索引または検索から複数の対象を追加する</dd></div></dl></article><article><h3>クイズ・編集ツール</h3><dl><div><dt>復習</dt><dd>解答後の「観察画面で復習」で、出題位置と対象を保って教材へ戻る</dd></div><div><dt>塗る</dt><dd>編集Canvasを左ドラッグ。右・中・<kbd>Alt</kbd>ドラッグで移動</dd></div><div><dt>元に戻す</dt><dd><kbd>Ctrl</kbd>／<kbd>⌘</kbd>＋<kbd>Z</kbd>。やり直しは<kbd>Shift</kbd>も同時に押す</dd></div></dl></article></div><footer><span><kbd>Tab</kbd>で項目移動・<kbd>Esc</kbd>で閉じる</span><button onClick={closeOverlay}>観察へ戻る</button></footer></section></div>}
