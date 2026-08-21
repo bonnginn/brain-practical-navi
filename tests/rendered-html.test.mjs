@@ -359,7 +359,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /sectionLayout!=="model"&&<div className="sliceViewport">/);
   assert.match(page, /sectionLayout!=="slice"&&<aside className="modelInset"/);
   assert.match(page, /const sectionModelRotations:Rotation\[]=\[rotation,\{\.\.\.rotation,y:wrapAngle\(rotation\.y\+90\)\}\]/);
-  assert.match(page, /className="insetViews"/);
+  assert.match(page, /className=\{`insetViews \$\{webglUnavailable\?"webglUnavailable":""\}`\}/);
   assert.match(page, /"90°直交"/);
   assert.match(page, /const sectionSelectionMeshLayers=activeVisibleStructures\.flatMap/);
   assert.match(page, /selectionMeshLayers=\{sectionSelectionMeshLayers\}/);
@@ -1262,7 +1262,7 @@ test("block specimens support continuous rotation and reuse the shared WebGL ren
   assert.match(canvas, /let sharedAtlasRenderCanvas:HTMLCanvasElement\|null=null/);
   assert.match(canvas, /target\.drawImage\(canvas,0,0\)/);
   assert.match(canvas, /gl\.deleteShader\(vertexShader\);gl\.deleteShader\(fragmentShader\)/);
-  assert.match(canvas, /if\(!ext\)\{gl\.deleteProgram\(prog\);return\}/);
+  assert.match(canvas, /if\(!ext\)\{gl\.deleteProgram\(prog\);return false\}/);
   assert.match(canvas, /gl\.deleteProgram\(prog\)/);
   assert.doesNotMatch(canvas, /Promise\.all\(\["brain",focus/);
   assert.doesNotMatch(canvas, /focus:Mesh/);
@@ -1557,7 +1557,7 @@ test("3D viewers expose orientation, keyboard rotation, reset, and visible zoom 
   ]);
   assert.match(page, /function OrientationCompass/);
   assert.match(page, /R 右、L 左、A 前、P 後、S 上、I 下/);
-  assert.ok((page.match(/onKeyDown=\{handleModelKey\}/g) ?? []).length >= 3);
+  assert.ok((page.match(/onKeyDown=\{(?:webglUnavailable\?undefined:|surfaceQuiz&&!webglUnavailable\?)handleModelKey/g) ?? []).length >= 3);
   assert.match(page, /event\.key\.toLowerCase\(\)==="r"/);
   assert.match(canvas, /className="modelZoomControls"/);
   assert.match(canvas, /aria-label="拡大率を100パーセントに戻す"/);
@@ -1662,6 +1662,31 @@ test("free observation offers schematic pathway presets instead of textbook chap
   assert.match(css, /\.pathwayPresets/);
 });
 
+test("free observation distinguishes the medial and basal hypothalamus entries", async () => {
+  const page = await readFile(new URL("app/page.tsx", root), "utf8");
+  assert.match(page, /key===\"hypothalamus\"\?\"視床下部領域（内側面）\":surfaceDeepLandmarks\[key\]\.name/);
+  assert.match(page, /key===\"hypothalamus\"\?\"視床下部領域（脳底面）\":basalLandmarks\[key\]\.name/);
+  assert.match(page, /<option key=\{item\.key\} value=\{item\.key\}>\{item\.name\} — \{item\.latin\}<\/option>/);
+  assert.match(page, /aria-label=\{`\$\{item\.name\}の表示を解除`\}/);
+});
+
+test("surface canvases expose an accessible WebGL fallback without retrying", async () => {
+  const [page, canvas, css] = await Promise.all([
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8"),
+    readFile(new URL("app/canvas.css", root), "utf8"),
+  ]);
+  assert.match(canvas, /if\(!gl\)return false/);
+  assert.match(canvas, /mockUnavailable=\(import\.meta\.env\.DEV\|\|localHost\)&&new URLSearchParams\(location\.search\)\.has\("mock-webgl-unavailable"\)/);
+  assert.match(canvas, /className="atlasWebglFallback" role="alert" aria-live="assertive"/);
+  assert.match(canvas, /この環境では3Dを表示できません。WebGL対応ブラウザ、PCまたは横向きタブレットでお試しください。/);
+  assert.doesNotMatch(canvas, /WebGL context unavailable for atlas canvas/);
+  assert.match(page, /disabled=\{webglUnavailable\}>断面＋3D<\/button>/);
+  assert.match(page, /disabled=\{webglUnavailable\}>3Dのみ<\/button>/);
+  assert.match(page, /onWebGLUnavailableChange=\{setWebglUnavailable\}/);
+  assert.match(css, /\.atlasWebglFallback/);
+});
+
 test("quiz mistakes link back to the exact study view", async () => {
   const [page, css] = await Promise.all([
     readFile(new URL("app/page.tsx", root), "utf8"),
@@ -1671,7 +1696,8 @@ test("quiz mistakes link back to the exact study view", async () => {
   assert.match(page, /function reviewQuizQuestion\(question:QuizQuestion\)/);
   assert.match(page, /jump\(question\.plane,question\.position,"replace"\);setVisibleStructures\(\[question\.target\]\)/);
   assert.match(page, /className="quizReviewTargets" aria-label="今回間違えた構造"/);
-  assert.match(page, /観察画面で復習/);
+  assert.match(page, /観察画面で位置を確認/);
+  assert.doesNotMatch(page, /観察画面で復習/);
   assert.match(page, /learnerLabelSourceDisplay\[sectionQuizTarget\.labelSource\]\.label/);
   assert.match(css, /\.quizReviewTargets/);
 });
