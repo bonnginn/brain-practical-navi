@@ -1,11 +1,16 @@
 Public visual asset notice
-Updated: 2026-08-14
+Updated: 2026-08-21
 
 og.png is a project-created composite illustration used only for social-link
 previews. It is not a scan, photograph, or reproduction from a lecture handout,
 textbook, atlas, website, donor specimen, patient record, or research dataset.
 It is not used as anatomical evidence or as a labelled study image, and its
 anatomical accuracy is not guaranteed.
+
+home-surface-preview.png is a screenshot of the application’s own atlas-derived
+3D surface renderer. It is used as a lightweight Home preview so that the full
+mesh is not downloaded on entry. It is not a donor photograph, patient image,
+lecture slide, textbook figure, or independent source of anatomical evidence.
 
 favicon.svg is a project-created interface mark. file.svg, globe.svg, and
 window.svg are unused generic starter icons and are not included in the
