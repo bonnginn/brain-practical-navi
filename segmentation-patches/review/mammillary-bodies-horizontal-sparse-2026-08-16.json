@@ -1,0 +1,334 @@
+{
+  "format": "brain-practical-segmentation-patch",
+  "version": 1,
+  "sourceImage": "/atlas/bigbrain-icbm500.bin.gz",
+  "sourceLabels": "/atlas/bigbrain-practical-segmentation-icbm500.bin.gz",
+  "sourceLabelsSha256": "de30b5c77f4ed4f2902564a5d238b0e733413c247643ef828fb66aa03d8cc8be",
+  "dims": [
+    394,
+    466,
+    378
+  ],
+  "voxelSizeMm": [
+    0.5,
+    0.5,
+    0.5
+  ],
+  "primaryPlane": "horizontal",
+  "createdAt": "2026-08-16T11:35:59.688Z",
+  "authorNote": "水平断 Z 117。正中の脚間部前方に見える左右一対の小隆起を、連続断で上方・下方へ移動して消長を確認し、左乳頭体 ID 39・右乳頭体 ID 40として中心断面を分節。Z 117で最大、上方・下方では縮小。左乳頭体の3 voxelは既存の脳幹試作ラベルと競合するが、既存ラベル表示を重ねて原画像を確認し、乳頭体の輪郭内に収まると判断した。\n追加の連続断確認：乳頭体はZ 109・113・117・121で両側を分節し、Z 106およびZ 124では独立した輪郭を認めないと判断した。",
+  "authorGitHub": "",
+  "targetSide": "bilateral",
+  "evidence": "BigBrain公開組織画像 0.5 mm（アプリ同梱表示）、水平断 Z 117および隣接断面。位置関係と上下方向の連続性を目視確認。",
+  "confidence": "medium",
+  "reviewStatus": "unreviewed",
+  "editCount": 311,
+  "runs": [
+    {
+      "start": 20111528,
+      "length": 2,
+      "label": 39
+    },
+    {
+      "start": 20111921,
+      "length": 4,
+      "label": 39
+    },
+    {
+      "start": 20111929,
+      "length": 3,
+      "label": 40
+    },
+    {
+      "start": 20112314,
+      "length": 5,
+      "label": 39
+    },
+    {
+      "start": 20112322,
+      "length": 5,
+      "label": 40
+    },
+    {
+      "start": 20112708,
+      "length": 4,
+      "label": 39
+    },
+    {
+      "start": 20112716,
+      "length": 6,
+      "label": 40
+    },
+    {
+      "start": 20113103,
+      "length": 3,
+      "label": 39
+    },
+    {
+      "start": 20113110,
+      "length": 5,
+      "label": 40
+    },
+    {
+      "start": 20113498,
+      "length": 1,
+      "label": 39
+    },
+    {
+      "start": 20113505,
+      "length": 3,
+      "label": 40
+    },
+    {
+      "start": 20844770,
+      "length": 3,
+      "label": 40
+    },
+    {
+      "start": 20845154,
+      "length": 6,
+      "label": 39
+    },
+    {
+      "start": 20845163,
+      "length": 5,
+      "label": 40
+    },
+    {
+      "start": 20845547,
+      "length": 7,
+      "label": 39
+    },
+    {
+      "start": 20845556,
+      "length": 7,
+      "label": 40
+    },
+    {
+      "start": 20845941,
+      "length": 7,
+      "label": 39
+    },
+    {
+      "start": 20845949,
+      "length": 8,
+      "label": 40
+    },
+    {
+      "start": 20846335,
+      "length": 8,
+      "label": 39
+    },
+    {
+      "start": 20846343,
+      "length": 8,
+      "label": 40
+    },
+    {
+      "start": 20846729,
+      "length": 7,
+      "label": 39
+    },
+    {
+      "start": 20846737,
+      "length": 8,
+      "label": 40
+    },
+    {
+      "start": 20847123,
+      "length": 7,
+      "label": 39
+    },
+    {
+      "start": 20847131,
+      "length": 8,
+      "label": 40
+    },
+    {
+      "start": 20847517,
+      "length": 6,
+      "label": 39
+    },
+    {
+      "start": 20847525,
+      "length": 8,
+      "label": 40
+    },
+    {
+      "start": 20847911,
+      "length": 5,
+      "label": 39
+    },
+    {
+      "start": 20847919,
+      "length": 7,
+      "label": 40
+    },
+    {
+      "start": 20848306,
+      "length": 3,
+      "label": 39
+    },
+    {
+      "start": 20848314,
+      "length": 5,
+      "label": 40
+    },
+    {
+      "start": 20848708,
+      "length": 4,
+      "label": 40
+    },
+    {
+      "start": 20849103,
+      "length": 2,
+      "label": 40
+    },
+    {
+      "start": 21579175,
+      "length": 5,
+      "label": 39
+    },
+    {
+      "start": 21579186,
+      "length": 1,
+      "label": 40
+    },
+    {
+      "start": 21579568,
+      "length": 7,
+      "label": 39
+    },
+    {
+      "start": 21579578,
+      "length": 6,
+      "label": 40
+    },
+    {
+      "start": 21579962,
+      "length": 8,
+      "label": 39
+    },
+    {
+      "start": 21579971,
+      "length": 8,
+      "label": 40
+    },
+    {
+      "start": 21580356,
+      "length": 8,
+      "label": 39
+    },
+    {
+      "start": 21580365,
+      "length": 8,
+      "label": 40
+    },
+    {
+      "start": 21580750,
+      "length": 8,
+      "label": 39
+    },
+    {
+      "start": 21580759,
+      "length": 8,
+      "label": 40
+    },
+    {
+      "start": 21581144,
+      "length": 7,
+      "label": 39
+    },
+    {
+      "start": 21581153,
+      "length": 8,
+      "label": 40
+    },
+    {
+      "start": 21581539,
+      "length": 6,
+      "label": 39
+    },
+    {
+      "start": 21581547,
+      "length": 8,
+      "label": 40
+    },
+    {
+      "start": 21581933,
+      "length": 5,
+      "label": 39
+    },
+    {
+      "start": 21581941,
+      "length": 7,
+      "label": 40
+    },
+    {
+      "start": 21582328,
+      "length": 1,
+      "label": 39
+    },
+    {
+      "start": 21582330,
+      "length": 1,
+      "label": 39
+    },
+    {
+      "start": 21582336,
+      "length": 6,
+      "label": 40
+    },
+    {
+      "start": 21582731,
+      "length": 4,
+      "label": 40
+    },
+    {
+      "start": 22313987,
+      "length": 1,
+      "label": 39
+    },
+    {
+      "start": 22314380,
+      "length": 3,
+      "label": 39
+    },
+    {
+      "start": 22314392,
+      "length": 1,
+      "label": 40
+    },
+    {
+      "start": 22314773,
+      "length": 4,
+      "label": 39
+    },
+    {
+      "start": 22314785,
+      "length": 3,
+      "label": 40
+    },
+    {
+      "start": 22315168,
+      "length": 2,
+      "label": 39
+    },
+    {
+      "start": 22315179,
+      "length": 3,
+      "label": 40
+    },
+    {
+      "start": 22315572,
+      "length": 3,
+      "label": 40
+    },
+    {
+      "start": 22315967,
+      "length": 1,
+      "label": 40
+    }
+  ]
+}
+

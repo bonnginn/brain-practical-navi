@@ -678,7 +678,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 .segRailIntro ol { margin: 0; padding-left: 18px; color: #485452; font-size: 16px; line-height: 1.85; }
 .segmentationArea { min-height: 0; }
 .segWorkbench { flex: 1 1 auto; min-height: 0; display: grid; grid-template-columns: minmax(0,1fr) clamp(330px,30vw,420px); gap: 12px; }
-.segCanvasCard { min-height: 0; display: grid; grid-template-rows: 58px minmax(0,1fr) 54px; overflow: hidden; border: 1px solid #c7cac4; background: #252c2f; box-shadow: 0 10px 34px rgba(26,34,35,.1); }
+.segCanvasCard { min-height: 0; display: grid; grid-template-rows: 58px minmax(0,1fr) 92px; overflow: hidden; border: 1px solid #c7cac4; background: #252c2f; box-shadow: 0 10px 34px rgba(26,34,35,.1); }
 .segCanvasCard > header { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; border-bottom: 1px solid #455053; color: #f1f2ef; }
 .segCanvasCard > header div { display: grid; gap: 3px; }
 .segCanvasCard > header b { font-size: 16px; }
@@ -695,6 +695,10 @@ html, body, #root { height: 100%; overflow: hidden; }
 .segOrientation span { word-spacing: 12px; }
 .segCanvasCard > footer { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 14px; padding: 9px 14px; border-top: 1px solid #455053; }
 .segCanvasCard > footer label { display: grid; grid-template-columns: auto minmax(0,1fr) auto; align-items: center; gap: 9px; color: #aab4b3; font-size: 15px; }
+.segSliceNavigation { min-width: 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; align-items: center; gap: 6px 8px; }
+.segSliceNavigation > label { grid-column: 1 / -1; grid-row: 1; }
+.segSliceNavigation > button { padding: 7px 9px; border: 1px solid #657173; background: #30393c; color: #d1d6d4; font-size: 14px; white-space: nowrap; }
+.segSliceNavigation > button:disabled { opacity: .42; }
 .segCanvasCard input[type="range"] { width: 100%; accent-color: #e36e57; }
 .segCanvasCard > footer button { padding: 7px 9px; border: 1px solid #657173; background: #30393c; color: #d1d6d4; font-size: 15px; }
 .segControls { min-height: 0; overflow-y: auto; padding: 22px 24px 26px; border: 1px solid #c7cac4; background: #e7e5df; }
@@ -923,3 +927,97 @@ html, body, #root { height: 100%; overflow: hidden; }
 .segStats b { color: #a84233; }
 .segStats small,
 .projectCredit > small { color: #596360; }
+
+/* Student landing and collaboration are deliberately separate: the landing
+   stays light and choice-oriented, while contribution details live here. */
+.homeLearningLanding { width: min(1120px, 100%); padding: clamp(26px, 4vw, 54px); }
+.homeLearningLanding > header { max-width: 900px; }
+.homeLearningLanding > header h1 { margin: 7px 0 12px; font-size: clamp(38px, 5vw, 66px); line-height: 1; }
+.homeLearningLanding > header p { margin: 0; color: #44514f; font-size: clamp(16px, 1.6vw, 20px); line-height: 1.75; }
+.homeLandingBody { display: grid; grid-template-columns: minmax(280px, .9fr) minmax(420px, 1.1fr); gap: 24px; margin-top: 28px; }
+.homePreviewPoster { position: relative; min-height: 300px; margin: 0; overflow: hidden; border: 1px solid #aeb5b0; background: #202a29; }
+.homePreviewPoster img { display: block; width: 100%; height: 100%; min-height: 300px; object-fit: cover; }
+.homePreviewPoster figcaption { position: absolute; right: 12px; bottom: 12px; left: 12px; display: grid; gap: 2px; padding: 10px 12px; background: rgba(27,36,35,.9); color: #fff; }
+.homePreviewPoster figcaption span { color: #b9d7d1; font: 11px monospace; letter-spacing: .08em; }
+.homePreviewPoster figcaption b { font-size: 13px; }
+.homeLearningChoices { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.homeLearningChoices button { display: grid; align-content: start; gap: 6px; min-height: 145px; padding: 18px; border: 1px solid #b4bbb6; background: #f5f3ed; color: #25312f; text-align: left; }
+.homeLearningChoices button:hover { border-color: #1d6e69; background: #eef5f2; }
+.homeLearningChoices span { font-size: 20px; font-weight: 800; }
+.homeLearningChoices small { color: #4d5957; font-size: 14px; line-height: 1.55; }
+.homeLearningChoices b { align-self: end; margin-top: auto; color: #17645e; font-size: 13px; }
+.homeDeviceNote { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 14px; margin-top: 18px; padding: 12px 15px; border-left: 3px solid #1d6e69; background: #edf2ef; }
+.homeDeviceNote b { white-space: nowrap; }
+.homeDeviceNote p { margin: 0; color: #485452; font-size: 14px; line-height: 1.55; }
+.homeLearningLanding > footer { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.homeLearningLanding > footer button { padding: 7px 10px; border: 0; background: transparent; color: #365d58; font-size: 13px; text-decoration: underline; text-underline-offset: 3px; }
+
+.collaborateButton { padding: 7px 9px; border: 1px solid #90a9a4; background: #edf4f2; color: #24534e; font-size: 13px; font-weight: 700; white-space: nowrap; }
+.workspace-collaborate .leftRail { display: none; }
+.workspace-collaborate .collaborationArea { grid-column: 1/3; }
+.collaborationArea { overflow-y: auto; padding: 24px 30px 42px; }
+.collaborationIntro { margin-top: 18px; padding: 22px 24px; border-left: 4px solid #1d6e69; background: #eef2ef; }
+.collaborationIntro h2 { margin: 0 0 8px; font-size: 22px; }
+.collaborationIntro p { max-width: 900px; margin: 0; color: #465250; line-height: 1.7; }
+.collaborationIntro > div { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+.collaborationIntro > div span { padding: 4px 8px; border: 1px solid #a7b6b2; background: #f8f7f3; color: #35504c; font-size: 12px; font-weight: 700; }
+.collaborationGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 14px; }
+.collaborationGrid article { display: flex; min-height: 230px; flex-direction: column; align-items: flex-start; padding: 20px; border: 1px solid #b8bdb8; background: #f7f5ef; }
+.collaborationGrid article > span { color: #8b4b40; font: 11px monospace; letter-spacing: .05em; }
+.collaborationGrid article h2 { margin: 8px 0; font-size: 19px; }
+.collaborationGrid article p { margin: 0 0 16px; color: #465250; font-size: 14px; line-height: 1.65; }
+.collaborationGrid article > a,
+.collaborationGrid article > button,
+.collaborationGrid article > div { margin-top: auto; }
+.collaborationGrid article a,
+.collaborationGrid article button { display: inline-block; padding: 8px 10px; border: 1px solid #1d6e69; background: #f3f8f6; color: #165c56; font-size: 13px; font-weight: 700; text-decoration: none; }
+.collaborationGrid article > div { display: flex; flex-wrap: wrap; gap: 6px; }
+.segmentationReviewNotice { display: grid; grid-template-columns: auto minmax(0,1fr) auto; align-items: center; gap: 12px; margin: 12px 0; padding: 12px 14px; border-left: 4px solid #d08d55; background: #fff1e3; }
+.segmentationReviewNotice p { margin: 0; color: #604c3e; font-size: 13px; line-height: 1.5; }
+.segmentationReviewNotice button { padding: 7px 9px; border: 1px solid #b77a49; background: #fff8ef; color: #744526; font-weight: 700; }
+.provenanceDetails { margin-top: 8px; padding: 7px 9px; border: 1px solid #c2c6c1; background: #f6f4ee; color: #465250; font-size: 13px; }
+.provenanceDetails summary { cursor: pointer; color: #315e58; font-weight: 700; }
+.provenanceDetails p { margin: 7px 0 0 !important; font-size: 13px !important; line-height: 1.55; }
+.quizFeedback .quizNextPrimary { border-color: #1d6e69; background: #1d6e69; color: #fff; font-weight: 800; }
+.compactFeedbackDialog { max-width: 650px; }
+.singleFeedbackOption { grid-template-columns: 1fr; }
+.feedbackDialogFooter button { padding: 8px 10px; border: 1px solid #1d6e69; background: #edf4f2; color: #1d5b55; font-weight: 700; }
+
+@media(max-width:1000px){
+  .homeLandingBody{grid-template-columns:1fr}
+  .homePreviewPoster{min-height:260px}
+  .homePreviewPoster img{height:260px;min-height:260px}
+  .collaborationGrid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:760px){
+  .topActions{overflow-x:auto;scrollbar-width:none}
+  .topActions>span{display:none}
+  .feedbackButton,.collaborateButton,.helpButton,.legalButton{width:auto;padding-inline:6px;font-size:11px}
+  .feedbackButton::after{content:none}
+  .homeLearningLanding{padding:25px 18px}
+  .homeLearningLanding>header h1{font-size:40px}
+  .homeLandingBody{margin-top:20px}
+  .homePreviewPoster,.homePreviewPoster img{min-height:210px;height:210px}
+  .homeLearningChoices{grid-template-columns:1fr}
+  .homeLearningChoices button{min-height:110px}
+  .homeDeviceNote{grid-template-columns:1fr;gap:4px}
+  .homeLearningLanding>footer{display:grid;grid-template-columns:1fr}
+  .workspace-collaborate .collaborationArea{grid-column:1}
+  .collaborationArea{padding:18px 12px 32px}
+  .collaborationGrid{grid-template-columns:1fr}
+  .collaborationGrid article{min-height:0}
+  .segmentationReviewNotice{grid-template-columns:1fr}
+}
+
+/* Mid-width desktop and landscape-tablet headers need two real rows. Keeping
+   every action in one row made the utility buttons cover the quiz destination. */
+@media(max-width:1200px) and (min-width:761px){
+  .appShell{grid-template-rows:104px 1fr}
+  .topbar{height:104px;display:grid;grid-template-columns:240px minmax(0,1fr) auto;grid-template-rows:52px 52px;align-content:start;gap:0 8px;padding:0 14px}
+  .brand{grid-column:1;grid-row:1}
+  .workspaceSwitch{grid-column:1/4;grid-row:2;display:flex;width:100%;justify-content:center;padding:3px;background:#e8e7e2}
+  .workspaceSwitch button{min-width:118px;padding:7px 12px}
+  .topActions{grid-column:3;grid-row:1}
+  .topActions>span{display:none}
+  .inspectorBackdrop,.inspector{top:104px}
+}

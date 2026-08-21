@@ -25,7 +25,7 @@ from nibabel.processing import resample_from_to
 
 
 LABELS = {
-    33: ("optic chiasm atlas candidate", (68, 17)),
+    33: ("optic chiasm / tract atlas candidate (CerebrA Optic Chiasm)", (68, 17)),
     34: ("left insula atlas candidate", (74,)),
     35: ("right insula atlas candidate", (23,)),
 }

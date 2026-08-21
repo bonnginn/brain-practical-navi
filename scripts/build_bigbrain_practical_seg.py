@@ -6,6 +6,7 @@ subcortical segmentation.  Labels 23-29 are resampled from CerebrA after an
 overlap audit against those manual labels.  Labels 30-32 are deliberately
 marked as provisional: they are white-matter candidates constrained by the
 CerebrA white-matter probability map and neighbouring nuclei/ventricles.
+Reviewed image-guided corrections are then applied from pinned patch files.
 
 The output is an educational overlay, not a new anatomical ground truth.
 """
@@ -21,6 +22,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "work/pydeps"))
+MAMMILLARY_PATCH = ROOT / "segmentation-patches/review/mammillary-bodies-horizontal-core-plus-clear-rim-candidate-2026-08-16.json"
 
 import nibabel as nib
 import numpy as np
@@ -54,7 +56,38 @@ PRACTICAL_LABELS = {
     33: "optic chiasm atlas candidate",
     34: "left insula atlas candidate",
     35: "right insula atlas candidate",
+    39: "left mammillary body (reviewed image-guided)",
+    40: "right mammillary body (reviewed image-guided)",
 }
+
+
+def apply_approved_patch(volume: np.ndarray, path: Path) -> dict[str, object]:
+    patch = json.loads(path.read_text(encoding="utf-8"))
+    if patch.get("format") != "brain-practical-segmentation-patch" or patch.get("version") != 1:
+        raise ValueError(f"unsupported reviewed patch: {path}")
+    if patch.get("reviewStatus") != "approved":
+        raise ValueError(f"reviewed patch is not approved: {path}")
+    if tuple(patch.get("dims", ())) != tuple(volume.shape):
+        raise ValueError(f"reviewed patch grid mismatch: {path}")
+    flat = volume.ravel(order="F")
+    transitions: dict[str, int] = {}
+    edit_count = 0
+    for run in patch.get("runs", []):
+        start, length, label = run["start"], run["length"], run["label"]
+        if label not in (39, 40) or start < 0 or length < 1 or start + length > flat.size:
+            raise ValueError(f"invalid mammillary-body run in {path}")
+        for index in range(start, start + length):
+            old = int(flat[index])
+            key = f"{old}->{label}"
+            transitions[key] = transitions.get(key, 0) + 1
+            flat[index] = label
+            edit_count += 1
+    if edit_count != patch.get("editCount"):
+        raise ValueError(f"reviewed patch editCount mismatch: {path}")
+    expected = {"0->39": 316, "0->40": 426, "27->39": 17, "33->39": 228, "33->40": 303}
+    if transitions != expected:
+        raise ValueError(f"reviewed patch source transitions changed: {transitions}")
+    return {"path": str(path.relative_to(ROOT)), "editCount": edit_count, "transitions": transitions}
 
 
 def load_nifti_entry(path: Path) -> nib.Nifti1Image:
@@ -208,9 +241,12 @@ def main() -> None:
         practical[mask & empty & ~empty_space] = label_id
         empty = practical == 0
 
+    reviewed_patch_audit = apply_approved_patch(practical, MAMMILLARY_PATCH)
+
     if not np.array_equal(practical[manual > 0], manual[manual > 0]):
         raise ValueError("official manual labels were modified")
-    counts = {str(label_id): int((practical == label_id).sum()) for label_id in range(1, 36)}
+    published_ids = list(range(1, 36)) + [39, 40]
+    counts = {str(label_id): int((practical == label_id).sum()) for label_id in published_ids}
     if any(counts[str(label_id)] == 0 for label_id in PRACTICAL_LABELS):
         raise ValueError(f"one or more practical labels are empty: {counts}")
 
@@ -225,13 +261,15 @@ def main() -> None:
         "officialLabelsPreserved": True,
         "atlasDerivedIds": list(range(23, 30)) + [33, 34, 35],
         "imageGuidedCandidateIds": [30, 31, 32],
+        "imageGuidedReviewedIds": [39, 40],
         "labelNames": {str(key): value for key, value in PRACTICAL_LABELS.items()},
         "labelCounts": counts,
         "atlasToManualDiceAudit": overlap_audit,
         "ventricleLabelsRestrictedToEmptySpace": True,
         "ventricleTissueOverlap": float((~empty_space[np.isin(practical, [23, 24, 25, 26])]).mean()),
         "coordinatePolicy": "exact BigBrain ICBM2009sym 0.5 mm output grid; CerebrA resampling accepted only after overlap audit",
-        "teachingPolicy": "IDs 23-35 are provisional teaching overlays and must not be presented as manual ground truth",
+        "reviewedPatchAudit": reviewed_patch_audit,
+        "teachingPolicy": "IDs 23-35 are provisional teaching overlays; IDs 39-40 are project-reviewed image-guided teaching labels, not research ground truth",
     }
     validation_output.write_text(json.dumps(validation, ensure_ascii=False, indent=2) + "\n")
     print(json.dumps({"output": str(output), "validation": str(validation_output), **validation}, ensure_ascii=False))

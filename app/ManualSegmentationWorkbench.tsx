@@ -23,7 +23,7 @@ type SegmentationPatch={
   targetSide?:TargetSide;
   evidence?:string;
   confidence?:EditConfidence;
-  reviewStatus?:"unreviewed";
+  reviewStatus?:"unreviewed"|"approved";
   editCount:number;
   runs:PatchRun[];
 };
@@ -31,17 +31,19 @@ type SegmentationPatch={
 const ASSET_BASE=import.meta.env.BASE_URL;
 const IMAGE_URL=`${ASSET_BASE}atlas/bigbrain-icbm500.bin.gz`;
 const LABEL_URL=`${ASSET_BASE}atlas/bigbrain-practical-segmentation-icbm500.bin.gz`;
-const LABEL_SHA256="de30b5c77f4ed4f2902564a5d238b0e733413c247643ef828fb66aa03d8cc8be";
+const LABEL_SHA256="6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56";
 const DRAFT_KEY="brain-practical-segmentation-draft-v1";
 const palette:Record<number,[number,number,number]>={
   1:[214,84,72],2:[214,84,72],3:[103,86,133],4:[103,86,133],5:[72,145,128],6:[72,145,128],
   7:[225,151,73],8:[225,151,73],9:[217,133,79],10:[217,133,79],11:[200,164,81],12:[200,164,81],13:[188,148,65],14:[188,148,65],
   15:[141,130,196],16:[141,130,196],17:[200,121,141],18:[200,121,141],19:[120,181,121],20:[120,181,121],21:[199,104,120],22:[199,104,120],
   23:[92,181,192],24:[92,181,192],25:[88,174,184],26:[73,151,176],27:[115,155,114],28:[126,166,143],29:[126,166,143],30:[219,194,112],31:[226,150,79],32:[226,150,79],33:[212,182,91],34:[111,157,176],35:[111,157,176],
+  36:[235,204,83],37:[229,171,72],38:[229,171,72],39:[166,103,73],40:[166,103,73],
 };
 const labelGroups=[
   {name:"手動ラベル",items:[[1,"左赤核"],[2,"右赤核"],[3,"左黒質"],[4,"右黒質"],[5,"左視床下核"],[6,"右視床下核"],[7,"左尾状核"],[8,"右尾状核"],[9,"左被殻"],[10,"右被殻"],[11,"左淡蒼球外節"],[12,"右淡蒼球外節"],[13,"左淡蒼球内節"],[14,"右淡蒼球内節"],[15,"左視床"],[16,"右視床"],[17,"左海馬"],[18,"右海馬"],[19,"左側坐核"],[20,"右側坐核"],[21,"左扁桃体"],[22,"右扁桃体"]] as [number,string][]},
   {name:"試作ラベル",items:[[23,"左側脳室"],[24,"右側脳室"],[25,"第三脳室"],[26,"第四脳室"],[27,"脳幹"],[28,"左小脳"],[29,"右小脳"],[30,"脳梁候補"],[31,"左内包候補"],[32,"右内包候補"],[33,"視交叉候補"],[34,"左島皮質候補"],[35,"右島皮質候補"]] as [number,string][]},
+  {name:"画像由来の分割作業用",items:[[36,"視交叉（正中）"],[37,"左視索"],[38,"右視索"],[39,"左乳頭体"],[40,"右乳頭体"]] as [number,string][]},
 ];
 const labelName=new Map(labelGroups.flatMap(group=>group.items));
 let dataCache:Promise<VolumeData>|null=null;
@@ -107,11 +109,11 @@ export function ManualSegmentationWorkbench(){
   function download(){const patch=makePatch(editsRef.current,note,authorGitHub,targetSide,evidence,confidence),blob=new Blob([JSON.stringify(patch,null,2)+"\n"],{type:"application/json"}),url=URL.createObjectURL(blob),anchor=document.createElement("a");anchor.href=url;anchor.download=`bigbrain-seg-patch-${new Date().toISOString().slice(0,10)}.json`;anchor.click();URL.revokeObjectURL(url);setStatus(`JSON書き出し済み・${patch.editCount.toLocaleString()} voxel`)}
   async function importFile(file:File){if(!data)return;try{const patch=JSON.parse(await file.text()) as SegmentationPatch;if(patch.format!=="brain-practical-segmentation-patch"||patch.version!==1||patch.sourceLabelsSha256!==LABEL_SHA256||patch.dims.some((value,index)=>value!==data.dims[index]))throw new Error("現在の0.5 mmラベル版に対応する差分ではありません");if(editsRef.current.size&&!window.confirm("現在の編集を読み込んだ差分で置き換えますか？"))return;editsRef.current=removeNoops(fromRuns(patch.runs,data.image.length),data.labels);setNote(patch.authorNote??"");setAuthorGitHub(patch.authorGitHub??"");setTargetSide(patch.targetSide??"mixed");setEvidence(patch.evidence??"");setConfidence(patch.confidence??"medium");setUndo([]);setRedo([]);setVersion(current=>current+1);setStatus(`JSONを読込・${editsRef.current.size.toLocaleString()} voxel`)}catch(reason){setStatus(`読込エラー: ${reason instanceof Error?reason.message:String(reason)}`)}}
   function clear(){if(!editsRef.current.size||!window.confirm("端末内のすべての編集差分を消去しますか？ 書き出していない変更は戻せません。"))return;editsRef.current.clear();setUndo([]);setRedo([]);localStorage.removeItem(DRAFT_KEY);setVersion(current=>current+1);setStatus("編集差分を消去しました")}
-  function jumpToSlice(z:number){if(!data)return;setPosition(Math.round((1-z/(data.dims[2]-1))*1000)/10)}
+  function jumpToSlice(z:number){if(!data)return;const bounded=Math.max(0,Math.min(data.dims[2]-1,z));setPosition((1-bounded/(data.dims[2]-1))*100)}
   useEffect(()=>{const handler=(event:KeyboardEvent)=>{const target=event.target as HTMLElement|null;if(target?.matches("input,textarea,select"))return;if((event.ctrlKey||event.metaKey)&&event.key.toLowerCase()==="z"){event.preventDefault();if(event.shiftKey){if(redo.length)applyHistory(redo.at(-1)!,"redo")}else if(undo.length)applyHistory(undo.at(-1)!,"undo")}};window.addEventListener("keydown",handler);return()=>window.removeEventListener("keydown",handler)},[undo,redo]);
 
   return <div className="segWorkbench">
-    <section className="segCanvasCard"><header><div><b>単一標本脳 0.5 mm</b><small>水平断 Z {sliceIndex}・差分 {editsRef.current.size.toLocaleString()} voxel</small></div><span>{Math.round(zoom*100)}%</span></header><div className="segCanvasStage"><canvas ref={canvasRef} onContextMenu={event=>event.preventDefault()} onPointerDown={pointerDown} onPointerMove={pointerMove} onPointerLeave={()=>setCursor(null)} onPointerUp={pointerUp} onPointerCancel={pointerUp} onWheel={wheel} aria-label="BigBrain水平断の手動セグメンテーション編集領域"/>{cursor&&<i className={`segBrushCursor ${tool}`} style={{left:cursor.x,top:cursor.y,width:Math.max(4,brush*2*(transform()?.scale??1)),height:Math.max(4,brush*2*(transform()?.scale??1))}}/>}{!data&&<div className={`segLoading ${error?"error":""}`}>{error?"データを読み込めませんでした":"0.5 mm画像とラベルを読み込み中…"}</div>}<div className="segOrientation"><b>A</b><span>L　R</span><b>P</b></div></div><footer><label><span>上方</span><input type="range" min="3" max="97" value={position} onChange={event=>setPosition(Number(event.target.value))}/><span>下方</span></label><button onClick={()=>{setZoom(1);setPan({x:0,y:0})}}>表示をリセット</button></footer></section>
+    <section className="segCanvasCard"><header><div><b>単一標本脳 0.5 mm</b><small>水平断 Z {sliceIndex}・差分 {editsRef.current.size.toLocaleString()} voxel</small></div><span>{Math.round(zoom*100)}%</span></header><div className="segCanvasStage"><canvas ref={canvasRef} onContextMenu={event=>event.preventDefault()} onPointerDown={pointerDown} onPointerMove={pointerMove} onPointerLeave={()=>setCursor(null)} onPointerUp={pointerUp} onPointerCancel={pointerUp} onWheel={wheel} aria-label="BigBrain水平断の手動セグメンテーション編集領域"/>{cursor&&<i className={`segBrushCursor ${tool}`} style={{left:cursor.x,top:cursor.y,width:Math.max(4,brush*2*(transform()?.scale??1)),height:Math.max(4,brush*2*(transform()?.scale??1))}}/>}{!data&&<div className={`segLoading ${error?"error":""}`}>{error?"データを読み込めませんでした":"0.5 mm画像とラベルを読み込み中…"}</div>}<div className="segOrientation"><b>A</b><span>L　R</span><b>P</b></div></div><footer><div className="segSliceNavigation"><button onClick={()=>jumpToSlice(sliceIndex+1)} disabled={!data||sliceIndex>=data.dims[2]-1}>上へ1枚</button><label><span>上方</span><input type="range" min="0" max="100" step={data?100/(data.dims[2]-1):.25} value={position} onChange={event=>setPosition(Number(event.target.value))}/><span>下方</span></label><button onClick={()=>jumpToSlice(sliceIndex-1)} disabled={!data||sliceIndex<=0}>下へ1枚</button></div><button onClick={()=>{setZoom(1);setPan({x:0,y:0})}}>表示をリセット</button></footer></section>
     <aside className="segControls"><span className="guideIndex">CONTRIBUTOR TOOL · LOCAL DRAFT</span><h2>手動セグメンテーション</h2><p>ブラウザ上では元ラベルを変更せず、修正差分だけを端末に保存します。レビュー用JSONを書き出してPull Requestへ添付してください。</p>
       <div className="segToolRow" role="group" aria-label="編集ツール">{(["paint","erase","restore"] as Tool[]).map(key=><button key={key} className={tool===key?"active":""} onClick={()=>setTool(key)}>{key==="paint"?"塗る":key==="erase"?"背景にする":"元へ戻す"}</button>)}</div>
       <label className="segField"><span>構造ラベル</span><select value={label} onChange={event=>setLabel(Number(event.target.value))} disabled={tool!=="paint"}>{labelGroups.map(group=><optgroup key={group.name} label={group.name}>{group.items.map(([id,name])=><option value={id} key={id}>{id.toString().padStart(2,"0")}　{name}</option>)}</optgroup>)}</select></label>

@@ -51,6 +51,10 @@
     31,
     32
   ],
+  "imageGuidedReviewedIds": [
+    39,
+    40
+  ],
   "labelNames": {
     "23": "left lateral ventricle",
     "24": "right lateral ventricle",
@@ -62,9 +66,11 @@
     "30": "corpus callosum candidate",
     "31": "left internal capsule candidate",
     "32": "right internal capsule candidate",
-    "33": "optic chiasm atlas candidate",
+    "33": "optic chiasm / tract atlas candidate (CerebrA Optic Chiasm)",
     "34": "left insula atlas candidate",
-    "35": "right insula atlas candidate"
+    "35": "right insula atlas candidate",
+    "39": "left mammillary body (reviewed image-guided)",
+    "40": "right mammillary body (reviewed image-guided)"
   },
   "labelCounts": {
     "1": 2136,
@@ -93,15 +99,17 @@
     "24": 62854,
     "25": 10416,
     "26": 8567,
-    "27": 254803,
+    "27": 254786,
     "28": 737856,
     "29": 748960,
     "30": 151380,
     "31": 58250,
     "32": 54585,
-    "33": 9013,
+    "33": 8482,
     "34": 66084,
-    "35": 71073
+    "35": 71073,
+    "39": 561,
+    "40": 729
   },
   "atlasToManualDiceAudit": {
     "caudate": 0.8448,
@@ -115,5 +123,16 @@
   "ventricleLabelsRestrictedToEmptySpace": true,
   "ventricleTissueOverlap": 0.0,
   "coordinatePolicy": "exact BigBrain ICBM2009sym 0.5 mm output grid; CerebrA resampling accepted only after overlap audit",
-  "teachingPolicy": "IDs 23-35 are provisional teaching overlays and must not be presented as manual ground truth"
+  "reviewedPatchAudit": {
+    "path": "segmentation-patches/review/mammillary-bodies-horizontal-core-plus-clear-rim-candidate-2026-08-16.json",
+    "editCount": 1290,
+    "transitions": {
+      "0->39": 316,
+      "0->40": 426,
+      "27->39": 17,
+      "33->39": 228,
+      "33->40": 303
+    }
+  },
+  "teachingPolicy": "IDs 23-35 are provisional teaching overlays; IDs 39-40 are project-reviewed image-guided teaching labels, not research ground truth"
 }
