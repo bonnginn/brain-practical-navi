@@ -12,6 +12,11 @@
 .atlasCanvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .atlasCanvas.identifiable { cursor: crosshair; touch-action: none; }
 .atlasCanvas.zoomed { cursor: crosshair; }
+.atlasWebglFallback { position: absolute; z-index: 30; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 9px; padding: clamp(20px,5vw,42px); background: radial-gradient(circle at 50% 42%,#3d4549 0,#292f32 54%,#202528 100%); color: #edf1ef; text-align: center; }
+.atlasWebglFallback b { font-size: clamp(18px,2.2vw,24px); }
+.atlasWebglFallback p { max-width: 570px; margin: 0; color: #d0d7d4; font-size: clamp(14px,1.5vw,17px); line-height: 1.7; }
+.webglUnavailable { cursor: default; }
+.webglUnavailable:active { cursor: default; }
 .zoomReadout { position: absolute; z-index: 9; right: 14px; bottom: 14px; min-width: 82px; padding: 7px 9px; border: 1px solid #7b8585; background: #172126d9; color: #f4f2eb; font: 700 16px monospace; box-shadow: 0 4px 12px #0005; }
 .zoomReadout small { margin-left: 5px; color: #b9c1bf; font: 15px sans-serif; }
 .atlasLoading { position: absolute; z-index: 7; left: 50%; top: 50%; transform: translate(-50%,-50%); display: grid; gap: 8px; justify-items: center; padding: 10px 14px; background: #f5f3ed; border: 1px solid #c7c4bc; color: #596264; font-size: 14px; white-space: nowrap; }
@@ -111,6 +116,7 @@
 .modelInset .orientation > i { height: 32px; }
 .modelInset .orientation span { top: 18px; }
 .modelInset .orientation span i { width: 32px; }
+.insetViews.webglUnavailable { grid-template-columns: 1fr; }
 .modelInset .blockControls { left: 12px; right: 12px; bottom: 12px; justify-content: center; }
 .modelInset .blockControls { overflow: hidden; border: 1px solid rgba(227,233,234,.2); border-radius: 3px; box-shadow: 0 5px 16px rgba(0,0,0,.2); }
 .modelInset .blockControls button { flex: 1; min-width: 0; margin: 0; padding: 8px 3px; border: 0; border-right: 1px solid rgba(227,233,234,.14); background: rgba(25,30,32,.78); color: #c8ced0; font-size: 15px; }
