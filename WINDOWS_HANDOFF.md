@@ -85,6 +85,10 @@ Windows側でブラウザ操作が使える利点を最優先します。
 
 追記: スマートフォン専用UIは、幅だけでなく `hover: none` と `pointer: coarse` を満たす端末だけへ適用する実装へ整理しました。Chrome 151のローカル通常production preview `http://127.0.0.1:4198` で、coarse touch phoneの5導線dock、single settings dialog、sections rail操作、segment編集Canvas非生成、fine-pointer狭幅のcompact desktop維持を確認しました。coarse 26経路52/52、fine/non-touch 26経路×3幅×direct/reload 156/156に合格しています。公開URL、物理端末、実機タッチ、Safari・別ブラウザ、別GPU、専門家レビューは未確認です。内側側頭葉の海馬采・鉤の表示除外判断は [MEDIAL_TEMPORAL_AUDIT.md](MEDIAL_TEMPORAL_AUDIT.md) に、phone UIの詳細確認項目と記録は [MOBILE_UI_AUDIT.md](MOBILE_UI_AUDIT.md) に分離しています。
 
+### 2026-08-23 側脳室ブロック context ON 性能同期
+
+Windows 11／Chrome 151.0.7922.170／Node 24.19.0、ローカルpreview `http://127.0.0.1:4204/` で、既存31件＋context ON 6件の性能マトリクス37/37件を確認した。PC 1366×768、tablet 1024×768、390×768相当のcold/warmを対象に、baseとONのencoded bytes・unique request count・stable time、ON stable時のsettled backing storage、操作全体のsamplePeak backing storageを別フィールドで保存した。全件Canvas `1→2→2→1`、loader／UI／console／request error、overflow、WebGL fallbackは0件。warm primeはベース画面だけで、context assetは初回ON時に取得した。結果は `work/performance/performance-suite-block-context-final-v2-2026-08-23.json`、値の詳細は [PERFORMANCE_AUDIT.md](PERFORMANCE_AUDIT.md) を参照する。390 pxは `mobile:false` のデスクトップemulationでclientWidth 375 px。物理端末、公開ネットワーク、別GPU・別ブラウザ、解剖学的妥当性は未確認である。
+
 ### M2: β公開条件の機械化
 
 - 主要経路の表示条件とURL復元をテストで固定する。
@@ -167,7 +171,7 @@ Windows側でブラウザ操作が使える利点を最優先します。
 
 ## 9. Mac側で残した未着手事項
 
-- PC・スマートフォンの実ブラウザ性能計測。
+- 公開URL・物理端末・別GPU・別ブラウザの性能計測（ローカルWindows Chromeの37/37件は完了）。
 - 初回画面の取得量を経路別に自動集計する監査スクリプト。
 - 読込進捗の数値表示。現在は読込対象の状態表示と失敗時再試行までです。
 - 冠状断・矢状断のセグメンテーション照合表示。

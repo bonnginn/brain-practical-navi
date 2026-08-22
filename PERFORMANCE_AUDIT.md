@@ -1,6 +1,6 @@
 # 公開データ量・性能監査
 
-更新日: 2026-08-22
+更新日: 2026-08-23
 
 ## 目的
 
@@ -174,7 +174,26 @@ Viteの通常ビルドはルート（`http://localhost:4173/` など）で配信
 
 側脳室標本の「全脳で位置を確認」は初期OFFで、ON時だけ全脳表面メッシュと既存 `block-lateral-ventricle-tissue.mesh` を使う追加Canvasを生成します。さらに代表断面へ切り替えた場合は、既存メタデータの矢状断58を使う断面Canvasへ切り替えます。したがって、既存の側脳室標本（Canvas 1）の転送量・安定時間をこの pilot ON 時の値として流用しません。
 
-Chrome 151の実操作ではCanvas 1→2→1、代表断面切替、閉じた後のローダー・console error/warning 0を確認しました。ただし、コンテキストON時のPC・1024 px・390 px相当の転送量、要求数、安定時間、メモリはまだ個別計測していません。現時点では新しい性能値を提示していません。
+Chrome 151の実操作ではCanvas 1→2→1、代表断面切替、閉じた後のローダー・console error/warning 0を確認しました。2026-08-22時点ではコンテキストON時の転送量、要求数、安定時間、メモリを個別計測していませんでしたが、下記の2026-08-23計測で追加しました。
+
+## 2026-08-23 側脳室ブロック context ON の追加計測
+
+通常の本番ビルドを `http://127.0.0.1:4204/` で配信し、既存31件に側脳室ブロック context ON の6件を加えた37件を同じ隔離Chrome条件で測定しました。環境は Windows 11、Chrome 151.0.7922.170、Node 24.19.0 です。結果は `work/performance/performance-suite-block-context-final-v2-2026-08-23.json` に保存し、`entryCount: 37`、`allPassed: true`、`measurementPassed: true` は37/37件でした。
+
+| viewport | mode | base encoded bytes / unique requests / stable time | context ON encoded bytes / unique requests / stable time | ON settled `backingStorageSize` | ON samplePeak `backingStorageSize` |
+| --- | --- | ---: | ---: | ---: | ---: |
+| PC 1366×768 | cold | `2899064 / 9 / 836.7 ms` | `33043046 / 7 / 727.8 ms` | `32653591` | `171607098` |
+| PC 1366×768 | warm | `1120 / 8 / 736.7 ms` | `33043046 / 7 / 729.0 ms` | `32653591` | `171607098` |
+| tablet 1024×768 | cold | `2899064 / 9 / 824.8 ms` | `33043046 / 7 / 776.0 ms` | `32097847` | `171607107` |
+| tablet 1024×768 | warm | `1120 / 8 / 777.5 ms` | `33043046 / 7 / 740.7 ms` | `32653591` | `171607098` |
+| mobile 390×768 | cold | `2899064 / 9 / 790.3 ms` | `33043046 / 7 / 726.5 ms` | `32653595` | `171607111` |
+| mobile 390×768 | warm | `1120 / 8 / 742.3 ms` | `33043046 / 7 / 758.1 ms` | `32653595` | `171607111` |
+
+JSONでは `blockContextOnEncodedBytes`、`blockContextOnUniqueRequestCount`、`blockContextOnStableTimeMs` を通常経路の値と別フィールドにし、`blockContextOnHeap.settled.backingStorageSize` はON安定時の `Runtime.getHeapUsage`、`blockContextOnHeap.sampledPeak.backingStorageSize`（同値の `samplePeak` alias）は操作全体のサンプル最大値として記録しました。6件すべてでCanvasは `1→2→2→1`（入場→ON→代表断面切替後→close）、loader／UI error／console error／request error／横はみ出し／WebGL fallbackは0件です。
+
+cold／warmとも、warmのprimeはベース画面だけに留め、context assetは「全脳で位置を確認」を初めてONにした時に取得しました。390×768は `mobile:false` のデスクトップemulationで、実効 `clientWidth` は375 pxです。これはWindowsローカルpreviewの測定であり、物理端末、公開ネットワーク、別GPU・別ブラウザは確認していません。解剖学的妥当性の検証でもありません。
+
+同じ最終通常buildを `http://127.0.0.1:4205/` で26経路×3幅×direct/reloadの156通りに再監査し、156/156件が合格した。console／request／UI error、残留loader、横はみ出し、WebGL fallbackは0件で、記録は `work/browser-audit/beta-route-audit-block-context-performance-final-2026-08-23.json`（ローカル作業用・配布対象外）に保存した。
 
 warm転送は同じ隔離プロファイル内で1回表示してから再訪した値で、ローカルpreviewの再検証要求を含みます。これにより主要な大容量アセットがブラウザキャッシュから再利用されることを確認しました。`backingStorageSize` は100 ms間隔で取得したChrome Runtimeのサンプル最大値であり、OS全体のプロセスメモリや測定間隔より短い瞬間ピークではありません。上表ではこの値をcold／warmペアの最大値として扱っています。
 

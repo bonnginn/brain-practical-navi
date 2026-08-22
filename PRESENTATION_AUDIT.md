@@ -203,7 +203,7 @@ node scripts/audit_beta_routes.mjs --base-url http://localhost:4173 --output wor
 
 側脳室全景だけへ「全脳で位置を確認」を追加した。初期OFF、ON時だけ追加Canvas、既存 `block-lateral-ventricle-tissue.mesh` の位置目安、透過全脳、既存メタデータの矢状断58、全脳表示の切断面を使う。代表断面への切替、コンテキスト独立回転、閉じた後の追加Canvas破棄、標本側の回転・着色・組織状態の保持を実装した。390 px相当では標本下へ縦積みし、操作ボタンを44 px以上にした。
 
-`BLOCK_CONTEXT_AUDIT.md` と `tests/block-context.test.mjs` へ、メタデータ・manifest・BNM形式・有限座標・tissue bboxのpial配布座標範囲への内包・代表断面座標とのbbox交差・初期Canvasなし・側脳室限定・state分離・表示注意を固定した。Chrome 151の実操作では、入場時Canvas 1、ONで2、代表断面切替後も2、閉じると1へ戻り、局所標本の通常表示・反対側視点・海馬OFFを保持した。閉じた後のフォーカス復帰、Home離脱後の履歴復帰で初期OFF、小画面の縦積みと横はみ出しなし、console error/warning 0も確認した。同じbuildの26経路×3幅×direct/reload＝156/156件が合格し、console/request/UI error、残留loader、横はみ出し、WebGL fallbackは0件だった。記録は `work/browser-audit/beta-route-audit-block-context-final-2026-08-22.json`（ローカル作業用・配布対象外）。コンテキストON時の性能値、物理端末、公開URL、専門家レビューは未確認である。切断幅、摘出順、実習手順、実標本の代替は表示しない。
+`BLOCK_CONTEXT_AUDIT.md` と `tests/block-context.test.mjs` へ、メタデータ・manifest・BNM形式・有限座標・tissue bboxのpial配布座標範囲への内包・代表断面座標とのbbox交差・初期Canvasなし・側脳室限定・state分離・表示注意を固定した。Chrome 151の実操作では、入場時Canvas 1、ONで2、代表断面切替後も2、閉じると1へ戻り、局所標本の通常表示・反対側視点・海馬OFFを保持した。閉じた後のフォーカス復帰、Home離脱後の履歴復帰で初期OFF、小画面の縦積みと横はみ出しなし、console error/warning 0も確認した。同じbuildの26経路×3幅×direct/reload＝156/156件が合格し、console/request/UI error、残留loader、横はみ出し、WebGL fallbackは0件だった。記録は `work/browser-audit/beta-route-audit-block-context-final-2026-08-22.json`（ローカル作業用・配布対象外）。context ONの性能値は `PERFORMANCE_AUDIT.md` の2026-08-23追記（37/37、PC・1024 px・390 px相当のcold/warm 6件）へ同期した。物理端末、公開URL、専門家レビューは未確認である。切断幅、摘出順、実習手順、実標本の代替は表示しない。
 
 ### 2026-08-22 脳神経・主要血管 模式3Dクイズpilot（ローカル実ブラウザ確認済み）
 

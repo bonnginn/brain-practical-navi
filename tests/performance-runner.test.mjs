@@ -3,6 +3,8 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 import {
+  BLOCK_CONTEXT_ROUTE,
+  BLOCK_CONTEXT_SCENARIO,
   PERFORMANCE_SCHEMA_VERSION,
   aggregateHeapMetrics,
   aggregateNetworkMetrics,
@@ -16,8 +18,15 @@ import {
   rangeStepPassed,
   resolveRoute,
   routeNeedsBlockIntroAction,
+  resetMeasurementState,
+  runBlockContextScenario,
+  summarizeRuntimeProbe,
+  validateBlockContextMeasurement,
+  validateBlockContextProbe,
   validateMeasurementResult,
   validateResultSchema,
+  waitForBlockContextQuiet,
+  waitForRuntimeProbe,
 } from "../scripts/measure_browser_performance.mjs";
 
 test("performance runner parses the required CLI contract without launching Chrome", () => {
@@ -60,6 +69,20 @@ test("performance runner parses the required CLI contract without launching Chro
     "--base-url", "http://localhost:4173", "--route", "/", "--width", "1366",
     "--height", "768", "--mode", "cold", "--output", "x.json", "--scenario", "basic-mobile",
   ]), /requires --width 390/);
+  const blockContext = parseArgs([
+    "--base-url", "http://localhost:4173", "--route", BLOCK_CONTEXT_ROUTE,
+    "--width", "390", "--height", "768", "--mode", "warm", "--output", "x.json",
+    "--scenario", BLOCK_CONTEXT_SCENARIO,
+  ]);
+  assert.equal(blockContext.scenario, BLOCK_CONTEXT_SCENARIO);
+  assert.throws(() => parseArgs([
+    "--base-url", "http://localhost:4173", "--route", "#workspace/home", "--width", "390",
+    "--height", "768", "--mode", "cold", "--output", "x.json", "--scenario", BLOCK_CONTEXT_SCENARIO,
+  ]), /requires --route/);
+  assert.throws(() => parseArgs([
+    "--base-url", "http://localhost:4173", "--route", BLOCK_CONTEXT_ROUTE, "--width", "800",
+    "--height", "768", "--mode", "cold", "--output", "x.json", "--scenario", BLOCK_CONTEXT_SCENARIO,
+  ]), /requires a 1366, 1024, or 390/);
 });
 
 test("performance runner aggregates encoded network bytes and browser errors deterministically", () => {
@@ -88,10 +111,44 @@ test("performance runner aggregates encoded network bytes and browser errors det
   const metrics = aggregateNetworkMetrics(state);
   assert.equal(metrics.encodedBytes, 1234);
   assert.equal(metrics.requestCount, 2);
+  assert.equal(metrics.uniqueRequestCount, 2);
   assert.equal(metrics.requestErrors.length, 1);
   assert.equal(metrics.requestErrors[0].url, "http://localhost:4173/broken.mesh");
   assert.equal(metrics.consoleErrors[0].text, "atlas failed");
   assert.equal(state.inFlight.size, 0);
+});
+
+test("performance runner scopes completion events to the active window and preserves redirect hops", () => {
+  const state = createMeasurementState();
+  state.collecting = true;
+  recordNetworkEvent(state, "Network.requestWillBeSent", {
+    requestId: "redirected",
+    request: { url: "http://localhost:4173/old", method: "GET" },
+    type: "Document",
+  });
+  recordNetworkEvent(state, "Network.requestWillBeSent", {
+    requestId: "redirected",
+    request: { url: "http://localhost:4173/new", method: "GET" },
+    redirectResponse: { status: 302 },
+    type: "Document",
+  });
+  recordNetworkEvent(state, "Network.loadingFinished", { requestId: "redirected", encodedDataLength: 23 });
+  const redirectedMetrics = aggregateNetworkMetrics(state);
+  assert.equal(redirectedMetrics.requestCount, 1);
+  assert.equal(redirectedMetrics.uniqueRequestCount, 2);
+  assert.equal(redirectedMetrics.encodedBytes, 23);
+
+  const staleId = "stale-after-reset";
+  recordNetworkEvent(state, "Network.requestWillBeSent", {
+    requestId: staleId,
+    request: { url: "http://localhost:4173/old-asset", method: "GET" },
+    type: "Fetch",
+  });
+  resetMeasurementState(state, { collecting: true });
+  recordNetworkEvent(state, "Network.loadingFinished", { requestId: staleId, encodedDataLength: 9999 });
+  recordNetworkEvent(state, "Network.loadingFailed", { requestId: staleId, errorText: "late failure" });
+  assert.equal(aggregateNetworkMetrics(state).encodedBytes, 0);
+  assert.equal(aggregateNetworkMetrics(state).requestErrors.length, 0);
 });
 
 test("performance runner reports settled and sampled peak heap fields", () => {
@@ -109,6 +166,12 @@ test("performance runner reports settled and sampled peak heap fields", () => {
   assert.deepEqual(aggregateHeapMetrics(samples, samples[2]), {
     settled: samples[2],
     sampledPeak: {
+      usedSize: 45,
+      totalSize: 70,
+      embedderHeapUsedSize: 9,
+      backingStorageSize: 120,
+    },
+    samplePeak: {
       usedSize: 45,
       totalSize: 70,
       embedderHeapUsedSize: 9,
@@ -158,6 +221,51 @@ test("performance result schema requires all browser-observable metrics", () => 
   assert.deepEqual(validateMeasurementResult(result, [{ name: "slider", passed: false, details: {} }]), { passed: false, failures: ["interaction:slider"] });
   assert.deepEqual(validateMeasurementResult({ ...result, appRootPresent: false }, []), { passed: false, failures: ["app-root-missing"] });
   assert.deepEqual(validateMeasurementResult({ ...result, horizontalOverflow: { ...result.horizontalOverflow, detected: true } }, []), { passed: false, failures: ["horizontal-overflow"] });
+  const semanticFailure = {
+    ...result,
+    scenario: BLOCK_CONTEXT_SCENARIO,
+    uniqueRequestCount: 0,
+    measurementPassed: false,
+    validation: { passed: false, failures: ["block-context:canvas-after-launcher"] },
+    blockContext: {
+      enabled: true,
+      baseline: {
+        canvasCount: 0,
+        encodedBytes: 0,
+        requestCount: 0,
+        uniqueRequestCount: 0,
+        loadingCount: 0,
+        uiErrors: [],
+        consoleErrors: [],
+        requestErrors: [],
+        webglFallback: false,
+        horizontalOverflow: { detected: false },
+        heap: { settled: {}, sampledPeak: {} },
+      },
+      on: {
+        canvasAfterLauncher: 0,
+        canvasAfterSection: 0,
+        canvasAfterClose: 0,
+        loadingCount: 0,
+        uiErrors: [],
+        consoleErrors: [],
+        requestErrors: [],
+        webglFallback: false,
+        horizontalOverflow: { detected: false },
+        stable: false,
+        stabilityReason: "timeout",
+        stableTimeMs: null,
+        encodedBytes: 0,
+        requestCount: 0,
+        uniqueRequestCount: 0,
+        heap: { settled: {}, sampledPeak: {} },
+      },
+      interactions: [],
+    },
+  };
+  // Shape is valid even though semantic health is intentionally failed and
+  // represented in validation/measurementPassed for JSON diagnostics.
+  assert.equal(validateResultSchema(semanticFailure), true);
 });
 
 test("performance runner requires the range output to match the moved input", () => {
@@ -194,6 +302,174 @@ test("basic-mobile scenario errors merge without changing initial transfer metri
   assert.deepEqual(initial.consoleErrors, [{ text: "initial" }]);
 });
 
+test("block-context probe and ON validation reject fallback, overflow, loader, and canvas regressions", () => {
+  const healthyProbe = {
+    readyState: "complete",
+    contextVisible: true,
+    contextCanvasCount: 1,
+    contextView: "全脳＋切断面",
+    canvasCount: 2,
+    loadingCount: 0,
+    appRootPresent: true,
+    uiErrors: [],
+    horizontalOverflow: false,
+    webglFallback: false,
+  };
+  assert.equal(validateBlockContextProbe(healthyProbe, { expectedCanvasCount: 2, expectedView: "全脳" }).passed, true);
+  assert.equal(validateBlockContextProbe({ ...healthyProbe, webglFallback: true }, { expectedCanvasCount: 2, expectedView: "全脳" }).passed, false);
+  assert.equal(validateBlockContextProbe({ ...healthyProbe, horizontalOverflow: true }, { expectedCanvasCount: 2, expectedView: "全脳" }).passed, false);
+  assert.equal(validateBlockContextProbe({ ...healthyProbe, loadingCount: 1 }, { expectedCanvasCount: 2, expectedView: "全脳" }).passed, false);
+
+  const context = {
+    enabled: true,
+    baseline: {
+      canvasCount: 1,
+      encodedBytes: 100,
+      uniqueRequestCount: 4,
+      loadingCount: 0,
+      webglFallback: false,
+      horizontalOverflow: { detected: false },
+      uiErrors: [],
+      heap: { settled: { usedSize: 1 }, sampledPeak: { usedSize: 2 } },
+    },
+    on: {
+      canvasAfterLauncher: 2,
+      canvasAfterSection: 2,
+      canvasAfterClose: 1,
+      loadingCount: 0,
+      webglFallback: false,
+      horizontalOverflow: { detected: false },
+      uiErrors: [],
+      consoleErrors: [],
+      requestErrors: [],
+      stable: true,
+      stabilityReason: "stable",
+      stableTimeMs: 250,
+      encodedBytes: 40,
+      uniqueRequestCount: 2,
+      heap: {
+        settled: { usedSize: 1 },
+        sampledPeak: { usedSize: 2 },
+      },
+    },
+    interactions: [
+      { name: "block-context-launcher", passed: true },
+      { name: "block-context-representative-section", passed: true },
+      { name: "block-context-close", passed: true },
+    ],
+  };
+  assert.equal(validateBlockContextMeasurement(context).passed, true);
+  assert.deepEqual(validateBlockContextMeasurement({
+    ...context,
+    on: { ...context.on, canvasAfterSection: 1, webglFallback: true },
+  }), {
+    passed: false,
+    failures: ["canvas-after-section", "context-webgl-fallback"],
+  });
+  const healthFailure = validateBlockContextMeasurement({
+    ...context,
+    on: {
+      ...context.on,
+      loadingCount: 1,
+      uiErrors: [{ text: "atlas failed" }],
+      horizontalOverflow: { detected: true },
+      webglFallback: true,
+      interactions: undefined,
+    },
+    interactions: [{ name: "block-context-final-drain", passed: false }],
+  });
+  assert.ok(healthFailure.failures.includes("context-loading-indicator-visible"));
+  assert.ok(healthFailure.failures.includes("context-ui-errors"));
+  assert.ok(healthFailure.failures.includes("context-horizontal-overflow"));
+  assert.ok(healthFailure.failures.includes("context-webgl-fallback"));
+  assert.ok(healthFailure.failures.includes("context-interaction:block-context-final-drain"));
+});
+
+test("block-context quiet timeout exposes stage, latest probe, failures, and in-flight count", async () => {
+  const state = createMeasurementState();
+  state.collecting = true;
+  state.inFlight.add("context-asset");
+  const latestProbe = {
+    readyState: "complete",
+    contextVisible: true,
+    contextCanvasCount: 1,
+    contextView: "全脳＋切断面",
+    canvasCount: 2,
+    loadingCount: 1,
+    appRootPresent: true,
+    uiErrors: [{ text: "loading" }],
+    horizontalOverflow: true,
+    webglFallback: true,
+  };
+  await assert.rejects(
+    waitForBlockContextQuiet({ send: async () => ({ result: { value: latestProbe } }) }, state, {
+      expectedCanvasCount: 2,
+      expectedView: "全脳＋切断面",
+      timeoutMs: 70,
+      pollMs: 10,
+      label: "block-context launcher",
+    }),
+    error => error.stage === "block-context launcher"
+      && error.latestProbe?.loadingCount === 1
+      && error.inFlightCount === 1
+      && error.failures.includes("loading-indicator-visible")
+      && error.failures.includes("ui-errors")
+      && error.failures.includes("horizontal-overflow")
+      && error.failures.includes("webgl-fallback"),
+  );
+});
+
+test("block-context launcher network-only timeout is not reported as stable", async () => {
+  const state = createMeasurementState();
+  state.collecting = true;
+  state.inFlight.add("context-asset");
+  const latestProbe = {
+    readyState: "complete",
+    contextVisible: true,
+    contextCanvasCount: 1,
+    contextView: "全脳＋切断面",
+    canvasCount: 2,
+    loadingCount: 0,
+    appRootPresent: true,
+    uiErrors: [],
+    horizontalOverflow: false,
+    webglFallback: false,
+    now: 160,
+  };
+  const cdp = {
+    send: async (method, params = {}) => {
+      if (method === "Runtime.getHeapUsage") return {};
+      if (method !== "Runtime.evaluate") return {};
+      const expression = params.expression || "";
+      if (expression.includes("contextCanvasCount")) {
+        return { result: { value: latestProbe } };
+      }
+      if (expression.includes("blockContextLauncher")) {
+        return { result: { value: { clicked: true, onStartedAt: 100, selector: ".blockContextLauncher button" } } };
+      }
+      if (expression.includes("blockContextSwitch")) {
+        return { result: { value: { clicked: false, reason: "not reached" } } };
+      }
+      if (expression.includes("blockContextClose")) {
+        return { result: { value: { clicked: false, reason: "not reached" } } };
+      }
+      return { result: { value: latestProbe } };
+    },
+  };
+
+  const result = await runBlockContextScenario(cdp, state, {}, {
+    baselineProbe: { canvasCount: 1 },
+    timeoutMs: 25,
+    sampleIntervalMs: 1000,
+    settleMs: 0,
+  });
+  assert.equal(result.wholeQuietPassed, false);
+  assert.equal(result.stable, false);
+  assert.equal(result.stabilityReason, "network-not-quiet");
+  assert.equal(result.stableTimeMs, null);
+  assert.equal(result.stableHeap, null);
+});
+
 test("performance readiness covers both atlas and segmentation loaders", async () => {
   const source = await readFile(new URL("../scripts/measure_browser_performance.mjs", import.meta.url), "utf8");
   assert.match(source, /\.atlasLoading:not\(\.error\),\.segLoading:not\(\.error\)/);
@@ -201,4 +477,22 @@ test("performance readiness covers both atlas and segmentation loaders", async (
   assert.match(source, /learningModelStage canvas/);
   assert.match(source, /await waitForRuntimeProbe\(cdp, `\(\(\) => \(\{[\s\S]*?learningModelStage canvas/);
   assert.match(source, /horizontal-range-step/);
+});
+
+test("runtime probe summaries remain safe and prepare-route diagnostics retain the latest probe", async () => {
+  const circular = {};
+  circular.self = circular;
+  assert.match(summarizeRuntimeProbe({ readyState: "complete", circular }), /\[Circular\]/);
+  await assert.rejects(
+    waitForRuntimeProbe({
+      send: async () => ({ result: { value: { ready: false, canvasCount: 0 } } }),
+    },
+    "(() => ({ ready: false, canvasCount: 0 }))()",
+    () => false,
+    70,
+  ),
+    error => /runtime interaction state did not settle/.test(error.message)
+      && /latestProbe=/.test(error.message)
+      && /canvasCount/.test(error.message),
+  );
 });

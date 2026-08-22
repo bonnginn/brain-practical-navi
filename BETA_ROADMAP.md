@@ -77,6 +77,8 @@ Chrome 151のin-app browserで`http://127.0.0.1:4201`を確認し、review panel
 
 計測記録は [PERFORMANCE_AUDIT.md](PERFORMANCE_AUDIT.md) に残します。
 
+2026-08-23、既存31件に側脳室ブロック context ON のPC 1366×768・tablet 1024×768・390×768相当のcold/warm 6件を加えた37件を、Windows 11／Chrome 151.0.7922.170／Node 24.19.0／`http://127.0.0.1:4204/`で測定し、37/37件が成功した。warm primeはベース画面だけとし、context assetは初回ON時に取得した。Canvas 1→2→2→1、loader／UI／console／request error、overflow、WebGL fallbackは全件0で、詳細とsettled／samplePeak backing storageは [PERFORMANCE_AUDIT.md](PERFORMANCE_AUDIT.md) および `work/performance/performance-suite-block-context-final-v2-2026-08-23.json` に記録した。
+
 ### 5. 権利・公開運用
 
 - [x] すべての配布データについて、出典、改変内容、ライセンス、表示義務を再監査する（`public/atlas/DATA-MANIFEST.json` で全ファイルを一意に分類し、同梱通知と個別メタデータを自動照合）。

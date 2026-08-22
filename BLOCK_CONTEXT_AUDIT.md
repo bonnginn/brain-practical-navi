@@ -1,6 +1,6 @@
 # ブロック標本・切り出し文脈監査
 
-更新日: 2026-08-22
+更新日: 2026-08-23
 
 ## 目的と範囲
 
@@ -42,8 +42,23 @@
 - 390×768相当では代表断面と説明が縦積みになり、実効 `innerWidth` 295 pxに対して `scrollWidth` 284 pxで横はみ出しはなかった。console error/warning は0件だった。
 - 同じ build の26経路×3幅×direct/reload＝156/156件が合格した。console/request/UI error、残留 loader、横はみ出し、WebGL fallback は0件だった。記録は `work/browser-audit/beta-route-audit-block-context-final-2026-08-22.json`（ローカル作業用・配布対象外）。
 
+## 側脳室ブロック context ON 性能（2026-08-23）
+
+Windows 11、Chrome 151.0.7922.170、Node 24.19.0、ローカルpreview `http://127.0.0.1:4204/` のCDPデスクトップemulationで、既存31件＋context ON 6件の37/37件を測定した。機械可読な結果は `work/performance/performance-suite-block-context-final-v2-2026-08-23.json` に保存している。
+
+| viewport / mode | base bytes / req / stable | ON bytes / req / stable | ON settled / samplePeak backing storage |
+| --- | ---: | ---: | ---: |
+| PC 1366×768 cold | `2899064 / 9 / 836.7 ms` | `33043046 / 7 / 727.8 ms` | `32653591 / 171607098` |
+| PC 1366×768 warm | `1120 / 8 / 736.7 ms` | `33043046 / 7 / 729.0 ms` | `32653591 / 171607098` |
+| tablet 1024×768 cold | `2899064 / 9 / 824.8 ms` | `33043046 / 7 / 776.0 ms` | `32097847 / 171607107` |
+| tablet 1024×768 warm | `1120 / 8 / 777.5 ms` | `33043046 / 7 / 740.7 ms` | `32653591 / 171607098` |
+| mobile 390×768 cold | `2899064 / 9 / 790.3 ms` | `33043046 / 7 / 726.5 ms` | `32653595 / 171607111` |
+| mobile 390×768 warm | `1120 / 8 / 742.3 ms` | `33043046 / 7 / 758.1 ms` | `32653595 / 171607111` |
+
+ONのフィールドは通常経路と分離し、stable時の `settled` と操作全体の `samplePeak`（JSONの `sampledPeak` alias）を別に保持した。6件すべてでCanvas `1→2→2→1`、loader／UI error／console error／request error／横はみ出し／WebGL fallbackは0件だった。cold／warmともwarm primeはベース画面だけで、context assetは初回ON時に取得した。390 pxは `mobile:false` のデスクトップemulationで実効 `clientWidth` 375 px。物理端末、公開ネットワーク、別GPU・別ブラウザ、解剖学的妥当性はこの計測の対象外である。
+
 ## 未確認事項
 
-- コンテキスト ON 時の追加取得量・安定時間は、通常の側脳室標本（Canvas 1）とは別に実ブラウザで測定する。
+- コンテキストONの追加取得量・安定時間・メモリは上記のWindowsローカル計測で確認済みである。物理端末・公開ネットワークの値は別途未確認である。
 - 「全脳から切り出した実標本の範囲」や解剖学的境界の専門家レビューは、この pilot では完了していない。
 - 物理スマートフォンのタッチ操作、異なる GPU・別ブラウザ、公開 URL は未確認である。
