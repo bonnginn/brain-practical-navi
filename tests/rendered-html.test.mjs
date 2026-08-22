@@ -208,9 +208,10 @@ test("presents the practical flow clearly and keeps interface text readable", as
   assert.ok(modeList.indexOf('{key:"surface"') < modeList.indexOf('{key:"sections"'));
   assert.ok(modeList.indexOf('{key:"sections"') < modeList.indexOf('{key:"blocks"'));
 
-  const homeNotice = page.slice(page.indexOf('className="homeNotice homeLearningLanding"'), page.indexOf('{workspace==="sections"&&<section'));
-  assert.match(homeNotice, /homeLearningModes\.map\(item=><button key=\{item\.key\} onClick=\{\(\)=>openWorkspace\(item\.key\)\}/);
-  assert.match(homeNotice, /home-surface-preview\.png/);
+  const homeNotice = page.slice(page.indexOf('className="homeNotice"'), page.indexOf('{workspace==="sections"&&<section'));
+  assert.match(homeNotice, /教育目的で教材を開く/);
+  assert.match(homeNotice, /教育目的以外での利用はお控えください/);
+  assert.doesNotMatch(homeNotice, /home-surface-preview\.png/);
   assert.doesNotMatch(homeNotice, /AtlasVolumeCanvas/);
   assert.doesNotMatch(page, /homeMetrics|日本語で|<i>0[1-4]<\/i>/);
   assert.doesNotMatch(page, /homeActions|脳表観察から始める|断面実習を見る/);
@@ -257,15 +258,15 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /leftRail \.planeBtn\.active/);
   assert.match(page, /scrollIntoView\(\{block:"nearest",inline:"center"\}\)/);
   assert.match(page, /PUBLIC ALPHA · EDUCATIONAL USE ONLY/);
-  assert.match(page, /className="homeNotice homeLearningLanding"/);
-  assert.match(page, /授業や監督下の実習を置き換えるものではありません/);
-  assert.match(page, /PC・横向きタブレット推奨/);
+  assert.match(page, /className="homeNotice"/);
+  assert.match(page, /教育目的以外での利用はお控えください/);
+  assert.match(page, /教科書や検証済み資料と照合して利用してください/);
   assert.doesNotMatch(page, /脳実習を、|切る前から立体で。|className="homeModelStage"/);
   const homeStart = page.indexOf('{workspace==="home"&&<section');
   const homeWorkspace = page.slice(homeStart, page.indexOf('{workspace==="sections"&&<section', homeStart));
   assert.doesNotMatch(homeWorkspace, /稲葉弘哲|稲葉 弘哲|運営上の位置づけ|個人運営・非公式|三重大学/);
-  assert.match(homeWorkspace, /脳実習の予習・復習/);
-  assert.match(homeWorkspace, /診断、治療、手術計画、定量研究には使用できません/);
+  assert.match(homeWorkspace, /神経解剖学の教育・自主学習目的/);
+  assert.match(homeWorkspace, /診断、治療、手術計画、定量研究のためには使用できません/);
   assert.match(page, /特定の教育機関・部局の公式教材、公式見解、内容の承認を示すものではありません/);
   assert.match(page, /className="projectIndependence"/);
   assert.match(page, /提供者は死後組織の研究・教育目的の一般利用に書面同意/);
