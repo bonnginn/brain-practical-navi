@@ -90,10 +90,10 @@
 
 ### 7. セグメンテーション共同編集
 
-- [ ] 現在の水平断エディタを実際の修正作業で試し、差分JSON、版固定、競合検査の運用を確認する。
-- [ ] 冠状断・矢状断で同じラベルを確認できる照合表示を追加する。
-- [ ] 構造、左右、断面範囲、根拠資料、確認者、確度を差分に付与する。
-- [ ] 採用前後の比較と、差し戻し理由をPull Request上で追跡できるようにする。
+- [x] 現在の水平断エディタを実際の修正作業で試し、差分JSON、版固定、競合検査の運用を確認する（`SEGMENTATION_WORKFLOW.md`、`tests/rendered-html.test.mjs`のBBS1版固定・legacy/strict validator・競合検査回帰）。
+- [x] 冠状断・矢状断で同じラベルを確認できる照合表示を追加する（`app/ManualSegmentationWorkbench.tsx`の直交断照合専用表示、同一原画像・ラベル・端末差分、1 voxel移動の実ブラウザ回帰）。
+- [x] 構造、左右、断面範囲、根拠資料、確認者、確度を差分に付与する（差分JSON v1の`workflowMetadataVersion`、`targetStructures`、`sliceRanges`、`changeSummary`、`review`と、入力ラベルからのstrict再計算。公式buildも適用前volume bytes・dimsへ同じvalidatorを実行し、型・テスト・buildを通過）。
+- [x] 採用前後の比較と、差し戻し理由をPull Request上で追跡できるようにする（PRテンプレートの提出者情報・競合・メンテナー決定欄、`review.decision`、理由、PR番号・40桁hex merge commit、`--output`のapproved限定、review matrixとallowlist移行拒否テスト）。
 
 ### 8. 学習内容とクイズ
 

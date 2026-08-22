@@ -166,6 +166,8 @@ IDs 23–29、33–35は手動正解ラベルではありません。アプリ�
 
 IDs 30–32はBigBrain画像、CerebrA白質確率、近接核・脳室との位置制約から計算した教育用候補です。IDs 39–40はBigBrain水平連続切片を参照して本プロジェクトが手動分節し、プロジェクト内確認を経て公開教材へ採用しました。いずれも研究用の正解マスクではなく、乳頭体の視床下部付着境界は直交断確認により改訂する場合があります。
 
+`tests/fixtures/bigbrain-practical-segmentation-pre-mammillary-de30.bin.gz` は、旧ラベル版の移行・strict validatorを浅いcloneでも再現するためにGitリポジトリ内で再配布する、採用前のcombined practical segmentationです。BigBrain参照データだけのfixtureではなく、Xiaoらの手動ラベル、CerebrA/MNI由来の教育用対応、本プロジェクト生成候補を含むmixed-sourceラベルです。公開アセットへは含めませんが、本書に記載したBigBrainの帰属・非営利・継承条件、Xiao手動ラベルのCC BY 4.0、CerebrA/MNIの利用条件、および本プロジェクト生成部分の注意事項をそれぞれ適用します。
+
 ## 6. 本プロジェクトの教育用模式3D
 
 対象ファイル:

@@ -23,12 +23,25 @@
 
 ## セグメンテーション変更時
 
+- 提出者が記載した対象構造（ID・名称）:
+- 提出者が記載した元ラベルSHA-256:
 - 対象構造・左右・水平断Z範囲:
 - 添付した差分JSON:
+- 差分JSONの`targetStructures` / `sliceRanges` / `changeSummary`:
 - `apply_segmentation_patch.py --check` の結果:
 - 他の差分と組み合わせる場合の競合検査結果:
+- 競合がないこと、または競合箇所と採否方針:
 - 隣接断面で連続性を確認した: [ ]
 - 意図しない変更前→変更後ラベルがないことを確認した: [ ]
+
+## メンテナーの採否記録（セグメンテーション変更時）
+
+- `review.decision`: `unreviewed` / `approved` / `rejected`
+- `review.reviewer`（`kind`: `github` または `project-role`、`id`）:
+- `review.decidedAt`（YYYY-MM-DDまたはRFC3339）:
+- `review.reason`（採用・差戻し理由。差戻し時は不足確認事項を明記）:
+- `review.pullRequest`（正の番号、40桁hexのmerge commitまたは`null`）:
+- 更新後JSONの`workflowMetadataVersion`、対象構造、断面範囲、変更内訳を再確認した: [ ]
 
 ## 確認
 

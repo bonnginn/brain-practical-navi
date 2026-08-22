@@ -1214,5 +1214,76 @@
       "length": 1,
       "label": 40
     }
-  ]
+  ],
+  "workflowMetadataVersion": 1,
+  "targetStructures": [
+    {
+      "id": 27,
+      "name": "脳幹"
+    },
+    {
+      "id": 33,
+      "name": "視交叉候補"
+    },
+    {
+      "id": 39,
+      "name": "左乳頭体"
+    },
+    {
+      "id": 40,
+      "name": "右乳頭体"
+    }
+  ],
+  "sliceRanges": [
+    {
+      "plane": "horizontal",
+      "axis": "Z",
+      "min": 107,
+      "max": 121
+    }
+  ],
+  "changeSummary": {
+    "changedVoxelCount": 1290,
+    "unchangedVoxelCount": 0,
+    "transitions": [
+      {
+        "from": 0,
+        "to": 39,
+        "voxels": 316
+      },
+      {
+        "from": 0,
+        "to": 40,
+        "voxels": 426
+      },
+      {
+        "from": 27,
+        "to": 39,
+        "voxels": 17
+      },
+      {
+        "from": 33,
+        "to": 39,
+        "voxels": 228
+      },
+      {
+        "from": 33,
+        "to": 40,
+        "voxels": 303
+      }
+    ]
+  },
+  "review": {
+    "decision": "approved",
+    "reviewer": {
+      "kind": "project-role",
+      "id": "project-lead"
+    },
+    "decidedAt": "2026-08-16",
+    "reason": "水平断Z107–121で画像誘導分節した左右乳頭体を公開教材ラベルへ採用し、視床下部付着境界は推測で拡張しない判断を記録した。",
+    "pullRequest": {
+      "number": 10,
+      "mergeCommit": "9daec82bf2135743aa428d2032b4c81b2d76e57d"
+    }
+  }
 }

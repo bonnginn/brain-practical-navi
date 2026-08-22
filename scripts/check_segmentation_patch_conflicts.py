@@ -6,7 +6,7 @@ import hashlib
 import json
 from pathlib import Path
 
-from apply_segmentation_patch import read_patch, read_volume
+from apply_segmentation_patch import read_volume, validate_patch
 
 
 def main():
@@ -28,15 +28,15 @@ def main():
     conflicts = []
     patch_summaries = []
     for patch_path in args.patches:
-        patch, edits = read_patch(patch_path, dims, len(labels))
-        if patch.get("sourceLabelsSha256") != digest:
-            raise ValueError(f"{patch_path}: sourceLabelsSha256 does not match {args.input}")
+        patch, edits, metadata = validate_patch(patch_path, dims, len(labels), labels, digest)
         patch_summaries.append({
             "path": str(patch_path),
             "authorGitHub": patch.get("authorGitHub", ""),
             "targetSide": patch.get("targetSide", "mixed"),
             "confidence": patch.get("confidence", "medium"),
             "reviewStatus": patch.get("reviewStatus", "unreviewed"),
+            "workflowMetadataStatus": metadata["status"],
+            "workflowMetadataWarnings": metadata["warnings"],
             "editCount": len(edits),
         })
         for index, label in edits:

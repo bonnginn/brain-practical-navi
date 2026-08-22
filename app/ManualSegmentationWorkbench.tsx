@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { planeAxisSize, planePositionForSlice, planeShape, planeSliceIndex, planeVoxel, segmentationPlaneNames, type SegmentationPlane as Plane } from "./segmentationGeometry";
+import { buildSegmentationPatch, type PatchRun, type SegmentationPatch } from "./segmentationPatchMetadata";
 import { SEGMENTATION_LABEL_REVISION, SEGMENTATION_LABEL_SHA256 } from "./segmentationLabelRevision";
 
 type VolumeData={dims:[number,number,number];image:Uint8Array;labels:Uint8Array};
@@ -9,26 +10,6 @@ type Tool="paint"|"erase"|"restore";
 type TargetSide="left"|"right"|"bilateral"|"midline"|"mixed";
 type EditConfidence="high"|"medium"|"low";
 type StrokeChange={index:number;had:boolean;value:number};
-type PatchRun={start:number;length:number;label:number};
-type SegmentationPatch={
-  format:"brain-practical-segmentation-patch";
-  version:1;
-  sourceImage:string;
-  sourceLabels:string;
-  sourceLabelsSha256:string;
-  dims:[number,number,number];
-  voxelSizeMm:[number,number,number];
-  primaryPlane:"horizontal";
-  createdAt:string;
-  authorNote:string;
-  authorGitHub:string;
-  targetSide?:TargetSide;
-  evidence?:string;
-  confidence?:EditConfidence;
-  reviewStatus?:"unreviewed"|"approved";
-  editCount:number;
-  runs:PatchRun[];
-};
 
 const ASSET_BASE=import.meta.env.BASE_URL;
 const IMAGE_URL=`${ASSET_BASE}atlas/bigbrain-icbm500.bin.gz`;
@@ -73,18 +54,18 @@ async function loadData(){
   return dataCache;
 }
 const index3d=(x:number,y:number,z:number,d:[number,number,number])=>x+d[0]*(y+d[1]*z);
-function toRuns(edits:Map<number,number>){
-  const sorted=[...edits].sort((a,b)=>a[0]-b[0]),runs:PatchRun[]=[];
-  for(const[index,label]of sorted){const last=runs.at(-1);if(last&&last.label===label&&last.start+last.length===index)last.length++;else runs.push({start:index,length:1,label})}
-  return runs;
-}
 function fromRuns(runs:PatchRun[],voxelCount:number){
   const edits=new Map<number,number>();
   for(const run of runs){if(!Number.isInteger(run.start)||!Number.isInteger(run.length)||!Number.isInteger(run.label)||run.start<0||run.length<1||run.start+run.length>voxelCount||run.label<0||run.label>255)throw new Error("差分データの範囲が不正です");for(let offset=0;offset<run.length;offset++)edits.set(run.start+offset,run.label)}
   return edits;
 }
 function removeNoops(edits:Map<number,number>,original:Uint8Array){for(const[index,label]of edits)if(original[index]===label)edits.delete(index);return edits}
-function makePatch(edits:Map<number,number>,note:string,authorGitHub:string,targetSide:TargetSide,evidence:string,confidence:EditConfidence):SegmentationPatch{return{format:"brain-practical-segmentation-patch",version:1,sourceImage:IMAGE_URL,sourceLabels:LABEL_URL,sourceLabelsSha256:LABEL_SHA256,dims:[394,466,378],voxelSizeMm:[.5,.5,.5],primaryPlane:"horizontal",createdAt:new Date().toISOString(),authorNote:note.trim(),authorGitHub:authorGitHub.trim().replace(/^@/,""),targetSide,evidence:evidence.trim(),confidence,reviewStatus:"unreviewed",editCount:edits.size,runs:toRuns(edits)}}
+function makePatch(edits:Map<number,number>,data:VolumeData,note:string,authorGitHub:string,targetSide:TargetSide,evidence:string,confidence:EditConfidence):SegmentationPatch{
+  return buildSegmentationPatch({
+    edits,labels:data.labels,dims:data.dims,sourceLabelsSha256:LABEL_SHA256,
+    createdAt:new Date().toISOString(),authorNote:note,authorGitHub,targetSide,evidence,confidence,
+  });
+}
 
 export function ManualSegmentationWorkbench(){
   const canvasRef=useRef<HTMLCanvasElement>(null),fileRef=useRef<HTMLInputElement>(null),editsRef=useRef(new Map<number,number>()),strokeRef=useRef<StrokeChange[]|null>(null),strokeSeen=useRef(new Set<number>()),panRef=useRef<{x:number;y:number;pan:{x:number;y:number}}|null>(null);
@@ -112,7 +93,7 @@ export function ManualSegmentationWorkbench(){
   useEffect(()=>{let active=true;loadData().then(value=>{if(active)setData(value)}).catch(reason=>{if(active)setError(String(reason))});return()=>{active=false;dataCache=null}},[]);
   useEffect(()=>{const element=canvasRef.current;if(!element||typeof ResizeObserver==="undefined")return;const observer=new ResizeObserver(()=>setSizeVersion(value=>value+1));observer.observe(element);return()=>observer.disconnect()},[]);
   useEffect(()=>{if(!data)return;try{const raw=localStorage.getItem(DRAFT_KEY);if(!raw)return;const patch=JSON.parse(raw) as SegmentationPatch;if(patch.format!=="brain-practical-segmentation-patch"||patch.version!==1||patch.sourceLabelsSha256!==LABEL_SHA256||patch.dims.some((value,index)=>value!==data.dims[index]))return;editsRef.current=removeNoops(fromRuns(patch.runs,data.image.length),data.labels);setNote(patch.authorNote??"");setAuthorGitHub(patch.authorGitHub??"");setTargetSide(patch.targetSide??"mixed");setEvidence(patch.evidence??"");setConfidence(patch.confidence??"medium");setVersion(value=>value+1);setStatus(`端末内ドラフトを復元・${editsRef.current.size.toLocaleString()} voxel`)}catch{setStatus("端末内ドラフトを復元できませんでした")}},[data]);
-  useEffect(()=>{if(!data||version===0)return;const timer=window.setTimeout(()=>{try{if(editsRef.current.size>100000){setStatus("差分が大きいため自動保存を停止・JSONを書き出してください");return}localStorage.setItem(DRAFT_KEY,JSON.stringify(makePatch(editsRef.current,note,authorGitHub,targetSide,evidence,confidence)));setStatus(`端末内へ自動保存・${editsRef.current.size.toLocaleString()} voxel`)}catch{setStatus("端末内へ保存できません・JSONを書き出してください")}},700);return()=>window.clearTimeout(timer)},[data,version,note,authorGitHub,targetSide,evidence,confidence]);
+  useEffect(()=>{if(!data||version===0)return;const timer=window.setTimeout(()=>{try{if(editsRef.current.size>100000){setStatus("差分が大きいため自動保存を停止・JSONを書き出してください");return}localStorage.setItem(DRAFT_KEY,JSON.stringify(makePatch(editsRef.current,data,note,authorGitHub,targetSide,evidence,confidence)));setStatus(`端末内へ自動保存・${editsRef.current.size.toLocaleString()} voxel`)}catch{setStatus("端末内へ保存できません・JSONを書き出してください")}},700);return()=>window.clearTimeout(timer)},[data,version,note,authorGitHub,targetSide,evidence,confidence]);
 
   function transform(){const canvas=canvasRef.current;if(!canvas||!data)return null;const[wImage,hImage]=planeShape(data.dims,plane),w=canvas.clientWidth,h=canvas.clientHeight,fit=Math.min((w-18)/wImage,(h-18)/hImage),scale=fit*zoom;return{w,h,scale,ox:(w-wImage*scale)/2+pan.x,oy:(h-hImage*scale)/2+pan.y,wImage,hImage}}
   useEffect(()=>{const canvas=canvasRef.current;if(!canvas||!data)return;const dpr=Math.min(devicePixelRatio||1,2),w=canvas.clientWidth,h=canvas.clientHeight;canvas.width=w*dpr;canvas.height=h*dpr;const context=canvas.getContext("2d");if(!context)return;context.setTransform(dpr,0,0,dpr,0,0);context.fillStyle="#111719";context.fillRect(0,0,w,h);const[width,height]=planeShape(data.dims,plane),off=document.createElement("canvas");off.width=width;off.height=height;const oc=off.getContext("2d")!,image=oc.createImageData(off.width,off.height),slice=sliceIndex;
@@ -128,7 +109,7 @@ export function ManualSegmentationWorkbench(){
   function pointerUp(event:React.PointerEvent<HTMLCanvasElement>){if(panRef.current)panRef.current=null;if(strokeRef.current?.length&&isEditablePlane){const meaningful=strokeRef.current.filter(change=>{const had=editsRef.current.has(change.index);return had!==change.had||(had&&change.had&&editsRef.current.get(change.index)!==change.value)});if(meaningful.length){setUndo(items=>[...items,meaningful].slice(-60));setRedo([])}}strokeRef.current=null;strokeSeen.current.clear();if(event.currentTarget.hasPointerCapture(event.pointerId))event.currentTarget.releasePointerCapture(event.pointerId)}
   function wheel(event:React.WheelEvent<HTMLCanvasElement>){event.preventDefault();const view=transform(),canvas=canvasRef.current;if(!view||!canvas)return;const rect=canvas.getBoundingClientRect(),localX=event.clientX-rect.left,localY=event.clientY-rect.top,imageX=(localX-view.ox)/view.scale,imageY=(localY-view.oy)/view.scale;setZoom(current=>{const next=Math.max(.7,Math.min(6,current*Math.exp(-event.deltaY*.0015))),w=canvas.clientWidth,h=canvas.clientHeight,[width,height]=planeShape(data?.dims??[394,466,378],plane),fit=Math.min((w-18)/width,(h-18)/height),nextScale=fit*next,nextBaseX=(w-width*nextScale)/2,nextBaseY=(h-height*nextScale)/2;setPan({x:localX-imageX*nextScale-nextBaseX,y:localY-imageY*nextScale-nextBaseY});return next})}
   function applyHistory(changes:StrokeChange[],direction:"undo"|"redo"){if(!isEditablePlane)return;const inverse:StrokeChange[]=[];for(const change of changes){inverse.push({index:change.index,had:editsRef.current.has(change.index),value:editsRef.current.get(change.index)??0});if(change.had)editsRef.current.set(change.index,change.value);else editsRef.current.delete(change.index)}if(direction==="undo"){setUndo(items=>items.slice(0,-1));setRedo(items=>[...items,inverse].slice(-60))}else{setRedo(items=>items.slice(0,-1));setUndo(items=>[...items,inverse].slice(-60))}setVersion(current=>current+1)}
-  function download(){const patch=makePatch(editsRef.current,note,authorGitHub,targetSide,evidence,confidence),blob=new Blob([JSON.stringify(patch,null,2)+"\n"],{type:"application/json"}),url=URL.createObjectURL(blob),anchor=document.createElement("a");anchor.href=url;anchor.download=`bigbrain-seg-patch-${new Date().toISOString().slice(0,10)}.json`;anchor.click();URL.revokeObjectURL(url);setStatus(`JSON書き出し済み・${patch.editCount.toLocaleString()} voxel`)}
+  function download(){if(!data)return;if(!evidence.trim()){setStatus("根拠資料・参照箇所を入力してからJSONを書き出してください");return}const patch=makePatch(editsRef.current,data,note,authorGitHub,targetSide,evidence,confidence),blob=new Blob([JSON.stringify(patch,null,2)+"\n"],{type:"application/json"}),url=URL.createObjectURL(blob),anchor=document.createElement("a");anchor.href=url;anchor.download=`bigbrain-seg-patch-${new Date().toISOString().slice(0,10)}.json`;anchor.click();URL.revokeObjectURL(url);setStatus(`JSON書き出し済み・${patch.editCount.toLocaleString()} voxel`)}
   async function importFile(file:File){if(!data)return;try{const patch=JSON.parse(await file.text()) as SegmentationPatch;if(patch.format!=="brain-practical-segmentation-patch"||patch.version!==1||patch.sourceLabelsSha256!==LABEL_SHA256||patch.dims.some((value,index)=>value!==data.dims[index]))throw new Error("現在の0.5 mmラベル版に対応する差分ではありません");if(editsRef.current.size&&!window.confirm("現在の編集を読み込んだ差分で置き換えますか？"))return;editsRef.current=removeNoops(fromRuns(patch.runs,data.image.length),data.labels);setNote(patch.authorNote??"");setAuthorGitHub(patch.authorGitHub??"");setTargetSide(patch.targetSide??"mixed");setEvidence(patch.evidence??"");setConfidence(patch.confidence??"medium");setUndo([]);setRedo([]);setVersion(current=>current+1);setStatus(`JSONを読込・${editsRef.current.size.toLocaleString()} voxel`)}catch(reason){setStatus(`読込エラー: ${reason instanceof Error?reason.message:String(reason)}`)}}
   function clear(){if(!isEditablePlane||!editsRef.current.size||!window.confirm("端末内のすべての編集差分を消去しますか？ 書き出していない変更は戻せません。"))return;editsRef.current.clear();setUndo([]);setRedo([]);localStorage.removeItem(DRAFT_KEY);setVersion(current=>current+1);setStatus("編集差分を消去しました")}
   function jumpToSlice(index:number){if(!data)return;const bounded=Math.max(0,Math.min(planeAxisSize(data.dims,plane)-1,index));setPosition(planePositionForSlice(bounded,plane,data.dims));setCursor(null);setCursorVoxel(null)}
@@ -153,7 +134,7 @@ export function ManualSegmentationWorkbench(){
       <div className="segHistory"><button disabled={!isEditablePlane||!undo.length} onClick={()=>isEditablePlane&&undo.length&&applyHistory(undo.at(-1)!,"undo")}>↶ 元に戻す</button><button disabled={!isEditablePlane||!redo.length} onClick={()=>isEditablePlane&&redo.length&&applyHistory(redo.at(-1)!,"redo")}>↷ やり直す</button></div>
       <label className="segField"><span>変更内容・根拠メモ</span><textarea value={note} onChange={event=>setNote(event.target.value)} placeholder="例：水平断Z 181–190、左被殻外側境界を組織像に沿って修正。根拠資料・確認者も記載。"/></label>
       <div className="segMetadataGrid"><label className="segField"><span>対象側</span><select value={targetSide} onChange={event=>setTargetSide(event.target.value as TargetSide)}><option value="left">左</option><option value="right">右</option><option value="bilateral">両側</option><option value="midline">正中</option><option value="mixed">複数・混在</option></select></label><label className="segField"><span>編集者の確度</span><select value={confidence} onChange={event=>setConfidence(event.target.value as EditConfidence)}><option value="high">高</option><option value="medium">中</option><option value="low">低</option></select></label></div>
-      <label className="segField"><span>根拠資料・参照箇所</span><input value={evidence} onChange={event=>setEvidence(event.target.value)} placeholder="文献・公開データ・講義資料名と頁など（転載物は添付しない）"/></label>
+      <label className="segField"><span>根拠資料・参照箇所</span><input required value={evidence} onChange={event=>setEvidence(event.target.value)} placeholder="文献・公開データ・講義資料名と頁など（転載物は添付しない）"/></label>
       <p className="segReviewStatus"><b>確認状態</b><span>未レビュー</span><small>書き出した差分は自動採用されません。確認者と採否はPull Requestで記録します。</small></p>
       <label className="segField"><span>GitHubユーザー名</span><input value={authorGitHub} onChange={event=>setAuthorGitHub(event.target.value)} placeholder="username（任意、PRと照合用）"/></label>
       <div className="segFiles"><button className="primary" onClick={download} disabled={!editsRef.current.size}>差分JSONを書き出す</button><button onClick={()=>fileRef.current?.click()} disabled={!isEditablePlane}>差分JSONを読み込む</button><input ref={fileRef} hidden type="file" aria-label="差分JSONファイルを選択" accept="application/json,.json" onChange={event=>{const file=event.target.files?.[0];if(file&&isEditablePlane)void importFile(file);event.currentTarget.value=""}}/><button className="danger" onClick={clear} disabled={!isEditablePlane||!editsRef.current.size}>編集をすべて消去</button></div>

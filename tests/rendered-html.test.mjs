@@ -1,7 +1,8 @@
 import assert from "node:assert/strict";
-import { readFile, readdir, stat } from "node:fs/promises";
+import { mkdtemp, readFile, readdir, rm, stat, writeFile } from "node:fs/promises";
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
+import { tmpdir } from "node:os";
 import test from "node:test";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -228,11 +229,12 @@ test("presents the practical flow clearly and keeps interface text readable", as
 });
 
 test("ships the learning workspaces, contributor editor, and public data notice", async () => {
-  const [page, canvas, canvasCss, editor, workflow, readme, licenses, attribution, packageJson, softwareLicense, licenseMap, governance] = await Promise.all([
+  const [page, canvas, canvasCss, editor, patchMetadata, workflow, readme, licenses, attribution, packageJson, softwareLicense, licenseMap, governance] = await Promise.all([
     readFile(new URL("app/page.tsx", root), "utf8"),
     readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8"),
     readFile(new URL("app/canvas.css", root), "utf8"),
     readFile(new URL("app/ManualSegmentationWorkbench.tsx", root), "utf8"),
+    readFile(new URL("app/segmentationPatchMetadata.ts", root), "utf8"),
     readFile(new URL("SEGMENTATION_WORKFLOW.md", root), "utf8"),
     readFile(new URL("README.md", root), "utf8"),
     readFile(new URL("DATA_AND_LICENSES.md", root), "utf8"),
@@ -514,19 +516,47 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(editor, /step=\{data\?100\/\(data\.dims\[2\]-1\):\.25\}/);
   assert.match(editor, /元へ戻す/);
   assert.match(editor, /端末内へ自動保存/);
-  assert.match(editor, /targetSide,evidence:evidence\.trim\(\),confidence,reviewStatus:"unreviewed"/);
+  assert.match(editor, /segmentationPatchMetadata/);
+  assert.match(patchMetadata, /workflowMetadataVersion:1/);
+  assert.match(patchMetadata, /targetStructures/);
+  assert.match(patchMetadata, /sliceRanges/);
+  assert.match(patchMetadata, /changeSummary/);
+  assert.match(patchMetadata, /review:\{decision:"unreviewed",reviewer:null,decidedAt:null,reason:"",pullRequest:null\}/);
+  assert.doesNotMatch(editor, /reviewer\s*=/);
   assert.match(editor, /対象側/);
   assert.match(editor, /根拠資料・参照箇所/);
   assert.match(editor, /確認状態[\s\S]*未レビュー/);
   assert.match(workflow, /Pull Requestに必要な情報/);
   assert.match(workflow, /`reviewStatus`[\s\S]*`unreviewed`/);
   assert.match(workflow, /apply_segmentation_patch\.py/);
+  assert.match(workflow, /workflowMetadataVersion/);
   assert.equal(JSON.parse(packageJson).version, "0.1.0-alpha.1");
   assert.equal(JSON.parse(packageJson).license, "AGPL-3.0-or-later");
   assert.match(softwareLicense, /GNU AFFERO GENERAL PUBLIC LICENSE/);
   assert.match(softwareLicense, /13\. Remote Network Interaction/);
   assert.match(softwareLicense, /END OF TERMS AND CONDITIONS/);
   assert.match(attribution, /BigBrain/);
+});
+
+test("documents strict patch metadata and review decisions without reviewer input in the student editor", async () => {
+  const [template, workflow, roadmap, editor, patchMetadata] = await Promise.all([
+    readFile(new URL(".github/PULL_REQUEST_TEMPLATE.md", root), "utf8"),
+    readFile(new URL("SEGMENTATION_WORKFLOW.md", root), "utf8"),
+    readFile(new URL("BETA_ROADMAP.md", root), "utf8"),
+    readFile(new URL("app/ManualSegmentationWorkbench.tsx", root), "utf8"),
+    readFile(new URL("app/segmentationPatchMetadata.ts", root), "utf8"),
+  ]);
+  assert.match(template, /元ラベルSHA-256/);
+  assert.match(template, /targetStructures.*sliceRanges.*changeSummary/s);
+  assert.match(template, /review\.decision/);
+  assert.match(template, /差戻し理由/);
+  assert.match(workflow, /legacy\+missing fields/);
+  assert.match(workflow, /approved.*--output/s);
+  assert.match(roadmap, /- \[x\] 現在の水平断エディタ/);
+  assert.match(roadmap, /workflowMetadataVersion/);
+  assert.match(patchMetadata, /CANONICAL_SOURCE_IMAGE="\/atlas\/bigbrain-icbm500\.bin\.gz"/);
+  assert.match(patchMetadata, /CANONICAL_SOURCE_LABELS="\/atlas\/bigbrain-practical-segmentation-icbm500\.bin\.gz"/);
+  assert.doesNotMatch(editor, /reviewer\s*=/);
 });
 
 test("connects only the public Google Form responder URL", async () => {
@@ -598,6 +628,232 @@ test("validates browser segmentation patches against the bundled BBS1 grid", () 
   assert.deepEqual(audit.dims, [394, 466, 378]);
   assert.equal(audit.editCount, 1);
   assert.equal(audit.changedVoxelCount + audit.unchangedVoxelCount, 1);
+  assert.equal(audit.workflowMetadataStatus, "legacy+missing fields");
+  assert.match(result.stderr, /legacy/i);
+});
+
+test("strict patch metadata is independently validated and only approved patches can produce output", async () => {
+  const tempRoot = await mkdtemp(join(tmpdir(), "brain-patch-metadata-"));
+  const runCheck = (patchPath, extra=[]) => spawnSync(python.command, [...python.prefix,
+    localPath("scripts/apply_segmentation_patch.py"), patchPath,
+    "--input", localPath("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"),
+    "--check", ...extra,
+  ], {encoding:"utf8"});
+  try {
+    const strictPath = localPath("tests/fixtures/segmentation-patch-strict.json");
+    const strictResult = runCheck(strictPath);
+    assert.equal(strictResult.status, 0, strictResult.stderr);
+    const strictAudit = JSON.parse(strictResult.stdout);
+    assert.equal(strictAudit.workflowMetadataStatus, "strict");
+    assert.deepEqual(strictAudit.targetStructures, [{id:1,name:"左赤核"}]);
+    assert.deepEqual(strictAudit.sliceRanges, [{plane:"horizontal",axis:"Z",min:0,max:0}]);
+    assert.deepEqual(strictAudit.changeSummary, {changedVoxelCount:1,unchangedVoxelCount:0,transitions:[{from:0,to:1,voxels:1}]});
+
+    const base = JSON.parse(await readFile(strictPath, "utf8"));
+    for (const [name, mutate] of [
+      ["target", patch => {patch.targetStructures[0].name="改ざん";}],
+      ["range", patch => {patch.sliceRanges[0].min=1;}],
+      ["summary", patch => {patch.changeSummary.changedVoxelCount=2;}],
+      ["source-image", patch => {patch.sourceImage="/brain-practical-navi/atlas/bigbrain-icbm500.bin.gz";}],
+      ["target-side", patch => {patch.targetSide="diagonal";}],
+      ["confidence", patch => {patch.confidence="certain";}],
+      ["evidence", patch => {patch.evidence="   ";}],
+      ["empty", patch => {patch.runs=[];patch.editCount=0;patch.targetStructures=[];patch.sliceRanges=[];patch.changeSummary={changedVoxelCount:0,unchangedVoxelCount:0,transitions:[]};}],
+    ]) {
+      const path = join(tempRoot, `${name}.json`);
+      const tampered = structuredClone(base);
+      mutate(tampered);
+      await writeFile(path, JSON.stringify(tampered));
+      const result = runCheck(path);
+      assert.notEqual(result.status, 0, `${name} metadata tampering must fail`);
+    }
+
+    const rejected = structuredClone(JSON.parse(await readFile(new URL("tests/fixtures/segmentation-patch-strict-approved.json", root), "utf8")));
+    rejected.review.decision="rejected";
+    rejected.review.reason="差戻し理由を記録したfixture";
+    rejected.reviewStatus="rejected";
+    const rejectedPath = join(tempRoot, "rejected.json");
+    await writeFile(rejectedPath, JSON.stringify(rejected));
+    const rejectedResult = runCheck(rejectedPath);
+    assert.equal(rejectedResult.status, 0, rejectedResult.stderr);
+    assert.equal(JSON.parse(rejectedResult.stdout).reviewStatus, "rejected");
+
+    const approvedPath = localPath("tests/fixtures/segmentation-patch-strict-approved.json");
+    const outputPath = join(tempRoot, "approved.bin.gz");
+    const approvedResult = spawnSync(python.command, [...python.prefix,
+      localPath("scripts/apply_segmentation_patch.py"), approvedPath,
+      "--input", localPath("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"),
+      "--output", outputPath,
+    ], {encoding:"utf8"});
+    assert.equal(approvedResult.status, 0, approvedResult.stderr);
+    assert.deepEqual(readVolumeHeader(await readFile(outputPath), "BBS1").dims, [394,466,378]);
+    const unreviewedOutput = spawnSync(python.command, [...python.prefix,
+      localPath("scripts/apply_segmentation_patch.py"), strictPath,
+      "--input", localPath("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"),
+      "--output", join(tempRoot, "unreviewed.bin.gz"),
+    ], {encoding:"utf8"});
+    assert.notEqual(unreviewedOutput.status, 0);
+    const legacyOutput = spawnSync(python.command, [...python.prefix,
+      localPath("scripts/apply_segmentation_patch.py"), localPath("tests/fixtures/segmentation-patch-smoke.json"),
+      "--input", localPath("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"),
+      "--output", join(tempRoot, "legacy.bin.gz"),
+    ], {encoding:"utf8"});
+    assert.notEqual(legacyOutput.status, 0);
+  } finally {
+    await rm(tempRoot, {recursive:true, force:true});
+  }
+});
+
+test("enforces the complete review decision matrix and rejects non-approved output", async () => {
+  const tempRoot = await mkdtemp(join(tmpdir(), "brain-review-matrix-"));
+  const inputPath = localPath("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz");
+  const approvedFixture = JSON.parse(await readFile(new URL("tests/fixtures/segmentation-patch-strict-approved.json", root), "utf8"));
+  const check = path => spawnSync(python.command, [...python.prefix,
+    localPath("scripts/apply_segmentation_patch.py"), path, "--input", inputPath, "--check",
+  ], {encoding:"utf8"});
+  const write = async (name, mutate) => {
+    const path = join(tempRoot, `${name}.json`);
+    const patch = structuredClone(approvedFixture);
+    mutate(patch);
+    await writeFile(path, JSON.stringify(patch));
+    return path;
+  };
+  try {
+    for (const [name, mutate] of [
+      ["unreviewed-reviewer", patch => {patch.review={decision:"unreviewed",reviewer:{kind:"github",id:"reviewer"},decidedAt:null,reason:"",pullRequest:null};patch.reviewStatus="unreviewed";}],
+      ["approved-reviewer", patch => {patch.review.reviewer=null;}],
+      ["approved-date", patch => {patch.review.decidedAt=null;}],
+      ["approved-reason", patch => {patch.review.reason="";}],
+      ["approved-pr", patch => {patch.review.pullRequest=null;}],
+      ["rejected-reviewer", patch => {patch.review.decision="rejected";patch.reviewStatus="rejected";patch.review.reviewer=null;}],
+      ["rejected-date", patch => {patch.review.decision="rejected";patch.reviewStatus="rejected";patch.review.decidedAt=null;}],
+      ["rejected-reason", patch => {patch.review.decision="rejected";patch.reviewStatus="rejected";patch.review.reason="";}],
+      ["rejected-pr", patch => {patch.review.decision="rejected";patch.reviewStatus="rejected";patch.review.pullRequest=null;}],
+      ["status-mismatch", patch => {patch.reviewStatus="rejected";}],
+      ["bad-date", patch => {patch.review.decidedAt="2026-02-30";}],
+      ["bad-kind", patch => {patch.review.reviewer.kind="expert";}],
+      ["bad-pr-number", patch => {patch.review.pullRequest.number=0;}],
+      ["bad-merge-commit", patch => {patch.review.pullRequest.mergeCommit="abc";}],
+    ]) {
+      const result = check(await write(name, mutate));
+      assert.notEqual(result.status, 0, `${name} must be rejected`);
+    }
+    const validCommit = await write("valid-merge-commit", patch => {patch.review.pullRequest.mergeCommit="0123456789abcdef0123456789abcdef01234567";});
+    assert.equal(check(validCommit).status, 0);
+    const rejected = await write("rejected-output", patch => {patch.review.decision="rejected";patch.reviewStatus="rejected";patch.review.reason="差戻し理由";});
+    const output = spawnSync(python.command, [...python.prefix,
+      localPath("scripts/apply_segmentation_patch.py"), rejected, "--input", inputPath,
+      "--output", join(tempRoot, "rejected.bin.gz"),
+    ], {encoding:"utf8"});
+    assert.notEqual(output.status, 0);
+  } finally {
+    await rm(tempRoot, {recursive:true, force:true});
+  }
+});
+
+test("migrates the three mammillary patches against the recorded pre-mammillary fixture", async () => {
+  const tempRoot = await mkdtemp(join(tmpdir(), "brain-mammillary-blob-"));
+  try {
+    const sourcePath = localPath("tests/fixtures/bigbrain-practical-segmentation-pre-mammillary-de30.bin.gz");
+    const sourceBytes = await readFile(sourcePath);
+    assert.equal(sourceBytes.length, 256380);
+    assert.equal(createHash("sha256").update(sourceBytes).digest("hex"), "de30b5c77f4ed4f2902564a5d238b0e733413c247643ef828fb66aa03d8cc8be");
+    const expected = {
+      "mammillary-bodies-horizontal-sparse-2026-08-16.json": {editCount:311, reviewStatus:"unreviewed", transitions:[{from:0,to:39,voxels:71},{from:0,to:40,voxels:84},{from:27,to:39,voxels:10},{from:33,to:39,voxels:60},{from:33,to:40,voxels:86}]},
+      "mammillary-bodies-horizontal-contiguous-core-candidate-2026-08-16.json": {editCount:1206, reviewStatus:"unreviewed", transitions:[{from:0,to:39,voxels:284},{from:0,to:40,voxels:391},{from:27,to:39,voxels:13},{from:33,to:39,voxels:220},{from:33,to:40,voxels:298}]},
+      "mammillary-bodies-horizontal-core-plus-clear-rim-candidate-2026-08-16.json": {editCount:1290, reviewStatus:"approved", transitions:[{from:0,to:39,voxels:316},{from:0,to:40,voxels:426},{from:27,to:39,voxels:17},{from:33,to:39,voxels:228},{from:33,to:40,voxels:303}]},
+    };
+    for (const [name, expectedPatch] of Object.entries(expected)) {
+      const path = localPath(`segmentation-patches/review/${name}`);
+      const result = spawnSync(python.command, [...python.prefix,
+        localPath("scripts/apply_segmentation_patch.py"), path,
+        "--input", sourcePath, "--check",
+      ], {encoding:"utf8"});
+      assert.equal(result.status, 0, `${name}: ${result.stderr}`);
+      const audit = JSON.parse(result.stdout);
+      assert.equal(audit.inputSha256, "de30b5c77f4ed4f2902564a5d238b0e733413c247643ef828fb66aa03d8cc8be");
+      assert.equal(audit.workflowMetadataStatus, "strict");
+      assert.equal(audit.editCount, expectedPatch.editCount);
+      assert.equal(audit.reviewStatus, expectedPatch.reviewStatus);
+      assert.deepEqual(audit.transitions, expectedPatch.transitions.filter(item => item.voxels));
+      assert.deepEqual(audit.targetStructures.map(item => item.id), [27,33,39,40]);
+      if (expectedPatch.reviewStatus === "approved") {
+        assert.deepEqual(audit.review.reviewer, {kind:"project-role",id:"project-lead"});
+        assert.equal(audit.review.decidedAt, "2026-08-16");
+        assert.equal(audit.review.pullRequest.number, 10);
+        assert.equal(audit.review.pullRequest.mergeCommit, "9daec82bf2135743aa428d2032b4c81b2d76e57d");
+      } else {
+        assert.deepEqual(audit.review, {decision:"unreviewed",reviewer:null,decidedAt:null,reason:"",pullRequest:null});
+      }
+    }
+  } finally {
+    await rm(tempRoot, {recursive:true, force:true});
+  }
+});
+
+test("does not auto-approve an unrelated legacy approved patch", async () => {
+  const tempRoot = await mkdtemp(join(tmpdir(), "brain-upgrade-allowlist-"));
+  try {
+    const patch = JSON.parse(await readFile(new URL("tests/fixtures/segmentation-patch-strict-approved.json", root), "utf8"));
+    delete patch.workflowMetadataVersion;
+    delete patch.targetStructures;
+    delete patch.sliceRanges;
+    delete patch.changeSummary;
+    delete patch.review;
+    patch.reviewStatus = "approved";
+    const legacyPath = join(tempRoot, "general-approved.json");
+    await writeFile(legacyPath, JSON.stringify(patch));
+    const result = spawnSync(python.command, [...python.prefix,
+      localPath("scripts/upgrade_segmentation_patch_metadata.py"), legacyPath,
+      "--input", localPath("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"),
+      "--output-dir", join(tempRoot, "out"),
+    ], {encoding:"utf8"});
+    assert.notEqual(result.status, 0);
+    assert.match(`${result.stdout}\n${result.stderr}`, /allowlisted|explicit.*review/i);
+  } finally {
+    await rm(tempRoot, {recursive:true, force:true});
+  }
+});
+
+test("official build path rejects a tampered approved patch before applying it", async () => {
+  const tempRoot = await mkdtemp(join(tmpdir(), "brain-build-patch-validation-"));
+  try {
+    const buildScript = await readFile(new URL("scripts/build_bigbrain_practical_seg.py", root), "utf8");
+    assert.match(buildScript, /from apply_segmentation_patch import validate_patch/);
+    const sourcePath = localPath("tests/fixtures/bigbrain-practical-segmentation-pre-mammillary-de30.bin.gz");
+    const base = JSON.parse(await readFile(new URL("segmentation-patches/review/mammillary-bodies-horizontal-core-plus-clear-rim-candidate-2026-08-16.json", root), "utf8"));
+    const harness = [
+      "import sys, numpy as np",
+      "from pathlib import Path",
+      "sys.path.insert(0, 'scripts')",
+      "from apply_segmentation_patch import read_volume",
+      "from build_bigbrain_practical_seg import apply_approved_patch",
+      "dims, labels = read_volume(Path(sys.argv[2]))",
+      "volume = np.frombuffer(bytes(labels), dtype=np.uint8).reshape(dims, order='F').copy()",
+      "apply_approved_patch(volume, Path(sys.argv[1]))",
+    ].join("; ");
+    for (const [name, mutate] of [
+      ["review", patch => {delete patch.review;}],
+      ["summary", patch => {patch.changeSummary.changedVoxelCount += 1;}],
+    ]) {
+      const patch = structuredClone(base);
+      mutate(patch);
+      const patchPath = join(tempRoot, `${name}.json`);
+      await writeFile(patchPath, JSON.stringify(patch));
+      const result = spawnSync(python.command, [...python.prefix, "-c", harness, patchPath, sourcePath], {encoding:"utf8", cwd:localPath("")});
+      assert.notEqual(result.status, 0, `${name} tampering must stop official build`);
+    }
+    const baselineHarness = harness.replace(
+      "apply_approved_patch(volume, Path(sys.argv[1]))",
+      "volume[0, 0, 0] = (int(volume[0, 0, 0]) + 1) % 256; apply_approved_patch(volume, Path(sys.argv[1]))",
+    );
+    const baselineResult = spawnSync(python.command, [...python.prefix, "-c", baselineHarness,
+      localPath("segmentation-patches/review/mammillary-bodies-horizontal-core-plus-clear-rim-candidate-2026-08-16.json"), sourcePath,
+    ], {encoding:"utf8", cwd:localPath("")});
+    assert.notEqual(baselineResult.status, 0, "baseline label tampering must stop official build");
+  } finally {
+    await rm(tempRoot, {recursive:true, force:true});
+  }
 });
 
 test("pins segmentation patches to the exact bundled label revision", async () => {
@@ -617,9 +873,75 @@ test("pins segmentation patches to the exact bundled label revision", async () =
   assert.equal(JSON.parse(fixtureText).sourceLabelsSha256, digest);
 });
 
+test("builds a multi-slice multi-transition patch in the browser helper that Python accepts", async () => {
+  const tempRoot = await mkdtemp(join(tmpdir(), "brain-cross-language-patch-"));
+  try {
+    const labelBytes = await readFile(new URL("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz", root));
+    const volume = readVolumeHeader(labelBytes, "BBS1");
+    const labels = new Uint8Array(volume.payload.subarray(10));
+    const [dx, dy] = volume.dims;
+    const area = dx * dy;
+    const indexAt = (label, z) => {
+      const start = z * area;
+      const index = labels.findIndex((value, offset) => offset >= start && offset < start + area && value === label);
+      assert.notEqual(index, -1, `fixture must contain label ${label} at z ${z}`);
+      return index;
+    };
+    const edits = new Map([
+      [indexAt(0, 1), 39],
+      [indexAt(27, 50), 40],
+      [indexAt(33, 100), 39],
+      [indexAt(39, 110), 0],
+      [indexAt(40, 115), 33],
+    ]);
+    const helper = await import(new URL("app/segmentationPatchMetadata.ts", root));
+    const patch = helper.buildSegmentationPatch({
+      edits,labels,dims:volume.dims,
+      sourceLabelsSha256:createHash("sha256").update(labelBytes).digest("hex"),
+      createdAt:"2026-08-22T00:00:00.000Z",authorNote:"cross-language fixture",authorGitHub:"",
+      targetSide:"mixed",evidence:"BigBrain fixture",confidence:"medium",
+    });
+    assert.equal(patch.sourceImage, "/atlas/bigbrain-icbm500.bin.gz");
+    assert.equal(patch.sourceLabels, "/atlas/bigbrain-practical-segmentation-icbm500.bin.gz");
+    assert.deepEqual(patch.sliceRanges, [{plane:"horizontal",axis:"Z",min:1,max:115}]);
+    assert.deepEqual(patch.changeSummary.transitions, [
+      {from:0,to:39,voxels:1},{from:27,to:40,voxels:1},{from:33,to:39,voxels:1},
+      {from:39,to:0,voxels:1},{from:40,to:33,voxels:1},
+    ]);
+    const patchPath = join(tempRoot, "cross-language.json");
+    await writeFile(patchPath, JSON.stringify(patch));
+    const result = spawnSync(python.command, [...python.prefix,
+      localPath("scripts/apply_segmentation_patch.py"), patchPath,
+      "--input", localPath("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"), "--check",
+    ], {encoding:"utf8"});
+    assert.equal(result.status, 0, result.stderr);
+    const audit = JSON.parse(result.stdout);
+    assert.equal(audit.workflowMetadataStatus, "strict");
+    assert.equal(audit.changedVoxelCount, 5);
+  } finally {
+    await rm(tempRoot, {recursive:true, force:true});
+  }
+});
+
+test("keeps patch source paths canonical in a GitHub Pages-base build", async () => {
+  const result = spawnSync(process.execPath, ["node_modules/vite/bin/vite.js", "build", "--configLoader", "runner"], {
+    cwd:localPath(""),
+    env:{...process.env,DEPLOY_GITHUB_PAGES:"true"},
+    encoding:"utf8",
+  });
+  assert.equal(result.status, 0, result.stderr);
+  const assetName = (await readdir(new URL("dist/assets/", root))).find(name => /^index-.*\.js$/.test(name));
+  assert.ok(assetName);
+  const bundle = await readFile(new URL(`dist/assets/${assetName}`, root), "utf8");
+  assert.match(bundle, /\/atlas\/bigbrain-icbm500\.bin\.gz/);
+  assert.match(bundle, /\/atlas\/bigbrain-practical-segmentation-icbm500\.bin\.gz/);
+  assert.doesNotMatch(bundle, /\/brain-practical-navi\/atlas\/bigbrain-icbm500\.bin\.gz/);
+});
+
 test("adds orthogonal read-only audit planes without changing the horizontal patch contract", async () => {
-  const [editor, geometry, css] = await Promise.all([
+  const [editor, patchMetadata, geometry, css] = await Promise.all([
     readFile(new URL("app/ManualSegmentationWorkbench.tsx", root), "utf8"),
+    readFile(new URL("app/segmentationPatchMetadata.ts", root), "utf8"),
     readFile(new URL("app/segmentationGeometry.ts", root), "utf8"),
     readFile(new URL("app/canvas.css", root), "utf8"),
   ]);
@@ -637,7 +959,7 @@ test("adds orthogonal read-only audit planes without changing the horizontal pat
   assert.match(editor, /disabled=\{!isEditablePlane\}/);
   assert.match(editor, /function paintAt\(event:React\.PointerEvent<HTMLCanvasElement>\)\{if\(!isEditablePlane\)return/);
   assert.match(editor, /function applyHistory\(changes:StrokeChange\[],direction:"undo"\|"redo"\)\{if\(!isEditablePlane\)return/);
-  assert.match(editor, /primaryPlane:"horizontal"/);
+  assert.match(patchMetadata, /primaryPlane:"horizontal"/);
   assert.match(editor, /inflate\(LABEL_FETCH_URL,0x42425331\)/);
   for (const id of [39, 40, 33, 27]) assert.match(editor, new RegExp(`\\b${id}\\b`));
   assert.match(editor, /36–38は自動生成しません/);
@@ -846,6 +1168,7 @@ test("detects voxel-level conflicts between contributor segmentation patches", (
   assert.equal(result.status, 2, result.stderr);
   const audit = JSON.parse(result.stdout);
   assert.equal(audit.conflictCount, 1);
+  assert.deepEqual(audit.patches.map(patch => patch.workflowMetadataStatus), ["legacy+missing fields", "legacy+missing fields"]);
   assert.equal(audit.conflicts[0].index, 0);
   assert.deepEqual([audit.conflicts[0].firstLabel, audit.conflicts[0].secondLabel], [0, 1]);
 });

@@ -41,17 +41,22 @@
 
 - `format`: `brain-practical-segmentation-patch`
 - `version`: `1`
-- `sourceImage` / `sourceLabels`: 編集対象の配布ファイル
+- `sourceImage` / `sourceLabels`: 差分JSONには常に`/atlas/bigbrain-icbm500.bin.gz` / `/atlas/bigbrain-practical-segmentation-icbm500.bin.gz`を記録する。ブラウザの取得URLだけはGitHub Pagesのbase pathを含む
 - `sourceLabelsSha256`: 編集元ラベルファイルのSHA-256。異なる版への誤適用を拒否するために使用
 - `dims`: `[394, 466, 378]`
 - `voxelSizeMm`: `[0.5, 0.5, 0.5]`
 - `primaryPlane`: `horizontal`
 - `authorNote`: 編集者の説明
 - `authorGitHub`: Pull Requestと照合するGitHubユーザー名
-- `targetSide`: 左・右・両側・正中・混在のいずれか
-- `evidence`: 文献、公開データ、講義資料の参照箇所。第三者資料そのものは添付しない
-- `confidence`: 編集者自身による高・中・低の確度
-- `reviewStatus`: ブラウザからの書き出し時は必ず `unreviewed`。プロジェクト責任者が採用した差分だけ、Pull Requestに採否と根拠を記録したうえで保管コピーを `approved` に変更できる
+- `targetSide`: 左・右・両側・正中・混在のいずれか。strict version 1では必須
+- `evidence`: 文献、公開データ、講義資料の参照箇所。第三者資料そのものは添付しない。strict version 1では空欄・空白のみを許可しない
+- `confidence`: 編集者自身による高・中・低の確度。strict version 1では必須
+- `workflowMetadataVersion`: 厳格な共同制作メタデータは `1`。旧JSONでは欠落していても`--check`だけは継続できるが、警告付きのlegacy扱いとなり、出力生成には使えない
+- `targetStructures`: 編集voxelの変更前・変更後に現れる非0 IDのunionをID順に並べた `{id,name}`。名前と対象IDは入力ラベルから再計算して照合する
+- `sliceRanges`: 現在は編集voxelのZ最小・最大を含む水平断範囲を `{plane:"horizontal",axis:"Z",min,max}` で記録する。JSONに書かれた範囲ではなく、実際のrunsから検証する
+- `changeSummary`: 入力ラベルとrunsから独立再計算する変更voxel数、元のままのvoxel数、`from`→`to`の遷移件数（from/to順）
+- `reviewStatus`: `review.decision`との一致を必須にする。ブラウザからの書き出し時は必ず `unreviewed`。プロジェクト責任者が採用した差分だけ、Pull Requestに採否と根拠を記録したうえで保管コピーを `approved` に変更できる
+- `review`: `{decision,reviewer,decidedAt,reason,pullRequest}`。`unreviewed` は確認者・日時・理由・PRを空にし、`approved`/`rejected` は許可された確認者種別、日付、非空理由、正のPR番号（merge commitはnull可）を必須にする
 - `editCount`: 変更指定したボクセル数
 - `runs`: 線形インデックス順に圧縮した `{start, length, label}`
 
@@ -77,6 +82,8 @@
 python3 scripts/apply_segmentation_patch.py proposed-patch.json --check
 ```
 
+`workflowMetadataVersion` のない従来JSONは、入力版とrunsの整合だけを確認して `legacy+missing fields` 警告付きで通過します。strict version 1では対象ID・名称、実Z範囲、変更内訳、採否メタデータを入力ラベルから完全再計算し、一つでも一致しなければ停止します。公式buildも同じvalidatorを、承認差分を適用する前のvolume bytes・dimsへ実行します。
+
 複数人または複数ブランチの差分を組み合わせる前に、同一ボクセルへ異なるラベルを指定していないか確認します。競合がある場合は終了コード2となり、最大100件のボクセル番号と差分名を表示します。
 
 ```bash
@@ -84,12 +91,24 @@ python3 scripts/check_segmentation_patch_conflicts.py \
   contributor-a.json contributor-b.json
 ```
 
+競合検査も各差分を同じ入力ラベルに対してメタデータ検証します。`unreviewed`、`approved`、`rejected` は比較できますが、採否の状態を自動変更しません。
+
 採用する場合も元ファイルを直接上書きせず、別の出力を作ります。
 
 ```bash
 python3 scripts/apply_segmentation_patch.py proposed-patch.json \
   --output work/reviewed-segmentation.bin.gz
 ```
+
+`--output` はstrict version 1かつ`review.decision:"approved"`の差分だけに許可されます。legacy、未レビュー、差戻しJSONから配布候補を生成することはできません。既存JSONを移行する場合は、入力ラベルの実体を指定して次を使います。
+
+```bash
+python3 scripts/upgrade_segmentation_patch_metadata.py \
+  segmentation-patches/review/example.json \
+  --git-blob <source-label-git-blob> --in-place
+```
+
+旧乳頭体のapproved JSONを自動で承認へ移行できるのは、ファイル名、旧ラベルSHA、HEAD 66db823時点の移行前Git blob SHAがallowlistに一致する既知の1件だけです。一般のlegacy approved JSONは、明示的なメンテナーreview記録なしには移行を停止します。CIや浅いcloneでは、`tests/fixtures/bigbrain-practical-segmentation-pre-mammillary-de30.bin.gz`（SHA-256 `de30b5c7…d8cc8be`、256380 bytes）を旧入力fixtureとして使い、Git履歴へ依存しません。
 
 出力後に各ラベル数、左右、空間的位置、隣接断面での連続性、画像組織との重なり、クイズ対象断面を再検証します。差分JSON、監査結果、採否理由をPull Requestまたはリリース記録に残します。公式配布ファイルへの置換はプロジェクト管理者の採用決定後に行います。
 
