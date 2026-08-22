@@ -2044,10 +2044,17 @@ test("labels provisional questions and includes them in the default quiz setup",
   assert.match(page, /standardQuizQuestions=quizQuestions\.filter\(question=>!isProvisionalQuiz\(question\)\)/);
   assert.match(page, /useState<QuizQuestion\[]>\(\(\)=>shuffledQuestions\(quizQuestions\)/);
   assert.match(page, /quizIncludeProvisional,setQuizIncludeProvisional\]=useState\(true\)/);
-  assert.match(page, /quizIncludeProvisional\|\|!isProvisionalQuiz\(question\)/);
+  assert.match(page, /const quizFilters:QuizFilters=\{category:quizCategory,format:quizFormat,detail:quizDetail,includeProvisional:quizIncludeProvisional,wrongOnly:quizWrongOnly\}/);
+  assert.match(page, /filterQuizCandidates\(quizQuestionsForFiltering,quizFilters,wrongTargets\)/);
+  assert.match(page, /function startQuiz\(\)\{let candidates=quizCandidates;/);
+  assert.doesNotMatch(page, /quizIncludeProvisional\|\|!isProvisionalQuiz\(question\)/);
   assert.match(page, /試作問題を含む[\s\S]*専門家未確認・位置照合ラベル/);
   assert.match(page, /試作・専門家未確認/);
   assert.match(page, /\{target:"mammillaryBody",category:"limbic",plane:"horizontal",position:69/);
+  assert.match(page, /className="quizCountButtons" role="group" aria-label="次回の問題数（上限）"/);
+  assert.match(page, /aria-pressed=\{quizCount===count\}/);
+  assert.match(page, /この条件で出題（\{quizActualCount\}問）/);
+  assert.doesNotMatch(page, /\(quizEmpty\|\|quizCandidateCount===0\)\?/);
 });
 
 test("publishes a durable keyboard and pointer operation guide", async () => {

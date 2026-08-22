@@ -5,6 +5,8 @@ import { AtlasVolumeCanvas, type HighlightLayer, type IdentifiedPoint } from "./
 import { ManualSegmentationWorkbench } from "./ManualSegmentationWorkbench";
 import betaStatus from "./beta-status.json";
 import { freeObservationReadings, matchesJapaneseSearch, normalizeJapaneseSearch } from "../src/japaneseSearch";
+import { QUIZ_GRANULARITY_BY_TARGET, countQuizChoice, detailOptionsForFormat, filterQuizCandidates } from "../src/quizGranularity.mjs";
+import type { QuizDetail, QuizFormat, QuizFilterQuestion, QuizFilters, QuizOrigin } from "../src/quizGranularity.mjs";
 
 type Plane = "coronal" | "horizontal" | "sagittal";
 type Focus = "ventricle" | "caudate" | "hippocampus" | "thalamus";
@@ -53,9 +55,11 @@ function learnerSourceLabel(source:string){
 }
 type QuizCategory = "basal" | "limbic" | "midbrain" | "ventricles" | "connections" | "hindbrain" | "surface";
 type QuizTargetKey = StructureKey | SurfaceRegionKey;
-type SectionQuizQuestion = { target: StructureKey; category: Exclude<QuizCategory,"surface">; plane: Plane; position: number; prompt: string; options: StructureKey[] };
-type SurfaceQuizQuestion = { target: SurfaceRegionKey; category: "surface"; view: SurfaceViewKey; prompt: string; options: SurfaceRegionKey[] };
+type SectionQuizQuestion = { target: StructureKey; category: Exclude<QuizCategory,"surface">; plane: Plane; position: number; prompt: string; options: StructureKey[]; format?:"section"; detail?:Plane; origin?:QuizOrigin };
+type SurfaceQuizQuestion = { target: SurfaceRegionKey; category: "surface"; view: SurfaceViewKey; prompt: string; options: SurfaceRegionKey[]; format?:"surface"; detail?:Exclude<QuizDetail,Plane>; origin?:QuizOrigin };
 type QuizQuestion = SectionQuizQuestion | SurfaceQuizQuestion;
+type QuizFormatFilter = "all"|QuizFormat;
+type QuizDetailFilter = "all"|QuizDetail;
 
 const planeData: Record<Plane, { ja: string; en: string; axis: string; from: string; to: string }> = {
   coronal: { ja: "冠状断", en: "CORONAL", axis: "前後位置", from: "後方", to: "前方" },
@@ -91,6 +95,12 @@ const quizCategories:{key:"all"|QuizCategory;label:string}[]=[
   {key:"hindbrain",label:"脳幹・小脳"},
   {key:"surface",label:"脳表・主要脳回"},
 ];
+const quizFormatOptions:{key:QuizFormatFilter;label:string}[]=[
+  {key:"all",label:"すべての形式"},
+  {key:"section",label:"断面・深部"},
+  {key:"surface",label:"脳表"},
+];
+const quizDetailLabels:Record<QuizDetail,string>={coronal:"冠状断",horizontal:"水平断",sagittal:"矢状断",lateral:"外側面",superior:"上面",inferior:"下面",medial:"内側面"};
 const QUIZ_WRONG_CACHE_KEY="brain-practical-quiz-wrong-v1";
 
 const surfaceViews:Record<SurfaceViewKey,{name:string;en:string;visual:"cortex"|"arteries"|"nerves";rotation:Rotation;hemisphere:"both"|"left"|"right";intro:string;structures:string[];caution?:string}>= {
@@ -430,6 +440,10 @@ const quizQuestions:QuizQuestion[]=[
 
 function isSurfaceQuiz(question:QuizQuestion):question is SurfaceQuizQuestion{return "view" in question}
 function isProvisionalQuiz(question:QuizQuestion){return isSurfaceQuiz(question)||["atlas-provisional","image-guided"].includes(structures[question.target].labelSource??"manual")}
+type QuizGranularityFields=Pick<QuizFilterQuestion,"format"|"detail"|"origin">;
+type QuizQuestionWithGranularity=QuizQuestion&QuizGranularityFields;
+function withQuizGranularity(question:QuizQuestion):QuizQuestionWithGranularity{return {...question,...QUIZ_GRANULARITY_BY_TARGET[question.target]} as QuizQuestionWithGranularity}
+const quizQuestionsForFiltering:QuizQuestionWithGranularity[]=quizQuestions.map(withQuizGranularity);
 const standardQuizQuestions=quizQuestions.filter(question=>!isProvisionalQuiz(question));
 
 function sliceVariant(position: number) {
@@ -445,10 +459,10 @@ function shuffledItems<T>(items:readonly T[]) {
   for(let i=next.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[next[i],next[j]]=[next[j],next[i]]}
   return next;
 }
-function shuffledQuestions(items:QuizQuestion[]) {
-  return shuffledItems(items.map(question=>isSurfaceQuiz(question)
-    ? {...question,options:shuffledItems(question.options)}
-    : {...question,options:shuffledItems(question.options)}));
+function shuffledQuestions(items:QuizQuestion[]):QuizQuestion[] {
+  return shuffledItems(items.map(question=>{const enriched=withQuizGranularity(question);return isSurfaceQuiz(enriched)
+    ? {...enriched,options:shuffledItems(question.options)}
+    : {...enriched,options:shuffledItems(question.options)}})) as QuizQuestion[];
 }
 
 function OrientationCompass({rotation,compact=false}:{rotation:Rotation;compact?:boolean}) {
@@ -530,6 +544,8 @@ export default function Home() {
   const [quizIndex,setQuizIndex]=useState(0);
   const [quizQueue,setQuizQueue]=useState<QuizQuestion[]>(()=>shuffledQuestions(quizQuestions).slice(0,10));
   const [quizCategory,setQuizCategory]=useState<"all"|QuizCategory>("all");
+  const [quizFormat,setQuizFormat]=useState<QuizFormatFilter>("all");
+  const [quizDetail,setQuizDetail]=useState<QuizDetailFilter>("all");
   const [quizCount,setQuizCount]=useState<5|10|15|20>(10);
   const [quizWrongOnly,setQuizWrongOnly]=useState(false);
   const [quizIncludeProvisional,setQuizIncludeProvisional]=useState(true);
@@ -594,6 +610,15 @@ export default function Home() {
   const quizQuestion=quizQueue[quizIndex]??quizQuestions[0];
   const quizEmpty=quizQueue.length===0;
   const surfaceQuiz=isSurfaceQuiz(quizQuestion);
+  const quizFilters:QuizFilters={category:quizCategory,format:quizFormat,detail:quizDetail,includeProvisional:quizIncludeProvisional,wrongOnly:quizWrongOnly};
+  // The registry origin is an audited expectation for this existing
+  // isProvisionalQuiz rule; it is used only to count/filter the next queue.
+  const quizCandidates=useMemo(()=>filterQuizCandidates(quizQuestionsForFiltering,quizFilters,wrongTargets),[quizCategory,quizFormat,quizDetail,quizIncludeProvisional,quizWrongOnly,wrongTargets]);
+  const quizCandidateCount=quizCandidates.length;
+  const quizActualCount=Math.min(quizCount,quizCandidateCount);
+  const quizStandardCandidateCount=quizCandidates.filter(question=>question.origin==="standard").length;
+  const quizProvisionalCandidateCount=quizCandidates.filter(question=>question.origin==="provisional").length;
+  const quizDetailOptions=detailOptionsForFormat(quizFormat);
   const quizStartPosition=surfaceQuiz?50:quizQuestion.position;
   const sectionQuizTarget=surfaceQuiz?structures.caudate:structures[quizQuestion.target];
   const surfaceQuizTarget=surfaceQuiz?surfaceRegions[quizQuestion.target]:surfaceRegions.precentral;
@@ -695,13 +720,15 @@ export default function Home() {
   function openOverlay(key:OverlayMode){if(!overlayOpen)overlayReturnFocus.current=document.activeElement instanceof HTMLElement?document.activeElement:null;window.history.pushState(null,"",`#workspace/${key}`);setHelpOpen(key==="help");setFeedbackOpen(key==="feedback");setLegalOpen(key==="legal");setStatusOpen(key==="status")}
   function openWorkspace(key:WorkspaceMode){setHelpOpen(false);setFeedbackOpen(false);setLegalOpen(false);setStatusOpen(false);const nextHash=workspaceHash(key,surfaceView,plane,blockSpecimen);if(window.location.hash!==nextHash)window.history.pushState(null,"",nextHash);setWorkspace(key);if(key==="home")setRotation({...homeRotation});if(key==="sections")setRotation({x:-7,y:-18,z:0});if(key==="surface")setRotation(surfaceViews[surfaceView].rotation);if(key==="blocks"){setBlockIntroOpen(true);setRotation({...blockInitialRotations[blockSpecimen]});setBlockViewPreset("initial")}}
   function saveWrongTargets(next:QuizTargetKey[]){setWrongTargets(next);try{localStorage.setItem(QUIZ_WRONG_CACHE_KEY,JSON.stringify(next))}catch{/* private browsing may block storage */}}
-  function startQuiz(){let candidates=quizQuestions.filter(question=>(quizIncludeProvisional||!isProvisionalQuiz(question))&&(quizCategory==="all"||question.category===quizCategory));if(quizWrongOnly)candidates=candidates.filter(question=>wrongTargets.includes(question.target));setQuizQueue(shuffledQuestions(candidates).slice(0,quizCount));setQuizIndex(0);setQuizChoice(null);setQuizScore(0);setQuizMisses([]);setQuizFinished(false)}
+  function quizChoiceCount(dimension:"category"|"format"|"detail",value:string){return countQuizChoice(quizQuestionsForFiltering,quizFilters,wrongTargets,dimension,value)}
+  function chooseQuizFormat(value:QuizFormatFilter){setQuizFormat(value);if(quizDetail!=="all"&&!detailOptionsForFormat(value).includes(quizDetail))setQuizDetail("all")}
+  function startQuiz(){let candidates=quizCandidates;setQuizQueue(shuffledQuestions(candidates).slice(0,quizActualCount));setQuizIndex(0);setQuizChoice(null);setQuizScore(0);setQuizMisses([]);setQuizFinished(false)}
   function answerQuiz(key:QuizTargetKey){if(quizChoice||quizEmpty)return;setQuizChoice(key);const correct=key===quizQuestion.target;if(correct){setQuizScore(score=>score+1);if(wrongTargets.includes(quizQuestion.target))saveWrongTargets(wrongTargets.filter(target=>target!==quizQuestion.target))}else{setQuizMisses(previous=>previous.includes(quizQuestion.target)?previous:[...previous,quizQuestion.target]);if(!wrongTargets.includes(quizQuestion.target))saveWrongTargets([...wrongTargets,quizQuestion.target])}}
   function nextQuiz(){if(quizIndex>=quizQueue.length-1){setQuizChoice(null);setQuizFinished(true);return}setQuizChoice(null);setQuizIndex(index=>index+1)}
   function resetQuiz(){setQuizIndex(0);setQuizChoice(null);setQuizScore(0);setQuizMisses([]);setQuizFinished(false)}
   function reviewQuizQuestion(question:QuizQuestion){if(isSurfaceQuiz(question)){openWorkspace("surface");chooseSurface(question.view,"replace");setSurfaceVisibleRegions([question.target]);return}openWorkspace("sections");jump(question.plane,question.position,"replace");setVisibleStructures([question.target]);focusStructure(question.target,true);setLabels(true)}
   function retryQuiz(){setQuizQueue(previous=>shuffledQuestions(previous));resetQuiz()}
-  function restoreAllQuiz(){setQuizWrongOnly(false);setQuizCategory("all");setQuizIncludeProvisional(true);setQuizQueue(shuffledQuestions(quizQuestions).slice(0,quizCount));resetQuiz()}
+  function restoreAllQuiz(){setQuizWrongOnly(false);setQuizCategory("all");setQuizFormat("all");setQuizDetail("all");setQuizIncludeProvisional(true);setQuizQueue(shuffledQuestions(quizQuestions).slice(0,quizCount));resetQuiz()}
   function resetWrongHistory(){saveWrongTargets([]);if(quizWrongOnly){setQuizQueue([]);resetQuiz()}}
 
   return <main className={`appShell workspace-${workspace} ${workspace==="home"?"homeShell":""}`}>
@@ -738,9 +765,20 @@ export default function Home() {
       </>}
       {workspace==="quiz"&&<>
         <p className="eyebrow">REVIEW QUIZ</p>
-        <div className="quizRailScore"><strong>{quizEmpty?"00":String(quizFinished?quizQueue.length:quizIndex+1).padStart(2,"0")}</strong><span>/ {quizQueue.length}</span><small>{quizFinished?`完了・正答 ${quizScore}`:`正答 ${quizScore}`}</small></div>
+        <div className="quizRailScore"><strong>{quizEmpty?"00":String(quizFinished?quizQueue.length:quizIndex+1).padStart(2,"0")}</strong><span>/ {quizQueue.length}</span><small>{quizEmpty?"今回の出題なし":quizFinished?`完了・正答 ${quizScore}`:`正答 ${quizScore}`}</small></div>
         <div className="quizRailDots">{quizQueue.map((_,i)=><i key={i} className={quizFinished||i<quizIndex?"done":i===quizIndex?"current":""}/>)}</div>
-        <div className="quizSetup"><label><span>出題項目</span><select value={quizCategory} onChange={event=>setQuizCategory(event.target.value as "all"|QuizCategory)}>{quizCategories.map(category=><option key={category.key} value={category.key}>{category.label}</option>)}</select></label><div><span>問題数</span><div className="quizCountButtons">{([5,10,15,20] as const).map(count=><button key={count} className={quizCount===count?"active":""} onClick={()=>setQuizCount(count)}>{count}</button>)}</div></div><label className="wrongOnlyToggle"><input type="checkbox" checked={quizWrongOnly} onChange={event=>setQuizWrongOnly(event.target.checked)}/><span>間違った問題のみ</span><b>{wrongTargets.length}</b></label><label className="provisionalQuizToggle"><input type="checkbox" checked={quizIncludeProvisional} onChange={event=>setQuizIncludeProvisional(event.target.checked)}/><span>試作問題を含む<small>専門家未確認・位置照合ラベル</small></span></label><button className="quizStart" onClick={startQuiz}>この条件で出題</button></div>
+        <div className="quizSetup">
+          <div className="quizSetupHeading"><b>次回出題の条件</b><small>条件を変えても、現在の問題はそのままです。</small></div>
+          <label><span>次回出題項目（トピック）</span><select value={quizCategory} onChange={event=>setQuizCategory(event.target.value as "all"|QuizCategory)}>{quizCategories.map(category=><option key={category.key} value={category.key}>{category.label}（{quizChoiceCount("category",category.key)}問）</option>)}</select></label>
+          <label><span>次回の教材形式</span><select value={quizFormat} onChange={event=>chooseQuizFormat(event.target.value as QuizFormatFilter)}>{quizFormatOptions.map(option=><option key={option.key} value={option.key}>{option.label}（{quizChoiceCount("format",option.key)}問）</option>)}</select></label>
+          <label><span>次回の詳細（形式と組合せ）</span><select value={quizDetail} onChange={event=>setQuizDetail(event.target.value as QuizDetailFilter)}><option value="all">すべての詳細（{quizChoiceCount("detail","all")}問）</option>{quizDetailOptions.map(detail=><option key={detail} value={detail}>{quizDetailLabels[detail]}（{quizChoiceCount("detail",detail)}問）</option>)}</select><small className="quizFilterHint">下面は現在、脳表の位置関係問題のみです。脳底の血管・脳神経問題は未追加です。</small></label>
+          <div className="quizCandidateSummary" role="status" aria-live="polite"><b>次回 {quizCandidateCount}問候補</b><span>標準 {quizStandardCandidateCount}・試作 {quizProvisionalCandidateCount}</span></div>
+          {quizCandidateCount===0&&<p className="quizCandidateEmptyNote" role="status" aria-live="polite">現在の条件の組合せに該当する問題がありません。トピック・形式・詳細・「間違った問題のみ」・「試作問題を含む」を見直してください。</p>}
+          <div><span>次回の問題数（候補に応じて）</span><div className="quizCountButtons" role="group" aria-label="次回の問題数（上限）">{([5,10,15,20] as const).map(count=>{const actual=Math.min(count,quizCandidateCount);const label=quizCandidateCount<count?`${count}問（実際${actual}問）`:`${count}問`;return <button key={count} className={quizCount===count?"active":""} onClick={()=>setQuizCount(count)} disabled={quizCandidateCount===0} aria-pressed={quizCount===count} aria-label={`${count}問を上限に${actual}問（候補${quizCandidateCount}）`}>{label}</button>})}</div></div>
+          <label className="wrongOnlyToggle"><input type="checkbox" checked={quizWrongOnly} onChange={event=>setQuizWrongOnly(event.target.checked)}/><span>間違った問題のみ</span><b>{wrongTargets.length}</b></label>
+          <label className="provisionalQuizToggle"><input type="checkbox" checked={quizIncludeProvisional} onChange={event=>setQuizIncludeProvisional(event.target.checked)}/><span>試作問題を含む<small>専門家未確認・位置照合ラベル</small></span></label>
+          <button className="quizStart" onClick={startQuiz} disabled={quizCandidateCount===0}>この条件で出題（{quizActualCount}問）</button>
+        </div>
         <button className="railReset" onClick={resetQuiz} disabled={quizEmpty}>今回を最初から</button><button className="historyReset" onClick={resetWrongHistory} disabled={wrongTargets.length===0}>間違い履歴を消去</button>
       </>}
       {workspace==="segment"&&<><p className="eyebrow">SEGMENTATION</p><div className="segRailIntro"><b>差分編集</b><p>元データを直接変更せず、修正したボクセルだけをJSONへ保存します。</p><ol><li>水平断を選ぶ</li><li>冠状・矢状断で位置を照合する</li><li>水平断で構造とブラシを選ぶ</li><li>境界を修正する</li><li>JSONをPRへ添付</li></ol></div><div className="railLine"/><p className="railMemo">共同制作者向けのα機能です。冠状断・矢状断は照合専用です。公式ラベルへの統合には、別のレビューと変換処理が必要です。</p></>}
@@ -847,7 +885,7 @@ export default function Home() {
 
     {workspace==="quiz"&&<section className="workArea quizArea" id="workspace" tabIndex={-1}>
       <div className="workHead"><div><span className="eyebrow">IDENTIFICATION QUIZ</span><h1>復習クイズ</h1></div><span className="sourceBadge">色で示した構造を同定</span></div>
-      {quizFinished?<div className="quizEmptyState quizResultState" role="status" aria-live="polite"><span>QUIZ COMPLETE</span><h2>{quizScore} / {quizQueue.length} 問正解</h2><p>{quizScore===quizQueue.length?"全問正解です。別の項目へ進むか、同じ問題を順番を変えて再確認できます。":"間違えた問題は端末内に保存しました。下の構造から観察画面へ戻るか、左の「間違った問題のみ」から再出題できます。"}</p>{quizMisses.length>0&&<div className="quizReviewTargets" aria-label="今回間違えた構造">{quizMisses.map(target=>{const question=quizQueue.find(item=>item.target===target);if(!question)return null;const item=isSurfaceQuiz(question)?surfaceRegions[question.target]:structures[question.target];return <button key={target} onClick={()=>reviewQuizQuestion(question)}><b>{item.name}</b><small>{isSurfaceQuiz(question)?surfaceViews[question.view].name:`${planeData[question.plane].ja}・位置 ${question.position}`}</small><span>観察画面で位置を確認 →</span></button>})}</div>}<div><button onClick={retryQuiz}>同じ問題を再挑戦</button><button onClick={startQuiz}>この条件で新しく出題</button></div></div>:quizEmpty?<div className="quizEmptyState" role="status"><span>REVIEW CACHE</span><h2>{quizWrongOnly?"この条件の間違い履歴はありません":"出題できる問題がありません"}</h2><p>{quizWrongOnly?"一度間違えた問題は端末に保存されます。別の項目を選ぶか、「間違った問題のみ」を解除してください。":!quizIncludeProvisional&&quizCategory==="surface"?"脳表問題は専門家未確認の試作問題です。左の「試作問題を含む」を有効にするか、別の項目を選んでください。":"出題項目または問題数を変更してください。"}</p><button onClick={restoreAllQuiz}>標準問題へ戻す</button></div>:<div className="quizWorkspace">
+      {quizFinished?<div className="quizEmptyState quizResultState" role="status" aria-live="polite"><span>QUIZ COMPLETE</span><h2>{quizScore} / {quizQueue.length} 問正解</h2><p>{quizScore===quizQueue.length?"全問正解です。別の項目へ進むか、同じ問題を順番を変えて再確認できます。":"間違えた問題は端末内に保存しました。下の構造から観察画面へ戻るか、左の「間違った問題のみ」から再出題できます。"}</p>{quizMisses.length>0&&<div className="quizReviewTargets" aria-label="今回間違えた構造">{quizMisses.map(target=>{const question=quizQueue.find(item=>item.target===target);if(!question)return null;const item=isSurfaceQuiz(question)?surfaceRegions[question.target]:structures[question.target];return <button key={target} onClick={()=>reviewQuizQuestion(question)}><b>{item.name}</b><small>{isSurfaceQuiz(question)?surfaceViews[question.view].name:`${planeData[question.plane].ja}・位置 ${question.position}`}</small><span>観察画面で位置を確認 →</span></button>})}</div>}<div><button onClick={retryQuiz}>同じ問題を再挑戦</button><button onClick={startQuiz}>この条件で新しく出題</button></div></div>:quizEmpty?<div className="quizEmptyState" role="status"><span>REVIEW CACHE</span><h2>{quizWrongOnly&&wrongTargets.length===0?"間違い履歴がありません":"今回の出題はありません"}</h2><p>{quizWrongOnly&&wrongTargets.length===0?"間違い履歴がまだありません。左の「次回出題条件」で「間違った問題のみ」を解除するか、通常の条件で出題してください。":"現在の問題キューは空です。左の「次回出題条件」と候補数を確認し、「この条件で出題」を押してください。フィルタ変更は現在の問題ではなく次回の出題に反映されます。"}</p><button onClick={restoreAllQuiz}>標準問題へ戻す</button></div>:<div className="quizWorkspace">
         <section className="quizImageCard"><div className="panelHead"><div><b>問題 {quizIndex+1}</b><small>{surfaceQuiz?surfaceViews[quizQuestion.view].name:`${planeData[quizQuestion.plane].ja}・位置 ${quizSlicePosition}・BigBrain公開組織画像 0.5 mm`}</small></div><span>{surfaceQuiz&&!webglUnavailable?"ドラッグで回転・ホイールで拡大":surfaceQuiz?"3D表示を利用できません":"ホイールで拡大"}</span></div><div className={`quizImageStage ${surfaceQuiz?"modelStage":""} ${surfaceQuiz&&webglUnavailable?"webglUnavailable":""}`} tabIndex={surfaceQuiz&&!webglUnavailable?0:undefined} aria-label={surfaceQuiz&&!webglUnavailable?"復習問題の脳表3Dモデル。ドラッグまたは矢印キーで回転、Rキーで向きを戻す":undefined} onKeyDown={surfaceQuiz&&!webglUnavailable?handleModelKey:undefined} onPointerDown={surfaceQuiz&&!webglUnavailable?beginRotation:undefined} onPointerMove={surfaceQuiz&&!webglUnavailable?move:undefined} onPointerUp={surfaceQuiz&&!webglUnavailable?()=>setDrag(null):undefined} onPointerCancel={surfaceQuiz&&!webglUnavailable?()=>setDrag(null):undefined} onContextMenu={surfaceQuiz&&!webglUnavailable?event=>event.preventDefault():undefined}>{surfaceQuiz?<><AtlasVolumeCanvas kind="surface" plane="sagittal" position={50} focus="thalamus" display="specimen" rotation={rotation} view="inside" contrast="bigbrain" showFocus={false} showCutPlane={false} hemisphere={surfaceViews[quizQuestion.view].hemisphere} showCerebellum={quizQuestion.view!=="medial"} showPonsMedulla={quizQuestion.view!=="medial"} showMidbrain={quizQuestion.view!=="medial"} surfaceHighlights={quizSurfaceHighlight} onWebGLUnavailableChange={setWebglUnavailable}/>{!webglUnavailable&&<OrientationCompass rotation={rotation}/>}</>:<AtlasVolumeCanvas kind="slice" plane={quizQuestion.plane} position={quizSlicePosition} focus={sectionQuizTarget.meshFocus??"thalamus"} display="specimen" rotation={rotation} contrast="bigbrain" highlights={quizHighlight}/>}<div className="quizTargetTag"><i style={{background:quizTarget.color}}/><span><b>この色の構造は？</b>{sectionDeveloperControls&&quizSource&&<small>{quizSource}</small>}</span></div></div>{!surfaceQuiz&&<div className="quizSliceNavigator"><div className="quizSliceAxis"><span>{planeData[quizQuestion.plane].from}</span><b>{planeData[quizQuestion.plane].axis}</b><span>{planeData[quizQuestion.plane].to}</span></div><div className="quizSliceControl"><button aria-label="1断面戻る" onClick={()=>setQuizSlicePosition(value=>Math.max(0,value-1))} disabled={quizSlicePosition===0}>−</button><input aria-label={`復習問題の${planeData[quizQuestion.plane].axis}`} type="range" min="0" max="100" value={quizSlicePosition} onChange={event=>setQuizSlicePosition(Number(event.target.value))}/><button aria-label="1断面進む" onClick={()=>setQuizSlicePosition(value=>Math.min(100,value+1))} disabled={quizSlicePosition===100}>＋</button></div><output>{quizSlicePosition}</output><button onClick={()=>setQuizSlicePosition(quizQuestion.position)} disabled={quizSlicePosition===quizQuestion.position}>出題位置へ戻す</button></div>}</section>
         <aside className="quizQuestionCard"><span className="guideIndex">QUESTION {String(quizIndex+1).padStart(2,"0")} / {quizQueue.length}</span>{isProvisionalQuiz(quizQuestion)&&<span className="provisionalQuizFlag">試作・専門家未確認</span>}<h2>{quizQuestion.prompt}</h2><div className="quizOptions">{quizQuestion.options.map((key,i)=>{const correct=key===quizQuestion.target,chosen=quizChoice===key,option=surfaceQuiz?surfaceRegions[key as SurfaceRegionKey]:structures[key as StructureKey];return <button key={key} className={quizChoice?(correct?"correct":chosen?"wrong":"muted"):""} onClick={()=>answerQuiz(key)} disabled={!!quizChoice}><i>{String.fromCharCode(65+i)}</i><span>{option.name}<small>{option.latin}</small></span>{quizChoice&&correct&&<b>正解</b>}{quizChoice&&chosen&&!correct&&<b>選択</b>}</button>})}</div>{quizChoice&&<div className={`quizFeedback ${quizChoice===quizQuestion.target?"correct":"wrong"}`} role="status" aria-live="polite"><b>{quizChoice===quizQuestion.target?"正解です":"もう一度位置関係を確認"}</b><p>{surfaceQuiz?surfaceQuizTarget.note:`${sectionQuizTarget.relation}。${sectionQuizTarget.note}`}</p>{!surfaceQuiz&&sectionQuizTarget.labelSource&&<small className={`provenanceBadge ${learnerLabelSourceDisplay[sectionQuizTarget.labelSource].className}`}>{learnerLabelSourceDisplay[sectionQuizTarget.labelSource].label}</small>}<div>{quizChoice!==quizQuestion.target&&<button className="reviewTarget" onClick={()=>reviewQuizQuestion(quizQuestion)}>観察画面で位置を確認</button>}<button className="quizNextPrimary" onClick={nextQuiz}>{quizIndex===quizQueue.length-1?"結果を見る":"次の問題へ"} →</button></div></div>}<div className="quizScoreLine"><span>現在の正答</span><b>{quizScore}</b><small>/ {quizChoice?quizIndex+1:quizIndex}</small></div></aside>
       </div>}

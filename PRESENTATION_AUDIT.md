@@ -170,3 +170,13 @@ node scripts/audit_beta_routes.mjs --base-url http://localhost:4173 --output wor
 最終ビルドをローカル配信し、アプリ内ブラウザで脳底動脈、脳神経、自由観察の透過／通常切替、前後・上下方向の回転、個別選択時の白色強調を実操作した。自由観察では内頸動脈とXII舌下神経の同時選択に加え、Papez回路の脳弓が固有色を保ち、通常表示へ戻しても内部選択が見えることを確認した。Canvasは各1、残留ローダー、画面内エラー、console error/warning、横はみ出しはいずれも0だった。
 
 同じ最終ビルドをWindows Chrome 151、1366×768、1024×768、390×768で26経路×direct/reloadとして再巡回し、156/156件に合格した。missing/duplicate/fail=0、console／要求／画面内エラー、残留ローダー、横はみ出し、WebGL fallbackも0件だった。保存した機械監査結果は `work/browser-audit/beta-route-audit-transparency-final-2026-08-22.json`（ローカル作業用・配布対象外）。全テスト118/118、型検査、通常Vite本番ビルド、`git diff --check` も成功した。これは表示回帰の確認であり、模式形状の解剖学的正確性を検証したものではない。
+
+### 2026-08-22 クイズ出題粒度の実装・実ブラウザ確認
+
+復習クイズの既存23問を変更せず、トピックと独立した「すべての形式／断面・深部／脳表」フィルタと、断面3方向・脳表4方向の詳細フィルタを追加した。各選択肢の次回候補数、標準／試作の候補内訳、候補数に応じた実際の問題数表示、設定欄内の候補0件status noteを実装した。フィルタ変更後も進行中の問題queueは隠さず、変更は次回出題へ反映する。試作既定ON、wrong-only、標準／試作バッジ、shuffle、誤答後の観察リンクは維持している。
+
+下面は既存の脳表位置関係問題のみで、脳底の血管・脳神経同定問題を追加していない。旧ID33も正答targetへ戻していない。`QUIZ_GRANULARITY_AUDIT.md` と `scripts/audit_quiz_granularity.mjs` に分類・由来・受入条件を記録した。
+
+最終ローカル本番ビルドをアプリ内ブラウザで操作し、初期23候補から脳表・内側面2候補への絞り込み、形式変更時の候補数、試作OFF時の候補0件status note、進行中queueの維持、2問出題、試作バッジ、誤答後の楔部を選択した内側面観察への復帰を確認した。390px相当表示ではselect、候補内訳、問題数表示の一列折返しを目視し、console error/warningは0件だった。
+
+同じ最終ビルドをWindows Chrome 151、1366×768、1024×768、390×768で26経路×direct/reloadとして巡回し、156/156件に合格した。missing/duplicate/fail=0、console／要求／画面内エラー、残留loader、横はみ出し、WebGL fallbackも0件だった。保存した結果は `work/browser-audit/beta-route-audit-quiz-granularity-final-2026-08-22.json`（ローカル作業用・配布対象外）。全テスト125/125、粒度監査、型検査、通常／Pages本番ビルド、`git diff --check` も成功した。公開URL、物理端末、タッチ操作、異なるGPU・別ブラウザは未確認である。
