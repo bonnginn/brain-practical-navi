@@ -154,7 +154,7 @@
 - [ ] 必修構造は、検証済みか、模式・推定であることが画面上で判別できる。（部分的な根拠: 由来区分・表示面・既知の制限を監査索引へ記録し、23件の正答対象のみアプリ実装との照合を済ませた。画面全必修範囲のGo/No-Go判定は未実施。）
 - [ ] 学習対象の明らかな欠落、二重表示、遊離、空着色がない。
 - [ ] 脳表・断面・自由観察・クイズの中心操作がPCと横向きタブレットで完了できる。
-- [ ] スマートフォンで閲覧、クイズ、基本操作が破綻しない。全3D操作の完遂はβ公開条件にしない。
+- [ ] スマートフォンで閲覧、クイズ、基本操作が破綻しない。全3D操作の完遂はβ公開条件にしない。（部分実装: `MOBILE_UI_AUDIT.md` に沿って、coarse touch phoneだけへ5導線dock、単一settings dialog、編集Canvasを生成しないsegment案内を追加。Chrome 151のローカル通常production preview `http://127.0.0.1:4198` でcoarse touchのsettings／segment／range操作と、fine-pointer狭幅のcompact desktop／segment維持を確認。coarse 26経路52/52、fine/non-touch 26経路×3幅×direct/reload 156/156も合格。公開URL、物理端末、実機タッチ、Safari・別ブラウザ、別GPU、専門家レビューは未確認。）
 - [ ] 公開データ量と初回表示時間を実測し、過大な取得を減らしている。
 - [ ] 自動テスト、本番ビルド、公開URLの全経路巡回に合格する。（2026-08-22、status追加前25経路の150/150件に加え、statusを含む26経路×3幅×direct/reload＝156件もWindows Chrome 151（`http://127.0.0.1:4190`）で156/156合格。missing/duplicate/fail=0、console/request/UI error・loader・overflow・WebGL fallback=0。公開URL反映確認待ち。）
 - [ ] クイズ対象は画面上で十分に確認でき、未確認構造を正答として要求しない。（粒度監査で既存23件を形式・詳細・トピック・由来へ一意分類し、旧ID33の正答対象外と標準／試作の整合を自動検査。クイズ操作、試作バッジ、誤答から観察画面への復帰は実ブラウザ確認済み。標準採用基準の解剖学的妥当性は未完了で、誤答選択肢としての出現可能性は別途残る。）
@@ -179,3 +179,4 @@
 - [MEDIAL_TEMPORAL_AUDIT.md](MEDIAL_TEMPORAL_AUDIT.md): 海馬采・鉤の表示除外判断と根拠
 - [QUIZ_GRANULARITY_AUDIT.md](QUIZ_GRANULARITY_AUDIT.md): クイズ23問の形式・方向・トピック・由来分類と候補数フィルタの監査
 - [BETA_OBSERVATION_NOTES.md](BETA_OBSERVATION_NOTES.md): 利用観察から得た次期改善候補と実装・監修上の注意
+- [MOBILE_UI_AUDIT.md](MOBILE_UI_AUDIT.md): phone能力判定、専用dock、設定dialog、編集画面ガードの監査

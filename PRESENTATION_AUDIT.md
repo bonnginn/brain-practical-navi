@@ -202,3 +202,13 @@ node scripts/audit_beta_routes.mjs --base-url http://localhost:4173 --output wor
 Chrome 151のローカル本番preview `http://127.0.0.1:4196` で、主要血管6問、脳神経11問（I、III–XII）を全件通過した。白色強調、透過脳表、小脳OFF、試作バッジ、誤答feedback、`#workspace/surface/arteries` への正解構造選択付き遷移、試作OFFの神経血管候補0、WebGL unavailable時のfallbackと解答進行を確認した。in-app Browserの390×768指定（実効 `innerWidth` 295）では `docWidth` 284、横overflowなし、console logs 0だった。全経路監査は `work/browser-audit/beta-route-audit-neurovascular-quiz-final-2026-08-22.json` に保存し156/156件成功した。
 
 これはローカルChrome 151での表示・操作確認であり、公開URL、物理端末、別GPU、専門家レビューは未確認である。詳細は [NEUROVASCULAR_QUIZ_AUDIT.md](NEUROVASCULAR_QUIZ_AUDIT.md) を参照。
+
+### 2026-08-22 スマートフォン専用ワークスペースUI（ローカル実ブラウザ確認）
+
+既存の教材データ、Canvas描画、クイズ、回転、教材状態、URL hashを変更せず、`width <= 760` かつ `hover: none` かつ `pointer: coarse` のときだけphone UIを有効にした。Home、脳表、断面、ブロック標本、復習の5導線をsafe-area対応の下部dockへ移し、上部の教材横スクロールナビを隠す。既存のworkspace `leftRail` は1つのsettings `dialog` 内へ置き、44px操作対象、背景クリック、Esc、Tab循環、起点focus復帰、背景scroll固定を実装した。
+
+Chrome 151のローカル通常production preview `http://127.0.0.1:4198` で、fine-pointer狭幅とcoarse touch emulationを確認した。fine-pointer狭幅は実効 `innerWidth` 295 / `clientWidth` 284、hover・pointerともfalse、`phoneMode=false`、dockなし、sections Canvas 1、segment workbenchあり・guardなし・Canvas 1、`docWidth=clientWidth`で、console logsは0件だった。
+
+coarse touch emulationはCDP width / clientWidth / scrollWidth 390、`mobile:true`、`touch:true`、`hover:none`、`pointer:coarse`で、`phoneMode=true`、dock 5件、sections Canvas 1を確認した。settings native dialogのrole、閉じた直後の初期focus、structure buttons 21件・structure groups 1件・全解除、html/body overflow hidden、Shift+Tabのdialog内循環、Esc／背景click後の起点phoneRailToggle focus復帰を確認した。rangeは52→53、page scrollY 220だった。segment directはguard true、workbench false、Canvas 0、dock 5件、overflow 0だった。画像は `work/browser-audit/mobile-ui-settings-390.png` と `work/browser-audit/mobile-ui-segment-390.png`、probe JSONは `work/browser-audit/mobile-ui-coarse-probe-2026-08-22.json` に保存した。
+
+coarse phoneの26経路×direct/reloadは52/52件、通常fine/non-touchの26経路×3幅×direct/reloadは156/156件に合格した。結果はそれぞれ `work/browser-audit/mobile-ui-route-audit-2026-08-22.json` と `work/browser-audit/beta-route-audit-mobile-ui-final-2026-08-22.json` に保存し、両reportでmissing/duplicate/fail、console/request/UI error、残留loader、横overflow、WebGL fallbackは0件だった。公開URL、物理端末、実機タッチ、Safari・別ブラウザ、別GPU、専門家レビューは未確認である。詳細は [MOBILE_UI_AUDIT.md](MOBILE_UI_AUDIT.md) を参照。

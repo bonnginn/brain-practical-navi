@@ -1127,3 +1127,60 @@ html, body, #root { height: 100%; overflow: hidden; }
   .topActions>span{display:none}
   .inspectorBackdrop,.inspector{top:104px}
 }
+/* Touch-first phone chrome.  The rail remains one DOM subtree; on phones it
+   is moved into the settings sheet rather than rendered a second time. */
+.phoneDock,.phoneRailToggle,.phoneSettingsHeader,.phoneSettingsBackdrop{display:none}
+.phoneSettingsSheet{display:contents;margin:0;padding:0;border:0;background:transparent;color:inherit}
+.phoneSettingsSheet:not([open]){display:contents}
+.phoneSettingsClose{min-width:44px;min-height:44px;border:1px solid #aeb5b0;background:#f7f5ef;color:#25312f;font-size:24px;line-height:1}
+.phoneSegmentGuard{max-width:720px;margin:22px auto;padding:28px;border:1px solid #d0b08f;border-left:4px solid #b77a49;background:#fff8ef}
+.phoneSegmentGuard h2{margin:7px 0 10px;font-size:28px}
+.phoneSegmentGuard p{max-width:680px;margin:0;color:#604c3e;line-height:1.75}
+.phoneSegmentGuard>div{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.phoneSegmentGuard button{min-height:44px;padding:9px 13px;border:1px solid #b77a49;background:#fff;color:#744526;font-weight:800}
+
+@media(max-width:760px) and (hover:none) and (pointer:coarse){
+  .phone-mode{padding-top:60px!important;padding-bottom:calc(82px + env(safe-area-inset-bottom))}
+  .phone-mode .topbar{height:60px;display:flex;grid-template-columns:none;grid-template-rows:none;align-items:center;padding-inline:6px}
+  .phone-mode .brand{grid-column:auto;grid-row:auto}
+  .phone-mode .topActions{grid-column:auto;grid-row:auto;margin-left:auto;overflow-x:auto}
+  .phone-mode.homeShell .phoneRailToggle,.phone-mode.workspace-collaborate .phoneRailToggle,.phone-mode.workspace-segment .phoneRailToggle{display:none}
+  .phone-mode .workspaceSwitch{display:none!important}
+  .phone-mode .phoneRailToggle{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:5px 8px;border:1px solid #90a9a4;background:#edf4f2;color:#24534e;font-size:13px;font-weight:800;white-space:nowrap}
+  .phone-mode .topActions{min-width:0}
+  .phone-mode .topActions>button{min-height:44px}
+  .phoneDock{position:fixed;z-index:40;right:0;bottom:0;left:0;display:block;padding:6px 8px calc(6px + env(safe-area-inset-bottom));border-top:1px solid #aeb8b2;background:rgba(247,246,242,.97);box-shadow:0 -8px 24px rgba(29,43,42,.14)}
+  .phoneDock>div{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;max-width:720px;margin:0 auto}
+  .phoneDock button{display:grid;min-width:0;min-height:44px;align-content:center;gap:1px;padding:5px 2px;border:1px solid transparent;background:transparent;color:#43504e;font-size:12px;font-weight:800;line-height:1.1;text-align:center}
+  .phoneDock button small{color:#64706d;font-size:10px;font-weight:600}
+  .phoneDock button.active{border-color:#5d938b;background:#e7f0ec;color:#174f4a}
+  .phoneDock button.active small{color:#28736b}
+  .phoneSettingsSheet:not([open]){display:none}
+  .phoneSettingsSheet[open]{position:fixed;z-index:50;inset:0;display:block;width:100%;max-width:none;height:100dvh;margin:0;padding:0;border:0;background:transparent;overflow:hidden}
+  .phoneSettingsSheet::backdrop{background:rgba(19,28,29,.4)}
+  .phoneSettingsBackdrop{position:absolute;inset:0;display:block;background:rgba(19,28,29,.22)}
+  .phoneSettingsHeader{position:absolute;z-index:2;top:env(safe-area-inset-top);right:0;left:0;display:flex;align-items:center;justify-content:space-between;min-height:58px;padding:7px 12px 7px 16px;border-bottom:1px solid #bfc4bf;background:#f7f5ef;color:#25312f;font-weight:800}
+  .phoneSettingsSheet .leftRail{position:absolute;z-index:1;top:calc(58px + env(safe-area-inset-top));right:0;bottom:0;left:0;display:block;height:auto;min-height:0;padding:14px 12px calc(24px + env(safe-area-inset-bottom));overflow-y:auto;border:0;background:#f7f5ef}
+  /* The generic compact layout hides dense rails; the open phone sheet must
+     restore the existing section controls instead of cloning or redesigning them. */
+  .phoneSettingsSheet .leftRail>.eyebrow{display:block}
+  .phoneSettingsSheet .leftRail .railLine{display:block}
+  .phoneSettingsSheet .leftRail .structureBtn{display:flex}
+  .phoneSettingsSheet .leftRail .structureGroupGrid{display:grid}
+  .phoneSettingsSheet .leftRail .clearStructures{display:block}
+  .phoneSettingsSheet .leftRail .bookNotice{display:block}
+  .phoneSettingsSheet .leftRail button,.phoneSettingsSheet .leftRail select{min-height:44px}
+  .phoneSettingsSheet .leftRail input{min-width:20px;min-height:20px}
+  .phoneSettingsSheet .leftRail .lessonRailBtn{min-height:44px}
+  .phoneSettingsSheet .leftRail .quizCountButtons button{min-height:44px}
+  .phone-mode .segmentationEntry{display:none}
+  .phone-mode .phoneSegmentGuard{margin:14px 0;padding:22px 18px}
+  .phone-mode .phoneSegmentGuard h2{font-size:24px}
+  .phone-mode .phoneSegmentGuard>div{display:grid;grid-template-columns:1fr}
+  .phone-mode .phoneSegmentGuard button{width:100%;min-height:44px}
+  .phone-mode .quizImageCard{height:clamp(420px,68svh,620px)}
+  .phone-mode .quizImageStage{min-height:0}
+  .phone-mode .sliceStage{min-height:610px}
+  .phone-mode .rangeWrap button{min-width:44px;min-height:44px}
+  .phone-mode .workspace-sections .slicePanel{overflow:visible}
+}

@@ -9,6 +9,7 @@ import { QUIZ_GRANULARITY_BY_TARGET, countQuizChoice, detailOptionsForFormat, fi
 import type { QuizDetail, QuizFormat, QuizFilterQuestion, QuizFilters, QuizOrigin } from "../src/quizGranularity.mjs";
 import { BLOCK_CONTEXT_SPECIMEN, createBlockContextState, shouldRenderBlockContext, transitionBlockContext } from "../src/blockContext.mjs";
 import type { BlockContextEvent } from "../src/blockContext.mjs";
+import { phoneCapabilityFromMedia } from "../src/mobileUi.mjs";
 import { advanceBasalStepperIndex, BASAL_GANGLIA_STEPS, startBasalGangliaStepperTimer } from "../src/pathwayStepper.mjs";
 import type { BasalGangliaStep } from "../src/pathwayStepper.mjs";
 
@@ -525,6 +526,15 @@ function OrientationCompass({rotation,compact=false}:{rotation:Rotation;compact?
   </div>;
 }
 
+function currentPhoneCapability(){
+  if(typeof window==="undefined")return false;
+  return phoneCapabilityFromMedia({
+    width:window.innerWidth,
+    hoverMatches:window.matchMedia("(hover: none)").matches,
+    pointerMatches:window.matchMedia("(pointer: coarse)").matches,
+  });
+}
+
 export default function Home() {
   const initialPlane=typeof window==="undefined"?"coronal":planeFromHash(window.location.hash);
   const initialBlockSpecimen=typeof window==="undefined"?"lateral-ventricle":blockSpecimenFromHash(window.location.hash);
@@ -550,7 +560,11 @@ export default function Home() {
   const [legalOpen,setLegalOpen]=useState(()=>typeof window!=="undefined"&&overlayFromHash(window.location.hash)==="legal");
   const [feedbackOpen,setFeedbackOpen]=useState(()=>typeof window!=="undefined"&&overlayFromHash(window.location.hash)==="feedback");
   const [statusOpen,setStatusOpen]=useState(()=>typeof window!=="undefined"&&overlayFromHash(window.location.hash)==="status");
+  const [phoneMode,setPhoneMode]=useState(currentPhoneCapability);
+  const [phoneSettingsOpen,setPhoneSettingsOpen]=useState(false);
   const overlayReturnFocus=useRef<HTMLElement|null>(null);
+  const phoneSettingsDialogRef=useRef<HTMLDialogElement|null>(null);
+  const phoneSettingsReturnFocus=useRef<HTMLElement|null>(null);
   const overlayOpen=helpOpen||feedbackOpen||legalOpen||statusOpen;
   const [surfaceCerebellum,setSurfaceCerebellum]=useState(surfaceView!=="cranialNerves"&&surfaceView!=="arteries"&&surfaceView!=="medial"&&surfaceView!=="inferior");
   const [surfaceVisibleRegions,setSurfaceVisibleRegions]=useState<SurfaceRegionKey[]>([]);
@@ -697,11 +711,63 @@ export default function Home() {
   useEffect(()=>{try{const saved=JSON.parse(localStorage.getItem(QUIZ_WRONG_CACHE_KEY)??"[]");if(Array.isArray(saved))setWrongTargets(saved.filter((key):key is QuizTargetKey=>typeof key==="string"&&(key in structures||key in surfaceRegions||key in neurovascularStructures)))}catch{/* invalid cache is ignored */}},[]);
   useEffect(()=>setQuizSlicePosition(quizStartPosition),[quizStartPosition,surfaceQuiz]);
   useEffect(()=>{if(isSurfaceQuiz(quizQuestion)||isNeurovascularQuiz(quizQuestion))setRotation({...surfaceViews[quizQuestion.view].rotation})},[quizQuestion]);
-  useEffect(()=>{const close=(event:KeyboardEvent)=>{if(event.key==="Escape"){closeOverlay();setDetailsOpen(false)}};window.addEventListener("keydown",close);return()=>window.removeEventListener("keydown",close)},[workspace,surfaceView,plane,blockSpecimen]);
+  useEffect(()=>{
+    const widthQuery=window.matchMedia("(max-width: 760px)");
+    const hoverQuery=window.matchMedia("(hover: none)");
+    const pointerQuery=window.matchMedia("(pointer: coarse)");
+    const mediaQueries=[widthQuery,hoverQuery,pointerQuery];
+    const update=()=>setPhoneMode(phoneCapabilityFromMedia({width:window.innerWidth,hoverMatches:hoverQuery.matches,pointerMatches:pointerQuery.matches}));
+    update();
+    window.addEventListener("resize",update);
+    window.addEventListener("orientationchange",update);
+    mediaQueries.forEach(query=>query.addEventListener("change",update));
+    return()=>{window.removeEventListener("resize",update);window.removeEventListener("orientationchange",update);mediaQueries.forEach(query=>query.removeEventListener("change",update))};
+  },[]);
+  useEffect(()=>{if(!phoneMode)setPhoneSettingsOpen(false)},[phoneMode]);
+  useEffect(()=>{
+    const close=(event:KeyboardEvent)=>{if(event.key==="Escape"){if(phoneSettingsOpen){setPhoneSettingsOpen(false);return}closeOverlay();setDetailsOpen(false)}};
+    window.addEventListener("keydown",close);
+    return()=>window.removeEventListener("keydown",close);
+  },[workspace,surfaceView,plane,blockSpecimen,phoneSettingsOpen]);
   useEffect(()=>{if(!overlayOpen)return;const previousOverflow=document.body.style.overflow;document.body.style.overflow="hidden";const frame=window.requestAnimationFrame(()=>document.querySelector<HTMLButtonElement>('.legalDialog header button')?.focus());const trap=(event:KeyboardEvent)=>{if(event.key!=="Tab")return;const dialog=document.querySelector<HTMLElement>('.legalDialog');if(!dialog)return;const focusable=[...dialog.querySelectorAll<HTMLElement>('button:not(:disabled),a[href],input:not(:disabled),select:not(:disabled),textarea:not(:disabled),[tabindex]:not([tabindex="-1"])')].filter(element=>element.getClientRects().length>0);if(!focusable.length)return;const first=focusable[0],last=focusable.at(-1)!;if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus()}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus()}};window.addEventListener("keydown",trap);return()=>{window.cancelAnimationFrame(frame);window.removeEventListener("keydown",trap);document.body.style.overflow=previousOverflow}},[helpOpen,feedbackOpen,legalOpen,statusOpen]);
   useEffect(()=>{if(!overlayOpen)overlayReturnFocus.current?.focus()},[overlayOpen]);
-  useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.hash);setHelpOpen(overlay==="help");setFeedbackOpen(overlay==="feedback");setLegalOpen(overlay==="legal");setStatusOpen(overlay==="status");const nextWorkspace=workspaceFromHash(window.location.hash);transitionBlockContextState({type:"restore-route",workspace:nextWorkspace,specimen:blockSpecimenFromHash(window.location.hash)});setBlockContextDrag(null);setWorkspace(nextWorkspace);if(nextWorkspace==="surface")chooseSurface(surfaceViewFromHash(window.location.hash),"none");else if(nextWorkspace==="sections")jump(planeFromHash(window.location.hash),52,"none");else if(nextWorkspace==="blocks")chooseBlock(blockSpecimenFromHash(window.location.hash),"none")};window.addEventListener("hashchange",restore);window.addEventListener("popstate",restore);return()=>{window.removeEventListener("hashchange",restore);window.removeEventListener("popstate",restore)}},[]);
-  useEffect(()=>{if(!window.matchMedia("(max-width: 760px)").matches)return;const frame=window.requestAnimationFrame(()=>{document.querySelector<HTMLElement>(".workspaceSwitch button.active")?.scrollIntoView({block:"nearest",inline:"center"});document.querySelector<HTMLElement>(".leftRail .planeBtn.active")?.scrollIntoView({block:"nearest",inline:"center"})});return()=>window.cancelAnimationFrame(frame)},[workspace,surfaceView,plane,blockSpecimen]);
+  useEffect(()=>{
+    const dialog=phoneSettingsDialogRef.current;
+    if(!dialog)return;
+    const handleClose=()=>{if(phoneSettingsOpen)setPhoneSettingsOpen(false)};
+    dialog.addEventListener("close",handleClose);
+    if(phoneMode&&phoneSettingsOpen&&!dialog.open)dialog.showModal();
+    else if((!phoneMode||!phoneSettingsOpen)&&dialog.open)dialog.close();
+    return()=>dialog.removeEventListener("close",handleClose);
+  },[phoneMode,phoneSettingsOpen]);
+  useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.hash);setHelpOpen(overlay==="help");setFeedbackOpen(overlay==="feedback");setLegalOpen(overlay==="legal");setStatusOpen(overlay==="status");setPhoneSettingsOpen(false);const nextWorkspace=workspaceFromHash(window.location.hash);transitionBlockContextState({type:"restore-route",workspace:nextWorkspace,specimen:blockSpecimenFromHash(window.location.hash)});setBlockContextDrag(null);setWorkspace(nextWorkspace);if(nextWorkspace==="surface")chooseSurface(surfaceViewFromHash(window.location.hash),"none");else if(nextWorkspace==="sections")jump(planeFromHash(window.location.hash),52,"none");else if(nextWorkspace==="blocks")chooseBlock(blockSpecimenFromHash(window.location.hash),"none")};window.addEventListener("hashchange",restore);window.addEventListener("popstate",restore);return()=>{window.removeEventListener("hashchange",restore);window.removeEventListener("popstate",restore)}},[]);
+  useEffect(()=>{
+    if(!phoneMode||!phoneSettingsOpen)return;
+    const dialog=phoneSettingsDialogRef.current;
+    if(!dialog)return;
+    const previousHtmlOverflow=document.documentElement.style.overflow;
+    const previousBodyOverflow=document.body.style.overflow;
+    document.documentElement.style.overflow="hidden";
+    document.body.style.overflow="hidden";
+    const frame=window.requestAnimationFrame(()=>dialog.querySelector<HTMLButtonElement>(".phoneSettingsClose, .leftRail button:not(:disabled), .leftRail input:not(:disabled)")?.focus());
+    const trap=(event:KeyboardEvent)=>{
+      if(event.key!=="Tab")return;
+      const focusable=[...dialog.querySelectorAll<HTMLElement>('button:not(:disabled),a[href],input:not(:disabled),select:not(:disabled),textarea:not(:disabled),[tabindex]:not([tabindex="-1"])')].filter(element=>element.getClientRects().length>0);
+      if(!focusable.length)return;
+      const first=focusable[0],last=focusable.at(-1)!;
+      if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus()}
+      else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus()}
+    };
+    window.addEventListener("keydown",trap);
+    return()=>{window.cancelAnimationFrame(frame);window.removeEventListener("keydown",trap);document.documentElement.style.overflow=previousHtmlOverflow;document.body.style.overflow=previousBodyOverflow};
+  },[phoneMode,phoneSettingsOpen,workspace]);
+  useEffect(()=>{
+    if(phoneSettingsOpen)return;
+    const target=phoneSettingsReturnFocus.current;
+    phoneSettingsReturnFocus.current=null;
+    if(target&&target.isConnected)window.requestAnimationFrame(()=>target.focus());
+  },[phoneSettingsOpen]);
+  useEffect(()=>{if(!phoneMode)return;const frame=window.requestAnimationFrame(()=>{document.querySelector<HTMLElement>(".workspaceSwitch button.active")?.scrollIntoView({block:"nearest",inline:"center"});document.querySelector<HTMLElement>(".leftRail .planeBtn.active")?.scrollIntoView({block:"nearest",inline:"center"})});return()=>window.cancelAnimationFrame(frame)},[phoneMode,workspace,surfaceView,plane,blockSpecimen]);
 
   function wrapAngle(value:number){return ((value+180)%360+360)%360-180}
 
@@ -841,7 +907,9 @@ export default function Home() {
   function chooseNeurovascularStructure(key:NeurovascularStructureKey){const item=neurovascularStructures[key];setSelectedNeurovascularStructure(key);if(item.kind==="arteries")setSurfaceVessels(true);else setSurfaceNerves(true)}
   function closeOverlay(){setHelpOpen(false);setFeedbackOpen(false);setLegalOpen(false);setStatusOpen(false);const nextHash=workspaceHash(workspace,surfaceView,plane,blockSpecimen);if(window.location.hash!==nextHash)window.history.replaceState(null,"",nextHash)}
   function openOverlay(key:OverlayMode){if(!overlayOpen)overlayReturnFocus.current=document.activeElement instanceof HTMLElement?document.activeElement:null;window.history.pushState(null,"",`#workspace/${key}`);setHelpOpen(key==="help");setFeedbackOpen(key==="feedback");setLegalOpen(key==="legal");setStatusOpen(key==="status")}
-  function openWorkspace(key:WorkspaceMode){setHelpOpen(false);setFeedbackOpen(false);setLegalOpen(false);setStatusOpen(false);const nextHash=workspaceHash(key,surfaceView,plane,blockSpecimen);if(window.location.hash!==nextHash)window.history.pushState(null,"",nextHash);transitionBlockContextState({type:key==="blocks"?"enter-workspace":"leave-workspace",workspace:key});setBlockContextDrag(null);setWorkspace(key);if(key==="home")setRotation({...homeRotation});if(key==="sections")setRotation({x:-7,y:-18,z:0});if(key==="surface")setRotation(surfaceViews[surfaceView].rotation);if(key==="blocks"){setBlockIntroOpen(true);setRotation({...blockInitialRotations[blockSpecimen]});setBlockViewPreset("initial")}}
+  function openPhoneSettings(){if(!phoneMode||workspace==="home"||workspace==="collaborate"||workspace==="segment")return;phoneSettingsReturnFocus.current=document.activeElement instanceof HTMLElement?document.activeElement:null;setPhoneSettingsOpen(true)}
+  function closePhoneSettings(){setPhoneSettingsOpen(false)}
+  function openWorkspace(key:WorkspaceMode){setPhoneSettingsOpen(false);setHelpOpen(false);setFeedbackOpen(false);setLegalOpen(false);setStatusOpen(false);const nextHash=workspaceHash(key,surfaceView,plane,blockSpecimen);if(window.location.hash!==nextHash)window.history.pushState(null,"",nextHash);transitionBlockContextState({type:key==="blocks"?"enter-workspace":"leave-workspace",workspace:key});setBlockContextDrag(null);setWorkspace(key);if(key==="home")setRotation({...homeRotation});if(key==="sections")setRotation({x:-7,y:-18,z:0});if(key==="surface")setRotation(surfaceViews[surfaceView].rotation);if(key==="blocks"){setBlockIntroOpen(true);setRotation({...blockInitialRotations[blockSpecimen]});setBlockViewPreset("initial")}}
   function saveWrongTargets(next:QuizTargetKey[]){setWrongTargets(next);try{localStorage.setItem(QUIZ_WRONG_CACHE_KEY,JSON.stringify(next))}catch{/* private browsing may block storage */}}
   function quizChoiceCount(dimension:"category"|"format"|"detail",value:string){return countQuizChoice(quizQuestionsForFiltering,quizFilters,wrongTargets,dimension,value)}
   function chooseQuizFormat(value:QuizFormatFilter){setQuizFormat(value);if(quizDetail!=="all"&&!detailOptionsForFormat(value).includes(quizDetail))setQuizDetail("all")}
@@ -854,16 +922,21 @@ export default function Home() {
   function restoreAllQuiz(){setQuizWrongOnly(false);setQuizCategory("all");setQuizFormat("all");setQuizDetail("all");setQuizIncludeProvisional(true);setQuizQueue(shuffledQuestions(allQuizQuestions).slice(0,quizCount));resetQuiz()}
   function resetWrongHistory(){saveWrongTargets([]);if(quizWrongOnly){setQuizQueue([]);resetQuiz()}}
 
-  return <main className={`appShell workspace-${workspace} ${workspace==="home"?"homeShell":""}`}>
+  return <main className={`appShell workspace-${workspace} ${workspace==="home"?"homeShell":""} ${phoneMode?"phone-mode":""}`}>
     <button className="skipLink" onClick={()=>document.getElementById("workspace")?.focus()}>本文へ移動</button>
     <header className="topbar">
       <a className="brand" href="#workspace/home" onClick={event=>{event.preventDefault();openWorkspace("home")}}><span className="brandMark">脳</span><span>脳実習ナビ<small>脳解剖実習 学習補助アプリ</small></span></a>
       <nav className="modeSwitch workspaceSwitch" aria-label="教材を選択">
         {workspaceModes.map(item=><button key={item.key} className={`${workspace===item.key?"active":""} ${item.key==="blocks"?"prototype":""}`} aria-current={workspace===item.key?"page":undefined} onClick={()=>openWorkspace(item.key)}><span>{item.label}</span><i>{item.sub}</i></button>)}
       </nav>
-      <div className="topActions"><span title="スマートフォンでも閲覧・クイズ・基本操作を利用できます">PC・横向きタブレット推奨</span><button className="helpButton" onClick={()=>openOverlay("help")} aria-label="操作ガイドを表示">操作ガイド</button><button className="feedbackButton" onClick={()=>openOverlay("feedback")} aria-label="匿名の意見・誤り報告を表示">意見・誤り報告</button><button className="collaborateButton" onClick={()=>openWorkspace("collaborate")} aria-label="共同制作ページを表示">共同制作</button><button className="legalButton" onClick={()=>openOverlay("legal")} aria-label="利用条件・クレジットを表示">利用条件</button></div>
+      <div className="topActions"><span title="スマートフォンでも閲覧・クイズ・基本操作を利用できます">PC・横向きタブレット推奨</span><button className="phoneRailToggle" onClick={openPhoneSettings} aria-controls="phone-settings-panel" aria-label="現在の教材の設定を表示">設定</button><button className="helpButton" onClick={()=>openOverlay("help")} aria-label="操作ガイドを表示">操作ガイド</button><button className="feedbackButton" onClick={()=>openOverlay("feedback")} aria-label="匿名の意見・誤り報告を表示">意見・誤り報告</button><button className="collaborateButton" onClick={()=>openWorkspace("collaborate")} aria-label="共同制作ページを表示">共同制作</button><button className="legalButton" onClick={()=>openOverlay("legal")} aria-label="利用条件・クレジットを表示">利用条件</button></div>
     </header>
 
+    {phoneMode&&<nav className="phoneDock" aria-label="学習者向け教材"><div>{workspaceModes.map(item=><button key={item.key} className={workspace===item.key?"active":""} aria-current={workspace===item.key?"page":undefined} onClick={()=>openWorkspace(item.key)}><span>{item.label}</span><small>{item.sub}</small></button>)}</div></nav>}
+
+    <dialog ref={phoneSettingsDialogRef} id="phone-settings-panel" className="phoneSettingsSheet" role={phoneMode?"dialog":"presentation"} aria-labelledby={phoneMode?"phone-settings-title":undefined} onCancel={event=>{event.preventDefault();closePhoneSettings()}} onMouseDown={event=>{if(event.target===event.currentTarget)closePhoneSettings()}}>
+      <div className="phoneSettingsBackdrop" aria-hidden="true" onClick={closePhoneSettings}/>
+      <div className="phoneSettingsHeader"><span id="phone-settings-title">{workspaceModes.find(item=>item.key===workspace)?.label??"教材"}の設定</span><button type="button" className="phoneSettingsClose" onClick={closePhoneSettings} aria-label="設定を閉じる">×</button></div>
     <aside className={`leftRail rail-${workspace}`} key={`rail-${workspace}`}>
       {workspace==="sections"&&<>
         <p className="eyebrow">CUTTING PLANE</p>
@@ -906,6 +979,7 @@ export default function Home() {
       </>}
       {workspace==="segment"&&<><p className="eyebrow">SEGMENTATION</p><div className="segRailIntro"><b>差分編集</b><p>元データを直接変更せず、修正したボクセルだけをJSONへ保存します。</p><ol><li>水平断を選ぶ</li><li>冠状・矢状断で位置を照合する</li><li>水平断で構造とブラシを選ぶ</li><li>境界を修正する</li><li>JSONをPRへ添付</li></ol></div><div className="railLine"/><p className="railMemo">共同制作者向けのα機能です。冠状断・矢状断は照合専用です。公式ラベルへの統合には、別のレビューと変換処理が必要です。</p></>}
     </aside>
+    </dialog>
 
     {workspace==="home"&&<section className="homeArea homeNoticeArea" id="workspace" tabIndex={-1}>
       <article className="homeNotice">
@@ -1030,7 +1104,7 @@ export default function Home() {
         <article><span>非公開・匿名</span><h2>意見・誤り報告</h2><p>表示位置、名称、操作性、クイズなどの気づきをGoogle Formへ送れます。継続参加や連絡先の記入は任意です。</p>{feedbackFormUrl?<a href={feedbackFormUrl} target="_blank" rel="noreferrer">Google Formを開く →</a>:<button disabled>フォームURL設定待ち</button>}</article>
         <article><span>公開相談</span><h2>改善案を相談する</h2><p>再現手順や根拠URLを公開し、検討経過を追跡したい不具合・提案はGitHub Issuesへ送ります。</p><a href={issueTrackerUrl} target="_blank" rel="noreferrer">GitHub Issuesを開く →</a></article>
         <article><span>具体的な変更</span><h2>Pull Requestを提案する</h2><p>コード、教材文、3Dデータの変更条件、DCO、出典・ライセンスの確認方法を共同制作ガイドにまとめています。</p><div><a href={contributingGuideUrl} target="_blank" rel="noreferrer">CONTRIBUTINGを読む</a><a href={pullRequestUrl} target="_blank" rel="noreferrer">Pull Request一覧 →</a></div></article>
-        <article><span>端末内の差分</span><h2>セグメンテーションを修正する</h2><p>編集内容はこの端末内の差分で、公式データを直接変更しません。採用には、画像上の根拠、差分JSON、レビュー、プロジェクト管理者の判断が必要です。</p><button onClick={()=>openWorkspace("segment")}>編集ツールを開く →</button></article>
+        <article className="segmentationEntry"><span>端末内の差分</span><h2>セグメンテーションを修正する</h2><p>編集内容はこの端末内の差分で、公式データを直接変更しません。採用には、画像上の根拠、差分JSON、レビュー、プロジェクト管理者の判断が必要です。</p><button onClick={()=>openWorkspace("segment")}>編集ツールを開く →</button></article>
         <article><span>方針・採否</span><h2>運営方針を確認する</h2><p>公式版への採否、役割、クレジット、匿名参加、継続参加、運営承継の考え方を確認できます。</p><a href={governanceGuideUrl} target="_blank" rel="noreferrer">GOVERNANCEを読む →</a></article>
         <article><span>権利・再利用</span><h2>ライセンスを確認する</h2><p>コード、教材文書、BigBrain・MNI・CerebrA由来データでは適用条件が異なります。公開・再配布前に確認してください。</p><div><a href={licenseGuideUrl} target="_blank" rel="noreferrer">ライセンス境界</a><button onClick={()=>openOverlay("legal")}>画面上の利用条件 →</button></div></article>
       </div>
@@ -1038,8 +1112,7 @@ export default function Home() {
 
     {workspace==="segment"&&<section className="workArea segmentationArea" id="workspace" tabIndex={-1}>
       <div className="workHead"><div><span className="eyebrow">MANUAL SEGMENTATION · ALPHA</span><h1>セグメンテーション編集</h1></div><span className="sourceBadge">BigBrain公開組織画像 0.5 mm・水平断編集／直交断照合</span></div>
-      <div className="segmentationReviewNotice"><b>端末内の差分編集です</b><p>ここでの編集は公式データを直接変更しません。差分JSONへ根拠を記録し、Pull Requestと解剖学的レビューを経て、採用された変更だけが公開版へ統合されます。</p><button onClick={()=>openWorkspace("collaborate")}>共同制作の入口へ戻る</button></div>
-      <ManualSegmentationWorkbench/>
+      {phoneMode?<div className="phoneSegmentGuard"><span className="eyebrow">PHONE VIEW</span><h2>編集ツールはPCで利用</h2><p>セグメンテーション編集は、画像とCanvasを安全に扱えるPC向け機能です。スマートフォンでは編集Canvasを読み込まず、教材の閲覧と共同制作の案内だけを表示します。</p><div><button onClick={()=>openWorkspace("collaborate")}>共同制作の入口へ</button><button onClick={()=>openWorkspace("surface")}>学習画面へ戻る</button></div></div>:<><div className="segmentationReviewNotice"><b>端末内の差分編集です</b><p>ここでの編集は公式データを直接変更しません。差分JSONへ根拠を記録し、Pull Requestと解剖学的レビューを経て、採用された変更だけが公開版へ統合されます。</p><button onClick={()=>openWorkspace("collaborate")}>共同制作の入口へ戻る</button></div><ManualSegmentationWorkbench/></>}
     </section>}
 
     {workspace==="sections"&&detailsOpen&&<button className="inspectorBackdrop" aria-label="解説を閉じる" onClick={()=>setDetailsOpen(false)}/>}
