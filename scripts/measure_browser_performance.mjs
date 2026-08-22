@@ -491,7 +491,7 @@ async function findPageTarget(port, timeoutMs = DEFAULT_TIMEOUT_MS) {
   throw new Error("Chrome did not expose a page target");
 }
 
-async function launchChrome() {
+export async function launchChrome() {
   const executable = process.env.CHROME_PATH?.trim() || process.env.CHROME_BIN?.trim() || DEFAULT_CHROME_PATH;
   const profile = await mkdtemp(join(tmpdir(), "brain-practical-performance-"));
   const port = await freePort();
@@ -532,14 +532,14 @@ async function launchChrome() {
   }
 }
 
-async function closeChrome(session) {
+export async function closeChrome(session) {
   if (!session) return;
   await session.cdp?.close();
   try { session.child?.kill(); } catch { /* best effort */ }
   await rm(session.profile, { recursive: true, force: true, maxRetries: 5, retryDelay: 150 });
 }
 
-async function evaluate(cdp, expression) {
+export async function evaluate(cdp, expression) {
   const response = await cdp.send("Runtime.evaluate", {
     expression,
     awaitPromise: true,
@@ -552,7 +552,7 @@ async function evaluate(cdp, expression) {
   return response.result?.value;
 }
 
-const READY_PROBE = `(() => {
+export const READY_PROBE = `(() => {
   const documentElement = document.documentElement;
   const body = document.body;
   const navigation = performance.getEntriesByType("navigation")[0];
@@ -576,7 +576,7 @@ const READY_PROBE = `(() => {
   };
 })()`;
 
-async function waitForDocumentReady(cdp, timeoutMs = DEFAULT_TIMEOUT_MS) {
+export async function waitForDocumentReady(cdp, timeoutMs = DEFAULT_TIMEOUT_MS) {
   const deadline = Date.now() + timeoutMs;
   while (Date.now() < deadline) {
     try {
@@ -588,12 +588,12 @@ async function waitForDocumentReady(cdp, timeoutMs = DEFAULT_TIMEOUT_MS) {
   throw new Error("document did not reach readyState=complete");
 }
 
-async function navigate(cdp, url) {
+export async function navigate(cdp, url) {
   const response = await cdp.send("Page.navigate", { url });
   if (response.errorText) throw new Error(`navigation failed: ${response.errorText}`);
 }
 
-async function prepareRoute(cdp, route) {
+export async function prepareRoute(cdp, route) {
   if (!routeNeedsBlockIntroAction(route)) return;
   const prepared = await waitForRuntimeProbe(cdp, `(() => {
     const model = document.querySelector(".learningModelStage canvas");
@@ -673,7 +673,7 @@ async function collectMeasurement(cdp, state, { timeoutMs = DEFAULT_TIMEOUT_MS, 
   return { stableProbe, stable: stabilityReason === "stable", stabilityReason, heap: aggregateHeapMetrics(samples, samples.at(-1)) };
 }
 
-async function waitForUiReady(cdp, timeoutMs = DEFAULT_TIMEOUT_MS) {
+export async function waitForUiReady(cdp, timeoutMs = DEFAULT_TIMEOUT_MS) {
   const deadline = Date.now() + timeoutMs;
   let latest = null;
   while (Date.now() < deadline) {
@@ -686,7 +686,7 @@ async function waitForUiReady(cdp, timeoutMs = DEFAULT_TIMEOUT_MS) {
   throw new Error(`mobile interaction route did not become ready${latest ? ` (loading=${latest.loadingCount}, uiErrors=${latest.uiErrors?.length ?? "?"}, appRoot=${latest.appRootPresent})` : ""}`);
 }
 
-async function waitForRuntimeProbe(cdp, expression, predicate, timeoutMs = DEFAULT_TIMEOUT_MS) {
+export async function waitForRuntimeProbe(cdp, expression, predicate, timeoutMs = DEFAULT_TIMEOUT_MS) {
   const deadline = Date.now() + timeoutMs;
   let latest = null;
   while (Date.now() < deadline) {
@@ -845,7 +845,7 @@ async function runBasicMobileScenario(cdp, args) {
   return interactions;
 }
 
-function attachObservers(cdp, state) {
+export function attachObservers(cdp, state) {
   const eventMethods = [
     "Network.requestWillBeSent",
     "Network.loadingFinished",
@@ -857,7 +857,7 @@ function attachObservers(cdp, state) {
   return () => removers.forEach(remove => remove());
 }
 
-async function configurePage(cdp) {
+export async function configurePage(cdp) {
   await cdp.send("Page.enable");
   await cdp.send("Network.enable");
   await cdp.send("Runtime.enable");
