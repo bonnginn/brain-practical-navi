@@ -77,13 +77,6 @@ function planeFromHash(hash:string):Plane{const candidate=hash.replace(/^#/,"").
 function blockSpecimenFromHash(hash:string):BlockSpecimenKey{const candidate=hash.replace(/^#/,"").replace(/^workspace\/?/,"").split("/")[1];return blockSpecimenKeys.includes(candidate as BlockSpecimenKey)?candidate as BlockSpecimenKey:"lateral-ventricle"}
 function workspaceHash(key:WorkspaceMode,surfaceView:SurfaceViewKey="lateral",plane:Plane="coronal",blockSpecimen:BlockSpecimenKey="lateral-ventricle"){const detail=key==="surface"?(surfaceView==="cranialNerves"?"nerves":surfaceView):key==="sections"?plane:key==="blocks"?blockSpecimen:"";return `#workspace/${key}${detail?`/${detail}`:""}`}
 const homeRotation:Rotation={x:-8,y:-28,z:0};
-const homeLearningModes:{key:Extract<WorkspaceMode,"surface"|"sections"|"blocks"|"quiz">;title:string;summary:string}[]=[
-  {key:"surface",title:"脳表",summary:"脳回・脳溝、脳底構造を3Dで観察"},
-  {key:"sections",title:"断面",summary:"冠状・水平・矢状断を連続して確認"},
-  {key:"blocks",title:"ブロック標本",summary:"局所構造の立体的な位置関係を比較"},
-  {key:"quiz",title:"復習",summary:"色で示された構造を短い問題で確認"},
-];
-
 const quizCategories:{key:"all"|QuizCategory;label:string}[]=[
   {key:"all",label:"全項目"},
   {key:"basal",label:"大脳基底核"},
@@ -748,16 +741,16 @@ export default function Home() {
     </aside>
 
     {workspace==="home"&&<section className="homeArea homeNoticeArea" id="workspace" tabIndex={-1}>
-      <article className="homeNotice homeLearningLanding">
-        <header><span>PUBLIC ALPHA · EDUCATIONAL USE ONLY</span><h1>脳実習ナビ</h1><p><strong>脳実習の予習・復習で、紙面だけでは追いにくい構造の連続性と立体的な位置関係を補う教材です。</strong>授業や監督下の実習を置き換えるものではありません。</p></header>
-        <div className="homeLandingBody">
-          <figure className="homePreviewPoster"><img src={`${import.meta.env.BASE_URL}home-surface-preview.png`} alt="脳表3Dモデルの軽量プレビュー" width="613" height="424" loading="eager"/><figcaption><span>LIGHTWEIGHT PREVIEW</span><b>本格3Dは脳表を開いたときに読み込みます</b></figcaption></figure>
-          <div className="homeLearningChoices" aria-label="教材を選択">{homeLearningModes.map(item=><button key={item.key} onClick={()=>openWorkspace(item.key)}><span>{item.title}</span><small>{item.summary}</small><b>開く →</b></button>)}</div>
+      <article className="homeNotice">
+        <header><span>PUBLIC ALPHA · EDUCATIONAL USE ONLY</span><h1>脳実習ナビ</h1><p><strong>本アプリは、神経解剖学の教育・自主学習目的で提供しています。</strong>教育目的以外での利用はお控えください。</p></header>
+        <div className="homeNoticePoints">
+          <section><b>教育目的での利用</b><p>脳表、断面、3Dモデルを行き来しながら、構造の見え方と位置関係を確認する学習教材です。</p></section>
+          <section><b>公開α版</b><p>解剖学的表示は継続して確認・改訂しています。教科書や検証済み資料と照合して利用してください。</p></section>
+          <section><b>利用上の注意</b><p>診断、治療、手術計画、定量研究のためには使用できません。出典・利用条件は事前に確認してください。</p></section>
         </div>
-        <div className="homeDeviceNote"><b>PC・横向きタブレット推奨</b><p>スマートフォンでも閲覧、クイズ、基本操作を利用できます。画面の広さが必要な3D観察はPCまたは横向きタブレットが快適です。</p></div>
-        <footer><button onClick={()=>openOverlay("legal")}>利用条件・データ・クレジット</button><button onClick={()=>openOverlay("feedback")}>匿名の意見・誤り報告</button><button onClick={()=>openWorkspace("collaborate")}>共同制作について</button></footer>
+        <footer><button className="homeEnter" onClick={()=>openWorkspace("surface")}>教育目的で教材を開く</button><button onClick={()=>openOverlay("legal")}>利用条件・データ・クレジット</button><button onClick={()=>openOverlay("feedback")}>匿名の意見・誤り報告</button></footer>
       </article>
-      <p className="homeQuietNote">教育目的の公開α版です。診断、治療、手術計画、定量研究には使用できません。</p>
+      <p className="homeQuietNote">教育目的の試作教材です。内容への懸念や解剖学的な指摘は、匿名の意見・誤り報告からお知らせください。</p>
     </section>}
 
     {workspace==="sections"&&<section className="workArea" id="workspace" tabIndex={-1}><h1 className="srOnly">断面実習</h1>
