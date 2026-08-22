@@ -684,7 +684,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 .segRailIntro ol { margin: 0; padding-left: 18px; color: #485452; font-size: 16px; line-height: 1.85; }
 .segmentationArea { min-height: 0; }
 .segWorkbench { flex: 1 1 auto; min-height: 0; display: grid; grid-template-columns: minmax(0,1fr) clamp(330px,30vw,420px); gap: 12px; }
-.segCanvasCard { min-height: 0; display: grid; grid-template-rows: 58px minmax(0,1fr) 92px; overflow: hidden; border: 1px solid #c7cac4; background: #252c2f; box-shadow: 0 10px 34px rgba(26,34,35,.1); }
+.segCanvasCard { min-height: 0; display: grid; grid-template-rows: 58px minmax(0,1fr) auto 92px; overflow: hidden; border: 1px solid #c7cac4; background: #252c2f; box-shadow: 0 10px 34px rgba(26,34,35,.1); }
 .segCanvasCard > header { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; border-bottom: 1px solid #455053; color: #f1f2ef; }
 .segCanvasCard > header div { display: grid; gap: 3px; }
 .segCanvasCard > header b { font-size: 16px; }
@@ -699,6 +699,13 @@ html, body, #root { height: 100%; overflow: hidden; }
 .segLoading.error { color: #ef8b78; }
 .segOrientation { position: absolute; top: 12px; right: 12px; display: grid; justify-items: center; gap: 4px; color: #aeb9b7; font: 15px monospace; pointer-events: none; }
 .segOrientation span { word-spacing: 12px; }
+.segReadOnlyNotice { position: absolute; z-index: 2; top: 12px; left: 12px; display: grid; gap: 2px; max-width: min(340px,calc(100% - 24px)); padding: 7px 10px; border: 1px solid #d39b68; background: rgba(48,35,28,.9); color: #fff4e7; pointer-events: none; }
+.segReadOnlyNotice b { color: #ffd49f; font-size: 14px; }
+.segReadOnlyNotice span { font-size: 12px; }
+.segCoordinateReadout { display: grid; grid-template-columns: auto auto 1fr; align-items: baseline; gap: 8px; min-width: 0; padding: 6px 14px; border-top: 1px solid #455053; background: #20272a; color: #d6ddda; font: 13px/1.4 monospace; }
+.segCoordinateReadout b { color: #a9c9c0; font-size: 12px; }
+.segCoordinateReadout span { white-space: nowrap; }
+.segCoordinateReadout small { justify-self: end; overflow: hidden; color: #9ca7a7; text-overflow: ellipsis; white-space: nowrap; }
 .segCanvasCard > footer { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 14px; padding: 9px 14px; border-top: 1px solid #455053; }
 .segCanvasCard > footer label { display: grid; grid-template-columns: auto minmax(0,1fr) auto; align-items: center; gap: 9px; color: #aab4b3; font-size: 15px; }
 .segSliceNavigation { min-width: 0; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; align-items: center; gap: 6px 8px; }
@@ -710,10 +717,20 @@ html, body, #root { height: 100%; overflow: hidden; }
 .segControls { min-height: 0; overflow-y: auto; padding: 22px 24px 26px; border: 1px solid #c7cac4; background: #e7e5df; }
 .segControls h2 { margin: 7px 0 6px; font: 400 24px Georgia,"Yu Mincho",serif; }
 .segControls > p { margin: 0 0 15px; color: #626c6a; font-size: 16px; line-height: 1.7; }
+.segPlaneTabs { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); margin: 0 0 12px; }
+.segPlaneTabs button { display: grid; gap: 2px; padding: 8px 5px; border: 1px solid #b7bcb6; background: #f3f1ec; color: #596361; font-size: 15px; font-weight: 700; }
+.segPlaneTabs button + button { margin-left: -1px; }
+.segPlaneTabs button.active { z-index: 1; border-color: #1d6e69; background: #1d6e69; color: #fff; }
+.segPlaneTabs button small { color: #7a8581; font: 11px monospace; }
+.segPlaneTabs button.active small { color: #cfe3df; }
+.segReadOnlyPanel { margin: 0 0 12px; padding: 9px 10px; border-left: 3px solid #d39b68; background: #fff1e3; color: #65442f; }
+.segReadOnlyPanel b { display: block; color: #8b542d; font-size: 14px; }
+.segReadOnlyPanel p { margin: 3px 0 0; color: #65442f; font-size: 13px; line-height: 1.5; }
 .segToolRow { display: grid; grid-template-columns: repeat(3,1fr); margin-bottom: 12px; }
 .segToolRow button { padding: 9px 5px; border: 1px solid #b7bcb6; background: #f3f1ec; color: #5e6866; font-size: 16px; font-weight: 700; }
 .segToolRow button + button { margin-left: -1px; }
 .segToolRow button.active { z-index: 1; border-color: #1d6e69; background: #1d6e69; color: #fff; }
+.segToolRow button:disabled { cursor: not-allowed; opacity: .42; }
 .segField { display: grid; gap: 6px; margin-top: 12px; }
 .segField > span { display: flex; justify-content: space-between; gap: 10px; color: #596361; font-size: 15px; font-weight: 700; }
 .segField select, .segField textarea, .segField input:not([type="range"]) { width: 100%; border: 1px solid #b8bdb7; background: #f8f6f1; color: #313c3a; font-size: 16px; }
@@ -731,6 +748,16 @@ html, body, #root { height: 100%; overflow: hidden; }
 .segStats span { grid-column: 1/3; color: #727b79; font-size: 15px; }
 .segStats b { color: #e36e57; font: 18px monospace; }
 .segStats small { color: #808986; font: 15px monospace; }
+.segComparison { margin-top: 9px; padding: 9px 10px; border: 1px solid #c1c5bf; background: #efeee8; }
+.segComparison header { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 5px; }
+.segComparison header b { font-size: 15px; }
+.segComparison header small { color: #7a8381; font-size: 12px; }
+.segComparison > div { display: grid; gap: 3px; }
+.segComparison span { display: grid; grid-template-columns: 8px minmax(0,1fr); gap: 2px 7px; align-items: center; padding: 4px 0; border-top: 1px solid #d1d0c9; }
+.segComparison span i { grid-row: 1/3; width: 8px; min-height: 27px; border-radius: 4px; }
+.segComparison span b { overflow: hidden; color: #4c5956; font-size: 13px; text-overflow: ellipsis; white-space: nowrap; }
+.segComparison span small { color: #7a8381; font: 12px monospace; }
+.segComparison > p { margin: 7px 0 0; color: #6b7471; font-size: 12px; line-height: 1.45; }
 .segEditedSlices { margin-top: 9px; padding: 9px 10px; border: 1px solid #c1c5bf; background: #efeee8; }
 .segEditedSlices header { display: flex; align-items: center; justify-content: space-between; }
 .segEditedSlices header b { font-size: 15px; }
@@ -756,6 +783,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 .segFiles { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 12px; }
 .segFiles button.primary { border-color: #1d6e69; background: #1d6e69; color: white; }
 .segFiles button.danger { grid-column: 1/3; border: 0; background: transparent; color: #9a574a; text-decoration: underline; text-underline-offset: 2px; }
+.segFiles button:disabled { cursor: not-allowed; }
 .segStatus { margin: 8px 0 0 !important; color: #687270 !important; font: 15px/1.5 monospace !important; }
 .segControls .accuracyNote { margin-top: 12px; }
 .segControls .accuracyNote p { margin-bottom: 0; }
@@ -1013,6 +1041,9 @@ html, body, #root { height: 100%; overflow: hidden; }
   .collaborationGrid{grid-template-columns:1fr}
   .collaborationGrid article{min-height:0}
   .segmentationReviewNotice{grid-template-columns:1fr}
+  .segCoordinateReadout{grid-template-columns:1fr;gap:2px;padding-inline:9px}
+  .segCoordinateReadout small{justify-self:start}
+  .segPlaneTabs button{font-size:14px}
 }
 
 /* Mid-width desktop and landscape-tablet headers need two real rows. Keeping

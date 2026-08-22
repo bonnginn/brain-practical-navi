@@ -509,8 +509,8 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(governance, /運営承継/);
   assert.match(editor, /brain-practical-segmentation-patch/);
   assert.match(editor, /差分JSONを書き出す/);
-  assert.match(editor, />上へ1枚<\/button>/);
-  assert.match(editor, />下へ1枚<\/button>/);
+  assert.match(editor, />\{planeInfo\.increment\}へ1枚<\/button>/);
+  assert.match(editor, />\{planeInfo\.decrement\}へ1枚<\/button>/);
   assert.match(editor, /step=\{data\?100\/\(data\.dims\[2\]-1\):\.25\}/);
   assert.match(editor, /元へ戻す/);
   assert.match(editor, /端末内へ自動保存/);
@@ -601,14 +601,84 @@ test("validates browser segmentation patches against the bundled BBS1 grid", () 
 });
 
 test("pins segmentation patches to the exact bundled label revision", async () => {
-  const [labels, editor, fixtureText] = await Promise.all([
+  const [labels, editor, canvas, revisionSource, fixtureText] = await Promise.all([
     readFile(new URL("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz", root)),
     readFile(new URL("app/ManualSegmentationWorkbench.tsx", root), "utf8"),
+    readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8"),
+    readFile(new URL("app/segmentationLabelRevision.ts", root), "utf8"),
     readFile(new URL("tests/fixtures/segmentation-patch-smoke.json", root), "utf8"),
   ]);
   const digest = createHash("sha256").update(labels).digest("hex");
-  assert.match(editor, new RegExp(`LABEL_SHA256="${digest}"`));
+  assert.match(revisionSource, new RegExp(`SEGMENTATION_LABEL_SHA256="${digest}"`));
+  assert.match(revisionSource, /SEGMENTATION_LABEL_REVISION=SEGMENTATION_LABEL_SHA256\.slice\(0,16\)/);
+  assert.match(editor, /const LABEL_SHA256=SEGMENTATION_LABEL_SHA256/);
+  assert.match(editor, /LABEL_FETCH_URL=`\$\{LABEL_URL\}\?v=\$\{SEGMENTATION_LABEL_REVISION\}`/);
+  assert.match(canvas, /\?v=\$\{SEGMENTATION_LABEL_REVISION\}/);
   assert.equal(JSON.parse(fixtureText).sourceLabelsSha256, digest);
+});
+
+test("adds orthogonal read-only audit planes without changing the horizontal patch contract", async () => {
+  const [editor, geometry, css] = await Promise.all([
+    readFile(new URL("app/ManualSegmentationWorkbench.tsx", root), "utf8"),
+    readFile(new URL("app/segmentationGeometry.ts", root), "utf8"),
+    readFile(new URL("app/canvas.css", root), "utf8"),
+  ]);
+  assert.match(geometry, /type SegmentationPlane="horizontal"\|"coronal"\|"sagittal"/);
+  assert.match(editor, /照合する断面方向/);
+  assert.match(editor, /segmentationPlaneNames\[key\]\.label/);
+  assert.match(editor, /setPlane\(next\)/);
+  assert.match(editor, /格子座標/);
+  assert.match(editor, /X \{cursorVoxel\?\.\[0\]/);
+  assert.match(editor, /aria-label=\{`\$\{planeInfo\.increment\}へ1 voxel移動`\}/);
+  assert.match(geometry, /coronal:\{label:"冠状断",axis:"Y",rangeStart:"後方",rangeEnd:"前方",increment:"前方",decrement:"後方",top:"S",bottom:"I",left:"L",right:"R"\}/);
+  assert.match(geometry, /sagittal:\{label:"矢状断",axis:"X",rangeStart:"左",rangeEnd:"右",increment:"右",decrement:"左",top:"S",bottom:"I",left:"P",right:"A"\}/);
+  assert.match(editor, /role="tab" aria-selected=\{plane===key\}/);
+  assert.match(editor, /role="status"><b>照合専用<\/b>/);
+  assert.match(editor, /disabled=\{!isEditablePlane\}/);
+  assert.match(editor, /function paintAt\(event:React\.PointerEvent<HTMLCanvasElement>\)\{if\(!isEditablePlane\)return/);
+  assert.match(editor, /function applyHistory\(changes:StrokeChange\[],direction:"undo"\|"redo"\)\{if\(!isEditablePlane\)return/);
+  assert.match(editor, /primaryPlane:"horizontal"/);
+  assert.match(editor, /inflate\(LABEL_FETCH_URL,0x42425331\)/);
+  for (const id of [39, 40, 33, 27]) assert.match(editor, new RegExp(`\\b${id}\\b`));
+  assert.match(editor, /36–38は自動生成しません/);
+  assert.match(css, /\.segPlaneTabs/);
+  assert.match(css, /\.segReadOnlyPanel/);
+  assert.match(css, /\.segCoordinateReadout/);
+  assert.match(css, /@media\(max-width:760px\)[\s\S]*\.segCoordinateReadout\{grid-template-columns:1fr/);
+});
+
+test("maps every orthogonal audit slice and display corner to the shared voxel grid", async () => {
+  const { planeAxisSize, planePositionForSlice, planeShape, planeSliceIndex, planeVoxel, segmentationPlaneNames } = await import(new URL("app/segmentationGeometry.ts", root));
+  const dims = [394, 466, 378];
+  const expectations = {
+    horizontal: { shape:[394,466], corners:[[0,465,113],[393,465,113],[0,0,113],[393,0,113]], increment:"上方", decrement:"下方", orientation:["A","P","L","R"] },
+    coronal: { shape:[394,378], corners:[[0,251,377],[393,251,377],[0,251,0],[393,251,0]], increment:"前方", decrement:"後方", orientation:["S","I","L","R"] },
+    sagittal: { shape:[466,378], corners:[[194,0,377],[194,465,377],[194,0,0],[194,465,0]], increment:"右", decrement:"左", orientation:["S","I","P","A"] },
+  };
+  for (const [plane, expected] of Object.entries(expectations)) {
+    assert.deepEqual(planeShape(dims, plane), expected.shape);
+    const slice = plane === "horizontal" ? 113 : plane === "coronal" ? 251 : 194;
+    assert.deepEqual([
+      planeVoxel(0, 0, slice, plane, dims),
+      planeVoxel(expected.shape[0]-1, 0, slice, plane, dims),
+      planeVoxel(0, expected.shape[1]-1, slice, plane, dims),
+      planeVoxel(expected.shape[0]-1, expected.shape[1]-1, slice, plane, dims),
+    ], expected.corners);
+    assert.equal(segmentationPlaneNames[plane].increment, expected.increment);
+    assert.equal(segmentationPlaneNames[plane].decrement, expected.decrement);
+    assert.deepEqual([
+      segmentationPlaneNames[plane].top,
+      segmentationPlaneNames[plane].bottom,
+      segmentationPlaneNames[plane].left,
+      segmentationPlaneNames[plane].right,
+    ], expected.orientation);
+    const size = planeAxisSize(dims, plane);
+    for (let index=0; index<size; index++) {
+      const position = planePositionForSlice(index, plane, dims);
+      assert.equal(planeSliceIndex(position, plane, dims), index);
+      if (index<size-1) assert.equal(planeSliceIndex(planePositionForSlice(index+1, plane, dims), plane, dims)-index, 1);
+    }
+  }
 });
 
 test("keeps the reviewed sparse mammillary-body patch separate from the published labels", async () => {

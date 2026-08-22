@@ -737,7 +737,7 @@ export default function Home() {
         <div className="quizSetup"><label><span>出題項目</span><select value={quizCategory} onChange={event=>setQuizCategory(event.target.value as "all"|QuizCategory)}>{quizCategories.map(category=><option key={category.key} value={category.key}>{category.label}</option>)}</select></label><div><span>問題数</span><div className="quizCountButtons">{([5,10,15,20] as const).map(count=><button key={count} className={quizCount===count?"active":""} onClick={()=>setQuizCount(count)}>{count}</button>)}</div></div><label className="wrongOnlyToggle"><input type="checkbox" checked={quizWrongOnly} onChange={event=>setQuizWrongOnly(event.target.checked)}/><span>間違った問題のみ</span><b>{wrongTargets.length}</b></label><label className="provisionalQuizToggle"><input type="checkbox" checked={quizIncludeProvisional} onChange={event=>setQuizIncludeProvisional(event.target.checked)}/><span>試作問題を含む<small>専門家未確認・位置照合ラベル</small></span></label><button className="quizStart" onClick={startQuiz}>この条件で出題</button></div>
         <button className="railReset" onClick={resetQuiz} disabled={quizEmpty}>今回を最初から</button><button className="historyReset" onClick={resetWrongHistory} disabled={wrongTargets.length===0}>間違い履歴を消去</button>
       </>}
-      {workspace==="segment"&&<><p className="eyebrow">SEGMENTATION</p><div className="segRailIntro"><b>差分編集</b><p>元データを直接変更せず、修正したボクセルだけをJSONへ保存します。</p><ol><li>水平断を選ぶ</li><li>構造とブラシを選ぶ</li><li>境界を修正する</li><li>JSONをPRへ添付</li></ol></div><div className="railLine"/><p className="railMemo">共同制作者向けのα機能です。公式ラベルへの統合には、別のレビューと変換処理が必要です。</p></>}
+      {workspace==="segment"&&<><p className="eyebrow">SEGMENTATION</p><div className="segRailIntro"><b>差分編集</b><p>元データを直接変更せず、修正したボクセルだけをJSONへ保存します。</p><ol><li>水平断を選ぶ</li><li>冠状・矢状断で位置を照合する</li><li>水平断で構造とブラシを選ぶ</li><li>境界を修正する</li><li>JSONをPRへ添付</li></ol></div><div className="railLine"/><p className="railMemo">共同制作者向けのα機能です。冠状断・矢状断は照合専用です。公式ラベルへの統合には、別のレビューと変換処理が必要です。</p></>}
     </aside>
 
     {workspace==="home"&&<section className="homeArea homeNoticeArea" id="workspace" tabIndex={-1}>
@@ -861,7 +861,7 @@ export default function Home() {
     </section>}
 
     {workspace==="segment"&&<section className="workArea segmentationArea" id="workspace" tabIndex={-1}>
-      <div className="workHead"><div><span className="eyebrow">MANUAL SEGMENTATION · ALPHA</span><h1>セグメンテーション編集</h1></div><span className="sourceBadge">BigBrain公開組織画像 0.5 mm・水平断中心</span></div>
+      <div className="workHead"><div><span className="eyebrow">MANUAL SEGMENTATION · ALPHA</span><h1>セグメンテーション編集</h1></div><span className="sourceBadge">BigBrain公開組織画像 0.5 mm・水平断編集／直交断照合</span></div>
       <div className="segmentationReviewNotice"><b>端末内の差分編集です</b><p>ここでの編集は公式データを直接変更しません。差分JSONへ根拠を記録し、Pull Requestと解剖学的レビューを経て、採用された変更だけが公開版へ統合されます。</p><button onClick={()=>openWorkspace("collaborate")}>共同制作の入口へ戻る</button></div>
       <ManualSegmentationWorkbench/>
     </section>}

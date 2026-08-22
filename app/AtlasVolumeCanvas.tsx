@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { SEGMENTATION_LABEL_REVISION } from "./segmentationLabelRevision";
 
 const ASSET_BASE=import.meta.env.BASE_URL;
 
@@ -157,7 +158,7 @@ async function loadFixedBrain(){
   });return fixedBrainCache;
 }
 async function loadManualSeg(name:"icbm500"){
-  if(!manualSegCache.has(name))manualSegCache.set(name,fetch(`${ASSET_BASE}atlas/bigbrain-practical-segmentation-${name}.bin.gz`).then(async r=>{if(!r.ok)throw new Error(`practical segmentation HTTP ${r.status}`);let buf=await r.arrayBuffer(),v=new DataView(buf);if(v.getUint32(0,false)!==0x42425331&&v.getUint16(0,false)===0x1f8b){const stream=new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));buf=await new Response(stream).arrayBuffer();v=new DataView(buf)}if(v.getUint32(0,false)!==0x42425331)throw new Error("invalid practical segmentation header");const dims:[number,number,number]=[v.getUint16(4,true),v.getUint16(6,true),v.getUint16(8,true)],n=dims[0]*dims[1]*dims[2];return{dims,labels:new Uint8Array(buf,10,n)}}));return manualSegCache.get(name)!;
+  if(!manualSegCache.has(name))manualSegCache.set(name,fetch(`${ASSET_BASE}atlas/bigbrain-practical-segmentation-${name}.bin.gz?v=${SEGMENTATION_LABEL_REVISION}`).then(async r=>{if(!r.ok)throw new Error(`practical segmentation HTTP ${r.status}`);let buf=await r.arrayBuffer(),v=new DataView(buf);if(v.getUint32(0,false)!==0x42425331&&v.getUint16(0,false)===0x1f8b){const stream=new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));buf=await new Response(stream).arrayBuffer();v=new DataView(buf)}if(v.getUint32(0,false)!==0x42425331)throw new Error("invalid practical segmentation header");const dims:[number,number,number]=[v.getUint16(4,true),v.getUint16(6,true),v.getUint16(8,true)],n=dims[0]*dims[1]*dims[2];return{dims,labels:new Uint8Array(buf,10,n)}}));return manualSegCache.get(name)!;
 }
 function loadMesh(name:string){
   if(!meshCache.has(name))meshCache.set(name,fetch(`${ASSET_BASE}atlas/${name}.mesh`).then(r=>{if(!r.ok)throw new Error(`${name} HTTP ${r.status}`);return r.arrayBuffer()}).then(buf=>{
