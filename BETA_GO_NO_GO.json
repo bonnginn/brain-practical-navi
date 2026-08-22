@@ -44,6 +44,7 @@
       "locallyProven": [
         "ローカル構造由来監査・表示台帳を確認した。",
         "旧ID33の現行格子について、voxel数、6近傍成分、全占有断面、境界面接触、代表候補を再現可能な客観監査へ固定した。",
+        "旧ID33の3代表候補を寄稿者ツールから編集を作らず開けることをローカル実ブラウザで確認した。",
         "ローカル証拠だけでは欠落・重複・遊離・空着色の解剖学的判定を完了していない。"
       ],
       "unprovenScope": "全学習対象の解剖学的欠落や二重表示を、専門家レビューを含めて網羅的に確認していない。",
@@ -54,6 +55,9 @@
         "scripts/audit_structure_provenance.mjs",
         "scripts/audit_optic_orthogonal.py",
         "segmentation-patches/review/optic-pathway-orthogonal-objective-audit-2026-08-23.json",
+        "app/opticReviewCandidates.ts",
+        "app/ManualSegmentationWorkbench.tsx",
+        "tests/optic-orthogonal-audit.test.mjs",
         "ANATOMY_REVIEW_HANDOFF.md"
       ],
       "localArtifactRefs": [],

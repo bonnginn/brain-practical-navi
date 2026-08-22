@@ -7,6 +7,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
+import { OPTIC_REVIEW_AUDIT, OPTIC_REVIEW_CANDIDATES } from "../app/opticReviewCandidates.ts";
 
 const root = new URL("../", import.meta.url);
 const localPath = (path) => fileURLToPath(new URL(path, root));
@@ -30,6 +31,8 @@ function resolvePython() {
 const python = resolvePython();
 const script = localPath("scripts/audit_optic_orthogonal.py");
 const input = localPath("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz");
+const workbench = localPath("app/ManualSegmentationWorkbench.tsx");
+const canvasCss = localPath("app/canvas.css");
 
 function runAudit(path = input) {
   return spawnSync(python.command, [...python.prefix, script, "--input", path], {encoding:"utf8", cwd:localPath("")});
@@ -104,4 +107,51 @@ test("validates BBS1 dimensions independently after digest verification", async 
   } finally {
     await rm(directory, {recursive:true, force:true});
   }
+});
+
+test("pins the contributor review candidates to the committed ID 33 audit", async () => {
+  const audit = JSON.parse(await readFile(new URL("segmentation-patches/review/optic-pathway-orthogonal-objective-audit-2026-08-23.json", root), "utf8"));
+  assert.deepEqual(OPTIC_REVIEW_AUDIT, {
+    inputSha256: audit.inputSha256,
+    dims: audit.dims,
+    auditedLabelId: audit.auditedLabelId,
+  });
+  assert.deepEqual(OPTIC_REVIEW_CANDIDATES.map(({plane, axis, sliceIndex, voxelCountOnSlice}) => ({plane, axis, sliceIndex, voxelCountOnSlice})), Object.entries(audit.representativeSlices).map(([axis, candidate]) => ({
+    plane: candidate.plane,
+    axis,
+    sliceIndex: candidate.sliceIndex,
+    voxelCountOnSlice: candidate.voxelCountOnSlice,
+  })));
+});
+
+test("exposes contributor-only, no-edit candidate navigation", async () => {
+  const source = await readFile(workbench, "utf8");
+  const css = await readFile(canvasCss, "utf8");
+  assert.match(source, /OPTIC_REVIEW_CANDIDATES/);
+  assert.match(source, /disabled={!data}/);
+  assert.deepEqual(OPTIC_REVIEW_CANDIDATES.map(({accessibleName}) => accessibleName), [
+    "旧ID33 データ順位候補・矢状断 X187",
+    "旧ID33 データ順位候補・冠状断 Y262",
+    "旧ID33 データ順位候補・水平断 Z114",
+  ]);
+  assert.match(source, /aria-label=\{candidate\.accessibleName\}/);
+  assert.match(source, /aria-pressed=\{active\}/);
+  assert.match(source, /planePositionForSlice\(candidate\.sliceIndex,candidate\.plane,data\.dims\)/);
+  const handler = source.match(/function jumpToOpticReviewCandidate\(candidate:OpticReviewCandidate\)\{([\s\S]*?)\}\s*function shiftSlice/)?.[1] ?? "";
+  assert.match(handler, /setPlane\(candidate\.plane\)/);
+  assert.match(handler, /setZoom\(1\)/);
+  assert.match(handler, /setPan\(\{x:0,y:0\}\)/);
+  assert.match(handler, /setCursor\(null\)/);
+  assert.match(handler, /setCursorVoxel\(null\)/);
+  assert.doesNotMatch(handler, /set(?:Undo|Redo|Version|Note|AuthorGitHub|Label|Tool|Evidence|Confidence|Status)\(/);
+  assert.doesNotMatch(handler, /editsRef|undo|redo|localStorage|DRAFT_KEY/);
+  const panel = source.match(/<div className="segOpticReviewPanel">([\s\S]*?)<\/div>\s*\{!isEditablePlane/)?.[1] ?? "";
+  assert.doesNotMatch(panel, /role="status"|segReadOnlyPanel|read-only/i);
+  assert.match(source, /データ順位で選んだ出発点/);
+  assert.match(source, /編集は作成されません/);
+  assert.match(source, /解剖学的検証・専門家確認/);
+  assert.match(source, /36–38へ機械的に分割/);
+  assert.match(css, /\.segOpticReviewPanel/);
+  assert.match(css, /\.segOpticReviewButtons/);
+  assert.match(css, /@media\(max-width:760px\)/);
 });

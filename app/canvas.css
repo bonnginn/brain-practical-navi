@@ -1127,6 +1127,19 @@ html, body, #root { height: 100%; overflow: hidden; }
 .compactFeedbackDialog { max-width: 650px; }
 .singleFeedbackOption { grid-template-columns: 1fr; }
 .feedbackDialogFooter button { padding: 8px 10px; border: 1px solid #1d6e69; background: #edf4f2; color: #1d5b55; font-weight: 700; }
+.segOpticReviewPanel { margin-top: 10px; padding: 10px; border: 1px solid #b8c8c0; background: #eef5f0; }
+.segOpticReviewPanel header { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.segOpticReviewPanel header span { color: #56736d; font: 10px monospace; letter-spacing: .08em; }
+.segOpticReviewPanel header b { color: #284d47; font-size: 14px; }
+.segOpticReviewPanel p { margin: 6px 0 8px; color: #465b55; font-size: 12px; line-height: 1.55; }
+.segOpticReviewButtons { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 6px; }
+.segOpticReviewButtons button { display: grid; gap: 2px; min-width: 0; min-height: 48px; padding: 6px 7px; border: 1px solid #7eaaa0; background: #fff; color: #1d5c55; text-align: left; }
+.segOpticReviewButtons button:hover:not(:disabled), .segOpticReviewButtons button:focus-visible { border-color: #1d6e69; background: #e2f0eb; }
+.segOpticReviewButtons button.active { border-color: #1d6e69; background: #1d6e69; color: #fff; }
+.segOpticReviewButtons button.active small { color: #d9eee8; }
+.segOpticReviewButtons button:disabled { cursor: not-allowed; opacity: .55; }
+.segOpticReviewButtons button b { font-size: 13px; }
+.segOpticReviewButtons button small { color: #62736e; font-size: 11px; }
 
 @media(max-width:1000px){
   .homeLandingBody{grid-template-columns:1fr}
@@ -1167,6 +1180,8 @@ html, body, #root { height: 100%; overflow: hidden; }
   .segCoordinateReadout{grid-template-columns:1fr;gap:2px;padding-inline:9px}
   .segCoordinateReadout small{justify-self:start}
   .segPlaneTabs button{font-size:14px}
+  .segOpticReviewPanel header{align-items:flex-start;flex-direction:column;gap:3px}
+  .segOpticReviewButtons{grid-template-columns:1fr}
 }
 
 /* Mid-width desktop and landscape-tablet headers need two real rows. Keeping
