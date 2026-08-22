@@ -1,6 +1,6 @@
 "use client";
 
-import { KeyboardEvent as ReactKeyboardEvent, PointerEvent, useEffect, useMemo, useRef, useState } from "react";
+import { KeyboardEvent as ReactKeyboardEvent, lazy, PointerEvent, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { AtlasVolumeCanvas, type BlockContextSpecimen, type HighlightLayer, type IdentifiedPoint } from "./AtlasVolumeCanvas";
 import { ManualSegmentationWorkbench } from "./ManualSegmentationWorkbench";
 import betaStatus from "./beta-status.json";
@@ -15,6 +15,8 @@ import { deriveAnatomyReviewQueue, filterAnatomyReviewQueue, isLegacyOpticEntry,
 import type { AnatomyReviewQueueItem, AnatomyReviewSurface } from "../src/anatomyReviewQueue.mjs";
 import { advanceBasalStepperIndex, BASAL_GANGLIA_STEPS, startBasalGangliaStepperTimer } from "../src/pathwayStepper.mjs";
 import type { BasalGangliaStep } from "../src/pathwayStepper.mjs";
+
+const ModelStrategyComparison=lazy(()=>import("./ModelStrategyComparison"));
 
 type Plane = "coronal" | "horizontal" | "sagittal";
 type Focus = "ventricle" | "caudate" | "hippocampus" | "thalamus";
@@ -663,6 +665,8 @@ export default function Home() {
   const [blockContextWebglUnavailable,setBlockContextWebglUnavailable]=useState(false);
   const blockContextLauncherRef=useRef<HTMLButtonElement|null>(null);
   const blockContextView=blockContextState.view as BlockContextView;
+  const [modelStrategyComparisonOpen,setModelStrategyComparisonOpen]=useState(false);
+  const modelStrategyLauncherRef=useRef<HTMLButtonElement|null>(null);
   const [quizIndex,setQuizIndex]=useState(0);
   const [quizQueue,setQuizQueue]=useState<QuizQuestion[]>(()=>shuffledQuestions(allQuizQuestions).slice(0,10));
   const [quizCategory,setQuizCategory]=useState<"all"|QuizCategory>("all");
@@ -976,7 +980,8 @@ export default function Home() {
   function openOverlay(key:OverlayMode){if(!overlayOpen)overlayReturnFocus.current=document.activeElement instanceof HTMLElement?document.activeElement:null;window.history.pushState(null,"",`#workspace/${key}`);setHelpOpen(key==="help");setFeedbackOpen(key==="feedback");setLegalOpen(key==="legal");setStatusOpen(key==="status")}
   function openPhoneSettings(){if(!phoneMode||workspace==="home"||workspace==="collaborate"||workspace==="segment")return;phoneSettingsReturnFocus.current=document.activeElement instanceof HTMLElement?document.activeElement:null;setPhoneSettingsOpen(true)}
   function closePhoneSettings(){setPhoneSettingsOpen(false)}
-  function openWorkspace(key:WorkspaceMode){setPhoneSettingsOpen(false);setHelpOpen(false);setFeedbackOpen(false);setLegalOpen(false);setStatusOpen(false);const nextHash=workspaceHash(key,surfaceView,plane,blockSpecimen);if(window.location.hash!==nextHash)window.history.pushState(null,"",nextHash);transitionBlockContextState({type:key==="blocks"?"enter-workspace":"leave-workspace",workspace:key});setBlockContextDrag(null);setWorkspace(key);if(key==="home")setRotation({...homeRotation});if(key==="sections")setRotation({x:-7,y:-18,z:0});if(key==="surface")setRotation(surfaceViews[surfaceView].rotation);if(key==="blocks"){setBlockIntroOpen(true);setRotation({...blockInitialRotations[blockSpecimen]});setBlockViewPreset("initial")}}
+  function openWorkspace(key:WorkspaceMode){setPhoneSettingsOpen(false);setHelpOpen(false);setFeedbackOpen(false);setLegalOpen(false);setStatusOpen(false);if(key!=="collaborate")setModelStrategyComparisonOpen(false);const nextHash=workspaceHash(key,surfaceView,plane,blockSpecimen);if(window.location.hash!==nextHash)window.history.pushState(null,"",nextHash);transitionBlockContextState({type:key==="blocks"?"enter-workspace":"leave-workspace",workspace:key});setBlockContextDrag(null);setWorkspace(key);if(key==="home")setRotation({...homeRotation});if(key==="sections")setRotation({x:-7,y:-18,z:0});if(key==="surface")setRotation(surfaceViews[surfaceView].rotation);if(key==="blocks"){setBlockIntroOpen(true);setRotation({...blockInitialRotations[blockSpecimen]});setBlockViewPreset("initial")}}
+  function closeModelStrategyComparison(){setModelStrategyComparisonOpen(false);window.requestAnimationFrame(()=>modelStrategyLauncherRef.current?.focus())}
   function saveWrongTargets(next:QuizTargetKey[]){setWrongTargets(next);try{localStorage.setItem(QUIZ_WRONG_CACHE_KEY,JSON.stringify(next))}catch{/* private browsing may block storage */}}
   function quizChoiceCount(dimension:"category"|"format"|"detail",value:string){return countQuizChoice(quizQuestionsForFiltering,quizFilters,wrongTargets,dimension,value)}
   function chooseQuizFormat(value:QuizFormatFilter){setQuizFormat(value);if(quizDetail!=="all"&&!detailOptionsForFormat(value).includes(quizDetail))setQuizDetail("all")}
@@ -1172,9 +1177,11 @@ export default function Home() {
         <article><span>公開相談</span><h2>改善案を相談する</h2><p>再現手順や根拠URLを公開し、検討経過を追跡したい不具合・提案はGitHub Issuesへ送ります。</p><a href={issueTrackerUrl} target="_blank" rel="noreferrer">GitHub Issuesを開く →</a></article>
         <article><span>具体的な変更</span><h2>Pull Requestを提案する</h2><p>コード、教材文、3Dデータの変更条件、DCO、出典・ライセンスの確認方法を共同制作ガイドにまとめています。</p><div><a href={contributingGuideUrl} target="_blank" rel="noreferrer">CONTRIBUTINGを読む</a><a href={pullRequestUrl} target="_blank" rel="noreferrer">Pull Request一覧 →</a></div></article>
         <article className="segmentationEntry"><span>端末内の差分</span><h2>セグメンテーションを修正する</h2><p>編集内容はこの端末内の差分で、公式データを直接変更しません。採用には、画像上の根拠、差分JSON、レビュー、プロジェクト管理者の判断が必要です。</p><button onClick={()=>openWorkspace("segment")}>編集ツールを開く →</button></article>
+        <article className="modelStrategyEntry"><span>寄稿者限定・比較試作</span><h2>3Dモデル方針を比較する</h2><p>現行再構成と、実標本由来ではない専門家未確認の模式案を、同じ操作条件でA/B比較します。学習用モデルやラベルは変更しません。</p><button ref={modelStrategyLauncherRef} type="button" aria-expanded={modelStrategyComparisonOpen} aria-controls="model-strategy-comparison" onClick={()=>setModelStrategyComparisonOpen(value=>!value)}>{modelStrategyComparisonOpen?"比較を閉じる":"比較試作を開く →"}</button></article>
         <article><span>方針・採否</span><h2>運営方針を確認する</h2><p>公式版への採否、役割、クレジット、匿名参加、継続参加、運営承継の考え方を確認できます。</p><a href={governanceGuideUrl} target="_blank" rel="noreferrer">GOVERNANCEを読む →</a></article>
          <article><span>権利・再利用</span><h2>ライセンスを確認する</h2><p>コード、教材文書、BigBrain・MNI・CerebrA由来データでは適用条件が異なります。公開・再配布前に確認してください。</p><div><a href={licenseGuideUrl} target="_blank" rel="noreferrer">ライセンス境界</a><button onClick={()=>openOverlay("legal")}>画面上の利用条件 →</button></div></article>
       </div>
+      {modelStrategyComparisonOpen&&<div id="model-strategy-comparison"><Suspense fallback={<div className="modelStrategyLoading" role="status">比較試作を読み込み中…</div>}><ModelStrategyComparison onClose={closeModelStrategyComparison}/></Suspense></div>}
       <AnatomyReviewQueuePanel items={anatomyReviewItems} total={anatomyReviewQueue.length} surfaceFilter={anatomyReviewSurfaceFilter} representationFilter={anatomyReviewRepresentationFilter} onSurfaceChange={setAnatomyReviewSurfaceFilter} onRepresentationChange={setAnatomyReviewRepresentationFilter}/>
     </section>}
 

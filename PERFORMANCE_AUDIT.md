@@ -223,6 +223,8 @@ warm転送は同じ隔離プロファイル内で1回表示してから再訪し
 
 結果は26/26件がstable・validation passed・`allPassed: true`。missing／duplicate／unexpected route key、console／request／UI error、残留loader、overflow、WebGL fallbackは各0だった。
 
+2026-08-23の3Dモデル方針比較pilot追加後も、`work/performance/initial-route-payload-audit-model-strategy-2026-08-23.json` で同じ26/26件に合格した。比較UIはdynamic import、7,980 bytesの模式meshはパネル開放後のfetchとし、canonical初回経路から `ModelStrategyComparison` chunk と `comparison-schematic-ventricle.mesh` の要求は0件だった。これはローカルproduction previewのcold監査であり、公開回線・物理端末の性能値ではない。
+
 同じ最終通常buildを26経路×3幅×direct/reloadの156通りで再監査し、156/156件が合格した。console／request／UI error、残留loader、横はみ出し、WebGL fallbackは0件で、記録は `work/browser-audit/beta-route-audit-pial-gzip-2026-08-23.json`（ローカル作業用・配布対象外）に保存した。
 
 | route key | encodedBytes | uniqueRequestCount | stableTimeMs | applied budget (bytes) |

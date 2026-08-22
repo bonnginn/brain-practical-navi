@@ -189,6 +189,7 @@ IDs 30–32はBigBrain画像、CerebrA白質確率、近接核・脳室との位
 - `public/atlas/landmark-mammillary-bodies.mesh`
 - `public/atlas/landmark-anterior-perforated-substance.mesh`
 - `public/atlas/basal-landmarks.json`
+- `public/atlas/comparison-schematic-ventricle.mesh`
 
 脳底動脈と脳神経根は、本プロジェクトが主要経路をMNI方向の表示空間へ手作業で置き、`scripts/build_neurovascular_overlays.py` で管状メッシュへ変換した模式3Dです。動脈はpial-like表面の表示補正を維持し、III–XIIの神経根は同一ICBM500格子の脳幹ラベル表面へ見かけの起始部を合わせています。嗅球・嗅索、視神経・視交叉・視索、漏斗（下垂体茎）、乳頭体、前有孔質は、同じ表示空間へ `scripts/build_basal_landmarks.py` で配置した独立部品です。外部の標本写真・教科書図版・アトラス図版をトレースまたは収録していません。BigBrain組織像、血管造影、tractography、献体標本から抽出したものでもありません。
 
@@ -200,6 +201,8 @@ IDs 30–32はBigBrain画像、CerebrA白質確率、近接核・脳室との位
 - 個人差、穿通枝、正確な血管径、神経核、頭蓋孔、遠位走行は再現しません。
 
 生成メッシュは本プロジェクト作成の教材データとしてCC BY-NC-SA 4.0、生成スクリプトはアプリケーションコードとしてAGPL-3.0-or-laterです。詳細は `public/atlas/PROCEDURAL-NEUROVASCULAR-NOTICE.txt` を参照してください。これらは解剖学的正解データ、手術シミュレーション、臨床参照には使用できません。
+
+`comparison-schematic-ventricle.mesh` は、共同制作ページの寄稿者限定A/B比較pilotだけで使う独立した模式メッシュです。`scripts/build_comparison_schematic_ventricle.mjs` の座標列から決定的に生成し、既存標本・アトラス頂点・断面ラベルを抽出または変形していません。画面では「模式・専門家未確認」「実標本由来ではない」と表示し、学習者向けモデル、正解セグメンテーション、検証済み形状として扱いません。個別の配布義務は `public/atlas/DATA-MANIFEST.json` の `contributor-comparison-prototype-assets` に記録しています。
 
 `public/og.png` は本プロジェクト用に追加したプロモーション用イラストです。解剖データや第三者の標本画像として扱わず、教材上の位置・形状の根拠にも使用していません。一般公開前に、作成履歴をプロジェクト記録として保持してください。
 

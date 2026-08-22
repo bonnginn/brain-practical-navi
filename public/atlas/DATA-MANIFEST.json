@@ -70,6 +70,17 @@
       "bundledNotice": "PROCEDURAL-NEUROVASCULAR-NOTICE.txt"
     },
     {
+      "id": "contributor-comparison-prototype-assets",
+      "pattern": "^comparison-schematic-ventricle\\.mesh$",
+      "source": "Brain Practical Navigator contributors",
+      "sourceUrl": "https://github.com/bonnginn/brain-practical-navi",
+      "license": "CC BY-NC-SA 4.0 for the project-authored teaching mesh; generator source is AGPL-3.0-or-later",
+      "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+      "modifications": "Deterministic low-resolution schematic tube geometry authored for an opt-in contributor comparison prototype; no specimen or atlas vertices are sampled.",
+      "displayObligation": "Keep contributor-only scope; label as schematic and expert-unreviewed; state that it is not specimen-derived, not an anatomical ground-truth segmentation, and not a learner-facing replacement.",
+      "bundledNotice": "ATTRIBUTION.txt"
+    },
+    {
       "id": "structure-provenance-audit",
       "pattern": "^structure-provenance\\.json$",
       "source": "Brain Practical Navigator contributors",
