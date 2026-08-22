@@ -25,8 +25,8 @@ test("quiz granularity audit classifies all 23 unchanged targets", () => {
     uniqueTargetCount: 23,
     sectionCount: 17,
     surfaceCount: 6,
-    standardCount: 11,
-    provisionalCount: 12,
+    standardCount: 7,
+    provisionalCount: 16,
     formatCounts: { section: 17, surface: 6 },
   });
   assert.equal(questions.some(question => question.target === "opticChiasm"), false);
@@ -52,7 +52,9 @@ test("topic, origin, and wrong-only filters affect the same candidate count", ()
   assert.equal(countQuizChoice(questions, sectionSagittal, [], "format", "section"), 1);
   assert.equal(countQuizChoice(questions, sectionSagittal, [], "format", "surface"), 6);
   assert.deepEqual(filtersForQuizChoice(sectionSagittal, "format", "surface"), { ...baseFilters, format: "surface", detail: "all" });
-  assert.equal(filterQuizCandidates(questions, { ...baseFilters, includeProvisional: false }, []).length, 11);
+  const standardOnly = filterQuizCandidates(questions, { ...baseFilters, includeProvisional: false }, []);
+  assert.equal(standardOnly.length, 7);
+  assert.equal(standardOnly.some(question => ["pallidum", "accumbens", "hippocampus", "mammillaryBody"].includes(question.target)), false);
   assert.equal(filterQuizCandidates(questions, { ...baseFilters, wrongOnly: true }, ["mammillaryBody"]).length, 1);
   assert.equal(filterQuizCandidates(questions, { ...baseFilters, wrongOnly: true }, ["not-a-target"]).length, 0);
 });
@@ -75,6 +77,19 @@ test("audit rejects a duplicated classification that disagrees with the registry
   const result = auditQuizGranularitySource(tampered);
   assert.equal(result.ok, false);
   assert.ok(result.errors.some(error => /declared format surface disagrees with registry section/.test(error)), result.errors.join("\n"));
+});
+
+test("audit rejects provisional or unknown options in a standard answer set", () => {
+  const standardOptions = 'options:["caudate","putamen","pallidum","thalamus"]';
+  const provisionalOption = page.replace(standardOptions, 'options:["caudate","putamen","pallidum","opticChiasm"]');
+  const provisionalResult = auditQuizGranularitySource(provisionalOption);
+  assert.equal(provisionalResult.ok, false);
+  assert.ok(provisionalResult.errors.some(error => /standard answer set option opticChiasm has provisional provenance/.test(error)), provisionalResult.errors.join("\n"));
+
+  const unknownOption = page.replace(standardOptions, 'options:["caudate","putamen","pallidum","unknownStructure"]');
+  const unknownResult = auditQuizGranularitySource(unknownOption);
+  assert.equal(unknownResult.ok, false);
+  assert.ok(unknownResult.errors.some(error => /option unknownStructure has unknown or unresolved provenance/.test(error)), unknownResult.errors.join("\n"));
 });
 
 test("audit rejects a quiz content snapshot change", () => {

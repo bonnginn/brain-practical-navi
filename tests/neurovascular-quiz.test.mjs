@@ -50,7 +50,7 @@ test("candidate counts and provisional gating are fixed for each pilot detail", 
   assert.equal(report.summary.nerveCount, PILOT_NERVE_TARGETS.length);
   assert.match(page, /quizIncludeProvisional,setQuizIncludeProvisional\]=useState\(true\)/);
   assert.match(page, /const allQuizQuestions:QuizQuestion\[\]=\[\.\.\.quizQuestions,\.\.\.neurovascularQuizQuestions\]/);
-  assert.match(page, /function isProvisionalQuiz\(question:QuizQuestion\)\{return isNeurovascularQuiz\(question\)/);
+  assert.match(page, /function isProvisionalQuiz\(question:QuizQuestion\)\{[\s\S]*?if\(isNeurovascularQuiz\(question\)\|\|isSurfaceQuiz\(question\)\)return true;/);
 });
 
 test("pilot uses lazy relevant overlays, white target highlights, and review links", () => {

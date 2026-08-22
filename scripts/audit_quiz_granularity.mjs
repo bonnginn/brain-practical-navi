@@ -9,6 +9,8 @@ const DEFAULT_ROOT = path.resolve(SCRIPT_DIR, "..");
 const EXPECTED_QUESTION_COUNT = 23;
 export const EXPECTED_QUIZ_CONTENT_SHA256 = "7ee201594fd565acc152698e11c359e0d5fad3772ffa0b1d8d76c1e400b375fb";
 const TOPICS = new Set(["basal", "limbic", "midbrain", "ventricles", "connections", "hindbrain", "surface"]);
+const STANDARD_LABEL_SOURCES = new Set(["manual", "image-guided-reviewed"]);
+const PROVISIONAL_LABEL_SOURCES = new Set(["atlas-provisional", "image-guided"]);
 
 function field(line, name) {
   return line.match(new RegExp(`${name}:"([^"]+)"`))?.[1] ?? null;
@@ -79,10 +81,43 @@ function structureLabelSources(source) {
     .map(item => [item.groups.key, item.groups.source]));
 }
 
-function expectedOrigin(question, labelSources) {
-  if (question.format === "surface") return "provisional";
-  const source = labelSources.get(question.target);
-  return ["atlas-provisional", "image-guided"].includes(source) ? "provisional" : "standard";
+function surfaceRegionKeys(source) {
+  const match = source.match(/const surfaceRegions:[^{]+\{(?<body>[\s\S]*?)\n\};/);
+  if (!match) throw new Error("Could not locate surfaceRegions in app/page.tsx");
+  return new Set([...match.groups.body.matchAll(/^\s*(?<key>[A-Za-z][A-Za-z0-9]*):\{/gm)].map(item => item.groups.key));
+}
+
+function provenanceForKey(key, question, labelSources, surfaceKeys) {
+  if (question.format === "surface") {
+    if (!surfaceKeys.has(key)) return "unknown";
+    return "provisional";
+  }
+  const source = labelSources.get(key);
+  if (!source) return "unknown";
+  if (STANDARD_LABEL_SOURCES.has(source)) return "standard";
+  if (PROVISIONAL_LABEL_SOURCES.has(source)) return "provisional";
+  return "unknown";
+}
+
+function expectedOrigin(question, labelSources, surfaceKeys) {
+  const keys = [question.target, ...question.options];
+  return keys.every(key => provenanceForKey(key, question, labelSources, surfaceKeys) === "standard")
+    ? "standard"
+    : "provisional";
+}
+
+function optionProvenanceErrors(question, labelSources, surfaceKeys) {
+  const errors = [];
+  const keys = [{kind: "target", key: question.target}, ...question.options.map(key => ({kind: "option", key}))];
+  for (const {kind, key} of keys) {
+    const provenance = provenanceForKey(key, question, labelSources, surfaceKeys);
+    if (provenance === "unknown") {
+      errors.push(`quiz target ${question.target ?? "?"}: ${kind} ${key ?? "?"} has unknown or unresolved provenance`);
+    } else if (question.origin === "standard" && provenance !== "standard") {
+      errors.push(`quiz target ${question.target ?? "?"}: standard answer set ${kind} ${key} has ${provenance} provenance`);
+    }
+  }
+  return errors;
 }
 
 export function auditQuizGranularitySource(source) {
@@ -90,6 +125,7 @@ export function auditQuizGranularitySource(source) {
   const errors = validateQuizGranularity(questions);
   const contentSha256 = quizContentHash(questions);
   const labelSources = structureLabelSources(source);
+  const surfaceKeys = surfaceRegionKeys(source);
   const targets = new Set();
   const registryTargets = new Set(Object.keys(QUIZ_GRANULARITY_BY_TARGET));
 
@@ -105,7 +141,8 @@ export function auditQuizGranularitySource(source) {
     if (question.target === "opticChiasm") errors.push("old ID33 opticChiasm cannot return as a quiz target");
     if (question.format === "section" && question.detail !== question.plane) errors.push(`${prefix}: section detail must match plane`);
     if (question.format === "surface" && question.detail !== question.view) errors.push(`${prefix}: surface detail must match view`);
-    const expected = expectedOrigin(question, labelSources);
+    errors.push(...optionProvenanceErrors(question, labelSources, surfaceKeys));
+    const expected = expectedOrigin(question, labelSources, surfaceKeys);
     if (question.origin !== expected) errors.push(`${prefix}: origin ${question.origin} disagrees with existing ${expected} provenance rule`);
     if (question.declaredFormat && question.declaredFormat !== registry?.format) errors.push(`${prefix}: declared format ${question.declaredFormat} disagrees with registry ${registry?.format ?? "missing"}`);
     if (question.declaredDetail && question.declaredDetail !== registry?.detail) errors.push(`${prefix}: declared detail ${question.declaredDetail} disagrees with registry ${registry?.detail ?? "missing"}`);

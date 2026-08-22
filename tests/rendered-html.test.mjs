@@ -2040,7 +2040,8 @@ test("describes specimen fidelity limits without implying anatomical validation"
 });
 test("labels provisional questions and includes them in the default quiz setup", async () => {
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
-  assert.match(page, /function isProvisionalQuiz\(question:QuizQuestion\)\{return isNeurovascularQuiz\(question\)\|\|isSurfaceQuiz\(question\)\|\|\["atlas-provisional","image-guided"\]\.includes/);
+  assert.match(page, /function isStandardQuizStructure\(key:string\)\{const source=structures\[key as StructureKey\]\?\.labelSource;return source==="manual"\|\|source==="image-guided-reviewed"\}/);
+  assert.match(page, /function isProvisionalQuiz\(question:QuizQuestion\)\{[\s\S]*?question\.options\.some\(option=>!isStandardQuizStructure\(option\)\);\n\}/);
   assert.match(page, /standardQuizQuestions=quizQuestions\.filter\(question=>!isProvisionalQuiz\(question\)\)/);
   assert.match(page, /useState<QuizQuestion\[]>\(\(\)=>shuffledQuestions\(allQuizQuestions\)/);
   assert.match(page, /quizIncludeProvisional,setQuizIncludeProvisional\]=useState\(true\)/);

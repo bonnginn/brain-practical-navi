@@ -14,7 +14,7 @@
 
 同日の機械結果は、expert pending 75件、表示面フィルタ54／16／30／21件、学習者向けmapping 222/222件解決済みである。構造由来監査のクイズ正答対象は既存23件と模式3D pilot 17件の合計40件なので、status本文も40件へ同期する。この同期自体は解剖学的妥当性の検証や実ブラウザ確認ではなく、最終ローカル確認は下記に別記する。2026-08-22に確認した全56件・表示面36／16／29／21件・route156/156の歴史記録と、公開URL未確認の記述は変更しない。
 
-Go / No-Go 12項目の現行状態とcriterionTextの突合は [BETA_GO_NO_GO.json](BETA_GO_NO_GO.json) と [BETA_GO_NO_GO_AUDIT.md](BETA_GO_NO_GO_AUDIT.md) を基準にする。sourceCountsは provenance／expert pending 75件、unique quiz targets 40件（標準23件＋模式3D pilot 17件）、learner mapping 222/222件であり、statusのローカル確認を公開・専門家確認・デプロイ完了とは扱わない。
+Go / No-Go 12項目の現行状態とcriterionTextの突合は [BETA_GO_NO_GO.json](BETA_GO_NO_GO.json) と [BETA_GO_NO_GO_AUDIT.md](BETA_GO_NO_GO_AUDIT.md) を基準にする。sourceCountsは provenance／expert pending 75件、unique quiz targets 40件（既存23件＋模式3D pilot 17件）、learner mapping 222/222件であり、statusのローカル確認を公開・専門家確認・デプロイ完了とは扱わない。
 
 ## 2026-08-23 最終ローカル実ブラウザ確認
 
@@ -50,7 +50,7 @@ Chrome 151のin-app browserでローカルproduction preview `http://127.0.0.1:4
 
 ## 実装検証
 
-- 全自動テスト: 2026-08-23の現行作業ツリーで205/205成功（Go / No-Go台帳の異常系を含む）。
+- 全自動テスト: 2026-08-23の現行作業ツリーで206/206成功（Go / No-Go台帳とクイズ全選択肢由来の異常系を含む）。
 - TypeScript型検査: 成功。
 - 通常本番ビルド: 成功。
 - GitHub Pages向けビルド: 成功。

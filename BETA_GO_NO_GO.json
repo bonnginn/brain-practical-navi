@@ -20,7 +20,7 @@
   "criteria": [
     {
       "id": "criterion-01-essential-structure-labels",
-      "criterionText": "必修構造は、検証済みか、模式・推定であることが画面上で判別できる。（部分的な根拠: 由来区分・表示面・既知の制限を監査索引へ記録し、標準23件と模式3D pilot 17件の一意な40件の正答対象をアプリ実装と照合した。画面全必修範囲のGo/No-Go判定は未実施。）",
+      "criterionText": "必修構造は、検証済みか、模式・推定であることが画面上で判別できる。（部分的な根拠: 由来区分・表示面・既知の制限を監査索引へ記録し、既存23件と模式3D pilot 17件の一意な40件の正答対象をアプリ実装と照合した。画面全必修範囲のGo/No-Go判定は未実施。）",
       "state": "expert-blocked",
       "locallyProven": [
         "ローカル由来台帳と表示面の照合を実施した。",
@@ -172,13 +172,14 @@
     },
     {
       "id": "criterion-07-quiz-target-visibility",
-      "criterionText": "クイズ対象は画面上で十分に確認でき、未確認構造を正答として要求しない。（粒度監査で標準23件と模式3D pilot 17件の一意な40件を形式・詳細・トピック・由来へ分類し、旧ID33の正答対象外と標準／試作の整合を自動検査。クイズ操作、試作バッジ、誤答から観察画面への復帰は実ブラウザ確認済み。標準採用基準の解剖学的妥当性は未完了で、誤答選択肢としての出現可能性は別途残る。）",
+      "criterionText": "クイズ対象は画面上で十分に確認でき、未確認構造を正答として要求しない。（粒度監査で既存23問を標準7件・試作16件、模式3D pilot 17件の一意な40件として形式・詳細・トピック・由来へ分類し、targetと全選択肢の由来を照合。provisional選択肢を含むpallidum・accumbens・hippocampus・mammillaryBodyを試作へ分類し、試作OFF時の候補除外、標準回答セットの全件解決、unknown由来の拒否を自動検査。Chrome 151のローカルpreviewで試作ON時40件（標準7・試作33）、OFF時7件（標準7・試作0）、標準queue、乳頭体問題の試作バッジを実操作し、最終route監査156/156件に合格。旧ID33の正答対象外、誤答から観察画面への復帰も確認済み。標準採用基準の解剖学的妥当性と未確認構造が選択肢へ現れないことの専門家確認は未完了。）",
       "state": "expert-blocked",
       "locallyProven": [
-        "ローカルクイズ粒度監査で標準23件と模式3D pilot 17件の形式・由来分類を確認した。",
+        "ローカルクイズ粒度監査で、既存23問を標準7件・試作16件に分類し、targetと全選択肢の由来を照合した。",
+        "provisional選択肢を含む4問を試作へ隔離し、unknown由来を拒否する分類を確認した。",
         "未確認構造の標準採用は専門家未確認。"
       ],
-      "unprovenScope": "専門家による標準採用判断と、未確認構造が選択肢へ現れないことの全範囲確認は未完了。",
+      "unprovenScope": "専門家による標準採用判断と、未確認構造が正答・選択肢へ現れないことの全範囲確認は未完了。",
       "blockingAuthority": "neuroanatomy expert reviewer",
       "committedEvidenceRefs": [
         "QUIZ_GRANULARITY_AUDIT.md",
@@ -186,7 +187,7 @@
         "app/page.tsx"
       ],
       "localArtifactRefs": [],
-      "nextAction": "専門家にクイズ対象・表示・正答条件を確認してもらう。"
+      "nextAction": "専門家にクイズ対象・表示・正答条件（targetと全選択肢の由来を含む）を確認してもらう。"
     },
     {
       "id": "criterion-08-expert-review-handoff",

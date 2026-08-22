@@ -19,7 +19,7 @@
 監査スクリプトは台帳本文や説明文の数値を信用せず、次のソースを読み取って集計します。
 
 - `public/atlas/structure-provenance.json`: `entryCount = 75`, `expertPendingCount = 75`
-- `app/page.tsx`: 標準23問と模式3D pilot 17問の一意な `quizTargetCount = 40`
+- `app/page.tsx`: 既存23問と模式3D pilot 17問の一意な `quizTargetCount = 40`
 - `src/learnerProvenance.mjs` と同台帳監査: `mappingCount = 222`, `resolvedMappingCount = 222`
 
 現行のローカル性能証拠は、2026-08-23のpial-gzip成果物（route `156/156`: `work/browser-audit/beta-route-audit-pial-gzip-2026-08-23.json`、初回payload `26/26`: `work/performance/initial-route-payload-audit-pial-gzip-2026-08-23.json`、性能suite `37/37`: `work/performance/performance-suite-pial-gzip-2026-08-23.json`）を参照します。これらは公開URL・デプロイ・専門家確認の証拠ではありません。2026-08-22の56件・filter36／16／29／21件・route156/156は、各文書に残す歴史記録です。

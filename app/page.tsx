@@ -478,7 +478,11 @@ const allQuizQuestions:QuizQuestion[]=[...quizQuestions,...neurovascularQuizQues
 
 function isNeurovascularQuiz(question:QuizQuestion):question is NeurovascularQuizQuestion{return question.category==="neurovascular"}
 function isSurfaceQuiz(question:QuizQuestion):question is SurfaceQuizQuestion{return question.category==="surface"}
-function isProvisionalQuiz(question:QuizQuestion){return isNeurovascularQuiz(question)||isSurfaceQuiz(question)||["atlas-provisional","image-guided"].includes(structures[question.target].labelSource??"manual")}
+function isStandardQuizStructure(key:string){const source=structures[key as StructureKey]?.labelSource;return source==="manual"||source==="image-guided-reviewed"}
+function isProvisionalQuiz(question:QuizQuestion){
+  if(isNeurovascularQuiz(question)||isSurfaceQuiz(question))return true;
+  return !isStandardQuizStructure(question.target)||question.options.some(option=>!isStandardQuizStructure(option));
+}
 type QuizGranularityFields=Pick<QuizFilterQuestion,"format"|"detail"|"origin">;
 type QuizQuestionWithGranularity=QuizQuestion&QuizGranularityFields;
 function withQuizGranularity(question:QuizQuestion):QuizQuestionWithGranularity{return {...question,...QUIZ_GRANULARITY_BY_TARGET[question.target]} as QuizQuestionWithGranularity}
