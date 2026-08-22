@@ -681,6 +681,47 @@ test("maps every orthogonal audit slice and display corner to the shared voxel g
   }
 });
 
+test("reproduces the objective orthogonal mammillary audit and rejects a wrong volume", async () => {
+  const result = spawnSync(python.command, [...python.prefix,
+    localPath("scripts/audit_mammillary_orthogonal.py"),
+    "--input", "public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz",
+  ], {encoding:"utf8", cwd:localPath("")});
+  assert.equal(result.status, 0, result.stderr);
+  const audit = JSON.parse(result.stdout);
+  const saved = JSON.parse(await readFile(new URL("segmentation-patches/review/mammillary-bodies-orthogonal-objective-audit-2026-08-22.json", root), "utf8"));
+  assert.deepEqual(audit, saved);
+  assert.equal(audit.magic, "BBS1");
+  assert.equal(audit.inputSha256, "6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56");
+  assert.deepEqual(audit.dims, [394, 466, 378]);
+  assert.deepEqual(audit.voxelSizeMm, [0.5, 0.5, 0.5]);
+  assert.equal(audit.validation.passed, true);
+  assert.equal(audit.labels["39"].voxelCount, 561);
+  assert.equal(audit.labels["40"].voxelCount, 729);
+  assert.deepEqual(audit.labels["39"].bbox.min, [187, 246, 107]);
+  assert.deepEqual(audit.labels["39"].bbox.max, [196, 256, 121]);
+  assert.deepEqual(audit.labels["40"].bbox.min, [197, 247, 108]);
+  assert.deepEqual(audit.labels["40"].bbox.max, [204, 258, 121]);
+  assert.equal(audit.labels["39"].connectedComponentCount6, 1);
+  assert.equal(audit.labels["40"].connectedComponentCount6, 1);
+  assert.deepEqual(audit.validation.expectedMammillaryBboxes, {
+    "39": {min:[187,246,107], max:[196,256,121]},
+    "40": {min:[197,247,108], max:[204,258,121]},
+  });
+  assert.deepEqual(audit.faceContacts6, {"27-33":32,"27-39":69,"27-40":38,"33-39":171,"33-40":162,"39-40":1});
+  for (const distance of Object.values(audit.shortestVoxelDistances6)) {
+    assert.equal(distance.voxelDistance6, 1);
+    assert.equal(distance.distanceMm, 0.5);
+  }
+  assert.match(audit.definitions.anatomicalStatus, /not anatomical validation/i);
+
+  const wrongInput = spawnSync(python.command, [...python.prefix,
+    localPath("scripts/audit_mammillary_orthogonal.py"),
+    "--input", "public/atlas/bigbrain-icbm500.bin.gz",
+  ], {encoding:"utf8", cwd:localPath("")});
+  assert.notEqual(wrongInput.status, 0);
+  assert.match(`${wrongInput.stdout}\n${wrongInput.stderr}`, /SHA-256|expected BBS1/);
+});
+
 test("keeps the reviewed sparse mammillary-body patch separate from the published labels", async () => {
   const patch = JSON.parse(await readFile(new URL("segmentation-patches/review/mammillary-bodies-horizontal-sparse-2026-08-16.json", root), "utf8"));
   assert.equal(patch.reviewStatus, "unreviewed");

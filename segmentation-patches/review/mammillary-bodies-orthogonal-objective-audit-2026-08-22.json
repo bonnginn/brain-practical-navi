@@ -1,0 +1,3894 @@
+{
+  "format": "brain-practical-mammillary-orthogonal-audit",
+  "version": 1,
+  "input": "public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz",
+  "inputSha256": "6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56",
+  "magic": "BBS1",
+  "dims": [
+    394,
+    466,
+    378
+  ],
+  "voxelSizeMm": [
+    0.5,
+    0.5,
+    0.5
+  ],
+  "auditedLabelIds": [
+    27,
+    33,
+    39,
+    40
+  ],
+  "labels": {
+    "27": {
+      "voxelCount": 254786,
+      "voxelVolumeMm3": 31848.25,
+      "bbox": {
+        "min": [
+          155,
+          165,
+          0
+        ],
+        "max": [
+          236,
+          256,
+          148
+        ],
+        "size": [
+          82,
+          92,
+          149
+        ],
+        "x": [
+          155,
+          236
+        ],
+        "y": [
+          165,
+          256
+        ],
+        "z": [
+          0,
+          148
+        ]
+      },
+      "centroid": {
+        "voxel": [
+          195.50326941040717,
+          205.31488778818303,
+          72.68834237359981
+        ],
+        "mm": [
+          97.75163470520359,
+          102.65744389409151,
+          36.344171186799905
+        ]
+      },
+      "sliceOccupancy": {
+        "x": {
+          "occupiedSliceCount": 78,
+          "slices": [
+            {
+              "index": 155,
+              "count": 8
+            },
+            {
+              "index": 156,
+              "count": 8
+            },
+            {
+              "index": 159,
+              "count": 60
+            },
+            {
+              "index": 160,
+              "count": 60
+            },
+            {
+              "index": 161,
+              "count": 584
+            },
+            {
+              "index": 162,
+              "count": 584
+            },
+            {
+              "index": 163,
+              "count": 1000
+            },
+            {
+              "index": 164,
+              "count": 1000
+            },
+            {
+              "index": 165,
+              "count": 1296
+            },
+            {
+              "index": 166,
+              "count": 1296
+            },
+            {
+              "index": 167,
+              "count": 1776
+            },
+            {
+              "index": 168,
+              "count": 1776
+            },
+            {
+              "index": 169,
+              "count": 1996
+            },
+            {
+              "index": 170,
+              "count": 1996
+            },
+            {
+              "index": 171,
+              "count": 2220
+            },
+            {
+              "index": 172,
+              "count": 2220
+            },
+            {
+              "index": 173,
+              "count": 2777
+            },
+            {
+              "index": 174,
+              "count": 2772
+            },
+            {
+              "index": 175,
+              "count": 3428
+            },
+            {
+              "index": 176,
+              "count": 3429
+            },
+            {
+              "index": 177,
+              "count": 3980
+            },
+            {
+              "index": 178,
+              "count": 3985
+            },
+            {
+              "index": 179,
+              "count": 4723
+            },
+            {
+              "index": 180,
+              "count": 4732
+            },
+            {
+              "index": 181,
+              "count": 5108
+            },
+            {
+              "index": 182,
+              "count": 5108
+            },
+            {
+              "index": 183,
+              "count": 5384
+            },
+            {
+              "index": 184,
+              "count": 5384
+            },
+            {
+              "index": 185,
+              "count": 5432
+            },
+            {
+              "index": 186,
+              "count": 5432
+            },
+            {
+              "index": 187,
+              "count": 5526
+            },
+            {
+              "index": 188,
+              "count": 5526
+            },
+            {
+              "index": 189,
+              "count": 5362
+            },
+            {
+              "index": 190,
+              "count": 5362
+            },
+            {
+              "index": 191,
+              "count": 5332
+            },
+            {
+              "index": 192,
+              "count": 5332
+            },
+            {
+              "index": 193,
+              "count": 4984
+            },
+            {
+              "index": 194,
+              "count": 4984
+            },
+            {
+              "index": 195,
+              "count": 5400
+            },
+            {
+              "index": 196,
+              "count": 5415
+            },
+            {
+              "index": 197,
+              "count": 4984
+            },
+            {
+              "index": 198,
+              "count": 4984
+            },
+            {
+              "index": 199,
+              "count": 5332
+            },
+            {
+              "index": 200,
+              "count": 5332
+            },
+            {
+              "index": 201,
+              "count": 5362
+            },
+            {
+              "index": 202,
+              "count": 5362
+            },
+            {
+              "index": 203,
+              "count": 5526
+            },
+            {
+              "index": 204,
+              "count": 5526
+            },
+            {
+              "index": 205,
+              "count": 5432
+            },
+            {
+              "index": 206,
+              "count": 5432
+            },
+            {
+              "index": 207,
+              "count": 5384
+            },
+            {
+              "index": 208,
+              "count": 5384
+            },
+            {
+              "index": 209,
+              "count": 5108
+            },
+            {
+              "index": 210,
+              "count": 5108
+            },
+            {
+              "index": 211,
+              "count": 4732
+            },
+            {
+              "index": 212,
+              "count": 4732
+            },
+            {
+              "index": 213,
+              "count": 4002
+            },
+            {
+              "index": 214,
+              "count": 3997
+            },
+            {
+              "index": 215,
+              "count": 3436
+            },
+            {
+              "index": 216,
+              "count": 3430
+            },
+            {
+              "index": 217,
+              "count": 2772
+            },
+            {
+              "index": 218,
+              "count": 2772
+            },
+            {
+              "index": 219,
+              "count": 2220
+            },
+            {
+              "index": 220,
+              "count": 2220
+            },
+            {
+              "index": 221,
+              "count": 1996
+            },
+            {
+              "index": 222,
+              "count": 1996
+            },
+            {
+              "index": 223,
+              "count": 1776
+            },
+            {
+              "index": 224,
+              "count": 1776
+            },
+            {
+              "index": 225,
+              "count": 1296
+            },
+            {
+              "index": 226,
+              "count": 1296
+            },
+            {
+              "index": 227,
+              "count": 1000
+            },
+            {
+              "index": 228,
+              "count": 1000
+            },
+            {
+              "index": 229,
+              "count": 584
+            },
+            {
+              "index": 230,
+              "count": 584
+            },
+            {
+              "index": 231,
+              "count": 60
+            },
+            {
+              "index": 232,
+              "count": 60
+            },
+            {
+              "index": 235,
+              "count": 8
+            },
+            {
+              "index": 236,
+              "count": 8
+            }
+          ]
+        },
+        "y": {
+          "occupiedSliceCount": 92,
+          "slices": [
+            {
+              "index": 165,
+              "count": 290
+            },
+            {
+              "index": 166,
+              "count": 290
+            },
+            {
+              "index": 167,
+              "count": 506
+            },
+            {
+              "index": 168,
+              "count": 506
+            },
+            {
+              "index": 169,
+              "count": 682
+            },
+            {
+              "index": 170,
+              "count": 682
+            },
+            {
+              "index": 171,
+              "count": 934
+            },
+            {
+              "index": 172,
+              "count": 934
+            },
+            {
+              "index": 173,
+              "count": 1142
+            },
+            {
+              "index": 174,
+              "count": 1142
+            },
+            {
+              "index": 175,
+              "count": 1414
+            },
+            {
+              "index": 176,
+              "count": 1414
+            },
+            {
+              "index": 177,
+              "count": 2022
+            },
+            {
+              "index": 178,
+              "count": 2022
+            },
+            {
+              "index": 179,
+              "count": 2522
+            },
+            {
+              "index": 180,
+              "count": 2522
+            },
+            {
+              "index": 181,
+              "count": 2838
+            },
+            {
+              "index": 182,
+              "count": 2838
+            },
+            {
+              "index": 183,
+              "count": 3242
+            },
+            {
+              "index": 184,
+              "count": 3242
+            },
+            {
+              "index": 185,
+              "count": 3510
+            },
+            {
+              "index": 186,
+              "count": 3510
+            },
+            {
+              "index": 187,
+              "count": 3718
+            },
+            {
+              "index": 188,
+              "count": 3718
+            },
+            {
+              "index": 189,
+              "count": 3716
+            },
+            {
+              "index": 190,
+              "count": 3716
+            },
+            {
+              "index": 191,
+              "count": 4416
+            },
+            {
+              "index": 192,
+              "count": 4416
+            },
+            {
+              "index": 193,
+              "count": 4732
+            },
+            {
+              "index": 194,
+              "count": 4732
+            },
+            {
+              "index": 195,
+              "count": 4968
+            },
+            {
+              "index": 196,
+              "count": 4968
+            },
+            {
+              "index": 197,
+              "count": 5192
+            },
+            {
+              "index": 198,
+              "count": 5192
+            },
+            {
+              "index": 199,
+              "count": 5300
+            },
+            {
+              "index": 200,
+              "count": 5300
+            },
+            {
+              "index": 201,
+              "count": 5416
+            },
+            {
+              "index": 202,
+              "count": 5416
+            },
+            {
+              "index": 203,
+              "count": 5316
+            },
+            {
+              "index": 204,
+              "count": 5316
+            },
+            {
+              "index": 205,
+              "count": 5400
+            },
+            {
+              "index": 206,
+              "count": 5400
+            },
+            {
+              "index": 207,
+              "count": 5348
+            },
+            {
+              "index": 208,
+              "count": 5348
+            },
+            {
+              "index": 209,
+              "count": 5304
+            },
+            {
+              "index": 210,
+              "count": 5304
+            },
+            {
+              "index": 211,
+              "count": 5320
+            },
+            {
+              "index": 212,
+              "count": 5320
+            },
+            {
+              "index": 213,
+              "count": 5280
+            },
+            {
+              "index": 214,
+              "count": 5257
+            },
+            {
+              "index": 215,
+              "count": 5186
+            },
+            {
+              "index": 216,
+              "count": 5179
+            },
+            {
+              "index": 217,
+              "count": 4191
+            },
+            {
+              "index": 218,
+              "count": 4187
+            },
+            {
+              "index": 219,
+              "count": 3802
+            },
+            {
+              "index": 220,
+              "count": 3801
+            },
+            {
+              "index": 221,
+              "count": 3464
+            },
+            {
+              "index": 222,
+              "count": 3464
+            },
+            {
+              "index": 223,
+              "count": 3292
+            },
+            {
+              "index": 224,
+              "count": 3292
+            },
+            {
+              "index": 225,
+              "count": 3032
+            },
+            {
+              "index": 226,
+              "count": 3032
+            },
+            {
+              "index": 227,
+              "count": 2856
+            },
+            {
+              "index": 228,
+              "count": 2856
+            },
+            {
+              "index": 229,
+              "count": 2700
+            },
+            {
+              "index": 230,
+              "count": 2700
+            },
+            {
+              "index": 231,
+              "count": 2488
+            },
+            {
+              "index": 232,
+              "count": 2488
+            },
+            {
+              "index": 233,
+              "count": 2252
+            },
+            {
+              "index": 234,
+              "count": 2252
+            },
+            {
+              "index": 235,
+              "count": 1944
+            },
+            {
+              "index": 236,
+              "count": 1944
+            },
+            {
+              "index": 237,
+              "count": 1700
+            },
+            {
+              "index": 238,
+              "count": 1700
+            },
+            {
+              "index": 239,
+              "count": 1224
+            },
+            {
+              "index": 240,
+              "count": 1224
+            },
+            {
+              "index": 241,
+              "count": 552
+            },
+            {
+              "index": 242,
+              "count": 552
+            },
+            {
+              "index": 243,
+              "count": 68
+            },
+            {
+              "index": 244,
+              "count": 68
+            },
+            {
+              "index": 245,
+              "count": 20
+            },
+            {
+              "index": 246,
+              "count": 20
+            },
+            {
+              "index": 247,
+              "count": 28
+            },
+            {
+              "index": 248,
+              "count": 27
+            },
+            {
+              "index": 249,
+              "count": 26
+            },
+            {
+              "index": 250,
+              "count": 26
+            },
+            {
+              "index": 251,
+              "count": 23
+            },
+            {
+              "index": 252,
+              "count": 24
+            },
+            {
+              "index": 253,
+              "count": 17
+            },
+            {
+              "index": 254,
+              "count": 20
+            },
+            {
+              "index": 255,
+              "count": 16
+            },
+            {
+              "index": 256,
+              "count": 16
+            }
+          ]
+        },
+        "z": {
+          "occupiedSliceCount": 149,
+          "slices": [
+            {
+              "index": 0,
+              "count": 608
+            },
+            {
+              "index": 1,
+              "count": 612
+            },
+            {
+              "index": 2,
+              "count": 612
+            },
+            {
+              "index": 3,
+              "count": 592
+            },
+            {
+              "index": 4,
+              "count": 592
+            },
+            {
+              "index": 5,
+              "count": 644
+            },
+            {
+              "index": 6,
+              "count": 644
+            },
+            {
+              "index": 7,
+              "count": 668
+            },
+            {
+              "index": 8,
+              "count": 668
+            },
+            {
+              "index": 9,
+              "count": 672
+            },
+            {
+              "index": 10,
+              "count": 672
+            },
+            {
+              "index": 11,
+              "count": 740
+            },
+            {
+              "index": 12,
+              "count": 740
+            },
+            {
+              "index": 13,
+              "count": 800
+            },
+            {
+              "index": 14,
+              "count": 800
+            },
+            {
+              "index": 15,
+              "count": 852
+            },
+            {
+              "index": 16,
+              "count": 852
+            },
+            {
+              "index": 17,
+              "count": 896
+            },
+            {
+              "index": 18,
+              "count": 896
+            },
+            {
+              "index": 19,
+              "count": 964
+            },
+            {
+              "index": 20,
+              "count": 964
+            },
+            {
+              "index": 21,
+              "count": 988
+            },
+            {
+              "index": 22,
+              "count": 988
+            },
+            {
+              "index": 23,
+              "count": 1040
+            },
+            {
+              "index": 24,
+              "count": 1040
+            },
+            {
+              "index": 25,
+              "count": 1076
+            },
+            {
+              "index": 26,
+              "count": 1076
+            },
+            {
+              "index": 27,
+              "count": 1120
+            },
+            {
+              "index": 28,
+              "count": 1120
+            },
+            {
+              "index": 29,
+              "count": 1160
+            },
+            {
+              "index": 30,
+              "count": 1160
+            },
+            {
+              "index": 31,
+              "count": 1200
+            },
+            {
+              "index": 32,
+              "count": 1200
+            },
+            {
+              "index": 33,
+              "count": 1260
+            },
+            {
+              "index": 34,
+              "count": 1260
+            },
+            {
+              "index": 35,
+              "count": 1264
+            },
+            {
+              "index": 36,
+              "count": 1264
+            },
+            {
+              "index": 37,
+              "count": 1264
+            },
+            {
+              "index": 38,
+              "count": 1264
+            },
+            {
+              "index": 39,
+              "count": 1332
+            },
+            {
+              "index": 40,
+              "count": 1332
+            },
+            {
+              "index": 41,
+              "count": 1256
+            },
+            {
+              "index": 42,
+              "count": 1256
+            },
+            {
+              "index": 43,
+              "count": 1292
+            },
+            {
+              "index": 44,
+              "count": 1292
+            },
+            {
+              "index": 45,
+              "count": 1444
+            },
+            {
+              "index": 46,
+              "count": 1444
+            },
+            {
+              "index": 47,
+              "count": 1704
+            },
+            {
+              "index": 48,
+              "count": 1704
+            },
+            {
+              "index": 49,
+              "count": 1932
+            },
+            {
+              "index": 50,
+              "count": 1932
+            },
+            {
+              "index": 51,
+              "count": 2236
+            },
+            {
+              "index": 52,
+              "count": 2236
+            },
+            {
+              "index": 53,
+              "count": 2648
+            },
+            {
+              "index": 54,
+              "count": 2648
+            },
+            {
+              "index": 55,
+              "count": 3004
+            },
+            {
+              "index": 56,
+              "count": 3004
+            },
+            {
+              "index": 57,
+              "count": 3132
+            },
+            {
+              "index": 58,
+              "count": 3132
+            },
+            {
+              "index": 59,
+              "count": 3156
+            },
+            {
+              "index": 60,
+              "count": 3156
+            },
+            {
+              "index": 61,
+              "count": 3356
+            },
+            {
+              "index": 62,
+              "count": 3356
+            },
+            {
+              "index": 63,
+              "count": 3372
+            },
+            {
+              "index": 64,
+              "count": 3372
+            },
+            {
+              "index": 65,
+              "count": 3552
+            },
+            {
+              "index": 66,
+              "count": 3552
+            },
+            {
+              "index": 67,
+              "count": 3552
+            },
+            {
+              "index": 68,
+              "count": 3552
+            },
+            {
+              "index": 69,
+              "count": 3504
+            },
+            {
+              "index": 70,
+              "count": 3504
+            },
+            {
+              "index": 71,
+              "count": 3368
+            },
+            {
+              "index": 72,
+              "count": 3368
+            },
+            {
+              "index": 73,
+              "count": 3460
+            },
+            {
+              "index": 74,
+              "count": 3460
+            },
+            {
+              "index": 75,
+              "count": 3368
+            },
+            {
+              "index": 76,
+              "count": 3368
+            },
+            {
+              "index": 77,
+              "count": 3396
+            },
+            {
+              "index": 78,
+              "count": 3396
+            },
+            {
+              "index": 79,
+              "count": 3392
+            },
+            {
+              "index": 80,
+              "count": 3392
+            },
+            {
+              "index": 81,
+              "count": 3524
+            },
+            {
+              "index": 82,
+              "count": 3524
+            },
+            {
+              "index": 83,
+              "count": 3364
+            },
+            {
+              "index": 84,
+              "count": 3364
+            },
+            {
+              "index": 85,
+              "count": 3384
+            },
+            {
+              "index": 86,
+              "count": 3384
+            },
+            {
+              "index": 87,
+              "count": 3288
+            },
+            {
+              "index": 88,
+              "count": 3288
+            },
+            {
+              "index": 89,
+              "count": 3200
+            },
+            {
+              "index": 90,
+              "count": 3200
+            },
+            {
+              "index": 91,
+              "count": 2928
+            },
+            {
+              "index": 92,
+              "count": 2928
+            },
+            {
+              "index": 93,
+              "count": 2828
+            },
+            {
+              "index": 94,
+              "count": 2828
+            },
+            {
+              "index": 95,
+              "count": 2760
+            },
+            {
+              "index": 96,
+              "count": 2760
+            },
+            {
+              "index": 97,
+              "count": 2676
+            },
+            {
+              "index": 98,
+              "count": 2676
+            },
+            {
+              "index": 99,
+              "count": 2476
+            },
+            {
+              "index": 100,
+              "count": 2476
+            },
+            {
+              "index": 101,
+              "count": 2476
+            },
+            {
+              "index": 102,
+              "count": 2476
+            },
+            {
+              "index": 103,
+              "count": 1244
+            },
+            {
+              "index": 104,
+              "count": 1244
+            },
+            {
+              "index": 105,
+              "count": 1212
+            },
+            {
+              "index": 106,
+              "count": 1212
+            },
+            {
+              "index": 107,
+              "count": 1158
+            },
+            {
+              "index": 108,
+              "count": 1155
+            },
+            {
+              "index": 109,
+              "count": 1076
+            },
+            {
+              "index": 110,
+              "count": 1080
+            },
+            {
+              "index": 111,
+              "count": 1050
+            },
+            {
+              "index": 112,
+              "count": 1053
+            },
+            {
+              "index": 113,
+              "count": 964
+            },
+            {
+              "index": 114,
+              "count": 972
+            },
+            {
+              "index": 115,
+              "count": 1077
+            },
+            {
+              "index": 116,
+              "count": 1083
+            },
+            {
+              "index": 117,
+              "count": 1129
+            },
+            {
+              "index": 118,
+              "count": 1132
+            },
+            {
+              "index": 119,
+              "count": 1144
+            },
+            {
+              "index": 120,
+              "count": 1144
+            },
+            {
+              "index": 121,
+              "count": 1148
+            },
+            {
+              "index": 122,
+              "count": 1148
+            },
+            {
+              "index": 123,
+              "count": 1144
+            },
+            {
+              "index": 124,
+              "count": 1144
+            },
+            {
+              "index": 125,
+              "count": 1072
+            },
+            {
+              "index": 126,
+              "count": 1072
+            },
+            {
+              "index": 127,
+              "count": 1028
+            },
+            {
+              "index": 128,
+              "count": 1028
+            },
+            {
+              "index": 129,
+              "count": 912
+            },
+            {
+              "index": 130,
+              "count": 912
+            },
+            {
+              "index": 131,
+              "count": 812
+            },
+            {
+              "index": 132,
+              "count": 812
+            },
+            {
+              "index": 133,
+              "count": 788
+            },
+            {
+              "index": 134,
+              "count": 788
+            },
+            {
+              "index": 135,
+              "count": 692
+            },
+            {
+              "index": 136,
+              "count": 692
+            },
+            {
+              "index": 137,
+              "count": 616
+            },
+            {
+              "index": 138,
+              "count": 616
+            },
+            {
+              "index": 139,
+              "count": 444
+            },
+            {
+              "index": 140,
+              "count": 437
+            },
+            {
+              "index": 141,
+              "count": 124
+            },
+            {
+              "index": 142,
+              "count": 124
+            },
+            {
+              "index": 143,
+              "count": 52
+            },
+            {
+              "index": 144,
+              "count": 52
+            },
+            {
+              "index": 145,
+              "count": 16
+            },
+            {
+              "index": 146,
+              "count": 16
+            },
+            {
+              "index": 147,
+              "count": 8
+            },
+            {
+              "index": 148,
+              "count": 8
+            }
+          ]
+        }
+      },
+      "connectedComponents6": [
+        {
+          "voxelCount": 254617,
+          "seedVoxel": [
+            187,
+            165,
+            0
+          ],
+          "bbox": {
+            "min": [
+              159,
+              165,
+              0
+            ],
+            "max": [
+              232,
+              256,
+              148
+            ],
+            "size": [
+              74,
+              92,
+              149
+            ],
+            "x": [
+              159,
+              232
+            ],
+            "y": [
+              165,
+              256
+            ],
+            "z": [
+              0,
+              148
+            ]
+          },
+          "centroid": {
+            "voxel": [
+              195.50378804243235,
+              205.31040739620684,
+              72.67121991068939
+            ],
+            "mm": [
+              97.75189402121617,
+              102.65520369810342,
+              36.335609955344694
+            ]
+          }
+        },
+        {
+          "voxelCount": 40,
+          "seedVoxel": [
+            191,
+            205,
+            143
+          ],
+          "bbox": {
+            "min": [
+              191,
+              205,
+              143
+            ],
+            "max": [
+              200,
+              206,
+              144
+            ],
+            "size": [
+              10,
+              2,
+              2
+            ],
+            "x": [
+              191,
+              200
+            ],
+            "y": [
+              205,
+              206
+            ],
+            "z": [
+              143,
+              144
+            ]
+          },
+          "centroid": {
+            "voxel": [
+              195.5,
+              205.5,
+              143.5
+            ],
+            "mm": [
+              97.75,
+              102.75,
+              71.75
+            ]
+          }
+        },
+        {
+          "voxelCount": 16,
+          "seedVoxel": [
+            155,
+            205,
+            81
+          ],
+          "bbox": {
+            "min": [
+              155,
+              205,
+              81
+            ],
+            "max": [
+              156,
+              208,
+              82
+            ],
+            "size": [
+              2,
+              4,
+              2
+            ],
+            "x": [
+              155,
+              156
+            ],
+            "y": [
+              205,
+              208
+            ],
+            "z": [
+              81,
+              82
+            ]
+          },
+          "centroid": {
+            "voxel": [
+              155.5,
+              206.5,
+              81.5
+            ],
+            "mm": [
+              77.75,
+              103.25,
+              40.75
+            ]
+          }
+        },
+        {
+          "voxelCount": 16,
+          "seedVoxel": [
+            163,
+            191,
+            51
+          ],
+          "bbox": {
+            "min": [
+              163,
+              191,
+              51
+            ],
+            "max": [
+              164,
+              194,
+              52
+            ],
+            "size": [
+              2,
+              4,
+              2
+            ],
+            "x": [
+              163,
+              164
+            ],
+            "y": [
+              191,
+              194
+            ],
+            "z": [
+              51,
+              52
+            ]
+          },
+          "centroid": {
+            "voxel": [
+              163.5,
+              192.5,
+              51.5
+            ],
+            "mm": [
+              81.75,
+              96.25,
+              25.75
+            ]
+          }
+        },
+        {
+          "voxelCount": 16,
+          "seedVoxel": [
+            195,
+            239,
+            73
+          ],
+          "bbox": {
+            "min": [
+              195,
+              239,
+              73
+            ],
+            "max": [
+              196,
+              242,
+              74
+            ],
+            "size": [
+              2,
+              4,
+              2
+            ],
+            "x": [
+              195,
+              196
+            ],
+            "y": [
+              239,
+              242
+            ],
+            "z": [
+              73,
+              74
+            ]
+          },
+          "centroid": {
+            "voxel": [
+              195.5,
+              240.5,
+              73.5
+            ],
+            "mm": [
+              97.75,
+              120.25,
+              36.75
+            ]
+          }
+        },
+        {
+          "voxelCount": 16,
+          "seedVoxel": [
+            227,
+            191,
+            51
+          ],
+          "bbox": {
+            "min": [
+              227,
+              191,
+              51
+            ],
+            "max": [
+              228,
+              194,
+              52
+            ],
+            "size": [
+              2,
+              4,
+              2
+            ],
+            "x": [
+              227,
+              228
+            ],
+            "y": [
+              191,
+              194
+            ],
+            "z": [
+              51,
+              52
+            ]
+          },
+          "centroid": {
+            "voxel": [
+              227.5,
+              192.5,
+              51.5
+            ],
+            "mm": [
+              113.75,
+              96.25,
+              25.75
+            ]
+          }
+        },
+        {
+          "voxelCount": 16,
+          "seedVoxel": [
+            235,
+            205,
+            81
+          ],
+          "bbox": {
+            "min": [
+              235,
+              205,
+              81
+            ],
+            "max": [
+              236,
+              208,
+              82
+            ],
+            "size": [
+              2,
+              4,
+              2
+            ],
+            "x": [
+              235,
+              236
+            ],
+            "y": [
+              205,
+              208
+            ],
+            "z": [
+              81,
+              82
+            ]
+          },
+          "centroid": {
+            "voxel": [
+              235.5,
+              206.5,
+              81.5
+            ],
+            "mm": [
+              117.75,
+              103.25,
+              40.75
+            ]
+          }
+        },
+        {
+          "voxelCount": 11,
+          "seedVoxel": [
+            196,
+            251,
+            109
+          ],
+          "bbox": {
+            "min": [
+              195,
+              251,
+              109
+            ],
+            "max": [
+              196,
+              254,
+              110
+            ],
+            "size": [
+              2,
+              4,
+              2
+            ],
+            "x": [
+              195,
+              196
+            ],
+            "y": [
+              251,
+              254
+            ],
+            "z": [
+              109,
+              110
+            ]
+          },
+          "centroid": {
+            "voxel": [
+              195.72727272727272,
+              252.8181818181818,
+              109.45454545454545
+            ],
+            "mm": [
+              97.86363636363636,
+              126.4090909090909,
+              54.72727272727273
+            ]
+          }
+        },
+        {
+          "voxelCount": 8,
+          "seedVoxel": [
+            163,
+            231,
+            91
+          ],
+          "bbox": {
+            "min": [
+              163,
+              231,
+              91
+            ],
+            "max": [
+              164,
+              232,
+              92
+            ],
+            "size": [
+              2,
+              2,
+              2
+            ],
+            "x": [
+              163,
+              164
+            ],
+            "y": [
+              231,
+              232
+            ],
+            "z": [
+              91,
+              92
+            ]
+          },
+          "centroid": {
+            "voxel": [
+              163.5,
+              231.5,
+              91.5
+            ],
+            "mm": [
+              81.75,
+              115.75,
+              45.75
+            ]
+          }
+        },
+        {
+          "voxelCount": 8,
+          "seedVoxel": [
+            175,
+            201,
+            133
+          ],
+          "bbox": {
+            "min": [
+              175,
+              201,
+              133
+            ],
+            "max": [
+              176,
+              202,
+              134
+            ],
+            "size": [
+              2,
+              2,
+              2
+            ],
+            "x": [
+              175,
+              176
+            ],
+            "y": [
+              201,
+              202
+            ],
+            "z": [
+              133,
+              134
+            ]
+          },
+          "centroid": {
+            "voxel": [
+              175.5,
+              201.5,
+              133.5
+            ],
+            "mm": [
+              87.75,
+              100.75,
+              66.75
+            ]
+          }
+        },
+        {
+          "voxelCount": 8,
+          "seedVoxel": [
+            215,
+            201,
+            133
+          ],
+          "bbox": {
+            "min": [
+              215,
+              201,
+              133
+            ],
+            "max": [
+              216,
+              202,
+              134
+            ],
+            "size": [
+              2,
+              2,
+              2
+            ],
+            "x": [
+              215,
+              216
+            ],
+            "y": [
+              201,
+              202
+            ],
+            "z": [
+              133,
+              134
+            ]
+          },
+          "centroid": {
+            "voxel": [
+              215.5,
+              201.5,
+              133.5
+            ],
+            "mm": [
+              107.75,
+              100.75,
+              66.75
+            ]
+          }
+        },
+        {
+          "voxelCount": 8,
+          "seedVoxel": [
+            227,
+            231,
+            91
+          ],
+          "bbox": {
+            "min": [
+              227,
+              231,
+              91
+            ],
+            "max": [
+              228,
+              232,
+              92
+            ],
+            "size": [
+              2,
+              2,
+              2
+            ],
+            "x": [
+              227,
+              228
+            ],
+            "y": [
+              231,
+              232
+            ],
+            "z": [
+              91,
+              92
+            ]
+          },
+          "centroid": {
+            "voxel": [
+              227.5,
+              231.5,
+              91.5
+            ],
+            "mm": [
+              113.75,
+              115.75,
+              45.75
+            ]
+          }
+        },
+        {
+          "voxelCount": 6,
+          "seedVoxel": [
+            173,
+            215,
+            111
+          ],
+          "bbox": {
+            "min": [
+              173,
+              215,
+              111
+            ],
+            "max": [
+              174,
+              217,
+              112
+            ],
+            "size": [
+              2,
+              3,
+              2
+            ],
+            "x": [
+              173,
+              174
+            ],
+            "y": [
+              215,
+              217
+            ],
+            "z": [
+              111,
+              112
+            ]
+          },
+          "centroid": {
+            "voxel": [
+              173.16666666666666,
+              215.66666666666666,
+              111.33333333333333
+            ],
+            "mm": [
+              86.58333333333333,
+              107.83333333333333,
+              55.666666666666664
+            ]
+          }
+        }
+      ],
+      "connectedComponentCount6": 13
+    },
+    "33": {
+      "voxelCount": 8482,
+      "voxelVolumeMm3": 1060.25,
+      "bbox": {
+        "min": [
+          163,
+          246,
+          86
+        ],
+        "max": [
+          228,
+          302,
+          122
+        ],
+        "size": [
+          66,
+          57,
+          37
+        ],
+        "x": [
+          163,
+          228
+        ],
+        "y": [
+          246,
+          302
+        ],
+        "z": [
+          86,
+          122
+        ]
+      },
+      "centroid": {
+        "voxel": [
+          195.07333176137703,
+          269.63911813251593,
+          107.95024758311719
+        ],
+        "mm": [
+          97.53666588068852,
+          134.81955906625797,
+          53.975123791558595
+        ]
+      },
+      "sliceOccupancy": {
+        "x": {
+          "occupiedSliceCount": 66,
+          "slices": [
+            {
+              "index": 163,
+              "count": 12
+            },
+            {
+              "index": 164,
+              "count": 12
+            },
+            {
+              "index": 165,
+              "count": 52
+            },
+            {
+              "index": 166,
+              "count": 52
+            },
+            {
+              "index": 167,
+              "count": 75
+            },
+            {
+              "index": 168,
+              "count": 76
+            },
+            {
+              "index": 169,
+              "count": 76
+            },
+            {
+              "index": 170,
+              "count": 76
+            },
+            {
+              "index": 171,
+              "count": 77
+            },
+            {
+              "index": 172,
+              "count": 76
+            },
+            {
+              "index": 173,
+              "count": 68
+            },
+            {
+              "index": 174,
+              "count": 71
+            },
+            {
+              "index": 175,
+              "count": 109
+            },
+            {
+              "index": 176,
+              "count": 127
+            },
+            {
+              "index": 177,
+              "count": 150
+            },
+            {
+              "index": 178,
+              "count": 156
+            },
+            {
+              "index": 179,
+              "count": 139
+            },
+            {
+              "index": 180,
+              "count": 148
+            },
+            {
+              "index": 181,
+              "count": 171
+            },
+            {
+              "index": 182,
+              "count": 181
+            },
+            {
+              "index": 183,
+              "count": 210
+            },
+            {
+              "index": 184,
+              "count": 219
+            },
+            {
+              "index": 185,
+              "count": 247
+            },
+            {
+              "index": 186,
+              "count": 254
+            },
+            {
+              "index": 187,
+              "count": 275
+            },
+            {
+              "index": 188,
+              "count": 270
+            },
+            {
+              "index": 189,
+              "count": 239
+            },
+            {
+              "index": 190,
+              "count": 238
+            },
+            {
+              "index": 191,
+              "count": 198
+            },
+            {
+              "index": 192,
+              "count": 194
+            },
+            {
+              "index": 193,
+              "count": 69
+            },
+            {
+              "index": 194,
+              "count": 65
+            },
+            {
+              "index": 195,
+              "count": 15
+            },
+            {
+              "index": 196,
+              "count": 8
+            },
+            {
+              "index": 197,
+              "count": 56
+            },
+            {
+              "index": 198,
+              "count": 44
+            },
+            {
+              "index": 199,
+              "count": 158
+            },
+            {
+              "index": 200,
+              "count": 173
+            },
+            {
+              "index": 201,
+              "count": 224
+            },
+            {
+              "index": 202,
+              "count": 227
+            },
+            {
+              "index": 203,
+              "count": 248
+            },
+            {
+              "index": 204,
+              "count": 258
+            },
+            {
+              "index": 205,
+              "count": 253
+            },
+            {
+              "index": 206,
+              "count": 249
+            },
+            {
+              "index": 207,
+              "count": 224
+            },
+            {
+              "index": 208,
+              "count": 216
+            },
+            {
+              "index": 209,
+              "count": 179
+            },
+            {
+              "index": 210,
+              "count": 175
+            },
+            {
+              "index": 211,
+              "count": 143
+            },
+            {
+              "index": 212,
+              "count": 138
+            },
+            {
+              "index": 213,
+              "count": 117
+            },
+            {
+              "index": 214,
+              "count": 117
+            },
+            {
+              "index": 215,
+              "count": 81
+            },
+            {
+              "index": 216,
+              "count": 79
+            },
+            {
+              "index": 217,
+              "count": 68
+            },
+            {
+              "index": 218,
+              "count": 68
+            },
+            {
+              "index": 219,
+              "count": 75
+            },
+            {
+              "index": 220,
+              "count": 77
+            },
+            {
+              "index": 221,
+              "count": 75
+            },
+            {
+              "index": 222,
+              "count": 76
+            },
+            {
+              "index": 223,
+              "count": 75
+            },
+            {
+              "index": 224,
+              "count": 76
+            },
+            {
+              "index": 225,
+              "count": 52
+            },
+            {
+              "index": 226,
+              "count": 52
+            },
+            {
+              "index": 227,
+              "count": 12
+            },
+            {
+              "index": 228,
+              "count": 12
+            }
+          ]
+        },
+        "y": {
+          "occupiedSliceCount": 57,
+          "slices": [
+            {
+              "index": 246,
+              "count": 3
+            },
+            {
+              "index": 247,
+              "count": 24
+            },
+            {
+              "index": 248,
+              "count": 17
+            },
+            {
+              "index": 249,
+              "count": 22
+            },
+            {
+              "index": 250,
+              "count": 12
+            },
+            {
+              "index": 251,
+              "count": 17
+            },
+            {
+              "index": 252,
+              "count": 15
+            },
+            {
+              "index": 253,
+              "count": 90
+            },
+            {
+              "index": 254,
+              "count": 92
+            },
+            {
+              "index": 255,
+              "count": 125
+            },
+            {
+              "index": 256,
+              "count": 149
+            },
+            {
+              "index": 257,
+              "count": 188
+            },
+            {
+              "index": 258,
+              "count": 212
+            },
+            {
+              "index": 259,
+              "count": 283
+            },
+            {
+              "index": 260,
+              "count": 294
+            },
+            {
+              "index": 261,
+              "count": 362
+            },
+            {
+              "index": 262,
+              "count": 379
+            },
+            {
+              "index": 263,
+              "count": 355
+            },
+            {
+              "index": 264,
+              "count": 360
+            },
+            {
+              "index": 265,
+              "count": 336
+            },
+            {
+              "index": 266,
+              "count": 355
+            },
+            {
+              "index": 267,
+              "count": 354
+            },
+            {
+              "index": 268,
+              "count": 356
+            },
+            {
+              "index": 269,
+              "count": 337
+            },
+            {
+              "index": 270,
+              "count": 346
+            },
+            {
+              "index": 271,
+              "count": 289
+            },
+            {
+              "index": 272,
+              "count": 275
+            },
+            {
+              "index": 273,
+              "count": 225
+            },
+            {
+              "index": 274,
+              "count": 213
+            },
+            {
+              "index": 275,
+              "count": 203
+            },
+            {
+              "index": 276,
+              "count": 190
+            },
+            {
+              "index": 277,
+              "count": 151
+            },
+            {
+              "index": 278,
+              "count": 145
+            },
+            {
+              "index": 279,
+              "count": 147
+            },
+            {
+              "index": 280,
+              "count": 144
+            },
+            {
+              "index": 281,
+              "count": 139
+            },
+            {
+              "index": 282,
+              "count": 143
+            },
+            {
+              "index": 283,
+              "count": 149
+            },
+            {
+              "index": 284,
+              "count": 152
+            },
+            {
+              "index": 285,
+              "count": 125
+            },
+            {
+              "index": 286,
+              "count": 105
+            },
+            {
+              "index": 287,
+              "count": 103
+            },
+            {
+              "index": 288,
+              "count": 82
+            },
+            {
+              "index": 289,
+              "count": 65
+            },
+            {
+              "index": 290,
+              "count": 44
+            },
+            {
+              "index": 291,
+              "count": 39
+            },
+            {
+              "index": 292,
+              "count": 37
+            },
+            {
+              "index": 293,
+              "count": 35
+            },
+            {
+              "index": 294,
+              "count": 44
+            },
+            {
+              "index": 295,
+              "count": 34
+            },
+            {
+              "index": 296,
+              "count": 38
+            },
+            {
+              "index": 297,
+              "count": 27
+            },
+            {
+              "index": 298,
+              "count": 28
+            },
+            {
+              "index": 299,
+              "count": 14
+            },
+            {
+              "index": 300,
+              "count": 12
+            },
+            {
+              "index": 301,
+              "count": 1
+            },
+            {
+              "index": 302,
+              "count": 1
+            }
+          ]
+        },
+        "z": {
+          "occupiedSliceCount": 37,
+          "slices": [
+            {
+              "index": 86,
+              "count": 5
+            },
+            {
+              "index": 87,
+              "count": 28
+            },
+            {
+              "index": 88,
+              "count": 34
+            },
+            {
+              "index": 89,
+              "count": 63
+            },
+            {
+              "index": 90,
+              "count": 74
+            },
+            {
+              "index": 91,
+              "count": 103
+            },
+            {
+              "index": 92,
+              "count": 105
+            },
+            {
+              "index": 93,
+              "count": 138
+            },
+            {
+              "index": 94,
+              "count": 132
+            },
+            {
+              "index": 95,
+              "count": 160
+            },
+            {
+              "index": 96,
+              "count": 147
+            },
+            {
+              "index": 97,
+              "count": 164
+            },
+            {
+              "index": 98,
+              "count": 152
+            },
+            {
+              "index": 99,
+              "count": 198
+            },
+            {
+              "index": 100,
+              "count": 207
+            },
+            {
+              "index": 101,
+              "count": 173
+            },
+            {
+              "index": 102,
+              "count": 176
+            },
+            {
+              "index": 103,
+              "count": 257
+            },
+            {
+              "index": 104,
+              "count": 278
+            },
+            {
+              "index": 105,
+              "count": 319
+            },
+            {
+              "index": 106,
+              "count": 322
+            },
+            {
+              "index": 107,
+              "count": 285
+            },
+            {
+              "index": 108,
+              "count": 288
+            },
+            {
+              "index": 109,
+              "count": 386
+            },
+            {
+              "index": 110,
+              "count": 397
+            },
+            {
+              "index": 111,
+              "count": 463
+            },
+            {
+              "index": 112,
+              "count": 498
+            },
+            {
+              "index": 113,
+              "count": 604
+            },
+            {
+              "index": 114,
+              "count": 625
+            },
+            {
+              "index": 115,
+              "count": 187
+            },
+            {
+              "index": 116,
+              "count": 188
+            },
+            {
+              "index": 117,
+              "count": 438
+            },
+            {
+              "index": 118,
+              "count": 440
+            },
+            {
+              "index": 119,
+              "count": 136
+            },
+            {
+              "index": 120,
+              "count": 136
+            },
+            {
+              "index": 121,
+              "count": 88
+            },
+            {
+              "index": 122,
+              "count": 88
+            }
+          ]
+        }
+      },
+      "connectedComponents6": [
+        {
+          "voxelCount": 8099,
+          "seedVoxel": [
+            211,
+            291,
+            87
+          ],
+          "bbox": {
+            "min": [
+              163,
+              248,
+              87
+            ],
+            "max": [
+              228,
+              292,
+              122
+            ],
+            "size": [
+              66,
+              45,
+              36
+            ],
+            "x": [
+              163,
+              228
+            ],
+            "y": [
+              248,
+              292
+            ],
+            "z": [
+              87,
+              122
+            ]
+          },
+          "centroid": {
+            "voxel": [
+              195.66279787628102,
+              268.9177676256328,
+              108.54759846894679
+            ],
+            "mm": [
+              97.83139893814051,
+              134.4588838128164,
+              54.273799234473394
+            ]
+          }
+        },
+        {
+          "voxelCount": 285,
+          "seedVoxel": [
+            178,
+            297,
+            86
+          ],
+          "bbox": {
+            "min": [
+              173,
+              290,
+              86
+            ],
+            "max": [
+              184,
+              302,
+              94
+            ],
+            "size": [
+              12,
+              13,
+              9
+            ],
+            "x": [
+              173,
+              184
+            ],
+            "y": [
+              290,
+              302
+            ],
+            "z": [
+              86,
+              94
+            ]
+          },
+          "centroid": {
+            "voxel": [
+              178.09824561403508,
+              294.9824561403509,
+              90.32982456140351
+            ],
+            "mm": [
+              89.04912280701754,
+              147.49122807017545,
+              45.164912280701756
+            ]
+          }
+        },
+        {
+          "voxelCount": 55,
+          "seedVoxel": [
+            201,
+            247,
+            111
+          ],
+          "bbox": {
+            "min": [
+              194,
+              246,
+              111
+            ],
+            "max": [
+              202,
+              256,
+              114
+            ],
+            "size": [
+              9,
+              11,
+              4
+            ],
+            "x": [
+              194,
+              202
+            ],
+            "y": [
+              246,
+              256
+            ],
+            "z": [
+              111,
+              114
+            ]
+          },
+          "centroid": {
+            "voxel": [
+              197.61818181818182,
+              250.0909090909091,
+              112.2
+            ],
+            "mm": [
+              98.80909090909091,
+              125.04545454545455,
+              56.1
+            ]
+          }
+        },
+        {
+          "voxelCount": 18,
+          "seedVoxel": [
+            190,
+            247,
+            112
+          ],
+          "bbox": {
+            "min": [
+              189,
+              247,
+              112
+            ],
+            "max": [
+              194,
+              249,
+              114
+            ],
+            "size": [
+              6,
+              3,
+              3
+            ],
+            "x": [
+              189,
+              194
+            ],
+            "y": [
+              247,
+              249
+            ],
+            "z": [
+              112,
+              114
+            ]
+          },
+          "centroid": {
+            "voxel": [
+              191.27777777777777,
+              247.33333333333334,
+              113.16666666666667
+            ],
+            "mm": [
+              95.63888888888889,
+              123.66666666666667,
+              56.583333333333336
+            ]
+          }
+        },
+        {
+          "voxelCount": 5,
+          "seedVoxel": [
+            183,
+            290,
+            97
+          ],
+          "bbox": {
+            "min": [
+              183,
+              289,
+              97
+            ],
+            "max": [
+              185,
+              290,
+              98
+            ],
+            "size": [
+              3,
+              2,
+              2
+            ],
+            "x": [
+              183,
+              185
+            ],
+            "y": [
+              289,
+              290
+            ],
+            "z": [
+              97,
+              98
+            ]
+          },
+          "centroid": {
+            "voxel": [
+              183.6,
+              289.8,
+              97.8
+            ],
+            "mm": [
+              91.8,
+              144.9,
+              48.9
+            ]
+          }
+        },
+        {
+          "voxelCount": 4,
+          "seedVoxel": [
+            183,
+            291,
+            89
+          ],
+          "bbox": {
+            "min": [
+              183,
+              291,
+              89
+            ],
+            "max": [
+              184,
+              292,
+              90
+            ],
+            "size": [
+              2,
+              2,
+              2
+            ],
+            "x": [
+              183,
+              184
+            ],
+            "y": [
+              291,
+              292
+            ],
+            "z": [
+              89,
+              90
+            ]
+          },
+          "centroid": {
+            "voxel": [
+              183.75,
+              291.25,
+              89.25
+            ],
+            "mm": [
+              91.875,
+              145.625,
+              44.625
+            ]
+          }
+        },
+        {
+          "voxelCount": 4,
+          "seedVoxel": [
+            203,
+            249,
+            114
+          ],
+          "bbox": {
+            "min": [
+              203,
+              249,
+              114
+            ],
+            "max": [
+              204,
+              251,
+              114
+            ],
+            "size": [
+              2,
+              3,
+              1
+            ],
+            "x": [
+              203,
+              204
+            ],
+            "y": [
+              249,
+              251
+            ],
+            "z": [
+              114,
+              114
+            ]
+          },
+          "centroid": {
+            "voxel": [
+              203.75,
+              249.75,
+              114.0
+            ],
+            "mm": [
+              101.875,
+              124.875,
+              57.0
+            ]
+          }
+        },
+        {
+          "voxelCount": 3,
+          "seedVoxel": [
+            204,
+            249,
+            111
+          ],
+          "bbox": {
+            "min": [
+              204,
+              249,
+              111
+            ],
+            "max": [
+              204,
+              250,
+              112
+            ],
+            "size": [
+              1,
+              2,
+              2
+            ],
+            "x": [
+              204,
+              204
+            ],
+            "y": [
+              249,
+              250
+            ],
+            "z": [
+              111,
+              112
+            ]
+          },
+          "centroid": {
+            "voxel": [
+              204.0,
+              249.33333333333334,
+              111.66666666666667
+            ],
+            "mm": [
+              102.0,
+              124.66666666666667,
+              55.833333333333336
+            ]
+          }
+        },
+        {
+          "voxelCount": 3,
+          "seedVoxel": [
+            216,
+            297,
+            92
+          ],
+          "bbox": {
+            "min": [
+              215,
+              297,
+              92
+            ],
+            "max": [
+              216,
+              298,
+              92
+            ],
+            "size": [
+              2,
+              2,
+              1
+            ],
+            "x": [
+              215,
+              216
+            ],
+            "y": [
+              297,
+              298
+            ],
+            "z": [
+              92,
+              92
+            ]
+          },
+          "centroid": {
+            "voxel": [
+              215.66666666666666,
+              297.6666666666667,
+              92.0
+            ],
+            "mm": [
+              107.83333333333333,
+              148.83333333333334,
+              46.0
+            ]
+          }
+        },
+        {
+          "voxelCount": 2,
+          "seedVoxel": [
+            179,
+            288,
+            98
+          ],
+          "bbox": {
+            "min": [
+              179,
+              288,
+              98
+            ],
+            "max": [
+              180,
+              288,
+              98
+            ],
+            "size": [
+              2,
+              1,
+              1
+            ],
+            "x": [
+              179,
+              180
+            ],
+            "y": [
+              288,
+              288
+            ],
+            "z": [
+              98,
+              98
+            ]
+          },
+          "centroid": {
+            "voxel": [
+              179.5,
+              288.0,
+              98.0
+            ],
+            "mm": [
+              89.75,
+              144.0,
+              49.0
+            ]
+          }
+        },
+        {
+          "voxelCount": 2,
+          "seedVoxel": [
+            191,
+            246,
+            114
+          ],
+          "bbox": {
+            "min": [
+              191,
+              246,
+              114
+            ],
+            "max": [
+              192,
+              246,
+              114
+            ],
+            "size": [
+              2,
+              1,
+              1
+            ],
+            "x": [
+              191,
+              192
+            ],
+            "y": [
+              246,
+              246
+            ],
+            "z": [
+              114,
+              114
+            ]
+          },
+          "centroid": {
+            "voxel": [
+              191.5,
+              246.0,
+              114.0
+            ],
+            "mm": [
+              95.75,
+              123.0,
+              57.0
+            ]
+          }
+        },
+        {
+          "voxelCount": 2,
+          "seedVoxel": [
+            200,
+            257,
+            109
+          ],
+          "bbox": {
+            "min": [
+              200,
+              257,
+              109
+            ],
+            "max": [
+              200,
+              258,
+              109
+            ],
+            "size": [
+              1,
+              2,
+              1
+            ],
+            "x": [
+              200,
+              200
+            ],
+            "y": [
+              257,
+              258
+            ],
+            "z": [
+              109,
+              109
+            ]
+          },
+          "centroid": {
+            "voxel": [
+              200.0,
+              257.5,
+              109.0
+            ],
+            "mm": [
+              100.0,
+              128.75,
+              54.5
+            ]
+          }
+        }
+      ],
+      "connectedComponentCount6": 12
+    },
+    "39": {
+      "voxelCount": 561,
+      "voxelVolumeMm3": 70.125,
+      "bbox": {
+        "min": [
+          187,
+          246,
+          107
+        ],
+        "max": [
+          196,
+          256,
+          121
+        ],
+        "size": [
+          10,
+          11,
+          15
+        ],
+        "x": [
+          187,
+          196
+        ],
+        "y": [
+          246,
+          256
+        ],
+        "z": [
+          107,
+          121
+        ]
+      },
+      "centroid": {
+        "voxel": [
+          191.32263814616755,
+          251.3048128342246,
+          114.09625668449198
+        ],
+        "mm": [
+          95.66131907308377,
+          125.6524064171123,
+          57.04812834224599
+        ]
+      },
+      "sliceOccupancy": {
+        "x": {
+          "occupiedSliceCount": 10,
+          "slices": [
+            {
+              "index": 187,
+              "count": 2
+            },
+            {
+              "index": 188,
+              "count": 33
+            },
+            {
+              "index": 189,
+              "count": 73
+            },
+            {
+              "index": 190,
+              "count": 93
+            },
+            {
+              "index": 191,
+              "count": 97
+            },
+            {
+              "index": 192,
+              "count": 99
+            },
+            {
+              "index": 193,
+              "count": 85
+            },
+            {
+              "index": 194,
+              "count": 59
+            },
+            {
+              "index": 195,
+              "count": 19
+            },
+            {
+              "index": 196,
+              "count": 1
+            }
+          ]
+        },
+        "y": {
+          "occupiedSliceCount": 11,
+          "slices": [
+            {
+              "index": 246,
+              "count": 1
+            },
+            {
+              "index": 247,
+              "count": 15
+            },
+            {
+              "index": 248,
+              "count": 47
+            },
+            {
+              "index": 249,
+              "count": 72
+            },
+            {
+              "index": 250,
+              "count": 82
+            },
+            {
+              "index": 251,
+              "count": 87
+            },
+            {
+              "index": 252,
+              "count": 82
+            },
+            {
+              "index": 253,
+              "count": 68
+            },
+            {
+              "index": 254,
+              "count": 56
+            },
+            {
+              "index": 255,
+              "count": 38
+            },
+            {
+              "index": 256,
+              "count": 13
+            }
+          ]
+        },
+        "z": {
+          "occupiedSliceCount": 15,
+          "slices": [
+            {
+              "index": 107,
+              "count": 2
+            },
+            {
+              "index": 108,
+              "count": 15
+            },
+            {
+              "index": 109,
+              "count": 41
+            },
+            {
+              "index": 110,
+              "count": 48
+            },
+            {
+              "index": 111,
+              "count": 40
+            },
+            {
+              "index": 112,
+              "count": 52
+            },
+            {
+              "index": 113,
+              "count": 56
+            },
+            {
+              "index": 114,
+              "count": 48
+            },
+            {
+              "index": 115,
+              "count": 54
+            },
+            {
+              "index": 116,
+              "count": 46
+            },
+            {
+              "index": 117,
+              "count": 56
+            },
+            {
+              "index": 118,
+              "count": 39
+            },
+            {
+              "index": 119,
+              "count": 29
+            },
+            {
+              "index": 120,
+              "count": 25
+            },
+            {
+              "index": 121,
+              "count": 10
+            }
+          ]
+        }
+      },
+      "connectedComponents6": [
+        {
+          "voxelCount": 561,
+          "seedVoxel": [
+            193,
+            252,
+            107
+          ],
+          "bbox": {
+            "min": [
+              187,
+              246,
+              107
+            ],
+            "max": [
+              196,
+              256,
+              121
+            ],
+            "size": [
+              10,
+              11,
+              15
+            ],
+            "x": [
+              187,
+              196
+            ],
+            "y": [
+              246,
+              256
+            ],
+            "z": [
+              107,
+              121
+            ]
+          },
+          "centroid": {
+            "voxel": [
+              191.32263814616755,
+              251.3048128342246,
+              114.09625668449198
+            ],
+            "mm": [
+              95.66131907308377,
+              125.6524064171123,
+              57.04812834224599
+            ]
+          }
+        }
+      ],
+      "connectedComponentCount6": 1
+    },
+    "40": {
+      "voxelCount": 729,
+      "voxelVolumeMm3": 91.125,
+      "bbox": {
+        "min": [
+          197,
+          247,
+          108
+        ],
+        "max": [
+          204,
+          258,
+          121
+        ],
+        "size": [
+          8,
+          12,
+          14
+        ],
+        "x": [
+          197,
+          204
+        ],
+        "y": [
+          247,
+          258
+        ],
+        "z": [
+          108,
+          121
+        ]
+      },
+      "centroid": {
+        "voxel": [
+          200.5363511659808,
+          252.30178326474623,
+          114.32510288065843
+        ],
+        "mm": [
+          100.2681755829904,
+          126.15089163237312,
+          57.16255144032922
+        ]
+      },
+      "sliceOccupancy": {
+        "x": {
+          "occupiedSliceCount": 8,
+          "slices": [
+            {
+              "index": 197,
+              "count": 46
+            },
+            {
+              "index": 198,
+              "count": 82
+            },
+            {
+              "index": 199,
+              "count": 109
+            },
+            {
+              "index": 200,
+              "count": 121
+            },
+            {
+              "index": 201,
+              "count": 122
+            },
+            {
+              "index": 202,
+              "count": 113
+            },
+            {
+              "index": 203,
+              "count": 90
+            },
+            {
+              "index": 204,
+              "count": 46
+            }
+          ]
+        },
+        "y": {
+          "occupiedSliceCount": 12,
+          "slices": [
+            {
+              "index": 247,
+              "count": 13
+            },
+            {
+              "index": 248,
+              "count": 39
+            },
+            {
+              "index": 249,
+              "count": 66
+            },
+            {
+              "index": 250,
+              "count": 84
+            },
+            {
+              "index": 251,
+              "count": 90
+            },
+            {
+              "index": 252,
+              "count": 95
+            },
+            {
+              "index": 253,
+              "count": 92
+            },
+            {
+              "index": 254,
+              "count": 86
+            },
+            {
+              "index": 255,
+              "count": 72
+            },
+            {
+              "index": 256,
+              "count": 52
+            },
+            {
+              "index": 257,
+              "count": 31
+            },
+            {
+              "index": 258,
+              "count": 9
+            }
+          ]
+        },
+        "z": {
+          "occupiedSliceCount": 14,
+          "slices": [
+            {
+              "index": 108,
+              "count": 10
+            },
+            {
+              "index": 109,
+              "count": 41
+            },
+            {
+              "index": 110,
+              "count": 64
+            },
+            {
+              "index": 111,
+              "count": 63
+            },
+            {
+              "index": 112,
+              "count": 64
+            },
+            {
+              "index": 113,
+              "count": 73
+            },
+            {
+              "index": 114,
+              "count": 65
+            },
+            {
+              "index": 115,
+              "count": 74
+            },
+            {
+              "index": 116,
+              "count": 60
+            },
+            {
+              "index": 117,
+              "count": 64
+            },
+            {
+              "index": 118,
+              "count": 52
+            },
+            {
+              "index": 119,
+              "count": 51
+            },
+            {
+              "index": 120,
+              "count": 37
+            },
+            {
+              "index": 121,
+              "count": 11
+            }
+          ]
+        }
+      },
+      "connectedComponents6": [
+        {
+          "voxelCount": 729,
+          "seedVoxel": [
+            199,
+            252,
+            108
+          ],
+          "bbox": {
+            "min": [
+              197,
+              247,
+              108
+            ],
+            "max": [
+              204,
+              258,
+              121
+            ],
+            "size": [
+              8,
+              12,
+              14
+            ],
+            "x": [
+              197,
+              204
+            ],
+            "y": [
+              247,
+              258
+            ],
+            "z": [
+              108,
+              121
+            ]
+          },
+          "centroid": {
+            "voxel": [
+              200.5363511659808,
+              252.30178326474623,
+              114.32510288065843
+            ],
+            "mm": [
+              100.2681755829904,
+              126.15089163237312,
+              57.16255144032922
+            ]
+          }
+        }
+      ],
+      "connectedComponentCount6": 1
+    }
+  },
+  "definitions": {
+    "faceContacts6": "For each voxel, inspect only its +X, +Y, +Z neighbour; each unordered label-pair face is counted once.",
+    "shortestVoxelDistance6": "Minimum 6-neighbour grid-graph path length between any voxel of the two labels; all grid voxels are traversable and a face contact is distance 1.",
+    "distanceMm": "voxelDistance6 multiplied by the isotropic 0.5 mm voxel size.",
+    "centroidMm": "Voxel-coordinate centroid multiplied by 0.5 mm from the array origin; these are not MNI/world coordinates.",
+    "connectedComponents6": "Components use face sharing only (6-neighbour connectivity); edges and corners do not connect components.",
+    "anatomicalStatus": "Objective volume-shape audit only; not anatomical validation or expert confirmation."
+  },
+  "faceContacts6": {
+    "27-33": 32,
+    "27-39": 69,
+    "27-40": 38,
+    "33-39": 171,
+    "33-40": 162,
+    "39-40": 1
+  },
+  "shortestVoxelDistances6": {
+    "27-33": {
+      "voxelDistance6": 1,
+      "distanceMm": 0.5
+    },
+    "27-39": {
+      "voxelDistance6": 1,
+      "distanceMm": 0.5
+    },
+    "27-40": {
+      "voxelDistance6": 1,
+      "distanceMm": 0.5
+    },
+    "33-39": {
+      "voxelDistance6": 1,
+      "distanceMm": 0.5
+    },
+    "33-40": {
+      "voxelDistance6": 1,
+      "distanceMm": 0.5
+    },
+    "39-40": {
+      "voxelDistance6": 1,
+      "distanceMm": 0.5
+    }
+  },
+  "validation": {
+    "expectedInputSha256": "6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56",
+    "expectedDims": [
+      394,
+      466,
+      378
+    ],
+    "expectedVoxelSizeMm": [
+      0.5,
+      0.5,
+      0.5
+    ],
+    "expectedMammillaryVoxelCounts": {
+      "39": 561,
+      "40": 729
+    },
+    "expectedMammillaryComponentCount6": {
+      "39": 1,
+      "40": 1
+    },
+    "expectedMammillaryBboxes": {
+      "39": {
+        "min": [
+          187,
+          246,
+          107
+        ],
+        "max": [
+          196,
+          256,
+          121
+        ]
+      },
+      "40": {
+        "min": [
+          197,
+          247,
+          108
+        ],
+        "max": [
+          204,
+          258,
+          121
+        ]
+      }
+    },
+    "passed": true
+  }
+}
