@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-08-14",
+  "updated": "2026-08-22",
   "scope": "Every file distributed under public/atlas except this manifest itself must match exactly one group pattern.",
   "groups": [
     {
@@ -68,6 +68,17 @@
       "modifications": "Projection to the application display space and conversion into lightweight WebGL meshes with selectable IDs where applicable.",
       "displayObligation": "Identify as schematic or position guide; state major omissions; prohibit clinical or quantitative interpretation; imply no validation or endorsement.",
       "bundledNotice": "PROCEDURAL-NEUROVASCULAR-NOTICE.txt"
+    },
+    {
+      "id": "structure-provenance-audit",
+      "pattern": "^structure-provenance\\.json$",
+      "source": "Brain Practical Navigator contributors",
+      "sourceUrl": "https://github.com/bonnginn/brain-practical-navi",
+      "license": "CC BY-NC-SA 4.0 for project-authored educational audit metadata",
+      "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+      "modifications": "Project-maintained machine-readable index of lecture coverage, learner surfaces, provenance states, quiz eligibility and known limitations; it does not alter the underlying atlas assets.",
+      "displayObligation": "Retain the distinction between source data, provisional teaching representations, project review and expert review; do not describe the registry as anatomical ground truth or institutional approval.",
+      "bundledNotice": "ATTRIBUTION.txt"
     },
     {
       "id": "notices-and-attribution",
