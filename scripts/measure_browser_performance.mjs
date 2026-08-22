@@ -309,10 +309,27 @@ export function aggregateNetworkMetrics(state) {
     const url = typeof request?.url === "string" && request.url ? request.url : `request:${index}`;
     return `${method} ${url}`;
   }));
+  const requestPaths = [];
+  const seenPaths = new Set();
+  for (const request of observedHops) {
+    if (typeof request?.url !== "string" || !request.url) continue;
+    let parsed;
+    try { parsed = new URL(request.url); }
+    catch { continue; }
+    // Keep the URL's pathname and query only.  Iterating requestHops preserves
+    // CDP observation order, while the set makes redirects/repeated requests
+    // deterministic and unique in the report.
+    if (!/^https?:$/.test(parsed.protocol)) continue;
+    const path = `${parsed.pathname || "/"}${parsed.search || ""}`;
+    if (seenPaths.has(path)) continue;
+    seenPaths.add(path);
+    requestPaths.push(path);
+  }
   return {
     encodedBytes: Math.max(0, Math.round(state.encodedBytes || 0)),
     requestCount: requests.length,
     uniqueRequestCount: uniqueRequests.size,
+    requestPaths,
     consoleErrors: Array.isArray(state.consoleErrors) ? [...state.consoleErrors] : [],
     requestErrors: Array.isArray(state.requestErrors) ? [...state.requestErrors] : [],
   };
@@ -373,7 +390,7 @@ export function validateResultSchema(result) {
   const required = [
     "generatedAt", "tool", "baseUrl", "route", "url", "mode", "scenario", "viewport",
     "encodedBytes", "requestCount", "dclMs", "stableTimeMs", "consoleErrors",
-    "requestErrors", "canvasCount", "loadingCount", "uiErrors", "appRootPresent", "stable", "stabilityReason", "horizontalOverflow", "heap",
+    "requestErrors", "requestPaths", "canvasCount", "loadingCount", "uiErrors", "appRootPresent", "stable", "stabilityReason", "horizontalOverflow", "heap",
     "interactions", "measurementPassed", "validation",
   ];
   if (required.some(key => !(key in result))) return false;
@@ -382,6 +399,7 @@ export function validateResultSchema(result) {
   if ("uniqueRequestCount" in result && (!Number.isSafeInteger(result.uniqueRequestCount) || result.uniqueRequestCount < 0)) return false;
   if (!Number.isSafeInteger(result.canvasCount) || result.canvasCount < 0) return false;
   if (!Array.isArray(result.consoleErrors) || !Array.isArray(result.requestErrors) || !Array.isArray(result.uiErrors)) return false;
+  if (!Array.isArray(result.requestPaths) || result.requestPaths.some(path => typeof path !== "string" || !path.startsWith("/"))) return false;
   if (!Number.isSafeInteger(result.loadingCount) || result.loadingCount < 0) return false;
   if (typeof result.appRootPresent !== "boolean") return false;
   if (typeof result.stable !== "boolean" || typeof result.stabilityReason !== "string") return false;
@@ -1483,6 +1501,7 @@ function resultFromMeasurement(args, url, state, stableProbe, heap, session, sta
     encodedBytes: network.encodedBytes,
     requestCount: network.requestCount,
     uniqueRequestCount: network.uniqueRequestCount,
+    requestPaths: network.requestPaths,
     dclMs: finiteNumber(stableProbe.dclMs),
     stableTimeMs: finiteNumber(stableProbe.now),
     consoleErrors: network.consoleErrors,

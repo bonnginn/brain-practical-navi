@@ -79,6 +79,8 @@ Chrome 151のin-app browserで`http://127.0.0.1:4201`を確認し、review panel
 
 2026-08-23、既存31件に側脳室ブロック context ON のPC 1366×768・tablet 1024×768・390×768相当のcold/warm 6件を加えた37件を、Windows 11／Chrome 151.0.7922.170／Node 24.19.0／`http://127.0.0.1:4204/`で測定し、37/37件が成功した。warm primeはベース画面だけとし、context assetは初回ON時に取得した。Canvas 1→2→2→1、loader／UI／console／request error、overflow、WebGL fallbackは全件0で、詳細とsettled／samplePeak backing storageは [PERFORMANCE_AUDIT.md](PERFORMANCE_AUDIT.md) および `work/performance/performance-suite-block-context-final-v2-2026-08-23.json` に記録した。
 
+同日、初回ルートpayloadもWindows 11／Chrome 151.0.7922.170／Node 24.19.0、ローカルpreview `http://127.0.0.1:4207/`、desktop 1366×768のcold loadでcanonical 26経路を再監査し、26/26件がstable・validation passedとなった。missing／duplicate／unexpected route key、console／request／UI error、loader、overflow、WebGL fallbackは0件。`requestPaths` と、static＋exact atlas allowlist＋固定overheadから算出した経路別budgetは [`PERFORMANCE_AUDIT.md`](PERFORMANCE_AUDIT.md) と `work/performance/initial-route-payload-audit-final-2026-08-23.json` に固定した。sectionsの初回転送は34.69 MBで20–30 MB暫定目安を超えるため、断面教材に必要な現行allowlistの実測値として公開し、未計測の端末・公開回線値とは扱わない。
+
 ### 5. 権利・公開運用
 
 - [x] すべての配布データについて、出典、改変内容、ライセンス、表示義務を再監査する（`public/atlas/DATA-MANIFEST.json` で全ファイルを一意に分類し、同梱通知と個別メタデータを自動照合）。
@@ -167,7 +169,7 @@ Chrome 151のin-app browserで`http://127.0.0.1:4201`を確認し、review panel
 - [ ] 学習対象の明らかな欠落、二重表示、遊離、空着色がない。
 - [ ] 脳表・断面・自由観察・クイズの中心操作がPCと横向きタブレットで完了できる。
 - [ ] スマートフォンで閲覧、クイズ、基本操作が破綻しない。全3D操作の完遂はβ公開条件にしない。（部分実装: `MOBILE_UI_AUDIT.md` に沿って、coarse touch phoneだけへ5導線dock、単一settings dialog、編集Canvasを生成しないsegment案内を追加。Chrome 151のローカル通常production preview `http://127.0.0.1:4198` でcoarse touchのsettings／segment／range操作と、fine-pointer狭幅のcompact desktop／segment維持を確認。coarse 26経路52/52、fine/non-touch 26経路×3幅×direct/reload 156/156も合格。公開URL、物理端末、実機タッチ、Safari・別ブラウザ、別GPU、専門家レビューは未確認。）
-- [ ] 公開データ量と初回表示時間を実測し、過大な取得を減らしている。
+- [ ] 公開データ量と初回表示時間を実測し、過大な取得を減らしている。（部分完了: 2026-08-23、canonical 26経路のcold payload監査で26/26件。Home・static経路のatlasなし、surface／sections／blocks／segment／quizのexact初回allowlistとartifact-derived budgetを検証し、同familyの余分な大容量assetも失敗扱い。sectionsは34.69 MBと暫定目安を超えるため完了扱いにせず、必要assetを明示した実測値と今後の軽量化候補を [PERFORMANCE_AUDIT.md](PERFORMANCE_AUDIT.md) と `work/performance/initial-route-payload-audit-final-2026-08-23.json` に記録。）
 - [ ] 自動テスト、本番ビルド、公開URLの全経路巡回に合格する。（2026-08-22、status追加前25経路の150/150件に加え、statusを含む26経路×3幅×direct/reload＝156件もWindows Chrome 151（`http://127.0.0.1:4190`）で156/156合格。missing/duplicate/fail=0、console/request/UI error・loader・overflow・WebGL fallback=0。公開URL反映確認待ち。）
 - [ ] クイズ対象は画面上で十分に確認でき、未確認構造を正答として要求しない。（粒度監査で既存23件を形式・詳細・トピック・由来へ一意分類し、旧ID33の正答対象外と標準／試作の整合を自動検査。クイズ操作、試作バッジ、誤答から観察画面への復帰は実ブラウザ確認済み。標準採用基準の解剖学的妥当性は未完了で、誤答選択肢としての出現可能性は別途残る。）
 - [ ] 専門家レビューの対象と根拠を引き継げる。（準備のみ: `ANATOMY_REVIEW_HANDOFF.md` と共同制作画面の読み取り専用キューで、provenance台帳のexpert pending 56件を表示。パネルは一般のForm・Issue・PR入口の後ろで既定閉鎖、開いたときだけフィルタと一覧を表示する。観察リンクは対象を自動選択しない一般workspace入口に限定。Chrome 151のローカル通常buildで表示面別36／16／29／21件、複合フィルタ、ID39・40、旧ID33、390 px相当の横はみ出しなし・内側スクロールなしを実操作し、全経路156/156件にも合格。専門家確認、解剖学的妥当性、採否は未完了。ID39・40はプロジェクト内レビュー済みだがexpert pending、旧ID33混合領域は断面／通常クイズ正答と分節入口から除外。）

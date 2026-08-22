@@ -112,6 +112,7 @@ test("performance runner aggregates encoded network bytes and browser errors det
   assert.equal(metrics.encodedBytes, 1234);
   assert.equal(metrics.requestCount, 2);
   assert.equal(metrics.uniqueRequestCount, 2);
+  assert.deepEqual(metrics.requestPaths, ["/index.html", "/broken.mesh"]);
   assert.equal(metrics.requestErrors.length, 1);
   assert.equal(metrics.requestErrors[0].url, "http://localhost:4173/broken.mesh");
   assert.equal(metrics.consoleErrors[0].text, "atlas failed");
@@ -136,6 +137,7 @@ test("performance runner scopes completion events to the active window and prese
   const redirectedMetrics = aggregateNetworkMetrics(state);
   assert.equal(redirectedMetrics.requestCount, 1);
   assert.equal(redirectedMetrics.uniqueRequestCount, 2);
+  assert.deepEqual(redirectedMetrics.requestPaths, ["/old", "/new"]);
   assert.equal(redirectedMetrics.encodedBytes, 23);
 
   const staleId = "stale-after-reset";
@@ -194,6 +196,7 @@ test("performance result schema requires all browser-observable metrics", () => 
     viewport: { width: 1366, height: 768 },
     encodedBytes: 100,
     requestCount: 2,
+    requestPaths: ["/index.html", "/assets/index.js"],
     dclMs: 42,
     stableTimeMs: 500,
     consoleErrors: [],
@@ -216,6 +219,8 @@ test("performance result schema requires all browser-observable metrics", () => 
   };
   assert.equal(validateResultSchema(result), true);
   assert.equal(validateResultSchema({ ...result, requestErrors: undefined }), false);
+  assert.equal(validateResultSchema({ ...result, requestPaths: undefined }), false);
+  assert.equal(validateResultSchema({ ...result, requestPaths: ["http://localhost:4173/index.html"] }), false);
   assert.equal(validateResultSchema({ ...result, heap: null }), false);
   assert.deepEqual(validateMeasurementResult(result, [{ name: "slider", passed: true, details: {} }]), { passed: true, failures: [] });
   assert.deepEqual(validateMeasurementResult(result, [{ name: "slider", passed: false, details: {} }]), { passed: false, failures: ["interaction:slider"] });
