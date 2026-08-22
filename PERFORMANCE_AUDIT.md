@@ -1,6 +1,6 @@
 # 公開データ量・性能監査
 
-更新日: 2026-08-14
+更新日: 2026-08-22
 
 ## 目的
 
@@ -111,3 +111,65 @@ Windows実ブラウザで側脳室標本（Canvas 1）から編集ツール（Ca
 キャッシュとService Workerのない新規localhost originをChrome DevTools Protocolで計測しました。HomeはHTML、CSS、JavaScript、favicon、実モデル静止プレビューの5要求だけで、encoded転送量は合計164,926 bytes（約161 KiB）、Canvasは0、本格3D mesh要求は0でした。内訳はJavaScript 123,064 bytes、CSS 21,333 bytes、静止プレビュー19,509 bytes、その他1,020 bytesです。
 
 同じタブで「脳表」を開くとCanvasが1つ生成され、左右pial、小脳、橋・延髄、中脳の5 meshを20,880,768 bytes（約19.9 MiB）取得しました。したがって、旧トップ実測20.1 MiB相当の本格3D取得はHomeから分離され、脳表観察の開始時まで遅延しています。
+
+## 再現可能なローカル計測方法
+
+本番Viteビルドをローカルのpreviewサーバーで配信し、次のスクリプトを同じWindows端末で実行します。計測値をこの文書へ転記する場合は、実行日時、端末、Chromeバージョン、viewport、経路、`cold`／`warm`の別を併記し、実測していない値は補いません。
+
+```powershell
+npm run build
+npm run preview -- --host 127.0.0.1 --port 4173
+
+node scripts/measure_browser_performance.mjs `
+  --base-url http://localhost:4173 `
+  --route '#workspace/home' `
+  --width 1366 --height 768 `
+  --mode cold `
+  --output work/performance/home-cold.json
+```
+
+固定したβ候補版マトリクス（PC 1366×768・タブレット横 1024×768は6経路のcold／warm、モバイル390×768はトップ・水平断・クイズのcold／warmとbasic-mobile操作確認）を一括計測する場合は、次を実行します。出力JSONにはマトリクス定義と各計測結果を含め、1件でも失敗すればJSONを書き出した上で終了コードを非0にします。
+
+```powershell
+node scripts/measure_browser_performance_suite.mjs `
+  --base-url http://localhost:4173 `
+  --output work/performance/suite.json
+```
+
+`scripts/measure_browser_performance.mjs` は、外部npm依存なしで、同梱Nodeの `fetch` と `WebSocket` を使ってインストール済みChromeをDevTools Protocolへ接続します。計測ごとに一時プロファイルを作成し、`cold` はキャッシュ無効化・消去後の1回、`warm` は同じ経路を一度表示してからキャッシュを有効にした2回目を記録します。`--route` はハッシュ経路または相対URLを受け付けますが、誤って公開サイトを計測しないよう `--base-url` はlocalhost／ループバックに限定しています。
+
+Viteの通常ビルドはルート（`http://localhost:4173/` など）で配信し、`DEPLOY_GITHUB_PAGES=true` のPages向けビルドは `/brain-practical-navi/` のbase pathを含むURLで計測します。base pathと`--base-url`が一致しない場合、HTMLだけが返ってアプリのJavaScriptが読み込まれないため、出力の `appRootPresent` と `measurementPassed` を確認します。画面内ローダー、アプリroot欠落、console／要求エラー、画面内エラー、basic-mobileシナリオの失敗はいずれも実行失敗として扱い、JSONを保存した上で終了コードを非0にします。
+
+一括計測では、ブロック標本の注意画面にある「試作品を確認する」を測定中に押して、代表標本のCanvasと遅延アセットまで取得対象に含めます。クイズは初回問題の違いでcold／warmの取得対象が変わらないよう、隔離した測定用Chrome内だけで乱数列を固定します。アプリ本体の通常動作や利用者の出題順は変更しません。
+
+出力JSONには、`Network.loadingFinished.encodedDataLength` の合計、ユニーク要求数、DOMContentLoaded、ネットワーク要求と画面内ローダーが安定した時刻、console／要求エラー、Canvas数、画面内エラー要約、水平スクロールの有無、`Runtime.getHeapUsage` の安定時値と計測中サンプルの最大値（`usedSize`、`backingStorageSize`、`embedderHeapUsedSize` 等）を記録します。通常閲覧の `.atlasLoading` と共同編集の `.segLoading` をともに監視し、編集データの読込完了前にwarm準備を打ち切りません。`work/` はローカル計測結果の置き場であり、計測値を作成者の実測なしに監査表へ追加しません。
+
+## 2026-08-22 β候補版の固定マトリクス実測
+
+通常の本番ビルドを `http://127.0.0.1:4176/` で配信し、固定31件を再実行しました。環境は Windows 11 Home 10.0.26200、16論理CPU、31.6 GiB RAM、Chrome 151.0.7922.170、Node 24.19.0 です。31/31件で `measurementPassed: true` となり、console error、要求失敗、画面内エラー、残留ローダー、水平はみ出しはいずれも0件でした。
+
+計測はChrome DevTools Protocolのデスクトップ用条件で、`Emulation.setDeviceMetricsOverride` の `mobile:false`、デスクトップUA、タッチエミュレーションなしを使用しました。したがってスマートフォン相当390×768の実効 `clientWidth` は、デスクトップスクロールバーを含むChromeでは375 pxです。操作確認はDOMイベントとして、ボタンのクリック、range入力の `input`／`change`／`keydown`、表示切替後のCanvas・選択状態を実行しました。表の `backingStorageSize` は、同じ経路・viewportのcold／warmペアで採取した `Runtime.getHeapUsage` の `sampledPeak` の大きい方を記載しています。
+
+| viewport | 経路 | cold転送 | warm転送 | 安定時間 cold / warm | sampled peak backing storage | Canvas |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| PC 1366×768 | Home | 0.14 MiB | 0.5 KiB | 689 / 683 ms | 0.4 MiB | 0 |
+| PC 1366×768 | 脳表・左外側面 | 20.06 MiB | 1.1 KiB | 875 / 798 ms | 27.5 MiB | 1 |
+| PC 1366×768 | 水平断 | 33.06 MiB | 1.6 KiB | 1,073 / 1,007 ms | 162.8 MiB | 3 |
+| PC 1366×768 | 側脳室ブロック標本 | 2.74 MiB | 1.1 KiB | 851 / 719 ms | 4.0 MiB | 1 |
+| PC 1366×768 | クイズ | 11.74 MiB | 0.7 KiB | 928 / 821 ms | 133.3 MiB | 1 |
+| PC 1366×768 | 共同編集 | 11.74 MiB | 0.7 KiB | 1,003 / 884 ms | 133.4 MiB | 1 |
+| タブレット横 1024×768 | Home | 0.14 MiB | 0.5 KiB | 688 / 671 ms | 0.4 MiB | 0 |
+| タブレット横 1024×768 | 脳表・左外側面 | 20.06 MiB | 1.1 KiB | 848 / 801 ms | 26.9 MiB | 1 |
+| タブレット横 1024×768 | 水平断 | 33.06 MiB | 1.6 KiB | 1,064 / 1,036 ms | 162.1 MiB | 3 |
+| タブレット横 1024×768 | 側脳室ブロック標本 | 2.74 MiB | 1.1 KiB | 792 / 744 ms | 4.0 MiB | 1 |
+| タブレット横 1024×768 | クイズ | 11.74 MiB | 0.7 KiB | 929 / 827 ms | 133.3 MiB | 1 |
+| タブレット横 1024×768 | 共同編集 | 11.74 MiB | 0.7 KiB | 988 / 865 ms | 133.4 MiB | 1 |
+| スマートフォン相当 390×768 | Home | 0.14 MiB | 0.5 KiB | 765 / 668 ms | 0.4 MiB | 0 |
+| スマートフォン相当 390×768 | 水平断（初期は断面のみ） | 11.74 MiB | 0.7 KiB | 866 / 795 ms | 133.4 MiB | 1 |
+| スマートフォン相当 390×768 | クイズ | 11.74 MiB | 0.7 KiB | 911 / 763 ms | 133.3 MiB | 1 |
+
+ブロック標本は注意画面を閉じてからCanvas 1と遅延アセットを測っており、入口だけの値ではありません。スマートフォン相当では、クイズの回答からフィードバック表示、水平断スライダーの52→53移動、「断面＋3D」への切替とCanvas 1→3への増加をCDPからDOMイベントで操作し、各段階でローダー0、画面内エラー0、水平はみ出しなしを確認しました。
+
+warm転送は同じ隔離プロファイル内で1回表示してから再訪した値で、ローカルpreviewの再検証要求を含みます。これにより主要な大容量アセットがブラウザキャッシュから再利用されることを確認しました。`backingStorageSize` は100 ms間隔で取得したChrome Runtimeのサンプル最大値であり、OS全体のプロセスメモリや測定間隔より短い瞬間ピークではありません。上表ではこの値をcold／warmペアの最大値として扱っています。
+
+この監査はWindows上のviewport模擬とローカル配信です。物理スマートフォン／タブレットのCPU・GPU・メモリ圧迫、公開回線・公開CDNの待ち時間やcache headerを実測したものではありません。したがって、これらを実機値・公開回線値とは表現せず、公開後の任意フォローアップとして残します。
