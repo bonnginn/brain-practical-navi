@@ -3807,6 +3807,9 @@
     "distanceMm": "voxelDistance6 multiplied by the isotropic 0.5 mm voxel size.",
     "centroidMm": "Voxel-coordinate centroid multiplied by 0.5 mm from the array origin; these are not MNI/world coordinates.",
     "connectedComponents6": "Components use face sharing only (6-neighbour connectivity); edges and corners do not connect components.",
+    "contactInterfaces": "Each listed face is scanned from a mammillary voxel toward its adjacent reference-label voxel. faceOrientationCounts use the mammillary-side normal (-/+X, -/+Y, -/+Z). For each x/y/z slice, inPlaneFaceCount/outOfPlaneFaceCount split faces by whether their normal differs from or matches the section axis. inPlaneUniqueMammillaryVoxelCount and outOfPlaneUniqueMammillaryVoxelCount count source voxels in their respective face sets; allUniqueMammillaryVoxelCount is their union, and uniqueMammillaryVoxelCount is a compatibility alias for that union.",
+    "contactBboxCenterDistance": "For representative-slice ranking, Euclidean voxel distance from the combined ID 27/33 in-plane contact bbox center on that slice to the full mammillary-label bbox center.",
+    "representativeSliceSelection": "For each mammillary label, use the common coronal (Y) review plane and intersect ID 27 and ID 33 slices with inPlaneFaceCount > 0. Rank by minimum of the two in-plane unique mammillary source-voxel counts descending, their sum descending, in-plane contact-bbox-center distance ascending, then slice index ascending. Raw inPlaneFaceCount remains in the selected record; in-plane unique source-voxel counts make repeated faces from one voxel neutral. This selects a display candidate only; it does not establish anatomical boundaries or boundary correctness.",
     "anatomicalStatus": "Objective volume-shape audit only; not anatomical validation or expert confirmation."
   },
   "faceContacts6": {
@@ -3816,6 +3819,7574 @@
     "33-39": 171,
     "33-40": 162,
     "39-40": 1
+  },
+  "contactInterfaces": {
+    "27-39": {
+      "mammillaryLabel": 39,
+      "otherLabel": 27,
+      "faceCount": 69,
+      "uniqueMammillaryVoxelCount": 43,
+      "mammillaryVoxelBbox": {
+        "min": [
+          194,
+          248,
+          109
+        ],
+        "max": [
+          196,
+          255,
+          119
+        ],
+        "size": [
+          3,
+          8,
+          11
+        ],
+        "x": [
+          194,
+          196
+        ],
+        "y": [
+          248,
+          255
+        ],
+        "z": [
+          109,
+          119
+        ]
+      },
+      "faceOrientationCounts": {
+        "-X": 0,
+        "+X": 41,
+        "-Y": 4,
+        "+Y": 6,
+        "-Z": 6,
+        "+Z": 12
+      },
+      "faces": [
+        {
+          "mammillaryVoxel": [
+            194,
+            248,
+            117
+          ],
+          "otherVoxel": [
+            195,
+            248,
+            117
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            249,
+            115
+          ],
+          "otherVoxel": [
+            195,
+            249,
+            115
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            249,
+            116
+          ],
+          "otherVoxel": [
+            195,
+            249,
+            116
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            249,
+            118
+          ],
+          "otherVoxel": [
+            195,
+            249,
+            118
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            250,
+            114
+          ],
+          "otherVoxel": [
+            195,
+            250,
+            114
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            250,
+            115
+          ],
+          "otherVoxel": [
+            195,
+            250,
+            115
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            250,
+            116
+          ],
+          "otherVoxel": [
+            195,
+            250,
+            116
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            250,
+            118
+          ],
+          "otherVoxel": [
+            195,
+            250,
+            118
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            250,
+            119
+          ],
+          "otherVoxel": [
+            195,
+            250,
+            119
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            251,
+            114
+          ],
+          "otherVoxel": [
+            195,
+            251,
+            114
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            251,
+            115
+          ],
+          "otherVoxel": [
+            195,
+            251,
+            115
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            251,
+            116
+          ],
+          "otherVoxel": [
+            195,
+            251,
+            116
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            251,
+            118
+          ],
+          "otherVoxel": [
+            195,
+            251,
+            118
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            251,
+            119
+          ],
+          "otherVoxel": [
+            195,
+            251,
+            119
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            252,
+            114
+          ],
+          "otherVoxel": [
+            195,
+            252,
+            114
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            252,
+            116
+          ],
+          "otherVoxel": [
+            195,
+            252,
+            116
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            252,
+            117
+          ],
+          "otherVoxel": [
+            195,
+            252,
+            117
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            252,
+            118
+          ],
+          "otherVoxel": [
+            195,
+            252,
+            118
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            253,
+            109
+          ],
+          "otherVoxel": [
+            195,
+            253,
+            109
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            253,
+            116
+          ],
+          "otherVoxel": [
+            195,
+            253,
+            116
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            253,
+            117
+          ],
+          "otherVoxel": [
+            195,
+            253,
+            117
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            254,
+            109
+          ],
+          "otherVoxel": [
+            195,
+            254,
+            109
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            254,
+            110
+          ],
+          "otherVoxel": [
+            195,
+            254,
+            110
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            254,
+            113
+          ],
+          "otherVoxel": [
+            195,
+            254,
+            113
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            254,
+            115
+          ],
+          "otherVoxel": [
+            195,
+            254,
+            115
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            255,
+            112
+          ],
+          "otherVoxel": [
+            195,
+            255,
+            112
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            248,
+            113
+          ],
+          "otherVoxel": [
+            196,
+            248,
+            113
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            248,
+            113
+          ],
+          "otherVoxel": [
+            195,
+            247,
+            113
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            248,
+            113
+          ],
+          "otherVoxel": [
+            195,
+            248,
+            114
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            249,
+            113
+          ],
+          "otherVoxel": [
+            196,
+            249,
+            113
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            249,
+            113
+          ],
+          "otherVoxel": [
+            195,
+            249,
+            114
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            249,
+            117
+          ],
+          "otherVoxel": [
+            196,
+            249,
+            117
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            249,
+            117
+          ],
+          "otherVoxel": [
+            195,
+            248,
+            117
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            249,
+            117
+          ],
+          "otherVoxel": [
+            195,
+            249,
+            116
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            249,
+            117
+          ],
+          "otherVoxel": [
+            195,
+            249,
+            118
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            250,
+            113
+          ],
+          "otherVoxel": [
+            196,
+            250,
+            113
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            250,
+            113
+          ],
+          "otherVoxel": [
+            195,
+            250,
+            114
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            250,
+            117
+          ],
+          "otherVoxel": [
+            196,
+            250,
+            117
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            250,
+            117
+          ],
+          "otherVoxel": [
+            195,
+            250,
+            116
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            250,
+            117
+          ],
+          "otherVoxel": [
+            195,
+            250,
+            118
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            251,
+            109
+          ],
+          "otherVoxel": [
+            196,
+            251,
+            109
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            251,
+            110
+          ],
+          "otherVoxel": [
+            196,
+            251,
+            110
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            251,
+            113
+          ],
+          "otherVoxel": [
+            195,
+            251,
+            114
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            251,
+            117
+          ],
+          "otherVoxel": [
+            196,
+            251,
+            117
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            251,
+            117
+          ],
+          "otherVoxel": [
+            195,
+            252,
+            117
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            251,
+            117
+          ],
+          "otherVoxel": [
+            195,
+            251,
+            116
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            251,
+            117
+          ],
+          "otherVoxel": [
+            195,
+            251,
+            118
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            252,
+            109
+          ],
+          "otherVoxel": [
+            196,
+            252,
+            109
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            252,
+            109
+          ],
+          "otherVoxel": [
+            195,
+            253,
+            109
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            252,
+            110
+          ],
+          "otherVoxel": [
+            196,
+            252,
+            110
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            252,
+            113
+          ],
+          "otherVoxel": [
+            196,
+            252,
+            113
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            252,
+            113
+          ],
+          "otherVoxel": [
+            195,
+            252,
+            114
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            252,
+            115
+          ],
+          "otherVoxel": [
+            196,
+            252,
+            115
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            252,
+            115
+          ],
+          "otherVoxel": [
+            195,
+            251,
+            115
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            252,
+            115
+          ],
+          "otherVoxel": [
+            195,
+            252,
+            114
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            252,
+            115
+          ],
+          "otherVoxel": [
+            195,
+            252,
+            116
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            253,
+            110
+          ],
+          "otherVoxel": [
+            196,
+            253,
+            110
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            253,
+            110
+          ],
+          "otherVoxel": [
+            195,
+            254,
+            110
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            253,
+            110
+          ],
+          "otherVoxel": [
+            195,
+            253,
+            109
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            253,
+            113
+          ],
+          "otherVoxel": [
+            196,
+            253,
+            113
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            253,
+            113
+          ],
+          "otherVoxel": [
+            195,
+            254,
+            113
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            253,
+            113
+          ],
+          "otherVoxel": [
+            195,
+            253,
+            114
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            253,
+            115
+          ],
+          "otherVoxel": [
+            196,
+            253,
+            115
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            253,
+            115
+          ],
+          "otherVoxel": [
+            195,
+            254,
+            115
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            253,
+            115
+          ],
+          "otherVoxel": [
+            195,
+            253,
+            114
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            253,
+            115
+          ],
+          "otherVoxel": [
+            195,
+            253,
+            116
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            196,
+            251,
+            113
+          ],
+          "otherVoxel": [
+            196,
+            250,
+            113
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            196,
+            251,
+            113
+          ],
+          "otherVoxel": [
+            196,
+            252,
+            113
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            196,
+            251,
+            113
+          ],
+          "otherVoxel": [
+            196,
+            251,
+            114
+          ],
+          "orientation": "+Z"
+        }
+      ],
+      "slices": {
+        "x": {
+          "occupiedSliceCount": 3,
+          "slices": [
+            {
+              "index": 187,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 188,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 189,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 190,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 191,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 192,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 193,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 194,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 26,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 26,
+              "allUniqueMammillaryVoxelCount": 26,
+              "uniqueMammillaryVoxelCount": 26
+            },
+            {
+              "index": 195,
+              "inPlaneFaceCount": 25,
+              "outOfPlaneFaceCount": 15,
+              "inPlaneUniqueMammillaryVoxelCount": 13,
+              "outOfPlaneUniqueMammillaryVoxelCount": 15,
+              "allUniqueMammillaryVoxelCount": 16,
+              "uniqueMammillaryVoxelCount": 16
+            },
+            {
+              "index": 196,
+              "inPlaneFaceCount": 3,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 1,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 1,
+              "uniqueMammillaryVoxelCount": 1
+            }
+          ]
+        },
+        "y": {
+          "occupiedSliceCount": 8,
+          "slices": [
+            {
+              "index": 246,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 247,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 248,
+              "inPlaneFaceCount": 3,
+              "outOfPlaneFaceCount": 1,
+              "inPlaneUniqueMammillaryVoxelCount": 2,
+              "outOfPlaneUniqueMammillaryVoxelCount": 1,
+              "allUniqueMammillaryVoxelCount": 2,
+              "uniqueMammillaryVoxelCount": 2
+            },
+            {
+              "index": 249,
+              "inPlaneFaceCount": 8,
+              "outOfPlaneFaceCount": 1,
+              "inPlaneUniqueMammillaryVoxelCount": 5,
+              "outOfPlaneUniqueMammillaryVoxelCount": 1,
+              "allUniqueMammillaryVoxelCount": 5,
+              "uniqueMammillaryVoxelCount": 5
+            },
+            {
+              "index": 250,
+              "inPlaneFaceCount": 10,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 7,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 7,
+              "uniqueMammillaryVoxelCount": 7
+            },
+            {
+              "index": 251,
+              "inPlaneFaceCount": 12,
+              "outOfPlaneFaceCount": 3,
+              "inPlaneUniqueMammillaryVoxelCount": 10,
+              "outOfPlaneUniqueMammillaryVoxelCount": 2,
+              "allUniqueMammillaryVoxelCount": 10,
+              "uniqueMammillaryVoxelCount": 10
+            },
+            {
+              "index": 252,
+              "inPlaneFaceCount": 11,
+              "outOfPlaneFaceCount": 2,
+              "inPlaneUniqueMammillaryVoxelCount": 8,
+              "outOfPlaneUniqueMammillaryVoxelCount": 2,
+              "allUniqueMammillaryVoxelCount": 8,
+              "uniqueMammillaryVoxelCount": 8
+            },
+            {
+              "index": 253,
+              "inPlaneFaceCount": 10,
+              "outOfPlaneFaceCount": 3,
+              "inPlaneUniqueMammillaryVoxelCount": 6,
+              "outOfPlaneUniqueMammillaryVoxelCount": 3,
+              "allUniqueMammillaryVoxelCount": 6,
+              "uniqueMammillaryVoxelCount": 6
+            },
+            {
+              "index": 254,
+              "inPlaneFaceCount": 4,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 4,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 4,
+              "uniqueMammillaryVoxelCount": 4
+            },
+            {
+              "index": 255,
+              "inPlaneFaceCount": 1,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 1,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 1,
+              "uniqueMammillaryVoxelCount": 1
+            },
+            {
+              "index": 256,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            }
+          ]
+        },
+        "z": {
+          "occupiedSliceCount": 10,
+          "slices": [
+            {
+              "index": 107,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 108,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 109,
+              "inPlaneFaceCount": 5,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 4,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 4,
+              "uniqueMammillaryVoxelCount": 4
+            },
+            {
+              "index": 110,
+              "inPlaneFaceCount": 5,
+              "outOfPlaneFaceCount": 1,
+              "inPlaneUniqueMammillaryVoxelCount": 4,
+              "outOfPlaneUniqueMammillaryVoxelCount": 1,
+              "allUniqueMammillaryVoxelCount": 4,
+              "uniqueMammillaryVoxelCount": 4
+            },
+            {
+              "index": 111,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 112,
+              "inPlaneFaceCount": 1,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 1,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 1,
+              "uniqueMammillaryVoxelCount": 1
+            },
+            {
+              "index": 113,
+              "inPlaneFaceCount": 10,
+              "outOfPlaneFaceCount": 7,
+              "inPlaneUniqueMammillaryVoxelCount": 7,
+              "outOfPlaneUniqueMammillaryVoxelCount": 7,
+              "allUniqueMammillaryVoxelCount": 8,
+              "uniqueMammillaryVoxelCount": 8
+            },
+            {
+              "index": 114,
+              "inPlaneFaceCount": 3,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 3,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 3,
+              "uniqueMammillaryVoxelCount": 3
+            },
+            {
+              "index": 115,
+              "inPlaneFaceCount": 8,
+              "outOfPlaneFaceCount": 4,
+              "inPlaneUniqueMammillaryVoxelCount": 6,
+              "outOfPlaneUniqueMammillaryVoxelCount": 2,
+              "allUniqueMammillaryVoxelCount": 6,
+              "uniqueMammillaryVoxelCount": 6
+            },
+            {
+              "index": 116,
+              "inPlaneFaceCount": 5,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 5,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 5,
+              "uniqueMammillaryVoxelCount": 5
+            },
+            {
+              "index": 117,
+              "inPlaneFaceCount": 8,
+              "outOfPlaneFaceCount": 6,
+              "inPlaneUniqueMammillaryVoxelCount": 6,
+              "outOfPlaneUniqueMammillaryVoxelCount": 3,
+              "allUniqueMammillaryVoxelCount": 6,
+              "uniqueMammillaryVoxelCount": 6
+            },
+            {
+              "index": 118,
+              "inPlaneFaceCount": 4,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 4,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 4,
+              "uniqueMammillaryVoxelCount": 4
+            },
+            {
+              "index": 119,
+              "inPlaneFaceCount": 2,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 2,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 2,
+              "uniqueMammillaryVoxelCount": 2
+            },
+            {
+              "index": 120,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 121,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            }
+          ]
+        }
+      }
+    },
+    "33-39": {
+      "mammillaryLabel": 39,
+      "otherLabel": 33,
+      "faceCount": 171,
+      "uniqueMammillaryVoxelCount": 101,
+      "mammillaryVoxelBbox": {
+        "min": [
+          188,
+          247,
+          109
+        ],
+        "max": [
+          195,
+          256,
+          115
+        ],
+        "size": [
+          8,
+          10,
+          7
+        ],
+        "x": [
+          188,
+          195
+        ],
+        "y": [
+          247,
+          256
+        ],
+        "z": [
+          109,
+          115
+        ]
+      },
+      "faceOrientationCounts": {
+        "-X": 35,
+        "+X": 22,
+        "-Y": 25,
+        "+Y": 27,
+        "-Z": 34,
+        "+Z": 28
+      },
+      "faces": [
+        {
+          "mammillaryVoxel": [
+            188,
+            249,
+            115
+          ],
+          "otherVoxel": [
+            188,
+            249,
+            114
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            188,
+            250,
+            112
+          ],
+          "otherVoxel": [
+            187,
+            250,
+            112
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            188,
+            250,
+            112
+          ],
+          "otherVoxel": [
+            188,
+            249,
+            112
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            188,
+            250,
+            112
+          ],
+          "otherVoxel": [
+            188,
+            250,
+            111
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            188,
+            250,
+            112
+          ],
+          "otherVoxel": [
+            188,
+            250,
+            113
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            188,
+            250,
+            114
+          ],
+          "otherVoxel": [
+            187,
+            250,
+            114
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            188,
+            250,
+            114
+          ],
+          "otherVoxel": [
+            188,
+            249,
+            114
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            188,
+            250,
+            114
+          ],
+          "otherVoxel": [
+            188,
+            250,
+            113
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            188,
+            251,
+            110
+          ],
+          "otherVoxel": [
+            188,
+            251,
+            111
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            188,
+            251,
+            112
+          ],
+          "otherVoxel": [
+            187,
+            251,
+            112
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            188,
+            251,
+            112
+          ],
+          "otherVoxel": [
+            188,
+            251,
+            111
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            188,
+            251,
+            112
+          ],
+          "otherVoxel": [
+            188,
+            251,
+            113
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            188,
+            251,
+            114
+          ],
+          "otherVoxel": [
+            187,
+            251,
+            114
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            188,
+            251,
+            114
+          ],
+          "otherVoxel": [
+            188,
+            251,
+            113
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            188,
+            252,
+            110
+          ],
+          "otherVoxel": [
+            188,
+            252,
+            111
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            188,
+            252,
+            112
+          ],
+          "otherVoxel": [
+            187,
+            252,
+            112
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            188,
+            252,
+            112
+          ],
+          "otherVoxel": [
+            188,
+            252,
+            111
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            188,
+            252,
+            112
+          ],
+          "otherVoxel": [
+            188,
+            252,
+            113
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            188,
+            252,
+            114
+          ],
+          "otherVoxel": [
+            187,
+            252,
+            114
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            188,
+            252,
+            114
+          ],
+          "otherVoxel": [
+            188,
+            252,
+            113
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            188,
+            253,
+            112
+          ],
+          "otherVoxel": [
+            187,
+            253,
+            112
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            188,
+            253,
+            112
+          ],
+          "otherVoxel": [
+            188,
+            253,
+            111
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            188,
+            253,
+            112
+          ],
+          "otherVoxel": [
+            188,
+            253,
+            113
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            188,
+            253,
+            114
+          ],
+          "otherVoxel": [
+            187,
+            253,
+            114
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            188,
+            253,
+            114
+          ],
+          "otherVoxel": [
+            188,
+            253,
+            113
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            188,
+            254,
+            112
+          ],
+          "otherVoxel": [
+            187,
+            254,
+            112
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            188,
+            254,
+            112
+          ],
+          "otherVoxel": [
+            188,
+            255,
+            112
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            188,
+            254,
+            112
+          ],
+          "otherVoxel": [
+            188,
+            254,
+            111
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            188,
+            254,
+            112
+          ],
+          "otherVoxel": [
+            188,
+            254,
+            113
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            188,
+            254,
+            114
+          ],
+          "otherVoxel": [
+            187,
+            254,
+            114
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            188,
+            254,
+            114
+          ],
+          "otherVoxel": [
+            188,
+            255,
+            114
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            188,
+            254,
+            114
+          ],
+          "otherVoxel": [
+            188,
+            254,
+            113
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            189,
+            248,
+            115
+          ],
+          "otherVoxel": [
+            189,
+            248,
+            114
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            189,
+            249,
+            112
+          ],
+          "otherVoxel": [
+            188,
+            249,
+            112
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            189,
+            249,
+            112
+          ],
+          "otherVoxel": [
+            189,
+            248,
+            112
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            189,
+            249,
+            112
+          ],
+          "otherVoxel": [
+            189,
+            249,
+            111
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            189,
+            249,
+            113
+          ],
+          "otherVoxel": [
+            188,
+            249,
+            113
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            189,
+            249,
+            113
+          ],
+          "otherVoxel": [
+            189,
+            248,
+            113
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            189,
+            249,
+            114
+          ],
+          "otherVoxel": [
+            188,
+            249,
+            114
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            189,
+            249,
+            114
+          ],
+          "otherVoxel": [
+            189,
+            248,
+            114
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            189,
+            250,
+            110
+          ],
+          "otherVoxel": [
+            189,
+            250,
+            111
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            189,
+            250,
+            112
+          ],
+          "otherVoxel": [
+            189,
+            250,
+            111
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            189,
+            250,
+            113
+          ],
+          "otherVoxel": [
+            188,
+            250,
+            113
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            189,
+            251,
+            111
+          ],
+          "otherVoxel": [
+            188,
+            251,
+            111
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            189,
+            251,
+            111
+          ],
+          "otherVoxel": [
+            189,
+            250,
+            111
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            189,
+            251,
+            113
+          ],
+          "otherVoxel": [
+            188,
+            251,
+            113
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            189,
+            252,
+            111
+          ],
+          "otherVoxel": [
+            188,
+            252,
+            111
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            189,
+            252,
+            113
+          ],
+          "otherVoxel": [
+            188,
+            252,
+            113
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            189,
+            253,
+            111
+          ],
+          "otherVoxel": [
+            188,
+            253,
+            111
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            189,
+            253,
+            113
+          ],
+          "otherVoxel": [
+            188,
+            253,
+            113
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            189,
+            254,
+            111
+          ],
+          "otherVoxel": [
+            188,
+            254,
+            111
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            189,
+            254,
+            113
+          ],
+          "otherVoxel": [
+            188,
+            254,
+            113
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            189,
+            255,
+            111
+          ],
+          "otherVoxel": [
+            188,
+            255,
+            111
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            189,
+            255,
+            111
+          ],
+          "otherVoxel": [
+            189,
+            256,
+            111
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            189,
+            255,
+            112
+          ],
+          "otherVoxel": [
+            188,
+            255,
+            112
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            189,
+            255,
+            112
+          ],
+          "otherVoxel": [
+            189,
+            256,
+            112
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            189,
+            255,
+            113
+          ],
+          "otherVoxel": [
+            188,
+            255,
+            113
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            189,
+            255,
+            113
+          ],
+          "otherVoxel": [
+            189,
+            256,
+            113
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            189,
+            255,
+            114
+          ],
+          "otherVoxel": [
+            188,
+            255,
+            114
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            189,
+            255,
+            114
+          ],
+          "otherVoxel": [
+            189,
+            256,
+            114
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            190,
+            248,
+            112
+          ],
+          "otherVoxel": [
+            189,
+            248,
+            112
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            190,
+            248,
+            112
+          ],
+          "otherVoxel": [
+            190,
+            247,
+            112
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            190,
+            248,
+            112
+          ],
+          "otherVoxel": [
+            190,
+            248,
+            111
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            190,
+            248,
+            113
+          ],
+          "otherVoxel": [
+            189,
+            248,
+            113
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            190,
+            248,
+            113
+          ],
+          "otherVoxel": [
+            190,
+            247,
+            113
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            190,
+            248,
+            114
+          ],
+          "otherVoxel": [
+            189,
+            248,
+            114
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            190,
+            248,
+            114
+          ],
+          "otherVoxel": [
+            190,
+            247,
+            114
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            190,
+            249,
+            110
+          ],
+          "otherVoxel": [
+            190,
+            249,
+            111
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            190,
+            249,
+            112
+          ],
+          "otherVoxel": [
+            190,
+            249,
+            111
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            190,
+            250,
+            111
+          ],
+          "otherVoxel": [
+            189,
+            250,
+            111
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            190,
+            250,
+            111
+          ],
+          "otherVoxel": [
+            190,
+            249,
+            111
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            190,
+            255,
+            112
+          ],
+          "otherVoxel": [
+            190,
+            256,
+            112
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            190,
+            255,
+            114
+          ],
+          "otherVoxel": [
+            190,
+            256,
+            114
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            190,
+            256,
+            111
+          ],
+          "otherVoxel": [
+            189,
+            256,
+            111
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            190,
+            256,
+            111
+          ],
+          "otherVoxel": [
+            190,
+            257,
+            111
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            190,
+            256,
+            111
+          ],
+          "otherVoxel": [
+            190,
+            256,
+            112
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            190,
+            256,
+            113
+          ],
+          "otherVoxel": [
+            189,
+            256,
+            113
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            190,
+            256,
+            113
+          ],
+          "otherVoxel": [
+            190,
+            257,
+            113
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            190,
+            256,
+            113
+          ],
+          "otherVoxel": [
+            190,
+            256,
+            112
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            190,
+            256,
+            113
+          ],
+          "otherVoxel": [
+            190,
+            256,
+            114
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            191,
+            247,
+            114
+          ],
+          "otherVoxel": [
+            190,
+            247,
+            114
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            191,
+            247,
+            114
+          ],
+          "otherVoxel": [
+            191,
+            246,
+            114
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            191,
+            247,
+            114
+          ],
+          "otherVoxel": [
+            191,
+            247,
+            113
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            191,
+            248,
+            112
+          ],
+          "otherVoxel": [
+            191,
+            247,
+            112
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            191,
+            248,
+            112
+          ],
+          "otherVoxel": [
+            191,
+            248,
+            111
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            191,
+            248,
+            113
+          ],
+          "otherVoxel": [
+            191,
+            247,
+            113
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            191,
+            249,
+            111
+          ],
+          "otherVoxel": [
+            190,
+            249,
+            111
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            191,
+            249,
+            111
+          ],
+          "otherVoxel": [
+            191,
+            248,
+            111
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            191,
+            255,
+            112
+          ],
+          "otherVoxel": [
+            191,
+            256,
+            112
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            191,
+            255,
+            114
+          ],
+          "otherVoxel": [
+            191,
+            256,
+            114
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            191,
+            256,
+            111
+          ],
+          "otherVoxel": [
+            191,
+            257,
+            111
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            191,
+            256,
+            111
+          ],
+          "otherVoxel": [
+            191,
+            256,
+            112
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            191,
+            256,
+            113
+          ],
+          "otherVoxel": [
+            191,
+            257,
+            113
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            191,
+            256,
+            113
+          ],
+          "otherVoxel": [
+            191,
+            256,
+            112
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            191,
+            256,
+            113
+          ],
+          "otherVoxel": [
+            191,
+            256,
+            114
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            192,
+            247,
+            114
+          ],
+          "otherVoxel": [
+            193,
+            247,
+            114
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            192,
+            247,
+            114
+          ],
+          "otherVoxel": [
+            192,
+            246,
+            114
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            192,
+            247,
+            114
+          ],
+          "otherVoxel": [
+            192,
+            247,
+            113
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            192,
+            248,
+            110
+          ],
+          "otherVoxel": [
+            192,
+            248,
+            111
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            192,
+            248,
+            112
+          ],
+          "otherVoxel": [
+            192,
+            247,
+            112
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            192,
+            248,
+            112
+          ],
+          "otherVoxel": [
+            192,
+            248,
+            111
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            192,
+            248,
+            113
+          ],
+          "otherVoxel": [
+            192,
+            247,
+            113
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            192,
+            249,
+            111
+          ],
+          "otherVoxel": [
+            192,
+            248,
+            111
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            192,
+            255,
+            114
+          ],
+          "otherVoxel": [
+            193,
+            255,
+            114
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            192,
+            255,
+            114
+          ],
+          "otherVoxel": [
+            192,
+            256,
+            114
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            192,
+            256,
+            109
+          ],
+          "otherVoxel": [
+            192,
+            257,
+            109
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            192,
+            256,
+            111
+          ],
+          "otherVoxel": [
+            193,
+            256,
+            111
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            192,
+            256,
+            111
+          ],
+          "otherVoxel": [
+            192,
+            257,
+            111
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            192,
+            256,
+            112
+          ],
+          "otherVoxel": [
+            191,
+            256,
+            112
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            192,
+            256,
+            112
+          ],
+          "otherVoxel": [
+            192,
+            257,
+            112
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            192,
+            256,
+            113
+          ],
+          "otherVoxel": [
+            193,
+            256,
+            113
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            192,
+            256,
+            113
+          ],
+          "otherVoxel": [
+            192,
+            257,
+            113
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            192,
+            256,
+            113
+          ],
+          "otherVoxel": [
+            192,
+            256,
+            114
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            193,
+            248,
+            113
+          ],
+          "otherVoxel": [
+            193,
+            247,
+            113
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            193,
+            248,
+            114
+          ],
+          "otherVoxel": [
+            194,
+            248,
+            114
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            193,
+            248,
+            114
+          ],
+          "otherVoxel": [
+            193,
+            247,
+            114
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            193,
+            249,
+            111
+          ],
+          "otherVoxel": [
+            194,
+            249,
+            111
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            193,
+            249,
+            112
+          ],
+          "otherVoxel": [
+            194,
+            249,
+            112
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            193,
+            249,
+            114
+          ],
+          "otherVoxel": [
+            194,
+            249,
+            114
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            193,
+            253,
+            114
+          ],
+          "otherVoxel": [
+            194,
+            253,
+            114
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            193,
+            254,
+            114
+          ],
+          "otherVoxel": [
+            194,
+            254,
+            114
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            193,
+            254,
+            114
+          ],
+          "otherVoxel": [
+            193,
+            255,
+            114
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            193,
+            255,
+            111
+          ],
+          "otherVoxel": [
+            194,
+            255,
+            111
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            193,
+            255,
+            111
+          ],
+          "otherVoxel": [
+            193,
+            256,
+            111
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            193,
+            255,
+            113
+          ],
+          "otherVoxel": [
+            194,
+            255,
+            113
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            193,
+            255,
+            113
+          ],
+          "otherVoxel": [
+            193,
+            256,
+            113
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            193,
+            255,
+            113
+          ],
+          "otherVoxel": [
+            193,
+            255,
+            114
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            193,
+            255,
+            115
+          ],
+          "otherVoxel": [
+            193,
+            255,
+            114
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            193,
+            256,
+            112
+          ],
+          "otherVoxel": [
+            194,
+            256,
+            112
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            193,
+            256,
+            112
+          ],
+          "otherVoxel": [
+            193,
+            256,
+            111
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            193,
+            256,
+            112
+          ],
+          "otherVoxel": [
+            193,
+            256,
+            113
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            248,
+            113
+          ],
+          "otherVoxel": [
+            194,
+            247,
+            113
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            248,
+            113
+          ],
+          "otherVoxel": [
+            194,
+            248,
+            114
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            249,
+            110
+          ],
+          "otherVoxel": [
+            194,
+            249,
+            111
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            249,
+            113
+          ],
+          "otherVoxel": [
+            194,
+            249,
+            112
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            249,
+            113
+          ],
+          "otherVoxel": [
+            194,
+            249,
+            114
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            249,
+            115
+          ],
+          "otherVoxel": [
+            194,
+            249,
+            114
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            250,
+            111
+          ],
+          "otherVoxel": [
+            195,
+            250,
+            111
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            250,
+            111
+          ],
+          "otherVoxel": [
+            194,
+            249,
+            111
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            250,
+            112
+          ],
+          "otherVoxel": [
+            195,
+            250,
+            112
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            250,
+            112
+          ],
+          "otherVoxel": [
+            194,
+            249,
+            112
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            250,
+            114
+          ],
+          "otherVoxel": [
+            194,
+            249,
+            114
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            251,
+            111
+          ],
+          "otherVoxel": [
+            195,
+            251,
+            111
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            251,
+            112
+          ],
+          "otherVoxel": [
+            195,
+            251,
+            112
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            252,
+            111
+          ],
+          "otherVoxel": [
+            195,
+            252,
+            111
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            252,
+            114
+          ],
+          "otherVoxel": [
+            194,
+            253,
+            114
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            253,
+            111
+          ],
+          "otherVoxel": [
+            195,
+            253,
+            111
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            253,
+            112
+          ],
+          "otherVoxel": [
+            195,
+            253,
+            112
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            253,
+            113
+          ],
+          "otherVoxel": [
+            194,
+            253,
+            114
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            253,
+            115
+          ],
+          "otherVoxel": [
+            194,
+            253,
+            114
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            254,
+            111
+          ],
+          "otherVoxel": [
+            195,
+            254,
+            111
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            254,
+            111
+          ],
+          "otherVoxel": [
+            194,
+            255,
+            111
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            254,
+            112
+          ],
+          "otherVoxel": [
+            195,
+            254,
+            112
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            254,
+            113
+          ],
+          "otherVoxel": [
+            194,
+            255,
+            113
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            254,
+            113
+          ],
+          "otherVoxel": [
+            194,
+            254,
+            114
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            254,
+            115
+          ],
+          "otherVoxel": [
+            194,
+            254,
+            114
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            255,
+            112
+          ],
+          "otherVoxel": [
+            194,
+            256,
+            112
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            255,
+            112
+          ],
+          "otherVoxel": [
+            194,
+            255,
+            111
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            194,
+            255,
+            112
+          ],
+          "otherVoxel": [
+            194,
+            255,
+            113
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            249,
+            110
+          ],
+          "otherVoxel": [
+            195,
+            249,
+            111
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            249,
+            113
+          ],
+          "otherVoxel": [
+            195,
+            249,
+            112
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            250,
+            110
+          ],
+          "otherVoxel": [
+            195,
+            250,
+            111
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            250,
+            113
+          ],
+          "otherVoxel": [
+            195,
+            250,
+            112
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            251,
+            110
+          ],
+          "otherVoxel": [
+            195,
+            251,
+            111
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            251,
+            113
+          ],
+          "otherVoxel": [
+            195,
+            251,
+            112
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            252,
+            110
+          ],
+          "otherVoxel": [
+            195,
+            252,
+            111
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            252,
+            112
+          ],
+          "otherVoxel": [
+            195,
+            251,
+            112
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            252,
+            112
+          ],
+          "otherVoxel": [
+            195,
+            253,
+            112
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            252,
+            112
+          ],
+          "otherVoxel": [
+            195,
+            252,
+            111
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            253,
+            110
+          ],
+          "otherVoxel": [
+            195,
+            253,
+            111
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            195,
+            253,
+            113
+          ],
+          "otherVoxel": [
+            195,
+            253,
+            112
+          ],
+          "orientation": "-Z"
+        }
+      ],
+      "slices": {
+        "x": {
+          "occupiedSliceCount": 8,
+          "slices": [
+            {
+              "index": 187,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 188,
+              "inPlaneFaceCount": 22,
+              "outOfPlaneFaceCount": 10,
+              "inPlaneUniqueMammillaryVoxelCount": 13,
+              "outOfPlaneUniqueMammillaryVoxelCount": 10,
+              "allUniqueMammillaryVoxelCount": 13,
+              "uniqueMammillaryVoxelCount": 13
+            },
+            {
+              "index": 189,
+              "inPlaneFaceCount": 12,
+              "outOfPlaneFaceCount": 16,
+              "inPlaneUniqueMammillaryVoxelCount": 11,
+              "outOfPlaneUniqueMammillaryVoxelCount": 16,
+              "allUniqueMammillaryVoxelCount": 19,
+              "uniqueMammillaryVoxelCount": 19
+            },
+            {
+              "index": 190,
+              "inPlaneFaceCount": 14,
+              "outOfPlaneFaceCount": 6,
+              "inPlaneUniqueMammillaryVoxelCount": 10,
+              "outOfPlaneUniqueMammillaryVoxelCount": 6,
+              "allUniqueMammillaryVoxelCount": 10,
+              "uniqueMammillaryVoxelCount": 10
+            },
+            {
+              "index": 191,
+              "inPlaneFaceCount": 13,
+              "outOfPlaneFaceCount": 2,
+              "inPlaneUniqueMammillaryVoxelCount": 8,
+              "outOfPlaneUniqueMammillaryVoxelCount": 2,
+              "allUniqueMammillaryVoxelCount": 8,
+              "uniqueMammillaryVoxelCount": 8
+            },
+            {
+              "index": 192,
+              "inPlaneFaceCount": 13,
+              "outOfPlaneFaceCount": 5,
+              "inPlaneUniqueMammillaryVoxelCount": 10,
+              "outOfPlaneUniqueMammillaryVoxelCount": 5,
+              "allUniqueMammillaryVoxelCount": 10,
+              "uniqueMammillaryVoxelCount": 10
+            },
+            {
+              "index": 193,
+              "inPlaneFaceCount": 9,
+              "outOfPlaneFaceCount": 9,
+              "inPlaneUniqueMammillaryVoxelCount": 7,
+              "outOfPlaneUniqueMammillaryVoxelCount": 9,
+              "allUniqueMammillaryVoxelCount": 11,
+              "uniqueMammillaryVoxelCount": 11
+            },
+            {
+              "index": 194,
+              "inPlaneFaceCount": 19,
+              "outOfPlaneFaceCount": 9,
+              "inPlaneUniqueMammillaryVoxelCount": 14,
+              "outOfPlaneUniqueMammillaryVoxelCount": 9,
+              "allUniqueMammillaryVoxelCount": 20,
+              "uniqueMammillaryVoxelCount": 20
+            },
+            {
+              "index": 195,
+              "inPlaneFaceCount": 12,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 10,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 10,
+              "uniqueMammillaryVoxelCount": 10
+            },
+            {
+              "index": 196,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            }
+          ]
+        },
+        "y": {
+          "occupiedSliceCount": 10,
+          "slices": [
+            {
+              "index": 246,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 247,
+              "inPlaneFaceCount": 4,
+              "outOfPlaneFaceCount": 2,
+              "inPlaneUniqueMammillaryVoxelCount": 2,
+              "outOfPlaneUniqueMammillaryVoxelCount": 2,
+              "allUniqueMammillaryVoxelCount": 2,
+              "uniqueMammillaryVoxelCount": 2
+            },
+            {
+              "index": 248,
+              "inPlaneFaceCount": 10,
+              "outOfPlaneFaceCount": 10,
+              "inPlaneUniqueMammillaryVoxelCount": 9,
+              "outOfPlaneUniqueMammillaryVoxelCount": 10,
+              "allUniqueMammillaryVoxelCount": 12,
+              "uniqueMammillaryVoxelCount": 12
+            },
+            {
+              "index": 249,
+              "inPlaneFaceCount": 17,
+              "outOfPlaneFaceCount": 5,
+              "inPlaneUniqueMammillaryVoxelCount": 15,
+              "outOfPlaneUniqueMammillaryVoxelCount": 5,
+              "allUniqueMammillaryVoxelCount": 16,
+              "uniqueMammillaryVoxelCount": 16
+            },
+            {
+              "index": 250,
+              "inPlaneFaceCount": 13,
+              "outOfPlaneFaceCount": 6,
+              "inPlaneUniqueMammillaryVoxelCount": 10,
+              "outOfPlaneUniqueMammillaryVoxelCount": 6,
+              "allUniqueMammillaryVoxelCount": 11,
+              "uniqueMammillaryVoxelCount": 11
+            },
+            {
+              "index": 251,
+              "inPlaneFaceCount": 12,
+              "outOfPlaneFaceCount": 1,
+              "inPlaneUniqueMammillaryVoxelCount": 9,
+              "outOfPlaneUniqueMammillaryVoxelCount": 1,
+              "allUniqueMammillaryVoxelCount": 9,
+              "uniqueMammillaryVoxelCount": 9
+            },
+            {
+              "index": 252,
+              "inPlaneFaceCount": 11,
+              "outOfPlaneFaceCount": 3,
+              "inPlaneUniqueMammillaryVoxelCount": 8,
+              "outOfPlaneUniqueMammillaryVoxelCount": 2,
+              "allUniqueMammillaryVoxelCount": 9,
+              "uniqueMammillaryVoxelCount": 9
+            },
+            {
+              "index": 253,
+              "inPlaneFaceCount": 14,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 11,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 11,
+              "uniqueMammillaryVoxelCount": 11
+            },
+            {
+              "index": 254,
+              "inPlaneFaceCount": 12,
+              "outOfPlaneFaceCount": 5,
+              "inPlaneUniqueMammillaryVoxelCount": 9,
+              "outOfPlaneUniqueMammillaryVoxelCount": 5,
+              "allUniqueMammillaryVoxelCount": 9,
+              "uniqueMammillaryVoxelCount": 9
+            },
+            {
+              "index": 255,
+              "inPlaneFaceCount": 11,
+              "outOfPlaneFaceCount": 12,
+              "inPlaneUniqueMammillaryVoxelCount": 9,
+              "outOfPlaneUniqueMammillaryVoxelCount": 12,
+              "allUniqueMammillaryVoxelCount": 13,
+              "uniqueMammillaryVoxelCount": 13
+            },
+            {
+              "index": 256,
+              "inPlaneFaceCount": 15,
+              "outOfPlaneFaceCount": 8,
+              "inPlaneUniqueMammillaryVoxelCount": 8,
+              "outOfPlaneUniqueMammillaryVoxelCount": 8,
+              "allUniqueMammillaryVoxelCount": 9,
+              "uniqueMammillaryVoxelCount": 9
+            }
+          ]
+        },
+        "z": {
+          "occupiedSliceCount": 7,
+          "slices": [
+            {
+              "index": 107,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 108,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 109,
+              "inPlaneFaceCount": 1,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 1,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 1,
+              "uniqueMammillaryVoxelCount": 1
+            },
+            {
+              "index": 110,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 11,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 11,
+              "allUniqueMammillaryVoxelCount": 11,
+              "uniqueMammillaryVoxelCount": 11
+            },
+            {
+              "index": 111,
+              "inPlaneFaceCount": 27,
+              "outOfPlaneFaceCount": 2,
+              "inPlaneUniqueMammillaryVoxelCount": 18,
+              "outOfPlaneUniqueMammillaryVoxelCount": 2,
+              "allUniqueMammillaryVoxelCount": 18,
+              "uniqueMammillaryVoxelCount": 18
+            },
+            {
+              "index": 112,
+              "inPlaneFaceCount": 29,
+              "outOfPlaneFaceCount": 21,
+              "inPlaneUniqueMammillaryVoxelCount": 21,
+              "outOfPlaneUniqueMammillaryVoxelCount": 14,
+              "allUniqueMammillaryVoxelCount": 23,
+              "uniqueMammillaryVoxelCount": 23
+            },
+            {
+              "index": 113,
+              "inPlaneFaceCount": 23,
+              "outOfPlaneFaceCount": 15,
+              "inPlaneUniqueMammillaryVoxelCount": 17,
+              "outOfPlaneUniqueMammillaryVoxelCount": 12,
+              "allUniqueMammillaryVoxelCount": 23,
+              "uniqueMammillaryVoxelCount": 23
+            },
+            {
+              "index": 114,
+              "inPlaneFaceCount": 29,
+              "outOfPlaneFaceCount": 7,
+              "inPlaneUniqueMammillaryVoxelCount": 19,
+              "outOfPlaneUniqueMammillaryVoxelCount": 7,
+              "allUniqueMammillaryVoxelCount": 19,
+              "uniqueMammillaryVoxelCount": 19
+            },
+            {
+              "index": 115,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 6,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 6,
+              "allUniqueMammillaryVoxelCount": 6,
+              "uniqueMammillaryVoxelCount": 6
+            },
+            {
+              "index": 116,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 117,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 118,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 119,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 120,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 121,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            }
+          ]
+        }
+      }
+    },
+    "27-40": {
+      "mammillaryLabel": 40,
+      "otherLabel": 27,
+      "faceCount": 38,
+      "uniqueMammillaryVoxelCount": 38,
+      "mammillaryVoxelBbox": {
+        "min": [
+          197,
+          249,
+          109
+        ],
+        "max": [
+          197,
+          255,
+          119
+        ],
+        "size": [
+          1,
+          7,
+          11
+        ],
+        "x": [
+          197,
+          197
+        ],
+        "y": [
+          249,
+          255
+        ],
+        "z": [
+          109,
+          119
+        ]
+      },
+      "faceOrientationCounts": {
+        "-X": 38,
+        "+X": 0,
+        "-Y": 0,
+        "+Y": 0,
+        "-Z": 0,
+        "+Z": 0
+      },
+      "faces": [
+        {
+          "mammillaryVoxel": [
+            197,
+            249,
+            115
+          ],
+          "otherVoxel": [
+            196,
+            249,
+            115
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            249,
+            117
+          ],
+          "otherVoxel": [
+            196,
+            249,
+            117
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            250,
+            113
+          ],
+          "otherVoxel": [
+            196,
+            250,
+            113
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            250,
+            114
+          ],
+          "otherVoxel": [
+            196,
+            250,
+            114
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            250,
+            115
+          ],
+          "otherVoxel": [
+            196,
+            250,
+            115
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            250,
+            117
+          ],
+          "otherVoxel": [
+            196,
+            250,
+            117
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            251,
+            110
+          ],
+          "otherVoxel": [
+            196,
+            251,
+            110
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            251,
+            114
+          ],
+          "otherVoxel": [
+            196,
+            251,
+            114
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            251,
+            115
+          ],
+          "otherVoxel": [
+            196,
+            251,
+            115
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            251,
+            117
+          ],
+          "otherVoxel": [
+            196,
+            251,
+            117
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            251,
+            119
+          ],
+          "otherVoxel": [
+            196,
+            251,
+            119
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            252,
+            109
+          ],
+          "otherVoxel": [
+            196,
+            252,
+            109
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            252,
+            110
+          ],
+          "otherVoxel": [
+            196,
+            252,
+            110
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            252,
+            113
+          ],
+          "otherVoxel": [
+            196,
+            252,
+            113
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            252,
+            114
+          ],
+          "otherVoxel": [
+            196,
+            252,
+            114
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            252,
+            115
+          ],
+          "otherVoxel": [
+            196,
+            252,
+            115
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            252,
+            116
+          ],
+          "otherVoxel": [
+            196,
+            252,
+            116
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            252,
+            117
+          ],
+          "otherVoxel": [
+            196,
+            252,
+            117
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            252,
+            119
+          ],
+          "otherVoxel": [
+            196,
+            252,
+            119
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            253,
+            109
+          ],
+          "otherVoxel": [
+            196,
+            253,
+            109
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            253,
+            110
+          ],
+          "otherVoxel": [
+            196,
+            253,
+            110
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            253,
+            113
+          ],
+          "otherVoxel": [
+            196,
+            253,
+            113
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            253,
+            114
+          ],
+          "otherVoxel": [
+            196,
+            253,
+            114
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            253,
+            115
+          ],
+          "otherVoxel": [
+            196,
+            253,
+            115
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            253,
+            116
+          ],
+          "otherVoxel": [
+            196,
+            253,
+            116
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            253,
+            117
+          ],
+          "otherVoxel": [
+            196,
+            253,
+            117
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            253,
+            119
+          ],
+          "otherVoxel": [
+            196,
+            253,
+            119
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            254,
+            109
+          ],
+          "otherVoxel": [
+            196,
+            254,
+            109
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            254,
+            110
+          ],
+          "otherVoxel": [
+            196,
+            254,
+            110
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            254,
+            113
+          ],
+          "otherVoxel": [
+            196,
+            254,
+            113
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            254,
+            114
+          ],
+          "otherVoxel": [
+            196,
+            254,
+            114
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            254,
+            115
+          ],
+          "otherVoxel": [
+            196,
+            254,
+            115
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            254,
+            116
+          ],
+          "otherVoxel": [
+            196,
+            254,
+            116
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            254,
+            117
+          ],
+          "otherVoxel": [
+            196,
+            254,
+            117
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            255,
+            111
+          ],
+          "otherVoxel": [
+            196,
+            255,
+            111
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            255,
+            113
+          ],
+          "otherVoxel": [
+            196,
+            255,
+            113
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            255,
+            114
+          ],
+          "otherVoxel": [
+            196,
+            255,
+            114
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            255,
+            115
+          ],
+          "otherVoxel": [
+            196,
+            255,
+            115
+          ],
+          "orientation": "-X"
+        }
+      ],
+      "slices": {
+        "x": {
+          "occupiedSliceCount": 1,
+          "slices": [
+            {
+              "index": 197,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 38,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 38,
+              "allUniqueMammillaryVoxelCount": 38,
+              "uniqueMammillaryVoxelCount": 38
+            },
+            {
+              "index": 198,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 199,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 200,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 201,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 202,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 203,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 204,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            }
+          ]
+        },
+        "y": {
+          "occupiedSliceCount": 7,
+          "slices": [
+            {
+              "index": 247,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 248,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 249,
+              "inPlaneFaceCount": 2,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 2,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 2,
+              "uniqueMammillaryVoxelCount": 2
+            },
+            {
+              "index": 250,
+              "inPlaneFaceCount": 4,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 4,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 4,
+              "uniqueMammillaryVoxelCount": 4
+            },
+            {
+              "index": 251,
+              "inPlaneFaceCount": 5,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 5,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 5,
+              "uniqueMammillaryVoxelCount": 5
+            },
+            {
+              "index": 252,
+              "inPlaneFaceCount": 8,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 8,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 8,
+              "uniqueMammillaryVoxelCount": 8
+            },
+            {
+              "index": 253,
+              "inPlaneFaceCount": 8,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 8,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 8,
+              "uniqueMammillaryVoxelCount": 8
+            },
+            {
+              "index": 254,
+              "inPlaneFaceCount": 7,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 7,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 7,
+              "uniqueMammillaryVoxelCount": 7
+            },
+            {
+              "index": 255,
+              "inPlaneFaceCount": 4,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 4,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 4,
+              "uniqueMammillaryVoxelCount": 4
+            },
+            {
+              "index": 256,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 257,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 258,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            }
+          ]
+        },
+        "z": {
+          "occupiedSliceCount": 9,
+          "slices": [
+            {
+              "index": 108,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 109,
+              "inPlaneFaceCount": 3,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 3,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 3,
+              "uniqueMammillaryVoxelCount": 3
+            },
+            {
+              "index": 110,
+              "inPlaneFaceCount": 4,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 4,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 4,
+              "uniqueMammillaryVoxelCount": 4
+            },
+            {
+              "index": 111,
+              "inPlaneFaceCount": 1,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 1,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 1,
+              "uniqueMammillaryVoxelCount": 1
+            },
+            {
+              "index": 112,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 113,
+              "inPlaneFaceCount": 5,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 5,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 5,
+              "uniqueMammillaryVoxelCount": 5
+            },
+            {
+              "index": 114,
+              "inPlaneFaceCount": 6,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 6,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 6,
+              "uniqueMammillaryVoxelCount": 6
+            },
+            {
+              "index": 115,
+              "inPlaneFaceCount": 7,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 7,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 7,
+              "uniqueMammillaryVoxelCount": 7
+            },
+            {
+              "index": 116,
+              "inPlaneFaceCount": 3,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 3,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 3,
+              "uniqueMammillaryVoxelCount": 3
+            },
+            {
+              "index": 117,
+              "inPlaneFaceCount": 6,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 6,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 6,
+              "uniqueMammillaryVoxelCount": 6
+            },
+            {
+              "index": 118,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 119,
+              "inPlaneFaceCount": 3,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 3,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 3,
+              "uniqueMammillaryVoxelCount": 3
+            },
+            {
+              "index": 120,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 121,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            }
+          ]
+        }
+      }
+    },
+    "33-40": {
+      "mammillaryLabel": 40,
+      "otherLabel": 33,
+      "faceCount": 162,
+      "uniqueMammillaryVoxelCount": 106,
+      "mammillaryVoxelBbox": {
+        "min": [
+          197,
+          247,
+          109
+        ],
+        "max": [
+          204,
+          258,
+          115
+        ],
+        "size": [
+          8,
+          12,
+          7
+        ],
+        "x": [
+          197,
+          204
+        ],
+        "y": [
+          247,
+          258
+        ],
+        "z": [
+          109,
+          115
+        ]
+      },
+      "faceOrientationCounts": {
+        "-X": 22,
+        "+X": 26,
+        "-Y": 23,
+        "+Y": 30,
+        "-Z": 36,
+        "+Z": 25
+      },
+      "faces": [
+        {
+          "mammillaryVoxel": [
+            197,
+            249,
+            115
+          ],
+          "otherVoxel": [
+            197,
+            249,
+            114
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            250,
+            110
+          ],
+          "otherVoxel": [
+            197,
+            250,
+            111
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            250,
+            113
+          ],
+          "otherVoxel": [
+            197,
+            249,
+            113
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            250,
+            113
+          ],
+          "otherVoxel": [
+            197,
+            250,
+            112
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            250,
+            114
+          ],
+          "otherVoxel": [
+            197,
+            249,
+            114
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            251,
+            111
+          ],
+          "otherVoxel": [
+            197,
+            250,
+            111
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            251,
+            111
+          ],
+          "otherVoxel": [
+            197,
+            251,
+            112
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            251,
+            113
+          ],
+          "otherVoxel": [
+            197,
+            251,
+            112
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            252,
+            111
+          ],
+          "otherVoxel": [
+            197,
+            252,
+            112
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            252,
+            113
+          ],
+          "otherVoxel": [
+            197,
+            252,
+            112
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            253,
+            111
+          ],
+          "otherVoxel": [
+            196,
+            253,
+            111
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            253,
+            111
+          ],
+          "otherVoxel": [
+            197,
+            253,
+            112
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            253,
+            113
+          ],
+          "otherVoxel": [
+            197,
+            253,
+            112
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            254,
+            111
+          ],
+          "otherVoxel": [
+            196,
+            254,
+            111
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            254,
+            111
+          ],
+          "otherVoxel": [
+            197,
+            254,
+            112
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            254,
+            113
+          ],
+          "otherVoxel": [
+            197,
+            254,
+            112
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            255,
+            111
+          ],
+          "otherVoxel": [
+            197,
+            256,
+            111
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            255,
+            111
+          ],
+          "otherVoxel": [
+            197,
+            255,
+            112
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            255,
+            113
+          ],
+          "otherVoxel": [
+            197,
+            256,
+            113
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            255,
+            113
+          ],
+          "otherVoxel": [
+            197,
+            255,
+            112
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            197,
+            255,
+            114
+          ],
+          "otherVoxel": [
+            197,
+            256,
+            114
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            198,
+            248,
+            115
+          ],
+          "otherVoxel": [
+            198,
+            248,
+            114
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            198,
+            249,
+            112
+          ],
+          "otherVoxel": [
+            197,
+            249,
+            112
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            198,
+            249,
+            112
+          ],
+          "otherVoxel": [
+            198,
+            249,
+            111
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            198,
+            249,
+            113
+          ],
+          "otherVoxel": [
+            197,
+            249,
+            113
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            198,
+            249,
+            113
+          ],
+          "otherVoxel": [
+            198,
+            248,
+            113
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            198,
+            249,
+            114
+          ],
+          "otherVoxel": [
+            197,
+            249,
+            114
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            198,
+            249,
+            114
+          ],
+          "otherVoxel": [
+            198,
+            248,
+            114
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            198,
+            250,
+            111
+          ],
+          "otherVoxel": [
+            197,
+            250,
+            111
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            198,
+            250,
+            111
+          ],
+          "otherVoxel": [
+            198,
+            249,
+            111
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            198,
+            250,
+            112
+          ],
+          "otherVoxel": [
+            197,
+            250,
+            112
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            198,
+            251,
+            112
+          ],
+          "otherVoxel": [
+            197,
+            251,
+            112
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            198,
+            252,
+            112
+          ],
+          "otherVoxel": [
+            197,
+            252,
+            112
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            198,
+            253,
+            112
+          ],
+          "otherVoxel": [
+            197,
+            253,
+            112
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            198,
+            254,
+            112
+          ],
+          "otherVoxel": [
+            197,
+            254,
+            112
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            198,
+            255,
+            112
+          ],
+          "otherVoxel": [
+            197,
+            255,
+            112
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            198,
+            256,
+            111
+          ],
+          "otherVoxel": [
+            197,
+            256,
+            111
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            198,
+            256,
+            112
+          ],
+          "otherVoxel": [
+            197,
+            256,
+            112
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            198,
+            256,
+            113
+          ],
+          "otherVoxel": [
+            197,
+            256,
+            113
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            198,
+            256,
+            114
+          ],
+          "otherVoxel": [
+            197,
+            256,
+            114
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            199,
+            248,
+            112
+          ],
+          "otherVoxel": [
+            199,
+            247,
+            112
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            199,
+            248,
+            112
+          ],
+          "otherVoxel": [
+            199,
+            248,
+            111
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            199,
+            248,
+            113
+          ],
+          "otherVoxel": [
+            198,
+            248,
+            113
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            199,
+            248,
+            113
+          ],
+          "otherVoxel": [
+            199,
+            247,
+            113
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            199,
+            248,
+            114
+          ],
+          "otherVoxel": [
+            198,
+            248,
+            114
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            199,
+            248,
+            114
+          ],
+          "otherVoxel": [
+            199,
+            247,
+            114
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            199,
+            249,
+            110
+          ],
+          "otherVoxel": [
+            199,
+            249,
+            111
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            199,
+            249,
+            112
+          ],
+          "otherVoxel": [
+            199,
+            249,
+            111
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            199,
+            250,
+            111
+          ],
+          "otherVoxel": [
+            199,
+            249,
+            111
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            199,
+            257,
+            110
+          ],
+          "otherVoxel": [
+            199,
+            258,
+            110
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            199,
+            257,
+            111
+          ],
+          "otherVoxel": [
+            199,
+            258,
+            111
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            199,
+            257,
+            114
+          ],
+          "otherVoxel": [
+            199,
+            258,
+            114
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            199,
+            258,
+            112
+          ],
+          "otherVoxel": [
+            199,
+            259,
+            112
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            199,
+            258,
+            112
+          ],
+          "otherVoxel": [
+            199,
+            258,
+            111
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            199,
+            258,
+            113
+          ],
+          "otherVoxel": [
+            199,
+            259,
+            113
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            199,
+            258,
+            113
+          ],
+          "otherVoxel": [
+            199,
+            258,
+            114
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            200,
+            247,
+            113
+          ],
+          "otherVoxel": [
+            199,
+            247,
+            113
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            200,
+            247,
+            113
+          ],
+          "otherVoxel": [
+            200,
+            247,
+            112
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            200,
+            247,
+            113
+          ],
+          "otherVoxel": [
+            200,
+            247,
+            114
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            200,
+            247,
+            115
+          ],
+          "otherVoxel": [
+            200,
+            247,
+            114
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            200,
+            248,
+            112
+          ],
+          "otherVoxel": [
+            200,
+            247,
+            112
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            200,
+            248,
+            112
+          ],
+          "otherVoxel": [
+            200,
+            248,
+            111
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            200,
+            248,
+            114
+          ],
+          "otherVoxel": [
+            201,
+            248,
+            114
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            200,
+            248,
+            114
+          ],
+          "otherVoxel": [
+            200,
+            247,
+            114
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            200,
+            249,
+            111
+          ],
+          "otherVoxel": [
+            199,
+            249,
+            111
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            200,
+            249,
+            111
+          ],
+          "otherVoxel": [
+            200,
+            248,
+            111
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            200,
+            256,
+            109
+          ],
+          "otherVoxel": [
+            200,
+            257,
+            109
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            200,
+            257,
+            110
+          ],
+          "otherVoxel": [
+            200,
+            257,
+            109
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            200,
+            257,
+            111
+          ],
+          "otherVoxel": [
+            200,
+            258,
+            111
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            200,
+            257,
+            114
+          ],
+          "otherVoxel": [
+            200,
+            258,
+            114
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            200,
+            258,
+            110
+          ],
+          "otherVoxel": [
+            199,
+            258,
+            110
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            200,
+            258,
+            110
+          ],
+          "otherVoxel": [
+            200,
+            259,
+            110
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            200,
+            258,
+            110
+          ],
+          "otherVoxel": [
+            200,
+            258,
+            109
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            200,
+            258,
+            110
+          ],
+          "otherVoxel": [
+            200,
+            258,
+            111
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            200,
+            258,
+            112
+          ],
+          "otherVoxel": [
+            200,
+            259,
+            112
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            200,
+            258,
+            112
+          ],
+          "otherVoxel": [
+            200,
+            258,
+            111
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            200,
+            258,
+            113
+          ],
+          "otherVoxel": [
+            201,
+            258,
+            113
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            200,
+            258,
+            113
+          ],
+          "otherVoxel": [
+            200,
+            259,
+            113
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            200,
+            258,
+            113
+          ],
+          "otherVoxel": [
+            200,
+            258,
+            114
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            201,
+            247,
+            113
+          ],
+          "otherVoxel": [
+            201,
+            247,
+            112
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            201,
+            247,
+            113
+          ],
+          "otherVoxel": [
+            201,
+            247,
+            114
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            201,
+            247,
+            115
+          ],
+          "otherVoxel": [
+            201,
+            247,
+            114
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            201,
+            248,
+            112
+          ],
+          "otherVoxel": [
+            201,
+            247,
+            112
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            201,
+            248,
+            112
+          ],
+          "otherVoxel": [
+            201,
+            248,
+            111
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            201,
+            248,
+            113
+          ],
+          "otherVoxel": [
+            201,
+            248,
+            114
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            201,
+            248,
+            115
+          ],
+          "otherVoxel": [
+            201,
+            248,
+            114
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            201,
+            249,
+            111
+          ],
+          "otherVoxel": [
+            201,
+            248,
+            111
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            201,
+            249,
+            114
+          ],
+          "otherVoxel": [
+            201,
+            248,
+            114
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            201,
+            257,
+            113
+          ],
+          "otherVoxel": [
+            202,
+            257,
+            113
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            201,
+            257,
+            113
+          ],
+          "otherVoxel": [
+            201,
+            258,
+            113
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            201,
+            257,
+            114
+          ],
+          "otherVoxel": [
+            201,
+            258,
+            114
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            201,
+            258,
+            111
+          ],
+          "otherVoxel": [
+            200,
+            258,
+            111
+          ],
+          "orientation": "-X"
+        },
+        {
+          "mammillaryVoxel": [
+            201,
+            258,
+            111
+          ],
+          "otherVoxel": [
+            201,
+            259,
+            111
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            201,
+            258,
+            112
+          ],
+          "otherVoxel": [
+            202,
+            258,
+            112
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            201,
+            258,
+            112
+          ],
+          "otherVoxel": [
+            201,
+            259,
+            112
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            201,
+            258,
+            112
+          ],
+          "otherVoxel": [
+            201,
+            258,
+            113
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            202,
+            247,
+            113
+          ],
+          "otherVoxel": [
+            202,
+            247,
+            112
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            202,
+            247,
+            113
+          ],
+          "otherVoxel": [
+            202,
+            247,
+            114
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            202,
+            248,
+            112
+          ],
+          "otherVoxel": [
+            202,
+            247,
+            112
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            202,
+            248,
+            112
+          ],
+          "otherVoxel": [
+            202,
+            248,
+            111
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            202,
+            248,
+            113
+          ],
+          "otherVoxel": [
+            202,
+            248,
+            114
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            202,
+            248,
+            115
+          ],
+          "otherVoxel": [
+            202,
+            248,
+            114
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            202,
+            249,
+            111
+          ],
+          "otherVoxel": [
+            202,
+            248,
+            111
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            202,
+            249,
+            114
+          ],
+          "otherVoxel": [
+            203,
+            249,
+            114
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            202,
+            249,
+            114
+          ],
+          "otherVoxel": [
+            202,
+            248,
+            114
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            202,
+            256,
+            113
+          ],
+          "otherVoxel": [
+            203,
+            256,
+            113
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            202,
+            256,
+            113
+          ],
+          "otherVoxel": [
+            202,
+            257,
+            113
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            202,
+            257,
+            112
+          ],
+          "otherVoxel": [
+            203,
+            257,
+            112
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            202,
+            257,
+            112
+          ],
+          "otherVoxel": [
+            202,
+            258,
+            112
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            202,
+            257,
+            112
+          ],
+          "otherVoxel": [
+            202,
+            257,
+            113
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            202,
+            257,
+            114
+          ],
+          "otherVoxel": [
+            202,
+            258,
+            114
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            202,
+            257,
+            114
+          ],
+          "otherVoxel": [
+            202,
+            257,
+            113
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            202,
+            258,
+            111
+          ],
+          "otherVoxel": [
+            203,
+            258,
+            111
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            202,
+            258,
+            111
+          ],
+          "otherVoxel": [
+            202,
+            259,
+            111
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            202,
+            258,
+            111
+          ],
+          "otherVoxel": [
+            202,
+            258,
+            112
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            203,
+            249,
+            111
+          ],
+          "otherVoxel": [
+            204,
+            249,
+            111
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            203,
+            249,
+            112
+          ],
+          "otherVoxel": [
+            204,
+            249,
+            112
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            203,
+            249,
+            113
+          ],
+          "otherVoxel": [
+            203,
+            249,
+            114
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            203,
+            249,
+            115
+          ],
+          "otherVoxel": [
+            203,
+            249,
+            114
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            203,
+            250,
+            112
+          ],
+          "otherVoxel": [
+            204,
+            250,
+            112
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            203,
+            250,
+            114
+          ],
+          "otherVoxel": [
+            204,
+            250,
+            114
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            203,
+            250,
+            114
+          ],
+          "otherVoxel": [
+            203,
+            249,
+            114
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            203,
+            251,
+            114
+          ],
+          "otherVoxel": [
+            204,
+            251,
+            114
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            203,
+            255,
+            111
+          ],
+          "otherVoxel": [
+            204,
+            255,
+            111
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            203,
+            255,
+            112
+          ],
+          "otherVoxel": [
+            204,
+            255,
+            112
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            203,
+            255,
+            113
+          ],
+          "otherVoxel": [
+            204,
+            255,
+            113
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            203,
+            255,
+            113
+          ],
+          "otherVoxel": [
+            203,
+            256,
+            113
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            203,
+            256,
+            111
+          ],
+          "otherVoxel": [
+            204,
+            256,
+            111
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            203,
+            256,
+            112
+          ],
+          "otherVoxel": [
+            204,
+            256,
+            112
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            203,
+            256,
+            112
+          ],
+          "otherVoxel": [
+            203,
+            257,
+            112
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            203,
+            256,
+            112
+          ],
+          "otherVoxel": [
+            203,
+            256,
+            113
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            203,
+            256,
+            114
+          ],
+          "otherVoxel": [
+            203,
+            256,
+            113
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            203,
+            257,
+            111
+          ],
+          "otherVoxel": [
+            204,
+            257,
+            111
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            203,
+            257,
+            111
+          ],
+          "otherVoxel": [
+            203,
+            258,
+            111
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            203,
+            257,
+            111
+          ],
+          "otherVoxel": [
+            203,
+            257,
+            112
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            203,
+            257,
+            114
+          ],
+          "otherVoxel": [
+            204,
+            257,
+            114
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            203,
+            257,
+            114
+          ],
+          "otherVoxel": [
+            203,
+            258,
+            114
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            203,
+            257,
+            114
+          ],
+          "otherVoxel": [
+            203,
+            257,
+            113
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            204,
+            249,
+            113
+          ],
+          "otherVoxel": [
+            204,
+            249,
+            112
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            204,
+            249,
+            113
+          ],
+          "otherVoxel": [
+            204,
+            249,
+            114
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            204,
+            249,
+            115
+          ],
+          "otherVoxel": [
+            204,
+            249,
+            114
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            204,
+            250,
+            111
+          ],
+          "otherVoxel": [
+            204,
+            249,
+            111
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            204,
+            250,
+            111
+          ],
+          "otherVoxel": [
+            204,
+            250,
+            112
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            204,
+            250,
+            113
+          ],
+          "otherVoxel": [
+            204,
+            250,
+            112
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            204,
+            250,
+            113
+          ],
+          "otherVoxel": [
+            204,
+            250,
+            114
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            204,
+            250,
+            115
+          ],
+          "otherVoxel": [
+            204,
+            250,
+            114
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            204,
+            251,
+            112
+          ],
+          "otherVoxel": [
+            204,
+            250,
+            112
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            204,
+            251,
+            113
+          ],
+          "otherVoxel": [
+            204,
+            251,
+            114
+          ],
+          "orientation": "+Z"
+        },
+        {
+          "mammillaryVoxel": [
+            204,
+            251,
+            115
+          ],
+          "otherVoxel": [
+            204,
+            251,
+            114
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            204,
+            252,
+            114
+          ],
+          "otherVoxel": [
+            204,
+            251,
+            114
+          ],
+          "orientation": "-Y"
+        },
+        {
+          "mammillaryVoxel": [
+            204,
+            253,
+            113
+          ],
+          "otherVoxel": [
+            205,
+            253,
+            113
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            204,
+            253,
+            114
+          ],
+          "otherVoxel": [
+            205,
+            253,
+            114
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            204,
+            254,
+            111
+          ],
+          "otherVoxel": [
+            204,
+            255,
+            111
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            204,
+            254,
+            112
+          ],
+          "otherVoxel": [
+            204,
+            255,
+            112
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            204,
+            254,
+            113
+          ],
+          "otherVoxel": [
+            205,
+            254,
+            113
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            204,
+            254,
+            113
+          ],
+          "otherVoxel": [
+            204,
+            255,
+            113
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            204,
+            254,
+            114
+          ],
+          "otherVoxel": [
+            205,
+            254,
+            114
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            204,
+            255,
+            114
+          ],
+          "otherVoxel": [
+            205,
+            255,
+            114
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            204,
+            255,
+            114
+          ],
+          "otherVoxel": [
+            204,
+            255,
+            113
+          ],
+          "orientation": "-Z"
+        },
+        {
+          "mammillaryVoxel": [
+            204,
+            256,
+            114
+          ],
+          "otherVoxel": [
+            205,
+            256,
+            114
+          ],
+          "orientation": "+X"
+        },
+        {
+          "mammillaryVoxel": [
+            204,
+            256,
+            114
+          ],
+          "otherVoxel": [
+            204,
+            257,
+            114
+          ],
+          "orientation": "+Y"
+        },
+        {
+          "mammillaryVoxel": [
+            204,
+            256,
+            114
+          ],
+          "otherVoxel": [
+            204,
+            256,
+            113
+          ],
+          "orientation": "-Z"
+        }
+      ],
+      "slices": {
+        "x": {
+          "occupiedSliceCount": 8,
+          "slices": [
+            {
+              "index": 197,
+              "inPlaneFaceCount": 19,
+              "outOfPlaneFaceCount": 2,
+              "inPlaneUniqueMammillaryVoxelCount": 15,
+              "outOfPlaneUniqueMammillaryVoxelCount": 2,
+              "allUniqueMammillaryVoxelCount": 15,
+              "uniqueMammillaryVoxelCount": 15
+            },
+            {
+              "index": 198,
+              "inPlaneFaceCount": 5,
+              "outOfPlaneFaceCount": 14,
+              "inPlaneUniqueMammillaryVoxelCount": 5,
+              "outOfPlaneUniqueMammillaryVoxelCount": 14,
+              "allUniqueMammillaryVoxelCount": 15,
+              "uniqueMammillaryVoxelCount": 15
+            },
+            {
+              "index": 199,
+              "inPlaneFaceCount": 14,
+              "outOfPlaneFaceCount": 2,
+              "inPlaneUniqueMammillaryVoxelCount": 11,
+              "outOfPlaneUniqueMammillaryVoxelCount": 2,
+              "allUniqueMammillaryVoxelCount": 11,
+              "uniqueMammillaryVoxelCount": 11
+            },
+            {
+              "index": 200,
+              "inPlaneFaceCount": 18,
+              "outOfPlaneFaceCount": 5,
+              "inPlaneUniqueMammillaryVoxelCount": 12,
+              "outOfPlaneUniqueMammillaryVoxelCount": 5,
+              "allUniqueMammillaryVoxelCount": 12,
+              "uniqueMammillaryVoxelCount": 12
+            },
+            {
+              "index": 201,
+              "inPlaneFaceCount": 14,
+              "outOfPlaneFaceCount": 3,
+              "inPlaneUniqueMammillaryVoxelCount": 11,
+              "outOfPlaneUniqueMammillaryVoxelCount": 3,
+              "allUniqueMammillaryVoxelCount": 11,
+              "uniqueMammillaryVoxelCount": 11
+            },
+            {
+              "index": 202,
+              "inPlaneFaceCount": 15,
+              "outOfPlaneFaceCount": 4,
+              "inPlaneUniqueMammillaryVoxelCount": 10,
+              "outOfPlaneUniqueMammillaryVoxelCount": 4,
+              "allUniqueMammillaryVoxelCount": 10,
+              "uniqueMammillaryVoxelCount": 10
+            },
+            {
+              "index": 203,
+              "inPlaneFaceCount": 11,
+              "outOfPlaneFaceCount": 12,
+              "inPlaneUniqueMammillaryVoxelCount": 8,
+              "outOfPlaneUniqueMammillaryVoxelCount": 12,
+              "allUniqueMammillaryVoxelCount": 15,
+              "uniqueMammillaryVoxelCount": 15
+            },
+            {
+              "index": 204,
+              "inPlaneFaceCount": 18,
+              "outOfPlaneFaceCount": 6,
+              "inPlaneUniqueMammillaryVoxelCount": 14,
+              "outOfPlaneUniqueMammillaryVoxelCount": 6,
+              "allUniqueMammillaryVoxelCount": 17,
+              "uniqueMammillaryVoxelCount": 17
+            }
+          ]
+        },
+        "y": {
+          "occupiedSliceCount": 12,
+          "slices": [
+            {
+              "index": 247,
+              "inPlaneFaceCount": 9,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 5,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 5,
+              "uniqueMammillaryVoxelCount": 5
+            },
+            {
+              "index": 248,
+              "inPlaneFaceCount": 12,
+              "outOfPlaneFaceCount": 7,
+              "inPlaneUniqueMammillaryVoxelCount": 12,
+              "outOfPlaneUniqueMammillaryVoxelCount": 7,
+              "allUniqueMammillaryVoxelCount": 12,
+              "uniqueMammillaryVoxelCount": 12
+            },
+            {
+              "index": 249,
+              "inPlaneFaceCount": 16,
+              "outOfPlaneFaceCount": 7,
+              "inPlaneUniqueMammillaryVoxelCount": 14,
+              "outOfPlaneUniqueMammillaryVoxelCount": 7,
+              "allUniqueMammillaryVoxelCount": 17,
+              "uniqueMammillaryVoxelCount": 17
+            },
+            {
+              "index": 250,
+              "inPlaneFaceCount": 10,
+              "outOfPlaneFaceCount": 6,
+              "inPlaneUniqueMammillaryVoxelCount": 9,
+              "outOfPlaneUniqueMammillaryVoxelCount": 6,
+              "allUniqueMammillaryVoxelCount": 11,
+              "uniqueMammillaryVoxelCount": 11
+            },
+            {
+              "index": 251,
+              "inPlaneFaceCount": 6,
+              "outOfPlaneFaceCount": 2,
+              "inPlaneUniqueMammillaryVoxelCount": 6,
+              "outOfPlaneUniqueMammillaryVoxelCount": 2,
+              "allUniqueMammillaryVoxelCount": 7,
+              "uniqueMammillaryVoxelCount": 7
+            },
+            {
+              "index": 252,
+              "inPlaneFaceCount": 3,
+              "outOfPlaneFaceCount": 1,
+              "inPlaneUniqueMammillaryVoxelCount": 3,
+              "outOfPlaneUniqueMammillaryVoxelCount": 1,
+              "allUniqueMammillaryVoxelCount": 4,
+              "uniqueMammillaryVoxelCount": 4
+            },
+            {
+              "index": 253,
+              "inPlaneFaceCount": 6,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 5,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 5,
+              "uniqueMammillaryVoxelCount": 5
+            },
+            {
+              "index": 254,
+              "inPlaneFaceCount": 6,
+              "outOfPlaneFaceCount": 3,
+              "inPlaneUniqueMammillaryVoxelCount": 5,
+              "outOfPlaneUniqueMammillaryVoxelCount": 3,
+              "allUniqueMammillaryVoxelCount": 7,
+              "uniqueMammillaryVoxelCount": 7
+            },
+            {
+              "index": 255,
+              "inPlaneFaceCount": 8,
+              "outOfPlaneFaceCount": 4,
+              "inPlaneUniqueMammillaryVoxelCount": 7,
+              "outOfPlaneUniqueMammillaryVoxelCount": 4,
+              "allUniqueMammillaryVoxelCount": 8,
+              "uniqueMammillaryVoxelCount": 8
+            },
+            {
+              "index": 256,
+              "inPlaneFaceCount": 11,
+              "outOfPlaneFaceCount": 4,
+              "inPlaneUniqueMammillaryVoxelCount": 9,
+              "outOfPlaneUniqueMammillaryVoxelCount": 4,
+              "allUniqueMammillaryVoxelCount": 10,
+              "uniqueMammillaryVoxelCount": 10
+            },
+            {
+              "index": 257,
+              "inPlaneFaceCount": 9,
+              "outOfPlaneFaceCount": 11,
+              "inPlaneUniqueMammillaryVoxelCount": 6,
+              "outOfPlaneUniqueMammillaryVoxelCount": 11,
+              "allUniqueMammillaryVoxelCount": 12,
+              "uniqueMammillaryVoxelCount": 12
+            },
+            {
+              "index": 258,
+              "inPlaneFaceCount": 13,
+              "outOfPlaneFaceCount": 8,
+              "inPlaneUniqueMammillaryVoxelCount": 8,
+              "outOfPlaneUniqueMammillaryVoxelCount": 8,
+              "allUniqueMammillaryVoxelCount": 8,
+              "uniqueMammillaryVoxelCount": 8
+            }
+          ]
+        },
+        "z": {
+          "occupiedSliceCount": 7,
+          "slices": [
+            {
+              "index": 108,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 109,
+              "inPlaneFaceCount": 1,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 1,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 1,
+              "uniqueMammillaryVoxelCount": 1
+            },
+            {
+              "index": 110,
+              "inPlaneFaceCount": 3,
+              "outOfPlaneFaceCount": 5,
+              "inPlaneUniqueMammillaryVoxelCount": 2,
+              "outOfPlaneUniqueMammillaryVoxelCount": 4,
+              "allUniqueMammillaryVoxelCount": 5,
+              "uniqueMammillaryVoxelCount": 5
+            },
+            {
+              "index": 111,
+              "inPlaneFaceCount": 25,
+              "outOfPlaneFaceCount": 8,
+              "inPlaneUniqueMammillaryVoxelCount": 20,
+              "outOfPlaneUniqueMammillaryVoxelCount": 8,
+              "allUniqueMammillaryVoxelCount": 21,
+              "uniqueMammillaryVoxelCount": 21
+            },
+            {
+              "index": 112,
+              "inPlaneFaceCount": 25,
+              "outOfPlaneFaceCount": 11,
+              "inPlaneUniqueMammillaryVoxelCount": 22,
+              "outOfPlaneUniqueMammillaryVoxelCount": 11,
+              "allUniqueMammillaryVoxelCount": 23,
+              "uniqueMammillaryVoxelCount": 23
+            },
+            {
+              "index": 113,
+              "inPlaneFaceCount": 20,
+              "outOfPlaneFaceCount": 22,
+              "inPlaneUniqueMammillaryVoxelCount": 13,
+              "outOfPlaneUniqueMammillaryVoxelCount": 17,
+              "allUniqueMammillaryVoxelCount": 25,
+              "uniqueMammillaryVoxelCount": 25
+            },
+            {
+              "index": 114,
+              "inPlaneFaceCount": 27,
+              "outOfPlaneFaceCount": 5,
+              "inPlaneUniqueMammillaryVoxelCount": 20,
+              "outOfPlaneUniqueMammillaryVoxelCount": 5,
+              "allUniqueMammillaryVoxelCount": 21,
+              "uniqueMammillaryVoxelCount": 21
+            },
+            {
+              "index": 115,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 10,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 10,
+              "allUniqueMammillaryVoxelCount": 10,
+              "uniqueMammillaryVoxelCount": 10
+            },
+            {
+              "index": 116,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 117,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 118,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 119,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 120,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            },
+            {
+              "index": 121,
+              "inPlaneFaceCount": 0,
+              "outOfPlaneFaceCount": 0,
+              "inPlaneUniqueMammillaryVoxelCount": 0,
+              "outOfPlaneUniqueMammillaryVoxelCount": 0,
+              "allUniqueMammillaryVoxelCount": 0,
+              "uniqueMammillaryVoxelCount": 0
+            }
+          ]
+        }
+      }
+    }
+  },
+  "representativeSlices": {
+    "39": {
+      "axis": "y",
+      "plane": "coronal",
+      "sliceIndex": 251,
+      "pairInPlaneFaceCounts": {
+        "27": 12,
+        "33": 12
+      },
+      "pairUniqueMammillaryVoxelCounts": {
+        "27": 10,
+        "33": 9
+      },
+      "minimumUniqueMammillaryVoxelCount": 9,
+      "totalUniqueMammillaryVoxelCount": 19,
+      "contactBboxCenterDistanceVoxels": 0.5,
+      "contactBbox": {
+        "min": [
+          188,
+          251,
+          109
+        ],
+        "max": [
+          196,
+          251,
+          119
+        ],
+        "size": [
+          9,
+          1,
+          11
+        ],
+        "x": [
+          188,
+          196
+        ],
+        "y": [
+          251,
+          251
+        ],
+        "z": [
+          109,
+          119
+        ]
+      },
+      "candidateCount": 8,
+      "candidateScores": [
+        {
+          "axis": "y",
+          "plane": "coronal",
+          "sliceIndex": 248,
+          "pairInPlaneFaceCounts": {
+            "27": 3,
+            "33": 10
+          },
+          "pairUniqueMammillaryVoxelCounts": {
+            "27": 2,
+            "33": 9
+          },
+          "minimumUniqueMammillaryVoxelCount": 2,
+          "totalUniqueMammillaryVoxelCount": 11,
+          "contactBboxCenterDistanceVoxels": 3.082207001484488
+        },
+        {
+          "axis": "y",
+          "plane": "coronal",
+          "sliceIndex": 249,
+          "pairInPlaneFaceCounts": {
+            "27": 8,
+            "33": 17
+          },
+          "pairUniqueMammillaryVoxelCounts": {
+            "27": 5,
+            "33": 15
+          },
+          "minimumUniqueMammillaryVoxelCount": 5,
+          "totalUniqueMammillaryVoxelCount": 20,
+          "contactBboxCenterDistanceVoxels": 2.0
+        },
+        {
+          "axis": "y",
+          "plane": "coronal",
+          "sliceIndex": 250,
+          "pairInPlaneFaceCounts": {
+            "27": 10,
+            "33": 13
+          },
+          "pairUniqueMammillaryVoxelCounts": {
+            "27": 7,
+            "33": 10
+          },
+          "minimumUniqueMammillaryVoxelCount": 7,
+          "totalUniqueMammillaryVoxelCount": 17,
+          "contactBboxCenterDistanceVoxels": 1.118033988749895
+        },
+        {
+          "axis": "y",
+          "plane": "coronal",
+          "sliceIndex": 251,
+          "pairInPlaneFaceCounts": {
+            "27": 12,
+            "33": 12
+          },
+          "pairUniqueMammillaryVoxelCounts": {
+            "27": 10,
+            "33": 9
+          },
+          "minimumUniqueMammillaryVoxelCount": 9,
+          "totalUniqueMammillaryVoxelCount": 19,
+          "contactBboxCenterDistanceVoxels": 0.5
+        },
+        {
+          "axis": "y",
+          "plane": "coronal",
+          "sliceIndex": 252,
+          "pairInPlaneFaceCounts": {
+            "27": 11,
+            "33": 11
+          },
+          "pairUniqueMammillaryVoxelCounts": {
+            "27": 8,
+            "33": 8
+          },
+          "minimumUniqueMammillaryVoxelCount": 8,
+          "totalUniqueMammillaryVoxelCount": 16,
+          "contactBboxCenterDistanceVoxels": 1.118033988749895
+        },
+        {
+          "axis": "y",
+          "plane": "coronal",
+          "sliceIndex": 253,
+          "pairInPlaneFaceCounts": {
+            "27": 10,
+            "33": 14
+          },
+          "pairUniqueMammillaryVoxelCounts": {
+            "27": 6,
+            "33": 11
+          },
+          "minimumUniqueMammillaryVoxelCount": 6,
+          "totalUniqueMammillaryVoxelCount": 17,
+          "contactBboxCenterDistanceVoxels": 2.23606797749979
+        },
+        {
+          "axis": "y",
+          "plane": "coronal",
+          "sliceIndex": 254,
+          "pairInPlaneFaceCounts": {
+            "27": 4,
+            "33": 12
+          },
+          "pairUniqueMammillaryVoxelCounts": {
+            "27": 4,
+            "33": 9
+          },
+          "minimumUniqueMammillaryVoxelCount": 4,
+          "totalUniqueMammillaryVoxelCount": 13,
+          "contactBboxCenterDistanceVoxels": 3.640054944640259
+        },
+        {
+          "axis": "y",
+          "plane": "coronal",
+          "sliceIndex": 255,
+          "pairInPlaneFaceCounts": {
+            "27": 1,
+            "33": 11
+          },
+          "pairUniqueMammillaryVoxelCounts": {
+            "27": 1,
+            "33": 9
+          },
+          "minimumUniqueMammillaryVoxelCount": 1,
+          "totalUniqueMammillaryVoxelCount": 10,
+          "contactBboxCenterDistanceVoxels": 4.123105625617661
+        }
+      ]
+    },
+    "40": {
+      "axis": "y",
+      "plane": "coronal",
+      "sliceIndex": 253,
+      "pairInPlaneFaceCounts": {
+        "27": 8,
+        "33": 6
+      },
+      "pairUniqueMammillaryVoxelCounts": {
+        "27": 8,
+        "33": 5
+      },
+      "minimumUniqueMammillaryVoxelCount": 5,
+      "totalUniqueMammillaryVoxelCount": 13,
+      "contactBboxCenterDistanceVoxels": 0.7071067811865476,
+      "contactBbox": {
+        "min": [
+          197,
+          253,
+          109
+        ],
+        "max": [
+          204,
+          253,
+          119
+        ],
+        "size": [
+          8,
+          1,
+          11
+        ],
+        "x": [
+          197,
+          204
+        ],
+        "y": [
+          253,
+          253
+        ],
+        "z": [
+          109,
+          119
+        ]
+      },
+      "candidateCount": 7,
+      "candidateScores": [
+        {
+          "axis": "y",
+          "plane": "coronal",
+          "sliceIndex": 249,
+          "pairInPlaneFaceCounts": {
+            "27": 2,
+            "33": 16
+          },
+          "pairUniqueMammillaryVoxelCounts": {
+            "27": 2,
+            "33": 14
+          },
+          "minimumUniqueMammillaryVoxelCount": 2,
+          "totalUniqueMammillaryVoxelCount": 16,
+          "contactBboxCenterDistanceVoxels": 3.640054944640259
+        },
+        {
+          "axis": "y",
+          "plane": "coronal",
+          "sliceIndex": 250,
+          "pairInPlaneFaceCounts": {
+            "27": 4,
+            "33": 10
+          },
+          "pairUniqueMammillaryVoxelCounts": {
+            "27": 4,
+            "33": 9
+          },
+          "minimumUniqueMammillaryVoxelCount": 4,
+          "totalUniqueMammillaryVoxelCount": 13,
+          "contactBboxCenterDistanceVoxels": 2.692582403567252
+        },
+        {
+          "axis": "y",
+          "plane": "coronal",
+          "sliceIndex": 251,
+          "pairInPlaneFaceCounts": {
+            "27": 5,
+            "33": 6
+          },
+          "pairUniqueMammillaryVoxelCounts": {
+            "27": 5,
+            "33": 6
+          },
+          "minimumUniqueMammillaryVoxelCount": 5,
+          "totalUniqueMammillaryVoxelCount": 11,
+          "contactBboxCenterDistanceVoxels": 1.5
+        },
+        {
+          "axis": "y",
+          "plane": "coronal",
+          "sliceIndex": 252,
+          "pairInPlaneFaceCounts": {
+            "27": 8,
+            "33": 3
+          },
+          "pairUniqueMammillaryVoxelCounts": {
+            "27": 8,
+            "33": 3
+          },
+          "minimumUniqueMammillaryVoxelCount": 3,
+          "totalUniqueMammillaryVoxelCount": 11,
+          "contactBboxCenterDistanceVoxels": 3.082207001484488
+        },
+        {
+          "axis": "y",
+          "plane": "coronal",
+          "sliceIndex": 253,
+          "pairInPlaneFaceCounts": {
+            "27": 8,
+            "33": 6
+          },
+          "pairUniqueMammillaryVoxelCounts": {
+            "27": 8,
+            "33": 5
+          },
+          "minimumUniqueMammillaryVoxelCount": 5,
+          "totalUniqueMammillaryVoxelCount": 13,
+          "contactBboxCenterDistanceVoxels": 0.7071067811865476
+        },
+        {
+          "axis": "y",
+          "plane": "coronal",
+          "sliceIndex": 254,
+          "pairInPlaneFaceCounts": {
+            "27": 7,
+            "33": 6
+          },
+          "pairUniqueMammillaryVoxelCounts": {
+            "27": 7,
+            "33": 5
+          },
+          "minimumUniqueMammillaryVoxelCount": 5,
+          "totalUniqueMammillaryVoxelCount": 12,
+          "contactBboxCenterDistanceVoxels": 2.1213203435596424
+        },
+        {
+          "axis": "y",
+          "plane": "coronal",
+          "sliceIndex": 255,
+          "pairInPlaneFaceCounts": {
+            "27": 4,
+            "33": 8
+          },
+          "pairUniqueMammillaryVoxelCounts": {
+            "27": 4,
+            "33": 7
+          },
+          "minimumUniqueMammillaryVoxelCount": 4,
+          "totalUniqueMammillaryVoxelCount": 11,
+          "contactBboxCenterDistanceVoxels": 2.9154759474226504
+        }
+      ]
+    }
   },
   "shortestVoxelDistances6": {
     "27-33": {
@@ -3887,6 +11458,38 @@
           258,
           121
         ]
+      }
+    },
+    "expectedContactInterfaceFaceCounts": {
+      "27-39": 69,
+      "33-39": 171,
+      "27-40": 38,
+      "33-40": 162
+    },
+    "expectedRepresentativeSlices": {
+      "39": {
+        "axis": "y",
+        "sliceIndex": 251,
+        "pairInPlaneFaceCounts": {
+          "27": 12,
+          "33": 12
+        },
+        "pairUniqueMammillaryVoxelCounts": {
+          "27": 10,
+          "33": 9
+        }
+      },
+      "40": {
+        "axis": "y",
+        "sliceIndex": 253,
+        "pairInPlaneFaceCounts": {
+          "27": 8,
+          "33": 6
+        },
+        "pairUniqueMammillaryVoxelCounts": {
+          "27": 8,
+          "33": 5
+        }
       }
     },
     "passed": true

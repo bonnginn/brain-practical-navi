@@ -708,6 +708,89 @@ test("reproduces the objective orthogonal mammillary audit and rejects a wrong v
     "40": {min:[197,247,108], max:[204,258,121]},
   });
   assert.deepEqual(audit.faceContacts6, {"27-33":32,"27-39":69,"27-40":38,"33-39":171,"33-40":162,"39-40":1});
+  assert.deepEqual(Object.keys(audit.contactInterfaces), ["27-39", "33-39", "27-40", "33-40"]);
+  const axisCoordinate = {x:0, y:1, z:2};
+  for (const [pair, contact] of Object.entries(audit.contactInterfaces)) {
+    assert.equal(contact.faceCount, audit.faceContacts6[pair]);
+    const orientationCounts = Object.fromEntries(Object.keys(contact.faceOrientationCounts).map((orientation) => [orientation, 0]));
+    for (const face of contact.faces) orientationCounts[face.orientation]++;
+    assert.deepEqual(contact.faceOrientationCounts, orientationCounts);
+    assert.equal(Object.values(contact.faceOrientationCounts).reduce((sum, count) => sum + count, 0), contact.faceCount);
+    const allMammillaryVoxels = new Set(contact.faces.map((face) => face.mammillaryVoxel.join(",")));
+    assert.equal(contact.uniqueMammillaryVoxelCount, allMammillaryVoxels.size);
+    for (const axis of ["x", "y", "z"]) {
+      const slices = contact.slices[axis].slices;
+      const bySlice = new Map();
+      for (const face of contact.faces) {
+        const sliceIndex = face.mammillaryVoxel[axisCoordinate[axis]];
+        const record = bySlice.get(sliceIndex) ?? {inPlane:0, outOfPlane:0, inPlaneVoxels:new Set(), outOfPlaneVoxels:new Set()};
+        const voxel = face.mammillaryVoxel.join(",");
+        if (face.orientation.slice(1).toLowerCase() === axis) {
+          record.outOfPlane++;
+          record.outOfPlaneVoxels.add(voxel);
+        } else {
+          record.inPlane++;
+          record.inPlaneVoxels.add(voxel);
+        }
+        bySlice.set(sliceIndex, record);
+      }
+      let total = 0;
+      let occupied = 0;
+      for (const slice of slices) {
+        const record = bySlice.get(slice.index) ?? {inPlane:0, outOfPlane:0, inPlaneVoxels:new Set(), outOfPlaneVoxels:new Set()};
+        const allVoxels = new Set([...record.inPlaneVoxels, ...record.outOfPlaneVoxels]);
+        total += record.inPlane + record.outOfPlane;
+        if (record.inPlane || record.outOfPlane) occupied++;
+        assert.equal(slice.inPlaneFaceCount, record.inPlane, `${pair} ${axis}${slice.index} in-plane faces`);
+        assert.equal(slice.outOfPlaneFaceCount, record.outOfPlane, `${pair} ${axis}${slice.index} out-of-plane faces`);
+        assert.equal(slice.inPlaneUniqueMammillaryVoxelCount, record.inPlaneVoxels.size);
+        assert.equal(slice.outOfPlaneUniqueMammillaryVoxelCount, record.outOfPlaneVoxels.size);
+        assert.equal(slice.allUniqueMammillaryVoxelCount, allVoxels.size);
+        assert.equal(slice.uniqueMammillaryVoxelCount, allVoxels.size);
+      }
+      assert.equal(total, contact.faceCount, `${pair} ${axis} slice faces must reconcile`);
+      assert.equal(contact.slices[axis].occupiedSliceCount, occupied);
+    }
+  }
+  for (const [label, expected] of Object.entries({
+    "39": {sliceIndex:251, pairInPlaneFaceCounts:{"27":12,"33":12}, pairUniqueMammillaryVoxelCounts:{"27":10,"33":9}},
+    "40": {sliceIndex:253, pairInPlaneFaceCounts:{"27":8,"33":6}, pairUniqueMammillaryVoxelCounts:{"27":8,"33":5}},
+  })) {
+    const representative = audit.representativeSlices[label];
+    assert.equal(representative.plane, "coronal");
+    assert.equal(representative.sliceIndex, expected.sliceIndex);
+    assert.deepEqual(representative.pairInPlaneFaceCounts, expected.pairInPlaneFaceCounts);
+    assert.deepEqual(representative.pairUniqueMammillaryVoxelCounts, expected.pairUniqueMammillaryVoxelCounts);
+    const contactVoxelUnion = new Set();
+    for (const referenceLabel of ["27", "33"]) {
+      const contact = audit.contactInterfaces[`${referenceLabel}-${label}`];
+      const inPlaneFaces = contact.faces.filter((face) => (
+        face.mammillaryVoxel[1] === representative.sliceIndex
+        && face.orientation.slice(1).toLowerCase() !== representative.axis
+      ));
+      const inPlaneVoxels = new Set(inPlaneFaces.map((face) => face.mammillaryVoxel.join(",")));
+      assert.equal(inPlaneFaces.length, expected.pairInPlaneFaceCounts[referenceLabel]);
+      assert.equal(inPlaneVoxels.size, expected.pairUniqueMammillaryVoxelCounts[referenceLabel]);
+      for (const voxel of inPlaneVoxels) contactVoxelUnion.add(voxel);
+    }
+    const points = [...contactVoxelUnion].map((voxel) => voxel.split(",").map(Number));
+    const minimum = [0,1,2].map((axis) => Math.min(...points.map((point) => point[axis])));
+    const maximum = [0,1,2].map((axis) => Math.max(...points.map((point) => point[axis])));
+    assert.deepEqual(representative.contactBbox, {
+      min: minimum,
+      max: maximum,
+      size: maximum.map((value, axis) => value - minimum[axis] + 1),
+      x: [minimum[0], maximum[0]],
+      y: [minimum[1], maximum[1]],
+      z: [minimum[2], maximum[2]],
+    });
+    const mammillaryBbox = audit.labels[label].bbox;
+    const mammillaryCenter = [0,1,2].map((axis) => (mammillaryBbox.min[axis] + mammillaryBbox.max[axis]) / 2);
+    const contactCenter = [0,1,2].map((axis) => (minimum[axis] + maximum[axis]) / 2);
+    const centerDistance = Math.sqrt([0,1,2].reduce((sum, axis) => sum + (contactCenter[axis] - mammillaryCenter[axis]) ** 2, 0));
+    assert.equal(representative.contactBboxCenterDistanceVoxels, centerDistance);
+  }
+  assert.match(audit.definitions.representativeSliceSelection, /boundary correctness/i);
   for (const distance of Object.values(audit.shortestVoxelDistances6)) {
     assert.equal(distance.voxelDistance6, 1);
     assert.equal(distance.distanceMm, 0.5);

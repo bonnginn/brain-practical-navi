@@ -3,9 +3,10 @@
 
 This script reads the distributed BBS1 label volume without changing it.  It
 records the exact source digest, geometry, per-axis occupancy, 6-neighbour
-components, face contacts, and shortest grid distances for IDs 27, 33, 39,
-and 40.  The audit is a shape/label consistency check; it is not anatomical
-validation or expert confirmation.
+components, oriented interface faces, representative review slices, and
+shortest grid distances for IDs 27, 33, 39, and 40.  The audit is a
+shape/label consistency check; it is not anatomical validation or expert
+confirmation.
 """
 
 from __future__ import annotations
@@ -14,6 +15,7 @@ import argparse
 import gzip
 import hashlib
 import json
+import math
 import struct
 from collections import Counter, deque
 from pathlib import Path
@@ -26,9 +28,41 @@ EXPECTED_DIMS = (394, 466, 378)
 VOXEL_SIZE_MM = (0.5, 0.5, 0.5)
 AUDIT_LABELS = (27, 33, 39, 40)
 MAMMILLARY_LABELS = (39, 40)
+AXES = ("x", "y", "z")
+PLANE_NAMES = {"x": "sagittal", "y": "coronal", "z": "horizontal"}
+CONTACT_DIRECTIONS = (
+    ("-X", -1, 0, 0, "x"),
+    ("+X", 1, 0, 0, "x"),
+    ("-Y", 0, -1, 0, "y"),
+    ("+Y", 0, 1, 0, "y"),
+    ("-Z", 0, 0, -1, "z"),
+    ("+Z", 0, 0, 1, "z"),
+)
+CONTACT_DIRECTION_ORDER = {direction: order for order, (direction, *_rest) in enumerate(CONTACT_DIRECTIONS)}
+CONTACT_INTERFACE_PAIRS = ((27, 39), (33, 39), (27, 40), (33, 40))
 EXPECTED_MAMMILLARY_BBOXES = {
     39: {"min": [187, 246, 107], "max": [196, 256, 121]},
     40: {"min": [197, 247, 108], "max": [204, 258, 121]},
+}
+EXPECTED_CONTACT_INTERFACE_FACE_COUNTS = {
+    "27-39": 69,
+    "33-39": 171,
+    "27-40": 38,
+    "33-40": 162,
+}
+EXPECTED_REPRESENTATIVE_SLICES = {
+    39: {
+        "axis": "y",
+        "sliceIndex": 251,
+        "pairInPlaneFaceCounts": {"27": 12, "33": 12},
+        "pairUniqueMammillaryVoxelCounts": {"27": 10, "33": 9},
+    },
+    40: {
+        "axis": "y",
+        "sliceIndex": 253,
+        "pairInPlaneFaceCounts": {"27": 8, "33": 6},
+        "pairUniqueMammillaryVoxelCounts": {"27": 8, "33": 5},
+    },
 }
 PAIR_KEYS = tuple(
     f"{left}-{right}"
@@ -201,6 +235,241 @@ def face_contacts6(
     return dict(contacts)
 
 
+def contact_interface_for(
+    mammillary_label: int,
+    other_label: int,
+    positions: dict[int, set[int]],
+    labels: bytes,
+    dims: tuple[int, int, int],
+) -> dict[str, object]:
+    """Record every face where one mammillary label meets one reference label.
+
+    The scan starts at the mammillary voxel, so orientation counts describe the
+    direction from the mammillary side toward the neighbouring reference label.
+    A slice record is keyed by the mammillary voxel's coordinate in that view.
+    """
+
+    faces: list[dict[str, object]] = []
+    mammillary_face_voxels: set[int] = set()
+    orientation_counts = Counter({direction: 0 for direction, *_rest in CONTACT_DIRECTIONS})
+    slice_data = {
+        axis: {
+            index: {
+                "inPlane": 0,
+                "outOfPlane": 0,
+                "inPlaneVoxels": set(),
+                "outOfPlaneVoxels": set(),
+            }
+            for index in range(
+                EXPECTED_MAMMILLARY_BBOXES[mammillary_label]["min"][axis_number],
+                EXPECTED_MAMMILLARY_BBOXES[mammillary_label]["max"][axis_number] + 1,
+            )
+        }
+        for axis_number, axis in enumerate(AXES)
+    }
+    dx, dy, dz = dims
+
+    for index in sorted(positions[mammillary_label]):
+        point = xyz(index, dims)
+        for direction, offset_x, offset_y, offset_z, normal_axis in CONTACT_DIRECTIONS:
+            neighbour_point = (
+                point[0] + offset_x,
+                point[1] + offset_y,
+                point[2] + offset_z,
+            )
+            if not (
+                0 <= neighbour_point[0] < dx
+                and 0 <= neighbour_point[1] < dy
+                and 0 <= neighbour_point[2] < dz
+            ):
+                continue
+            neighbour = index3d(*neighbour_point, dims)
+            if labels[neighbour] != other_label:
+                continue
+
+            orientation_counts[direction] += 1
+            mammillary_face_voxels.add(index)
+            faces.append(
+                {
+                    "mammillaryVoxel": list(point),
+                    "otherVoxel": list(neighbour_point),
+                    "orientation": direction,
+                }
+            )
+            for axis_number, axis in enumerate(AXES):
+                slice_record = slice_data[axis][point[axis_number]]
+                if normal_axis == axis:
+                    slice_record["outOfPlane"] += 1
+                    slice_record["outOfPlaneVoxels"].add(index)
+                else:
+                    slice_record["inPlane"] += 1
+                    slice_record["inPlaneVoxels"].add(index)
+
+    faces.sort(
+        key=lambda face: (
+            tuple(face["mammillaryVoxel"]),
+            CONTACT_DIRECTION_ORDER[face["orientation"]],
+            tuple(face["otherVoxel"]),
+        )
+    )
+    source_bbox = EXPECTED_MAMMILLARY_BBOXES[mammillary_label]
+    serialized_slices: dict[str, object] = {}
+    for axis_number, axis in enumerate(AXES):
+        slice_records = []
+        for index in range(source_bbox["min"][axis_number], source_bbox["max"][axis_number] + 1):
+            record = slice_data[axis][index]
+            all_voxels = record["inPlaneVoxels"] | record["outOfPlaneVoxels"]
+            slice_records.append(
+                {
+                    "index": index,
+                    "inPlaneFaceCount": record["inPlane"],
+                    "outOfPlaneFaceCount": record["outOfPlane"],
+                    "inPlaneUniqueMammillaryVoxelCount": len(record["inPlaneVoxels"]),
+                    "outOfPlaneUniqueMammillaryVoxelCount": len(record["outOfPlaneVoxels"]),
+                    "allUniqueMammillaryVoxelCount": len(all_voxels),
+                    "uniqueMammillaryVoxelCount": len(all_voxels),
+                }
+            )
+        serialized_slices[axis] = {
+            "occupiedSliceCount": sum(
+                1
+                for record in slice_records
+                if record["inPlaneFaceCount"] or record["outOfPlaneFaceCount"]
+            ),
+            "slices": slice_records,
+        }
+
+    return {
+        "mammillaryLabel": mammillary_label,
+        "otherLabel": other_label,
+        "faceCount": len(faces),
+        "uniqueMammillaryVoxelCount": len(mammillary_face_voxels),
+        "mammillaryVoxelBbox": bbox_for(mammillary_face_voxels, dims),
+        "faceOrientationCounts": {
+            direction: orientation_counts[direction]
+            for direction, *_rest in CONTACT_DIRECTIONS
+        },
+        "faces": faces,
+        "slices": serialized_slices,
+        "_sliceData": slice_data,
+    }
+
+
+def bbox_center(bbox: dict[str, object]) -> tuple[float, float, float]:
+    minimum = bbox["min"]
+    maximum = bbox["max"]
+    if minimum is None or maximum is None:
+        return (0.0, 0.0, 0.0)
+    return tuple((minimum[axis] + maximum[axis]) / 2 for axis in range(3))
+
+
+def contact_interfaces(
+    positions: dict[int, set[int]], labels: bytes, dims: tuple[int, int, int]
+) -> dict[str, dict[str, object]]:
+    return {
+        f"{other_label}-{mammillary_label}": contact_interface_for(
+            mammillary_label, other_label, positions, labels, dims
+        )
+        for other_label, mammillary_label in CONTACT_INTERFACE_PAIRS
+    }
+
+
+def representative_slices(
+    interfaces: dict[str, dict[str, object]],
+    positions: dict[int, set[int]],
+    dims: tuple[int, int, int],
+) -> dict[str, object]:
+    """Choose reproducible display candidates; this is not boundary validation."""
+
+    representatives: dict[str, object] = {}
+    for mammillary_label in MAMMILLARY_LABELS:
+        interface_27 = interfaces[f"27-{mammillary_label}"]
+        interface_33 = interfaces[f"33-{mammillary_label}"]
+        mammillary_bbox = bbox_for(positions[mammillary_label], dims)
+        mammillary_center = bbox_center(mammillary_bbox)
+        candidates: list[dict[str, object]] = []
+        # Coronal is the common review plane for the mammillary bodies.  The
+        # contactInterfaces data still retains all X/Y/Z slice metrics; this
+        # selector keeps the two representative choices comparable rather
+        # than ranking unrelated view directions against each other.
+        axis = "y"
+        slices_27 = interface_27["_sliceData"][axis]
+        slices_33 = interface_33["_sliceData"][axis]
+        for slice_index in sorted(set(slices_27) & set(slices_33)):
+            record_27 = slices_27[slice_index]
+            record_33 = slices_33[slice_index]
+            pair_face_counts = {
+                "27": record_27["inPlane"],
+                "33": record_33["inPlane"],
+            }
+            pair_unique_counts = {
+                "27": len(record_27["inPlaneVoxels"]),
+                "33": len(record_33["inPlaneVoxels"]),
+            }
+            if not pair_face_counts["27"] or not pair_face_counts["33"]:
+                continue
+            contact_voxels = record_27["inPlaneVoxels"] | record_33["inPlaneVoxels"]
+            contact_bbox = bbox_for(contact_voxels, dims)
+            contact_center = bbox_center(contact_bbox)
+            center_distance = math.sqrt(
+                sum(
+                    (contact_center[coordinate] - mammillary_center[coordinate]) ** 2
+                    for coordinate in range(3)
+                )
+            )
+            candidates.append(
+                {
+                    "axis": axis,
+                    "plane": PLANE_NAMES[axis],
+                    "sliceIndex": slice_index,
+                    "pairInPlaneFaceCounts": pair_face_counts,
+                    "pairUniqueMammillaryVoxelCounts": pair_unique_counts,
+                    "minimumUniqueMammillaryVoxelCount": min(pair_unique_counts.values()),
+                    "totalUniqueMammillaryVoxelCount": sum(pair_unique_counts.values()),
+                    "contactBboxCenterDistanceVoxels": center_distance,
+                    "contactBbox": contact_bbox,
+                }
+            )
+
+        # Rank by the requested evidence strength.  Duplicate faces from one
+        # mammillary voxel do not outweigh coverage of additional mammillary
+        # voxels, so the two count fields used for ranking are the unique
+        # mammillary source-voxel counts.  Index is the final tie-break.
+        chosen = min(
+            candidates,
+            key=lambda candidate: (
+                -candidate["minimumUniqueMammillaryVoxelCount"],
+                -candidate["totalUniqueMammillaryVoxelCount"],
+                candidate["contactBboxCenterDistanceVoxels"],
+                candidate["sliceIndex"],
+            ),
+        )
+        representatives[str(mammillary_label)] = {
+            **chosen,
+            "candidateCount": len(candidates),
+            "candidateScores": [
+                {
+                    key: candidate[key]
+                    for key in (
+                        "axis",
+                        "plane",
+                        "sliceIndex",
+                        "pairInPlaneFaceCounts",
+                        "pairUniqueMammillaryVoxelCounts",
+                        "minimumUniqueMammillaryVoxelCount",
+                        "totalUniqueMammillaryVoxelCount",
+                        "contactBboxCenterDistanceVoxels",
+                    )
+                }
+                for candidate in sorted(
+                    candidates,
+                    key=lambda candidate: (AXES.index(candidate["axis"]), candidate["sliceIndex"]),
+                )
+            ],
+        }
+    return representatives
+
+
 def shortest_voxel_distance6(
     left: set[int], right_label: int, labels: bytes, dims: tuple[int, int, int]
 ) -> int | None:
@@ -268,6 +537,8 @@ def build_audit(path: Path) -> dict[str, object]:
         }
 
     contacts = face_contacts6(positions, labels, dims)
+    interfaces = contact_interfaces(positions, labels, dims)
+    representatives = representative_slices(interfaces, positions, dims)
     distances = shortest_pair_distances(positions, labels, dims)
     validation = {
         "expectedInputSha256": EXPECTED_SHA256,
@@ -278,6 +549,10 @@ def build_audit(path: Path) -> dict[str, object]:
         "expectedMammillaryBboxes": {
             str(label): expected for label, expected in EXPECTED_MAMMILLARY_BBOXES.items()
         },
+        "expectedContactInterfaceFaceCounts": EXPECTED_CONTACT_INTERFACE_FACE_COUNTS,
+        "expectedRepresentativeSlices": {
+            str(label): expected for label, expected in EXPECTED_REPRESENTATIVE_SLICES.items()
+        },
         "passed": (
             digest == EXPECTED_SHA256
             and dims == EXPECTED_DIMS
@@ -287,6 +562,20 @@ def build_audit(path: Path) -> dict[str, object]:
                 label_audits[str(label)]["bbox"][bound] == expected[bound]
                 for label, expected in EXPECTED_MAMMILLARY_BBOXES.items()
                 for bound in ("min", "max")
+            )
+            and all(
+                interfaces[key]["faceCount"] == expected
+                for key, expected in EXPECTED_CONTACT_INTERFACE_FACE_COUNTS.items()
+            )
+            and all(
+                representatives[str(label)][field] == expected[field]
+                for label, expected in EXPECTED_REPRESENTATIVE_SLICES.items()
+                for field in (
+                    "axis",
+                    "sliceIndex",
+                    "pairInPlaneFaceCounts",
+                    "pairUniqueMammillaryVoxelCounts",
+                )
             )
         ),
     }
@@ -299,7 +588,14 @@ def build_audit(path: Path) -> dict[str, object]:
         "distanceMm": "voxelDistance6 multiplied by the isotropic 0.5 mm voxel size.",
         "centroidMm": "Voxel-coordinate centroid multiplied by 0.5 mm from the array origin; these are not MNI/world coordinates.",
         "connectedComponents6": "Components use face sharing only (6-neighbour connectivity); edges and corners do not connect components.",
+        "contactInterfaces": "Each listed face is scanned from a mammillary voxel toward its adjacent reference-label voxel. faceOrientationCounts use the mammillary-side normal (-/+X, -/+Y, -/+Z). For each x/y/z slice, inPlaneFaceCount/outOfPlaneFaceCount split faces by whether their normal differs from or matches the section axis. inPlaneUniqueMammillaryVoxelCount and outOfPlaneUniqueMammillaryVoxelCount count source voxels in their respective face sets; allUniqueMammillaryVoxelCount is their union, and uniqueMammillaryVoxelCount is a compatibility alias for that union.",
+        "contactBboxCenterDistance": "For representative-slice ranking, Euclidean voxel distance from the combined ID 27/33 in-plane contact bbox center on that slice to the full mammillary-label bbox center.",
+        "representativeSliceSelection": "For each mammillary label, use the common coronal (Y) review plane and intersect ID 27 and ID 33 slices with inPlaneFaceCount > 0. Rank by minimum of the two in-plane unique mammillary source-voxel counts descending, their sum descending, in-plane contact-bbox-center distance ascending, then slice index ascending. Raw inPlaneFaceCount remains in the selected record; in-plane unique source-voxel counts make repeated faces from one voxel neutral. This selects a display candidate only; it does not establish anatomical boundaries or boundary correctness.",
         "anatomicalStatus": "Objective volume-shape audit only; not anatomical validation or expert confirmation.",
+    }
+    serializable_interfaces = {
+        key: {field: value for field, value in interface.items() if not field.startswith("_")}
+        for key, interface in interfaces.items()
     }
     return {
         "format": "brain-practical-mammillary-orthogonal-audit",
@@ -313,6 +609,8 @@ def build_audit(path: Path) -> dict[str, object]:
         "labels": label_audits,
         "definitions": definition,
         "faceContacts6": contacts,
+        "contactInterfaces": serializable_interfaces,
+        "representativeSlices": representatives,
         "shortestVoxelDistances6": distances,
         "validation": validation,
     }
