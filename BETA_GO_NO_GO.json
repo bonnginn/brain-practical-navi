@@ -39,10 +39,11 @@
     },
     {
       "id": "criterion-02-learning-target-integrity",
-      "criterionText": "学習対象の明らかな欠落、二重表示、遊離、空着色がない。",
+      "criterionText": "学習対象の明らかな欠落、二重表示、遊離、空着色がない。（部分的な客観資料: 現行旧ID33は8,482 voxel、6近傍12成分で、全占有断面・境界面接触・代表候補を固定JSONへ記録した。成分数を解剖学的な構造数や誤分節と判定せず、全学習対象の専門家確認は未完了。）",
       "state": "expert-blocked",
       "locallyProven": [
         "ローカル構造由来監査・表示台帳を確認した。",
+        "旧ID33の現行格子について、voxel数、6近傍成分、全占有断面、境界面接触、代表候補を再現可能な客観監査へ固定した。",
         "ローカル証拠だけでは欠落・重複・遊離・空着色の解剖学的判定を完了していない。"
       ],
       "unprovenScope": "全学習対象の解剖学的欠落や二重表示を、専門家レビューを含めて網羅的に確認していない。",
@@ -51,6 +52,8 @@
         "STRUCTURE_PROVENANCE.md",
         "LECTURE_COVERAGE_AUDIT.md",
         "scripts/audit_structure_provenance.mjs",
+        "scripts/audit_optic_orthogonal.py",
+        "segmentation-patches/review/optic-pathway-orthogonal-objective-audit-2026-08-23.json",
         "ANATOMY_REVIEW_HANDOFF.md"
       ],
       "localArtifactRefs": [],

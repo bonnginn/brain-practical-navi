@@ -31,7 +31,7 @@ Chrome 151のin-app browserで`http://127.0.0.1:4201`を確認し、review panel
 - [ ] 脳神経I–XIIの見かけの起始部と主要脳底動脈の走行を確認する。
 - [ ] 断面の必修構造について、冠状・水平・矢状の連続断でラベルの位置と連続性を確認する。
 - [ ] 脳梁・内包、視交叉・島皮質、脳室・脳幹・小脳候補の由来と確度を再確認する。
-- [ ] 視索・視床下部・乳頭体について、断面ラベル、画像上の構造、模式3Dレイヤーの重複・取り違えを連続断と表示モード別に確認する。
+- [ ] 視索・視床下部・乳頭体について、断面ラベル、画像上の構造、模式3Dレイヤーの重複・取り違えを連続断と表示モード別に確認する。（客観資料追加: 現行旧ID33を変更せず、8,482 voxel、bbox、12個の6近傍成分、全X/Y/Z占有断面、全境界面接触、代表候補X187／Y262／Z114を `scripts/audit_optic_orthogonal.py` と固定JSONへ記録。これは専門家の画像確認を支援する格子監査で、ID36–38への機械分割や解剖学的検証ではない。）
 - [ ] 小脳脚、菱形窩、錐体、オリーブ、丘・膝状体、脚間窩を確認する。
 
 完了条件: 必修構造ごとに「検証済み」「模式表示」「推定」「未収録」のいずれかが記録され、未確認の表示を検証済みと誤認させない。明らかな位置誤り、二重表示、構造から遊離した部品を残さない。
@@ -170,7 +170,7 @@ Chrome 151のin-app browserで`http://127.0.0.1:4201`を確認し、review panel
 ## β版 Go / No-Go
 
 - [ ] 必修構造は、検証済みか、模式・推定であることが画面上で判別できる。（部分的な根拠: 由来区分・表示面・既知の制限を監査索引へ記録し、既存23件と模式3D pilot 17件の一意な40件の正答対象をアプリ実装と照合した。画面全必修範囲のGo/No-Go判定は未実施。）
-- [ ] 学習対象の明らかな欠落、二重表示、遊離、空着色がない。
+- [ ] 学習対象の明らかな欠落、二重表示、遊離、空着色がない。（部分的な客観資料: 現行旧ID33は8,482 voxel、6近傍12成分で、全占有断面・境界面接触・代表候補を固定JSONへ記録した。成分数を解剖学的な構造数や誤分節と判定せず、全学習対象の専門家確認は未完了。）
 - [ ] 脳表・断面・自由観察・クイズの中心操作がPCと横向きタブレットで完了できる。
 - [ ] スマートフォンで閲覧、クイズ、基本操作が破綻しない。全3D操作の完遂はβ公開条件にしない。（部分実装: `MOBILE_UI_AUDIT.md` に沿って、coarse touch phoneだけへ5導線dock、単一settings dialog、編集Canvasを生成しないsegment案内を追加。Chrome 151のローカル通常production preview `http://127.0.0.1:4198` でcoarse touchのsettings／segment／range操作と、fine-pointer狭幅のcompact desktop／segment維持を確認。coarse 26経路52/52、fine/non-touch 26経路×3幅×direct/reload 156/156も合格。公開URL、物理端末、実機タッチ、Safari・別ブラウザ、別GPU、専門家レビューは未確認。）
 - [x] 公開データ量と初回表示時間を実測し、過大な取得を減らしている。（2026-08-23のpial gzip後、canonical 26経路cold payload監査は26/26件、性能suiteは37/37件、route監査は26経路×3幅×direct/reload＝156/156件。圧縮pial物理パスのみ、raw要求0件、Home・static経路のatlasなし、surface／sections／blocks／segment／quizのexact初回allowlistとartifact-derived budgetを検証した。性能suiteのstable-time回帰は1%未満、sampledPeak backing storage最大増加は2.0%。`public/` 全体は92,397,991 B（88.12 MiB）で100 MiB未満、sectionsは26,441,013 Bで旧34,688,033 B（34.69 MB）から23.8%減り、20–30 MB暫定目安内となった。route／payload／性能の結果は [PERFORMANCE_AUDIT.md](PERFORMANCE_AUDIT.md)、`work/browser-audit/beta-route-audit-pial-gzip-2026-08-23.json`、`work/performance/initial-route-payload-audit-pial-gzip-2026-08-23.json`、`work/performance/performance-suite-pial-gzip-2026-08-23.json` に記録。公開URL・公開回線・物理端末・別GPU／別ブラウザは未確認。）

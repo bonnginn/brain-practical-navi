@@ -29,6 +29,8 @@ app-onlyカードの日本語見出し（縁上回、II 視神経・視索）、
 
 旧BigBrain／CerebrA ID33の混合領域は、断面学習画面・通常クイズの正答対象・分節編集入口へ結びません。脳表の一般観察入口だけを表示し、その制限をカード内に明記します。
 
+ID33の専門家確認を開始する客観資料として、`segmentation-patches/review/optic-pathway-orthogonal-objective-audit-2026-08-23.json` を用意しています。現行配布ラベルの8,482 voxel、bbox、12個の6近傍成分、各軸の全占有断面、保存ラベルとの境界面、代表候補X187／Y262／Z114を `scripts/audit_optic_orthogonal.py` で再現できます。これは画像確認の開始位置を決めるための格子情報であり、12成分を12構造とみなしたり、座標でID36–38へ分けたり、視交叉・左右視索の名称や境界を検証したりするものではありません。
+
 ID39・40の乳頭体は、プロジェクト内レビューを経た公開教材ラベルですが、専門家レビューは未完了として表示します。プロジェクトレビュー済みを専門家レビュー済みとは扱いません。
 
 ## 機械監査
@@ -37,6 +39,6 @@ ID39・40の乳頭体は、プロジェクト内レビューを経た公開教�
 node scripts/audit_anatomy_review_queue.mjs
 ```
 
-監査は、pending項目のstable keyの重複・欠落、representation／learner surface／レビュー状態、source refsの解決、ID33除外、ID39・40のプロジェクトレビュー済み／専門家pending、読み取り専用UI契約を検査します。
+監査は、pending項目のstable keyの重複・欠落、representation／learner surface／レビュー状態、source refsの解決、ID33除外、ID39・40のプロジェクトレビュー済み／専門家pending、読み取り専用UI契約を検査します。ID33の客観的な直交断情報は別途 `python scripts/audit_optic_orthogonal.py` で再生成し、保存JSONとの完全一致、不正SHA・寸法・内容改変の拒否を自動テストします。
 
 Chrome 151のローカル通常production preview `http://127.0.0.1:4199` で親確認を行いました。上位パネルの既定閉鎖と一般入口より後ろの配置、表示面フィルタの件数（脳表36、断面16、ブロック標本29、復習21、全56）、表示区分との複合絞り込み、乳頭体ID39・40と旧ID33の注意表示、一般workspaceリンクの注意文を実操作で確認しました。390 px指定のアプリ内ブラウザ（実効 `innerWidth` 295、`clientWidth` / `scrollWidth` 284）では横はみ出し0、一覧の内側スクロールなしでした。通常Chromeの26経路×3幅×direct/reloadは156/156件に合格し、結果を `work/browser-audit/beta-route-audit-anatomy-review-final-2026-08-22.json` に保存しました。共同制作画面は既存の `#workspace/collaborate` 内に置き、route matrixは増やしていません。公開URL、物理端末、別ブラウザ・別GPU、専門家による内容確認は未完了です。
