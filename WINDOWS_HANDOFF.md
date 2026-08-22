@@ -15,6 +15,8 @@
 
 機械台帳は registry 75件、expert pending 75件、表示面フィルタ（脳表／断面／ブロック標本／復習）54／16／30／21件です。学習者向けmappingは222/222件が解決済みで、family別は sections21／surface52／free75／neurovascular22／blocks52です。アプリ在庫は regions26／landmarks8／deep5／basal13／neurovascular22／sections21／block specimens8／layers44／pathways3です。
 
+現行Go / No-Goの12項目とsourceCounts（provenance／expert pending 75件、unique quiz targets 40件＝標準23件＋模式3D pilot 17件、learner mapping 222/222件）は [BETA_GO_NO_GO_AUDIT.md](BETA_GO_NO_GO_AUDIT.md) と [BETA_GO_NO_GO.json](BETA_GO_NO_GO.json) を基準にします。ローカル確認を公開・専門家確認・デプロイ完了とは扱いません。
+
 56件から75件への19件追加（surface／block app-only 18行とoptic nerve `cn2`行1件）、旧ID33と`cn2`／`opticChiasm`の分離、ID39・40のexpert pending維持は [LEARNER_PROVENANCE_DISPLAY_AUDIT.md](LEARNER_PROVENANCE_DISPLAY_AUDIT.md) に固定しています。
 
 最終ローカル実ブラウザ確認として、Chrome 151のin-app browserで`http://127.0.0.1:4201`を確認し、review panel 75/75、filter surface54／sections16／blocks30／quiz21／all75、app-onlyカードの日本語見出し、縁上回の「試作」＋CerebrA詳細、`cn2`／`opticChiasm`の「模式」、block choroid plexusの「模式」＋未保証説明を確認しました。route auditは `work/browser-audit/beta-route-audit-learner-provenance-final-2026-08-23.json` に保存し、26経路×3幅×direct/reload＝156/156、`allPassed: true`。390 px設定の`clientWidth`は375 pxで、overflow／error／loader／WebGL fallbackはありませんでした。これは表示回帰の確認であり、解剖学的妥当性の検証ではありません。公開URL、物理端末、別GPU、専門家レビューは未確認です。
@@ -185,7 +187,7 @@ Windows 11／Chrome 151.0.7922.170／Node 24.19.0、ローカルpreview `http://
 - 専門家による構造位置・範囲・連続性の確認。
 - 権利文書、Google Form、公開画面をまたぐ最終実ブラウザ巡回。
 - スマートフォン専用UIのローカル親確認は完了（`MOBILE_UI_AUDIT.md`）。Chrome 151・`http://127.0.0.1:4198`で、coarse touch phoneの5件dock、native settings dialog、focus／背景scroll、sectionsの既存rail操作、rangeとpage scroll、segment直接URLのCanvas非生成を確認し、coarse 26経路52/52、fine/non-touch 26経路×3幅×direct/reload 156/156に合格した。fine-pointer狭幅ではphoneMode=false、dockなし、既存sections／segment workbenchを確認した。公開URL、物理端末、実機タッチ、Safari・別ブラウザ、別GPU、専門家レビューは未確認である。詳細な画像・probe・監査JSONは `MOBILE_UI_AUDIT.md` を参照する。
-- 専門家レビュー準備キューは `ANATOMY_REVIEW_HANDOFF.md` に沿った読み取り専用の準備段階であり、provenance台帳のexpert pending 56件を共同制作画面へ表示する。一般のForm・Issue・PR入口の後ろで既定閉鎖にし、観察リンクは対象を自動選択しない一般workspace入口だけに限定する。Chrome 151のローカル通常buildで全56件、表示面フィルタ、複合フィルタ、ID39・40、旧ID33、390 px相当の横はみ出しなし・内側スクロールなしを親確認し、通常26経路×3幅×direct/reloadも156/156件に合格した。専門家確認、解剖学的妥当性、採否は未完了で、ID39・40もexpert pending、旧ID33は断面／通常クイズ正答と分節入口から除外したままである。
+- 専門家レビュー準備キューは `ANATOMY_REVIEW_HANDOFF.md` に沿った読み取り専用の準備段階であり、provenance台帳のexpert pending 75件を共同制作画面へ表示する。一般のForm・Issue・PR入口の後ろで既定閉鎖にし、観察リンクは対象を自動選択しない一般workspace入口だけに限定する。Chrome 151のローカル通常buildで全75件、表示面フィルタ54／16／30／21件、複合フィルタ、ID39・40、旧ID33、390 px相当の横はみ出しなし・内側スクロールなしを親確認し、通常26経路×3幅×direct/reloadも156/156件に合格した。専門家確認、解剖学的妥当性、採否は未完了で、ID39・40もexpert pending、旧ID33は断面／通常クイズ正答と分節入口から除外したままである。
 
 Mac側のブラウザ操作は、アプリの不具合ではなくCodex内蔵ブラウザの管理ポリシーにより公開URL操作が拒否されました。そのため、上記の実画面計測を推測で完了扱いにはしていません。
 

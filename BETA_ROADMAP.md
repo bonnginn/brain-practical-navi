@@ -8,6 +8,8 @@
 
 機械台帳の現在値は registry 75件、expert pending 75件、表示面フィルタ（脳表／断面／ブロック標本／復習）54／16／30／21件です。学習者向けmappingは222/222件が解決済みで、family別は sections21／surface52／free75／neurovascular22／blocks52です。アプリ在庫は regions26／landmarks8／deep5／basal13／neurovascular22／sections21／block specimens8／layers44／pathways3です。
 
+12項目の現行Go / No-Go状態と本文の機械突合は [BETA_GO_NO_GO_AUDIT.md](BETA_GO_NO_GO_AUDIT.md) と [BETA_GO_NO_GO.json](BETA_GO_NO_GO.json) に固定しています。ここでのローカル確認は、公開・専門家確認・デプロイ完了を意味しません。
+
 これは来歴表示の機械監査であり、解剖学的妥当性の検証や専門家レビュー完了を示しません。56件からの19件追加（surface／block app-only 18行とoptic nerve `cn2`行1件）、旧ID33と`cn2`／`opticChiasm`の分離、ID39・40のexpert pending維持は [LEARNER_PROVENANCE_DISPLAY_AUDIT.md](LEARNER_PROVENANCE_DISPLAY_AUDIT.md) に記録しています。2026-08-22の全56件・表示面36／16／29／21件およびroute156/156の実測履歴は、下記の既存記録を書き換えず保持します。
 
 ### 2026-08-23 最終ローカル実ブラウザ確認
@@ -167,14 +169,14 @@ Chrome 151のin-app browserで`http://127.0.0.1:4201`を確認し、review panel
 
 ## β版 Go / No-Go
 
-- [ ] 必修構造は、検証済みか、模式・推定であることが画面上で判別できる。（部分的な根拠: 由来区分・表示面・既知の制限を監査索引へ記録し、23件の正答対象のみアプリ実装との照合を済ませた。画面全必修範囲のGo/No-Go判定は未実施。）
+- [ ] 必修構造は、検証済みか、模式・推定であることが画面上で判別できる。（部分的な根拠: 由来区分・表示面・既知の制限を監査索引へ記録し、標準23件と模式3D pilot 17件の一意な40件の正答対象をアプリ実装と照合した。画面全必修範囲のGo/No-Go判定は未実施。）
 - [ ] 学習対象の明らかな欠落、二重表示、遊離、空着色がない。
 - [ ] 脳表・断面・自由観察・クイズの中心操作がPCと横向きタブレットで完了できる。
 - [ ] スマートフォンで閲覧、クイズ、基本操作が破綻しない。全3D操作の完遂はβ公開条件にしない。（部分実装: `MOBILE_UI_AUDIT.md` に沿って、coarse touch phoneだけへ5導線dock、単一settings dialog、編集Canvasを生成しないsegment案内を追加。Chrome 151のローカル通常production preview `http://127.0.0.1:4198` でcoarse touchのsettings／segment／range操作と、fine-pointer狭幅のcompact desktop／segment維持を確認。coarse 26経路52/52、fine/non-touch 26経路×3幅×direct/reload 156/156も合格。公開URL、物理端末、実機タッチ、Safari・別ブラウザ、別GPU、専門家レビューは未確認。）
-- [x] 公開データ量と初回表示時間を実測し、過大な取得を減らしている。（2026-08-23、pial gzip後のcanonical 26経路cold payload監査で26/26件。圧縮pial物理パスのみ、raw要求0件、Home・static経路のatlasなし、surface／sections／blocks／segment／quizのexact初回allowlistとartifact-derived budgetを検証した。`public/` 全体は92,397,991 B（88.12 MiB）で100 MiB未満、sectionsは26,441,013 Bで旧34,688,033 B（34.69 MB）から23.8%減り、20–30 MB暫定目安内となった。全route表は [PERFORMANCE_AUDIT.md](PERFORMANCE_AUDIT.md) と `work/performance/initial-route-payload-audit-pial-gzip-2026-08-23.json` に記録。公開URL・公開回線・物理端末・別GPU／別ブラウザは未確認。）
-- [ ] 自動テスト、本番ビルド、公開URLの全経路巡回に合格する。（2026-08-22、status追加前25経路の150/150件に加え、statusを含む26経路×3幅×direct/reload＝156件もWindows Chrome 151（`http://127.0.0.1:4190`）で156/156合格。missing/duplicate/fail=0、console/request/UI error・loader・overflow・WebGL fallback=0。公開URL反映確認待ち。）
-- [ ] クイズ対象は画面上で十分に確認でき、未確認構造を正答として要求しない。（粒度監査で既存23件を形式・詳細・トピック・由来へ一意分類し、旧ID33の正答対象外と標準／試作の整合を自動検査。クイズ操作、試作バッジ、誤答から観察画面への復帰は実ブラウザ確認済み。標準採用基準の解剖学的妥当性は未完了で、誤答選択肢としての出現可能性は別途残る。）
-- [ ] 専門家レビューの対象と根拠を引き継げる。（準備のみ: `ANATOMY_REVIEW_HANDOFF.md` と共同制作画面の読み取り専用キューで、provenance台帳のexpert pending 56件を表示。パネルは一般のForm・Issue・PR入口の後ろで既定閉鎖、開いたときだけフィルタと一覧を表示する。観察リンクは対象を自動選択しない一般workspace入口に限定。Chrome 151のローカル通常buildで表示面別36／16／29／21件、複合フィルタ、ID39・40、旧ID33、390 px相当の横はみ出しなし・内側スクロールなしを実操作し、全経路156/156件にも合格。専門家確認、解剖学的妥当性、採否は未完了。ID39・40はプロジェクト内レビュー済みだがexpert pending、旧ID33混合領域は断面／通常クイズ正答と分節入口から除外。）
+- [x] 公開データ量と初回表示時間を実測し、過大な取得を減らしている。（2026-08-23のpial gzip後、canonical 26経路cold payload監査は26/26件、性能suiteは37/37件、route監査は26経路×3幅×direct/reload＝156/156件。圧縮pial物理パスのみ、raw要求0件、Home・static経路のatlasなし、surface／sections／blocks／segment／quizのexact初回allowlistとartifact-derived budgetを検証した。性能suiteのstable-time回帰は1%未満、sampledPeak backing storage最大増加は2.0%。`public/` 全体は92,397,991 B（88.12 MiB）で100 MiB未満、sectionsは26,441,013 Bで旧34,688,033 B（34.69 MB）から23.8%減り、20–30 MB暫定目安内となった。route／payload／性能の結果は [PERFORMANCE_AUDIT.md](PERFORMANCE_AUDIT.md)、`work/browser-audit/beta-route-audit-pial-gzip-2026-08-23.json`、`work/performance/initial-route-payload-audit-pial-gzip-2026-08-23.json`、`work/performance/performance-suite-pial-gzip-2026-08-23.json` に記録。公開URL・公開回線・物理端末・別GPU／別ブラウザは未確認。）
+- [ ] 自動テスト、本番ビルド、公開URLの全経路巡回に合格する。（2026-08-23、pial gzip後のcanonical route監査で26経路×3幅×direct/reload＝156/156件をWindows Chrome 151（`http://127.0.0.1:4211`）で確認。`work/browser-audit/beta-route-audit-pial-gzip-2026-08-23.json` に固定し、missing/duplicate/fail=0、console/request/UI error・loader・overflow・WebGL fallback=0。公開URL反映確認待ち。2026-08-22のstatus追加前25経路150/150件の結果は履歴として保持。）
+- [ ] クイズ対象は画面上で十分に確認でき、未確認構造を正答として要求しない。（粒度監査で標準23件と模式3D pilot 17件の一意な40件を形式・詳細・トピック・由来へ分類し、旧ID33の正答対象外と標準／試作の整合を自動検査。クイズ操作、試作バッジ、誤答から観察画面への復帰は実ブラウザ確認済み。標準採用基準の解剖学的妥当性は未完了で、誤答選択肢としての出現可能性は別途残る。）
+- [ ] 専門家レビューの対象と根拠を引き継げる。（準備のみ: `ANATOMY_REVIEW_HANDOFF.md` と共同制作画面の読み取り専用キューで、provenance台帳のexpert pending 75件を表示。パネルは一般のForm・Issue・PR入口の後ろで既定閉鎖、開いたときだけフィルタと一覧を表示する。観察リンクは対象を自動選択しない一般workspace入口に限定。Chrome 151のローカル通常buildで表示面別54／16／30／21件、複合フィルタ、ID39・40、旧ID33、390 px相当の横はみ出しなし・内側スクロールなしを実操作し、全経路156/156件にも合格。専門家確認、解剖学的妥当性、採否は未完了。ID39・40はプロジェクト内レビュー済みだがexpert pending、旧ID33混合領域は断面／通常クイズ正答と分節入口から除外。）
 - [ ] ライセンス、クレジット、免責、プライバシー、対応ソースが公開版と一致する。（部分的な根拠: 由来参照は既存DATA-MANIFESTグループまたは配布ファイルへ解決。公開版との最終一致確認は未実施。）
 - [ ] Google FormとGitHubのフィードバック導線が機能する。
 - [ ] 少なくとも1名の神経解剖学に詳しい確認者による必修範囲のレビュー記録がある。
