@@ -1,12 +1,14 @@
 "use client";
 
 import { KeyboardEvent as ReactKeyboardEvent, PointerEvent, useEffect, useMemo, useRef, useState } from "react";
-import { AtlasVolumeCanvas, type HighlightLayer, type IdentifiedPoint } from "./AtlasVolumeCanvas";
+import { AtlasVolumeCanvas, type BlockContextSpecimen, type HighlightLayer, type IdentifiedPoint } from "./AtlasVolumeCanvas";
 import { ManualSegmentationWorkbench } from "./ManualSegmentationWorkbench";
 import betaStatus from "./beta-status.json";
 import { freeObservationReadings, matchesJapaneseSearch, normalizeJapaneseSearch } from "../src/japaneseSearch";
 import { QUIZ_GRANULARITY_BY_TARGET, countQuizChoice, detailOptionsForFormat, filterQuizCandidates } from "../src/quizGranularity.mjs";
 import type { QuizDetail, QuizFormat, QuizFilterQuestion, QuizFilters, QuizOrigin } from "../src/quizGranularity.mjs";
+import { BLOCK_CONTEXT_SPECIMEN, createBlockContextState, shouldRenderBlockContext, transitionBlockContext } from "../src/blockContext.mjs";
+import type { BlockContextEvent } from "../src/blockContext.mjs";
 import { advanceBasalStepperIndex, BASAL_GANGLIA_STEPS, startBasalGangliaStepperTimer } from "../src/pathwayStepper.mjs";
 import type { BasalGangliaStep } from "../src/pathwayStepper.mjs";
 
@@ -27,8 +29,10 @@ type BasalLandmarkKey = "all" | "olfactory" | "optic" | "hypothalamus" | "infund
 type BasalLandmarkPartKey = Exclude<BasalLandmarkKey,"all">;
 type BlockSpecimenKey = "lateral-ventricle" | "diencephalon" | "radiations" | "commissural-system" | "choroid-plexus" | "medial-temporal" | "midbrain-section" | "hindbrain";
 const blockSpecimenKeys:BlockSpecimenKey[]=["lateral-ventricle","diencephalon","radiations","commissural-system","choroid-plexus","medial-temporal","midbrain-section","hindbrain"];
+const blockContextSpecimen:BlockContextSpecimen=BLOCK_CONTEXT_SPECIMEN;
 type Rotation = {x:number;y:number;z?:number};
 type BlockViewPreset = "initial" | "opposite" | "superior" | "inferior";
+type BlockContextView = "whole" | "section";
 type SpecimenTissueMode = "solid" | "ghost" | "hidden";
 type BlockVisual = "model";
 type BlockLayer = {key:string;name:string;latin:string;color:string;source:"標本分節"|"試作分節"|"模式補助"|"位置目安";note:string};
@@ -545,6 +549,12 @@ export default function Home() {
   const [blockPonsMedulla,setBlockPonsMedulla]=useState(true);
   const [blockViewPreset,setBlockViewPreset]=useState<BlockViewPreset|"custom">("initial");
   const [blockIntroOpen,setBlockIntroOpen]=useState(workspace==="blocks");
+  const [blockContextState,setBlockContextState]=useState(()=>createBlockContextState());
+  const [blockContextRotation,setBlockContextRotation]=useState<Rotation>({x:-14,y:-64,z:4});
+  const [blockContextDrag,setBlockContextDrag]=useState<{x:number;y:number;mode:"orbit"|"roll"}|null>(null);
+  const [blockContextWebglUnavailable,setBlockContextWebglUnavailable]=useState(false);
+  const blockContextLauncherRef=useRef<HTMLButtonElement|null>(null);
+  const blockContextView=blockContextState.view as BlockContextView;
   const [quizIndex,setQuizIndex]=useState(0);
   const [quizQueue,setQuizQueue]=useState<QuizQuestion[]>(()=>shuffledQuestions(quizQuestions).slice(0,10));
   const [quizCategory,setQuizCategory]=useState<"all"|QuizCategory>("all");
@@ -615,6 +625,7 @@ export default function Home() {
   const basalStepperSliceHighlights=useMemo<HighlightLayer[]>(()=>basalStepperStructureKeys.map(key=>({ids:structures[key].bigbrainIds??[],color:structures[key].rgb})),[basalStepperStructureKeys]);
   const basalStepperTargetNames=useMemo(()=>basalStepperStructureKeys.map(key=>structures[key].name),[basalStepperStructureKeys]);
   const specimenLesson={...blockSpecimens[blockSpecimen],caution:`${blockSpecimenDisclaimer} ${blockSpecimens[blockSpecimen].caution}`};
+  const blockContextVisible=shouldRenderBlockContext({workspace,specimen:blockSpecimen,state:blockContextState});
   const renderedSurfaceNerves=surfaceView==="inferior"||surfaceView==="free"?true:surfaceNerves;
   const surfaceOverlay=surfaceVessels&&renderedSurfaceNerves?"both":surfaceVessels?"vessels":renderedSurfaceNerves?"nerves":"none";
   const selectedNeurovascular=neurovascularStructures[selectedNeurovascularStructure];
@@ -654,10 +665,20 @@ export default function Home() {
   useEffect(()=>{const close=(event:KeyboardEvent)=>{if(event.key==="Escape"){closeOverlay();setDetailsOpen(false)}};window.addEventListener("keydown",close);return()=>window.removeEventListener("keydown",close)},[workspace,surfaceView,plane,blockSpecimen]);
   useEffect(()=>{if(!overlayOpen)return;const previousOverflow=document.body.style.overflow;document.body.style.overflow="hidden";const frame=window.requestAnimationFrame(()=>document.querySelector<HTMLButtonElement>('.legalDialog header button')?.focus());const trap=(event:KeyboardEvent)=>{if(event.key!=="Tab")return;const dialog=document.querySelector<HTMLElement>('.legalDialog');if(!dialog)return;const focusable=[...dialog.querySelectorAll<HTMLElement>('button:not(:disabled),a[href],input:not(:disabled),select:not(:disabled),textarea:not(:disabled),[tabindex]:not([tabindex="-1"])')].filter(element=>element.getClientRects().length>0);if(!focusable.length)return;const first=focusable[0],last=focusable.at(-1)!;if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus()}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus()}};window.addEventListener("keydown",trap);return()=>{window.cancelAnimationFrame(frame);window.removeEventListener("keydown",trap);document.body.style.overflow=previousOverflow}},[helpOpen,feedbackOpen,legalOpen,statusOpen]);
   useEffect(()=>{if(!overlayOpen)overlayReturnFocus.current?.focus()},[overlayOpen]);
-  useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.hash);setHelpOpen(overlay==="help");setFeedbackOpen(overlay==="feedback");setLegalOpen(overlay==="legal");setStatusOpen(overlay==="status");const nextWorkspace=workspaceFromHash(window.location.hash);setWorkspace(nextWorkspace);if(nextWorkspace==="surface")chooseSurface(surfaceViewFromHash(window.location.hash),"none");else if(nextWorkspace==="sections")jump(planeFromHash(window.location.hash),52,"none");else if(nextWorkspace==="blocks")chooseBlock(blockSpecimenFromHash(window.location.hash),"none")};window.addEventListener("hashchange",restore);window.addEventListener("popstate",restore);return()=>{window.removeEventListener("hashchange",restore);window.removeEventListener("popstate",restore)}},[]);
+  useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.hash);setHelpOpen(overlay==="help");setFeedbackOpen(overlay==="feedback");setLegalOpen(overlay==="legal");setStatusOpen(overlay==="status");const nextWorkspace=workspaceFromHash(window.location.hash);transitionBlockContextState({type:"restore-route",workspace:nextWorkspace,specimen:blockSpecimenFromHash(window.location.hash)});setBlockContextDrag(null);setWorkspace(nextWorkspace);if(nextWorkspace==="surface")chooseSurface(surfaceViewFromHash(window.location.hash),"none");else if(nextWorkspace==="sections")jump(planeFromHash(window.location.hash),52,"none");else if(nextWorkspace==="blocks")chooseBlock(blockSpecimenFromHash(window.location.hash),"none")};window.addEventListener("hashchange",restore);window.addEventListener("popstate",restore);return()=>{window.removeEventListener("hashchange",restore);window.removeEventListener("popstate",restore)}},[]);
   useEffect(()=>{if(!window.matchMedia("(max-width: 760px)").matches)return;const frame=window.requestAnimationFrame(()=>{document.querySelector<HTMLElement>(".workspaceSwitch button.active")?.scrollIntoView({block:"nearest",inline:"center"});document.querySelector<HTMLElement>(".leftRail .planeBtn.active")?.scrollIntoView({block:"nearest",inline:"center"})});return()=>window.cancelAnimationFrame(frame)},[workspace,surfaceView,plane,blockSpecimen]);
 
   function wrapAngle(value:number){return ((value+180)%360+360)%360-180}
+
+  function transitionBlockContextState(event:BlockContextEvent){
+    setBlockContextState(current=>transitionBlockContext(current,event));
+  }
+
+  function closeBlockContext(){
+    transitionBlockContextState({type:"close"});
+    setBlockContextDrag(null);
+    window.requestAnimationFrame(()=>blockContextLauncherRef.current?.focus());
+  }
 
   function beginRotation(e:PointerEvent<HTMLDivElement>){
     if((e.target as HTMLElement).closest("button"))return;
@@ -695,6 +716,37 @@ export default function Home() {
       :{...r,x:wrapAngle(r.x-dy*.42),y:wrapAngle(r.y+dx*.42)});
     if(workspace==="blocks")setBlockViewPreset("custom");
     setDrag({x:e.clientX,y:e.clientY,mode:drag.mode});
+  }
+
+  function beginBlockContextRotation(e:PointerEvent<HTMLDivElement>){
+    if((e.target as HTMLElement).closest("button"))return;
+    e.preventDefault();
+    e.currentTarget.focus();
+    e.currentTarget.setPointerCapture?.(e.pointerId);
+    setBlockContextDrag({x:e.clientX,y:e.clientY,mode:e.button===2||e.shiftKey?"roll":"orbit"});
+  }
+
+  function moveBlockContext(e:PointerEvent<HTMLDivElement>){
+    if(!blockContextDrag)return;
+    const dx=e.clientX-blockContextDrag.x,dy=e.clientY-blockContextDrag.y;
+    setBlockContextRotation(current=>blockContextDrag.mode==="roll"
+      ?{...current,z:wrapAngle((current.z??0)+dx*.45-dy*.18)}
+      :{...current,x:wrapAngle(current.x-dy*.42),y:wrapAngle(current.y+dx*.42)});
+    setBlockContextDrag({x:e.clientX,y:e.clientY,mode:blockContextDrag.mode});
+  }
+
+  function resetBlockContextRotation(){setBlockContextRotation({x:-14,y:-64,z:4})}
+
+  function handleBlockContextKey(event:ReactKeyboardEvent<HTMLDivElement>){
+    const step=8;
+    if(event.key.toLowerCase()==="r"){event.preventDefault();resetBlockContextRotation();return}
+    if(!["ArrowLeft","ArrowRight","ArrowUp","ArrowDown"].includes(event.key))return;
+    event.preventDefault();
+    setBlockContextRotation(current=>({
+      ...current,
+      x:wrapAngle(current.x+(event.key==="ArrowUp"?-step:event.key==="ArrowDown"?step:0)),
+      y:wrapAngle(current.y+(event.key==="ArrowLeft"?-step:event.key==="ArrowRight"?step:0)),
+    }));
   }
 
   function updateScreenHistory(nextHash:string,mode:"push"|"replace"|"none"="push"){
@@ -749,12 +801,12 @@ export default function Home() {
   function identifyFreeSurface(point:{source:"surface"|"neurovascular";id:number}){if(point.source==="surface"){const key=surfaceRegionKeys.find(regionKey=>surfaceRegions[regionKey].ids.includes(point.id));if(key)toggleFreeObservation(`region:${key}`);return}const key=neurovascularStructureKeys.find(structureKey=>neurovascularStructures[structureKey].ids.includes(point.id));if(key)toggleFreeObservation(`neuro:${key}`)}
   function blockPresetRotation(preset:BlockViewPreset):Rotation{const initial=blockInitialRotations[blockSpecimen];if(preset==="opposite")return{...initial,y:wrapAngle(initial.y+180)};if(preset==="superior")return{x:-82,y:0,z:0};if(preset==="inferior")return{x:82,y:0,z:0};return{...initial}}
   function chooseBlockView(preset:BlockViewPreset){setBlockViewPreset(preset);setRotation(blockPresetRotation(preset))}
-  function chooseBlock(key:BlockSpecimenKey,historyMode:"push"|"replace"|"none"="push"){const next=blockSpecimens[key];updateScreenHistory(workspaceHash("blocks",surfaceView,plane,key),historyMode);setBlockIntroOpen(false);setBlockSpecimen(key);setBlockLayers(next.layers.map(layer=>layer.key));setBlockLayerFocus(next.layers[0]?.key??"");setBlockTissueMode(next.layers.length?"ghost":"solid");setRotation({...blockInitialRotations[key]});setBlockViewPreset("initial");setBlockPonsMedulla(true);setBlockCerebellum(true)}
+  function chooseBlock(key:BlockSpecimenKey,historyMode:"push"|"replace"|"none"="push"){const next=blockSpecimens[key];updateScreenHistory(workspaceHash("blocks",surfaceView,plane,key),historyMode);transitionBlockContextState({type:"select-specimen",specimen:key});setBlockContextDrag(null);setBlockIntroOpen(false);setBlockSpecimen(key);setBlockLayers(next.layers.map(layer=>layer.key));setBlockLayerFocus(next.layers[0]?.key??"");setBlockTissueMode(next.layers.length?"ghost":"solid");setRotation({...blockInitialRotations[key]});setBlockViewPreset("initial");setBlockPonsMedulla(true);setBlockCerebellum(true)}
   function toggleBlockLayer(key:string){setBlockLayerFocus(key);setBlockLayers(previous=>previous.includes(key)?previous.filter(item=>item!==key):[...previous,key])}
   function chooseNeurovascularStructure(key:NeurovascularStructureKey){const item=neurovascularStructures[key];setSelectedNeurovascularStructure(key);if(item.kind==="arteries")setSurfaceVessels(true);else setSurfaceNerves(true)}
   function closeOverlay(){setHelpOpen(false);setFeedbackOpen(false);setLegalOpen(false);setStatusOpen(false);const nextHash=workspaceHash(workspace,surfaceView,plane,blockSpecimen);if(window.location.hash!==nextHash)window.history.replaceState(null,"",nextHash)}
   function openOverlay(key:OverlayMode){if(!overlayOpen)overlayReturnFocus.current=document.activeElement instanceof HTMLElement?document.activeElement:null;window.history.pushState(null,"",`#workspace/${key}`);setHelpOpen(key==="help");setFeedbackOpen(key==="feedback");setLegalOpen(key==="legal");setStatusOpen(key==="status")}
-  function openWorkspace(key:WorkspaceMode){setHelpOpen(false);setFeedbackOpen(false);setLegalOpen(false);setStatusOpen(false);const nextHash=workspaceHash(key,surfaceView,plane,blockSpecimen);if(window.location.hash!==nextHash)window.history.pushState(null,"",nextHash);setWorkspace(key);if(key==="home")setRotation({...homeRotation});if(key==="sections")setRotation({x:-7,y:-18,z:0});if(key==="surface")setRotation(surfaceViews[surfaceView].rotation);if(key==="blocks"){setBlockIntroOpen(true);setRotation({...blockInitialRotations[blockSpecimen]});setBlockViewPreset("initial")}}
+  function openWorkspace(key:WorkspaceMode){setHelpOpen(false);setFeedbackOpen(false);setLegalOpen(false);setStatusOpen(false);const nextHash=workspaceHash(key,surfaceView,plane,blockSpecimen);if(window.location.hash!==nextHash)window.history.pushState(null,"",nextHash);transitionBlockContextState({type:key==="blocks"?"enter-workspace":"leave-workspace",workspace:key});setBlockContextDrag(null);setWorkspace(key);if(key==="home")setRotation({...homeRotation});if(key==="sections")setRotation({x:-7,y:-18,z:0});if(key==="surface")setRotation(surfaceViews[surfaceView].rotation);if(key==="blocks"){setBlockIntroOpen(true);setRotation({...blockInitialRotations[blockSpecimen]});setBlockViewPreset("initial")}}
   function saveWrongTargets(next:QuizTargetKey[]){setWrongTargets(next);try{localStorage.setItem(QUIZ_WRONG_CACHE_KEY,JSON.stringify(next))}catch{/* private browsing may block storage */}}
   function quizChoiceCount(dimension:"category"|"format"|"detail",value:string){return countQuizChoice(quizQuestionsForFiltering,quizFilters,wrongTargets,dimension,value)}
   function chooseQuizFormat(value:QuizFormatFilter){setQuizFormat(value);if(quizDetail!=="all"&&!detailOptionsForFormat(value).includes(quizDetail))setQuizDetail("all")}
@@ -909,9 +961,9 @@ export default function Home() {
       <div className="blockIntroCard"><span>PROTOTYPE</span><h1>ブロック標本は試作中です</h1><p>位置関係を検討するための試作品であり、形状・範囲・接続関係の完全性や解剖学的正確性は保証しません。</p><div><button onClick={()=>setBlockIntroOpen(false)}>試作品を確認する</button><button onClick={()=>openOverlay("feedback")}>誤りを報告する</button></div></div>
     </section>}
 
-    {workspace==="blocks"&&!blockIntroOpen&&<section className="workArea learningArea" id="workspace" tabIndex={-1}>
+    {workspace==="blocks"&&!blockIntroOpen&&<section className={`workArea learningArea ${blockContextVisible?"blockContext-open":""}`} id="workspace" tabIndex={-1}>
       <div className="workHead"><div><span className="eyebrow">LOCAL SPECIMEN</span><h1>標本観察</h1></div><div className="blockReleaseNote"><span className="sourceBadge">試作中・解剖学的正確性は未保証</span><button onClick={()=>openOverlay("feedback")}>誤りを報告</button></div></div>
-      <div className="learningGrid">
+      <div className={`learningGrid ${blockContextVisible?"blockContext-active":""}`}>
         <section className="learningModelCard"><div className="panelHead"><div><b>{specimenLesson.name}</b><small>{specimenLesson.en}・ドラッグ：回転／Shift・右：傾き</small></div><span>SPECIMEN + SELECTABLE PARTS</span></div>
           <div className={`learningModelStage modelStage ${webglUnavailable?"webglUnavailable":""}`} tabIndex={webglUnavailable?undefined:0} aria-label={webglUnavailable?undefined:"局所標本3Dモデル。ドラッグまたは矢印キーで回転、Rキーで向きを戻す"} onKeyDown={webglUnavailable?undefined:handleModelKey} onPointerDown={webglUnavailable?undefined:beginRotation} onPointerMove={webglUnavailable?undefined:move} onPointerUp={webglUnavailable?undefined:()=>setDrag(null)} onPointerCancel={webglUnavailable?undefined:()=>setDrag(null)} onContextMenu={webglUnavailable?undefined:event=>event.preventDefault()}>
             <AtlasVolumeCanvas kind="surface" plane={specimenLesson.plane} position={specimenLesson.position} focus={specimenLesson.focus} display="specimen" rotation={rotation} view="inside" contrast="bigbrain" showFocus={false} showCutPlane={false} showCerebellum={blockCerebellum} showPonsMedulla={blockPonsMedulla} specimenBlock={blockSpecimen} specimenLayers={blockLayers} specimenTissueMode={blockTissueMode} onWebGLUnavailableChange={setWebglUnavailable}/>
@@ -923,7 +975,8 @@ export default function Home() {
             <div className="modelLegend"><span>0.5 mm標本組織＋構造レイヤー</span><b>{specimenLesson.name}</b><small>{specimenLesson.layers.length?`${blockLayers.length} / ${specimenLesson.layers.length} レイヤーを選択中`:"橋・延髄と小脳を脱着可能"}</small></div></>}
           </div>
         </section>
-        <aside className="learningGuide" key={blockSpecimen}><span className="guideIndex">SPECIMEN 0{(Object.keys(blockSpecimens) as BlockSpecimenKey[]).indexOf(blockSpecimen)+1}</span><h2>{specimenLesson.name}</h2><p>{specimenLesson.intro}</p>{specimenLesson.layers.length>0&&<div className="specimenLayerPicker"><header><div><b>標本の部品</b><small>複数を同時に表示できます</small></div><span className="specimenLayerActions"><button onClick={()=>blockLayerFocus&&setBlockLayers([blockLayerFocus])} disabled={!blockLayerFocus||blockLayers.length===1&&blockLayers[0]===blockLayerFocus}>選択だけ</button><button onClick={()=>setBlockLayers(specimenLesson.layers.map(layer=>layer.key))} disabled={blockLayers.length===specimenLesson.layers.length}>すべて表示</button></span></header><div>{specimenLesson.layers.map(layer=>{const active=blockLayers.includes(layer.key);return <button key={layer.key} className={active?"active":""} aria-pressed={active} title={`${layer.source}。${layer.note}`} onClick={()=>toggleBlockLayer(layer.key)}><i style={{background:layer.color}}/><span>{layer.name}<small>{layer.latin}</small></span><em>{learnerSourceLabel(layer.source)}</em><b>{active?"✓":"＋"}</b></button>})}</div><p>{specimenLesson.layers.find(layer=>layer.key===blockLayerFocus)?.note??"色レイヤーはすべて非表示です。標本組織だけを回転して観察できます。"}</p>{blockLayerFocus&&<details className="provenanceDetails"><summary>由来の詳細</summary><p>{specimenLesson.layers.find(layer=>layer.key===blockLayerFocus)?.source}。詳細な根拠と確度は共同制作ページと由来台帳で確認できます。</p></details>}<footer><span><i/>標本対応・試作</span><span><i/>模式</span></footer></div>}<h3>この標本で追う構造</h3><ol>{specimenLesson.observe.map((item,i)=><li key={item}><i>{String(i+1).padStart(2,"0")}</i><span>{item}</span></li>)}</ol><div className="accuracyNote warning"><b>標本由来と模式補助</b><p>{specimenLesson.caution}</p></div></aside>
+        <aside className="learningGuide" key={blockSpecimen}><span className="guideIndex">SPECIMEN 0{(Object.keys(blockSpecimens) as BlockSpecimenKey[]).indexOf(blockSpecimen)+1}</span><h2>{specimenLesson.name}</h2><p>{specimenLesson.intro}</p>{blockSpecimen==="lateral-ventricle"&&<div className="blockContextLauncher"><div><b>切り出し位置を確認</b><small>全脳との位置関係を別表示</small></div><button ref={blockContextLauncherRef} type="button" aria-expanded={blockContextVisible} aria-controls="block-context-panel" onClick={()=>{if(blockContextVisible){closeBlockContext();return}transitionBlockContextState({type:"toggle",specimen:blockSpecimen});setBlockContextDrag(null)}}>{blockContextVisible?"位置表示を閉じる":"全脳で位置を確認"}</button></div>}{specimenLesson.layers.length>0&&<div className="specimenLayerPicker"><header><div><b>標本の部品</b><small>複数を同時に表示できます</small></div><span className="specimenLayerActions"><button onClick={()=>blockLayerFocus&&setBlockLayers([blockLayerFocus])} disabled={!blockLayerFocus||blockLayers.length===1&&blockLayers[0]===blockLayerFocus}>選択だけ</button><button onClick={()=>setBlockLayers(specimenLesson.layers.map(layer=>layer.key))} disabled={blockLayers.length===specimenLesson.layers.length}>すべて表示</button></span></header><div>{specimenLesson.layers.map(layer=>{const active=blockLayers.includes(layer.key);return <button key={layer.key} className={active?"active":""} aria-pressed={active} title={`${layer.source}。${layer.note}`} onClick={()=>toggleBlockLayer(layer.key)}><i style={{background:layer.color}}/><span>{layer.name}<small>{layer.latin}</small></span><em>{learnerSourceLabel(layer.source)}</em><b>{active?"✓":"＋"}</b></button>})}</div><p>{specimenLesson.layers.find(layer=>layer.key===blockLayerFocus)?.note??"色レイヤーはすべて非表示です。標本組織だけを回転して観察できます。"}</p>{blockLayerFocus&&<details className="provenanceDetails"><summary>由来の詳細</summary><p>{specimenLesson.layers.find(layer=>layer.key===blockLayerFocus)?.source}。詳細な根拠と確度は共同制作ページと由来台帳で確認できます。</p></details>}<footer><span><i/>標本対応・試作</span><span><i/>模式</span></footer></div>}<h3>この標本で追う構造</h3><ol>{specimenLesson.observe.map((item,i)=><li key={item}><i>{String(i+1).padStart(2,"0")}</i><span>{item}</span></li>)}</ol><div className="accuracyNote warning"><b>標本由来と模式補助</b><p>{specimenLesson.caution}</p></div></aside>
+        {blockSpecimen==="lateral-ventricle"&&blockContextVisible&&<section id="block-context-panel" className="blockContextPanel" aria-labelledby="block-context-title"><header className="blockContextHead"><div><span className="guideIndex">CONTEXT PILOT</span><h2 id="block-context-title">全脳内位置と代表断面</h2><p>標本をどこから見ているかを確認するための位置目安です。</p></div><button type="button" className="blockContextClose" onClick={closeBlockContext} aria-label="全脳位置表示を閉じる">×</button></header><div className="blockContextSwitch" role="group" aria-label="位置コンテキスト表示"><button type="button" className={blockContextView==="whole"?"active":""} aria-pressed={blockContextView==="whole"} onClick={()=>transitionBlockContextState({type:"set-view",view:"whole"})}>全脳＋切断面</button><button type="button" className={blockContextView==="section"?"active":""} aria-pressed={blockContextView==="section"} onClick={()=>transitionBlockContextState({type:"set-view",view:"section"})}>代表断面</button></div>{blockContextView==="whole"?<div className={`blockContextStage ${blockContextWebglUnavailable?"webglUnavailable":""}`} tabIndex={blockContextWebglUnavailable?undefined:0} aria-label={blockContextWebglUnavailable?undefined:"透過した全脳と側脳室標本の位置目安。ドラッグまたは矢印キーで回転、Rキーで向きを戻す"} onKeyDown={blockContextWebglUnavailable?undefined:handleBlockContextKey} onPointerDown={blockContextWebglUnavailable?undefined:beginBlockContextRotation} onPointerMove={blockContextWebglUnavailable?undefined:moveBlockContext} onPointerUp={blockContextWebglUnavailable?undefined:()=>setBlockContextDrag(null)} onPointerCancel={blockContextWebglUnavailable?undefined:()=>setBlockContextDrag(null)} onContextMenu={blockContextWebglUnavailable?undefined:event=>event.preventDefault()}><AtlasVolumeCanvas kind="surface" plane={blockSpecimens["lateral-ventricle"].plane} position={blockSpecimens["lateral-ventricle"].position} focus={blockSpecimens["lateral-ventricle"].focus} display="specimen" rotation={blockContextRotation} view="ghost" contrast="bigbrain" showFocus={false} showCutPlane={true} showZoomControls={false} specimenBlock="none" blockContext={blockContextSpecimen} onWebGLUnavailableChange={setBlockContextWebglUnavailable}/>{!blockContextWebglUnavailable&&<><OrientationCompass rotation={blockContextRotation} compact/><div className="blockContextCanvasLegend"><b>位置目安</b><span>褐色：収録済み標本メッシュ</span><small>矢状断 58 の切断面</small></div><button type="button" className="blockContextReset" onClick={resetBlockContextRotation}>向きを戻す</button></>}</div>:<div className="blockContextStage blockContextSectionStage"><AtlasVolumeCanvas kind="slice" plane={blockSpecimens["lateral-ventricle"].plane} position={blockSpecimens["lateral-ventricle"].position} focus={blockSpecimens["lateral-ventricle"].focus} display="specimen" rotation={blockContextRotation} contrast="bigbrain" showCutPlane={false}/><div className="blockContextCanvasLegend"><b>教材内代表断面</b><span>矢状断 58・BigBrain公開組織画像 0.5 mm</span></div></div>}<div className="blockContextNotice"><b>位置目安・教材内代表断面</b><p>この表示は、収録済み標本メッシュの位置目安と、教材内で対応づけた矢状断58を示します。全切断面、切断幅、摘出順、実習手順を再現するものではありません。実標本の代替ではなく、標本作製や解剖学的境界を推測するための表示でもありません。</p></div></section>}
       </div>
     </section>}
 

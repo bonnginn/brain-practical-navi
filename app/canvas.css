@@ -368,6 +368,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 .learningArea .workHead, .quizArea .workHead { align-items: center; }
 .sourceBadge { padding: 7px 9px; border: 1px solid #b8bcb7; background: #efeee8; color: #687270; font-size: 16px; }
 .learningGrid { flex: 1 1 auto; min-height: 0; display: grid; grid-template-columns: minmax(0,1fr) clamp(330px,29vw,410px); gap: 12px; }
+.learningGrid.blockContext-active { grid-template-rows: minmax(460px,1fr) auto; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #aeb6b2 transparent; }
 .learningModelCard, .quizImageCard { min-height: 0; display: grid; grid-template-rows: auto minmax(0,1fr); overflow: hidden; border: 1px solid #c7cac4; background: #292e31; box-shadow: 0 10px 34px rgba(26,34,35,.1); }
 .quizImageCard { grid-template-rows: auto minmax(0,1fr) auto; }
 .learningModelCard .panelHead, .quizImageCard .panelHead { height: auto; min-height: 58px; padding-block: 7px; }
@@ -466,6 +467,34 @@ html, body, #root { height: 100%; overflow: hidden; }
 .learningGuide li { display: grid; grid-template-columns: 34px 1fr; align-items: center; min-height: 44px; border-bottom: 1px solid #c5c8c2; }
 .learningGuide li i { color: #999f9d; font: 15px monospace; font-style: normal; }
 .learningGuide li span { font-size: 16px; font-weight: 700; }
+.blockContextLauncher { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 10px; margin-top: 18px; padding: 11px 12px; border: 1px solid #9eb6ad; background: #e6efea; }
+.blockContextLauncher > div { display: grid; gap: 3px; min-width: 0; }
+.blockContextLauncher b { color: #28554f; font-size: 15px; }
+.blockContextLauncher small { color: #536b65; font-size: 14px; line-height: 1.4; }
+.blockContextLauncher button { min-height: 44px; padding: 8px 10px; border: 1px solid #3d7169; background: #3d7169; color: #fff; font-size: 14px; font-weight: 800; white-space: nowrap; }
+.blockContextLauncher button:hover { background: #2d5e57; }
+.blockContextPanel { grid-column: 1 / -1; min-width: 0; padding: 16px; border: 1px solid #aeb9b1; background: #edf0eb; box-shadow: 0 8px 24px rgba(26,34,35,.08); }
+.blockContextHead { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
+.blockContextHead > div { min-width: 0; }
+.blockContextHead h2 { margin: 5px 0 4px; color: #273b39; font: 400 25px Georgia,"Yu Mincho",serif; }
+.blockContextHead p { margin: 0; color: #536561; font-size: 15px; line-height: 1.55; }
+.blockContextClose { flex: 0 0 auto; width: 44px; min-height: 44px; border: 1px solid #9cacaa; background: #f7f8f4; color: #36534f; font-size: 22px; line-height: 1; }
+.blockContextSwitch { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 13px; }
+.blockContextSwitch button { min-height: 44px; padding: 8px 12px; border: 1px solid #92aaa3; background: #f7f8f4; color: #3b5c56; font-size: 14px; font-weight: 800; }
+.blockContextSwitch button.active { border-color: #356d65; background: #356d65; color: #fff; }
+.blockContextStage { position: relative; min-width: 0; height: min(48vw,480px); min-height: 360px; margin-top: 12px; overflow: hidden; border: 1px solid #475856; background: radial-gradient(circle at 50% 44%,#5b6667 0,#354143 48%,#202728 100%); cursor: grab; touch-action: none; user-select: none; }
+.blockContextStage:active { cursor: grabbing; }
+.blockContextStage > .atlasCanvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.blockContextStage.webglUnavailable { cursor: default; }
+.blockContextSectionStage { cursor: default; touch-action: auto; }
+.blockContextStage .orientationCompass { top: 14px; right: 14px; }
+.blockContextCanvasLegend { position: absolute; z-index: 8; left: 14px; bottom: 14px; display: grid; gap: 3px; max-width: min(430px,calc(100% - 28px)); padding: 9px 11px; border-left: 4px solid #c9a27d; background: rgba(21,29,30,.82); color: #edf2ef; pointer-events: none; }
+.blockContextCanvasLegend b { font-size: 15px; }
+.blockContextCanvasLegend span,.blockContextCanvasLegend small { color: #c3cfca; font-size: 13px; line-height: 1.4; }
+.blockContextReset { position: absolute; z-index: 10; right: 14px; bottom: 14px; min-height: 44px; padding: 8px 11px; border: 1px solid #b5c2be; background: rgba(24,33,34,.88); color: #eef2ef; font-size: 14px; font-weight: 800; }
+.blockContextNotice { margin-top: 12px; padding: 10px 12px; border-left: 4px solid #bc8667; background: #f7eee7; color: #5a4a42; }
+.blockContextNotice b { display: block; color: #744b39; font-size: 14px; }
+.blockContextNotice p { margin: 4px 0 0; font-size: 14px; line-height: 1.65; }
 .blockIntroPage { display: grid; place-items: center; padding: clamp(24px,6vw,80px); background: radial-gradient(circle at 50% 38%,#f4f1e9 0,#e4e1da 72%); }
 .blockIntroCard { width: min(660px,100%); padding: clamp(28px,5vw,58px); border: 1px solid #c5b9ad; border-top: 6px solid #c44737; background: #f8f6f0; box-shadow: 0 22px 65px rgba(35,31,28,.14); text-align: center; }
 .blockIntroCard > span { color: #b53b2e; font: 900 15px monospace; letter-spacing: .18em; }
@@ -836,6 +865,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 @media(max-width:760px){.quizCandidateSummary{grid-template-columns:1fr;gap:2px}.quizCandidateEmptyNote{margin-top:-4px;padding:7px;font-size:11px;line-height:1.6}.quizCountButtons{grid-template-columns:repeat(2,1fr)}.quizCountButtons button{min-height:40px}.quizSliceNavigator{grid-template-columns:minmax(0,1fr) 38px auto;gap:7px;padding-inline:9px}.quizSliceAxis{display:none}.quizSliceNavigator button{padding-inline:6px}.quizSliceControl{display:grid;grid-template-columns:30px minmax(0,1fr) 30px;gap:5px}.quizSliceControl button{width:30px;padding:0}}
 @media(max-width:760px){.sectionLayoutSwitch{width:100%}.sectionLayoutSwitch button{flex:1;padding-inline:4px;font-size:12px}.sliceStage.layout-slice,.sliceStage.layout-model{grid-template-rows:minmax(0,1fr)}.sliceStage.layout-model .insetViews{grid-template-columns:1fr 1fr;grid-template-rows:1fr}}
 @media(max-width:760px){.specimenViewControls{right:8px;bottom:8px}.specimenViewControls>span{display:none}.specimenViewControls button{padding-inline:6px}.specimenRotationHint{display:none}}
+@media(max-width:760px){.learningGrid.blockContext-active{display:flex;flex-direction:column;overflow:visible}.learningGrid.blockContext-active .learningModelCard{order:1}.learningGrid.blockContext-active .blockContextPanel{order:2}.learningGrid.blockContext-active .learningGuide{order:3}.blockContextPanel{margin-top:10px;padding:12px}.blockContextHead h2{font-size:22px}.blockContextHead p{font-size:14px}.blockContextStage{height:360px;min-height:320px;margin-top:10px}.blockContextLauncher{grid-template-columns:1fr;gap:7px}.blockContextLauncher button{width:100%}.blockContextSwitch{display:grid;grid-template-columns:1fr 1fr}.blockContextSwitch button{min-height:44px;padding-inline:5px;font-size:13px}.blockContextReset{right:9px;bottom:9px}.blockContextCanvasLegend{left:9px;bottom:9px;max-width:calc(100% - 18px);padding:7px 9px}.blockContextCanvasLegend span,.blockContextCanvasLegend small{font-size:12px}.blockContextNotice{margin-top:10px;padding:9px 10px}.blockContextNotice p{font-size:13px;line-height:1.6}.blockContextClose{width:44px;min-height:44px}}
 @media(max-width:760px){.homeArea{display:block;overflow:visible;padding:16px 12px}.homeNotice{padding:30px 22px}.homeNoticePoints section{grid-template-columns:1fr;gap:5px}.homeNotice footer{display:grid;grid-template-columns:1fr}.homeNotice footer button{width:100%}.homeQuietNote{margin-top:14px;padding:0 7px}.homeHero{display:block}.homeIntro{padding:30px 22px;border-right:0;border-bottom:1px solid #c9cbc5}.homeIntro h1{font-size:40px}.homeAccuracyWarning{grid-template-columns:1fr;gap:3px}.homeModelStage{height:380px}.homeModeGrid{grid-template-columns:1fr;margin-top:10px}.homeModeGrid button{min-height:78px}.homeModeGrid small{display:block}.homeFooter{display:block;padding:13px 2px}.homeFooter div{margin-top:9px}}
 @media(max-width:380px){.learningModelCard .panelHead{min-width:0;flex-wrap:wrap;align-content:center;gap:5px}.learningModelCard .panelHead>div:first-child{min-width:0;flex:1 1 120px}.learningModelCard .panelActions{min-width:0;flex:1 1 auto;gap:4px;justify-content:flex-end}.learningModelCard .panelActions button{padding-inline:6px;font-size:14px}}
 

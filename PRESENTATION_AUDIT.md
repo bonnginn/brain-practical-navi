@@ -188,3 +188,9 @@ node scripts/audit_beta_routes.mjs --base-url http://localhost:4173 --output wor
 `PATHWAY_STEPPER_AUDIT.md` と `scripts/audit_pathway_stepper.mjs` の画素監査は5段階・7対象すべて合格（画素数 256–2,398）。この結果は表示可能性の確認であり、形状の解剖学的正確性や専門家レビューを示さない。
 
 最終ローカル本番ビルドをChrome 151で実操作し、前後移動、再生、最終段階の自動停止、最初へ戻る、Home離脱時の停止、再入場時の初期状態を確認した。console error/warningは0件だった。同じビルドの1366×768、1024×768、390×768、26経路×direct/reloadは156/156件に合格し、missing/duplicate/fail、console/request/UI error、残留loader、横はみ出し、WebGL fallbackはいずれも0件だった。全テスト134/134、画素・ID監査、型検査、通常／Pages本番ビルド、`git diff --check`も成功した。保存結果は `work/browser-audit/beta-route-audit-pathway-stepper-final-2026-08-22.json`（ローカル作業用・配布対象外）。公開URL、物理端末、タッチ操作、異なるGPU・別ブラウザ、専門家レビューは未確認である。
+
+### 2026-08-22 側脳室標本・全脳内位置 pilot
+
+側脳室全景だけへ「全脳で位置を確認」を追加した。初期OFF、ON時だけ追加Canvas、既存 `block-lateral-ventricle-tissue.mesh` の位置目安、透過全脳、既存メタデータの矢状断58、全脳表示の切断面を使う。代表断面への切替、コンテキスト独立回転、閉じた後の追加Canvas破棄、標本側の回転・着色・組織状態の保持を実装した。390 px相当では標本下へ縦積みし、操作ボタンを44 px以上にした。
+
+`BLOCK_CONTEXT_AUDIT.md` と `tests/block-context.test.mjs` へ、メタデータ・manifest・BNM形式・有限座標・tissue bboxのpial配布座標範囲への内包・代表断面座標とのbbox交差・初期Canvasなし・側脳室限定・state分離・表示注意を固定した。Chrome 151の実操作では、入場時Canvas 1、ONで2、代表断面切替後も2、閉じると1へ戻り、局所標本の通常表示・反対側視点・海馬OFFを保持した。閉じた後のフォーカス復帰、Home離脱後の履歴復帰で初期OFF、小画面の縦積みと横はみ出しなし、console error/warning 0も確認した。同じbuildの26経路×3幅×direct/reload＝156/156件が合格し、console/request/UI error、残留loader、横はみ出し、WebGL fallbackは0件だった。記録は `work/browser-audit/beta-route-audit-block-context-final-2026-08-22.json`（ローカル作業用・配布対象外）。コンテキストON時の性能値、物理端末、公開URL、専門家レビューは未確認である。切断幅、摘出順、実習手順、実標本の代替は表示しない。
