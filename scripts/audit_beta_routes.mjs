@@ -69,6 +69,7 @@ export const BETA_AUDIT_ROUTES = Object.freeze([
   routeSpec({ id: "quiz", hash: "#workspace/quiz", identitySelector: ".quizArea .workHead h1", identityText: "復習クイズ", canvas: ONE_CANVAS }),
   routeSpec({ id: "collaborate", hash: "#workspace/collaborate", identitySelector: ".collaborationArea .workHead h1", identityText: "共同制作", canvas: NO_CANVAS }),
   routeSpec({ id: "segment", hash: "#workspace/segment", identitySelector: ".segmentationArea .workHead h1", identityText: "セグメンテーション編集", canvas: ONE_CANVAS }),
+  routeSpec({ id: "status", hash: "#workspace/status", identitySelector: ".betaStatusDialog h2", identityText: "更新履歴・既知の制限", canvas: NO_CANVAS }),
   routeSpec({ id: "help", hash: "#workspace/help", identitySelector: ".helpDialog h2", identityText: "操作ガイド", canvas: NO_CANVAS }),
   routeSpec({ id: "feedback", hash: "#workspace/feedback", identitySelector: ".feedbackDialog h2", identityText: "匿名の意見・誤り報告", canvas: NO_CANVAS }),
   routeSpec({ id: "legal", hash: "#workspace/legal", identitySelector: ".legalDialog h2", identityText: "利用条件・データ・クレジット", canvas: NO_CANVAS }),

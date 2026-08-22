@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-08-22",
+  "phase": "公開α／β候補・公開判断前",
+  "knownLimitations": [
+    {
+      "id": "limitation-optic-id33",
+      "heading": "旧ID33と視交叉・視索",
+      "body": "旧BigBrain/CerebrA ID33は視交叉と視索を分離できないため、断面学習画面と通常クイズの正答対象から除外（誤答選択肢には残る）しています。視交叉・左右視索ID36–38は未分節で、曖昧な境界を推測していません。",
+      "evidenceRefs": ["public/atlas/structure-provenance.json", "LECTURE_COVERAGE_AUDIT.md", "OPTIC_PATHWAY_AUDIT.md"],
+      "provenanceKeys": ["visual-pathway-legacy-optic-label"]
+    },
+    {
+      "id": "limitation-mammillary-39-40",
+      "heading": "乳頭体ID39・40",
+      "body": "ID39・40はプロジェクト内レビューを経て公開教材ラベルとして採用しましたが、専門家レビューは未完了です。視床下部への付着境界と左右体積差は、冠状断・矢状断を含む直交断で継続確認します。旧模式乳頭体2資産は配布されても学習画面の代用表示には使用しません。",
+      "evidenceRefs": ["public/atlas/structure-provenance.json", "STRUCTURE_PROVENANCE.md", "OPTIC_PATHWAY_AUDIT.md"],
+      "provenanceKeys": ["section-mammillary-bodies"]
+    },
+    {
+      "id": "limitation-schematic-representations",
+      "heading": "模式・位置目安の表示",
+      "body": "ブロック標本、主要な溝・裂、脳底ランドマーク、神経血管、脳神経根、線維路、脳室や一部の深部構造には模式3D・位置目安・試作分節が含まれます。専門家レビュー未完了の表示を解剖学的な確定形状や研究用ground truthとして扱わないでください。",
+      "evidenceRefs": ["public/atlas/structure-provenance.json", "STRUCTURE_PROVENANCE.md", "LECTURE_COVERAGE_AUDIT.md"]
+    },
+    {
+      "id": "limitation-unrecorded-items",
+      "heading": "未収録項目",
+      "body": "海馬采・鉤、XI脊髄根、閂・薄束・楔状束の詳細、表在・深部脳静脈と硬膜静脈洞などは、現行教材に独立表示・分節・クイズを収録していません。海馬采・鉤はβ候補から除外し、現行3Dへ収録していません。",
+      "evidenceRefs": ["public/atlas/structure-provenance.json", "LECTURE_COVERAGE_AUDIT.md", "MEDIAL_TEMPORAL_AUDIT.md"],
+      "provenanceKeys": ["section-temporal-lobe", "hindbrain-gracile-cuneate-structures", "vascular-venous-system"]
+    },
+    {
+      "id": "limitation-local-validation-scope",
+      "heading": "ローカル検証の範囲",
+      "body": "Windows Chromeのローカル検証では、statusを含む156/156件が合格しました。これは公開URLや物理タッチ端末、別GPU・別ブラウザでの挙動を保証するものではなく、これらは未確認です。",
+      "evidenceRefs": ["PERFORMANCE_AUDIT.md", "PRESENTATION_AUDIT.md", "BETA_STATUS_AUDIT.md"]
+    }
+  ],
+  "changes": [
+    {
+      "id": "change-navigation-mobile",
+      "heading": "ナビゲーション・小画面対応",
+      "body": "脳表・断面・ブロック・復習・共同制作・編集・操作ガイド・利用条件をhash付きの画面として整理し、小画面では専用の下部導線と一列表示を用意しました。",
+      "evidenceRefs": ["BETA_ROADMAP.md", "PRESENTATION_AUDIT.md", "app/page.tsx"]
+    },
+    {
+      "id": "change-inaccurate-meshes-removed",
+      "heading": "不正確な模式部品の除外",
+      "body": "海馬采・鉤は連続性を保てない手置き形状をβ候補の3Dから除外し、未収録として表示しています。旧模式乳頭体2資産も配布されますが、学習画面の代用表示には使用しません。",
+      "evidenceRefs": ["MEDIAL_TEMPORAL_AUDIT.md", "STRUCTURE_PROVENANCE.md", "app/page.tsx"]
+    },
+    {
+      "id": "change-mammillary-label",
+      "heading": "乳頭体ラベルの採用",
+      "body": "BigBrain水平連続断Z107–121からID39・40を画像誘導分節し、プロジェクト内で公開教材ラベルとして採用しました。通常クイズとPapez回路へ反映していますが、専門家レビューと付着境界の確認は未完了です。",
+      "evidenceRefs": ["OPTIC_PATHWAY_AUDIT.md", "STRUCTURE_PROVENANCE.md", "public/atlas/structure-provenance.json"]
+    },
+    {
+      "id": "change-orthogonal-audit",
+      "heading": "直交断照合基盤",
+      "body": "同一のBigBrain原画像・現行ラベル・端末内差分を水平・冠状・矢状断で照合できる基盤を追加しました。これは監査表示の基盤であり、未完了の解剖学的判断を自動確定するものではありません。",
+      "evidenceRefs": ["OPTIC_PATHWAY_AUDIT.md", "segmentation-patches/review/mammillary-bodies-orthogonal-objective-audit-2026-08-22.json", "BETA_ROADMAP.md"]
+    },
+    {
+      "id": "change-performance-local",
+      "heading": "性能測定",
+      "body": "ローカル本番ビルドを固定31件の性能マトリクスで測定し、31/31件が測定条件を通過しました。これはローカルデスクトップChromeの記録であり、物理端末や公開回線の保証ではありません。",
+      "evidenceRefs": ["PERFORMANCE_AUDIT.md", "BETA_ROADMAP.md"]
+    },
+    {
+      "id": "change-routes-local",
+      "heading": "経路監査",
+      "body": "26経路版はWindows Chromeのローカル検証で156/156件合格しました。公開URL、物理タッチ端末、別GPU・別ブラウザでの挙動は未確認です。",
+      "evidenceRefs": ["PRESENTATION_AUDIT.md", "BETA_ROADMAP.md", "BETA_STATUS_AUDIT.md"]
+    },
+    {
+      "id": "change-provenance-audit",
+      "heading": "由来監査",
+      "body": "講義行・表示面・由来・監修状態・クイズ適格性・既知の制限を機械可読な監査索引へ整理し、56 entries、51講義行、23件のクイズ正答対象をアプリ実装と照合しました。専門家による最終確認を意味しません。",
+      "evidenceRefs": ["STRUCTURE_PROVENANCE.md", "LECTURE_COVERAGE_AUDIT.md", "public/atlas/structure-provenance.json"]
+    }
+  ]
+}

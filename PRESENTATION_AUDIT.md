@@ -126,19 +126,19 @@
 
 ## 2026-08-22 β候補ローカル全経路 Go / No-Go 監査方法
 
-公開判断前のローカル監査として、次の再現コマンドを用意した。実測値や合格結果は、実ブラウザで150件を完了した後に別途記録する。
+公開判断前のローカル監査として、次の再現コマンドを用意し、status画面を含む実測値と合格結果を下記へ記録した。
 
 ```text
 node scripts/audit_beta_routes.mjs --base-url http://localhost:4173 --output work/browser-audit/beta-route-audit.json
 ```
 
-`BETA_AUDIT_ROUTES` に固定した25経路（ホーム、脳表7、断面3、局所標本8、復習、共同制作、編集、操作ガイド、意見・誤り報告、利用条件）を、1366×768、1024×768、390×768の3幅で、直接遷移（direct）と再読み込み（reload）から巡回する。合計150件を、幅ごとに起動した独立Chromeプロファイルで測定する。Windows β監査の条件はChromeのdevice metricsを `mobile:false`、desktop User-Agent、非タッチに固定する。狭幅の実効DOM `clientWidth` は390 px設定でも375 pxとして横はみ出しを判定する。
+`BETA_AUDIT_ROUTES` に固定した26経路（ホーム、脳表7、断面3、局所標本8、復習、共同制作、編集、更新履歴・既知の制限、操作ガイド、意見・誤り報告、利用条件）を、1366×768、1024×768、390×768の3幅で、直接遷移（direct）と再読み込み（reload）から巡回する。合計156件を、幅ごとに起動した独立Chromeプロファイルで測定する。Windows β監査の条件はChromeのdevice metricsを `mobile:false`、desktop User-Agent、非タッチに固定する。狭幅の実効DOM `clientWidth` は390 px設定でも375 pxとして横はみ出しを判定する。
 
 各結果は正確なハッシュ、ページ固有の見出しまたは標本名、`main.appShell`、読込中表示、画面内エラー、console error、request error、横はみ出し、Canvas数を検査する。局所標本8経路では「試作品を確認する」をDOMイベントで押し、`.learningModelStage canvas` の出現と読込完了後を測定する。CanvasがWebGL fallbackへ切り替わった場合は失敗とする。各経路の失敗は結果へ保持して最終JSONに記録し、全件成功でない場合は終了コードを失敗にする。出力JSONがこの監査の機械可読な証拠となる。
 
 この方法で確認できるのは、ローカル本番プレビューにおけるWindows Chrome、指定3幅、直接遷移・再読み込み、DOM上の表示契約である。実機タッチ、異なるGPUやブラウザ、公開URL、外部フォーム送信、解剖学的境界の専門家レビューはこの監査の範囲外であり、公開URLでの巡回は未実施（pending）とする。
 
-### 実測結果
+### status追加前の実測結果（履歴）
 
 2026-08-22、通常の本番ビルドを `http://127.0.0.1:4177/` で配信し、`work/browser-audit/beta-route-audit-final-2026-08-22.json` へ結果を保存した。環境は Windows 11 Home 10.0.26200、16論理CPU、31.6 GiB RAM、Chrome 151.0.7922.170、Node 24.19.0 である。
 
@@ -147,5 +147,18 @@ node scripts/audit_beta_routes.mjs --base-url http://localhost:4173 --output wor
 - 8種のブロック標本は各3幅・2段階の計48件すべてで注意画面を閉じ、標本名とCanvas 1の出現後まで確認した。
 - console error、request error、画面内エラー、残留ローダー、水平はみ出し、WebGL fallbackはいずれも0件だった。
 - アプリ内ブラウザの970×545表示でも、Home、左外側面、水平断、展開後の側脳室標本、クイズを目視し、主要な見出し・観察対象・操作領域が表示されることを確認した。
+
+これはstatus画面追加前の25経路に対する履歴記録である。
+
+### status追加後の実測結果
+
+2026-08-22、status画面を含む本番Viteビルドを`http://127.0.0.1:4190/`で配信し、Windows Chrome 151で26経路を1366×768、1024×768、390×768の3幅、direct/reloadで巡回した。
+
+- 期待156件、結果156件、キー156件すべて一意で、156/156件が合格した。
+- missing/duplicate/fail=0、console error、request error、画面内UI error、残留loader、横はみ出し、WebGL fallbackはいずれも0件だった。
+- 公開URL、公開時のbase path、物理スマートフォン／タブレット、タッチ操作、異なるGPU・別ブラウザ、解剖学的境界の専門家レビューはこのローカル監査の範囲外である。
+- overlay切替focus修正後、Homeと利用条件のstatus入口、初期focus、Shift+Tab／Tab循環、Esc、起点復帰をアプリ内ブラウザで実操作した。Chrome CDPでは390px幅（実効clientWidth 375px）の一列表示、内部スクロール、背景クリックによる閉鎖、横はみ出しなしを確認した。
+
+保存した機械監査結果: `work/browser-audit/beta-route-audit-status-2026-08-22.json`。
 
 この結果により、現在のローカル本番成果物について全経路の直接表示・再読み込みを再現可能な機械検査へ更新できた。ただし、公開URL・CDN・公開時のbase path、物理スマートフォン／タブレット、タッチ操作、異なるGPU、解剖学的な形状の正しさは証明しない。Go / No-Goの「公開URLの全経路巡回」は、公開承認後の確認が必要なため未完了のままとする。

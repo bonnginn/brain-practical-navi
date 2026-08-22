@@ -1906,15 +1906,17 @@ test("medial surface quiz keeps the same isolated-hemisphere anatomy as study mo
 
 test("help, feedback, and credit dialogs have durable shareable URLs", async () => {
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
-  assert.match(page, /type OverlayMode = "help" \| "feedback" \| "legal"/);
+  assert.match(page, /type OverlayMode = "help" \| "feedback" \| "legal" \| "status"/);
   assert.match(page, /function overlayFromHash\(hash:string\):OverlayMode\|null/);
   assert.match(page, /overlayFromHash\(window\.location\.hash\)==="help"/);
   assert.match(page, /overlayFromHash\(window\.location\.hash\)==="feedback"/);
   assert.match(page, /overlayFromHash\(window\.location\.hash\)==="legal"/);
+  assert.match(page, /overlayFromHash\(window\.location\.hash\)==="status"/);
   assert.match(page, /window\.history\.pushState\(null,"",`#workspace\/\$\{key\}`\)/);
   assert.match(page, /onClick=\{\(\)=>openOverlay\("feedback"\)\}/);
   assert.match(page, /onClick=\{\(\)=>openOverlay\("legal"\)\}/);
   assert.match(page, /onClick=\{\(\)=>openOverlay\("help"\)\}/);
+  assert.match(page, /onClick=\{\(\)=>openOverlay\("status"\)\}/);
   assert.match(page, /document\.body\.style\.overflow="hidden"/);
   assert.match(page, /document\.querySelector<HTMLButtonElement>\('\.legalDialog header button'\)\?\.focus\(\)/);
   assert.match(page, /overlayReturnFocus\.current\?\.focus\(\)/);
@@ -1923,6 +1925,42 @@ test("help, feedback, and credit dialogs have durable shareable URLs", async () 
   assert.match(page, /onClick=\{closeOverlay\} aria-label="意見・誤り報告を閉じる"/);
   assert.match(page, /onClick=\{closeOverlay\} aria-label="利用条件とクレジット表示を閉じる"/);
   assert.match(page, /onClick=\{closeOverlay\} aria-label="操作ガイドを閉じる"/);
+});
+
+test("status dialog renders the JSON registry through a durable direct route", async () => {
+  const [page, status] = await Promise.all([
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("app/beta-status.json", root), "utf8"),
+  ]);
+  const data = JSON.parse(status);
+  assert.equal(data.phase, "公開α／β候補・公開判断前");
+  assert.ok(data.knownLimitations.some(item => item.body.includes("ID33")));
+  assert.ok(data.changes.some(item => item.body.includes("156/156")));
+  assert.ok(data.knownLimitations.some(item => item.body.includes("156/156")));
+  assert.doesNotMatch(status, /親作業での実施前|26経路版は[^。]*未実施/);
+  assert.match(page, /import betaStatus from "\.\/beta-status\.json"/);
+  assert.match(page, /const betaStatusData=betaStatus as BetaStatusData/);
+  assert.match(page, /candidate==="status"/);
+  assert.match(page, /setStatusOpen\(overlay==="status"\)/);
+  assert.match(page, /className="legalDialog betaStatusDialog"/);
+  assert.match(page, /更新履歴・既知の制限/);
+  assert.match(page, /betaStatusData\.knownLimitations\.map/);
+  assert.match(page, /betaStatusData\.changes\.map/);
+  assert.match(page, /data-status-id=\{item\.id\}/);
+  assert.match(page, /className="betaStatusEvidence"/);
+  assert.match(page, /className="homeEnter"[\s\S]*openOverlay\("status"\)/);
+  assert.match(page, /TemplateFlow<\/a><button onClick=\{\(\)=>openOverlay\("status"\)\}>更新履歴・既知の制限/);
+  assert.match(page, /document\.querySelector<HTMLButtonElement>\('\.legalDialog header button'\)\?\.focus\(\)/);
+  assert.match(page, /overlayReturnFocus\.current\?\.focus\(\)/);
+  assert.match(page, /\},\[helpOpen,feedbackOpen,legalOpen,statusOpen\]\);/);
+  assert.match(page, /if\(!overlayOpen\)overlayReturnFocus\.current\?\.focus\(\)\},\[overlayOpen\]\);/);
+  assert.match(page, /function openOverlay\(key:OverlayMode\)\{if\(!overlayOpen\)overlayReturnFocus\.current=document\.activeElement instanceof HTMLElement\?document\.activeElement:null;/);
+  assert.match(page, /海馬采・鉤はβ候補から除外し、現行3Dには収録していません/);
+  assert.match(page, /旧模式乳頭体2資産は配布されても学習画面の代用表示には使用しません/);
+  assert.match(page, /学習画面に表示する形状は「模式補助」「位置目安」と明示します/);
+  assert.doesNotMatch(page, /画面上でも「模式補助」「位置目安」と表示します/);
+  assert.match(page, /更新 2026-08-22・AGPL-3\.0-or-later・無保証/);
+  assert.doesNotMatch(page, /主要な溝・裂の線状ガイド、放線群、脈絡叢、海馬采、脳弓/);
 });
 
 test("keeps simultaneously selectable surface colours distinct on the dark model", async () => {
@@ -1989,7 +2027,7 @@ test("publishes a durable keyboard and pointer operation guide", async () => {
     readFile(new URL("app/page.tsx", root), "utf8"),
     readFile(new URL("app/canvas.css", root), "utf8"),
   ]);
-  assert.match(page, /type OverlayMode = "help" \| "feedback" \| "legal"/);
+  assert.match(page, /type OverlayMode = "help" \| "feedback" \| "legal" \| "status"/);
   assert.match(page, /#workspace\/\$\{key\}/);
   assert.match(page, /操作ガイドを表示/);
   assert.match(page, /<kbd>Ctrl<\/kbd>／<kbd>⌘<\/kbd>＋<kbd>Z<\/kbd>/);
