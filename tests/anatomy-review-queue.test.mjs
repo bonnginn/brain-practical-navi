@@ -27,9 +27,9 @@ test("derivation includes every pending entry once and keeps the original entry 
 
 test("surface and representation filters preserve queue references", () => {
   const queue = deriveAnatomyReviewQueue(registry);
-  assert.equal(filterAnatomyReviewQueue(queue, {surface: "surface"}).length, 36);
+  assert.equal(filterAnatomyReviewQueue(queue, {surface: "surface"}).length, 54);
   assert.equal(filterAnatomyReviewQueue(queue, {surface: "sections"}).length, 16);
-  assert.equal(filterAnatomyReviewQueue(queue, {surface: "blocks"}).length, 29);
+  assert.equal(filterAnatomyReviewQueue(queue, {surface: "blocks"}).length, 30);
   assert.equal(filterAnatomyReviewQueue(queue, {surface: "quiz"}).length, 21);
   const schematic = filterAnatomyReviewQueue(queue, {representation: "schematic-3d"});
   assert.ok(schematic.length > 0);
@@ -40,12 +40,13 @@ test("surface and representation filters preserve queue references", () => {
 test("audit accepts the complete read-only review queue and exposes the expected UI contract", () => {
   const report = auditAnatomyReviewQueue();
   assert.equal(report.ok, true, report.errors.join("; "));
-  assert.deepEqual(report.summary, {entryCount: 56, pendingCount: 56, expertReviewedCount: 0, surfaceCount: 36, sectionsCount: 16, blocksCount: 29, quizCount: 21});
+  assert.deepEqual(report.summary, {entryCount: 75, pendingCount: 75, expertReviewedCount: 0, surfaceCount: 54, sectionsCount: 16, blocksCount: 30, quizCount: 21});
   assert.match(page, /anatomyReviewReadOnly/);
   assert.match(page, /専門家レビュー準備/);
   assert.match(page, /一般の\{observationLabel\}画面を開く/);
   assert.match(page, /<details className="anatomyReviewPanel anatomyReviewReadOnly">/);
   assert.match(page, /expert pending \{total\}件・フィルタ後 \{items\.length\}件/);
+  assert.match(page, /entry\.lectureLabel\?\?entry\.appLabel\?\?item\.key/);
   assert.ok(page.indexOf('<div className="collaborationGrid">') < page.indexOf('<AnatomyReviewQueuePanel '), "review preparation panel should follow the general collaboration entrances");
   assert.match(page, /この項目・構造・位置は自動選択されません/);
   assert.doesNotMatch(page, /anatomyReviewApprove|anatomyReviewSave|anatomyReviewReviewerName/);

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-08-22",
+  "updated": "2026-08-23",
   "phase": "公開α／β候補・公開判断前",
   "knownLimitations": [
     {
@@ -77,7 +77,7 @@
     {
       "id": "change-provenance-audit",
       "heading": "由来監査",
-      "body": "講義行・表示面・由来・監修状態・クイズ適格性・既知の制限を機械可読な監査索引へ整理し、56 entries、51講義行、23件のクイズ正答対象をアプリ実装と照合しました。専門家による最終確認を意味しません。",
+      "body": "講義行・表示面・由来・監修状態・クイズ適格性・既知の制限を機械可読な監査索引へ整理し、75 entries、51講義行、40件のクイズ正答対象（既存23件と模式3D pilot 17件）をアプリ実装と照合しました。専門家による最終確認を意味しません。",
       "evidenceRefs": ["STRUCTURE_PROVENANCE.md", "LECTURE_COVERAGE_AUDIT.md", "public/atlas/structure-provenance.json"]
     }
   ]

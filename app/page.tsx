@@ -573,7 +573,7 @@ function AnatomyReviewQueuePanel({items,total,surfaceFilter,representationFilter
       const observationWorkspace=observationWorkspaceForEntry(entry);
       const observationLabel=observationWorkspace?anatomyReviewSurfaceLabels[observationWorkspace]:"";
       return <details className="anatomyReviewCard" key={item.key}>
-        <summary><span><b>{entry.lectureLabel??item.key}</b><small>{item.key}</small></span><em>専門家レビュー未完了</em></summary>
+        <summary><span><b>{entry.lectureLabel??entry.appLabel??item.key}</b><small>{item.key}</small></span><em>専門家レビュー未完了</em></summary>
         <div className="anatomyReviewCardBody">
           <dl className="anatomyReviewFacts">
             <div><dt>由来区分</dt><dd>{entry.representations.map(value=><span key={value}>{anatomyReviewRepresentationLabels[value]??value}</span>)}</dd></div>

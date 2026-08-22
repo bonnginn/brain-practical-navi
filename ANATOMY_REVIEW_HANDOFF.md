@@ -1,12 +1,22 @@
 # 専門家レビュー準備キュー引き継ぎ
 
-更新日: 2026-08-22
+更新日: 2026-08-23
 
 ## 位置づけ
 
 `public/atlas/structure-provenance.json` を単一情報源として、`expertReview: "pending"` の項目を共同制作画面へ読み取り専用で表示します。これは専門家レビューの完了、解剖学的妥当性、公開採否を示すものではありません。専門家の氏名を要求・保存する入力欄、編集、承認、採否、保存操作はありません。
 
-現在の台帳は56件すべてが専門家レビュー未完了です。由来区分、表示面、クイズ扱い、source refs、既知の制限、プロジェクトレビュー状態は台帳の値を参照して表示します。UI側で値を複製して別の教材台帳を作らないため、導出結果は元entryへの参照を保持します。
+2026-08-23現在の台帳は75件すべてが専門家レビュー未完了です。由来区分、表示面、クイズ扱い、source refs、既知の制限、プロジェクトレビュー状態は台帳の値を参照して表示します。UI側で値を複製して別の教材台帳を作らないため、導出結果は元entryへの参照を保持します。
+
+### 2026-08-23 最終ローカル実ブラウザ確認
+
+registry 75件、expert pending 75件、表示面フィルタは脳表54／断面16／ブロック標本30／復習21です。学習者向けmappingは222/222件が解決済みで、未解決はありません。Chrome 151のin-app browserでローカルproduction preview `http://127.0.0.1:4201` を確認し、review panel 75/75、filter surface54／sections16／blocks30／quiz21／all75を表示しました。
+
+56件からの増分は、脳表・ブロックのapp-only行18件とoptic nerve（`cn2`）行1件の計19件です。旧解剖ラベルID33とアプリの`cn2`／`opticChiasm`は別名前空間で、ID33の除外条件は維持します。ID39・40も、プロジェクト内レビュー済み・expert pendingのままです。詳細は [LEARNER_PROVENANCE_DISPLAY_AUDIT.md](LEARNER_PROVENANCE_DISPLAY_AUDIT.md) を参照してください。
+
+app-onlyカードの日本語見出し（縁上回、II 視神経・視索）、自由観察の縁上回の「試作」＋CerebrA詳細、`cn2`／`opticChiasm`の「模式」、block choroid plexusの「模式」＋未保証説明を確認しました。route auditは `work/browser-audit/beta-route-audit-learner-provenance-final-2026-08-23.json` に保存し、26経路×3幅×direct/reload＝156/156、`allPassed: true`。390 px設定の`clientWidth`は375 pxで、overflow／error／loader／WebGL fallbackはありませんでした。これは来歴表示のローカル確認であり、解剖学的妥当性の確認ではありません。公開URL、物理端末、別GPU、専門家レビューは未確認です。
+
+2026-08-22に実ブラウザで確認した全56件・脳表36／断面16／ブロック標本29／復習21件の記録は下記の歴史記録として保持します。
 
 ## 表示と導線
 

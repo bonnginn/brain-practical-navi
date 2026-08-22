@@ -2,6 +2,7 @@ export type AnatomyReviewSurface = "all" | "surface" | "sections" | "blocks" | "
 export type AnatomyReviewRegistryEntry = {
   key: string;
   lectureLabel?: string | null;
+  appLabel?: string | null;
   representations: readonly string[];
   learnerSurfaces: readonly string[];
   expertReview: string;

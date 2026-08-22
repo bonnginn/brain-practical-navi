@@ -1,12 +1,24 @@
 # β候補 更新履歴・既知の制限監査
 
-更新日: 2026-08-22
+更新日: 2026-08-23
 
 ## 掲載範囲
 
 `app/beta-status.json`を、アプリ内の「更新履歴・既知の制限」画面の単一データ源とする。`#workspace/status`への直接アクセスと再読み込みで同じ画面を復元できる候補実装を用意する。状態は「公開α／β候補・公開判断前」であり、公開済みβ版、大学公式教材、専門家による最終確認済み資料を意味しない。
 
 掲載する制限は、専門家レビュー未完了、視覚路ID36–38の未分節と旧ID33の正答対象外、乳頭体ID39・40のプロジェクト内レビュー済み・専門家レビュー未完了・付着境界継続確認、模式表示（ブロック、神経血管、脳溝など）、未収録項目（海馬采・鉤、XI脊髄根、閂・薄束・楔状束詳細、静脈系など）、ローカル検証範囲である。
+
+## 2026-08-23 台帳同期理由
+
+`public/atlas/structure-provenance.json` の現行registryが56件から75件へ増えたため、現行の由来監査説明を `app/beta-status.json` の `change-provenance-audit` と同期した。増分はsurface／block app-only 18行とoptic nerve `cn2`行1件の計19件で、ID33と`cn2`／`opticChiasm`の名前空間分離を維持し、ID39・40のプロジェクト内レビュー済み・expert pending状態も維持する。
+
+同日の機械結果は、expert pending 75件、表示面フィルタ54／16／30／21件、学習者向けmapping 222/222件解決済みである。構造由来監査のクイズ正答対象は既存23件と模式3D pilot 17件の合計40件なので、status本文も40件へ同期する。この同期自体は解剖学的妥当性の検証や実ブラウザ確認ではなく、最終ローカル確認は下記に別記する。2026-08-22に確認した全56件・表示面36／16／29／21件・route156/156の歴史記録と、公開URL未確認の記述は変更しない。
+
+## 2026-08-23 最終ローカル実ブラウザ確認
+
+Chrome 151のin-app browserでローカルproduction preview `http://127.0.0.1:4201`を確認し、review panel 75/75、filter surface54／sections16／blocks30／quiz21／all75を表示した。app-onlyカードの日本語見出し（縁上回、II 視神経・視索）、自由観察の縁上回「試作」＋CerebrA詳細、`cn2`／`opticChiasm`の「模式」、block choroid plexusの「模式」＋未保証説明を確認した。route auditは `work/browser-audit/beta-route-audit-learner-provenance-final-2026-08-23.json` に保存し、26経路×3幅×direct/reload＝156/156、`allPassed: true`。390 px設定の`clientWidth`は375 pxで、overflow／error／loader／WebGL fallbackはなかった。
+
+これはstatus・来歴表示・導線のローカル確認であり、解剖学的妥当性の検証ではない。公開URL、物理端末、別GPU、別ブラウザ、専門家レビューは未確認で、expert pending 75件は維持する。2026-08-22の全56件・表示面36／16／29／21件・route156/156の歴史記録は変更しない。
 
 ## 根拠と更新方法
 

@@ -28,6 +28,16 @@
 | 意見・共同制作 | 2対象者別カード、背景マスク、閉じる導線を確認 | 匿名報告・共同参加のフォーム導線を確認（外部送信は未実行） | 個人情報・患者情報を送らない注意と公開α方針を確認 | 発表可 |
 | 利用条件・クレジット | 2列のライセンス情報とスクロール、閉じる導線を確認 | 対応ソース・外部データリンクを確認 | プロジェクト名のみを表示し、個人名・所属・メールは掲載しない | 発表可 |
 
+## 2026-08-23 来歴表示監査の最終ローカル実ブラウザ確認
+
+機械台帳の現在値は registry 75件、expert pending 75件、表示面フィルタ（脳表／断面／ブロック標本／復習）54／16／30／21件です。学習者向けmappingは222/222件が解決済みで、family別は sections21／surface52／free75／neurovascular22／blocks52です。アプリ在庫は regions26／landmarks8／deep5／basal13／neurovascular22／sections21／block specimens8／layers44／pathways3です。
+
+56件から75件への増分は、surface／block app-only 18行とoptic nerve `cn2`行1件の計19件です。旧解剖ラベルID33とアプリの`cn2`／`opticChiasm`を別名前空間として扱い、ID39・40はプロジェクト内レビュー済み・expert pendingのまま維持します。詳細は [LEARNER_PROVENANCE_DISPLAY_AUDIT.md](LEARNER_PROVENANCE_DISPLAY_AUDIT.md) を参照してください。
+
+Chrome 151のin-app browserでローカルproduction preview `http://127.0.0.1:4201`を確認し、review panel 75/75、filter surface54／sections16／blocks30／quiz21／all75を表示した。app-onlyカードの日本語見出し（縁上回、II 視神経・視索）、自由観察の縁上回「試作」＋CerebrA詳細、`cn2`／`opticChiasm`の「模式」、block choroid plexusの「模式」＋未保証説明を確認した。route auditは `work/browser-audit/beta-route-audit-learner-provenance-final-2026-08-23.json` に保存し、26経路×3幅×direct/reload＝156/156、`allPassed: true`。390 px設定の`clientWidth`は375 pxで、overflow／error／loader／WebGL fallbackはなかった。これは表示回帰の確認であり、解剖学的妥当性の検証ではない。公開URL、物理端末、別GPU、専門家レビューは未確認である。
+
+2026-08-22に実ブラウザで確認した全56件、表示面36／16／29／21件、route156/156の記録は、下記および既存の履歴として書き換えず保持します。
+
 ## 第二巡（再起動後）
 
 - 内側面クイズも通常の内側面教材と同じ左半球単独表示に統一し、小脳・橋延髄・中脳が再出現する不一致を解消。

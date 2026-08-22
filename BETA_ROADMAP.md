@@ -1,8 +1,18 @@
 # β版ロードマップ
 
-更新日: 2026-08-22
+更新日: 2026-08-23
 
 この文書は、公開α版への意見と利用状況を踏まえ、β版までに行う作業を優先度と完了条件つきで整理したものです。β版の目標は「すべての構造を完全に再現すること」ではなく、実習で重要な構造を誤解しにくい形で観察でき、模式表示・推定ラベル・検証済みデータの違いが利用者に明確な教材にすることです。
+
+## 2026-08-23 来歴表示監査の現在値
+
+機械台帳の現在値は registry 75件、expert pending 75件、表示面フィルタ（脳表／断面／ブロック標本／復習）54／16／30／21件です。学習者向けmappingは222/222件が解決済みで、family別は sections21／surface52／free75／neurovascular22／blocks52です。アプリ在庫は regions26／landmarks8／deep5／basal13／neurovascular22／sections21／block specimens8／layers44／pathways3です。
+
+これは来歴表示の機械監査であり、解剖学的妥当性の検証や専門家レビュー完了を示しません。56件からの19件追加（surface／block app-only 18行とoptic nerve `cn2`行1件）、旧ID33と`cn2`／`opticChiasm`の分離、ID39・40のexpert pending維持は [LEARNER_PROVENANCE_DISPLAY_AUDIT.md](LEARNER_PROVENANCE_DISPLAY_AUDIT.md) に記録しています。2026-08-22の全56件・表示面36／16／29／21件およびroute156/156の実測履歴は、下記の既存記録を書き換えず保持します。
+
+### 2026-08-23 最終ローカル実ブラウザ確認
+
+Chrome 151のin-app browserで`http://127.0.0.1:4201`を確認し、review panel 75/75、filter surface54／sections16／blocks30／quiz21／all75、app-onlyカードの日本語見出し（縁上回、II 視神経・視索）、自由観察の縁上回「試作」＋CerebrA詳細、`cn2`／`opticChiasm`の「模式」、block choroid plexusの「模式」＋未保証説明を確認した。route auditは`work/browser-audit/beta-route-audit-learner-provenance-final-2026-08-23.json`に保存し、26経路×3幅×direct/reload＝156/156、`allPassed: true`。390 px設定の`clientWidth`は375 pxで、overflow／error／loader／WebGL fallbackはなかった。これは表示回帰の確認であり、解剖学的妥当性の検証ではない。公開URL、物理端末、別GPU、専門家レビューは未確認である。
 
 ## 優先度
 
