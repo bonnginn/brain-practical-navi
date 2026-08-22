@@ -26,6 +26,14 @@ export type SelectionMeshLayer={files:string[];color:[number,number,number]};
 export type IdentifiedPoint={id:number;x:number;y:number;certainty:"atlas"|"manual"|"provisional"|"reviewed"};
 export type SurfaceIdentifiedPoint={source:"surface"|"neurovascular";id:number};
 const DISPLAY_TONE:Tone={contrast:1.07,brightness:1,sharpness:.08};
+// Transparency is a display policy only: no atlas vertices, faces, or labels
+// are changed here. Keep the shell and teaching layers on the same scale so a
+// ghost view does not make one hindbrain component look opaque by accident.
+const SURFACE_GHOST_OPACITY=.18;
+const TEACHING_OVERLAY_OPACITY=.78;
+const TEACHING_OVERLAY_SELECTED_OPACITY=.98;
+function teachingColor(color:number[],opacity=TEACHING_OVERLAY_OPACITY){return [color[0],color[1],color[2],opacity]}
+function selectionColor(color:[number,number,number],opacity=TEACHING_OVERLAY_SELECTED_OPACITY){return [color[0]/255,color[1]/255,color[2]/255,opacity]}
 let sharedAtlasRenderCanvas:HTMLCanvasElement|null=null;
 function atlasRenderCanvas(width:number,height:number){
   if(!sharedAtlasRenderCanvas||sharedAtlasRenderCanvas.getContext("webgl")?.isContextLost())sharedAtlasRenderCanvas=document.createElement("canvas");
@@ -440,7 +448,7 @@ function cutPlaneMesh(plane:Plane,value:number):Mesh{
 
 function drawWebGL(canvas:HTMLCanvasElement,selectionLayers:{meshes:Mesh[];color:[number,number,number]}[],surface:Mesh[],segments:Mesh[],overlays:Mesh[],basal:Mesh[],deep:Mesh[],landmarks:Mesh[],blockMeshes:LoadedSpecimenPart[]|null,rot:Rotation,plane:Plane,position:number,view:"inside"|"ghost"|"extracted"|"segmented",showFocus:boolean,contrast:"t1"|"t2"|"bigbrain"|"single",showCutPlane:boolean,hemisphere:"both"|"left"|"right",showCerebellum:boolean,showPonsMedulla:boolean,showMidbrain:boolean,neurovascularOverlay:NeurovascularOverlay,showBrainstemNerves:boolean,surfaceHighlights:HighlightLayer[],surfaceLandmarks:SurfaceLandmark[],surfaceDeepLandmarks:SurfaceDeepLandmark[],neurovascularHighlights:HighlightLayer[],specimenLayers:string[],specimenTissueMode:SpecimenTissueMode,showBasalLandmarks:boolean,basalLandmark:BasalLandmark,basalHighlights:BasalLandmark[],basalOnlySelected:boolean,specimenBlock:SpecimenBlock,zoom:number):boolean{
   const targetCanvas=canvas;canvas=atlasRenderCanvas(targetCanvas.width,targetCanvas.height);
-  const gl=canvas.getContext("webgl",{alpha:false,antialias:true});if(!gl)return false;const vs=`attribute vec3 p,n;attribute float a;attribute vec4 h;uniform mat3 r;uniform float scale,depthBias;varying float l,s,rim;varying vec3 anatomy;varying vec4 highlight;void main(){vec3 q=vec3(p.z,p.x,p.y);anatomy=q;vec3 nn=normalize(r*vec3(n.z,n.x,n.y));q.y+=16.;q=r*q;float key=max(dot(nn,normalize(vec3(-.46,.55,.72))),0.);float fill=max(dot(nn,normalize(vec3(.72,.18,.48))),0.);l=.16+.72*pow(key,.70)+.20*fill;rim=pow(1.-abs(nn.z),2.2);s=a;highlight=h;gl_Position=vec4(q.x/96.*scale,q.y/96.*scale,q.z/138.*scale-depthBias,1.);}`;const fs=`precision mediump float;uniform vec4 color;uniform float clipOn,clipAxis,clipValue,material,hemiMode;varying float l,s,rim;varying vec3 anatomy;varying vec4 highlight;void main(){float q=clipAxis<.5?anatomy.x:(clipAxis<1.5?anatomy.y:anatomy.z);if(clipOn>.5&&q<clipValue)discard;if(hemiMode<-.5&&anatomy.x>0.)discard;if(hemiMode>.5&&anatomy.x<0.)discard;vec3 outColor;if(material<.5){float sulcus=pow(clamp((1.-s)/.56,0.,1.),.62);vec3 lit=color.rgb*(.40+.76*min(l,1.));outColor=mix(lit,vec3(.045,.060,.067),sulcus*.86)+vec3(.18,.22,.24)*rim*.28;}else if(material<1.5){float gloss=pow(max(l-.34,0.),2.2);outColor=color.rgb*(.58+.62*min(l,1.))+vec3(.24)*gloss+vec3(.16)*rim*.22;}else if(material<2.5){float groove=pow(clamp((1.-s)/.56,0.,1.),.7);outColor=mix(color.rgb*(.48+.66*min(l,1.)),color.rgb*.33,groove*.68)+vec3(.10)*rim*.18;}else if(material<3.5){outColor=color.rgb;}else{float tissue=smoothstep(.02,.98,s);vec3 hist=mix(vec3(.25,.15,.095),vec3(.91,.80,.62),tissue);hist=mix(hist,hist*color.rgb,0.16);outColor=hist*(.48+.64*min(l,1.))+vec3(.15,.12,.09)*rim*.20;}if(highlight.a>.5)outColor=mix(outColor,highlight.rgb,.78);gl_FragColor=vec4(outColor,color.a);}`;const prog=gl.createProgram()!,vertexShader=shader(gl,gl.VERTEX_SHADER,vs),fragmentShader=shader(gl,gl.FRAGMENT_SHADER,fs);gl.attachShader(prog,vertexShader);gl.attachShader(prog,fragmentShader);gl.linkProgram(prog);gl.deleteShader(vertexShader);gl.deleteShader(fragmentShader);gl.useProgram(prog);gl.viewport(0,0,canvas.width,canvas.height);gl.clearColor(.10,.12,.13,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.enable(gl.DEPTH_TEST);gl.enable(gl.CULL_FACE);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);const specimenScale=specimenBlock==="midbrain-section"?2:specimenBlock==="medial-temporal"?1.3:specimenBlock==="diencephalon"?1.18:1;gl.uniform1f(gl.getUniformLocation(prog,"scale"),zoom*specimenScale);gl.uniform1f(gl.getUniformLocation(prog,"depthBias"),0);gl.uniform1f(gl.getUniformLocation(prog,"hemiMode"),0);
+  const gl=canvas.getContext("webgl",{alpha:false,antialias:true});if(!gl)return false;const vs=`attribute vec3 p,n;attribute float a;attribute vec4 h;uniform mat3 r;uniform float scale,depthBias;varying float l,s,rim;varying vec3 anatomy;varying vec4 highlight;void main(){vec3 q=vec3(p.z,p.x,p.y);anatomy=q;vec3 nn=normalize(r*vec3(n.z,n.x,n.y));q.y+=16.;q=r*q;float key=max(dot(nn,normalize(vec3(-.46,.55,.72))),0.);float fill=max(dot(nn,normalize(vec3(.72,.18,.48))),0.);l=.16+.72*pow(key,.70)+.20*fill;rim=pow(1.-abs(nn.z),2.2);s=a;highlight=h;gl_Position=vec4(q.x/96.*scale,q.y/96.*scale,q.z/138.*scale-depthBias,1.);}`;const fs=`precision mediump float;uniform vec4 color;uniform float clipOn,clipAxis,clipValue,material,hemiMode,selectedOpacity;varying float l,s,rim;varying vec3 anatomy;varying vec4 highlight;void main(){float q=clipAxis<.5?anatomy.x:(clipAxis<1.5?anatomy.y:anatomy.z);if(clipOn>.5&&q<clipValue)discard;if(hemiMode<-.5&&anatomy.x>0.)discard;if(hemiMode>.5&&anatomy.x<0.)discard;vec3 outColor;if(material<.5){float sulcus=pow(clamp((1.-s)/.56,0.,1.),.62);vec3 lit=color.rgb*(.40+.76*min(l,1.));outColor=mix(lit,vec3(.045,.060,.067),sulcus*.86)+vec3(.18,.22,.24)*rim*.28;}else if(material<1.5){float gloss=pow(max(l-.34,0.),2.2);outColor=color.rgb*(.58+.62*min(l,1.))+vec3(.24)*gloss+vec3(.16)*rim*.22;}else if(material<2.5){float groove=pow(clamp((1.-s)/.56,0.,1.),.7);outColor=mix(color.rgb*(.48+.66*min(l,1.)),color.rgb*.33,groove*.68)+vec3(.10)*rim*.18;}else if(material<3.5){outColor=color.rgb;}else{float tissue=smoothstep(.02,.98,s);vec3 hist=mix(vec3(.25,.15,.095),vec3(.91,.80,.62),tissue);hist=mix(hist,hist*color.rgb,0.16);outColor=hist*(.48+.64*min(l,1.))+vec3(.15,.12,.09)*rim*.20;}if(highlight.a>.5)outColor=mix(outColor,highlight.rgb,.78);float outputAlpha=mix(color.a,selectedOpacity,clamp(highlight.a,0.,1.));gl_FragColor=vec4(outColor,outputAlpha);}`;const prog=gl.createProgram()!,vertexShader=shader(gl,gl.VERTEX_SHADER,vs),fragmentShader=shader(gl,gl.FRAGMENT_SHADER,fs);gl.attachShader(prog,vertexShader);gl.attachShader(prog,fragmentShader);gl.linkProgram(prog);gl.deleteShader(vertexShader);gl.deleteShader(fragmentShader);gl.useProgram(prog);gl.viewport(0,0,canvas.width,canvas.height);gl.clearColor(.10,.12,.13,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.enable(gl.DEPTH_TEST);gl.enable(gl.CULL_FACE);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);const specimenScale=specimenBlock==="midbrain-section"?2:specimenBlock==="medial-temporal"?1.3:specimenBlock==="diencephalon"?1.18:1;gl.uniform1f(gl.getUniformLocation(prog,"scale"),zoom*specimenScale);gl.uniform1f(gl.getUniformLocation(prog,"depthBias"),0);gl.uniform1f(gl.getUniformLocation(prog,"hemiMode"),0);gl.uniform1f(gl.getUniformLocation(prog,"selectedOpacity"),TEACHING_OVERLAY_SELECTED_OPACITY);
   if(neurovascularOverlay!=="none")gl.uniform1f(gl.getUniformLocation(prog,"scale"),zoom*.88);
   const ax=rot.x*Math.PI/180,ay=rot.y*Math.PI/180,az=(rot.z??0)*Math.PI/180,cx=Math.cos(ax),sx=Math.sin(ax),cy=Math.cos(ay),sy=Math.sin(ay),cz=Math.cos(az),sz=Math.sin(az),m=new Float32Array([cz*cy-sz*sx*sy,sz*cy+cz*sx*sy,-cx*sy,-sz*cx,cz*cx,sx,cz*sy+sz*sx*cy,sz*sy-cz*sx*cy,cx*cy]);gl.uniformMatrix3fv(gl.getUniformLocation(prog,"r"),false,m);
   const axis=plane==="sagittal"?0:plane==="horizontal"?1:2,clip=cutCoordinate(plane,position,contrast);gl.uniform1f(gl.getUniformLocation(prog,"clipAxis"),axis);gl.uniform1f(gl.getUniformLocation(prog,"clipValue"),clip);gl.uniform1f(gl.getUniformLocation(prog,"clipOn"),view==="extracted"?1:0);
@@ -448,6 +456,12 @@ function drawWebGL(canvas:HTMLCanvasElement,selectionLayers:{meshes:Mesh[];color
   const visibleSurface=surface.filter((_,i)=>(showCerebellum||i!==2)&&(showPonsMedulla||i!==3)&&(showMidbrain||i!==4)&&(hemisphere==="both"||i>1||(hemisphere==="left"?i===0:i===1)));
   const visibleSegments=segments.filter((_,i)=>(showCerebellum||i!==2)&&(showPonsMedulla||i!==3)&&(showMidbrain||i!==4)&&(hemisphere==="both"||i>1||(hemisphere==="left"?i===0:i===1)));
   const visibleBlocks=blockMeshes?.filter(part=>(showCerebellum||part.definition.key!=="cerebellum")&&(showPonsMedulla||(part.definition.key!=="pons-medulla"&&part.definition.attachment!=="pons-medulla"))&&(!part.definition.layer||specimenLayers.includes(part.definition.layer)));
+  const ghostSurface=view==="ghost"&&blockMeshes===null;
+  const drawSurfaceShell=()=>{
+    const alpha=view==="ghost"?SURFACE_GHOST_OPACITY:view==="extracted"?.92:1;
+    const shellColors=[[.78,.80,.79,alpha],[.84,.85,.83,alpha],[.62,.54,.42,alpha],[.57,.66,.69,alpha],[.66,.59,.54,alpha]];
+    visibleSurface.forEach(part=>{const i=surface.indexOf(part);draw(part,shellColors[i],0,gl.TRIANGLES,i<2?surfaceHighlights:[])});
+  };
   if(visibleBlocks){
     gl.uniform1f(gl.getUniformLocation(prog,"clipOn"),0);gl.disable(gl.CULL_FACE);
     const hasSelectableStructures=blockMeshes?.some(part=>!!part.definition.layer)??false;
@@ -463,49 +477,60 @@ function drawWebGL(canvas:HTMLCanvasElement,selectionLayers:{meshes:Mesh[];color
     }
   }
   else if(view==="segmented"){const palette=[[.72,.78,.81,1],[.83,.86,.87,1],[.68,.56,.38,1],[.52,.62,.65,1],[.67,.55,.48,1],[.78,.48,.44,1],[.25,.68,.75,1]];gl.disable(gl.CULL_FACE);visibleSegments.forEach(part=>{const i=segments.indexOf(part);draw(part,palette[i],2)});}
-  else{const alpha=view==="ghost"?.13:view==="extracted"?.92:1,shellColors=[[.78,.80,.79,alpha],[.84,.85,.83,alpha],[.62,.54,.42,alpha],[.57,.66,.69,view==="ghost"?.78:alpha],[.66,.59,.54,view==="ghost"?.78:alpha]];visibleSurface.forEach(part=>{const i=surface.indexOf(part);draw(part,shellColors[i],0,gl.TRIANGLES,i<2?surfaceHighlights:[])});}
-  if(showFocus&&selectionLayers.length){gl.clear(gl.DEPTH_BUFFER_BIT);gl.disable(gl.CULL_FACE);gl.uniform1f(gl.getUniformLocation(prog,"clipOn"),view==="extracted"?1:0);selectionLayers.forEach(layer=>layer.meshes.forEach(part=>draw(part,[layer.color[0]/255,layer.color[1]/255,layer.color[2]/255,1],1)));}
-  if(surfaceLandmarks.length&&blockMeshes===null){
+  else if(!ghostSurface)drawSurfaceShell();
+  if(showFocus&&selectionLayers.length){if(!ghostSurface)gl.clear(gl.DEPTH_BUFFER_BIT);gl.disable(gl.CULL_FACE);gl.uniform1f(gl.getUniformLocation(prog,"clipOn"),view==="extracted"?1:0);selectionLayers.forEach(layer=>layer.meshes.forEach(part=>draw(part,selectionColor(layer.color),1)));}
+  const drawSurfaceLandmarks=()=>{
     gl.uniform1f(gl.getUniformLocation(prog,"clipOn"),0);gl.uniform1f(gl.getUniformLocation(prog,"hemiMode"),hemisphere==="left"?-1:hemisphere==="right"?1:0);gl.disable(gl.CULL_FACE);gl.depthFunc(gl.LEQUAL);
-    SURFACE_LANDMARKS.forEach((definition,index)=>{if(!surfaceLandmarks.includes(definition.key))return;if(definition.key==="longitudinal-fissure")draw(landmarks[index],definition.color,1);else if(definition.key==="lateral-sulcus")visibleSurface.slice(0,2).forEach(part=>draw(surfaceRegionUpperRimMesh(part,[96,45],2.05,.9),definition.color,3));else if(definition.key==="calcarine-sulcus")visibleSurface.slice(0,2).forEach(part=>draw(surfaceLevelMesh(part,[57,6],0,-14,.9),definition.color,3));else visibleSurface.slice(0,2).forEach(part=>draw(surfaceBoundaryMesh(part,definition.key,2.05,.9),definition.color,3))});
+    SURFACE_LANDMARKS.forEach((definition,index)=>{if(!surfaceLandmarks.includes(definition.key))return;const color=teachingColor(definition.color,TEACHING_OVERLAY_SELECTED_OPACITY);if(definition.key==="longitudinal-fissure")draw(landmarks[index],color,1);else if(definition.key==="lateral-sulcus")visibleSurface.slice(0,2).forEach(part=>draw(surfaceRegionUpperRimMesh(part,[96,45],2.05,.9),color,3));else if(definition.key==="calcarine-sulcus")visibleSurface.slice(0,2).forEach(part=>draw(surfaceLevelMesh(part,[57,6],0,-14,.9),color,3));else visibleSurface.slice(0,2).forEach(part=>draw(surfaceBoundaryMesh(part,definition.key,2.05,.9),color,3))});
     gl.uniform1f(gl.getUniformLocation(prog,"hemiMode"),0);
-  }
+  };
+  if(surfaceLandmarks.length&&blockMeshes===null&&!ghostSurface)drawSurfaceLandmarks();
   if(surfaceDeepLandmarks.length&&blockMeshes===null){
     // These are explicit teaching overlays, never part of the default surface.
-    // Clear depth so the selected relation is legible, then clip paired meshes
-    // to the displayed hemisphere instead of drawing a misleading full model.
-    gl.clear(gl.DEPTH_BUFFER_BIT);
+    // Keep depth testing active so a selected relation follows the model rather
+    // than becoming an always-front decal in a transparent view.
     gl.uniform1f(gl.getUniformLocation(prog,"clipOn"),0);gl.uniform1f(gl.getUniformLocation(prog,"hemiMode"),hemisphere==="left"?-1:hemisphere==="right"?1:0);gl.uniform1f(gl.getUniformLocation(prog,"depthBias"),.006);gl.disable(gl.CULL_FACE);gl.depthFunc(gl.LEQUAL);
-    SURFACE_DEEP_LANDMARKS.forEach((definition,index)=>{if(surfaceDeepLandmarks.includes(definition.key))draw(definition.key==="septum-pellucidum"?conservativeSeptumMesh(deep[index]):deep[index],definition.color,1)});
+    SURFACE_DEEP_LANDMARKS.forEach((definition,index)=>{if(surfaceDeepLandmarks.includes(definition.key))draw(definition.key==="septum-pellucidum"?conservativeSeptumMesh(deep[index]):deep[index],teachingColor(definition.color,TEACHING_OVERLAY_SELECTED_OPACITY),1)});
     gl.uniform1f(gl.getUniformLocation(prog,"hemiMode"),0);gl.uniform1f(gl.getUniformLocation(prog,"depthBias"),0);
   }
   if(showBasalLandmarks){
-    if(view==="ghost")gl.clear(gl.DEPTH_BUFFER_BIT);gl.uniform1f(gl.getUniformLocation(prog,"clipOn"),0);gl.disable(gl.CULL_FACE);const keys:BasalLandmark[]=["olfactory","optic","infundibulum","mammillary","perforated","peduncles","pyramids","olives"],palette=[[.88,.65,.27,1],[.95,.84,.42,1],[.85,.42,.54,1],[.73,.44,.27,1],[.31,.65,.63,1],[.31,.47,.72,1],[.89,.68,.26,1],[.84,.42,.33,1]],neutral=[.78,.82,.83,1],hypothalamicOnly=basalLandmark==="hypothalamic",brainstemOnly=basalLandmark==="brainstem-only",hideBrainstemPatches=basalLandmark==="without-brainstem-patches",nerveOverlayVisible=neurovascularOverlay==="nerves"||neurovascularOverlay==="both";basal.forEach((part,index)=>{const key=keys[index];if(key==="mammillary")return;if(nerveOverlayVisible&&(["olfactory","optic"] as BasalLandmark[]).includes(key))return;if(hideBrainstemPatches&&(key==="pyramids"||key==="olives"))return;if(brainstemOnly&&!(["peduncles","pyramids","olives"] as BasalLandmark[]).includes(key))return;if(hypothalamicOnly&&!(["infundibulum","mammillary"] as BasalLandmark[]).includes(key))return;const active=hypothalamicOnly||basalHighlights.includes(key);if(basalOnlySelected&&!active)return;
+    // Do not clear depth here: helpers must remain depth-tested in ghost mode.
+    gl.uniform1f(gl.getUniformLocation(prog,"clipOn"),0);gl.disable(gl.CULL_FACE);gl.depthFunc(gl.LEQUAL);const keys:BasalLandmark[]=["olfactory","optic","infundibulum","mammillary","perforated","peduncles","pyramids","olives"],palette=[[.88,.65,.27,1],[.95,.84,.42,1],[.85,.42,.54,1],[.73,.44,.27,1],[.31,.65,.63,1],[.31,.47,.72,1],[.89,.68,.26,1],[.84,.42,.33,1]],neutral=[.78,.82,.83,1],hypothalamicOnly=basalLandmark==="hypothalamic",brainstemOnly=basalLandmark==="brainstem-only",hideBrainstemPatches=basalLandmark==="without-brainstem-patches",nerveOverlayVisible=neurovascularOverlay==="nerves"||neurovascularOverlay==="both";basal.forEach((part,index)=>{const key=keys[index];if(key==="mammillary")return;if(nerveOverlayVisible&&(["olfactory","optic"] as BasalLandmark[]).includes(key))return;if(hideBrainstemPatches&&(key==="pyramids"||key==="olives"))return;if(brainstemOnly&&!(["peduncles","pyramids","olives"] as BasalLandmark[]).includes(key))return;if(hypothalamicOnly&&!(["infundibulum","mammillary"] as BasalLandmark[]).includes(key))return;const active=hypothalamicOnly||basalHighlights.includes(key);if(basalOnlySelected&&!active)return;
       // Pyramids and olives are generated colour patches on the real
       // pons-medulla mesh, not independent anatomy. Never leave their helper
       // polygons visible in the neutral/default model.
-      if((key==="pyramids"||key==="olives")&&!hypothalamicOnly){if(active&&showPonsMedulla)draw(ventralSurfacePatchMesh(surface[3],key),palette[index],3);return}draw(part,active?[...palette[index]]:[...neutral],active?1:0)});
+      if((key==="pyramids"||key==="olives")&&!hypothalamicOnly){if(active&&showPonsMedulla)draw(ventralSurfacePatchMesh(surface[3],key),teachingColor(palette[index],TEACHING_OVERLAY_SELECTED_OPACITY),3);return}draw(part,teachingColor(active?palette[index]:neutral,active?TEACHING_OVERLAY_SELECTED_OPACITY:TEACHING_OVERLAY_OPACITY),active?1:0)});
     // Brainstem lesson targets reuse the actual midbrain/pons-medulla shells.
     // The colliculi remain depth-tested dorsal landmarks: an inferior viewer
     // must rotate the model rather than seeing them falsely projected through.
     if(!hypothalamicOnly){gl.uniform1f(gl.getUniformLocation(prog,"depthBias"),.003);
-      if(basalHighlights.includes("hypothalamus"))draw(deep[4],[.77,.34,.51,1],1);else if(!basalOnlySelected&&basalLandmark==="all")draw(deep[4],neutral,0);
-      if(showMidbrain&&basalHighlights.includes("midbrain"))draw(surface[4],[.46,.40,.69,1],1);
-      if(showPonsMedulla&&basalHighlights.includes("pons"))draw(brainstemLevelMesh(surface[3],"pons"),[.21,.60,.60,1],1);
-      if(showPonsMedulla&&basalHighlights.includes("medulla"))draw(brainstemLevelMesh(surface[3],"medulla"),[.40,.61,.41,1],1);
-      if(showMidbrain&&basalHighlights.includes("superior-colliculi"))draw(midbrainDorsalPatchMesh(surface[4],"superior-colliculi"),[.85,.33,.40,1],3);
-      if(showMidbrain&&basalHighlights.includes("inferior-colliculi"))draw(midbrainDorsalPatchMesh(surface[4],"inferior-colliculi"),[.89,.54,.26,1],3);
+      if(basalHighlights.includes("hypothalamus"))draw(deep[4],teachingColor([.77,.34,.51],TEACHING_OVERLAY_SELECTED_OPACITY),1);else if(!basalOnlySelected&&basalLandmark==="all")draw(deep[4],teachingColor(neutral),0);
+      if(showMidbrain&&basalHighlights.includes("midbrain"))draw(surface[4],teachingColor([.46,.40,.69],TEACHING_OVERLAY_SELECTED_OPACITY),1);
+      if(showPonsMedulla&&basalHighlights.includes("pons"))draw(brainstemLevelMesh(surface[3],"pons"),teachingColor([.21,.60,.60],TEACHING_OVERLAY_SELECTED_OPACITY),1);
+      if(showPonsMedulla&&basalHighlights.includes("medulla"))draw(brainstemLevelMesh(surface[3],"medulla"),teachingColor([.40,.61,.41],TEACHING_OVERLAY_SELECTED_OPACITY),1);
+      if(showMidbrain&&basalHighlights.includes("superior-colliculi"))draw(midbrainDorsalPatchMesh(surface[4],"superior-colliculi"),teachingColor([.85,.33,.40],TEACHING_OVERLAY_SELECTED_OPACITY),3);
+      if(showMidbrain&&basalHighlights.includes("inferior-colliculi"))draw(midbrainDorsalPatchMesh(surface[4],"inferior-colliculi"),teachingColor([.89,.54,.26],TEACHING_OVERLAY_SELECTED_OPACITY),3);
       gl.uniform1f(gl.getUniformLocation(prog,"depthBias"),0);
     }
   }
   if(neurovascularOverlay!=="none"){
-    if(view==="ghost")gl.clear(gl.DEPTH_BUFFER_BIT);gl.uniform1f(gl.getUniformLocation(prog,"clipOn"),0);gl.disable(gl.CULL_FACE);gl.depthFunc(gl.LEQUAL);
+    // Vessels and nerves use the same depth-tested teaching-layer policy in
+    // normal and ghost views. Their selected vertices receive the stronger
+    // opacity through the shader highlight channel.
+    gl.uniform1f(gl.getUniformLocation(prog,"clipOn"),0);gl.disable(gl.CULL_FACE);gl.depthFunc(gl.LEQUAL);
     if(neurovascularOverlay==="vessels"||neurovascularOverlay==="both"){
-      draw(overlays[0],[.86,.18,.14,1],1,gl.TRIANGLES,neurovascularHighlights);draw(overlays[1],[.66,.16,.12,1],1,gl.TRIANGLES,neurovascularHighlights);
+      draw(overlays[0],teachingColor([.86,.18,.14]),1,gl.TRIANGLES,neurovascularHighlights);draw(overlays[1],teachingColor([.66,.16,.12]),1,gl.TRIANGLES,neurovascularHighlights);
     }
     if(neurovascularOverlay==="nerves"||neurovascularOverlay==="both"){
-      draw(overlays[2],[.96,.83,.42,1],1,gl.TRIANGLES,neurovascularHighlights);if(showBrainstemNerves){draw(overlays[3],[.90,.67,.31,1],1,gl.TRIANGLES,neurovascularHighlights);draw(overlays[4],[.78,.55,.24,1],1,gl.TRIANGLES,neurovascularHighlights)}
+      draw(overlays[2],teachingColor([.96,.83,.42]),1,gl.TRIANGLES,neurovascularHighlights);if(showBrainstemNerves){draw(overlays[3],teachingColor([.90,.67,.31]),1,gl.TRIANGLES,neurovascularHighlights);draw(overlays[4],teachingColor([.78,.55,.24]),1,gl.TRIANGLES,neurovascularHighlights)}
     }
+  }
+  if(ghostSurface){
+    // The transparent shell is composited after depth-tested overlays. This
+    // lets an inside vessel be seen through the shell without making every
+    // overlay a screen-space, always-front annotation.
+    gl.enable(gl.CULL_FACE);gl.enable(gl.DEPTH_TEST);gl.depthMask(true);gl.depthFunc(gl.LESS);gl.uniform1f(gl.getUniformLocation(prog,"clipOn"),0);gl.uniform1f(gl.getUniformLocation(prog,"hemiMode"),0);gl.uniform1f(gl.getUniformLocation(prog,"depthBias"),0);drawSurfaceShell();
+    if(surfaceLandmarks.length)drawSurfaceLandmarks();
   }
   if(showCutPlane){const planeMesh=cutPlaneMesh(plane,clip);gl.clear(gl.DEPTH_BUFFER_BIT);gl.disable(gl.DEPTH_TEST);gl.disable(gl.CULL_FACE);gl.depthMask(false);gl.uniform1f(gl.getUniformLocation(prog,"clipOn"),0);draw(planeMesh,[.29,.72,.88,.14],3,gl.TRIANGLE_FAN);draw(planeMesh,[.46,.84,.98,.92],3,gl.LINE_LOOP);gl.depthMask(true);gl.enable(gl.DEPTH_TEST)}gl.deleteProgram(prog);
   const target=targetCanvas.getContext("2d");if(target){target.clearRect(0,0,targetCanvas.width,targetCanvas.height);target.drawImage(canvas,0,0)}return true

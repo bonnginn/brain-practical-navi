@@ -475,7 +475,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /function toggleFreeHindbrain\(\)/);
   assert.match(page, /aria-label="自由観察の表示レイヤー"[^\n]+>橋・延髄<\/button>/);
   assert.doesNotMatch(page, /aria-label="自由観察の表示レイヤー"[^\n]+>脳神経<\/button>/);
-  assert.match(canvas, /else if\(!basalOnlySelected&&basalLandmark==="all"\)draw\(deep\[4\],neutral,0\)/);
+  assert.match(canvas, /else if\(!basalOnlySelected&&basalLandmark==="all"\)draw\(deep\[4\],teachingColor\(neutral\),0\)/);
   assert.match(page, /free:\{name:"自由観察"/);
   assert.match(page, /文字検索または分類別索引から追加/);
   assert.match(page, /構造索引/);
@@ -1992,6 +1992,34 @@ test("smooths cerebellar shading without moving the atlas boundary", async () =>
   assert.match(atlasCanvas,/pass<4/);
   assert.match(atlasCanvas,/const mesh=\{vertices,normals,shade,regions,faces\}/);
   assert.match(atlasCanvas,/\[\.78,\.80,\.79,alpha\][\s\S]*\[\.62,\.54,\.42,alpha\]/);
+});
+
+test("keeps ghost-surface teaching layers depth-tested and opacity-consistent", async () => {
+  const [atlasCanvas, page, audit] = await Promise.all([
+    readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8"),
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("TRANSPARENCY_VISIBILITY_AUDIT.md", root), "utf8"),
+  ]);
+  assert.match(atlasCanvas, /const SURFACE_GHOST_OPACITY=\.18/);
+  assert.match(atlasCanvas, /const TEACHING_OVERLAY_OPACITY=\.78/);
+  assert.match(atlasCanvas, /const TEACHING_OVERLAY_SELECTED_OPACITY=\.98/);
+  assert.match(atlasCanvas, /function teachingColor\(color:number\[],opacity=TEACHING_OVERLAY_OPACITY\)/);
+  assert.match(atlasCanvas, /function selectionColor\(color:\[number,number,number\],opacity=TEACHING_OVERLAY_SELECTED_OPACITY\)\{return \[color\[0\]\/255,color\[1\]\/255,color\[2\]\/255,opacity\]\}/);
+  assert.match(atlasCanvas, /uniform float clipOn,clipAxis,clipValue,material,hemiMode,selectedOpacity/);
+  assert.match(atlasCanvas, /float outputAlpha=mix\(color\.a,selectedOpacity,clamp\(highlight\.a,0\.,1\.\)\)/);
+  assert.match(atlasCanvas, /const ghostSurface=view==="ghost"&&blockMeshes===null/);
+  assert.match(atlasCanvas, /else if\(!ghostSurface\)drawSurfaceShell\(\)/);
+  assert.match(atlasCanvas, /if\(showFocus&&selectionLayers\.length\)\{if\(!ghostSurface\)gl\.clear\(gl\.DEPTH_BUFFER_BIT\)/);
+  assert.match(atlasCanvas, /selectionLayers\.forEach\(layer=>layer\.meshes\.forEach\(part=>draw\(part,selectionColor\(layer\.color\),1\)\)\)/);
+  assert.match(atlasCanvas, /if\(ghostSurface\)\{[\s\S]*?gl\.depthFunc\(gl\.LESS\)[\s\S]*?drawSurfaceShell\(\)/);
+  assert.doesNotMatch(atlasCanvas, /if\(view==="ghost"\)gl\.clear\(gl\.DEPTH_BUFFER_BIT\)/);
+  assert.match(atlasCanvas, /draw\(overlays\[0\],teachingColor\(\[\.86,\.18,\.14\]\)/);
+  assert.match(atlasCanvas, /draw\(overlays\[2\],teachingColor\(\[\.96,\.83,\.42\]\)/);
+  assert.match(page, /透過時も補助レイヤーはモデルの奥行きを保って描画します/);
+  assert.match(page, /通常は半透明、選択中の神経・血管は白色と高い不透明度で追跡しやすくします/);
+  assert.match(audit, /実ブラウザ確認: 最終ビルド/);
+  assert.match(audit, /26経路×direct\/reload＝156\/156件/);
+  assert.match(audit, /形状・メッシュ・分節は変更しない/);
 });
 
 test("presents sulci as teaching guides rather than segmentation boundaries", async () => {
