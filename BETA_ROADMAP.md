@@ -158,6 +158,7 @@
 - [ ] 公開データ量と初回表示時間を実測し、過大な取得を減らしている。
 - [ ] 自動テスト、本番ビルド、公開URLの全経路巡回に合格する。（2026-08-22、status追加前25経路の150/150件に加え、statusを含む26経路×3幅×direct/reload＝156件もWindows Chrome 151（`http://127.0.0.1:4190`）で156/156合格。missing/duplicate/fail=0、console/request/UI error・loader・overflow・WebGL fallback=0。公開URL反映確認待ち。）
 - [ ] クイズ対象は画面上で十分に確認でき、未確認構造を正答として要求しない。（粒度監査で既存23件を形式・詳細・トピック・由来へ一意分類し、旧ID33の正答対象外と標準／試作の整合を自動検査。クイズ操作、試作バッジ、誤答から観察画面への復帰は実ブラウザ確認済み。標準採用基準の解剖学的妥当性は未完了で、誤答選択肢としての出現可能性は別途残る。）
+- [ ] 専門家レビューの対象と根拠を引き継げる。（準備のみ: `ANATOMY_REVIEW_HANDOFF.md` と共同制作画面の読み取り専用キューで、provenance台帳のexpert pending 56件を表示。パネルは一般のForm・Issue・PR入口の後ろで既定閉鎖、開いたときだけフィルタと一覧を表示する。観察リンクは対象を自動選択しない一般workspace入口に限定。Chrome 151のローカル通常buildで表示面別36／16／29／21件、複合フィルタ、ID39・40、旧ID33、390 px相当の横はみ出しなし・内側スクロールなしを実操作し、全経路156/156件にも合格。専門家確認、解剖学的妥当性、採否は未完了。ID39・40はプロジェクト内レビュー済みだがexpert pending、旧ID33混合領域は断面／通常クイズ正答と分節入口から除外。）
 - [ ] ライセンス、クレジット、免責、プライバシー、対応ソースが公開版と一致する。（部分的な根拠: 由来参照は既存DATA-MANIFESTグループまたは配布ファイルへ解決。公開版との最終一致確認は未実施。）
 - [ ] Google FormとGitHubのフィードバック導線が機能する。
 - [ ] 少なくとも1名の神経解剖学に詳しい確認者による必修範囲のレビュー記録がある。
@@ -180,3 +181,4 @@
 - [QUIZ_GRANULARITY_AUDIT.md](QUIZ_GRANULARITY_AUDIT.md): クイズ23問の形式・方向・トピック・由来分類と候補数フィルタの監査
 - [BETA_OBSERVATION_NOTES.md](BETA_OBSERVATION_NOTES.md): 利用観察から得た次期改善候補と実装・監修上の注意
 - [MOBILE_UI_AUDIT.md](MOBILE_UI_AUDIT.md): phone能力判定、専用dock、設定dialog、編集画面ガードの監査
+- [ANATOMY_REVIEW_HANDOFF.md](ANATOMY_REVIEW_HANDOFF.md): 専門家レビュー準備キューの範囲、導線、監査

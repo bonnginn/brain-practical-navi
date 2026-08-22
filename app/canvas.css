@@ -1075,6 +1075,48 @@ html, body, #root { height: 100%; overflow: hidden; }
 .collaborationGrid article a,
 .collaborationGrid article button { display: inline-block; padding: 8px 10px; border: 1px solid #1d6e69; background: #f3f8f6; color: #165c56; font-size: 13px; font-weight: 700; text-decoration: none; }
 .collaborationGrid article > div { display: flex; flex-wrap: wrap; gap: 6px; }
+.anatomyReviewPanel { margin-top: 14px; padding: 18px 20px; border: 1px solid #aebbb5; background: #f8f7f3; }
+.anatomyReviewPanel > .anatomyReviewPanelSummary { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 60px; cursor: pointer; list-style-position: inside; }
+.anatomyReviewPanelSummary > span { display: grid; min-width: 0; gap: 4px; }
+.anatomyReviewPanelSummary > span > span { color: #56736d; font: 11px monospace; letter-spacing: .08em; }
+.anatomyReviewPanelSummary b { color: #263d3a; font-size: 23px; }
+.anatomyReviewPanelSummary small { color: #697571; font-size: 13px; line-height: 1.45; }
+.anatomyReviewPanelBody { padding-top: 14px; }
+.anatomyReviewPanelHead { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.anatomyReviewPanelHead > div > span { color: #56736d; font: 11px monospace; letter-spacing: .08em; }
+.anatomyReviewPanelHead h2 { margin: 5px 0 0; font-size: 23px; }
+.anatomyReviewReadOnlyBadge { min-height: 30px; padding: 6px 9px; border: 1px solid #c6b28b; background: #fff7e8; color: #775d31; font-size: 12px; white-space: nowrap; }
+.anatomyReviewIntro { max-width: 980px; margin: 12px 0 14px; color: #465452; font-size: 14px; line-height: 1.7; }
+.anatomyReviewIntro code { padding: 1px 4px; background: #e8ece7; color: #315e58; }
+.anatomyReviewFilters { display: flex; flex-wrap: wrap; align-items: end; gap: 9px; padding: 10px; border: 1px solid #ccd2cc; background: #eef2ef; }
+.anatomyReviewFilters label { display: grid; gap: 4px; min-width: 190px; color: #50605c; font-size: 12px; font-weight: 700; }
+.anatomyReviewFilters select { min-height: 44px; padding: 7px 9px; border: 1px solid #9eada7; background: #fff; color: #25312f; }
+.anatomyReviewFilters output { min-height: 44px; display: inline-flex; align-items: center; padding: 0 9px; color: #315e58; font-size: 13px; font-weight: 700; }
+.anatomyReviewList { display: grid; gap: 7px; margin-top: 12px; overflow: visible; padding-right: 4px; }
+.anatomyReviewPanel[open] .anatomyReviewList { max-height: min(70vh,760px); overflow-y: auto; }
+.anatomyReviewCard { border: 1px solid #c1c9c3; background: #fff; }
+.anatomyReviewCard > summary { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 54px; padding: 8px 12px; cursor: pointer; list-style-position: inside; }
+.anatomyReviewCard > summary > span { display: grid; min-width: 0; gap: 2px; }
+.anatomyReviewCard > summary b { overflow: hidden; color: #263d3a; text-overflow: ellipsis; white-space: nowrap; }
+.anatomyReviewCard > summary small { overflow: hidden; color: #7b8783; font: 11px monospace; text-overflow: ellipsis; white-space: nowrap; }
+.anatomyReviewCard > summary em { flex: 0 0 auto; padding: 4px 7px; border: 1px solid #d8b58d; background: #fff6e9; color: #825d34; font-size: 11px; font-style: normal; font-weight: 700; }
+.anatomyReviewCard[open] > summary { border-bottom: 1px solid #d4dad5; background: #f5f7f4; }
+.anatomyReviewCardBody { padding: 12px 14px 14px; }
+.anatomyReviewFacts { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 8px 14px; margin: 0; }
+.anatomyReviewFacts > div { min-width: 0; }
+.anatomyReviewFacts dt { color: #72807c; font-size: 11px; font-weight: 700; }
+.anatomyReviewFacts dd { display: flex; flex-wrap: wrap; gap: 4px; margin: 3px 0 0; color: #354744; font-size: 13px; line-height: 1.45; }
+.anatomyReviewFacts dd span { padding: 2px 5px; border: 1px solid #c9d2cc; background: #f2f5f1; }
+.anatomyReviewWarning,.anatomyReviewNote { margin: 11px 0 0; padding: 9px 10px; border-left: 3px solid #c98554; background: #fff5e8; color: #644b3c; font-size: 13px; line-height: 1.6; }
+.anatomyReviewNote { border-left-color: #6d9a8d; background: #edf5f1; color: #385b54; }
+.anatomyReviewSubdetails { margin-top: 9px; padding: 7px 9px; border: 1px solid #d0d6d0; background: #f6f7f3; color: #465552; font-size: 13px; }
+.anatomyReviewSubdetails summary { min-height: 28px; cursor: pointer; color: #315e58; font-weight: 700; }
+.anatomyReviewSubdetails ul { margin: 6px 0 0; padding-left: 18px; }
+.anatomyReviewSubdetails p { margin: 5px 0 0; }
+.anatomyReviewObserve { display: inline-flex; align-items: center; min-height: 44px; margin-top: 11px; padding: 7px 11px; border: 1px solid #1d6e69; background: #edf5f2; color: #165c56; font-size: 13px; font-weight: 700; text-decoration: none; }
+.anatomyReviewNoObserve { display: inline-flex; align-items: center; min-height: 44px; margin-top: 11px; color: #697570; font-size: 13px; }
+.anatomyReviewEmpty { margin: 14px 0 0; padding: 14px; border: 1px dashed #b7c1ba; color: #5f6c68; }
+.anatomyReviewFooter { margin-top: 11px; color: #697571; font-size: 12px; line-height: 1.6; }
 .segmentationReviewNotice { display: grid; grid-template-columns: auto minmax(0,1fr) auto; align-items: center; gap: 12px; margin: 12px 0; padding: 12px 14px; border-left: 4px solid #d08d55; background: #fff1e3; }
 .segmentationReviewNotice p { margin: 0; color: #604c3e; font-size: 13px; line-height: 1.5; }
 .segmentationReviewNotice button { padding: 7px 9px; border: 1px solid #b77a49; background: #fff8ef; color: #744526; font-weight: 700; }
@@ -1109,6 +1151,18 @@ html, body, #root { height: 100%; overflow: hidden; }
   .collaborationArea{padding:18px 12px 32px}
   .collaborationGrid{grid-template-columns:1fr}
   .collaborationGrid article{min-height:0}
+  .anatomyReviewPanel{padding:14px 11px}
+  .anatomyReviewPanel>.anatomyReviewPanelSummary{align-items:flex-start}
+  .anatomyReviewPanelSummary b{font-size:21px}
+  .anatomyReviewPanelSummary small{line-height:1.4}
+  .anatomyReviewPanelHead h2{font-size:21px}
+  .anatomyReviewFilters{display:grid;grid-template-columns:1fr}
+  .anatomyReviewFilters label{min-width:0}
+  .anatomyReviewFilters output{padding-inline:0}
+  .anatomyReviewPanel[open] .anatomyReviewList{max-height:none;overflow:visible}
+  .anatomyReviewFacts{grid-template-columns:1fr}
+  .anatomyReviewCard>summary{align-items:flex-start;flex-direction:column;min-height:74px}
+  .anatomyReviewCard>summary em{align-self:flex-start}
   .segmentationReviewNotice{grid-template-columns:1fr}
   .segCoordinateReadout{grid-template-columns:1fr;gap:2px;padding-inline:9px}
   .segCoordinateReadout small{justify-self:start}

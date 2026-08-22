@@ -4,12 +4,15 @@ import { KeyboardEvent as ReactKeyboardEvent, PointerEvent, useEffect, useMemo, 
 import { AtlasVolumeCanvas, type BlockContextSpecimen, type HighlightLayer, type IdentifiedPoint } from "./AtlasVolumeCanvas";
 import { ManualSegmentationWorkbench } from "./ManualSegmentationWorkbench";
 import betaStatus from "./beta-status.json";
+import anatomyReviewRegistry from "../public/atlas/structure-provenance.json";
 import { freeObservationReadings, matchesJapaneseSearch, normalizeJapaneseSearch } from "../src/japaneseSearch";
 import { QUIZ_GRANULARITY_BY_TARGET, countQuizChoice, detailOptionsForFormat, filterQuizCandidates } from "../src/quizGranularity.mjs";
 import type { QuizDetail, QuizFormat, QuizFilterQuestion, QuizFilters, QuizOrigin } from "../src/quizGranularity.mjs";
 import { BLOCK_CONTEXT_SPECIMEN, createBlockContextState, shouldRenderBlockContext, transitionBlockContext } from "../src/blockContext.mjs";
 import type { BlockContextEvent } from "../src/blockContext.mjs";
 import { phoneCapabilityFromMedia } from "../src/mobileUi.mjs";
+import { deriveAnatomyReviewQueue, filterAnatomyReviewQueue, isLegacyOpticEntry, isMammillaryEntry, observationHashForEntry, observationWorkspaceForEntry } from "../src/anatomyReviewQueue.mjs";
+import type { AnatomyReviewQueueItem, AnatomyReviewSurface } from "../src/anatomyReviewQueue.mjs";
 import { advanceBasalStepperIndex, BASAL_GANGLIA_STEPS, startBasalGangliaStepperTimer } from "../src/pathwayStepper.mjs";
 import type { BasalGangliaStep } from "../src/pathwayStepper.mjs";
 
@@ -20,6 +23,7 @@ type OverlayMode = "help" | "feedback" | "legal" | "status";
 type BetaStatusItem = { id:string; heading:string; body:string; evidenceRefs:string[]; provenanceKeys?:string[] };
 type BetaStatusData = { schemaVersion:number; updated:string; phase:string; knownLimitations:BetaStatusItem[]; changes:BetaStatusItem[] };
 const betaStatusData=betaStatus as BetaStatusData;
+const anatomyReviewQueue=deriveAnatomyReviewQueue(anatomyReviewRegistry);
 type SurfaceViewKey = "lateral" | "superior" | "inferior" | "medial" | "arteries" | "cranialNerves" | "free";
 const surfaceViewKeys:SurfaceViewKey[]=["lateral","superior","inferior","medial","arteries","cranialNerves","free"];
 const planeKeys:Plane[]=["coronal","horizontal","sagittal"];
@@ -535,6 +539,62 @@ function currentPhoneCapability(){
   });
 }
 
+const anatomyReviewSurfaceLabels:Record<AnatomyReviewSurface,string>={all:"すべての表示面",surface:"脳表",sections:"断面",blocks:"ブロック標本",quiz:"復習"};
+const anatomyReviewRepresentationLabels:Record<string,string>={
+  "manual-same-grid":"同一格子・手動分節",
+  "atlas-provisional":"アトラス照合・試作",
+  "image-guided-provisional":"画像誘導・試作",
+  "image-guided-reviewed":"画像誘導・プロジェクト採用",
+  "atlas-surface":"脳表アトラス",
+  "schematic-3d":"模式3D",
+  "position-guide":"位置目安",
+  "text-only":"文章のみ",
+  "not-recorded":"未収録",
+};
+const anatomyReviewProjectLabels:Record<string,string>={pending:"プロジェクト内レビュー未完了","reviewed-by-project":"プロジェクト内レビュー済み（専門家レビューとは別）"};
+const anatomyReviewQuizLabels:Record<string,string>={standard:"通常クイズ対象",pilot:"試作クイズ対象",none:"クイズ対象外"};
+
+function AnatomyReviewQueuePanel({items,total,surfaceFilter,representationFilter,onSurfaceChange,onRepresentationChange}:{items:AnatomyReviewQueueItem[];total:number;surfaceFilter:AnatomyReviewSurface;representationFilter:string;onSurfaceChange:(value:AnatomyReviewSurface)=>void;onRepresentationChange:(value:string)=>void}){
+  const representationOptions=Array.isArray(anatomyReviewRegistry.representationEnum)?anatomyReviewRegistry.representationEnum:[];
+  return <details className="anatomyReviewPanel anatomyReviewReadOnly">
+    <summary className="anatomyReviewPanelSummary"><span><span>REVIEW PREPARATION · READ ONLY</span><b>専門家レビュー準備</b><small>expert pending {total}件・フィルタ後 {items.length}件</small></span><em className="anatomyReviewReadOnlyBadge">読み取り専用</em></summary>
+    <div className="anatomyReviewPanelBody">
+      <p className="anatomyReviewIntro">この一覧は、由来台帳で <code>expertReview: pending</code> の項目を、専門家が確認する前の準備用に表示します。専門家レビュー完了、解剖学的妥当性、採否は示しません。項目の編集・承認・保存や、レビュー担当者名の入力はできません。</p>
+      <div className="anatomyReviewFilters">
+        <label><span>表示面</span><select value={surfaceFilter} onChange={event=>onSurfaceChange(event.target.value as AnatomyReviewSurface)}>{Object.entries(anatomyReviewSurfaceLabels).map(([key,label])=><option key={key} value={key}>{label}</option>)}</select></label>
+        <label><span>表示区分</span><select value={representationFilter} onChange={event=>onRepresentationChange(event.target.value)}><option value="all">すべての表示区分</option>{representationOptions.map(value=><option key={value} value={value}>{anatomyReviewRepresentationLabels[value]??value}</option>)}</select></label>
+        <output aria-live="polite">{total}件中 {items.length}件</output>
+      </div>
+      {items.length?<div className="anatomyReviewList">{items.map(item=>{
+      const entry=item.entry;
+      const legacyOptic=isLegacyOpticEntry(entry);
+      const mammillary=isMammillaryEntry(entry);
+      const observationHash=observationHashForEntry(entry);
+      const observationWorkspace=observationWorkspaceForEntry(entry);
+      const observationLabel=observationWorkspace?anatomyReviewSurfaceLabels[observationWorkspace]:"";
+      return <details className="anatomyReviewCard" key={item.key}>
+        <summary><span><b>{entry.lectureLabel??item.key}</b><small>{item.key}</small></span><em>専門家レビュー未完了</em></summary>
+        <div className="anatomyReviewCardBody">
+          <dl className="anatomyReviewFacts">
+            <div><dt>由来区分</dt><dd>{entry.representations.map(value=><span key={value}>{anatomyReviewRepresentationLabels[value]??value}</span>)}</dd></div>
+            <div><dt>表示面</dt><dd>{entry.learnerSurfaces.length?entry.learnerSurfaces.map(value=><span key={value}>{anatomyReviewSurfaceLabels[value as AnatomyReviewSurface]??value}</span>):<span>利用者向け表示なし</span>}</dd></div>
+            <div><dt>専門家レビュー</dt><dd>未完了（pending）</dd></div>
+            <div><dt>プロジェクトレビュー</dt><dd>{anatomyReviewProjectLabels[entry.projectReview]??entry.projectReview}</dd></div>
+            <div><dt>クイズ扱い</dt><dd>{anatomyReviewQuizLabels[entry.quizEligibility]??entry.quizEligibility}</dd></div>
+          </dl>
+          {legacyOptic&&<p className="anatomyReviewWarning"><b>旧ID33混合領域</b> 断面学習画面・通常クイズの正答対象と分節編集入口には結びません。脳表の一般観察入口だけを表示します。</p>}
+          {mammillary&&<p className="anatomyReviewNote"><b>ID39・40</b> プロジェクト内レビューを経て公開教材ラベルとして採用していますが、専門家レビューは未完了です。</p>}
+          <details className="anatomyReviewSubdetails"><summary>既知の制限</summary><ul>{entry.knownLimitations.map((value,index)=><li key={`${item.key}-limit-${index}`}>{value}</li>)}</ul></details>
+          <details className="anatomyReviewSubdetails"><summary>source refs</summary>{entry.sourceRefs.length?<ul>{entry.sourceRefs.map(value=><li key={value}><code>{value}</code></li>)}</ul>:<p>この項目に記録されたsource refsはありません。</p>}</details>
+          {observationHash?<a className="anatomyReviewObserve" href={observationHash}>一般の{observationLabel}画面を開く（この項目・構造・位置は自動選択されません） →</a>:<span className="anatomyReviewNoObserve">対応する利用者向け観察入口はありません</span>}
+        </div>
+      </details>;
+      })}</div>:<p className="anatomyReviewEmpty">この条件に一致する準備項目はありません。</p>}
+      <footer className="anatomyReviewFooter">由来・確度・既知の制限を確認するための準備一覧です。専門家による確認、解剖学的判断、採用判断を代行しません。</footer>
+    </div>
+  </details>;
+}
+
 export default function Home() {
   const initialPlane=typeof window==="undefined"?"coronal":planeFromHash(window.location.hash);
   const initialBlockSpecimen=typeof window==="undefined"?"lateral-ventricle":blockSpecimenFromHash(window.location.hash);
@@ -562,6 +622,8 @@ export default function Home() {
   const [statusOpen,setStatusOpen]=useState(()=>typeof window!=="undefined"&&overlayFromHash(window.location.hash)==="status");
   const [phoneMode,setPhoneMode]=useState(currentPhoneCapability);
   const [phoneSettingsOpen,setPhoneSettingsOpen]=useState(false);
+  const [anatomyReviewSurfaceFilter,setAnatomyReviewSurfaceFilter]=useState<AnatomyReviewSurface>("all");
+  const [anatomyReviewRepresentationFilter,setAnatomyReviewRepresentationFilter]=useState("all");
   const overlayReturnFocus=useRef<HTMLElement|null>(null);
   const phoneSettingsDialogRef=useRef<HTMLDialogElement|null>(null);
   const phoneSettingsReturnFocus=useRef<HTMLElement|null>(null);
@@ -619,6 +681,7 @@ export default function Home() {
   const pullRequestUrl=`${repositoryBaseUrl}/pulls`;
   const governanceGuideUrl=`${repositoryBaseUrl}/blob/main/GOVERNANCE.md`;
   const licenseGuideUrl=`${repositoryBaseUrl}/blob/main/LICENSES.md`;
+  const anatomyReviewItems=useMemo(()=>filterAnatomyReviewQueue(anatomyReviewQueue,{surface:anatomyReviewSurfaceFilter,representation:anatomyReviewRepresentationFilter}),[anatomyReviewSurfaceFilter,anatomyReviewRepresentationFilter]);
   const sectionDeveloperControls=(import.meta.env.VITE_SECTION_DEVELOPER_CONTROLS as string|undefined)==="true";
   const current = structures[selectedStructure];
   const cavitySelection=selectedStructure==="ventricle"||selectedStructure==="thirdVentricle"||selectedStructure==="fourthVentricle";
@@ -1106,8 +1169,9 @@ export default function Home() {
         <article><span>具体的な変更</span><h2>Pull Requestを提案する</h2><p>コード、教材文、3Dデータの変更条件、DCO、出典・ライセンスの確認方法を共同制作ガイドにまとめています。</p><div><a href={contributingGuideUrl} target="_blank" rel="noreferrer">CONTRIBUTINGを読む</a><a href={pullRequestUrl} target="_blank" rel="noreferrer">Pull Request一覧 →</a></div></article>
         <article className="segmentationEntry"><span>端末内の差分</span><h2>セグメンテーションを修正する</h2><p>編集内容はこの端末内の差分で、公式データを直接変更しません。採用には、画像上の根拠、差分JSON、レビュー、プロジェクト管理者の判断が必要です。</p><button onClick={()=>openWorkspace("segment")}>編集ツールを開く →</button></article>
         <article><span>方針・採否</span><h2>運営方針を確認する</h2><p>公式版への採否、役割、クレジット、匿名参加、継続参加、運営承継の考え方を確認できます。</p><a href={governanceGuideUrl} target="_blank" rel="noreferrer">GOVERNANCEを読む →</a></article>
-        <article><span>権利・再利用</span><h2>ライセンスを確認する</h2><p>コード、教材文書、BigBrain・MNI・CerebrA由来データでは適用条件が異なります。公開・再配布前に確認してください。</p><div><a href={licenseGuideUrl} target="_blank" rel="noreferrer">ライセンス境界</a><button onClick={()=>openOverlay("legal")}>画面上の利用条件 →</button></div></article>
+         <article><span>権利・再利用</span><h2>ライセンスを確認する</h2><p>コード、教材文書、BigBrain・MNI・CerebrA由来データでは適用条件が異なります。公開・再配布前に確認してください。</p><div><a href={licenseGuideUrl} target="_blank" rel="noreferrer">ライセンス境界</a><button onClick={()=>openOverlay("legal")}>画面上の利用条件 →</button></div></article>
       </div>
+      <AnatomyReviewQueuePanel items={anatomyReviewItems} total={anatomyReviewQueue.length} surfaceFilter={anatomyReviewSurfaceFilter} representationFilter={anatomyReviewRepresentationFilter} onSurfaceChange={setAnatomyReviewSurfaceFilter} onRepresentationChange={setAnatomyReviewRepresentationFilter}/>
     </section>}
 
     {workspace==="segment"&&<section className="workArea segmentationArea" id="workspace" tabIndex={-1}>

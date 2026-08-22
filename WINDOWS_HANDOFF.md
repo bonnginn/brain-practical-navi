@@ -165,6 +165,7 @@ Windows側でブラウザ操作が使える利点を最優先します。
 - 専門家による構造位置・範囲・連続性の確認。
 - 権利文書、Google Form、公開画面をまたぐ最終実ブラウザ巡回。
 - スマートフォン専用UIのローカル親確認は完了（`MOBILE_UI_AUDIT.md`）。Chrome 151・`http://127.0.0.1:4198`で、coarse touch phoneの5件dock、native settings dialog、focus／背景scroll、sectionsの既存rail操作、rangeとpage scroll、segment直接URLのCanvas非生成を確認し、coarse 26経路52/52、fine/non-touch 26経路×3幅×direct/reload 156/156に合格した。fine-pointer狭幅ではphoneMode=false、dockなし、既存sections／segment workbenchを確認した。公開URL、物理端末、実機タッチ、Safari・別ブラウザ、別GPU、専門家レビューは未確認である。詳細な画像・probe・監査JSONは `MOBILE_UI_AUDIT.md` を参照する。
+- 専門家レビュー準備キューは `ANATOMY_REVIEW_HANDOFF.md` に沿った読み取り専用の準備段階であり、provenance台帳のexpert pending 56件を共同制作画面へ表示する。一般のForm・Issue・PR入口の後ろで既定閉鎖にし、観察リンクは対象を自動選択しない一般workspace入口だけに限定する。Chrome 151のローカル通常buildで全56件、表示面フィルタ、複合フィルタ、ID39・40、旧ID33、390 px相当の横はみ出しなし・内側スクロールなしを親確認し、通常26経路×3幅×direct/reloadも156/156件に合格した。専門家確認、解剖学的妥当性、採否は未完了で、ID39・40もexpert pending、旧ID33は断面／通常クイズ正答と分節入口から除外したままである。
 
 Mac側のブラウザ操作は、アプリの不具合ではなくCodex内蔵ブラウザの管理ポリシーにより公開URL操作が拒否されました。そのため、上記の実画面計測を推測で完了扱いにはしていません。
 
