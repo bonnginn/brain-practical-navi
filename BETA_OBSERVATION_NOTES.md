@@ -25,6 +25,12 @@
 
 実装・確認記録（2026-08-22）: `TRANSPARENCY_VISIBILITY_AUDIT.md` の方針に沿って、ゴースト時の大脳・小脳・脳幹を同一の表示不透明度 `0.18`、通常の補助レイヤーを `0.78`、選択部を `0.98` とする定数化を行いました。深度バッファを補助描画前に消去せず、深度テスト付きの神経・血管・深部レイヤーを先に描いてから透過表面を合成します。実ブラウザで動脈・脳神経・自由観察の透過／通常切替、回転時の遮蔽、個別選択、Papez回路の色と通常表示時の可視性を確認しました。最終ビルドの26経路×3幅×direct/reload＝156/156も合格しました。形状・メッシュ・分節は変更していません。
 
+## 優先 2b: 脳神経・主要血管の模式3Dクイズpilot
+
+実装・実ブラウザ記録（2026-08-22）: 既存模式3Dオーバーレイだけを使う名称同定17問（主要血管6、脳神経I・III–XIIの11）を、新規の `neurovascular` 形式として追加しました。Chrome 151のローカル本番preview `http://127.0.0.1:4196` で、17問全件の白色強調、透過脳表、小脳OFF、「模式3D・専門家未確認」バッジを確認しました。誤答feedbackから `#workspace/surface/arteries` へ正解構造を選択した状態で遷移し、試作OFFの神経血管候補0、WebGL unavailable時のfallbackと解答進行も確認しました。in-app Browserの390×768指定（実効 `innerWidth` 295）では `docWidth` 284、横overflowなし、console logs 0でした。全経路監査は `work/browser-audit/beta-route-audit-neurovascular-quiz-final-2026-08-22.json` に保存し156/156件成功です。問いは白色強調の名称だけで、起始・走行・接続は判定しません。旧BigBrain／断面ID33は使用せず、overlay名前空間の右VI外転神経region ID33とは区別しています。由来、registry kind、metadata／BNM3 region ID、固定SHAは [NEUROVASCULAR_QUIZ_AUDIT.md](NEUROVASCULAR_QUIZ_AUDIT.md) と `scripts/audit_neurovascular_quiz.mjs` に記録しました。
+
+これはローカルChrome 151での表示・操作確認であり、物理端末、公開URL、別GPU、専門家レビューは未確認です。細枝・静脈・連絡動脈、IIと視覚路の個別分節も対象外です。
+
 ## 優先 3: 回路を「3D + 断面」で追う
 
 回路は3Dだけでは構造内部の位置関係を把握しにくいため、全脳3Dと水平断を同期して観察できる形式を検討します。必要に応じて冠状断・矢状断も追加します。

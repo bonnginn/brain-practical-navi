@@ -1,5 +1,5 @@
-export type QuizFormat = "section" | "surface";
-export type QuizDetail = "coronal" | "horizontal" | "sagittal" | "lateral" | "superior" | "inferior" | "medial";
+export type QuizFormat = "section" | "surface" | "neurovascular";
+export type QuizDetail = "coronal" | "horizontal" | "sagittal" | "lateral" | "superior" | "inferior" | "medial" | "arteries" | "cranialNerves";
 export type QuizOrigin = "standard" | "provisional";
 export type QuizFilterQuestion = {
   target: string;
@@ -17,7 +17,8 @@ export type QuizFilters = {
 };
 export declare const SECTION_DETAILS: readonly ["coronal", "horizontal", "sagittal"];
 export declare const SURFACE_DETAILS: readonly ["lateral", "superior", "inferior", "medial"];
-export declare const QUIZ_FORMATS: readonly ["section", "surface"];
+export declare const NEUROVASCULAR_DETAILS: readonly ["arteries", "cranialNerves"];
+export declare const QUIZ_FORMATS: readonly ["section", "surface", "neurovascular"];
 export declare const QUIZ_ORIGINS: readonly ["standard", "provisional"];
 export declare const QUIZ_GRANULARITY_BY_TARGET: Readonly<Record<string, { format: QuizFormat; detail: QuizDetail; origin: QuizOrigin }>>;
 export declare function detailOptionsForFormat(format: "all" | QuizFormat): readonly QuizDetail[];

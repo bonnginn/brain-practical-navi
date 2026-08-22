@@ -1,12 +1,12 @@
 const SECTION_DETAILS = Object.freeze(["coronal", "horizontal", "sagittal"]);
 const SURFACE_DETAILS = Object.freeze(["lateral", "superior", "inferior", "medial"]);
-const QUIZ_FORMATS = Object.freeze(["section", "surface"]);
+const NEUROVASCULAR_DETAILS = Object.freeze(["arteries", "cranialNerves"]);
+const QUIZ_FORMATS = Object.freeze(["section", "surface", "neurovascular"]);
 const QUIZ_ORIGINS = Object.freeze(["standard", "provisional"]);
 
-// This is the single source for the independent quiz-filter dimensions. The
-// question text, options, topic, and runtime provisional rule remain in
-// app/page.tsx; `origin` below is the expected filter classification and is
-// independently checked against that existing provenance rule by the audit.
+// This is the audited classification source for the unchanged 23-question
+// section/surface inventory. The separate neurovascular pilot freezes its
+// format/detail/origin fields in app/page.tsx and audits them independently.
 export const QUIZ_GRANULARITY_BY_TARGET = Object.freeze({
   caudate: {format: "section", detail: "coronal", origin: "standard"},
   putamen: {format: "section", detail: "coronal", origin: "standard"},
@@ -33,8 +33,8 @@ export const QUIZ_GRANULARITY_BY_TARGET = Object.freeze({
   fusiform: {format: "surface", detail: "inferior", origin: "provisional"},
 });
 
-/** @typedef {"section"|"surface"} QuizFormat */
-/** @typedef {"coronal"|"horizontal"|"sagittal"|"lateral"|"superior"|"inferior"|"medial"} QuizDetail */
+/** @typedef {"section"|"surface"|"neurovascular"} QuizFormat */
+/** @typedef {"coronal"|"horizontal"|"sagittal"|"lateral"|"superior"|"inferior"|"medial"|"arteries"|"cranialNerves"} QuizDetail */
 /** @typedef {"standard"|"provisional"} QuizOrigin */
 
 /**
@@ -48,7 +48,8 @@ export const QUIZ_GRANULARITY_BY_TARGET = Object.freeze({
 export function detailOptionsForFormat(format) {
   if (format === "section") return SECTION_DETAILS;
   if (format === "surface") return SURFACE_DETAILS;
-  return Object.freeze([...SECTION_DETAILS, ...SURFACE_DETAILS]);
+  if (format === "neurovascular") return NEUROVASCULAR_DETAILS;
+  return Object.freeze([...SECTION_DETAILS, ...SURFACE_DETAILS, ...NEUROVASCULAR_DETAILS]);
 }
 
 /** @param {"all"|QuizFormat} format @param {string} detail */
@@ -56,7 +57,8 @@ export function isDetailCompatible(format, detail) {
   if (detail === "all") return true;
   if (format === "section") return SECTION_DETAILS.includes(detail);
   if (format === "surface") return SURFACE_DETAILS.includes(detail);
-  return [...SECTION_DETAILS, ...SURFACE_DETAILS].includes(detail);
+  if (format === "neurovascular") return NEUROVASCULAR_DETAILS.includes(detail);
+  return [...SECTION_DETAILS, ...SURFACE_DETAILS, ...NEUROVASCULAR_DETAILS].includes(detail);
 }
 
 /**
@@ -153,4 +155,4 @@ export function validateQuizGranularity(questions) {
   return errors;
 }
 
-export { SECTION_DETAILS, SURFACE_DETAILS, QUIZ_FORMATS, QUIZ_ORIGINS };
+export { SECTION_DETAILS, SURFACE_DETAILS, NEUROVASCULAR_DETAILS, QUIZ_FORMATS, QUIZ_ORIGINS };

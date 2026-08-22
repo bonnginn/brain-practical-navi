@@ -597,12 +597,13 @@
      "lectureLabel": "ACA・MCA・PCA・ICA",
      "lectureGroupKey": "vascular-major-anterior-posterior-arteries",
      "representations": ["schematic-3d"],
-     "learnerSurfaces": ["surface"],
+     "learnerSurfaces": ["surface", "quiz"],
      "expertReview": "pending",
       "projectReview": "pending",
-      "quizEligibility": "none",
+      "quizEligibility": "pilot",
       "sourceRefs": ["project-authored-teaching-overlays"],
-      "knownLimitations": ["標準空間へ手置きした主要幹の模式3Dで、穿通枝・正確な径・個体差は再現しません。"]
+      "knownLimitations": ["標準空間へ手置きした主要幹の模式3Dで、穿通枝・正確な径・個体差は再現しません。名称同定pilotは白色強調した既存模式形状だけを扱い、走行・接続・起始を判定しません。"],
+      "appKeys": ["ica", "aca", "mca", "pca"]
     },
     {
      "key": "vascular-communicating-arteries",
@@ -621,12 +622,13 @@
      "lectureLabel": "椎骨・脳底動脈",
      "lectureGroupKey": "vascular-vertebrobasilar-arteries",
      "representations": ["schematic-3d"],
-     "learnerSurfaces": ["surface"],
+     "learnerSurfaces": ["surface", "quiz"],
      "expertReview": "pending",
       "projectReview": "pending",
-      "quizEligibility": "none",
+      "quizEligibility": "pilot",
       "sourceRefs": ["project-authored-teaching-overlays"],
-      "knownLimitations": ["標準空間上の模式的な幹と連絡で、個体の血管走行・径・穿通枝を示しません。"]
+      "knownLimitations": ["標準空間上の模式的な幹と連絡で、個体の血管走行・径・穿通枝を示しません。名称同定pilotは白色強調した既存模式形状だけを扱い、走行・接続・起始を判定しません。"],
+      "appKeys": ["vertebral", "basilar"]
     },
     {
      "key": "vascular-cerebellar-arteries",
@@ -645,12 +647,13 @@
      "lectureLabel": "脳神経I〜XII",
      "lectureGroupKey": "cranial-nerves-one-to-twelve",
      "representations": ["schematic-3d"],
-     "learnerSurfaces": ["surface"],
+     "learnerSurfaces": ["surface", "quiz"],
      "expertReview": "pending",
       "projectReview": "pending",
-      "quizEligibility": "none",
+      "quizEligibility": "pilot",
       "sourceRefs": ["project-authored-teaching-overlays"],
-      "knownLimitations": ["全12対を模式的な近位走行として示します。I・II以外の遠位走行、神経核、頭蓋孔、微細根糸は再現していません。"]
+      "knownLimitations": ["全12対を模式的な近位走行として示します。I・II以外の遠位走行、神経核、頭蓋孔、微細根糸は再現していません。名称同定pilotはI・III〜XIIの既存模式形状だけを扱い、起始・走行・接続を判定しません。"],
+      "appKeys": ["cn1", "cn3", "cn4", "cn5", "cn6", "cn7", "cn8", "cn9", "cn10", "cn11", "cn12"]
     },
     {
      "key": "cranial-nerve-trochlear-dorsal-origin",
@@ -738,6 +741,23 @@
     {"target": "superiorFrontal", "entryKey": "surface-frontal-gyri", "eligibility": "pilot"},
     {"target": "precuneus", "entryKey": "surface-parieto-occipital-calcarine-sulci", "eligibility": "pilot"},
     {"target": "cuneus", "entryKey": "surface-parieto-occipital-calcarine-sulci", "eligibility": "pilot"},
-    {"target": "fusiform", "entryKey": "app-quiz-fusiform", "eligibility": "pilot"}
+    {"target": "fusiform", "entryKey": "app-quiz-fusiform", "eligibility": "pilot"},
+    {"target": "ica", "entryKey": "vascular-major-anterior-posterior-arteries", "eligibility": "pilot"},
+    {"target": "aca", "entryKey": "vascular-major-anterior-posterior-arteries", "eligibility": "pilot"},
+    {"target": "mca", "entryKey": "vascular-major-anterior-posterior-arteries", "eligibility": "pilot"},
+    {"target": "pca", "entryKey": "vascular-major-anterior-posterior-arteries", "eligibility": "pilot"},
+    {"target": "vertebral", "entryKey": "vascular-vertebrobasilar-arteries", "eligibility": "pilot"},
+    {"target": "basilar", "entryKey": "vascular-vertebrobasilar-arteries", "eligibility": "pilot"},
+    {"target": "cn1", "entryKey": "cranial-nerves-one-to-twelve", "eligibility": "pilot"},
+    {"target": "cn3", "entryKey": "cranial-nerves-one-to-twelve", "eligibility": "pilot"},
+    {"target": "cn4", "entryKey": "cranial-nerves-one-to-twelve", "eligibility": "pilot"},
+    {"target": "cn5", "entryKey": "cranial-nerves-one-to-twelve", "eligibility": "pilot"},
+    {"target": "cn6", "entryKey": "cranial-nerves-one-to-twelve", "eligibility": "pilot"},
+    {"target": "cn7", "entryKey": "cranial-nerves-one-to-twelve", "eligibility": "pilot"},
+    {"target": "cn8", "entryKey": "cranial-nerves-one-to-twelve", "eligibility": "pilot"},
+    {"target": "cn9", "entryKey": "cranial-nerves-one-to-twelve", "eligibility": "pilot"},
+    {"target": "cn10", "entryKey": "cranial-nerves-one-to-twelve", "eligibility": "pilot"},
+    {"target": "cn11", "entryKey": "cranial-nerves-one-to-twelve", "eligibility": "pilot"},
+    {"target": "cn12", "entryKey": "cranial-nerves-one-to-twelve", "eligibility": "pilot"}
   ]
 }

@@ -72,6 +72,14 @@ function appQuizTargets(source) {
     .map(match => ({ target: match.groups.target, category: match.groups.category }));
   if (questions.length === 0) throw new Error("No quiz targets found in app/page.tsx");
 
+  // The neurovascular pilot is intentionally kept in a separate inventory so
+  // the reviewed 23-question snapshot above remains independently auditable.
+  // It uses an overlay registry rather than the section `structures` map.
+  const neurovascularBlockMatch = source.match(/const neurovascularQuizQuestions:NeurovascularQuizQuestion\[\]=\[(?<body>[\s\S]*?)\n\];/);
+  if (!neurovascularBlockMatch) throw new Error("Could not locate neurovascularQuizQuestions in app/page.tsx");
+  const neurovascularQuestions = [...neurovascularBlockMatch.groups.body.matchAll(/\{target:"(?<target>[^"]+)",category:"(?<category>[^"]+)"/g)]
+    .map(match => ({ target: match.groups.target, category: match.groups.category, neurovascular: true }));
+
   const structureMatch = source.match(/const structures: Record<StructureKey, StructureInfo> = \{(?<body>[\s\S]*?)\n\};/);
   if (!structureMatch) throw new Error("Could not locate structures in app/page.tsx");
   const labelSources = new Map();
@@ -79,7 +87,8 @@ function appQuizTargets(source) {
     labelSources.set(match.groups.key, match.groups.labelSource);
   }
 
-  return questions.map(question => {
+  return [...questions, ...neurovascularQuestions].map(question => {
+    if (question.neurovascular) return { ...question, expectedEligibility: "pilot" };
     if (question.category === "surface") return { ...question, expectedEligibility: "pilot" };
     const labelSource = labelSources.get(question.target);
     if (!labelSource) throw new Error(`Could not resolve labelSource for quiz target ${question.target}`);

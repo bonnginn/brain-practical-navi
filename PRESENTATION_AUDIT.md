@@ -175,7 +175,7 @@ node scripts/audit_beta_routes.mjs --base-url http://localhost:4173 --output wor
 
 復習クイズの既存23問を変更せず、トピックと独立した「すべての形式／断面・深部／脳表」フィルタと、断面3方向・脳表4方向の詳細フィルタを追加した。各選択肢の次回候補数、標準／試作の候補内訳、候補数に応じた実際の問題数表示、設定欄内の候補0件status noteを実装した。フィルタ変更後も進行中の問題queueは隠さず、変更は次回出題へ反映する。試作既定ON、wrong-only、標準／試作バッジ、shuffle、誤答後の観察リンクは維持している。
 
-下面は既存の脳表位置関係問題のみで、脳底の血管・脳神経同定問題を追加していない。旧ID33も正答targetへ戻していない。`QUIZ_GRANULARITY_AUDIT.md` と `scripts/audit_quiz_granularity.mjs` に分類・由来・受入条件を記録した。
+下面は既存の脳表位置関係問題を維持し、別インベントリの脳底・脳神経模式3D pilot（17問）を追加した。旧ID33は正答targetへ戻していない。`QUIZ_GRANULARITY_AUDIT.md`、`NEUROVASCULAR_QUIZ_AUDIT.md` と各監査スクリプトに分類・由来・受入条件を記録した。
 
 最終ローカル本番ビルドをアプリ内ブラウザで操作し、初期23候補から脳表・内側面2候補への絞り込み、形式変更時の候補数、試作OFF時の候補0件status note、進行中queueの維持、2問出題、試作バッジ、誤答後の楔部を選択した内側面観察への復帰を確認した。390px相当表示ではselect、候補内訳、問題数表示の一列折返しを目視し、console error/warningは0件だった。
 
@@ -194,3 +194,11 @@ node scripts/audit_beta_routes.mjs --base-url http://localhost:4173 --output wor
 側脳室全景だけへ「全脳で位置を確認」を追加した。初期OFF、ON時だけ追加Canvas、既存 `block-lateral-ventricle-tissue.mesh` の位置目安、透過全脳、既存メタデータの矢状断58、全脳表示の切断面を使う。代表断面への切替、コンテキスト独立回転、閉じた後の追加Canvas破棄、標本側の回転・着色・組織状態の保持を実装した。390 px相当では標本下へ縦積みし、操作ボタンを44 px以上にした。
 
 `BLOCK_CONTEXT_AUDIT.md` と `tests/block-context.test.mjs` へ、メタデータ・manifest・BNM形式・有限座標・tissue bboxのpial配布座標範囲への内包・代表断面座標とのbbox交差・初期Canvasなし・側脳室限定・state分離・表示注意を固定した。Chrome 151の実操作では、入場時Canvas 1、ONで2、代表断面切替後も2、閉じると1へ戻り、局所標本の通常表示・反対側視点・海馬OFFを保持した。閉じた後のフォーカス復帰、Home離脱後の履歴復帰で初期OFF、小画面の縦積みと横はみ出しなし、console error/warning 0も確認した。同じbuildの26経路×3幅×direct/reload＝156/156件が合格し、console/request/UI error、残留loader、横はみ出し、WebGL fallbackは0件だった。記録は `work/browser-audit/beta-route-audit-block-context-final-2026-08-22.json`（ローカル作業用・配布対象外）。コンテキストON時の性能値、物理端末、公開URL、専門家レビューは未確認である。切断幅、摘出順、実習手順、実標本の代替は表示しない。
+
+### 2026-08-22 脳神経・主要血管 模式3Dクイズpilot（ローカル実ブラウザ確認済み）
+
+既存模式3Dオーバーレイだけを使う17問を、既存23問の別インベントリとして追加した。血管6対象と脳神経I・III–XIIの11対象を、白色強調された構造の名称同定だけで出題し、画面上に「模式3D・専門家未確認」を表示する。`neurovascular`形式、`arteries`／`cranialNerves`詳細、試作ON/OFF、wrong-only、候補数、既存脳表画面への白色選択付き復習リンクを接続した。旧BigBrain／断面ID33は正答に使わず、overlay名前空間の右VI外転神経region ID33とは分離して監査する。
+
+Chrome 151のローカル本番preview `http://127.0.0.1:4196` で、主要血管6問、脳神経11問（I、III–XII）を全件通過した。白色強調、透過脳表、小脳OFF、試作バッジ、誤答feedback、`#workspace/surface/arteries` への正解構造選択付き遷移、試作OFFの神経血管候補0、WebGL unavailable時のfallbackと解答進行を確認した。in-app Browserの390×768指定（実効 `innerWidth` 295）では `docWidth` 284、横overflowなし、console logs 0だった。全経路監査は `work/browser-audit/beta-route-audit-neurovascular-quiz-final-2026-08-22.json` に保存し156/156件成功した。
+
+これはローカルChrome 151での表示・操作確認であり、公開URL、物理端末、別GPU、専門家レビューは未確認である。詳細は [NEUROVASCULAR_QUIZ_AUDIT.md](NEUROVASCULAR_QUIZ_AUDIT.md) を参照。

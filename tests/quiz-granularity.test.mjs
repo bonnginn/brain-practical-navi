@@ -41,6 +41,8 @@ test("format and detail filters combine without crossing teaching formats", () =
   assert.equal(filterQuizCandidates(questions, { ...baseFilters, category: "surface", format: "section" }, []).length, 0);
   assert.deepEqual(detailOptionsForFormat("section"), ["coronal", "horizontal", "sagittal"]);
   assert.deepEqual(detailOptionsForFormat("surface"), ["lateral", "superior", "inferior", "medial"]);
+  assert.deepEqual(detailOptionsForFormat("neurovascular"), ["arteries", "cranialNerves"]);
+  assert.equal(filterQuizCandidates(questions, { ...baseFilters, format: "neurovascular" }, []).length, 0);
 });
 
 test("topic, origin, and wrong-only filters affect the same candidate count", () => {

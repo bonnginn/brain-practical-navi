@@ -1894,12 +1894,12 @@ test("surface quiz questions use labelled high-density pial regions", async () =
   }
   assert.match(page, /function shuffledItems<T>\(items:readonly T\[\]\)/);
   assert.match(page, /options:shuffledItems\(question\.options\)/);
-  assert.match(page, /useState<QuizQuestion\[\]>\(\(\)=>shuffledQuestions\(quizQuestions\)\.slice\(0,10\)\)/);
+  assert.match(page, /useState<QuizQuestion\[\]>\(\(\)=>shuffledQuestions\(allQuizQuestions\)\.slice\(0,10\)\)/);
 });
 
 test("medial surface quiz keeps the same isolated-hemisphere anatomy as study mode", async () => {
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
-  assert.match(page, /showCerebellum=\{quizQuestion\.view!=="medial"\}/);
+  assert.match(page, /showCerebellum=\{neurovascularQuiz\?false:quizQuestion\.view!=="medial"\}/);
   assert.match(page, /showPonsMedulla=\{quizQuestion\.view!=="medial"\}/);
   assert.match(page, /showMidbrain=\{quizQuestion\.view!=="medial"\}/);
 });
@@ -2040,9 +2040,9 @@ test("describes specimen fidelity limits without implying anatomical validation"
 });
 test("labels provisional questions and includes them in the default quiz setup", async () => {
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
-  assert.match(page, /function isProvisionalQuiz\(question:QuizQuestion\)\{return isSurfaceQuiz\(question\)\|\|\["atlas-provisional","image-guided"\]\.includes/);
+  assert.match(page, /function isProvisionalQuiz\(question:QuizQuestion\)\{return isNeurovascularQuiz\(question\)\|\|isSurfaceQuiz\(question\)\|\|\["atlas-provisional","image-guided"\]\.includes/);
   assert.match(page, /standardQuizQuestions=quizQuestions\.filter\(question=>!isProvisionalQuiz\(question\)\)/);
-  assert.match(page, /useState<QuizQuestion\[]>\(\(\)=>shuffledQuestions\(quizQuestions\)/);
+  assert.match(page, /useState<QuizQuestion\[]>\(\(\)=>shuffledQuestions\(allQuizQuestions\)/);
   assert.match(page, /quizIncludeProvisional,setQuizIncludeProvisional\]=useState\(true\)/);
   assert.match(page, /const quizFilters:QuizFilters=\{category:quizCategory,format:quizFormat,detail:quizDetail,includeProvisional:quizIncludeProvisional,wrongOnly:quizWrongOnly\}/);
   assert.match(page, /filterQuizCandidates\(quizQuestionsForFiltering,quizFilters,wrongTargets\)/);
@@ -2156,8 +2156,8 @@ test("3D viewers expose orientation, keyboard rotation, reset, and visible zoom 
   assert.match(page, /showZoomControls=\{false\}/);
   assert.match(page, /<OrientationCompass rotation=\{modelRotation\} compact\/>/);
   assert.match(page, /復習問題の脳表3Dモデル。ドラッグまたは矢印キーで回転/);
-  assert.match(page, /surfaceQuiz\?<><AtlasVolumeCanvas[^>]+rotation=\{rotation\}[^>]+surfaceHighlights=\{quizSurfaceHighlight\}/);
-  assert.match(page, /workspace==="quiz"&&isSurfaceQuiz\(quizQuestion\)/);
+  assert.match(page, /quizModelQuestion\?<><AtlasVolumeCanvas[^>]+rotation=\{rotation\}[^>]+surfaceHighlights=\{neurovascularQuiz\?\[\]:quizSurfaceHighlight\}/);
+  assert.match(page, /workspace==="quiz"&&\(isSurfaceQuiz\(quizQuestion\)\|\|isNeurovascularQuiz\(quizQuestion\)\)/);
   assert.match(css, /\.modelStage:focus-visible/);
   assert.match(css, /\.orientationCompass/);
   assert.match(css, /\.orientationCompass\.compact/);
