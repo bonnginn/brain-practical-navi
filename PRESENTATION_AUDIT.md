@@ -180,3 +180,11 @@ node scripts/audit_beta_routes.mjs --base-url http://localhost:4173 --output wor
 最終ローカル本番ビルドをアプリ内ブラウザで操作し、初期23候補から脳表・内側面2候補への絞り込み、形式変更時の候補数、試作OFF時の候補0件status note、進行中queueの維持、2問出題、試作バッジ、誤答後の楔部を選択した内側面観察への復帰を確認した。390px相当表示ではselect、候補内訳、問題数表示の一列折返しを目視し、console error/warningは0件だった。
 
 同じ最終ビルドをWindows Chrome 151、1366×768、1024×768、390×768で26経路×direct/reloadとして巡回し、156/156件に合格した。missing/duplicate/fail=0、console／要求／画面内エラー、残留loader、横はみ出し、WebGL fallbackも0件だった。保存した結果は `work/browser-audit/beta-route-audit-quiz-granularity-final-2026-08-22.json`（ローカル作業用・配布対象外）。全テスト125/125、粒度監査、型検査、通常／Pages本番ビルド、`git diff --check` も成功した。公開URL、物理端末、タッチ操作、異なるGPU・別ブラウザは未確認である。
+
+### 2026-08-22 大脳基底核 3D＋断面ステッパー（実装・実ブラウザ確認）
+
+自由観察の既存「大脳基底核回路」プリセットへ、完全回路ではなく既存構造の位置関係を順に確認する5段階ステッパーを追加した。尾状核・被殻、淡蒼球外節・内節、視床下核、黒質、視床の7対象を、既存の手動分節ラベルと既存メッシュだけで表示する。前／次／再生／一時停止／最初へ戻るを備え、段階ごとに3Dと断面を同じ色で強調する。タイマーはプリセット切替・自由観察離脱・アンマウント時に停止し、スマートフォン幅では3Dと断面を縦積みにする。新しい境界、線、結合、興奮性／抑制性、投射方向、旧ID33は追加していない。
+
+`PATHWAY_STEPPER_AUDIT.md` と `scripts/audit_pathway_stepper.mjs` の画素監査は5段階・7対象すべて合格（画素数 256–2,398）。この結果は表示可能性の確認であり、形状の解剖学的正確性や専門家レビューを示さない。
+
+最終ローカル本番ビルドをChrome 151で実操作し、前後移動、再生、最終段階の自動停止、最初へ戻る、Home離脱時の停止、再入場時の初期状態を確認した。console error/warningは0件だった。同じビルドの1366×768、1024×768、390×768、26経路×direct/reloadは156/156件に合格し、missing/duplicate/fail、console/request/UI error、残留loader、横はみ出し、WebGL fallbackはいずれも0件だった。全テスト134/134、画素・ID監査、型検査、通常／Pages本番ビルド、`git diff --check`も成功した。保存結果は `work/browser-audit/beta-route-audit-pathway-stepper-final-2026-08-22.json`（ローカル作業用・配布対象外）。公開URL、物理端末、タッチ操作、異なるGPU・別ブラウザ、専門家レビューは未確認である。

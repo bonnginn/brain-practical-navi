@@ -522,6 +522,10 @@ html, body, #root { height: 100%; overflow: hidden; }
 .freeSelectionOverlay small { color: #a7b3b0; font-size: 14px; }
 .freeSelectionOverlay b { font-size: 18px; }
 .freeSelectionOverlay span { overflow: hidden; color: #bbc5c2; font: 14px Georgia,serif; text-overflow: ellipsis; white-space: nowrap; }
+.pathwayStepperModelTag { position: absolute; z-index: 11; right: 18px; top: 18px; display: grid; gap: 3px; max-width: min(330px,calc(100% - 36px)); padding: 10px 13px; border-right: 4px solid #e0ad45; background: rgba(18,24,26,.9); color: #f1f3ef; box-shadow: 0 8px 26px #0005; pointer-events: none; }
+.pathwayStepperModelTag span { color: #e8c784; font: 700 11px/1.3 monospace; letter-spacing: .08em; }
+.pathwayStepperModelTag b { font-size: 17px; }
+.pathwayStepperModelTag small { color: #bbc5c2; font-size: 12px; line-height: 1.4; }
 .freeExplorer { margin-top: 18px; padding-top: 14px; border-top: 1px solid #c3c7c1; }
 .freeExplorer > header { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .freeExplorer > header > div { display: grid; gap: 2px; }
@@ -569,6 +573,30 @@ html, body, #root { height: 100%; overflow: hidden; }
 .pathwayPresets article li { counter-increment: pathway; padding: 3px 6px; border: 1px solid #d6c7b8; background: #fff; font-size: 12px; }
 .pathwayPresets article li::before { content: counter(pathway) ". "; color: #9a5b35; font-weight: 700; }
 .pathwayPresets article > small { display: block; color: #83533a; font-size: 12px; line-height: 1.45; }
+.pathwayStepper { display: grid; gap: 9px; margin-top: 10px; padding: 10px; border: 1px solid #ae9b72; background: #fff8e9; }
+.pathwayStepper > header { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.pathwayStepper > header > div { display: grid; gap: 2px; }
+.pathwayStepper > header b { color: #4d4532; font-size: 15px; }
+.pathwayStepper > header small { color: #776b55; font-size: 12px; line-height: 1.4; }
+.pathwayStepper > header > span { flex: 0 0 auto; padding: 3px 6px; border: 1px solid #b9a77c; color: #775c29; font: 700 12px monospace; }
+.pathwayStepperStageTitle { display: grid; gap: 2px; padding: 8px 9px; border-left: 3px solid #d39b68; background: #fffdf7; }
+.pathwayStepperStageTitle > span { color: #9a5b35; font: 700 11px monospace; letter-spacing: .12em; }
+.pathwayStepperStageTitle > b { color: #3d4038; font-size: 17px; }
+.pathwayStepperStageTitle > small { color: #6f766d; font-size: 12px; }
+.pathwayStepperSlice { overflow: hidden; border: 1px solid #7e8988; background: #20282a; }
+.pathwayStepperSliceHead { display: flex; justify-content: space-between; gap: 8px; padding: 7px 9px; border-bottom: 1px solid #596463; color: #e8ece8; }
+.pathwayStepperSliceHead b { font-size: 13px; }
+.pathwayStepperSliceHead small { color: #b9c3bf; font-size: 11px; }
+.pathwayStepperSliceStage { position: relative; height: 235px; overflow: hidden; background: #171e20; }
+.pathwayStepperSliceLegend { position: absolute; z-index: 8; left: 8px; right: 8px; bottom: 8px; display: flex; flex-wrap: wrap; gap: 4px 8px; padding: 6px 7px; background: #101718d9; color: #e8ece8; pointer-events: none; }
+.pathwayStepperSliceLegend span { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; }
+.pathwayStepperSliceLegend i { width: 7px; height: 16px; border-radius: 3px; }
+.pathwayStepperControls { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 5px; }
+.pathwayStepperControls button { min-height: 44px; padding: 7px 5px; border: 1px solid #a89466; background: #fffdf7; color: #514831; font-size: 13px; font-weight: 800; }
+.pathwayStepperControls button:hover { border-color: #80672e; background: #fff; }
+.pathwayStepperControls button:disabled { cursor: default; opacity: .42; }
+.pathwayStepperControls .stepperPlay { border-color: #6d8270; background: #e2eee4; color: #31553e; }
+.pathwayStepperCaution { margin: 0; color: #735b37; font-size: 12px; line-height: 1.55; }
 .freeSelectedCards article { position: relative; display: grid; grid-template-columns: 7px minmax(0,1fr) 28px; gap: 9px; padding: 9px; border: 1px solid #b9c0b9; background: #f6f4ef; color: #33403d; }
 .freeSelectedCards article.focused { border-color: #4f756c; background: #e5ece6; box-shadow: inset 0 0 0 1px #fff9; }
 .freeSelectedCards article > i { width: 7px; min-height: 58px; border-radius: 4px; }
@@ -804,6 +832,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 @media(max-width:900px){.workspaceSwitch button{min-width:68px}.workspaceSwitch button>i{display:none}.homeHero{grid-template-columns:minmax(300px,43%) minmax(0,1fr)}.homeIntro{padding:28px}.homeModeGrid{grid-template-columns:1fr 1fr}.homeModeGrid button{min-height:72px}.homeModeGrid small{display:none}.learningGrid,.quizWorkspace,.segWorkbench{grid-template-columns:minmax(0,1fr) minmax(270px,34vw,310px)}.learningGuide,.quizQuestionCard,.segControls{padding-inline:18px}.legalColumns{grid-template-columns:1fr}.legalColumns article+article{padding-left:0;border-left:0}}
 @media(max-height:820px) and (min-width:761px){.homeArea{gap:8px;padding:18px 22px}.homeNotice{padding:clamp(24px,4vw,44px)}.homeNoticePoints{margin-top:20px}.homeNoticePoints section{padding-block:11px}.homeNotice footer{margin-top:20px}.homeQuietNote{font-size:14px}.homeIntro{padding:clamp(22px,3vw,42px)}.homeBadges{margin-bottom:8px}.homeIntro h1{margin:8px 0 11px;font-size:clamp(34px,3.6vw,52px)}.homeLead{line-height:1.65}.homeAccuracyWarning{margin-top:9px;padding-block:7px;font-size:14px}.homeModeGrid button{min-height:76px;padding-block:10px}.homeFooter{min-height:30px}}
 @media(max-width:760px){.topbar{padding-inline:5px;gap:3px}.brand{min-width:auto}.brand>span:last-child{display:none}.workspaceSwitch{display:flex;min-width:0;overflow-x:auto;scrollbar-width:none}.workspaceSwitch::-webkit-scrollbar{display:none}.workspaceSwitch button{min-width:52px;padding:7px 3px}.workspaceSwitch button>span{font-size:15px}.topActions{gap:2px}.topActions>span{display:none}.legalButton{padding:7px 3px;font-size:15px;white-space:nowrap}.feedbackButton{display:block;width:38px;padding:7px 2px;font-size:0;white-space:nowrap}.feedbackButton::after{content:"協力";font-size:15px}.compactToggle{border:0;padding-left:0}.learningArea,.quizArea,.segmentationArea{min-height:800px}.learningGrid,.quizWorkspace,.segWorkbench{display:block}.learningModelCard,.quizImageCard,.segCanvasCard{height:520px}.learningGuide,.quizQuestionCard,.segControls{max-height:none;margin-top:10px}.neurovascularControls{left:8px;bottom:8px}.neurovascularControls button{padding:6px}.neurovascularLegend{left:8px;top:8px;right:auto;bottom:auto;grid-template-columns:repeat(3,auto);gap:5px 8px;padding:7px 8px;font-size:12px}.neurovascularLegend i{width:13px}.blockReleaseNote .sourceBadge{display:none}.feedbackOptions{grid-template-columns:1fr}.legalBackdrop{padding:8px}.legalDialog>footer{display:block}.legalDialog footer div{margin-top:8px}}
+@media(max-width:760px){.pathwayStepperModelTag{left:10px;right:10px;top:10px;max-width:none;padding:8px 10px}.pathwayStepperModelTag b{font-size:16px}.pathwayStepperSliceStage{height:270px}.pathwayStepperControls{grid-template-columns:1fr 1fr}.pathwayStepperControls button{min-height:44px;font-size:14px}.pathwayStepperCaution{font-size:13px}.pathwayStepper > header{align-items:flex-start}.pathwayStepper > header small{font-size:13px}}
 @media(max-width:760px){.quizCandidateSummary{grid-template-columns:1fr;gap:2px}.quizCandidateEmptyNote{margin-top:-4px;padding:7px;font-size:11px;line-height:1.6}.quizCountButtons{grid-template-columns:repeat(2,1fr)}.quizCountButtons button{min-height:40px}.quizSliceNavigator{grid-template-columns:minmax(0,1fr) 38px auto;gap:7px;padding-inline:9px}.quizSliceAxis{display:none}.quizSliceNavigator button{padding-inline:6px}.quizSliceControl{display:grid;grid-template-columns:30px minmax(0,1fr) 30px;gap:5px}.quizSliceControl button{width:30px;padding:0}}
 @media(max-width:760px){.sectionLayoutSwitch{width:100%}.sectionLayoutSwitch button{flex:1;padding-inline:4px;font-size:12px}.sliceStage.layout-slice,.sliceStage.layout-model{grid-template-rows:minmax(0,1fr)}.sliceStage.layout-model .insetViews{grid-template-columns:1fr 1fr;grid-template-rows:1fr}}
 @media(max-width:760px){.specimenViewControls{right:8px;bottom:8px}.specimenViewControls>span{display:none}.specimenViewControls button{padding-inline:6px}.specimenRotationHint{display:none}}
