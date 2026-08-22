@@ -1,6 +1,6 @@
 # データ、権利、出典
 
-更新日: 2026-08-14
+更新日: 2026-08-23
 
 この文書は「脳実習ナビ」に同梱するデータの来歴、ライセンス、改変内容、公開条件を追跡するための監査記録です。ライセンス原文が本書と異なる場合は原文が優先します。本書は法的助言ではありません。
 
@@ -92,6 +92,8 @@
 - `public/atlas/mni-cerebra-1mm.bin.gz`
 - `public/atlas/pial-left.mesh`
 - `public/atlas/pial-right.mesh`
+- `public/atlas/pial-left.mesh.gz`
+- `public/atlas/pial-right.mesh.gz`
 - `public/atlas/caudate.mesh`
 - `public/atlas/hippocampus.mesh`
 - `public/atlas/thalamus.mesh`
@@ -116,6 +118,7 @@
 - T1/T2、GM/WM/CSF確率、脳マスク、CerebrAラベルの1 mm格子への統合
 - 8-bit化、gzip圧縮、独自ヘッダー付与
 - CerebrAラベルから表示用メッシュを作成
+- 左右pialメッシュは元の`.mesh`を保持し、同一バイトへ戻る決定的なlossless gzip sidecar（`.mesh.gz`）も配布
 - CerebrA由来の脳室・脳幹・小脳・視交叉・島皮質候補をBigBrain 0.5 mm格子へ最近傍再標本化し、既存ラベルの空き領域へ限定
 
 IDs 23–29、33–35は手動正解ラベルではありません。アプリでは「試作」または「位置照合済みアトラス由来」と明記します。
@@ -133,6 +136,8 @@ IDs 23–29、33–35は手動正解ラベルではありません。アプリ�
 
 - `public/atlas/pial-left.mesh`
 - `public/atlas/pial-right.mesh`
+- `public/atlas/pial-left.mesh.gz`
+- `public/atlas/pial-right.mesh.gz`
 - `public/atlas/surface-region-labels.json`
 - `public/atlas/surface-landmark-*.mesh`
 - `public/atlas/surface-landmarks.json`

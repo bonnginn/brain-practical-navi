@@ -77,8 +77,8 @@ test("contracts are artifact-derived, explicit, and family-specific", () => {
   assert.deepEqual(contracts["sections-coronal"].requiredAssets, [
     "bigbrain-icbm500.bin.gz",
     "bigbrain-practical-segmentation-icbm500.bin.gz",
-    "pial-left.mesh",
-    "pial-right.mesh",
+    "pial-left.mesh.gz",
+    "pial-right.mesh.gz",
     "segment-cerebellum.mesh",
     "segment-pons-medulla.mesh",
     "segment-midbrain.mesh",
@@ -91,6 +91,7 @@ test("request paths normalize absolute URLs and classify atlas families", () => 
   assert.equal(normalizeRequestPath("http://127.0.0.1:4173/atlas/pial-left.mesh?v=1"), "/atlas/pial-left.mesh?v=1");
   assert.equal(normalizeRequestPath("/brain-practical-navi/atlas/mni-cerebra-1mm.bin.gz"), "/brain-practical-navi/atlas/mni-cerebra-1mm.bin.gz");
   assert.equal(assetFamilyForPath("/atlas/pial-left.mesh"), "surface");
+  assert.equal(assetFamilyForPath("/atlas/pial-left.mesh.gz"), "surface");
   assert.equal(assetFamilyForPath("/atlas/mni-cerebra-1mm.bin.gz"), "volume");
   assert.equal(assetFamilyForPath("/atlas/block-lateral-ventricle-tissue.mesh"), "blocks");
   assert.equal(assetFamilyForPath("/atlas/block-hindbrain-pyramids.mesh"), "teaching-overlays");
@@ -127,7 +128,7 @@ test("duplicate and missing assets fail a route even when the UI is healthy", ()
   const route = BETA_AUDIT_ROUTES.find(candidate => candidate.id === "surface-lateral");
   const result = healthyObservation(route, contracts[route.id]);
   result.requestPaths = result.requestPaths.filter(path => !path.endsWith("segment-midbrain.mesh"));
-  result.requestPaths.push("/atlas/pial-left.mesh");
+  result.requestPaths.push("/atlas/pial-left.mesh.gz");
   const validation = validateInitialRoutePayloadResult({ route, result, contract: contracts[route.id] });
   assert.equal(validation.passed, false);
   assert.ok(validation.failures.some(failure => failure.startsWith("missing-assets:")));
@@ -138,7 +139,7 @@ test("affected surface routes have exact initial mesh contracts and exact artifa
   const inventory = buildInitialRouteArtifactInventory();
   const contracts = buildInitialRoutePayloadContracts({ inventory });
   const base = [
-    "pial-left.mesh", "pial-right.mesh", "segment-cerebellum.mesh",
+    "pial-left.mesh.gz", "pial-right.mesh.gz", "segment-cerebellum.mesh",
     "segment-pons-medulla.mesh", "segment-midbrain.mesh",
   ];
   const basal = [

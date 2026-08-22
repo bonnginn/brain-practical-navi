@@ -36,7 +36,7 @@ import {
   waitForDocumentReady,
 } from "./measure_browser_performance.mjs";
 
-export const INITIAL_ROUTE_PAYLOAD_AUDIT_SCHEMA_VERSION = 1;
+export const INITIAL_ROUTE_PAYLOAD_AUDIT_SCHEMA_VERSION = 2;
 export const INITIAL_ROUTE_PAYLOAD_VIEWPORT = Object.freeze({
   id: "pc",
   label: "PC",
@@ -53,13 +53,14 @@ const SCRIPT_DIRECTORY = dirname(fileURLToPath(import.meta.url));
 const DEFAULT_PROJECT_ROOT = resolve(SCRIPT_DIRECTORY, "..");
 const DEFAULT_BASE_URL = "http://127.0.0.1:4173";
 
-const LARGE_ASSET_PATTERN = /\.(?:mesh|bin\.gz|nii(?:\.gz)?|vol(?:\.gz)?)$/i;
-const MESH_PATTERN = /\.mesh$/i;
+const LARGE_ASSET_PATTERN = /\.(?:mesh(?:\.gz)?|bin\.gz|nii(?:\.gz)?|vol(?:\.gz)?)$/i;
+const MESH_PATTERN = /\.mesh(?:\.gz)?$/i;
 const BINARY_VOLUME_PATTERN = /\.(?:bin\.gz|nii(?:\.gz)?|vol(?:\.gz)?)$/i;
 
+export const PIAL_MESH_COMPRESSED_ASSETS = Object.freeze(["pial-left.mesh.gz", "pial-right.mesh.gz"]);
+export const PIAL_MESH_RAW_ASSETS = Object.freeze(["pial-left.mesh", "pial-right.mesh"]);
 const SURFACE_BASE_ASSETS = Object.freeze([
-  "pial-left.mesh",
-  "pial-right.mesh",
+  ...PIAL_MESH_COMPRESSED_ASSETS,
   "segment-cerebellum.mesh",
   "segment-pons-medulla.mesh",
   "segment-midbrain.mesh",
@@ -328,6 +329,7 @@ function contractForRoute(route, inventory) {
   const exactAllowedAssets = family === "quiz"
     ? [...new Set(alternatives.flatMap(alternative => alternative.allowedAssets))]
     : [...requiredAssets];
+  const forbiddenAssetPaths = PIAL_MESH_RAW_ASSETS.map(name => `/atlas/${name}`);
   const teachingOverlayAssets = exactAllowedAssets.filter(name => assetFamilyForPath(`/atlas/${name}`) === "teaching-overlays");
   const missingArtifactAssets = [...requiredAssets, ...alternatives.flatMap(alternative => alternative.requiredAssets)]
     .filter(name => !inventory.files.some(file => file.name === name));
@@ -345,6 +347,7 @@ function contractForRoute(route, inventory) {
     requiredAssets: cloneAssetList(requiredAssets),
     // Exact path allowlists make same-family eager additions fail too.
     allowedAssetPaths: exactAllowedAssets.map(name => `/atlas/${name}`),
+    forbiddenAssetPaths,
     teachingOverlayAssets,
     requiredAssetGroups: [],
     alternatives,
@@ -501,14 +504,16 @@ export function validateInitialRoutePayloadResult({ route, viewport = INITIAL_RO
       }
       for (const path of requestPaths.filter(isLargeAssetPath)) {
         const isAllowedByAnyAlternative = alternatives.some(alternative => (alternative.allowedAssets || alternative.requiredAssets || []).some(expected => requestPathMatches(path, expected)));
-        if (!isAllowedByAnyAlternative) forbiddenAssets.push(pathNameWithoutQuery(path));
+        const isExplicitlyForbidden = (selectedContract.forbiddenAssetPaths || []).some(expected => requestPathMatches(path, expected));
+        if (!isAllowedByAnyAlternative || isExplicitlyForbidden) forbiddenAssets.push(pathNameWithoutQuery(path));
       }
     } else {
       const allowedAssetPaths = selectedContract.allowedAssetPaths || selectedContract.requiredAssets || [];
       for (const path of requestPaths.filter(isLargeAssetPath)) {
         const assetFamily = assetFamilyForPath(path);
         const exactAllowed = allowedAssetPaths.some(expected => requestPathMatches(path, expected));
-        if (!exactAllowed || selectedContract.forbiddenAssetFamilies.includes(assetFamily) && !selectedContract.requiredAssets.some(expected => requestPathMatches(path, expected))) {
+        const isExplicitlyForbidden = (selectedContract.forbiddenAssetPaths || []).some(expected => requestPathMatches(path, expected));
+        if (!exactAllowed || isExplicitlyForbidden || selectedContract.forbiddenAssetFamilies.includes(assetFamily) && !selectedContract.requiredAssets.some(expected => requestPathMatches(path, expected))) {
           forbiddenAssets.push(pathNameWithoutQuery(path));
         }
       }
@@ -911,6 +916,7 @@ function serializableContract(contract) {
     allowedAssetFamilies: [...contract.allowedAssetFamilies],
     forbiddenAssetFamilies: [...contract.forbiddenAssetFamilies],
     allowedAssetPaths: [...(contract.allowedAssetPaths || [])],
+    forbiddenAssetPaths: [...(contract.forbiddenAssetPaths || [])],
     teachingOverlayAssets: [...(contract.teachingOverlayAssets || [])],
     requiredAssets: [...contract.requiredAssets],
     requiredAssetGroups: contract.requiredAssetGroups.map(group => [...group]),

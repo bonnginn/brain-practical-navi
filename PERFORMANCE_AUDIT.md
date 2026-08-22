@@ -6,6 +6,14 @@
 
 高解像度断面と3Dモデルを維持しつつ、閲覧しないデータまで利用者へ配信しないことを公開条件とします。ここでいう「公開物全体」はGitHub Pagesのビルドへ入る `public/` 以下の合計であり、1回の閲覧ですべてを取得する量とは異なります。
 
+## 2026-08-23 pialメッシュ圧縮の実測状況
+
+左右pialの既存 `.mesh` は保持したまま、決定的なlossless gzip sidecar（`pial-left.mesh.gz`／`pial-right.mesh.gz`）を追加しました。ローダーはこの2つの論理メッシュだけを圧縮物理パスへ対応づけ、gzip magicのときだけ展開して既存のBNM解析へ渡します。初回route payload監査は圧縮物理パスだけを観測し、raw `.mesh` 要求は0件でした。
+
+新しい初回payload監査は `work/performance/initial-route-payload-audit-pial-gzip-2026-08-23.json` に保存し、canonical 26/26経路が合格しました。sectionsは26,441,013 Bで、旧監査の34,688,033 Bから8,247,020 B（23.8%）減り、surface-lateralは12,804,281 Bで旧監査の21,051,301 Bから減りました。旧34.69 MBは前回実測の履歴として残し、現在値とは扱いません。性能suiteは `work/performance/performance-suite-pial-gzip-2026-08-23.json` の37/37件が合格し、関連経路のstable-time回帰はすべて1%未満、sampledPeak backing storageの最大増加は2.0%でした（レビュー閾値25%未満）。route監査は `work/browser-audit/beta-route-audit-pial-gzip-2026-08-23.json` の156/156件が合格し、error／loader／overflow／WebGL fallbackは各0件です。`public/` 全体は92,397,991 B（88.12 MiB）で、100 MiB上限まで11.88 MiBを残します。
+
+同じローカルpreview（`http://127.0.0.1:4211`）の視覚確認では、PCはcombinedを押した状態でCanvas 3、狭幅は初期section-onlyでCanvas 1からcombinedでCanvas 3、2つの3D view描画、console warning/error 0を確認しました。要求1366 px時のin-app browser実効`clientWidth`は1035 px、要求390 px時は284 pxであり、物理viewportの寸法としては扱いません。
+
 ## 第1回監査
 
 | 項目 | 変更前 | 変更後 |
@@ -199,64 +207,57 @@ warm転送は同じ隔離プロファイル内で1回表示してから再訪し
 
 この監査はWindows上のviewport模擬とローカル配信です。物理スマートフォン／タブレットのCPU・GPU・メモリ圧迫、公開回線・公開CDNの待ち時間やcache headerを実測したものではありません。したがって、これらを実機値・公開回線値とは表現せず、公開後の任意フォローアップとして残します。
 
-## 2026-08-23 M2 初回ルートpayload監査
+## 2026-08-23 M2 初回ルートpayload監査（pial gzip現在値）
 
-初回画面で不要な大容量アセットを取得しないことを、canonical 26経路のcold loadで監査した。権威結果は `work/performance/initial-route-payload-audit-final-2026-08-23.json`（ローカル作業用・配布対象外）であり、各結果に正規化済みの `requestPaths`（URLのpathname＋search）を観測順で保存している。重複要求は消去せず、監査で異常として検出する。Windows 11、Chrome 151.0.7922.170、Node 24.19.0、ローカルpreview `http://127.0.0.1:4207/`、desktop 1366×768を使用し、同一の隔離Chromeプロファイル内で各ルートの前にcacheを無効化・消去した。これは公開URL、物理端末、mobile emulation、別ブラウザ、別GPU、解剖学的妥当性を検証する計測ではない。
+初回画面で不要な大容量アセットを取得しないことを、canonical 26経路のcold loadで監査した。権威結果は `work/performance/initial-route-payload-audit-pial-gzip-2026-08-23.json`（ローカル作業用・配布対象外）であり、各結果に正規化済みの `requestPaths`（URLのpathname＋search）を観測順で保存している。Windows 11、Chrome 151.0.7922.170、Node 24.19.0、ローカルpreview `http://127.0.0.1:4211/`、requested desktop 1366×768を使用した。これは公開URL、物理端末、別ブラウザ、別GPU、解剖学的妥当性を検証する計測ではない。
 
-再現コマンド（Windows PowerShell）は次のとおり。
-
-```powershell
-node node_modules/vite/bin/vite.js build --configLoader runner
-node node_modules/vite/bin/vite.js preview --configLoader runner --host 127.0.0.1 --port 4207
-
-node scripts/audit_initial_route_payloads.mjs `
-  --base-url http://127.0.0.1:4207 `
-  --output work/performance/initial-route-payload-audit-final-2026-08-23.json
-```
-
-監査は `scripts/audit_beta_routes.mjs` のcanonical 26経路を再利用し、既存のCDP計測窓で `encodedDataLength`、ユニーク要求数、安定時刻、Canvas／loader／UI・console・request error、overflow、WebGL fallbackを採取する。契約は現在の `public/atlas` と配布用static artifactから、`static bytes + exact allowed atlas artifacts + 固定262,144 bytes overhead` で算出し、観測値に合わせて予算を変えていない。`validation.appliedBudget` は通常経路ではその経路の契約、quizでは実際に一致したalternativeの契約を示す。
-
-初回asset allowlistは次のとおりで、同じfamilyでもallowlist外の大容量要求は失敗とする。ここでいうexactは、JSONの各 `contracts.<routeKey>.allowedAssetPaths` に列挙されたpathそのものであり、検証時にwildcardやprefixを許可する意味ではない。
+初回asset allowlistは次のとおりで、同じfamilyでもallowlist外の大容量要求は失敗とする。pial左右は物理パス `pial-left.mesh.gz`／`pial-right.mesh.gz`だけを許可し、raw `.mesh` 要求は0件だった。
 
 - Home、共同制作、status、help、feedback、legalはatlasなし（static/applicationのみ）。
-- 通常のsurface lateral／superior／medialは、pial左右、cerebellum、pons-medulla、midbrainのbase 5件だけ。
+- 通常のsurface lateral／superior／medialは、圧縮pial左右、cerebellum、pons-medulla、midbrainのbase 5件だけ。
 - surface inferior／nerves／freeはbase 5件、basal landmark 5件、midbrain-section cerebral-peduncles、hindbrain pyramids、hindbrain olives、teaching overlayとしてのdiencephalon hypothalamus、nerve overlay 3件。血管overlayは含めない。
 - surface arteriesは上記にartery overlay 2件を加え、nerve overlay 3件も含む。
-- sectionsは `bigbrain-icbm500.bin.gz`、`bigbrain-practical-segmentation-icbm500.bin.gz`、surface base 5件、`ventricle.mesh`、`caudate.mesh` の9件。
+- sectionsは `bigbrain-icbm500.bin.gz`、`bigbrain-practical-segmentation-icbm500.bin.gz`、圧縮pialを含むsurface base 5件、`ventricle.mesh`、`caudate.mesh` の9件。
 - blocksは各経路の `block-<route-family>-*.mesh` に対応するJSON内のexact pathだけ。segmentはBigBrain本体＋practical segmentationの2件だけ。
-- quizは固定seedで実測したsurface base 5件＋nerve overlay 3件に一致する。将来用のsurface／vessel／section alternativesもJSONに保持し、各alternativeの全memberが揃い観測された大容量assetがそのalternativeのallowlist内にある場合だけ一致させ、該当alternativeの `validation.appliedBudget` を適用する。
+- quizは固定seedで実測した圧縮pialを含むsurface base 5件＋nerve overlay 3件に一致する。将来用のsurface／vessel／section alternativesもJSONに保持し、該当alternativeの `validation.appliedBudget` を適用する。
 
-結果は26/26件がstable・validation passed・`allPassed: true`。missing／duplicate／unexpected route keyは各0、console／request／UI error、残留loader、overflow、WebGL fallbackも各0だった。
+結果は26/26件がstable・validation passed・`allPassed: true`。missing／duplicate／unexpected route key、console／request／UI error、残留loader、overflow、WebGL fallbackは各0だった。
 
-同じ最終通常buildを26経路×3幅×direct/reloadの156通りで再監査し、156/156件が合格した。console／request／UI error、残留loader、横はみ出し、WebGL fallbackは0件で、記録は `work/browser-audit/beta-route-audit-initial-payload-final-2026-08-23.json`（ローカル作業用・配布対象外）に保存した。
+同じ最終通常buildを26経路×3幅×direct/reloadの156通りで再監査し、156/156件が合格した。console／request／UI error、残留loader、横はみ出し、WebGL fallbackは0件で、記録は `work/browser-audit/beta-route-audit-pial-gzip-2026-08-23.json`（ローカル作業用・配布対象外）に保存した。
 
 | route key | encodedBytes | uniqueRequestCount | stableTimeMs | applied budget (bytes) |
 | --- | ---: | ---: | ---: | ---: |
-| home | 170,533 | 4 | 696.3 | 898,539 |
-| surface-lateral | 21,051,301 | 9 | 913.3 | 21,777,951 |
-| surface-superior | 21,051,301 | 9 | 873.7 | 21,777,951 |
-| surface-inferior | 22,057,517 | 21 | 901.6 | 22,780,943 |
-| surface-medial | 21,051,301 | 9 | 832.5 | 21,777,951 |
-| surface-arteries | 22,260,479 | 23 | 919.6 | 22,983,367 |
-| surface-nerves | 22,057,517 | 21 | 862.1 | 22,780,943 |
-| surface-free | 22,057,517 | 21 | 916.9 | 22,780,943 |
-| sections-coronal | 34,688,033 | 13 | 1,112.4 | 35,413,521 |
-| sections-horizontal | 34,688,033 | 13 | 1,147.2 | 35,413,521 |
-| sections-sagittal | 34,688,033 | 13 | 1,131.0 | 35,413,521 |
-| blocks-lateral-ventricle | 2,899,225 | 9 | 830.8 | 3,625,879 |
-| blocks-diencephalon | 2,413,675 | 10 | 823.2 | 3,140,063 |
-| blocks-radiations | 5,002,045 | 12 | 841.3 | 5,727,895 |
-| blocks-commissural-system | 2,612,703 | 9 | 831.7 | 3,339,359 |
-| blocks-choroid-plexus | 1,767,187 | 8 | 844.4 | 2,494,115 |
-| blocks-medial-temporal | 1,924,031 | 8 | 834.1 | 2,650,959 |
-| blocks-midbrain-section | 685,853 | 14 | 879.6 | 1,411,175 |
-| blocks-hindbrain | 3,815,585 | 17 | 903.0 | 4,540,095 |
-| quiz | 21,300,943 | 12 | 908.6 | 22,026,787 |
-| collaborate | 170,533 | 4 | 791.9 | 898,539 |
-| segment | 12,332,811 | 6 | 1,051.1 | 13,060,197 |
-| status | 170,533 | 4 | 797.4 | 898,539 |
-| help | 170,533 | 4 | 708.9 | 898,539 |
-| feedback | 170,533 | 4 | 722.5 | 898,539 |
-| legal | 170,533 | 4 | 799.7 | 898,539 |
+| home | 170,608 | 4 | 673.2 | 898,896 |
+| surface-lateral | 12,804,281 | 9 | 885.7 | 13,531,165 |
+| surface-superior | 12,804,281 | 9 | 824.3 | 13,531,165 |
+| surface-inferior | 13,810,497 | 21 | 874.2 | 14,534,157 |
+| surface-medial | 12,804,281 | 9 | 849.3 | 13,531,165 |
+| surface-arteries | 14,013,459 | 23 | 868.5 | 14,736,581 |
+| surface-nerves | 13,810,497 | 21 | 887.6 | 14,534,157 |
+| surface-free | 13,810,497 | 21 | 934.2 | 14,534,157 |
+| sections-coronal | 26,441,013 | 13 | 1,040.7 | 27,166,735 |
+| sections-horizontal | 26,441,013 | 13 | 1,095.5 | 27,166,735 |
+| sections-sagittal | 26,441,013 | 13 | 1,020.9 | 27,166,735 |
+| blocks-lateral-ventricle | 2,899,300 | 9 | 822.3 | 3,626,236 |
+| blocks-diencephalon | 2,413,750 | 10 | 757.1 | 3,140,420 |
+| blocks-radiations | 5,002,120 | 12 | 767.9 | 5,728,252 |
+| blocks-commissural-system | 2,612,778 | 9 | 816.1 | 3,339,716 |
+| blocks-choroid-plexus | 1,767,262 | 8 | 818.1 | 2,494,472 |
+| blocks-medial-temporal | 1,924,106 | 8 | 763.4 | 2,651,316 |
+| blocks-midbrain-section | 685,928 | 14 | 825.5 | 1,411,532 |
+| blocks-hindbrain | 3,815,660 | 17 | 931.6 | 4,540,452 |
+| quiz | 13,053,923 | 12 | 904.8 | 13,780,001 |
+| collaborate | 170,608 | 4 | 860.6 | 898,896 |
+| segment | 12,332,886 | 6 | 964.5 | 13,060,554 |
+| status | 170,608 | 4 | 760.8 | 898,896 |
+| help | 170,608 | 4 | 727.9 | 898,896 |
+| feedback | 170,608 | 4 | 710.6 | 898,896 |
+| legal | 170,608 | 4 | 771.7 | 898,896 |
 
-sectionsの初回転送は34.69 MBで、従来の20–30 MB暫定目安を超える。BigBrain本体、practical segmentation、surface base、ventricle、caudateを同一の断面教材で必要とする実測結果であり、削減済みのlazy allowlistを緩める根拠にはしない。今後の軽量化候補として記録する。
+sectionsの現在の初回転送は26,441,013 Bで、旧監査の34,688,033 B（34.69 MB）から8,247,020 B（23.8%）減った。surface-lateralも12,804,281 Bで、旧21,051,301 Bから圧縮pial分だけ減った。34.69 MBと21,051,301 Bはsupersededな前回値として履歴に残し、現在値や今回のallowlistを緩める根拠にはしない。
+
+## 2026-08-23 pial gzip性能suite・視覚確認
+
+`work/performance/performance-suite-pial-gzip-2026-08-23.json` の37/37件（PC・tablet landscape・requested 390×768相当のcold/warm、block-context 6件を含む）が合格した。関連経路のstable-time回帰はすべて1%未満、sampledPeak backing storageの最大増加は2.0%で、レビュー閾値25%を大きく下回る。
+
+`work/browser-audit/beta-route-audit-pial-gzip-2026-08-23.json` の156/156件も合格し、error／loader／overflow／WebGL fallbackは各0件だった。`http://127.0.0.1:4211` の視覚確認では、PCはcombined押下時Canvas 3、狭幅は初期section-only Canvas 1からcombined Canvas 3、2つの3D view描画、console warning/error 0を確認した。requested 1366 px時のin-app browser実効`clientWidth`は1035 px、requested 390 px時は284 pxであり、物理viewportの寸法としては扱わない。

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-08-22",
+  "updated": "2026-08-23",
   "scope": "Every file distributed under public/atlas except this manifest itself must match exactly one group pattern.",
   "groups": [
     {
@@ -38,12 +38,12 @@
     },
     {
       "id": "mni-cerebra-browser-assets",
-      "pattern": "^(mni-cerebra-1mm\\.bin\\.gz|labels\\.json|pial-(left|right)\\.mesh|(?:caudate|hippocampus|thalamus|ventricle)\\.mesh|segment-[^.]+\\.mesh|surface-region-labels\\.json|section-(optic-chiasm|insula)\\.mesh)$",
+      "pattern": "^(mni-cerebra-1mm\\.bin\\.gz|labels\\.json|pial-(left|right)\\.mesh(?:\\.gz)?|(?:caudate|hippocampus|thalamus|ventricle)\\.mesh|segment-[^.]+\\.mesh|surface-region-labels\\.json|section-(optic-chiasm|insula)\\.mesh)$",
       "source": "MNI152NLin2009cSym, CerebrA and MNI152 high-density white surfaces via TemplateFlow/BigBrainWarp",
       "sourceUrl": "https://github.com/templateflow/tpl-MNI152NLin2009cSym",
       "license": "MNI data license",
       "licenseUrl": "https://github.com/templateflow/tpl-MNI152NLin2009cSym/blob/master/License.txt",
-      "modifications": "1 mm browser volume, label lookup, pial-like normal expansion, sulcal shading, volumetric mesh extraction, surface-region sampling, and provisional exact-grid mesh extraction.",
+      "modifications": "1 mm browser volume, label lookup, pial-like normal expansion, sulcal shading, volumetric mesh extraction, surface-region sampling, provisional exact-grid mesh extraction, and deterministic lossless gzip sidecars for the two pial meshes.",
       "displayObligation": "Retain the MNI copyright notice in every copy; identify CerebrA and derived/provisional transformations; do not imply endorsement or validated morphometry.",
       "bundledNotice": "LICENSE.txt"
     },

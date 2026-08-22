@@ -228,3 +228,9 @@ coarse phoneの26経路×direct/reloadは52/52件、通常fine/non-touchの26経
 `public/atlas/structure-provenance.json` を単一情報源として、expert pending 56件を共同制作画面の読み取り専用パネルへ表示した。パネルはForm・Issue・PRなど一般入口の後ろに置いた既定閉鎖の`details`で、summaryに件数と読み取り専用を示し、開いたときだけ表示面・representationのフィルタ、既知の制限、source refs、プロジェクトレビュー状態を表示する。各リンクは「一般の○○画面を開く（この項目・構造・位置は自動選択されません）」と明示し、既存workspaceの一般入口だけへ遷移する。専門家レビュー完了、解剖学的妥当性、採否は示さない。旧ID33混合領域は断面／通常クイズ正答と分節入口から除外し、ID39・40はプロジェクト内レビュー済みだが専門家pendingとして明記している。詳細と監査は [ANATOMY_REVIEW_HANDOFF.md](ANATOMY_REVIEW_HANDOFF.md) と `scripts/audit_anatomy_review_queue.mjs` に固定した。
 
 Chrome 151のローカル通常production preview `http://127.0.0.1:4199` で、既定閉鎖、一般入口より後ろの配置、全56件、表示面別36／16／29／21件、複合フィルタ、乳頭体・旧ID33カード、一般断面／脳表リンクの注意文を実操作した。390 px指定のアプリ内ブラウザ（実効 `innerWidth` 295）では `clientWidth` / `scrollWidth` 284、横はみ出し0、一覧内側のスクロールなしだった。同じ通常buildの26経路×3幅×direct/reloadは156/156件に合格し、`work/browser-audit/beta-route-audit-anatomy-review-final-2026-08-22.json` に保存した。全テスト161/161、台帳監査、型検査、通常buildにも合格した。公開URL、物理端末、別ブラウザ・別GPU、専門家レビューは未確認である。
+
+### 2026-08-23 pial gzip性能・表示確認
+
+左右pialの既存`.mesh`を保持したまま`.mesh.gz` sidecarへ切り替えた現在版について、`work/performance/initial-route-payload-audit-pial-gzip-2026-08-23.json` はcanonical 26/26件、`work/performance/performance-suite-pial-gzip-2026-08-23.json` は37/37件、`work/browser-audit/beta-route-audit-pial-gzip-2026-08-23.json` は156/156件に合格した。raw pial要求は0件、error／loader／overflow／WebGL fallbackは各0件、stable-time回帰は1%未満、sampledPeak backing storage最大増加は2.0%（レビュー閾値25%）だった。
+
+ローカルpreview `http://127.0.0.1:4211` の視覚確認では、PCはcombined押下時Canvas 3、狭幅は初期section-only Canvas 1からcombined Canvas 3、2つの3D view描画、console warning/error 0を確認した。requested 1366 px時のin-app browser実効`clientWidth`は1035 px、requested 390 px時は284 pxであり、物理viewportの寸法とは扱わない。sectionsの現在payloadは26,441,013 Bで、旧34,688,033 B（34.69 MB）はsupersededな履歴として `PERFORMANCE_AUDIT.md` に残している。
