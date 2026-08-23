@@ -67,9 +67,14 @@ Windows 11、Chrome 151.0.7922.170、Node 24.19.0、ローカルpreview `http://
 
 ONのフィールドは通常経路と分離し、stable時の `settled` と操作全体の `samplePeak`（JSONの `sampledPeak` alias）を別に保持した。6件すべてでCanvas `1→2→2→1`、loader／UI error／console error／request error／横はみ出し／WebGL fallbackは0件だった。cold／warmともwarm primeはベース画面だけで、context assetは初回ON時に取得した。390 pxは `mobile:false` のデスクトップemulationで実効 `clientWidth` 375 px。物理端末、公開ネットワーク、別GPU・別ブラウザ、解剖学的妥当性はこの計測の対象外である。
 
+## 全8標本 context ON 性能（2026-08-23）
+
+拡張後の通常production preview `http://127.0.0.1:4232/` を同じ Windows 11／Chrome 151／Node 24条件で測定した。基礎31件＋8標本×3幅×cold/warm 48件＝79/79件が合格し、`work/performance/performance-suite-block-context-all-specimens-2026-08-23.json` に保存した。PWA Service Worker経由の取得を0 byteと誤計上しないよう、計測専用ChromeはService Workerを明示的に迂回し、各結果へその方針とcontext専用request pathsを記録した。通常のPWA機能は変更していない。
+
+48件すべてで、ON追加取得は7 request／24,795,951 byte、Canvas `1→2→2→1`、loader／UI／console／request error、横はみ出し、WebGL fallbackは0件だった。安定時間最大828.9 ms、settled backing storage最大61,288,760 byte、sampled peak最大240,644,605 byte。独立監査 `scripts/audit_block_context_performance.mjs` は7資産の実ファイル本体24,793,927 byteから転送範囲を導出し、body＋8 KiB、1,500 ms、80 MiB、300 MiBの固定上限を含む全条件に合格した。詳細とsampled peakの反復揺れは `PERFORMANCE_AUDIT.md` に記録する。
+
 ## 未確認事項
 
 - コンテキストONの追加取得量・安定時間・メモリは上記のWindowsローカル計測で確認済みである。物理端末・公開ネットワークの値は別途未確認である。
 - 8標本とも「全脳から切り出した実標本の範囲」や解剖学的境界の専門家レビューは完了していない。
-- 側脳室以外の7標本について、追加取得量・安定時間・メモリの保存済み性能値は未作成である。
 - 物理スマートフォンのタッチ操作、異なる GPU・別ブラウザ、公開 URL は未確認である。

@@ -28,6 +28,8 @@ Chrome 151のin-app browserでローカルproduction preview `http://127.0.0.1:4
 
 2026-08-23のpial-gzip成果物は、route `156/156`（`work/browser-audit/beta-route-audit-pial-gzip-2026-08-23.json`）、初回payload `26/26`（`work/performance/initial-route-payload-audit-pial-gzip-2026-08-23.json`）、性能suite `37/37`（`work/performance/performance-suite-pial-gzip-2026-08-23.json`）である。いずれもローカル確認の証拠であり、公開URL、公開回線、物理端末、別GPU／別ブラウザでの検証や、専門家確認を意味しない。
 
+同日、8ブロック標本への位置コンテキスト拡張後は、基礎31件＋context ON 48件の `work/performance/performance-suite-block-context-all-specimens-2026-08-23.json` が79/79件合格した。計測用ChromeだけService Workerを迂回し、7資産の実ファイルサイズと固定上限を使う独立監査も合格しているため、`change-performance-local` を79件へ同期した。物理端末、公開URL、公開回線、別GPU／別ブラウザ、専門家レビューは未確認のままである。
+
 同日、数値読込進捗を追加したPages想定buildでも `work/browser-audit/beta-route-audit-download-progress-2026-08-23.json` の156/156件が合格した。総量既知／不明の両表示と390 px相当の横はみ出しなしを実ブラウザで確認したが、公開URLや物理端末の保証ではない。詳細は [DOWNLOAD_PROGRESS_AUDIT.md](DOWNLOAD_PROGRESS_AUDIT.md) に分離した。
 
 ## 根拠と更新方法

@@ -3,12 +3,15 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 import {
+  BLOCK_CONTEXT_ROUTES,
   BLOCK_CONTEXT_ROUTE,
   BLOCK_CONTEXT_SCENARIO,
+  NETWORK_POLICY,
   PERFORMANCE_SCHEMA_VERSION,
   aggregateHeapMetrics,
   aggregateNetworkMetrics,
   createMeasurementState,
+  configurePage,
   mergeScenarioErrors,
   numericOutputMatchesTarget,
   parseArgs,
@@ -18,6 +21,7 @@ import {
   rangeStepPassed,
   resolveRoute,
   routeNeedsBlockIntroAction,
+  routeSupportsBlockContextScenario,
   resetMeasurementState,
   runBlockContextScenario,
   summarizeRuntimeProbe,
@@ -51,6 +55,23 @@ test("performance runner parses the required CLI contract without launching Chro
   assert.equal(resolveRoute(args.baseUrl, args.route), "http://localhost:4173/#workspace/home");
   assert.equal(routeNeedsBlockIntroAction("#workspace/blocks/lateral-ventricle"), true);
   assert.equal(routeNeedsBlockIntroAction("#workspace/home"), false);
+  assert.equal(BLOCK_CONTEXT_ROUTES.length, 8);
+  assert.ok(Object.isFrozen(BLOCK_CONTEXT_ROUTES));
+  assert.ok(BLOCK_CONTEXT_ROUTES.every(route => Object.isFrozen(route)));
+  assert.deepEqual(BLOCK_CONTEXT_ROUTES.map(route => route.route), [
+    "#workspace/blocks/lateral-ventricle",
+    "#workspace/blocks/diencephalon",
+    "#workspace/blocks/radiations",
+    "#workspace/blocks/commissural-system",
+    "#workspace/blocks/choroid-plexus",
+    "#workspace/blocks/medial-temporal",
+    "#workspace/blocks/midbrain-section",
+    "#workspace/blocks/hindbrain",
+  ]);
+  assert.ok(BLOCK_CONTEXT_ROUTES.every(route => routeSupportsBlockContextScenario(route.route)));
+  assert.equal(routeSupportsBlockContextScenario("#workspace/blocks/unknown"), false);
+  assert.equal(routeSupportsBlockContextScenario("#workspace/blocks/lateral-ventricle/compare"), false);
+  assert.equal(routeSupportsBlockContextScenario("#workspace/home"), false);
   assert.throws(() => parseArgs(["--base-url", "https://example.com"]), /missing required option/);
   assert.throws(() => parseArgs([
     "--base-url", "http://localhost:4173", "--route", "/", "--width", "0",
@@ -75,10 +96,24 @@ test("performance runner parses the required CLI contract without launching Chro
     "--scenario", BLOCK_CONTEXT_SCENARIO,
   ]);
   assert.equal(blockContext.scenario, BLOCK_CONTEXT_SCENARIO);
+  for (const route of BLOCK_CONTEXT_ROUTES) {
+    const args = parseArgs([
+      "--base-url", "http://localhost:4173", "--route", route.route,
+      "--width", "1366", "--height", "768", "--mode", "cold", "--output", "x.json",
+      "--scenario", BLOCK_CONTEXT_SCENARIO,
+    ]);
+    assert.equal(args.route, route.route);
+  }
   assert.throws(() => parseArgs([
     "--base-url", "http://localhost:4173", "--route", "#workspace/home", "--width", "390",
     "--height", "768", "--mode", "cold", "--output", "x.json", "--scenario", BLOCK_CONTEXT_SCENARIO,
-  ]), /requires --route/);
+  ]), /requires one of the 8 registered block specimen routes/);
+  for (const route of ["#workspace/blocks/unknown", "#workspace/blocks/lateral-ventricle/compare"]) {
+    assert.throws(() => parseArgs([
+      "--base-url", "http://localhost:4173", "--route", route, "--width", "390",
+      "--height", "768", "--mode", "cold", "--output", "x.json", "--scenario", BLOCK_CONTEXT_SCENARIO,
+    ]), /requires one of the 8 registered block specimen routes/);
+  }
   assert.throws(() => parseArgs([
     "--base-url", "http://localhost:4173", "--route", BLOCK_CONTEXT_ROUTE, "--width", "800",
     "--height", "768", "--mode", "cold", "--output", "x.json", "--scenario", BLOCK_CONTEXT_SCENARIO,
@@ -183,6 +218,26 @@ test("performance runner reports settled and sampled peak heap fields", () => {
   });
 });
 
+test("performance page configuration bypasses service workers before navigation", async () => {
+  const calls = [];
+  await configurePage({
+    send: async (method, params) => {
+      calls.push({ method, params });
+      return {};
+    },
+  });
+  const networkEnableIndex = calls.findIndex(call => call.method === "Network.enable");
+  const bypassIndex = calls.findIndex(call => call.method === "Network.setBypassServiceWorker");
+  const scriptIndex = calls.findIndex(call => call.method === "Page.addScriptToEvaluateOnNewDocument");
+  assert.ok(networkEnableIndex >= 0);
+  assert.ok(bypassIndex > networkEnableIndex);
+  assert.ok(scriptIndex > bypassIndex);
+  assert.deepEqual(calls[bypassIndex], {
+    method: "Network.setBypassServiceWorker",
+    params: { bypass: true },
+  });
+});
+
 test("performance result schema requires all browser-observable metrics", () => {
   const result = {
     schemaVersion: PERFORMANCE_SCHEMA_VERSION,
@@ -194,6 +249,7 @@ test("performance result schema requires all browser-observable metrics", () => 
     mode: "cold",
     scenario: "none",
     viewport: { width: 1366, height: 768 },
+    networkPolicy: { ...NETWORK_POLICY },
     encodedBytes: 100,
     requestCount: 2,
     requestPaths: ["/index.html", "/assets/index.js"],
@@ -218,6 +274,9 @@ test("performance result schema requires all browser-observable metrics", () => 
     validation: { passed: true, failures: [] },
   };
   assert.equal(validateResultSchema(result), true);
+  assert.equal(validateResultSchema({ ...result, networkPolicy: undefined }), false);
+  assert.equal(validateResultSchema({ ...result, networkPolicy: { serviceWorkerBypass: false } }), false);
+  assert.equal(validateResultSchema({ ...result, networkPolicy: { serviceWorkerBypass: "true" } }), false);
   assert.equal(validateResultSchema({ ...result, requestErrors: undefined }), false);
   assert.equal(validateResultSchema({ ...result, requestPaths: undefined }), false);
   assert.equal(validateResultSchema({ ...result, requestPaths: ["http://localhost:4173/index.html"] }), false);
@@ -239,6 +298,7 @@ test("performance result schema requires all browser-observable metrics", () => 
         encodedBytes: 0,
         requestCount: 0,
         uniqueRequestCount: 0,
+        requestPaths: [],
         loadingCount: 0,
         uiErrors: [],
         consoleErrors: [],
@@ -263,6 +323,7 @@ test("performance result schema requires all browser-observable metrics", () => 
         encodedBytes: 0,
         requestCount: 0,
         uniqueRequestCount: 0,
+        requestPaths: [],
         heap: { settled: {}, sampledPeak: {} },
       },
       interactions: [],
@@ -271,6 +332,20 @@ test("performance result schema requires all browser-observable metrics", () => 
   // Shape is valid even though semantic health is intentionally failed and
   // represented in validation/measurementPassed for JSON diagnostics.
   assert.equal(validateResultSchema(semanticFailure), true);
+  assert.equal(validateResultSchema({
+    ...semanticFailure,
+    blockContext: {
+      ...semanticFailure.blockContext,
+      on: { ...semanticFailure.blockContext.on, requestPaths: undefined },
+    },
+  }), false);
+  assert.equal(validateResultSchema({
+    ...semanticFailure,
+    blockContext: {
+      ...semanticFailure.blockContext,
+      on: { ...semanticFailure.blockContext.on, requestPaths: ["https://example.com/context.mesh"] },
+    },
+  }), false);
 });
 
 test("performance runner requires the range output to match the moved input", () => {
@@ -330,7 +405,9 @@ test("block-context probe and ON validation reject fallback, overflow, loader, a
     baseline: {
       canvasCount: 1,
       encodedBytes: 100,
+      requestCount: 4,
       uniqueRequestCount: 4,
+      requestPaths: ["/index.html", "/assets/base.js"],
       loadingCount: 0,
       webglFallback: false,
       horizontalOverflow: { detected: false },
@@ -351,7 +428,9 @@ test("block-context probe and ON validation reject fallback, overflow, loader, a
       stabilityReason: "stable",
       stableTimeMs: 250,
       encodedBytes: 40,
+      requestCount: 2,
       uniqueRequestCount: 2,
+      requestPaths: ["/assets/context.mesh", "/assets/context.png"],
       heap: {
         settled: { usedSize: 1 },
         sampledPeak: { usedSize: 2 },
@@ -364,6 +443,29 @@ test("block-context probe and ON validation reject fallback, overflow, loader, a
     ],
   };
   assert.equal(validateBlockContextMeasurement(context).passed, true);
+  assert.equal(validateBlockContextMeasurement({
+    ...context,
+    on: { ...context.on, requestPaths: undefined },
+  }).passed, false);
+  assert.equal(validateBlockContextMeasurement({
+    ...context,
+    on: { ...context.on, requestPaths: ["http://localhost:4173/context.mesh"] },
+  }).passed, false);
+  const zeroOnEvidence = validateBlockContextMeasurement({
+    ...context,
+    on: { ...context.on, uniqueRequestCount: 0 },
+  });
+  assert.ok(zeroOnEvidence.failures.includes("context-unique-request-count-zero"));
+  const emptyOnPaths = validateBlockContextMeasurement({
+    ...context,
+    on: { ...context.on, requestPaths: [], requestCount: 2 },
+  });
+  assert.ok(emptyOnPaths.failures.includes("context-request-paths-empty"));
+  const zeroOnBytes = validateBlockContextMeasurement({
+    ...context,
+    on: { ...context.on, encodedBytes: 0 },
+  });
+  assert.ok(zeroOnBytes.failures.includes("context-encoded-bytes-zero"));
   assert.deepEqual(validateBlockContextMeasurement({
     ...context,
     on: { ...context.on, canvasAfterSection: 1, webglFallback: true },

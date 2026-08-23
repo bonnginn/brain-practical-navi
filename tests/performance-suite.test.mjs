@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import {
+  BLOCK_CONTEXT_ROUTES,
   BLOCK_CONTEXT_SCENARIO,
   PERFORMANCE_SUITE_SCHEMA_VERSION,
   SUITE_ROUTES,
@@ -13,10 +14,13 @@ import {
   suiteMatrixDefinition,
 } from "../scripts/measure_browser_performance_suite.mjs";
 
-test("performance suite preserves the 31-entry base coverage and adds six block-context ON entries", () => {
+test("performance suite preserves 31 base entries and adds 48 block-context entries", () => {
   const matrix = buildPerformanceMatrix();
-  assert.equal(matrix.length, 37);
-  assert.equal(new Set(matrix.map(entry => entry.key)).size, 37);
+  assert.equal(matrix.length, 79);
+  assert.equal(new Set(matrix.map(entry => entry.key)).size, 79);
+
+  const base = matrix.filter(entry => entry.scenario === "none" || entry.scenario === "basic-mobile");
+  assert.equal(base.length, 31);
 
   const full = matrix.filter(entry => (entry.viewportId === "pc" || entry.viewportId === "tablet-landscape") && entry.scenario === "none");
   assert.equal(full.length, 24);
@@ -32,18 +36,20 @@ test("performance suite preserves the 31-entry base coverage and adds six block-
   assert.ok(mobile.every(entry => entry.width === 390 && entry.height === 768));
 
   const context = matrix.filter(entry => entry.scenario === BLOCK_CONTEXT_SCENARIO);
-  assert.equal(context.length, 6);
+  assert.equal(context.length, 48);
   assert.deepEqual(new Set(context.map(entry => entry.viewportId)), new Set(["pc", "tablet-landscape", "mobile"]));
   assert.deepEqual(new Set(context.map(entry => entry.mode)), new Set(["cold", "warm"]));
-  assert.ok(context.every(entry => entry.routeId === "blocks-lateral-ventricle"));
-  assert.deepEqual(context.map(entry => entry.key), [
-    "pc-blocks-lateral-ventricle-cold-block-context",
-    "pc-blocks-lateral-ventricle-warm-block-context",
-    "tablet-landscape-blocks-lateral-ventricle-cold-block-context",
-    "tablet-landscape-blocks-lateral-ventricle-warm-block-context",
-    "mobile-blocks-lateral-ventricle-cold-block-context",
-    "mobile-blocks-lateral-ventricle-warm-block-context",
-  ]);
+  assert.deepEqual(new Set(context.map(entry => entry.routeId)), new Set(BLOCK_CONTEXT_ROUTES.map(route => route.id)));
+  assert.ok(context.every(entry => entry.route.startsWith("#workspace/blocks/")));
+  const expectedContextKeys = [];
+  for (const viewportId of ["pc", "tablet-landscape", "mobile"]) {
+    for (const route of BLOCK_CONTEXT_ROUTES) {
+      for (const mode of ["cold", "warm"]) {
+        expectedContextKeys.push(`${viewportId}-${route.id}-${mode}-block-context`);
+      }
+    }
+  }
+  assert.deepEqual(context.map(entry => entry.key), expectedContextKeys);
 
   const basic = matrix.filter(entry => entry.scenario === "basic-mobile");
   assert.equal(basic.length, 1);
@@ -59,12 +65,13 @@ test("performance suite preserves the 31-entry base coverage and adds six block-
   });
 
   const definition = suiteMatrixDefinition(matrix);
-  assert.equal(definition.entryCount, 37);
+  assert.equal(definition.entryCount, 79);
   assert.equal(definition.routes.length, 6);
   assert.equal(definition.viewports.length, 3);
   assert.deepEqual(definition.modes, ["cold", "warm"]);
   assert.deepEqual(definition.blockContextScenario, {
-    routeId: "blocks-lateral-ventricle",
+    routeIds: BLOCK_CONTEXT_ROUTES.map(route => route.id),
+    routes: BLOCK_CONTEXT_ROUTES.map(route => ({ ...route })),
     viewportIds: ["pc", "tablet-landscape", "mobile"],
     modes: ["cold", "warm"],
     scenario: BLOCK_CONTEXT_SCENARIO,
@@ -96,8 +103,8 @@ test("performance suite allPassed aggregates every result and rejects missing or
   });
   assert.equal(report.schemaVersion, PERFORMANCE_SUITE_SCHEMA_VERSION);
   assert.equal(report.allPassed, true);
-  assert.equal(report.matrix.results.length, 37);
-  assert.equal(report.matrix.definition.entryCount, 37);
+  assert.equal(report.matrix.results.length, 79);
+  assert.equal(report.matrix.definition.entryCount, 79);
 
   const failed = [...results];
   failed[10] = { ...failed[10], measurementPassed: false };

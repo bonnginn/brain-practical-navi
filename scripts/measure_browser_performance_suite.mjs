@@ -14,12 +14,14 @@ import { dirname, isAbsolute, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import {
+  BLOCK_CONTEXT_ROUTES,
   BLOCK_CONTEXT_SCENARIO,
   measureBrowserPerformance,
   resolveRoute,
 } from "./measure_browser_performance.mjs";
 
 export { BLOCK_CONTEXT_SCENARIO };
+export { BLOCK_CONTEXT_ROUTES };
 
 export const PERFORMANCE_SUITE_SCHEMA_VERSION = 1;
 export const SUITE_MODES = Object.freeze(["cold", "warm"]);
@@ -51,6 +53,7 @@ function usage() {
     "    --output work/performance/suite.json",
     "",
     "Required options: --base-url, --output",
+    "Matrix: 31 base entries plus 48 block-context entries (8 block specimen routes × 3 viewports × cold/warm)",
   ].join("\n");
 }
 
@@ -89,7 +92,8 @@ export function parseSuiteArgs(argv) {
 }
 
 function routeById(id) {
-  const route = SUITE_ROUTES.find(candidate => candidate.id === id);
+  const route = SUITE_ROUTES.find(candidate => candidate.id === id)
+    || BLOCK_CONTEXT_ROUTES.find(candidate => candidate.id === id);
   if (!route) throw new Error(`unknown suite route: ${id}`);
   return route;
 }
@@ -117,11 +121,12 @@ function makeEntry({ viewportId, routeId, mode, scenario = "none" }) {
 }
 
 /**
- * Return the deterministic 37-entry matrix:
+ * Return the deterministic 79-entry matrix:
  *  - PC and tablet: all six routes, cold and warm (24 entries)
  *  - mobile: home, horizontal sections, and quiz, cold and warm (6 entries)
  *  - one mobile basic interaction scenario (1 entry)
- *  - lateral-ventricle context ON: all three viewports, cold and warm (6 entries)
+ *  - each of the eight block specimen context windows: all three viewports,
+ *    cold and warm (48 entries)
  */
 export function buildPerformanceMatrix() {
   const entries = [];
@@ -135,13 +140,15 @@ export function buildPerformanceMatrix() {
   }
   entries.push(makeEntry({ viewportId: "mobile", routeId: "quiz", mode: "cold", scenario: "basic-mobile" }));
   for (const viewportId of BLOCK_CONTEXT_MATRIX_VIEWPORT_IDS) {
-    for (const mode of SUITE_MODES) {
-      entries.push(makeEntry({
-        viewportId,
-        routeId: "blocks-lateral-ventricle",
-        mode,
-        scenario: BLOCK_CONTEXT_SCENARIO,
-      }));
+    for (const route of BLOCK_CONTEXT_ROUTES) {
+      for (const mode of SUITE_MODES) {
+        entries.push(makeEntry({
+          viewportId,
+          routeId: route.id,
+          mode,
+          scenario: BLOCK_CONTEXT_SCENARIO,
+        }));
+      }
     }
   }
   return entries;
@@ -161,7 +168,8 @@ export function suiteMatrixDefinition(matrix = buildPerformanceMatrix()) {
       scenario: "basic-mobile",
     },
     blockContextScenario: {
-      routeId: "blocks-lateral-ventricle",
+      routeIds: BLOCK_CONTEXT_ROUTES.map(route => route.id),
+      routes: BLOCK_CONTEXT_ROUTES.map(route => ({ ...route })),
       viewportIds: [...BLOCK_CONTEXT_MATRIX_VIEWPORT_IDS],
       modes: [...SUITE_MODES],
       scenario: BLOCK_CONTEXT_SCENARIO,

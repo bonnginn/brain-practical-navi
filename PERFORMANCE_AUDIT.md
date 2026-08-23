@@ -221,6 +221,18 @@ warm転送は同じ隔離プロファイル内で1回表示してから再訪し
 
 この監査はWindows上のviewport模擬とローカル配信です。物理スマートフォン／タブレットのCPU・GPU・メモリ圧迫、公開回線・公開CDNの待ち時間やcache headerを実測したものではありません。したがって、これらを実機値・公開回線値とは表現せず、公開後の任意フォローアップとして残します。
 
+## 2026-08-23 全8ブロック context ON の保存済み計測
+
+位置コンテキストを教材内8標本へ拡張した後、通常production preview `http://127.0.0.1:4232/` を Windows 11、Chrome 151.0.7922.170、Node 24.19.0 で再計測した。基礎31件と、8標本×PC 1366／tablet 1024／390 px相当×cold／warmのcontext ON 48件を合わせた79/79件が `measurementPassed: true` となった。結果は `work/performance/performance-suite-block-context-all-specimens-2026-08-23.json`、独立監査は `work/performance/block-context-performance-audit-all-specimens-2026-08-23.json` に保存した（いずれもローカル作業用・配布対象外）。
+
+PWAのService Workerを通る取得はページtargetのCDPで `encodedDataLength: 0` になる場合があり、初回試行では7 requestを0 byteと誤計上した。この試行は性能証拠として採用せず、計測専用の隔離Chromeだけ `Network.setBypassServiceWorker({bypass:true})` を必須にした。通常ブラウザのPWA挙動やHTTP cacheは変更していない。各結果は `networkPolicy.serviceWorkerBypass: true` を保持し、context ONのrequest pathも基礎画面と分離して記録する。0 byte、0 request、空pathは成功にしない。
+
+48件すべてのcontext ONは同じ7資産を要求し、実ファイル本体合計24,793,927 byteに対してencoded 24,795,951 byte（overhead 2,024 byte）、unique request 7だった。Canvasは全件 `1→2→2→1`、loader／UI／console／request error、横はみ出し、WebGL fallbackは0件。安定時間は698.6–828.9 ms、settled `backingStorageSize` 最大61,288,760 byte（58.45 MiB）、操作中sampled peak最大240,644,605 byte（229.50 MiB）だった。
+
+`scripts/audit_block_context_performance.mjs` は79件の順序・一意性と8×3×2の網羅を再計算し、7資産を実際にstatしてbody byte下限を導出する。encoded上限はbody＋8 KiB、安定時間1,500 ms以下、settled 80 MiB以下、sampled peak 300 MiB以下をローカル回帰の明示閾値とする。欠落、重複、誤path、0 byte、閾値超過を異常系テストで拒否する。
+
+側脳室PC coldを同条件で5回反復すると、安定時間726.8–801.3 ms、settled 35,033,022–38,637,681 byte、sampled peak 171,616,285–236,683,398 byteだった。sampled peak中央値は187,851,689 byteで、pial-gzip直後の保存値171,607,622 byteより9.5%高い一方、単発最大は37.9%高かった。転送量は5回とも24,795,951 byteで一致した。sampled peakは100 ms標本化とGCタイミングで揺れるため、単発最大の差を隠さず記録しつつ、今回の回帰判定は上記固定上限と全48件の値で行う。これは物理端末、公開回線、別GPU・別ブラウザの性能保証ではない。
+
 ## 2026-08-23 M2 初回ルートpayload監査（pial gzip現在値）
 
 初回画面で不要な大容量アセットを取得しないことを、canonical 26経路のcold loadで監査した。権威結果は `work/performance/initial-route-payload-audit-pial-gzip-2026-08-23.json`（ローカル作業用・配布対象外）であり、各結果に正規化済みの `requestPaths`（URLのpathname＋search）を観測順で保存している。Windows 11、Chrome 151.0.7922.170、Node 24.19.0、ローカルpreview `http://127.0.0.1:4211/`、requested desktop 1366×768を使用した。これは公開URL、物理端末、別ブラウザ、別GPU、解剖学的妥当性を検証する計測ではない。

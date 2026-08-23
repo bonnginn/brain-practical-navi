@@ -89,7 +89,7 @@
     {
       "id": "change-performance-local",
       "heading": "性能測定",
-      "body": "ローカル本番ビルドを既存31件に側脳室ブロック context ON のPC・tablet・390 px相当のcold/warm 6件を加えた37件の性能マトリクスで測定し、37/37件が測定条件を通過しました。初回payloadもdesktop 1366×768のcanonical 26経路を確認し、26/26件が通過しました。warm primeはベース画面だけで、context assetは初回ON時に取得しています。これはローカルデスクトップChromeの記録であり、物理端末や公開回線の保証ではありません。",
+      "body": "ローカル本番ビルドを既存31件に教材内8ブロック標本のcontext ON（PC・tablet・390 px相当、cold/warm）48件を加えた79件の性能マトリクスで測定し、79/79件が測定条件を通過しました。初回payloadもdesktop 1366×768のcanonical 26経路を確認し、26/26件が通過しました。計測専用Chromeでは転送量を正しく記録するためService Workerを迂回し、warm primeはベース画面だけに留めています。これはローカルデスクトップChromeの記録であり、物理端末や公開回線の保証ではありません。",
       "evidenceRefs": ["PERFORMANCE_AUDIT.md", "BETA_ROADMAP.md"]
     },
     {

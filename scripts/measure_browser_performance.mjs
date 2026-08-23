@@ -23,7 +23,23 @@ export const DEFAULT_SAMPLE_INTERVAL_MS = 100;
 export const DEFAULT_SETTLE_MS = 250;
 export const BLOCK_CONTEXT_SCENARIO = "block-context";
 export const BLOCK_CONTEXT_SCENARIO_ALIAS = "block-context-on";
-export const BLOCK_CONTEXT_ROUTE = "#workspace/blocks/lateral-ventricle";
+export const NETWORK_POLICY = Object.freeze({ serviceWorkerBypass: true });
+// Keep this as the single block-context route registry.  The objects and the
+// containing list are frozen so the CLI and suite cannot drift into accepting
+// an unreviewed comparison or non-block hash.
+export const BLOCK_CONTEXT_ROUTES = Object.freeze([
+  Object.freeze({ id: "blocks-lateral-ventricle", route: "#workspace/blocks/lateral-ventricle" }),
+  Object.freeze({ id: "blocks-diencephalon", route: "#workspace/blocks/diencephalon" }),
+  Object.freeze({ id: "blocks-radiations", route: "#workspace/blocks/radiations" }),
+  Object.freeze({ id: "blocks-commissural-system", route: "#workspace/blocks/commissural-system" }),
+  Object.freeze({ id: "blocks-choroid-plexus", route: "#workspace/blocks/choroid-plexus" }),
+  Object.freeze({ id: "blocks-medial-temporal", route: "#workspace/blocks/medial-temporal" }),
+  Object.freeze({ id: "blocks-midbrain-section", route: "#workspace/blocks/midbrain-section" }),
+  Object.freeze({ id: "blocks-hindbrain", route: "#workspace/blocks/hindbrain" }),
+]);
+// Retain the original named export for callers that only measured the first
+// specimen route; new block-context work uses BLOCK_CONTEXT_ROUTES.
+export const BLOCK_CONTEXT_ROUTE = BLOCK_CONTEXT_ROUTES[0].route;
 export const BLOCK_CONTEXT_VIEWPORTS = Object.freeze([1366, 1024, 390]);
 
 const HEAP_FIELDS = [
@@ -45,7 +61,7 @@ function usage() {
     "    --mode cold --output work/performance/home-cold.json",
     "",
     "Required options: --base-url, --route, --width, --height, --mode cold|warm, --output",
-    "Optional: --scenario none|basic-mobile|block-context (block-context requires the lateral-ventricle route and a supported 768px viewport)",
+    "Optional: --scenario none|basic-mobile|block-context (block-context requires one of the 8 block specimen routes and a supported 768px viewport)",
   ].join("\n");
 }
 
@@ -121,7 +137,9 @@ export function parseArgs(argv) {
   }
   if (options.scenario === "basic-mobile" && options.width !== 390) throw new Error("--scenario basic-mobile requires --width 390");
   if (isBlockContextScenario(options.scenario)) {
-    if (options.route !== BLOCK_CONTEXT_ROUTE) throw new Error(`--scenario ${BLOCK_CONTEXT_SCENARIO} requires --route ${BLOCK_CONTEXT_ROUTE}`);
+    if (!routeSupportsBlockContextScenario(options.route)) {
+      throw new Error(`--scenario ${BLOCK_CONTEXT_SCENARIO} requires one of the 8 registered block specimen routes`);
+    }
     if (!BLOCK_CONTEXT_VIEWPORTS.includes(options.width) || options.height !== 768) {
       throw new Error(`--scenario ${BLOCK_CONTEXT_SCENARIO} requires a 1366, 1024, or 390 by 768 viewport`);
     }
@@ -143,8 +161,12 @@ export function isBlockContextScenario(scenario) {
   return scenario === BLOCK_CONTEXT_SCENARIO || scenario === BLOCK_CONTEXT_SCENARIO_ALIAS;
 }
 
+export function blockContextRouteDefinition(route) {
+  return BLOCK_CONTEXT_ROUTES.find(candidate => candidate.route === String(route)) || null;
+}
+
 export function routeSupportsBlockContextScenario(route) {
-  return String(route) === BLOCK_CONTEXT_ROUTE;
+  return blockContextRouteDefinition(route) !== null;
 }
 
 function finiteNumber(value) {
@@ -353,6 +375,11 @@ function isNullableNumber(value) {
   return value === null || (typeof value === "number" && Number.isFinite(value));
 }
 
+function hasLocalRequestPaths(value) {
+  return Array.isArray(value)
+    && value.every(path => typeof path === "string" && path.startsWith("/"));
+}
+
 function hasHeapShape(value) {
   return Boolean(value)
     && typeof value === "object"
@@ -374,11 +401,13 @@ export function validateBlockContextStructure(context) {
   if (![baseline.canvasCount, baseline.loadingCount].every(isNullableNumber)) return false;
   if (![baseline.encodedBytes, baseline.requestCount, baseline.uniqueRequestCount].every(value => Number.isSafeInteger(value) && value >= 0)) return false;
   if (typeof baseline.webglFallback !== "boolean" || !Array.isArray(baseline.uiErrors) || !Array.isArray(baseline.consoleErrors) || !Array.isArray(baseline.requestErrors)) return false;
+  if (!hasLocalRequestPaths(baseline.requestPaths)) return false;
   if (!baseline.horizontalOverflow || typeof baseline.horizontalOverflow.detected !== "boolean" || !hasHeapShape(baseline.heap)) return false;
   if (![on.canvasAfterLauncher, on.canvasAfterSection, on.canvasAfterClose, on.loadingCount].every(isNullableNumber)) return false;
   if (![on.encodedBytes, on.requestCount, on.uniqueRequestCount].every(value => Number.isSafeInteger(value) && value >= 0)) return false;
   if (!isNullableNumber(on.stableTimeMs) || typeof on.stable !== "boolean" || typeof on.stabilityReason !== "string") return false;
   if (typeof on.webglFallback !== "boolean" || !Array.isArray(on.uiErrors) || !Array.isArray(on.consoleErrors) || !Array.isArray(on.requestErrors)) return false;
+  if (!hasLocalRequestPaths(on.requestPaths)) return false;
   if (!on.horizontalOverflow || typeof on.horizontalOverflow.detected !== "boolean" || !hasHeapShape(on.heap)) return false;
   if (!Array.isArray(context.interactions)) return false;
   if (context.interactions.some(item => !item || typeof item !== "object" || typeof item.name !== "string" || typeof item.passed !== "boolean")) return false;
@@ -391,7 +420,7 @@ export function validateResultSchema(result) {
     "generatedAt", "tool", "baseUrl", "route", "url", "mode", "scenario", "viewport",
     "encodedBytes", "requestCount", "dclMs", "stableTimeMs", "consoleErrors",
     "requestErrors", "requestPaths", "canvasCount", "loadingCount", "uiErrors", "appRootPresent", "stable", "stabilityReason", "horizontalOverflow", "heap",
-    "interactions", "measurementPassed", "validation",
+    "networkPolicy", "interactions", "measurementPassed", "validation",
   ];
   if (required.some(key => !(key in result))) return false;
   if (!Number.isSafeInteger(result.encodedBytes) || result.encodedBytes < 0) return false;
@@ -399,7 +428,8 @@ export function validateResultSchema(result) {
   if ("uniqueRequestCount" in result && (!Number.isSafeInteger(result.uniqueRequestCount) || result.uniqueRequestCount < 0)) return false;
   if (!Number.isSafeInteger(result.canvasCount) || result.canvasCount < 0) return false;
   if (!Array.isArray(result.consoleErrors) || !Array.isArray(result.requestErrors) || !Array.isArray(result.uiErrors)) return false;
-  if (!Array.isArray(result.requestPaths) || result.requestPaths.some(path => typeof path !== "string" || !path.startsWith("/"))) return false;
+  if (!hasLocalRequestPaths(result.requestPaths)) return false;
+  if (!result.networkPolicy || typeof result.networkPolicy !== "object" || result.networkPolicy.serviceWorkerBypass !== true) return false;
   if (!Number.isSafeInteger(result.loadingCount) || result.loadingCount < 0) return false;
   if (typeof result.appRootPresent !== "boolean") return false;
   if (typeof result.stable !== "boolean" || typeof result.stabilityReason !== "string") return false;
@@ -449,6 +479,7 @@ export function validateBlockContextMeasurement(context) {
     if (baseline.loadingCount !== 0) failures.push("baseline-loading-indicator-visible");
     if (baseline.webglFallback !== false) failures.push("baseline-webgl-fallback");
     if (!baseline.horizontalOverflow || baseline.horizontalOverflow.detected !== false) failures.push("baseline-horizontal-overflow");
+    if (!hasLocalRequestPaths(baseline.requestPaths)) failures.push("baseline-request-paths");
     if (!Array.isArray(baseline.uiErrors) || baseline.uiErrors.length) failures.push("baseline-ui-errors");
     if (!baseline.heap || !baseline.heap.settled || !(baseline.heap.sampledPeak || baseline.heap.samplePeak)) failures.push("baseline-heap-metrics");
   }
@@ -460,11 +491,17 @@ export function validateBlockContextMeasurement(context) {
     if (on.loadingCount !== 0) failures.push("context-loading-indicator-visible");
     if (on.webglFallback !== false) failures.push("context-webgl-fallback");
     if (!on.horizontalOverflow || on.horizontalOverflow.detected !== false) failures.push("context-horizontal-overflow");
+    if (!hasLocalRequestPaths(on.requestPaths)) failures.push("context-request-paths");
+    if (Number.isSafeInteger(on.requestCount) && on.requestCount > 0 && Array.isArray(on.requestPaths) && on.requestPaths.length === 0) {
+      failures.push("context-request-paths-empty");
+    }
     if (!Array.isArray(on.uiErrors) || on.uiErrors.length) failures.push("context-ui-errors");
     if (!on.stable) failures.push(`context-stability:${on.stabilityReason || "unknown"}`);
     if (!Number.isFinite(on.stableTimeMs)) failures.push("context-stable-time");
     if (!Number.isSafeInteger(on.encodedBytes) || on.encodedBytes < 0) failures.push("context-encoded-bytes");
+    if (on.encodedBytes === 0) failures.push("context-encoded-bytes-zero");
     if (!Number.isSafeInteger(on.uniqueRequestCount) || on.uniqueRequestCount < 0) failures.push("context-unique-request-count");
+    if (on.uniqueRequestCount === 0) failures.push("context-unique-request-count-zero");
     if (!Array.isArray(on.consoleErrors) || on.consoleErrors.length) failures.push("context-console-errors");
     if (!Array.isArray(on.requestErrors) || on.requestErrors.length) failures.push("context-request-errors");
     if (!on.heap || !on.heap.settled || !(on.heap.sampledPeak || on.heap.samplePeak)) failures.push("context-heap-metrics");
@@ -1196,9 +1233,9 @@ function blockContextStabilityReason(error) {
 }
 
 /**
- * Exercise the lateral-ventricle context panel after the initial route has
- * reached ready.  Network and heap sampling begin immediately before the
- * launcher click, so the returned metrics are ON-only additions.
+ * Exercise the selected block specimen's context panel after the initial
+ * route has reached ready.  Network and heap sampling begin immediately
+ * before the launcher click, so the returned metrics are ON-only additions.
  */
 export async function runBlockContextScenario(cdp, state, args = {}, {
   baselineProbe = null,
@@ -1470,6 +1507,11 @@ export function attachObservers(cdp, state) {
 export async function configurePage(cdp) {
   await cdp.send("Page.enable");
   await cdp.send("Network.enable");
+  // Bypass the app's PWA service worker so Network events and encoded byte
+  // measurements describe the isolated browser navigation itself. Warm runs
+  // still retain the normal HTTP cache because only service-worker
+  // interception is bypassed.
+  await cdp.send("Network.setBypassServiceWorker", { bypass: true });
   await cdp.send("Runtime.enable");
   try { await cdp.send("Log.enable"); } catch { /* optional on older Chrome */ }
   try { await cdp.send("Performance.enable"); } catch { /* optional on older Chrome */ }
@@ -1493,6 +1535,7 @@ function resultFromMeasurement(args, url, state, stableProbe, heap, session, sta
     mode: args.mode,
     scenario: args.scenario,
     viewport: { width: args.width, height: args.height },
+    networkPolicy: { ...NETWORK_POLICY },
     browser: {
       executable: session.executable,
       product: session.version?.Browser || null,
@@ -1552,8 +1595,8 @@ export async function measureBrowserPerformance(args) {
       await prepareRoute(session.cdp, args.route);
       await waitForUiReady(session.cdp);
       // Warm priming intentionally stops at the route's initial ready state:
-      // the lateral-ventricle context launcher is never clicked here, so its
-      // context mesh/asset requests remain part of the measured ON window.
+      // the block-context launcher is never clicked here, so its context
+      // mesh/asset requests remain part of the measured ON window.
       // Leave the primed document before the measured navigation.  This keeps
       // the warm run a real second navigation rather than a same-URL no-op,
       // while preserving the profile's HTTP cache.
@@ -1582,6 +1625,7 @@ export async function measureBrowserPerformance(args) {
         encodedBytes: contextNetwork.encodedBytes,
         requestCount: contextNetwork.requestCount,
         uniqueRequestCount: contextNetwork.uniqueRequestCount,
+        requestPaths: contextNetwork.requestPaths,
         stableTimeMs: contextRun.stableTimeMs,
         onStartedAt: contextRun.onStartedAt,
         stableAt: contextRun.wholeQuietPassed ? finiteNumber(contextRun.stableProbe?.now) : null,
@@ -1617,6 +1661,7 @@ export async function measureBrowserPerformance(args) {
           encodedBytes: baselineNetwork.encodedBytes,
           requestCount: baselineNetwork.requestCount,
           uniqueRequestCount: baselineNetwork.uniqueRequestCount,
+          requestPaths: baselineNetwork.requestPaths,
           stableTimeMs: finiteNumber(baselineProbe?.now),
           canvasCount: baselineProbe?.canvasCount ?? null,
           loadingCount: baselineProbe?.loadingCount ?? null,
