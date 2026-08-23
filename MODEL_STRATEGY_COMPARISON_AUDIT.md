@@ -1,6 +1,6 @@
 # 3Dモデル方針比較試作監査
 
-更新: 2026-08-23
+更新: 2026-08-24
 
 ## 位置づけ
 
@@ -18,8 +18,8 @@ Bは画面上で常に「模式・専門家未確認」「実標本由来では�
 ## 操作契約
 
 - A/Bは同じ回転状態、初期・反対側・上面・下面プリセット、同じ青緑色、同じ表示ON/OFFを共有します。
-- 比較パネルを開閉しても `#workspace/collaborate` を維持し、教材の選択状態や履歴を変更しません。
-- 閉じると起点の「比較試作を開く」ボタンへフォーカスを戻します。
+- 共同制作ページの目立つ案内と既存カードの両方から、`#workspace/collaborate/model-strategy` を開きます。このURLはdirect/reloadに対応します。
+- 閉じると `#workspace/collaborate` へ戻り、画面内ボタンから開いた場合は起点へフォーカスを戻します。
 - `React.lazy` と開閉条件により、比較用コードと模式メッシュはパネルを開くまで読み込みません。
 
 ## 機械可読評価
@@ -58,6 +58,18 @@ Windows 11 / Chrome 151、ローカルproduction preview `http://127.0.0.1:4216/
 同じbuildのcanonical route監査は26経路×3幅×direct/reload＝156/156件に合格しました。結果は `work/browser-audit/beta-route-audit-model-strategy-2026-08-23.json` です。初回payload監査も26/26件に合格し、通常経路から比較用chunk・meshの要求は0件でした。結果は `work/performance/initial-route-payload-audit-model-strategy-2026-08-23.json` です。
 
 自動テスト217/217、対象＋rendered HTMLテスト83/83、TypeScript型検査、通常／Pages本番ビルド、`git diff --check` に合格しました。Sol mediumの最終差分レビューでもP0/P1指摘はありませんでした。
+
+### 2026-08-24 導線・直接URLの追試
+
+共同制作ページの冒頭へ「M2・寄稿者向け試作」と明記した案内を追加し、比較画面を探し回らずに開けるようにしました。専用URL `#workspace/collaborate/model-strategy` はdirect/reload後も比較を開いた状態へ復元します。通常の `#workspace/collaborate` はCanvas 0で比較資産を取得せず、専用URLだけがA/BのCanvas 2件と次の3資産を読み込みます。
+
+- `block-commissural-system-lateral-ventricles.mesh`
+- `block-diencephalon-third-ventricle.mesh`
+- `comparison-schematic-ventricle.mesh`
+
+Windows Chrome 151、ローカルproduction preview `http://127.0.0.1:4312` で、案内から開く、direct/reload、閉じる、起点フォーカス復帰を確認しました。390×768指定時は実効 `innerWidth` 295 px、`clientWidth` / `scrollWidth` 284/284で一列表示となり、loader、画面内error、横overflowは0件でした。
+
+canonical route監査は新しい専用URLを含む27経路×3幅×direct/reload＝162/162件に合格し、missing／duplicate／fail、console／request／UI error、残留loader、横overflow、WebGL fallbackは0件でした。記録は `work/browser-audit/beta-route-audit-model-strategy-discovery-2026-08-24.json` です。cold初回payload監査も27/27件に合格し、通常の共同制作ページは181,062 bytes・6 requests、専用URLは861,927 bytes・10 requestsで、上記3資産のexact allowlistに一致しました。記録は `work/performance/initial-route-payload-model-strategy-discovery-2026-08-24.json` です。これらはローカル確認であり、比較案の解剖学的妥当性や採否を示しません。
 
 ## 未確認事項
 

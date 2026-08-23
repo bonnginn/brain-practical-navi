@@ -93,13 +93,16 @@ test("comparison mesh has exactly one explicit DATA-MANIFEST coverage group", as
   assert.match(matching[0].displayObligation, /not specimen-derived/);
 });
 
-test("contributor comparison is opt-in, code-split, and leaves workspace history untouched", async () => {
+test("contributor comparison is opt-in, code-split, and has a durable contributor route", async () => {
   const page = await readFile(pageUrl, "utf8");
   assert.match(page, /lazy\(\(\)=>import\("\.\/ModelStrategyComparison"\)\)/);
   assert.match(page, /modelStrategyComparisonOpen&&<div id="model-strategy-comparison"/);
   assert.match(page, /workspace==="collaborate"/);
-  assert.doesNotMatch(page, /workspaceHash\([^)]*modelStrategy/);
-  assert.doesNotMatch(page, /#workspace\/model-strategy/);
+  assert.match(page, /MODEL_STRATEGY_ROUTE="#workspace\/collaborate\/model-strategy"/);
+  assert.match(page, /modelStrategyFromHash\(window\.location\.hash\)/);
+  assert.match(page, /updateScreenHistory\(MODEL_STRATEGY_ROUTE,"push"\)/);
+  assert.match(page, /M2 · CONTRIBUTOR PILOT/);
+  assert.match(page, /A\/B比較を開く/);
 });
 
 test("A and B share controls while B keeps its full provenance warning", async () => {

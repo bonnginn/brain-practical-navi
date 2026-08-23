@@ -289,3 +289,13 @@ sectionsの現在の初回転送は26,441,013 Bで、旧監査の34,688,033 B（
 `work/performance/performance-suite-pial-gzip-2026-08-23.json` の37/37件（PC・tablet landscape・requested 390×768相当のcold/warm、block-context 6件を含む）が合格した。関連経路のstable-time回帰はすべて1%未満、sampledPeak backing storageの最大増加は2.0%で、レビュー閾値25%を大きく下回る。
 
 `work/browser-audit/beta-route-audit-pial-gzip-2026-08-23.json` の156/156件も合格し、error／loader／overflow／WebGL fallbackは各0件だった。`http://127.0.0.1:4211` の視覚確認では、PCはcombined押下時Canvas 3、狭幅は初期section-only Canvas 1からcombined Canvas 3、2つの3D view描画、console warning/error 0を確認した。requested 1366 px時のin-app browser実効`clientWidth`は1035 px、requested 390 px時は284 pxであり、物理viewportの寸法としては扱わない。
+
+## 2026-08-24 M2比較専用URL追加後の初回payload
+
+寄稿者向けA/B比較の専用URL `#workspace/collaborate/model-strategy` をcanonical routeへ追加し、Windows Chrome 151のローカルproduction preview `http://127.0.0.1:4312` でcold初回payload 27/27件を再測定した。通常の `collaborate` は181,062 encoded bytes・6 requests・5 unique requestsでatlas資産0、`collaborate-model-strategy` は861,927 encoded bytes・10 requests・9 unique requestsで、次の3資産だけをexact allowlistとして取得した。
+
+- `block-commissural-system-lateral-ventricles.mesh`
+- `block-diencephalon-third-ventricle.mesh`
+- `comparison-schematic-ventricle.mesh`
+
+missing／duplicate／unexpected route key、console／request／UI error、残留loader、overflow、WebGL fallbackは各0で、27/27件がstable・validation passed・`allPassed: true` だった。記録は `work/performance/initial-route-payload-model-strategy-discovery-2026-08-24.json`（ローカル作業用・配布対象外）。通常学習経路の既存allowlistとbudgetは変更していない。canonical route監査も27経路×3幅×direct/reload＝162/162件に合格した。これらはローカルデスクトップChromeの記録であり、公開回線・物理端末・別GPU／別ブラウザの性能保証ではない。

@@ -97,6 +97,8 @@ function surfaceViewFromHash(hash:string):SurfaceViewKey{const candidate=hash.re
 function planeFromHash(hash:string):Plane{const candidate=hash.replace(/^#/,"").replace(/^workspace\/?/,"").split("/")[1];return planeKeys.includes(candidate as Plane)?candidate as Plane:"coronal"}
 function blockSpecimenFromHash(hash:string):BlockSpecimenKey{const candidate=hash.replace(/^#/,"").replace(/^workspace\/?/,"").split("/")[1];return blockSpecimenKeys.includes(candidate as BlockSpecimenKey)?candidate as BlockSpecimenKey:"lateral-ventricle"}
 function workspaceHash(key:WorkspaceMode,surfaceView:SurfaceViewKey="lateral",plane:Plane="coronal",blockSpecimen:BlockSpecimenKey="lateral-ventricle"){const detail=key==="surface"?(surfaceView==="cranialNerves"?"nerves":surfaceView):key==="sections"?plane:key==="blocks"?blockSpecimen:"";return `#workspace/${key}${detail?`/${detail}`:""}`}
+const MODEL_STRATEGY_ROUTE="#workspace/collaborate/model-strategy";
+function modelStrategyFromHash(hash:string){return hash.replace(/^#/,"").replace(/^workspace\/?/,"")==="collaborate/model-strategy"}
 const homeRotation:Rotation={x:-8,y:-28,z:0};
 const quizCategories:{key:"all"|QuizCategory;label:string}[]=[
   {key:"all",label:"全項目"},
@@ -691,8 +693,9 @@ export default function Home() {
   const [blockContextWebglUnavailable,setBlockContextWebglUnavailable]=useState(false);
   const blockContextLauncherRef=useRef<HTMLButtonElement|null>(null);
   const blockContextView=blockContextState.view as BlockContextView;
-  const [modelStrategyComparisonOpen,setModelStrategyComparisonOpen]=useState(false);
-  const modelStrategyLauncherRef=useRef<HTMLButtonElement|null>(null);
+  const [modelStrategyComparisonOpen,setModelStrategyComparisonOpen]=useState(()=>typeof window!=="undefined"&&modelStrategyFromHash(window.location.hash));
+  const modelStrategyPanelRef=useRef<HTMLDivElement|null>(null);
+  const modelStrategyReturnFocus=useRef<HTMLElement|null>(null);
   const [quizIndex,setQuizIndex]=useState(0);
   const [quizQueue,setQuizQueue]=useState<QuizQuestion[]>(()=>shuffledQuestions(allQuizQuestions).slice(0,10));
   const quizVisibilityAuditTarget=quizVisibilityAuditTargetOverride();
@@ -829,12 +832,13 @@ export default function Home() {
   useEffect(()=>{if(!phoneMode)setPhoneSettingsOpen(false)},[phoneMode]);
   useEffect(()=>{const update=()=>setOffline(!navigator.onLine);window.addEventListener("online",update);window.addEventListener("offline",update);return()=>{window.removeEventListener("online",update);window.removeEventListener("offline",update)}},[]);
   useEffect(()=>{
-    const close=(event:KeyboardEvent)=>{if(event.key==="Escape"){if(phoneSettingsOpen){setPhoneSettingsOpen(false);return}closeOverlay();setDetailsOpen(false)}};
+    const close=(event:KeyboardEvent)=>{if(event.key==="Escape"){if(phoneSettingsOpen){setPhoneSettingsOpen(false);return}if(modelStrategyComparisonOpen){closeModelStrategyComparison();return}closeOverlay();setDetailsOpen(false)}};
     window.addEventListener("keydown",close);
     return()=>window.removeEventListener("keydown",close);
-  },[workspace,surfaceView,plane,blockSpecimen,phoneSettingsOpen]);
+  },[workspace,surfaceView,plane,blockSpecimen,phoneSettingsOpen,modelStrategyComparisonOpen]);
   useEffect(()=>{if(!overlayOpen)return;const previousOverflow=document.body.style.overflow;document.body.style.overflow="hidden";const frame=window.requestAnimationFrame(()=>document.querySelector<HTMLButtonElement>('.legalDialog header button')?.focus());const trap=(event:KeyboardEvent)=>{if(event.key!=="Tab")return;const dialog=document.querySelector<HTMLElement>('.legalDialog');if(!dialog)return;const focusable=[...dialog.querySelectorAll<HTMLElement>('button:not(:disabled),a[href],input:not(:disabled),select:not(:disabled),textarea:not(:disabled),[tabindex]:not([tabindex="-1"])')].filter(element=>element.getClientRects().length>0);if(!focusable.length)return;const first=focusable[0],last=focusable.at(-1)!;if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus()}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus()}};window.addEventListener("keydown",trap);return()=>{window.cancelAnimationFrame(frame);window.removeEventListener("keydown",trap);document.body.style.overflow=previousOverflow}},[helpOpen,feedbackOpen,legalOpen,statusOpen]);
   useEffect(()=>{if(!overlayOpen)overlayReturnFocus.current?.focus()},[overlayOpen]);
+  useEffect(()=>{if(!modelStrategyComparisonOpen)return;const frame=window.requestAnimationFrame(()=>modelStrategyPanelRef.current?.scrollIntoView({block:"start"}));return()=>window.cancelAnimationFrame(frame)},[modelStrategyComparisonOpen]);
   useEffect(()=>{
     const dialog=phoneSettingsDialogRef.current;
     if(!dialog)return;
@@ -844,7 +848,7 @@ export default function Home() {
     else if((!phoneMode||!phoneSettingsOpen)&&dialog.open)dialog.close();
     return()=>dialog.removeEventListener("close",handleClose);
   },[phoneMode,phoneSettingsOpen]);
-  useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.hash);setHelpOpen(overlay==="help");setFeedbackOpen(overlay==="feedback");setLegalOpen(overlay==="legal");setStatusOpen(overlay==="status");setPhoneSettingsOpen(false);const nextWorkspace=workspaceFromHash(window.location.hash);transitionBlockContextState({type:"restore-route",workspace:nextWorkspace,specimen:blockSpecimenFromHash(window.location.hash)});setBlockContextDrag(null);setWorkspace(nextWorkspace);if(nextWorkspace==="surface")chooseSurface(surfaceViewFromHash(window.location.hash),"none");else if(nextWorkspace==="sections")jump(planeFromHash(window.location.hash),52,"none");else if(nextWorkspace==="blocks")chooseBlock(blockSpecimenFromHash(window.location.hash),"none")};window.addEventListener("hashchange",restore);window.addEventListener("popstate",restore);return()=>{window.removeEventListener("hashchange",restore);window.removeEventListener("popstate",restore)}},[]);
+  useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.hash);setHelpOpen(overlay==="help");setFeedbackOpen(overlay==="feedback");setLegalOpen(overlay==="legal");setStatusOpen(overlay==="status");setPhoneSettingsOpen(false);const nextWorkspace=workspaceFromHash(window.location.hash);setModelStrategyComparisonOpen(nextWorkspace==="collaborate"&&modelStrategyFromHash(window.location.hash));transitionBlockContextState({type:"restore-route",workspace:nextWorkspace,specimen:blockSpecimenFromHash(window.location.hash)});setBlockContextDrag(null);setWorkspace(nextWorkspace);if(nextWorkspace==="surface")chooseSurface(surfaceViewFromHash(window.location.hash),"none");else if(nextWorkspace==="sections")jump(planeFromHash(window.location.hash),52,"none");else if(nextWorkspace==="blocks")chooseBlock(blockSpecimenFromHash(window.location.hash),"none")};window.addEventListener("hashchange",restore);window.addEventListener("popstate",restore);return()=>{window.removeEventListener("hashchange",restore);window.removeEventListener("popstate",restore)}},[]);
   useEffect(()=>{
     if(!phoneMode||!phoneSettingsOpen)return;
     const dialog=phoneSettingsDialogRef.current;
@@ -1014,8 +1018,9 @@ export default function Home() {
   function openOverlay(key:OverlayMode){if(!overlayOpen)overlayReturnFocus.current=document.activeElement instanceof HTMLElement?document.activeElement:null;window.history.pushState(null,"",`#workspace/${key}`);setHelpOpen(key==="help");setFeedbackOpen(key==="feedback");setLegalOpen(key==="legal");setStatusOpen(key==="status")}
   function openPhoneSettings(origin?:HTMLElement){if(!phoneMode||workspace==="home"||workspace==="collaborate"||workspace==="segment")return;phoneSettingsReturnFocus.current=origin??(document.activeElement instanceof HTMLElement?document.activeElement:null);setPhoneSettingsOpen(true)}
   function closePhoneSettings(){setPhoneSettingsOpen(false)}
-  function openWorkspace(key:WorkspaceMode){setPhoneSettingsOpen(false);setHelpOpen(false);setFeedbackOpen(false);setLegalOpen(false);setStatusOpen(false);if(key!=="collaborate")setModelStrategyComparisonOpen(false);const nextHash=workspaceHash(key,surfaceView,plane,blockSpecimen);if(window.location.hash!==nextHash)window.history.pushState(null,"",nextHash);transitionBlockContextState({type:key==="blocks"?"enter-workspace":"leave-workspace",workspace:key});setBlockContextDrag(null);setWorkspace(key);if(key==="home")setRotation({...homeRotation});if(key==="sections")setRotation({x:-7,y:-18,z:0});if(key==="surface")setRotation(surfaceViews[surfaceView].rotation);if(key==="blocks"){setBlockIntroOpen(true);setRotation({...blockInitialRotations[blockSpecimen]});setBlockViewPreset("initial")}}
-  function closeModelStrategyComparison(){setModelStrategyComparisonOpen(false);window.requestAnimationFrame(()=>modelStrategyLauncherRef.current?.focus())}
+  function openWorkspace(key:WorkspaceMode){setPhoneSettingsOpen(false);setHelpOpen(false);setFeedbackOpen(false);setLegalOpen(false);setStatusOpen(false);setModelStrategyComparisonOpen(false);const nextHash=workspaceHash(key,surfaceView,plane,blockSpecimen);if(window.location.hash!==nextHash)window.history.pushState(null,"",nextHash);transitionBlockContextState({type:key==="blocks"?"enter-workspace":"leave-workspace",workspace:key});setBlockContextDrag(null);setWorkspace(key);if(key==="home")setRotation({...homeRotation});if(key==="sections")setRotation({x:-7,y:-18,z:0});if(key==="surface")setRotation(surfaceViews[surfaceView].rotation);if(key==="blocks"){setBlockIntroOpen(true);setRotation({...blockInitialRotations[blockSpecimen]});setBlockViewPreset("initial")}}
+  function openModelStrategyComparison(origin?:HTMLElement){modelStrategyReturnFocus.current=origin??(document.activeElement instanceof HTMLElement?document.activeElement:null);setModelStrategyComparisonOpen(true);updateScreenHistory(MODEL_STRATEGY_ROUTE,"push")}
+  function closeModelStrategyComparison(){setModelStrategyComparisonOpen(false);updateScreenHistory(workspaceHash("collaborate",surfaceView,plane,blockSpecimen),"replace");window.requestAnimationFrame(()=>modelStrategyReturnFocus.current?.focus())}
   function saveWrongTargets(next:QuizTargetKey[]){setWrongTargets(next);try{localStorage.setItem(QUIZ_WRONG_CACHE_KEY,JSON.stringify(next))}catch{/* private browsing may block storage */}}
   function quizChoiceCount(dimension:"category"|"format"|"detail",value:string){return countQuizChoice(quizQuestionsForFiltering,quizFilters,wrongTargets,dimension,value)}
   function chooseQuizFormat(value:QuizFormatFilter){setQuizFormat(value);if(quizDetail!=="all"&&!detailOptionsForFormat(value).includes(quizDetail))setQuizDetail("all")}
@@ -1207,16 +1212,17 @@ export default function Home() {
     {workspace==="collaborate"&&<section className="workArea collaborationArea" id="workspace" tabIndex={-1}>
       <div className="workHead"><div><span className="eyebrow">OPEN COLLABORATION</span><h1>共同制作</h1></div><span className="sourceBadge">解剖監修・教育設計・制作・実装</span></div>
       <div className="collaborationIntro"><h2>関わり方に合う入口を選んでください</h2><p>単発の匿名報告と、継続的な共同制作は分けて受け付けます。患者・学生・献体者を特定できる情報、許諾のない標本写真・講義資料・教科書図版は送らないでください。</p><div><span>解剖監修</span><span>教育設計</span><span>セグメンテーション</span><span>3D制作</span><span>Web開発</span></div></div>
+      <aside className="modelStrategyShortcut" aria-labelledby="model-strategy-shortcut-title"><div><span>M2 · CONTRIBUTOR PILOT</span><h2 id="model-strategy-shortcut-title">3Dモデル方針のA/B比較試作</h2><p>現行再構成と専門家未確認の模式案を、同じ向き・色・表示条件ですぐ比較できます。通常教材やラベルは変更しません。</p></div><button type="button" aria-expanded={modelStrategyComparisonOpen} aria-controls="model-strategy-comparison" onClick={event=>modelStrategyComparisonOpen?closeModelStrategyComparison():openModelStrategyComparison(event.currentTarget)}>{modelStrategyComparisonOpen?"比較を閉じる":"A/B比較を開く →"}</button></aside>
       <div className="collaborationGrid">
         <article><span>非公開・匿名</span><h2>意見・誤り報告</h2><p>表示位置、名称、操作性、クイズなどの気づきをGoogle Formへ送れます。継続参加や連絡先の記入は任意です。</p>{feedbackFormUrl?<a href={feedbackFormUrl} target="_blank" rel="noreferrer">Google Formを開く →</a>:<button disabled>フォームURL設定待ち</button>}</article>
         <article><span>公開相談</span><h2>改善案を相談する</h2><p>再現手順や根拠URLを公開し、検討経過を追跡したい不具合・提案はGitHub Issuesへ送ります。</p><a href={issueTrackerUrl} target="_blank" rel="noreferrer">GitHub Issuesを開く →</a></article>
         <article><span>具体的な変更</span><h2>Pull Requestを提案する</h2><p>コード、教材文、3Dデータの変更条件、DCO、出典・ライセンスの確認方法を共同制作ガイドにまとめています。</p><div><a href={contributingGuideUrl} target="_blank" rel="noreferrer">CONTRIBUTINGを読む</a><a href={pullRequestUrl} target="_blank" rel="noreferrer">Pull Request一覧 →</a></div></article>
         <article className="segmentationEntry"><span>端末内の差分</span><h2>セグメンテーションを修正する</h2><p>編集内容はこの端末内の差分で、公式データを直接変更しません。採用には、画像上の根拠、差分JSON、レビュー、プロジェクト管理者の判断が必要です。</p><button onClick={()=>openWorkspace("segment")}>編集ツールを開く →</button></article>
-        <article className="modelStrategyEntry"><span>寄稿者限定・比較試作</span><h2>3Dモデル方針を比較する</h2><p>現行再構成と、実標本由来ではない専門家未確認の模式案を、同じ操作条件でA/B比較します。学習用モデルやラベルは変更しません。</p><button ref={modelStrategyLauncherRef} type="button" aria-expanded={modelStrategyComparisonOpen} aria-controls="model-strategy-comparison" onClick={()=>setModelStrategyComparisonOpen(value=>!value)}>{modelStrategyComparisonOpen?"比較を閉じる":"比較試作を開く →"}</button></article>
+        <article className="modelStrategyEntry"><span>寄稿者限定・比較試作</span><h2>3Dモデル方針を比較する</h2><p>現行再構成と、実標本由来ではない専門家未確認の模式案を、同じ操作条件でA/B比較します。学習用モデルやラベルは変更しません。</p><button type="button" aria-expanded={modelStrategyComparisonOpen} aria-controls="model-strategy-comparison" onClick={event=>modelStrategyComparisonOpen?closeModelStrategyComparison():openModelStrategyComparison(event.currentTarget)}>{modelStrategyComparisonOpen?"比較を閉じる":"比較試作を開く →"}</button></article>
         <article><span>方針・採否</span><h2>運営方針を確認する</h2><p>公式版への採否、役割、クレジット、匿名参加、継続参加、運営承継の考え方を確認できます。</p><a href={governanceGuideUrl} target="_blank" rel="noreferrer">GOVERNANCEを読む →</a></article>
          <article><span>権利・再利用</span><h2>ライセンスを確認する</h2><p>コード、教材文書、BigBrain・MNI・CerebrA由来データでは適用条件が異なります。公開・再配布前に確認してください。</p><div><a href={licenseGuideUrl} target="_blank" rel="noreferrer">ライセンス境界</a><button onClick={()=>openOverlay("legal")}>画面上の利用条件 →</button></div></article>
       </div>
-      {modelStrategyComparisonOpen&&<div id="model-strategy-comparison"><Suspense fallback={<div className="modelStrategyLoading" role="status">比較試作を読み込み中…</div>}><ModelStrategyComparison onClose={closeModelStrategyComparison}/></Suspense></div>}
+      {modelStrategyComparisonOpen&&<div id="model-strategy-comparison" ref={modelStrategyPanelRef}><Suspense fallback={<div className="modelStrategyLoading" role="status">比較試作を読み込み中…</div>}><ModelStrategyComparison onClose={closeModelStrategyComparison}/></Suspense></div>}
       <AnatomyReviewQueuePanel items={anatomyReviewItems} total={anatomyReviewQueue.length} surfaceFilter={anatomyReviewSurfaceFilter} representationFilter={anatomyReviewRepresentationFilter} onSurfaceChange={setAnatomyReviewSurfaceFilter} onRepresentationChange={setAnatomyReviewRepresentationFilter}/>
     </section>}
 

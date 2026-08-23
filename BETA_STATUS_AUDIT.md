@@ -1,6 +1,6 @@
 # β候補 更新履歴・既知の制限監査
 
-更新日: 2026-08-23
+更新日: 2026-08-24
 
 ## 掲載範囲
 
@@ -31,6 +31,8 @@ Chrome 151のin-app browserでローカルproduction preview `http://127.0.0.1:4
 同日、8ブロック標本への位置コンテキスト拡張後は、基礎31件＋context ON 48件の `work/performance/performance-suite-block-context-all-specimens-2026-08-23.json` が79/79件合格した。計測用ChromeだけService Workerを迂回し、7資産の実ファイルサイズと固定上限を使う独立監査も合格しているため、`change-performance-local` を79件へ同期した。物理端末、公開URL、公開回線、別GPU／別ブラウザ、専門家レビューは未確認のままである。
 
 同日、数値読込進捗を追加したPages想定buildでも `work/browser-audit/beta-route-audit-download-progress-2026-08-23.json` の156/156件が合格した。総量既知／不明の両表示と390 px相当の横はみ出しなしを実ブラウザで確認したが、公開URLや物理端末の保証ではない。詳細は [DOWNLOAD_PROGRESS_AUDIT.md](DOWNLOAD_PROGRESS_AUDIT.md) に分離した。
+
+2026-08-24、M2比較専用URL `#workspace/collaborate/model-strategy` をcanonical routeへ追加したため、利用者向けローカル検証範囲と経路監査を現行27経路へ同期した。Windows Chrome 151のローカルproduction preview `http://127.0.0.1:4312` で、27経路×3幅×direct/reload＝162/162件が合格し、missing／duplicate／fail、console／request／UI error、残留loader、横overflow、WebGL fallbackは0件だった。cold初回payloadも27/27件に合格した。旧26経路156/156件は歴史記録として残す。公開URL、物理端末、別GPU／別ブラウザ、専門家レビューは未確認である。
 
 ## 根拠と更新方法
 

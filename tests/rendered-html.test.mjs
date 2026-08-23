@@ -1942,8 +1942,8 @@ test("status dialog renders the JSON registry through a durable direct route", a
   const data = JSON.parse(status);
   assert.equal(data.phase, "公開α／β候補・公開判断前");
   assert.ok(data.knownLimitations.some(item => item.body.includes("ID33")));
-  assert.ok(data.changes.some(item => item.body.includes("156/156")));
-  assert.ok(data.knownLimitations.some(item => item.body.includes("156/156")));
+  assert.ok(data.changes.some(item => item.body.includes("162/162")));
+  assert.ok(data.knownLimitations.some(item => item.body.includes("162/162")));
   assert.doesNotMatch(status, /親作業での実施前|26経路版は[^。]*未実施/);
   assert.match(page, /import betaStatus from "\.\/beta-status\.json"/);
   assert.match(page, /const betaStatusData=betaStatus as BetaStatusData/);

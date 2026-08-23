@@ -42,8 +42,8 @@ function validCheck(entry, route, viewport) {
   return { ...entry, route, viewport, probe, consoleErrors: [], requestErrors: [], error: null, validation, passed: validation.passed };
 }
 
-test("beta route audit fixes the canonical 26 × 3 × 2 matrix", () => {
-  assert.equal(BETA_AUDIT_ROUTES.length, 26);
+test("beta route audit fixes the canonical 27 × 3 × 2 matrix", () => {
+  assert.equal(BETA_AUDIT_ROUTES.length, 27);
   assert.deepEqual(BETA_AUDIT_ROUTES.map(route => route.hash), [
     "#workspace/home",
     "#workspace/surface/lateral",
@@ -66,6 +66,7 @@ test("beta route audit fixes the canonical 26 × 3 × 2 matrix", () => {
     "#workspace/blocks/hindbrain",
     "#workspace/quiz",
     "#workspace/collaborate",
+    "#workspace/collaborate/model-strategy",
     "#workspace/segment",
     "#workspace/status",
     "#workspace/help",
@@ -75,10 +76,10 @@ test("beta route audit fixes the canonical 26 × 3 × 2 matrix", () => {
   assert.equal(BETA_AUDIT_VIEWPORTS.length, 3);
   assert.deepEqual(BETA_AUDIT_PHASES, ["direct", "reload"]);
   const matrix = buildBetaAuditMatrix();
-  assert.equal(BETA_AUDIT_EXPECTED_CHECKS, 156);
-  assert.equal(matrix.length, 156);
-  assert.equal(new Set(matrix.map(entry => entry.key)).size, 156);
-  assert.equal(new Set(matrix.map(entry => entry.routeId)).size, 26);
+  assert.equal(BETA_AUDIT_EXPECTED_CHECKS, 162);
+  assert.equal(matrix.length, 162);
+  assert.equal(new Set(matrix.map(entry => entry.key)).size, 162);
+  assert.equal(new Set(matrix.map(entry => entry.routeId)).size, 27);
   assert.equal(new Set(matrix.map(entry => entry.viewportId)).size, 3);
   assert.equal(new Set(matrix.map(entry => entry.phase)).size, 2);
   assert.equal(BETA_AUDIT_ROUTES.filter(route => route.prepare === "block").length, 8);
@@ -144,9 +145,9 @@ test("beta route audit coordinator supports a fake injected check without launch
       return validCheck(entry, route, viewport);
     },
   });
-  assert.equal(calls.length, 156);
-  assert.equal(new Set(calls).size, 156);
-  assert.equal(results.length, 156);
+  assert.equal(calls.length, 162);
+  assert.equal(new Set(calls).size, 162);
+  assert.equal(results.length, 162);
   assert.equal(aggregateBetaAuditReport({ baseUrl: "http://localhost:4173", results, environment: {} }).allPassed, true);
 });
 

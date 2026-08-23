@@ -100,6 +100,11 @@ const SECTION_INITIAL_ASSETS = Object.freeze([
   ...SURFACE_BASE_ASSETS,
   ...SECTION_SUPPORT_ASSETS,
 ]);
+const MODEL_STRATEGY_ASSETS = Object.freeze([
+  "block-commissural-system-lateral-ventricles.mesh",
+  "block-diencephalon-third-ventricle.mesh",
+  "comparison-schematic-ventricle.mesh",
+]);
 const SURFACE_ROUTE_ASSETS = Object.freeze({
   "surface-lateral": [...SURFACE_BASE_ASSETS],
   "surface-superior": [...SURFACE_BASE_ASSETS],
@@ -138,6 +143,7 @@ export function initialRouteFamily(routeOrKey) {
   if (key.startsWith("blocks-")) return "blocks";
   if (key === "quiz") return "quiz";
   if (key === "collaborate") return "collaborate";
+  if (key === "collaborate-model-strategy") return "model-comparison";
   if (key === "segment") return "segment";
   if (["status", "help", "feedback", "legal"].includes(key)) return "static-overlay";
   return "unknown";
@@ -257,6 +263,7 @@ function requiredAssetsForRoute(route, inventory) {
   if (family === "surface") return cloneAssetList(SURFACE_ROUTE_ASSETS[key] || SURFACE_BASE_ASSETS);
   if (family === "sections") return [...SECTION_INITIAL_ASSETS];
   if (family === "blocks") return blockAssetNames(route, inventory);
+  if (family === "model-comparison") return [...MODEL_STRATEGY_ASSETS];
   if (family === "segment") return ["bigbrain-icbm500.bin.gz", "bigbrain-practical-segmentation-icbm500.bin.gz"];
   return [];
 }
@@ -266,6 +273,7 @@ function allowedAssetFamiliesForRoute(route) {
     case "surface": return ["surface", "teaching-overlays"];
     case "sections": return ["surface", "volume", "segmentation", "section-support"];
     case "blocks": return ["blocks"];
+    case "model-comparison": return ["blocks", "other-large"];
     case "quiz": return ["surface", "volume", "teaching-overlays", "section-support"];
     // The editor intentionally reads the source BigBrain volume alongside
     // the practical label volume; both are part of its declared payload.

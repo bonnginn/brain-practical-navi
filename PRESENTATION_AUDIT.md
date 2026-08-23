@@ -256,3 +256,9 @@ Chrome 151のローカル通常production preview `http://127.0.0.1:4199` で、
 左右pialの既存`.mesh`を保持したまま`.mesh.gz` sidecarへ切り替えた現在版について、`work/performance/initial-route-payload-audit-pial-gzip-2026-08-23.json` はcanonical 26/26件、`work/performance/performance-suite-pial-gzip-2026-08-23.json` は37/37件、`work/browser-audit/beta-route-audit-pial-gzip-2026-08-23.json` は156/156件に合格した。raw pial要求は0件、error／loader／overflow／WebGL fallbackは各0件、stable-time回帰は1%未満、sampledPeak backing storage最大増加は2.0%（レビュー閾値25%）だった。
 
 ローカルpreview `http://127.0.0.1:4211` の視覚確認では、PCはcombined押下時Canvas 3、狭幅は初期section-only Canvas 1からcombined Canvas 3、2つの3D view描画、console warning/error 0を確認した。requested 1366 px時のin-app browser実効`clientWidth`は1035 px、requested 390 px時は284 pxであり、物理viewportの寸法とは扱わない。sectionsの現在payloadは26,441,013 Bで、旧34,688,033 B（34.69 MB）はsupersededな履歴として `PERFORMANCE_AUDIT.md` に残している。
+
+### 2026-08-24 M2比較試作の導線・専用URL
+
+共同制作ページの冒頭へ「M2・寄稿者向け試作」と明記した案内を追加し、既存カードを探さなくても3Dモデル方針A/B比較へ到達できるようにした。専用URL `#workspace/collaborate/model-strategy` はdirect/reloadで比較を開いた状態へ戻り、通常の `#workspace/collaborate` は比較用Canvasと資産を生成しない。案内から開いて閉じた場合は、通常の共同制作URLへ戻して起点ボタンへfocusを返す。
+
+Windows Chrome 151のローカルproduction preview `http://127.0.0.1:4312` で、通常ページのCanvas 0、案内から開いた後とdirect/reload後のCanvas 2、警告表示、閉鎖、focus復帰を確認した。390×768指定時は実効 `innerWidth` 295 px、`clientWidth` / `scrollWidth` 284/284で一列表示となり、loader、画面内error、横overflowは0件だった。canonical監査は27経路×3幅×direct/reload＝162/162件に合格し、missing／duplicate／fail、console／request／UI error、残留loader、横overflow、WebGL fallbackは0件だった。記録は `work/browser-audit/beta-route-audit-model-strategy-discovery-2026-08-24.json`。公開URL、物理端末、別ブラウザ・別GPU、専門家・学習者レビューは未確認で、A/Bの採否は変更していない。

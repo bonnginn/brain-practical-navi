@@ -1,6 +1,6 @@
 # β版 Go / No-Go 台帳監査
 
-更新日: 2026-08-23
+更新日: 2026-08-24
 
 この文書は、`BETA_GO_NO_GO.json` と `BETA_ROADMAP.md` の12項目を機械的に突合するための監査索引です。`proven-local` はローカル確認の範囲だけを示し、公開版・全体品質・専門家確認の合格を意味しません。専門家、管理者、デプロイが必要なゲートは未通過のまま記録します。
 
@@ -22,7 +22,7 @@
 - `app/page.tsx`: 既存23問と模式3D pilot 17問の一意な `quizTargetCount = 40`
 - `src/learnerProvenance.mjs` と同台帳監査: `mappingCount = 222`, `resolvedMappingCount = 222`
 
-現行のローカル性能証拠は、2026-08-23のpial-gzip成果物（route `156/156`: `work/browser-audit/beta-route-audit-pial-gzip-2026-08-23.json`、初回payload `26/26`: `work/performance/initial-route-payload-audit-pial-gzip-2026-08-23.json`、性能suite `37/37`: `work/performance/performance-suite-pial-gzip-2026-08-23.json`）を参照します。これらは公開URL・デプロイ・専門家確認の証拠ではありません。2026-08-22の56件・filter36／16／29／21件・route156/156は、各文書に残す歴史記録です。
+現行のローカル表示・初回payload証拠は、2026-08-24のM2比較専用URL追加後の成果物（route `162/162`: `work/browser-audit/beta-route-audit-model-strategy-discovery-2026-08-24.json`、初回payload `27/27`: `work/performance/initial-route-payload-model-strategy-discovery-2026-08-24.json`）を参照します。性能suiteは2026-08-23のpial-gzip成果物 `37/37`（`work/performance/performance-suite-pial-gzip-2026-08-23.json`）を維持します。これらは公開URL・デプロイ・専門家確認の証拠ではありません。旧26経路156/156件と2026-08-22の56件・filter36／16／29／21件は、各文書に残す歴史記録です。
 
 criterion 03の中心操作証拠は、`work/browser-audit/core-interactions-pc-tablet-2026-08-23.json` の脳表・水平断・自由観察・クイズ×PC 1366×768／横向きタブレット幅1024×768＝8/8件・40操作です。独立validatorが実測viewport、操作前後、5問queue、回答対象から導出した復習先、error／loader／overflow／fallbackを再計算しています。両条件は `mobile:false`・`touch:false` のローカルデスクトップエミュレーションであり、公開URL、物理端末、実機タッチの証拠ではありません。
 

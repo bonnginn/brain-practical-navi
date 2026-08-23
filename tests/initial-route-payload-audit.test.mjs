@@ -48,10 +48,10 @@ function healthyObservation(route, contract) {
   };
 }
 
-test("initial payload audit reuses exactly the canonical 26 routes", () => {
+test("initial payload audit reuses exactly the canonical 27 routes", () => {
   assert.strictEqual(INITIAL_ROUTE_PAYLOAD_ROUTES, BETA_AUDIT_ROUTES);
-  assert.equal(INITIAL_ROUTE_PAYLOAD_ROUTES.length, 26);
-  assert.equal(new Set(INITIAL_ROUTE_PAYLOAD_ROUTES.map(route => route.id)).size, 26);
+  assert.equal(INITIAL_ROUTE_PAYLOAD_ROUTES.length, 27);
+  assert.equal(new Set(INITIAL_ROUTE_PAYLOAD_ROUTES.map(route => route.id)).size, 27);
   assert.deepEqual(INITIAL_ROUTE_PAYLOAD_VIEWPORT, { id: "pc", label: "PC", width: 1366, height: 768 });
 });
 
@@ -62,6 +62,7 @@ test("contracts are artifact-derived, explicit, and family-specific", () => {
   assert.equal(contracts["surface-lateral"].family, "surface");
   assert.equal(contracts["sections-coronal"].family, "sections");
   assert.equal(contracts["blocks-lateral-ventricle"].family, "blocks");
+  assert.equal(contracts["collaborate-model-strategy"].family, "model-comparison");
   assert.equal(contracts.segment.family, "segment");
   for (const route of BETA_AUDIT_ROUTES) {
     const contract = contracts[route.id];
@@ -84,6 +85,11 @@ test("contracts are artifact-derived, explicit, and family-specific", () => {
     "segment-midbrain.mesh",
     "ventricle.mesh",
     "caudate.mesh",
+  ]);
+  assert.deepEqual(contracts["collaborate-model-strategy"].requiredAssets, [
+    "block-commissural-system-lateral-ventricles.mesh",
+    "block-diencephalon-third-ventricle.mesh",
+    "comparison-schematic-ventricle.mesh",
   ]);
 });
 
@@ -208,7 +214,7 @@ test("over-budget and report topology anomalies fail allPassed", () => {
   });
   assert.equal(report.allPassed, false);
   assert.deepEqual(report.duplicateKeys, ["home"]);
-  assert.equal(report.missingKeys.length, 25);
+  assert.equal(report.missingKeys.length, 26);
   assert.equal(validateInitialRoutePayloadReport(report), false);
 });
 

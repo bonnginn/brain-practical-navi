@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-08-23",
+  "updated": "2026-08-24",
   "phase": "公開α／β候補・公開判断前",
   "knownLimitations": [
     {
@@ -33,7 +33,7 @@
     {
       "id": "limitation-local-validation-scope",
       "heading": "ローカル検証の範囲",
-      "body": "Windows Chromeのローカル検証では、statusを含む156/156件が合格しました。これは公開URLや物理タッチ端末、別GPU・別ブラウザでの挙動を保証するものではなく、これらは未確認です。",
+      "body": "Windows Chromeのローカル検証では、M2比較専用URLを含む162/162件が合格しました。これは公開URLや物理タッチ端末、別GPU・別ブラウザでの挙動を保証するものではなく、これらは未確認です。",
       "evidenceRefs": ["PERFORMANCE_AUDIT.md", "PRESENTATION_AUDIT.md", "BETA_STATUS_AUDIT.md"]
     },
     {
@@ -89,13 +89,13 @@
     {
       "id": "change-performance-local",
       "heading": "性能測定",
-      "body": "ローカル本番ビルドを既存31件に教材内8ブロック標本のcontext ON（PC・tablet・390 px相当、cold/warm）48件を加えた79件の性能マトリクスで測定し、79/79件が測定条件を通過しました。初回payloadもdesktop 1366×768のcanonical 26経路を確認し、26/26件が通過しました。計測専用Chromeでは転送量を正しく記録するためService Workerを迂回し、warm primeはベース画面だけに留めています。これはローカルデスクトップChromeの記録であり、物理端末や公開回線の保証ではありません。",
+      "body": "ローカル本番ビルドを79件の性能マトリクスで測定し、79/79件が測定条件を通過しました。M2比較専用URL追加後の初回payloadもdesktop 1366×768のcanonical 27経路を確認し、27/27件が通過しました。通常の共同制作ページは比較資産を取得せず、専用URLだけが比較用3資産を読み込みます。これはローカルデスクトップChromeの記録であり、物理端末や公開回線の保証ではありません。",
       "evidenceRefs": ["PERFORMANCE_AUDIT.md", "BETA_ROADMAP.md"]
     },
     {
       "id": "change-routes-local",
       "heading": "経路監査",
-      "body": "26経路版はWindows Chromeのローカル検証で156/156件合格しました。公開URL、物理タッチ端末、別GPU・別ブラウザでの挙動は未確認です。",
+      "body": "M2比較専用URLを含む27経路版はWindows Chromeのローカル検証で162/162件合格しました。公開URL、物理タッチ端末、別GPU・別ブラウザでの挙動は未確認です。",
       "evidenceRefs": ["PRESENTATION_AUDIT.md", "BETA_ROADMAP.md", "BETA_STATUS_AUDIT.md"]
     },
     {

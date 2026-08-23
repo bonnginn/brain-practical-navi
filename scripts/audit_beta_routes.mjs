@@ -34,6 +34,7 @@ export const BETA_AUDIT_VIEWPORTS = Object.freeze([
 
 const NO_CANVAS = Object.freeze({ pc: 0, "tablet-landscape": 0, mobile: 0 });
 const ONE_CANVAS = Object.freeze({ pc: 1, "tablet-landscape": 1, mobile: 1 });
+const TWO_CANVAS = Object.freeze({ pc: 2, "tablet-landscape": 2, mobile: 2 });
 const SECTION_CANVAS = Object.freeze({ pc: 3, "tablet-landscape": 3, mobile: 1 });
 
 function routeSpec({ id, hash, identitySelector, identityText, canvas, prepare = "none" }) {
@@ -68,6 +69,7 @@ export const BETA_AUDIT_ROUTES = Object.freeze([
   routeSpec({ id: "blocks-hindbrain", hash: "#workspace/blocks/hindbrain", identitySelector: ".learningModelCard .panelHead b", identityText: "脳幹・小脳の脱着", canvas: ONE_CANVAS, prepare: "block" }),
   routeSpec({ id: "quiz", hash: "#workspace/quiz", identitySelector: ".quizArea .workHead h1", identityText: "復習クイズ", canvas: ONE_CANVAS }),
   routeSpec({ id: "collaborate", hash: "#workspace/collaborate", identitySelector: ".collaborationArea .workHead h1", identityText: "共同制作", canvas: NO_CANVAS }),
+  routeSpec({ id: "collaborate-model-strategy", hash: "#workspace/collaborate/model-strategy", identitySelector: ".modelStrategyHead h2", identityText: "3Dモデル方針 A/B比較", canvas: TWO_CANVAS }),
   routeSpec({ id: "segment", hash: "#workspace/segment", identitySelector: ".segmentationArea .workHead h1", identityText: "セグメンテーション編集", canvas: ONE_CANVAS }),
   routeSpec({ id: "status", hash: "#workspace/status", identitySelector: ".betaStatusDialog h2", identityText: "更新履歴・既知の制限", canvas: NO_CANVAS }),
   routeSpec({ id: "help", hash: "#workspace/help", identitySelector: ".helpDialog h2", identityText: "操作ガイド", canvas: NO_CANVAS }),
