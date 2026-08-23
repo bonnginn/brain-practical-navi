@@ -94,7 +94,10 @@
       "criterionText": "スマートフォンで閲覧、クイズ、基本操作が破綻しない。全3D操作の完遂はβ公開条件にしない。（部分実装: `MOBILE_UI_AUDIT.md` に沿って、coarse touch phoneだけへ5導線dock、単一settings dialog、編集Canvasを生成しないsegment案内を追加。Chrome 151のローカル通常production preview `http://127.0.0.1:4198` でcoarse touchのsettings／segment／range操作と、fine-pointer狭幅のcompact desktop／segment維持を確認。coarse 26経路52/52、fine/non-touch 26経路×3幅×direct/reload 156/156も合格。公開URL、物理端末、実機タッチ、Safari・別ブラウザ、別GPU、専門家レビューは未確認。）",
       "state": "partial-local",
       "locallyProven": [
-        "ローカルChromeでcoarse-touchの閲覧・クイズ・基本操作とfine-pointer狭幅を確認した。",
+        "Windows Chrome 151のローカルproduction previewを390×768・DPR1・mobile:true・touch:true・coarse pointerで実行し、dock、surface-lateral、sections-horizontal、quizの4 journeyを確認した。",
+        "全journeyでCDP Input.dispatchTouchEventによる実タッチ列、44 px以上・画面内・hit-test可能な操作対象、意味キーと状態連続性を独立validatorが再計算した。",
+        "初期・最終probeでloader、UI／console／request error、横overflow、WebGL fallbackが0件で、独立validatorのvalidation.passed=trueを確認した。",
+        "旧来のcoarse-touch／fine-pointer狭幅経路のローカル記録も履歴として保持している。",
         "物理スマートフォンの確認は未実施。"
       ],
       "unprovenScope": "物理スマートフォン、公開URL、Safari等の別ブラウザ、別GPUでの確認は未実施。",
@@ -102,7 +105,10 @@
       "committedEvidenceRefs": [
         "MOBILE_UI_AUDIT.md",
         "BETA_ROADMAP.md",
-        "scripts/audit_beta_routes.mjs"
+        "scripts/audit_beta_routes.mjs",
+        "PHONE_CORE_INTERACTION_AUDIT.md",
+        "scripts/audit_phone_core_interactions.mjs",
+        "tests/phone-core-interaction-audit.test.mjs"
       ],
       "localArtifactRefs": [
         {
@@ -117,6 +123,11 @@
         },
         {
           "path": "work/browser-audit/beta-route-audit-mobile-ui-final-2026-08-22.json",
+          "localOnly": true,
+          "label": "local-only"
+        },
+        {
+          "path": "work/browser-audit/phone-core-interactions-v16-2026-08-23.json",
           "localOnly": true,
           "label": "local-only"
         }

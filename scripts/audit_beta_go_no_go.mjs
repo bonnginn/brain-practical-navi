@@ -42,6 +42,13 @@ export const EXPECTED_CRITERION_STATES = Object.freeze({
   "criterion-11-expert-required-scope-review": "expert-blocked",
   "criterion-12-publish-known-limitations": "deployment-blocked",
 });
+export const PHONE_CORE_CRITERION_ID = "criterion-04-smartphone-core-operations";
+export const PHONE_CORE_REQUIRED_COMMITTED_EVIDENCE_REFS = Object.freeze([
+  "PHONE_CORE_INTERACTION_AUDIT.md",
+  "scripts/audit_phone_core_interactions.mjs",
+  "tests/phone-core-interaction-audit.test.mjs",
+]);
+export const PHONE_CORE_REQUIRED_LOCAL_ARTIFACT_PATH = "work/browser-audit/phone-core-interactions-v16-2026-08-23.json";
 
 function isRecord(value) {
   return value !== null && typeof value === "object" && !Array.isArray(value);
@@ -265,6 +272,21 @@ function validateLocalArtifactRefs(item, index, errors) {
   });
 }
 
+function validatePhoneCoreCriterionEvidence(item, index, errors) {
+  if (item.id !== PHONE_CORE_CRITERION_ID) return;
+  const label = `criteria[${index}]`;
+  const committedRefs = Array.isArray(item.committedEvidenceRefs) ? new Set(item.committedEvidenceRefs) : new Set();
+  for (const requiredRef of PHONE_CORE_REQUIRED_COMMITTED_EVIDENCE_REFS) {
+    if (!committedRefs.has(requiredRef)) {
+      errors.push(`${label}.committedEvidenceRefs must include phone v16 evidence: ${requiredRef}`);
+    }
+  }
+  const localArtifacts = Array.isArray(item.localArtifactRefs) ? item.localArtifactRefs : [];
+  if (!localArtifacts.some(artifact => isRecord(artifact) && artifact.path === PHONE_CORE_REQUIRED_LOCAL_ARTIFACT_PATH)) {
+    errors.push(`${label}.localArtifactRefs must include the exact phone v16 artifact path: ${PHONE_CORE_REQUIRED_LOCAL_ARTIFACT_PATH}`);
+  }
+}
+
 const authorityPatternByState = Object.freeze({
   "expert-blocked": /expert|専門家|neuroanatom/i,
   "administrator-blocked": /administrator|管理者|運営|maintainer/i,
@@ -369,6 +391,7 @@ export function auditBetaGoNoGo({ledger, rootDir = REPOSITORY_ROOT} = {}) {
     validateState(item, index, errors);
     validateCommittedEvidenceRefs(item, index, rootDir, trackedPaths, errors);
     validateLocalArtifactRefs(item, index, errors);
+    validatePhoneCoreCriterionEvidence(item, index, errors);
   });
   const expectedIds = Object.keys(EXPECTED_CRITERION_STATES);
   if (JSON.stringify([...ids].sort()) !== JSON.stringify([...expectedIds].sort())) {

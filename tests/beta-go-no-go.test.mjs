@@ -2,7 +2,13 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import test from "node:test";
 
-import { auditBetaGoNoGo, REPOSITORY_ROOT } from "../scripts/audit_beta_go_no_go.mjs";
+import {
+  auditBetaGoNoGo,
+  PHONE_CORE_CRITERION_ID,
+  PHONE_CORE_REQUIRED_COMMITTED_EVIDENCE_REFS,
+  PHONE_CORE_REQUIRED_LOCAL_ARTIFACT_PATH,
+  REPOSITORY_ROOT,
+} from "../scripts/audit_beta_go_no_go.mjs";
 
 const ledgerPath = `${REPOSITORY_ROOT}/BETA_GO_NO_GO.json`;
 const baseLedger = JSON.parse(fs.readFileSync(ledgerPath, "utf8"));
@@ -107,6 +113,24 @@ test("audit rejects missing committed evidence and ignored work evidence", () =>
   const workResult = audit(workRef);
   assert.equal(workResult.ok, false);
   assert.match(workResult.errors.join("\n"), /ignored work artifacts/);
+});
+
+test("criterion 04 cannot regress to the old mobile-route evidence only", () => {
+  const missingPhoneRefs = clone(baseLedger);
+  const phoneCriterion = missingPhoneRefs.criteria.find(item => item.id === PHONE_CORE_CRITERION_ID);
+  phoneCriterion.committedEvidenceRefs = phoneCriterion.committedEvidenceRefs
+    .filter(ref => !PHONE_CORE_REQUIRED_COMMITTED_EVIDENCE_REFS.includes(ref));
+  const missingRefsResult = audit(missingPhoneRefs);
+  assert.equal(missingRefsResult.ok, false);
+  assert.match(missingRefsResult.errors.join("\n"), /must include phone v16 evidence/);
+
+  const oldArtifactOnly = clone(baseLedger);
+  const oldArtifactCriterion = oldArtifactOnly.criteria.find(item => item.id === PHONE_CORE_CRITERION_ID);
+  oldArtifactCriterion.localArtifactRefs = oldArtifactCriterion.localArtifactRefs
+    .filter(artifact => artifact.path !== PHONE_CORE_REQUIRED_LOCAL_ARTIFACT_PATH);
+  const oldArtifactResult = audit(oldArtifactOnly);
+  assert.equal(oldArtifactResult.ok, false);
+  assert.match(oldArtifactResult.errors.join("\n"), /exact phone v16 artifact path/);
 });
 
 test("local artifact references are optional, local-only, and never existence-required", () => {
