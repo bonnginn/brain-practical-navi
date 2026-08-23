@@ -76,13 +76,13 @@ Chrome 151のin-app browserで`http://127.0.0.1:4201`を確認し、review panel
 - [x] 圧縮後転送量、ブラウザキャッシュ有効時の再訪転送量、初回表示時間、メモリ使用量をPCと横向きタブレット相当で計測し、スマートフォンでは閲覧・クイズ・基本操作の破綻がないことを確認する（Windows desktop ChromeのDevTools Protocol、`Emulation.setDeviceMetricsOverride` は `mobile:false`、デスクトップUA・タッチエミュレーションなし、viewport 390 pxの実効 `clientWidth` 375 px。DOMイベント操作でクイズ回答・水平断range・表示切替を確認し、backing storageはcold／warmペアの `sampledPeak` 最大値として記録。物理スマートフォン、公開回線、OS全体メモリの測定ではない）。
 - [x] Homeは実モデルの軽量静止プレビューだけを取得し、本格3Dメッシュを脳表観察の開始まで遅延する。
 - [x] 大容量データの取得中、実測byte・総量・整数％（総量取得可能時のみ）と失敗時の再試行を明示する（2026-08-23、全資産のstream計測、複数資産集約、受信／展開phase、再試行世代分離を実装。総量不明時は推定％を出さない。Chrome 151で既知／未知表示、390 px相当の横はみ出しなし、完了後loader 0を確認し、route 156/156、全テスト227/227、型検査、通常／Pages buildに合格。詳細は [DOWNLOAD_PROGRESS_AUDIT.md](DOWNLOAD_PROGRESS_AUDIT.md)）。
-- [ ] PWAとしてホーム画面へ追加でき、オンラインで一度開いた主要教材をオフラインでも再利用できるようにする（2026-08-23にmanifest、base-path対応Service Worker、release別shell／data cache、オフライン表示、生成物監査を実装。約92.4 MBの全量事前取得は行わず、通常／Pages buildのshellは約629–632 kB。Pages baseと通常baseのmanifest、active worker、controller、scope、初回shell 5件をChrome 151で確認し、通常baseのmanifest parse／installability errorは0件だった。Pages baseでは代表教材の利用時cache 5件も確認済み。ただし実際のホーム画面追加・追加後起動は未実施。内蔵ブラウザの安全ポリシーが通信遮断後の再読込を拒否したため、offline direct/reload、未訪問時表示、復帰後再試行も未確認のまま残す）。
+- [ ] PWAとしてホーム画面へ追加でき、オンラインで一度開いた主要教材をオフラインでも再利用できるようにする（2026-08-23、manifest、base-path対応Service Worker、release別shell／data cache、オフライン表示、生成物監査に加え、runner所有の通常／Pages loopback server停止・同一port再listenによるローカル回復性を実測。v10後の通常／Pages buildのshellは5件・633,527／633,760 bytes。`work/browser-audit/pwa-offline-recovery-v10-2026-08-23.json` でChrome 151／Node 24／Windows、通常base・Pages base各10 action（合計20/20）、blocker 0、独立validator pass。各baseで6 sockets destroyed、TCP `ECONNREFUSED`、通常HTTP cache clear＋disable、Cache Storage保持、訪問済み経路のService Worker direct／reload／`about:blank` fallback（停止中Canvas 1）、未訪問BigBrain assetの停止前不在→既存error／retry UI→同一port復帰後GET 200（11,904,805 bytes）・Cache Storage +1・Canvas 3を確認した。ただし`navigator.onLine`はtrueのままであり、これは物理／OSネットワーク断ではない。ホーム画面追加・追加後起動、公開URL、物理端末、Safari・別ブラウザ、インストール済みPWAは未確認のため、このPWA Go/No-Go項目は未完了のまま維持する）。
 
 暫定目標: 公開物全体は100 MB未満を目指し、通常の1観察セッションでの初回転送量は20–30 MB程度を目安にする。教材品質を損なう場合は数値を固定せず、実測値と理由を公開する。
 
 計測記録は [PERFORMANCE_AUDIT.md](PERFORMANCE_AUDIT.md) に残します。
 
-PWAのキャッシュ境界、更新方針、未確認項目は [PWA_OFFLINE_AUDIT.md](PWA_OFFLINE_AUDIT.md) に分離して記録します。ローカルのService Worker登録を、公開URLや物理端末でのオフライン保証として扱いません。
+PWAのキャッシュ境界、更新方針、未確認項目は [PWA_OFFLINE_AUDIT.md](PWA_OFFLINE_AUDIT.md) に分離して記録します。ローカルのService Worker登録やv10のlistener停止監査を、公開URL、物理端末、物理／OSネットワーク断でのオフライン保証として扱いません。
 
 2026-08-23実測状況: 既存の左右pial `.mesh` を保持したまま決定的なlossless `.mesh.gz` sidecarを配信し、初回payload監査は圧縮物理パスだけを観測した。`work/performance/performance-suite-pial-gzip-2026-08-23.json` は37/37件、関連stable-time回帰は1%未満、sampledPeak backing storage最大増加は2.0%（レビュー閾値25%）だった。`work/browser-audit/beta-route-audit-pial-gzip-2026-08-23.json` は156/156件で、error／loader／overflow／WebGL fallbackは各0件。視覚確認ではPC combined Canvas 3、狭幅のsection-only Canvas 1→combined Canvas 3、2つの3D view、console warning/error 0を確認した。requested 1366 px時の実効clientWidthは1035 px、requested 390 px時は284 pxで、物理viewport値とは扱わない。
 

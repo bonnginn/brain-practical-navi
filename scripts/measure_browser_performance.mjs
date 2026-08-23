@@ -1504,14 +1504,14 @@ export function attachObservers(cdp, state) {
   return () => removers.forEach(remove => remove());
 }
 
-export async function configurePage(cdp) {
+export async function configurePage(cdp, { bypassServiceWorker = true } = {}) {
   await cdp.send("Page.enable");
   await cdp.send("Network.enable");
-  // Bypass the app's PWA service worker so Network events and encoded byte
-  // measurements describe the isolated browser navigation itself. Warm runs
-  // still retain the normal HTTP cache because only service-worker
-  // interception is bypassed.
-  await cdp.send("Network.setBypassServiceWorker", { bypass: true });
+  // Performance runs bypass the app's PWA service worker so Network events and
+  // encoded byte measurements describe the isolated browser navigation itself.
+  // The PWA acceptance audit explicitly opts out so it can exercise the real
+  // worker and its Cache API.
+  if (bypassServiceWorker) await cdp.send("Network.setBypassServiceWorker", { bypass: true });
   await cdp.send("Runtime.enable");
   try { await cdp.send("Log.enable"); } catch { /* optional on older Chrome */ }
   try { await cdp.send("Performance.enable"); } catch { /* optional on older Chrome */ }

@@ -13,9 +13,17 @@
 
 ## 2026-08-23 PWA・オフライン基盤
 
-Web App Manifestとbase-path対応Service Workerを追加しました。初回は約629–632 kBのアプリシェル5件だけを保存し、約92.4 MBの公開教材を一括取得しません。同一サイト内の教材資産はオンラインで利用した時点でrelease別data cacheへ保存します。通常／Pages buildと生成物監査、両baseでのmanifest・active worker・controller・scope・shell 5件、Pages baseの代表教材の利用時cache 5件、PWA追加後の通常build全経路156/156件を確認しました。2026-08-23の通常base再監査ではChrome 151のmanifest parse／installability errorが0件、shell 5件・631,941 bytesでした。最終Pages生成物監査はshell 5件・632,174 bytesです。ただし実際のホーム画面追加と追加後起動は未確認です。
+Web App Manifestとbase-path対応Service Workerを追加しました。初回は約629–634 kBのアプリシェル5件だけを保存し、約92.4 MBの公開教材を一括取得しません。同一サイト内の教材資産はオンラインで利用した時点でrelease別data cacheへ保存します。通常／Pages buildと生成物監査、両baseでのmanifest・active worker・controller・scope・shell 5件、Pages baseの代表教材の利用時cache 5件、PWA追加後の通常build全経路156/156件を確認しました。2026-08-23の通常base再監査ではChrome 151のmanifest parse／installability errorが0件でした。v10後の最終生成物監査は、通常buildがshell 5件・633,527 bytes、Pages buildがshell 5件・633,760 bytesです。ただし実際のホーム画面追加と追加後起動は未確認です。
 
-Codex内蔵ブラウザの安全ポリシーが通信遮断後の再読込を拒否したため、offline direct/reload、未訪問教材の失敗表示、オンライン復帰後の再試行は未確認です。同じ操作を別経路で迂回して完了扱いにしていません。今回もChromeではオンラインの診断だけを読み取り、通信遮断は行っていません。次回は [PWA_OFFLINE_AUDIT.md](PWA_OFFLINE_AUDIT.md) の未チェック項目から再開してください。公開URL、物理端末、Safari・別ブラウザは未確認です。
+Codex内蔵ブラウザの安全ポリシーが通信遮断後の再読込を拒否した記録はv10以前の履歴です。同じ操作を別経路で迂回して完了扱いにはせず、下記のrunner所有server停止監査とは区別します。公開URL、物理端末、Safari・別ブラウザは未確認です。
+
+### 2026-08-23 PWA v10 ローカルserver-unavailability受入
+
+権威ある結果は `work/browser-audit/pwa-offline-recovery-v10-2026-08-23.json` です。`scripts/audit_pwa_offline_browser.mjs` がnormal／Pagesの既存build rootごとにloopback静的serverを所有し、停止時にlistenerを閉じ、追跡socket 6件を破棄し、TCP `ECONNREFUSED`を確認した後、同じhost／portへ再listenしました。Windows 11／Chrome 151／Node 24でnormal／Pages各10 action（合計20/20）、blocker 0、独立validator passです。通常HTTP cacheはclear＋disable ACK、Cache Storageは保持しました。
+
+訪問済み経路は停止中もService Workerからdirect／reload／`about:blank`→hash routeでCanvas 1へ復帰し、未訪問のBigBrain assetは停止前に未cache、停止中は既存error／retry UI、再listen後は対象GET 200・11,904,805 bytes、Cache Storage +1、Canvas 3を確認しました。`navigator.onLine`はtrueのままで、オフラインバッジを証拠にしていません。
+
+この結果はrunner所有のローカルHTTP listener停止による回復性の証拠であり、物理／OSネットワーク断、公開URL、物理端末、Safari・別ブラウザ、インストール済みPWA、ホーム画面追加後の起動の証拠ではありません。PWA全体の公開／インストール判定は未完了のままです。再現手順とmutationを含む契約は `tests/pwa-offline-browser-audit.test.mjs` にあります。
 
 ## 2026-08-23 数値読込進捗
 
