@@ -200,6 +200,8 @@ PWAのキャッシュ境界、更新方針、未確認項目は [PWA_OFFLINE_AUD
 - [ ] 少なくとも1名の神経解剖学に詳しい確認者による必修範囲のレビュー記録がある。
 - [ ] βで未完成の項目を既知の制限として公開する。（部分的な根拠: 各講義行・グループとローカル候補のstatus画面へ既知の制限を記録。ローカル候補へ実装、公開URL反映確認待ち。専門家レビューは未完了。）
 
+2026-08-24 追記: `#workspace/status` へ12件の公開前チェックを追加し、Go／No-Go台帳から状態別件数、ローカル確認範囲、未確認範囲、次操作を読み取り専用で表示した。件数3／1／4／1／3と各stateは変更せず、総合合格・公開可・専門家確認済みとは表示しない。Chrome 151でdirect、詳細、focus／Esc／背景click、390 px相当一列、error／loader／overflow 0を確認した。公開URL反映待ちのため、本項目とcriterion 12は未完了のまま維持する。詳細は [BETA_READINESS_DISPLAY_AUDIT.md](BETA_READINESS_DISPLAY_AUDIT.md)。
+
 ## 関連文書
 
 - [ALPHA_RELEASE_AUDIT.md](ALPHA_RELEASE_AUDIT.md): α版で達成した項目と既知の不足

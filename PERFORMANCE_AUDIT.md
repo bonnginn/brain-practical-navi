@@ -6,6 +6,10 @@
 
 高解像度断面と3Dモデルを維持しつつ、閲覧しないデータまで利用者へ配信しないことを公開条件とします。ここでいう「公開物全体」はGitHub Pagesのビルドへ入る `public/` 以下の合計であり、1回の閲覧ですべてを取得する量とは異なります。
 
+## 2026-08-24 公開前チェックprojection
+
+Go／No-Go台帳原本をbrowser bundleへ直接含めず、安全な表示projectionだけを生成した。直前のPWA導線buildに対し、最終通常buildのentry JavaScriptは537.08 kB／gzip 157.48 kBから560.34 kB／162.05 kB、CSSは136.83 kB／28.25 kBから140.00 kB／28.87 kBとなった。増分は既存12基準の表示文とCSSで、新しい画像・mesh・volume・atlas requestはない。本番bundleに `work/browser-audit`、`localArtifactRefs`、`committedEvidenceRefs`、`criterionText` がないことを確認した。最終buildのcanonical cold初回payloadは27/27件、route監査は162/162件に合格した。
+
 ## 2026-08-23 数値読込進捗
 
 断面画像、手動ラベル、3Dメッシュの応答bodyをstreamで読み、複数資産の実受信byteを集約するよう変更した。全資産から正の `Content-Length` を取得できる場合だけ総量と整数％を表示し、一つでも不明なら受信済みbyteのみを示す。gzip展開・形式検査は受信後の処理として区別し、再試行では集約値をresetする。旧試行の遅延chunkが新試行へ混ざらないよう資産ごとの世代tokenも固定した。

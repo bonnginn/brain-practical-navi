@@ -29,6 +29,10 @@ Codex内蔵ブラウザの安全ポリシーが通信遮断後の再読込を拒
 
 Homeへ、対応ブラウザがpromptを提供した場合だけ利用者の明示クリックで開始する端末追加カードを追加しました。非対応環境の控えめなメニュー案内と、約92 MBを一括保存せず利用時cacheに限定する説明を同じカードへ置いています。合成イベントによるPC／390 px相当6/6、通常／Pages停止・復帰20/20、canonical route 162/162、cold payload 27/27に合格しました。実際のホーム画面追加、追加後起動、公開URL、物理端末、Safariは未確認です。詳細は [PWA_INSTALL_AFFORDANCE_AUDIT.md](PWA_INSTALL_AFFORDANCE_AUDIT.md) を参照してください。
 
+### 2026-08-24 公開前チェック表示
+
+`#workspace/status` 冒頭へ、Go／No-Go台帳12件の状態、ローカル確認範囲、未確認範囲、次操作を読み取り専用で表示しました。件数はローカル証拠あり3、部分確認1、専門家待ち4、管理者待ち1、公開反映待ち3で、stateは変更していません。ブラウザへは安全な生成projectionだけを配布し、local-only証拠パスや台帳原文はbundleしません。Chrome 151でdirect、詳細、Esc、背景click、Tab循環、起点focus、小画面一列、error／loader／overflow 0、summary実効高さ44.99 pxを確認しました。最終buildのroute監査162/162、cold payload 27/27、全tests 347/347、型検査、通常／Pages buildも成功しました。公開URL、物理端末、実際の専門家・管理者・公開作業は未完了です。詳細は [BETA_READINESS_DISPLAY_AUDIT.md](BETA_READINESS_DISPLAY_AUDIT.md) を参照してください。
+
 ## 2026-08-23 数値読込進捗
 
 断面画像、手動ラベル、3Dメッシュをstreamで読み、実測byteを複数資産で集約する数値進捗を追加しました。全資産の `Content-Length` が取得できる場合だけ総量と整数％を表示し、一つでも不明なら受信済みbyteと「総量不明」を表示して推定％を出しません。受信後の展開・解析を別表示にし、再試行時は進捗を初期化して旧試行の遅延イベントを世代tokenで無視します。

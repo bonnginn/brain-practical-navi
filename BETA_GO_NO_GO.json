@@ -240,13 +240,16 @@
       "state": "proven-local",
       "locallyProven": [
         "ローカル読み取り専用レビューキューと根拠参照の引き継ぎ準備を確認した。",
+        "ローカルstatus画面で12件の公開前チェックを状態別に表示し、専門家確認待ち4件と次操作をGo/No-Go台帳から読み取り専用で引き継げることを確認した。",
         "実際の専門家レビュー・採否は未確認。"
       ],
       "unprovenScope": "実際の専門家レビュー、採否、公開導線での引き継ぎは未確認。",
       "blockingAuthority": null,
       "committedEvidenceRefs": [
         "ANATOMY_REVIEW_HANDOFF.md",
+        "BETA_READINESS_DISPLAY_AUDIT.md",
         "scripts/audit_anatomy_review_queue.mjs",
+        "scripts/audit_beta_go_no_go_projection.mjs",
         "public/atlas/structure-provenance.json",
         "app/page.tsx"
       ],
@@ -315,13 +318,16 @@
       "state": "deployment-blocked",
       "locallyProven": [
         "ローカルstatus JSONと既知の制限表示の根拠を確認した。",
+        "ローカルstatus画面に12件の公開前チェック、5状態別件数、未確認範囲、次操作を表示し、個別状態を合算した総合判定は設けていない。",
         "公開URL反映は未確認。"
       ],
       "unprovenScope": "公開URLへの反映と専門家・管理者による既知の制限の確認は未完了。",
       "blockingAuthority": "deployment operator / public host maintainer",
       "committedEvidenceRefs": [
         "BETA_STATUS_AUDIT.md",
+        "BETA_READINESS_DISPLAY_AUDIT.md",
         "app/beta-status.json",
+        "app/beta-go-no-go-display.json",
         "BETA_ROADMAP.md"
       ],
       "localArtifactRefs": [],

@@ -6,6 +6,8 @@
 
 `app/beta-status.json`を、アプリ内の「更新履歴・既知の制限」画面の単一データ源とする。`#workspace/status`への直接アクセスと再読み込みで同じ画面を復元できる候補実装を用意する。状態は「公開α／β候補・公開判断前」であり、公開済みβ版、大学公式教材、専門家による最終確認済み資料を意味しない。
 
+2026-08-24、同じstatus dialogの冒頭へ `BETA_GO_NO_GO.json` 由来の「公開前チェック」を追加した。更新履歴・既知の制限は引き続き `app/beta-status.json`、12基準の状態は `BETA_GO_NO_GO.json` をそれぞれ唯一の原本とし、状態をstatus JSONへ複製しない。配布用projectionは原本と完全一致を独立監査し、local-only証拠パスを含めない。詳細は [BETA_READINESS_DISPLAY_AUDIT.md](BETA_READINESS_DISPLAY_AUDIT.md)。
+
 掲載する制限は、専門家レビュー未完了、視覚路ID36–38の未分節と旧ID33の正答対象外、乳頭体ID39・40のプロジェクト内レビュー済み・専門家レビュー未完了・付着境界継続確認、模式表示（ブロック、神経血管、脳溝など）、未収録項目（海馬采・鉤、XI脊髄根、閂・薄束・楔状束詳細、静脈系など）、ローカル検証範囲である。
 
 ## 2026-08-23 台帳同期理由
@@ -48,7 +50,7 @@ Chrome 151のin-app browserでローカルproduction preview `http://127.0.0.1:4
 ## 公開前チェック
 
 - [x] 利用条件の記述とstatus JSONの掲載範囲を同期した。
-- [x] `#workspace/status`のdirect/reloadを、Windows Chrome 151（`http://127.0.0.1:4190`）で26経路×3幅×direct/reload＝156/156件として確認した。
+- [x] `#workspace/status`を含む現行27経路のdirect/reloadを、Windows Chrome 151の最終ローカルbuildで3幅×direct/reload＝162/162件として確認した。
 - [x] Homeと利用条件のstatus入口、Esc、背景クリック、focus trap、起点復帰を、overlay切替focus修正後の実ブラウザで確認した。
 - [x] 390px幅（実効clientWidth 375px）でカードが一列になり、ダイアログ内部だけがスクロールし、横はみ出しがないことをChrome CDPで確認した。
 - [ ] 公開URLでの反映を確認した。

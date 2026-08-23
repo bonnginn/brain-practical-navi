@@ -63,6 +63,12 @@
       "evidenceRefs": ["PWA_INSTALL_AFFORDANCE_AUDIT.md", "PWA_OFFLINE_AUDIT.md", "src/pwaInstallAffordance.mjs"]
     },
     {
+      "id": "change-beta-readiness-display",
+      "heading": "公開前チェックの状態表示",
+      "body": "更新履歴画面で、12件の公開前チェックをローカル証拠あり3、部分確認1、専門家確認待ち4、管理者確認待ち1、公開反映待ち3に分けて表示します。件数は合格率や公開可否を示さず、未確認範囲と次の操作をGo/No-Go台帳から読み取り専用で表示します。今回の追加で各基準の状態は変更していません。",
+      "evidenceRefs": ["BETA_READINESS_DISPLAY_AUDIT.md", "BETA_GO_NO_GO.json", "scripts/audit_beta_go_no_go_projection.mjs"]
+    },
+    {
       "id": "change-navigation-mobile",
       "heading": "ナビゲーション・小画面対応",
       "body": "脳表・断面・ブロック・復習・共同制作・編集・操作ガイド・利用条件をhash付きの画面として整理し、小画面では専用の下部導線と一列表示を用意しました。",

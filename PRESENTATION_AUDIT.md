@@ -2,6 +2,10 @@
 
 判定基準: `未確認` / `要修正` / `発表可（α注記あり）`
 
+## 2026-08-24 公開前チェック表示
+
+更新履歴・既知の制限dialogの冒頭へ、12件のGo／No-Go状態を5 groupで示す読み取り専用表示を追加した。Chrome 151の通常production previewで5 group・12 item・件数3／1／4／1／3、詳細開閉、内部scroll、Esc、背景click、Tab循環、起点focus復帰を確認した。390×768 override（実効innerWidth 295／clientWidth 284）でも一列、横overflow 0、summary実効高さ44.99 pxだった。最終buildのcanonical route監査は162/162、cold payloadは27/27、全testsは347/347件に合格した。総合合格・公開可・専門家確認済みとは表示せず、各stateも変更していない。詳細は [BETA_READINESS_DISPLAY_AUDIT.md](BETA_READINESS_DISPLAY_AUDIT.md)。
+
 ## 2026-08-23 PC・横向きタブレット幅の中心操作
 
 Chrome 151のローカルproduction previewで、脳表・水平断・自由観察・クイズの4経路をPC 1366×768と横向きタブレット幅1024×768で操作し、8/8件、計40操作が合格した。構造選択、表示切替、回転・拡大とreset、断面送り戻しとレイアウト切替、5問queue生成、回答、feedback、回答対象に対応する復習画面への遷移を、操作前後の状態から確認した。初期・最終の実測viewportは指定値と一致し、console／request／UI error、残留loader、横はみ出し、WebGL fallbackは全件0だった。

@@ -4,6 +4,10 @@
 
 この文書は、`BETA_GO_NO_GO.json` と `BETA_ROADMAP.md` の12項目を機械的に突合するための監査索引です。`proven-local` はローカル確認の範囲だけを示し、公開版・全体品質・専門家確認の合格を意味しません。専門家、管理者、デプロイが必要なゲートは未通過のまま記録します。
 
+## 2026-08-24 アプリ内公開前チェック
+
+`#workspace/status` に12基準の読み取り専用projectionを追加した。5状態と件数は3／1／4／1／3のままで、今回の表示追加によるstate変更はない。criterion 08には専門家確認待ち4件の引継ぎ表示、criterion 12には未確認範囲と次操作の表示をローカル根拠として追記したが、criterion 12は公開URL未反映のため `deployment-blocked` を維持する。配布projectionと独立監査の境界は [BETA_READINESS_DISPLAY_AUDIT.md](BETA_READINESS_DISPLAY_AUDIT.md) に記録する。
+
 ## 現在の分類
 
 | 状態 | 項目 | 解釈 |

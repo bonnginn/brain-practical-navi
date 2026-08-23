@@ -4,6 +4,7 @@ import { KeyboardEvent as ReactKeyboardEvent, lazy, PointerEvent, Suspense, useE
 import { AtlasVolumeCanvas, QUIZ_SECTION_ACCENT_HEX, type BlockContextSpecimen, type HighlightLayer, type IdentifiedPoint } from "./AtlasVolumeCanvas";
 import { ManualSegmentationWorkbench } from "./ManualSegmentationWorkbench";
 import betaStatus from "./beta-status.json";
+import betaGoNoGoDisplay from "./beta-go-no-go-display.json";
 import anatomyReviewRegistry from "../public/atlas/structure-provenance.json";
 import { freeObservationReadings, matchesJapaneseSearch, normalizeJapaneseSearch } from "../src/japaneseSearch";
 import { QUIZ_GRANULARITY_BY_TARGET, countQuizChoice, detailOptionsForFormat, filterQuizCandidates } from "../src/quizGranularity.mjs";
@@ -21,6 +22,7 @@ import { BLOCK_GUIDED_SPECIMEN_KEYS, createBlockGuidedState, finishBlockGuidedOb
 import type { BlockGuidedSpecimenKey, BlockGuidedState } from "../src/blockGuidedObservation.mjs";
 import { createPwaInstallAffordance } from "../src/pwaInstallAffordance.mjs";
 import type { PwaInstallAffordanceOptions, PwaInstallResult, PwaInstallState } from "../src/pwaInstallAffordance.mjs";
+import type { BetaGoNoGoProjection } from "../src/betaGoNoGo.mjs";
 
 const ModelStrategyComparison=lazy(()=>import("./ModelStrategyComparison"));
 
@@ -31,6 +33,7 @@ type OverlayMode = "help" | "feedback" | "legal" | "status";
 type BetaStatusItem = { id:string; heading:string; body:string; evidenceRefs:string[]; provenanceKeys?:string[] };
 type BetaStatusData = { schemaVersion:number; updated:string; phase:string; knownLimitations:BetaStatusItem[]; changes:BetaStatusItem[] };
 const betaStatusData=betaStatus as BetaStatusData;
+const betaGoNoGoData=betaGoNoGoDisplay as BetaGoNoGoProjection;
 const anatomyReviewQueue=deriveAnatomyReviewQueue(anatomyReviewRegistry);
 type SurfaceViewKey = "lateral" | "superior" | "inferior" | "medial" | "arteries" | "cranialNerves" | "free";
 const surfaceViewKeys:SurfaceViewKey[]=["lateral","superior","inferior","medial","arteries","cranialNerves","free"];
@@ -634,6 +637,39 @@ function AnatomyReviewQueuePanel({items,total,surfaceFilter,representationFilter
       <footer className="anatomyReviewFooter">由来・確度・既知の制限を確認するための準備一覧です。専門家による確認、解剖学的判断、採用判断を代行しません。</footer>
     </div>
   </details>;
+}
+
+function BetaGoNoGoPanel({data}:{data:BetaGoNoGoProjection}) {
+  return <div className="betaGoNoGoLedger" data-beta-go-no-go-ledger="beta-go-no-go">
+    <header className="betaGoNoGoHeader">
+      <div><span>BETA GO / NO-GO LEDGER</span><h3>公開前チェックの状態</h3></div>
+      <small>台帳更新 {data.updated}</small>
+    </header>
+    <p className="betaGoNoGoDisclaimer">これはBETA_GO_NO_GO.jsonの読み取り専用表示です。状態の集計は総合判定や公開の判断を示さず、専門家レビューの完了も意味しません。</p>
+    <div className="betaGoNoGoCounts" aria-label="Go/No-Go状態別件数">
+      {data.groups.map(group=><div className={`betaGoNoGoCount betaGoNoGoState-${group.state}`} data-beta-go-no-go-state-count={group.state} key={group.state}>
+        <span>{group.stateLabel}</span><b>{data.stateCounts[group.state]}</b>
+      </div>)}
+    </div>
+    <div className="betaGoNoGoGroups">
+      {data.groups.map(group=><section className={`betaGoNoGoGroup betaGoNoGoState-${group.state}`} data-beta-go-no-go-group={group.state} key={group.state}>
+        <header><h4>{group.stateLabel}</h4><span>{group.items.length}項目</span></header>
+        <div className="betaGoNoGoItems">
+          {group.items.map(item=><article className="betaGoNoGoItem" data-beta-go-no-go-id={item.id} data-beta-go-no-go-state={item.state} key={item.id}>
+            <header><h5>{item.heading}</h5><span className="betaGoNoGoStateLabel">{item.stateLabel}</span></header>
+            <details className="betaGoNoGoDetails">
+              <summary>確認内容と次の操作</summary>
+              <dl>
+                <div data-beta-go-no-go-field="locallyProven"><dt>ローカルで確認したこと</dt><dd><ul>{item.locallyProven.map(claim=><li key={claim}>{claim}</li>)}</ul></dd></div>
+                <div data-beta-go-no-go-field="unprovenScope"><dt>未確認の範囲</dt><dd>{item.unprovenScope}</dd></div>
+                <div data-beta-go-no-go-field="nextAction"><dt>次の操作</dt><dd>{item.nextAction}</dd></div>
+              </dl>
+            </details>
+          </article>)}
+        </div>
+      </section>)}
+    </div>
+  </div>;
 }
 
 export default function Home() {
@@ -1353,7 +1389,7 @@ export default function Home() {
       {sectionDeveloperControls&&<p className="atlasCredit">解剖基盤：BigBrain（Amunts et al., 2013）、BigBrain manual subcortical segmentation（Xiao et al.）、CerebrA。BigBrainは単一個体の20 µm組織再構成で、本アプリでは表示用0.5 mmへ再標本化しています。1–22は同一格子の手動ラベル、脳室・脳幹・小脳・島皮質は位置照合済みアトラス由来、脳梁・内包は画像誘導の試作です。旧ID 33は視交叉と視索を未分割のため学習表示から除外しています。試作輪郭は手動正解データではありません。診断用途ではありません。</p>}
     </aside>}
 
-    {statusOpen&&<div className="legalBackdrop betaStatusBackdrop" role="presentation" onMouseDown={event=>{if(event.target===event.currentTarget)closeOverlay()}}><section className="legalDialog betaStatusDialog" role="dialog" aria-modal="true" aria-labelledby="status-title"><header><div><span>BETA CANDIDATE STATUS</span><h2 id="status-title">更新履歴・既知の制限</h2></div><button onClick={closeOverlay} aria-label="更新履歴と既知の制限を閉じる">×</button></header><div className="betaStatusIntro"><div><b>{betaStatusData.phase}</b><span>更新 {betaStatusData.updated}</span></div><p>この画面は、β候補の掲載範囲、更新履歴、既知の制限を同じJSONデータから表示します。公開判断前のローカル候補であり、専門家による最終確認や公開URLでの確認を意味しません。</p></div><div className="betaStatusColumns"><section className="betaStatusColumn"><h3>既知の制限</h3><div className="betaStatusTimeline">{betaStatusData.knownLimitations.map(item=><article className="betaStatusCard" data-status-id={item.id} key={item.id}><span className="betaStatusKind">LIMITATION</span><h4>{item.heading}</h4><p>{item.body}</p><details className="betaStatusEvidence"><summary>根拠参照</summary><ul>{item.evidenceRefs.map(ref=><li key={ref}><code>{ref}</code></li>)}</ul></details></article>)}</div></section><section className="betaStatusColumn"><h3>更新履歴</h3><div className="betaStatusTimeline">{betaStatusData.changes.map(item=><article className="betaStatusCard" data-status-id={item.id} key={item.id}><span className="betaStatusKind">CHANGE</span><h4>{item.heading}</h4><p>{item.body}</p><details className="betaStatusEvidence"><summary>根拠参照</summary><ul>{item.evidenceRefs.map(ref=><li key={ref}><code>{ref}</code></li>)}</ul></details></article>)}</div></section></div><footer><span>根拠参照は掲載時点のローカル資料です。</span><button onClick={closeOverlay}>観察へ戻る</button></footer></section></div>}
+    {statusOpen&&<div className="legalBackdrop betaStatusBackdrop" role="presentation" onMouseDown={event=>{if(event.target===event.currentTarget)closeOverlay()}}><section className="legalDialog betaStatusDialog" role="dialog" aria-modal="true" aria-labelledby="status-title"><header><div><span>BETA CANDIDATE STATUS</span><h2 id="status-title">更新履歴・既知の制限</h2></div><button onClick={closeOverlay} aria-label="更新履歴と既知の制限を閉じる">×</button></header><div className="betaStatusIntro"><div><b>{betaStatusData.phase}</b><span>更新 {betaStatusData.updated}</span></div><p>この画面は、β候補の掲載範囲、更新履歴、既知の制限を同じJSONデータから表示します。公開判断前のローカル候補であり、専門家による最終確認や公開URLでの確認を意味しません。</p></div><BetaGoNoGoPanel data={betaGoNoGoData}/><div className="betaStatusColumns"><section className="betaStatusColumn"><h3>既知の制限</h3><div className="betaStatusTimeline">{betaStatusData.knownLimitations.map(item=><article className="betaStatusCard" data-status-id={item.id} key={item.id}><span className="betaStatusKind">LIMITATION</span><h4>{item.heading}</h4><p>{item.body}</p><details className="betaStatusEvidence"><summary>根拠参照</summary><ul>{item.evidenceRefs.map(ref=><li key={ref}><code>{ref}</code></li>)}</ul></details></article>)}</div></section><section className="betaStatusColumn"><h3>更新履歴</h3><div className="betaStatusTimeline">{betaStatusData.changes.map(item=><article className="betaStatusCard" data-status-id={item.id} key={item.id}><span className="betaStatusKind">CHANGE</span><h4>{item.heading}</h4><p>{item.body}</p><details className="betaStatusEvidence"><summary>根拠参照</summary><ul>{item.evidenceRefs.map(ref=><li key={ref}><code>{ref}</code></li>)}</ul></details></article>)}</div></section></div><footer><span>根拠参照は掲載時点のローカル資料です。</span><button onClick={closeOverlay}>観察へ戻る</button></footer></section></div>}
    {helpOpen&&<div className="legalBackdrop" role="presentation" onMouseDown={event=>{if(event.target===event.currentTarget)closeOverlay()}}><section className="legalDialog helpDialog" role="dialog" aria-modal="true" aria-labelledby="help-title"><header><div><span>VIEWER CONTROLS</span><h2 id="help-title">操作ガイド</h2></div><button onClick={closeOverlay} aria-label="操作ガイドを閉じる">×</button></header><p className="helpIntro">マウス、トラックパッド、タッチ、キーボードで同じ教材を観察できます。操作に迷ったときは、この画面を閉じずに一覧を確認できます。</p><div className="helpGrid"><article><h3>3Dモデル</h3><dl><div><dt>回転</dt><dd>ドラッグ。キーボードでは<kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd></dd></div><div><dt>軸回転</dt><dd><kbd>Shift</kbd>＋ドラッグ、または右ドラッグ</dd></div><div><dt>拡大・縮小</dt><dd>ホイール／トラックパッド、画面上の<kbd>−</kbd><kbd>＋</kbd></dd></div><div><dt>向きを戻す</dt><dd><kbd>R</kbd>、ダブルクリック、または「向きを戻す」</dd></div></dl></article><article><h3>断面実習</h3><dl><div><dt>断面位置</dt><dd>スライダー、<kbd>←</kbd><kbd>→</kbd><kbd>Home</kbd><kbd>End</kbd></dd></div><div><dt>画像の拡大</dt><dd>ホイール。表示中の倍率を押すと100%へ戻る</dd></div><div><dt>画像の移動</dt><dd><kbd>Shift</kbd>＋ドラッグ、または中ドラッグ</dd></div><div><dt>構造の同定</dt><dd>断面をクリック。左欄では複数構造を同時選択できる</dd></div></dl></article><article><h3>脳表・局所標本</h3><dl><div><dt>着色</dt><dd>構造名を押して追加・解除。脳表では「全選択」「すべて解除」も利用可能</dd></div><div><dt>透過・単独表示</dt><dd>透過、選択だけ、組織表示、脱着の各ボタンを使う</dd></div><div><dt>自由観察</dt><dd>構造索引または検索から複数の対象を追加する</dd></div></dl></article><article><h3>クイズ・編集ツール</h3><dl><div><dt>復習</dt><dd>解答後の「観察画面で位置を確認」で、出題位置と対象を保って教材へ戻る</dd></div><div><dt>塗る</dt><dd>編集Canvasを左ドラッグ。右・中・<kbd>Alt</kbd>ドラッグで移動</dd></div><div><dt>元に戻す</dt><dd><kbd>Ctrl</kbd>／<kbd>⌘</kbd>＋<kbd>Z</kbd>。やり直しは<kbd>Shift</kbd>も同時に押す</dd></div></dl></article></div><footer><span><kbd>Tab</kbd>で項目移動・<kbd>Esc</kbd>で閉じる</span><button onClick={closeOverlay}>観察へ戻る</button></footer></section></div>}
 
     {feedbackOpen&&<div className="legalBackdrop" role="presentation" onMouseDown={event=>{if(event.target===event.currentTarget)closeOverlay()}}><section className="legalDialog feedbackDialog compactFeedbackDialog" role="dialog" aria-modal="true" aria-labelledby="feedback-title"><header><div><span>PRIVATE FEEDBACK</span><h2 id="feedback-title">匿名の意見・誤り報告</h2></div><button onClick={closeOverlay} aria-label="意見・誤り報告を閉じる">×</button></header><p className="feedbackIntro">構造名、表示位置、操作性、クイズなどの気づきを非公開で送れます。氏名・所属・連絡先は任意です。患者・学生・献体者を特定できる情報、標本写真、第三者の個人情報は送らないでください。</p><div className="feedbackOptions singleFeedbackOption"><article><h3>Google Formで報告</h3><p>単発の報告は匿名で送信できます。公開相談、具体的な変更提案、継続的な参加は、独立した共同制作ページで入口を選べます。</p>{feedbackFormUrl?<a href={feedbackFormUrl} target="_blank" rel="noreferrer">Google Formを開く →</a>:<button disabled>フォームURL設定待ち</button>}</article></div><footer className="feedbackDialogFooter"><span>継続的な参加や公開相談はこちら</span><button onClick={()=>{closeOverlay();openWorkspace("collaborate")}}>共同制作ページを開く →</button></footer></section></div>}
