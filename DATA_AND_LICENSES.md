@@ -6,6 +6,8 @@
 
 2026-08-14再監査: [BigBrain公式ライセンス掲示](https://forum.bigbrainproject.org/t/bigbrain-license/129) でCC BY-NC-SA 4.0の表示・非営利・継承条件を再確認しました。[Cloudflare Web Analytics公式説明](https://developers.cloudflare.com/web-analytics/about/) と [データ収集説明](https://developers.cloudflare.com/web-analytics/data-metrics/data-origin-and-collection/) では、個人データを収集・利用せず、CookieやlocalStorageを使わず、性能計測に必要な情報を最小限収集する現行方針を確認しました。公開アセットは `public/atlas/DATA-MANIFEST.json` で全ファイルを出典群、改変、ライセンス、表示義務、同梱通知へ一意に対応づけています。
 
+2026-08-24端末内保存追記: Cloudflare Web AnalyticsがlocalStorageを使わないことと、アプリ自身がクイズ間違い履歴・セグメンテーション編集差分・M2比較レビュー下書きをブラウザのlocalStorageへ保存することを区別して、READMEとM2比較画面へ明記しました。これらは自動送信せず、サイトデータ消去で失われます。M2比較レビューは氏名・メール・所属fieldを持たず、JSON書き出し後も未送信・非採用・専門家確認未主張を固定します。任意メモにも個人を特定できる情報を入力しないよう画面で案内します。
+
 ## 公開可否の結論
 
 現在のアプリは、**非営利の教育目的であれば一般公開可能と判断できる構成**です。ただし BigBrain 由来素材を含むため、次の条件が必須です。

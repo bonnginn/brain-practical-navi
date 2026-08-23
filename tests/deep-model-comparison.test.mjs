@@ -119,3 +119,17 @@ test("A and B share controls while B keeps its full provenance warning", async (
   assert.match(canvas, /asset:"block-diencephalon-third-ventricle"/);
   assert.match(canvas, /asset:"comparison-schematic-ventricle"/);
 });
+
+test("comparison review stays anonymous, local, export-only, and non-adoptive",async()=>{
+  const component=await readFile(componentUrl,"utf8");
+  assert.match(component,/LOCAL REVIEW DRAFT/);
+  assert.match(component,/比較レビューを記録する/);
+  assert.match(component,/個人情報は入力しないでください/);
+  assert.match(component,/MODEL_STRATEGY_REVIEW_STORAGE_KEY/);
+  assert.match(component,/localStorage\.setItem/);
+  assert.match(component,/buildModelStrategyReviewExport/);
+  assert.match(component,/JSONを端末へ書き出す/);
+  assert.match(component,/送信・採用ではありません/);
+  assert.doesNotMatch(component,/updateReview\(current=>[^\n]*event\.currentTarget/);
+  assert.doesNotMatch(component,/fetch\(|XMLHttpRequest|mailto:/);
+});

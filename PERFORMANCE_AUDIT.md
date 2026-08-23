@@ -299,3 +299,7 @@ sectionsの現在の初回転送は26,441,013 Bで、旧監査の34,688,033 B（
 - `comparison-schematic-ventricle.mesh`
 
 missing／duplicate／unexpected route key、console／request／UI error、残留loader、overflow、WebGL fallbackは各0で、27/27件がstable・validation passed・`allPassed: true` だった。記録は `work/performance/initial-route-payload-model-strategy-discovery-2026-08-24.json`（ローカル作業用・配布対象外）。通常学習経路の既存allowlistとbudgetは変更していない。canonical route監査も27経路×3幅×direct/reload＝162/162件に合格した。これらはローカルデスクトップChromeの記録であり、公開回線・物理端末・別GPU／別ブラウザの性能保証ではない。
+
+### 端末内レビュー記録追加後
+
+同日のレビュー記録UI追加後、`work/performance/initial-route-payload-model-strategy-review-2026-08-24.json` でcanonical 27/27件を再測定した。通常の `collaborate` は181,598 encoded bytes・6 requests、`collaborate-model-strategy` は866,629 encoded bytes・10 requestsで、比較用3資産のexact allowlistに一致した。比較専用chunkは17.28 kB（gzip 6.65 kB）で、通常の共同制作ページでは取得しない。missing／duplicate／unexpected、console／request／UI error、loader、overflow、WebGL fallbackは0件で、artifact-derived budget 1,624,375 bytes内だった。route監査も `work/browser-audit/beta-route-audit-model-strategy-review-2026-08-24.json` の162/162件に合格した。

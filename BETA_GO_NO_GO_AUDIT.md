@@ -22,7 +22,7 @@
 - `app/page.tsx`: 既存23問と模式3D pilot 17問の一意な `quizTargetCount = 40`
 - `src/learnerProvenance.mjs` と同台帳監査: `mappingCount = 222`, `resolvedMappingCount = 222`
 
-現行のローカル表示・初回payload証拠は、2026-08-24のM2比較専用URL追加後の成果物（route `162/162`: `work/browser-audit/beta-route-audit-model-strategy-discovery-2026-08-24.json`、初回payload `27/27`: `work/performance/initial-route-payload-model-strategy-discovery-2026-08-24.json`）を参照します。性能suiteは2026-08-23のpial-gzip成果物 `37/37`（`work/performance/performance-suite-pial-gzip-2026-08-23.json`）を維持します。これらは公開URL・デプロイ・専門家確認の証拠ではありません。旧26経路156/156件と2026-08-22の56件・filter36／16／29／21件は、各文書に残す歴史記録です。
+現行のローカル表示・初回payload証拠は、2026-08-24のM2比較レビュー記録追加後の成果物（route `162/162`: `work/browser-audit/beta-route-audit-model-strategy-review-2026-08-24.json`、初回payload `27/27`: `work/performance/initial-route-payload-model-strategy-review-2026-08-24.json`）を参照します。性能suiteは2026-08-23のpial-gzip成果物 `37/37`（`work/performance/performance-suite-pial-gzip-2026-08-23.json`）を維持します。これらは公開URL・デプロイ・専門家確認の証拠ではありません。旧26経路156/156件と2026-08-22の56件・filter36／16／29／21件は、各文書に残す歴史記録です。
 
 criterion 03の中心操作証拠は、`work/browser-audit/core-interactions-pc-tablet-2026-08-23.json` の脳表・水平断・自由観察・クイズ×PC 1366×768／横向きタブレット幅1024×768＝8/8件・40操作です。独立validatorが実測viewport、操作前後、5問queue、回答対象から導出した復習先、error／loader／overflow／fallbackを再計算しています。両条件は `mobile:false`・`touch:false` のローカルデスクトップエミュレーションであり、公開URL、物理端末、実機タッチの証拠ではありません。
 

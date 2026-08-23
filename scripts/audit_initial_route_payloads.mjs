@@ -4,7 +4,7 @@
  * Audit the initial payload of every canonical desktop route.
  *
  * The route list intentionally comes from audit_beta_routes.mjs.  This keeps
- * the payload audit coupled to the existing canonical 26-route contract
+ * the payload audit coupled to the current canonical route contract
  * without maintaining a second list that can drift.
  *
  * The browser collector uses the same dependency-free CDP primitives as the
@@ -1038,7 +1038,7 @@ function usage() {
     "    --output work/browser-audit/initial-route-payload-audit.json",
     "",
     "Required options: --base-url, --output",
-    "The audit always uses the canonical 26 routes at 1366x768 with a cold browser cache.",
+    `The audit always uses the canonical ${BETA_AUDIT_ROUTES.length} routes at 1366x768 with a cold browser cache.`,
   ].join("\n");
 }
 

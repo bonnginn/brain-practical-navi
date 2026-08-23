@@ -55,6 +55,8 @@ Chrome 151のPages想定buildで総量不明表示、総量既知の `12 MB / 12
 
 2026-08-24、比較pilotの発見性を改善し、共同制作ページ冒頭へ「M2・寄稿者向け試作」の案内と、direct/reload可能な専用URL `#workspace/collaborate/model-strategy` を追加しました。通常の共同制作ページはCanvas 0・比較資産0のまま、専用URLだけがCanvas 2と比較用3資産を取得します。Chrome 151の `http://127.0.0.1:4312` で案内からの開閉、直接表示、reload、起点focus復帰、390 px相当の一列表示と横overflow 0を確認しました。canonical route監査は27経路×3幅×direct/reload＝162/162、cold初回payload監査は27/27に合格しました。A/Bは引き続き「模式・専門家未確認」で、採否は変更していません。
 
+同日、専門家レビューを後日まとめて行えるよう、専用URLへ7項目×A/B採点の端末内下書きとJSON書き出しを追加しました。氏名・メール・所属は収集せず、送信機能もありません。JSONは `local-unsubmitted-draft`、`not-submitted`、`not-recorded`、`not-claimed` を固定し、`scripts/audit_model_strategy_review.mjs` が項目・点数・完了度を再計算して個人情報fieldや送信・採用・expert完了への昇格を拒否します。Chrome 151の `http://127.0.0.1:4313` で入力、reload復元、書き出し、小画面を確認し、修正後console error/warning、loader、UI error、横overflowは0件です。最終route 162/162、cold payload 27/27に合格しています。これはレビュー準備で、実際の専門家・学習者評価や採否ではありません。
+
 ## 2. 取得とブランチ
 
 Git、Node.js 22以降、npmをインストールしたPowerShellで実行します。

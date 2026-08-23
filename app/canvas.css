@@ -1114,6 +1114,32 @@ html, body, #root { height: 100%; overflow: hidden; }
 .modelStrategyLegend i { grid-row: 1/3; width: 9px; height: 9px; border-radius: 50%; background: #45aebd; }
 .modelStrategyLegend b { font-size: 11px; }
 .modelStrategyLegend small { color: #bfcac5; font-size: 10px; }
+.modelStrategyReview { margin-top: 16px; padding: 16px; border: 1px solid #9ba49f; background: #f7f5ef; }
+.modelStrategyReview > header { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
+.modelStrategyReview > header span { color: #815043; font: 11px monospace; letter-spacing: .08em; }
+.modelStrategyReview > header h3 { margin: 4px 0; font-size: 19px; }
+.modelStrategyReview > header p { max-width: 760px; margin: 0; color: #4d5956; font-size: 13px; line-height: 1.6; }
+.modelStrategyReview > header strong { flex: 0 0 auto; padding: 6px 9px; border: 1px solid #7d918b; background: #eef5f2; color: #285b56; font-size: 12px; }
+.modelStrategyReviewPrivacy { margin-top: 12px; padding: 11px 13px; border-left: 4px solid #a65d4d; background: #fff7ed; }
+.modelStrategyReviewPrivacy p { margin: 3px 0 0; color: #4a5552; font-size: 12px; line-height: 1.55; }
+.modelStrategyReviewRole { display: grid; grid-template-columns: minmax(180px,1fr) minmax(220px,360px); align-items: center; gap: 12px; margin-top: 13px; font-size: 13px; font-weight: 700; }
+.modelStrategyReview select,.modelStrategyReview textarea { width: 100%; border: 1px solid #88938e; background: #fff; color: #25312f; font: inherit; }
+.modelStrategyReview select { min-height: 40px; padding: 7px 9px; }
+.modelStrategyReviewRatings { margin-top: 12px; border: 1px solid #aeb5b0; background: #fff; }
+.modelStrategyReviewRatingHead { display: grid; grid-template-columns: minmax(0,1fr) 120px 120px; gap: 8px; padding: 8px 10px; background: #e5ebe8; color: #46534f; font-size: 11px; }
+.modelStrategyReviewRatingHead b { text-align: center; }
+.modelStrategyReviewRatings fieldset { display: grid; grid-template-columns: minmax(0,1fr) 120px 120px; align-items: center; gap: 8px; min-width: 0; margin: 0; padding: 9px 10px; border: 0; border-top: 1px solid #d7dbd8; }
+.modelStrategyReviewRatings fieldset:first-of-type { border-top: 0; }
+.modelStrategyReviewRatings legend { float: left; width: auto; padding: 0; color: #2f3a37; font-size: 13px; font-weight: 700; }
+.modelStrategyReviewRatings label { min-width: 0; }
+.modelStrategyReviewRatings label span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.modelStrategyReviewSummary { display: grid; grid-template-columns: minmax(220px,.7fr) minmax(0,1.3fr); gap: 12px; margin-top: 12px; }
+.modelStrategyReviewSummary label { display: flex; min-width: 0; flex-direction: column; gap: 6px; color: #34413e; font-size: 12px; font-weight: 700; }
+.modelStrategyReviewSummary textarea { min-height: 100px; resize: vertical; padding: 9px; line-height: 1.5; }
+.modelStrategyReviewActions { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.modelStrategyReviewActions > div { margin-right: auto; color: #56625e; font-size: 12px; }
+.modelStrategyReviewActions button { min-height: 44px; padding: 9px 12px; border: 1px solid #1d6e69; background: #1d6e69; color: #fff; font-weight: 700; }
+.modelStrategyReviewActions button.secondary { border-color: #838b87; background: #f7f5ef; color: #46504d; }
 .modelStrategyComparison > footer { margin-top: 12px; padding-top: 12px; border-top: 1px solid #b8bdb8; }
 .modelStrategyComparison > footer p { margin: 4px 0 0; color: #4d5956; font-size: 13px; line-height: 1.6; }
 .anatomyReviewPanel { margin-top: 14px; padding: 18px 20px; border: 1px solid #aebbb5; background: #f8f7f3; }
@@ -1210,6 +1236,18 @@ html, body, #root { height: 100%; overflow: hidden; }
   .modelStrategyComparison{padding:12px}
   .modelStrategyGrid{grid-template-columns:1fr}
   .modelStrategyStage{height:300px}
+  .modelStrategyReview{padding:12px}
+  .modelStrategyReview > header{flex-direction:column}
+  .modelStrategyReviewRole{grid-template-columns:1fr}
+  .modelStrategyReviewRatingHead{display:none}
+  .modelStrategyReviewRatings fieldset{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 10px;padding:12px}
+  .modelStrategyReviewRatings legend{float:none;grid-column:1/-1;width:100%;margin-bottom:2px}
+  .modelStrategyReviewRatings label span{position:static;display:block;width:auto;height:auto;margin-bottom:4px;overflow:visible;clip-path:none;color:#59635f;font-size:11px;white-space:normal}
+  .modelStrategyReviewSummary{grid-template-columns:1fr}
+  .modelStrategyReview select{min-height:44px}
+  .modelStrategyReviewActions{align-items:stretch;flex-direction:column}
+  .modelStrategyReviewActions > div{margin:0}
+  .modelStrategyReviewActions button{width:100%}
   .anatomyReviewPanel{padding:14px 11px}
   .anatomyReviewPanel>.anatomyReviewPanelSummary{align-items:flex-start}
   .anatomyReviewPanelSummary b{font-size:21px}

@@ -262,3 +262,9 @@ Chrome 151のローカル通常production preview `http://127.0.0.1:4199` で、
 共同制作ページの冒頭へ「M2・寄稿者向け試作」と明記した案内を追加し、既存カードを探さなくても3Dモデル方針A/B比較へ到達できるようにした。専用URL `#workspace/collaborate/model-strategy` はdirect/reloadで比較を開いた状態へ戻り、通常の `#workspace/collaborate` は比較用Canvasと資産を生成しない。案内から開いて閉じた場合は、通常の共同制作URLへ戻して起点ボタンへfocusを返す。
 
 Windows Chrome 151のローカルproduction preview `http://127.0.0.1:4312` で、通常ページのCanvas 0、案内から開いた後とdirect/reload後のCanvas 2、警告表示、閉鎖、focus復帰を確認した。390×768指定時は実効 `innerWidth` 295 px、`clientWidth` / `scrollWidth` 284/284で一列表示となり、loader、画面内error、横overflowは0件だった。canonical監査は27経路×3幅×direct/reload＝162/162件に合格し、missing／duplicate／fail、console／request／UI error、残留loader、横overflow、WebGL fallbackは0件だった。記録は `work/browser-audit/beta-route-audit-model-strategy-discovery-2026-08-24.json`。公開URL、物理端末、別ブラウザ・別GPU、専門家・学習者レビューは未確認で、A/Bの採否は変更していない。
+
+### 2026-08-24 M2比較レビュー記録
+
+比較専用URLへ、7項目×A/Bの1〜5評価、評価者区分、全体印象、任意メモの端末内下書きを追加した。氏名・メール・所属の入力欄と外部送信は設けず、JSON書き出し後も未送信・非採用・専門家確認未主張を明示する。Windows Chrome 151の `http://127.0.0.1:4313` で入力とreload復元、JSON書き出しを実操作した。初回に検出したイベント値遅延参照のconsole errorを修正後、新規タブでerror/warning 0を確認した。
+
+390×768指定時は実効`innerWidth` 295 px、文書の`clientWidth` / `scrollWidth` 284/284、review領域233/233、評価欄2列、select 44 px、操作ボタン縦積みで、Canvas 2、loader／UI error／横overflowは0件だった。最終buildのcanonical route監査は `work/browser-audit/beta-route-audit-model-strategy-review-2026-08-24.json` の162/162件に合格した。物理端末、実機タッチ、別ブラウザ・別GPU、公開URL、実際の専門家・学習者レビューは未確認である。
