@@ -18,6 +18,10 @@
 
 bundleは、frameごとの原画像／出力／PNG SHA-256、空のPNG metadata、文字なし、pixel→voxel式、固定anchor、canonicalSections、整数型・allowed keys・余剰ファイル・symlink／junction／reparse point境界を検査します。`review.status` は `unreviewed` で、連続性・付着境界・名称の正否を確定する資料ではありません。乳頭体の視床下部付着部と、旧ID 33内の視交叉・左右視索境界は、原画像の隣接断をユーザー／専門家が確認してから差分作業へ進みます。手動ラベル本体は変更していません。
 
+## 脳室腔の保守的な自動補完候補
+
+2026-08-23に、ID 23–26の黒い空隙の塗り残しを読み取り専用で監査しました。BigBrain背景値255へ単純な3D flood-fillを行うと4構造すべてで外側背景へ連結したため、一括補完は行いません。X・Y・Z各軸の両側を現行の同一脳室ラベルで挟まれ、別ラベルと6近傍で接しない未ラベル背景だけを1回抽出し、左14、右15、第三4、第四0 voxelの計33 voxelを `unreviewed` 差分へ固定しました。公開ラベル本体は変更していません。詳細は [VENTRICLE_CAVITY_AUDIT.md](VENTRICLE_CAVITY_AUDIT.md) を参照してください。
+
 ## ブラウザでの作業
 
 ### 視交叉・視索・乳頭体の分割

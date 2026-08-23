@@ -1,0 +1,179 @@
+{
+  "format": "brain-practical-segmentation-patch",
+  "version": 1,
+  "sourceImage": "/atlas/bigbrain-icbm500.bin.gz",
+  "sourceLabels": "/atlas/bigbrain-practical-segmentation-icbm500.bin.gz",
+  "sourceLabelsSha256": "6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56",
+  "dims": [
+    394,
+    466,
+    378
+  ],
+  "voxelSizeMm": [
+    0.5,
+    0.5,
+    0.5
+  ],
+  "primaryPlane": "horizontal",
+  "workflowMetadataVersion": 1,
+  "createdAt": "2026-08-23T15:00:00.000Z",
+  "authorNote": "BigBrain背景値255の未ラベルvoxelのうち、現行の同一脳室ラベルがX・Y・Z各軸の両側に存在し、別ラベルと6近傍で接しない33 voxelを抽出した自動修正候補。公開ラベルへは未適用。直交断の原画像と隣接断で要レビュー。",
+  "authorGitHub": "",
+  "targetSide": "mixed",
+  "evidence": "read-only audit scripts/audit_ventricle_cavity_candidates.py; image SHA-256 c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746; labels SHA-256 6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56; orthogonally bracketed candidate; no cross-label overlap",
+  "confidence": "medium",
+  "targetStructures": [
+    {
+      "id": 23,
+      "name": "左側脳室"
+    },
+    {
+      "id": 24,
+      "name": "右側脳室"
+    },
+    {
+      "id": 25,
+      "name": "第三脳室"
+    }
+  ],
+  "sliceRanges": [
+    {
+      "plane": "horizontal",
+      "axis": "Z",
+      "min": 139,
+      "max": 176
+    }
+  ],
+  "changeSummary": {
+    "changedVoxelCount": 33,
+    "unchangedVoxelCount": 0,
+    "transitions": [
+      {
+        "from": 0,
+        "to": 23,
+        "voxels": 14
+      },
+      {
+        "from": 0,
+        "to": 24,
+        "voxels": 15
+      },
+      {
+        "from": 0,
+        "to": 25,
+        "voxels": 4
+      }
+    ]
+  },
+  "review": {
+    "decision": "unreviewed",
+    "reviewer": null,
+    "decidedAt": null,
+    "reason": "",
+    "pullRequest": null
+  },
+  "reviewStatus": "unreviewed",
+  "editCount": 33,
+  "runs": [
+    {
+      "start": 25620836,
+      "length": 1,
+      "label": 25
+    },
+    {
+      "start": 25621230,
+      "length": 1,
+      "label": 25
+    },
+    {
+      "start": 25804440,
+      "length": 1,
+      "label": 25
+    },
+    {
+      "start": 25804834,
+      "length": 1,
+      "label": 25
+    },
+    {
+      "start": 32210847,
+      "length": 2,
+      "label": 23
+    },
+    {
+      "start": 32210907,
+      "length": 1,
+      "label": 24
+    },
+    {
+      "start": 32211241,
+      "length": 2,
+      "label": 23
+    },
+    {
+      "start": 32211301,
+      "length": 2,
+      "label": 24
+    },
+    {
+      "start": 32211637,
+      "length": 2,
+      "label": 23
+    },
+    {
+      "start": 32211693,
+      "length": 2,
+      "label": 24
+    },
+    {
+      "start": 32212031,
+      "length": 2,
+      "label": 23
+    },
+    {
+      "start": 32212087,
+      "length": 2,
+      "label": 24
+    },
+    {
+      "start": 32212428,
+      "length": 1,
+      "label": 23
+    },
+    {
+      "start": 32212479,
+      "length": 2,
+      "label": 24
+    },
+    {
+      "start": 32394451,
+      "length": 2,
+      "label": 23
+    },
+    {
+      "start": 32394845,
+      "length": 2,
+      "label": 23
+    },
+    {
+      "start": 32395297,
+      "length": 2,
+      "label": 24
+    },
+    {
+      "start": 32395691,
+      "length": 2,
+      "label": 24
+    },
+    {
+      "start": 32396032,
+      "length": 1,
+      "label": 23
+    },
+    {
+      "start": 32396083,
+      "length": 2,
+      "label": 24
+    }
+  ]
+}
