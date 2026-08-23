@@ -57,6 +57,8 @@ Chrome 151のPages想定buildで総量不明表示、総量既知の `12 MB / 12
 
 同日、専門家レビューを後日まとめて行えるよう、専用URLへ7項目×A/B採点の端末内下書きとJSON書き出しを追加しました。氏名・メール・所属は収集せず、送信機能もありません。JSONは `local-unsubmitted-draft`、`not-submitted`、`not-recorded`、`not-claimed` を固定し、`scripts/audit_model_strategy_review.mjs` が項目・点数・完了度を再計算して個人情報fieldや送信・採用・expert完了への昇格を拒否します。Chrome 151の `http://127.0.0.1:4313` で入力、reload復元、書き出し、小画面を確認し、修正後console error/warning、loader、UI error、横overflowは0件です。最終route 162/162、cold payload 27/27に合格しています。これはレビュー準備で、実際の専門家・学習者評価や採否ではありません。
 
+同日、自由観察のPapez回路を由来別6段階のステッパーへ拡張しました。海馬・乳頭体・視床だけ既存クイズ断面ラベルを表示し、脳弓は模式3Dのみ、帯状回・海馬傍回・嗅内野はアトラス3Dのみです。乳頭体には原画像由来3Dメッシュがないため「断面ラベルのみ」とし、旧模式乳頭体で代用しません。視床は全体ラベルで、前部核は未分節と明記します。Chrome 151の `http://127.0.0.1:4314` で6段階、再生、最終停止、別回路への切替を実操作し、route 162/162、cold payload 27/27に合格しました。新規asset request、mesh、voxel、経路線はありません。視覚路ステッパーはID36–38未分節のため保留し、専門家レビュー待ちです。
+
 ## 2. 取得とブランチ
 
 Git、Node.js 22以降、npmをインストールしたPowerShellで実行します。

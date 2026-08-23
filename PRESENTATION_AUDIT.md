@@ -268,3 +268,9 @@ Windows Chrome 151のローカルproduction preview `http://127.0.0.1:4312` で�
 比較専用URLへ、7項目×A/Bの1〜5評価、評価者区分、全体印象、任意メモの端末内下書きを追加した。氏名・メール・所属の入力欄と外部送信は設けず、JSON書き出し後も未送信・非採用・専門家確認未主張を明示する。Windows Chrome 151の `http://127.0.0.1:4313` で入力とreload復元、JSON書き出しを実操作した。初回に検出したイベント値遅延参照のconsole errorを修正後、新規タブでerror/warning 0を確認した。
 
 390×768指定時は実効`innerWidth` 295 px、文書の`clientWidth` / `scrollWidth` 284/284、review領域233/233、評価欄2列、select 44 px、操作ボタン縦積みで、Canvas 2、loader／UI error／横overflowは0件だった。最終buildのcanonical route監査は `work/browser-audit/beta-route-audit-model-strategy-review-2026-08-24.json` の162/162件に合格した。物理端末、実機タッチ、別ブラウザ・別GPU、公開URL、実際の専門家・学習者レビューは未確認である。
+
+### 2026-08-24 Papez回路・由来別ステッパー
+
+自由観察のPapez回路を6段階化した。海馬・乳頭体・視床は既存クイズ断面ラベル、脳弓は模式3D、帯状回・海馬傍回・嗅内野はCerebrA／Desikan系アトラス3Dとして表示区分を分けた。乳頭体は「断面ラベルのみ」、視床は「前部核は未分節」とし、3D専用段階では断面Canvasを生成しない。新しい形状、線維路、投射方向は追加していない。
+
+Windows Chrome 151のローカルproduction preview `http://127.0.0.1:4314` で前後移動、最初へ戻る、再生、6段階目の自動停止、別回路への切替を実操作した。断面段階はCanvas 2、3D専用段階はCanvas 1、loader／UI error 0。canonical route監査は `work/browser-audit/beta-route-audit-papez-stepper-2026-08-24.json` の162/162件、cold payload監査は `work/performance/initial-route-payload-papez-stepper-2026-08-24.json` の27/27件に合格した。公開URL、物理端末、別GPU／別ブラウザ、解剖学的妥当性の専門家レビューは未確認である。

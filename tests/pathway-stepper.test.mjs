@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import zlib from "node:zlib";
 import test from "node:test";
-import {advanceBasalStepperIndex, BASAL_GANGLIA_LABEL_IDS, BASAL_GANGLIA_STEPS, auditBasalGangliaStepper, countLabelPixelsAtSlice, startBasalGangliaStepperTimer} from "../src/pathwayStepper.mjs";
+import {advanceBasalStepperIndex, advancePapezStepperIndex, BASAL_GANGLIA_LABEL_IDS, BASAL_GANGLIA_STEPS, auditBasalGangliaStepper, countLabelPixelsAtSlice, PAPEZ_SECTION_LABEL_IDS, PAPEZ_STEPS, auditPapezStepper, startBasalGangliaStepperTimer, startPapezStepperTimer} from "../src/pathwayStepper.mjs";
 import {auditPathwayStepper, parseAppStructureLabelIds} from "../scripts/audit_pathway_stepper.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
@@ -55,7 +55,7 @@ test("free observation wires the stepper controls without introducing pathway ge
   assert.match(page, /3Dと断面を同じ色で表示/);
   assert.match(page, /既存の手動分節ラベルを3Dと断面で同期表示します/);
   assert.match(page, /新しい境界、線、結合、興奮／抑制、投射方向は追加していません/);
-  assert.match(page, /selectionMeshLayers=\{surfaceView==="free"\?freePathwayMeshLayers:\[\]\}/);
+  assert.match(page, /selectionMeshLayers=\{surfaceView==="free"\?\(basalStepperActive\?freePathwayMeshLayers:papezStepperActive\?papezStepperMeshLayers:freePathwayMeshLayers\):\[\]\}/);
   assert.match(page, /freeSelections\.length===0&&selectedPathway===null/);
   assert.match(css, /\.pathwayStepperControls button \{[^}]*min-height:\s*44px/);
   assert.match(css, /\.pathwayStepperSliceStage\{height:\s*270px\}/);
@@ -141,4 +141,121 @@ test("slice pixel helper uses the same reversed horizontal position convention a
   labels[2 * (1 + 2 * 0)] = 7;
   assert.equal(countLabelPixelsAtSlice(labels, [2, 2, 3], "horizontal", 100, [7]), 1);
   assert.equal(countLabelPixelsAtSlice(labels, [2, 2, 3], "horizontal", 0, [7]), 0);
+});
+
+test("Papez stepper keeps the six stages in the audited provenance order", () => {
+  assert.deepEqual(PAPEZ_STEPS.map(step => [step.key, step.kind, step.source, [...step.targetKeys]]), [
+    ["hippocampus", "section-label", "existing-quiz-section-label", ["hippocampus"]],
+    ["fornix", "schematic-3d", "schematic-3d", ["fornix"]],
+    ["mammillaryBody", "section-label", "existing-quiz-section-label", ["mammillaryBody"]],
+    ["thalamus", "section-label", "existing-quiz-section-label", ["thalamus"]],
+    ["cingulate", "atlas-3d", "atlas-3d", ["cingulate"]],
+    ["parahippocampal-entorhinal", "atlas-3d", "atlas-3d", ["parahippocampal", "entorhinal"]],
+  ]);
+  assert.deepEqual(PAPEZ_STEPS.filter(step => step.kind === "section-label").map(step => [step.plane, step.position, step.labelIds]), [
+    ["coronal", 51, [17, 18]],
+    ["horizontal", 69, [39, 40]],
+    ["coronal", 49, [15, 16]],
+  ]);
+  assert.equal(PAPEZ_STEPS.find(step => step.key === "mammillaryBody").reviewStatus, "project-reviewed-expert-pending");
+  assert.match(PAPEZ_STEPS.find(step => step.key === "thalamus").label, /前部核は未分節/);
+});
+
+test("Papez section stages show existing pixels and 3D-only stages do not invent a section", () => {
+  const result = auditPapezStepper({
+    ...segmentation(),
+    quizQuestions: [
+      {target: "hippocampus", plane: "coronal", position: 51},
+      {target: "mammillaryBody", plane: "horizontal", position: 69},
+      {target: "thalamus", plane: "coronal", position: 49},
+    ],
+  });
+  assert.equal(result.ok, true, result.errors.join("\n"));
+  assert.equal(result.summary.stepCount, 6);
+  assert.equal(result.summary.targetCount, 7);
+  assert.deepEqual(result.summary.sectionPixelCounts, {hippocampus: 1400, mammillaryBody: 120, thalamus: 2398});
+  assert.deepEqual(result.summary.stages.filter(stage => !stage.sectionCanvas).map(stage => stage.key), ["fornix", "cingulate", "parahippocampal-entorhinal"]);
+  assert.equal(advancePapezStepperIndex(0, PAPEZ_STEPS.length), 1);
+  assert.equal(advancePapezStepperIndex(PAPEZ_STEPS.length - 1, PAPEZ_STEPS.length), PAPEZ_STEPS.length - 1);
+  assert.deepEqual(PAPEZ_SECTION_LABEL_IDS, {hippocampus: [17, 18], mammillaryBody: [39, 40], thalamus: [15, 16]});
+});
+
+test("Papez audit rejects optic IDs, fabricated section fields, geometry, and tract claims", () => {
+  const base = {
+    ...segmentation(),
+    quizQuestions: [
+      {target: "hippocampus", plane: "coronal", position: 51},
+      {target: "mammillaryBody", plane: "horizontal", position: 69},
+      {target: "thalamus", plane: "coronal", position: 49},
+    ],
+  };
+  const optic = PAPEZ_STEPS.map(step => ({...step, targetKeys: [...step.targetKeys]}));
+  optic[1].targetKeys = ["33"];
+  assert.equal(auditPapezStepper({...base, steps: optic}).ok, false);
+  const fabricatedSection = PAPEZ_STEPS.map(step => ({...step, targetKeys: [...step.targetKeys]}));
+  fabricatedSection[1].plane = "coronal";
+  fabricatedSection[1].position = 51;
+  assert.equal(auditPapezStepper({...base, steps: fabricatedSection}).ok, false);
+  const geometry = PAPEZ_STEPS.map(step => ({...step, targetKeys: [...step.targetKeys]}));
+  geometry[4].geometry = {vertices: []};
+  assert.equal(auditPapezStepper({...base, steps: geometry}).ok, false);
+  const overclaim = PAPEZ_STEPS.map(step => ({...step, targetKeys: [...step.targetKeys]}));
+  overclaim[0].note = "projection fiber and excitatory connection";
+  assert.equal(auditPapezStepper({...base, steps: overclaim}).ok, false);
+});
+
+test("Papez timer advances and cleans up without changing the basal timer contract", () => {
+  let scheduled = null;
+  const cancelled = [];
+  let ticks = 0;
+  const stop = startPapezStepperTimer({
+    active: true,
+    intervalMs: 1400,
+    onStep: () => { ticks += 1; },
+    schedule: (callback, delay) => { scheduled = {callback, delay}; return 41; },
+    cancel: id => cancelled.push(id),
+  });
+  assert.equal(scheduled.delay, 1400);
+  scheduled.callback();
+  assert.equal(ticks, 1);
+  stop();
+  assert.deepEqual(cancelled, [41]);
+  let inactiveScheduled = false;
+  const inactiveStop = startPapezStepperTimer({active: false, onStep: () => {}, schedule: () => { inactiveScheduled = true; return 1; }});
+  inactiveStop();
+  assert.equal(inactiveScheduled, false);
+  assert.equal(advanceBasalStepperIndex(0, BASAL_GANGLIA_STEPS.length), 1);
+});
+
+test("Papez UI uses one shared stepper control group and omits section Canvas for 3D-only stages", () => {
+  const page = fs.readFileSync(path.join(root, "app/page.tsx"), "utf8");
+  const css = fs.readFileSync(path.join(root, "app/canvas.css"), "utf8");
+  assert.match(page, /aria-label="Papez回路の由来別位置関係ステッパー"/);
+  assert.match(page, /startPapezStepperTimer/);
+  assert.match(page, /papezStepperStep\.kind===\"section-label\"&&<div className="pathwayStepperSlice"/);
+  assert.match(page, /papezStepperStep\.kind!==\"section-label\"&&<div className="pathwayStepper3dOnlyNote"/);
+  assert.match(page, /前部核は未分節/);
+  assert.match(page, /専門家レビュー未完了/);
+  assert.match(page, /新しいボクセル、メッシュ、線維束、結合、投射方向、興奮／抑制は追加していません/);
+  assert.match(page, /papezStepperActive\?papezStepperSurfaceHighlights/);
+  assert.match(page, /papezStepperActive\?papezStepperMeshLayers/);
+  assert.match(page, /papezStepperHasMesh\?"3D／断面同期":"断面ラベルのみ"/);
+  assert.match(page, /"existing-quiz-section-label":"既存クイズ断面ラベル"/);
+  assert.match(page, /if\(key==="papez"\)\{[\s\S]*?setPapezStepperIndex\(0\);[\s\S]*?setSurfaceGhost\(true\);[\s\S]*?return;/);
+  const papezBranch=page.match(/if\(key==="papez"\)\{(?<body>[\s\S]*?)\n\s*return;/)?.groups?.body??"";
+  assert.doesNotMatch(papezBranch, /setFreeSelections|setFreeFocusedKey/);
+  const meshMapping=page.match(/const structureMeshFiles:[\s\S]*?=\{(?<body>[\s\S]*?)\n\};/)?.groups?.body??"";
+  assert.doesNotMatch(meshMapping, /mammillaryBody/);
+  assert.match(css, /\.pathwayStepper3dOnlyNote/);
+  assert.match(css, /\.papezPathwayStepper/);
+  assert.doesNotMatch(page, /PAPEZ_STEPS[\s\S]{0,300}opticChiasm/);
+});
+
+test("combined pathway audit retains basal result and passes Papez", () => {
+  const result = auditPathwayStepper(root);
+  assert.equal(result.ok, true, result.errors.join("\n"));
+  assert.equal(result.summary.stepCount, 5);
+  assert.equal(result.summary.papez.stepCount, 6);
+  assert.equal(result.summary.basal.targetCount, 7);
+  assert.equal(result.summary.papez.sectionPixelCounts.mammillaryBody, 120);
 });

@@ -303,3 +303,7 @@ missing／duplicate／unexpected route key、console／request／UI error、残�
 ### 端末内レビュー記録追加後
 
 同日のレビュー記録UI追加後、`work/performance/initial-route-payload-model-strategy-review-2026-08-24.json` でcanonical 27/27件を再測定した。通常の `collaborate` は181,598 encoded bytes・6 requests、`collaborate-model-strategy` は866,629 encoded bytes・10 requestsで、比較用3資産のexact allowlistに一致した。比較専用chunkは17.28 kB（gzip 6.65 kB）で、通常の共同制作ページでは取得しない。missing／duplicate／unexpected、console／request／UI error、loader、overflow、WebGL fallbackは0件で、artifact-derived budget 1,624,375 bytes内だった。route監査も `work/browser-audit/beta-route-audit-model-strategy-review-2026-08-24.json` の162/162件に合格した。
+
+### Papez由来別ステッパー追加後
+
+`work/performance/initial-route-payload-papez-stepper-2026-08-24.json` でcanonical 27/27件を再測定した。`surface-free` は13,823,419 encoded bytes・23 requestsで、既存のexact allowlistだけを取得し、artifact-derived budget 14,591,337 bytes内だった。段階定義とUIだけを追加し、新しいatlas asset requestは0件である。missing／duplicate／unexpected、console／request／UI error、loader、overflow、WebGL fallbackは0件だった。route監査も `work/browser-audit/beta-route-audit-papez-stepper-2026-08-24.json` の162/162件に合格した。公開回線、物理端末、別GPU／別ブラウザの性能は未確認である。

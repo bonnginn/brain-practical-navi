@@ -34,6 +34,8 @@ Chrome 151のin-app browserでローカルproduction preview `http://127.0.0.1:4
 
 2026-08-24、M2比較専用URL `#workspace/collaborate/model-strategy` をcanonical routeへ追加したため、利用者向けローカル検証範囲と経路監査を現行27経路へ同期した。Windows Chrome 151のローカルproduction preview `http://127.0.0.1:4312` で、27経路×3幅×direct/reload＝162/162件が合格し、missing／duplicate／fail、console／request／UI error、残留loader、横overflow、WebGL fallbackは0件だった。cold初回payloadも27/27件に合格した。旧26経路156/156件は歴史記録として残す。公開URL、物理端末、別GPU／別ブラウザ、専門家レビューは未確認である。
 
+同日、利用者向け変更履歴へ、左右側脳室・第三脳室の内部欠損33 voxelだけを採用した保守的補修と、Papez回路の由来別6段階観察を追加した。脳室項目は黒背景の一括塗り・境界自動確定・ground truthを否定し、Papez項目は乳頭体の断面限定、視床前部核未分節、視覚路ID36–38保留、新しい経路線・mesh・voxelなしを明記する。これは変更内容の公開準備であり、専門家確認や公開URLへの反映を意味しない。
+
 ## 根拠と更新方法
 
 - 各項目の`evidenceRefs`は、リポジトリ内の監査文書、アプリ実装、または機械可読な由来索引を参照する。

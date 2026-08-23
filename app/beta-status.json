@@ -75,6 +75,18 @@
       "evidenceRefs": ["OPTIC_PATHWAY_AUDIT.md", "STRUCTURE_PROVENANCE.md", "public/atlas/structure-provenance.json"]
     },
     {
+      "id": "change-ventricle-cavity-repair",
+      "heading": "脳室内の小さな未塗り補修",
+      "body": "三断面で同じ脳室ラベルに挟まれ、別構造と接しない内部欠損33 voxelだけを、プロジェクト内レビュー済みの教育用補修として採用しました。左側脳室14、右側脳室15、第三脳室4 voxelで、単純な黒背景の一括塗りや脳室境界の自動確定は行っていません。専門家レビューと研究用ground truthを意味しません。",
+      "evidenceRefs": ["VENTRICLE_CAVITY_AUDIT.md", "DATA_AND_LICENSES.md", "tests/ventricle-adoption.test.mjs"]
+    },
+    {
+      "id": "change-papez-provenance-stepper",
+      "heading": "Papez回路の由来別段階観察",
+      "body": "海馬・乳頭体・視床の既存断面ラベル、脳弓の模式3D、帯状回・海馬傍回・嗅内野のアトラス3Dを、由来を分けた6段階で観察できるようにしました。乳頭体は断面ラベルのみ、視床前部核は未分節と明示し、新しい経路線・mesh・voxelは追加していません。視覚路の同等表示はID36–38未分節のため保留しています。",
+      "evidenceRefs": ["PATHWAY_STEPPER_AUDIT.md", "BETA_ROADMAP.md", "src/pathwayStepper.mjs"]
+    },
+    {
       "id": "change-orthogonal-audit",
       "heading": "直交断照合基盤",
       "body": "同一のBigBrain原画像・現行ラベル・端末内差分を水平・冠状・矢状断で照合できる基盤を追加しました。これは監査表示の基盤であり、未完了の解剖学的判断を自動確定するものではありません。",

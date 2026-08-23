@@ -3,7 +3,7 @@ import path from "node:path";
 import zlib from "node:zlib";
 import {fileURLToPath, pathToFileURL} from "node:url";
 import {parseQuizGranularity} from "./audit_quiz_granularity.mjs";
-import {BASAL_GANGLIA_TARGETS, auditBasalGangliaStepper} from "../src/pathwayStepper.mjs";
+import {BASAL_GANGLIA_TARGETS, PAPEZ_SECTION_TARGETS, auditBasalGangliaStepper, auditPapezStepper} from "../src/pathwayStepper.mjs";
 
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(SCRIPT_DIR, "..");
@@ -18,9 +18,9 @@ function readSegmentation(root = ROOT) {
   return {dims, labels: new Uint8Array(buffer.buffer, buffer.byteOffset + 10, count)};
 }
 
-export function parseAppStructureLabelIds(source) {
+export function parseAppStructureLabelIds(source, targets = BASAL_GANGLIA_TARGETS) {
   const structures = source.match(/const structures: Record<StructureKey, StructureInfo> = \{(?<body>[\s\S]*?)\n\};/)?.groups?.body ?? "";
-  return Object.fromEntries(BASAL_GANGLIA_TARGETS.map(target => {
+  return Object.fromEntries(targets.map(target => {
     const match = structures.match(new RegExp(`(?:^|\\n)\\s*${target}:\\s*\\{[^\\n]*?bigbrainIds:\\[([^\\]]+)\\]`));
     return [target, match ? match[1].split(",").map(value => Number(value.trim())).filter(Number.isInteger) : []];
   }));
@@ -29,8 +29,18 @@ export function parseAppStructureLabelIds(source) {
 export function auditPathwayStepper(root = ROOT) {
   const source = fs.readFileSync(path.join(root, "app/page.tsx"), "utf8");
   const quizQuestions = parseQuizGranularity(source);
-  const labelIdsByTarget = parseAppStructureLabelIds(source);
-  return auditBasalGangliaStepper({...readSegmentation(root), quizQuestions, labelIdsByTarget});
+  const segmentation = readSegmentation(root);
+  const basal = auditBasalGangliaStepper({...segmentation, quizQuestions, labelIdsByTarget: parseAppStructureLabelIds(source)});
+  const papez = auditPapezStepper({...segmentation, quizQuestions, labelIdsByTarget: parseAppStructureLabelIds(source, PAPEZ_SECTION_TARGETS)});
+  return {
+    ok: basal.ok && papez.ok,
+    errors: [...basal.errors, ...papez.errors],
+    summary: {
+      ...basal.summary,
+      basal: basal.summary,
+      papez: papez.summary,
+    },
+  };
 }
 
 function main() {

@@ -2257,7 +2257,9 @@ test("free observation offers schematic pathway presets instead of textbook chap
   assert.match(page, /"basal-ganglia":\{name:"大脳基底核回路"/);
   assert.match(page, /経路観察（試作）/);
   assert.match(page, /線維の全経路、核内結合、興奮性／抑制性、個体差は再現していません/);
-  assert.match(page, /selectionMeshLayers=\{surfaceView==="free"\?freePathwayMeshLayers:\[\]\}/);
+  assert.match(page, /selectionMeshLayers=\{surfaceView==="free"\?\(basalStepperActive\?freePathwayMeshLayers:papezStepperActive\?papezStepperMeshLayers:freePathwayMeshLayers\):\[\]\}/);
+  assert.match(page, /aria-label="Papez回路の由来別位置関係ステッパー"/);
+  assert.match(page, /papezStepperStep\.kind!=="section-label"&&<div className="pathwayStepper3dOnlyNote"/);
   assert.match(css, /\.pathwayPresets/);
 });
 

@@ -627,6 +627,18 @@ html, body, #root { height: 100%; overflow: hidden; }
 .pathwayStepperControls button:disabled { cursor: default; opacity: .42; }
 .pathwayStepperControls .stepperPlay { border-color: #6d8270; background: #e2eee4; color: #31553e; }
 .pathwayStepperCaution { margin: 0; color: #735b37; font-size: 12px; line-height: 1.55; }
+.papezPathwayStepper { border-color: #a889a2; background: #fff8fb; }
+.papezPathwayStepper .pathwayStepperStageTitle { border-left-color: #a6678e; }
+.papezPathwayStepper .pathwayStepperStageTitle > span { color: #85516f; }
+.papezPathwayStepper .pathwayStepperControls button { border-color: #b08da7; color: #503d4c; }
+.papezPathwayStepper .pathwayStepperControls .stepperPlay { border-color: #718775; background: #e5efe6; color: #31553e; }
+.pathwayStepper3dOnlyNote { display: grid; gap: 4px; padding: 12px; border: 1px dashed #b18b9f; background: #fffdfd; color: #574553; line-height: 1.55; }
+.pathwayStepper3dOnlyNote b { color: #784c68; font-size: 14px; }
+.pathwayStepper3dOnlyNote p { margin: 0; font-size: 13px; }
+.pathwayStepper3dOnlyNote small { color: #806d79; font-size: 12px; }
+.pathwayStepperProvenance { display: grid; grid-template-columns: auto 1fr; gap: 4px 8px; padding: 8px 9px; border-left: 3px solid #a6678e; background: #fffdfd; color: #604d5a; font-size: 12px; line-height: 1.5; }
+.pathwayStepperProvenance b { color: #754d68; }
+.pathwayStepperProvenance em { grid-column: 2; color: #9a5b35; font-style: normal; font-weight: 800; }
 .freeSelectedCards article { position: relative; display: grid; grid-template-columns: 7px minmax(0,1fr) 28px; gap: 9px; padding: 9px; border: 1px solid #b9c0b9; background: #f6f4ef; color: #33403d; }
 .freeSelectedCards article.focused { border-color: #4f756c; background: #e5ece6; box-shadow: inset 0 0 0 1px #fff9; }
 .freeSelectedCards article > i { width: 7px; min-height: 58px; border-radius: 4px; }
