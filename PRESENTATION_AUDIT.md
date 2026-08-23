@@ -8,6 +8,10 @@ Chrome 151のローカルproduction previewで、脳表・水平断・自由観�
 
 独立validatorが固定4×2 matrix、実測viewport、操作証拠、クイズ回答内容から導出した期待復習先と最終画面から導出した観測復習先を再計算した。両条件は `mobile:false`・`touch:false` のデスクトップエミュレーションであり、物理タブレット、実機タッチ、公開URL、別ブラウザ・GPU、画素・解剖学的妥当性は未確認である。詳細は [CORE_INTERACTION_AUDIT.md](CORE_INTERACTION_AUDIT.md) を参照。
 
+## 2026-08-23 source-backed 文言・分類監査
+
+視床下核を「間脳の視床下域」と明示し、quiz／構造グループでは「中脳・視床下域」「中脳核・視床下域」と表記した。淡蒼球はGPe（内部の中継・調節）とGPi（主要出力）を分けて説明し、側脳室と尾状核、第三脳室の上下関係、脳梁・脳弓標本の英見出しも同期した。脳表の中前頭回前部・中前頭回後部・鳥距溝周囲皮質・外側後頭皮質・眼窩前頭皮質はCerebrA／Desikan-styleの教材対応ラベルであり、併記LatinをFIPAT／TNA標準語とは扱わない注意を画面と台帳へ追加した。これは表示文言の根拠整理で、境界・形状の解剖学的検証や専門家レビュー完了を示さない。詳細は [CONTENT_ACCURACY_REVIEW.md](CONTENT_ACCURACY_REVIEW.md) と [STRUCTURE_PROVENANCE.md](STRUCTURE_PROVENANCE.md) を参照。
+
 ## 2026-08-23 数値読込進捗
 
 断面画像・手動ラベル・3Dメッシュの読込表示へ、実受信byte、総量、整数％を追加した。総量を取得できない場合は「総量不明」と受信済みbyteだけを示し、推定％を作らない。受信後の展開・解析を区別し、再試行時は値を初期化する。数値は読み上げ用 `aria-valuetext` と進捗バーへ同期し、狭幅では折り返す。

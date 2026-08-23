@@ -7,7 +7,7 @@ import { QUIZ_GRANULARITY_BY_TARGET, validateQuizGranularity } from "../src/quiz
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 const DEFAULT_ROOT = path.resolve(SCRIPT_DIR, "..");
 const EXPECTED_QUESTION_COUNT = 23;
-export const EXPECTED_QUIZ_CONTENT_SHA256 = "7ee201594fd565acc152698e11c359e0d5fad3772ffa0b1d8d76c1e400b375fb";
+export const EXPECTED_QUIZ_CONTENT_SHA256 = "2f775d7c0dbbb5bc89922f32efc3bbe8f88ea7c1850707321d1f0481e5a47583";
 const TOPICS = new Set(["basal", "limbic", "midbrain", "ventricles", "connections", "hindbrain", "surface"]);
 const STANDARD_LABEL_SOURCES = new Set(["manual", "image-guided-reviewed"]);
 const PROVISIONAL_LABEL_SOURCES = new Set(["atlas-provisional", "image-guided"]);

@@ -317,7 +317,7 @@
        "projectReview": "pending",
        "quizEligibility": "none",
        "sourceRefs": ["bigbrain-manual-labels", "specimen-block-assets"],
-       "knownLimitations": ["講義では左右の外節・内節を個別に記録した手動ラベルですが、通常クイズの正答は淡蒼球全体の合成対象です。個別境界の専門家確認は未完了です。"],
+       "knownLimitations": ["講義では左右の外節・内節を個別に記録した手動ラベルですが、通常クイズの正答は淡蒼球全体の合成対象です。外節（GPe）は内部の中継・調節部、内節（GPi）は主要出力部という機能差を教材文言で明示します。個別境界の専門家確認は未完了です。"],
        "appKeys": ["pallidumExternal", "pallidumInternal"]
       },
     {
@@ -343,7 +343,7 @@
       "projectReview": "pending",
       "quizEligibility": "standard",
       "sourceRefs": ["bigbrain-manual-labels", "specimen-block-assets"],
-      "knownLimitations": ["小さな左右核の手動ラベルで、周囲核との境界は専門家確認を継続しています。"],
+      "knownLimitations": ["間脳の視床下域にある視床下核として記録し、視床下部や中脳そのものとは区別します。小さな左右核の手動ラベルで、周囲核との境界は専門家確認を継続しています。"],
       "appKeys": ["subthalamic"]
     },
     {
@@ -408,7 +408,7 @@
       "projectReview": "pending",
       "quizEligibility": "pilot",
       "sourceRefs": ["combined-practical-segmentation", "mni-cerebra-browser-assets", "specimen-block-assets"],
-      "knownLimitations": ["アトラス照合の腔候補で、脳室間の細い連続部や全境界は検証中です。"],
+      "knownLimitations": ["アトラス照合の腔候補で、脳室間の細い連続部や全境界は検証中です。第三脳室は左右の視床・視床下部に囲まれ、上方は視床、下方（底側）は視床下部という位置関係を教材文言で示します。"],
       "appKeys": ["ventricle", "thirdVentricle", "fourthVentricle"]
     },
     {
@@ -715,7 +715,7 @@
       "projectReview": "pending",
       "quizEligibility": "none",
       "sourceRefs": ["mni-cerebra-browser-assets"],
-      "knownLimitations": ["CerebrA領域を高密度脳表へ対応させた教育表示で、個体の脳回境界を手動分節したものではありません。"],
+      "knownLimitations": ["CerebrA／Desikan-styleの区画名を高密度脳表へ対応させた教育表示で、個体の脳回境界を手動分節したものではありません。併記Latinはアトラス表示用の文字列で、FIPAT／TNAの国際標準用語とは主張せず、標準語への置換も行っていません。"],
       "cerebraLabelIds": [52, 1],
       "appKeys": ["rostralMiddleFrontal"]
     },
@@ -730,7 +730,7 @@
       "projectReview": "pending",
       "quizEligibility": "none",
       "sourceRefs": ["mni-cerebra-browser-assets"],
-      "knownLimitations": ["CerebrA領域を高密度脳表へ対応させた教育表示で、個体の脳回境界を手動分節したものではありません。"],
+      "knownLimitations": ["CerebrA／Desikan-styleの区画名を高密度脳表へ対応させた教育表示で、個体の脳回境界を手動分節したものではありません。併記Latinはアトラス表示用の文字列で、FIPAT／TNAの国際標準用語とは主張せず、標準語への置換も行っていません。"],
       "cerebraLabelIds": [93, 42],
       "appKeys": ["caudalMiddleFrontal"]
     },
@@ -745,7 +745,7 @@
       "projectReview": "pending",
       "quizEligibility": "none",
       "sourceRefs": ["mni-cerebra-browser-assets"],
-      "knownLimitations": ["CerebrA領域を高密度脳表へ対応させた教育表示で、個体の脳回境界を手動分節したものではありません。"],
+       "knownLimitations": ["CerebrA領域を高密度脳表へ対応させた教育表示で、個体の脳回境界を手動分節したものではありません。"],
       "cerebraLabelIds": [95, 44],
       "appKeys": ["parsOrbitalis"]
     },
@@ -760,7 +760,7 @@
       "projectReview": "pending",
       "quizEligibility": "none",
       "sourceRefs": ["mni-cerebra-browser-assets"],
-      "knownLimitations": ["CerebrA領域を高密度脳表へ対応させた教育表示で、個体の脳回境界を手動分節したものではありません。"],
+       "knownLimitations": ["CerebrA領域を高密度脳表へ対応させた教育表示で、個体の脳回境界を手動分節したものではありません。"],
       "cerebraLabelIds": [79, 28],
       "appKeys": ["middleTemporal"]
     },
@@ -775,7 +775,7 @@
       "projectReview": "pending",
       "quizEligibility": "none",
       "sourceRefs": ["mni-cerebra-browser-assets"],
-      "knownLimitations": ["CerebrA領域を高密度脳表へ対応させた教育表示で、個体の脳回境界を手動分節したものではありません。"],
+       "knownLimitations": ["CerebrA領域を高密度脳表へ対応させた教育表示で、個体の脳回境界を手動分節したものではありません。"],
       "cerebraLabelIds": [54, 3],
       "appKeys": ["inferiorTemporal"]
     },
@@ -865,7 +865,7 @@
       "projectReview": "pending",
       "quizEligibility": "none",
       "sourceRefs": ["mni-cerebra-browser-assets"],
-      "knownLimitations": ["CerebrA領域を高密度脳表へ対応させた教育表示で、個体の脳回境界を手動分節したものではありません。"],
+       "knownLimitations": ["CerebrA／Desikan-styleの区画名を高密度脳表へ対応させた教育表示で、個体の脳回境界を手動分節したものではありません。併記Latinはアトラス表示用の文字列で、FIPAT／TNAの国際標準用語とは主張せず、標準語への置換も行っていません。"],
       "cerebraLabelIds": [57, 6],
       "appKeys": ["pericalcarine"]
     },
@@ -925,7 +925,7 @@
       "projectReview": "pending",
       "quizEligibility": "none",
       "sourceRefs": ["mni-cerebra-browser-assets"],
-      "knownLimitations": ["CerebrA領域を高密度脳表へ対応させた教育表示で、個体の脳回境界を手動分節したものではありません。"],
+       "knownLimitations": ["CerebrA／Desikan-styleの区画名を高密度脳表へ対応させた教育表示で、個体の脳回境界を手動分節したものではありません。併記Latinはアトラス表示用の文字列で、FIPAT／TNAの国際標準用語とは主張せず、標準語への置換も行っていません。"],
       "cerebraLabelIds": [58, 7, 66, 15],
       "appKeys": ["orbitofrontal"]
     },
@@ -940,7 +940,7 @@
       "projectReview": "pending",
       "quizEligibility": "none",
       "sourceRefs": ["mni-cerebra-browser-assets"],
-      "knownLimitations": ["CerebrA領域を高密度脳表へ対応させた教育表示で、個体の脳回境界を手動分節したものではありません。"],
+       "knownLimitations": ["CerebrA／Desikan-styleの区画名を高密度脳表へ対応させた教育表示で、個体の脳回境界を手動分節したものではありません。併記Latinはアトラス表示用の文字列で、FIPAT／TNAの国際標準用語とは主張せず、標準語への置換も行っていません。"],
       "cerebraLabelIds": [85, 34],
       "appKeys": ["lateralOccipital"]
     },
@@ -996,7 +996,7 @@
       "projectReview": "pending",
       "quizEligibility": "standard",
       "sourceRefs": ["bigbrain-manual-labels", "specimen-block-assets"],
-      "knownLimitations": ["講義監査行は外節・内節を個別に記録していますが、アプリの通常クイズ正答は淡蒼球全体です。外節・内節の境界を一問の正答として要求しません。"],
+      "knownLimitations": ["講義監査行は外節・内節を個別に記録していますが、アプリの通常クイズ正答は淡蒼球全体です。外節（GPe）は内部の中継・調節部、内節（GPi）は主要出力部という機能差を教材文言で示し、外節・内節の境界を一問の正答として要求しません。"],
       "appKeys": ["pallidum"]
     }
   ],

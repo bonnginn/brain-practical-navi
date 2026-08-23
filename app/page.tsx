@@ -102,7 +102,7 @@ const quizCategories:{key:"all"|QuizCategory;label:string}[]=[
   {key:"all",label:"全項目"},
   {key:"basal",label:"大脳基底核"},
   {key:"limbic",label:"辺縁系"},
-  {key:"midbrain",label:"中脳・視床下部"},
+  {key:"midbrain",label:"中脳・視床下域"},
   {key:"ventricles",label:"脳室系"},
   {key:"connections",label:"間脳・白質"},
   {key:"hindbrain",label:"脳幹・小脳"},
@@ -157,6 +157,7 @@ const surfaceRegions:Record<SurfaceRegionKey,{name:string;latin:string;ids:numbe
   cingulate:{name:"帯状回",latin:"Gyrus cinguli",ids:[81,30,59,8,98,47,84,33],color:"#c86044",rgb:[200,96,68],note:"脳梁の上方を前後へ取り巻く内側面の脳回"},
 };
 const surfaceRegionKeys=Object.keys(surfaceRegions) as SurfaceRegionKey[];
+const surfaceAtlasNomenclatureNote="中前頭回前部・中前頭回後部・鳥距溝周囲皮質・外側後頭皮質・眼窩前頭皮質の5領域は、CerebrA／Desikan-styleアトラスの区画名を教材上で対応づけた表示です。併記する英語・ラテン語はアトラス表示用の文字列で、国際標準Terminologia Neuroanatomica（FIPAT／TNA）の確定用語だとは主張しません。標準ラテン語への置換は行っていません。";
 
 const surfaceViewRegions:Record<SurfaceViewKey,SurfaceRegionKey[]>={
   lateral:["precentral","postcentral","inferiorFrontal","superiorTemporal","supramarginal","lateralOccipital"],
@@ -231,26 +232,26 @@ const detachableBrainstemNerveKeys:NeurovascularStructureKey[]=["cn5","cn6","cn7
 const blockSpecimens:Record<BlockSpecimenKey,BlockLesson>={
   "lateral-ventricle":{name:"側脳室の全景",en:"LATERAL VENTRICLE",visual:"model",plane:"sagittal",position:58,focus:"ventricle",view:"inside",rotation:{x:-12,y:-58},intro:"側脳室のC字形の連続を隠さないよう、右側脳室の外側壁を開き、周囲実質を必要最小限だけ残した局所標本です。色レイヤーを着脱して、腔と周囲構造の隣接を組み立てます。",observe:["前角・体部・三角部・後角・下角","尾状核頭・体・尾との並走","視床と体部の位置関係","海馬と下角の位置関係","正中側にある第三脳室の方向"],caution:"側脳室腔は同一0.5 mm格子の教育用ラベル、尾状核・視床・海馬は手動分節です。脳弓・モンロー孔・薄い脳室壁は独立分節できていないため、全境界を正解形状として扱わないでください。",layers:[
     {key:"ventricular-cavity",name:"側脳室腔",latin:"Ventriculus lateralis",color:"#45aebd",source:"試作分節",note:"前角から下角まで連続する腔の形を示します。"},
-    {key:"caudate",name:"尾状核",latin:"Nucleus caudatus",color:"#dc914b",source:"標本分節",note:"頭部・体部・尾部が側脳室の外側壁に沿います。"},
+    {key:"caudate",name:"尾状核",latin:"Nucleus caudatus",color:"#dc914b",source:"標本分節",note:"頭部は側脳室前角の外側壁を形成し、体部は側脳室体部の外側に位置し、尾部は下角の上方・天井側を走ります。"},
     {key:"thalamus",name:"視床",latin:"Thalamus",color:"#8d82c4",source:"標本分節",note:"側脳室体部の床と第三脳室の外側に位置します。"},
     {key:"hippocampus",name:"海馬",latin:"Hippocampus",color:"#c8798d",source:"標本分節",note:"側脳室下角の床を内側から隆起させます。"},
   ]},
-  diencephalon:{name:"視床・視床下部標本",en:"DIENCEPHALON",visual:"model",plane:"sagittal",position:50,focus:"thalamus",view:"inside",rotation:{x:-10,y:-48},intro:"第三脳室を正中の空間基準にして、左右の視床、その腹側に続く視床下部領域、さらに腹外側の視床下核を一つの切り出しで比較します。構造を外しながら上下・内外・前後の関係を組み立てます。",observe:["左右の視床と第三脳室","第三脳室側壁に沿う視床と視床下部の上下関係","視床下核と視床・中脳の間の位置","第三脳室底へ続く視床下部領域"],caution:"視床と視床下核は手動分節、第三脳室は同一格子の試作分節です。視床下部は独立分節ではなく保守的な位置目安です。乳頭体はID39・40の水平断ラベルを採用済みですが、この3D標本には原画像由来の乳頭体3D形状がないため表示せず、旧模式部品で代用しません。視床核群、視床下溝、視交叉、漏斗の厳密な境界も示しません。",layers:[
+  diencephalon:{name:"視床・視床下部標本",en:"DIENCEPHALON",visual:"model",plane:"sagittal",position:50,focus:"thalamus",view:"inside",rotation:{x:-10,y:-48},intro:"第三脳室を正中の空間基準にして、左右の視床、その腹側に続く視床下部領域、さらに腹外側の間脳・視床下域にある視床下核を一つの切り出しで比較します。構造を外しながら上下・内外・前後の関係を組み立てます。",observe:["左右の視床と第三脳室","第三脳室側壁に沿う視床と視床下部の上下関係","間脳の視床下域にある視床下核と、視床・黒質の位置関係","第三脳室底へ続く視床下部領域"],caution:"視床と視床下核は手動分節、第三脳室は同一格子の試作分節です。視床下部は独立分節ではなく保守的な位置目安です。乳頭体はID39・40の水平断ラベルを採用済みですが、この3D標本には原画像由来の乳頭体3D形状がないため表示せず、旧模式部品で代用しません。視床核群、視床下溝、視交叉、漏斗の厳密な境界も示しません。",layers:[
     {key:"thalami",name:"視床",latin:"Thalamus",color:"#8d82c4",source:"標本分節",note:"第三脳室を挟んで左右に並ぶ間脳背側部です。"},
     {key:"third-ventricle",name:"第三脳室",latin:"Ventriculus tertius",color:"#45aebd",source:"試作分節",note:"視床と視床下部の内側面を読む正中の空間基準です。"},
     {key:"hypothalamus",name:"視床下部領域",latin:"Hypothalamus",color:"#b97864",source:"位置目安",note:"視床腹側から第三脳室底へ続く領域を示します。核境界ではありません。"},
-    {key:"subthalamic-nuclei",name:"視床下核",latin:"Nucleus subthalamicus",color:"#e0ad45",source:"標本分節",note:"視床腹側・中脳吻側の小さな核を左右表示します。"},
+    {key:"subthalamic-nuclei",name:"視床下核",latin:"Nucleus subthalamicus",color:"#e0ad45",source:"標本分節",note:"間脳の視床下域にある小さな核を左右表示します。視床下部・中脳そのものとは区別してください。"},
   ]},
   radiations:{name:"レンズ核・投射線維",en:"LENTIFORM & RADIATIONS",visual:"model",plane:"horizontal",position:53,focus:"caudate",view:"inside",rotation:{x:-58,y:-8},intro:"レンズ核と内包を含む水平切断標本に、放線冠・視放線・聴放線の走行目安を重ねます。被殻・淡蒼球外節・内節を別々に外しながら、内包を中心とする広がりを確認します。",observe:["被殻・淡蒼球外節・内節の層状配列","レンズ核内側の内包","上方へ扇状に広がる放線冠","外側膝状体から後頭葉へ向かう視放線","内側膝状体から側頭葉へ向かう聴放線"],caution:"被殻と淡蒼球外節・内節は手動分節、内包は画像誘導の試作分節です。3種類の放線は現在の組織像から抽出した線維束ではなく、切断面上へ投影した走行模式です。位置関係の学習用で、束の太さ・全線維・個人差は表しません。",layers:[
     {key:"putamen",name:"被殻",latin:"Putamen",color:"#d9854f",source:"標本分節",note:"レンズ核の外側部です。"},
-    {key:"pallidum-external",name:"淡蒼球外節",latin:"Globus pallidus externus",color:"#d0ae5c",source:"標本分節",note:"被殻の内側、淡蒼球内節の外側に位置します。"},
-    {key:"pallidum-internal",name:"淡蒼球内節",latin:"Globus pallidus internus",color:"#b88d42",source:"標本分節",note:"外節の内側で、内包に接します。"},
+    {key:"pallidum-external",name:"淡蒼球外節",latin:"Globus pallidus externus",color:"#d0ae5c",source:"標本分節",note:"被殻の内側、淡蒼球内節の外側に位置する、内部の中継・調節部です。"},
+    {key:"pallidum-internal",name:"淡蒼球内節",latin:"Globus pallidus internus",color:"#b88d42",source:"標本分節",note:"外節の内側で内包に接し、淡蒼球から視床などへ向かう主要な出力部です。"},
     {key:"internal-capsule",name:"内包",latin:"Capsula interna",color:"#e3d8b0",source:"試作分節",note:"レンズ核の内側、尾状核・視床の外側を通ります。"},
     {key:"corona-radiata",name:"放線冠",latin:"Corona radiata",color:"#e7c85d",source:"模式補助",note:"内包より上方で皮質へ扇状に広がる投射線維です。"},
     {key:"optic-radiation",name:"視放線",latin:"Radiatio optica",color:"#7d9fd0",source:"模式補助",note:"外側膝状体から側頭・頭頂葉を経て後頭葉へ向かいます。"},
     {key:"auditory-radiation",name:"聴放線",latin:"Radiatio acustica",color:"#74b99e",source:"模式補助",note:"内側膝状体から側頭葉の聴覚皮質へ向かいます。"},
   ]},
-  "commissural-system":{name:"脳梁・脳弓標本",en:"COMMISSURAL SYSTEM",visual:"model",plane:"sagittal",position:50,focus:"ventricle",view:"inside",rotation:{x:-7,y:76},intro:"正中周囲だけを残し、脳梁の弧、側脳室、透明中隔、脳弓の上下関係を内側から見る標本です。側脳室を空間基準に、交連線維と辺縁系の出力路を分けて観察します。",observe:["脳梁の膝・幹・膨大へ続く弧","脳梁直下の側脳室","脳梁と脳弓の間の透明中隔","海馬から乳頭体方向へ続く脳弓","脳梁と脳弓が別の線維系であること"],caution:"脳梁は画像誘導の試作分節、側脳室は同一格子の試作分節です。脳弓は模式3D、透明中隔は位置目安であり、薄い膜や線維束の実測境界ではありません。脳弓柱・交連前後の詳細形態は今後の修正対象です。",layers:[
+  "commissural-system":{name:"脳梁・脳弓標本",en:"CORPUS CALLOSUM AND FORNIX",visual:"model",plane:"sagittal",position:50,focus:"ventricle",view:"inside",rotation:{x:-7,y:76},intro:"正中周囲だけを残し、脳梁の弧、側脳室、透明中隔、脳弓の上下関係を内側から見る標本です。側脳室を空間基準に、交連線維と辺縁系の出力路を分けて観察します。",observe:["脳梁の膝・幹・膨大へ続く弧","脳梁直下の側脳室","脳梁と脳弓の間の透明中隔","海馬から乳頭体方向へ続く脳弓","脳梁と脳弓が別の線維系であること"],caution:"脳梁は画像誘導の試作分節、側脳室は同一格子の試作分節です。脳弓は模式3D、透明中隔は位置目安であり、薄い膜や線維束の実測境界ではありません。脳弓柱・交連前後の詳細形態は今後の修正対象です。",layers:[
     {key:"corpus-callosum",name:"脳梁",latin:"Corpus callosum",color:"#dbc270",source:"試作分節",note:"左右大脳半球を結ぶ大きな交連線維の弧です。"},
     {key:"lateral-ventricles",name:"側脳室",latin:"Ventriculi laterales",color:"#45aebd",source:"試作分節",note:"脳梁・透明中隔・脳弓の位置を読む空間基準です。"},
     {key:"fornix",name:"脳弓",latin:"Fornix",color:"#e7d9a6",source:"模式補助",note:"海馬から中隔野・乳頭体方向へ弧を描く線維路の模式です。"},
@@ -354,14 +355,14 @@ const pathwayPresetKeys=Object.keys(pathwayPresets) as PathwayPresetKey[];
 
 const structures: Record<StructureKey, StructureInfo> = {
   ventricle: { name: "側脳室", latin: "Ventriculus lateralis", color: "#49a9b4", rgb:[73,169,180], ids:[92,41,56,5], bigbrainIds:[23,24], labelSource:"atlas-provisional", meshFocus:"ventricle", note: "前角・体部・後角・下角が連続する空間です。断面を動かして形の変化を追います。", relation: "脳梁の下方、尾状核・視床の内側" },
-  thirdVentricle: { name:"第三脳室", latin:"Ventriculus tertius", color:"#58aeb8", rgb:[88,174,184], ids:[80,29], bigbrainIds:[25], labelSource:"atlas-provisional", meshFocus:"ventricle", note:"左右の視床間にある正中の細い腔です。水平断・冠状断で側脳室との連続を確認します。", relation:"左右視床の間、視床下部の上方" },
+  thirdVentricle: { name:"第三脳室", latin:"Ventriculus tertius", color:"#58aeb8", rgb:[88,174,184], ids:[80,29], bigbrainIds:[25], labelSource:"atlas-provisional", meshFocus:"ventricle", note:"左右の視床・視床下部に囲まれる正中の細い腔です。上方は視床、下方（底側）は視床下部に接し、水平断・冠状断で側脳室との位置関係を確認します。", relation:"左右の視床・視床下部の間（上方：視床、下方：視床下部）" },
   fourthVentricle: { name:"第四脳室", latin:"Ventriculus quartus", color:"#4997b0", rgb:[73,151,176], ids:[88,37], bigbrainIds:[26], labelSource:"atlas-provisional", meshFocus:"ventricle", note:"橋・延髄と小脳の間にある腔です。矢状断で中脳水道から中心管への連続を追います。", relation:"脳幹の背側、小脳の腹側" },
   corpusCallosum: { name:"脳梁", latin:"Corpus callosum", color:"#dbc270", rgb:[219,194,112], ids:[], bigbrainIds:[30], labelSource:"image-guided", note:"左右大脳半球を結ぶ交連線維です。矢状断で膝・幹・膨大を連続して確認します。", relation:"側脳室の上方、帯状回の下方" },
   internalCapsule: { name:"内包", latin:"Capsula interna", color:"#e3d8b0", rgb:[227,216,176], ids:[], bigbrainIds:[31,32], labelSource:"image-guided", note:"尾状核・視床とレンズ核の間を走る白質路です。冠状断で前脚・膝・後脚の曲がりを追います。", relation:"尾状核・視床の外側、被殻・淡蒼球の内側" },
   caudate: { name: "尾状核", latin: "Nucleus caudatus", color: "#e19749", rgb:[225,151,73], ids:[100,49], bigbrainIds:[7,8], labelSource:"manual", meshFocus:"caudate", note: "側脳室に沿って前後へ連続する核です。断面を移動して頭・体・尾の位置変化を追います。", relation: "側脳室の外側、内包の内側" },
   putamen: { name:"被殻", latin:"Putamen", color:"#d9854f", rgb:[217,133,79], ids:[72,21], bigbrainIds:[9,10], labelSource:"manual", note:"レンズ核の外側部です。淡蒼球との境界と、外側を走る外包を確認します。", relation:"淡蒼球の外側、島皮質の内側" },
-  pallidumExternal: { name:"淡蒼球外節", latin:"Globus pallidus externus", color:"#d0ae5c", rgb:[208,174,92], ids:[], bigbrainIds:[11,12], labelSource:"manual", note:"淡蒼球の外側区画です。内外の髄板を手がかりに、内節と分けて確認します。", relation:"被殻の内側、淡蒼球内節の外側" },
-  pallidumInternal: { name:"淡蒼球内節", latin:"Globus pallidus internus", color:"#b88d42", rgb:[184,141,66], ids:[], bigbrainIds:[13,14], labelSource:"manual", note:"淡蒼球の内側区画です。外節より小さく、内包に接する位置を確認します。", relation:"淡蒼球外節の内側、内包の外側" },
+  pallidumExternal: { name:"淡蒼球外節", latin:"Globus pallidus externus", color:"#d0ae5c", rgb:[208,174,92], ids:[], bigbrainIds:[11,12], labelSource:"manual", note:"淡蒼球の外側区画です。内節の主要出力へつながる大脳基底核内の中継・調節部として、内外の髄板を手がかりに確認します。", relation:"被殻の内側、淡蒼球内節の外側" },
+  pallidumInternal: { name:"淡蒼球内節", latin:"Globus pallidus internus", color:"#b88d42", rgb:[184,141,66], ids:[], bigbrainIds:[13,14], labelSource:"manual", note:"淡蒼球の内側区画です。大脳基底核から視床などへ向かう主要な出力部で、外節より小さく内包に接する位置を確認します。", relation:"淡蒼球外節の内側、内包の外側" },
   pallidum: { name:"淡蒼球（全体）", latin:"Globus pallidus", color:"#c8a451", rgb:[200,164,81], ids:[78,27], bigbrainIds:[11,12,13,14], labelSource:"manual", note:"外節と内節を一括表示します。細部の学習では、別項目の外節・内節を使ってください。", relation:"被殻の内側、内包の外側" },
   thalamus: { name: "視床", latin: "Thalamus", color: "#8d82c4", rgb:[141,130,196], ids:[91,40], bigbrainIds:[15,16], labelSource:"manual", meshFocus:"thalamus", note: "第三脳室を挟んで左右に位置します。水平断と冠状断で内包との境界を比較します。", relation: "第三脳室外側、内包の内側" },
   hippocampus: { name: "海馬", latin: "Hippocampus", color: "#c8798d", rgb:[200,121,141], ids:[99,48], bigbrainIds:[17,18], labelSource:"manual", meshFocus:"hippocampus", note: "側脳室下角の床に沿う構造です。冠状断と矢状断を往復して前後方向の連続を確認します。", relation: "側脳室下角の内側・床" },
@@ -369,7 +370,7 @@ const structures: Record<StructureKey, StructureInfo> = {
   accumbens: { name:"側坐核", latin:"Nucleus accumbens", color:"#78b579", rgb:[120,181,121], ids:[55,4], bigbrainIds:[19,20], labelSource:"manual", note:"尾状核頭と被殻が腹側で連続する領域に位置します。前方の冠状断で確認します。", relation:"尾状核頭・被殻の腹側、前交連の前下方" },
   redNucleus: { name:"赤核", latin:"Nucleus ruber", color:"#d24f49", rgb:[210,79,73], ids:[], bigbrainIds:[1,2], labelSource:"manual", note:"中脳被蓋にある円形の核です。黒質・中脳水道との位置関係を確認します。", relation:"中脳水道の腹外側、黒質の背内側" },
   substantiaNigra: { name:"黒質", latin:"Substantia nigra", color:"#716387", rgb:[113,99,135], ids:[], bigbrainIds:[3,4], labelSource:"manual", note:"中脳脚と被蓋の境界に沿う帯状の核です。赤核より腹側に位置します。", relation:"大脳脚の背側、赤核の腹外側" },
-  subthalamic: { name:"視床下核", latin:"Nucleus subthalamicus", color:"#e0ad45", rgb:[224,173,69], ids:[], bigbrainIds:[5,6], labelSource:"manual", note:"小さなレンズ状の核です。淡蒼球内節・黒質との位置関係を連続断面で追います。", relation:"視床の腹側、黒質の背側、内包の内側" },
+  subthalamic: { name:"視床下核", latin:"Nucleus subthalamicus", color:"#e0ad45", rgb:[224,173,69], ids:[], bigbrainIds:[5,6], labelSource:"manual", note:"間脳の視床下域にある小さなレンズ状の核です。視床下部や中脳そのものとは区別し、淡蒼球内節・黒質との位置関係を連続断面で追います。", relation:"視床の腹側、黒質の背側、内包の内側" },
   brainstem: { name:"脳幹", latin:"Truncus encephali", color:"#739b72", rgb:[115,155,114], ids:[62,11], bigbrainIds:[27], labelSource:"atlas-provisional", note:"中脳・橋・延髄へ連続する軸性構造です。脳神経の出入口を考える基準になります。", relation:"間脳の下方、小脳の前方" },
   cerebellum: { name:"小脳", latin:"Cerebellum", color:"#8ba867", rgb:[139,168,103], ids:[97,46,90,39], bigbrainIds:[28,29], labelSource:"atlas-provisional", note:"皮質と白質、正中の虫部を区別します。水平断と矢状断で小脳脚との連続を追います。", relation:"脳幹の後方、後頭葉の下方" },
   opticChiasm: { name:"視交叉〜視索候補", latin:"Chiasma et tractus optici (atlas candidate)", color:"#d4b65b", rgb:[212,182,91], ids:[68,17], bigbrainIds:[33], labelSource:"atlas-provisional", note:"CerebrAのOptic Chiasmラベルは、視交叉と視索の連続性を保つよう再定義された範囲です。視交叉だけの境界や乳頭体の分節を示すものではありません。", relation:"視床下部の前下方から視索方向へ連続し、模式乳頭体の前外側に近接" },
@@ -388,30 +389,30 @@ const structureMeshFiles:Partial<Record<StructureKey,string[]>>={
 const structureGroups:{key:string;name:string;color:string;members:StructureKey[]}[]=[
   {key:"ventricles",name:"脳室系",color:"#49a9b4",members:["ventricle","thirdVentricle","fourthVentricle"]},
   {key:"basal",name:"大脳基底核",color:"#d9854f",members:["caudate","putamen","pallidumExternal","pallidumInternal","accumbens"]},
-  {key:"midline",name:"正中・白質",color:"#d2b765",members:["corpusCallosum","internalCapsule","thalamus"]},
+  {key:"midline",name:"白質・視床",color:"#d2b765",members:["corpusCallosum","internalCapsule","thalamus"]},
   {key:"limbic",name:"辺縁系",color:"#c8798d",members:["hippocampus","amygdala","mammillaryBody"]},
-  {key:"midbrain",name:"中脳核",color:"#b06e75",members:["redNucleus","substantiaNigra","subthalamic"]},
+  {key:"midbrain",name:"中脳核・視床下域",color:"#b06e75",members:["redNucleus","substantiaNigra","subthalamic"]},
   {key:"posterior",name:"脳幹・小脳",color:"#7e9f6c",members:["brainstem","cerebellum"]},
 ];
 
 const structureFunctions:Record<StructureKey,string>={
   ventricle:"脳脊髄液を含む腔で、脳室系の連続性と周囲構造の位置を知る基準になります。",
-  thirdVentricle:"間脳正中の髄液腔で、左右の視床・視床下部を区切る位置基準になります。",
+  thirdVentricle:"左右の視床・視床下部に囲まれる間脳正中の髄液腔です。上方は視床、下方（底側）は視床下部で、各構造の位置関係を読む基準になります。",
   fourthVentricle:"後脳の髄液腔で、中脳水道からくも膜下腔へ至る髄液循環の通路です。",
   corpusCallosum:"左右大脳半球の皮質間を連絡し、両半球の情報統合を担う最大の交連線維です。",
   internalCapsule:"皮質と視床・脳幹・脊髄を結ぶ投射線維が密集し、運動・感覚経路が通ります。",
   caudate:"行動選択、眼球運動、認知的な運動制御に関わる線条体の一部です。",
   putamen:"随意運動の開始・大きさの調節や、習慣化された運動に関わります。",
-  pallidumExternal:"大脳基底核の間接路を調節する中継部として、視床下核などとの回路を構成します。",
-  pallidumInternal:"大脳基底核から視床などへ向かう主要な出力部として、運動の選択を調節します。",
-  pallidum:"大脳基底核回路の主要な出力部として、不要な運動を抑え必要な運動を通します。",
+  pallidumExternal:"淡蒼球外節（GPe）は大脳基底核内の中継・調節部として、視床下核などとの間接路を調整します。",
+  pallidumInternal:"淡蒼球内節（GPi）は大脳基底核から視床などへ向かう主要な出力部として、運動選択を調節します。",
+  pallidum:"淡蒼球は外節（GPe）の内部中継・調節部と、内節（GPi）の主要出力部からなり、基底核回路の運動選択を調節します。",
   thalamus:"感覚・運動・認知情報を大脳皮質へ中継し、皮質活動を調整します。",
   hippocampus:"エピソード記憶の形成と空間情報の処理に重要です。",
   amygdala:"情動、脅威や報酬の評価、自律反応を伴う記憶形成に関わります。",
   accumbens:"報酬予測、動機づけ、行動を起こす価値判断に関わる腹側線条体です。",
   redNucleus:"小脳などから入力を受ける中脳核で、運動調節系の位置理解に重要です。",
   substantiaNigra:"線条体へドパミンを送り、運動開始、学習、報酬処理を調節します。",
-  subthalamic:"大脳基底核回路を興奮性に調節し、競合する運動の抑制に関わります。",
+  subthalamic:"間脳の視床下域にある視床下核（STN）です。視床下部や中脳そのものとは区別し、大脳基底核回路を興奮性に調節して競合する運動の抑制に関わります。",
   brainstem:"脳神経核、上下行路、覚醒・呼吸・循環など生命維持に関わる中枢を含みます。",
   cerebellum:"運動の正確さ、タイミング、平衡、姿勢、運動学習を調整します。",
   opticChiasm:"左右の視神経線維が部分交叉し、両眼の視野情報を左右半球へ振り分けます。",
@@ -437,7 +438,7 @@ const quizQuestions:QuizQuestion[]=[
   {target:"mammillaryBody",category:"limbic",plane:"horizontal",position:69,prompt:"漏斗の後方、脚間窩の前方に左右一対で見える小隆起はどれですか？",options:["mammillaryBody","redNucleus","thalamus","opticChiasm"]},
   {target:"redNucleus",category:"midbrain",plane:"horizontal",position:67,prompt:"中脳水道の腹外側、黒質の背内側に見える核はどれですか？",options:["redNucleus","substantiaNigra","subthalamic","thalamus"]},
   {target:"substantiaNigra",category:"midbrain",plane:"horizontal",position:69,prompt:"大脳脚の背側に沿う帯状の核はどれですか？",options:["substantiaNigra","redNucleus","pallidum","putamen"]},
-  {target:"subthalamic",category:"midbrain",plane:"horizontal",position:66,prompt:"視床の腹側、黒質の背側にある小さな核はどれですか？",options:["subthalamic","redNucleus","accumbens","amygdala"]},
+  {target:"subthalamic",category:"midbrain",plane:"horizontal",position:66,prompt:"間脳の視床下域にあり、視床の腹側・黒質の背側にある小さな核はどれですか？",options:["subthalamic","redNucleus","accumbens","amygdala"]},
   {target:"ventricle",category:"ventricles",plane:"horizontal",position:51,prompt:"左右大脳半球の内部でC字形に連続する髄液腔はどれですか？",options:["ventricle","thirdVentricle","fourthVentricle","corpusCallosum"]},
   {target:"thalamus",category:"connections",plane:"coronal",position:49,prompt:"第三脳室の両側を占める大きな灰白質はどれですか？",options:["thalamus","caudate","hippocampus","subthalamic"]},
   {target:"corpusCallosum",category:"connections",plane:"sagittal",position:50,prompt:"正中矢状断で側脳室の上方を弓状に走る交連線維はどれですか？",options:["corpusCallosum","internalCapsule","thalamus","caudate"]},
@@ -1145,6 +1146,7 @@ export default function Home() {
         </section>
         <aside className="learningGuide" key={surfaceView}>
           <span className="guideIndex">{surfaceView==="free"?"FREE EXPLORATION":`観察 0${(Object.keys(surfaceViews) as SurfaceViewKey[]).indexOf(surfaceView)+1}`}</span><h2>{surfaceLesson.name}</h2><p>{surfaceLesson.intro}</p>
+          {surfaceView!=="arteries"&&surfaceView!=="cranialNerves"&&<div className="accuracyNote surfaceNomenclatureNote" data-surface-nomenclature-note="cerebra-desikan-five"><b>脳表ラベルの注意</b><p>{surfaceAtlasNomenclatureNote}</p></div>}
           {surfaceView==="inferior"&&<div className="basalLandmarkPicker surfaceRegionPicker"><header><div><b>同定する構造</b><small>脳底構造は常時表示し、選択した構造を着色</small></div><span className="pickerActions"><button onClick={()=>setSurfaceVisibleBasalLandmarks(basalLandmarkKeys)} disabled={surfaceVisibleBasalLandmarks.length===basalLandmarkKeys.length}>すべて選択</button><button onClick={()=>setSurfaceVisibleBasalLandmarks([])} disabled={surfaceVisibleBasalLandmarks.length===0}>すべて解除</button></span></header><div>{basalLandmarkKeys.map(key=>{const item=basalLandmarks[key],active=surfaceVisibleBasalLandmarks.includes(key);return <button key={key} className={active?"active":""} aria-pressed={active} title={item.note} onClick={()=>toggleBasalLandmark(key)}><i style={{background:item.color}}/><span>{item.name}<small>{item.latin}</small></span></button>})}</div><em>上丘・下丘は中脳背側の構造です。選択後にモデルを回転して確認します。橋・延髄のボタンでは、付随する脳神経も一緒に着脱します。</em></div>}
           {surfaceView==="free"?<div className="freeExplorer">
             <header><div><b>構造を探す</b><small>文字検索または分類別索引から追加</small></div><button onClick={clearFreeObservation} disabled={freeSelections.length===0&&selectedPathway===null}>すべて解除</button></header>

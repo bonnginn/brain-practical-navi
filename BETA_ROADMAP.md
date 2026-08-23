@@ -12,6 +12,10 @@
 
 これは来歴表示の機械監査であり、解剖学的妥当性の検証や専門家レビュー完了を示しません。56件からの19件追加（surface／block app-only 18行とoptic nerve `cn2`行1件）、旧ID33と`cn2`／`opticChiasm`の分離、ID39・40のexpert pending維持は [LEARNER_PROVENANCE_DISPLAY_AUDIT.md](LEARNER_PROVENANCE_DISPLAY_AUDIT.md) に記録しています。2026-08-22の全56件・表示面36／16／29／21件およびroute156/156の実測履歴は、下記の既存記録を書き換えず保持します。
 
+### 2026-08-23 source-backed コンテンツレビュー
+
+視床下核の分類を「間脳の視床下域」として表示し、quiz／構造グループの見出しを「中脳・視床下域」「中脳核・視床下域」へ整理した。淡蒼球は外節（GPe）の内部中継・調節と内節（GPi）の主要出力を区別し、側脳室と尾状核、第三脳室の位置関係、脳梁・脳弓標本の英見出し、脳表5領域のCerebrA／Desikan-style由来注記も同期した。詳細は [CONTENT_ACCURACY_REVIEW.md](CONTENT_ACCURACY_REVIEW.md) に記録する。これは資料照合に基づくプロジェクト内レビューであり、専門家レビュー完了・機関承認・解剖学的境界の確定を意味しない。`expertReview` と該当項目のGo/No-Goは未完了のまま維持する。
+
 ### 2026-08-23 最終ローカル実ブラウザ確認
 
 Chrome 151のin-app browserで`http://127.0.0.1:4201`を確認し、review panel 75/75、filter surface54／sections16／blocks30／quiz21／all75、app-onlyカードの日本語見出し（縁上回、II 視神経・視索）、自由観察の縁上回「試作」＋CerebrA詳細、`cn2`／`opticChiasm`の「模式」、block choroid plexusの「模式」＋未保証説明を確認した。route auditは`work/browser-audit/beta-route-audit-learner-provenance-final-2026-08-23.json`に保存し、26経路×3幅×direct/reload＝156/156、`allPassed: true`。390 px設定の`clientWidth`は375 pxで、overflow／error／loader／WebGL fallbackはなかった。これは表示回帰の確認であり、解剖学的妥当性の検証ではない。公開URL、物理端末、別GPU、専門家レビューは未確認である。
