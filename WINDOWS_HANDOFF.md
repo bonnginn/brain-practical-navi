@@ -133,6 +133,8 @@ Windows 11／Chrome 151.0.7922.170／Node 24.19.0、ローカルpreview `http://
 
 2026-08-24、8標本の形状を一律に変更せず、ロードマップが先行対象として挙げる側脳室、レンズ核・投射線維、脈絡叢、内側側頭葉を「β重点4」、残る4標本を「発展観察4」として左レールと選択中解説へ表示した。これは観察導線だけの区分で、実習頻度、由来、確度、専門家レビュー、品質の順位ではない。全8標本、既存番号、hash、初期標本、部品・代表断面・Canvas契約を維持する。Chrome 151で全8標本を順に確認し、canonical route 162/162、cold payload 27/27に合格した。詳細は [BLOCK_SPECIMEN_PRIORITY_AUDIT.md](BLOCK_SPECIMEN_PRIORITY_AUDIT.md)。
 
+同日、β重点4だけへ既存部品の確認ガイドを追加した。各lessonの既存layerを1件ずつ単独表示し、最終段階だけ全layerを表示する。開始前の手動選択は終了・標本切替・block workspace離脱・unmountで復元し、mesh、voxel、label、plane、rotation、camera、color、provenanceは変更しない。これはUI上の部品確認順であり、解剖・摘出順や実習手順ではない。全tests 330/330、TypeScript型検査、通常／Pages buildが成功した。Chrome 151 production preview `http://127.0.0.1:4316`でfocus4全件の開始→single layer列→final all→終了後manual復元、側脳室のactive中diencephalon切替cleanup、発展4のguide count 0を確認した。PCではCanvas 1、loader／UI error／overflow 0、canonical routeはPC・tablet・390 px相当のdirect/reloadで162/162、cold payloadは27/27。390 px相当ではroute health／overflow 0とCSS 44 px契約を確認したが、ガイド実クリックはPCのみである。物理端末・タッチ、公開URL、別browser／GPU、専門家レビューは未確認。詳細は [BLOCK_GUIDED_OBSERVATION_AUDIT.md](BLOCK_GUIDED_OBSERVATION_AUDIT.md)。
+
 中心操作追記: Chrome 151の通常production preview `http://127.0.0.1:4236/` で、脳表・水平断・自由観察・クイズ×PC 1366×768／横向きタブレット幅1024×768の8/8件、計40操作を確認した。独立validatorが実測viewport、操作前後、5問queue生成、回答対象から導出した復習先、error／loader／overflow／WebGL fallbackを再計算し、全件に合格した。結果は `work/browser-audit/core-interactions-pc-tablet-2026-08-23.json`、契約は [CORE_INTERACTION_AUDIT.md](CORE_INTERACTION_AUDIT.md)。両条件は `mobile:false`・`touch:false` のデスクトップエミュレーションであり、物理タブレット、実機タッチ、公開URL、別ブラウザ・GPU、画素・解剖学的妥当性は未確認である。
 
 ### 2026-08-23 coarse-touch phone中心操作

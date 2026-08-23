@@ -284,6 +284,25 @@ html, body, #root { height: 100%; overflow: hidden; }
 .blockPrioritySelection { display: flex; align-items: flex-start; gap: 8px; margin: 14px 0 0; padding: 8px 9px; border: 1px solid #bdc9c1; background: #eef2ed; }
 .blockPriorityBadge { flex: 0 0 auto; padding: 3px 6px; border: 1px solid #6c9286; border-radius: 999px; background: #dfeae3; color: #315e55; font: 700 11px/1.2 sans-serif; white-space: nowrap; }
 .blockPrioritySelection p { margin: 0; color: #50625d; font-size: 13px; line-height: 1.55; }
+.blockGuidedObservation { margin-top: 14px; padding: 11px 12px; border: 1px solid #a7bdb5; background: #e9f0eb; }
+.blockGuidedObservation > header { display: flex; align-items: flex-start; justify-content: space-between; gap: 9px; }
+.blockGuidedObservation > header > div { display: grid; gap: 3px; min-width: 0; }
+.blockGuidedObservation > header b { color: #28564f; font-size: 15px; }
+.blockGuidedObservation > header small { color: #5c6e69; font-size: 12px; line-height: 1.45; }
+.blockGuidedObservation > header > button { min-height: 36px; padding: 6px 10px; border: 1px solid #3d7169; background: #3d7169; color: #fff; font-size: 13px; font-weight: 800; white-space: nowrap; }
+.blockGuidedObservation > header > button:hover { background: #2d5e57; }
+.blockGuidedStageCount { flex: 0 0 auto; padding: 5px 7px; border: 1px solid #8eaaa1; background: #dbe8e0; color: #365e56; font: 700 12px/1.2 monospace; white-space: nowrap; }
+.blockGuidedStep { display: grid; gap: 9px; margin-top: 10px; padding-top: 9px; border-top: 1px solid #bed0c7; }
+.blockGuidedStep > div { display: grid; gap: 3px; min-width: 0; }
+.blockGuidedStep > div > b { color: #2d514b; font-size: 15px; }
+.blockGuidedStep > div > small { color: #536662; font-size: 13px; line-height: 1.5; }
+.blockGuidedStep > div > em { color: #687a75; font-size: 11px; font-style: normal; }
+.blockGuidedStep nav { display: flex; flex-wrap: wrap; gap: 5px; }
+.blockGuidedStep nav button { min-height: 34px; padding: 5px 8px; border: 1px solid #76958b; background: #f7faf6; color: #365d55; font-size: 12px; font-weight: 800; }
+.blockGuidedStep nav button:hover:not(:disabled) { border-color: #2d655b; background: #e0ece4; }
+.blockGuidedStep nav button:disabled { opacity: .4; cursor: not-allowed; }
+.blockGuidedStep nav [data-block-guided-stop] { margin-left: auto; border-color: #9c776e; color: #7d4f46; }
+.specimenLayerPicker > div > button:disabled { cursor: not-allowed; }
 .railMemo { margin: 0; padding: 0 18px; color: #6f7877; font-size: 14px; line-height: 1.75; }
 .railReset { width: calc(100% - 36px); margin: 18px; padding: 9px; border: 1px solid #aeb5b1; background: #f6f4ef; color: #596361; font-size: 16px; }
 .leftRail { overflow-y: auto; overflow-x: hidden; scrollbar-width: thin; scrollbar-color: #aeb6b2 transparent; }
@@ -1057,6 +1076,14 @@ html, body, #root { height: 100%; overflow: hidden; }
 .segStats b { color: #a84233; }
 .segStats small,
 .projectCredit > small { color: #596360; }
+
+@media(max-width:760px){
+  .blockGuidedObservation > header > button,
+  .blockGuidedStep nav button { min-height: 44px; }
+  .blockGuidedStep nav { display: flex; gap: 5px; }
+  .blockGuidedStep nav button { flex: 1 1 calc(50% - 5px); min-width: 0; }
+  .blockGuidedStep nav [data-block-guided-stop] { flex-basis: 100%; margin-left: 0; }
+}
 
 /* Student landing and collaboration are deliberately separate: the landing
    stays light and choice-oriented, while contribution details live here. */

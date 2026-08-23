@@ -14,10 +14,11 @@ test("beta status registry is valid and covers the fixed provenance references",
   assert.equal(result.ok, true, result.errors.join("\n"));
   assert.equal(baseStatus.phase, STATUS_PHASE);
   assert.equal(baseStatus.knownLimitations.length, 6);
-  assert.equal(baseStatus.changes.length, 13);
+  assert.equal(baseStatus.changes.length, 14);
   assert.match(baseStatus.changes.find(item => item.id === "change-ventricle-cavity-repair").body, /33 voxel/);
   assert.match(baseStatus.changes.find(item => item.id === "change-papez-provenance-stepper").body, /乳頭体は断面ラベルのみ/);
   assert.match(baseStatus.changes.find(item => item.id === "change-block-priority-routing").body, /観察導線/);
+  assert.match(baseStatus.changes.find(item => item.id === "change-block-guided-observation").body, /最終段階だけ全layer/);
   assert.match(baseStatus.changes.find(item => item.id === "change-download-progress").body, /総量不明/);
   assert.match(baseStatus.knownLimitations.find(item => item.id === "limitation-optic-id33").body, /ID33/);
   assert.match(baseStatus.knownLimitations.find(item => item.id === "limitation-mammillary-39-40").body, /ID39・40/);

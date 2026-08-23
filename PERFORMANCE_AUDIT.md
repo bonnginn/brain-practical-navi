@@ -311,3 +311,7 @@ missing／duplicate／unexpected route key、console／request／UI error、残�
 ### ブロック標本のβ重点導線追加後
 
 `work/performance/initial-route-payload-block-priority-2026-08-24.json` でcanonical 27/27件を再測定した。優先度契約、左レール区分、説明だけを追加し、8標本の既存exact asset allowlistとartifact-derived budgetはすべて維持された。新しいatlas asset request、missing／duplicate／unexpected、console／request／UI error、loader、overflow、WebGL fallbackは0件だった。route監査も `work/browser-audit/beta-route-audit-block-priority-2026-08-24.json` の162/162件に合格した。公開回線、物理端末、別GPU／別ブラウザの性能は未確認である。
+
+### β重点4の部品確認ガイド追加後
+
+`work/performance/initial-route-payload-block-guided-observation-2026-08-24.json` でcanonical 27/27件を再測定した。既存lesson layerを順に切り替えるUIと状態契約だけを追加し、8標本の既存exact asset allowlistとartifact-derived budgetはすべて維持された。新しいatlas asset request、missing／duplicate／unexpected、console／request／UI error、loader、overflow、WebGL fallbackは0件だった。route監査も `work/browser-audit/beta-route-audit-block-guided-observation-2026-08-24.json` のPC・tablet・390 px相当、direct／reload計162/162件に合格した。ガイドの実クリック確認はPCで行い、390 px相当はroute health、overflow 0、CSS 44 px操作契約までを確認した。公開回線、物理端末・タッチ、別GPU／別ブラウザの性能は未確認である。
