@@ -1,7 +1,7 @@
 "use client";
 
 import { KeyboardEvent as ReactKeyboardEvent, lazy, PointerEvent, Suspense, useEffect, useMemo, useRef, useState } from "react";
-import { AtlasVolumeCanvas, type BlockContextSpecimen, type HighlightLayer, type IdentifiedPoint } from "./AtlasVolumeCanvas";
+import { AtlasVolumeCanvas, QUIZ_SECTION_ACCENT_HEX, type BlockContextSpecimen, type HighlightLayer, type IdentifiedPoint } from "./AtlasVolumeCanvas";
 import { ManualSegmentationWorkbench } from "./ManualSegmentationWorkbench";
 import betaStatus from "./beta-status.json";
 import anatomyReviewRegistry from "../public/atlas/structure-provenance.json";
@@ -792,9 +792,9 @@ export default function Home() {
   const neurovascularQuizTarget=neurovascularQuiz?neurovascularStructures[quizQuestion.target]:neurovascularStructures.ica;
   // The pilot canvas always renders the selected overlay in white. Keep the
   // target swatch and the on-screen wording aligned with that contract.
-  const quizTarget=neurovascularQuiz?{...neurovascularQuizTarget,color:"#ffffff"}:surfaceQuiz?surfaceQuizTarget:sectionQuizTarget;
+  const quizTarget=neurovascularQuiz?{...neurovascularQuizTarget,color:"#ffffff"}:surfaceQuiz?surfaceQuizTarget:{...sectionQuizTarget,color:QUIZ_SECTION_ACCENT_HEX};
   const quizSource=neurovascularQuiz?"模式3D・専門家未確認":surfaceQuiz?"":sectionQuizTarget.labelSource==="manual"?"同一格子の手動ラベル":sectionQuizTarget.labelSource==="atlas-provisional"?"位置照合済みアトラス由来":sectionQuizTarget.labelSource==="image-guided-reviewed"?"画像誘導・確認済み":sectionQuizTarget.labelSource==="image-guided"?"画像誘導の試作ラベル":"学習用領域";
-  let quizHighlight=useMemo<HighlightLayer[]>(()=>surfaceQuiz||neurovascularQuiz?[]:[{ids:sectionQuizTarget.bigbrainIds??[],color:sectionQuizTarget.rgb}],[sectionQuizTarget,surfaceQuiz,neurovascularQuiz]);
+  let quizHighlight=useMemo<HighlightLayer[]>(()=>surfaceQuiz||neurovascularQuiz?[]:[{ids:sectionQuizTarget.bigbrainIds??[],color:sectionQuizTarget.rgb,mode:"quiz"}],[sectionQuizTarget,surfaceQuiz,neurovascularQuiz]);
   let quizSurfaceHighlight=useMemo<HighlightLayer[]>(()=>surfaceQuiz?[{ids:surfaceQuizTarget.ids,color:surfaceQuizTarget.rgb}]:[],[surfaceQuizTarget,surfaceQuiz]);
   let quizNeurovascularHighlight=useMemo<HighlightLayer[]>(()=>neurovascularQuiz?[{ids:neurovascularQuizTarget.ids,color:[255,255,255]}]:[],[neurovascularQuiz,neurovascularQuizTarget]);
   const quizVisibilityExpectedHighlights=quizVisibilityAuditHighlight===null?[]:neurovascularQuiz?quizNeurovascularHighlight:quizSurfaceHighlight;

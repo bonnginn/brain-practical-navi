@@ -176,3 +176,12 @@ test("source hooks stay loopback opt-in, format-aware, and retain visible zoom g
   const atlas=fs.readFileSync(new URL("app/AtlasVolumeCanvas.tsx",root),"utf8");assert.match(appSource,/host!=="127\.0\.0\.1"&&host!=="localhost"&&host!=="::1"/);assert.match(appSource,/params\.get\("quizVisibilityAudit"\)!=="1"/);assert.match(appSource,/allQuizQuestions\.find\(question=>question\.target===target\)/);
   assert.match(atlas,/meshHighlightEvidence\(meshes\?\.surface\.slice\(0,2\)\?\?null,surfaceHighlights\)/);assert.match(atlas,/neurovascularOverlay==="vessels"\?meshes\.overlays\.slice\(0,2\)/);assert.match(atlas,/neurovascularOverlay==="nerves"\?meshes\.overlays\.slice\(2,5\)/);assert.match(atlas,/meshHighlightEvidence\(neurovascularEvidenceMeshes,neurovascularHighlights\)/);assert.match(atlas,/selectedTriangleProjection\(sourceMeshes,quizVisibilityExpectedHighlights/);assert.match(atlas,/__quizVisibilityProjectionMask/);assert.match(atlas,/for\(let dy=-1;dy<=1;dy\+\+\)/);assert.match(fs.readFileSync(scriptPath,"utf8"),/for\(let dy=-1;dy<=1;dy\+\+\)/);assert.match(atlas,/crypto\.subtle\.digest\("SHA-256",buffer\)/);assert.match(appSource,/quizVisibilityExpectedHighlights=\{quizVisibilityExpectedHighlights\}/);assert.match(atlas,/data-atlas-surface-selected-vertex-count/);assert.match(atlas,/data-atlas-neurovascular-selected-vertex-count/);assert.match(atlas,/aria-label="縮小">−<\/button>/);assert.match(atlas,/aria-label="拡大">＋<\/button>/);
 });
+
+test("section quiz uses a fixed high-contrast accent while ordinary section colours remain data-driven",()=>{
+  const atlas=fs.readFileSync(new URL("app/AtlasVolumeCanvas.tsx",root),"utf8");
+  assert.match(atlas,/QUIZ_SECTION_ACCENT_RGB:\[number,number,number\]=\[238,88,82\]/);
+  assert.match(atlas,/appliedHighlightColor=highlightColor&&\(sectionHighlightMode==="quiz"\?QUIZ_SECTION_ACCENT_RGB:highlightColor\)/);
+  assert.match(atlas,/cavityLabel&&appliedHighlightColor/);
+  assert.match(appSource,/mode:"quiz"/);
+  assert.match(appSource,/QUIZ_SECTION_ACCENT_HEX/);
+});
