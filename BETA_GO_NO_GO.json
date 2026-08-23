@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "ledgerId": "beta-go-no-go",
-  "updated": "2026-08-23",
+  "updated": "2026-08-24",
   "roadmapRef": "BETA_ROADMAP.md",
   "stateEnum": [
     "proven-local",
@@ -208,16 +208,25 @@
       "locallyProven": [
         "ローカルクイズ粒度監査で、既存23問を標準7件・試作16件に分類し、targetと全選択肢の由来を照合した。",
         "provisional選択肢を含む4問を試作へ隔離し、unknown由来を拒否する分類を確認した。",
+        "Chrome 151のローカルproduction previewで、断面17・脳表6・神経血管17 targetを3幅で着色・解除・再着色し、独立validatorが120/120件を確認した。",
         "未確認構造の標準採用は専門家未確認。"
       ],
       "unprovenScope": "専門家による標準採用判断と、未確認構造が正答・選択肢へ現れないことの全範囲確認は未完了。",
       "blockingAuthority": "neuroanatomy expert reviewer",
       "committedEvidenceRefs": [
         "QUIZ_GRANULARITY_AUDIT.md",
+        "QUIZ_TARGET_VISIBILITY_AUDIT.md",
         "scripts/audit_quiz_granularity.mjs",
+        "scripts/audit_quiz_target_visibility_browser.mjs",
         "app/page.tsx"
       ],
-      "localArtifactRefs": [],
+      "localArtifactRefs": [
+        {
+          "path": "work/quiz-visibility-formal-v4-20260824/report.json",
+          "localOnly": true,
+          "label": "local-only"
+        }
+      ],
       "nextAction": "専門家にクイズ対象・表示・正答条件（targetと全選択肢の由来を含む）を確認してもらう。"
     },
     {

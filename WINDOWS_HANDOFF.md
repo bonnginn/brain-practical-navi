@@ -135,6 +135,7 @@ Chrome 151の通常production preview `http://127.0.0.1:4250/` で、Windows 11 
 
 - 主要経路の表示条件とURL復元をテストで固定する。
 - クイズ対象の着色面積、未確認構造の通常問題除外、断面スライダー操作を監査する。
+  - 2026-08-24、40 target×3幅の実ブラウザ可視性監査は120/120件合格。半透明神経血管のdepth・描画順・alpha合成を独立再計算し、PCAを含め十分な着色変化、解除、完全再現を確認した。詳細は `QUIZ_TARGET_VISIBILITY_AUDIT.md`。専門家による形状・境界・問題採否の確認は別途必要。
 - 配布物全体だけでなく、トップ、脳表、断面、各局所標本の取得量予算を再現可能なスクリプトへする。
 - 初回画面の取得量を経路別に自動集計する監査スクリプトは完了。Windows 11／Chrome 151.0.7922.170／Node 24.19.0、ローカルpreview `http://127.0.0.1:4211/`、requested desktop 1366×768のcold loadでcanonical 26経路を測定し、26/26件、topology 0、console／request／UI error・loader・overflow・WebGL fallback 0。圧縮pial物理パスだけを要求し、raw要求は0件だった。結果は `work/performance/initial-route-payload-audit-pial-gzip-2026-08-23.json`、設計とroute表は `PERFORMANCE_AUDIT.md` に記録した。sectionsは26,441,013 Bで旧34,688,033 B（34.69 MB）から23.8%減ったが、旧値は履歴として保持する。
 - 読込中の対象が分かる表示を整え、失敗時再試行を実画面で確認する。

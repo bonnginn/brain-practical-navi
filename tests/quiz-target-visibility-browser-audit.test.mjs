@@ -13,6 +13,7 @@ import {
   QUIZ_TARGET_VISIBILITY_VIEWPORTS,
   auditQuizTargetVisibilitySource,
   buildQuizTargetVisibilityMatrix,
+  compositeProjectionSelection,
   createValidQuizTargetVisibilityFixture,
   describeQuizTargetVisibilityArtifactRoot,
   describeQuizVisibilitySourceRoot,
@@ -90,6 +91,7 @@ test("rejects fabricated provenance, matrix, capture identity, URL, viewport, tr
     ["rotation",f=>f.report.results[0].captures.H2.transform.rotation.x=5,"rotation/zoom"],
     ["all-phase surface transform",f=>{for(const phase of ["H1","C","H2"])f.report.results[17].captures[phase].transform={rotation:{x:123,y:456,z:789},zoom:5,pan:{x:999,y:-999}}},"runtime quiz default transform"],
     ["all-phase neuro transform",f=>{for(const phase of ["H1","C","H2"])f.report.results[23].captures[phase].transform={rotation:{x:123,y:456,z:789},zoom:5,pan:{x:999,y:-999}}},"runtime quiz default transform"],
+    ["mesh depth policy",f=>f.report.results[17].captures.H1.visibility.projectionMask.provenance.projection.cullPolicy="conservative-no-depth","projection mask provenance"],
     ["all-phase section transform",f=>{for(const phase of ["H1","C","H2"])f.report.results[0].captures[phase].transform={rotation:{x:123,y:456,z:789},zoom:5,pan:{x:999,y:-999}}},"runtime quiz default transform"],
     ["loader",f=>f.report.results[0].captures.H1.probe.loadingCount=1,"loader"],
     ["errors",f=>f.report.results[0].captures.H1.probe.consoleErrors.push("boom"),"consoleErrors"],
@@ -103,14 +105,28 @@ test("accepts Chrome 151 product with HeadlessChrome 151 user agent and rejects 
 
 test("a persisted validation remains independently re-readable and stale validation is rejected",()=>{const fixture=createValidQuizTargetVisibilityFixture();try{fixture.report.validation=validateFixture(fixture);assert.equal(validateFixture(fixture).passed,true);fixture.report.validation.summary.passedCount=0;const result=validateFixture(fixture);assert.equal(result.passed,false);assert.ok(result.errors.some(error=>error.includes("persisted validation")))}finally{fixture.cleanup()}});
 
-test("app and independent validator use the shader alpha threshold before identical conservative dilation",()=>{
+test("app and independent validator use depth, shader alpha, and identical conservative dilation",()=>{
   for(const [label,source] of [["app",atlasSource],["validator",runnerSource]]){
-    assert.match(source,/const highlightAlpha=.*\/area;if\(highlightAlpha>\.5\)mask\[/,`${label} must rasterize the shader's interpolated > .5 selection boundary`);
+    assert.match(source,/depth\[index\]/,`${label} must resolve visible fragments with depth`);
     assert.match(source,/for\(let dy=-1;dy<=1;dy\+\+\)for\(let dx=-1;dx<=1;dx\+\+\)/,`${label} must apply exactly one conservative pixel of dilation`);
   }
-  assert.match(atlasSource,/selected-highlight-alpha-v2/);
-  assert.match(runnerSource,/selected-highlight-alpha-v2/);
+  assert.match(atlasSource,/visible-highlight-depth-v3/);
+  assert.match(runnerSource,/visible-highlight-depth-v3/);
+  assert.match(runnerSource,/stableMeshInterior\(mask,width,height\)/);
+  assert.match(runnerSource,/meshVisibilityCoverage\(loaded\.H1\.core,loaded\.H1\.mask/);
+  assert.match(atlasSource,/if\(highlightAlpha>\.5\)mask\[index\]=1;else if\(namespace==="surface"\)mask\[index\]=0/);
+  assert.match(runnerSource,/compositeProjectionSelection\(mask\[index\],highlightAlpha/);
 });
+
+test("semi-transparent neurovascular draw order preserves an earlier selected contribution",()=>{
+  assert.equal(compositeProjectionSelection(0,.75,"neurovascular"),1);
+  assert.equal(compositeProjectionSelection(1,0,"neurovascular"),1,"a later translucent unselected fragment must not erase blended selected colour");
+  assert.equal(compositeProjectionSelection(1,0,"surface"),0,"an opaque surface fragment replaces the earlier contribution");
+  assert.throws(()=>compositeProjectionSelection(0,.75,"unknown"));
+  assert.throws(()=>compositeProjectionSelection(2,.75,"neurovascular"));
+});
+
+test("section projection follows the integer client box rather than a fractional DOM rect",()=>{const fixture=createValidQuizTargetVisibilityFixture();try{for(const phase of ["H1","C","H2"])fixture.report.results[0].captures[phase].canvas.cssRect.width=64.203125;assert.equal(validateFixture(fixture).passed,true)}finally{fixture.cleanup()}});
 
 test("rejects artifact SHA/H mismatch, CSS geometry, intrinsic scaling, and raw byte length",()=>{
   const cases=[
