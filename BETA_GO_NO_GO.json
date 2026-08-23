@@ -65,28 +65,29 @@
     },
     {
       "id": "criterion-03-desktop-tablet-core-operations",
-      "criterionText": "脳表・断面・自由観察・クイズの中心操作がPCと横向きタブレットで完了できる。",
+      "criterionText": "脳表・断面・自由観察・クイズの中心操作がPCと横向きタブレット幅で完了できる。（2026-08-23、Windows Chrome 151の通常production previewで、脳表・水平断・自由観察・クイズ×PC 1366×768／横向きタブレット幅1024×768の8/8件、計40操作が合格。独立validatorが実測viewport、操作前後、5問キュー生成、回答対象から導出した復習先、Canvas、error／loader／overflow／WebGL fallbackを再計算。`mobile:false`・`touch:false` のローカルデスクトップエミュレーションであり、物理タブレット、実機タッチ、公開URL、別ブラウザ・GPUは未確認。詳細は [CORE_INTERACTION_AUDIT.md](CORE_INTERACTION_AUDIT.md)。）",
       "state": "proven-local",
       "locallyProven": [
-        "Windowsローカル実ブラウザでPC・横向きタブレット相当の脳表・断面・自由観察・クイズ経路を確認した。",
-        "公開URL・物理端末の合格は主張していない。"
+        "Windows Chrome 151のローカル本番成果物で、脳表・水平断・自由観察・クイズ×PC 1366×768／横向きタブレット幅1024×768の8/8件・40操作を確認した。",
+        "独立validatorが実測viewport、操作前後、5問queue、回答対象から導出した復習先、error／loader／overflow／fallbackを再計算した。",
+        "両条件はmobile:false・touch:falseで、公開URL・物理端末の合格は主張していない。"
       ],
-      "unprovenScope": "公開URL、物理タブレット、別ブラウザ・GPU、専門家による操作評価は未確認。",
+      "unprovenScope": "公開URL、物理PC・タブレット、実機タッチ、別ブラウザ・GPU、専門家による操作評価は未確認。",
       "blockingAuthority": null,
       "committedEvidenceRefs": [
-        "BETA_STATUS_AUDIT.md",
+        "CORE_INTERACTION_AUDIT.md",
         "BETA_ROADMAP.md",
-        "scripts/audit_beta_routes.mjs",
+        "scripts/audit_core_interactions.mjs",
         "app/page.tsx"
       ],
       "localArtifactRefs": [
         {
-          "path": "work/browser-audit/beta-route-audit-pial-gzip-2026-08-23.json",
+          "path": "work/browser-audit/core-interactions-pc-tablet-2026-08-23.json",
           "localOnly": true,
           "label": "local-only"
         }
       ],
-      "nextAction": "公開URLと対象PC・横向きタブレットで同じ経路監査を再実施する。"
+      "nextAction": "公開URLと対象の物理PC・横向きタブレット・実機タッチで同じ経路監査を再実施する。"
     },
     {
       "id": "criterion-04-smartphone-core-operations",

@@ -24,6 +24,8 @@
 
 現行のローカル性能証拠は、2026-08-23のpial-gzip成果物（route `156/156`: `work/browser-audit/beta-route-audit-pial-gzip-2026-08-23.json`、初回payload `26/26`: `work/performance/initial-route-payload-audit-pial-gzip-2026-08-23.json`、性能suite `37/37`: `work/performance/performance-suite-pial-gzip-2026-08-23.json`）を参照します。これらは公開URL・デプロイ・専門家確認の証拠ではありません。2026-08-22の56件・filter36／16／29／21件・route156/156は、各文書に残す歴史記録です。
 
+criterion 03の中心操作証拠は、`work/browser-audit/core-interactions-pc-tablet-2026-08-23.json` の脳表・水平断・自由観察・クイズ×PC 1366×768／横向きタブレット幅1024×768＝8/8件・40操作です。独立validatorが実測viewport、操作前後、5問queue、回答対象から導出した復習先、error／loader／overflow／fallbackを再計算しています。両条件は `mobile:false`・`touch:false` のローカルデスクトップエミュレーションであり、公開URL、物理端末、実機タッチの証拠ではありません。
+
 ## 検査内容
 
 `node scripts/audit_beta_go_no_go.mjs` は、次を確認します。

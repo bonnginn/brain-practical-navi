@@ -115,6 +115,8 @@ Windows 11／Chrome 151.0.7922.170／Node 24.19.0、ローカルpreview `http://
 
 性能追記: `http://127.0.0.1:4232/` で基礎31件＋8標本×3幅×cold/warmのcontext ON 48件＝79/79件を保存した。計測用ChromeだけService Workerを迂回し、48件すべて7 request／24,795,951 byte、Canvas `1→2→2→1`、error／loader／overflow／WebGL fallback 0。安定時間最大828.9 ms、settled backing最大61,288,760 byte、sampled peak最大240,644,605 byteで、実資産statと固定上限を使う独立監査にも合格した。結果は `work/performance/performance-suite-block-context-all-specimens-2026-08-23.json`、監査は `work/performance/block-context-performance-audit-all-specimens-2026-08-23.json`。追加7標本の保存済み性能値は完了し、物理端末、公開URL、別GPU・別ブラウザ、専門家レビューは未確認のままである。
 
+中心操作追記: Chrome 151の通常production preview `http://127.0.0.1:4236/` で、脳表・水平断・自由観察・クイズ×PC 1366×768／横向きタブレット幅1024×768の8/8件、計40操作を確認した。独立validatorが実測viewport、操作前後、5問queue生成、回答対象から導出した復習先、error／loader／overflow／WebGL fallbackを再計算し、全件に合格した。結果は `work/browser-audit/core-interactions-pc-tablet-2026-08-23.json`、契約は [CORE_INTERACTION_AUDIT.md](CORE_INTERACTION_AUDIT.md)。両条件は `mobile:false`・`touch:false` のデスクトップエミュレーションであり、物理タブレット、実機タッチ、公開URL、別ブラウザ・GPU、画素・解剖学的妥当性は未確認である。
+
 ### M2: β公開条件の機械化
 
 - 主要経路の表示条件とURL復元をテストで固定する。
