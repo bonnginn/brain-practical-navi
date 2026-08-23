@@ -35,7 +35,7 @@ Chrome 151のin-app browserで`http://127.0.0.1:4201`を確認し、review panel
 - [ ] 脳神経I–XIIの見かけの起始部と主要脳底動脈の走行を確認する。
 - [ ] 断面の必修構造について、冠状・水平・矢状の連続断でラベルの位置と連続性を確認する。
 - [ ] 脳梁・内包、視交叉・島皮質、脳室・脳幹・小脳候補の由来と確度を再確認する。
-  - 2026-08-23 脳室部分監査: BigBrain背景値255へ連結する空隙の単純3D補完は、左右側脳室・第三・第四脳室のすべてで外側背景へ漏れるため不採用。X・Y・Z各軸で現行の同一脳室ラベルに挟まれ、別ラベルと6近傍接触しない未ラベル背景だけを抽出し、左14、右15、第三4、第四0 voxelの計33 voxelをstrict `unreviewed` 差分へ固定した。ローカル三断面プレビューでは既存ラベル内の小欠損として見え、脳外への漏れは認めなかった。公開ラベルは未変更で、依存する客観監査と一緒に再生成・再検証してから採否を確定する。詳細は [VENTRICLE_CAVITY_AUDIT.md](VENTRICLE_CAVITY_AUDIT.md)。
+  - 2026-08-24 脳室部分監査: BigBrain背景値255へ連結する空隙の単純3D補完は、左右側脳室・第三・第四脳室のすべてで外側背景へ漏れるため不採用。X・Y・Z各軸で現行の同一脳室ラベルに挟まれ、別ラベルと6近傍接触しない未ラベル背景だけを抽出し、左14、右15、第三4、第四0 voxelの計33 voxelへ固定した。ローカル三断面で既存ラベル内の小欠損と確認し、PR #14のstrict approved教育用修正として公開ラベルへ適用。新SHAは `b75a2490…b176f3`。通常production previewで3脳室同時表示と側脳室クイズを確認し、Canvas／loader／error／overflowは正常。全テスト304/304、型検査、通常／Pages build、Go/No-Go台帳監査に合格した。専門家レビュー・ground truthではない。詳細は [VENTRICLE_CAVITY_AUDIT.md](VENTRICLE_CAVITY_AUDIT.md)。
 - [ ] 視索・視床下部・乳頭体について、断面ラベル、画像上の構造、模式3Dレイヤーの重複・取り違えを連続断と表示モード別に確認する。（客観資料追加: 現行旧ID33を変更せず、8,482 voxel、bbox、12個の6近傍成分、全X/Y/Z占有断面、全境界面接触、代表候補X187／Y262／Z114を固定JSONへ記録し、寄稿者ツールから3候補へ編集を作らず移動できるようにした。Chrome 151で3位置と表示数を確認し、最終route監査156/156件に合格。これは専門家の画像確認を支援する格子監査で、ID36–38への機械分割や解剖学的検証ではない。）
 追加監査記録（2026-08-23）: [ORTHOGONAL_REVIEW_BUNDLE_AUDIT.md](ORTHOGONAL_REVIEW_BUNDLE_AUDIT.md) に、現行ラベルを変更しないローカル証拠束 v3（manifest＋期待161 PNG）を記録した。固定入力SHA・BBS1寸法、ID39・40の全X/Y/Z占有と両端外側、ID33の全占有断面、ID27のcrop内context-only、pixel／PNG SHA、空metadata、flat anchor、exact schema/file/link境界を検査済みである。`review.status=unreviewed` で、これは本チェック項目やβ Go/No-Goの完了を意味しない。乳頭体の視床下部付着部と、旧ID33内の視交叉・左右視索境界は、ユーザー／専門家による原画像・隣接断確認が必要である。
 
@@ -182,7 +182,7 @@ PWAのキャッシュ境界、更新方針、未確認項目は [PWA_OFFLINE_AUD
 ## β版 Go / No-Go
 
 - [ ] 必修構造は、検証済みか、模式・推定であることが画面上で判別できる。（部分的な根拠: 由来区分・表示面・既知の制限を監査索引へ記録し、既存23件と模式3D pilot 17件の一意な40件の正答対象をアプリ実装と照合した。画面全必修範囲のGo/No-Go判定は未実施。）
-- [ ] 学習対象の明らかな欠落、二重表示、遊離、空着色がない。（部分的な客観資料: 現行旧ID33は8,482 voxel、6近傍12成分で、全占有断面・境界面接触・代表候補を固定JSONへ記録した。成分数を解剖学的な構造数や誤分節と判定せず、全学習対象の専門家確認は未完了。）
+- [ ] 学習対象の明らかな欠落、二重表示、遊離、空着色がない。（部分的な客観資料: 現行旧ID33は8,482 voxel、6近傍12成分で、全占有断面・境界面接触・代表候補を固定JSONへ記録した。脳室は三軸で同一ラベルに挟まれた内部欠損33 voxelだけをプロジェクト内レビュー済み修正として採用した。これらを全構造の解剖学的確認とは扱わず、専門家確認は未完了。）
 - [x] 脳表・断面・自由観察・クイズの中心操作がPCと横向きタブレット幅で完了できる。（2026-08-23、Windows Chrome 151の通常production previewで、脳表・水平断・自由観察・クイズ×PC 1366×768／横向きタブレット幅1024×768の8/8件、計40操作が合格。独立validatorが実測viewport、操作前後、5問キュー生成、回答対象から導出した復習先、Canvas、error／loader／overflow／WebGL fallbackを再計算。`mobile:false`・`touch:false` のローカルデスクトップエミュレーションであり、物理タブレット、実機タッチ、公開URL、別ブラウザ・GPUは未確認。詳細は [CORE_INTERACTION_AUDIT.md](CORE_INTERACTION_AUDIT.md)。）
 - [ ] スマートフォンで閲覧、クイズ、基本操作が破綻しない。全3D操作の完遂はβ公開条件にしない。（部分実装: `MOBILE_UI_AUDIT.md` に沿って、coarse touch phoneだけへ5導線dock、単一settings dialog、編集Canvasを生成しないsegment案内を追加。Chrome 151のローカル通常production preview `http://127.0.0.1:4198` でcoarse touchのsettings／segment／range操作と、fine-pointer狭幅のcompact desktop／segment維持を確認。coarse 26経路52/52、fine/non-touch 26経路×3幅×direct/reload 156/156も合格。公開URL、物理端末、実機タッチ、Safari・別ブラウザ、別GPU、専門家レビューは未確認。）
 

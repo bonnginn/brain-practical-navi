@@ -40,7 +40,7 @@ export const EXPECTED_CONTEXT_REQUEST_PATHS = Object.freeze([
   "/atlas/segment-pons-medulla.mesh",
   "/atlas/segment-midbrain.mesh",
   "/atlas/bigbrain-icbm500.bin.gz",
-  "/atlas/bigbrain-practical-segmentation-icbm500.bin.gz?v=6744e7c018443678",
+  "/atlas/bigbrain-practical-segmentation-icbm500.bin.gz?v=b75a24903ec08526",
 ]);
 
 const SUITE_TOOL = "scripts/measure_browser_performance_suite.mjs";

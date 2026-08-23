@@ -27,6 +27,9 @@ sys.path.insert(0, str(ROOT / "scripts"))
 MAMMILLARY_PATCH = ROOT / "segmentation-patches/review/mammillary-bodies-horizontal-core-plus-clear-rim-candidate-2026-08-16.json"
 MAMMILLARY_SOURCE_SHA256 = "de30b5c77f4ed4f2902564a5d238b0e733413c247643ef828fb66aa03d8cc8be"
 MAMMILLARY_SOURCE_LABELS_SHA256 = "1ef06fcb799ce2c81bd2d7352d8bde310ff694dcfb8ac1a34695f7fc99baf862"
+VENTRICLE_PATCH = ROOT / "segmentation-patches/review/ventricles-orthogonally-bracketed-candidate-2026-08-23.json"
+VENTRICLE_SOURCE_COMPRESSED_SHA256 = "6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56"
+VENTRICLE_SOURCE_LABELS_SHA256 = "088fafcdf6afcea74a7a60075bf3b8a481e1a7aa6379a7c58fb9b9c17f5e731d"
 
 import numpy as np
 from apply_segmentation_patch import validate_patch
@@ -103,6 +106,60 @@ def apply_approved_patch(volume: np.ndarray, path: Path) -> dict[str, object]:
         "pullRequest": patch.get("review", {}).get("pullRequest"),
         "editCount": edit_count,
         "transitions": transitions,
+    }
+
+
+def apply_approved_ventricle_patch(volume: np.ndarray, path: Path) -> dict[str, object]:
+    """Apply the narrowly approved 33-voxel ventricle repair after mammillary labels."""
+
+    baseline = bytearray(np.asarray(volume, dtype=np.uint8).tobytes(order="F"))
+    baseline_sha256 = hashlib.sha256(baseline).hexdigest()
+    if baseline_sha256 != VENTRICLE_SOURCE_LABELS_SHA256:
+        raise ValueError(
+            "ventricle repair baseline labels changed: "
+            f"expected {VENTRICLE_SOURCE_LABELS_SHA256}, got {baseline_sha256}"
+        )
+    dims = tuple(int(value) for value in volume.shape)
+    patch, edits, metadata = validate_patch(
+        path, dims, len(baseline), baseline, VENTRICLE_SOURCE_COMPRESSED_SHA256
+    )
+    if metadata["status"] != "strict" or patch.get("reviewStatus") != "approved":
+        raise ValueError(f"ventricle repair patch is not strict approved metadata: {path}")
+
+    transitions: dict[str, int] = {}
+    for index, label in edits:
+        if label not in (23, 24, 25):
+            raise ValueError(f"invalid ventricle label in {path}: {label}")
+        old = int(baseline[index])
+        if old != 0:
+            raise ValueError(f"ventricle repair must be exactly 0->{label}, got {old}->{label}")
+        key = f"{old}->{label}"
+        transitions[key] = transitions.get(key, 0) + 1
+        baseline[index] = label
+        x = index % dims[0]
+        y = (index // dims[0]) % dims[1]
+        z = index // (dims[0] * dims[1])
+        volume[x, y, z] = label
+
+    expected = {"0->23": 14, "0->24": 15, "0->25": 4}
+    if transitions != expected:
+        raise ValueError(f"ventricle repair source transitions changed: {transitions}")
+    return {
+        "path": str(path.relative_to(ROOT)),
+        "workflowMetadataVersion": patch.get("workflowMetadataVersion"),
+        "workflowMetadataStatus": metadata["status"],
+        "targetSide": patch.get("targetSide"),
+        "evidence": patch.get("evidence"),
+        "confidence": patch.get("confidence"),
+        "targetStructures": patch.get("targetStructures"),
+        "sliceRanges": patch.get("sliceRanges"),
+        "changeSummary": patch.get("changeSummary"),
+        "review": patch.get("review"),
+        "pullRequest": patch.get("review", {}).get("pullRequest"),
+        "editCount": len(edits),
+        "transitions": transitions,
+        "sourceCompressedSha256": VENTRICLE_SOURCE_COMPRESSED_SHA256,
+        "sourceRawVoxelSha256": VENTRICLE_SOURCE_LABELS_SHA256,
     }
 
 
@@ -270,6 +327,7 @@ def main() -> None:
         empty = practical == 0
 
     reviewed_patch_audit = apply_approved_patch(practical, MAMMILLARY_PATCH)
+    ventricle_patch_audit = apply_approved_ventricle_patch(practical, VENTRICLE_PATCH)
 
     if not np.array_equal(practical[manual > 0], manual[manual > 0]):
         raise ValueError("official manual labels were modified")
@@ -297,7 +355,11 @@ def main() -> None:
         "ventricleTissueOverlap": float((~empty_space[np.isin(practical, [23, 24, 25, 26])]).mean()),
         "coordinatePolicy": "exact BigBrain ICBM2009sym 0.5 mm output grid; CerebrA resampling accepted only after overlap audit",
         "reviewedPatchAudit": reviewed_patch_audit,
-        "teachingPolicy": "IDs 23-35 are provisional teaching overlays; IDs 39-40 are project-reviewed image-guided teaching labels, not research ground truth",
+        "ventriclePatchAudit": ventricle_patch_audit,
+        "reviewedPatchAudits": [reviewed_patch_audit, ventricle_patch_audit],
+        "preVentricleCompressedSha256": VENTRICLE_SOURCE_COMPRESSED_SHA256,
+        "preVentricleRawVoxelSha256": VENTRICLE_SOURCE_LABELS_SHA256,
+        "teachingPolicy": "IDs 23-35 are provisional teaching overlays; the 33-voxel ventricle repair is project-reviewed under PR #14 and is not expert-reviewed or research ground truth; IDs 39-40 are project-reviewed image-guided teaching labels, not research ground truth",
     }
     validation_output.write_text(json.dumps(validation, ensure_ascii=False, indent=2) + "\n")
     print(json.dumps({"output": str(output), "validation": str(validation_output), **validation}, ensure_ascii=False))

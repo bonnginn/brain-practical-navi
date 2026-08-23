@@ -173,6 +173,8 @@ IDs 30–32はBigBrain画像、CerebrA白質確率、近接核・脳室との位
 
 `tests/fixtures/bigbrain-practical-segmentation-pre-mammillary-de30.bin.gz` は、旧ラベル版の移行・strict validatorを浅いcloneでも再現するためにGitリポジトリ内で再配布する、採用前のcombined practical segmentationです。BigBrain参照データだけのfixtureではなく、Xiaoらの手動ラベル、CerebrA/MNI由来の教育用対応、本プロジェクト生成候補を含むmixed-sourceラベルです。公開アセットへは含めませんが、本書に記載したBigBrainの帰属・非営利・継承条件、Xiao手動ラベルのCC BY 4.0、CerebrA/MNIの利用条件、および本プロジェクト生成部分の注意事項をそれぞれ適用します。
 
+`tests/fixtures/bigbrain-practical-segmentation-pre-ventricle-6744.bin.gz` は、PR #14の33 voxel脳室修正をstrict validatorとビルド段階で再現するための、修正適用前のcombined practical segmentationです。上記と同じmixed-sourceラベルであり、公開アセットではありません。適用される帰属・利用条件・教育用ラベルの注意事項も同じです。
+
 ## 6. 本プロジェクトの教育用模式3D
 
 対象ファイル:

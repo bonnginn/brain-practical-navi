@@ -46,7 +46,7 @@ test("reproduces the objective orthogonal inventory for legacy optic label 33", 
   assert.equal(result.stdout, savedText);
   const saved = JSON.parse(savedText);
   assert.deepEqual(audit, saved);
-  assert.equal(audit.inputSha256, "6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56");
+  assert.equal(audit.inputSha256, "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3");
   assert.deepEqual(audit.dims, [394, 466, 378]);
   assert.deepEqual(audit.voxelSizeMm, [0.5, 0.5, 0.5]);
   assert.equal(audit.auditedLabelId, 33);

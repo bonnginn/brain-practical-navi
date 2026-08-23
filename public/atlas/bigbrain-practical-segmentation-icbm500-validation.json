@@ -95,9 +95,9 @@
     "20": 3434,
     "21": 12900,
     "22": 13170,
-    "23": 63833,
-    "24": 62854,
-    "25": 10416,
+    "23": 63847,
+    "24": 62869,
+    "25": 10420,
     "26": 8567,
     "27": 254786,
     "28": 737856,
@@ -134,5 +134,172 @@
       "33->40": 303
     }
   },
-  "teachingPolicy": "IDs 23-35 are provisional teaching overlays; IDs 39-40 are project-reviewed image-guided teaching labels, not research ground truth"
+  "teachingPolicy": "IDs 23-35 are provisional teaching overlays; the 33-voxel ventricle repair is project-reviewed under PR #14 and is not expert-reviewed or research ground truth; IDs 39-40 are project-reviewed image-guided teaching labels, not research ground truth",
+  "ventriclePatchAudit": {
+    "path": "segmentation-patches\\review\\ventricles-orthogonally-bracketed-candidate-2026-08-23.json",
+    "workflowMetadataVersion": 1,
+    "workflowMetadataStatus": "strict",
+    "targetSide": "mixed",
+    "evidence": "ユーザーから示された自動修正方針とPR #14のプロジェクト内採用記録; read-only audit scripts/audit_ventricle_cavity_candidates.py と三軸・局所プレビュー; image SHA-256 c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746; pre-ventricle compressed labels SHA-256 6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56; raw voxel labels SHA-256 088fafcdf6afcea74a7a60075bf3b8a481e1a7aa6379a7c58fb9b9c17f5e731d; X/Y/Z各軸の両側同一ラベル・他ラベル6近傍接触なし; 33 voxel educational repair, not expert review or research ground truth",
+    "confidence": "medium",
+    "targetStructures": [
+      {
+        "id": 23,
+        "name": "左側脳室"
+      },
+      {
+        "id": 24,
+        "name": "右側脳室"
+      },
+      {
+        "id": 25,
+        "name": "第三脳室"
+      }
+    ],
+    "sliceRanges": [
+      {
+        "plane": "horizontal",
+        "axis": "Z",
+        "min": 139,
+        "max": 176
+      }
+    ],
+    "changeSummary": {
+      "changedVoxelCount": 33,
+      "unchangedVoxelCount": 0,
+      "transitions": [
+        {
+          "from": 0,
+          "to": 23,
+          "voxels": 14
+        },
+        {
+          "from": 0,
+          "to": 24,
+          "voxels": 15
+        },
+        {
+          "from": 0,
+          "to": 25,
+          "voxels": 4
+        }
+      ]
+    },
+    "review": {
+      "decision": "approved",
+      "reviewer": {
+        "kind": "project-role",
+        "id": "project-maintainer-directed-automatic-repair"
+      },
+      "decidedAt": "2026-08-24",
+      "reason": "ユーザーから示された自動修正方針に基づき、X/Y/Z各軸の両側を同一脳室ラベルが挟み、他ラベルと6近傍で接しない33 voxelを、三軸・局所プレビューで確認した教育用修正としてPR #14へ採用する。これはプロジェクト内の採用判断であり、専門家レビューや研究用ground truthの確定ではない。",
+      "pullRequest": {
+        "number": 14,
+        "mergeCommit": null
+      }
+    },
+    "pullRequest": {
+      "number": 14,
+      "mergeCommit": null
+    },
+    "editCount": 33,
+    "transitions": {
+      "0->25": 4,
+      "0->23": 14,
+      "0->24": 15
+    },
+    "sourceCompressedSha256": "6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56",
+    "sourceRawVoxelSha256": "088fafcdf6afcea74a7a60075bf3b8a481e1a7aa6379a7c58fb9b9c17f5e731d"
+  },
+  "reviewedPatchAudits": [
+    {
+      "path": "segmentation-patches/review/mammillary-bodies-horizontal-core-plus-clear-rim-candidate-2026-08-16.json",
+      "editCount": 1290,
+      "transitions": {
+        "0->39": 316,
+        "0->40": 426,
+        "27->39": 17,
+        "33->39": 228,
+        "33->40": 303
+      }
+    },
+    {
+      "path": "segmentation-patches\\review\\ventricles-orthogonally-bracketed-candidate-2026-08-23.json",
+      "workflowMetadataVersion": 1,
+      "workflowMetadataStatus": "strict",
+      "targetSide": "mixed",
+      "evidence": "ユーザーから示された自動修正方針とPR #14のプロジェクト内採用記録; read-only audit scripts/audit_ventricle_cavity_candidates.py と三軸・局所プレビュー; image SHA-256 c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746; pre-ventricle compressed labels SHA-256 6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56; raw voxel labels SHA-256 088fafcdf6afcea74a7a60075bf3b8a481e1a7aa6379a7c58fb9b9c17f5e731d; X/Y/Z各軸の両側同一ラベル・他ラベル6近傍接触なし; 33 voxel educational repair, not expert review or research ground truth",
+      "confidence": "medium",
+      "targetStructures": [
+        {
+          "id": 23,
+          "name": "左側脳室"
+        },
+        {
+          "id": 24,
+          "name": "右側脳室"
+        },
+        {
+          "id": 25,
+          "name": "第三脳室"
+        }
+      ],
+      "sliceRanges": [
+        {
+          "plane": "horizontal",
+          "axis": "Z",
+          "min": 139,
+          "max": 176
+        }
+      ],
+      "changeSummary": {
+        "changedVoxelCount": 33,
+        "unchangedVoxelCount": 0,
+        "transitions": [
+          {
+            "from": 0,
+            "to": 23,
+            "voxels": 14
+          },
+          {
+            "from": 0,
+            "to": 24,
+            "voxels": 15
+          },
+          {
+            "from": 0,
+            "to": 25,
+            "voxels": 4
+          }
+        ]
+      },
+      "review": {
+        "decision": "approved",
+        "reviewer": {
+          "kind": "project-role",
+          "id": "project-maintainer-directed-automatic-repair"
+        },
+        "decidedAt": "2026-08-24",
+        "reason": "ユーザーから示された自動修正方針に基づき、X/Y/Z各軸の両側を同一脳室ラベルが挟み、他ラベルと6近傍で接しない33 voxelを、三軸・局所プレビューで確認した教育用修正としてPR #14へ採用する。これはプロジェクト内の採用判断であり、専門家レビューや研究用ground truthの確定ではない。",
+        "pullRequest": {
+          "number": 14,
+          "mergeCommit": null
+        }
+      },
+      "pullRequest": {
+        "number": 14,
+        "mergeCommit": null
+      },
+      "editCount": 33,
+      "transitions": {
+        "0->25": 4,
+        "0->23": 14,
+        "0->24": 15
+      },
+      "sourceCompressedSha256": "6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56",
+      "sourceRawVoxelSha256": "088fafcdf6afcea74a7a60075bf3b8a481e1a7aa6379a7c58fb9b9c17f5e731d"
+    }
+  ],
+  "preVentricleCompressedSha256": "6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56",
+  "preVentricleRawVoxelSha256": "088fafcdf6afcea74a7a60075bf3b8a481e1a7aa6379a7c58fb9b9c17f5e731d"
 }

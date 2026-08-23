@@ -408,7 +408,7 @@
       "projectReview": "pending",
       "quizEligibility": "pilot",
       "sourceRefs": ["combined-practical-segmentation", "mni-cerebra-browser-assets", "specimen-block-assets"],
-      "knownLimitations": ["アトラス照合の腔候補で、脳室間の細い連続部や全境界は検証中です。第三脳室は左右の視床・視床下部に囲まれ、上方は視床、下方（底側）は視床下部という位置関係を教材文言で示します。"],
+      "knownLimitations": ["アトラス照合の腔候補で、脳室間の細い連続部や全境界は検証中です。2026-08-24に、X・Y・Z各軸で同一脳室ラベルに挟まれた内部欠損33 voxelだけをPR #14のプロジェクト内レビューで補完しましたが、構造全体の専門家レビューは未完了です。第三脳室は左右の視床・視床下部に囲まれ、上方は視床、下方（底側）は視床下部という位置関係を教材文言で示します。"],
       "appKeys": ["ventricle", "thirdVentricle", "fourthVentricle"]
     },
     {

@@ -39,7 +39,7 @@
     },
     {
       "id": "criterion-02-learning-target-integrity",
-      "criterionText": "学習対象の明らかな欠落、二重表示、遊離、空着色がない。（部分的な客観資料: 現行旧ID33は8,482 voxel、6近傍12成分で、全占有断面・境界面接触・代表候補を固定JSONへ記録した。成分数を解剖学的な構造数や誤分節と判定せず、全学習対象の専門家確認は未完了。）",
+      "criterionText": "学習対象の明らかな欠落、二重表示、遊離、空着色がない。（部分的な客観資料: 現行旧ID33は8,482 voxel、6近傍12成分で、全占有断面・境界面接触・代表候補を固定JSONへ記録した。脳室は三軸で同一ラベルに挟まれた内部欠損33 voxelだけをプロジェクト内レビュー済み修正として採用した。これらを全構造の解剖学的確認とは扱わず、専門家確認は未完了。）",
       "state": "expert-blocked",
       "locallyProven": [
         "ローカル構造由来監査・表示台帳を確認した。",
@@ -48,7 +48,9 @@
         "ローカル証拠だけでは欠落・重複・遊離・空着色の解剖学的判定を完了していない。",
         "直交断レビュー証拠束v3のlocal-only manifestと161枚のPNGを、ID33・39・40の全占有X/Y/Z断面、ID39・40の外側endpoint、raw grayscale+outlineの客観資料として固定した。",
         "strict validatorでmanifestのschema、入力・画素・PNG hash、pixel-to-voxel geometry、Fortran anchorを再計算した。",
-        "manifestのreview.status=unreviewedで、解剖学的妥当性・境界・採用は未証明である。"
+        "manifestのreview.status=unreviewedで、解剖学的妥当性・境界・採用は未証明である。",
+        "左右側脳室・第三脳室について、X・Y・Z各軸で同じ脳室ラベルに挟まれ、別ラベルと6近傍接触しない内部欠損33 voxelだけを固定差分としてプロジェクト内レビューし、公開教材ラベルへ採用した。",
+        "採用前後のraw label差分が0→23:14、0→24:15、0→25:4の33 voxelだけであることを再現テストで固定した。単純な黒背景fill、脳室全体の境界確定、専門家レビュー、research ground truthではない。"
       ],
       "unprovenScope": "全学習対象の解剖学的欠落や二重表示を、専門家レビューを含めて網羅的に確認していない。直交断証拠束のreview.status=unreviewedであり、解剖学的妥当性・境界・採用は未証明で、専門家確認・ground truth・ラベル採否を示さない。",
       "blockingAuthority": "neuroanatomy expert reviewer",
@@ -64,7 +66,10 @@
         "ANATOMY_REVIEW_HANDOFF.md",
         "ORTHOGONAL_REVIEW_BUNDLE_AUDIT.md",
         "scripts/build_orthogonal_review_bundle.py",
-        "tests/orthogonal-review-bundle.test.mjs"
+        "tests/orthogonal-review-bundle.test.mjs",
+        "VENTRICLE_CAVITY_AUDIT.md",
+        "segmentation-patches/review/ventricles-orthogonally-bracketed-candidate-2026-08-23.json",
+        "tests/ventricle-adoption.test.mjs"
       ],
       "localArtifactRefs": [
         {

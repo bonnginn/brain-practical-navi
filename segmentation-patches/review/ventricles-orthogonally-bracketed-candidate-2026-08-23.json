@@ -17,10 +17,10 @@
   "primaryPlane": "horizontal",
   "workflowMetadataVersion": 1,
   "createdAt": "2026-08-23T15:00:00.000Z",
-  "authorNote": "BigBrain背景値255の未ラベルvoxelのうち、現行の同一脳室ラベルがX・Y・Z各軸の両側に存在し、別ラベルと6近傍で接しない33 voxelを抽出した自動修正候補。公開ラベルへは未適用。直交断の原画像と隣接断で要レビュー。",
+  "authorNote": "ユーザーから示された自動修正方針に基づき、BigBrain背景値255の未ラベルvoxelから、現行の同一脳室ラベルがX・Y・Z各軸の両側に存在し、別ラベルと6近傍で接しない33 voxelを抽出した教育用修正として採用しました。三軸の局所プレビューで確認したプロジェクト内レビューであり、専門家レビュー済み・研究用ground truthではありません。",
   "authorGitHub": "",
   "targetSide": "mixed",
-  "evidence": "read-only audit scripts/audit_ventricle_cavity_candidates.py; image SHA-256 c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746; labels SHA-256 6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56; orthogonally bracketed candidate; no cross-label overlap",
+  "evidence": "ユーザーから示された自動修正方針とPR #14のプロジェクト内採用記録; read-only audit scripts/audit_ventricle_cavity_candidates.py と三軸・局所プレビュー; image SHA-256 c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746; pre-ventricle compressed labels SHA-256 6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56; raw voxel labels SHA-256 088fafcdf6afcea74a7a60075bf3b8a481e1a7aa6379a7c58fb9b9c17f5e731d; X/Y/Z各軸の両側同一ラベル・他ラベル6近傍接触なし; 33 voxel educational repair, not expert review or research ground truth",
   "confidence": "medium",
   "targetStructures": [
     {
@@ -66,13 +66,19 @@
     ]
   },
   "review": {
-    "decision": "unreviewed",
-    "reviewer": null,
-    "decidedAt": null,
-    "reason": "",
-    "pullRequest": null
+    "decision": "approved",
+    "reviewer": {
+      "kind": "project-role",
+      "id": "project-maintainer-directed-automatic-repair"
+    },
+    "decidedAt": "2026-08-24",
+    "reason": "ユーザーから示された自動修正方針に基づき、X/Y/Z各軸の両側を同一脳室ラベルが挟み、他ラベルと6近傍で接しない33 voxelを、三軸・局所プレビューで確認した教育用修正としてPR #14へ採用する。これはプロジェクト内の採用判断であり、専門家レビューや研究用ground truthの確定ではない。",
+    "pullRequest": {
+      "number": 14,
+      "mergeCommit": null
+    }
   },
-  "reviewStatus": "unreviewed",
+  "reviewStatus": "approved",
   "editCount": 33,
   "runs": [
     {

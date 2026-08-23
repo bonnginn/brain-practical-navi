@@ -25,7 +25,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_IMAGE = ROOT / "public/atlas/bigbrain-icbm500.bin.gz"
-DEFAULT_LABELS = ROOT / "public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"
+DEFAULT_LABELS = ROOT / "tests/fixtures/bigbrain-practical-segmentation-pre-ventricle-6744.bin.gz"
 EXPECTED_IMAGE_SHA256 = "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746"
 EXPECTED_LABEL_SHA256 = "6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56"
 EXPECTED_DIMS = (394, 466, 378)
@@ -284,7 +284,7 @@ def run_audit(
     if image_path.resolve() == DEFAULT_IMAGE.resolve() and image_sha != EXPECTED_IMAGE_SHA256:
         raise AuditError("distributed BigBrain image SHA-256 mismatch")
     if labels_path.resolve() == DEFAULT_LABELS.resolve() and labels_sha != EXPECTED_LABEL_SHA256:
-        raise AuditError("distributed practical labels SHA-256 mismatch")
+        raise AuditError("pre-ventricle practical labels SHA-256 mismatch")
     image_dims, image = read_browser_volume(image_path, b"BBV1")
     label_dims, labels = read_browser_volume(labels_path, b"BBS1")
     if image_dims != label_dims or image_dims != EXPECTED_DIMS:

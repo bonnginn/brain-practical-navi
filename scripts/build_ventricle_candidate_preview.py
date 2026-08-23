@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render local-only orthogonal previews for the unreviewed ventricle patch."""
+"""Render local-only pre-adoption evidence for the reviewed ventricle patch."""
 
 from __future__ import annotations
 
@@ -16,7 +16,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
 IMAGE = ROOT / "public/atlas/bigbrain-icbm500.bin.gz"
-LABELS = ROOT / "public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"
+LABELS = ROOT / "tests/fixtures/bigbrain-practical-segmentation-pre-ventricle-6744.bin.gz"
 PATCH = ROOT / "segmentation-patches/review/ventricles-orthogonally-bracketed-candidate-2026-08-23.json"
 OUTPUT = ROOT / "work/anatomy-review/ventricle-cavity-candidate-2026-08-23"
 EXPECTED_DIMS = (394, 466, 378)
@@ -122,8 +122,8 @@ def main() -> None:
     frames = [sheet_for_axis(image, labels, candidate, crop, axis, name, args.output) for axis, name in enumerate(("sagittal", "coronal", "horizontal"))]
     manifest = {
         "schemaVersion": 1,
-        "status": "unreviewed",
-        "purpose": "Local raw-image/label/candidate preview; not anatomical validation or an approved patch.",
+        "status": "project-reviewed-source-evidence",
+        "purpose": "Local pre-adoption raw-image/label/candidate preview; not expert review, anatomical ground truth, or institutional approval.",
         "source": {"imageSha256": sha256(IMAGE), "labelsSha256": sha256(LABELS), "patchSha256": sha256(PATCH)},
         "dims": list(EXPECTED_DIMS),
         "crop": {"lowerInclusive": lower.tolist(), "upperExclusive": upper.tolist()},

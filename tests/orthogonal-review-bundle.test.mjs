@@ -125,7 +125,7 @@ test("builds deterministic local evidence and passes independent validation", as
   assert.deepEqual(firstManifest.inputs.labels, {
     path: "public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz",
     magic: "BBS1",
-    sha256: "6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56",
+    sha256: "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
     dims: [394, 466, 378],
     voxelSizeMm: [0.5, 0.5, 0.5],
   });
@@ -166,7 +166,7 @@ test("rebuild is byte-deterministic and leaves the source labels unchanged", asy
   assert.deepEqual(await readFile(manifestPath), firstManifestBytes);
   assert.deepEqual(await readFile(join(bundle, "frames", firstManifest.frames[0].path)), firstFrameBytes);
   assert.deepEqual(await readFile(labels), beforeLabels);
-  assert.equal(createHash("sha256").update(await readFile(labels)).digest("hex"), "6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56");
+  assert.equal(createHash("sha256").update(await readFile(labels)).digest("hex"), "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3");
 });
 
 test("rejects dimensions, axis, slice, and exact-key mutations with specific reasons", async () => {

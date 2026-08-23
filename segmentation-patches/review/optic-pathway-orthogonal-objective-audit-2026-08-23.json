@@ -2,7 +2,7 @@
   "format": "brain-practical-optic-orthogonal-objective-audit",
   "version": 1,
   "input": "public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz",
-  "inputSha256": "6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56",
+  "inputSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
   "magic": "BBS1",
   "dims": [
     394,
@@ -1095,7 +1095,7 @@
     "anatomicalStatus": "Objective volume-shape inventory only; not anatomical validation, expert confirmation, or a basis for mechanically splitting ID 33 into IDs 36-38."
   },
   "validation": {
-    "expectedInputSha256": "6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56",
+    "expectedInputSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
     "expectedDims": [
       394,
       466,

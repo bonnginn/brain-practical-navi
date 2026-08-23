@@ -40,7 +40,7 @@ ID 33は分割作業の参照足場に限り、36–40へ機械的に座標分�
 
 ## 乳頭体の客観形状監査（解剖学的検証ではない）
 
-現行の配布BBS1ラベルを変更せず、`scripts/audit_mammillary_orthogonal.py` で形状監査を再現できるようにした。監査入力はSHA-256 `6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56`、`394×466×378` voxel、`0.5 mm`等方格子に固定する。結果は `segmentation-patches/review/mammillary-bodies-orthogonal-objective-audit-2026-08-22.json` に保存する。
+現行の配布BBS1ラベルを変更せず、`scripts/audit_mammillary_orthogonal.py` で形状監査を再現できるようにした。監査入力は脳室33 voxel修正後のSHA-256 `b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3`、`394×466×378` voxel、`0.5 mm`等方格子に固定する。結果は `segmentation-patches/review/mammillary-bodies-orthogonal-objective-audit-2026-08-22.json` に保存する。
 
 - ID 39: 561 voxel、bbox X187–196 / Y246–256 / Z107–121、6近傍連結成分1
 - ID 40: 729 voxel、bbox X197–204 / Y247–258 / Z108–121、6近傍連結成分1
@@ -68,7 +68,7 @@ ID 33は分割作業の参照足場に限り、36–40へ機械的に座標分�
 
 ## 直交断レビュー証拠束 v3（解剖学的検証ではない）
 
-2026-08-23、上記の客観監査とは別に、`ORTHOGONAL_REVIEW_BUNDLE_AUDIT.md` と `scripts/build_orthogonal_review_bundle.py` で、原画像 crop、ID 27（crop内のcontext-only）、ID 33・39・40の輪郭を含むローカル証拠束を固定した。入力は原画像 SHA-256 `c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746`、ラベル SHA-256 `6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56`、BBS1 `394×466×378`、`0.5 mm`である。
+2026-08-23、上記の客観監査とは別に、`ORTHOGONAL_REVIEW_BUNDLE_AUDIT.md` と `scripts/build_orthogonal_review_bundle.py` で、原画像 crop、ID 27（crop内のcontext-only）、ID 33・39・40の輪郭を含むローカル証拠束を固定した。2026-08-24の脳室33 voxel修正後に再生成し、入力は原画像 SHA-256 `c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746`、ラベル SHA-256 `b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3`、BBS1 `394×466×378`、`0.5 mm`である。
 
 生成物は `work/anatomy-review/orthogonal-review-bundle-v3/`（Git 管理外）の manifest と期待161枚の PNGだけで、文字焼込み・PNG metadata・公開資産・ラベル変更・ID 36–38の提案はない。frameごとのpixel／PNG SHA-256、空のmetadata、pixel→voxel式、固定anchor、canonicalSections、余剰ファイル・link境界を独立validatorで検査し、bundle validation `passed: true`、focused 12/12、既存optic test 5/5となった。`review.status` は `unreviewed` のままであり、39・40の付着境界と33内の視交叉・左右視索境界は、冠状・矢状断を含むユーザー／専門家確認待ちである。
 
