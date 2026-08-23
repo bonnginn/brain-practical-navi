@@ -1,4 +1,4 @@
-export type BlockContextSpecimen = "lateral-ventricle";
+export type BlockContextSpecimen = "lateral-ventricle" | "diencephalon" | "radiations" | "commissural-system" | "choroid-plexus" | "medial-temporal" | "midbrain-section" | "hindbrain";
 export type BlockContextView = "whole" | "section";
 export type BlockContextState = {
   enabled: boolean;
@@ -10,8 +10,9 @@ export type BlockContextEvent =
   | {type: "set-enabled"; enabled: boolean; specimen?: string}
   | {type: "set-view"; view: BlockContextView}
   | {type: "close" | "leave-workspace" | "restore-route" | "enter-workspace" | "select-specimen"; workspace?: string; specimen?: string};
-export const BLOCK_CONTEXT_SPECIMEN: BlockContextSpecimen;
+export const BLOCK_CONTEXT_SPECIMENS: readonly BlockContextSpecimen[];
 export const BLOCK_CONTEXT_INITIAL_STATE: Readonly<BlockContextState>;
+export function isBlockContextSpecimen(specimen: unknown): specimen is BlockContextSpecimen;
 export function createBlockContextState<T extends Record<string, unknown> = Record<string, never>>(overrides?: T): BlockContextState & T;
 export function transitionBlockContext<T extends BlockContextState>(state: T, event?: BlockContextEvent): T;
 export function shouldRenderBlockContext(args?: {workspace?: string; specimen?: string; state?: {enabled?: boolean}; enabled?: boolean}): boolean;

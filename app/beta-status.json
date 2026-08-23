@@ -81,6 +81,12 @@
       "evidenceRefs": ["OPTIC_PATHWAY_AUDIT.md", "segmentation-patches/review/mammillary-bodies-orthogonal-objective-audit-2026-08-22.json", "BETA_ROADMAP.md"]
     },
     {
+      "id": "change-block-context-all-specimens",
+      "heading": "ブロック標本の位置確認",
+      "body": "教材内8ブロック標本で、収録済み標本メッシュを全脳内の位置目安として確認し、教材内代表断面へ切り替えられるようにしました。新しい形状、切断幅、摘出順、実習手順は追加しておらず、切り出し範囲と解剖学的境界の専門家レビューは未完了です。",
+      "evidenceRefs": ["BLOCK_CONTEXT_AUDIT.md", "BETA_ROADMAP.md", "public/atlas/specimen-blocks.json"]
+    },
+    {
       "id": "change-performance-local",
       "heading": "性能測定",
       "body": "ローカル本番ビルドを既存31件に側脳室ブロック context ON のPC・tablet・390 px相当のcold/warm 6件を加えた37件の性能マトリクスで測定し、37/37件が測定条件を通過しました。初回payloadもdesktop 1366×768のcanonical 26経路を確認し、26/26件が通過しました。warm primeはベース画面だけで、context assetは初回ON時に取得しています。これはローカルデスクトップChromeの記録であり、物理端末や公開回線の保証ではありません。",

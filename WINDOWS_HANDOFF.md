@@ -111,6 +111,8 @@ Windows側でブラウザ操作が使える利点を最優先します。
 
 Windows 11／Chrome 151.0.7922.170／Node 24.19.0、ローカルpreview `http://127.0.0.1:4204/` で、既存31件＋context ON 6件の性能マトリクス37/37件を確認した。PC 1366×768、tablet 1024×768、390×768相当のcold/warmを対象に、baseとONのencoded bytes・unique request count・stable time、ON stable時のsettled backing storage、操作全体のsamplePeak backing storageを別フィールドで保存した。全件Canvas `1→2→2→1`、loader／UI／console／request error、overflow、WebGL fallbackは0件。warm primeはベース画面だけで、context assetは初回ON時に取得した。結果は `work/performance/performance-suite-block-context-final-v2-2026-08-23.json`、値の詳細は [PERFORMANCE_AUDIT.md](PERFORMANCE_AUDIT.md) を参照する。390 pxは `mobile:false` のデスクトップemulationでclientWidth 375 px。物理端末、公開ネットワーク、別GPU・別ブラウザ、解剖学的妥当性は未確認である。
 
+追記: 同じ初期OFFの位置コンテキストを教材内8ブロック標本へデータ駆動で拡張した。既存 `material: specimen` メッシュと既存 plane / position だけを使い、後脳標本は既存3部品をまとめて遅延読込する。新しい形状・切断幅・摘出順・実習手順は追加していない。通常production preview `http://127.0.0.1:4230/` で、Codex in-app BrowserのPC相当8/8件とChrome 151の390×768デスクトップemulation 8/8件を確認し、全件Canvas `1→2→2→1`、loader／UI／console／request error、横はみ出し、WebGL fallbackは0件だった。標本切替時はOFFかつ全脳表示へresetした。追加7標本の保存済み性能値、物理端末、公開URL、別GPU・別ブラウザ、専門家レビューは未確認である。契約と監査範囲は [BLOCK_CONTEXT_AUDIT.md](BLOCK_CONTEXT_AUDIT.md) を参照する。
+
 ### M2: β公開条件の機械化
 
 - 主要経路の表示条件とURL復元をテストで固定する。

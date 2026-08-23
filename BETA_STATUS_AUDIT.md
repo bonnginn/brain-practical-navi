@@ -12,6 +12,8 @@
 
 `public/atlas/structure-provenance.json` の現行registryが56件から75件へ増えたため、現行の由来監査説明を `app/beta-status.json` の `change-provenance-audit` と同期した。増分はsurface／block app-only 18行とoptic nerve `cn2`行1件の計19件で、ID33と`cn2`／`opticChiasm`の名前空間分離を維持し、ID39・40のプロジェクト内レビュー済み・expert pending状態も維持する。
 
+2026-08-23、教材内8ブロック標本へ既存メッシュだけを使う位置確認表示を拡張したため、`change-block-context-all-specimens` を追加した。切り出し範囲・解剖学的境界の専門家レビュー未完了と、新しい形状・切断幅・摘出順・実習手順を追加していないことを利用者向け本文にも残す。
+
 同日の機械結果は、expert pending 75件、表示面フィルタ54／16／30／21件、学習者向けmapping 222/222件解決済みである。構造由来監査のクイズ正答対象は既存23件と模式3D pilot 17件の合計40件なので、status本文も40件へ同期する。この同期自体は解剖学的妥当性の検証や実ブラウザ確認ではなく、最終ローカル確認は下記に別記する。2026-08-22に確認した全56件・表示面36／16／29／21件・route156/156の歴史記録と、公開URL未確認の記述は変更しない。
 
 Go / No-Go 12項目の現行状態とcriterionTextの突合は [BETA_GO_NO_GO.json](BETA_GO_NO_GO.json) と [BETA_GO_NO_GO_AUDIT.md](BETA_GO_NO_GO_AUDIT.md) を基準にする。sourceCountsは provenance／expert pending 75件、unique quiz targets 40件（既存23件＋模式3D pilot 17件）、learner mapping 222/222件であり、statusのローカル確認を公開・専門家確認・デプロイ完了とは扱わない。

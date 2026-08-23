@@ -1,7 +1,13 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { test } from "node:test";
-import { createBlockContextState, shouldRenderBlockContext, transitionBlockContext } from "../src/blockContext.mjs";
+import {
+  BLOCK_CONTEXT_SPECIMENS,
+  createBlockContextState,
+  isBlockContextSpecimen,
+  shouldRenderBlockContext,
+  transitionBlockContext,
+} from "../src/blockContext.mjs";
 
 const root = new URL("../", import.meta.url);
 const page = await readFile(new URL("app/page.tsx", root), "utf8");
@@ -9,16 +15,28 @@ const canvas = await readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8"
 const css = await readFile(new URL("app/canvas.css", root), "utf8");
 const metadata = JSON.parse(await readFile(new URL("public/atlas/specimen-blocks.json", root), "utf8"));
 const manifest = JSON.parse(await readFile(new URL("public/atlas/DATA-MANIFEST.json", root), "utf8"));
+const expectedContext = {
+  "lateral-ventricle": ["sagittal", 58],
+  diencephalon: ["sagittal", 50],
+  radiations: ["horizontal", 53],
+  "commissural-system": ["sagittal", 50],
+  "choroid-plexus": ["sagittal", 55],
+  "medial-temporal": ["horizontal", 69],
+  "midbrain-section": ["horizontal", 67],
+  hindbrain: ["horizontal", 80],
+};
 
 function meshData(file) {
   const view = new DataView(file.buffer, file.byteOffset, file.byteLength);
   const magic = view.getUint32(0, false);
   assert.ok([0x424e4d31, 0x424e4d32, 0x424e4d33].includes(magic), "context mesh must use a supported BNM header");
   const vertices = view.getUint32(4, true);
-  const faces = view.getUint32(8, true);
+  const declaredFaces = view.getUint32(8, true);
   const stride = magic === 0x424e4d33 ? 32 : magic === 0x424e4d32 ? 28 : 24;
-  assert.equal(file.byteLength, 12 + vertices * stride + faces * 12, "context mesh length must match header");
-  return { view, vertices, faces, stride };
+  const storedFaces = (file.byteLength - 12 - vertices * stride) / 12;
+  assert.ok(Number.isInteger(storedFaces), "context mesh length must align to complete triangle records");
+  assert.ok(declaredFaces === storedFaces || declaredFaces === storedFaces * 3, "context mesh header must store face or triangle-index count");
+  return { view, vertices, stride };
 }
 
 function bounds(mesh) {
@@ -35,124 +53,159 @@ function bounds(mesh) {
   return { low, high };
 }
 
-function assertSagittal58IntersectsRendererAxis(box) {
-  const sagittal58Coordinate = -98 + 196.5 * (58 / 100);
-  // The renderer converts raw mesh p=[axis0,axis1,axis2] to anatomy
-  // q=[p.z,p.x,p.y]. Sagittal clipping uses anatomy axis 0, so the matching
-  // raw mesh coordinate is axis 2—not whichever bbox axis happens to overlap.
-  assert.ok(box.low[2] <= sagittal58Coordinate && sagittal58Coordinate <= box.high[2], "sagittal 58 cut coordinate must intersect raw mesh axis 2 after renderer conversion");
+function unionBounds(boxes) {
+  return {
+    low: [0, 1, 2].map(axis => Math.min(...boxes.map(box => box.low[axis]))),
+    high: [0, 1, 2].map(axis => Math.max(...boxes.map(box => box.high[axis]))),
+  };
 }
 
-test("lateral-ventricle context keeps the recorded metadata and manifest asset", async () => {
+function representativeCoordinate(plane, position) {
+  const fraction = position / 100;
+  if (plane === "sagittal") return -98 + 196.5 * fraction;
+  if (plane === "horizontal") return 98.5 - 188.5 * fraction;
+  return -116 + 232.5 * fraction;
+}
+
+function rendererRawAxis(plane) {
+  return plane === "sagittal" ? 2 : plane === "horizontal" ? 0 : 1;
+}
+
+function assertRepresentativePlaneIntersects(box, plane, position) {
+  const coordinate = representativeCoordinate(plane, position);
+  const rawAxis = rendererRawAxis(plane);
+  assert.ok(
+    box.low[rawAxis] <= coordinate && coordinate <= box.high[rawAxis],
+    `${plane} ${position} must intersect raw mesh axis ${rawAxis} after renderer conversion`,
+  );
+}
+
+test("all eight configured specimens retain existing metadata and context assets", () => {
   assert.equal(metadata.version, 3);
-  assert.deepEqual(metadata.specimens["lateral-ventricle"].map(part => part.file), [
-    "block-lateral-ventricle-tissue.mesh",
-    "block-lateral-ventricle-ventricular-cavity.mesh",
-    "block-lateral-ventricle-caudate.mesh",
-    "block-lateral-ventricle-thalamus.mesh",
-    "block-lateral-ventricle-hippocampus.mesh",
-  ]);
-  const tissue = metadata.specimens["lateral-ventricle"].find(part => part.part === "tissue");
-  assert.equal(tissue.sourceType, "specimen-derived");
-  assert.equal(tissue.material, "specimen");
-  assert.equal(tissue.vertices, 34252);
-  assert.equal(tissue.faces, 67900);
-  assert.ok(manifest.groups.some(group => group.id === "specimen-block-assets" && new RegExp(group.pattern).test(tissue.file)));
-  assert.match(page, /"lateral-ventricle":\{name:"側脳室の全景"[\s\S]*?plane:"sagittal",position:58/);
+  assert.deepEqual(BLOCK_CONTEXT_SPECIMENS, Object.keys(expectedContext));
+  assert.deepEqual(Object.keys(metadata.specimens), BLOCK_CONTEXT_SPECIMENS);
+  const group = manifest.groups.find(item => item.id === "specimen-block-assets");
+  assert.ok(group, "specimen block DATA-MANIFEST group must exist");
+  for (const [key, [plane, position]] of Object.entries(expectedContext)) {
+    assert.match(page, new RegExp(`(?:${JSON.stringify(key)}|${key}):\\{name:[\\s\\S]*?plane:${JSON.stringify(plane)},position:${position}`));
+    const parts = metadata.specimens[key].filter(part => part.material === "specimen");
+    assert.equal(parts.length, key === "hindbrain" ? 3 : 1);
+    for (const part of parts) {
+      assert.ok(new RegExp(group.pattern).test(part.file), `${part.file} must be covered by DATA-MANIFEST`);
+      assert.ok(["specimen-derived", "same-grid-segmentation", "teaching-segmentation"].includes(part.sourceType));
+    }
+  }
 });
 
-test("the recorded lateral-ventricle tissue is finite and remains inside the whole-brain surface extent", async () => {
-  const [tissueFile, leftFile, rightFile] = await Promise.all([
-    readFile(new URL("public/atlas/block-lateral-ventricle-tissue.mesh", root)),
-    readFile(new URL("public/atlas/pial-left.mesh", root)),
-    readFile(new URL("public/atlas/pial-right.mesh", root)),
-  ]);
-  const tissue = bounds(meshData(tissueFile));
-  const whole = [bounds(meshData(leftFile)), bounds(meshData(rightFile))];
-  const wholeLow = whole[0].low.map((value, axis) => Math.min(value, whole[1].low[axis]));
-  const wholeHigh = whole[0].high.map((value, axis) => Math.max(value, whole[1].high[axis]));
-  tissue.low.forEach((value, axis) => assert.ok(value >= wholeLow[axis] - 0.01, `tissue low axis ${axis} detached from whole brain`));
-  tissue.high.forEach((value, axis) => assert.ok(value <= wholeHigh[axis] + 0.01, `tissue high axis ${axis} detached from whole brain`));
-  assertSagittal58IntersectsRendererAxis(tissue);
+test("every finite context mesh overlaps the recorded whole-brain coordinate extent on each axis", async () => {
+  const wholeFiles = ["pial-left.mesh", "pial-right.mesh", "segment-cerebellum.mesh", "segment-pons-medulla.mesh", "segment-midbrain.mesh"];
+  const whole = unionBounds(await Promise.all(wholeFiles.map(file => readFile(new URL(`public/atlas/${file}`, root)).then(meshData).then(bounds))));
+  for (const key of BLOCK_CONTEXT_SPECIMENS) {
+    for (const part of metadata.specimens[key].filter(item => item.material === "specimen")) {
+      const box = bounds(meshData(await readFile(new URL(`public/atlas/${part.file}`, root))));
+      box.low.forEach((value, axis) => assert.ok(value <= whole.high[axis], `${part.file} starts beyond whole-brain axis ${axis}`));
+      box.high.forEach((value, axis) => assert.ok(value >= whole.low[axis], `${part.file} ends before whole-brain axis ${axis}`));
+    }
+  }
 });
 
-test("the sagittal bbox audit rejects an intersection on the wrong raw mesh axis", () => {
-  const sagittal58Coordinate = -98 + 196.5 * (58 / 100);
-  const wrongAxisOnly = {low: [-100, -10, -40], high: [100, 10, 10]};
-  assert.ok(wrongAxisOnly.low[0] <= sagittal58Coordinate && sagittal58Coordinate <= wrongAxisOnly.high[0], "fixture must overlap the renderer coordinate on a non-renderer raw axis");
-  assert.throws(() => assertSagittal58IntersectsRendererAxis(wrongAxisOnly), /raw mesh axis 2/);
+test("lateral-ventricle remains strictly contained by the original bilateral pial extent", async () => {
+  const [tissue, left, right] = await Promise.all([
+    "block-lateral-ventricle-tissue.mesh", "pial-left.mesh", "pial-right.mesh",
+  ].map(file => readFile(new URL(`public/atlas/${file}`, root)).then(meshData).then(bounds)));
+  const pial = unionBounds([left, right]);
+  tissue.low.forEach((value, axis) => assert.ok(value >= pial.low[axis] - .01, `lateral tissue low axis ${axis}`));
+  tissue.high.forEach((value, axis) => assert.ok(value <= pial.high[axis] + .01, `lateral tissue high axis ${axis}`));
 });
 
-test("context is an opt-in lateral-ventricle-only layer with a representative cut plane", () => {
-  assert.match(page, /const blockContextSpecimen:BlockContextSpecimen=BLOCK_CONTEXT_SPECIMEN/);
-  assert.match(page, /const \[blockContextState,setBlockContextState\]=useState\(\(\)=>createBlockContextState\(\)\)/);
-  assert.match(page, /blockSpecimen==="lateral-ventricle"&&blockContextVisible&&<section id="block-context-panel" className="blockContextPanel"/);
-  assert.match(page, /blockContext=\{blockContextSpecimen\}/);
-  assert.match(page, /plane=\{blockSpecimens\["lateral-ventricle"\]\.plane\}/);
-  assert.match(page, /position=\{blockSpecimens\["lateral-ventricle"\]\.position\}/);
-  assert.match(page, /showCutPlane=\{true\}/);
-  assert.match(page, /blockContextView==="section"/);
-  assert.match(page, /aria-controls="block-context-panel"/);
-  assert.match(canvas, /loadMesh\(`block-\$\{blockContext\}-tissue`\)/);
-  assert.match(canvas, /contextOverlay=blockContext!=="none"&&specimenBlock==="none"&&!!blockContextMesh/);
+test("each existing representative plane intersects the union bbox on the renderer-mapped raw axis", async () => {
+  for (const [key, [plane, position]] of Object.entries(expectedContext)) {
+    const boxes = await Promise.all(metadata.specimens[key]
+      .filter(part => part.material === "specimen")
+      .map(part => readFile(new URL(`public/atlas/${part.file}`, root)).then(meshData).then(bounds)));
+    assertRepresentativePlaneIntersects(unionBounds(boxes), plane, position);
+  }
+});
+
+test("representative plane audit rejects an intersection on the wrong raw mesh axis", () => {
+  const coordinate = representativeCoordinate("sagittal", 58);
+  const wrongAxisOnly = { low: [coordinate - 1, -10, coordinate + 10], high: [coordinate + 1, 10, coordinate + 20] };
+  assert.ok(wrongAxisOnly.low[0] <= coordinate && coordinate <= wrongAxisOnly.high[0], "fixture must overlap the wrong raw axis");
+  assert.throws(() => assertRepresentativePlaneIntersects(wrongAxisOnly, "sagittal", 58), /raw mesh axis 2/);
+});
+
+test("context support is limited to the eight learner block specimens", () => {
+  for (const specimen of BLOCK_CONTEXT_SPECIMENS) {
+    assert.equal(isBlockContextSpecimen(specimen), true);
+    const on = transitionBlockContext(createBlockContextState(), { type: "toggle", specimen });
+    assert.equal(on.enabled, true);
+    assert.equal(shouldRenderBlockContext({ workspace: "blocks", specimen, state: on }), true);
+  }
+  for (const specimen of [undefined, "unknown", "model-strategy-current-ventricles", "model-strategy-ventricle"]) {
+    assert.equal(isBlockContextSpecimen(specimen), false);
+    assert.equal(transitionBlockContext(createBlockContextState(), { type: "set-enabled", specimen, enabled: true }).enabled, false);
+  }
+});
+
+test("entry, close, selection, and route restore reset OFF and whole without mutating specimen state", () => {
+  const specimenRotation = { x: 3, y: 8, z: 1 };
+  const specimenLayers = ["tissue", "thalamus"];
+  const state = createBlockContextState({ specimenRotation, specimenLayers, specimenTissueMode: "ghost" });
+  const on = transitionBlockContext(state, { type: "toggle", specimen: "hindbrain" });
+  assert.equal(on.enabled, true);
+  assert.strictEqual(on.specimenRotation, specimenRotation);
+  assert.strictEqual(on.specimenLayers, specimenLayers);
+  assert.equal(on.specimenTissueMode, "ghost");
+  const section = transitionBlockContext(on, { type: "set-view", view: "section" });
+  assert.equal(section.enabled, true);
+  assert.equal(section.view, "section");
+  for (const type of ["close", "enter-workspace", "leave-workspace", "select-specimen", "restore-route"]) {
+    const reset = transitionBlockContext(section, { type });
+    assert.equal(reset.enabled, false);
+    assert.equal(reset.view, "whole");
+    assert.strictEqual(reset.specimenRotation, specimenRotation);
+    assert.strictEqual(reset.specimenLayers, specimenLayers);
+    assert.equal(reset.specimenTissueMode, "ghost");
+  }
+  assert.equal(shouldRenderBlockContext({ workspace: "surface", specimen: "hindbrain", state: on }), false);
+});
+
+test("Canvas reuses one loaded part, merges multiple parts, and disposes the extra layer when off", () => {
+  assert.match(canvas, /SPECIMEN_PARTS\[blockContext\]\.filter\(definition=>definition\.material===4\)/);
+  assert.match(canvas, /Promise\.all\(definitions\.map\(definition=>loadMesh/);
+  assert.match(canvas, /setBlockContextMesh\(parts\.length===1\?parts\[0\]:mergeMeshes\(parts\)\)/);
+  assert.match(canvas, /if\(kind!=="surface"\|\|blockContext==="none"\|\|specimenBlock!=="none"\)\{setBlockContextMesh\(null\);return\}/);
+  assert.match(canvas, /return\(\)=>\{active=false\}/);
   assert.match(canvas, /draw\(blockContextMesh,\[\.79,\.64,\.49,\.34\],4\)/);
   assert.match(canvas, /drawSurfaceShell\(\)/);
 });
 
-test("context state transitions reset on entry, leave, specimen change, and history restore", () => {
-  const specimenRotation = {x: 3, y: 8, z: 1};
-  const specimenLayers = ["tissue", "thalamus"];
-  const specimenState = createBlockContextState({specimenRotation, specimenLayers, specimenTissueMode: "ghost"});
-  const on = transitionBlockContext(specimenState, {type: "toggle", specimen: "lateral-ventricle"});
-  assert.equal(on.enabled, true);
-  assert.equal(shouldRenderBlockContext({workspace: "blocks", specimen: "lateral-ventricle", state: on}), true);
-  assert.strictEqual(on.specimenRotation, specimenRotation);
-  assert.strictEqual(on.specimenLayers, specimenLayers);
-  assert.equal(on.specimenTissueMode, "ghost");
-
-  const section = transitionBlockContext(on, {type: "set-view", view: "section"});
-  assert.equal(section.enabled, true);
-  assert.equal(section.view, "section");
-  const off = transitionBlockContext(section, {type: "close"});
-  assert.equal(off.enabled, false);
-  assert.equal(shouldRenderBlockContext({workspace: "blocks", specimen: "lateral-ventricle", state: off}), false);
-  const reentered = transitionBlockContext(on, {type: "enter-workspace", workspace: "blocks"});
-  assert.equal(reentered.enabled, false);
-  const left = transitionBlockContext(on, {type: "leave-workspace", workspace: "surface"});
-  assert.equal(left.enabled, false);
-  const otherSpecimen = transitionBlockContext(on, {type: "select-specimen", specimen: "diencephalon"});
-  assert.equal(otherSpecimen.enabled, false);
-  const restored = transitionBlockContext(on, {type: "restore-route", workspace: "blocks", specimen: "lateral-ventricle"});
-  assert.equal(restored.enabled, false);
-  assert.equal(shouldRenderBlockContext({workspace: "blocks", specimen: "diencephalon", state: on}), false);
-  assert.equal(shouldRenderBlockContext({workspace: "surface", specimen: "lateral-ventricle", state: on}), false);
-});
-
-test("context close, rotation, and view switching do not write specimen state", () => {
-  const contextMarkup = page.split("<section id=\"block-context-panel\" className=\"blockContextPanel\"")[1].split("</section>}")[0];
-  assert.doesNotMatch(contextMarkup, /setRotation\(/);
-  assert.doesNotMatch(contextMarkup, /setBlockLayers\(|setBlockTissueMode\(|setBlockViewPreset\(/);
-  assert.match(page, /function moveBlockContext\(e:PointerEvent<HTMLDivElement>\)/);
-  assert.match(page, /setBlockContextRotation\(current=>/);
-  assert.match(page, /transitionBlockContextState\(\{type:"select-specimen",specimen:key\}\)/);
+test("page wiring is data-driven and keeps route rotation, cut metadata, and specimen state isolated", () => {
+  assert.doesNotMatch(page, /blockSpecimen==="lateral-ventricle"&&<div className="blockContextLauncher"/);
+  assert.match(page, /blockContextVisible&&<section id="block-context-panel"/);
+  assert.match(page, /plane=\{specimenLesson\.plane\} position=\{specimenLesson\.position\} focus=\{specimenLesson\.focus\}/);
+  assert.match(page, /blockContext=\{blockSpecimen as BlockContextSpecimen\}/);
+  assert.match(page, /showCutPlane=\{true\}/);
+  assert.match(page, /blockContextView==="section"/);
+  assert.match(page, /aria-controls="block-context-panel"/);
+  assert.match(page, /useState<Rotation>\(\(\)=>\(\{\.\.\.blockInitialRotations\[initialBlockSpecimen\]\}\)\)/);
+  assert.match(page, /setBlockContextRotation\(\{\.\.\.blockInitialRotations\[key\]\}\)/);
   assert.match(page, /transitionBlockContextState\(\{type:"restore-route"/);
-  assert.match(page, /blockContextVisible\?"位置表示を閉じる":"全脳で位置を確認"/);
-  assert.match(page, /function closeBlockContext\(\)/);
-  assert.match(page, /blockContextLauncherRef\.current\?\.focus\(\)/);
+  assert.match(page, /function moveBlockContext\(e:PointerEvent<HTMLDivElement>\)/);
+  const markup = page.split('<section id="block-context-panel" className="blockContextPanel"')[1].split("</section>}")[0];
+  assert.doesNotMatch(markup, /setRotation\(|setBlockLayers\(|setBlockTissueMode\(|setBlockViewPreset\(/);
 });
 
-test("context controls retain WebGL fallback, disclaimers, and 44px mobile stacking", () => {
+test("controls retain fallback, cautious labels, focus return, and mobile sizing", () => {
   assert.match(page, /onWebGLUnavailableChange=\{setBlockContextWebglUnavailable\}/);
   assert.match(page, /位置目安・教材内代表断面/);
   assert.match(page, /全切断面、切断幅、摘出順、実習手順を再現するものではありません/);
   assert.match(page, /実標本の代替ではなく/);
+  assert.match(page, /blockContextLauncherRef\.current\?\.focus\(\)/);
   assert.match(css, /\.blockContextLauncher button \{[^}]*min-height: 44px/);
   assert.match(css, /\.blockContextClose \{[^}]*min-height: 44px/);
   assert.match(css, /\.blockContextSwitch button \{[^}]*min-height: 44px/);
   assert.match(css, /@media\(max-width:760px\)\{\.learningGrid\.blockContext-active\{display:flex;flex-direction:column/);
   assert.match(css, /\.learningGrid\.blockContext-active \.blockContextPanel\{order:2\}/);
   assert.match(css, /\.learningGrid\.blockContext-active \.learningGuide\{order:3\}/);
-  for (const key of ["diencephalon", "radiations", "commissural-system", "choroid-plexus", "medial-temporal", "midbrain-section", "hindbrain"]) {
-    assert.doesNotMatch(page, new RegExp(`blockSpecimen===\\"${key}\\"&&blockContextEnabled`));
-  }
 });

@@ -1,4 +1,9 @@
-export const BLOCK_CONTEXT_SPECIMEN = "lateral-ventricle";
+export const BLOCK_CONTEXT_SPECIMENS = Object.freeze([
+  "lateral-ventricle", "diencephalon", "radiations", "commissural-system",
+  "choroid-plexus", "medial-temporal", "midbrain-section", "hindbrain",
+]);
+const supportedSpecimens = new Set(BLOCK_CONTEXT_SPECIMENS);
+export function isBlockContextSpecimen(specimen) { return supportedSpecimens.has(specimen); }
 
 export const BLOCK_CONTEXT_INITIAL_STATE = Object.freeze({
   enabled: false,
@@ -24,7 +29,7 @@ export function createBlockContextState(overrides = {}) {
 }
 
 /**
- * Pure state transitions for the lateral-ventricle context pilot.
+ * Pure state transitions for the configured block-specimen contexts.
  * Route/specimen entry always starts OFF; the context is opt-in only.
  */
 export function transitionBlockContext(state, event = {}) {
@@ -33,12 +38,12 @@ export function transitionBlockContext(state, event = {}) {
     case "toggle":
       return {
         ...current,
-        enabled: event.specimen === BLOCK_CONTEXT_SPECIMEN ? !current.enabled : false,
+        enabled: isBlockContextSpecimen(event.specimen) ? !current.enabled : false,
       };
     case "set-enabled":
       return {
         ...current,
-        enabled: event.enabled === true && event.specimen === BLOCK_CONTEXT_SPECIMEN,
+        enabled: event.enabled === true && isBlockContextSpecimen(event.specimen),
       };
     case "set-view":
       return {...current, view: event.view === "section" ? "section" : "whole"};
@@ -47,7 +52,7 @@ export function transitionBlockContext(state, event = {}) {
     case "restore-route":
     case "enter-workspace":
     case "select-specimen":
-      return {...current, enabled: false};
+      return {...current, enabled: false, view: "whole"};
     default:
       return current;
   }
@@ -55,5 +60,5 @@ export function transitionBlockContext(state, event = {}) {
 
 export function shouldRenderBlockContext({workspace, specimen, state, enabled} = {}) {
   const contextEnabled = state && typeof state === "object" ? state.enabled === true : enabled === true;
-  return workspace === "blocks" && specimen === BLOCK_CONTEXT_SPECIMEN && contextEnabled;
+  return workspace === "blocks" && isBlockContextSpecimen(specimen) && contextEnabled;
 }
