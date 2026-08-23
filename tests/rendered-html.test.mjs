@@ -1260,8 +1260,9 @@ test("does not distribute third-party lecture or specimen imagery", async () => 
   const rasterOrDocuments = publicEntries
     .map(path => String(path).replaceAll("\\", "/"))
     .filter(path => /\.(png|jpe?g|webp|gif|tiff?|pdf|pptx?|docx?)$/i.test(path));
-  assert.deepEqual(rasterOrDocuments, ["home-surface-preview.png", "og.png"]);
+  assert.deepEqual(rasterOrDocuments, ["home-surface-preview.png", "icon-192.png", "icon-512.png", "og.png"]);
   assert.match(notice, /home-surface-preview\.png is a screenshot of the application’s own/);
+  assert.match(notice, /icon-192\.png and icon-512\.png[\s\S]*rasterized size variants/);
   assert.match(notice, /not a scan, photograph, or reproduction/);
   assert.match(notice, /not used as anatomical evidence/);
   assert.match(notice, /No lecture slides, textbook figures, web specimen photographs/);

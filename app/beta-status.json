@@ -35,9 +35,21 @@
       "heading": "ローカル検証の範囲",
       "body": "Windows Chromeのローカル検証では、statusを含む156/156件が合格しました。これは公開URLや物理タッチ端末、別GPU・別ブラウザでの挙動を保証するものではなく、これらは未確認です。",
       "evidenceRefs": ["PERFORMANCE_AUDIT.md", "PRESENTATION_AUDIT.md", "BETA_STATUS_AUDIT.md"]
+    },
+    {
+      "id": "limitation-offline-storage",
+      "heading": "オフライン利用の範囲",
+      "body": "アプリ本体と、オンラインで一度開いた同一サイト内の教材を端末へ保存します。約92 MBの配布物を一括保存せず、未訪問の教材、外部リンク、ブラウザやOSが保存領域を削除した場合は通信が必要です。",
+      "evidenceRefs": ["PWA_OFFLINE_AUDIT.md", "PERFORMANCE_AUDIT.md", "BETA_ROADMAP.md"]
     }
   ],
   "changes": [
+    {
+      "id": "change-pwa-offline-foundation",
+      "heading": "PWA・オフライン基盤",
+      "body": "ホーム画面への追加に必要なWeb App Manifest、192／512 pxアイコン、Service Workerを追加しました。実際のインストール操作は未確認です。初回は軽量なアプリ本体だけを保存し、同一サイト内の教材資産は利用時に保存します。更新中の画面を強制切替せず、保存失敗時も通常のオンライン利用を継続します。",
+      "evidenceRefs": ["PWA_OFFLINE_AUDIT.md", "build/pwa-vite-plugin.ts", "src/pwa.ts"]
+    },
     {
       "id": "change-navigation-mobile",
       "heading": "ナビゲーション・小画面対応",

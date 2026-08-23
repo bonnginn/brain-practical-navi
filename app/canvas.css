@@ -960,6 +960,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 .workspaceSwitch button > span { font-size: 14px; }
 .workspaceSwitch button > i { font: 11px/1.2 monospace; }
 .topActions > span { font-size: 12px; }
+.topActions > .offlineStatus { display: inline-flex; align-items: center; border-color: #ad5c4c; background: #fff1ed; color: #873a2e; white-space: nowrap; }
 .legalButton, .feedbackButton, .helpButton { font-size: 13px; }
 
 @media(max-width:1120px){.workspaceSwitch button>span{font-size:12px}}

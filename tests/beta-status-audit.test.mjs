@@ -13,8 +13,8 @@ test("beta status registry is valid and covers the fixed provenance references",
   const result = audit(baseStatus);
   assert.equal(result.ok, true, result.errors.join("\n"));
   assert.equal(baseStatus.phase, STATUS_PHASE);
-  assert.equal(baseStatus.knownLimitations.length, 5);
-  assert.equal(baseStatus.changes.length, 7);
+  assert.equal(baseStatus.knownLimitations.length, 6);
+  assert.equal(baseStatus.changes.length, 8);
   assert.match(baseStatus.knownLimitations.find(item => item.id === "limitation-optic-id33").body, /ID33/);
   assert.match(baseStatus.knownLimitations.find(item => item.id === "limitation-mammillary-39-40").body, /ID39・40/);
 });

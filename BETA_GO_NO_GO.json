@@ -124,7 +124,7 @@
     },
     {
       "id": "criterion-05-payload-performance",
-      "criterionText": "公開データ量と初回表示時間を実測し、過大な取得を減らしている。（2026-08-23のpial gzip後、canonical 26経路cold payload監査は26/26件、性能suiteは37/37件、route監査は26経路×3幅×direct/reload＝156/156件。圧縮pial物理パスのみ、raw要求0件、Home・static経路のatlasなし、surface／sections／blocks／segment／quizのexact初回allowlistとartifact-derived budgetを検証した。性能suiteのstable-time回帰は1%未満、sampledPeak backing storage最大増加は2.0%。`public/` 全体は92,397,991 B（88.12 MiB）で100 MiB未満、sectionsは26,441,013 Bで旧34,688,033 B（34.69 MB）から23.8%減り、20–30 MB暫定目安内となった。route／payload／性能の結果は [PERFORMANCE_AUDIT.md](PERFORMANCE_AUDIT.md)、`work/browser-audit/beta-route-audit-pial-gzip-2026-08-23.json`、`work/performance/initial-route-payload-audit-pial-gzip-2026-08-23.json`、`work/performance/performance-suite-pial-gzip-2026-08-23.json` に記録。公開URL・公開回線・物理端末・別GPU／別ブラウザは未確認。）",
+      "criterionText": "公開データ量と初回表示時間を実測し、過大な取得を減らしている。（2026-08-23のpial gzip後、canonical 26経路cold payload監査は26/26件、性能suiteは37/37件、route監査は26経路×3幅×direct/reload＝156/156件。圧縮pial物理パスのみ、raw要求0件、Home・static経路のatlasなし、surface／sections／blocks／segment／quizのexact初回allowlistとartifact-derived budgetを検証した。性能suiteのstable-time回帰は1%未満、sampledPeak backing storage最大増加は2.0%。`public/` 全体はPWA用PNGアイコン追加後92,446,938 B（88.16 MiB）で100 MiB未満、sectionsは26,441,013 Bで旧34,688,033 B（34.69 MB）から23.8%減り、20–30 MB暫定目安内となった。route／payload／性能の結果は [PERFORMANCE_AUDIT.md](PERFORMANCE_AUDIT.md)、`work/browser-audit/beta-route-audit-pial-gzip-2026-08-23.json`、`work/performance/initial-route-payload-audit-pial-gzip-2026-08-23.json`、`work/performance/performance-suite-pial-gzip-2026-08-23.json` に記録。公開URL・公開回線・物理端末・別GPU／別ブラウザは未確認。）",
       "state": "proven-local",
       "locallyProven": [
         "ローカルcanonical 26経路のcold payloadと転送量予算を測定した。",

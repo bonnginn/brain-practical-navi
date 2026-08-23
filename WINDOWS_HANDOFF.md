@@ -11,6 +11,12 @@
 
 「項目を1つずつ指示待ちで直す」のではなく、ロードマップを作業台帳として使い、複数の関連項目を一つのマイルストーンにまとめて進めます。ただし、模式形状を解剖学的に正しいものと断定したり、専門家確認なしに「検証済み」へ昇格したりしません。
 
+## 2026-08-23 PWA・オフライン基盤
+
+Web App Manifestとbase-path対応Service Workerを追加しました。初回は約629 kBのアプリシェル5件だけを保存し、約92.4 MBの公開教材を一括取得しません。同一サイト内の教材資産はオンラインで利用した時点でrelease別data cacheへ保存します。通常／Pages buildと生成物監査、Pages baseでのmanifest・worker・scope・shell 5件、代表教材の利用時cache 5件、PWA追加後の通常build全経路156/156件を確認しました。
+
+Codex内蔵ブラウザの安全ポリシーが通信遮断後の再読込を拒否したため、offline direct/reload、未訪問教材の失敗表示、オンライン復帰後の再試行は未確認です。同じ操作を別経路で迂回して完了扱いにしていません。次回は [PWA_OFFLINE_AUDIT.md](PWA_OFFLINE_AUDIT.md) の未チェック項目から再開してください。公開URL、物理端末、Safari・別ブラウザは未確認です。
+
 ## 2026-08-23 来歴表示監査の現在値
 
 機械台帳は registry 75件、expert pending 75件、表示面フィルタ（脳表／断面／ブロック標本／復習）54／16／30／21件です。学習者向けmappingは222/222件が解決済みで、family別は sections21／surface52／free75／neurovascular22／blocks52です。アプリ在庫は regions26／landmarks8／deep5／basal13／neurovascular22／sections21／block specimens8／layers44／pathways3です。

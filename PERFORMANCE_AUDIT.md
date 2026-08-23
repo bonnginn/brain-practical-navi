@@ -10,7 +10,7 @@
 
 左右pialの既存 `.mesh` は保持したまま、決定的なlossless gzip sidecar（`pial-left.mesh.gz`／`pial-right.mesh.gz`）を追加しました。ローダーはこの2つの論理メッシュだけを圧縮物理パスへ対応づけ、gzip magicのときだけ展開して既存のBNM解析へ渡します。初回route payload監査は圧縮物理パスだけを観測し、raw `.mesh` 要求は0件でした。
 
-新しい初回payload監査は `work/performance/initial-route-payload-audit-pial-gzip-2026-08-23.json` に保存し、canonical 26/26経路が合格しました。sectionsは26,441,013 Bで、旧監査の34,688,033 Bから8,247,020 B（23.8%）減り、surface-lateralは12,804,281 Bで旧監査の21,051,301 Bから減りました。旧34.69 MBは前回実測の履歴として残し、現在値とは扱いません。性能suiteは `work/performance/performance-suite-pial-gzip-2026-08-23.json` の37/37件が合格し、関連経路のstable-time回帰はすべて1%未満、sampledPeak backing storageの最大増加は2.0%でした（レビュー閾値25%未満）。route監査は `work/browser-audit/beta-route-audit-pial-gzip-2026-08-23.json` の156/156件が合格し、error／loader／overflow／WebGL fallbackは各0件です。`public/` 全体は92,397,991 B（88.12 MiB）で、100 MiB上限まで11.88 MiBを残します。
+新しい初回payload監査は `work/performance/initial-route-payload-audit-pial-gzip-2026-08-23.json` に保存し、canonical 26/26経路が合格しました。sectionsは26,441,013 Bで、旧監査の34,688,033 Bから8,247,020 B（23.8%）減り、surface-lateralは12,804,281 Bで旧監査の21,051,301 Bから減りました。旧34.69 MBは前回実測の履歴として残し、現在値とは扱いません。性能suiteは `work/performance/performance-suite-pial-gzip-2026-08-23.json` の37/37件が合格し、関連経路のstable-time回帰はすべて1%未満、sampledPeak backing storageの最大増加は2.0%でした（レビュー閾値25%未満）。route監査は `work/browser-audit/beta-route-audit-pial-gzip-2026-08-23.json` の156/156件が合格し、error／loader／overflow／WebGL fallbackは各0件です。`public/` 全体はPWA用PNGアイコン追加後92,446,938 B（88.16 MiB）で、100 MiB上限まで11.84 MiBを残します。
 
 同じローカルpreview（`http://127.0.0.1:4211`）の視覚確認では、PCはcombinedを押した状態でCanvas 3、狭幅は初期section-onlyでCanvas 1からcombinedでCanvas 3、2つの3D view描画、console warning/error 0を確認しました。要求1366 px時のin-app browser実効`clientWidth`は1035 px、要求390 px時は284 pxであり、物理viewportの寸法としては扱いません。
 
@@ -119,6 +119,14 @@ Windows実ブラウザで側脳室標本（Canvas 1）から編集ツール（Ca
 キャッシュとService Workerのない新規localhost originをChrome DevTools Protocolで計測しました。HomeはHTML、CSS、JavaScript、favicon、実モデル静止プレビューの5要求だけで、encoded転送量は合計164,926 bytes（約161 KiB）、Canvasは0、本格3D mesh要求は0でした。内訳はJavaScript 123,064 bytes、CSS 21,333 bytes、静止プレビュー19,509 bytes、その他1,020 bytesです。
 
 同じタブで「脳表」を開くとCanvasが1つ生成され、左右pial、小脳、橋・延髄、中脳の5 meshを20,880,768 bytes（約19.9 MiB）取得しました。したがって、旧トップ実測20.1 MiB相当の本格3D取得はHomeから分離され、脳表観察の開始時まで遅延しています。
+
+## 2026-08-23 PWA・オフライン基盤
+
+Web App Manifestとbuild revision付きService Workerを追加した。`public/` 約92.4 MBをinstall時に全量取得せず、最終通常buildのshellは628,809 bytes、Pages buildは629,042 bytesで、各5件（index、entry JavaScript、CSS、manifest、favicon）だけだった。同一origin・同一scope内の成功した静的GETは、利用時にrelease別data cacheへ保存する。外部origin、`/cdn-cgi/`、GET以外、Range要求、不透明応答、非2xx応答は保存しない。
+
+Chrome 151のローカルPages build `http://127.0.0.1:4219/brain-practical-navi/` で、manifest URL、Service Worker URLとscope、active/controller、shell cache 5件を確認した。脳表・左外側面をオンラインで開いた後はCanvas 1、loader／alert 0、data cache 5件だった。通信遮断後の再読込はCodex内蔵ブラウザのURL安全ポリシーに拒否されたため、同じ結果を別手段で迂回せず未確認とした。これはアプリの失敗判定ではなく、offline direct/reload、未訪問時の表示、オンライン復帰後の再試行に実測証拠がないという意味である。詳細は [PWA_OFFLINE_AUDIT.md](PWA_OFFLINE_AUDIT.md)。
+
+PWA追加後の最終通常buildは `http://127.0.0.1:4221/` で全26経路をPC／tablet landscape／390 px相当のdirect／reloadで再監査し、`work/browser-audit/beta-route-audit-pwa-final-2026-08-23.json` の156/156件が合格した。
 
 ## 再現可能なローカル計測方法
 
