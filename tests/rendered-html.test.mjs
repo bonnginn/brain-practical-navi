@@ -1966,7 +1966,7 @@ test("status dialog renders the JSON registry through a durable direct route", a
   assert.match(page, /旧模式乳頭体2資産は配布されても学習画面の代用表示には使用しません/);
   assert.match(page, /学習画面に表示する形状は「模式補助」「位置目安」と明示します/);
   assert.doesNotMatch(page, /画面上でも「模式補助」「位置目安」と表示します/);
-  assert.match(page, /更新 2026-08-22・AGPL-3\.0-or-later・無保証/);
+  assert.match(page, /更新 \{betaStatusData\.updated\}・AGPL-3\.0-or-later・無保証/);
   assert.doesNotMatch(page, /主要な溝・裂の線状ガイド、放線群、脈絡叢、海馬采、脳弓/);
 });
 

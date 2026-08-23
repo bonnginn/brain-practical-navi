@@ -13,9 +13,9 @@
 
 ## 2026-08-23 PWA・オフライン基盤
 
-Web App Manifestとbase-path対応Service Workerを追加しました。初回は約629 kBのアプリシェル5件だけを保存し、約92.4 MBの公開教材を一括取得しません。同一サイト内の教材資産はオンラインで利用した時点でrelease別data cacheへ保存します。通常／Pages buildと生成物監査、Pages baseでのmanifest・worker・scope・shell 5件、代表教材の利用時cache 5件、PWA追加後の通常build全経路156/156件を確認しました。
+Web App Manifestとbase-path対応Service Workerを追加しました。初回は約629–632 kBのアプリシェル5件だけを保存し、約92.4 MBの公開教材を一括取得しません。同一サイト内の教材資産はオンラインで利用した時点でrelease別data cacheへ保存します。通常／Pages buildと生成物監査、両baseでのmanifest・active worker・controller・scope・shell 5件、Pages baseの代表教材の利用時cache 5件、PWA追加後の通常build全経路156/156件を確認しました。2026-08-23の通常base再監査ではChrome 151のmanifest parse／installability errorが0件、shell 5件・631,941 bytesでした。最終Pages生成物監査はshell 5件・632,174 bytesです。ただし実際のホーム画面追加と追加後起動は未確認です。
 
-Codex内蔵ブラウザの安全ポリシーが通信遮断後の再読込を拒否したため、offline direct/reload、未訪問教材の失敗表示、オンライン復帰後の再試行は未確認です。同じ操作を別経路で迂回して完了扱いにしていません。次回は [PWA_OFFLINE_AUDIT.md](PWA_OFFLINE_AUDIT.md) の未チェック項目から再開してください。公開URL、物理端末、Safari・別ブラウザは未確認です。
+Codex内蔵ブラウザの安全ポリシーが通信遮断後の再読込を拒否したため、offline direct/reload、未訪問教材の失敗表示、オンライン復帰後の再試行は未確認です。同じ操作を別経路で迂回して完了扱いにしていません。今回もChromeではオンラインの診断だけを読み取り、通信遮断は行っていません。次回は [PWA_OFFLINE_AUDIT.md](PWA_OFFLINE_AUDIT.md) の未チェック項目から再開してください。公開URL、物理端末、Safari・別ブラウザは未確認です。
 
 ## 2026-08-23 数値読込進捗
 
