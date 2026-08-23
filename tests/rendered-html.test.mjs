@@ -1285,9 +1285,15 @@ test("keeps the browser distribution below the beta asset budget", async () => {
 
 test("shows load progress and retries every failed atlas canvas together", async () => {
   const canvas = await readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8");
-  assert.match(canvas, /<progress aria-label="データ読込の進捗" \/>/);
+  assert.match(canvas, /response\.body\.pipeThrough\(new TransformStream/);
+  assert.match(canvas, /response\.headers\.get\("content-length"\)/);
+  assert.match(canvas, /measuredProgress\?downloadProgress\.loaded:undefined/);
+  assert.match(canvas, /受信済み（総量不明）/);
+  assert.match(canvas, /受信完了・展開中/);
+  assert.match(canvas, /aria-live="polite"/);
   assert.match(canvas, /window\.dispatchEvent\(new Event\(ATLAS_RETRY_EVENT\)\)/);
   assert.match(canvas, /window\.addEventListener\(ATLAS_RETRY_EVENT,retry\)/);
+  assert.match(canvas, /atlasDownloadProgress\.reset\(\)/);
 });
 
 test("draws toggleable sulci from cortical region boundaries", async () => {

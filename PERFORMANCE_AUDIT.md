@@ -6,6 +6,12 @@
 
 高解像度断面と3Dモデルを維持しつつ、閲覧しないデータまで利用者へ配信しないことを公開条件とします。ここでいう「公開物全体」はGitHub Pagesのビルドへ入る `public/` 以下の合計であり、1回の閲覧ですべてを取得する量とは異なります。
 
+## 2026-08-23 数値読込進捗
+
+断面画像、手動ラベル、3Dメッシュの応答bodyをstreamで読み、複数資産の実受信byteを集約するよう変更した。全資産から正の `Content-Length` を取得できる場合だけ総量と整数％を表示し、一つでも不明なら受信済みbyteのみを示す。gzip展開・形式検査は受信後の処理として区別し、再試行では集約値をresetする。旧試行の遅延chunkが新試行へ混ざらないよう資産ごとの世代tokenも固定した。
+
+Chrome 151のPages想定buildで、総量不明の `9.4 MB 受信済み（総量不明）`、総量既知の `12 MB / 12 MB（100%）` と `progress value=max=12161658`、390 px相当の横はみ出しなし、低速読込完了後loader／alert 0を確認した。全経路回帰は `work/browser-audit/beta-route-audit-download-progress-2026-08-23.json` の156/156件に合格した。公開URL・実公開回線・物理端末の性能値ではない。詳細は [DOWNLOAD_PROGRESS_AUDIT.md](DOWNLOAD_PROGRESS_AUDIT.md)。
+
 ## 2026-08-23 pialメッシュ圧縮の実測状況
 
 左右pialの既存 `.mesh` は保持したまま、決定的なlossless gzip sidecar（`pial-left.mesh.gz`／`pial-right.mesh.gz`）を追加しました。ローダーはこの2つの論理メッシュだけを圧縮物理パスへ対応づけ、gzip magicのときだけ展開して既存のBNM解析へ渡します。初回route payload監査は圧縮物理パスだけを観測し、raw `.mesh` 要求は0件でした。

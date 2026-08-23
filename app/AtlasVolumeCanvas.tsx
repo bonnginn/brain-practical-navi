@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { SEGMENTATION_LABEL_REVISION } from "./segmentationLabelRevision";
+import { createDownloadProgressTracker, formatDownloadBytes } from "../src/downloadProgress.mjs";
 
 const ASSET_BASE=import.meta.env.BASE_URL;
 
@@ -150,6 +151,33 @@ const SPECIMEN_PARTS:Record<Exclude<SpecimenBlock,"none">,SpecimenPartDefinition
 };
 let volumeCache:Promise<Volume>|null=null,bigBrainCache:Promise<BigBrain>|null=null,fixedBrainCache:Promise<FixedBrain>|null=null,largeVolumeConsumers=0,largeVolumeReleaseTimer:number|null=null,surfaceMeshConsumers=0,surfaceMeshReleaseTimer:number|null=null;const manualSegCache=new Map<string,Promise<ManualSeg>>(),meshCache=new Map<string,Promise<Mesh>>(),zeroHighlightCache=new WeakMap<Mesh,Float32Array>(),surfaceHighlightCache=new WeakMap<Mesh,Map<string,Float32Array>>(),surfaceBoundaryCache=new WeakMap<Mesh,Map<string,Mesh>>(),surfaceRimCache=new WeakMap<Mesh,Map<string,Mesh>>(),surfaceLevelCache=new WeakMap<Mesh,Map<string,Mesh>>(),ventralSurfacePatchCache=new WeakMap<Mesh,Map<string,Mesh>>(),brainstemLevelCache=new WeakMap<Mesh,Map<string,Mesh>>(),midbrainDorsalPatchCache=new WeakMap<Mesh,Map<string,Mesh>>(),surfaceSpatialCache=new WeakMap<Mesh,Map<string,number[]>>(),surfaceFilledPointCache=new WeakMap<Mesh,Map<string,{point:number[];normal:number[]}>>(),conservativeSeptumCache=new WeakMap<Mesh,Mesh>();
 const ATLAS_RETRY_EVENT="brain-practical-navi:retry-atlas-data";
+const atlasDownloadProgress=createDownloadProgressTracker();
+
+async function fetchAtlasBuffer(url:string,id:string,errorLabel:string,token:number){
+  try{
+    const response=await fetch(url);
+    if(!response.ok)throw new Error(`${errorLabel} HTTP ${response.status}`);
+    const contentLength=Number(response.headers.get("content-length"));
+    atlasDownloadProgress.setTotal(id,contentLength,token);
+    if(!response.body){
+      const buffer=await response.arrayBuffer();
+      atlasDownloadProgress.update(id,buffer.byteLength,token);
+      atlasDownloadProgress.processing(id,token);
+      return buffer;
+    }
+    let received=0;
+    const measuredStream=response.body.pipeThrough(new TransformStream<Uint8Array,Uint8Array>({transform(chunk,controller){received+=chunk.byteLength;atlasDownloadProgress.update(id,received,token);controller.enqueue(chunk)}}));
+    const buffer=await new Response(measuredStream).arrayBuffer();
+    atlasDownloadProgress.processing(id,token);
+    return buffer;
+  }catch(error){atlasDownloadProgress.fail(id,token);throw error}
+}
+
+async function trackAtlasProcessing<T>(id:string,task:(token:number)=>Promise<T>){
+  const token=atlasDownloadProgress.begin(id);
+  try{const result=await task(token);atlasDownloadProgress.complete(id,token);return result}
+  catch(error){atlasDownloadProgress.fail(id,token);throw error}
+}
 
 const COMPRESSED_MESH_ASSETS:Readonly<Record<string,string>>=Object.freeze({"pial-left":"pial-left.mesh.gz","pial-right":"pial-right.mesh.gz"});
 function meshAssetFileName(name:string){return COMPRESSED_MESH_ASSETS[name]||`${name}.mesh`}
@@ -162,27 +190,32 @@ function retainSurfaceMeshCaches(){surfaceMeshConsumers++;if(surfaceMeshReleaseT
 function releaseSurfaceMeshCaches(){surfaceMeshConsumers=Math.max(0,surfaceMeshConsumers-1);if(surfaceMeshConsumers>0)return;if(surfaceMeshReleaseTimer!==null)window.clearTimeout(surfaceMeshReleaseTimer);surfaceMeshReleaseTimer=window.setTimeout(()=>{if(surfaceMeshConsumers===0)meshCache.clear();surfaceMeshReleaseTimer=null},750)}
 
 async function loadVolume(){
-  if(!volumeCache)volumeCache=fetch(`${ASSET_BASE}atlas/mni-cerebra-1mm.bin.gz`).then(async r=>{
-    if(!r.ok)throw new Error(`volume HTTP ${r.status}`);let buf=await r.arrayBuffer(),v=new DataView(buf);if(v.getUint32(0,false)!==0x424e5634&&v.getUint16(0,false)===0x1f8b){const stream=new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));buf=await new Response(stream).arrayBuffer();v=new DataView(buf)}if(v.getUint32(0,false)!==0x424e5634)throw new Error("invalid volume header");const dims:[number,number,number]=[v.getUint16(4,true),v.getUint16(6,true),v.getUint16(8,true)],n=dims[0]*dims[1]*dims[2];return{dims,t1:new Uint8Array(buf,10,n),t2:new Uint8Array(buf,10+n,n),labels:new Uint8Array(buf,10+2*n,n),mask:new Uint8Array(buf,10+3*n,n),gm:new Uint8Array(buf,10+4*n,n),wm:new Uint8Array(buf,10+5*n,n),csf:new Uint8Array(buf,10+6*n,n)};
+  const id="volume:mni-cerebra-1mm";
+  if(!volumeCache)volumeCache=trackAtlasProcessing(id,async token=>{
+    let buf=await fetchAtlasBuffer(`${ASSET_BASE}atlas/mni-cerebra-1mm.bin.gz`,id,"volume",token),v=new DataView(buf);if(v.getUint32(0,false)!==0x424e5634&&v.getUint16(0,false)===0x1f8b){const stream=new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));buf=await new Response(stream).arrayBuffer();v=new DataView(buf)}if(v.getUint32(0,false)!==0x424e5634)throw new Error("invalid volume header");const dims:[number,number,number]=[v.getUint16(4,true),v.getUint16(6,true),v.getUint16(8,true)],n=dims[0]*dims[1]*dims[2];return{dims,t1:new Uint8Array(buf,10,n),t2:new Uint8Array(buf,10+n,n),labels:new Uint8Array(buf,10+2*n,n),mask:new Uint8Array(buf,10+3*n,n),gm:new Uint8Array(buf,10+4*n,n),wm:new Uint8Array(buf,10+5*n,n),csf:new Uint8Array(buf,10+6*n,n)};
   });return volumeCache;
 }
 async function loadBigBrain(){
-  if(!bigBrainCache)bigBrainCache=fetch(`${ASSET_BASE}atlas/bigbrain-icbm500.bin.gz`).then(async r=>{
-    if(!r.ok)throw new Error(`BigBrain HTTP ${r.status}`);let buf=await r.arrayBuffer(),v=new DataView(buf);
+  const id="volume:bigbrain-icbm500";
+  if(!bigBrainCache)bigBrainCache=trackAtlasProcessing(id,async token=>{
+    let buf=await fetchAtlasBuffer(`${ASSET_BASE}atlas/bigbrain-icbm500.bin.gz`,id,"BigBrain",token),v=new DataView(buf);
     if(v.getUint32(0,false)!==0x42425631&&v.getUint16(0,false)===0x1f8b){const stream=new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));buf=await new Response(stream).arrayBuffer();v=new DataView(buf)}
     if(v.getUint32(0,false)!==0x42425631)throw new Error("invalid BigBrain header");const dims:[number,number,number]=[v.getUint16(4,true),v.getUint16(6,true),v.getUint16(8,true)],n=dims[0]*dims[1]*dims[2];return{dims,values:new Uint8Array(buf,10,n)};
   });return bigBrainCache;
 }
 async function loadFixedBrain(){
-  if(!fixedBrainCache)fixedBrainCache=fetch(`${ASSET_BASE}atlas/bigbrain-fixed-mri-0444.bin.gz`).then(async r=>{
-    if(!r.ok)throw new Error(`fixed MRI HTTP ${r.status}`);let buf=await r.arrayBuffer(),v=new DataView(buf),magic=v.getUint32(0,false);if(magic!==0x42464d31&&magic!==0x42464d32&&v.getUint16(0,false)===0x1f8b){const stream=new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));buf=await new Response(stream).arrayBuffer();v=new DataView(buf);magic=v.getUint32(0,false)}if(magic!==0x42464d31&&magic!==0x42464d32)throw new Error("invalid fixed MRI header");const dims:[number,number,number]=[v.getUint16(4,true),v.getUint16(6,true),v.getUint16(8,true)],n=dims[0]*dims[1]*dims[2],values=new Uint8Array(buf,10,n);return{dims,values,mask:new Uint8Array(buf,10+(magic===0x42464d32?2:1)*n,n)};
+  const id="volume:bigbrain-fixed-mri-0444";
+  if(!fixedBrainCache)fixedBrainCache=trackAtlasProcessing(id,async token=>{
+    let buf=await fetchAtlasBuffer(`${ASSET_BASE}atlas/bigbrain-fixed-mri-0444.bin.gz`,id,"fixed MRI",token),v=new DataView(buf),magic=v.getUint32(0,false);if(magic!==0x42464d31&&magic!==0x42464d32&&v.getUint16(0,false)===0x1f8b){const stream=new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));buf=await new Response(stream).arrayBuffer();v=new DataView(buf);magic=v.getUint32(0,false)}if(magic!==0x42464d31&&magic!==0x42464d32)throw new Error("invalid fixed MRI header");const dims:[number,number,number]=[v.getUint16(4,true),v.getUint16(6,true),v.getUint16(8,true)],n=dims[0]*dims[1]*dims[2],values=new Uint8Array(buf,10,n);return{dims,values,mask:new Uint8Array(buf,10+(magic===0x42464d32?2:1)*n,n)};
   });return fixedBrainCache;
 }
 async function loadManualSeg(name:"icbm500"){
-  if(!manualSegCache.has(name))manualSegCache.set(name,fetch(`${ASSET_BASE}atlas/bigbrain-practical-segmentation-${name}.bin.gz?v=${SEGMENTATION_LABEL_REVISION}`).then(async r=>{if(!r.ok)throw new Error(`practical segmentation HTTP ${r.status}`);let buf=await r.arrayBuffer(),v=new DataView(buf);if(v.getUint32(0,false)!==0x42425331&&v.getUint16(0,false)===0x1f8b){const stream=new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));buf=await new Response(stream).arrayBuffer();v=new DataView(buf)}if(v.getUint32(0,false)!==0x42425331)throw new Error("invalid practical segmentation header");const dims:[number,number,number]=[v.getUint16(4,true),v.getUint16(6,true),v.getUint16(8,true)],n=dims[0]*dims[1]*dims[2];return{dims,labels:new Uint8Array(buf,10,n)}}));return manualSegCache.get(name)!;
+  const id=`segmentation:${name}`;
+  if(!manualSegCache.has(name))manualSegCache.set(name,trackAtlasProcessing(id,async token=>{let buf=await fetchAtlasBuffer(`${ASSET_BASE}atlas/bigbrain-practical-segmentation-${name}.bin.gz?v=${SEGMENTATION_LABEL_REVISION}`,id,"practical segmentation",token),v=new DataView(buf);if(v.getUint32(0,false)!==0x42425331&&v.getUint16(0,false)===0x1f8b){const stream=new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));buf=await new Response(stream).arrayBuffer();v=new DataView(buf)}if(v.getUint32(0,false)!==0x42425331)throw new Error("invalid practical segmentation header");const dims:[number,number,number]=[v.getUint16(4,true),v.getUint16(6,true),v.getUint16(8,true)],n=dims[0]*dims[1]*dims[2];return{dims,labels:new Uint8Array(buf,10,n)}}));return manualSegCache.get(name)!;
 }
 function loadMesh(name:string){
-  if(!meshCache.has(name))meshCache.set(name,fetch(`${ASSET_BASE}atlas/${meshAssetFileName(name)}`).then(async r=>{if(!r.ok)throw new Error(`${name} HTTP ${r.status}`);let buf=await r.arrayBuffer();if(hasGzipMagic(buf)){const stream=new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));buf=await new Response(stream).arrayBuffer()}return buf}).then(buf=>{
+  const fileName=meshAssetFileName(name),id=`mesh:${fileName}`;
+  if(!meshCache.has(name))meshCache.set(name,trackAtlasProcessing(id,async token=>{let buf=await fetchAtlasBuffer(`${ASSET_BASE}atlas/${fileName}`,id,name,token);if(hasGzipMagic(buf)){const stream=new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));buf=await new Response(stream).arrayBuffer()}
     const v=new DataView(buf),magic=v.getUint32(0,false),nv=v.getUint32(4,true),declaredFaces=v.getUint32(8,true),hasShade=magic===0x424e4d32||magic===0x424e4d33;
     if(magic!==0x424e4d31&&magic!==0x424e4d32&&magic!==0x424e4d33)throw new Error(`${name} invalid mesh header`);
     const faceOffset=magic===0x424e4d33?12+nv*32:magic===0x424e4d32?12+nv*28:12+nv*24,faceBytes=buf.byteLength-faceOffset;
@@ -339,7 +372,9 @@ function drawScale(c:CanvasRenderingContext2D,h:number,scale:number,voxelSizeMm:
 
 export function AtlasVolumeCanvas({kind,plane,position,focus,display,rotation,view="inside",contrast="t1",highlights=[],surfaceHighlights=[],surfaceLandmarks=[],surfaceDeepLandmarks=[],neurovascularHighlights=[],specimenLayers=[],specimenTissueMode="solid",selectionMeshLayers=[],onIdentify,onSurfaceIdentify,onViewChange,onWebGLUnavailableChange,showFocus=true,showCutPlane=true,showZoomControls=true,hemisphere="both",showCerebellum=true,showPonsMedulla=true,showMidbrain=true,specimenBlock="none",blockContext="none",neurovascularOverlay="none",showBrainstemNerves=true,showBasalLandmarks=false,basalLandmark="all",basalHighlights=[],basalOnlySelected=false,surfaceAriaLabel}:{kind:"surface"|"slice";plane:Plane;position:number;focus:Focus;display:Display;rotation:Rotation;view?:"inside"|"ghost"|"extracted"|"segmented";contrast?:"t1"|"t2"|"bigbrain"|"single";highlights?:HighlightLayer[];surfaceHighlights?:HighlightLayer[];surfaceLandmarks?:SurfaceLandmark[];surfaceDeepLandmarks?:SurfaceDeepLandmark[];neurovascularHighlights?:HighlightLayer[];specimenLayers?:string[];specimenTissueMode?:SpecimenTissueMode;selectionMeshLayers?:SelectionMeshLayer[];onIdentify?:(point:IdentifiedPoint)=>void;onSurfaceIdentify?:(point:SurfaceIdentifiedPoint)=>void;onViewChange?:()=>void;onWebGLUnavailableChange?:(unavailable:boolean)=>void;showFocus?:boolean;showCutPlane?:boolean;showZoomControls?:boolean;hemisphere?:"both"|"left"|"right";showCerebellum?:boolean;showPonsMedulla?:boolean;showMidbrain?:boolean;specimenBlock?:SpecimenBlock;blockContext?:BlockContextSpecimen;neurovascularOverlay?:NeurovascularOverlay;showBrainstemNerves?:boolean;showBasalLandmarks?:boolean;basalLandmark?:BasalLandmark;basalHighlights?:BasalLandmark[];basalOnlySelected?:boolean;surfaceAriaLabel?:string}){
   const ref=useRef<HTMLCanvasElement>(null),panDrag=useRef<{x:number;y:number;pan:{x:number;y:number}}|null>(null),surfaceClick=useRef<{x:number;y:number;moved:boolean}|null>(null),[data,setData]=useState<Volume|null>(null),[bigBrain,setBigBrain]=useState<BigBrain|null>(null),[fixedBrain,setFixedBrain]=useState<FixedBrain|null>(null),[manualSeg,setManualSeg]=useState<ManualSeg|null>(null),[meshes,setMeshes]=useState<{surface:Mesh[];segments:Mesh[];overlays:Mesh[];basal:Mesh[];deep:Mesh[];landmarks:Mesh[]}|null>(null),[selectionLayers,setSelectionLayers]=useState<{meshes:Mesh[];color:[number,number,number]}[]>([]),[blockMeshes,setBlockMeshes]=useState<LoadedSpecimenPart[]|null>(null),[blockContextMesh,setBlockContextMesh]=useState<Mesh|null>(null),[error,setError]=useState(""),[retryVersion,setRetryVersion]=useState(0),[sizeVersion,setSizeVersion]=useState(0),[webglUnavailable,setWebglUnavailable]=useState(false),[zoom,setZoom]=useState(1),[pan,setPan]=useState({x:0,y:0});
+  const [downloadProgress,setDownloadProgress]=useState(()=>atlasDownloadProgress.snapshot());
   const surfaceLandmarkKey=surfaceLandmarks.join(","),surfaceDeepLandmarkKey=surfaceDeepLandmarks.join(",");
+  useEffect(()=>atlasDownloadProgress.subscribe(setDownloadProgress),[]);
   useEffect(()=>{if(kind!=="slice")return;retainLargeVolumeCaches();return releaseLargeVolumeCaches},[kind]);
   useEffect(()=>{if(kind!=="surface")return;retainSurfaceMeshCaches();return releaseSurfaceMeshCaches},[kind]);
   useEffect(()=>{if(kind==="slice"&&(contrast==="t1"||contrast==="t2")){setError("");loadVolume().then(setData).catch(e=>setError(String(e)))}},[kind,contrast,retryVersion]);
@@ -383,6 +418,7 @@ export function AtlasVolumeCanvas({kind,plane,position,focus,display,rotation,vi
     if(!error)return;
     const retry=()=>{
       setError("");
+      atlasDownloadProgress.reset();
       if(kind==="surface"){meshCache.clear();setMeshes(null);setBlockMeshes(null);setSelectionLayers([])}
       else if(contrast==="bigbrain"){bigBrainCache=null;manualSegCache.delete("icbm500");setBigBrain(null);setManualSeg(null)}
       else if(contrast==="single"){fixedBrainCache=null;setFixedBrain(null)}
@@ -406,7 +442,10 @@ export function AtlasVolumeCanvas({kind,plane,position,focus,display,rotation,vi
   function resetView(){setZoom(1);setPan({x:0,y:0});onViewChange?.()}
   function adjustSurfaceZoom(factor:number){setZoom(previous=>Math.max(.7,Math.min(2.4,previous*factor)));onViewChange?.()}
   function retryLoad(){window.dispatchEvent(new Event(ATLAS_RETRY_EVENT))}
-  const ready=kind==="slice"?(contrast==="single"?!!fixedBrain:contrast==="bigbrain"?!!bigBrain&&!!manualSeg:!!data):!!meshes&&(specimenBlock==="none"||!!blockMeshes)&&(blockContext==="none"||!!blockContextMesh);return <><canvas ref={ref} onPointerDown={pointerDown} onPointerMove={pointerMove} onPointerUp={pointerUp} onPointerCancel={pointerCancel} onWheel={handleWheel} onDoubleClick={resetView} className={`atlasCanvas ${(kind==="slice"&&onIdentify)||(kind==="surface"&&onSurfaceIdentify)?"identifiable":""} ${zoom>1.01?"zoomed":""}`} aria-hidden={kind==="surface"&&webglUnavailable?true:undefined} aria-label={kind==="surface"?(surfaceAriaLabel??`${specimenBlock==="none"?"MNI高密度皮質表面モデル":"0.5 mm標本から構成した局所3D標本"}${blockContext!=="none"?"と側脳室標本の位置目安":""}${neurovascularOverlay!=="none"?"と模式3D神経血管レイヤー":""}。ホイールで拡大縮小${showZoomControls?"、画面ボタンでも操作可能":""}${onSurfaceIdentify?"、クリックで構造を選択":""}`):`${plane}断面 ${position}。ホイールで拡大縮小、Shiftドラッグで移動`}/>{kind==="surface"&&showZoomControls&&!webglUnavailable?<div className="modelZoomControls" aria-label="3D表示の拡大縮小" onPointerDown={event=>event.stopPropagation()}><button type="button" onClick={()=>adjustSurfaceZoom(1/1.15)} aria-label="縮小">−</button><button type="button" onClick={resetView} title="100%に戻す" aria-label="拡大率を100パーセントに戻す">{Math.round(zoom*100)}%</button><button type="button" onClick={()=>adjustSurfaceZoom(1.15)} aria-label="拡大">＋</button></div>:kind==="slice"&&Math.abs(zoom-1)>.01&&<button type="button" className="zoomReadout" onClick={resetView} title="表示を等倍に戻す">{Math.round(zoom*100)}% <small>リセット</small></button>}{kind==="surface"&&webglUnavailable&&<div className="atlasWebglFallback" role="alert" aria-live="assertive" onPointerDown={event=>event.stopPropagation()}><b>3Dを表示できません</b><p>この環境では3Dを表示できません。WebGL対応ブラウザ、PCまたは横向きタブレットでお試しください。</p></div>}{(!ready||error)&&(error?<div className="atlasLoading error" role="alert"><b>データを読み込めませんでした</b><button type="button" onClick={retryLoad}>再読み込み</button></div>:<span className="atlasLoading" role="status"><span>{specimenBlock==="model-strategy-ventricle"?"比較用模式モデルを読み込み中…":specimenBlock!=="none"?"局所標本を読み込み中…":blockContext!=="none"?"全脳と標本位置を読み込み中…":contrast==="single"?"0.444 mm 単一固定脳を読み込み中…":contrast==="bigbrain"?"組織切片データを読み込み中…":"1 mm 解剖データを読み込み中…"}</span><progress aria-label="データ読込の進捗" /></span>)}</>;
+  const loadingTitle=specimenBlock==="model-strategy-ventricle"?"比較用模式モデルを読み込み中…":specimenBlock!=="none"?"局所標本を読み込み中…":blockContext!=="none"?"全脳と標本位置を読み込み中…":contrast==="single"?"0.444 mm 単一固定脳を読み込み中…":contrast==="bigbrain"?"組織切片データを読み込み中…":"1 mm 解剖データを読み込み中…";
+  const measuredProgress=downloadProgress.total!==null&&downloadProgress.percent!==null;
+  const progressText=downloadProgress.phase==="processing"?"受信完了・展開中…":measuredProgress?`${formatDownloadBytes(downloadProgress.loaded)} / ${formatDownloadBytes(downloadProgress.total!)}（${downloadProgress.percent}%）`:downloadProgress.loaded>0?`${formatDownloadBytes(downloadProgress.loaded)} 受信済み（総量不明）`:"受信準備中…";
+  const ready=kind==="slice"?(contrast==="single"?!!fixedBrain:contrast==="bigbrain"?!!bigBrain&&!!manualSeg:!!data):!!meshes&&(specimenBlock==="none"||!!blockMeshes)&&(blockContext==="none"||!!blockContextMesh);return <><canvas ref={ref} onPointerDown={pointerDown} onPointerMove={pointerMove} onPointerUp={pointerUp} onPointerCancel={pointerCancel} onWheel={handleWheel} onDoubleClick={resetView} className={`atlasCanvas ${(kind==="slice"&&onIdentify)||(kind==="surface"&&onSurfaceIdentify)?"identifiable":""} ${zoom>1.01?"zoomed":""}`} aria-hidden={kind==="surface"&&webglUnavailable?true:undefined} aria-label={kind==="surface"?(surfaceAriaLabel??`${specimenBlock==="none"?"MNI高密度皮質表面モデル":"0.5 mm標本から構成した局所3D標本"}${blockContext!=="none"?"と側脳室標本の位置目安":""}${neurovascularOverlay!=="none"?"と模式3D神経血管レイヤー":""}。ホイールで拡大縮小${showZoomControls?"、画面ボタンでも操作可能":""}${onSurfaceIdentify?"、クリックで構造を選択":""}`):`${plane}断面 ${position}。ホイールで拡大縮小、Shiftドラッグで移動`}/>{kind==="surface"&&showZoomControls&&!webglUnavailable?<div className="modelZoomControls" aria-label="3D表示の拡大縮小" onPointerDown={event=>event.stopPropagation()}><button type="button" onClick={()=>adjustSurfaceZoom(1/1.15)} aria-label="縮小">−</button><button type="button" onClick={resetView} title="100%に戻す" aria-label="拡大率を100パーセントに戻す">{Math.round(zoom*100)}%</button><button type="button" onClick={()=>adjustSurfaceZoom(1.15)} aria-label="拡大">＋</button></div>:kind==="slice"&&Math.abs(zoom-1)>.01&&<button type="button" className="zoomReadout" onClick={resetView} title="表示を等倍に戻す">{Math.round(zoom*100)}% <small>リセット</small></button>}{kind==="surface"&&webglUnavailable&&<div className="atlasWebglFallback" role="alert" aria-live="assertive" onPointerDown={event=>event.stopPropagation()}><b>3Dを表示できません</b><p>この環境では3Dを表示できません。WebGL対応ブラウザ、PCまたは横向きタブレットでお試しください。</p></div>}{(!ready||error)&&(error?<div className="atlasLoading error" role="alert"><b>データを読み込めませんでした</b><button type="button" onClick={retryLoad}>再読み込み</button></div>:<span className="atlasLoading" role="status" aria-live="polite"><span>{loadingTitle}</span><span className="atlasLoadingValue">{progressText}</span><progress aria-label="データ読込の進捗" aria-valuetext={progressText} value={measuredProgress?downloadProgress.loaded:undefined} max={measuredProgress?downloadProgress.total!:undefined}/></span>)}</>;
 }
 
 function drawFixedSlice(c:CanvasRenderingContext2D,w:number,h:number,v:FixedBrain,plane:Plane,p:number,display:Display,tone:Tone,zoom:number,pan:{x:number;y:number}){

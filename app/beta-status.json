@@ -45,6 +45,12 @@
   ],
   "changes": [
     {
+      "id": "change-download-progress",
+      "heading": "大容量データの読込進捗",
+      "body": "断面画像・手動ラベル・3Dメッシュの取得中に、実際の受信量を表示します。総量を取得できる場合だけ総量と百分率を表示し、取得できない場合は推定値を出さず「総量不明」と表示します。受信後の展開処理と、失敗時の再読み込みも区別しています。",
+      "evidenceRefs": ["DOWNLOAD_PROGRESS_AUDIT.md", "PERFORMANCE_AUDIT.md", "app/AtlasVolumeCanvas.tsx"]
+    },
+    {
       "id": "change-pwa-offline-foundation",
       "heading": "PWA・オフライン基盤",
       "body": "ホーム画面への追加に必要なWeb App Manifest、192／512 pxアイコン、Service Workerを追加しました。実際のインストール操作は未確認です。初回は軽量なアプリ本体だけを保存し、同一サイト内の教材資産は利用時に保存します。更新中の画面を強制切替せず、保存失敗時も通常のオンライン利用を継続します。",

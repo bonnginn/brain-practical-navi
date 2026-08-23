@@ -17,6 +17,12 @@ Web App Manifestとbase-path対応Service Workerを追加しました。初回�
 
 Codex内蔵ブラウザの安全ポリシーが通信遮断後の再読込を拒否したため、offline direct/reload、未訪問教材の失敗表示、オンライン復帰後の再試行は未確認です。同じ操作を別経路で迂回して完了扱いにしていません。次回は [PWA_OFFLINE_AUDIT.md](PWA_OFFLINE_AUDIT.md) の未チェック項目から再開してください。公開URL、物理端末、Safari・別ブラウザは未確認です。
 
+## 2026-08-23 数値読込進捗
+
+断面画像、手動ラベル、3Dメッシュをstreamで読み、実測byteを複数資産で集約する数値進捗を追加しました。全資産の `Content-Length` が取得できる場合だけ総量と整数％を表示し、一つでも不明なら受信済みbyteと「総量不明」を表示して推定％を出しません。受信後の展開・解析を別表示にし、再試行時は進捗を初期化して旧試行の遅延イベントを世代tokenで無視します。
+
+Chrome 151のPages想定buildで総量不明表示、総量既知の `12 MB / 12 MB（100%）` とバー値の一致、390 px相当の横はみ出しなし、完了後loader／alert 0を確認しました。全経路は `work/browser-audit/beta-route-audit-download-progress-2026-08-23.json` の156/156件、全テスト227/227、型検査、通常／Pages buildに合格しています。公開URL、物理端末、別ブラウザ、実公開回線は未確認です。詳細は [DOWNLOAD_PROGRESS_AUDIT.md](DOWNLOAD_PROGRESS_AUDIT.md) を参照してください。
+
 ## 2026-08-23 来歴表示監査の現在値
 
 機械台帳は registry 75件、expert pending 75件、表示面フィルタ（脳表／断面／ブロック標本／復習）54／16／30／21件です。学習者向けmappingは222/222件が解決済みで、family別は sections21／surface52／free75／neurovascular22／blocks52です。アプリ在庫は regions26／landmarks8／deep5／basal13／neurovascular22／sections21／block specimens8／layers44／pathways3です。
@@ -195,7 +201,6 @@ Windows 11／Chrome 151.0.7922.170／Node 24.19.0、ローカルpreview `http://
 ## 9. Mac側で残した未着手事項
 
 - 公開URL・物理端末・別GPU・別ブラウザの性能計測（ローカルWindows Chromeの37/37件は完了）。
-- 読込進捗の数値表示。現在は読込対象の状態表示と失敗時再試行までです。
 - 冠状断・矢状断のセグメンテーション照合表示。
 - 現行再構成モデルと知識ベースモデルの比較試作。
 - 専門家による構造位置・範囲・連続性の確認。

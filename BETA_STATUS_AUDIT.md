@@ -26,6 +26,8 @@ Chrome 151のin-app browserでローカルproduction preview `http://127.0.0.1:4
 
 2026-08-23のpial-gzip成果物は、route `156/156`（`work/browser-audit/beta-route-audit-pial-gzip-2026-08-23.json`）、初回payload `26/26`（`work/performance/initial-route-payload-audit-pial-gzip-2026-08-23.json`）、性能suite `37/37`（`work/performance/performance-suite-pial-gzip-2026-08-23.json`）である。いずれもローカル確認の証拠であり、公開URL、公開回線、物理端末、別GPU／別ブラウザでの検証や、専門家確認を意味しない。
 
+同日、数値読込進捗を追加したPages想定buildでも `work/browser-audit/beta-route-audit-download-progress-2026-08-23.json` の156/156件が合格した。総量既知／不明の両表示と390 px相当の横はみ出しなしを実ブラウザで確認したが、公開URLや物理端末の保証ではない。詳細は [DOWNLOAD_PROGRESS_AUDIT.md](DOWNLOAD_PROGRESS_AUDIT.md) に分離した。
+
 ## 根拠と更新方法
 
 - 各項目の`evidenceRefs`は、リポジトリ内の監査文書、アプリ実装、または機械可読な由来索引を参照する。
@@ -50,7 +52,7 @@ Chrome 151のin-app browserでローカルproduction preview `http://127.0.0.1:4
 
 ## 実装検証
 
-- 全自動テスト: 2026-08-23の現行作業ツリーで206/206成功（Go / No-Go台帳とクイズ全選択肢由来の異常系を含む）。
+- 全自動テスト: 2026-08-23の現行作業ツリーで227/227成功（数値読込進捗、Go / No-Go台帳、クイズ全選択肢由来の異常系を含む）。
 - TypeScript型検査: 成功。
 - 通常本番ビルド: 成功。
 - GitHub Pages向けビルド: 成功。
