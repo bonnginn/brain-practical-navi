@@ -7,6 +7,9 @@ import {
   PHONE_CORE_CRITERION_ID,
   PHONE_CORE_REQUIRED_COMMITTED_EVIDENCE_REFS,
   PHONE_CORE_REQUIRED_LOCAL_ARTIFACT_PATH,
+  ORTHOGONAL_CRITERION_ID,
+  ORTHOGONAL_REQUIRED_COMMITTED_EVIDENCE_REFS,
+  ORTHOGONAL_REQUIRED_LOCAL_ARTIFACT_PATH,
   REPOSITORY_ROOT,
 } from "../scripts/audit_beta_go_no_go.mjs";
 
@@ -131,6 +134,60 @@ test("criterion 04 cannot regress to the old mobile-route evidence only", () => 
   const oldArtifactResult = audit(oldArtifactOnly);
   assert.equal(oldArtifactResult.ok, false);
   assert.match(oldArtifactResult.errors.join("\n"), /exact phone v16 artifact path/);
+});
+
+test("criterion 02 requires the orthogonal review bundle v3 evidence and exact manifest path", () => {
+  const criterion = baseLedger.criteria.find(item => item.id === ORTHOGONAL_CRITERION_ID);
+  assert.ok(criterion);
+  assert.equal(criterion.state, "expert-blocked");
+  assert.equal(criterion.blockingAuthority, "neuroanatomy expert reviewer");
+  assert.equal(criterion.nextAction, "全学習対象の欠落・重複・遊離・空着色を専門家と再確認する。");
+  for (const requiredRef of ORTHOGONAL_REQUIRED_COMMITTED_EVIDENCE_REFS) {
+    assert.ok(criterion.committedEvidenceRefs.includes(requiredRef), requiredRef);
+  }
+  assert.ok(criterion.localArtifactRefs.some(artifact => artifact.path === ORTHOGONAL_REQUIRED_LOCAL_ARTIFACT_PATH));
+
+  const oldObjectiveOnly = clone(baseLedger);
+  const oldCriterion = oldObjectiveOnly.criteria.find(item => item.id === ORTHOGONAL_CRITERION_ID);
+  oldCriterion.committedEvidenceRefs = oldCriterion.committedEvidenceRefs
+    .filter(ref => !ORTHOGONAL_REQUIRED_COMMITTED_EVIDENCE_REFS.includes(ref));
+  oldCriterion.localArtifactRefs = [];
+  const oldResult = audit(oldObjectiveOnly);
+  assert.equal(oldResult.ok, false);
+  assert.match(oldResult.errors.join("\n"), /orthogonal review v3 evidence/);
+  assert.match(oldResult.errors.join("\n"), /exact orthogonal review v3 manifest path/);
+
+  const wrongVersion = clone(baseLedger);
+  const wrongCriterion = wrongVersion.criteria.find(item => item.id === ORTHOGONAL_CRITERION_ID);
+  wrongCriterion.localArtifactRefs[0].path = "work/anatomy-review/orthogonal-review-bundle-v2/manifest.json";
+  const wrongResult = audit(wrongVersion);
+  assert.equal(wrongResult.ok, false);
+  assert.match(wrongResult.errors.join("\n"), /exact orthogonal review v3 manifest path/);
+});
+
+test("criterion 02 rejects orthogonal expert/anatomical pass claims but accepts explicit unreviewed scope", () => {
+  const reviewed = clone(baseLedger);
+  const reviewedCriterion = reviewed.criteria.find(item => item.id === ORTHOGONAL_CRITERION_ID);
+  reviewedCriterion.locallyProven.push("orthogonal bundle reviewed and verified by an expert");
+  const reviewedResult = audit(reviewed);
+  assert.equal(reviewedResult.ok, false);
+  assert.match(reviewedResult.errors.join("\n"), /unsupported orthogonal review claim/);
+
+  const japaneseReviewed = clone(baseLedger);
+  const japaneseCriterion = japaneseReviewed.criteria.find(item => item.id === ORTHOGONAL_CRITERION_ID);
+  japaneseCriterion.unprovenScope = "解剖学的境界は専門家確認済みである。";
+  const japaneseResult = audit(japaneseReviewed);
+  assert.equal(japaneseResult.ok, false);
+  assert.match(japaneseResult.errors.join("\n"), /unsupported orthogonal review claim/);
+
+  const explicitUnreviewed = clone(baseLedger);
+  const unreviewedCriterion = explicitUnreviewed.criteria.find(item => item.id === ORTHOGONAL_CRITERION_ID);
+  unreviewedCriterion.locallyProven = [
+    "review.status=unreviewedで、解剖学的妥当性・境界・採用は未確認である。",
+  ];
+  unreviewedCriterion.unprovenScope = "解剖学的妥当性・境界・採用は未確認であり、専門家確認は未完了。";
+  const explicitResult = audit(explicitUnreviewed);
+  assert.equal(explicitResult.ok, true, explicitResult.errors.join("\n"));
 });
 
 test("local artifact references are optional, local-only, and never existence-required", () => {

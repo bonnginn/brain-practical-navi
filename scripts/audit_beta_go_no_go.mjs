@@ -49,6 +49,13 @@ export const PHONE_CORE_REQUIRED_COMMITTED_EVIDENCE_REFS = Object.freeze([
   "tests/phone-core-interaction-audit.test.mjs",
 ]);
 export const PHONE_CORE_REQUIRED_LOCAL_ARTIFACT_PATH = "work/browser-audit/phone-core-interactions-v16-2026-08-23.json";
+export const ORTHOGONAL_CRITERION_ID = "criterion-02-learning-target-integrity";
+export const ORTHOGONAL_REQUIRED_COMMITTED_EVIDENCE_REFS = Object.freeze([
+  "ORTHOGONAL_REVIEW_BUNDLE_AUDIT.md",
+  "scripts/build_orthogonal_review_bundle.py",
+  "tests/orthogonal-review-bundle.test.mjs",
+]);
+export const ORTHOGONAL_REQUIRED_LOCAL_ARTIFACT_PATH = "work/anatomy-review/orthogonal-review-bundle-v3/manifest.json";
 
 function isRecord(value) {
   return value !== null && typeof value === "object" && !Array.isArray(value);
@@ -287,6 +294,64 @@ function validatePhoneCoreCriterionEvidence(item, index, errors) {
   }
 }
 
+const ORTHOGONAL_UNSUPPORTED_CLAIM_PATTERNS = Object.freeze([
+  /\b(?:reviewed|verified|confirmed|approved|validated|completed|finalized|adopted)\b/gi,
+  /(?:検証済み|確認済み|レビュー済み|承認済み|採用済み|専門家確認済み)/gi,
+  /(?:解剖学的(?:妥当性|境界|採用)|anatomical\s+(?:validity|boundary|adoption))[^。\n]{0,32}(?:verified|confirmed|reviewed|approved|validated|検証済み|確認済み|確定|採用済み)/gi,
+]);
+
+function isNegatedClaim(text, start, end) {
+  const before = text.slice(Math.max(0, start - 24), start).trim();
+  const after = text.slice(end, end + 24).trim();
+  return /(?:\b(?:not|never|without|no|un)\s*|未|非|無|ない|ず)$/i.test(before)
+    || /^(?:ではない|でない|ではありません|では無い|not\b|unproven\b|未)/i.test(after);
+}
+
+function findUnsupportedOrthogonalClaim(text) {
+  if (typeof text !== "string") return null;
+  for (const pattern of ORTHOGONAL_UNSUPPORTED_CLAIM_PATTERNS) {
+    pattern.lastIndex = 0;
+    let match;
+    while ((match = pattern.exec(text)) !== null) {
+      if (!isNegatedClaim(text, match.index, match.index + match[0].length)) return match[0];
+      if (match[0].length === 0) pattern.lastIndex += 1;
+    }
+  }
+  return null;
+}
+
+function validateOrthogonalCriterionEvidence(item, index, errors) {
+  if (item.id !== ORTHOGONAL_CRITERION_ID) return;
+  const label = `criteria[${index}]`;
+  const committedRefs = Array.isArray(item.committedEvidenceRefs) ? new Set(item.committedEvidenceRefs) : new Set();
+  for (const requiredRef of ORTHOGONAL_REQUIRED_COMMITTED_EVIDENCE_REFS) {
+    if (!committedRefs.has(requiredRef)) {
+      errors.push(`${label}.committedEvidenceRefs must include orthogonal review v3 evidence: ${requiredRef}`);
+    }
+  }
+  const localArtifacts = Array.isArray(item.localArtifactRefs) ? item.localArtifactRefs : [];
+  if (!localArtifacts.some(artifact => isRecord(artifact) && artifact.path === ORTHOGONAL_REQUIRED_LOCAL_ARTIFACT_PATH)) {
+    errors.push(`${label}.localArtifactRefs must include the exact orthogonal review v3 manifest path: ${ORTHOGONAL_REQUIRED_LOCAL_ARTIFACT_PATH}`);
+  }
+
+  const claimText = [
+    ...(Array.isArray(item.locallyProven) ? item.locallyProven : []),
+    item.unprovenScope,
+  ].filter(value => typeof value === "string").join("\n");
+  if (!/review\.status\s*[:=]\s*unreviewed/i.test(claimText)) {
+    errors.push(`${label}.locallyProven/unprovenScope must record orthogonal review.status=unreviewed`);
+  }
+  if (!/(?:解剖学的妥当性|anatomical\s+validity)[^。\n]{0,48}(?:未|unproven|not\s+(?:established|proven)|含まない|does\s+not)/i.test(claimText)
+      || !/(?:境界|boundary)[^。\n]{0,48}(?:未|unproven|not\s+(?:established|proven)|含まない|does\s+not)/i.test(claimText)
+      || !/(?:採用|adoption)[^。\n]{0,48}(?:未|unproven|not\s+(?:established|proven)|含まない|does\s+not)/i.test(claimText)) {
+    errors.push(`${label}.locallyProven/unprovenScope must explicitly leave anatomical validity, boundaries, and adoption unproven`);
+  }
+  const unsupportedClaim = findUnsupportedOrthogonalClaim(claimText);
+  if (unsupportedClaim) {
+    errors.push(`${label}.locallyProven/unprovenScope contains unsupported orthogonal review claim: ${unsupportedClaim}`);
+  }
+}
+
 const authorityPatternByState = Object.freeze({
   "expert-blocked": /expert|専門家|neuroanatom/i,
   "administrator-blocked": /administrator|管理者|運営|maintainer/i,
@@ -392,6 +457,7 @@ export function auditBetaGoNoGo({ledger, rootDir = REPOSITORY_ROOT} = {}) {
     validateCommittedEvidenceRefs(item, index, rootDir, trackedPaths, errors);
     validateLocalArtifactRefs(item, index, errors);
     validatePhoneCoreCriterionEvidence(item, index, errors);
+    validateOrthogonalCriterionEvidence(item, index, errors);
   });
   const expectedIds = Object.keys(EXPECTED_CRITERION_STATES);
   if (JSON.stringify([...ids].sort()) !== JSON.stringify([...expectedIds].sort())) {

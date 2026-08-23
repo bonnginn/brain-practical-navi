@@ -28,6 +28,8 @@ criterion 03の中心操作証拠は、`work/browser-audit/core-interactions-pc-
 
 criterion 04の現在の中心操作証拠は、`work/browser-audit/phone-core-interactions-v16-2026-08-23.json`（local-only）です。Windows Chrome 151の390×768、DPR1、`mobile:true`・`touch:true`・coarse pointerで、dock／surface-lateral／sections-horizontal／quizの4 journeyをCDP `Input.dispatchTouchEvent`で実行し、44 px以上・画面内・hit-test可能な操作対象、意味キーと状態連続性、loader／UI・console・request error／横overflow／WebGL fallback 0件を独立validatorで確認しています。旧mobile route記録は履歴として残しますが、監査は `PHONE_CORE_INTERACTION_AUDIT.md`、`scripts/audit_phone_core_interactions.mjs`、`tests/phone-core-interaction-audit.test.mjs` と、このv16 artifactの併記をcriterion 04の必須条件とします。物理スマートフォン、実機タッチ、Safari・別ブラウザ・別GPU、公開URLは未確認です。
 
+criterion 02へは、`work/anatomy-review/orthogonal-review-bundle-v3/manifest.json`（local-only）と、それが参照する161枚のPNGを直交断の客観資料として同期しています。ID33・39・40の全占有X/Y/Z断面、ID39・40の外側endpoint、raw grayscale+outline、manifest schema・入力／画素／PNG hash・pixel-to-voxel geometry・Fortran anchorのstrict validator再計算を記録します。manifestの `review.status` は `unreviewed` であり、この資料は解剖学的妥当性、境界、採用、専門家確認、ground truthを証明しません。必須の追跡可能な根拠は `ORTHOGONAL_REVIEW_BUNDLE_AUDIT.md`、`scripts/build_orthogonal_review_bundle.py`、`tests/orthogonal-review-bundle.test.mjs` です。ignoredなbundleの存在はCIで要求しません。
+
 ## 検査内容
 
 `node scripts/audit_beta_go_no_go.mjs` は、次を確認します。
@@ -37,6 +39,8 @@ criterion 04の現在の中心操作証拠は、`work/browser-audit/phone-core-i
 - `locallyProven` の非空文字列・重複なし、`committedEvidenceRefs` の存在・追跡対象・非 `work/`
 - 更新日のISO形式、任意の `localArtifactRefs` の重複なし・`work/`・`localOnly: true`・`label: local-only`
 - criterion 04のphone v16必須refs（監査文書・runner・focused test）と、`work/browser-audit/phone-core-interactions-v16-2026-08-23.json` のexact local-only path。旧mobile route refsだけへの退行を拒否
+- criterion 02のorthogonal review bundle v3必須refs（監査文書・生成／strict validator・focused test）と、`work/anatomy-review/orthogonal-review-bundle-v3/manifest.json` のexact local-only path。旧objective auditだけ、欠落、v2等の誤ったbundle pathへの退行を拒否
+- criterion 02の `review.status=unreviewed`、解剖学的妥当性・境界・採用が未証明であることを確認し、`reviewed`／`verified`／`検証済み`／`専門家確認済み` 等の過剰主張だけを拒否する（`未確認` 等の否定記録は拒否しない）
 - criterionTextを含め、公開・専門家・全体・β readyをローカル根拠から主張していないこと
 - 上記5つのソース集計値と台帳値の一致
 
