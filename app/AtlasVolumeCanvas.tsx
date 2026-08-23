@@ -185,6 +185,7 @@ async function trackAtlasProcessing<T>(id:string,task:(token:number)=>Promise<T>
 }
 
 const COMPRESSED_MESH_ASSETS:Readonly<Record<string,string>>=Object.freeze({"pial-left":"pial-left.mesh.gz","pial-right":"pial-right.mesh.gz"});
+const COMPRESSED_MESH_AUDIT_SHA256:Readonly<Record<string,string>>=Object.freeze({"pial-left.mesh.gz":"d8112512d0bd930a44d3dc49a63c6a5caeb2342f850ba8f859ad8c26cbb29e5e","pial-right.mesh.gz":"1b41e9d74fed63f6e60aa3f05a7de8a0fad435725e0d3524e0df9ec5f04342dd"});
 function meshAssetFileName(name:string){return COMPRESSED_MESH_ASSETS[name]||`${name}.mesh`}
 function quizVisibilityAuditEnabled(){return typeof window!=="undefined"&&(location.hostname==="127.0.0.1"||location.hostname==="localhost"||location.hostname==="::1")&&new URLSearchParams(location.search).get("quizVisibilityAudit")==="1"}
 async function sha256Hex(buffer:ArrayBuffer){return [...new Uint8Array(await crypto.subtle.digest("SHA-256",buffer))].map(value=>value.toString(16).padStart(2,"0")).join("")}
@@ -222,7 +223,7 @@ async function loadManualSeg(name:"icbm500"){
 }
 function loadMesh(name:string){
   const fileName=meshAssetFileName(name),id=`mesh:${fileName}`;
-  if(!meshCache.has(name))meshCache.set(name,trackAtlasProcessing(id,async token=>{let buf=await fetchAtlasBuffer(`${ASSET_BASE}atlas/${fileName}`,id,name,token);const auditSource=quizVisibilityAuditEnabled()?{path:`public/atlas/${fileName}`,sha256:await sha256Hex(buf)}:undefined;if(hasGzipMagic(buf)){const stream=new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));buf=await new Response(stream).arrayBuffer()}
+  if(!meshCache.has(name))meshCache.set(name,trackAtlasProcessing(id,async token=>{let buf=await fetchAtlasBuffer(`${ASSET_BASE}atlas/${fileName}`,id,name,token);const auditSource=quizVisibilityAuditEnabled()?{path:`public/atlas/${fileName}`,sha256:COMPRESSED_MESH_AUDIT_SHA256[fileName]??await sha256Hex(buf)}:undefined;if(hasGzipMagic(buf)){const stream=new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));buf=await new Response(stream).arrayBuffer()}
     const v=new DataView(buf),magic=v.getUint32(0,false),nv=v.getUint32(4,true),declaredFaces=v.getUint32(8,true),hasShade=magic===0x424e4d32||magic===0x424e4d33;
     if(magic!==0x424e4d31&&magic!==0x424e4d32&&magic!==0x424e4d33)throw new Error(`${name} invalid mesh header`);
     const faceOffset=magic===0x424e4d33?12+nv*32:magic===0x424e4d32?12+nv*28:12+nv*24,faceBytes=buf.byteLength-faceOffset;
@@ -398,8 +399,8 @@ function selectedTriangleProjection(meshes:Mesh[],layers:HighlightLayer[],width:
   const project=(mesh:Mesh,index:number)=>{const offset=index*3,q0=mesh.vertices[offset+2],q1=mesh.vertices[offset]+16,q2=mesh.vertices[offset+1],rx=m[0]*q0+m[3]*q1+m[6]*q2,ry=m[1]*q0+m[4]*q1+m[7]*q2;return [(rx/96*scale*.5+.5)*width,(.5-ry/96*scale*.5)*height] as const};
   const edge=(a:readonly number[],b:readonly number[],x:number,y:number)=>(x-a[0])*(b[1]-a[1])-(y-a[1])*(b[0]-a[0]);
   for(const mesh of meshes){const selected=new Uint8Array(mesh.regions.length);for(let i=0;i<selected.length;i++)if(ids.has(Math.round(mesh.regions[i])))selected[i]=1;for(let face=0;face+2<mesh.faces.length;face+=3){const ia=mesh.faces[face],ib=mesh.faces[face+1],ic=mesh.faces[face+2];if(!selected[ia]&&!selected[ib]&&!selected[ic])continue;const a=project(mesh,ia),b=project(mesh,ib),c=project(mesh,ic),area=edge(a,b,c[0],c[1]);if(Math.abs(area)<1e-6)continue;const minX=Math.max(0,Math.floor(Math.min(a[0],b[0],c[0]))),maxX=Math.min(width-1,Math.ceil(Math.max(a[0],b[0],c[0]))),minY=Math.max(0,Math.floor(Math.min(a[1],b[1],c[1]))),maxY=Math.min(height-1,Math.ceil(Math.max(a[1],b[1],c[1])));for(let y=minY;y<=maxY;y++)for(let x=minX;x<=maxX;x++){const e0=edge(a,b,x+.5,y+.5),e1=edge(b,c,x+.5,y+.5),e2=edge(c,a,x+.5,y+.5);if((e0>=0&&e1>=0&&e2>=0)||(e0<=0&&e1<=0&&e2<=0))mask[y*width+x]=1}}}
-  const sourceMeshes=meshes.map(mesh=>mesh.auditSource).filter((source):source is {path:string;sha256:string}=>!!source);if(sourceMeshes.length!==meshes.length||!mask.some(value=>value===1))return null;
-  return {builder:"AtlasVolumeCanvas.selected-incident-triangles-v1",namespace,activeLayer,sourceMeshes,selectedIds,hemisphere,transform:{rotation:{x:rotation.x,y:rotation.y,z:rotation.z??0},zoom,pan:{x:0,y:0}},projection:{canvasWidth:width,canvasHeight:height,scale:namespace==="neurovascular"?.88:1,clipPolicy:"canvas-bounds",cullPolicy:namespace==="surface"?"conservative-no-depth":"disabled-no-depth"},mask};
+  const conservative=mask.slice();for(let y=0;y<height;y++)for(let x=0;x<width;x++)if(mask[y*width+x])for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){const nx=x+dx,ny=y+dy;if(nx>=0&&ny>=0&&nx<width&&ny<height)conservative[ny*width+nx]=1}const sourceMeshes=meshes.map(mesh=>mesh.auditSource).filter((source):source is {path:string;sha256:string}=>!!source);if(sourceMeshes.length!==meshes.length||!conservative.some(value=>value===1))return null;
+  return {builder:"AtlasVolumeCanvas.selected-incident-triangles-v1",namespace,activeLayer,sourceMeshes,selectedIds,hemisphere,transform:{rotation:{x:rotation.x,y:rotation.y,z:rotation.z??0},zoom,pan:{x:0,y:0}},projection:{canvasWidth:width,canvasHeight:height,scale:namespace==="neurovascular"?.88:1,clipPolicy:"canvas-bounds",cullPolicy:namespace==="surface"?"conservative-no-depth":"disabled-no-depth"},mask:conservative};
 }
 
 function sectionHighlightEvidence(segmentation:ManualSeg|null,plane:Plane,position:number,layers:HighlightLayer[]){
