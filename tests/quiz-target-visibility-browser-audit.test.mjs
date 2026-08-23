@@ -23,7 +23,7 @@ import {
   validateQuizTargetVisibilityFixture,
 } from "../scripts/audit_quiz_target_visibility_browser.mjs";
 
-const root=new URL("../",import.meta.url),scriptPath=new URL("scripts/audit_quiz_target_visibility_browser.mjs",root),appSource=fs.readFileSync(new URL("app/page.tsx",root),"utf8");
+const root=new URL("../",import.meta.url),scriptPath=new URL("scripts/audit_quiz_target_visibility_browser.mjs",root),appSource=fs.readFileSync(new URL("app/page.tsx",root),"utf8"),atlasSource=fs.readFileSync(new URL("app/AtlasVolumeCanvas.tsx",root),"utf8"),runnerSource=fs.readFileSync(scriptPath,"utf8");
 function validateFixture(fixture){return validateQuizTargetVisibilityFixture(fixture.report,{rawArtifactLoader:fixture.rawArtifactLoader,sourceRoot:fixture.sourceRoot})}
 
 test("freezes exact 17/6/17 inventory, options/render dependency, and 120-row matrix",()=>{
@@ -86,6 +86,7 @@ test("rejects fabricated provenance, matrix, capture identity, URL, viewport, tr
     ["viewport",f=>f.report.results[0].captures.H1.viewport.observed.innerWidth=390,"viewport"],
     ["desktop touch observation",f=>f.report.results[0].captures.H1.viewport.observed.maxTouchPoints=1,"viewport"],
     ["phone coarse observation",f=>f.report.results[80].captures.H1.viewport.observed.coarsePointer=false,"viewport"],
+    ["phone desktop screen observation",f=>f.report.results[80].captures.H1.viewport.observed.screen={width:800,height:600,availWidth:800,availHeight:600},"viewport"],
     ["rotation",f=>f.report.results[0].captures.H2.transform.rotation.x=5,"rotation/zoom"],
     ["all-phase surface transform",f=>{for(const phase of ["H1","C","H2"])f.report.results[17].captures[phase].transform={rotation:{x:123,y:456,z:789},zoom:5,pan:{x:999,y:-999}}},"runtime quiz default transform"],
     ["all-phase neuro transform",f=>{for(const phase of ["H1","C","H2"])f.report.results[23].captures[phase].transform={rotation:{x:123,y:456,z:789},zoom:5,pan:{x:999,y:-999}}},"runtime quiz default transform"],
@@ -96,6 +97,19 @@ test("rejects fabricated provenance, matrix, capture identity, URL, viewport, tr
     ["fallback",f=>f.report.results[0].captures.H1.probe.webglFallback=true,"fallback"],
     ["summary",f=>f.report.summary.passedCount=119,"summary fabricated"],
   ];for(const [label,mutate,reason]of cases)expectMutation(label,mutate,reason);
+});
+
+test("accepts Chrome 151 product with HeadlessChrome 151 user agent and rejects old major",()=>{const fixture=createValidQuizTargetVisibilityFixture();try{fixture.report.environment.browser.product="Chrome/151.0.7922.170";assert.equal(validateFixture(fixture).passed,true);fixture.report.environment.browser.product="Chrome/150.0.0.0";const result=validateFixture(fixture);assert.equal(result.passed,false);assert.ok(result.errors.some(error=>error.includes("environment")))}finally{fixture.cleanup()}});
+
+test("a persisted validation remains independently re-readable and stale validation is rejected",()=>{const fixture=createValidQuizTargetVisibilityFixture();try{fixture.report.validation=validateFixture(fixture);assert.equal(validateFixture(fixture).passed,true);fixture.report.validation.summary.passedCount=0;const result=validateFixture(fixture);assert.equal(result.passed,false);assert.ok(result.errors.some(error=>error.includes("persisted validation")))}finally{fixture.cleanup()}});
+
+test("app and independent validator use the shader alpha threshold before identical conservative dilation",()=>{
+  for(const [label,source] of [["app",atlasSource],["validator",runnerSource]]){
+    assert.match(source,/const highlightAlpha=.*\/area;if\(highlightAlpha>\.5\)mask\[/,`${label} must rasterize the shader's interpolated > .5 selection boundary`);
+    assert.match(source,/for\(let dy=-1;dy<=1;dy\+\+\)for\(let dx=-1;dx<=1;dx\+\+\)/,`${label} must apply exactly one conservative pixel of dilation`);
+  }
+  assert.match(atlasSource,/selected-highlight-alpha-v2/);
+  assert.match(runnerSource,/selected-highlight-alpha-v2/);
 });
 
 test("rejects artifact SHA/H mismatch, CSS geometry, intrinsic scaling, and raw byte length",()=>{
