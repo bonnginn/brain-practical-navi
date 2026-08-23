@@ -8,6 +8,7 @@ const read = path => readFile(new URL(`../${path}`, import.meta.url), "utf8");
 
 test("manifest declares base-path-relative launch data and required icon sizes", async () => {
   const manifest = JSON.parse(await read("public/manifest.webmanifest"));
+  const index = await read("index.html");
   assert.equal(manifest.start_url, ".");
   assert.equal(manifest.scope, ".");
   assert.equal(manifest.display, "standalone");
@@ -17,7 +18,8 @@ test("manifest declares base-path-relative launch data and required icon sizes",
   const icon512 = await readFile(new URL("../public/icon-512.png", import.meta.url));
   assert.deepEqual([icon192.readUInt32BE(16), icon192.readUInt32BE(20)], [192, 192]);
   assert.deepEqual([icon512.readUInt32BE(16), icon512.readUInt32BE(20)], [512, 512]);
-  assert.match(await read("index.html"), /rel="manifest" href="%BASE_URL%manifest\.webmanifest"/);
+  assert.match(index, /rel="manifest" href="%BASE_URL%manifest\.webmanifest"/);
+  assert.match(index, /rel="apple-touch-icon" sizes="192x192" href="%BASE_URL%icon-192\.png"/);
 });
 
 test("service worker registration is production-only, scoped, and non-fatal", async () => {

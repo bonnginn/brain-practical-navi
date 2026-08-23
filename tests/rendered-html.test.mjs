@@ -117,6 +117,29 @@ test("publishes complete browser and social metadata", async () => {
   assert.match(favicon, /stroke="#e36e57"/);
 });
 
+test("keeps PWA installation explicit, transient, and base-path aware", async () => {
+  const [html, page, canvasCss, affordance] = await Promise.all([
+    readFile(new URL("index.html", root), "utf8"),
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("app/canvas.css", root), "utf8"),
+    readFile(new URL("src/pwaInstallAffordance.mjs", root), "utf8"),
+  ]);
+  assert.match(html, /<link rel="apple-touch-icon" sizes="192x192" href="%BASE_URL%icon-192\.png" \/>/);
+  assert.match(page, /createPwaInstallAffordance/);
+  assert.match(page, /data-pwa-install-card="true"/);
+  assert.match(page, /data-pwa-install-button="true"/);
+  assert.match(page, /アプリとして追加/);
+  assert.match(page, /アプリとして起動中/);
+  assert.match(page, /共有メニューやブラウザメニューから追加できる場合があります/);
+  assert.match(page, /一度開いた同一サイトの教材を利用時に保存します/);
+  assert.match(page, /約92MB一括保存するものではありません/);
+  assert.match(page, /data-pwa-install-result=\{pwaInstallFeedback\.status\}/);
+  assert.match(canvasCss, /\.pwaInstallButton\s*\{[^}]*min-height:\s*44px/);
+  assert.match(affordance, /beforeinstallprompt/);
+  assert.match(affordance, /appinstalled/);
+  assert.doesNotMatch(affordance, /localStorage|sessionStorage|indexedDB|sendBeacon|analytics/i);
+});
+
 test("loads privacy-first analytics only on public production hosts", async () => {
   const [html, analytics, main, env, readme] = await Promise.all([
     readFile(new URL("index.html", root), "utf8"),

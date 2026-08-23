@@ -166,6 +166,8 @@ node scripts/audit_beta_routes.mjs --base-url http://localhost:4173 --output wor
 
 `BETA_AUDIT_ROUTES` に固定した26経路（ホーム、脳表7、断面3、局所標本8、復習、共同制作、編集、更新履歴・既知の制限、操作ガイド、意見・誤り報告、利用条件）を、1366×768、1024×768、390×768の3幅で、直接遷移（direct）と再読み込み（reload）から巡回する。合計156件を、幅ごとに起動した独立Chromeプロファイルで測定する。Windows β監査の条件はChromeのdevice metricsを `mobile:false`、desktop User-Agent、非タッチに固定する。狭幅の実効DOM `clientWidth` は390 px設定でも375 pxとして横はみ出しを判定する。
 
+2026-08-24、M2比較専用URLを含む27経路版でHomeの端末追加カード追加後を再監査し、1366×768、1024×768、390×768相当のdirect／reload計162/162件が合格した。合成installイベントの専用監査も2幅×3状態＝6/6件で、44 px操作、横overflow／loader／UI error 0を確認した。これは実インストール成功の証拠ではない。
+
 各結果は正確なハッシュ、ページ固有の見出しまたは標本名、`main.appShell`、読込中表示、画面内エラー、console error、request error、横はみ出し、Canvas数を検査する。局所標本8経路では「試作品を確認する」をDOMイベントで押し、`.learningModelStage canvas` の出現と読込完了後を測定する。CanvasがWebGL fallbackへ切り替わった場合は失敗とする。各経路の失敗は結果へ保持して最終JSONに記録し、全件成功でない場合は終了コードを失敗にする。出力JSONがこの監査の機械可読な証拠となる。
 
 この方法で確認できるのは、ローカル本番プレビューにおけるWindows Chrome、指定3幅、直接遷移・再読み込み、DOM上の表示契約である。実機タッチ、異なるGPUやブラウザ、公開URL、外部フォーム送信、解剖学的境界の専門家レビューはこの監査の範囲外であり、公開URLでの巡回は未実施（pending）とする。

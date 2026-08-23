@@ -19,6 +19,8 @@ import { BLOCK_PRIORITY_DISCLAIMER, BLOCK_PRIORITY_ENTRY_BY_KEY, BLOCK_PRIORITY_
 import type { BlockPrioritySpecimenKey } from "../src/blockPriority.mjs";
 import { BLOCK_GUIDED_SPECIMEN_KEYS, createBlockGuidedState, finishBlockGuidedObservation, firstBlockGuidedObservation, guidedStepLayers, moveBlockGuidedObservation, startBlockGuidedObservation } from "../src/blockGuidedObservation.mjs";
 import type { BlockGuidedSpecimenKey, BlockGuidedState } from "../src/blockGuidedObservation.mjs";
+import { createPwaInstallAffordance } from "../src/pwaInstallAffordance.mjs";
+import type { PwaInstallAffordanceOptions, PwaInstallResult, PwaInstallState } from "../src/pwaInstallAffordance.mjs";
 
 const ModelStrategyComparison=lazy(()=>import("./ModelStrategyComparison"));
 
@@ -660,11 +662,14 @@ export default function Home() {
   const [feedbackOpen,setFeedbackOpen]=useState(()=>typeof window!=="undefined"&&overlayFromHash(window.location.hash)==="feedback");
   const [statusOpen,setStatusOpen]=useState(()=>typeof window!=="undefined"&&overlayFromHash(window.location.hash)==="status");
   const [offline,setOffline]=useState(()=>typeof navigator!=="undefined"&&!navigator.onLine);
+  const [pwaInstallState,setPwaInstallState]=useState<PwaInstallState>(()=>({supported:false,mounted:false,installed:false,eventPending:false,canInstall:false,promptInFlight:false}));
+  const [pwaInstallFeedback,setPwaInstallFeedback]=useState<{status:Extract<PwaInstallResult["status"],"accepted"|"dismissed"|"error">;message:string}|null>(null);
   const [phoneMode,setPhoneMode]=useState(currentPhoneCapability);
   const [phoneSettingsOpen,setPhoneSettingsOpen]=useState(false);
   const [anatomyReviewSurfaceFilter,setAnatomyReviewSurfaceFilter]=useState<AnatomyReviewSurface>("all");
   const [anatomyReviewRepresentationFilter,setAnatomyReviewRepresentationFilter]=useState("all");
   const overlayReturnFocus=useRef<HTMLElement|null>(null);
+  const pwaInstallAffordanceRef=useRef<ReturnType<typeof createPwaInstallAffordance>|null>(null);
   const phoneSettingsDialogRef=useRef<HTMLDialogElement|null>(null);
   const phoneSettingsReturnFocus=useRef<HTMLElement|null>(null);
   const overlayOpen=helpOpen||feedbackOpen||legalOpen||statusOpen;
@@ -872,6 +877,17 @@ export default function Home() {
   useEffect(()=>{if(!phoneMode)setPhoneSettingsOpen(false)},[phoneMode]);
   useEffect(()=>{const update=()=>setOffline(!navigator.onLine);window.addEventListener("online",update);window.addEventListener("offline",update);return()=>{window.removeEventListener("online",update);window.removeEventListener("offline",update)}},[]);
   useEffect(()=>{
+    const affordance=createPwaInstallAffordance({windowLike:window as unknown as NonNullable<PwaInstallAffordanceOptions["windowLike"]>,onChange:setPwaInstallState});
+    pwaInstallAffordanceRef.current=affordance;
+    setPwaInstallState(affordance.mount());
+    return()=>{affordance.cleanup();pwaInstallAffordanceRef.current=null};
+  },[]);
+  useEffect(()=>{
+    if(!pwaInstallFeedback)return;
+    const timer=window.setTimeout(()=>setPwaInstallFeedback(null),5000);
+    return()=>window.clearTimeout(timer);
+  },[pwaInstallFeedback]);
+  useEffect(()=>{
     const close=(event:KeyboardEvent)=>{if(event.key==="Escape"){if(phoneSettingsOpen){setPhoneSettingsOpen(false);return}if(modelStrategyComparisonOpen){closeModelStrategyComparison();return}closeOverlay();setDetailsOpen(false)}};
     window.addEventListener("keydown",close);
     return()=>window.removeEventListener("keydown",close);
@@ -1072,6 +1088,20 @@ export default function Home() {
   function chooseNeurovascularStructure(key:NeurovascularStructureKey){const item=neurovascularStructures[key];setSelectedNeurovascularStructure(key);if(item.kind==="arteries")setSurfaceVessels(true);else setSurfaceNerves(true)}
   function closeOverlay(){setHelpOpen(false);setFeedbackOpen(false);setLegalOpen(false);setStatusOpen(false);const nextHash=workspaceHash(workspace,surfaceView,plane,blockSpecimen);if(window.location.hash!==nextHash)window.history.replaceState(null,"",nextHash)}
   function openOverlay(key:OverlayMode){if(!overlayOpen)overlayReturnFocus.current=document.activeElement instanceof HTMLElement?document.activeElement:null;window.history.pushState(null,"",`#workspace/${key}`);setHelpOpen(key==="help");setFeedbackOpen(key==="feedback");setLegalOpen(key==="legal");setStatusOpen(key==="status")}
+  async function requestPwaInstall(){
+    const affordance=pwaInstallAffordanceRef.current;
+    if(!affordance||!pwaInstallState.canInstall)return;
+    const result=await affordance.requestInstall();
+    const messages:Record<Extract<PwaInstallResult["status"],"accepted"|"dismissed"|"error">,string>={
+      accepted:"端末への追加を受け付けました。ブラウザの表示に従ってください。",
+      dismissed:"端末への追加は見送られました。必要な場合はブラウザメニューをご確認ください。",
+      error:"この環境では端末への追加を完了できませんでした。ブラウザメニューをお試しください。",
+    };
+    if(result.status in messages){
+      const status=result.status as Extract<PwaInstallResult["status"],"accepted"|"dismissed"|"error">;
+      setPwaInstallFeedback({status,message:messages[status]});
+    }
+  }
   function openPhoneSettings(origin?:HTMLElement){if(!phoneMode||workspace==="home"||workspace==="collaborate"||workspace==="segment")return;phoneSettingsReturnFocus.current=origin??(document.activeElement instanceof HTMLElement?document.activeElement:null);setPhoneSettingsOpen(true)}
   function closePhoneSettings(){setPhoneSettingsOpen(false)}
   function openWorkspace(key:WorkspaceMode){if(key!=="blocks")stopBlockGuided();setPhoneSettingsOpen(false);setHelpOpen(false);setFeedbackOpen(false);setLegalOpen(false);setStatusOpen(false);setModelStrategyComparisonOpen(false);const nextHash=workspaceHash(key,surfaceView,plane,blockSpecimen);if(window.location.hash!==nextHash)window.history.pushState(null,"",nextHash);transitionBlockContextState({type:key==="blocks"?"enter-workspace":"leave-workspace",workspace:key});setBlockContextDrag(null);setWorkspace(key);if(key==="home")setRotation({...homeRotation});if(key==="sections")setRotation({x:-7,y:-18,z:0});if(key==="surface")setRotation(surfaceViews[surfaceView].rotation);if(key==="blocks"){setBlockIntroOpen(true);setRotation({...blockInitialRotations[blockSpecimen]});setBlockViewPreset("initial")}}
@@ -1160,6 +1190,13 @@ export default function Home() {
           <section><b>公開α版</b><p>解剖学的表示は継続して確認・改訂しています。教科書や検証済み資料と照合して利用してください。</p></section>
           <section><b>利用上の注意</b><p>診断、治療、手術計画、定量研究のためには使用できません。出典・利用条件は事前に確認してください。</p></section>
         </div>
+        <section className="pwaInstallCard" data-pwa-install-card="true" data-pwa-install-state={pwaInstallState.installed?"installed":pwaInstallState.canInstall?"available":"unavailable"}>
+          <header><div><span>OPTIONAL DEVICE INSTALL</span><h2>端末に追加</h2></div>{pwaInstallState.installed&&<b className="pwaInstallBadge">アプリとして起動中</b>}</header>
+          <p>一度開いた同一サイトの教材を利用時に保存します。教材画像を約92MB一括保存するものではありません。未訪問の教材や保存を削除した後は通信が必要です。</p>
+          {pwaInstallState.canInstall&&<button type="button" className="pwaInstallButton" data-pwa-install-button="true" onClick={()=>void requestPwaInstall()}>アプリとして追加</button>}
+          {!pwaInstallState.installed&&!pwaInstallState.canInstall&&<small className="pwaInstallHint">この環境では自動追加を利用できません。共有メニューやブラウザメニューから追加できる場合があります。</small>}
+          {pwaInstallFeedback&&<p className="pwaInstallFeedback" data-pwa-install-result={pwaInstallFeedback.status} role="status" aria-live="polite">{pwaInstallFeedback.message}</p>}
+        </section>
         <footer><button className="homeEnter" onClick={()=>openWorkspace("surface")}>教育目的で教材を開く</button><button onClick={()=>openOverlay("legal")}>利用条件・データ・クレジット</button><button onClick={()=>openOverlay("status")}>更新履歴・既知の制限</button><button onClick={()=>openOverlay("feedback")}>匿名の意見・誤り報告</button></footer>
       </article>
       <p className="homeQuietNote">教育目的の試作教材です。内容への懸念や解剖学的な指摘は、匿名の意見・誤り報告からお知らせください。</p>

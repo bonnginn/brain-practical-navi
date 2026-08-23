@@ -57,6 +57,12 @@
       "evidenceRefs": ["PWA_OFFLINE_AUDIT.md", "build/pwa-vite-plugin.ts", "src/pwa.ts"]
     },
     {
+      "id": "change-pwa-install-affordance",
+      "heading": "端末への追加案内",
+      "body": "ホームへ端末追加の案内を追加しました。対応ブラウザが追加操作を提供した場合だけ、利用者がボタンを押して開始します。自動表示や追跡は行いません。一度開いた同一サイトの教材を利用時に保存しますが、約92 MBを一括保存せず、未訪問教材や保存削除後は通信が必要です。ローカルの合成イベントで表示契約を確認しましたが、実際のホーム画面追加と追加後起動は未確認です。",
+      "evidenceRefs": ["PWA_INSTALL_AFFORDANCE_AUDIT.md", "PWA_OFFLINE_AUDIT.md", "src/pwaInstallAffordance.mjs"]
+    },
+    {
       "id": "change-navigation-mobile",
       "heading": "ナビゲーション・小画面対応",
       "body": "脳表・断面・ブロック・復習・共同制作・編集・操作ガイド・利用条件をhash付きの画面として整理し、小画面では専用の下部導線と一列表示を用意しました。",

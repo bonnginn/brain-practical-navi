@@ -1,6 +1,6 @@
 # PWA・オフライン監査
 
-更新日: 2026-08-23
+更新日: 2026-08-24
 
 ## 対象と方針
 
@@ -29,6 +29,7 @@
 
 - [x] 通常baseでmanifest URL、active Service Worker、controller、worker URL、scopeを確認する。
 - [ ] ブラウザまたはOSのホーム画面追加を実際に完了し、追加後の起動を確認する。
+- [x] Homeに明示操作の端末追加案内を置き、非対応環境と限定的なオフライン範囲を過剰表現なく案内する。
 - [x] 初回install要求にatlas／mesh／volumeなど大容量教材が含まれないことを確認する（v10後の最終Pages buildはshell 5件・633,760 bytes、最終通常buildはshell 5件・633,527 bytes）。
 - [x] Homeと代表的な教材経路をオンラインで一度開いた後、runnerが所有するローカル静的サーバーを停止し、保存済み経路の直接表示・再読込・基本操作を確認する（Chrome 151／Windows／Node 24、通常base・Pages base）。
 - [x] 未訪問教材では黒画面にせず、既存の読込失敗・再試行表示を確認する。これはサーバー停止中の既存UI確認であり、`navigator.onLine`や「オフライン」バッジを合格条件にしない。
@@ -52,3 +53,7 @@
 オンラインで訪問済みの脳表経路は、サーバー停止中もService Workerからdirect／reload／`about:blank`→hash routeで復帰し、Canvas 1、loader／UI error／横overflow／WebGL fallback 0を確認した。未訪問のBigBrain assetは停止前にCache Storageへ存在せず、停止中は既存の読込失敗・再試行UIを確認した。再listen後の同じportで、対象GET `200`・11,904,805 bytes、Cache Storage entry +1、Canvas 3を確認した。
 
 これはrunner所有のローカルHTTP listener停止による回復性監査である。`navigator.onLine`はtrueのままで、オフラインバッジは合格条件にしていない。物理的なネットワーク／OSオフライン、公開URL、物理端末、Safari・別ブラウザ、インストール済みPWA、ホーム画面追加と起動は確認していない。したがってホーム画面追加を含むPWA全体の完了チェックは未完了のまま維持する。再現手順とテスト契約は `scripts/audit_pwa_offline_browser.mjs` と `tests/pwa-offline-browser-audit.test.mjs` に記録した。
+
+## 2026-08-24 端末追加導線後の再監査
+
+Homeへ明示クリック式の端末追加カードを追加した後、通常／Pages buildでserver-unavailability監査を再実行し、各10 action、合計20/20、blocker 0、独立validator passを維持した。合成 `beforeinstallprompt` によるPC／390 px相当のUI状態監査は6/6件、canonical routeは162/162件、cold初期payloadは27/27件だった。実インストールを行った結果ではない。詳細は [PWA_INSTALL_AFFORDANCE_AUDIT.md](PWA_INSTALL_AFFORDANCE_AUDIT.md) を参照する。

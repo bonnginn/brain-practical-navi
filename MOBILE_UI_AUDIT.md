@@ -1,6 +1,6 @@
 # スマートフォン専用UI監査
 
-更新日: 2026-08-23
+更新日: 2026-08-24
 
 ## 対象と境界
 
@@ -50,3 +50,7 @@ coarse phoneは26経路×direct/reload＝52/52件に合格し、segmentはCanvas
 全journeyでready後のloader、UI／console／request error、横overflow、WebGL fallbackは0件だった。Solレビュー後の独立validatorは、action summaryとprobeの対応、touch targetのrect／point／geometry、primaryTouchIdとtarget／touch ID、タッチ点数（tapは1→0、dragは1→1→0）、イベントsequence、実設定遷移をreportから再計算する。これはChromeのcoarse-touch emulationによるローカル実ブラウザでの導線・状態遷移の確認であり、画素品質、解剖学的妥当性、専門家レビューを判定しない。スマートフォンUI全体のβ完了判定にも用いない。
 
 物理スマートフォン、実機タッチ、Safari・別ブラウザ、別GPU、公開URL・公開回線、インストール済みPWAとホーム画面追加後の起動は未確認である。詳細な契約と保存形式は [PHONE_CORE_INTERACTION_AUDIT.md](PHONE_CORE_INTERACTION_AUDIT.md) に分離して記録する。
+
+## 2026-08-24 Homeの端末追加案内
+
+Homeへ端末追加カードを追加し、390×768相当で追加ボタン44 px以上、横overflow 0、loader／UI error 0を確認した。promptがない環境ではメニューから追加できる場合があると案内し、対応環境でも利用者の明示クリックまでpromptを呼ばない。合成イベントによる状態確認であり、物理端末への実追加、追加後起動、Safari対応完了を意味しない。詳細は [PWA_INSTALL_AFFORDANCE_AUDIT.md](PWA_INSTALL_AFFORDANCE_AUDIT.md) に記録した。

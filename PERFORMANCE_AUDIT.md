@@ -134,6 +134,8 @@ Chrome 151のローカルPages build `http://127.0.0.1:4219/brain-practical-navi
 
 PWA追加後の最終通常buildは `http://127.0.0.1:4221/` で全26経路をPC／tablet landscape／390 px相当のdirect／reloadで再監査し、`work/browser-audit/beta-route-audit-pwa-final-2026-08-23.json` の156/156件が合格した。
 
+2026-08-24、Homeの端末追加導線後にcanonical 27経路を再測定し、route監査162/162件、cold初期payload 27/27件が合格した。新しい画像、mesh、volumeなどのネットワーク資産は追加していない。実インストールや公開回線の性能証拠ではない。
+
 ## 再現可能なローカル計測方法
 
 本番Viteビルドをローカルのpreviewサーバーで配信し、次のスクリプトを同じWindows端末で実行します。計測値をこの文書へ転記する場合は、実行日時、端末、Chromeバージョン、viewport、経路、`cold`／`warm`の別を併記し、実測していない値は補いません。
