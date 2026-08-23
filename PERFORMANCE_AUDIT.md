@@ -307,3 +307,7 @@ missing／duplicate／unexpected route key、console／request／UI error、残�
 ### Papez由来別ステッパー追加後
 
 `work/performance/initial-route-payload-papez-stepper-2026-08-24.json` でcanonical 27/27件を再測定した。`surface-free` は13,823,419 encoded bytes・23 requestsで、既存のexact allowlistだけを取得し、artifact-derived budget 14,591,337 bytes内だった。段階定義とUIだけを追加し、新しいatlas asset requestは0件である。missing／duplicate／unexpected、console／request／UI error、loader、overflow、WebGL fallbackは0件だった。route監査も `work/browser-audit/beta-route-audit-papez-stepper-2026-08-24.json` の162/162件に合格した。公開回線、物理端末、別GPU／別ブラウザの性能は未確認である。
+
+### ブロック標本のβ重点導線追加後
+
+`work/performance/initial-route-payload-block-priority-2026-08-24.json` でcanonical 27/27件を再測定した。優先度契約、左レール区分、説明だけを追加し、8標本の既存exact asset allowlistとartifact-derived budgetはすべて維持された。新しいatlas asset request、missing／duplicate／unexpected、console／request／UI error、loader、overflow、WebGL fallbackは0件だった。route監査も `work/browser-audit/beta-route-audit-block-priority-2026-08-24.json` の162/162件に合格した。公開回線、物理端末、別GPU／別ブラウザの性能は未確認である。

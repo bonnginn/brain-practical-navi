@@ -99,6 +99,12 @@
       "evidenceRefs": ["BLOCK_CONTEXT_AUDIT.md", "BETA_ROADMAP.md", "public/atlas/specimen-blocks.json"]
     },
     {
+      "id": "change-block-priority-routing",
+      "heading": "ブロック標本の重点導線",
+      "body": "8ブロック標本のうち、ロードマップで先行改善対象としていた側脳室、レンズ核・投射線維、脈絡叢、内側側頭葉を「β重点4」、残る4標本を「発展観察4」として入口を整理しました。この区分は観察導線であり、実習頻度、由来、確度、専門家レビュー、品質の順位ではありません。全8標本と既存URL・機能を維持し、形状や境界は変更していません。",
+      "evidenceRefs": ["BLOCK_SPECIMEN_PRIORITY_AUDIT.md", "BETA_ROADMAP.md", "src/blockPriority.mjs"]
+    },
+    {
       "id": "change-performance-local",
       "heading": "性能測定",
       "body": "ローカル本番ビルドを79件の性能マトリクスで測定し、79/79件が測定条件を通過しました。M2比較専用URL追加後の初回payloadもdesktop 1366×768のcanonical 27経路を確認し、27/27件が通過しました。通常の共同制作ページは比較資産を取得せず、専用URLだけが比較用3資産を読み込みます。これはローカルデスクトップChromeの記録であり、物理端末や公開回線の保証ではありません。",

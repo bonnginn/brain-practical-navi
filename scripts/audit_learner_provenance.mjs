@@ -10,6 +10,7 @@ import {
   deriveLearnerProvenanceDisplay,
   shortBadgeForEntries,
 } from "../src/learnerProvenance.mjs";
+import { BLOCK_SPECIMEN_KEYS as BLOCK_PRIORITY_SPECIMEN_KEYS } from "../src/blockPriority.mjs";
 
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 export const REPOSITORY_ROOT = path.resolve(SCRIPT_DIR, "..");
@@ -93,13 +94,6 @@ function parsePathwayPresets(source) {
   });
 }
 
-function arrayValues(source, declarationName) {
-  const match = source.match(new RegExp(`const\\s+${regexEscape(declarationName)}\\s*:[^=]*=\\[(?<body>[\\s\\S]*?)\\];`));
-  if (!match) throw new Error(`Could not locate ${declarationName} in ${APP_SOURCE_RELATIVE_PATH}`);
-  return [...match.groups.body.matchAll(/"([^"]+)"|\b([A-Za-z][A-Za-z0-9-]*)\b/g)]
-    .map(matchItem => matchItem[1] ?? matchItem[2]);
-}
-
 function blockLayerKeysBySpecimen(source) {
   const body = objectBody(source, "blockSpecimens");
   const starts = [...body.matchAll(/^\s*(?:"(?<quoted>[^"]+)"|(?<bare>[A-Za-z][A-Za-z0-9-]*))\s*:\s*\{/gm)];
@@ -119,7 +113,11 @@ function blockLayerKeysBySpecimen(source) {
  * drift when a visible app key is added or removed.
  */
 export function extractAppLearnerInventories(source) {
-  const blockSpecimenKeys = arrayValues(source, "blockSpecimenKeys");
+  if (!/import\s*\{[^}]*\bBLOCK_SPECIMEN_KEYS\b[^}]*\}\s*from\s*"\.\.\/src\/blockPriority\.mjs";/.test(source)
+      || !/const\s+blockSpecimenKeys\s*:[^=]*=\s*\[\.\.\.BLOCK_SPECIMEN_KEYS\];/.test(source)) {
+    throw new Error("blockSpecimenKeys must consume the audited src/blockPriority.mjs inventory");
+  }
+  const blockSpecimenKeys = [...BLOCK_PRIORITY_SPECIMEN_KEYS];
   const blockLayersBySpecimen = blockLayerKeysBySpecimen(source);
   return {
     surfaceRegionKeys: objectKeys(source, "surfaceRegions"),

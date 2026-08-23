@@ -271,6 +271,19 @@ html, body, #root { height: 100%; overflow: hidden; }
 
 .lessonRailBtn { grid-template-columns: 30px minmax(0,1fr); padding-block: 15px; }
 .lessonRailBtn b { line-height: 1.35; }
+.blockPriorityDisclaimer { margin: 0 18px 12px; color: #66716f; font-size: 12px; line-height: 1.55; }
+.blockPriorityGroup { margin: 0 12px 13px; border: 1px solid #c6cbc5; background: #e5e4de; }
+.blockPriorityGroup > header { display: grid; gap: 2px; padding: 8px 9px 7px; border-bottom: 1px solid #d0d2cc; }
+.blockPriorityGroup > header b { color: #2a514c; font-size: 14px; }
+.blockPriorityGroup > header small { color: #68736f; font-size: 12px; line-height: 1.4; }
+.blockPriorityGroup > div { display: grid; gap: 1px; background: #d5d7d0; }
+.blockPriorityGroup > div > .lessonRailBtn { grid-template-columns: 30px minmax(0,1fr); padding: 9px 9px; background: #f3f2ed; }
+.blockPriorityGroup > div > .lessonRailBtn.active { background: #fffdf7; }
+.blockPriorityGroup .lessonRailBtn small { margin-top: 2px; }
+.blockPriorityGroup .lessonRailBtn .blockPriorityReason { grid-column: 2; color: #68736f; font: 12px/1.45 sans-serif; letter-spacing: 0; }
+.blockPrioritySelection { display: flex; align-items: flex-start; gap: 8px; margin: 14px 0 0; padding: 8px 9px; border: 1px solid #bdc9c1; background: #eef2ed; }
+.blockPriorityBadge { flex: 0 0 auto; padding: 3px 6px; border: 1px solid #6c9286; border-radius: 999px; background: #dfeae3; color: #315e55; font: 700 11px/1.2 sans-serif; white-space: nowrap; }
+.blockPrioritySelection p { margin: 0; color: #50625d; font-size: 13px; line-height: 1.55; }
 .railMemo { margin: 0; padding: 0 18px; color: #6f7877; font-size: 14px; line-height: 1.75; }
 .railReset { width: calc(100% - 36px); margin: 18px; padding: 9px; border: 1px solid #aeb5b1; background: #f6f4ef; color: #596361; font-size: 16px; }
 .leftRail { overflow-y: auto; overflow-x: hidden; scrollbar-width: thin; scrollbar-color: #aeb6b2 transparent; }

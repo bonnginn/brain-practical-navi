@@ -274,3 +274,9 @@ Windows Chrome 151のローカルproduction preview `http://127.0.0.1:4312` で�
 自由観察のPapez回路を6段階化した。海馬・乳頭体・視床は既存クイズ断面ラベル、脳弓は模式3D、帯状回・海馬傍回・嗅内野はCerebrA／Desikan系アトラス3Dとして表示区分を分けた。乳頭体は「断面ラベルのみ」、視床は「前部核は未分節」とし、3D専用段階では断面Canvasを生成しない。新しい形状、線維路、投射方向は追加していない。
 
 Windows Chrome 151のローカルproduction preview `http://127.0.0.1:4314` で前後移動、最初へ戻る、再生、6段階目の自動停止、別回路への切替を実操作した。断面段階はCanvas 2、3D専用段階はCanvas 1、loader／UI error 0。canonical route監査は `work/browser-audit/beta-route-audit-papez-stepper-2026-08-24.json` の162/162件、cold payload監査は `work/performance/initial-route-payload-papez-stepper-2026-08-24.json` の27/27件に合格した。公開URL、物理端末、別GPU／別ブラウザ、解剖学的妥当性の専門家レビューは未確認である。
+
+### 2026-08-24 ブロック標本のβ重点導線
+
+左レールを、ロードマップ上の改善対象である側脳室、レンズ核・投射線維、脈絡叢、内側側頭葉の「β重点4」と、残る「発展観察4」に分けた。全8標本は常時利用でき、既存番号・hash・初期標本・Canvas・assetを変更しない。画面上にも、区分は観察導線であり由来・確度・専門家レビューを示さないと明記した。
+
+Chrome 151のローカルproduction preview `http://127.0.0.1:4315` で全8標本を順に選択し、区分、hash、バッジ、Canvas 1、loader／UI error／横overflow 0を確認した。canonical route監査は `work/browser-audit/beta-route-audit-block-priority-2026-08-24.json` の162/162件、cold payload監査は `work/performance/initial-route-payload-block-priority-2026-08-24.json` の27/27件に合格した。公開URL、物理端末、別GPU／別ブラウザ、専門家による形状・優先順位の確認は未完了である。
