@@ -66,6 +66,12 @@ ID 33は分割作業の参照足場に限り、36–40へ機械的に座標分�
 
 代表断面は画像を読む専門家が確認を開始する候補にすぎない。12成分を座標や大きさでID 36–38へ機械分割せず、ID 33を断面学習・通常クイズ正答・分節入口から除外した現行方針も変更しない。この監査は視交叉、左右視索、乳頭体その他の名称・境界・連続性を検証しない。
 
+## 直交断レビュー証拠束 v3（解剖学的検証ではない）
+
+2026-08-23、上記の客観監査とは別に、`ORTHOGONAL_REVIEW_BUNDLE_AUDIT.md` と `scripts/build_orthogonal_review_bundle.py` で、原画像 crop、ID 27（crop内のcontext-only）、ID 33・39・40の輪郭を含むローカル証拠束を固定した。入力は原画像 SHA-256 `c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746`、ラベル SHA-256 `6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56`、BBS1 `394×466×378`、`0.5 mm`である。
+
+生成物は `work/anatomy-review/orthogonal-review-bundle-v3/`（Git 管理外）の manifest と期待161枚の PNGだけで、文字焼込み・PNG metadata・公開資産・ラベル変更・ID 36–38の提案はない。frameごとのpixel／PNG SHA-256、空のmetadata、pixel→voxel式、固定anchor、canonicalSections、余剰ファイル・link境界を独立validatorで検査し、bundle validation `passed: true`、focused 12/12、既存optic test 5/5となった。`review.status` は `unreviewed` のままであり、39・40の付着境界と33内の視交叉・左右視索境界は、冠状・矢状断を含むユーザー／専門家確認待ちである。
+
 ## 乳頭体の専門確認と試験分節
 
 2026-08-16、水平断を実画面で連続確認し、正中の脚間部前方に見える左右一対の小隆起を乳頭体として確認しました。Z 109・113・117・121で左右をID 39・40へ試験分節し、Z 106・124では独立輪郭を認めないと判断しました。
