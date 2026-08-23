@@ -1280,6 +1280,10 @@ html, body, #root { height: 100%; overflow: hidden; }
   .phoneSettingsSheet .leftRail input{min-width:20px;min-height:20px}
   .phoneSettingsSheet .leftRail .lessonRailBtn{min-height:44px}
   .phoneSettingsSheet .leftRail .quizCountButtons button{min-height:44px}
+  .phone-mode .sectionLayoutSwitch button{min-height:44px}
+  .phone-mode .panelActions button{min-height:44px}
+  .phone-mode .sliceTimeline input[type=range]{min-height:44px}
+  .phone-mode .quizFeedback button{min-height:44px}
   .phone-mode .segmentationEntry{display:none}
   .phone-mode .phoneSegmentGuard{margin:14px 0;padding:22px 18px}
   .phone-mode .phoneSegmentGuard h2{font-size:24px}

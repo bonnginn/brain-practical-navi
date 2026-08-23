@@ -1,6 +1,6 @@
 # スマートフォン専用UI監査
 
-更新日: 2026-08-22
+更新日: 2026-08-23
 
 ## 対象と境界
 
@@ -37,3 +37,16 @@ CDPでwidth / clientWidth / scrollWidth は390、`mobile:true`、`touch:true`、
 coarse phoneは26経路×direct/reload＝52/52件に合格し、segmentはCanvas 0を期待値として監査した。結果は `work/browser-audit/mobile-ui-route-audit-2026-08-22.json` に保存した。通常fine/non-touchは26経路×3幅×direct/reload＝156/156件に合格し、`work/browser-audit/beta-route-audit-mobile-ui-final-2026-08-22.json` に保存した。両reportでmissing/duplicate/fail、console/request/UI error、残留loader、横overflow、WebGL fallbackは0件だった。
 
 公開URL、物理端末、実機タッチ、Safari・別ブラウザ、別GPU、専門家レビューは未確認である。
+
+## 2026-08-23 coarse-touch phone中心操作監査
+
+既存の表示・設定確認に加え、coarse-touch phoneでの中心操作を固定した。最終の権威ある結果は `work/browser-audit/phone-core-interactions-v16-2026-08-23.json`（ローカル作業用・配布対象外）である。Windows 11 Home、Node 24.19.0、Chrome 151.0.7922.170、通常production preview `http://127.0.0.1:4250/` を使い、Chrome DevTools Protocolで幅390×高さ768、DPR 1、`mobile:true`、`touch:true`、最大同時タッチ5、縦向き、`hover:none`、`pointer:coarse`を設定した。`allPassed: true`、4 journey、独立validatorのfailure 0である。途中のv12／v13失敗artifactは成果根拠に含めない。
+
+- 下部dockのHome・脳表・断面・ブロック標本・復習を、実タッチイベント列で順に選択し、hash、active状態、Canvas数を確認した。全操作対象は画面内・hit-test可能で、最小44 px以上だった。
+- 脳表では初期の内側面から設定sheetの実タッチで左外側面へ遷移し、設定sheetの開閉、構造選択、3Dドラッグ回転、向きのリセットを確認した。構造target key `precentral`が選択結果とafterProbeへ連続してコピーされ、ドラッグ後・reset後も選択状態が維持された。ドラッグ前後の回転差分は記録された入力差分から再計算した。
+- 断面では初期の矢状断から設定sheetの実タッチで水平断へ遷移し、断面位置52→53、表示値との一致、ページスクロール維持、`3Dのみ`→`断面のみ`の切替を確認した。
+- 復習では5問設定を選び、問題数5・signature変更を伴う新しいqueueを開始した。誤答した問題のtarget `aca`をwrong-answerからreview-linkまで連続して保持し、問題データから独立導出した観察先と実際の復習リンク（脳表・主要動脈）が一致した。
+
+全journeyでready後のloader、UI／console／request error、横overflow、WebGL fallbackは0件だった。Solレビュー後の独立validatorは、action summaryとprobeの対応、touch targetのrect／point／geometry、primaryTouchIdとtarget／touch ID、タッチ点数（tapは1→0、dragは1→1→0）、イベントsequence、実設定遷移をreportから再計算する。これはChromeのcoarse-touch emulationによるローカル実ブラウザでの導線・状態遷移の確認であり、画素品質、解剖学的妥当性、専門家レビューを判定しない。スマートフォンUI全体のβ完了判定にも用いない。
+
+物理スマートフォン、実機タッチ、Safari・別ブラウザ、別GPU、公開URL・公開回線、インストール済みPWAとホーム画面追加後の起動は未確認である。詳細な契約と保存形式は [PHONE_CORE_INTERACTION_AUDIT.md](PHONE_CORE_INTERACTION_AUDIT.md) に分離して記録する。

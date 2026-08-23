@@ -125,6 +125,12 @@ Windows 11／Chrome 151.0.7922.170／Node 24.19.0、ローカルpreview `http://
 
 中心操作追記: Chrome 151の通常production preview `http://127.0.0.1:4236/` で、脳表・水平断・自由観察・クイズ×PC 1366×768／横向きタブレット幅1024×768の8/8件、計40操作を確認した。独立validatorが実測viewport、操作前後、5問queue生成、回答対象から導出した復習先、error／loader／overflow／WebGL fallbackを再計算し、全件に合格した。結果は `work/browser-audit/core-interactions-pc-tablet-2026-08-23.json`、契約は [CORE_INTERACTION_AUDIT.md](CORE_INTERACTION_AUDIT.md)。両条件は `mobile:false`・`touch:false` のデスクトップエミュレーションであり、物理タブレット、実機タッチ、公開URL、別ブラウザ・GPU、画素・解剖学的妥当性は未確認である。
 
+### 2026-08-23 coarse-touch phone中心操作
+
+Chrome 151の通常production preview `http://127.0.0.1:4250/` で、Windows 11 Home／Node 24.19.0のローカル実ブラウザに、390×768、DPR1、`mobile:true`、`touch:true`、最大同時タッチ5、縦向き、`hover:none`、`pointer:coarse`を設定した。最終結果 `work/browser-audit/phone-core-interactions-v16-2026-08-23.json` は、下部dock、脳表・左外側面、水平断、復習の4 journeyを実タッチイベント列で確認し、`allPassed: true`、独立validator failure 0となった。44 px以上の操作対象、画面内・hit-test、settings sheetのfocus復帰、脳表の内側面→左外側面の実設定遷移・target key／選択状態の連続・ドラッグ回転・reset、水平断の矢状断→水平断の実設定遷移・52→53・表示値一致・レイアウト切替、復習5問queue・wrong-answerからreview-linkまでのquestion target連続・回答対象由来の観察先一致を含む。Solレビュー後のvalidatorはsummary/probe、touch geometry／primaryTouchId／target・touch ID、tap 1→0／drag 1→1→0のtouchPoints、sequence、実設定遷移を独立検証する。loader、UI／console／request error、横overflow、WebGL fallbackは0件だった。v12／v13の失敗artifactは成果根拠に含めない。
+
+これはcoarse-touch emulationによるローカル導線・状態遷移の確認であり、スマートフォンUI全体のβ完了、画素・解剖学的妥当性、専門家レビューを意味しない。物理スマートフォン、実機タッチ、Safari・別ブラウザ、別GPU、公開URL・公開回線、インストール済みPWAとホーム画面追加後の起動は未確認である。詳細は [PHONE_CORE_INTERACTION_AUDIT.md](PHONE_CORE_INTERACTION_AUDIT.md) と [MOBILE_UI_AUDIT.md](MOBILE_UI_AUDIT.md) を参照する。
+
 ### M2: β公開条件の機械化
 
 - 主要経路の表示条件とURL復元をテストで固定する。
