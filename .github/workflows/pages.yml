@@ -28,6 +28,9 @@ jobs:
         run: npm run build
         env:
           DEPLOY_GITHUB_PAGES: "true"
+          VITE_SOURCE_REPOSITORY_URL: https://github.com/bonnginn/brain-practical-navi
+      - name: Audit GitHub Pages rights and notices distribution
+        run: node scripts/audit_public_rights_notices.mjs --mode dist --root . --dist-root dist --expected-base /brain-practical-navi/ --expected-source-url https://github.com/bonnginn/brain-practical-navi --output work/public-rights-notices-dist-pages-ci.json
       - uses: actions/configure-pages@v5
         with:
           enablement: true

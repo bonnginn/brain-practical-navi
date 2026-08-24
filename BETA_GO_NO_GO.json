@@ -262,10 +262,14 @@
     },
     {
       "id": "criterion-09-public-rights-and-notices",
-      "criterionText": "ライセンス、クレジット、免責、プライバシー、対応ソースが公開版と一致する。（部分的な根拠: 由来参照は既存DATA-MANIFESTグループまたは配布ファイルへ解決。公開版との最終一致確認は未実施。）",
+      "criterionText": "ライセンス、クレジット、免責、プライバシー、対応ソースが公開版と一致する。（部分的な根拠: ローカルsource監査で110配布ファイルをmanifestの群へexactly-one対応し、5通知、21件のproject-authored notice inventory、8つの利用条件markerを検査。公式VITE_SOURCE_REPOSITORY_URLで作成した通常base `/` とPages base `/brain-practical-navi/` のdistが、source/dist atlas 111パスのbyte identityと一意な対応ソースmetaへ一致することを確認。公開hostとの最終一致はdeployment-blockedのまま。）",
       "state": "deployment-blocked",
       "locallyProven": [
-        "ローカル権利・クレジット・免責・プライバシー資料とDATA-MANIFESTの対応を確認した。",
+        "ローカルsource監査で、DATA-MANIFESTをbundledNotices配列へ移行し、マニフェストを除く110配布ファイルがexactly-oneの出典群へ一致することを確認した。",
+        "5つの通知の存在・非空・通知メタ群へのexactly-one一致・非通知群からの逆参照と、project-authored群の21ファイル一覧を独立validatorで確認した。",
+        "source/dist監査で通常base `/` とPages base `/brain-practical-navi/` を分離し、111 atlas pathのbyte identity、対応ソースmetaの一意性、利用条件markerの存在をfixture/mutationと通常／Pages buildで確認した。",
+        "利用条件へ端末内localStorage保存、自動送信なし、サイトデータ消去で消失、原著者・データ提供機関の推奨・承認を示さない旨を同期し、fixture/mutationテストで表示欠落を拒否した。",
+        "ローカル通常buildの実ブラウザで利用条件を開き、8 marker、対応ソースURL、PC相当表示とviewport cap 390×844の小画面表示を確認し、修正後はroot・dialog・footerの横溢れ、loader、UI errorが0であることを確認した。",
         "公開版との最終一致は未確認。"
       ],
       "unprovenScope": "公開版との最終一致、公開ホストのクレジット・免責表示は未確認。",
@@ -274,9 +278,23 @@
         "DATA_AND_LICENSES.md",
         "LICENSES.md",
         "public/atlas/DATA-MANIFEST.json",
-        "app/page.tsx"
+        "public/atlas/PROCEDURAL-NEUROVASCULAR-NOTICE.txt",
+        "app/page.tsx",
+        "app/canvas.css",
+        "vite.config.ts",
+        "scripts/audit_public_rights_notices.mjs",
+        "tests/public-rights-notices.test.mjs",
+        "PUBLIC_RIGHTS_AND_NOTICES_AUDIT.md",
+        ".github/workflows/ci.yml",
+        ".github/workflows/pages.yml"
       ],
-      "localArtifactRefs": [],
+      "localArtifactRefs": [
+        {
+          "path": "work/public-rights-notices-source-2026-08-24.json",
+          "localOnly": true,
+          "label": "local-only"
+        }
+      ],
       "nextAction": "管理者が公開版の権利・免責・プライバシー表示を突合する。"
     },
     {

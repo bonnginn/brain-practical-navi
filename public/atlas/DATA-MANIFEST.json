@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-08-23",
+  "updated": "2026-08-24",
   "scope": "Every file distributed under public/atlas except this manifest itself must match exactly one group pattern.",
   "groups": [
     {
@@ -12,7 +12,7 @@
       "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
       "modifications": "Grid selection or resampling, 8-bit conversion, compression, background masking, validation metadata and display tone mapping.",
       "displayObligation": "Credit BigBrain and Amunts et al.; link the license; identify modifications; retain non-commercial and share-alike terms; imply no endorsement.",
-      "bundledNotice": "BIGBRAIN-DATA-LICENSE.txt"
+      "bundledNotices": ["BIGBRAIN-DATA-LICENSE.txt"]
     },
     {
       "id": "bigbrain-manual-labels",
@@ -23,7 +23,7 @@
       "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
       "modifications": "Label-number conversion, storage on the exact 0.5 mm ICBM500 grid, compression, and 1 mm display-mesh extraction.",
       "displayObligation": "Credit Xiao and collaborators; link CC BY 4.0; retain the separate BigBrain notice and do not imply expert validation.",
-      "bundledNotice": "BIGBRAIN-MANUAL-LICENSE.txt"
+      "bundledNotices": ["BIGBRAIN-MANUAL-LICENSE.txt", "BIGBRAIN-DATA-LICENSE.txt"]
     },
     {
       "id": "combined-practical-segmentation",
@@ -34,7 +34,7 @@
       "licenseUrl": "https://github.com/bonnginn/brain-practical-navi/blob/main/LICENSES.md",
       "modifications": "Merge into unused label IDs, apply approved exact-grid segmentation patches, validate and compress, and record provenance and confidence metadata.",
       "displayObligation": "Show manual, atlas-provisional, image-guided candidate and image-guided reviewed status separately; retain all BigBrain, Xiao, MNI and project notices; never describe the combined file as anatomical ground truth.",
-      "bundledNotice": "ATTRIBUTION.txt"
+      "bundledNotices": ["ATTRIBUTION.txt", "BIGBRAIN-DATA-LICENSE.txt", "BIGBRAIN-MANUAL-LICENSE.txt", "LICENSE.txt", "PROCEDURAL-NEUROVASCULAR-NOTICE.txt"]
     },
     {
       "id": "mni-cerebra-browser-assets",
@@ -45,7 +45,7 @@
       "licenseUrl": "https://github.com/templateflow/tpl-MNI152NLin2009cSym/blob/master/License.txt",
       "modifications": "1 mm browser volume, label lookup, pial-like normal expansion, sulcal shading, volumetric mesh extraction, surface-region sampling, provisional exact-grid mesh extraction, and deterministic lossless gzip sidecars for the two pial meshes.",
       "displayObligation": "Retain the MNI copyright notice in every copy; identify CerebrA and derived/provisional transformations; do not imply endorsement or validated morphometry.",
-      "bundledNotice": "LICENSE.txt"
+      "bundledNotices": ["LICENSE.txt", "ATTRIBUTION.txt"]
     },
     {
       "id": "specimen-block-assets",
@@ -56,7 +56,7 @@
       "licenseUrl": "https://github.com/bonnginn/brain-practical-navi/blob/main/DATA_AND_LICENSES.md",
       "modifications": "BigBrain tissue reduced to 1 mm geometry with shade values; labelled and schematic structures separated into detachable parts.",
       "displayObligation": "Use each file's sourceType; show specimen-derived, manual/provisional segmentation and schematic parts separately; retain non-commercial teaching-package notice and no-ground-truth disclaimer.",
-      "bundledNotice": "BIGBRAIN-DATA-LICENSE.txt"
+      "bundledNotices": ["ATTRIBUTION.txt", "BIGBRAIN-DATA-LICENSE.txt", "BIGBRAIN-MANUAL-LICENSE.txt", "LICENSE.txt", "PROCEDURAL-NEUROVASCULAR-NOTICE.txt"]
     },
     {
       "id": "project-authored-teaching-overlays",
@@ -67,7 +67,7 @@
       "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
       "modifications": "Projection to the application display space and conversion into lightweight WebGL meshes with selectable IDs where applicable.",
       "displayObligation": "Identify as schematic or position guide; state major omissions; prohibit clinical or quantitative interpretation; imply no validation or endorsement.",
-      "bundledNotice": "PROCEDURAL-NEUROVASCULAR-NOTICE.txt"
+      "bundledNotices": ["PROCEDURAL-NEUROVASCULAR-NOTICE.txt", "ATTRIBUTION.txt"]
     },
     {
       "id": "contributor-comparison-prototype-assets",
@@ -78,7 +78,7 @@
       "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
       "modifications": "Deterministic low-resolution schematic tube geometry authored for an opt-in contributor comparison prototype; no specimen or atlas vertices are sampled.",
       "displayObligation": "Keep contributor-only scope; label as schematic and expert-unreviewed; state that it is not specimen-derived, not an anatomical ground-truth segmentation, and not a learner-facing replacement.",
-      "bundledNotice": "ATTRIBUTION.txt"
+      "bundledNotices": ["PROCEDURAL-NEUROVASCULAR-NOTICE.txt", "ATTRIBUTION.txt"]
     },
     {
       "id": "structure-provenance-audit",
@@ -89,7 +89,7 @@
       "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
       "modifications": "Project-maintained machine-readable index of lecture coverage, learner surfaces, provenance states, quiz eligibility and known limitations; it does not alter the underlying atlas assets.",
       "displayObligation": "Retain the distinction between source data, provisional teaching representations, project review and expert review; do not describe the registry as anatomical ground truth or institutional approval.",
-      "bundledNotice": "ATTRIBUTION.txt"
+      "bundledNotices": ["ATTRIBUTION.txt"]
     },
     {
       "id": "notices-and-attribution",
@@ -100,7 +100,7 @@
       "licenseUrl": "https://github.com/bonnginn/brain-practical-navi/blob/main/LICENSES.md",
       "modifications": "Project-maintained distribution notices.",
       "displayObligation": "Ship these notices unchanged with every copy of the corresponding browser assets.",
-      "bundledNotice": "ATTRIBUTION.txt"
+      "bundledNotices": []
     }
   ]
 }

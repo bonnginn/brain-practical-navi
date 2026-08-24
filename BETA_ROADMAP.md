@@ -109,6 +109,7 @@ PWAのキャッシュ境界、更新方針、未確認項目は [PWA_OFFLINE_AUD
 - [x] 実習書、講義資料、ウェブ上の標本写真を許諾なく転載しない（公開物のラスター／文書を全監査し、画像はプロジェクト用SNSカード1点のみ。`public/ASSET-NOTICE.txt` で用途と非転載を明示）。
 - [x] BigBrain由来データの非営利・継承条件と教育用免責を、READMEとアプリ内で一致させる（BigBrain公式ライセンス掲示を再確認し、README、利用条件、同梱通知、データ監査を照合）。
 - [x] Cloudflare Web Analyticsの利用をプライバシー説明へ明記し、収集内容を必要最小限にする（公式説明を再確認し、公開HTTPS本番ホストだけでビーコンを読込。localhost、127.0.0.1、開発ビルドは除外）。
+- [x] 公開データの権利通知を独立監査する（2026-08-24、`DATA-MANIFEST.json` を `bundledNotices:string[]` へ移行し、110配布ファイルのexactly-one分類、5通知の存在・非空・逆参照、project-authored 21ファイル一覧、source/dist分離validator、利用条件の端末内保存・自動送信なし・サイトデータ消去・原著者／データ提供機関の非推奨承認表示を追加。通常／Pages生成物の111 atlas path byte identityと対応ソースmetaを照合し、ローカル通常buildの実ブラウザでも8 marker・対応ソースURL・小画面の横溢れ0を確認。詳細は [PUBLIC_RIGHTS_AND_NOTICES_AUDIT.md](PUBLIC_RIGHTS_AND_NOTICES_AUDIT.md)。公開hostの最終照合は未確認。）
 - [ ] Google Formを公開版の表記へ同期し、ログイン不要のテスト回答と削除手順を確認する。（2026-08-24、ログアウト状態で現行回答者URLが開き、ログインは回答保存の任意導線、匿名分岐とGitHub Issuesリンクが表示されることを再確認。現行フォームはまだ「α版」表記のため、版名非依存の「教育用試作教材」へ更新した生成スクリプトを管理者が既存フォームへ再適用し、全3ページ・送信・Formsと回答シート双方からの削除を確認するまで未完了。）
 - [ ] `CONTRIBUTING.md` の共同制作条件を管理者が確認し、「公開前ドラフト」を正式版へ更新する。
 
@@ -197,7 +198,7 @@ PWAのキャッシュ境界、更新方針、未確認項目は [PWA_OFFLINE_AUD
 - [ ] 自動テスト、本番ビルド、公開URLの全経路巡回に合格する。（2026-08-24、M2比較レビュー記録を含むcanonical route監査で27経路×3幅×direct/reload＝162/162件をWindows Chrome 151（`http://127.0.0.1:4313`）で確認。`work/browser-audit/beta-route-audit-model-strategy-review-2026-08-24.json` に固定し、missing/duplicate/fail=0、console/request/UI error・loader・overflow・WebGL fallback=0。公開URL反映確認待ち。2026-08-23の26経路156/156件と2026-08-22のstatus追加前25経路150/150件は履歴として保持。）
 - [ ] クイズ対象は画面上で十分に確認でき、未確認構造を正答として要求しない。（粒度監査で既存23問を標準7件・試作16件、模式3D pilot 18件の一意な41件として形式・詳細・トピック・由来へ分類し、targetと全選択肢の由来を照合。provisional選択肢を含むpallidum・accumbens・hippocampus・mammillaryBodyを試作へ分類し、試作OFF時の候補除外、標準回答セットの全件解決、unknown由来の拒否を自動検査。Chrome 151のローカルpreviewで試作ON時41件（標準7・試作34）、OFF時7件（標準7・試作0）、標準queue、乳頭体問題の試作バッジを実操作し、最終route監査162/162件に合格。旧ID33の正答対象外、II視神経・視索はID23・24だけを使う合成模式レイヤーとして名称のみを扱い、誤答から観察画面への復帰も確認済み。標準採用基準の解剖学的妥当性と未確認構造が選択肢へ現れないことの専門家確認は未完了。）
 - [ ] 専門家レビューの対象と根拠を引き継げる。（準備のみ: `ANATOMY_REVIEW_HANDOFF.md` と共同制作画面の読み取り専用キューで、provenance台帳のexpert pending 75件を表示。各カードへ1項目単位の構造化された端末内下書きを追加し、台帳全体・対象entryのSHA-256、固定3観察項目、固定懸念コード、未提出・未採用・expert未主張を検証する。氏名・所属・連絡先・自由記述は保存せず、古い台帳、JSON不正、保存障害、別タブ競合はロックする。Chrome 151のローカル通常buildで連続変更、再読込復元、JSON書き出し表示、390 px相当の44 px操作・overflow 0を確認し、最終route監査162/162件にも合格した。専門家確認、本人性・署名、解剖学的妥当性、採否は未完了。ID39・40はプロジェクト内レビュー済みだがexpert pending、旧ID33混合領域は断面／通常クイズ正答と分節入口から除外。詳細は `ANATOMY_REVIEW_RECORD_DRAFT_AUDIT.md`。）
-- [ ] ライセンス、クレジット、免責、プライバシー、対応ソースが公開版と一致する。（部分的な根拠: 由来参照は既存DATA-MANIFESTグループまたは配布ファイルへ解決。公開版との最終一致確認は未実施。）
+- [ ] ライセンス、クレジット、免責、プライバシー、対応ソースが公開版と一致する。（部分的な根拠: ローカルsource監査で110配布ファイルをmanifestの群へexactly-one対応し、5通知、21件のproject-authored notice inventory、8つの利用条件markerを検査。公式VITE_SOURCE_REPOSITORY_URLで作成した通常base `/` とPages base `/brain-practical-navi/` のdistが、source/dist atlas 111パスのbyte identityと一意な対応ソースmetaへ一致することを確認。公開hostとの最終一致はdeployment-blockedのまま。）
 - [ ] Google FormとGitHubのフィードバック導線が機能する。
 - [ ] 少なくとも1名の神経解剖学に詳しい確認者による必修範囲のレビュー記録がある。
 - [ ] βで未完成の項目を既知の制限として公開する。（部分的な根拠: 各講義行・グループとローカル候補のstatus画面へ既知の制限を記録。ローカル候補へ実装、公開URL反映確認待ち。専門家レビューは未完了。）

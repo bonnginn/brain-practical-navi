@@ -5,16 +5,27 @@ License: Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International
 https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 Files:
+- basal-landmarks.json
+- landmark-anterior-perforated-substance.mesh
+- landmark-infundibulum.mesh
+- landmark-mammillary-bodies.mesh
+- landmark-olfactory-pathway.mesh
+- landmark-optic-pathway.mesh
+- neurovascular-overlays.json
 - overlay-arteries-anterior.mesh
 - overlay-arteries-posterior.mesh
 - overlay-nerves-anterior.mesh
 - overlay-nerves-pontine.mesh
 - overlay-nerves-medullary.mesh
-- neurovascular-overlays.json
-- landmark-optic-pathway.mesh
-- landmark-infundibulum.mesh
-- landmark-mammillary-bodies.mesh
-- basal-landmarks.json
+- surface-landmark-calcarine-sulcus.mesh
+- surface-landmark-central-sulcus.mesh
+- surface-landmark-lateral-sulcus.mesh
+- surface-landmark-longitudinal-fissure.mesh
+- surface-landmark-olfactory-sulcus.mesh
+- surface-landmark-parieto-occipital-sulcus.mesh
+- surface-landmark-precentral-sulcus.mesh
+- surface-landmark-superior-frontal-sulcus.mesh
+- surface-landmarks.json
 
 These meshes were procedurally generated from manually placed teaching paths and shapes
 in the MNI-oriented display space used by this application. They were not

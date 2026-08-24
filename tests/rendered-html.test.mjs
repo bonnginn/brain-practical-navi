@@ -305,6 +305,27 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /形状・範囲・接続関係の完全性や解剖学的正確性は保証しません/);
   assert.match(page, /Cloudflare Web Analytics/);
   assert.match(page, /CookieやlocalStorageを使わず、訪問者の個人データを収集・利用しません/);
+  assert.match(page, /クイズの誤答履歴、分節差分、M2比較の下書き、解剖レビューの下書きは端末内のlocalStorageに保存されます/);
+  assert.match(page, /自動送信は行わず、サイトデータを消去すると失われます/);
+  assert.match(page, /原著者やデータ提供機関の推奨・承認を示すものではありません/);
+  for (const marker of ["source-credit", "license-boundaries", "modifications", "no-endorsement", "educational-nonclinical", "privacy-analytics", "privacy-local-storage", "corresponding-source"]) assert.equal((page.match(new RegExp(`data-legal-disclosure=\\"${marker}\\"`, "g")) ?? []).length, 1, marker);
+  assert.match(page, /data-legal-disclosure="source-credit">.*?BigBrain/);
+  assert.match(page, /data-legal-disclosure="license-boundaries">.*?(?:AGPL-3\.0-or-later|CC BY-NC-SA 4\.0)/);
+  assert.match(page, /data-legal-disclosure="modifications">[^<]*BigBrain/);
+  assert.match(page, /data-legal-disclosure="no-endorsement">[^<]*原著者やデータ提供機関の推奨・承認を示すものではありません/);
+  assert.match(page, /data-legal-disclosure="educational-nonclinical">[^<]*診断・治療・手術計画・定量研究/);
+  assert.match(page, /data-legal-disclosure="privacy-analytics">[^<]*公開HTTPSホスト/);
+  assert.match(page, /data-legal-disclosure="privacy-local-storage">[^<]*localStorage/);
+  assert.match(page, /data-legal-disclosure="corresponding-source" href=\{sourceRepositoryUrl\}/);
+  const legalDialogStart = page.indexOf('<section className="legalDialog" role="dialog" aria-modal="true" aria-labelledby="legal-title">');
+  const legalDialogEnd = page.indexOf('</section>', legalDialogStart);
+  const storagePolicyStart = page.indexOf('data-legal-disclosure="privacy-local-storage"');
+  assert.ok(legalDialogStart >= 0 && storagePolicyStart > legalDialogStart && storagePolicyStart < legalDialogEnd, "storage policy is inside legal dialog");
+  assert.doesNotMatch(canvasCss, /\.legalStoragePolicy\s*\{[^}]*position\s*:/);
+  assert.match(canvasCss, /\.legalDialog\s*\{[^}]*overflow-x:\s*hidden/);
+  assert.match(canvasCss, /\.legalDialog footer div\{[^}]*flex-wrap:\s*wrap[^}]*min-width:\s*0[^}]*max-width:\s*100%/);
+  assert.match(canvasCss, /\.legalDialog footer div>a,\.legalDialog footer div>button\{[^}]*max-width:\s*100%[^}]*overflow-wrap:\s*anywhere/);
+  assert.match(canvasCss, /\.legalDialog footer div>button\{[^}]*min-height:\s*44px/);
   assert.match(readme, /Cloudflare Web Analytics/);
   assert.match(licenses, /Data origin and collection/);
   assert.doesNotMatch(page, /OPEN BETA|β版・非営利教育用/);
@@ -1247,8 +1268,9 @@ test("maps every distributed atlas file to source, changes, license, and display
   const files = (await readdir(atlasUrl)).filter(name => name !== "DATA-MANIFEST.json").sort();
   assert.ok(manifest.groups.length >= 7);
   for (const group of manifest.groups) {
-    assert.ok(group.id && group.pattern && group.source && group.license && group.modifications && group.displayObligation && group.bundledNotice, group.id);
-    await stat(new URL(group.bundledNotice, atlasUrl));
+    assert.ok(group.id && group.pattern && group.source && group.license && group.modifications && group.displayObligation && Array.isArray(group.bundledNotices), group.id);
+    assert.equal(Object.prototype.hasOwnProperty.call(group, "bundledNotice"), false, group.id);
+    for (const notice of group.bundledNotices) await stat(new URL(notice, atlasUrl));
   }
   for (const file of files) {
     const matches = manifest.groups.filter(group => new RegExp(group.pattern).test(file));

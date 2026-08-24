@@ -127,7 +127,11 @@
       "state": "deployment-blocked",
       "stateLabel": "公開反映待ち",
       "locallyProven": [
-        "ローカル権利・クレジット・免責・プライバシー資料とDATA-MANIFESTの対応を確認した。",
+        "ローカルsource監査で、DATA-MANIFESTをbundledNotices配列へ移行し、マニフェストを除く110配布ファイルがexactly-oneの出典群へ一致することを確認した。",
+        "5つの通知の存在・非空・通知メタ群へのexactly-one一致・非通知群からの逆参照と、project-authored群の21ファイル一覧を独立validatorで確認した。",
+        "source/dist監査で通常base `/` とPages base `/brain-practical-navi/` を分離し、111 atlas pathのbyte identity、対応ソースmetaの一意性、利用条件markerの存在をfixture/mutationと通常／Pages buildで確認した。",
+        "利用条件へ端末内localStorage保存、自動送信なし、サイトデータ消去で消失、原著者・データ提供機関の推奨・承認を示さない旨を同期し、fixture/mutationテストで表示欠落を拒否した。",
+        "ローカル通常buildの実ブラウザで利用条件を開き、8 marker、対応ソースURL、PC相当表示とviewport cap 390×844の小画面表示を確認し、修正後はroot・dialog・footerの横溢れ、loader、UI errorが0であることを確認した。",
         "公開版との最終一致は未確認。"
       ],
       "unprovenScope": "公開版との最終一致、公開ホストのクレジット・免責表示は未確認。",
@@ -343,7 +347,11 @@
           "state": "deployment-blocked",
           "stateLabel": "公開反映待ち",
           "locallyProven": [
-            "ローカル権利・クレジット・免責・プライバシー資料とDATA-MANIFESTの対応を確認した。",
+            "ローカルsource監査で、DATA-MANIFESTをbundledNotices配列へ移行し、マニフェストを除く110配布ファイルがexactly-oneの出典群へ一致することを確認した。",
+            "5つの通知の存在・非空・通知メタ群へのexactly-one一致・非通知群からの逆参照と、project-authored群の21ファイル一覧を独立validatorで確認した。",
+            "source/dist監査で通常base `/` とPages base `/brain-practical-navi/` を分離し、111 atlas pathのbyte identity、対応ソースmetaの一意性、利用条件markerの存在をfixture/mutationと通常／Pages buildで確認した。",
+            "利用条件へ端末内localStorage保存、自動送信なし、サイトデータ消去で消失、原著者・データ提供機関の推奨・承認を示さない旨を同期し、fixture/mutationテストで表示欠落を拒否した。",
+            "ローカル通常buildの実ブラウザで利用条件を開き、8 marker、対応ソースURL、PC相当表示とviewport cap 390×844の小画面表示を確認し、修正後はroot・dialog・footerの横溢れ、loader、UI errorが0であることを確認した。",
             "公開版との最終一致は未確認。"
           ],
           "unprovenScope": "公開版との最終一致、公開ホストのクレジット・免責表示は未確認。",
