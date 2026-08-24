@@ -135,7 +135,7 @@ test("criterion 04 cannot regress to the old mobile-route evidence only", () => 
     .filter(ref => !PHONE_CORE_REQUIRED_COMMITTED_EVIDENCE_REFS.includes(ref));
   const missingRefsResult = audit(missingPhoneRefs);
   assert.equal(missingRefsResult.ok, false);
-  assert.match(missingRefsResult.errors.join("\n"), /must include phone v16 evidence/);
+  assert.match(missingRefsResult.errors.join("\n"), /must include phone v17 evidence/);
 
   const oldArtifactOnly = clone(baseLedger);
   const oldArtifactCriterion = oldArtifactOnly.criteria.find(item => item.id === PHONE_CORE_CRITERION_ID);
@@ -143,7 +143,7 @@ test("criterion 04 cannot regress to the old mobile-route evidence only", () => 
     .filter(artifact => artifact.path !== PHONE_CORE_REQUIRED_LOCAL_ARTIFACT_PATH);
   const oldArtifactResult = audit(oldArtifactOnly);
   assert.equal(oldArtifactResult.ok, false);
-  assert.match(oldArtifactResult.errors.join("\n"), /exact phone v16 artifact path/);
+  assert.match(oldArtifactResult.errors.join("\n"), /exact phone v17 artifact path/);
 });
 
 test("criterion 02 requires the orthogonal review bundle v3 evidence and exact manifest path", () => {
