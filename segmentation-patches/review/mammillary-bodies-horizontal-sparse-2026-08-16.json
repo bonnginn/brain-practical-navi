@@ -329,6 +329,70 @@
       "length": 1,
       "label": 40
     }
-  ]
+  ],
+  "workflowMetadataVersion": 1,
+  "targetStructures": [
+    {
+      "id": 27,
+      "name": "脳幹"
+    },
+    {
+      "id": 33,
+      "name": "視交叉候補"
+    },
+    {
+      "id": 39,
+      "name": "左乳頭体"
+    },
+    {
+      "id": 40,
+      "name": "右乳頭体"
+    }
+  ],
+  "sliceRanges": [
+    {
+      "plane": "horizontal",
+      "axis": "Z",
+      "min": 109,
+      "max": 121
+    }
+  ],
+  "changeSummary": {
+    "changedVoxelCount": 311,
+    "unchangedVoxelCount": 0,
+    "transitions": [
+      {
+        "from": 0,
+        "to": 39,
+        "voxels": 71
+      },
+      {
+        "from": 0,
+        "to": 40,
+        "voxels": 84
+      },
+      {
+        "from": 27,
+        "to": 39,
+        "voxels": 10
+      },
+      {
+        "from": 33,
+        "to": 39,
+        "voxels": 60
+      },
+      {
+        "from": 33,
+        "to": 40,
+        "voxels": 86
+      }
+    ]
+  },
+  "review": {
+    "decision": "unreviewed",
+    "reviewer": null,
+    "decidedAt": null,
+    "reason": "",
+    "pullRequest": null
+  }
 }
-

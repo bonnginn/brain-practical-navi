@@ -2,6 +2,40 @@
 
 判定基準: `未確認` / `要修正` / `発表可（α注記あり）`
 
+<!-- beta-current-snapshot:start -->
+Current machine-readable values: [BETA_CURRENT_SNAPSHOT.json](BETA_CURRENT_SNAPSHOT.json). All other counts in this document are dated historical evidence, not current inventory or approval.
+<!-- beta-current-snapshot:end -->
+
+本書は各監査時点の表示結果を保存します。ローカル表示の合格を、専門家レビュー、公開URL、物理端末の確認へ読み替えることはできません。
+
+## 2026-08-24 公開前チェック表示
+
+更新履歴・既知の制限dialogの冒頭へ、12件のGo／No-Go状態を5 groupで示す読み取り専用表示を追加した。Chrome 151の通常production previewで5 group・12 item・件数3／1／4／1／3、詳細開閉、内部scroll、Esc、背景click、Tab循環、起点focus復帰を確認した。390×768 override（実効innerWidth 295／clientWidth 284）でも一列、横overflow 0、summary実効高さ44.99 pxだった。最終buildのcanonical route監査は162/162、cold payloadは27/27、全testsは347/347件に合格した。総合合格・公開可・専門家確認済みとは表示せず、各stateも変更していない。詳細は [BETA_READINESS_DISPLAY_AUDIT.md](BETA_READINESS_DISPLAY_AUDIT.md)。
+
+## 2026-08-23 PC・横向きタブレット幅の中心操作
+
+Chrome 151のローカルproduction previewで、脳表・水平断・自由観察・クイズの4経路をPC 1366×768と横向きタブレット幅1024×768で操作し、8/8件、計40操作が合格した。構造選択、表示切替、回転・拡大とreset、断面送り戻しとレイアウト切替、5問queue生成、回答、feedback、回答対象に対応する復習画面への遷移を、操作前後の状態から確認した。初期・最終の実測viewportは指定値と一致し、console／request／UI error、残留loader、横はみ出し、WebGL fallbackは全件0だった。
+
+独立validatorが固定4×2 matrix、実測viewport、操作証拠、クイズ回答内容から導出した期待復習先と最終画面から導出した観測復習先を再計算した。両条件は `mobile:false`・`touch:false` のデスクトップエミュレーションであり、物理タブレット、実機タッチ、公開URL、別ブラウザ・GPU、画素・解剖学的妥当性は未確認である。詳細は [CORE_INTERACTION_AUDIT.md](CORE_INTERACTION_AUDIT.md) を参照。
+
+## 2026-08-23 source-backed 文言・分類監査
+
+視床下核を「間脳の視床下域」と明示し、quiz／構造グループでは「中脳・視床下域」「中脳核・視床下域」と表記した。淡蒼球はGPe（内部の中継・調節）とGPi（主要出力）を分けて説明し、側脳室と尾状核、第三脳室の上下関係、脳梁・脳弓標本の英見出しも同期した。脳表の中前頭回前部・中前頭回後部・鳥距溝周囲皮質・外側後頭皮質・眼窩前頭皮質はCerebrA／Desikan-styleの教材対応ラベルであり、併記LatinをFIPAT／TNA標準語とは扱わない注意を画面と台帳へ追加した。これは表示文言の根拠整理で、境界・形状の解剖学的検証や専門家レビュー完了を示さない。詳細は [CONTENT_ACCURACY_REVIEW.md](CONTENT_ACCURACY_REVIEW.md) と [STRUCTURE_PROVENANCE.md](STRUCTURE_PROVENANCE.md) を参照。
+
+2026-08-24、上記5領域だけに共通の「CerebrA／Desikan系アトラス区画」マーカーを追加した。Chrome 151のローカル通常production preview `http://127.0.0.1:4335/` で、自由観察の5検索結果、構造索引、選択カード、3D選択表示、左右外側面・下面の同定ボタンを確認し、対象外の中心前回には表示されないことも確認した。390 px指定時は実効`innerWidth` 295、`clientWidth` / `scrollWidth` 284/284で、検索結果の長いマーカーは省略されず3行に折り返し、横overflow、残留loader、UI errorは0件だった。同じ最終通常buildのcanonical route監査は162/162件に合格し、missing／duplicate／fail、console／request／UI error、残留loader、横overflow、WebGL fallbackは0件だった。結果はローカル作業用 `work/browser-audit/beta-route-audit-atlas-nomenclature-2026-08-24.json` に保存した。名称、Latin、ID、色、形状、クイズ在庫、来歴・レビュー状態は変更していない。
+
+## 2026-08-23 数値読込進捗
+
+断面画像・手動ラベル・3Dメッシュの読込表示へ、実受信byte、総量、整数％を追加した。総量を取得できない場合は「総量不明」と受信済みbyteだけを示し、推定％を作らない。受信後の展開・解析を区別し、再試行時は値を初期化する。数値は読み上げ用 `aria-valuetext` と進捗バーへ同期し、狭幅では折り返す。
+
+Chrome 151のPages想定buildを低速化して、総量不明表示と総量既知表示、バーの `value/max` 一致、390 px相当の横はみ出しなし、完了後loader／alert 0を確認した。同じbuildのroute監査は26経路×3幅×direct/reload＝156/156件に合格した。公開URL、実公開回線、物理端末、別ブラウザは未確認である。詳細は [DOWNLOAD_PROGRESS_AUDIT.md](DOWNLOAD_PROGRESS_AUDIT.md) を参照。
+
+## 2026-08-23 3Dモデル方針A/B比較pilot
+
+共同制作ページの寄稿者限定表示として、現行同一格子の脳室メッシュと、実標本・アトラス・ラベル由来ではない模式メッシュを同じ回転・視点・色・表示ON/OFFで比較できるようにした。Bには「模式・専門家未確認」「実標本由来ではない」を常時表示し、通常教材のモデル・構造名・ラベル・クイズ・由来台帳は変更していない。
+
+Chrome 151のローカルproduction preview `http://127.0.0.1:4216/#workspace/collaborate` で、開く前の比較資産取得0件、開いた後のCanvas 2件、共通視点、構造OFF、hash維持、起点フォーカス復帰、390 px指定時の一列表示と横overflow 0、console error/warning 0を確認した。canonical全経路は156/156、初回payloadは26/26件に合格した。解剖学的妥当性、専門家・学習者評価、物理端末、別ブラウザ・別GPU、β本体への採否は未確認である。詳細は [MODEL_STRATEGY_COMPARISON_AUDIT.md](MODEL_STRATEGY_COMPARISON_AUDIT.md) を参照。
+
 | 画面 | UI・レイアウト | 操作導線 | 解剖・説明 | 判定・残課題 |
 | --- | --- | --- | --- | --- |
 | トップ | 情報階層・余白・4導線を確認 | 3D回転と各教材への導線を確認 | 表面モデルを「分節」と誤記していた点を修正 | 発表可（α注記あり） |
@@ -27,6 +61,12 @@
 | 編集ツール | 右見出しの孤立改行と狭い左案内を調整 | 81 voxel塗布、元に戻す、やり直し、再度元に戻して0 voxelへ清掃 | 元ラベル非破壊・端末内差分・PRレビュー前提の説明を確認 | 発表可（共同制作者向けα） |
 | 意見・共同制作 | 2対象者別カード、背景マスク、閉じる導線を確認 | 匿名報告・共同参加のフォーム導線を確認（外部送信は未実行） | 個人情報・患者情報を送らない注意と公開α方針を確認 | 発表可 |
 | 利用条件・クレジット | 2列のライセンス情報とスクロール、閉じる導線を確認 | 対応ソース・外部データリンクを確認 | プロジェクト名のみを表示し、個人名・所属・メールは掲載しない | 発表可 |
+
+## 2026-08-23 来歴表示監査の実ブラウザ履歴
+
+Chrome 151のin-app browserでローカルproduction preview `http://127.0.0.1:4201`を確認し、review panel 75/75、filter surface54／sections16／blocks30／quiz21／all75を表示した。app-onlyカードの日本語見出し（縁上回、II 視神経・視索）、自由観察の縁上回「試作」＋CerebrA詳細、`cn2`／`opticChiasm`の「模式」、block choroid plexusの「模式」＋未保証説明を確認した。route auditは `work/browser-audit/beta-route-audit-learner-provenance-final-2026-08-23.json` に保存し、26経路×3幅×direct/reload＝156/156、`allPassed: true`。390 px設定の`clientWidth`は375 pxで、overflow／error／loader／WebGL fallbackはなかった。これは表示回帰の確認であり、解剖学的妥当性の検証ではない。公開URL、物理端末、別GPU、専門家レビューは未確認である。
+
+2026-08-22に実ブラウザで確認した全56件、表示面36／16／29／21件、route156/156の記録は、下記および既存の履歴として書き換えず保持します。
 
 ## 第二巡（再起動後）
 
@@ -113,3 +153,150 @@
 - クイズの「試作問題を含む」は既定ON。誤答時だけ任意の観察リンクを1件表示し、正答時はリンク0件、「次の問題へ」を主導線として維持した。
 - 1366×768、1023×769、390×843相当で横はみ出し0。1023px幅で主ナビの復習ボタンへ操作ガイドが重なる問題を検出し、1200px以下を2段ヘッダーへ修正した。390px幅の断面は初期「断面のみ」、縦スクロール512px、クイズ4選択肢を実操作。通常の実操作タブでconsole error/warningは0。
 - 62/62自動テスト、型検査、本番Viteビルドに合格。Homeの冷キャッシュ転送は約161 KiB、本格3D約19.9 MiBは脳表開始時へ遅延した。
+
+## 2026-08-22 直交断照合UI回帰
+
+- 共同制作者向け編集ツールへ、同一BigBrain格子の水平・冠状・矢状断切替を追加。水平断だけを編集可能とし、冠状・矢状断では塗布・消去・復元、Undo/Redo、差分読込を無効にして「照合専用」と表示した。
+- 通常幅1366 × 768 pxで、冠状断Y242からY251まで前方へ1 voxelずつ移動し、格子座標、方位、画像、現行ラベル、ID 39・40・33・27の断面内ボクセル数が同期することを確認。矢状断X194では左乳頭体ID 39が59 voxel、右ID 40が0 voxelとなり、左右位置と表示面の対応を確認した。
+- 水平断Z113へ戻すと編集操作と差分読込が再び有効になり、既存の水平断ワークフローを維持した。冠状・矢状断への切替や照合結果からID 36–40を自動生成・拡張する処理はない。
+- 390 × 844 px相当と1024 × 768 pxでも、Canvasは各1個、横はみ出し0、照合専用表示と操作無効化を確認。通常の水平断教材でも乳頭体を選択し、現行の教材ラベルと継続確認注記が表示されることを確認した。
+- 公開ラベル更新後も同じURLだったため、ブラウザキャッシュに旧ラベルが残る条件を検出。現行ラベルSHA-256由来の版クエリを取得URLへ付け、通常キャッシュ有効の再読込でもID 39・40を取得できることを確認した。コンソールのerror / warningは0。
+- ここで確認したのは画面座標、操作制限、既存ラベルの取得と表示であり、乳頭体の視床下部付着境界や視交叉・視索の解剖学的監査が完了したことを意味しない。
+- 三方向の全スライス往復、画面四隅の格子座標、1 voxel移動、方位、配布ラベルの完全SHAを自動検査へ固定。66/66自動テスト、型検査、本番Viteビルドに合格。
+
+## 2026-08-22 β候補ローカル全経路 Go / No-Go 監査方法
+
+公開判断前のローカル監査として、次の再現コマンドを用意し、status画面を含む実測値と合格結果を下記へ記録した。
+
+```text
+node scripts/audit_beta_routes.mjs --base-url http://localhost:4173 --output work/browser-audit/beta-route-audit.json
+```
+
+`BETA_AUDIT_ROUTES` に固定した26経路（ホーム、脳表7、断面3、局所標本8、復習、共同制作、編集、更新履歴・既知の制限、操作ガイド、意見・誤り報告、利用条件）を、1366×768、1024×768、390×768の3幅で、直接遷移（direct）と再読み込み（reload）から巡回する。合計156件を、幅ごとに起動した独立Chromeプロファイルで測定する。Windows β監査の条件はChromeのdevice metricsを `mobile:false`、desktop User-Agent、非タッチに固定する。狭幅の実効DOM `clientWidth` は390 px設定でも375 pxとして横はみ出しを判定する。
+
+2026-08-24、M2比較専用URLを含む27経路版でHomeの端末追加カード追加後を再監査し、1366×768、1024×768、390×768相当のdirect／reload計162/162件が合格した。合成installイベントの専用監査も2幅×3状態＝6/6件で、44 px操作、横overflow／loader／UI error 0を確認した。これは実インストール成功の証拠ではない。
+
+各結果は正確なハッシュ、ページ固有の見出しまたは標本名、`main.appShell`、読込中表示、画面内エラー、console error、request error、横はみ出し、Canvas数を検査する。局所標本8経路では「試作品を確認する」をDOMイベントで押し、`.learningModelStage canvas` の出現と読込完了後を測定する。CanvasがWebGL fallbackへ切り替わった場合は失敗とする。各経路の失敗は結果へ保持して最終JSONに記録し、全件成功でない場合は終了コードを失敗にする。出力JSONがこの監査の機械可読な証拠となる。
+
+この方法で確認できるのは、ローカル本番プレビューにおけるWindows Chrome、指定3幅、直接遷移・再読み込み、DOM上の表示契約である。実機タッチ、異なるGPUやブラウザ、公開URL、外部フォーム送信、解剖学的境界の専門家レビューはこの監査の範囲外であり、公開URLでの巡回は未実施（pending）とする。
+
+### status追加前の実測結果（履歴）
+
+2026-08-22、通常の本番ビルドを `http://127.0.0.1:4177/` で配信し、`work/browser-audit/beta-route-audit-final-2026-08-22.json` へ結果を保存した。環境は Windows 11 Home 10.0.26200、16論理CPU、31.6 GiB RAM、Chrome 151.0.7922.170、Node 24.19.0 である。
+
+- 期待150件、結果150件、キー150件すべて一意で、150/150件が合格した。
+- 25経路の直接文書読込と再読み込みを、1366×768、1024×768、390×768で完了した。
+- 8種のブロック標本は各3幅・2段階の計48件すべてで注意画面を閉じ、標本名とCanvas 1の出現後まで確認した。
+- console error、request error、画面内エラー、残留ローダー、水平はみ出し、WebGL fallbackはいずれも0件だった。
+- アプリ内ブラウザの970×545表示でも、Home、左外側面、水平断、展開後の側脳室標本、クイズを目視し、主要な見出し・観察対象・操作領域が表示されることを確認した。
+
+これはstatus画面追加前の25経路に対する履歴記録である。
+
+### status追加後の実測結果
+
+2026-08-22、status画面を含む本番Viteビルドを`http://127.0.0.1:4190/`で配信し、Windows Chrome 151で26経路を1366×768、1024×768、390×768の3幅、direct/reloadで巡回した。
+
+- 期待156件、結果156件、キー156件すべて一意で、156/156件が合格した。
+- missing/duplicate/fail=0、console error、request error、画面内UI error、残留loader、横はみ出し、WebGL fallbackはいずれも0件だった。
+- 公開URL、公開時のbase path、物理スマートフォン／タブレット、タッチ操作、異なるGPU・別ブラウザ、解剖学的境界の専門家レビューはこのローカル監査の範囲外である。
+- overlay切替focus修正後、Homeと利用条件のstatus入口、初期focus、Shift+Tab／Tab循環、Esc、起点復帰をアプリ内ブラウザで実操作した。Chrome CDPでは390px幅（実効clientWidth 375px）の一列表示、内部スクロール、背景クリックによる閉鎖、横はみ出しなしを確認した。
+
+保存した機械監査結果: `work/browser-audit/beta-route-audit-status-2026-08-22.json`。
+
+この結果により、現在のローカル本番成果物について全経路の直接表示・再読み込みを再現可能な機械検査へ更新できた。ただし、公開URL・CDN・公開時のbase path、物理スマートフォン／タブレット、タッチ操作、異なるGPU、解剖学的な形状の正しさは証明しない。Go / No-Goの「公開URLの全経路巡回」は、公開承認後の確認が必要なため未完了のままとする。
+
+### 2026-08-22 透過レイヤー視認性の実装・実ブラウザ確認
+
+`TRANSPARENCY_VISIBILITY_AUDIT.md` に沿って、ゴースト時の大脳・小脳・脳幹を同一不透明度へ揃え、神経・血管・深部模式レイヤーを深度テスト優先で描く実装を追加した。通常レイヤーと選択レイヤーの不透明度、選択時の白色強調も定数化した。形状・メッシュ・分節は変更していない。
+
+最終ビルドをローカル配信し、アプリ内ブラウザで脳底動脈、脳神経、自由観察の透過／通常切替、前後・上下方向の回転、個別選択時の白色強調を実操作した。自由観察では内頸動脈とXII舌下神経の同時選択に加え、Papez回路の脳弓が固有色を保ち、通常表示へ戻しても内部選択が見えることを確認した。Canvasは各1、残留ローダー、画面内エラー、console error/warning、横はみ出しはいずれも0だった。
+
+同じ最終ビルドをWindows Chrome 151、1366×768、1024×768、390×768で26経路×direct/reloadとして再巡回し、156/156件に合格した。missing/duplicate/fail=0、console／要求／画面内エラー、残留ローダー、横はみ出し、WebGL fallbackも0件だった。保存した機械監査結果は `work/browser-audit/beta-route-audit-transparency-final-2026-08-22.json`（ローカル作業用・配布対象外）。全テスト118/118、型検査、通常Vite本番ビルド、`git diff --check` も成功した。これは表示回帰の確認であり、模式形状の解剖学的正確性を検証したものではない。
+
+### 2026-08-22 クイズ出題粒度の実装・実ブラウザ確認
+
+復習クイズの既存23問を変更せず、トピックと独立した「すべての形式／断面・深部／脳表」フィルタと、断面3方向・脳表4方向の詳細フィルタを追加した。各選択肢の次回候補数、標準／試作の候補内訳、候補数に応じた実際の問題数表示、設定欄内の候補0件status noteを実装した。フィルタ変更後も進行中の問題queueは隠さず、変更は次回出題へ反映する。試作既定ON、wrong-only、標準／試作バッジ、shuffle、誤答後の観察リンクは維持している。
+
+下面は既存の脳表位置関係問題を維持し、別インベントリの脳底・脳神経模式3D pilot（17問）を追加した。旧ID33は正答targetへ戻していない。`QUIZ_GRANULARITY_AUDIT.md`、`NEUROVASCULAR_QUIZ_AUDIT.md` と各監査スクリプトに分類・由来・受入条件を記録した。
+
+最終ローカル本番ビルドをアプリ内ブラウザで操作し、初期23候補から脳表・内側面2候補への絞り込み、形式変更時の候補数、試作OFF時の候補0件status note、進行中queueの維持、2問出題、試作バッジ、誤答後の楔部を選択した内側面観察への復帰を確認した。390px相当表示ではselect、候補内訳、問題数表示の一列折返しを目視し、console error/warningは0件だった。
+
+同じ最終ビルドをWindows Chrome 151、1366×768、1024×768、390×768で26経路×direct/reloadとして巡回し、156/156件に合格した。missing/duplicate/fail=0、console／要求／画面内エラー、残留loader、横はみ出し、WebGL fallbackも0件だった。保存した結果は `work/browser-audit/beta-route-audit-quiz-granularity-final-2026-08-22.json`（ローカル作業用・配布対象外）。全テスト125/125、粒度監査、型検査、通常／Pages本番ビルド、`git diff --check` も成功した。公開URL、物理端末、タッチ操作、異なるGPU・別ブラウザは未確認である。
+
+### 2026-08-22 大脳基底核 3D＋断面ステッパー（実装・実ブラウザ確認）
+
+自由観察の既存「大脳基底核回路」プリセットへ、完全回路ではなく既存構造の位置関係を順に確認する5段階ステッパーを追加した。尾状核・被殻、淡蒼球外節・内節、視床下核、黒質、視床の7対象を、既存の手動分節ラベルと既存メッシュだけで表示する。前／次／再生／一時停止／最初へ戻るを備え、段階ごとに3Dと断面を同じ色で強調する。タイマーはプリセット切替・自由観察離脱・アンマウント時に停止し、スマートフォン幅では3Dと断面を縦積みにする。新しい境界、線、結合、興奮性／抑制性、投射方向、旧ID33は追加していない。
+
+`PATHWAY_STEPPER_AUDIT.md` と `scripts/audit_pathway_stepper.mjs` の画素監査は5段階・7対象すべて合格（画素数 256–2,398）。この結果は表示可能性の確認であり、形状の解剖学的正確性や専門家レビューを示さない。
+
+最終ローカル本番ビルドをChrome 151で実操作し、前後移動、再生、最終段階の自動停止、最初へ戻る、Home離脱時の停止、再入場時の初期状態を確認した。console error/warningは0件だった。同じビルドの1366×768、1024×768、390×768、26経路×direct/reloadは156/156件に合格し、missing/duplicate/fail、console/request/UI error、残留loader、横はみ出し、WebGL fallbackはいずれも0件だった。全テスト134/134、画素・ID監査、型検査、通常／Pages本番ビルド、`git diff --check`も成功した。保存結果は `work/browser-audit/beta-route-audit-pathway-stepper-final-2026-08-22.json`（ローカル作業用・配布対象外）。公開URL、物理端末、タッチ操作、異なるGPU・別ブラウザ、専門家レビューは未確認である。
+
+### 2026-08-22 側脳室標本・全脳内位置 pilot
+
+側脳室全景だけへ「全脳で位置を確認」を追加した。初期OFF、ON時だけ追加Canvas、既存 `block-lateral-ventricle-tissue.mesh` の位置目安、透過全脳、既存メタデータの矢状断58、全脳表示の切断面を使う。代表断面への切替、コンテキスト独立回転、閉じた後の追加Canvas破棄、標本側の回転・着色・組織状態の保持を実装した。390 px相当では標本下へ縦積みし、操作ボタンを44 px以上にした。
+
+`BLOCK_CONTEXT_AUDIT.md` と `tests/block-context.test.mjs` へ、メタデータ・manifest・BNM形式・有限座標・tissue bboxのpial配布座標範囲への内包・代表断面座標とのbbox交差・初期Canvasなし・側脳室限定・state分離・表示注意を固定した。Chrome 151の実操作では、入場時Canvas 1、ONで2、代表断面切替後も2、閉じると1へ戻り、局所標本の通常表示・反対側視点・海馬OFFを保持した。閉じた後のフォーカス復帰、Home離脱後の履歴復帰で初期OFF、小画面の縦積みと横はみ出しなし、console error/warning 0も確認した。同じbuildの26経路×3幅×direct/reload＝156/156件が合格し、console/request/UI error、残留loader、横はみ出し、WebGL fallbackは0件だった。記録は `work/browser-audit/beta-route-audit-block-context-final-2026-08-22.json`（ローカル作業用・配布対象外）。context ONの性能値は `PERFORMANCE_AUDIT.md` の2026-08-23追記（37/37、PC・1024 px・390 px相当のcold/warm 6件）へ同期した。物理端末、公開URL、専門家レビューは未確認である。切断幅、摘出順、実習手順、実標本の代替は表示しない。
+
+### 2026-08-22 脳神経・主要血管 模式3Dクイズpilot（ローカル実ブラウザ確認済み）
+
+既存模式3Dオーバーレイだけを使う17問を、既存23問の別インベントリとして追加した。血管6対象と脳神経I・III–XIIの11対象を、白色強調された構造の名称同定だけで出題し、画面上に「模式3D・専門家未確認」を表示する。`neurovascular`形式、`arteries`／`cranialNerves`詳細、試作ON/OFF、wrong-only、候補数、既存脳表画面への白色選択付き復習リンクを接続した。旧BigBrain／断面ID33は正答に使わず、overlay名前空間の右VI外転神経region ID33とは分離して監査する。
+
+Chrome 151のローカル本番preview `http://127.0.0.1:4196` で、主要血管6問、脳神経11問（I、III–XII）を全件通過した。白色強調、透過脳表、小脳OFF、試作バッジ、誤答feedback、`#workspace/surface/arteries` への正解構造選択付き遷移、試作OFFの神経血管候補0、WebGL unavailable時のfallbackと解答進行を確認した。in-app Browserの390×768指定（実効 `innerWidth` 295）では `docWidth` 284、横overflowなし、console logs 0だった。全経路監査は `work/browser-audit/beta-route-audit-neurovascular-quiz-final-2026-08-22.json` に保存し156/156件成功した。
+
+これはローカルChrome 151での表示・操作確認であり、公開URL、物理端末、別GPU、専門家レビューは未確認である。詳細は [NEUROVASCULAR_QUIZ_AUDIT.md](NEUROVASCULAR_QUIZ_AUDIT.md) を参照。
+
+### 2026-08-22 スマートフォン専用ワークスペースUI（ローカル実ブラウザ確認）
+
+既存の教材データ、Canvas描画、クイズ、回転、教材状態、URL hashを変更せず、`width <= 760` かつ `hover: none` かつ `pointer: coarse` のときだけphone UIを有効にした。Home、脳表、断面、ブロック標本、復習の5導線をsafe-area対応の下部dockへ移し、上部の教材横スクロールナビを隠す。既存のworkspace `leftRail` は1つのsettings `dialog` 内へ置き、44px操作対象、背景クリック、Esc、Tab循環、起点focus復帰、背景scroll固定を実装した。
+
+Chrome 151のローカル通常production preview `http://127.0.0.1:4198` で、fine-pointer狭幅とcoarse touch emulationを確認した。fine-pointer狭幅は実効 `innerWidth` 295 / `clientWidth` 284、hover・pointerともfalse、`phoneMode=false`、dockなし、sections Canvas 1、segment workbenchあり・guardなし・Canvas 1、`docWidth=clientWidth`で、console logsは0件だった。
+
+coarse touch emulationはCDP width / clientWidth / scrollWidth 390、`mobile:true`、`touch:true`、`hover:none`、`pointer:coarse`で、`phoneMode=true`、dock 5件、sections Canvas 1を確認した。settings native dialogのrole、閉じた直後の初期focus、structure buttons 21件・structure groups 1件・全解除、html/body overflow hidden、Shift+Tabのdialog内循環、Esc／背景click後の起点phoneRailToggle focus復帰を確認した。rangeは52→53、page scrollY 220だった。segment directはguard true、workbench false、Canvas 0、dock 5件、overflow 0だった。画像は `work/browser-audit/mobile-ui-settings-390.png` と `work/browser-audit/mobile-ui-segment-390.png`、probe JSONは `work/browser-audit/mobile-ui-coarse-probe-2026-08-22.json` に保存した。
+
+coarse phoneの26経路×direct/reloadは52/52件、通常fine/non-touchの26経路×3幅×direct/reloadは156/156件に合格した。結果はそれぞれ `work/browser-audit/mobile-ui-route-audit-2026-08-22.json` と `work/browser-audit/beta-route-audit-mobile-ui-final-2026-08-22.json` に保存し、両reportでmissing/duplicate/fail、console/request/UI error、残留loader、横overflow、WebGL fallbackは0件だった。公開URL、物理端末、実機タッチ、Safari・別ブラウザ、別GPU、専門家レビューは未確認である。詳細は [MOBILE_UI_AUDIT.md](MOBILE_UI_AUDIT.md) を参照。
+
+### 2026-08-22 専門家レビュー準備キュー（準備のみ）
+
+2026-08-24、75件の読み取り専用台帳を変更せず、各カードへ1項目単位の「確認記録の端末内下書き」を追加した。氏名・所属・連絡先・自由記述を持たず、固定3観察項目・固定懸念コード、台帳全体・対象entry SHA-256、未提出・未採用・expert未主張を固定する。台帳不一致、JSON不正、保存障害、別タブ競合では編集・保存・通常書き出しを停止し、Web Locksと保存前照合、単調増加revisionで上書きと古い非同期完了を防ぐ。
+
+Chrome 151相当のローカル通常production preview `http://127.0.0.1:4332/` で、遅延オープン、固定select 5件、連続変更、自動保存、再読込復元、懸念コード必須、日本語案内、JSON書き出し完了表示を確認した。390 px指定（実効 `innerWidth` 295、`clientWidth` / `scrollWidth` 284）でカード幅233 px、select 156–158 px、操作ボタン44 px、横overflow 0、console error／warning 0だった。最終通常buildのcanonical route監査は162/162件に合格し、missing／duplicate／fail、console／request／UI error、残留loader、横overflow、WebGL fallbackは0件だった。これは専門家レビュー、本人性・署名、妥当性、採否を示さない。詳細は [ANATOMY_REVIEW_RECORD_DRAFT_AUDIT.md](ANATOMY_REVIEW_RECORD_DRAFT_AUDIT.md)。
+
+`public/atlas/structure-provenance.json` を単一情報源として、expert pending 56件を共同制作画面の読み取り専用パネルへ表示した。パネルはForm・Issue・PRなど一般入口の後ろに置いた既定閉鎖の`details`で、summaryに件数と読み取り専用を示し、開いたときだけ表示面・representationのフィルタ、既知の制限、source refs、プロジェクトレビュー状態を表示する。各リンクは「一般の○○画面を開く（この項目・構造・位置は自動選択されません）」と明示し、既存workspaceの一般入口だけへ遷移する。専門家レビュー完了、解剖学的妥当性、採否は示さない。旧ID33混合領域は断面／通常クイズ正答と分節入口から除外し、ID39・40はプロジェクト内レビュー済みだが専門家pendingとして明記している。詳細と監査は [ANATOMY_REVIEW_HANDOFF.md](ANATOMY_REVIEW_HANDOFF.md) と `scripts/audit_anatomy_review_queue.mjs` に固定した。
+
+Chrome 151のローカル通常production preview `http://127.0.0.1:4199` で、既定閉鎖、一般入口より後ろの配置、全56件、表示面別36／16／29／21件、複合フィルタ、乳頭体・旧ID33カード、一般断面／脳表リンクの注意文を実操作した。390 px指定のアプリ内ブラウザ（実効 `innerWidth` 295）では `clientWidth` / `scrollWidth` 284、横はみ出し0、一覧内側のスクロールなしだった。同じ通常buildの26経路×3幅×direct/reloadは156/156件に合格し、`work/browser-audit/beta-route-audit-anatomy-review-final-2026-08-22.json` に保存した。全テスト161/161、台帳監査、型検査、通常buildにも合格した。公開URL、物理端末、別ブラウザ・別GPU、専門家レビューは未確認である。
+
+### 2026-08-23 pial gzip性能・表示確認
+
+左右pialの既存`.mesh`を保持したまま`.mesh.gz` sidecarへ切り替えた現在版について、`work/performance/initial-route-payload-audit-pial-gzip-2026-08-23.json` はcanonical 26/26件、`work/performance/performance-suite-pial-gzip-2026-08-23.json` は37/37件、`work/browser-audit/beta-route-audit-pial-gzip-2026-08-23.json` は156/156件に合格した。raw pial要求は0件、error／loader／overflow／WebGL fallbackは各0件、stable-time回帰は1%未満、sampledPeak backing storage最大増加は2.0%（レビュー閾値25%）だった。
+
+ローカルpreview `http://127.0.0.1:4211` の視覚確認では、PCはcombined押下時Canvas 3、狭幅は初期section-only Canvas 1からcombined Canvas 3、2つの3D view描画、console warning/error 0を確認した。requested 1366 px時のin-app browser実効`clientWidth`は1035 px、requested 390 px時は284 pxであり、物理viewportの寸法とは扱わない。sectionsの現在payloadは26,441,013 Bで、旧34,688,033 B（34.69 MB）はsupersededな履歴として `PERFORMANCE_AUDIT.md` に残している。
+
+### 2026-08-24 M2比較試作の導線・専用URL
+
+共同制作ページの冒頭へ「M2・寄稿者向け試作」と明記した案内を追加し、既存カードを探さなくても3Dモデル方針A/B比較へ到達できるようにした。専用URL `#workspace/collaborate/model-strategy` はdirect/reloadで比較を開いた状態へ戻り、通常の `#workspace/collaborate` は比較用Canvasと資産を生成しない。案内から開いて閉じた場合は、通常の共同制作URLへ戻して起点ボタンへfocusを返す。
+
+Windows Chrome 151のローカルproduction preview `http://127.0.0.1:4312` で、通常ページのCanvas 0、案内から開いた後とdirect/reload後のCanvas 2、警告表示、閉鎖、focus復帰を確認した。390×768指定時は実効 `innerWidth` 295 px、`clientWidth` / `scrollWidth` 284/284で一列表示となり、loader、画面内error、横overflowは0件だった。canonical監査は27経路×3幅×direct/reload＝162/162件に合格し、missing／duplicate／fail、console／request／UI error、残留loader、横overflow、WebGL fallbackは0件だった。記録は `work/browser-audit/beta-route-audit-model-strategy-discovery-2026-08-24.json`。公開URL、物理端末、別ブラウザ・別GPU、専門家・学習者レビューは未確認で、A/Bの採否は変更していない。
+
+### 2026-08-24 M2比較レビュー記録
+
+比較専用URLへ、7項目×A/Bの1〜5評価、評価者区分、全体印象、任意メモの端末内下書きを追加した。氏名・メール・所属の入力欄と外部送信は設けず、JSON書き出し後も未送信・非採用・専門家確認未主張を明示する。Windows Chrome 151の `http://127.0.0.1:4313` で入力とreload復元、JSON書き出しを実操作した。初回に検出したイベント値遅延参照のconsole errorを修正後、新規タブでerror/warning 0を確認した。
+
+390×768指定時は実効`innerWidth` 295 px、文書の`clientWidth` / `scrollWidth` 284/284、review領域233/233、評価欄2列、select 44 px、操作ボタン縦積みで、Canvas 2、loader／UI error／横overflowは0件だった。最終buildのcanonical route監査は `work/browser-audit/beta-route-audit-model-strategy-review-2026-08-24.json` の162/162件に合格した。物理端末、実機タッチ、別ブラウザ・別GPU、公開URL、実際の専門家・学習者レビューは未確認である。
+
+### 2026-08-24 Papez回路・由来別ステッパー
+
+自由観察のPapez回路を6段階化した。海馬・乳頭体・視床は既存クイズ断面ラベル、脳弓は模式3D、帯状回・海馬傍回・嗅内野はCerebrA／Desikan系アトラス3Dとして表示区分を分けた。乳頭体は「断面ラベルのみ」、視床は「前部核は未分節」とし、3D専用段階では断面Canvasを生成しない。新しい形状、線維路、投射方向は追加していない。
+
+Windows Chrome 151のローカルproduction preview `http://127.0.0.1:4314` で前後移動、最初へ戻る、再生、6段階目の自動停止、別回路への切替を実操作した。断面段階はCanvas 2、3D専用段階はCanvas 1、loader／UI error 0。canonical route監査は `work/browser-audit/beta-route-audit-papez-stepper-2026-08-24.json` の162/162件、cold payload監査は `work/performance/initial-route-payload-papez-stepper-2026-08-24.json` の27/27件に合格した。公開URL、物理端末、別GPU／別ブラウザ、解剖学的妥当性の専門家レビューは未確認である。
+
+### 2026-08-24 ブロック標本のβ重点導線
+
+左レールを、ロードマップ上の改善対象である側脳室、レンズ核・投射線維、脈絡叢、内側側頭葉の「β重点4」と、残る「発展観察4」に分けた。全8標本は常時利用でき、既存番号・hash・初期標本・Canvas・assetを変更しない。画面上にも、区分は観察導線であり由来・確度・専門家レビューを示さないと明記した。
+
+Chrome 151のローカルproduction preview `http://127.0.0.1:4315` で全8標本を順に選択し、区分、hash、バッジ、Canvas 1、loader／UI error／横overflow 0を確認した。canonical route監査は `work/browser-audit/beta-route-audit-block-priority-2026-08-24.json` の162/162件、cold payload監査は `work/performance/initial-route-payload-block-priority-2026-08-24.json` の27/27件に合格した。公開URL、物理端末、別GPU／別ブラウザ、専門家による形状・優先順位の確認は未完了である。
+
+追加したβ重点4の部品確認ガイドは、既存lesson layerを1件ずつ単独表示し、最終段階だけ全layerを表示する。開始前の手動選択は終了・標本切替・workspace離脱・unmountで復元し、発展4にはガイドを表示しない。画面上の順序はUI上の部品確認順であり、解剖・摘出順や実習手順ではない。Chrome 151のPC相当でfocus4全件、active中の標本切替cleanup、発展4のguide count 0を確認した。さらに通常production preview `http://127.0.0.1:4330/` の390×768 coarse-touch相当で、側脳室4、レンズ核・投射線維7、脈絡叢3、内側側頭葉3の全single-layer段階、4件のfinal all、終了後manual復元を実タッチした。`work/browser-audit/phone-core-interactions-v18-focus4-guided-2026-08-24.json` は`allPassed: true`、独立validator failure 0で、loader／UI・console・request error／overflow／WebGL fallbackも0件だった。物理端末・タッチ、公開URL、別browser／GPU、専門家レビューは未確認。詳細は [BLOCK_GUIDED_OBSERVATION_AUDIT.md](BLOCK_GUIDED_OBSERVATION_AUDIT.md)。
+
+### 2026-08-24 第II脳神経名称同定pilot
+
+既存の`cn2`模式レイヤーを、白色強調の名称だけを問う試作問題へ追加した。Chrome 151のローカルpreview `http://127.0.0.1:4325` で全41問・脳神経12問、誤答説明、観察画面への復帰と`cn2`選択、試作OFF時の脳神経・血管3D 0問、共同制作の復習filter 22件を実操作した。最終build `http://127.0.0.1:4326` はcanonical route 162/162、cold payload 27/27件に合格し、console／request／UI error、loader、overflow、WebGL fallbackは0件だった。公開URL、物理端末、別browser／GPU、専門家レビューは未確認である。

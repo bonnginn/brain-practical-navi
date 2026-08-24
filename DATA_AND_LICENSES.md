@@ -1,10 +1,12 @@
 # データ、権利、出典
 
-更新日: 2026-08-14
+更新日: 2026-08-23
 
 この文書は「脳実習ナビ」に同梱するデータの来歴、ライセンス、改変内容、公開条件を追跡するための監査記録です。ライセンス原文が本書と異なる場合は原文が優先します。本書は法的助言ではありません。
 
 2026-08-14再監査: [BigBrain公式ライセンス掲示](https://forum.bigbrainproject.org/t/bigbrain-license/129) でCC BY-NC-SA 4.0の表示・非営利・継承条件を再確認しました。[Cloudflare Web Analytics公式説明](https://developers.cloudflare.com/web-analytics/about/) と [データ収集説明](https://developers.cloudflare.com/web-analytics/data-metrics/data-origin-and-collection/) では、個人データを収集・利用せず、CookieやlocalStorageを使わず、性能計測に必要な情報を最小限収集する現行方針を確認しました。公開アセットは `public/atlas/DATA-MANIFEST.json` で全ファイルを出典群、改変、ライセンス、表示義務、同梱通知へ一意に対応づけています。
+
+2026-08-24端末内保存追記: Cloudflare Web AnalyticsがlocalStorageを使わないことと、アプリ自身がクイズ間違い履歴・セグメンテーション編集差分・M2比較レビュー下書き・解剖レビュー下書きをブラウザのlocalStorageへ保存することを区別して、利用条件へ明記しました。これらは自動送信せず、サイトデータ消去で失われます。M2比較レビューは氏名・メール・所属fieldを持たず、JSON書き出し後も未送信・非採用・専門家確認未主張を固定します。任意メモにも個人を特定できる情報を入力しないよう画面で案内します。原著者やデータ提供機関の推奨・承認を示すものではありません。
 
 ## 公開可否の結論
 
@@ -92,6 +94,8 @@
 - `public/atlas/mni-cerebra-1mm.bin.gz`
 - `public/atlas/pial-left.mesh`
 - `public/atlas/pial-right.mesh`
+- `public/atlas/pial-left.mesh.gz`
+- `public/atlas/pial-right.mesh.gz`
 - `public/atlas/caudate.mesh`
 - `public/atlas/hippocampus.mesh`
 - `public/atlas/thalamus.mesh`
@@ -116,6 +120,7 @@
 - T1/T2、GM/WM/CSF確率、脳マスク、CerebrAラベルの1 mm格子への統合
 - 8-bit化、gzip圧縮、独自ヘッダー付与
 - CerebrAラベルから表示用メッシュを作成
+- 左右pialメッシュは元の`.mesh`を保持し、同一バイトへ戻る決定的なlossless gzip sidecar（`.mesh.gz`）も配布
 - CerebrA由来の脳室・脳幹・小脳・視交叉・島皮質候補をBigBrain 0.5 mm格子へ最近傍再標本化し、既存ラベルの空き領域へ限定
 
 IDs 23–29、33–35は手動正解ラベルではありません。アプリでは「試作」または「位置照合済みアトラス由来」と明記します。
@@ -133,6 +138,8 @@ IDs 23–29、33–35は手動正解ラベルではありません。アプリ�
 
 - `public/atlas/pial-left.mesh`
 - `public/atlas/pial-right.mesh`
+- `public/atlas/pial-left.mesh.gz`
+- `public/atlas/pial-right.mesh.gz`
 - `public/atlas/surface-region-labels.json`
 - `public/atlas/surface-landmark-*.mesh`
 - `public/atlas/surface-landmarks.json`
@@ -166,6 +173,10 @@ IDs 23–29、33–35は手動正解ラベルではありません。アプリ�
 
 IDs 30–32はBigBrain画像、CerebrA白質確率、近接核・脳室との位置制約から計算した教育用候補です。IDs 39–40はBigBrain水平連続切片を参照して本プロジェクトが手動分節し、プロジェクト内確認を経て公開教材へ採用しました。いずれも研究用の正解マスクではなく、乳頭体の視床下部付着境界は直交断確認により改訂する場合があります。
 
+`tests/fixtures/bigbrain-practical-segmentation-pre-mammillary-de30.bin.gz` は、旧ラベル版の移行・strict validatorを浅いcloneでも再現するためにGitリポジトリ内で再配布する、採用前のcombined practical segmentationです。BigBrain参照データだけのfixtureではなく、Xiaoらの手動ラベル、CerebrA/MNI由来の教育用対応、本プロジェクト生成候補を含むmixed-sourceラベルです。公開アセットへは含めませんが、本書に記載したBigBrainの帰属・非営利・継承条件、Xiao手動ラベルのCC BY 4.0、CerebrA/MNIの利用条件、および本プロジェクト生成部分の注意事項をそれぞれ適用します。
+
+`tests/fixtures/bigbrain-practical-segmentation-pre-ventricle-6744.bin.gz` は、PR #14の33 voxel脳室修正をstrict validatorとビルド段階で再現するための、修正適用前のcombined practical segmentationです。上記と同じmixed-sourceラベルであり、公開アセットではありません。適用される帰属・利用条件・教育用ラベルの注意事項も同じです。
+
 ## 6. 本プロジェクトの教育用模式3D
 
 対象ファイル:
@@ -182,6 +193,7 @@ IDs 30–32はBigBrain画像、CerebrA白質確率、近接核・脳室との位
 - `public/atlas/landmark-mammillary-bodies.mesh`
 - `public/atlas/landmark-anterior-perforated-substance.mesh`
 - `public/atlas/basal-landmarks.json`
+- `public/atlas/comparison-schematic-ventricle.mesh`
 
 脳底動脈と脳神経根は、本プロジェクトが主要経路をMNI方向の表示空間へ手作業で置き、`scripts/build_neurovascular_overlays.py` で管状メッシュへ変換した模式3Dです。動脈はpial-like表面の表示補正を維持し、III–XIIの神経根は同一ICBM500格子の脳幹ラベル表面へ見かけの起始部を合わせています。嗅球・嗅索、視神経・視交叉・視索、漏斗（下垂体茎）、乳頭体、前有孔質は、同じ表示空間へ `scripts/build_basal_landmarks.py` で配置した独立部品です。外部の標本写真・教科書図版・アトラス図版をトレースまたは収録していません。BigBrain組織像、血管造影、tractography、献体標本から抽出したものでもありません。
 
@@ -194,7 +206,9 @@ IDs 30–32はBigBrain画像、CerebrA白質確率、近接核・脳室との位
 
 生成メッシュは本プロジェクト作成の教材データとしてCC BY-NC-SA 4.0、生成スクリプトはアプリケーションコードとしてAGPL-3.0-or-laterです。詳細は `public/atlas/PROCEDURAL-NEUROVASCULAR-NOTICE.txt` を参照してください。これらは解剖学的正解データ、手術シミュレーション、臨床参照には使用できません。
 
-`public/og.png` は本プロジェクト用に追加したプロモーション用イラストです。解剖データや第三者の標本画像として扱わず、教材上の位置・形状の根拠にも使用していません。一般公開前に、作成履歴をプロジェクト記録として保持してください。
+`comparison-schematic-ventricle.mesh` は、共同制作ページの寄稿者限定A/B比較pilotだけで使う独立した模式メッシュです。`scripts/build_comparison_schematic_ventricle.mjs` の座標列から決定的に生成し、既存標本・アトラス頂点・断面ラベルを抽出または変形していません。画面では「模式・専門家未確認」「実標本由来ではない」と表示し、学習者向けモデル、正解セグメンテーション、検証済み形状として扱いません。個別の配布義務は `public/atlas/DATA-MANIFEST.json` の `contributor-comparison-prototype-assets` に記録しています。
+
+`public/og.png` は本プロジェクトが作成したSNS共有用プロモーションイラストです。解剖データや第三者の標本画像として扱わず、教材上の位置・形状の根拠にも使用していません。プロジェクト作成の公開視覚素材として、現在の自作教材・プロジェクト作成物の扱いであるCC BY-NC-SA 4.0に従います。作成履歴と現行ファイルのSHA-256は [PUBLIC_ASSET_CREATION_RECORD.md](PUBLIC_ASSET_CREATION_RECORD.md) に記録します。
 
 ## 7. 参照したが同梱していない著作物
 
@@ -239,7 +253,7 @@ AGPLはオープンソースであり、コードの販売や業務利用その�
 | BigBrain帰属・変更表示 | 対応済み | 公開ビルドでもリンクを確認 |
 | MNI著作権表示 | 対応済み | `public/atlas/LICENSE.txt` を同梱 |
 | 講義・教科書画像の非収録 | 対応済み | 新規アセット追加時に再監査 |
-| OGPイラストの作成履歴 | 要記録保持 | `public/og.png` のプロジェクト内作成履歴を保持 |
+| OGPイラストの作成履歴 | 記録済み | [PUBLIC_ASSET_CREATION_RECORD.md](PUBLIC_ASSET_CREATION_RECORD.md) に `public/og.png` の作成履歴と現行SHA-256を記録 |
 | アプリコードのライセンス | 対応済み | AGPL-3.0-or-laterとソース導線を維持 |
 | 自作教材文書のライセンス | 対応済み | CC BY-NC-SA 4.0表示を維持 |
 | 公開ソースURL | 対応済み | `bonnginn/brain-practical-navi` への導線を維持 |

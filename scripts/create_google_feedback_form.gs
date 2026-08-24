@@ -1,23 +1,31 @@
 /**
- * 脳実習ナビ：α版フィードバック／共同制作フォーム生成スクリプト
+ * 脳実習ナビ：フィードバック／共同制作フォーム生成スクリプト
  *
  * 使い方:
  * 1. https://script.google.com/ で「新しいプロジェクト」を作る。
  * 2. Code.gs の内容をすべて削除し、このファイルを貼り付ける。
- * 3. CONFIG.CONTACT_TEXT と CONFIG.RETENTION_TEXT を確認する。
- * 4. createBrainPracticalFeedbackForm を実行し、Googleの権限確認を許可する。
- * 5. 実行ログに出た EDIT_URL、RESPONDER_URL、SHEET_URL を開く。
+ * 3. 同じプロジェクトへ preflight_google_feedback_form.gs も追加する。
+ * 4. CONFIG.FORM_DESCRIPTION を確認する。
+ * 5. createBrainPracticalFeedbackForm を実行し、Googleの権限確認を許可する。
+ * 6. 実行ログに出た EDIT_URL、RESPONDER_URL、SHEET_URL を開く。
  *
  * 同じスクリプトプロジェクトで再実行しても、フォームを重複作成せず
  * 既存URLを再表示します。新規に作り直す場合だけ resetStoredFormIds を実行します。
  */
 
 var CONFIG = {
-  FORM_TITLE: '脳実習ナビ α版｜修正提案・共同制作フォーム',
-  RESPONSE_SHEET_TITLE: '脳実習ナビ α版｜フォーム回答・運用管理',
-  PROJECT_NAME: '脳実習ナビ',
-  CONTACT_TEXT: '不具合・修正提案：https://github.com/bonnginn/brain-practical-navi/issues',
-  RETENTION_TEXT: '保存期間：α版の改善と共同制作の連絡に必要な期間。不要になった連絡先は削除します。',
+  FORM_TITLE: '脳実習ナビ｜修正提案・共同制作フォーム',
+  RESPONSE_SHEET_TITLE: '脳実習ナビ｜フォーム回答・運用管理',
+  FORM_DESCRIPTION: [
+    '脳実習ナビは、脳解剖実習の予習・復習を補助する非営利の教育用試作教材です。',
+    '神経解剖学的な誤り、構造表示のずれ、操作性の問題、共同制作の提案を募集しています。',
+    '',
+    '患者情報、献体者・学生を特定できる情報、実習標本の写真、公開許諾のない講義・教科書・アトラス図版は送信しないでください。',
+    '修正提案は匿名で送信できます。氏名・所属・連絡先は、共同制作または返信を希望する場合だけ任意で入力してください。',
+    '回答は教材改善、権利確認、希望者への共同制作の連絡にのみ使用し、本人の確認なく所属や連絡先を公開しません。',
+    '保存期間：教材改善と共同制作の連絡に必要な期間。不要になった連絡先は削除します。',
+    '不具合・修正提案：https://github.com/bonnginn/brain-practical-navi/issues',
+  ].join('\n'),
 };
 
 function createBrainPracticalFeedbackForm() {
@@ -25,17 +33,27 @@ function createBrainPracticalFeedbackForm() {
   var savedFormId = properties.getProperty('BRAIN_PRACTICAL_FORM_ID');
   var savedSheetId = properties.getProperty('BRAIN_PRACTICAL_SHEET_ID');
 
+  if (!!savedFormId !== !!savedSheetId) {
+    throw new Error('STORED_TARGET_PARTIAL：保存済みのフォーム／シート参照が片方だけです。新規作成せず、管理者がScript Propertiesを確認してください。');
+  }
+
   if (savedFormId && savedSheetId) {
     var existingForm = FormApp.openById(savedFormId);
     var existingSheet = SpreadsheetApp.openById(savedSheetId);
-    refreshExistingForm_(existingForm, existingSheet);
+    var preflightReport = preflightBrainPracticalFeedbackForm();
+    if (!preflightReport.ok) {
+      throw new Error(
+        '既存フォームは自動更新しません。読み取り専用preflightの差分コードを確認してください（件数：' +
+        preflightReport.mismatchCount + '）。'
+      );
+    }
     logResult_(existingForm, existingSheet, true);
     return;
   }
 
   var form = FormApp.create(CONFIG.FORM_TITLE, true);
   form
-    .setDescription(buildDescription_())
+    .setDescription(CONFIG.FORM_DESCRIPTION)
     .setCollectEmail(false)
     .setLimitOneResponsePerUser(false)
     .setProgressBar(true)
@@ -129,7 +147,7 @@ function createBrainPracticalFeedbackForm() {
   form.addCheckboxItem()
     .setTitle('送信前の確認')
     .setChoiceValues([
-      '患者情報、献体者・学生を特定できる情報、公開許諾のない標本写真、第三者の図版を含めていません。',
+      '患者情報、献体者・学生を特定できる情報、実習標本の写真、第三者の図版を含めていません。',
     ])
     .setRequired(true);
 
@@ -222,34 +240,11 @@ function createBrainPracticalFeedbackForm() {
 
 function collaborationAcknowledgements_() {
   return [
-    '公開αへの参加希望であり、報酬・採用・継続参加は個別の合意がない限り保証されないことを理解しました。',
+    '教育用試作教材への参加希望であり、報酬・採用・継続参加は個別の合意がない限り保証されないことを理解しました。',
     '公式版への採用・編集・見送りの最終判断は、当面プロジェクト管理者が行うことを理解しました。',
     'コード・教材・セグメンテーション等を提出する場合は、自分に提出権限があり、指定ライセンスとDCOを確認します。',
-    '患者情報、公開許諾のない標本写真、第三者の講義・教科書図版を提出しません。',
+    '患者情報、実習標本の写真、第三者の講義・教科書図版を提出しません。',
   ];
-}
-
-function refreshExistingForm_(form, spreadsheet) {
-  form.setTitle(CONFIG.FORM_TITLE).setDescription(buildDescription_());
-  spreadsheet.rename(CONFIG.RESPONSE_SHEET_TITLE);
-  form.getItems(FormApp.ItemType.CHECKBOX).forEach(function(item) {
-    if (item.getTitle() === '共同制作に関する確認') {
-      item.asCheckboxItem().setChoiceValues(collaborationAcknowledgements_());
-    }
-  });
-}
-
-function buildDescription_() {
-  return [
-    CONFIG.PROJECT_NAME + 'は、脳解剖実習の予習・復習を補助する非営利の教育用α版です。',
-    '神経解剖学的な誤り、構造表示のずれ、操作性の問題、共同制作の提案を募集しています。',
-    '',
-    '患者情報、献体者・学生を特定できる情報、実習標本の写真、公開許諾のない講義・教科書・アトラス図版は送信しないでください。',
-    '修正提案は匿名で送信できます。氏名・所属・連絡先は、共同制作または返信を希望する場合だけ任意で入力してください。',
-    '回答は教材改善、権利確認、希望者への共同制作の連絡にのみ使用し、本人の確認なく所属や連絡先を公開しません。',
-    CONFIG.RETENTION_TEXT,
-    CONFIG.CONTACT_TEXT,
-  ].join('\n');
 }
 
 function prepareOperationsSheet_(spreadsheet, form) {
@@ -261,7 +256,7 @@ function prepareOperationsSheet_(spreadsheet, form) {
     ['回答者URL', form.getPublishedUrl()],
     ['公開前確認', 'フォーム右上の「公開／共有」で回答者を「リンクを知っている全員」に設定'],
     ['個人情報', '不要になった連絡先を削除し、削除依頼の連絡先をフォーム説明へ明記'],
-    ['標本写真', '公開許諾のない標本写真・講義図版を受け取らない'],
+    ['標本写真', '実習標本の写真・第三者の講義図版を受け取らない'],
     ['推奨ステータス', '未確認／確認中／採用／見送り'],
     ['アプリ設定', '回答者URLを VITE_FEEDBACK_FORM_URL に設定'],
   ]);

@@ -1,0 +1,17 @@
+export type ModelStrategyReviewerRole="not-selected"|"neuroanatomy-expert"|"anatomy-educator"|"learner"|"other-contributor";
+export type ModelStrategyPreference="undecided"|"A"|"B"|"no-preference";
+export type ModelStrategyDimension={key:string;labelJa:string};
+export type ModelStrategyRating={dimensionKey:string;labelJa:string;A:number|null;B:number|null};
+export type ModelStrategyReviewDraft={schemaVersion:1;comparisonId:"deep-ventricle";status:"local-unsubmitted-draft";privacy:string;reviewerRole:ModelStrategyReviewerRole;ratings:ModelStrategyRating[];overallPreference:ModelStrategyPreference;notes:string;createdAt:string;updatedAt:string;adoptionDecision:"not-recorded";expertReviewStatus:"not-claimed";sourceEvaluation:string};
+export const MODEL_STRATEGY_REVIEW_SCHEMA_VERSION:1;
+export const MODEL_STRATEGY_REVIEW_COMPARISON_ID:"deep-ventricle";
+export const MODEL_STRATEGY_REVIEW_STORAGE_KEY:string;
+export const MODEL_STRATEGY_REVIEW_SOURCE:string;
+export const MODEL_STRATEGY_REVIEW_ROLES:readonly ModelStrategyReviewerRole[];
+export const MODEL_STRATEGY_REVIEW_PREFERENCES:readonly ModelStrategyPreference[];
+export function createModelStrategyReviewDraft(dimensions:ModelStrategyDimension[],now?:string):ModelStrategyReviewDraft;
+export function validateModelStrategyReviewDraft(value:unknown,dimensions:ModelStrategyDimension[]):{ok:boolean;errors:string[]};
+export function restoreModelStrategyReviewDraft(serialized:string,dimensions:ModelStrategyDimension[],now?:string):ModelStrategyReviewDraft;
+export function countModelStrategyReviewScores(draft:ModelStrategyReviewDraft):number;
+export function buildModelStrategyReviewExport(draft:ModelStrategyReviewDraft,dimensions:ModelStrategyDimension[],exportedAt?:string):ModelStrategyReviewDraft&{exportedAt:string;completeness:{scoreCount:number;scoreTotal:number;ratingsComplete:boolean;reviewerRoleSelected:boolean;preferenceRecorded:boolean};submissionStatus:"not-submitted"};
+export function validateModelStrategyReviewExport(value:unknown,dimensions:ModelStrategyDimension[]):{ok:boolean;errors:string[];summary:{scoreCount:number;scoreTotal:number;ratingsComplete:boolean;reviewerRoleSelected:boolean;preferenceRecorded:boolean}};

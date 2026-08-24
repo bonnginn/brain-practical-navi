@@ -1,0 +1,378 @@
+{
+  "ledgerId": "beta-go-no-go",
+  "updated": "2026-08-24",
+  "itemCount": 12,
+  "stateCounts": {
+    "proven-local": 3,
+    "partial-local": 1,
+    "expert-blocked": 4,
+    "administrator-blocked": 1,
+    "deployment-blocked": 3
+  },
+  "items": [
+    {
+      "id": "criterion-01-essential-structure-labels",
+      "heading": "必修構造の表示区分",
+      "state": "expert-blocked",
+      "stateLabel": "専門家確認待ち",
+      "locallyProven": [
+        "ローカル由来台帳と表示面の照合を実施した。",
+        "専門家未確認の必修範囲を合格扱いしていない。"
+      ],
+      "unprovenScope": "全必修範囲の解剖学的妥当性、専門家レビュー、公開版での表示一致は未確認。",
+      "nextAction": "専門家レビューで必修範囲と表示区分を確認し、判定記録を追加する。"
+    },
+    {
+      "id": "criterion-02-learning-target-integrity",
+      "heading": "学習対象の完全性",
+      "state": "expert-blocked",
+      "stateLabel": "専門家確認待ち",
+      "locallyProven": [
+        "ローカル構造由来監査・表示台帳を確認した。",
+        "旧ID33の現行格子について、voxel数、6近傍成分、全占有断面、境界面接触、代表候補を再現可能な客観監査へ固定した。",
+        "旧ID33の3代表候補を寄稿者ツールから編集を作らず開けることをローカル実ブラウザで確認した。",
+        "ローカル証拠だけでは欠落・重複・遊離・空着色の解剖学的判定を完了していない。",
+        "直交断レビュー証拠束v3のlocal-only manifestと161枚のPNGを、ID33・39・40の全占有X/Y/Z断面、ID39・40の外側endpoint、raw grayscale+outlineの客観資料として固定した。",
+        "strict validatorでmanifestのschema、入力・画素・PNG hash、pixel-to-voxel geometry、Fortran anchorを再計算した。",
+        "manifestのreview.status=unreviewedで、解剖学的妥当性・境界・採用は未証明である。",
+        "左右側脳室・第三脳室について、X・Y・Z各軸で同じ脳室ラベルに挟まれ、別ラベルと6近傍接触しない内部欠損33 voxelだけを固定差分としてプロジェクト内レビューし、公開教材ラベルへ採用した。",
+        "採用前後のraw label差分が0→23:14、0→24:15、0→25:4の33 voxelだけであることを再現テストで固定した。単純な黒背景fill、脳室全体の境界確定、専門家レビュー、research ground truthではない。"
+      ],
+      "unprovenScope": "全学習対象の解剖学的欠落や二重表示を、専門家レビューを含めて網羅的に確認していない。直交断証拠束のreview.status=unreviewedであり、解剖学的妥当性・境界・採用は未証明で、専門家確認・ground truth・ラベル採否を示さない。",
+      "nextAction": "全学習対象の欠落・重複・遊離・空着色を専門家と再確認する。"
+    },
+    {
+      "id": "criterion-03-desktop-tablet-core-operations",
+      "heading": "PC・タブレット中心操作",
+      "state": "proven-local",
+      "stateLabel": "ローカル証拠あり",
+      "locallyProven": [
+        "Windows Chrome 151のローカル本番成果物で、脳表・水平断・自由観察・クイズ×PC 1366×768／横向きタブレット幅1024×768の8/8件・40操作を確認した。",
+        "独立validatorが実測viewport、操作前後、5問queue、回答対象から導出した復習先、error／loader／overflow／fallbackを再計算した。",
+        "両条件はmobile:false・touch:falseで、公開URL・物理端末の合格は主張していない。"
+      ],
+      "unprovenScope": "公開URL、物理PC・タブレット、実機タッチ、別ブラウザ・GPU、専門家による操作評価は未確認。",
+      "nextAction": "公開URLと対象の物理PC・横向きタブレット・実機タッチで同じ経路監査を再実施する。"
+    },
+    {
+      "id": "criterion-04-smartphone-core-operations",
+      "heading": "スマートフォン中心操作",
+      "state": "partial-local",
+      "stateLabel": "ローカル部分確認",
+      "locallyProven": [
+        "Windows Chrome 151のローカルproduction previewを390×768・DPR1・mobile:true・touch:true・coarse pointerで実行し、dock、surface-lateral、sections-horizontal、quiz、β重点4 block guideの5 journeyを確認した。",
+        "全journeyでCDP Input.dispatchTouchEventによる実タッチ列、44 px以上・画面内・hit-test可能な操作対象、意味キーと状態連続性を独立validatorが再計算した。",
+        "初期・最終probeでloader、UI／console／request error、横overflow、WebGL fallbackが0件で、独立validatorのvalidation.passed=trueを確認した。",
+        "旧来のcoarse-touch／fine-pointer狭幅経路のローカル記録も履歴として保持している。",
+        "物理スマートフォンの確認は未実施。"
+      ],
+      "unprovenScope": "物理スマートフォン、公開URL、Safari等の別ブラウザ、別GPUでの確認は未実施。",
+      "nextAction": "物理スマートフォンと主要ブラウザで閲覧・クイズ・基本操作を確認する。"
+    },
+    {
+      "id": "criterion-05-payload-performance",
+      "heading": "初回表示とデータ量",
+      "state": "proven-local",
+      "stateLabel": "ローカル証拠あり",
+      "locallyProven": [
+        "ローカルcanonical 27経路のcold payloadと転送量予算を測定した。",
+        "ローカル公開物全体とpial gzip性能の結果を監査資料へ記録した。"
+      ],
+      "unprovenScope": "公開回線、別端末、公開ホストでの性能は未確認。",
+      "nextAction": "公開ホストまたは公開相当環境で転送量と初回表示を再測定する。"
+    },
+    {
+      "id": "criterion-06-tests-build-and-public-routes",
+      "heading": "テスト・ビルド・公開経路",
+      "state": "deployment-blocked",
+      "stateLabel": "公開反映待ち",
+      "locallyProven": [
+        "ローカル自動テスト・TypeScript・通常/Pages buildと27経路ローカル巡回の根拠を記録した。",
+        "公開URLへの反映は未確認。"
+      ],
+      "unprovenScope": "公開URLへの反映と公開環境での全経路巡回は未確認。",
+      "nextAction": "デプロイ後に公開URLの全経路を巡回し、反映結果を記録する。"
+    },
+    {
+      "id": "criterion-07-quiz-target-visibility",
+      "heading": "クイズ対象の可視性",
+      "state": "expert-blocked",
+      "stateLabel": "専門家確認待ち",
+      "locallyProven": [
+        "ローカルクイズ粒度監査で、既存23問を標準7件・試作16件に分類し、targetと全選択肢の由来を照合した。",
+        "provisional選択肢を含む4問を試作へ隔離し、unknown由来を拒否する分類を確認した。",
+        "Chrome 151のローカルproduction previewで、断面17・脳表6・神経血管18 targetを3幅で着色・解除・再着色し、独立validatorが123/123件を確認した。",
+        "未確認構造の標準採用は専門家未確認。"
+      ],
+      "unprovenScope": "専門家による標準採用判断と、未確認構造が正答・選択肢へ現れないことの全範囲確認は未完了。",
+      "nextAction": "専門家にクイズ対象・表示・正答条件（targetと全選択肢の由来を含む）を確認してもらう。"
+    },
+    {
+      "id": "criterion-08-expert-review-handoff",
+      "heading": "専門家レビュー引継ぎ",
+      "state": "proven-local",
+      "stateLabel": "ローカル証拠あり",
+      "locallyProven": [
+        "ローカル読み取り専用レビューキューと根拠参照の引き継ぎ準備を確認した。",
+        "1項目単位の構造化された端末内下書きで、現在台帳SHA、固定観察項目、未提出・未採用・expert未主張を検証し、古い台帳・保存障害・別タブ競合をロックすることを確認した。",
+        "ローカルstatus画面で12件の公開前チェックを状態別に表示し、専門家確認待ち4件と次操作をGo/No-Go台帳から読み取り専用で引き継げることを確認した。",
+        "実際の専門家レビュー・採否は未確認。"
+      ],
+      "unprovenScope": "実際の専門家レビュー、採否、公開導線での引き継ぎは未確認。",
+      "nextAction": "専門家レビュー依頼へ対象・根拠・観察リンクを引き渡す。"
+    },
+    {
+      "id": "criterion-09-public-rights-and-notices",
+      "heading": "公開権利・利用条件",
+      "state": "deployment-blocked",
+      "stateLabel": "公開反映待ち",
+      "locallyProven": [
+        "ローカルsource監査で、DATA-MANIFESTをbundledNotices配列へ移行し、マニフェストを除く110配布ファイルがexactly-oneの出典群へ一致することを確認した。",
+        "5つの通知の存在・非空・通知メタ群へのexactly-one一致・非通知群からの逆参照と、project-authored群の21ファイル一覧を独立validatorで確認した。",
+        "source/dist監査で通常base `/` とPages base `/brain-practical-navi/` を分離し、111 atlas pathのbyte identity、対応ソースmetaの一意性、利用条件markerの存在をfixture/mutationと通常／Pages buildで確認した。",
+        "利用条件へ端末内localStorage保存、自動送信なし、サイトデータ消去で消失、原著者・データ提供機関の推奨・承認を示さない旨を同期し、fixture/mutationテストで表示欠落を拒否した。",
+        "ローカル通常buildの実ブラウザで利用条件を開き、8 marker、対応ソースURL、PC相当表示とviewport cap 390×844の小画面表示を確認し、修正後はroot・dialog・footerの横溢れ、loader、UI errorが0であることを確認した。",
+        "公開版との最終一致は未確認。"
+      ],
+      "unprovenScope": "公開版との最終一致、公開ホストのクレジット・免責表示は未確認。",
+      "nextAction": "管理者が公開版の権利・免責・プライバシー表示を突合する。"
+    },
+    {
+      "id": "criterion-10-feedback-operations",
+      "heading": "フィードバック運用",
+      "state": "administrator-blocked",
+      "stateLabel": "管理者確認待ち",
+      "locallyProven": [
+        "ローカル画面と共同制作文書にGoogle Form・GitHub導線の定義を確認した。",
+        "2026-08-24にログアウト状態で現行Google Formが開き、ログインは回答保存の任意導線、匿名分岐と公開GitHub Issuesへのリンクが表示されることを確認した。",
+        "生成スクリプトを版名非依存の教育用試作教材表記へ更新したが、既存外部フォームへの適用、回答送信・削除運用は管理者未確認である。",
+        "2026-08-24に20質問・3ページ・匿名性・分岐の機械可読契約と、契約に列挙した設定・説明・質問・help text・選択肢・「その他」・分岐・運用シート見出しを一致照合するpreflightを追加した。既存フォーム経路は自動更新を行わないことをローカル検証した。外部フォームでは未実行である。"
+      ],
+      "unprovenScope": "現行外部フォームはα版表記のまま。版名非依存表記の適用、ログアウト状態の全3ページ、テスト回答、Google Formsと回答シート双方からの削除、管理者による運用確認は未完了。",
+      "nextAction": "管理者が既存Google Formへ版名非依存表記を適用する。"
+    },
+    {
+      "id": "criterion-11-expert-required-scope-review",
+      "heading": "必修範囲の専門家レビュー",
+      "state": "expert-blocked",
+      "stateLabel": "専門家確認待ち",
+      "locallyProven": [
+        "ローカル必修範囲・レビュー引き継ぎ資料を用意した。",
+        "専門家レビュー記録は未取得。"
+      ],
+      "unprovenScope": "神経解剖学の専門家による必修範囲のレビュー記録は未取得。",
+      "nextAction": "神経解剖学の確認者を依頼し、必修範囲のレビュー記録を取得する。"
+    },
+    {
+      "id": "criterion-12-publish-known-limitations",
+      "heading": "既知の制限公開",
+      "state": "deployment-blocked",
+      "stateLabel": "公開反映待ち",
+      "locallyProven": [
+        "ローカルstatus JSONと既知の制限表示の根拠を確認した。",
+        "ローカルstatus画面に12件の公開前チェック、5状態別件数、未確認範囲、次操作を表示し、個別状態を合算した総合判定は設けていない。",
+        "公開URL反映は未確認。"
+      ],
+      "unprovenScope": "公開URLへの反映と専門家・管理者による既知の制限の確認は未完了。",
+      "nextAction": "公開版へ反映後、既知の制限一覧を管理者と確認する。"
+    }
+  ],
+  "groups": [
+    {
+      "state": "proven-local",
+      "stateLabel": "ローカル証拠あり",
+      "items": [
+        {
+          "id": "criterion-03-desktop-tablet-core-operations",
+          "heading": "PC・タブレット中心操作",
+          "state": "proven-local",
+          "stateLabel": "ローカル証拠あり",
+          "locallyProven": [
+            "Windows Chrome 151のローカル本番成果物で、脳表・水平断・自由観察・クイズ×PC 1366×768／横向きタブレット幅1024×768の8/8件・40操作を確認した。",
+            "独立validatorが実測viewport、操作前後、5問queue、回答対象から導出した復習先、error／loader／overflow／fallbackを再計算した。",
+            "両条件はmobile:false・touch:falseで、公開URL・物理端末の合格は主張していない。"
+          ],
+          "unprovenScope": "公開URL、物理PC・タブレット、実機タッチ、別ブラウザ・GPU、専門家による操作評価は未確認。",
+          "nextAction": "公開URLと対象の物理PC・横向きタブレット・実機タッチで同じ経路監査を再実施する。"
+        },
+        {
+          "id": "criterion-05-payload-performance",
+          "heading": "初回表示とデータ量",
+          "state": "proven-local",
+          "stateLabel": "ローカル証拠あり",
+          "locallyProven": [
+            "ローカルcanonical 27経路のcold payloadと転送量予算を測定した。",
+            "ローカル公開物全体とpial gzip性能の結果を監査資料へ記録した。"
+          ],
+          "unprovenScope": "公開回線、別端末、公開ホストでの性能は未確認。",
+          "nextAction": "公開ホストまたは公開相当環境で転送量と初回表示を再測定する。"
+        },
+        {
+          "id": "criterion-08-expert-review-handoff",
+          "heading": "専門家レビュー引継ぎ",
+          "state": "proven-local",
+          "stateLabel": "ローカル証拠あり",
+          "locallyProven": [
+            "ローカル読み取り専用レビューキューと根拠参照の引き継ぎ準備を確認した。",
+            "1項目単位の構造化された端末内下書きで、現在台帳SHA、固定観察項目、未提出・未採用・expert未主張を検証し、古い台帳・保存障害・別タブ競合をロックすることを確認した。",
+            "ローカルstatus画面で12件の公開前チェックを状態別に表示し、専門家確認待ち4件と次操作をGo/No-Go台帳から読み取り専用で引き継げることを確認した。",
+            "実際の専門家レビュー・採否は未確認。"
+          ],
+          "unprovenScope": "実際の専門家レビュー、採否、公開導線での引き継ぎは未確認。",
+          "nextAction": "専門家レビュー依頼へ対象・根拠・観察リンクを引き渡す。"
+        }
+      ]
+    },
+    {
+      "state": "partial-local",
+      "stateLabel": "ローカル部分確認",
+      "items": [
+        {
+          "id": "criterion-04-smartphone-core-operations",
+          "heading": "スマートフォン中心操作",
+          "state": "partial-local",
+          "stateLabel": "ローカル部分確認",
+          "locallyProven": [
+            "Windows Chrome 151のローカルproduction previewを390×768・DPR1・mobile:true・touch:true・coarse pointerで実行し、dock、surface-lateral、sections-horizontal、quiz、β重点4 block guideの5 journeyを確認した。",
+            "全journeyでCDP Input.dispatchTouchEventによる実タッチ列、44 px以上・画面内・hit-test可能な操作対象、意味キーと状態連続性を独立validatorが再計算した。",
+            "初期・最終probeでloader、UI／console／request error、横overflow、WebGL fallbackが0件で、独立validatorのvalidation.passed=trueを確認した。",
+            "旧来のcoarse-touch／fine-pointer狭幅経路のローカル記録も履歴として保持している。",
+            "物理スマートフォンの確認は未実施。"
+          ],
+          "unprovenScope": "物理スマートフォン、公開URL、Safari等の別ブラウザ、別GPUでの確認は未実施。",
+          "nextAction": "物理スマートフォンと主要ブラウザで閲覧・クイズ・基本操作を確認する。"
+        }
+      ]
+    },
+    {
+      "state": "expert-blocked",
+      "stateLabel": "専門家確認待ち",
+      "items": [
+        {
+          "id": "criterion-01-essential-structure-labels",
+          "heading": "必修構造の表示区分",
+          "state": "expert-blocked",
+          "stateLabel": "専門家確認待ち",
+          "locallyProven": [
+            "ローカル由来台帳と表示面の照合を実施した。",
+            "専門家未確認の必修範囲を合格扱いしていない。"
+          ],
+          "unprovenScope": "全必修範囲の解剖学的妥当性、専門家レビュー、公開版での表示一致は未確認。",
+          "nextAction": "専門家レビューで必修範囲と表示区分を確認し、判定記録を追加する。"
+        },
+        {
+          "id": "criterion-02-learning-target-integrity",
+          "heading": "学習対象の完全性",
+          "state": "expert-blocked",
+          "stateLabel": "専門家確認待ち",
+          "locallyProven": [
+            "ローカル構造由来監査・表示台帳を確認した。",
+            "旧ID33の現行格子について、voxel数、6近傍成分、全占有断面、境界面接触、代表候補を再現可能な客観監査へ固定した。",
+            "旧ID33の3代表候補を寄稿者ツールから編集を作らず開けることをローカル実ブラウザで確認した。",
+            "ローカル証拠だけでは欠落・重複・遊離・空着色の解剖学的判定を完了していない。",
+            "直交断レビュー証拠束v3のlocal-only manifestと161枚のPNGを、ID33・39・40の全占有X/Y/Z断面、ID39・40の外側endpoint、raw grayscale+outlineの客観資料として固定した。",
+            "strict validatorでmanifestのschema、入力・画素・PNG hash、pixel-to-voxel geometry、Fortran anchorを再計算した。",
+            "manifestのreview.status=unreviewedで、解剖学的妥当性・境界・採用は未証明である。",
+            "左右側脳室・第三脳室について、X・Y・Z各軸で同じ脳室ラベルに挟まれ、別ラベルと6近傍接触しない内部欠損33 voxelだけを固定差分としてプロジェクト内レビューし、公開教材ラベルへ採用した。",
+            "採用前後のraw label差分が0→23:14、0→24:15、0→25:4の33 voxelだけであることを再現テストで固定した。単純な黒背景fill、脳室全体の境界確定、専門家レビュー、research ground truthではない。"
+          ],
+          "unprovenScope": "全学習対象の解剖学的欠落や二重表示を、専門家レビューを含めて網羅的に確認していない。直交断証拠束のreview.status=unreviewedであり、解剖学的妥当性・境界・採用は未証明で、専門家確認・ground truth・ラベル採否を示さない。",
+          "nextAction": "全学習対象の欠落・重複・遊離・空着色を専門家と再確認する。"
+        },
+        {
+          "id": "criterion-07-quiz-target-visibility",
+          "heading": "クイズ対象の可視性",
+          "state": "expert-blocked",
+          "stateLabel": "専門家確認待ち",
+          "locallyProven": [
+            "ローカルクイズ粒度監査で、既存23問を標準7件・試作16件に分類し、targetと全選択肢の由来を照合した。",
+            "provisional選択肢を含む4問を試作へ隔離し、unknown由来を拒否する分類を確認した。",
+            "Chrome 151のローカルproduction previewで、断面17・脳表6・神経血管18 targetを3幅で着色・解除・再着色し、独立validatorが123/123件を確認した。",
+            "未確認構造の標準採用は専門家未確認。"
+          ],
+          "unprovenScope": "専門家による標準採用判断と、未確認構造が正答・選択肢へ現れないことの全範囲確認は未完了。",
+          "nextAction": "専門家にクイズ対象・表示・正答条件（targetと全選択肢の由来を含む）を確認してもらう。"
+        },
+        {
+          "id": "criterion-11-expert-required-scope-review",
+          "heading": "必修範囲の専門家レビュー",
+          "state": "expert-blocked",
+          "stateLabel": "専門家確認待ち",
+          "locallyProven": [
+            "ローカル必修範囲・レビュー引き継ぎ資料を用意した。",
+            "専門家レビュー記録は未取得。"
+          ],
+          "unprovenScope": "神経解剖学の専門家による必修範囲のレビュー記録は未取得。",
+          "nextAction": "神経解剖学の確認者を依頼し、必修範囲のレビュー記録を取得する。"
+        }
+      ]
+    },
+    {
+      "state": "administrator-blocked",
+      "stateLabel": "管理者確認待ち",
+      "items": [
+        {
+          "id": "criterion-10-feedback-operations",
+          "heading": "フィードバック運用",
+          "state": "administrator-blocked",
+          "stateLabel": "管理者確認待ち",
+          "locallyProven": [
+            "ローカル画面と共同制作文書にGoogle Form・GitHub導線の定義を確認した。",
+            "2026-08-24にログアウト状態で現行Google Formが開き、ログインは回答保存の任意導線、匿名分岐と公開GitHub Issuesへのリンクが表示されることを確認した。",
+            "生成スクリプトを版名非依存の教育用試作教材表記へ更新したが、既存外部フォームへの適用、回答送信・削除運用は管理者未確認である。",
+            "2026-08-24に20質問・3ページ・匿名性・分岐の機械可読契約と、契約に列挙した設定・説明・質問・help text・選択肢・「その他」・分岐・運用シート見出しを一致照合するpreflightを追加した。既存フォーム経路は自動更新を行わないことをローカル検証した。外部フォームでは未実行である。"
+          ],
+          "unprovenScope": "現行外部フォームはα版表記のまま。版名非依存表記の適用、ログアウト状態の全3ページ、テスト回答、Google Formsと回答シート双方からの削除、管理者による運用確認は未完了。",
+          "nextAction": "管理者が既存Google Formへ版名非依存表記を適用する。"
+        }
+      ]
+    },
+    {
+      "state": "deployment-blocked",
+      "stateLabel": "公開反映待ち",
+      "items": [
+        {
+          "id": "criterion-06-tests-build-and-public-routes",
+          "heading": "テスト・ビルド・公開経路",
+          "state": "deployment-blocked",
+          "stateLabel": "公開反映待ち",
+          "locallyProven": [
+            "ローカル自動テスト・TypeScript・通常/Pages buildと27経路ローカル巡回の根拠を記録した。",
+            "公開URLへの反映は未確認。"
+          ],
+          "unprovenScope": "公開URLへの反映と公開環境での全経路巡回は未確認。",
+          "nextAction": "デプロイ後に公開URLの全経路を巡回し、反映結果を記録する。"
+        },
+        {
+          "id": "criterion-09-public-rights-and-notices",
+          "heading": "公開権利・利用条件",
+          "state": "deployment-blocked",
+          "stateLabel": "公開反映待ち",
+          "locallyProven": [
+            "ローカルsource監査で、DATA-MANIFESTをbundledNotices配列へ移行し、マニフェストを除く110配布ファイルがexactly-oneの出典群へ一致することを確認した。",
+            "5つの通知の存在・非空・通知メタ群へのexactly-one一致・非通知群からの逆参照と、project-authored群の21ファイル一覧を独立validatorで確認した。",
+            "source/dist監査で通常base `/` とPages base `/brain-practical-navi/` を分離し、111 atlas pathのbyte identity、対応ソースmetaの一意性、利用条件markerの存在をfixture/mutationと通常／Pages buildで確認した。",
+            "利用条件へ端末内localStorage保存、自動送信なし、サイトデータ消去で消失、原著者・データ提供機関の推奨・承認を示さない旨を同期し、fixture/mutationテストで表示欠落を拒否した。",
+            "ローカル通常buildの実ブラウザで利用条件を開き、8 marker、対応ソースURL、PC相当表示とviewport cap 390×844の小画面表示を確認し、修正後はroot・dialog・footerの横溢れ、loader、UI errorが0であることを確認した。",
+            "公開版との最終一致は未確認。"
+          ],
+          "unprovenScope": "公開版との最終一致、公開ホストのクレジット・免責表示は未確認。",
+          "nextAction": "管理者が公開版の権利・免責・プライバシー表示を突合する。"
+        },
+        {
+          "id": "criterion-12-publish-known-limitations",
+          "heading": "既知の制限公開",
+          "state": "deployment-blocked",
+          "stateLabel": "公開反映待ち",
+          "locallyProven": [
+            "ローカルstatus JSONと既知の制限表示の根拠を確認した。",
+            "ローカルstatus画面に12件の公開前チェック、5状態別件数、未確認範囲、次操作を表示し、個別状態を合算した総合判定は設けていない。",
+            "公開URL反映は未確認。"
+          ],
+          "unprovenScope": "公開URLへの反映と専門家・管理者による既知の制限の確認は未完了。",
+          "nextAction": "公開版へ反映後、既知の制限一覧を管理者と確認する。"
+        }
+      ]
+    }
+  ]
+}

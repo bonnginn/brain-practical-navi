@@ -1,7 +1,8 @@
 import assert from "node:assert/strict";
-import { readFile, readdir, stat } from "node:fs/promises";
+import { mkdtemp, readFile, readdir, rm, stat, writeFile } from "node:fs/promises";
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
+import { tmpdir } from "node:os";
 import test from "node:test";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -116,6 +117,29 @@ test("publishes complete browser and social metadata", async () => {
   assert.match(favicon, /stroke="#e36e57"/);
 });
 
+test("keeps PWA installation explicit, transient, and base-path aware", async () => {
+  const [html, page, canvasCss, affordance] = await Promise.all([
+    readFile(new URL("index.html", root), "utf8"),
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("app/canvas.css", root), "utf8"),
+    readFile(new URL("src/pwaInstallAffordance.mjs", root), "utf8"),
+  ]);
+  assert.match(html, /<link rel="apple-touch-icon" sizes="192x192" href="%BASE_URL%icon-192\.png" \/>/);
+  assert.match(page, /createPwaInstallAffordance/);
+  assert.match(page, /data-pwa-install-card="true"/);
+  assert.match(page, /data-pwa-install-button="true"/);
+  assert.match(page, /アプリとして追加/);
+  assert.match(page, /アプリとして起動中/);
+  assert.match(page, /共有メニューやブラウザメニューから追加できる場合があります/);
+  assert.match(page, /一度開いた同一サイトの教材を利用時に保存します/);
+  assert.match(page, /約92MB一括保存するものではありません/);
+  assert.match(page, /data-pwa-install-result=\{pwaInstallFeedback\.status\}/);
+  assert.match(canvasCss, /\.pwaInstallButton\s*\{[^}]*min-height:\s*44px/);
+  assert.match(affordance, /beforeinstallprompt/);
+  assert.match(affordance, /appinstalled/);
+  assert.doesNotMatch(affordance, /localStorage|sessionStorage|indexedDB|sendBeacon|analytics/i);
+});
+
 test("loads privacy-first analytics only on public production hosts", async () => {
   const [html, analytics, main, env, readme] = await Promise.all([
     readFile(new URL("index.html", root), "utf8"),
@@ -228,11 +252,12 @@ test("presents the practical flow clearly and keeps interface text readable", as
 });
 
 test("ships the learning workspaces, contributor editor, and public data notice", async () => {
-  const [page, canvas, canvasCss, editor, workflow, readme, licenses, attribution, packageJson, softwareLicense, licenseMap, governance] = await Promise.all([
+  const [page, canvas, canvasCss, editor, patchMetadata, workflow, readme, licenses, attribution, packageJson, softwareLicense, licenseMap, governance] = await Promise.all([
     readFile(new URL("app/page.tsx", root), "utf8"),
     readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8"),
     readFile(new URL("app/canvas.css", root), "utf8"),
     readFile(new URL("app/ManualSegmentationWorkbench.tsx", root), "utf8"),
+    readFile(new URL("app/segmentationPatchMetadata.ts", root), "utf8"),
     readFile(new URL("SEGMENTATION_WORKFLOW.md", root), "utf8"),
     readFile(new URL("README.md", root), "utf8"),
     readFile(new URL("DATA_AND_LICENSES.md", root), "utf8"),
@@ -280,6 +305,27 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /形状・範囲・接続関係の完全性や解剖学的正確性は保証しません/);
   assert.match(page, /Cloudflare Web Analytics/);
   assert.match(page, /CookieやlocalStorageを使わず、訪問者の個人データを収集・利用しません/);
+  assert.match(page, /クイズの誤答履歴、分節差分、M2比較の下書き、解剖レビューの下書きは端末内のlocalStorageに保存されます/);
+  assert.match(page, /自動送信は行わず、サイトデータを消去すると失われます/);
+  assert.match(page, /原著者やデータ提供機関の推奨・承認を示すものではありません/);
+  for (const marker of ["source-credit", "license-boundaries", "modifications", "no-endorsement", "educational-nonclinical", "privacy-analytics", "privacy-local-storage", "corresponding-source"]) assert.equal((page.match(new RegExp(`data-legal-disclosure=\\"${marker}\\"`, "g")) ?? []).length, 1, marker);
+  assert.match(page, /data-legal-disclosure="source-credit">.*?BigBrain/);
+  assert.match(page, /data-legal-disclosure="license-boundaries">.*?(?:AGPL-3\.0-or-later|CC BY-NC-SA 4\.0)/);
+  assert.match(page, /data-legal-disclosure="modifications">[^<]*BigBrain/);
+  assert.match(page, /data-legal-disclosure="no-endorsement">[^<]*原著者やデータ提供機関の推奨・承認を示すものではありません/);
+  assert.match(page, /data-legal-disclosure="educational-nonclinical">[^<]*診断・治療・手術計画・定量研究/);
+  assert.match(page, /data-legal-disclosure="privacy-analytics">[^<]*公開HTTPSホスト/);
+  assert.match(page, /data-legal-disclosure="privacy-local-storage">[^<]*localStorage/);
+  assert.match(page, /data-legal-disclosure="corresponding-source" href=\{sourceRepositoryUrl\}/);
+  const legalDialogStart = page.indexOf('<section className="legalDialog" role="dialog" aria-modal="true" aria-labelledby="legal-title">');
+  const legalDialogEnd = page.indexOf('</section>', legalDialogStart);
+  const storagePolicyStart = page.indexOf('data-legal-disclosure="privacy-local-storage"');
+  assert.ok(legalDialogStart >= 0 && storagePolicyStart > legalDialogStart && storagePolicyStart < legalDialogEnd, "storage policy is inside legal dialog");
+  assert.doesNotMatch(canvasCss, /\.legalStoragePolicy\s*\{[^}]*position\s*:/);
+  assert.match(canvasCss, /\.legalDialog\s*\{[^}]*overflow-x:\s*hidden/);
+  assert.match(canvasCss, /\.legalDialog footer div\{[^}]*flex-wrap:\s*wrap[^}]*min-width:\s*0[^}]*max-width:\s*100%/);
+  assert.match(canvasCss, /\.legalDialog footer div>a,\.legalDialog footer div>button\{[^}]*max-width:\s*100%[^}]*overflow-wrap:\s*anywhere/);
+  assert.match(canvasCss, /\.legalDialog footer div>button\{[^}]*min-height:\s*44px/);
   assert.match(readme, /Cloudflare Web Analytics/);
   assert.match(licenses, /Data origin and collection/);
   assert.doesNotMatch(page, /OPEN BETA|β版・非営利教育用/);
@@ -473,7 +519,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /function toggleFreeHindbrain\(\)/);
   assert.match(page, /aria-label="自由観察の表示レイヤー"[^\n]+>橋・延髄<\/button>/);
   assert.doesNotMatch(page, /aria-label="自由観察の表示レイヤー"[^\n]+>脳神経<\/button>/);
-  assert.match(canvas, /else if\(!basalOnlySelected&&basalLandmark==="all"\)draw\(deep\[4\],neutral,0\)/);
+  assert.match(canvas, /else if\(!basalOnlySelected&&basalLandmark==="all"\)draw\(deep\[4\],teachingColor\(neutral\),0\)/);
   assert.match(page, /free:\{name:"自由観察"/);
   assert.match(page, /文字検索または分類別索引から追加/);
   assert.match(page, /構造索引/);
@@ -509,24 +555,52 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(governance, /運営承継/);
   assert.match(editor, /brain-practical-segmentation-patch/);
   assert.match(editor, /差分JSONを書き出す/);
-  assert.match(editor, />上へ1枚<\/button>/);
-  assert.match(editor, />下へ1枚<\/button>/);
+  assert.match(editor, />\{planeInfo\.increment\}へ1枚<\/button>/);
+  assert.match(editor, />\{planeInfo\.decrement\}へ1枚<\/button>/);
   assert.match(editor, /step=\{data\?100\/\(data\.dims\[2\]-1\):\.25\}/);
   assert.match(editor, /元へ戻す/);
   assert.match(editor, /端末内へ自動保存/);
-  assert.match(editor, /targetSide,evidence:evidence\.trim\(\),confidence,reviewStatus:"unreviewed"/);
+  assert.match(editor, /segmentationPatchMetadata/);
+  assert.match(patchMetadata, /workflowMetadataVersion:1/);
+  assert.match(patchMetadata, /targetStructures/);
+  assert.match(patchMetadata, /sliceRanges/);
+  assert.match(patchMetadata, /changeSummary/);
+  assert.match(patchMetadata, /review:\{decision:"unreviewed",reviewer:null,decidedAt:null,reason:"",pullRequest:null\}/);
+  assert.doesNotMatch(editor, /reviewer\s*=/);
   assert.match(editor, /対象側/);
   assert.match(editor, /根拠資料・参照箇所/);
   assert.match(editor, /確認状態[\s\S]*未レビュー/);
   assert.match(workflow, /Pull Requestに必要な情報/);
   assert.match(workflow, /`reviewStatus`[\s\S]*`unreviewed`/);
   assert.match(workflow, /apply_segmentation_patch\.py/);
+  assert.match(workflow, /workflowMetadataVersion/);
   assert.equal(JSON.parse(packageJson).version, "0.1.0-alpha.1");
   assert.equal(JSON.parse(packageJson).license, "AGPL-3.0-or-later");
   assert.match(softwareLicense, /GNU AFFERO GENERAL PUBLIC LICENSE/);
   assert.match(softwareLicense, /13\. Remote Network Interaction/);
   assert.match(softwareLicense, /END OF TERMS AND CONDITIONS/);
   assert.match(attribution, /BigBrain/);
+});
+
+test("documents strict patch metadata and review decisions without reviewer input in the student editor", async () => {
+  const [template, workflow, roadmap, editor, patchMetadata] = await Promise.all([
+    readFile(new URL(".github/PULL_REQUEST_TEMPLATE.md", root), "utf8"),
+    readFile(new URL("SEGMENTATION_WORKFLOW.md", root), "utf8"),
+    readFile(new URL("BETA_ROADMAP.md", root), "utf8"),
+    readFile(new URL("app/ManualSegmentationWorkbench.tsx", root), "utf8"),
+    readFile(new URL("app/segmentationPatchMetadata.ts", root), "utf8"),
+  ]);
+  assert.match(template, /元ラベルSHA-256/);
+  assert.match(template, /targetStructures.*sliceRanges.*changeSummary/s);
+  assert.match(template, /review\.decision/);
+  assert.match(template, /差戻し理由/);
+  assert.match(workflow, /legacy\+missing fields/);
+  assert.match(workflow, /approved.*--output/s);
+  assert.match(roadmap, /- \[x\] 現在の水平断エディタ/);
+  assert.match(roadmap, /workflowMetadataVersion/);
+  assert.match(patchMetadata, /CANONICAL_SOURCE_IMAGE="\/atlas\/bigbrain-icbm500\.bin\.gz"/);
+  assert.match(patchMetadata, /CANONICAL_SOURCE_LABELS="\/atlas\/bigbrain-practical-segmentation-icbm500\.bin\.gz"/);
+  assert.doesNotMatch(editor, /reviewer\s*=/);
 });
 
 test("connects only the public Google Form responder URL", async () => {
@@ -598,17 +672,503 @@ test("validates browser segmentation patches against the bundled BBS1 grid", () 
   assert.deepEqual(audit.dims, [394, 466, 378]);
   assert.equal(audit.editCount, 1);
   assert.equal(audit.changedVoxelCount + audit.unchangedVoxelCount, 1);
+  assert.equal(audit.workflowMetadataStatus, "legacy+missing fields");
+  assert.match(result.stderr, /legacy/i);
+});
+
+test("strict patch metadata is independently validated and only approved patches can produce output", async () => {
+  const tempRoot = await mkdtemp(join(tmpdir(), "brain-patch-metadata-"));
+  const runCheck = (patchPath, extra=[]) => spawnSync(python.command, [...python.prefix,
+    localPath("scripts/apply_segmentation_patch.py"), patchPath,
+    "--input", localPath("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"),
+    "--check", ...extra,
+  ], {encoding:"utf8"});
+  try {
+    const strictPath = localPath("tests/fixtures/segmentation-patch-strict.json");
+    const strictResult = runCheck(strictPath);
+    assert.equal(strictResult.status, 0, strictResult.stderr);
+    const strictAudit = JSON.parse(strictResult.stdout);
+    assert.equal(strictAudit.workflowMetadataStatus, "strict");
+    assert.deepEqual(strictAudit.targetStructures, [{id:1,name:"左赤核"}]);
+    assert.deepEqual(strictAudit.sliceRanges, [{plane:"horizontal",axis:"Z",min:0,max:0}]);
+    assert.deepEqual(strictAudit.changeSummary, {changedVoxelCount:1,unchangedVoxelCount:0,transitions:[{from:0,to:1,voxels:1}]});
+
+    const base = JSON.parse(await readFile(strictPath, "utf8"));
+    for (const [name, mutate] of [
+      ["target", patch => {patch.targetStructures[0].name="改ざん";}],
+      ["range", patch => {patch.sliceRanges[0].min=1;}],
+      ["summary", patch => {patch.changeSummary.changedVoxelCount=2;}],
+      ["source-image", patch => {patch.sourceImage="/brain-practical-navi/atlas/bigbrain-icbm500.bin.gz";}],
+      ["target-side", patch => {patch.targetSide="diagonal";}],
+      ["confidence", patch => {patch.confidence="certain";}],
+      ["evidence", patch => {patch.evidence="   ";}],
+      ["empty", patch => {patch.runs=[];patch.editCount=0;patch.targetStructures=[];patch.sliceRanges=[];patch.changeSummary={changedVoxelCount:0,unchangedVoxelCount:0,transitions:[]};}],
+    ]) {
+      const path = join(tempRoot, `${name}.json`);
+      const tampered = structuredClone(base);
+      mutate(tampered);
+      await writeFile(path, JSON.stringify(tampered));
+      const result = runCheck(path);
+      assert.notEqual(result.status, 0, `${name} metadata tampering must fail`);
+    }
+
+    const rejected = structuredClone(JSON.parse(await readFile(new URL("tests/fixtures/segmentation-patch-strict-approved.json", root), "utf8")));
+    rejected.review.decision="rejected";
+    rejected.review.reason="差戻し理由を記録したfixture";
+    rejected.reviewStatus="rejected";
+    const rejectedPath = join(tempRoot, "rejected.json");
+    await writeFile(rejectedPath, JSON.stringify(rejected));
+    const rejectedResult = runCheck(rejectedPath);
+    assert.equal(rejectedResult.status, 0, rejectedResult.stderr);
+    assert.equal(JSON.parse(rejectedResult.stdout).reviewStatus, "rejected");
+
+    const approvedPath = localPath("tests/fixtures/segmentation-patch-strict-approved.json");
+    const outputPath = join(tempRoot, "approved.bin.gz");
+    const approvedResult = spawnSync(python.command, [...python.prefix,
+      localPath("scripts/apply_segmentation_patch.py"), approvedPath,
+      "--input", localPath("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"),
+      "--output", outputPath,
+    ], {encoding:"utf8"});
+    assert.equal(approvedResult.status, 0, approvedResult.stderr);
+    assert.deepEqual(readVolumeHeader(await readFile(outputPath), "BBS1").dims, [394,466,378]);
+    const unreviewedOutput = spawnSync(python.command, [...python.prefix,
+      localPath("scripts/apply_segmentation_patch.py"), strictPath,
+      "--input", localPath("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"),
+      "--output", join(tempRoot, "unreviewed.bin.gz"),
+    ], {encoding:"utf8"});
+    assert.notEqual(unreviewedOutput.status, 0);
+    const legacyOutput = spawnSync(python.command, [...python.prefix,
+      localPath("scripts/apply_segmentation_patch.py"), localPath("tests/fixtures/segmentation-patch-smoke.json"),
+      "--input", localPath("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"),
+      "--output", join(tempRoot, "legacy.bin.gz"),
+    ], {encoding:"utf8"});
+    assert.notEqual(legacyOutput.status, 0);
+  } finally {
+    await rm(tempRoot, {recursive:true, force:true});
+  }
+});
+
+test("enforces the complete review decision matrix and rejects non-approved output", async () => {
+  const tempRoot = await mkdtemp(join(tmpdir(), "brain-review-matrix-"));
+  const inputPath = localPath("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz");
+  const approvedFixture = JSON.parse(await readFile(new URL("tests/fixtures/segmentation-patch-strict-approved.json", root), "utf8"));
+  const check = path => spawnSync(python.command, [...python.prefix,
+    localPath("scripts/apply_segmentation_patch.py"), path, "--input", inputPath, "--check",
+  ], {encoding:"utf8"});
+  const write = async (name, mutate) => {
+    const path = join(tempRoot, `${name}.json`);
+    const patch = structuredClone(approvedFixture);
+    mutate(patch);
+    await writeFile(path, JSON.stringify(patch));
+    return path;
+  };
+  try {
+    for (const [name, mutate] of [
+      ["unreviewed-reviewer", patch => {patch.review={decision:"unreviewed",reviewer:{kind:"github",id:"reviewer"},decidedAt:null,reason:"",pullRequest:null};patch.reviewStatus="unreviewed";}],
+      ["approved-reviewer", patch => {patch.review.reviewer=null;}],
+      ["approved-date", patch => {patch.review.decidedAt=null;}],
+      ["approved-reason", patch => {patch.review.reason="";}],
+      ["approved-pr", patch => {patch.review.pullRequest=null;}],
+      ["rejected-reviewer", patch => {patch.review.decision="rejected";patch.reviewStatus="rejected";patch.review.reviewer=null;}],
+      ["rejected-date", patch => {patch.review.decision="rejected";patch.reviewStatus="rejected";patch.review.decidedAt=null;}],
+      ["rejected-reason", patch => {patch.review.decision="rejected";patch.reviewStatus="rejected";patch.review.reason="";}],
+      ["rejected-pr", patch => {patch.review.decision="rejected";patch.reviewStatus="rejected";patch.review.pullRequest=null;}],
+      ["status-mismatch", patch => {patch.reviewStatus="rejected";}],
+      ["bad-date", patch => {patch.review.decidedAt="2026-02-30";}],
+      ["bad-kind", patch => {patch.review.reviewer.kind="expert";}],
+      ["bad-pr-number", patch => {patch.review.pullRequest.number=0;}],
+      ["bad-merge-commit", patch => {patch.review.pullRequest.mergeCommit="abc";}],
+    ]) {
+      const result = check(await write(name, mutate));
+      assert.notEqual(result.status, 0, `${name} must be rejected`);
+    }
+    const validCommit = await write("valid-merge-commit", patch => {patch.review.pullRequest.mergeCommit="0123456789abcdef0123456789abcdef01234567";});
+    assert.equal(check(validCommit).status, 0);
+    const rejected = await write("rejected-output", patch => {patch.review.decision="rejected";patch.reviewStatus="rejected";patch.review.reason="差戻し理由";});
+    const output = spawnSync(python.command, [...python.prefix,
+      localPath("scripts/apply_segmentation_patch.py"), rejected, "--input", inputPath,
+      "--output", join(tempRoot, "rejected.bin.gz"),
+    ], {encoding:"utf8"});
+    assert.notEqual(output.status, 0);
+  } finally {
+    await rm(tempRoot, {recursive:true, force:true});
+  }
+});
+
+test("migrates the three mammillary patches against the recorded pre-mammillary fixture", async () => {
+  const tempRoot = await mkdtemp(join(tmpdir(), "brain-mammillary-blob-"));
+  try {
+    const sourcePath = localPath("tests/fixtures/bigbrain-practical-segmentation-pre-mammillary-de30.bin.gz");
+    const sourceBytes = await readFile(sourcePath);
+    assert.equal(sourceBytes.length, 256380);
+    assert.equal(createHash("sha256").update(sourceBytes).digest("hex"), "de30b5c77f4ed4f2902564a5d238b0e733413c247643ef828fb66aa03d8cc8be");
+    const expected = {
+      "mammillary-bodies-horizontal-sparse-2026-08-16.json": {editCount:311, reviewStatus:"unreviewed", transitions:[{from:0,to:39,voxels:71},{from:0,to:40,voxels:84},{from:27,to:39,voxels:10},{from:33,to:39,voxels:60},{from:33,to:40,voxels:86}]},
+      "mammillary-bodies-horizontal-contiguous-core-candidate-2026-08-16.json": {editCount:1206, reviewStatus:"unreviewed", transitions:[{from:0,to:39,voxels:284},{from:0,to:40,voxels:391},{from:27,to:39,voxels:13},{from:33,to:39,voxels:220},{from:33,to:40,voxels:298}]},
+      "mammillary-bodies-horizontal-core-plus-clear-rim-candidate-2026-08-16.json": {editCount:1290, reviewStatus:"approved", transitions:[{from:0,to:39,voxels:316},{from:0,to:40,voxels:426},{from:27,to:39,voxels:17},{from:33,to:39,voxels:228},{from:33,to:40,voxels:303}]},
+    };
+    for (const [name, expectedPatch] of Object.entries(expected)) {
+      const path = localPath(`segmentation-patches/review/${name}`);
+      const result = spawnSync(python.command, [...python.prefix,
+        localPath("scripts/apply_segmentation_patch.py"), path,
+        "--input", sourcePath, "--check",
+      ], {encoding:"utf8"});
+      assert.equal(result.status, 0, `${name}: ${result.stderr}`);
+      const audit = JSON.parse(result.stdout);
+      assert.equal(audit.inputSha256, "de30b5c77f4ed4f2902564a5d238b0e733413c247643ef828fb66aa03d8cc8be");
+      assert.equal(audit.workflowMetadataStatus, "strict");
+      assert.equal(audit.editCount, expectedPatch.editCount);
+      assert.equal(audit.reviewStatus, expectedPatch.reviewStatus);
+      assert.deepEqual(audit.transitions, expectedPatch.transitions.filter(item => item.voxels));
+      assert.deepEqual(audit.targetStructures.map(item => item.id), [27,33,39,40]);
+      if (expectedPatch.reviewStatus === "approved") {
+        assert.deepEqual(audit.review.reviewer, {kind:"project-role",id:"project-lead"});
+        assert.equal(audit.review.decidedAt, "2026-08-16");
+        assert.equal(audit.review.pullRequest.number, 10);
+        assert.equal(audit.review.pullRequest.mergeCommit, "9daec82bf2135743aa428d2032b4c81b2d76e57d");
+      } else {
+        assert.deepEqual(audit.review, {decision:"unreviewed",reviewer:null,decidedAt:null,reason:"",pullRequest:null});
+      }
+    }
+  } finally {
+    await rm(tempRoot, {recursive:true, force:true});
+  }
+});
+
+test("does not auto-approve an unrelated legacy approved patch", async () => {
+  const tempRoot = await mkdtemp(join(tmpdir(), "brain-upgrade-allowlist-"));
+  try {
+    const patch = JSON.parse(await readFile(new URL("tests/fixtures/segmentation-patch-strict-approved.json", root), "utf8"));
+    delete patch.workflowMetadataVersion;
+    delete patch.targetStructures;
+    delete patch.sliceRanges;
+    delete patch.changeSummary;
+    delete patch.review;
+    patch.reviewStatus = "approved";
+    const legacyPath = join(tempRoot, "general-approved.json");
+    await writeFile(legacyPath, JSON.stringify(patch));
+    const result = spawnSync(python.command, [...python.prefix,
+      localPath("scripts/upgrade_segmentation_patch_metadata.py"), legacyPath,
+      "--input", localPath("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"),
+      "--output-dir", join(tempRoot, "out"),
+    ], {encoding:"utf8"});
+    assert.notEqual(result.status, 0);
+    assert.match(`${result.stdout}\n${result.stderr}`, /allowlisted|explicit.*review/i);
+  } finally {
+    await rm(tempRoot, {recursive:true, force:true});
+  }
+});
+
+test("official build path rejects a tampered approved patch before applying it", async () => {
+  const tempRoot = await mkdtemp(join(tmpdir(), "brain-build-patch-validation-"));
+  try {
+    const buildScript = await readFile(new URL("scripts/build_bigbrain_practical_seg.py", root), "utf8");
+    assert.match(buildScript, /from apply_segmentation_patch import validate_patch/);
+    const sourcePath = localPath("tests/fixtures/bigbrain-practical-segmentation-pre-mammillary-de30.bin.gz");
+    const base = JSON.parse(await readFile(new URL("segmentation-patches/review/mammillary-bodies-horizontal-core-plus-clear-rim-candidate-2026-08-16.json", root), "utf8"));
+    const harness = [
+      "import sys, numpy as np",
+      "from pathlib import Path",
+      "sys.path.insert(0, 'scripts')",
+      "from apply_segmentation_patch import read_volume",
+      "from build_bigbrain_practical_seg import apply_approved_patch",
+      "dims, labels = read_volume(Path(sys.argv[2]))",
+      "volume = np.frombuffer(bytes(labels), dtype=np.uint8).reshape(dims, order='F').copy()",
+      "apply_approved_patch(volume, Path(sys.argv[1]))",
+    ].join("; ");
+    for (const [name, mutate] of [
+      ["review", patch => {delete patch.review;}],
+      ["summary", patch => {patch.changeSummary.changedVoxelCount += 1;}],
+    ]) {
+      const patch = structuredClone(base);
+      mutate(patch);
+      const patchPath = join(tempRoot, `${name}.json`);
+      await writeFile(patchPath, JSON.stringify(patch));
+      const result = spawnSync(python.command, [...python.prefix, "-c", harness, patchPath, sourcePath], {encoding:"utf8", cwd:localPath("")});
+      assert.notEqual(result.status, 0, `${name} tampering must stop official build`);
+    }
+    const baselineHarness = harness.replace(
+      "apply_approved_patch(volume, Path(sys.argv[1]))",
+      "volume[0, 0, 0] = (int(volume[0, 0, 0]) + 1) % 256; apply_approved_patch(volume, Path(sys.argv[1]))",
+    );
+    const baselineResult = spawnSync(python.command, [...python.prefix, "-c", baselineHarness,
+      localPath("segmentation-patches/review/mammillary-bodies-horizontal-core-plus-clear-rim-candidate-2026-08-16.json"), sourcePath,
+    ], {encoding:"utf8", cwd:localPath("")});
+    assert.notEqual(baselineResult.status, 0, "baseline label tampering must stop official build");
+  } finally {
+    await rm(tempRoot, {recursive:true, force:true});
+  }
 });
 
 test("pins segmentation patches to the exact bundled label revision", async () => {
-  const [labels, editor, fixtureText] = await Promise.all([
+  const [labels, editor, canvas, revisionSource, fixtureText] = await Promise.all([
     readFile(new URL("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz", root)),
     readFile(new URL("app/ManualSegmentationWorkbench.tsx", root), "utf8"),
+    readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8"),
+    readFile(new URL("app/segmentationLabelRevision.ts", root), "utf8"),
     readFile(new URL("tests/fixtures/segmentation-patch-smoke.json", root), "utf8"),
   ]);
   const digest = createHash("sha256").update(labels).digest("hex");
-  assert.match(editor, new RegExp(`LABEL_SHA256="${digest}"`));
+  assert.match(revisionSource, new RegExp(`SEGMENTATION_LABEL_SHA256="${digest}"`));
+  assert.match(revisionSource, /SEGMENTATION_LABEL_REVISION=SEGMENTATION_LABEL_SHA256\.slice\(0,16\)/);
+  assert.match(editor, /const LABEL_SHA256=SEGMENTATION_LABEL_SHA256/);
+  assert.match(editor, /LABEL_FETCH_URL=`\$\{LABEL_URL\}\?v=\$\{SEGMENTATION_LABEL_REVISION\}`/);
+  assert.match(canvas, /\?v=\$\{SEGMENTATION_LABEL_REVISION\}/);
   assert.equal(JSON.parse(fixtureText).sourceLabelsSha256, digest);
+});
+
+test("builds a multi-slice multi-transition patch in the browser helper that Python accepts", async () => {
+  const tempRoot = await mkdtemp(join(tmpdir(), "brain-cross-language-patch-"));
+  try {
+    const labelBytes = await readFile(new URL("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz", root));
+    const volume = readVolumeHeader(labelBytes, "BBS1");
+    const labels = new Uint8Array(volume.payload.subarray(10));
+    const [dx, dy] = volume.dims;
+    const area = dx * dy;
+    const indexAt = (label, z) => {
+      const start = z * area;
+      const index = labels.findIndex((value, offset) => offset >= start && offset < start + area && value === label);
+      assert.notEqual(index, -1, `fixture must contain label ${label} at z ${z}`);
+      return index;
+    };
+    const edits = new Map([
+      [indexAt(0, 1), 39],
+      [indexAt(27, 50), 40],
+      [indexAt(33, 100), 39],
+      [indexAt(39, 110), 0],
+      [indexAt(40, 115), 33],
+    ]);
+    const helper = await import(new URL("app/segmentationPatchMetadata.ts", root));
+    const patch = helper.buildSegmentationPatch({
+      edits,labels,dims:volume.dims,
+      sourceLabelsSha256:createHash("sha256").update(labelBytes).digest("hex"),
+      createdAt:"2026-08-22T00:00:00.000Z",authorNote:"cross-language fixture",authorGitHub:"",
+      targetSide:"mixed",evidence:"BigBrain fixture",confidence:"medium",
+    });
+    assert.equal(patch.sourceImage, "/atlas/bigbrain-icbm500.bin.gz");
+    assert.equal(patch.sourceLabels, "/atlas/bigbrain-practical-segmentation-icbm500.bin.gz");
+    assert.deepEqual(patch.sliceRanges, [{plane:"horizontal",axis:"Z",min:1,max:115}]);
+    assert.deepEqual(patch.changeSummary.transitions, [
+      {from:0,to:39,voxels:1},{from:27,to:40,voxels:1},{from:33,to:39,voxels:1},
+      {from:39,to:0,voxels:1},{from:40,to:33,voxels:1},
+    ]);
+    const patchPath = join(tempRoot, "cross-language.json");
+    await writeFile(patchPath, JSON.stringify(patch));
+    const result = spawnSync(python.command, [...python.prefix,
+      localPath("scripts/apply_segmentation_patch.py"), patchPath,
+      "--input", localPath("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"), "--check",
+    ], {encoding:"utf8"});
+    assert.equal(result.status, 0, result.stderr);
+    const audit = JSON.parse(result.stdout);
+    assert.equal(audit.workflowMetadataStatus, "strict");
+    assert.equal(audit.changedVoxelCount, 5);
+  } finally {
+    await rm(tempRoot, {recursive:true, force:true});
+  }
+});
+
+test("keeps patch source paths canonical in a GitHub Pages-base build", async () => {
+  const result = spawnSync(process.execPath, ["node_modules/vite/bin/vite.js", "build", "--configLoader", "runner"], {
+    cwd:localPath(""),
+    env:{...process.env,DEPLOY_GITHUB_PAGES:"true"},
+    encoding:"utf8",
+  });
+  assert.equal(result.status, 0, result.stderr);
+  const assetName = (await readdir(new URL("dist/assets/", root))).find(name => /^index-.*\.js$/.test(name));
+  assert.ok(assetName);
+  const bundle = await readFile(new URL(`dist/assets/${assetName}`, root), "utf8");
+  assert.match(bundle, /\/atlas\/bigbrain-icbm500\.bin\.gz/);
+  assert.match(bundle, /\/atlas\/bigbrain-practical-segmentation-icbm500\.bin\.gz/);
+  assert.doesNotMatch(bundle, /\/brain-practical-navi\/atlas\/bigbrain-icbm500\.bin\.gz/);
+});
+
+test("adds orthogonal read-only audit planes without changing the horizontal patch contract", async () => {
+  const [editor, patchMetadata, geometry, css] = await Promise.all([
+    readFile(new URL("app/ManualSegmentationWorkbench.tsx", root), "utf8"),
+    readFile(new URL("app/segmentationPatchMetadata.ts", root), "utf8"),
+    readFile(new URL("app/segmentationGeometry.ts", root), "utf8"),
+    readFile(new URL("app/canvas.css", root), "utf8"),
+  ]);
+  assert.match(geometry, /type SegmentationPlane="horizontal"\|"coronal"\|"sagittal"/);
+  assert.match(editor, /照合する断面方向/);
+  assert.match(editor, /segmentationPlaneNames\[key\]\.label/);
+  assert.match(editor, /setPlane\(next\)/);
+  assert.match(editor, /格子座標/);
+  assert.match(editor, /X \{cursorVoxel\?\.\[0\]/);
+  assert.match(editor, /aria-label=\{`\$\{planeInfo\.increment\}へ1 voxel移動`\}/);
+  assert.match(geometry, /coronal:\{label:"冠状断",axis:"Y",rangeStart:"後方",rangeEnd:"前方",increment:"前方",decrement:"後方",top:"S",bottom:"I",left:"L",right:"R"\}/);
+  assert.match(geometry, /sagittal:\{label:"矢状断",axis:"X",rangeStart:"左",rangeEnd:"右",increment:"右",decrement:"左",top:"S",bottom:"I",left:"P",right:"A"\}/);
+  assert.match(editor, /role="tab" aria-selected=\{plane===key\}/);
+  assert.match(editor, /role="status"><b>照合専用<\/b>/);
+  assert.match(editor, /disabled=\{!isEditablePlane\}/);
+  assert.match(editor, /function paintAt\(event:React\.PointerEvent<HTMLCanvasElement>\)\{if\(!isEditablePlane\)return/);
+  assert.match(editor, /function applyHistory\(changes:StrokeChange\[],direction:"undo"\|"redo"\)\{if\(!isEditablePlane\)return/);
+  assert.match(patchMetadata, /primaryPlane:"horizontal"/);
+  assert.match(editor, /inflate\(LABEL_FETCH_URL,0x42425331\)/);
+  for (const id of [39, 40, 33, 27]) assert.match(editor, new RegExp(`\\b${id}\\b`));
+  assert.match(editor, /36–38は自動生成しません/);
+  assert.match(css, /\.segPlaneTabs/);
+  assert.match(css, /\.segReadOnlyPanel/);
+  assert.match(css, /\.segCoordinateReadout/);
+  assert.match(css, /@media\(max-width:760px\)[\s\S]*\.segCoordinateReadout\{grid-template-columns:1fr/);
+});
+
+test("maps every orthogonal audit slice and display corner to the shared voxel grid", async () => {
+  const { planeAxisSize, planePositionForSlice, planeShape, planeSliceIndex, planeVoxel, segmentationPlaneNames } = await import(new URL("app/segmentationGeometry.ts", root));
+  const dims = [394, 466, 378];
+  const expectations = {
+    horizontal: { shape:[394,466], corners:[[0,465,113],[393,465,113],[0,0,113],[393,0,113]], increment:"上方", decrement:"下方", orientation:["A","P","L","R"] },
+    coronal: { shape:[394,378], corners:[[0,251,377],[393,251,377],[0,251,0],[393,251,0]], increment:"前方", decrement:"後方", orientation:["S","I","L","R"] },
+    sagittal: { shape:[466,378], corners:[[194,0,377],[194,465,377],[194,0,0],[194,465,0]], increment:"右", decrement:"左", orientation:["S","I","P","A"] },
+  };
+  for (const [plane, expected] of Object.entries(expectations)) {
+    assert.deepEqual(planeShape(dims, plane), expected.shape);
+    const slice = plane === "horizontal" ? 113 : plane === "coronal" ? 251 : 194;
+    assert.deepEqual([
+      planeVoxel(0, 0, slice, plane, dims),
+      planeVoxel(expected.shape[0]-1, 0, slice, plane, dims),
+      planeVoxel(0, expected.shape[1]-1, slice, plane, dims),
+      planeVoxel(expected.shape[0]-1, expected.shape[1]-1, slice, plane, dims),
+    ], expected.corners);
+    assert.equal(segmentationPlaneNames[plane].increment, expected.increment);
+    assert.equal(segmentationPlaneNames[plane].decrement, expected.decrement);
+    assert.deepEqual([
+      segmentationPlaneNames[plane].top,
+      segmentationPlaneNames[plane].bottom,
+      segmentationPlaneNames[plane].left,
+      segmentationPlaneNames[plane].right,
+    ], expected.orientation);
+    const size = planeAxisSize(dims, plane);
+    for (let index=0; index<size; index++) {
+      const position = planePositionForSlice(index, plane, dims);
+      assert.equal(planeSliceIndex(position, plane, dims), index);
+      if (index<size-1) assert.equal(planeSliceIndex(planePositionForSlice(index+1, plane, dims), plane, dims)-index, 1);
+    }
+  }
+});
+
+test("reproduces the objective orthogonal mammillary audit and rejects a wrong volume", async () => {
+  const result = spawnSync(python.command, [...python.prefix,
+    localPath("scripts/audit_mammillary_orthogonal.py"),
+    "--input", "public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz",
+  ], {encoding:"utf8", cwd:localPath("")});
+  assert.equal(result.status, 0, result.stderr);
+  const audit = JSON.parse(result.stdout);
+  const saved = JSON.parse(await readFile(new URL("segmentation-patches/review/mammillary-bodies-orthogonal-objective-audit-2026-08-22.json", root), "utf8"));
+  assert.deepEqual(audit, saved);
+  assert.equal(audit.magic, "BBS1");
+  assert.equal(audit.inputSha256, "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3");
+  assert.deepEqual(audit.dims, [394, 466, 378]);
+  assert.deepEqual(audit.voxelSizeMm, [0.5, 0.5, 0.5]);
+  assert.equal(audit.validation.passed, true);
+  assert.equal(audit.labels["39"].voxelCount, 561);
+  assert.equal(audit.labels["40"].voxelCount, 729);
+  assert.deepEqual(audit.labels["39"].bbox.min, [187, 246, 107]);
+  assert.deepEqual(audit.labels["39"].bbox.max, [196, 256, 121]);
+  assert.deepEqual(audit.labels["40"].bbox.min, [197, 247, 108]);
+  assert.deepEqual(audit.labels["40"].bbox.max, [204, 258, 121]);
+  assert.equal(audit.labels["39"].connectedComponentCount6, 1);
+  assert.equal(audit.labels["40"].connectedComponentCount6, 1);
+  assert.deepEqual(audit.validation.expectedMammillaryBboxes, {
+    "39": {min:[187,246,107], max:[196,256,121]},
+    "40": {min:[197,247,108], max:[204,258,121]},
+  });
+  assert.deepEqual(audit.faceContacts6, {"27-33":32,"27-39":69,"27-40":38,"33-39":171,"33-40":162,"39-40":1});
+  assert.deepEqual(Object.keys(audit.contactInterfaces), ["27-39", "33-39", "27-40", "33-40"]);
+  const axisCoordinate = {x:0, y:1, z:2};
+  for (const [pair, contact] of Object.entries(audit.contactInterfaces)) {
+    assert.equal(contact.faceCount, audit.faceContacts6[pair]);
+    const orientationCounts = Object.fromEntries(Object.keys(contact.faceOrientationCounts).map((orientation) => [orientation, 0]));
+    for (const face of contact.faces) orientationCounts[face.orientation]++;
+    assert.deepEqual(contact.faceOrientationCounts, orientationCounts);
+    assert.equal(Object.values(contact.faceOrientationCounts).reduce((sum, count) => sum + count, 0), contact.faceCount);
+    const allMammillaryVoxels = new Set(contact.faces.map((face) => face.mammillaryVoxel.join(",")));
+    assert.equal(contact.uniqueMammillaryVoxelCount, allMammillaryVoxels.size);
+    for (const axis of ["x", "y", "z"]) {
+      const slices = contact.slices[axis].slices;
+      const bySlice = new Map();
+      for (const face of contact.faces) {
+        const sliceIndex = face.mammillaryVoxel[axisCoordinate[axis]];
+        const record = bySlice.get(sliceIndex) ?? {inPlane:0, outOfPlane:0, inPlaneVoxels:new Set(), outOfPlaneVoxels:new Set()};
+        const voxel = face.mammillaryVoxel.join(",");
+        if (face.orientation.slice(1).toLowerCase() === axis) {
+          record.outOfPlane++;
+          record.outOfPlaneVoxels.add(voxel);
+        } else {
+          record.inPlane++;
+          record.inPlaneVoxels.add(voxel);
+        }
+        bySlice.set(sliceIndex, record);
+      }
+      let total = 0;
+      let occupied = 0;
+      for (const slice of slices) {
+        const record = bySlice.get(slice.index) ?? {inPlane:0, outOfPlane:0, inPlaneVoxels:new Set(), outOfPlaneVoxels:new Set()};
+        const allVoxels = new Set([...record.inPlaneVoxels, ...record.outOfPlaneVoxels]);
+        total += record.inPlane + record.outOfPlane;
+        if (record.inPlane || record.outOfPlane) occupied++;
+        assert.equal(slice.inPlaneFaceCount, record.inPlane, `${pair} ${axis}${slice.index} in-plane faces`);
+        assert.equal(slice.outOfPlaneFaceCount, record.outOfPlane, `${pair} ${axis}${slice.index} out-of-plane faces`);
+        assert.equal(slice.inPlaneUniqueMammillaryVoxelCount, record.inPlaneVoxels.size);
+        assert.equal(slice.outOfPlaneUniqueMammillaryVoxelCount, record.outOfPlaneVoxels.size);
+        assert.equal(slice.allUniqueMammillaryVoxelCount, allVoxels.size);
+        assert.equal(slice.uniqueMammillaryVoxelCount, allVoxels.size);
+      }
+      assert.equal(total, contact.faceCount, `${pair} ${axis} slice faces must reconcile`);
+      assert.equal(contact.slices[axis].occupiedSliceCount, occupied);
+    }
+  }
+  for (const [label, expected] of Object.entries({
+    "39": {sliceIndex:251, pairInPlaneFaceCounts:{"27":12,"33":12}, pairUniqueMammillaryVoxelCounts:{"27":10,"33":9}},
+    "40": {sliceIndex:253, pairInPlaneFaceCounts:{"27":8,"33":6}, pairUniqueMammillaryVoxelCounts:{"27":8,"33":5}},
+  })) {
+    const representative = audit.representativeSlices[label];
+    assert.equal(representative.plane, "coronal");
+    assert.equal(representative.sliceIndex, expected.sliceIndex);
+    assert.deepEqual(representative.pairInPlaneFaceCounts, expected.pairInPlaneFaceCounts);
+    assert.deepEqual(representative.pairUniqueMammillaryVoxelCounts, expected.pairUniqueMammillaryVoxelCounts);
+    const contactVoxelUnion = new Set();
+    for (const referenceLabel of ["27", "33"]) {
+      const contact = audit.contactInterfaces[`${referenceLabel}-${label}`];
+      const inPlaneFaces = contact.faces.filter((face) => (
+        face.mammillaryVoxel[1] === representative.sliceIndex
+        && face.orientation.slice(1).toLowerCase() !== representative.axis
+      ));
+      const inPlaneVoxels = new Set(inPlaneFaces.map((face) => face.mammillaryVoxel.join(",")));
+      assert.equal(inPlaneFaces.length, expected.pairInPlaneFaceCounts[referenceLabel]);
+      assert.equal(inPlaneVoxels.size, expected.pairUniqueMammillaryVoxelCounts[referenceLabel]);
+      for (const voxel of inPlaneVoxels) contactVoxelUnion.add(voxel);
+    }
+    const points = [...contactVoxelUnion].map((voxel) => voxel.split(",").map(Number));
+    const minimum = [0,1,2].map((axis) => Math.min(...points.map((point) => point[axis])));
+    const maximum = [0,1,2].map((axis) => Math.max(...points.map((point) => point[axis])));
+    assert.deepEqual(representative.contactBbox, {
+      min: minimum,
+      max: maximum,
+      size: maximum.map((value, axis) => value - minimum[axis] + 1),
+      x: [minimum[0], maximum[0]],
+      y: [minimum[1], maximum[1]],
+      z: [minimum[2], maximum[2]],
+    });
+    const mammillaryBbox = audit.labels[label].bbox;
+    const mammillaryCenter = [0,1,2].map((axis) => (mammillaryBbox.min[axis] + mammillaryBbox.max[axis]) / 2);
+    const contactCenter = [0,1,2].map((axis) => (minimum[axis] + maximum[axis]) / 2);
+    const centerDistance = Math.sqrt([0,1,2].reduce((sum, axis) => sum + (contactCenter[axis] - mammillaryCenter[axis]) ** 2, 0));
+    assert.equal(representative.contactBboxCenterDistanceVoxels, centerDistance);
+  }
+  assert.match(audit.definitions.representativeSliceSelection, /boundary correctness/i);
+  for (const distance of Object.values(audit.shortestVoxelDistances6)) {
+    assert.equal(distance.voxelDistance6, 1);
+    assert.equal(distance.distanceMm, 0.5);
+  }
+  assert.match(audit.definitions.anatomicalStatus, /not anatomical validation/i);
+
+  const wrongInput = spawnSync(python.command, [...python.prefix,
+    localPath("scripts/audit_mammillary_orthogonal.py"),
+    "--input", "public/atlas/bigbrain-icbm500.bin.gz",
+  ], {encoding:"utf8", cwd:localPath("")});
+  assert.notEqual(wrongInput.status, 0);
+  assert.match(`${wrongInput.stdout}\n${wrongInput.stderr}`, /SHA-256|expected BBS1/);
 });
 
 test("keeps the reviewed sparse mammillary-body patch separate from the published labels", async () => {
@@ -652,6 +1212,7 @@ test("detects voxel-level conflicts between contributor segmentation patches", (
   assert.equal(result.status, 2, result.stderr);
   const audit = JSON.parse(result.stdout);
   assert.equal(audit.conflictCount, 1);
+  assert.deepEqual(audit.patches.map(patch => patch.workflowMetadataStatus), ["legacy+missing fields", "legacy+missing fields"]);
   assert.equal(audit.conflicts[0].index, 0);
   assert.deepEqual([audit.conflicts[0].firstLabel, audit.conflicts[0].secondLabel], [0, 1]);
 });
@@ -707,8 +1268,9 @@ test("maps every distributed atlas file to source, changes, license, and display
   const files = (await readdir(atlasUrl)).filter(name => name !== "DATA-MANIFEST.json").sort();
   assert.ok(manifest.groups.length >= 7);
   for (const group of manifest.groups) {
-    assert.ok(group.id && group.pattern && group.source && group.license && group.modifications && group.displayObligation && group.bundledNotice, group.id);
-    await stat(new URL(group.bundledNotice, atlasUrl));
+    assert.ok(group.id && group.pattern && group.source && group.license && group.modifications && group.displayObligation && Array.isArray(group.bundledNotices), group.id);
+    assert.equal(Object.prototype.hasOwnProperty.call(group, "bundledNotice"), false, group.id);
+    for (const notice of group.bundledNotices) await stat(new URL(notice, atlasUrl));
   }
   for (const file of files) {
     const matches = manifest.groups.filter(group => new RegExp(group.pattern).test(file));
@@ -743,8 +1305,9 @@ test("does not distribute third-party lecture or specimen imagery", async () => 
   const rasterOrDocuments = publicEntries
     .map(path => String(path).replaceAll("\\", "/"))
     .filter(path => /\.(png|jpe?g|webp|gif|tiff?|pdf|pptx?|docx?)$/i.test(path));
-  assert.deepEqual(rasterOrDocuments, ["home-surface-preview.png", "og.png"]);
+  assert.deepEqual(rasterOrDocuments, ["home-surface-preview.png", "icon-192.png", "icon-512.png", "og.png"]);
   assert.match(notice, /home-surface-preview\.png is a screenshot of the application’s own/);
+  assert.match(notice, /icon-192\.png and icon-512\.png[\s\S]*rasterized size variants/);
   assert.match(notice, /not a scan, photograph, or reproduction/);
   assert.match(notice, /not used as anatomical evidence/);
   assert.match(notice, /No lecture slides, textbook figures, web specimen photographs/);
@@ -767,9 +1330,15 @@ test("keeps the browser distribution below the beta asset budget", async () => {
 
 test("shows load progress and retries every failed atlas canvas together", async () => {
   const canvas = await readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8");
-  assert.match(canvas, /<progress aria-label="データ読込の進捗" \/>/);
+  assert.match(canvas, /response\.body\.pipeThrough\(new TransformStream/);
+  assert.match(canvas, /response\.headers\.get\("content-length"\)/);
+  assert.match(canvas, /measuredProgress\?downloadProgress\.loaded:undefined/);
+  assert.match(canvas, /受信済み（総量不明）/);
+  assert.match(canvas, /受信完了・展開中/);
+  assert.match(canvas, /aria-live="polite"/);
   assert.match(canvas, /window\.dispatchEvent\(new Event\(ATLAS_RETRY_EVENT\)\)/);
   assert.match(canvas, /window\.addEventListener\(ATLAS_RETRY_EVENT,retry\)/);
+  assert.match(canvas, /atlasDownloadProgress\.reset\(\)/);
 });
 
 test("draws toggleable sulci from cortical region boundaries", async () => {
@@ -1377,27 +1946,29 @@ test("surface quiz questions use labelled high-density pial regions", async () =
   }
   assert.match(page, /function shuffledItems<T>\(items:readonly T\[\]\)/);
   assert.match(page, /options:shuffledItems\(question\.options\)/);
-  assert.match(page, /useState<QuizQuestion\[\]>\(\(\)=>shuffledQuestions\(quizQuestions\)\.slice\(0,10\)\)/);
+  assert.match(page, /useState<QuizQuestion\[\]>\(\(\)=>shuffledQuestions\(allQuizQuestions\)\.slice\(0,10\)\)/);
 });
 
 test("medial surface quiz keeps the same isolated-hemisphere anatomy as study mode", async () => {
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
-  assert.match(page, /showCerebellum=\{quizQuestion\.view!=="medial"\}/);
+  assert.match(page, /showCerebellum=\{neurovascularQuiz\?false:quizQuestion\.view!=="medial"\}/);
   assert.match(page, /showPonsMedulla=\{quizQuestion\.view!=="medial"\}/);
   assert.match(page, /showMidbrain=\{quizQuestion\.view!=="medial"\}/);
 });
 
 test("help, feedback, and credit dialogs have durable shareable URLs", async () => {
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
-  assert.match(page, /type OverlayMode = "help" \| "feedback" \| "legal"/);
+  assert.match(page, /type OverlayMode = "help" \| "feedback" \| "legal" \| "status"/);
   assert.match(page, /function overlayFromHash\(hash:string\):OverlayMode\|null/);
   assert.match(page, /overlayFromHash\(window\.location\.hash\)==="help"/);
   assert.match(page, /overlayFromHash\(window\.location\.hash\)==="feedback"/);
   assert.match(page, /overlayFromHash\(window\.location\.hash\)==="legal"/);
+  assert.match(page, /overlayFromHash\(window\.location\.hash\)==="status"/);
   assert.match(page, /window\.history\.pushState\(null,"",`#workspace\/\$\{key\}`\)/);
   assert.match(page, /onClick=\{\(\)=>openOverlay\("feedback"\)\}/);
   assert.match(page, /onClick=\{\(\)=>openOverlay\("legal"\)\}/);
   assert.match(page, /onClick=\{\(\)=>openOverlay\("help"\)\}/);
+  assert.match(page, /onClick=\{\(\)=>openOverlay\("status"\)\}/);
   assert.match(page, /document\.body\.style\.overflow="hidden"/);
   assert.match(page, /document\.querySelector<HTMLButtonElement>\('\.legalDialog header button'\)\?\.focus\(\)/);
   assert.match(page, /overlayReturnFocus\.current\?\.focus\(\)/);
@@ -1406,6 +1977,44 @@ test("help, feedback, and credit dialogs have durable shareable URLs", async () 
   assert.match(page, /onClick=\{closeOverlay\} aria-label="意見・誤り報告を閉じる"/);
   assert.match(page, /onClick=\{closeOverlay\} aria-label="利用条件とクレジット表示を閉じる"/);
   assert.match(page, /onClick=\{closeOverlay\} aria-label="操作ガイドを閉じる"/);
+});
+
+test("status dialog renders the JSON registry through a durable direct route", async () => {
+  const [page, status] = await Promise.all([
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("app/beta-status.json", root), "utf8"),
+  ]);
+  const data = JSON.parse(status);
+  assert.equal(data.phase, "公開α掲載中／β候補・β公開判断前");
+  assert.ok(data.knownLimitations.some(item => item.body.includes("ID33")));
+  assert.ok(data.changes.some(item => item.body.includes("162/162")));
+  assert.ok(data.knownLimitations.some(item => item.body.includes("162/162")));
+  assert.doesNotMatch(status, /親作業での実施前|26経路版は[^。]*未実施/);
+  assert.match(page, /import betaStatus from "\.\/beta-status\.json"/);
+  assert.match(page, /const betaStatusData=betaStatus as BetaStatusData/);
+  assert.match(page, /candidate==="status"/);
+  assert.match(page, /setStatusOpen\(overlay==="status"\)/);
+  assert.match(page, /className="legalDialog betaStatusDialog"/);
+  assert.match(page, /更新履歴・既知の制限/);
+  assert.match(page, /betaStatusData\.knownLimitations\.map/);
+  assert.match(page, /betaStatusData\.changes\.map/);
+  assert.match(page, /公開α版にはβ候補へ向けた進捗を掲載していますが、β版の公開や専門家による承認・最終確認を意味しません/);
+  assert.doesNotMatch(page, /公開判断前のローカル候補であり、専門家による最終確認や公開URLでの確認を意味しません/);
+  assert.match(page, /data-status-id=\{item\.id\}/);
+  assert.match(page, /className="betaStatusEvidence"/);
+  assert.match(page, /className="homeEnter"[\s\S]*openOverlay\("status"\)/);
+  assert.match(page, /TemplateFlow<\/a><button onClick=\{\(\)=>openOverlay\("status"\)\}>更新履歴・既知の制限/);
+  assert.match(page, /document\.querySelector<HTMLButtonElement>\('\.legalDialog header button'\)\?\.focus\(\)/);
+  assert.match(page, /overlayReturnFocus\.current\?\.focus\(\)/);
+  assert.match(page, /\},\[helpOpen,feedbackOpen,legalOpen,statusOpen\]\);/);
+  assert.match(page, /if\(!overlayOpen\)overlayReturnFocus\.current\?\.focus\(\)\},\[overlayOpen\]\);/);
+  assert.match(page, /function openOverlay\(key:OverlayMode\)\{if\(!overlayOpen\)overlayReturnFocus\.current=document\.activeElement instanceof HTMLElement\?document\.activeElement:null;/);
+  assert.match(page, /海馬采・鉤はβ候補から除外し、現行3Dには収録していません/);
+  assert.match(page, /旧模式乳頭体2資産は配布されても学習画面の代用表示には使用しません/);
+  assert.match(page, /学習画面に表示する形状は「模式補助」「位置目安」と明示します/);
+  assert.doesNotMatch(page, /画面上でも「模式補助」「位置目安」と表示します/);
+  assert.match(page, /更新 \{betaStatusData\.updated\}・AGPL-3\.0-or-later・無保証/);
+  assert.doesNotMatch(page, /主要な溝・裂の線状ガイド、放線群、脈絡叢、海馬采、脳弓/);
 });
 
 test("keeps simultaneously selectable surface colours distinct on the dark model", async () => {
@@ -1439,6 +2048,34 @@ test("smooths cerebellar shading without moving the atlas boundary", async () =>
   assert.match(atlasCanvas,/\[\.78,\.80,\.79,alpha\][\s\S]*\[\.62,\.54,\.42,alpha\]/);
 });
 
+test("keeps ghost-surface teaching layers depth-tested and opacity-consistent", async () => {
+  const [atlasCanvas, page, audit] = await Promise.all([
+    readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8"),
+    readFile(new URL("app/page.tsx", root), "utf8"),
+    readFile(new URL("TRANSPARENCY_VISIBILITY_AUDIT.md", root), "utf8"),
+  ]);
+  assert.match(atlasCanvas, /const SURFACE_GHOST_OPACITY=\.18/);
+  assert.match(atlasCanvas, /const TEACHING_OVERLAY_OPACITY=\.78/);
+  assert.match(atlasCanvas, /const TEACHING_OVERLAY_SELECTED_OPACITY=\.98/);
+  assert.match(atlasCanvas, /function teachingColor\(color:number\[],opacity=TEACHING_OVERLAY_OPACITY\)/);
+  assert.match(atlasCanvas, /function selectionColor\(color:\[number,number,number\],opacity=TEACHING_OVERLAY_SELECTED_OPACITY\)\{return \[color\[0\]\/255,color\[1\]\/255,color\[2\]\/255,opacity\]\}/);
+  assert.match(atlasCanvas, /uniform float clipOn,clipAxis,clipValue,material,hemiMode,selectedOpacity/);
+  assert.match(atlasCanvas, /float outputAlpha=mix\(color\.a,selectedOpacity,clamp\(highlight\.a,0\.,1\.\)\)/);
+  assert.match(atlasCanvas, /const ghostSurface=view==="ghost"&&blockMeshes===null/);
+  assert.match(atlasCanvas, /else if\(!ghostSurface\)drawSurfaceShell\(\)/);
+  assert.match(atlasCanvas, /if\(showFocus&&selectionLayers\.length\)\{if\(!ghostSurface\)gl\.clear\(gl\.DEPTH_BUFFER_BIT\)/);
+  assert.match(atlasCanvas, /selectionLayers\.forEach\(layer=>layer\.meshes\.forEach\(part=>draw\(part,selectionColor\(layer\.color\),1\)\)\)/);
+  assert.match(atlasCanvas, /if\(ghostSurface\)\{[\s\S]*?gl\.depthFunc\(gl\.LESS\)[\s\S]*?drawSurfaceShell\(\)/);
+  assert.doesNotMatch(atlasCanvas, /if\(view==="ghost"\)gl\.clear\(gl\.DEPTH_BUFFER_BIT\)/);
+  assert.match(atlasCanvas, /draw\(overlays\[0\],teachingColor\(\[\.86,\.18,\.14\]\)/);
+  assert.match(atlasCanvas, /draw\(overlays\[2\],teachingColor\(\[\.96,\.83,\.42\]\)/);
+  assert.match(page, /透過時も補助レイヤーはモデルの奥行きを保って描画します/);
+  assert.match(page, /通常は半透明、選択中の神経・血管は白色と高い不透明度で追跡しやすくします/);
+  assert.match(audit, /実ブラウザ確認: 最終ビルド/);
+  assert.match(audit, /26経路×direct\/reload＝156\/156件/);
+  assert.match(audit, /形状・メッシュ・分節は変更しない/);
+});
+
 test("presents sulci as teaching guides rather than segmentation boundaries", async () => {
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
   const guides = page.split("const surfaceLandmarks")[1].split("const surfaceLandmarkKeys")[0];
@@ -1457,14 +2094,22 @@ test("describes specimen fidelity limits without implying anatomical validation"
 });
 test("labels provisional questions and includes them in the default quiz setup", async () => {
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
-  assert.match(page, /function isProvisionalQuiz\(question:QuizQuestion\)\{return isSurfaceQuiz\(question\)\|\|\["atlas-provisional","image-guided"\]\.includes/);
+  assert.match(page, /function isStandardQuizStructure\(key:string\)\{const source=structures\[key as StructureKey\]\?\.labelSource;return source==="manual"\|\|source==="image-guided-reviewed"\}/);
+  assert.match(page, /function isProvisionalQuiz\(question:QuizQuestion\)\{[\s\S]*?question\.options\.some\(option=>!isStandardQuizStructure\(option\)\);\n\}/);
   assert.match(page, /standardQuizQuestions=quizQuestions\.filter\(question=>!isProvisionalQuiz\(question\)\)/);
-  assert.match(page, /useState<QuizQuestion\[]>\(\(\)=>shuffledQuestions\(quizQuestions\)/);
+  assert.match(page, /useState<QuizQuestion\[]>\(\(\)=>shuffledQuestions\(allQuizQuestions\)/);
   assert.match(page, /quizIncludeProvisional,setQuizIncludeProvisional\]=useState\(true\)/);
-  assert.match(page, /quizIncludeProvisional\|\|!isProvisionalQuiz\(question\)/);
+  assert.match(page, /const quizFilters:QuizFilters=\{category:quizCategory,format:quizFormat,detail:quizDetail,includeProvisional:quizIncludeProvisional,wrongOnly:quizWrongOnly\}/);
+  assert.match(page, /filterQuizCandidates\(quizQuestionsForFiltering,quizFilters,wrongTargets\)/);
+  assert.match(page, /function startQuiz\(\)\{let candidates=quizCandidates;/);
+  assert.doesNotMatch(page, /quizIncludeProvisional\|\|!isProvisionalQuiz\(question\)/);
   assert.match(page, /試作問題を含む[\s\S]*専門家未確認・位置照合ラベル/);
   assert.match(page, /試作・専門家未確認/);
   assert.match(page, /\{target:"mammillaryBody",category:"limbic",plane:"horizontal",position:69/);
+  assert.match(page, /className="quizCountButtons" role="group" aria-label="次回の問題数（上限）"/);
+  assert.match(page, /aria-pressed=\{quizCount===count\}/);
+  assert.match(page, /この条件で出題（\{quizActualCount\}問）/);
+  assert.doesNotMatch(page, /\(quizEmpty\|\|quizCandidateCount===0\)\?/);
 });
 
 test("publishes a durable keyboard and pointer operation guide", async () => {
@@ -1472,7 +2117,7 @@ test("publishes a durable keyboard and pointer operation guide", async () => {
     readFile(new URL("app/page.tsx", root), "utf8"),
     readFile(new URL("app/canvas.css", root), "utf8"),
   ]);
-  assert.match(page, /type OverlayMode = "help" \| "feedback" \| "legal"/);
+  assert.match(page, /type OverlayMode = "help" \| "feedback" \| "legal" \| "status"/);
   assert.match(page, /#workspace\/\$\{key\}/);
   assert.match(page, /操作ガイドを表示/);
   assert.match(page, /<kbd>Ctrl<\/kbd>／<kbd>⌘<\/kbd>＋<kbd>Z<\/kbd>/);
@@ -1527,13 +2172,17 @@ test("ships a reproducible Google Form generator for feedback and collaborators"
   assert.match(script, /routeItem\.createChoice\('修正提案・不具合・使いにくさを送る', feedbackPage\)/);
   assert.match(script, /routeItem\.createChoice\('共同制作者として参加したい', collaborationPage\)/);
   assert.match(script, /FormApp\.PageNavigationType\.SUBMIT/);
-  assert.match(script, /refreshExistingForm_\(existingForm, existingSheet\)/);
-  assert.match(script, /form\.setTitle\(CONFIG\.FORM_TITLE\)\.setDescription\(buildDescription_\(\)\)/);
-  assert.match(script, /spreadsheet\.rename\(CONFIG\.RESPONSE_SHEET_TITLE\)/);
+  assert.match(script, /preflightBrainPracticalFeedbackForm\(\)/);
+  assert.doesNotMatch(script, /function refreshExistingForm_/);
+  assert.match(script, /FORM_TITLE: '脳実習ナビ｜修正提案・共同制作フォーム'/);
+  assert.match(script, /非営利の教育用試作教材です/);
+  assert.doesNotMatch(script, /α版|公開α|β版/);
   assert.match(script, /VITE_FEEDBACK_FORM_URL/);
   assert.doesNotMatch(script, /addFileUploadItem/);
   assert.match(guide, /リンクを知っている全員/);
-  assert.match(guide, /CONTACT_TEXT/);
+  assert.match(guide, /CONFIG\.FORM_DESCRIPTION/);
+  assert.match(guide, /現行フォームのタイトル・説明・保存期間は引き続き「α版」表記/);
+  assert.match(guide, /回答の作成・送信・削除は行っていません/);
 });
 
 test("research-backed anatomy cautions distinguish source data from teaching schematics", async () => {
@@ -1566,8 +2215,8 @@ test("3D viewers expose orientation, keyboard rotation, reset, and visible zoom 
   assert.match(page, /showZoomControls=\{false\}/);
   assert.match(page, /<OrientationCompass rotation=\{modelRotation\} compact\/>/);
   assert.match(page, /復習問題の脳表3Dモデル。ドラッグまたは矢印キーで回転/);
-  assert.match(page, /surfaceQuiz\?<><AtlasVolumeCanvas[^>]+rotation=\{rotation\}[^>]+surfaceHighlights=\{quizSurfaceHighlight\}/);
-  assert.match(page, /workspace==="quiz"&&isSurfaceQuiz\(quizQuestion\)/);
+  assert.match(page, /quizModelQuestion\?<><AtlasVolumeCanvas[^>]+rotation=\{rotation\}[^>]+surfaceHighlights=\{neurovascularQuiz\?\[\]:quizSurfaceHighlight\}/);
+  assert.match(page, /workspace==="quiz"&&\(isSurfaceQuiz\(quizQuestion\)\|\|isNeurovascularQuiz\(quizQuestion\)\)/);
   assert.match(css, /\.modelStage:focus-visible/);
   assert.match(css, /\.orientationCompass/);
   assert.match(css, /\.orientationCompass\.compact/);
@@ -1659,7 +2308,9 @@ test("free observation offers schematic pathway presets instead of textbook chap
   assert.match(page, /"basal-ganglia":\{name:"大脳基底核回路"/);
   assert.match(page, /経路観察（試作）/);
   assert.match(page, /線維の全経路、核内結合、興奮性／抑制性、個体差は再現していません/);
-  assert.match(page, /selectionMeshLayers=\{surfaceView==="free"\?freePathwayMeshLayers:\[\]\}/);
+  assert.match(page, /selectionMeshLayers=\{surfaceView==="free"\?\(basalStepperActive\?freePathwayMeshLayers:papezStepperActive\?papezStepperMeshLayers:freePathwayMeshLayers\):\[\]\}/);
+  assert.match(page, /aria-label="Papez回路の由来別位置関係ステッパー"/);
+  assert.match(page, /papezStepperStep\.kind!=="section-label"&&<div className="pathwayStepper3dOnlyNote"/);
   assert.match(css, /\.pathwayPresets/);
 });
 

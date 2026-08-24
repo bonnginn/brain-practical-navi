@@ -1,0 +1,14 @@
+export type BlockGuidedSpecimenKey = "lateral-ventricle" | "radiations" | "choroid-plexus" | "medial-temporal";
+export type ExistingBlockLayer = {readonly key: string; readonly name: string; readonly note: string; readonly source: string};
+export type BlockGuidedStep = {readonly key: string; readonly layerKeys: readonly string[]; readonly name: string; readonly note: string; readonly source: string; readonly final: boolean};
+export type BlockGuidedState = {readonly active: boolean; readonly specimenKey: BlockGuidedSpecimenKey | null; readonly steps: readonly BlockGuidedStep[]; readonly stageIndex: number; readonly savedLayers: readonly string[]; readonly restoredLayers: readonly string[]};
+export const BLOCK_GUIDED_SPECIMEN_KEYS: readonly BlockGuidedSpecimenKey[];
+export function deriveBlockGuidedSteps(specimenKey: BlockGuidedSpecimenKey, layers: readonly ExistingBlockLayer[]): readonly BlockGuidedStep[];
+export function createBlockGuidedState(): BlockGuidedState;
+export function startBlockGuidedObservation(args: {specimenKey: BlockGuidedSpecimenKey; layers: readonly ExistingBlockLayer[]; currentLayers?: readonly string[]}): BlockGuidedState;
+export function guidedStepLayers(state: BlockGuidedState): readonly string[];
+export function moveBlockGuidedObservation(state: BlockGuidedState, delta: number): BlockGuidedState;
+export function firstBlockGuidedObservation(state: BlockGuidedState): BlockGuidedState;
+export function finishBlockGuidedObservation(state: BlockGuidedState): BlockGuidedState;
+export const cleanupBlockGuidedObservation: typeof finishBlockGuidedObservation;
+export function validateBlockGuidedSteps(args: {specimenKey?: string; layers?: readonly ExistingBlockLayer[]; steps?: readonly BlockGuidedStep[]}): {ok: boolean; errors: string[]; summary: {specimenKey?: string; layerCount: number; stepCount: number; singleStepKeys: (string | undefined)[]; finalLayerKeys: readonly string[]}};

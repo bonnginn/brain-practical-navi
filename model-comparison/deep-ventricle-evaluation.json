@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "comparisonId": "deep-ventricle",
+  "title": "深部課題：第三脳室を基準にした脳室系の位置関係",
+  "status": "contributor-only-prototype",
+  "optIn": true,
+  "learnerRoutesChanged": false,
+  "task": {
+    "nameJa": "第三脳室と左右側脳室の位置関係を同じ観察課題で比較する",
+    "structures": ["左右側脳室", "第三脳室"],
+    "labelIds": [],
+    "sourcePolicy": "この比較試作は既存の解剖学的ラベルIDを追加・変更しない"
+  },
+  "strategies": {
+    "A": {
+      "key": "current-reconstruction",
+      "nameJa": "A 現行再構成モデル",
+      "representation": "existing specimen-oriented deep-structure model",
+      "assets": [
+        "block-commissural-system-lateral-ventricles.mesh",
+        "block-diencephalon-third-ventricle.mesh"
+      ],
+      "sourceTypes": ["same-grid-segmentation"],
+      "expertReview": { "status": "pending" }
+    },
+    "B": {
+      "key": "knowledge-schematic",
+      "nameJa": "B 知識ベース模式3D",
+      "representation": "project-authored schematic 3D teaching mesh",
+      "asset": "comparison-schematic-ventricle.mesh",
+      "sourceType": "project-authored-schematic",
+      "schematic": true,
+      "expertReview": { "status": "pending" },
+      "specimenDerived": false,
+      "learnerFacing": false,
+      "displayNoticeJa": "模式3D・専門家未確認・実標本由来ではありません",
+      "knownLimitationsJa": [
+        "左右側脳室と第三脳室を3本の独立した単純管として表現する",
+        "連結部、個人差、形態計測に使える縮尺を表現しない"
+      ]
+    }
+  },
+  "dimensions": [
+    {
+      "key": "identification-ease",
+      "labelJa": "同定しやすさ",
+      "scale": { "min": 1, "max": 5, "unit": "ordinal" },
+      "expertJudgment": { "status": "pending", "A": null, "B": null }
+    },
+    {
+      "key": "spatial-relationships",
+      "labelJa": "位置関係",
+      "scale": { "min": 1, "max": 5, "unit": "ordinal" },
+      "expertJudgment": { "status": "pending", "A": null, "B": null }
+    },
+    {
+      "key": "surface-quality",
+      "labelJa": "表面品質",
+      "scale": { "min": 1, "max": 5, "unit": "ordinal" },
+      "expertJudgment": { "status": "pending", "A": null, "B": null }
+    },
+    {
+      "key": "rotation-readability",
+      "labelJa": "回転時の見やすさ",
+      "scale": { "min": 1, "max": 5, "unit": "ordinal" },
+      "expertJudgment": { "status": "pending", "A": null, "B": null }
+    },
+    {
+      "key": "detach-and-color-ease",
+      "labelJa": "着色・脱着のしやすさ",
+      "scale": { "min": 1, "max": 5, "unit": "ordinal" },
+      "expertJudgment": { "status": "pending", "A": null, "B": null }
+    },
+    {
+      "key": "runtime-load",
+      "labelJa": "動作負荷",
+      "scale": { "min": 1, "max": 5, "unit": "ordinal", "direction": "低負荷ほど高得点" },
+      "expertJudgment": { "status": "pending", "A": null, "B": null }
+    },
+    {
+      "key": "authoring-revision-cost",
+      "labelJa": "制作・修正コスト",
+      "scale": { "min": 1, "max": 5, "unit": "ordinal", "direction": "低コストほど高得点" },
+      "expertJudgment": { "status": "pending", "A": null, "B": null }
+    }
+  ],
+  "review": {
+    "decision": "pending-expert-review",
+    "expertJudgments": "pending",
+    "reviewer": null,
+    "reviewedAt": null,
+    "notes": "専門家・学習者の比較記録が揃うまで、A/Bいずれもβ本体の採用候補として決定しない"
+  },
+  "assetIntegrity": {
+    "file": "comparison-schematic-ventricle.mesh",
+    "format": "BNM2",
+    "sha256": "6bcf655746ed58175ebbc3ebb9068a5e82b8f52c14d5b9ce719987c415c19123",
+    "bytes": 7980,
+    "vertices": 156,
+    "faces": 300,
+    "regionIds": [],
+    "generator": "scripts/build_comparison_schematic_ventricle.mjs"
+  }
+}

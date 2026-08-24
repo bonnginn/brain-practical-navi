@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import argparse
 import gzip
+import hashlib
 import json
 import struct
 import sys
@@ -22,14 +23,16 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "work/pydeps"))
+sys.path.insert(0, str(ROOT / "scripts"))
 MAMMILLARY_PATCH = ROOT / "segmentation-patches/review/mammillary-bodies-horizontal-core-plus-clear-rim-candidate-2026-08-16.json"
+MAMMILLARY_SOURCE_SHA256 = "de30b5c77f4ed4f2902564a5d238b0e733413c247643ef828fb66aa03d8cc8be"
+MAMMILLARY_SOURCE_LABELS_SHA256 = "1ef06fcb799ce2c81bd2d7352d8bde310ff694dcfb8ac1a34695f7fc99baf862"
+VENTRICLE_PATCH = ROOT / "segmentation-patches/review/ventricles-orthogonally-bracketed-candidate-2026-08-23.json"
+VENTRICLE_SOURCE_COMPRESSED_SHA256 = "6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56"
+VENTRICLE_SOURCE_LABELS_SHA256 = "088fafcdf6afcea74a7a60075bf3b8a481e1a7aa6379a7c58fb9b9c17f5e731d"
 
-import nibabel as nib
 import numpy as np
-from nibabel.processing import resample_from_to
-from scipy import ndimage
-
-from build_bigbrain_manual_seg import extract_zip_entry, write_browser_volume
+from apply_segmentation_patch import validate_patch
 
 
 MANUAL_TO_CEREBRA = {
@@ -62,35 +65,108 @@ PRACTICAL_LABELS = {
 
 
 def apply_approved_patch(volume: np.ndarray, path: Path) -> dict[str, object]:
-    patch = json.loads(path.read_text(encoding="utf-8"))
-    if patch.get("format") != "brain-practical-segmentation-patch" or patch.get("version") != 1:
-        raise ValueError(f"unsupported reviewed patch: {path}")
-    if patch.get("reviewStatus") != "approved":
-        raise ValueError(f"reviewed patch is not approved: {path}")
-    if tuple(patch.get("dims", ())) != tuple(volume.shape):
-        raise ValueError(f"reviewed patch grid mismatch: {path}")
-    flat = volume.ravel(order="F")
+    baseline = bytearray(np.asarray(volume, dtype=np.uint8).tobytes(order="F"))
+    baseline_sha256 = hashlib.sha256(baseline).hexdigest()
+    if baseline_sha256 != MAMMILLARY_SOURCE_LABELS_SHA256:
+        raise ValueError(
+            "reviewed patch baseline labels changed: "
+            f"expected {MAMMILLARY_SOURCE_LABELS_SHA256}, got {baseline_sha256}"
+        )
+    dims = tuple(int(value) for value in volume.shape)
+    patch, edits, metadata = validate_patch(path, dims, len(baseline), baseline, MAMMILLARY_SOURCE_SHA256)
+    if metadata["status"] != "strict" or patch.get("reviewStatus") != "approved":
+        raise ValueError(f"reviewed patch is not strict approved metadata: {path}")
     transitions: dict[str, int] = {}
-    edit_count = 0
-    for run in patch.get("runs", []):
-        start, length, label = run["start"], run["length"], run["label"]
-        if label not in (39, 40) or start < 0 or length < 1 or start + length > flat.size:
+    for index, label in edits:
+        if label not in (39, 40):
             raise ValueError(f"invalid mammillary-body run in {path}")
-        for index in range(start, start + length):
-            old = int(flat[index])
-            key = f"{old}->{label}"
-            transitions[key] = transitions.get(key, 0) + 1
-            flat[index] = label
-            edit_count += 1
-    if edit_count != patch.get("editCount"):
-        raise ValueError(f"reviewed patch editCount mismatch: {path}")
+        old = int(baseline[index])
+        key = f"{old}->{label}"
+        transitions[key] = transitions.get(key, 0) + 1
+        baseline[index] = label
+        x = index % dims[0]
+        y = (index // dims[0]) % dims[1]
+        z = index // (dims[0] * dims[1])
+        volume[x, y, z] = label
+    edit_count = len(edits)
     expected = {"0->39": 316, "0->40": 426, "27->39": 17, "33->39": 228, "33->40": 303}
     if transitions != expected:
         raise ValueError(f"reviewed patch source transitions changed: {transitions}")
-    return {"path": str(path.relative_to(ROOT)), "editCount": edit_count, "transitions": transitions}
+    return {
+        "path": str(path.relative_to(ROOT)),
+        "workflowMetadataVersion": patch.get("workflowMetadataVersion"),
+        "workflowMetadataStatus": metadata["status"],
+        "targetSide": patch.get("targetSide"),
+        "evidence": patch.get("evidence"),
+        "confidence": patch.get("confidence"),
+        "targetStructures": patch.get("targetStructures"),
+        "sliceRanges": patch.get("sliceRanges"),
+        "changeSummary": patch.get("changeSummary"),
+        "review": patch.get("review"),
+        "pullRequest": patch.get("review", {}).get("pullRequest"),
+        "editCount": edit_count,
+        "transitions": transitions,
+    }
+
+
+def apply_approved_ventricle_patch(volume: np.ndarray, path: Path) -> dict[str, object]:
+    """Apply the narrowly approved 33-voxel ventricle repair after mammillary labels."""
+
+    baseline = bytearray(np.asarray(volume, dtype=np.uint8).tobytes(order="F"))
+    baseline_sha256 = hashlib.sha256(baseline).hexdigest()
+    if baseline_sha256 != VENTRICLE_SOURCE_LABELS_SHA256:
+        raise ValueError(
+            "ventricle repair baseline labels changed: "
+            f"expected {VENTRICLE_SOURCE_LABELS_SHA256}, got {baseline_sha256}"
+        )
+    dims = tuple(int(value) for value in volume.shape)
+    patch, edits, metadata = validate_patch(
+        path, dims, len(baseline), baseline, VENTRICLE_SOURCE_COMPRESSED_SHA256
+    )
+    if metadata["status"] != "strict" or patch.get("reviewStatus") != "approved":
+        raise ValueError(f"ventricle repair patch is not strict approved metadata: {path}")
+
+    transitions: dict[str, int] = {}
+    for index, label in edits:
+        if label not in (23, 24, 25):
+            raise ValueError(f"invalid ventricle label in {path}: {label}")
+        old = int(baseline[index])
+        if old != 0:
+            raise ValueError(f"ventricle repair must be exactly 0->{label}, got {old}->{label}")
+        key = f"{old}->{label}"
+        transitions[key] = transitions.get(key, 0) + 1
+        baseline[index] = label
+        x = index % dims[0]
+        y = (index // dims[0]) % dims[1]
+        z = index // (dims[0] * dims[1])
+        volume[x, y, z] = label
+
+    expected = {"0->23": 14, "0->24": 15, "0->25": 4}
+    if transitions != expected:
+        raise ValueError(f"ventricle repair source transitions changed: {transitions}")
+    return {
+        "path": str(path.relative_to(ROOT)),
+        "workflowMetadataVersion": patch.get("workflowMetadataVersion"),
+        "workflowMetadataStatus": metadata["status"],
+        "targetSide": patch.get("targetSide"),
+        "evidence": patch.get("evidence"),
+        "confidence": patch.get("confidence"),
+        "targetStructures": patch.get("targetStructures"),
+        "sliceRanges": patch.get("sliceRanges"),
+        "changeSummary": patch.get("changeSummary"),
+        "review": patch.get("review"),
+        "pullRequest": patch.get("review", {}).get("pullRequest"),
+        "editCount": len(edits),
+        "transitions": transitions,
+        "sourceCompressedSha256": VENTRICLE_SOURCE_COMPRESSED_SHA256,
+        "sourceRawVoxelSha256": VENTRICLE_SOURCE_LABELS_SHA256,
+    }
 
 
 def load_nifti_entry(path: Path) -> nib.Nifti1Image:
+    import nibabel as nib
+    from build_bigbrain_manual_seg import extract_zip_entry
+
     return nib.Nifti1Image.from_bytes(extract_zip_entry(path))
 
 
@@ -100,6 +176,9 @@ def dice(a: np.ndarray, b: np.ndarray) -> float:
 
 
 def resample_mask(mask: np.ndarray, source: nib.Nifti1Image, target: nib.Nifti1Image) -> np.ndarray:
+    import nibabel as nib
+    from nibabel.processing import resample_from_to
+
     image = nib.Nifti1Image(mask.astype(np.uint8), source.affine)
     return np.asarray(resample_from_to(image, (target.shape, target.affine), order=0).dataobj) > 0
 
@@ -110,6 +189,8 @@ def atlas_white_matter_candidates(
     affine: np.ndarray,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """Create conservative CC/internal-capsule candidates in the 1 mm atlas grid."""
+    from scipy import ndimage
+
     grid = np.indices(cerebra.shape, dtype=np.float32)
     x = affine[0, 0] * grid[0] + affine[0, 3]
     y = affine[1, 1] * grid[1] + affine[1, 3]
@@ -159,6 +240,10 @@ def atlas_white_matter_candidates(
 
 
 def main() -> None:
+    import nibabel as nib
+    from nibabel.processing import resample_from_to
+    from build_bigbrain_manual_seg import write_browser_volume
+
     parser = argparse.ArgumentParser()
     parser.add_argument("image_entry", type=Path)
     parser.add_argument("manual_entry", type=Path)
@@ -242,6 +327,7 @@ def main() -> None:
         empty = practical == 0
 
     reviewed_patch_audit = apply_approved_patch(practical, MAMMILLARY_PATCH)
+    ventricle_patch_audit = apply_approved_ventricle_patch(practical, VENTRICLE_PATCH)
 
     if not np.array_equal(practical[manual > 0], manual[manual > 0]):
         raise ValueError("official manual labels were modified")
@@ -269,7 +355,11 @@ def main() -> None:
         "ventricleTissueOverlap": float((~empty_space[np.isin(practical, [23, 24, 25, 26])]).mean()),
         "coordinatePolicy": "exact BigBrain ICBM2009sym 0.5 mm output grid; CerebrA resampling accepted only after overlap audit",
         "reviewedPatchAudit": reviewed_patch_audit,
-        "teachingPolicy": "IDs 23-35 are provisional teaching overlays; IDs 39-40 are project-reviewed image-guided teaching labels, not research ground truth",
+        "ventriclePatchAudit": ventricle_patch_audit,
+        "reviewedPatchAudits": [reviewed_patch_audit, ventricle_patch_audit],
+        "preVentricleCompressedSha256": VENTRICLE_SOURCE_COMPRESSED_SHA256,
+        "preVentricleRawVoxelSha256": VENTRICLE_SOURCE_LABELS_SHA256,
+        "teachingPolicy": "IDs 23-35 are provisional teaching overlays; the 33-voxel ventricle repair is project-reviewed under PR #14 and is not expert-reviewed or research ground truth; IDs 39-40 are project-reviewed image-guided teaching labels, not research ground truth",
     }
     validation_output.write_text(json.dumps(validation, ensure_ascii=False, indent=2) + "\n")
     print(json.dumps({"output": str(output), "validation": str(validation_output), **validation}, ensure_ascii=False))

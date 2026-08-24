@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { SEGMENTATION_LABEL_REVISION } from "./segmentationLabelRevision";
+import { createDownloadProgressTracker, formatDownloadBytes } from "../src/downloadProgress.mjs";
 
 const ASSET_BASE=import.meta.env.BASE_URL;
 
-type Plane="coronal"|"horizontal"|"sagittal";type Focus="ventricle"|"caudate"|"hippocampus"|"thalamus";type Display="specimen"|"diagram"|"outline";
-type Volume={dims:[number,number,number];t1:Uint8Array;t2:Uint8Array;labels:Uint8Array;mask:Uint8Array;gm:Uint8Array;wm:Uint8Array;csf:Uint8Array};type Mesh={vertices:Float32Array;normals:Float32Array;shade:Float32Array;regions:Float32Array;faces:Uint32Array};
+type Plane="coronal"|"horizontal"|"sagittal";type Focus="ventricle"|"caudate"|"hippocampus"|"thalamus";type Display="specimen"|"diagram"|"outline";type SectionHighlightMode="default"|"quiz";
+type Volume={dims:[number,number,number];t1:Uint8Array;t2:Uint8Array;labels:Uint8Array;mask:Uint8Array;gm:Uint8Array;wm:Uint8Array;csf:Uint8Array};type Mesh={vertices:Float32Array;normals:Float32Array;shade:Float32Array;regions:Float32Array;faces:Uint32Array;auditSource?:{path:string;sha256:string}};
 type BigBrain={dims:[number,number,number];values:Uint8Array};
 type FixedBrain={dims:[number,number,number];values:Uint8Array;mask:Uint8Array};
 type ManualSeg={dims:[number,number,number];labels:Uint8Array};
@@ -16,15 +18,32 @@ type SurfaceLandmark="central-sulcus"|"precentral-sulcus"|"lateral-sulcus"|"supe
 type SurfaceDeepLandmark="corpus-callosum"|"septum-pellucidum"|"fornix"|"thalami"|"hypothalamus";
 type SpecimenTissueMode="solid"|"ghost"|"hidden";
 type Rotation={x:number;y:number;z?:number};
-type SpecimenBlock="none"|"lateral-ventricle"|"diencephalon"|"radiations"|"commissural-system"|"choroid-plexus"|"medial-temporal"|"midbrain-section"|"hindbrain";
-type SpecimenPartDefinition={key:string;layer?:string;attachment?:"pons-medulla";color:[number,number,number,number];material:1|4};
+type SpecimenBlock="none"|"lateral-ventricle"|"diencephalon"|"radiations"|"commissural-system"|"choroid-plexus"|"medial-temporal"|"midbrain-section"|"hindbrain"|"model-strategy-current-ventricles"|"model-strategy-ventricle";
+type BlockContextSpecimen="none"|"lateral-ventricle"|"diencephalon"|"radiations"|"commissural-system"|"choroid-plexus"|"medial-temporal"|"midbrain-section"|"hindbrain";
+type SpecimenPartDefinition={key:string;asset?:string;layer?:string;attachment?:"pons-medulla";color:[number,number,number,number];material:1|4};
 type LoadedSpecimenPart={mesh:Mesh;definition:SpecimenPartDefinition};
 const EMPTY_MESH:Mesh={vertices:new Float32Array(),normals:new Float32Array(),shade:new Float32Array(),regions:new Float32Array(),faces:new Uint32Array()};
-export type HighlightLayer={ids:number[];color:[number,number,number];conditional?:{ids:number[];axis:0|1|2;min?:number;max?:number}};
+function mergeMeshes(meshes:Mesh[]):Mesh{
+  const vertexCount=meshes.reduce((sum,mesh)=>sum+mesh.vertices.length/3,0),faceIndexCount=meshes.reduce((sum,mesh)=>sum+mesh.faces.length,0),vertices=new Float32Array(vertexCount*3),normals=new Float32Array(vertexCount*3),shade=new Float32Array(vertexCount),regions=new Float32Array(vertexCount),faces=new Uint32Array(faceIndexCount);let vertexOffset=0,faceOffset=0;
+  for(const mesh of meshes){vertices.set(mesh.vertices,vertexOffset*3);normals.set(mesh.normals,vertexOffset*3);shade.set(mesh.shade,vertexOffset);regions.set(mesh.regions,vertexOffset);for(let index=0;index<mesh.faces.length;index++)faces[faceOffset+index]=mesh.faces[index]+vertexOffset;vertexOffset+=mesh.vertices.length/3;faceOffset+=mesh.faces.length}
+  return{vertices,normals,shade,regions,faces};
+}
+export type HighlightLayer={ids:number[];color:[number,number,number];mode?:"quiz";conditional?:{ids:number[];axis:0|1|2;min?:number;max?:number}};
+export const QUIZ_SECTION_ACCENT_RGB:[number,number,number]=[238,88,82];
+export const QUIZ_SECTION_ACCENT_HEX="#ee5852";
 export type SelectionMeshLayer={files:string[];color:[number,number,number]};
 export type IdentifiedPoint={id:number;x:number;y:number;certainty:"atlas"|"manual"|"provisional"|"reviewed"};
 export type SurfaceIdentifiedPoint={source:"surface"|"neurovascular";id:number};
+export type { BlockContextSpecimen };
 const DISPLAY_TONE:Tone={contrast:1.07,brightness:1,sharpness:.08};
+// Transparency is a display policy only: no atlas vertices, faces, or labels
+// are changed here. Keep the shell and teaching layers on the same scale so a
+// ghost view does not make one hindbrain component look opaque by accident.
+const SURFACE_GHOST_OPACITY=.18;
+const TEACHING_OVERLAY_OPACITY=.78;
+const TEACHING_OVERLAY_SELECTED_OPACITY=.98;
+function teachingColor(color:number[],opacity=TEACHING_OVERLAY_OPACITY){return [color[0],color[1],color[2],opacity]}
+function selectionColor(color:[number,number,number],opacity=TEACHING_OVERLAY_SELECTED_OPACITY){return [color[0]/255,color[1]/255,color[2]/255,opacity]}
 let sharedAtlasRenderCanvas:HTMLCanvasElement|null=null;
 function atlasRenderCanvas(width:number,height:number){
   if(!sharedAtlasRenderCanvas||sharedAtlasRenderCanvas.getContext("webgl")?.isContextLost())sharedAtlasRenderCanvas=document.createElement("canvas");
@@ -129,9 +148,50 @@ const SPECIMEN_PARTS:Record<Exclude<SpecimenBlock,"none">,SpecimenPartDefinition
     {key:"pyramids",layer:"pyramids",attachment:"pons-medulla",color:[.82,.66,.39,1],material:1},
     {key:"olives",layer:"olives",attachment:"pons-medulla",color:[.74,.43,.36,1],material:1},
   ],
+  "model-strategy-current-ventricles":[
+    {key:"lateral-ventricles",asset:"block-commissural-system-lateral-ventricles",layer:"ventricular-cavity",color:[.27,.68,.74,1],material:1},
+    {key:"third-ventricle",asset:"block-diencephalon-third-ventricle",layer:"ventricular-cavity",color:[.27,.68,.74,1],material:1},
+  ],
+  "model-strategy-ventricle":[
+    {key:"schematic-ventricular-cavity",asset:"comparison-schematic-ventricle",layer:"ventricular-cavity",color:[.27,.68,.74,1],material:1},
+  ],
 };
 let volumeCache:Promise<Volume>|null=null,bigBrainCache:Promise<BigBrain>|null=null,fixedBrainCache:Promise<FixedBrain>|null=null,largeVolumeConsumers=0,largeVolumeReleaseTimer:number|null=null,surfaceMeshConsumers=0,surfaceMeshReleaseTimer:number|null=null;const manualSegCache=new Map<string,Promise<ManualSeg>>(),meshCache=new Map<string,Promise<Mesh>>(),zeroHighlightCache=new WeakMap<Mesh,Float32Array>(),surfaceHighlightCache=new WeakMap<Mesh,Map<string,Float32Array>>(),surfaceBoundaryCache=new WeakMap<Mesh,Map<string,Mesh>>(),surfaceRimCache=new WeakMap<Mesh,Map<string,Mesh>>(),surfaceLevelCache=new WeakMap<Mesh,Map<string,Mesh>>(),ventralSurfacePatchCache=new WeakMap<Mesh,Map<string,Mesh>>(),brainstemLevelCache=new WeakMap<Mesh,Map<string,Mesh>>(),midbrainDorsalPatchCache=new WeakMap<Mesh,Map<string,Mesh>>(),surfaceSpatialCache=new WeakMap<Mesh,Map<string,number[]>>(),surfaceFilledPointCache=new WeakMap<Mesh,Map<string,{point:number[];normal:number[]}>>(),conservativeSeptumCache=new WeakMap<Mesh,Mesh>();
 const ATLAS_RETRY_EVENT="brain-practical-navi:retry-atlas-data";
+const atlasDownloadProgress=createDownloadProgressTracker();
+
+async function fetchAtlasBuffer(url:string,id:string,errorLabel:string,token:number){
+  try{
+    const response=await fetch(url);
+    if(!response.ok)throw new Error(`${errorLabel} HTTP ${response.status}`);
+    const contentLength=Number(response.headers.get("content-length"));
+    atlasDownloadProgress.setTotal(id,contentLength,token);
+    if(!response.body){
+      const buffer=await response.arrayBuffer();
+      atlasDownloadProgress.update(id,buffer.byteLength,token);
+      atlasDownloadProgress.processing(id,token);
+      return buffer;
+    }
+    let received=0;
+    const measuredStream=response.body.pipeThrough(new TransformStream<Uint8Array,Uint8Array>({transform(chunk,controller){received+=chunk.byteLength;atlasDownloadProgress.update(id,received,token);controller.enqueue(chunk)}}));
+    const buffer=await new Response(measuredStream).arrayBuffer();
+    atlasDownloadProgress.processing(id,token);
+    return buffer;
+  }catch(error){atlasDownloadProgress.fail(id,token);throw error}
+}
+
+async function trackAtlasProcessing<T>(id:string,task:(token:number)=>Promise<T>){
+  const token=atlasDownloadProgress.begin(id);
+  try{const result=await task(token);atlasDownloadProgress.complete(id,token);return result}
+  catch(error){atlasDownloadProgress.fail(id,token);throw error}
+}
+
+const COMPRESSED_MESH_ASSETS:Readonly<Record<string,string>>=Object.freeze({"pial-left":"pial-left.mesh.gz","pial-right":"pial-right.mesh.gz"});
+const COMPRESSED_MESH_AUDIT_SHA256:Readonly<Record<string,string>>=Object.freeze({"pial-left.mesh.gz":"d8112512d0bd930a44d3dc49a63c6a5caeb2342f850ba8f859ad8c26cbb29e5e","pial-right.mesh.gz":"1b41e9d74fed63f6e60aa3f05a7de8a0fad435725e0d3524e0df9ec5f04342dd"});
+function meshAssetFileName(name:string){return COMPRESSED_MESH_ASSETS[name]||`${name}.mesh`}
+function quizVisibilityAuditEnabled(){return typeof window!=="undefined"&&(location.hostname==="127.0.0.1"||location.hostname==="localhost"||location.hostname==="::1")&&new URLSearchParams(location.search).get("quizVisibilityAudit")==="1"}
+async function sha256Hex(buffer:ArrayBuffer){return [...new Uint8Array(await crypto.subtle.digest("SHA-256",buffer))].map(value=>value.toString(16).padStart(2,"0")).join("")}
+function hasGzipMagic(buffer:ArrayBuffer){return buffer.byteLength>=2&&new DataView(buffer).getUint16(0,false)===0x1f8b}
 
 function clearLargeVolumeCaches(){volumeCache=null;bigBrainCache=null;fixedBrainCache=null;manualSegCache.clear()}
 function retainLargeVolumeCaches(){largeVolumeConsumers++;if(largeVolumeReleaseTimer!==null){window.clearTimeout(largeVolumeReleaseTimer);largeVolumeReleaseTimer=null}}
@@ -140,27 +200,32 @@ function retainSurfaceMeshCaches(){surfaceMeshConsumers++;if(surfaceMeshReleaseT
 function releaseSurfaceMeshCaches(){surfaceMeshConsumers=Math.max(0,surfaceMeshConsumers-1);if(surfaceMeshConsumers>0)return;if(surfaceMeshReleaseTimer!==null)window.clearTimeout(surfaceMeshReleaseTimer);surfaceMeshReleaseTimer=window.setTimeout(()=>{if(surfaceMeshConsumers===0)meshCache.clear();surfaceMeshReleaseTimer=null},750)}
 
 async function loadVolume(){
-  if(!volumeCache)volumeCache=fetch(`${ASSET_BASE}atlas/mni-cerebra-1mm.bin.gz`).then(async r=>{
-    if(!r.ok)throw new Error(`volume HTTP ${r.status}`);let buf=await r.arrayBuffer(),v=new DataView(buf);if(v.getUint32(0,false)!==0x424e5634&&v.getUint16(0,false)===0x1f8b){const stream=new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));buf=await new Response(stream).arrayBuffer();v=new DataView(buf)}if(v.getUint32(0,false)!==0x424e5634)throw new Error("invalid volume header");const dims:[number,number,number]=[v.getUint16(4,true),v.getUint16(6,true),v.getUint16(8,true)],n=dims[0]*dims[1]*dims[2];return{dims,t1:new Uint8Array(buf,10,n),t2:new Uint8Array(buf,10+n,n),labels:new Uint8Array(buf,10+2*n,n),mask:new Uint8Array(buf,10+3*n,n),gm:new Uint8Array(buf,10+4*n,n),wm:new Uint8Array(buf,10+5*n,n),csf:new Uint8Array(buf,10+6*n,n)};
+  const id="volume:mni-cerebra-1mm";
+  if(!volumeCache)volumeCache=trackAtlasProcessing(id,async token=>{
+    let buf=await fetchAtlasBuffer(`${ASSET_BASE}atlas/mni-cerebra-1mm.bin.gz`,id,"volume",token),v=new DataView(buf);if(v.getUint32(0,false)!==0x424e5634&&v.getUint16(0,false)===0x1f8b){const stream=new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));buf=await new Response(stream).arrayBuffer();v=new DataView(buf)}if(v.getUint32(0,false)!==0x424e5634)throw new Error("invalid volume header");const dims:[number,number,number]=[v.getUint16(4,true),v.getUint16(6,true),v.getUint16(8,true)],n=dims[0]*dims[1]*dims[2];return{dims,t1:new Uint8Array(buf,10,n),t2:new Uint8Array(buf,10+n,n),labels:new Uint8Array(buf,10+2*n,n),mask:new Uint8Array(buf,10+3*n,n),gm:new Uint8Array(buf,10+4*n,n),wm:new Uint8Array(buf,10+5*n,n),csf:new Uint8Array(buf,10+6*n,n)};
   });return volumeCache;
 }
 async function loadBigBrain(){
-  if(!bigBrainCache)bigBrainCache=fetch(`${ASSET_BASE}atlas/bigbrain-icbm500.bin.gz`).then(async r=>{
-    if(!r.ok)throw new Error(`BigBrain HTTP ${r.status}`);let buf=await r.arrayBuffer(),v=new DataView(buf);
+  const id="volume:bigbrain-icbm500";
+  if(!bigBrainCache)bigBrainCache=trackAtlasProcessing(id,async token=>{
+    let buf=await fetchAtlasBuffer(`${ASSET_BASE}atlas/bigbrain-icbm500.bin.gz`,id,"BigBrain",token),v=new DataView(buf);
     if(v.getUint32(0,false)!==0x42425631&&v.getUint16(0,false)===0x1f8b){const stream=new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));buf=await new Response(stream).arrayBuffer();v=new DataView(buf)}
     if(v.getUint32(0,false)!==0x42425631)throw new Error("invalid BigBrain header");const dims:[number,number,number]=[v.getUint16(4,true),v.getUint16(6,true),v.getUint16(8,true)],n=dims[0]*dims[1]*dims[2];return{dims,values:new Uint8Array(buf,10,n)};
   });return bigBrainCache;
 }
 async function loadFixedBrain(){
-  if(!fixedBrainCache)fixedBrainCache=fetch(`${ASSET_BASE}atlas/bigbrain-fixed-mri-0444.bin.gz`).then(async r=>{
-    if(!r.ok)throw new Error(`fixed MRI HTTP ${r.status}`);let buf=await r.arrayBuffer(),v=new DataView(buf),magic=v.getUint32(0,false);if(magic!==0x42464d31&&magic!==0x42464d32&&v.getUint16(0,false)===0x1f8b){const stream=new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));buf=await new Response(stream).arrayBuffer();v=new DataView(buf);magic=v.getUint32(0,false)}if(magic!==0x42464d31&&magic!==0x42464d32)throw new Error("invalid fixed MRI header");const dims:[number,number,number]=[v.getUint16(4,true),v.getUint16(6,true),v.getUint16(8,true)],n=dims[0]*dims[1]*dims[2],values=new Uint8Array(buf,10,n);return{dims,values,mask:new Uint8Array(buf,10+(magic===0x42464d32?2:1)*n,n)};
+  const id="volume:bigbrain-fixed-mri-0444";
+  if(!fixedBrainCache)fixedBrainCache=trackAtlasProcessing(id,async token=>{
+    let buf=await fetchAtlasBuffer(`${ASSET_BASE}atlas/bigbrain-fixed-mri-0444.bin.gz`,id,"fixed MRI",token),v=new DataView(buf),magic=v.getUint32(0,false);if(magic!==0x42464d31&&magic!==0x42464d32&&v.getUint16(0,false)===0x1f8b){const stream=new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));buf=await new Response(stream).arrayBuffer();v=new DataView(buf);magic=v.getUint32(0,false)}if(magic!==0x42464d31&&magic!==0x42464d32)throw new Error("invalid fixed MRI header");const dims:[number,number,number]=[v.getUint16(4,true),v.getUint16(6,true),v.getUint16(8,true)],n=dims[0]*dims[1]*dims[2],values=new Uint8Array(buf,10,n);return{dims,values,mask:new Uint8Array(buf,10+(magic===0x42464d32?2:1)*n,n)};
   });return fixedBrainCache;
 }
 async function loadManualSeg(name:"icbm500"){
-  if(!manualSegCache.has(name))manualSegCache.set(name,fetch(`${ASSET_BASE}atlas/bigbrain-practical-segmentation-${name}.bin.gz`).then(async r=>{if(!r.ok)throw new Error(`practical segmentation HTTP ${r.status}`);let buf=await r.arrayBuffer(),v=new DataView(buf);if(v.getUint32(0,false)!==0x42425331&&v.getUint16(0,false)===0x1f8b){const stream=new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));buf=await new Response(stream).arrayBuffer();v=new DataView(buf)}if(v.getUint32(0,false)!==0x42425331)throw new Error("invalid practical segmentation header");const dims:[number,number,number]=[v.getUint16(4,true),v.getUint16(6,true),v.getUint16(8,true)],n=dims[0]*dims[1]*dims[2];return{dims,labels:new Uint8Array(buf,10,n)}}));return manualSegCache.get(name)!;
+  const id=`segmentation:${name}`;
+  if(!manualSegCache.has(name))manualSegCache.set(name,trackAtlasProcessing(id,async token=>{let buf=await fetchAtlasBuffer(`${ASSET_BASE}atlas/bigbrain-practical-segmentation-${name}.bin.gz?v=${SEGMENTATION_LABEL_REVISION}`,id,"practical segmentation",token),v=new DataView(buf);if(v.getUint32(0,false)!==0x42425331&&v.getUint16(0,false)===0x1f8b){const stream=new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));buf=await new Response(stream).arrayBuffer();v=new DataView(buf)}if(v.getUint32(0,false)!==0x42425331)throw new Error("invalid practical segmentation header");const dims:[number,number,number]=[v.getUint16(4,true),v.getUint16(6,true),v.getUint16(8,true)],n=dims[0]*dims[1]*dims[2];return{dims,labels:new Uint8Array(buf,10,n)}}));return manualSegCache.get(name)!;
 }
 function loadMesh(name:string){
-  if(!meshCache.has(name))meshCache.set(name,fetch(`${ASSET_BASE}atlas/${name}.mesh`).then(r=>{if(!r.ok)throw new Error(`${name} HTTP ${r.status}`);return r.arrayBuffer()}).then(buf=>{
+  const fileName=meshAssetFileName(name),id=`mesh:${fileName}`;
+  if(!meshCache.has(name))meshCache.set(name,trackAtlasProcessing(id,async token=>{let buf=await fetchAtlasBuffer(`${ASSET_BASE}atlas/${fileName}`,id,name,token);const auditSource=quizVisibilityAuditEnabled()?{path:`public/atlas/${fileName}`,sha256:COMPRESSED_MESH_AUDIT_SHA256[fileName]??await sha256Hex(buf)}:undefined;if(hasGzipMagic(buf)){const stream=new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));buf=await new Response(stream).arrayBuffer()}
     const v=new DataView(buf),magic=v.getUint32(0,false),nv=v.getUint32(4,true),declaredFaces=v.getUint32(8,true),hasShade=magic===0x424e4d32||magic===0x424e4d33;
     if(magic!==0x424e4d31&&magic!==0x424e4d32&&magic!==0x424e4d33)throw new Error(`${name} invalid mesh header`);
     const faceOffset=magic===0x424e4d33?12+nv*32:magic===0x424e4d32?12+nv*28:12+nv*24,faceBytes=buf.byteLength-faceOffset;
@@ -168,7 +233,7 @@ function loadMesh(name:string){
     const storedFaces=faceBytes/12,nf=declaredFaces===storedFaces?storedFaces:declaredFaces===storedFaces*3?storedFaces:0;
     if(!nf)throw new Error(`${name} face count does not match mesh length`);
     const vertices=new Float32Array(buf,12,nv*3),normals=new Float32Array(buf,12+nv*12,nv*3),shade=hasShade?new Float32Array(buf,12+nv*24,nv):new Float32Array(nv).fill(1),regions=magic===0x424e4d33?new Float32Array(buf,12+nv*28,nv):new Float32Array(nv),faces=new Uint32Array(buf,faceOffset,nf*3);
-    const mesh={vertices,normals,shade,regions,faces};
+    const mesh={vertices,normals,shade,regions,faces};if(auditSource)(mesh as Mesh).auditSource=auditSource;
     return name==="segment-cerebellum"||name==="block-hindbrain-cerebellum"?smoothCerebellarDisplayNormals(mesh):mesh;
   }));return meshCache.get(name)!
 }
@@ -315,9 +380,49 @@ function sectionVoxel(a:number,b:number,d:[number,number,number],plane:Plane,p:n
 function viewTransform(w:number,h:number,d:[number,number,number],plane:Plane,zoom:number,pan:{x:number;y:number}){const[sw,sh]=sectionSize(d,plane),fit=Math.min((w-10)/sw,(h-10)/sh),scale=fit*zoom;return{sw,sh,scale,ox:(w-sw*scale)/2+pan.x,oy:(h-sh*scale)/2+pan.y}}
 function drawScale(c:CanvasRenderingContext2D,h:number,scale:number,voxelSizeMm:number){const width=20/voxelSizeMm*scale,x=18,y=h-20;c.save();c.strokeStyle="#f0f3f1";c.fillStyle="#f0f3f1";c.lineWidth=1;c.beginPath();c.moveTo(x,y);c.lineTo(x+width,y);c.moveTo(x,y-4);c.lineTo(x,y+3);c.moveTo(x+width,y-4);c.lineTo(x+width,y+3);c.stroke();c.font="16px monospace";c.fillText("20 mm",x,y-7);c.restore()}
 
-export function AtlasVolumeCanvas({kind,plane,position,focus,display,rotation,view="inside",contrast="t1",highlights=[],surfaceHighlights=[],surfaceLandmarks=[],surfaceDeepLandmarks=[],neurovascularHighlights=[],specimenLayers=[],specimenTissueMode="solid",selectionMeshLayers=[],onIdentify,onSurfaceIdentify,onViewChange,onWebGLUnavailableChange,showFocus=true,showCutPlane=true,showZoomControls=true,hemisphere="both",showCerebellum=true,showPonsMedulla=true,showMidbrain=true,specimenBlock="none",neurovascularOverlay="none",showBrainstemNerves=true,showBasalLandmarks=false,basalLandmark="all",basalHighlights=[],basalOnlySelected=false}:{kind:"surface"|"slice";plane:Plane;position:number;focus:Focus;display:Display;rotation:Rotation;view?:"inside"|"ghost"|"extracted"|"segmented";contrast?:"t1"|"t2"|"bigbrain"|"single";highlights?:HighlightLayer[];surfaceHighlights?:HighlightLayer[];surfaceLandmarks?:SurfaceLandmark[];surfaceDeepLandmarks?:SurfaceDeepLandmark[];neurovascularHighlights?:HighlightLayer[];specimenLayers?:string[];specimenTissueMode?:SpecimenTissueMode;selectionMeshLayers?:SelectionMeshLayer[];onIdentify?:(point:IdentifiedPoint)=>void;onSurfaceIdentify?:(point:SurfaceIdentifiedPoint)=>void;onViewChange?:()=>void;onWebGLUnavailableChange?:(unavailable:boolean)=>void;showFocus?:boolean;showCutPlane?:boolean;showZoomControls?:boolean;hemisphere?:"both"|"left"|"right";showCerebellum?:boolean;showPonsMedulla?:boolean;showMidbrain?:boolean;specimenBlock?:SpecimenBlock;neurovascularOverlay?:NeurovascularOverlay;showBrainstemNerves?:boolean;showBasalLandmarks?:boolean;basalLandmark?:BasalLandmark;basalHighlights?:BasalLandmark[];basalOnlySelected?:boolean}){
-  const ref=useRef<HTMLCanvasElement>(null),panDrag=useRef<{x:number;y:number;pan:{x:number;y:number}}|null>(null),surfaceClick=useRef<{x:number;y:number;moved:boolean}|null>(null),[data,setData]=useState<Volume|null>(null),[bigBrain,setBigBrain]=useState<BigBrain|null>(null),[fixedBrain,setFixedBrain]=useState<FixedBrain|null>(null),[manualSeg,setManualSeg]=useState<ManualSeg|null>(null),[meshes,setMeshes]=useState<{surface:Mesh[];segments:Mesh[];overlays:Mesh[];basal:Mesh[];deep:Mesh[];landmarks:Mesh[]}|null>(null),[selectionLayers,setSelectionLayers]=useState<{meshes:Mesh[];color:[number,number,number]}[]>([]),[blockMeshes,setBlockMeshes]=useState<LoadedSpecimenPart[]|null>(null),[error,setError]=useState(""),[retryVersion,setRetryVersion]=useState(0),[sizeVersion,setSizeVersion]=useState(0),[webglUnavailable,setWebglUnavailable]=useState(false),[zoom,setZoom]=useState(1),[pan,setPan]=useState({x:0,y:0});
+function meshHighlightEvidence(meshes:Mesh[]|null,layers:HighlightLayer[]){
+  const ids=new Set(layers.flatMap(layer=>layer.ids));
+  if(!meshes||ids.size===0)return {selectedVertexCount:0,incidentTriangleCount:0,selectedIds:[...ids]};
+  let selectedVertexCount=0,incidentTriangleCount=0;
+  for(const mesh of meshes){
+    const selected=new Uint8Array(mesh.regions.length);
+    for(let vertex=0;vertex<mesh.regions.length;vertex++)if(ids.has(Math.round(mesh.regions[vertex]))){selected[vertex]=1;selectedVertexCount++}
+    for(let face=0;face+2<mesh.faces.length;face+=3){
+      if(selected[mesh.faces[face]]||selected[mesh.faces[face+1]]||selected[mesh.faces[face+2]])incidentTriangleCount++;
+    }
+  }
+  return {selectedVertexCount,incidentTriangleCount,selectedIds:[...ids]};
+}
+
+type QuizVisibilityProjection={builder:"AtlasVolumeCanvas.visible-highlight-depth-v3";namespace:"surface"|"neurovascular";activeLayer:"surfaceHighlights"|"vessels"|"nerves";sourceMeshes:{path:string;sha256:string}[];selectedIds:number[];hemisphere:"both"|"left"|"right";transform:{rotation:Rotation;zoom:number;pan:{x:number;y:number}};projection:{canvasWidth:number;canvasHeight:number;scale:number;clipPolicy:"canvas-bounds";cullPolicy:"back-face-depth-less"|"disabled-depth-lequal-alpha-composite-order"};mask:Uint8Array};
+type QuizVisibilityCanvas=HTMLCanvasElement&{__quizVisibilityProjectionMask?:QuizVisibilityProjection};
+function selectedTriangleProjection(meshes:Mesh[],layers:HighlightLayer[],width:number,height:number,rotation:Rotation,zoom:number,namespace:"surface"|"neurovascular",activeLayer:"surfaceHighlights"|"vessels"|"nerves",hemisphere:"both"|"left"|"right"):QuizVisibilityProjection|null{
+  const selectedIds=[...new Set(layers.flatMap(layer=>layer.ids))];if(!selectedIds.length||!meshes.length||width<1||height<1)return null;const ids=new Set(selectedIds),mask=new Uint8Array(width*height),depth=new Float64Array(width*height);depth.fill(Infinity);const ax=rotation.x*Math.PI/180,ay=rotation.y*Math.PI/180,az=(rotation.z??0)*Math.PI/180,cx=Math.cos(ax),sx=Math.sin(ax),cy=Math.cos(ay),sy=Math.sin(ay),cz=Math.cos(az),sz=Math.sin(az),m=[cz*cy-sz*sx*sy,sz*cy+cz*sx*sy,-cx*sy,-sz*cx,cz*cx,sx,cz*sy+sz*sx*cy,sz*sy-cz*sx*cy,cx*cy],scale=zoom*(namespace==="neurovascular"?.88:1);
+  const project=(mesh:Mesh,index:number)=>{const offset=index*3,q0=mesh.vertices[offset+2],q1=mesh.vertices[offset]+16,q2=mesh.vertices[offset+1],rx=m[0]*q0+m[3]*q1+m[6]*q2,ry=m[1]*q0+m[4]*q1+m[7]*q2,rz=m[2]*q0+m[5]*q1+m[8]*q2;return [(rx/96*scale*.5+.5)*width,(.5-ry/96*scale*.5)*height,rz/138*scale] as const};
+  const edge=(a:readonly number[],b:readonly number[],x:number,y:number)=>(x-a[0])*(b[1]-a[1])-(y-a[1])*(b[0]-a[0]);
+  for(const mesh of meshes){const selected=new Uint8Array(mesh.regions.length);for(let i=0;i<selected.length;i++)if(ids.has(Math.round(mesh.regions[i])))selected[i]=1;for(let face=0;face+2<mesh.faces.length;face+=3){const ia=mesh.faces[face],ib=mesh.faces[face+1],ic=mesh.faces[face+2],a=project(mesh,ia),b=project(mesh,ib),c=project(mesh,ic),area=edge(a,b,c[0],c[1]);if(Math.abs(area)<1e-6||(namespace==="surface"&&area<=0))continue;const minX=Math.max(0,Math.floor(Math.min(a[0],b[0],c[0]))),maxX=Math.min(width-1,Math.ceil(Math.max(a[0],b[0],c[0]))),minY=Math.max(0,Math.floor(Math.min(a[1],b[1],c[1]))),maxY=Math.min(height-1,Math.ceil(Math.max(a[1],b[1],c[1])));for(let y=minY;y<=maxY;y++)for(let x=minX;x<=maxX;x++){const e0=edge(a,b,x+.5,y+.5),e1=edge(b,c,x+.5,y+.5),e2=edge(c,a,x+.5,y+.5),inside=(e0>=0&&e1>=0&&e2>=0)||(e0<=0&&e1<=0&&e2<=0);if(!inside)continue;const z=(a[2]*e1+b[2]*e2+c[2]*e0)/area,index=y*width+x,passes=namespace==="surface"?z<depth[index]:z<=depth[index];if(!passes)continue;depth[index]=z;const highlightAlpha=(selected[ia]*e1+selected[ib]*e2+selected[ic]*e0)/area;if(highlightAlpha>.5)mask[index]=1;else if(namespace==="surface")mask[index]=0}}}
+  const conservative=mask.slice();for(let y=0;y<height;y++)for(let x=0;x<width;x++)if(mask[y*width+x])for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){const nx=x+dx,ny=y+dy;if(nx>=0&&ny>=0&&nx<width&&ny<height)conservative[ny*width+nx]=1}const sourceMeshes=meshes.map(mesh=>mesh.auditSource).filter((source):source is {path:string;sha256:string}=>!!source);if(sourceMeshes.length!==meshes.length||!conservative.some(value=>value===1))return null;
+  return {builder:"AtlasVolumeCanvas.visible-highlight-depth-v3",namespace,activeLayer,sourceMeshes,selectedIds,hemisphere,transform:{rotation:{x:rotation.x,y:rotation.y,z:rotation.z??0},zoom,pan:{x:0,y:0}},projection:{canvasWidth:width,canvasHeight:height,scale:namespace==="neurovascular"?.88:1,clipPolicy:"canvas-bounds",cullPolicy:namespace==="surface"?"back-face-depth-less":"disabled-depth-lequal-alpha-composite-order"},mask:conservative};
+}
+
+function sectionHighlightEvidence(segmentation:ManualSeg|null,plane:Plane,position:number,layers:HighlightLayer[]){
+  const ids=new Set(layers.flatMap(layer=>layer.ids));
+  if(!segmentation||ids.size===0)return {targetVoxelCount:0,projectedWidth:0,projectedHeight:0,selectedIds:[...ids]};
+  const[sw,sh]=sectionSize(segmentation.dims,plane);let targetVoxelCount=0;
+  for(let b=0;b<sh;b++)for(let a=0;a<sw;a++){const[x,y,z]=sectionVoxel(a,b,segmentation.dims,plane,position);if(ids.has(segmentation.labels[idx(x,y,z,segmentation.dims)]))targetVoxelCount++}
+  return {targetVoxelCount,projectedWidth:sw,projectedHeight:sh,selectedIds:[...ids]};
+}
+
+export function AtlasVolumeCanvas({kind,plane,position,focus,display,rotation,view="inside",contrast="t1",highlights=[],surfaceHighlights=[],surfaceLandmarks=[],surfaceDeepLandmarks=[],neurovascularHighlights=[],quizVisibilityExpectedHighlights=[],sectionHighlightMode=highlights.some(layer=>layer.mode==="quiz")?"quiz":"default",specimenLayers=[],specimenTissueMode="solid",selectionMeshLayers=[],onIdentify,onSurfaceIdentify,onViewChange,onWebGLUnavailableChange,showFocus=true,showCutPlane=true,showZoomControls=true,hemisphere="both",showCerebellum=true,showPonsMedulla=true,showMidbrain=true,specimenBlock="none",blockContext="none",neurovascularOverlay="none",showBrainstemNerves=true,showBasalLandmarks=false,basalLandmark="all",basalHighlights=[],basalOnlySelected=false,surfaceAriaLabel}:{kind:"surface"|"slice";plane:Plane;position:number;focus:Focus;display:Display;rotation:Rotation;view?:"inside"|"ghost"|"extracted"|"segmented";contrast?:"t1"|"t2"|"bigbrain"|"single";highlights?:HighlightLayer[];surfaceHighlights?:HighlightLayer[];surfaceLandmarks?:SurfaceLandmark[];surfaceDeepLandmarks?:SurfaceDeepLandmark[];neurovascularHighlights?:HighlightLayer[];quizVisibilityExpectedHighlights?:HighlightLayer[];sectionHighlightMode?:SectionHighlightMode;specimenLayers?:string[];specimenTissueMode?:SpecimenTissueMode;selectionMeshLayers?:SelectionMeshLayer[];onIdentify?:(point:IdentifiedPoint)=>void;onSurfaceIdentify?:(point:SurfaceIdentifiedPoint)=>void;onViewChange?:()=>void;onWebGLUnavailableChange?:(unavailable:boolean)=>void;showFocus?:boolean;showCutPlane?:boolean;showZoomControls?:boolean;hemisphere?:"both"|"left"|"right";showCerebellum?:boolean;showPonsMedulla?:boolean;showMidbrain?:boolean;specimenBlock?:SpecimenBlock;blockContext?:BlockContextSpecimen;neurovascularOverlay?:NeurovascularOverlay;showBrainstemNerves?:boolean;showBasalLandmarks?:boolean;basalLandmark?:BasalLandmark;basalHighlights?:BasalLandmark[];basalOnlySelected?:boolean;surfaceAriaLabel?:string}){
+  const ref=useRef<HTMLCanvasElement>(null),panDrag=useRef<{x:number;y:number;pan:{x:number;y:number}}|null>(null),surfaceClick=useRef<{x:number;y:number;moved:boolean}|null>(null),[data,setData]=useState<Volume|null>(null),[bigBrain,setBigBrain]=useState<BigBrain|null>(null),[fixedBrain,setFixedBrain]=useState<FixedBrain|null>(null),[manualSeg,setManualSeg]=useState<ManualSeg|null>(null),[meshes,setMeshes]=useState<{surface:Mesh[];segments:Mesh[];overlays:Mesh[];basal:Mesh[];deep:Mesh[];landmarks:Mesh[]}|null>(null),[selectionLayers,setSelectionLayers]=useState<{meshes:Mesh[];color:[number,number,number]}[]>([]),[blockMeshes,setBlockMeshes]=useState<LoadedSpecimenPart[]|null>(null),[blockContextMesh,setBlockContextMesh]=useState<Mesh|null>(null),[error,setError]=useState(""),[retryVersion,setRetryVersion]=useState(0),[sizeVersion,setSizeVersion]=useState(0),[webglUnavailable,setWebglUnavailable]=useState(false),[zoom,setZoom]=useState(1),[pan,setPan]=useState({x:0,y:0});
+  const [downloadProgress,setDownloadProgress]=useState(()=>atlasDownloadProgress.snapshot());
   const surfaceLandmarkKey=surfaceLandmarks.join(","),surfaceDeepLandmarkKey=surfaceDeepLandmarks.join(",");
+  const quizVisibilityEvidenceEnabled=quizVisibilityAuditEnabled();
+  const surfaceMeshEvidence=quizVisibilityEvidenceEnabled?meshHighlightEvidence(meshes?.surface.slice(0,2)??null,surfaceHighlights):null;
+  const neurovascularEvidenceMeshes=!quizVisibilityEvidenceEnabled||!meshes?null:neurovascularOverlay==="vessels"?meshes.overlays.slice(0,2):neurovascularOverlay==="nerves"?meshes.overlays.slice(2,5):neurovascularOverlay==="both"?meshes.overlays:null;
+  const neurovascularMeshEvidence=quizVisibilityEvidenceEnabled?meshHighlightEvidence(neurovascularEvidenceMeshes,neurovascularHighlights):null;
+  const sectionEvidence=quizVisibilityEvidenceEnabled?sectionHighlightEvidence(manualSeg,plane,position,highlights):null;
+  useEffect(()=>atlasDownloadProgress.subscribe(setDownloadProgress),[]);
   useEffect(()=>{if(kind!=="slice")return;retainLargeVolumeCaches();return releaseLargeVolumeCaches},[kind]);
   useEffect(()=>{if(kind!=="surface")return;retainSurfaceMeshCaches();return releaseSurfaceMeshCaches},[kind]);
   useEffect(()=>{if(kind==="slice"&&(contrast==="t1"||contrast==="t2")){setError("");loadVolume().then(setData).catch(e=>setError(String(e)))}},[kind,contrast,retryVersion]);
@@ -341,11 +446,20 @@ export function AtlasVolumeCanvas({kind,plane,position,focus,display,rotation,vi
     if(kind!=="surface"||specimenBlock==="none"){setBlockMeshes(null);return}
     let active=true;setBlockMeshes(null);setError("");
     const definitions=SPECIMEN_PARTS[specimenBlock];
-    Promise.all(definitions.map(async definition=>({definition,mesh:await loadMesh(`block-${specimenBlock}-${definition.key}`)})))
+    Promise.all(definitions.map(async definition=>({definition,mesh:await loadMesh(definition.asset??`block-${specimenBlock}-${definition.key}`)})))
       .then(parts=>{if(active)setBlockMeshes(parts)})
       .catch(e=>{if(active)setError(String(e))});
     return()=>{active=false};
   },[kind,specimenBlock,retryVersion]);
+  useEffect(()=>{
+    if(kind!=="surface"||blockContext==="none"||specimenBlock!=="none"){setBlockContextMesh(null);return}
+    let active=true;setBlockContextMesh(null);setError("");
+    const definitions=SPECIMEN_PARTS[blockContext].filter(definition=>definition.material===4);
+    Promise.all(definitions.map(definition=>loadMesh(definition.asset??`block-${blockContext}-${definition.key}`)))
+      .then(parts=>{if(active)setBlockContextMesh(parts.length===1?parts[0]:mergeMeshes(parts))})
+      .catch(e=>{if(active)setError(String(e))});
+    return()=>{active=false};
+  },[kind,blockContext,specimenBlock,retryVersion]);
   const selectionLayerKey=selectionMeshLayers.map(layer=>`${layer.files.join(",")}:${layer.color.join(",")}`).join("|");
   useEffect(()=>{if(kind!=="surface"||!selectionMeshLayers.length){setSelectionLayers([]);return}let active=true;Promise.all(selectionMeshLayers.map(async layer=>({meshes:await Promise.all(layer.files.map(loadMesh)),color:layer.color}))).then(layers=>{if(active)setSelectionLayers(layers)}).catch(e=>{if(active){setSelectionLayers([]);setError(String(e))}});return()=>{active=false}},[kind,selectionLayerKey,retryVersion]);
   useEffect(()=>{if(kind==="slice"&&contrast==="bigbrain"){setError("");loadBigBrain().then(setBigBrain).catch(e=>setError(String(e)))}},[kind,contrast,retryVersion]);
@@ -355,6 +469,7 @@ export function AtlasVolumeCanvas({kind,plane,position,focus,display,rotation,vi
     if(!error)return;
     const retry=()=>{
       setError("");
+      atlasDownloadProgress.reset();
       if(kind==="surface"){meshCache.clear();setMeshes(null);setBlockMeshes(null);setSelectionLayers([])}
       else if(contrast==="bigbrain"){bigBrainCache=null;manualSegCache.delete("icbm500");setBigBrain(null);setManualSeg(null)}
       else if(contrast==="single"){fixedBrainCache=null;setFixedBrain(null)}
@@ -366,7 +481,8 @@ export function AtlasVolumeCanvas({kind,plane,position,focus,display,rotation,vi
   },[error,kind,contrast]);
   useEffect(()=>{const el=ref.current;if(!el||typeof ResizeObserver==="undefined")return;const observer=new ResizeObserver(()=>setSizeVersion(value=>value+1));observer.observe(el);return()=>observer.disconnect()},[]);
   useEffect(()=>{if(kind==="slice"){setZoom(1);setPan({x:0,y:0})}},[kind,plane,contrast]);
-  useEffect(()=>{const el=ref.current;if(!el)return;const dpr=Math.min(devicePixelRatio||1,2),w=el.clientWidth,h=el.clientHeight;if(w<1||h<1)return;el.width=w*dpr;el.height=h*dpr;const labelColors=new Map<number,[number,number,number]>();highlights.forEach(layer=>layer.ids.forEach(id=>labelColors.set(id,layer.color)));if(kind==="slice"&&contrast==="single"&&fixedBrain){const c=el.getContext("2d");if(c){c.setTransform(dpr,0,0,dpr,0,0);drawFixedSlice(c,w,h,fixedBrain,plane,position,display,DISPLAY_TONE,zoom,pan)}}else if(kind==="slice"&&contrast==="bigbrain"&&bigBrain){const c=el.getContext("2d");if(c){c.setTransform(dpr,0,0,dpr,0,0);drawSlice(c,w,h,null,bigBrain,manualSeg,plane,position,display,"bigbrain",DISPLAY_TONE,labelColors,zoom,pan)}}else if(kind==="slice"&&data){const c=el.getContext("2d");if(c){c.setTransform(dpr,0,0,dpr,0,0);drawSlice(c,w,h,data,null,null,plane,position,display,contrast==="t2"?"t2":"t1",DISPLAY_TONE,labelColors,zoom,pan)}}else if(kind==="surface"&&meshes&&(specimenBlock==="none"||blockMeshes)){const localHost=location.hostname==="127.0.0.1"||location.hostname==="localhost",mockUnavailable=(import.meta.env.DEV||localHost)&&new URLSearchParams(location.search).has("mock-webgl-unavailable"),unavailable=mockUnavailable||!drawWebGL(el,selectionLayers,meshes.surface,meshes.segments,meshes.overlays,meshes.basal,meshes.deep,meshes.landmarks,blockMeshes,rotation,plane,position,view,showFocus,contrast,showCutPlane,hemisphere,showCerebellum,showPonsMedulla,showMidbrain,neurovascularOverlay,showBrainstemNerves,surfaceHighlights,surfaceLandmarks,surfaceDeepLandmarks,neurovascularHighlights,specimenLayers,specimenTissueMode,showBasalLandmarks,basalLandmark,basalHighlights,basalOnlySelected,specimenBlock,zoom);setWebglUnavailable(unavailable);onWebGLUnavailableChange?.(unavailable)}},[data,bigBrain,fixedBrain,manualSeg,meshes,selectionLayers,blockMeshes,kind,plane,position,focus,display,rotation,view,contrast,sizeVersion,highlights,surfaceHighlights,surfaceLandmarks,surfaceDeepLandmarks,neurovascularHighlights,specimenLayers,specimenTissueMode,showFocus,showCutPlane,hemisphere,showCerebellum,showPonsMedulla,showMidbrain,specimenBlock,neurovascularOverlay,showBrainstemNerves,showBasalLandmarks,basalLandmark,basalHighlights,basalOnlySelected,zoom,pan,onWebGLUnavailableChange]);
+  useEffect(()=>{const el=ref.current;if(!el)return;const dpr=Math.min(devicePixelRatio||1,2),w=el.clientWidth,h=el.clientHeight;if(w<1||h<1)return;el.width=w*dpr;el.height=h*dpr;const labelColors=new Map<number,[number,number,number]>();highlights.forEach(layer=>layer.ids.forEach(id=>labelColors.set(id,layer.color)));if(kind==="slice"&&contrast==="single"&&fixedBrain){const c=el.getContext("2d");if(c){c.setTransform(dpr,0,0,dpr,0,0);drawFixedSlice(c,w,h,fixedBrain,plane,position,display,DISPLAY_TONE,zoom,pan)}}else if(kind==="slice"&&contrast==="bigbrain"&&bigBrain){const c=el.getContext("2d");if(c){c.setTransform(dpr,0,0,dpr,0,0);drawSlice(c,w,h,null,bigBrain,manualSeg,plane,position,display,"bigbrain",DISPLAY_TONE,labelColors,zoom,pan,sectionHighlightMode)}}else if(kind==="slice"&&data){const c=el.getContext("2d");if(c){c.setTransform(dpr,0,0,dpr,0,0);drawSlice(c,w,h,data,null,null,plane,position,display,contrast==="t2"?"t2":"t1",DISPLAY_TONE,labelColors,zoom,pan,sectionHighlightMode)}}else if(kind==="surface"&&meshes&&(specimenBlock==="none"||blockMeshes)){const localHost=location.hostname==="127.0.0.1"||location.hostname==="localhost",mockUnavailable=(import.meta.env.DEV||localHost)&&new URLSearchParams(location.search).has("mock-webgl-unavailable"),unavailable=mockUnavailable||!drawWebGL(el,selectionLayers,meshes.surface,meshes.segments,meshes.overlays,meshes.basal,meshes.deep,meshes.landmarks,blockMeshes,blockContextMesh,rotation,plane,position,view,showFocus,contrast,showCutPlane,hemisphere,showCerebellum,showPonsMedulla,showMidbrain,neurovascularOverlay,showBrainstemNerves,surfaceHighlights,surfaceLandmarks,surfaceDeepLandmarks,neurovascularHighlights,specimenLayers,specimenTissueMode,showBasalLandmarks,basalLandmark,basalHighlights,basalOnlySelected,specimenBlock,blockContext,zoom);setWebglUnavailable(unavailable);onWebGLUnavailableChange?.(unavailable)}},[data,bigBrain,fixedBrain,manualSeg,meshes,selectionLayers,blockMeshes,blockContextMesh,kind,plane,position,focus,display,rotation,view,contrast,sizeVersion,highlights,surfaceHighlights,surfaceLandmarks,surfaceDeepLandmarks,neurovascularHighlights,sectionHighlightMode,specimenLayers,specimenTissueMode,showFocus,showCutPlane,hemisphere,showCerebellum,showPonsMedulla,showMidbrain,specimenBlock,blockContext,neurovascularOverlay,showBrainstemNerves,showBasalLandmarks,basalLandmark,basalHighlights,basalOnlySelected,zoom,pan,onWebGLUnavailableChange]);
+  useEffect(()=>{const canvas=ref.current as QuizVisibilityCanvas|null;if(!canvas)return;if(!quizVisibilityEvidenceEnabled||kind!=="surface"||!meshes){delete canvas.__quizVisibilityProjectionMask;return}const neuro=neurovascularOverlay!=="none",visibleSurface=meshes.surface.filter((_,index)=>(showCerebellum||index!==2)&&(showPonsMedulla||index!==3)&&(showMidbrain||index!==4)&&(hemisphere==="both"||index>1||(hemisphere==="left"?index===0:index===1))),sourceMeshes=neuro?(neurovascularEvidenceMeshes??[]):visibleSurface,activeLayer=neuro?(neurovascularOverlay==="vessels"?"vessels":"nerves"):"surfaceHighlights";canvas.__quizVisibilityProjectionMask=selectedTriangleProjection(sourceMeshes,quizVisibilityExpectedHighlights,canvas.width,canvas.height,rotation,zoom,neuro?"neurovascular":"surface",activeLayer,hemisphere)??undefined},[quizVisibilityEvidenceEnabled,kind,meshes,neurovascularEvidenceMeshes,neurovascularOverlay,hemisphere,quizVisibilityExpectedHighlights,rotation,zoom,sizeVersion,showCerebellum,showPonsMedulla,showMidbrain]);
   function sourceForView(){return contrast==="single"?fixedBrain:contrast==="bigbrain"?bigBrain:data}
   function identify(e:React.PointerEvent<HTMLCanvasElement>){const el=ref.current;if(kind!=="slice"||!el||!onIdentify||contrast==="single")return;const source=contrast==="bigbrain"?bigBrain:data;if(!source)return;const direct=contrast==="bigbrain";if((direct&&!manualSeg)||(!direct&&!data))return;const rect=el.getBoundingClientRect(),w=el.clientWidth,h=el.clientHeight,{sw,sh,scale,ox,oy}=viewTransform(w,h,source.dims,plane,zoom,pan),a=Math.floor((e.clientX-rect.left-ox)/scale),b=Math.floor((e.clientY-rect.top-oy)/scale);if(a<0||a>=sw||b<0||b>=sh){onIdentify({id:0,x:e.clientX-rect.left,y:e.clientY-rect.top,certainty:direct?"manual":"atlas"});return}const voxel=sectionVoxel(a,b,source.dims,plane,position),sourceIndex=idx(voxel[0],voxel[1],voxel[2],source.dims),inside=direct?!!bigBrain&&bigBrain.values[sourceIndex]<252:!!data&&data.mask[sourceIndex]>0;let id=direct?manualSeg!.labels[sourceIndex]:inside?data!.labels[sourceIndex]:0;if(!direct&&inside&&id===0){const gm=data!.gm[sourceIndex],wm=data!.wm[sourceIndex],csf=data!.csf[sourceIndex];id=wm>=gm&&wm>=csf?201:gm>=csf?202:203}const certainty=direct&&[39,40].includes(id)?"reviewed":direct&&id>22?"provisional":direct?"manual":"atlas";onIdentify({id,x:e.clientX-rect.left,y:e.clientY-rect.top,certainty})}
   function identifySurface(e:React.PointerEvent<HTMLCanvasElement>){const el=ref.current;if(kind!=="surface"||!el||!meshes||!onSurfaceIdentify)return;const rect=el.getBoundingClientRect(),w=el.clientWidth,h=el.clientHeight,targetX=e.clientX-rect.left,targetY=e.clientY-rect.top,ax=rotation.x*Math.PI/180,ay=rotation.y*Math.PI/180,az=(rotation.z??0)*Math.PI/180,cx=Math.cos(ax),sx=Math.sin(ax),cy=Math.cos(ay),sy=Math.sin(ay),cz=Math.cos(az),sz=Math.sin(az),m=[cz*cy-sz*sx*sy,sz*cy+cz*sx*sy,-cx*sy,-sz*cx,cz*cx,sx,cz*sy+sz*sx*cy,sz*sy-cz*sx*cy,cx*cy],pial=hemisphere==="left"?[meshes.surface[0]]:hemisphere==="right"?[meshes.surface[1]]:meshes.surface.slice(0,2),candidates:{mesh:Mesh;source:"surface"|"neurovascular"}[]=[...pial.map(mesh=>({mesh,source:"surface" as const}))];if(neurovascularOverlay==="vessels"||neurovascularOverlay==="both")candidates.push({mesh:meshes.overlays[0],source:"neurovascular"},{mesh:meshes.overlays[1],source:"neurovascular"});if(neurovascularOverlay==="nerves"||neurovascularOverlay==="both")candidates.push({mesh:meshes.overlays[2],source:"neurovascular"},{mesh:meshes.overlays[3],source:"neurovascular"},{mesh:meshes.overlays[4],source:"neurovascular"});let bestId=0,bestSource:"surface"|"neurovascular"="surface",bestDepth=Infinity,bestDistance=Infinity;for(const candidate of candidates){const mesh=candidate.mesh;for(let index=0;index<mesh.regions.length;index++){const id=Math.round(mesh.regions[index]);if(id<=0)continue;const offset=index*3,qx=mesh.vertices[offset+2],qy=mesh.vertices[offset]+16,qz=mesh.vertices[offset+1],rx=m[0]*qx+m[3]*qy+m[6]*qz,ry=m[1]*qx+m[4]*qy+m[7]*qz,rz=m[2]*qx+m[5]*qy+m[8]*qz,screenX=(rx/96*zoom+1)*w/2,screenY=(1-ry/96*zoom)*h/2,dx=screenX-targetX,dy=screenY-targetY,distance=dx*dx+dy*dy;if(distance>196)continue;if(rz<bestDepth-1||(Math.abs(rz-bestDepth)<=1&&distance<bestDistance)){bestId=id;bestSource=candidate.source;bestDepth=rz;bestDistance=distance}}}if(bestId)onSurfaceIdentify({source:bestSource,id:bestId})}
@@ -378,7 +494,10 @@ export function AtlasVolumeCanvas({kind,plane,position,focus,display,rotation,vi
   function resetView(){setZoom(1);setPan({x:0,y:0});onViewChange?.()}
   function adjustSurfaceZoom(factor:number){setZoom(previous=>Math.max(.7,Math.min(2.4,previous*factor)));onViewChange?.()}
   function retryLoad(){window.dispatchEvent(new Event(ATLAS_RETRY_EVENT))}
-  const ready=kind==="slice"?(contrast==="single"?!!fixedBrain:contrast==="bigbrain"?!!bigBrain&&!!manualSeg:!!data):!!meshes&&(specimenBlock==="none"||!!blockMeshes);return <><canvas ref={ref} onPointerDown={pointerDown} onPointerMove={pointerMove} onPointerUp={pointerUp} onPointerCancel={pointerCancel} onWheel={handleWheel} onDoubleClick={resetView} className={`atlasCanvas ${(kind==="slice"&&onIdentify)||(kind==="surface"&&onSurfaceIdentify)?"identifiable":""} ${zoom>1.01?"zoomed":""}`} aria-hidden={kind==="surface"&&webglUnavailable?true:undefined} aria-label={kind==="surface"?`${specimenBlock==="none"?"MNI高密度皮質表面モデル":"0.5 mm標本から構成した局所3D標本"}${neurovascularOverlay!=="none"?"と模式3D神経血管レイヤー":""}。ホイールで拡大縮小${showZoomControls?"、画面ボタンでも操作可能":""}${onSurfaceIdentify?"、クリックで構造を選択":""}`:`${plane}断面 ${position}。ホイールで拡大縮小、Shiftドラッグで移動`}/>{kind==="surface"&&showZoomControls&&!webglUnavailable?<div className="modelZoomControls" aria-label="3D表示の拡大縮小" onPointerDown={event=>event.stopPropagation()}><button type="button" onClick={()=>adjustSurfaceZoom(1/1.15)} aria-label="縮小">−</button><button type="button" onClick={resetView} aria-label="拡大率を100パーセントに戻す" title="100%に戻す">{Math.round(zoom*100)}%</button><button type="button" onClick={()=>adjustSurfaceZoom(1.15)} aria-label="拡大">＋</button></div>:kind==="slice"&&Math.abs(zoom-1)>.01&&<button type="button" className="zoomReadout" onClick={resetView} title="表示を等倍に戻す">{Math.round(zoom*100)}% <small>リセット</small></button>}{kind==="surface"&&webglUnavailable&&<div className="atlasWebglFallback" role="alert" aria-live="assertive" onPointerDown={event=>event.stopPropagation()}><b>3Dを表示できません</b><p>この環境では3Dを表示できません。WebGL対応ブラウザ、PCまたは横向きタブレットでお試しください。</p></div>}{(!ready||error)&&(error?<div className="atlasLoading error" role="alert"><b>データを読み込めませんでした</b><button type="button" onClick={retryLoad}>再読み込み</button></div>:<span className="atlasLoading" role="status"><span>{specimenBlock!=="none"?"局所標本を読み込み中…":contrast==="single"?"0.444 mm 単一固定脳を読み込み中…":contrast==="bigbrain"?"組織切片データを読み込み中…":"1 mm 解剖データを読み込み中…"}</span><progress aria-label="データ読込の進捗" /></span>)}</>;
+  const loadingTitle=specimenBlock==="model-strategy-ventricle"?"比較用模式モデルを読み込み中…":specimenBlock!=="none"?"局所標本を読み込み中…":blockContext!=="none"?"全脳と標本位置を読み込み中…":contrast==="single"?"0.444 mm 単一固定脳を読み込み中…":contrast==="bigbrain"?"組織切片データを読み込み中…":"1 mm 解剖データを読み込み中…";
+  const measuredProgress=downloadProgress.total!==null&&downloadProgress.percent!==null;
+  const progressText=downloadProgress.phase==="processing"?"受信完了・展開中…":measuredProgress?`${formatDownloadBytes(downloadProgress.loaded)} / ${formatDownloadBytes(downloadProgress.total!)}（${downloadProgress.percent}%）`:downloadProgress.loaded>0?`${formatDownloadBytes(downloadProgress.loaded)} 受信済み（総量不明）`:"受信準備中…";
+  const ready=kind==="slice"?(contrast==="single"?!!fixedBrain:contrast==="bigbrain"?!!bigBrain&&!!manualSeg:!!data):!!meshes&&(specimenBlock==="none"||!!blockMeshes)&&(blockContext==="none"||!!blockContextMesh);return <><canvas ref={ref} onPointerDown={pointerDown} onPointerMove={pointerMove} onPointerUp={pointerUp} onPointerCancel={pointerCancel} onWheel={handleWheel} onDoubleClick={resetView} className={`atlasCanvas ${(kind==="slice"&&onIdentify)||(kind==="surface"&&onSurfaceIdentify)?"identifiable":""} ${zoom>1.01?"zoomed":""}`} data-atlas-zoom={zoom} data-atlas-rotation-x={rotation.x} data-atlas-rotation-y={rotation.y} data-atlas-rotation-z={rotation.z??0} data-atlas-surface-selected-vertex-count={surfaceMeshEvidence?.selectedVertexCount} data-atlas-surface-incident-triangle-count={surfaceMeshEvidence?.incidentTriangleCount} data-atlas-surface-selected-ids={surfaceMeshEvidence?.selectedIds.join(",")} data-atlas-neurovascular-selected-vertex-count={neurovascularMeshEvidence?.selectedVertexCount} data-atlas-neurovascular-incident-triangle-count={neurovascularMeshEvidence?.incidentTriangleCount} data-atlas-neurovascular-selected-ids={neurovascularMeshEvidence?.selectedIds.join(",")} data-atlas-neurovascular-layer={quizVisibilityEvidenceEnabled?neurovascularOverlay:undefined} data-atlas-section-target-voxel-count={sectionEvidence?.targetVoxelCount} data-atlas-section-projected-width={sectionEvidence?.projectedWidth} data-atlas-section-projected-height={sectionEvidence?.projectedHeight} aria-hidden={kind==="surface"&&webglUnavailable?true:undefined} aria-label={kind==="surface"?(surfaceAriaLabel??`${specimenBlock==="none"?"MNI高密度皮質表面モデル":"0.5 mm標本から構成した局所3D標本"}${blockContext!=="none"?"と収録済み標本の位置目安":""}${neurovascularOverlay!=="none"?"と模式3D神経血管レイヤー":""}。ホイールで拡大縮小${showZoomControls?"、画面ボタンでも操作可能":""}${onSurfaceIdentify?"、クリックで構造を選択":""}`):`${plane}断面 ${position}。ホイールで拡大縮小、Shiftドラッグで移動`}/>{kind==="surface"&&showZoomControls&&!webglUnavailable?<div className="modelZoomControls" aria-label="3D表示の拡大縮小" onPointerDown={event=>event.stopPropagation()}><button type="button" onClick={()=>adjustSurfaceZoom(1/1.15)} aria-label="縮小">−</button><button type="button" onClick={resetView} title="100%に戻す" aria-label="拡大率を100パーセントに戻す">{Math.round(zoom*100)}%</button><button type="button" onClick={()=>adjustSurfaceZoom(1.15)} aria-label="拡大">＋</button></div>:kind==="slice"&&Math.abs(zoom-1)>.01&&<button type="button" className="zoomReadout" onClick={resetView} title="表示を等倍に戻す">{Math.round(zoom*100)}% <small>リセット</small></button>}{kind==="surface"&&webglUnavailable&&<div className="atlasWebglFallback" role="alert" aria-live="assertive" onPointerDown={event=>event.stopPropagation()}><b>3Dを表示できません</b><p>この環境では3Dを表示できません。WebGL対応ブラウザ、PCまたは横向きタブレットでお試しください。</p></div>}{(!ready||error)&&(error?<div className="atlasLoading error" role="alert"><b>データを読み込めませんでした</b><button type="button" onClick={retryLoad}>再読み込み</button></div>:<span className="atlasLoading" role="status" aria-live="polite"><span>{loadingTitle}</span><span className="atlasLoadingValue">{progressText}</span><progress aria-label="データ読込の進捗" aria-valuetext={progressText} value={measuredProgress?downloadProgress.loaded:undefined} max={measuredProgress?downloadProgress.total!:undefined}/></span>)}</>;
 }
 
 function drawFixedSlice(c:CanvasRenderingContext2D,w:number,h:number,v:FixedBrain,plane:Plane,p:number,display:Display,tone:Tone,zoom:number,pan:{x:number;y:number}){
@@ -387,7 +506,7 @@ function drawFixedSlice(c:CanvasRenderingContext2D,w:number,h:number,v:FixedBrai
   for(let y=0;y<sh;y++)for(let x=0;x<sw;x++){const si=get(x,y),q=(y*sw+x)*4,raw=values[si],near=(sample(x-1,y)+sample(x+1,y)+sample(x,y-1)+sample(x,y+1))*.25,base=raw+(raw-near)*tone.sharpness,val=Math.max(0,Math.min(255,(base-128)*tone.contrast+128+tone.brightness)),edge=Math.min(22,(Math.abs(sample(x+1,y)-sample(x-1,y))+Math.abs(sample(x,y+1)-sample(x,y-1)))*(.07+tone.sharpness*.18));let r,g,b;if(display==="outline"){r=g=b=25+val*.72-edge}else if(display==="diagram"){r=78+val*.66;g=65+val*.59;b=51+val*.49}else{r=36+val*.78-edge;g=31+val*.68-edge*.74;b=25+val*.55-edge*.46}im.data[q]=r;im.data[q+1]=g;im.data[q+2]=b;im.data[q+3]=v.mask[si]?255:0}oc.putImageData(im,0,0);c.clearRect(0,0,w,h);c.fillStyle="#171b1c";c.fillRect(0,0,w,h);const{scale,ox,oy}=viewTransform(w,h,v.dims,plane,zoom,pan);c.imageSmoothingEnabled=false;c.drawImage(off,ox,oy,sw*scale,sh*scale);drawScale(c,h,scale,.444);
 }
 
-function drawSlice(c:CanvasRenderingContext2D,w:number,h:number,v:Volume|null,bb:BigBrain|null,manual:ManualSeg|null,plane:Plane,p:number,display:Display,contrast:"t1"|"t2"|"bigbrain",tone:Tone,labelColors:Map<number,[number,number,number]>,zoom:number,pan:{x:number;y:number}){
+function drawSlice(c:CanvasRenderingContext2D,w:number,h:number,v:Volume|null,bb:BigBrain|null,manual:ManualSeg|null,plane:Plane,p:number,display:Display,contrast:"t1"|"t2"|"bigbrain",tone:Tone,labelColors:Map<number,[number,number,number]>,zoom:number,pan:{x:number;y:number},sectionHighlightMode:SectionHighlightMode="default"){
   const isBB=contrast==="bigbrain"&&!!bb,dims=isBB?bb!.dims:v!.dims,[dx,dy,dz]=dims;let sw=dx,sh=dz,get=(a:number,b:number)=>idx(a,Math.round(p/100*(dy-1)),dz-1-b,dims);if(plane==="horizontal"){sw=dx;sh=dy;get=(a,b)=>idx(a,dy-1-b,Math.round((1-p/100)*(dz-1)),dims)}if(plane==="sagittal"){sw=dy;sh=dz;get=(a,b)=>idx(Math.round(p/100*(dx-1)),a,dz-1-b,dims)}
   const values=isBB?bb!.values:contrast==="t2"?v!.t2:v!.t1,off=document.createElement("canvas");off.width=sw;off.height=sh;const oc=off.getContext("2d")!,im=oc.createImageData(sw,sh);
   const sample=(x:number,y:number)=>values[get(Math.max(0,Math.min(sw-1,x)),Math.max(0,Math.min(sh-1,y)))];
@@ -415,9 +534,13 @@ function drawSlice(c:CanvasRenderingContext2D,w:number,h:number,v:Volume|null,bb
         r=ng*139+nw*198+nc*48+texture-edge+grain;g=ng*119+nw*186+nc*50+texture*.8-edge*.75+grain;b=ng*100+nw*158+nc*48+texture*.55-edge*.45;
       }
     }
-    if(highlightColor&&!cavityLabel){const m=display==="specimen"?.42:.86;r=r*(1-m)+highlightColor[0]*m;g=g*(1-m)+highlightColor[1]*m;b=b*(1-m)+highlightColor[2]*m}
+    const appliedHighlightColor=highlightColor&&(sectionHighlightMode==="quiz"?QUIZ_SECTION_ACCENT_RGB:highlightColor);
+    if(appliedHighlightColor&&!cavityLabel){
+      const quizMode=sectionHighlightMode==="quiz",m=quizMode?.62:display==="specimen"?.42:.86;
+      r=r*(1-m)+appliedHighlightColor[0]*m;g=g*(1-m)+appliedHighlightColor[1]*m;b=b*(1-m)+appliedHighlightColor[2]*m;
+    }
     let alpha=(isBB?raw>=252:v!.mask[si]===0)?0:255;
-    if(cavityLabel&&highlightColor){r=highlightColor[0];g=highlightColor[1];b=highlightColor[2];alpha=display==="specimen"?220:245}
+    if(cavityLabel&&appliedHighlightColor){r=appliedHighlightColor[0];g=appliedHighlightColor[1];b=appliedHighlightColor[2];alpha=display==="specimen"?220:245}
     im.data[q]=r;im.data[q+1]=g;im.data[q+2]=b;im.data[q+3]=alpha;
   }
   oc.putImageData(im,0,0);c.clearRect(0,0,w,h);c.fillStyle="#171b1c";c.fillRect(0,0,w,h);const{scale,ox,oy}=viewTransform(w,h,dims,plane,zoom,pan);c.imageSmoothingEnabled=!isBB;c.imageSmoothingQuality="high";c.drawImage(off,ox,oy,sw*scale,sh*scale);drawScale(c,h,scale,isBB ? .5 : 1);
@@ -437,9 +560,9 @@ function cutPlaneMesh(plane:Plane,value:number):Mesh{
   return{vertices,normals,shade:new Float32Array([1,1,1,1]),regions:new Float32Array(4),faces:new Uint32Array([0,1,2,3])};
 }
 
-function drawWebGL(canvas:HTMLCanvasElement,selectionLayers:{meshes:Mesh[];color:[number,number,number]}[],surface:Mesh[],segments:Mesh[],overlays:Mesh[],basal:Mesh[],deep:Mesh[],landmarks:Mesh[],blockMeshes:LoadedSpecimenPart[]|null,rot:Rotation,plane:Plane,position:number,view:"inside"|"ghost"|"extracted"|"segmented",showFocus:boolean,contrast:"t1"|"t2"|"bigbrain"|"single",showCutPlane:boolean,hemisphere:"both"|"left"|"right",showCerebellum:boolean,showPonsMedulla:boolean,showMidbrain:boolean,neurovascularOverlay:NeurovascularOverlay,showBrainstemNerves:boolean,surfaceHighlights:HighlightLayer[],surfaceLandmarks:SurfaceLandmark[],surfaceDeepLandmarks:SurfaceDeepLandmark[],neurovascularHighlights:HighlightLayer[],specimenLayers:string[],specimenTissueMode:SpecimenTissueMode,showBasalLandmarks:boolean,basalLandmark:BasalLandmark,basalHighlights:BasalLandmark[],basalOnlySelected:boolean,specimenBlock:SpecimenBlock,zoom:number):boolean{
+function drawWebGL(canvas:HTMLCanvasElement,selectionLayers:{meshes:Mesh[];color:[number,number,number]}[],surface:Mesh[],segments:Mesh[],overlays:Mesh[],basal:Mesh[],deep:Mesh[],landmarks:Mesh[],blockMeshes:LoadedSpecimenPart[]|null,blockContextMesh:Mesh|null,rot:Rotation,plane:Plane,position:number,view:"inside"|"ghost"|"extracted"|"segmented",showFocus:boolean,contrast:"t1"|"t2"|"bigbrain"|"single",showCutPlane:boolean,hemisphere:"both"|"left"|"right",showCerebellum:boolean,showPonsMedulla:boolean,showMidbrain:boolean,neurovascularOverlay:NeurovascularOverlay,showBrainstemNerves:boolean,surfaceHighlights:HighlightLayer[],surfaceLandmarks:SurfaceLandmark[],surfaceDeepLandmarks:SurfaceDeepLandmark[],neurovascularHighlights:HighlightLayer[],specimenLayers:string[],specimenTissueMode:SpecimenTissueMode,showBasalLandmarks:boolean,basalLandmark:BasalLandmark,basalHighlights:BasalLandmark[],basalOnlySelected:boolean,specimenBlock:SpecimenBlock,blockContext:BlockContextSpecimen,zoom:number):boolean{
   const targetCanvas=canvas;canvas=atlasRenderCanvas(targetCanvas.width,targetCanvas.height);
-  const gl=canvas.getContext("webgl",{alpha:false,antialias:true});if(!gl)return false;const vs=`attribute vec3 p,n;attribute float a;attribute vec4 h;uniform mat3 r;uniform float scale,depthBias;varying float l,s,rim;varying vec3 anatomy;varying vec4 highlight;void main(){vec3 q=vec3(p.z,p.x,p.y);anatomy=q;vec3 nn=normalize(r*vec3(n.z,n.x,n.y));q.y+=16.;q=r*q;float key=max(dot(nn,normalize(vec3(-.46,.55,.72))),0.);float fill=max(dot(nn,normalize(vec3(.72,.18,.48))),0.);l=.16+.72*pow(key,.70)+.20*fill;rim=pow(1.-abs(nn.z),2.2);s=a;highlight=h;gl_Position=vec4(q.x/96.*scale,q.y/96.*scale,q.z/138.*scale-depthBias,1.);}`;const fs=`precision mediump float;uniform vec4 color;uniform float clipOn,clipAxis,clipValue,material,hemiMode;varying float l,s,rim;varying vec3 anatomy;varying vec4 highlight;void main(){float q=clipAxis<.5?anatomy.x:(clipAxis<1.5?anatomy.y:anatomy.z);if(clipOn>.5&&q<clipValue)discard;if(hemiMode<-.5&&anatomy.x>0.)discard;if(hemiMode>.5&&anatomy.x<0.)discard;vec3 outColor;if(material<.5){float sulcus=pow(clamp((1.-s)/.56,0.,1.),.62);vec3 lit=color.rgb*(.40+.76*min(l,1.));outColor=mix(lit,vec3(.045,.060,.067),sulcus*.86)+vec3(.18,.22,.24)*rim*.28;}else if(material<1.5){float gloss=pow(max(l-.34,0.),2.2);outColor=color.rgb*(.58+.62*min(l,1.))+vec3(.24)*gloss+vec3(.16)*rim*.22;}else if(material<2.5){float groove=pow(clamp((1.-s)/.56,0.,1.),.7);outColor=mix(color.rgb*(.48+.66*min(l,1.)),color.rgb*.33,groove*.68)+vec3(.10)*rim*.18;}else if(material<3.5){outColor=color.rgb;}else{float tissue=smoothstep(.02,.98,s);vec3 hist=mix(vec3(.25,.15,.095),vec3(.91,.80,.62),tissue);hist=mix(hist,hist*color.rgb,0.16);outColor=hist*(.48+.64*min(l,1.))+vec3(.15,.12,.09)*rim*.20;}if(highlight.a>.5)outColor=mix(outColor,highlight.rgb,.78);gl_FragColor=vec4(outColor,color.a);}`;const prog=gl.createProgram()!,vertexShader=shader(gl,gl.VERTEX_SHADER,vs),fragmentShader=shader(gl,gl.FRAGMENT_SHADER,fs);gl.attachShader(prog,vertexShader);gl.attachShader(prog,fragmentShader);gl.linkProgram(prog);gl.deleteShader(vertexShader);gl.deleteShader(fragmentShader);gl.useProgram(prog);gl.viewport(0,0,canvas.width,canvas.height);gl.clearColor(.10,.12,.13,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.enable(gl.DEPTH_TEST);gl.enable(gl.CULL_FACE);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);const specimenScale=specimenBlock==="midbrain-section"?2:specimenBlock==="medial-temporal"?1.3:specimenBlock==="diencephalon"?1.18:1;gl.uniform1f(gl.getUniformLocation(prog,"scale"),zoom*specimenScale);gl.uniform1f(gl.getUniformLocation(prog,"depthBias"),0);gl.uniform1f(gl.getUniformLocation(prog,"hemiMode"),0);
+  const gl=canvas.getContext("webgl",{alpha:false,antialias:true});if(!gl)return false;const vs=`attribute vec3 p,n;attribute float a;attribute vec4 h;uniform mat3 r;uniform float scale,depthBias;varying float l,s,rim;varying vec3 anatomy;varying vec4 highlight;void main(){vec3 q=vec3(p.z,p.x,p.y);anatomy=q;vec3 nn=normalize(r*vec3(n.z,n.x,n.y));q.y+=16.;q=r*q;float key=max(dot(nn,normalize(vec3(-.46,.55,.72))),0.);float fill=max(dot(nn,normalize(vec3(.72,.18,.48))),0.);l=.16+.72*pow(key,.70)+.20*fill;rim=pow(1.-abs(nn.z),2.2);s=a;highlight=h;gl_Position=vec4(q.x/96.*scale,q.y/96.*scale,q.z/138.*scale-depthBias,1.);}`;const fs=`precision mediump float;uniform vec4 color;uniform float clipOn,clipAxis,clipValue,material,hemiMode,selectedOpacity;varying float l,s,rim;varying vec3 anatomy;varying vec4 highlight;void main(){float q=clipAxis<.5?anatomy.x:(clipAxis<1.5?anatomy.y:anatomy.z);if(clipOn>.5&&q<clipValue)discard;if(hemiMode<-.5&&anatomy.x>0.)discard;if(hemiMode>.5&&anatomy.x<0.)discard;vec3 outColor;if(material<.5){float sulcus=pow(clamp((1.-s)/.56,0.,1.),.62);vec3 lit=color.rgb*(.40+.76*min(l,1.));outColor=mix(lit,vec3(.045,.060,.067),sulcus*.86)+vec3(.18,.22,.24)*rim*.28;}else if(material<1.5){float gloss=pow(max(l-.34,0.),2.2);outColor=color.rgb*(.58+.62*min(l,1.))+vec3(.24)*gloss+vec3(.16)*rim*.22;}else if(material<2.5){float groove=pow(clamp((1.-s)/.56,0.,1.),.7);outColor=mix(color.rgb*(.48+.66*min(l,1.)),color.rgb*.33,groove*.68)+vec3(.10)*rim*.18;}else if(material<3.5){outColor=color.rgb;}else{float tissue=smoothstep(.02,.98,s);vec3 hist=mix(vec3(.25,.15,.095),vec3(.91,.80,.62),tissue);hist=mix(hist,hist*color.rgb,0.16);outColor=hist*(.48+.64*min(l,1.))+vec3(.15,.12,.09)*rim*.20;}if(highlight.a>.5)outColor=mix(outColor,highlight.rgb,.78);float outputAlpha=mix(color.a,selectedOpacity,clamp(highlight.a,0.,1.));gl_FragColor=vec4(outColor,outputAlpha);}`;const prog=gl.createProgram()!,vertexShader=shader(gl,gl.VERTEX_SHADER,vs),fragmentShader=shader(gl,gl.FRAGMENT_SHADER,fs);gl.attachShader(prog,vertexShader);gl.attachShader(prog,fragmentShader);gl.linkProgram(prog);gl.deleteShader(vertexShader);gl.deleteShader(fragmentShader);gl.useProgram(prog);gl.viewport(0,0,canvas.width,canvas.height);gl.clearColor(.10,.12,.13,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.enable(gl.DEPTH_TEST);gl.enable(gl.CULL_FACE);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);const specimenScale=specimenBlock==="midbrain-section"?2:specimenBlock==="medial-temporal"?1.3:specimenBlock==="diencephalon"?1.18:1;gl.uniform1f(gl.getUniformLocation(prog,"scale"),zoom*specimenScale);gl.uniform1f(gl.getUniformLocation(prog,"depthBias"),0);gl.uniform1f(gl.getUniformLocation(prog,"hemiMode"),0);gl.uniform1f(gl.getUniformLocation(prog,"selectedOpacity"),TEACHING_OVERLAY_SELECTED_OPACITY);
   if(neurovascularOverlay!=="none")gl.uniform1f(gl.getUniformLocation(prog,"scale"),zoom*.88);
   const ax=rot.x*Math.PI/180,ay=rot.y*Math.PI/180,az=(rot.z??0)*Math.PI/180,cx=Math.cos(ax),sx=Math.sin(ax),cy=Math.cos(ay),sy=Math.sin(ay),cz=Math.cos(az),sz=Math.sin(az),m=new Float32Array([cz*cy-sz*sx*sy,sz*cy+cz*sx*sy,-cx*sy,-sz*cx,cz*cx,sx,cz*sy+sz*sx*cy,sz*sy-cz*sx*cy,cx*cy]);gl.uniformMatrix3fv(gl.getUniformLocation(prog,"r"),false,m);
   const axis=plane==="sagittal"?0:plane==="horizontal"?1:2,clip=cutCoordinate(plane,position,contrast);gl.uniform1f(gl.getUniformLocation(prog,"clipAxis"),axis);gl.uniform1f(gl.getUniformLocation(prog,"clipValue"),clip);gl.uniform1f(gl.getUniformLocation(prog,"clipOn"),view==="extracted"?1:0);
@@ -447,7 +570,20 @@ function drawWebGL(canvas:HTMLCanvasElement,selectionLayers:{meshes:Mesh[];color
   const visibleSurface=surface.filter((_,i)=>(showCerebellum||i!==2)&&(showPonsMedulla||i!==3)&&(showMidbrain||i!==4)&&(hemisphere==="both"||i>1||(hemisphere==="left"?i===0:i===1)));
   const visibleSegments=segments.filter((_,i)=>(showCerebellum||i!==2)&&(showPonsMedulla||i!==3)&&(showMidbrain||i!==4)&&(hemisphere==="both"||i>1||(hemisphere==="left"?i===0:i===1)));
   const visibleBlocks=blockMeshes?.filter(part=>(showCerebellum||part.definition.key!=="cerebellum")&&(showPonsMedulla||(part.definition.key!=="pons-medulla"&&part.definition.attachment!=="pons-medulla"))&&(!part.definition.layer||specimenLayers.includes(part.definition.layer)));
-  if(visibleBlocks){
+  const contextOverlay=blockContext!=="none"&&specimenBlock==="none"&&!!blockContextMesh;
+  const ghostSurface=view==="ghost"&&blockMeshes===null&&!contextOverlay;
+  const drawSurfaceShell=()=>{
+    const alpha=view==="ghost"?SURFACE_GHOST_OPACITY:view==="extracted"?.92:1;
+    const shellColors=[[.78,.80,.79,alpha],[.84,.85,.83,alpha],[.62,.54,.42,alpha],[.57,.66,.69,alpha],[.66,.59,.54,alpha]];
+    visibleSurface.forEach(part=>{const i=surface.indexOf(part);draw(part,shellColors[i],0,gl.TRIANGLES,i<2?surfaceHighlights:[])});
+  };
+  if(contextOverlay){
+    // The tissue mesh is already in the shared specimen grid. Draw it without
+    // transforming or resizing it, then composite the whole-brain shell in
+    // the existing ghost mode so the position remains a guide, not a border.
+    gl.uniform1f(gl.getUniformLocation(prog,"clipOn"),0);gl.disable(gl.CULL_FACE);gl.depthMask(true);draw(blockContextMesh,[.79,.64,.49,.34],4);gl.enable(gl.CULL_FACE);gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LESS);gl.depthMask(true);drawSurfaceShell();
+  }
+  else if(visibleBlocks){
     gl.uniform1f(gl.getUniformLocation(prog,"clipOn"),0);gl.disable(gl.CULL_FACE);
     const hasSelectableStructures=blockMeshes?.some(part=>!!part.definition.layer)??false;
     if(!hasSelectableStructures)visibleBlocks.forEach(part=>draw(part.mesh,part.definition.color,part.definition.material));
@@ -462,49 +598,60 @@ function drawWebGL(canvas:HTMLCanvasElement,selectionLayers:{meshes:Mesh[];color
     }
   }
   else if(view==="segmented"){const palette=[[.72,.78,.81,1],[.83,.86,.87,1],[.68,.56,.38,1],[.52,.62,.65,1],[.67,.55,.48,1],[.78,.48,.44,1],[.25,.68,.75,1]];gl.disable(gl.CULL_FACE);visibleSegments.forEach(part=>{const i=segments.indexOf(part);draw(part,palette[i],2)});}
-  else{const alpha=view==="ghost"?.13:view==="extracted"?.92:1,shellColors=[[.78,.80,.79,alpha],[.84,.85,.83,alpha],[.62,.54,.42,alpha],[.57,.66,.69,view==="ghost"?.78:alpha],[.66,.59,.54,view==="ghost"?.78:alpha]];visibleSurface.forEach(part=>{const i=surface.indexOf(part);draw(part,shellColors[i],0,gl.TRIANGLES,i<2?surfaceHighlights:[])});}
-  if(showFocus&&selectionLayers.length){gl.clear(gl.DEPTH_BUFFER_BIT);gl.disable(gl.CULL_FACE);gl.uniform1f(gl.getUniformLocation(prog,"clipOn"),view==="extracted"?1:0);selectionLayers.forEach(layer=>layer.meshes.forEach(part=>draw(part,[layer.color[0]/255,layer.color[1]/255,layer.color[2]/255,1],1)));}
-  if(surfaceLandmarks.length&&blockMeshes===null){
+  else if(!ghostSurface)drawSurfaceShell();
+  if(showFocus&&selectionLayers.length){if(!ghostSurface)gl.clear(gl.DEPTH_BUFFER_BIT);gl.disable(gl.CULL_FACE);gl.uniform1f(gl.getUniformLocation(prog,"clipOn"),view==="extracted"?1:0);selectionLayers.forEach(layer=>layer.meshes.forEach(part=>draw(part,selectionColor(layer.color),1)));}
+  const drawSurfaceLandmarks=()=>{
     gl.uniform1f(gl.getUniformLocation(prog,"clipOn"),0);gl.uniform1f(gl.getUniformLocation(prog,"hemiMode"),hemisphere==="left"?-1:hemisphere==="right"?1:0);gl.disable(gl.CULL_FACE);gl.depthFunc(gl.LEQUAL);
-    SURFACE_LANDMARKS.forEach((definition,index)=>{if(!surfaceLandmarks.includes(definition.key))return;if(definition.key==="longitudinal-fissure")draw(landmarks[index],definition.color,1);else if(definition.key==="lateral-sulcus")visibleSurface.slice(0,2).forEach(part=>draw(surfaceRegionUpperRimMesh(part,[96,45],2.05,.9),definition.color,3));else if(definition.key==="calcarine-sulcus")visibleSurface.slice(0,2).forEach(part=>draw(surfaceLevelMesh(part,[57,6],0,-14,.9),definition.color,3));else visibleSurface.slice(0,2).forEach(part=>draw(surfaceBoundaryMesh(part,definition.key,2.05,.9),definition.color,3))});
+    SURFACE_LANDMARKS.forEach((definition,index)=>{if(!surfaceLandmarks.includes(definition.key))return;const color=teachingColor(definition.color,TEACHING_OVERLAY_SELECTED_OPACITY);if(definition.key==="longitudinal-fissure")draw(landmarks[index],color,1);else if(definition.key==="lateral-sulcus")visibleSurface.slice(0,2).forEach(part=>draw(surfaceRegionUpperRimMesh(part,[96,45],2.05,.9),color,3));else if(definition.key==="calcarine-sulcus")visibleSurface.slice(0,2).forEach(part=>draw(surfaceLevelMesh(part,[57,6],0,-14,.9),color,3));else visibleSurface.slice(0,2).forEach(part=>draw(surfaceBoundaryMesh(part,definition.key,2.05,.9),color,3))});
     gl.uniform1f(gl.getUniformLocation(prog,"hemiMode"),0);
-  }
+  };
+  if(surfaceLandmarks.length&&blockMeshes===null&&!ghostSurface)drawSurfaceLandmarks();
   if(surfaceDeepLandmarks.length&&blockMeshes===null){
     // These are explicit teaching overlays, never part of the default surface.
-    // Clear depth so the selected relation is legible, then clip paired meshes
-    // to the displayed hemisphere instead of drawing a misleading full model.
-    gl.clear(gl.DEPTH_BUFFER_BIT);
+    // Keep depth testing active so a selected relation follows the model rather
+    // than becoming an always-front decal in a transparent view.
     gl.uniform1f(gl.getUniformLocation(prog,"clipOn"),0);gl.uniform1f(gl.getUniformLocation(prog,"hemiMode"),hemisphere==="left"?-1:hemisphere==="right"?1:0);gl.uniform1f(gl.getUniformLocation(prog,"depthBias"),.006);gl.disable(gl.CULL_FACE);gl.depthFunc(gl.LEQUAL);
-    SURFACE_DEEP_LANDMARKS.forEach((definition,index)=>{if(surfaceDeepLandmarks.includes(definition.key))draw(definition.key==="septum-pellucidum"?conservativeSeptumMesh(deep[index]):deep[index],definition.color,1)});
+    SURFACE_DEEP_LANDMARKS.forEach((definition,index)=>{if(surfaceDeepLandmarks.includes(definition.key))draw(definition.key==="septum-pellucidum"?conservativeSeptumMesh(deep[index]):deep[index],teachingColor(definition.color,TEACHING_OVERLAY_SELECTED_OPACITY),1)});
     gl.uniform1f(gl.getUniformLocation(prog,"hemiMode"),0);gl.uniform1f(gl.getUniformLocation(prog,"depthBias"),0);
   }
   if(showBasalLandmarks){
-    if(view==="ghost")gl.clear(gl.DEPTH_BUFFER_BIT);gl.uniform1f(gl.getUniformLocation(prog,"clipOn"),0);gl.disable(gl.CULL_FACE);const keys:BasalLandmark[]=["olfactory","optic","infundibulum","mammillary","perforated","peduncles","pyramids","olives"],palette=[[.88,.65,.27,1],[.95,.84,.42,1],[.85,.42,.54,1],[.73,.44,.27,1],[.31,.65,.63,1],[.31,.47,.72,1],[.89,.68,.26,1],[.84,.42,.33,1]],neutral=[.78,.82,.83,1],hypothalamicOnly=basalLandmark==="hypothalamic",brainstemOnly=basalLandmark==="brainstem-only",hideBrainstemPatches=basalLandmark==="without-brainstem-patches",nerveOverlayVisible=neurovascularOverlay==="nerves"||neurovascularOverlay==="both";basal.forEach((part,index)=>{const key=keys[index];if(key==="mammillary")return;if(nerveOverlayVisible&&(["olfactory","optic"] as BasalLandmark[]).includes(key))return;if(hideBrainstemPatches&&(key==="pyramids"||key==="olives"))return;if(brainstemOnly&&!(["peduncles","pyramids","olives"] as BasalLandmark[]).includes(key))return;if(hypothalamicOnly&&!(["infundibulum","mammillary"] as BasalLandmark[]).includes(key))return;const active=hypothalamicOnly||basalHighlights.includes(key);if(basalOnlySelected&&!active)return;
+    // Do not clear depth here: helpers must remain depth-tested in ghost mode.
+    gl.uniform1f(gl.getUniformLocation(prog,"clipOn"),0);gl.disable(gl.CULL_FACE);gl.depthFunc(gl.LEQUAL);const keys:BasalLandmark[]=["olfactory","optic","infundibulum","mammillary","perforated","peduncles","pyramids","olives"],palette=[[.88,.65,.27,1],[.95,.84,.42,1],[.85,.42,.54,1],[.73,.44,.27,1],[.31,.65,.63,1],[.31,.47,.72,1],[.89,.68,.26,1],[.84,.42,.33,1]],neutral=[.78,.82,.83,1],hypothalamicOnly=basalLandmark==="hypothalamic",brainstemOnly=basalLandmark==="brainstem-only",hideBrainstemPatches=basalLandmark==="without-brainstem-patches",nerveOverlayVisible=neurovascularOverlay==="nerves"||neurovascularOverlay==="both";basal.forEach((part,index)=>{const key=keys[index];if(key==="mammillary")return;if(nerveOverlayVisible&&(["olfactory","optic"] as BasalLandmark[]).includes(key))return;if(hideBrainstemPatches&&(key==="pyramids"||key==="olives"))return;if(brainstemOnly&&!(["peduncles","pyramids","olives"] as BasalLandmark[]).includes(key))return;if(hypothalamicOnly&&!(["infundibulum","mammillary"] as BasalLandmark[]).includes(key))return;const active=hypothalamicOnly||basalHighlights.includes(key);if(basalOnlySelected&&!active)return;
       // Pyramids and olives are generated colour patches on the real
       // pons-medulla mesh, not independent anatomy. Never leave their helper
       // polygons visible in the neutral/default model.
-      if((key==="pyramids"||key==="olives")&&!hypothalamicOnly){if(active&&showPonsMedulla)draw(ventralSurfacePatchMesh(surface[3],key),palette[index],3);return}draw(part,active?[...palette[index]]:[...neutral],active?1:0)});
+      if((key==="pyramids"||key==="olives")&&!hypothalamicOnly){if(active&&showPonsMedulla)draw(ventralSurfacePatchMesh(surface[3],key),teachingColor(palette[index],TEACHING_OVERLAY_SELECTED_OPACITY),3);return}draw(part,teachingColor(active?palette[index]:neutral,active?TEACHING_OVERLAY_SELECTED_OPACITY:TEACHING_OVERLAY_OPACITY),active?1:0)});
     // Brainstem lesson targets reuse the actual midbrain/pons-medulla shells.
     // The colliculi remain depth-tested dorsal landmarks: an inferior viewer
     // must rotate the model rather than seeing them falsely projected through.
     if(!hypothalamicOnly){gl.uniform1f(gl.getUniformLocation(prog,"depthBias"),.003);
-      if(basalHighlights.includes("hypothalamus"))draw(deep[4],[.77,.34,.51,1],1);else if(!basalOnlySelected&&basalLandmark==="all")draw(deep[4],neutral,0);
-      if(showMidbrain&&basalHighlights.includes("midbrain"))draw(surface[4],[.46,.40,.69,1],1);
-      if(showPonsMedulla&&basalHighlights.includes("pons"))draw(brainstemLevelMesh(surface[3],"pons"),[.21,.60,.60,1],1);
-      if(showPonsMedulla&&basalHighlights.includes("medulla"))draw(brainstemLevelMesh(surface[3],"medulla"),[.40,.61,.41,1],1);
-      if(showMidbrain&&basalHighlights.includes("superior-colliculi"))draw(midbrainDorsalPatchMesh(surface[4],"superior-colliculi"),[.85,.33,.40,1],3);
-      if(showMidbrain&&basalHighlights.includes("inferior-colliculi"))draw(midbrainDorsalPatchMesh(surface[4],"inferior-colliculi"),[.89,.54,.26,1],3);
+      if(basalHighlights.includes("hypothalamus"))draw(deep[4],teachingColor([.77,.34,.51],TEACHING_OVERLAY_SELECTED_OPACITY),1);else if(!basalOnlySelected&&basalLandmark==="all")draw(deep[4],teachingColor(neutral),0);
+      if(showMidbrain&&basalHighlights.includes("midbrain"))draw(surface[4],teachingColor([.46,.40,.69],TEACHING_OVERLAY_SELECTED_OPACITY),1);
+      if(showPonsMedulla&&basalHighlights.includes("pons"))draw(brainstemLevelMesh(surface[3],"pons"),teachingColor([.21,.60,.60],TEACHING_OVERLAY_SELECTED_OPACITY),1);
+      if(showPonsMedulla&&basalHighlights.includes("medulla"))draw(brainstemLevelMesh(surface[3],"medulla"),teachingColor([.40,.61,.41],TEACHING_OVERLAY_SELECTED_OPACITY),1);
+      if(showMidbrain&&basalHighlights.includes("superior-colliculi"))draw(midbrainDorsalPatchMesh(surface[4],"superior-colliculi"),teachingColor([.85,.33,.40],TEACHING_OVERLAY_SELECTED_OPACITY),3);
+      if(showMidbrain&&basalHighlights.includes("inferior-colliculi"))draw(midbrainDorsalPatchMesh(surface[4],"inferior-colliculi"),teachingColor([.89,.54,.26],TEACHING_OVERLAY_SELECTED_OPACITY),3);
       gl.uniform1f(gl.getUniformLocation(prog,"depthBias"),0);
     }
   }
   if(neurovascularOverlay!=="none"){
-    if(view==="ghost")gl.clear(gl.DEPTH_BUFFER_BIT);gl.uniform1f(gl.getUniformLocation(prog,"clipOn"),0);gl.disable(gl.CULL_FACE);gl.depthFunc(gl.LEQUAL);
+    // Vessels and nerves use the same depth-tested teaching-layer policy in
+    // normal and ghost views. Their selected vertices receive the stronger
+    // opacity through the shader highlight channel.
+    gl.uniform1f(gl.getUniformLocation(prog,"clipOn"),0);gl.disable(gl.CULL_FACE);gl.depthFunc(gl.LEQUAL);
     if(neurovascularOverlay==="vessels"||neurovascularOverlay==="both"){
-      draw(overlays[0],[.86,.18,.14,1],1,gl.TRIANGLES,neurovascularHighlights);draw(overlays[1],[.66,.16,.12,1],1,gl.TRIANGLES,neurovascularHighlights);
+      draw(overlays[0],teachingColor([.86,.18,.14]),1,gl.TRIANGLES,neurovascularHighlights);draw(overlays[1],teachingColor([.66,.16,.12]),1,gl.TRIANGLES,neurovascularHighlights);
     }
     if(neurovascularOverlay==="nerves"||neurovascularOverlay==="both"){
-      draw(overlays[2],[.96,.83,.42,1],1,gl.TRIANGLES,neurovascularHighlights);if(showBrainstemNerves){draw(overlays[3],[.90,.67,.31,1],1,gl.TRIANGLES,neurovascularHighlights);draw(overlays[4],[.78,.55,.24,1],1,gl.TRIANGLES,neurovascularHighlights)}
+      draw(overlays[2],teachingColor([.96,.83,.42]),1,gl.TRIANGLES,neurovascularHighlights);if(showBrainstemNerves){draw(overlays[3],teachingColor([.90,.67,.31]),1,gl.TRIANGLES,neurovascularHighlights);draw(overlays[4],teachingColor([.78,.55,.24]),1,gl.TRIANGLES,neurovascularHighlights)}
     }
+  }
+  if(ghostSurface){
+    // The transparent shell is composited after depth-tested overlays. This
+    // lets an inside vessel be seen through the shell without making every
+    // overlay a screen-space, always-front annotation.
+    gl.enable(gl.CULL_FACE);gl.enable(gl.DEPTH_TEST);gl.depthMask(true);gl.depthFunc(gl.LESS);gl.uniform1f(gl.getUniformLocation(prog,"clipOn"),0);gl.uniform1f(gl.getUniformLocation(prog,"hemiMode"),0);gl.uniform1f(gl.getUniformLocation(prog,"depthBias"),0);drawSurfaceShell();
+    if(surfaceLandmarks.length)drawSurfaceLandmarks();
   }
   if(showCutPlane){const planeMesh=cutPlaneMesh(plane,clip);gl.clear(gl.DEPTH_BUFFER_BIT);gl.disable(gl.DEPTH_TEST);gl.disable(gl.CULL_FACE);gl.depthMask(false);gl.uniform1f(gl.getUniformLocation(prog,"clipOn"),0);draw(planeMesh,[.29,.72,.88,.14],3,gl.TRIANGLE_FAN);draw(planeMesh,[.46,.84,.98,.92],3,gl.LINE_LOOP);gl.depthMask(true);gl.enable(gl.DEPTH_TEST)}gl.deleteProgram(prog);
   const target=targetCanvas.getContext("2d");if(target){target.clearRect(0,0,targetCanvas.width,targetCanvas.height);target.drawImage(canvas,0,0)}return true

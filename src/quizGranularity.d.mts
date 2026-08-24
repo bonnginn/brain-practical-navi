@@ -1,0 +1,30 @@
+export type QuizFormat = "section" | "surface" | "neurovascular";
+export type QuizDetail = "coronal" | "horizontal" | "sagittal" | "lateral" | "superior" | "inferior" | "medial" | "arteries" | "cranialNerves";
+export type QuizOrigin = "standard" | "provisional";
+export type QuizFilterQuestion = {
+  target: string;
+  category: string;
+  format: QuizFormat;
+  detail: QuizDetail;
+  origin: QuizOrigin;
+};
+export type QuizFilters = {
+  category: string;
+  format: "all" | QuizFormat;
+  detail: string;
+  includeProvisional: boolean;
+  wrongOnly: boolean;
+};
+export declare const SECTION_DETAILS: readonly ["coronal", "horizontal", "sagittal"];
+export declare const SURFACE_DETAILS: readonly ["lateral", "superior", "inferior", "medial"];
+export declare const NEUROVASCULAR_DETAILS: readonly ["arteries", "cranialNerves"];
+export declare const QUIZ_FORMATS: readonly ["section", "surface", "neurovascular"];
+export declare const QUIZ_ORIGINS: readonly ["standard", "provisional"];
+export declare const QUIZ_GRANULARITY_BY_TARGET: Readonly<Record<string, { format: QuizFormat; detail: QuizDetail; origin: QuizOrigin }>>;
+export declare function detailOptionsForFormat(format: "all" | QuizFormat): readonly QuizDetail[];
+export declare function isDetailCompatible(format: "all" | QuizFormat, detail: string): boolean;
+export declare function filtersForQuizChoice(filters: QuizFilters, dimension: "category" | "format" | "detail", value: string): QuizFilters;
+export declare function matchesQuizFilters(question: QuizFilterQuestion, filters: QuizFilters, wrongTargets: readonly string[]): boolean;
+export declare function filterQuizCandidates<T extends QuizFilterQuestion>(questions: readonly T[], filters: QuizFilters, wrongTargets: readonly string[]): T[];
+export declare function countQuizChoice<T extends QuizFilterQuestion>(questions: readonly T[], filters: QuizFilters, wrongTargets: readonly string[], dimension: "category" | "format" | "detail", value: string): number;
+export declare function validateQuizGranularity(questions: readonly QuizFilterQuestion[]): string[];

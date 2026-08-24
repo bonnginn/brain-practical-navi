@@ -1,0 +1,185 @@
+{
+  "format": "brain-practical-segmentation-patch",
+  "version": 1,
+  "sourceImage": "/atlas/bigbrain-icbm500.bin.gz",
+  "sourceLabels": "/atlas/bigbrain-practical-segmentation-icbm500.bin.gz",
+  "sourceLabelsSha256": "6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56",
+  "dims": [
+    394,
+    466,
+    378
+  ],
+  "voxelSizeMm": [
+    0.5,
+    0.5,
+    0.5
+  ],
+  "primaryPlane": "horizontal",
+  "workflowMetadataVersion": 1,
+  "createdAt": "2026-08-23T15:00:00.000Z",
+  "authorNote": "ユーザーから示された自動修正方針に基づき、BigBrain背景値255の未ラベルvoxelから、現行の同一脳室ラベルがX・Y・Z各軸の両側に存在し、別ラベルと6近傍で接しない33 voxelを抽出した教育用修正として採用しました。三軸の局所プレビューで確認したプロジェクト内レビューであり、専門家レビュー済み・研究用ground truthではありません。",
+  "authorGitHub": "",
+  "targetSide": "mixed",
+  "evidence": "ユーザーから示された自動修正方針とPR #14のプロジェクト内採用記録; read-only audit scripts/audit_ventricle_cavity_candidates.py と三軸・局所プレビュー; image SHA-256 c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746; pre-ventricle compressed labels SHA-256 6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56; raw voxel labels SHA-256 088fafcdf6afcea74a7a60075bf3b8a481e1a7aa6379a7c58fb9b9c17f5e731d; X/Y/Z各軸の両側同一ラベル・他ラベル6近傍接触なし; 33 voxel educational repair, not expert review or research ground truth",
+  "confidence": "medium",
+  "targetStructures": [
+    {
+      "id": 23,
+      "name": "左側脳室"
+    },
+    {
+      "id": 24,
+      "name": "右側脳室"
+    },
+    {
+      "id": 25,
+      "name": "第三脳室"
+    }
+  ],
+  "sliceRanges": [
+    {
+      "plane": "horizontal",
+      "axis": "Z",
+      "min": 139,
+      "max": 176
+    }
+  ],
+  "changeSummary": {
+    "changedVoxelCount": 33,
+    "unchangedVoxelCount": 0,
+    "transitions": [
+      {
+        "from": 0,
+        "to": 23,
+        "voxels": 14
+      },
+      {
+        "from": 0,
+        "to": 24,
+        "voxels": 15
+      },
+      {
+        "from": 0,
+        "to": 25,
+        "voxels": 4
+      }
+    ]
+  },
+  "review": {
+    "decision": "approved",
+    "reviewer": {
+      "kind": "project-role",
+      "id": "project-maintainer-directed-automatic-repair"
+    },
+    "decidedAt": "2026-08-24",
+    "reason": "ユーザーから示された自動修正方針に基づき、X/Y/Z各軸の両側を同一脳室ラベルが挟み、他ラベルと6近傍で接しない33 voxelを、三軸・局所プレビューで確認した教育用修正としてPR #14へ採用する。これはプロジェクト内の採用判断であり、専門家レビューや研究用ground truthの確定ではない。",
+    "pullRequest": {
+      "number": 14,
+      "mergeCommit": null
+    }
+  },
+  "reviewStatus": "approved",
+  "editCount": 33,
+  "runs": [
+    {
+      "start": 25620836,
+      "length": 1,
+      "label": 25
+    },
+    {
+      "start": 25621230,
+      "length": 1,
+      "label": 25
+    },
+    {
+      "start": 25804440,
+      "length": 1,
+      "label": 25
+    },
+    {
+      "start": 25804834,
+      "length": 1,
+      "label": 25
+    },
+    {
+      "start": 32210847,
+      "length": 2,
+      "label": 23
+    },
+    {
+      "start": 32210907,
+      "length": 1,
+      "label": 24
+    },
+    {
+      "start": 32211241,
+      "length": 2,
+      "label": 23
+    },
+    {
+      "start": 32211301,
+      "length": 2,
+      "label": 24
+    },
+    {
+      "start": 32211637,
+      "length": 2,
+      "label": 23
+    },
+    {
+      "start": 32211693,
+      "length": 2,
+      "label": 24
+    },
+    {
+      "start": 32212031,
+      "length": 2,
+      "label": 23
+    },
+    {
+      "start": 32212087,
+      "length": 2,
+      "label": 24
+    },
+    {
+      "start": 32212428,
+      "length": 1,
+      "label": 23
+    },
+    {
+      "start": 32212479,
+      "length": 2,
+      "label": 24
+    },
+    {
+      "start": 32394451,
+      "length": 2,
+      "label": 23
+    },
+    {
+      "start": 32394845,
+      "length": 2,
+      "label": 23
+    },
+    {
+      "start": 32395297,
+      "length": 2,
+      "label": 24
+    },
+    {
+      "start": 32395691,
+      "length": 2,
+      "label": 24
+    },
+    {
+      "start": 32396032,
+      "length": 1,
+      "label": 23
+    },
+    {
+      "start": 32396083,
+      "length": 2,
+      "label": 24
+    }
+  ]
+}

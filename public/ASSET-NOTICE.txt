@@ -1,5 +1,5 @@
 Public visual asset notice
-Updated: 2026-08-21
+Updated: 2026-08-23
 
 og.png is a project-created composite illustration used only for social-link
 previews. It is not a scan, photograph, or reproduction from a lecture handout,
@@ -12,7 +12,8 @@ home-surface-preview.png is a screenshot of the application’s own atlas-derive
 mesh is not downloaded on entry. It is not a donor photograph, patient image,
 lecture slide, textbook figure, or independent source of anatomical evidence.
 
-favicon.svg is a project-created interface mark. file.svg, globe.svg, and
+favicon.svg is a project-created interface mark. icon-192.png and icon-512.png
+are rasterized size variants of the same mark for the Web App Manifest. file.svg, globe.svg, and
 window.svg are unused generic starter icons and are not included in the
 application interface or educational content.
 

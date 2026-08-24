@@ -1,0 +1,150 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-08-24",
+  "phase": "公開α掲載中／β候補・β公開判断前",
+  "knownLimitations": [
+    {
+      "id": "limitation-optic-id33",
+      "heading": "旧ID33と視交叉・視索",
+      "body": "旧BigBrain/CerebrA ID33は視交叉と視索を分離できないため、断面学習画面と通常クイズの正答対象から除外（誤答選択肢には残る）しています。視交叉・左右視索ID36–38は未分節で、曖昧な境界を推測していません。",
+      "evidenceRefs": ["public/atlas/structure-provenance.json", "LECTURE_COVERAGE_AUDIT.md", "OPTIC_PATHWAY_AUDIT.md"],
+      "provenanceKeys": ["visual-pathway-legacy-optic-label"]
+    },
+    {
+      "id": "limitation-mammillary-39-40",
+      "heading": "乳頭体ID39・40",
+      "body": "ID39・40はプロジェクト内レビューを経て公開教材ラベルとして採用しましたが、専門家レビューは未完了です。視床下部への付着境界と左右体積差は、冠状断・矢状断を含む直交断で継続確認します。旧模式乳頭体2資産は配布されても学習画面の代用表示には使用しません。",
+      "evidenceRefs": ["public/atlas/structure-provenance.json", "STRUCTURE_PROVENANCE.md", "OPTIC_PATHWAY_AUDIT.md"],
+      "provenanceKeys": ["section-mammillary-bodies"]
+    },
+    {
+      "id": "limitation-schematic-representations",
+      "heading": "模式・位置目安の表示",
+      "body": "ブロック標本、主要な溝・裂、脳底ランドマーク、神経血管、脳神経根、線維路、脳室や一部の深部構造には模式3D・位置目安・試作分節が含まれます。専門家レビュー未完了の表示を解剖学的な確定形状や研究用ground truthとして扱わないでください。",
+      "evidenceRefs": ["public/atlas/structure-provenance.json", "STRUCTURE_PROVENANCE.md", "LECTURE_COVERAGE_AUDIT.md"]
+    },
+    {
+      "id": "limitation-unrecorded-items",
+      "heading": "未収録項目",
+      "body": "海馬采・鉤、XI脊髄根、閂・薄束・楔状束の詳細、表在・深部脳静脈と硬膜静脈洞などは、現行教材に独立表示・分節・クイズを収録していません。海馬采・鉤はβ候補から除外し、現行3Dへ収録していません。",
+      "evidenceRefs": ["public/atlas/structure-provenance.json", "LECTURE_COVERAGE_AUDIT.md", "MEDIAL_TEMPORAL_AUDIT.md"],
+      "provenanceKeys": ["section-temporal-lobe", "hindbrain-gracile-cuneate-structures", "vascular-venous-system"]
+    },
+    {
+      "id": "limitation-local-validation-scope",
+      "heading": "ローカル検証の範囲",
+      "body": "Windows Chromeのローカル検証では、M2比較専用URLを含む162/162件が合格しました。これは公開URLや物理タッチ端末、別GPU・別ブラウザでの挙動を保証するものではなく、これらは未確認です。",
+      "evidenceRefs": ["PERFORMANCE_AUDIT.md", "PRESENTATION_AUDIT.md", "BETA_STATUS_AUDIT.md"]
+    },
+    {
+      "id": "limitation-offline-storage",
+      "heading": "オフライン利用の範囲",
+      "body": "アプリ本体と、オンラインで一度開いた同一サイト内の教材を端末へ保存します。約92 MBの配布物を一括保存せず、未訪問の教材、外部リンク、ブラウザやOSが保存領域を削除した場合は通信が必要です。",
+      "evidenceRefs": ["PWA_OFFLINE_AUDIT.md", "PERFORMANCE_AUDIT.md", "BETA_ROADMAP.md"]
+    }
+  ],
+  "changes": [
+    {
+      "id": "change-download-progress",
+      "heading": "大容量データの読込進捗",
+      "body": "断面画像・手動ラベル・3Dメッシュの取得中に、実際の受信量を表示します。総量を取得できる場合だけ総量と百分率を表示し、取得できない場合は推定値を出さず「総量不明」と表示します。受信後の展開処理と、失敗時の再読み込みも区別しています。",
+      "evidenceRefs": ["DOWNLOAD_PROGRESS_AUDIT.md", "PERFORMANCE_AUDIT.md", "app/AtlasVolumeCanvas.tsx"]
+    },
+    {
+      "id": "change-pwa-offline-foundation",
+      "heading": "PWA・オフライン基盤",
+      "body": "ホーム画面への追加に必要なWeb App Manifest、192／512 pxアイコン、Service Workerを追加しました。実際のインストール操作は未確認です。初回は軽量なアプリ本体だけを保存し、同一サイト内の教材資産は利用時に保存します。更新中の画面を強制切替せず、保存失敗時も通常のオンライン利用を継続します。",
+      "evidenceRefs": ["PWA_OFFLINE_AUDIT.md", "build/pwa-vite-plugin.ts", "src/pwa.ts"]
+    },
+    {
+      "id": "change-pwa-install-affordance",
+      "heading": "端末への追加案内",
+      "body": "ホームへ端末追加の案内を追加しました。対応ブラウザが追加操作を提供した場合だけ、利用者がボタンを押して開始します。自動表示や追跡は行いません。一度開いた同一サイトの教材を利用時に保存しますが、約92 MBを一括保存せず、未訪問教材や保存削除後は通信が必要です。ローカルの合成イベントで表示契約を確認しましたが、実際のホーム画面追加と追加後起動は未確認です。",
+      "evidenceRefs": ["PWA_INSTALL_AFFORDANCE_AUDIT.md", "PWA_OFFLINE_AUDIT.md", "src/pwaInstallAffordance.mjs"]
+    },
+    {
+      "id": "change-beta-readiness-display",
+      "heading": "公開前チェックの状態表示",
+      "body": "更新履歴画面で、12件の公開前チェックをローカル証拠あり3、部分確認1、専門家確認待ち4、管理者確認待ち1、公開反映待ち3に分けて表示します。件数は合格率や公開可否を示さず、未確認範囲と次の操作をGo/No-Go台帳から読み取り専用で表示します。今回の追加で各基準の状態は変更していません。",
+      "evidenceRefs": ["BETA_READINESS_DISPLAY_AUDIT.md", "BETA_GO_NO_GO.json", "scripts/audit_beta_go_no_go_projection.mjs"]
+    },
+    {
+      "id": "change-navigation-mobile",
+      "heading": "ナビゲーション・小画面対応",
+      "body": "脳表・断面・ブロック・復習・共同制作・編集・操作ガイド・利用条件をhash付きの画面として整理し、小画面では専用の下部導線と一列表示を用意しました。",
+      "evidenceRefs": ["BETA_ROADMAP.md", "PRESENTATION_AUDIT.md", "app/page.tsx"]
+    },
+    {
+      "id": "change-inaccurate-meshes-removed",
+      "heading": "不正確な模式部品の除外",
+      "body": "海馬采・鉤は連続性を保てない手置き形状をβ候補の3Dから除外し、未収録として表示しています。旧模式乳頭体2資産も配布されますが、学習画面の代用表示には使用しません。",
+      "evidenceRefs": ["MEDIAL_TEMPORAL_AUDIT.md", "STRUCTURE_PROVENANCE.md", "app/page.tsx"]
+    },
+    {
+      "id": "change-mammillary-label",
+      "heading": "乳頭体ラベルの採用",
+      "body": "BigBrain水平連続断Z107–121からID39・40を画像誘導分節し、プロジェクト内で公開教材ラベルとして採用しました。通常クイズとPapez回路へ反映していますが、専門家レビューと付着境界の確認は未完了です。",
+      "evidenceRefs": ["OPTIC_PATHWAY_AUDIT.md", "STRUCTURE_PROVENANCE.md", "public/atlas/structure-provenance.json"]
+    },
+    {
+      "id": "change-ventricle-cavity-repair",
+      "heading": "脳室内の小さな未塗り補修",
+      "body": "三断面で同じ脳室ラベルに挟まれ、別構造と接しない内部欠損33 voxelだけを、プロジェクト内レビュー済みの教育用補修として採用しました。左側脳室14、右側脳室15、第三脳室4 voxelで、単純な黒背景の一括塗りや脳室境界の自動確定は行っていません。専門家レビューと研究用ground truthを意味しません。",
+      "evidenceRefs": ["VENTRICLE_CAVITY_AUDIT.md", "DATA_AND_LICENSES.md", "tests/ventricle-adoption.test.mjs"]
+    },
+    {
+      "id": "change-papez-provenance-stepper",
+      "heading": "Papez回路の由来別段階観察",
+      "body": "海馬・乳頭体・視床の既存断面ラベル、脳弓の模式3D、帯状回・海馬傍回・嗅内野のアトラス3Dを、由来を分けた6段階で観察できるようにしました。乳頭体は断面ラベルのみ、視床前部核は未分節と明示し、新しい経路線・mesh・voxelは追加していません。視覚路の同等表示はID36–38未分節のため保留しています。",
+      "evidenceRefs": ["PATHWAY_STEPPER_AUDIT.md", "BETA_ROADMAP.md", "src/pathwayStepper.mjs"]
+    },
+    {
+      "id": "change-orthogonal-audit",
+      "heading": "直交断照合基盤",
+      "body": "同一のBigBrain原画像・現行ラベル・端末内差分を水平・冠状・矢状断で照合できる基盤を追加しました。これは監査表示の基盤であり、未完了の解剖学的判断を自動確定するものではありません。",
+      "evidenceRefs": ["OPTIC_PATHWAY_AUDIT.md", "segmentation-patches/review/mammillary-bodies-orthogonal-objective-audit-2026-08-22.json", "BETA_ROADMAP.md"]
+    },
+    {
+      "id": "change-block-context-all-specimens",
+      "heading": "ブロック標本の位置確認",
+      "body": "教材内8ブロック標本で、収録済み標本メッシュを全脳内の位置目安として確認し、教材内代表断面へ切り替えられるようにしました。新しい形状、切断幅、摘出順、実習手順は追加しておらず、切り出し範囲と解剖学的境界の専門家レビューは未完了です。",
+      "evidenceRefs": ["BLOCK_CONTEXT_AUDIT.md", "BETA_ROADMAP.md", "public/atlas/specimen-blocks.json"]
+    },
+    {
+      "id": "change-block-priority-routing",
+      "heading": "ブロック標本の重点導線",
+      "body": "8ブロック標本のうち、ロードマップで先行改善対象としていた側脳室、レンズ核・投射線維、脈絡叢、内側側頭葉を「β重点4」、残る4標本を「発展観察4」として入口を整理しました。この区分は観察導線であり、実習頻度、由来、確度、専門家レビュー、品質の順位ではありません。全8標本と既存URL・機能を維持し、形状や境界は変更していません。",
+      "evidenceRefs": ["BLOCK_SPECIMEN_PRIORITY_AUDIT.md", "BETA_ROADMAP.md", "src/blockPriority.mjs"]
+    },
+    {
+      "id": "change-performance-local",
+      "heading": "性能測定",
+      "body": "ローカル本番ビルドを79件の性能マトリクスで測定し、79/79件が測定条件を通過しました。M2比較専用URL追加後の初回payloadもdesktop 1366×768のcanonical 27経路を確認し、27/27件が通過しました。通常の共同制作ページは比較資産を取得せず、専用URLだけが比較用3資産を読み込みます。これはローカルデスクトップChromeの記録であり、物理端末や公開回線の保証ではありません。",
+      "evidenceRefs": ["PERFORMANCE_AUDIT.md", "BETA_ROADMAP.md"]
+    },
+    {
+      "id": "change-routes-local",
+      "heading": "経路監査",
+      "body": "M2比較専用URLを含む27経路版はWindows Chromeのローカル検証で162/162件合格しました。公開URL、物理タッチ端末、別GPU・別ブラウザでの挙動は未確認です。",
+      "evidenceRefs": ["PRESENTATION_AUDIT.md", "BETA_ROADMAP.md", "BETA_STATUS_AUDIT.md"]
+    },
+    {
+      "id": "change-provenance-audit",
+      "heading": "由来監査",
+      "body": "講義行・表示面・由来・監修状態・クイズ適格性・既知の制限を機械可読な監査索引へ整理し、75 entries、51講義行、41件のクイズ正答対象（既存23件と模式3D pilot 18件）をアプリ実装と照合しました。専門家による最終確認を意味しません。",
+      "evidenceRefs": ["STRUCTURE_PROVENANCE.md", "LECTURE_COVERAGE_AUDIT.md", "public/atlas/structure-provenance.json"]
+    },
+    {
+      "id": "change-block-guided-observation",
+      "heading": "β重点4の部品確認ガイド",
+      "body": "β重点4の既存ブロック標本layerを画面上の部品確認順に1件ずつ表示し、最終段階だけ全layerを表示するガイドを追加しました。開始前の手動選択は終了・標本切替・workspace離脱・unmountで復元し、発展4には表示しません。解剖・摘出順、実習手順、由来、確度、専門家レビューの順位を示さず、mesh・voxel・label・plane・rotation・camera・color・provenanceは変更していません。PC Chromeでfocus4全件、active中の標本切替cleanup、発展4のguide非表示を確認しました。さらに390×768 coarse-touch相当で、側脳室4、レンズ核・投射線維7、脈絡叢3、内側側頭葉3の全single layer、4 final all、終了後manual復元を実タッチし、独立validator failure 0でした。物理端末・タッチ、公開URL、別browser／GPU、専門家レビューは未確認です。",
+      "evidenceRefs": ["BLOCK_GUIDED_OBSERVATION_AUDIT.md", "BETA_ROADMAP.md", "WINDOWS_HANDOFF.md", "PRESENTATION_AUDIT.md", "PERFORMANCE_AUDIT.md", "scripts/audit_block_guided_observation.mjs", "tests/block-guided-observation.test.mjs"]
+    },
+    {
+      "id": "change-content-accuracy-review",
+      "heading": "コンテンツ正確性レビューの反映",
+      "body": "公開教材の文言・分類・由来注記を、参照資料に基づくプロジェクト内レビューとして反映しました。視床下核（STN）は間脳の視床下域として扱い、関連するグループ見出しを「中脳・視床下域」「中脳核・視床下域」に整理しました。淡蒼球外節（GPe）は主に基底核内回路の中継・調節に関与し、内節（GPi）は主要な出力部であることを区別しました。尾状核頭部は側脳室前角の外側壁、体部は側脳室体部の外側、尾部は下角の上方・天井側を走るという部位関係と、第三脳室の側壁上部は視床、下部は視床下部に接することを注記しました。英見出しは「CORPUS CALLOSUM AND FORNIX」に統一し、脳表の5領域（中前頭回前部・中前頭回後部・鳥距溝周囲皮質・外側後頭皮質・眼窩前頭皮質）へ「CerebrA／Desikan系アトラス区画」の表示を付けました。構造ID、分節形状、座標、色、クイズ在庫は変更していません。これはプロジェクト内レビューの反映であり、専門家確認と解剖学的境界の確認は未完了です。所属機関による承認を意味しません。",
+      "evidenceRefs": ["CONTENT_ACCURACY_REVIEW.md", "tests/content-accuracy-review.test.mjs", "public/atlas/structure-provenance.json"]
+    }
+  ]
+}
