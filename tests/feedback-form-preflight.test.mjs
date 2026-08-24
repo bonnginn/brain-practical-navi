@@ -9,6 +9,7 @@ import {
   validateEmbeddedPreflightSubset,
   validatePreflightSource,
 } from "../scripts/audit_feedback_form_preflight.mjs";
+import {checkFeedbackPreflightGenerated, deriveFeedbackPreflightDescriptor} from "../scripts/generate_feedback_preflight_contract.mjs";
 
 const root = new URL("../", import.meta.url);
 const contract = JSON.parse(await readFile(new URL("feedback-form-contract.json", root), "utf8"));
@@ -25,7 +26,9 @@ test("contract preserves anonymous feedback and approved branching", () => {
   assert.equal(contract.form.items.length, 20);
   assert.deepEqual(contract.form.pages.map(page => page.key), ["route", "feedback", "collaboration"]);
   assert.deepEqual(contract.form.items[0].choices.map(choice => choice.goToPage), ["feedback", "collaboration", "collaboration"]);
-  assert.equal(contract.form.pages[1].navigationAfterPage, "SUBMIT");
+  assert.equal(contract.form.pages[1].defaultNavigation, "SUBMIT");
+  assert.equal(contract.form.items.every(item => typeof item.helpText === "string"), true);
+  assert.equal(contract.form.items.filter(item => item.choices).every(item => typeof item.showOtherOption === "boolean"), true);
 });
 
 test("contract validator rejects privacy, identity, upload, route, and release-label drift", () => {
@@ -48,26 +51,65 @@ test("contract validator rejects private Google targets", () => {
   assert.match(result.errors.join("\n"), /private URL or identifier/);
 });
 
+test("contract validator rejects incomplete help, other-option, and page navigation fields", () => {
+  const mutated = structuredClone(contract);
+  delete mutated.form.items[1].helpText;
+  delete mutated.form.items[2].showOtherOption;
+  mutated.form.pages[1].defaultNavigation = "CONTINUE";
+  const result = validateFeedbackFormContract(mutated);
+  assert.equal(result.ok, false);
+  assert.match(result.errors.join("\n"), /helpText|showOtherOption|branching and feedback submission/);
+});
+
 test("preflight source is read-only and emits sanitized mismatch evidence", () => {
   const result = validatePreflightSource(preflight);
   assert.equal(result.ok, true, result.errors.join("; "));
   assert.match(preflight, /mismatchCodes/);
   assert.doesNotMatch(preflight, /getResponses\(|deleteResponse\(|setTitle\(|getEditUrl\(|getPublishedUrl\(/);
+  assert.match(preflight, /catch \(error\)[\s\S]*STORED_TARGET_UNAVAILABLE/);
+  assert.match(preflight, /actualType === expected\.type/);
+  assert.match(preflight, /expectedChoice === undefined[\s\S]*ITEM_CHOICE_EXTRA_/);
 });
 
-test("embedded preflight subset is derived from the machine-readable contract", () => {
+test("embedded full preflight descriptor is derived from the machine-readable contract", () => {
   assert.equal(validateEmbeddedPreflightSubset(contract, preflight).ok, true);
-  const mutated = preflight.replace("'問題点・提案内容'", "'別の問題点'");
-  const result = validateEmbeddedPreflightSubset(contract, mutated);
-  assert.equal(result.ok, false);
-  assert.match(result.errors.join("\n"), /itemTitles differs/);
+  assert.equal(checkFeedbackPreflightGenerated().matches, true);
+  const mutations = [
+    ["\"問題点・提案内容\"", "\"別の問題点\""],
+    ["\"どこが、どのように見える／動くかを記載してください。\"", "\"help drift\""],
+    ["\"改善すると分かりやすくなる\"", "\"choice drift\""],
+    ["\"showOtherOption\": true", "\"showOtherOption\": false"],
+    ["\"precedingDefaultNavigation\": \"SUBMIT\"", "\"precedingDefaultNavigation\": \"CONTINUE\""],
+    ["\"confirmationMessage\": \"送信ありがとうございました。", "\"confirmationMessage\": \"変更しました。"],
+  ];
+  for (const [from, to] of mutations) {
+    const mutated = preflight.replace(from, to);
+    const result = validateEmbeddedPreflightSubset(contract, mutated);
+    assert.equal(result.ok, false, from);
+    assert.match(result.errors.join("\n"), /full descriptor differs/);
+  }
 });
 
-test("preflight validator rejects response access, mutation, and private URL output", () => {
-  const unsafe = `${preflight}\nform.getResponses();\nform.setTitle('changed');\nconsole.log('https://docs.google.com/spreadsheets/d/private/edit');`;
-  const result = validatePreflightSource(unsafe);
-  assert.equal(result.ok, false);
-  assert.match(result.errors.join("\n"), /getResponses|setTitle|private URL or identifier/);
+test("derived full descriptor covers every exact comparison surface", () => {
+  const descriptor = deriveFeedbackPreflightDescriptor(contract);
+  assert.equal(descriptor.items.length, 20);
+  assert.equal(descriptor.pageBreaks.length, 2);
+  assert.equal(descriptor.items.flatMap(item => item.choices ?? []).length > 40, true);
+  assert.equal(descriptor.items.filter(item => item.showOtherOption).length, 2);
+  assert.equal(descriptor.description, contract.form.description);
+  assert.equal(descriptor.operationsSheet.spreadsheetTitle, "脳実習ナビ｜フォーム回答・運用管理");
+  for (const token of ["getConfirmationMessage(", "getHelpText(", "hasOtherOption(", "getPageNavigationType(", "getGotoPage(", "getName("]) assert.match(preflight, new RegExp(token.replace("(", "\\(")));
+  assert.match(preflight, /expected\.type === 'MULTIPLE_CHOICE'[\s\S]*ITEM_NAVIGATION_[\s\S]*ITEM_DESTINATION_/);
+});
+
+test("preflight validator rejects response access, mutations, and private URL output", () => {
+  for (const injection of ["form.getResponses();", "form.setTitle('changed');", "item.setHelpText('changed');", "sheet.getRange('A1').setValue('changed');", "item.showOtherOption(true);"]) {
+    const result = validatePreflightSource(`${preflight}\n${injection}`);
+    assert.equal(result.ok, false, injection);
+  }
+  const privateResult = validatePreflightSource(`${preflight}\nconsole.log('https://docs.google.com/spreadsheets/d/private/edit');`);
+  assert.equal(privateResult.ok, false);
+  assert.match(privateResult.errors.join("\n"), /private URL or identifier/);
 });
 
 test("existing-form reuse is read-only and gated by the preflight", async () => {

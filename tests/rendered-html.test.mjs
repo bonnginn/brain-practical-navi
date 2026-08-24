@@ -2178,7 +2178,7 @@ test("ships a reproducible Google Form generator for feedback and collaborators"
   assert.match(script, /VITE_FEEDBACK_FORM_URL/);
   assert.doesNotMatch(script, /addFileUploadItem/);
   assert.match(guide, /リンクを知っている全員/);
-  assert.match(guide, /CONTACT_TEXT/);
+  assert.match(guide, /CONFIG\.FORM_DESCRIPTION/);
   assert.match(guide, /現行フォームのタイトル・説明・保存期間は引き続き「α版」表記/);
   assert.match(guide, /回答の作成・送信・削除は行っていません/);
 });

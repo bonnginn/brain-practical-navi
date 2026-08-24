@@ -5,7 +5,7 @@
  * 1. https://script.google.com/ で「新しいプロジェクト」を作る。
  * 2. Code.gs の内容をすべて削除し、このファイルを貼り付ける。
  * 3. 同じプロジェクトへ preflight_google_feedback_form.gs も追加する。
- * 4. CONFIG.CONTACT_TEXT と CONFIG.RETENTION_TEXT を確認する。
+ * 4. CONFIG.FORM_DESCRIPTION を確認する。
  * 5. createBrainPracticalFeedbackForm を実行し、Googleの権限確認を許可する。
  * 6. 実行ログに出た EDIT_URL、RESPONDER_URL、SHEET_URL を開く。
  *
@@ -16,9 +16,16 @@
 var CONFIG = {
   FORM_TITLE: '脳実習ナビ｜修正提案・共同制作フォーム',
   RESPONSE_SHEET_TITLE: '脳実習ナビ｜フォーム回答・運用管理',
-  PROJECT_NAME: '脳実習ナビ',
-  CONTACT_TEXT: '不具合・修正提案：https://github.com/bonnginn/brain-practical-navi/issues',
-  RETENTION_TEXT: '保存期間：教材改善と共同制作の連絡に必要な期間。不要になった連絡先は削除します。',
+  FORM_DESCRIPTION: [
+    '脳実習ナビは、脳解剖実習の予習・復習を補助する非営利の教育用試作教材です。',
+    '神経解剖学的な誤り、構造表示のずれ、操作性の問題、共同制作の提案を募集しています。',
+    '',
+    '患者情報、献体者・学生を特定できる情報、実習標本の写真、公開許諾のない講義・教科書・アトラス図版は送信しないでください。',
+    '修正提案は匿名で送信できます。氏名・所属・連絡先は、共同制作または返信を希望する場合だけ任意で入力してください。',
+    '回答は教材改善、権利確認、希望者への共同制作の連絡にのみ使用し、本人の確認なく所属や連絡先を公開しません。',
+    '保存期間：教材改善と共同制作の連絡に必要な期間。不要になった連絡先は削除します。',
+    '不具合・修正提案：https://github.com/bonnginn/brain-practical-navi/issues',
+  ].join('\n'),
 };
 
 function createBrainPracticalFeedbackForm() {
@@ -46,7 +53,7 @@ function createBrainPracticalFeedbackForm() {
 
   var form = FormApp.create(CONFIG.FORM_TITLE, true);
   form
-    .setDescription(buildDescription_())
+    .setDescription(CONFIG.FORM_DESCRIPTION)
     .setCollectEmail(false)
     .setLimitOneResponsePerUser(false)
     .setProgressBar(true)
@@ -238,19 +245,6 @@ function collaborationAcknowledgements_() {
     'コード・教材・セグメンテーション等を提出する場合は、自分に提出権限があり、指定ライセンスとDCOを確認します。',
     '患者情報、実習標本の写真、第三者の講義・教科書図版を提出しません。',
   ];
-}
-
-function buildDescription_() {
-  return [
-    CONFIG.PROJECT_NAME + 'は、脳解剖実習の予習・復習を補助する非営利の教育用試作教材です。',
-    '神経解剖学的な誤り、構造表示のずれ、操作性の問題、共同制作の提案を募集しています。',
-    '',
-    '患者情報、献体者・学生を特定できる情報、実習標本の写真、公開許諾のない講義・教科書・アトラス図版は送信しないでください。',
-    '修正提案は匿名で送信できます。氏名・所属・連絡先は、共同制作または返信を希望する場合だけ任意で入力してください。',
-    '回答は教材改善、権利確認、希望者への共同制作の連絡にのみ使用し、本人の確認なく所属や連絡先を公開しません。',
-    CONFIG.RETENTION_TEXT,
-    CONFIG.CONTACT_TEXT,
-  ].join('\n');
 }
 
 function prepareOperationsSheet_(spreadsheet, form) {
