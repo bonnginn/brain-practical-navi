@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
+import { SURFACE_ATLAS_NOMENCLATURE_COMPACT_LABEL, SURFACE_ATLAS_NOMENCLATURE_KEYS, SURFACE_ATLAS_NOMENCLATURE_LABEL, surfaceAtlasNomenclatureCompactLabel, surfaceAtlasNomenclatureLabel } from "../src/surfaceAtlasNomenclature.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const [page, provenanceText, review] = await Promise.all([
@@ -46,6 +47,34 @@ test("脳表5領域のアトラス由来注記は利用者向けにも表示す�
   }
   assert.match(page, /国際標準Terminologia Neuroanatomica（FIPAT／TNA）の確定用語だとは主張しません/);
   assert.match(page, /標準ラテン語への置換は行っていません/);
+});
+
+test("脳表アトラス区画マーカーは指定5項目だけに限定し、台帳と対応する", () => {
+  const expected = ["rostralMiddleFrontal", "caudalMiddleFrontal", "pericalcarine", "orbitofrontal", "lateralOccipital"];
+  assert.deepEqual([...SURFACE_ATLAS_NOMENCLATURE_KEYS], expected);
+  assert.equal(surfaceAtlasNomenclatureLabel("superiorFrontal"), null);
+  assert.equal(surfaceAtlasNomenclatureLabel("pericalcarine"), SURFACE_ATLAS_NOMENCLATURE_LABEL);
+  const atlasRows = provenance.entries.filter(entry => entry.appKeys?.some(key => expected.includes(key)));
+  assert.deepEqual(atlasRows.flatMap(entry => entry.appKeys ?? []).filter(key => expected.includes(key)), expected);
+  for (const key of expected) {
+    const row = atlasRows.find(entry => entry.appKeys?.includes(key));
+    assert.ok(row, `missing provenance row for ${key}`);
+    assert.deepEqual(row.appKeys, [key]);
+    assert.deepEqual(row.representations, ["atlas-surface"]);
+    assert.deepEqual(row.learnerSurfaces, ["surface"]);
+    assert.equal(row.projectReview, "pending");
+    assert.equal(row.expertReview, "pending");
+    assert.equal(row.quizEligibility, "none");
+    assert.match(row.knownLimitations.join(" "), /CerebrA／Desikan-style/);
+    assert.doesNotMatch(page, new RegExp(`target:"${key}"`));
+  }
+  assert.equal(surfaceAtlasNomenclatureCompactLabel("pericalcarine"), SURFACE_ATLAS_NOMENCLATURE_COMPACT_LABEL);
+  assert.equal(surfaceAtlasNomenclatureCompactLabel("superiorFrontal"), null);
+  assert.match(page, /surfaceAtlasNomenclatureLabel\(key\)/);
+  assert.match(page, /freeObservationAtlasNomenclatureLabel/);
+  assert.match(page, /surfaceAtlasNomenclatureCompactLabel/);
+  assert.doesNotMatch(page, /［アトラス区画］/);
+  assert.match(page, /surfaceAtlasNomenclatureMarker/);
 });
 
 test("来歴台帳の該当項目にも分類・機能・命名の注意を残す", () => {

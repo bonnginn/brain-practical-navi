@@ -16,6 +16,8 @@
 
 視床下核の分類を「間脳の視床下域」として表示し、quiz／構造グループの見出しを「中脳・視床下域」「中脳核・視床下域」へ整理した。淡蒼球は外節（GPe）の内部中継・調節と内節（GPi）の主要出力を区別し、側脳室と尾状核、第三脳室の位置関係、脳梁・脳弓標本の英見出し、脳表5領域のCerebrA／Desikan-style由来注記も同期した。詳細は [CONTENT_ACCURACY_REVIEW.md](CONTENT_ACCURACY_REVIEW.md) に記録する。これは資料照合に基づくプロジェクト内レビューであり、専門家レビュー完了・機関承認・解剖学的境界の確定を意味しない。`expertReview` と該当項目のGo/No-Goは未完了のまま維持する。
 
+2026-08-24 部分実装: 脳表の5つのCerebrA／Desikan-style区画（中前頭回前部・中前頭回後部・鳥距溝周囲皮質・眼窩前頭皮質・外側後頭皮質）について、脳表の同定ボタン、自由観察の検索結果・構造索引・選択カード・3D選択表示に「CerebrA／Desikan系アトラス区画」または「［アトラス区画］」を表示する固定マーカーを追加した。来歴台帳の5行、`atlas-surface`、`quizEligibility: none`、project／expert review pendingとの対応を静的テストで確認した。Chrome 151のローカル通常buildで5検索結果、対象外の中心前回、左右外側面・下面の同定ボタン、構造索引、選択カード、3D選択表示を確認した。390 px指定（実効`innerWidth` 295、`clientWidth` / `scrollWidth` 284）でも検索マーカーは3行に折り返して全文表示され、横overflow、loader、UI errorは0件だった。最終canonical route監査も27経路×3幅×direct／reload＝162/162件に合格し、missing／duplicate／fail、console／request／UI error、残留loader、横overflow、WebGL fallbackは0件だった。これは表示由来の明示を強める部分実装であり、境界・形状の解剖学的検証、専門家レビュー、機関承認、クイズ在庫の変更を意味しない。
+
 ### 2026-08-23 最終ローカル実ブラウザ確認
 
 Chrome 151のin-app browserで`http://127.0.0.1:4201`を確認し、review panel 75/75、filter surface54／sections16／blocks30／quiz21／all75、app-onlyカードの日本語見出し（縁上回、II 視神経・視索）、自由観察の縁上回「試作」＋CerebrA詳細、`cn2`／`opticChiasm`の「模式」、block choroid plexusの「模式」＋未保証説明を確認した。route auditは`work/browser-audit/beta-route-audit-learner-provenance-final-2026-08-23.json`に保存し、26経路×3幅×direct/reload＝156/156、`allPassed: true`。390 px設定の`clientWidth`は375 pxで、overflow／error／loader／WebGL fallbackはなかった。これは表示回帰の確認であり、解剖学的妥当性の検証ではない。公開URL、物理端末、別GPU、専門家レビューは未確認である。

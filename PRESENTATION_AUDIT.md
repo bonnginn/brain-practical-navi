@@ -16,6 +16,8 @@ Chrome 151のローカルproduction previewで、脳表・水平断・自由観�
 
 視床下核を「間脳の視床下域」と明示し、quiz／構造グループでは「中脳・視床下域」「中脳核・視床下域」と表記した。淡蒼球はGPe（内部の中継・調節）とGPi（主要出力）を分けて説明し、側脳室と尾状核、第三脳室の上下関係、脳梁・脳弓標本の英見出しも同期した。脳表の中前頭回前部・中前頭回後部・鳥距溝周囲皮質・外側後頭皮質・眼窩前頭皮質はCerebrA／Desikan-styleの教材対応ラベルであり、併記LatinをFIPAT／TNA標準語とは扱わない注意を画面と台帳へ追加した。これは表示文言の根拠整理で、境界・形状の解剖学的検証や専門家レビュー完了を示さない。詳細は [CONTENT_ACCURACY_REVIEW.md](CONTENT_ACCURACY_REVIEW.md) と [STRUCTURE_PROVENANCE.md](STRUCTURE_PROVENANCE.md) を参照。
 
+2026-08-24、上記5領域だけに共通の「CerebrA／Desikan系アトラス区画」マーカーを追加した。Chrome 151のローカル通常production preview `http://127.0.0.1:4335/` で、自由観察の5検索結果、構造索引、選択カード、3D選択表示、左右外側面・下面の同定ボタンを確認し、対象外の中心前回には表示されないことも確認した。390 px指定時は実効`innerWidth` 295、`clientWidth` / `scrollWidth` 284/284で、検索結果の長いマーカーは省略されず3行に折り返し、横overflow、残留loader、UI errorは0件だった。同じ最終通常buildのcanonical route監査は162/162件に合格し、missing／duplicate／fail、console／request／UI error、残留loader、横overflow、WebGL fallbackは0件だった。結果はローカル作業用 `work/browser-audit/beta-route-audit-atlas-nomenclature-2026-08-24.json` に保存した。名称、Latin、ID、色、形状、クイズ在庫、来歴・レビュー状態は変更していない。
+
 ## 2026-08-23 数値読込進捗
 
 断面画像・手動ラベル・3Dメッシュの読込表示へ、実受信byte、総量、整数％を追加した。総量を取得できない場合は「総量不明」と受信済みbyteだけを示し、推定％を作らない。受信後の展開・解析を区別し、再試行時は値を初期化する。数値は読み上げ用 `aria-valuetext` と進捗バーへ同期し、狭幅では折り返す。
