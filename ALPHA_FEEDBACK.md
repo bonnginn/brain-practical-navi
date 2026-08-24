@@ -8,11 +8,11 @@ Windowsのログインしていないブラウザで現在の回答者URLを開�
 
 2026-08-24、ログアウト状態のCodex内蔵ブラウザで回答者URLを再確認しました。フォームは公開状態で開き、Googleへのログインは「作業内容を保存」する任意導線、1/3ページの匿名分岐とGitHub Issuesへの問い合わせリンクも表示されました。回答の作成・送信・削除は行っていません。
 
-現行フォームのタイトル・説明・保存期間は引き続き「α版」表記であり、β候補の公開運用とは未同期です。再発防止のため、下記生成スクリプトは「教育用試作教材」という版名非依存の表現へ変更しました。管理者が既存フォームと回答シートを保持したまま同スクリプトを再実行し、タイトル・説明・共同制作確認文を同期した後、ログアウト状態の全3ページ、テスト回答、Formsと回答シート双方からの削除を確認する必要があります。
+現行フォームのタイトル・説明・保存期間は引き続き「α版」表記であり、β候補の公開運用とは未同期です。再発防止のため、下記生成スクリプトは「教育用試作教材」という版名非依存の表現へ変更しました。2026-08-24には [feedback-form-contract.json](feedback-form-contract.json) と読み取り専用preflightも追加しました。既存フォームの構造または表記に差分がある間は自動更新を停止するため、管理者はまず差分コードを確認し、内容を確認した移行の後に、ログアウト状態の全3ページ、テスト回答、Formsと回答シート双方からの削除を確認する必要があります。
 
 ## 自動生成（推奨）
 
-`scripts/create_google_feedback_form.gs` をGoogle Apps Scriptで1回実行すると、次をまとめて作成します。
+新規作成時は `scripts/create_google_feedback_form.gs` をGoogle Apps Scriptで1回実行すると、次をまとめて作成します。既存フォームの点検と再利用には、同じApps Scriptプロジェクトへ `scripts/preflight_google_feedback_form.gs` も追加します。
 
 - 匿名の修正提案と共同制作希望を分けるページ分岐
 - 以下に記載した質問項目
@@ -23,14 +23,15 @@ Windowsのログインしていないブラウザで現在の回答者URLを開�
 手順:
 
 1. <https://script.google.com/> で新しいプロジェクトを作る。
-2. `Code.gs` の内容を `scripts/create_google_feedback_form.gs` へ置き換える。
+2. `Code.gs` の内容を `scripts/create_google_feedback_form.gs` へ置き換え、別ファイルとして `scripts/preflight_google_feedback_form.gs` も追加する。
 3. 冒頭の `CONFIG.CONTACT_TEXT` と `CONFIG.RETENTION_TEXT` を確認する。
-4. 関数 `createBrainPracticalFeedbackForm` を選んで実行し、FormsとSheetsへの権限を許可する。
-5. 実行ログの `EDIT_URL` を開き、質問文と個人情報の説明を確認する。
-6. フォーム右上の「公開」または「共有」から、回答者の一般アクセスを「リンクを知っている全員」にする。
-7. `RESPONDER_URL` を `.env.local` の `VITE_FEEDBACK_FORM_URL` に設定してアプリを再起動する。
+4. 既存フォームを再利用する場合は、先に `preflightBrainPracticalFeedbackForm` を実行し、主要な設定・題名・型・必須性・分岐の差分コードを確認する。
+5. 新規作成時に `createBrainPracticalFeedbackForm` を実行し、FormsとSheetsへの権限を許可する。既存フォームが登録済みの場合、この関数は自動更新せず、preflight後に既存URLを管理者ログへ再表示するだけである。
+6. 実行ログの `EDIT_URL` を開き、質問文と個人情報の説明を確認する。
+7. フォーム右上の「公開」または「共有」から、回答者の一般アクセスを「リンクを知っている全員」にする。
+8. `RESPONDER_URL` を `.env.local` の `VITE_FEEDBACK_FORM_URL` に設定してアプリを再起動する。
 
-同じApps Scriptプロジェクトで再実行した場合は既存フォームを重複作成せず、回答とURLを維持したまま、タイトル・説明・共同制作確認文を版名非依存の「教育用試作教材」表記へ同期してURLを再表示します。作り直す場合だけ `resetStoredFormIds` を実行します。この関数は既存フォームや回答を削除しません。
+同じApps Scriptプロジェクトで再実行した場合は、既存フォームを重複作成する前に読み取り専用preflightを実行します。主要点が一致した場合も既存URLを管理者ログへ再表示するだけで、フォームや回答シートを自動更新しません。差分があれば停止します。現在の「α版」表記を含む既存フォームは差分になるため、管理者が全質問・選択肢・説明を確認できる移行手順を用意するまで自動同期しません。作り直す場合だけ `resetStoredFormIds` を実行します。この関数は既存フォームや回答を削除しません。詳細は [FEEDBACK_PREFLIGHT_AUDIT.md](FEEDBACK_PREFLIGHT_AUDIT.md) を参照してください。
 
 Google Formsの現在の仕様では、フォームが公開済みでも回答者のアクセス範囲を別途確認する必要があります。Apps Scriptはフォームを公開状態で作りますが、組織のGoogle Workspace設定によっては外部回答者が制限されるため、手順6を省略しないでください。
 

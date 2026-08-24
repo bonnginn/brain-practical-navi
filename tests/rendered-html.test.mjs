@@ -2170,9 +2170,8 @@ test("ships a reproducible Google Form generator for feedback and collaborators"
   assert.match(script, /routeItem\.createChoice\('修正提案・不具合・使いにくさを送る', feedbackPage\)/);
   assert.match(script, /routeItem\.createChoice\('共同制作者として参加したい', collaborationPage\)/);
   assert.match(script, /FormApp\.PageNavigationType\.SUBMIT/);
-  assert.match(script, /refreshExistingForm_\(existingForm, existingSheet\)/);
-  assert.match(script, /form\.setTitle\(CONFIG\.FORM_TITLE\)\.setDescription\(buildDescription_\(\)\)/);
-  assert.match(script, /spreadsheet\.rename\(CONFIG\.RESPONSE_SHEET_TITLE\)/);
+  assert.match(script, /preflightBrainPracticalFeedbackForm\(\)/);
+  assert.doesNotMatch(script, /function refreshExistingForm_/);
   assert.match(script, /FORM_TITLE: '脳実習ナビ｜修正提案・共同制作フォーム'/);
   assert.match(script, /非営利の教育用試作教材です/);
   assert.doesNotMatch(script, /α版|公開α|β版/);
