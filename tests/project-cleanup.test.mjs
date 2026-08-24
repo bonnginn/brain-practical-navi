@@ -52,3 +52,31 @@ test("active workflows use the current Node 24 action generation", async () => {
   assert.match(pages, /package-manager-cache: false/);
   assert.doesNotMatch(`${ci}\n${pages}`, /actions\/(?:checkout|setup-node)@v4|actions\/setup-python@v5/);
 });
+
+test("active workflows install the exact npm lockfile graph", async () => {
+  const [pkg, lock, ci, pages] = await Promise.all([
+    readFile(new URL("package.json", root), "utf8").then(JSON.parse),
+    readFile(new URL("package-lock.json", root), "utf8").then(JSON.parse),
+    readFile(new URL(".github/workflows/ci.yml", root), "utf8"),
+    readFile(new URL(".github/workflows/pages.yml", root), "utf8"),
+  ]);
+  assert.equal(lock.lockfileVersion, 3);
+  assert.equal(lock.requires, true);
+  assert.equal(lock.name, pkg.name);
+  assert.equal(lock.version, pkg.version);
+  assert.equal(lock.packages[""].name, pkg.name);
+  assert.equal(lock.packages[""].version, pkg.version);
+  assert.equal(lock.packages[""].license, pkg.license);
+  assert.deepEqual(lock.packages[""].dependencies, pkg.dependencies);
+  assert.deepEqual(lock.packages[""].devDependencies, pkg.devDependencies);
+  assert.ok(Object.keys(lock.packages).length > 1);
+  for (const [path, entry] of Object.entries(lock.packages).filter(([path]) => path)) {
+    assert.equal(typeof entry.version, "string", `${path} must pin a version`);
+    assert.match(entry.resolved, /^https:\/\/registry\.npmjs\.org\//, `${path} must use the npm registry`);
+    assert.match(entry.integrity, /^sha512-/, `${path} must pin SHA-512 integrity`);
+  }
+  for (const [workflow, source] of [["ci", ci], ["pages", pages]]) {
+    assert.match(source, /run: npm ci --no-audit --no-fund/, `${workflow} must install from package-lock.json`);
+    assert.doesNotMatch(source, /run:\s*npm install\b/, `${workflow} must not resolve a new dependency graph`);
+  }
+});
