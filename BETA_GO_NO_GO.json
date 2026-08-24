@@ -358,6 +358,9 @@
         "BETA_READINESS_DISPLAY_AUDIT.md",
         "app/beta-status.json",
         "app/beta-go-no-go-display.json",
+        "BETA_CURRENT_SNAPSHOT.json",
+        "scripts/audit_current_beta_snapshot.mjs",
+        "tests/current-beta-snapshot.test.mjs",
         "BETA_ROADMAP.md"
       ],
       "localArtifactRefs": [],

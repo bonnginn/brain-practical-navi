@@ -30,6 +30,18 @@ Chrome 151の通常production previewで、direct表示の5 group・12 item、�
 
 同じ最終buildでcanonical 27経路×3幅×direct／reload＝162/162件、cold初回payload 27/27件に合格した。全自動テスト347/347、TypeScript型検査、通常／Pages本番build、`git diff --check`も成功した。機械結果は `work/browser-audit/beta-route-audit-readiness-display-2026-08-24.json` と `work/performance/initial-route-payload-readiness-display-2026-08-24.json` に保存した。これらはローカル作業用で配布しない。
 
+## 2026-08-24 現行snapshot境界の固定
+
+`BETA_CURRENT_SNAPSHOT.json` と `scripts/audit_current_beta_snapshot.mjs` を、PWAと外部確認境界の機械可読な現在値として同期した。PWAのnormal baseはID `normal`・`/`、Pages baseはID `pages`・`/brain-practical-navi/`（いずれもexpected pathnameはbase path）で、actionは次の順に固定する: `online-shell`、`online-home`、`online-visited-data`、`offline-targets`、`offline-visited-direct`、`offline-visited-reload`、`offline-navigation-fallback`、`offline-unvisited-error`、`online-restore`、`retry-unvisited`。hostは `127.0.0.1` である。
+
+このPWA証拠は、監査runnerが所有するloopback静的serverを停止し、`ECONNREFUSED`を確認し、同じhost／portへ再listenする境界に限られる。network policyは `serverControlled: true`、`pageNavigatorState: "observed-only"`、`offlineBadgeRequired: false`、`ordinaryHttpCache: "clear-and-disable"`、`cacheStoragePreserved: true`、`networkEmulation: false`、`serviceWorkerInterception: false`。snapshotの`pwa.blockerCount`は0だが、`reportedEvidence.status`は `documented-not-recomputed` のままであり、実測成果物を自動再計算済みとは表現しない。
+
+同snapshotの構造化`unverifiedBoundaries`は、全6件を`status: "unverified"`として記録する。専門家レビュー、公開URL／deployment、物理端末、管理者運用、物理／OSネットワーク断、インストール済みPWA・ホーム画面起動を対象とし、expert／administrator／deploymentのstate・blockingAuthority・unprovenScopeは該当する現行Go／No-Go台帳criterion 11／10／12から導出し、物理・PWAの境界は現行PWA監査節と引き継ぎsection 9から確認する。これらは公開URL、物理端末、実インストール、専門家レビュー、管理者確認の完了を意味しない。
+
+criterion 10の追加preflight証拠は `BETA_GO_NO_GO.json` へ既に反映済みだったが、配布projectionが同期していなかったため、`app/beta-go-no-go-display.json` を台帳から再生成した。配布projectionを直接読み込む回帰テストも追加し、同様のprojection driftを監査で検出できるようにした。Go／No-Goのstateと件数は従来どおり `proven-local: 3`、`partial-local: 1`、`expert-blocked: 4`、`administrator-blocked: 1`、`deployment-blocked: 3`で、criterion 12は`deployment-blocked`のまま維持する。
+
+この更新後、通常production preview `http://127.0.0.1:4346/#workspace/status` を親環境で確認した。PC相当表示は実効 `970×545`、documentのclient／scrollは`970/970`。requested `390×768`のin-app表示は実効inner `295×582`、document `284/284`、overlay `267/267`、feedback article `203/203`で、根拠表示は画面内にあり、loader／UI errorは0件だった。Pages buildは成功したが、Pagesのliveブラウザ表示は確認していない。
+
 ## 未完了
 
 - 公開URLへの反映と公開環境でのdirect／reload

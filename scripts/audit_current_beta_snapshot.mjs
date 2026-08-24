@@ -7,7 +7,12 @@ import { auditBetaGoNoGo, STATE_ENUM } from "./audit_beta_go_no_go.mjs";
 import { BETA_AUDIT_PHASES, BETA_AUDIT_ROUTES, BETA_AUDIT_VIEWPORTS } from "./audit_beta_routes.mjs";
 import { auditLearnerProvenance } from "./audit_learner_provenance.mjs";
 import { auditNeurovascularQuiz, parseNeurovascularQuizInventory } from "./audit_neurovascular_quiz.mjs";
-import { PWA_AUDIT_ACTION_NAMES, PWA_AUDIT_BASES } from "./audit_pwa_offline_browser.mjs";
+import {
+  PWA_AUDIT_ACTION_NAMES,
+  PWA_AUDIT_BASES,
+  PWA_DEFAULT_HOST,
+  PWA_NETWORK_POLICY,
+} from "./audit_pwa_offline_browser.mjs";
 import { auditQuizGranularity, parseQuizGranularity } from "./audit_quiz_granularity.mjs";
 import { LEARNER_PROVENANCE_MAPPINGS } from "../src/learnerProvenance.mjs";
 
@@ -19,6 +24,69 @@ export const SNAPSHOT_DATE = "2026-08-24";
 export const SNAPSHOT_TOOL = "scripts/audit_current_beta_snapshot.mjs";
 export const WINDOWS_HANDOFF_RELATIVE_PATH = "WINDOWS_HANDOFF.md";
 export const WINDOWS_HANDOFF_BASELINE = "dd17284 Make feedback preflight contract exact";
+export const SNAPSHOT_PWA_BLOCKER_COUNT = 0;
+export const SNAPSHOT_PWA_RUNNER_BOUNDARY = Object.freeze({
+  owner: "pwa-audit-runner",
+  host: PWA_DEFAULT_HOST,
+  scope: "loopback",
+  method: "runner-owned-static-server-stop",
+  tcpFailure: "ECONNREFUSED",
+  samePortRelisten: true,
+});
+export const SNAPSHOT_PWA_NON_EVIDENCE = Object.freeze({
+  physicalOrOsNetworkDisconnect: Object.freeze({
+    status: "unverified",
+    boundary: "physical-or-os-network-disconnect",
+  }),
+  installedPwaAndHomeScreenLaunch: Object.freeze({
+    status: "unverified",
+    boundary: "installed-pwa-and-home-screen-launch",
+  }),
+});
+export const SNAPSHOT_UNVERIFIED_BOUNDARIES = Object.freeze([
+  Object.freeze({
+    id: "expert-review",
+    criterionId: "criterion-11-expert-required-scope-review",
+    expectedState: "expert-blocked",
+    status: "unverified",
+    authority: "neuroanatomy expert reviewer",
+    boundary: "anatomical validity, boundaries, adoption, and expert review records",
+  }),
+  Object.freeze({
+    id: "deployment-public-url",
+    criterionId: "criterion-12-publish-known-limitations",
+    expectedState: "deployment-blocked",
+    status: "unverified",
+    authority: "deployment operator / public host maintainer",
+    boundary: "public URL reflection and public-environment route behavior",
+  }),
+  Object.freeze({
+    id: "physical-devices",
+    status: "unverified",
+    authority: "physical-device test operator",
+    boundary: "physical PC, tablet, smartphone, touch input, GPU, and browser behavior",
+  }),
+  Object.freeze({
+    id: "administrator-operations",
+    criterionId: "criterion-10-feedback-operations",
+    expectedState: "administrator-blocked",
+    status: "unverified",
+    authority: "administrator / feedback-channel maintainer",
+    boundary: "rights documents, external feedback operations, and publication-screen operations",
+  }),
+  Object.freeze({
+    id: "physical-os-networking",
+    status: "unverified",
+    authority: "physical-network/OS test operator",
+    boundary: "physical or OS-level network disconnect; runner-owned loopback server stop is not this evidence",
+  }),
+  Object.freeze({
+    id: "installed-pwa",
+    status: "unverified",
+    authority: "physical-device/PWA test operator",
+    boundary: "actual installation, home-screen addition, and post-install launch",
+  }),
+]);
 
 const PROVENANCE_RELATIVE_PATH = "public/atlas/structure-provenance.json";
 const PAGE_RELATIVE_PATH = "app/page.tsx";
@@ -42,9 +110,11 @@ const AUTHORITATIVE_SOURCES = Object.freeze([
   PAGE_RELATIVE_PATH,
   "scripts/audit_beta_routes.mjs",
   "BETA_GO_NO_GO.json",
+  "BETA_GO_NO_GO_AUDIT.md",
   "scripts/audit_pwa_offline_browser.mjs",
   PWA_AUDIT_RELATIVE_PATH,
   "PWA_INSTALL_AFFORDANCE_AUDIT.md",
+  "BETA_READINESS_DISPLAY_AUDIT.md",
   OPTIC_AUDIT_RELATIVE_PATH,
   PROVENANCE_NOTES_RELATIVE_PATH,
   ...SNAPSHOT_MARKER_DOCUMENTS.filter(document => document !== PROVENANCE_NOTES_RELATIVE_PATH),
@@ -191,18 +261,53 @@ function derivePwaFacts(rootDir) {
   const baseCount = PWA_AUDIT_BASES.length;
   const actionsPerBase = PWA_AUDIT_ACTION_NAMES.length;
   const expectedChecks = baseCount * actionsPerBase;
-  const currentSection = markdownSection(auditText, "## 2026-08-24 端末追加導線後の再監査");
-  const currentEvidenceDocumented = /通常[／/]Pages buildでserver-unavailability監査/.test(currentSection)
-    && /合計20\/20/.test(currentSection)
-    && /blocker\s*0/.test(currentSection);
+  const baseIdentities = PWA_AUDIT_BASES.map(base => ({
+    id: base.id,
+    basePath: base.basePath,
+    expectedPathname: base.expectedPathname,
+  }));
+  const actionNames = [...PWA_AUDIT_ACTION_NAMES];
+  if (PWA_DEFAULT_HOST !== "127.0.0.1") throw new Error("PWA audit default host must remain the loopback address 127.0.0.1");
+  if (baseIdentities.length !== baseCount || actionNames.length !== actionsPerBase) {
+    throw new Error("PWA audit base/action constants disagree with their matrix counts");
+  }
+  const currentSection = markdownSection(auditText, "## 2026-08-24 コミット63e6974再監査");
+  const currentEvidenceDocumented = /通常[／/]Pagesの本番生成物/.test(currentSection)
+    && /各base\s*10 action、合計20\/20、blocker\s*0/.test(currentSection)
+    && /runner所有HTTP server停止/.test(currentSection)
+    && /`ECONNREFUSED`/.test(currentSection)
+    && /同じhost／portへのTCP接続/.test(currentSection)
+    && /物理／OSネットワーク断、公開URL、物理端末/.test(currentSection)
+    && /インストール済みPWA、ホーム画面追加と追加後起動/.test(currentSection);
   if (!currentEvidenceDocumented) throw new Error("PWA_OFFLINE_AUDIT.md lacks the current local-runner evidence marker");
+  if (!PWA_NETWORK_POLICY.serverControlled || PWA_NETWORK_POLICY.networkEmulation !== false || PWA_NETWORK_POLICY.serviceWorkerInterception !== false) {
+    throw new Error("PWA audit network policy drifted from runner-owned server control");
+  }
+  const blockerMatch = currentSection.match(/合計\s*\d+\/\d+、blocker\s*(\d+)/);
+  const blockerCount = Number(blockerMatch?.[1]);
+  if (!Number.isInteger(blockerCount) || blockerCount !== SNAPSHOT_PWA_BLOCKER_COUNT) {
+    throw new Error(`PWA current blockerCount must be ${SNAPSHOT_PWA_BLOCKER_COUNT}`);
+  }
+  const physicalNetworkUnverified = currentSection.includes("物理／OSネットワーク断、公開URL、物理端末")
+    && currentSection.includes("確認したものではない");
+  const installedPwaUnverified = currentSection.includes("インストール済みPWA、ホーム画面追加と追加後起動")
+    && currentSection.includes("確認したものではない");
+  if (!physicalNetworkUnverified || !installedPwaUnverified) {
+    throw new Error("PWA current evidence must explicitly exclude physical/OS networking and installed-PWA evidence");
+  }
   const scopeText = `${auditText}\n${readText(rootDir, "PWA_INSTALL_AFFORDANCE_AUDIT.md")}`;
   return {
     matrix: {
       baseCount,
       actionsPerBase,
       expectedChecks,
+      baseIdentities,
+      actionNames,
     },
+    host: PWA_DEFAULT_HOST,
+    blockerCount,
+    runnerBoundary: {...SNAPSHOT_PWA_RUNNER_BOUNDARY},
+    networkPolicy: {...PWA_NETWORK_POLICY},
     reportedEvidence: {
       document: PWA_AUDIT_RELATIVE_PATH,
       date: "2026-08-24",
@@ -216,7 +321,62 @@ function derivePwaFacts(rootDir) {
       installedPwaAndHomeScreenLaunch: /インストール済みPWA/.test(scopeText) && /ホーム画面追加/.test(scopeText),
       safariOrOtherBrowser: /Safari/.test(scopeText) && /別ブラウザ/.test(scopeText),
     },
+    nonEvidence: {
+      physicalOrOsNetworkDisconnect: {...SNAPSHOT_PWA_NON_EVIDENCE.physicalOrOsNetworkDisconnect},
+      installedPwaAndHomeScreenLaunch: {...SNAPSHOT_PWA_NON_EVIDENCE.installedPwaAndHomeScreenLaunch},
+    },
   };
+}
+
+export function deriveUnverifiedBoundaries(rootDir = REPOSITORY_ROOT) {
+  const ledger = readJson(rootDir, "BETA_GO_NO_GO.json");
+  const criteria = Array.isArray(ledger.criteria) ? ledger.criteria : [];
+  const criterionById = id => criteria.find(criterion => criterion?.id === id);
+  const currentPwaSection = markdownSection(readText(rootDir, PWA_AUDIT_RELATIVE_PATH), "## 2026-08-24 コミット63e6974再監査");
+  const currentHandoffSection = markdownSection(readText(rootDir, WINDOWS_HANDOFF_RELATIVE_PATH), "## 9. 残る確認・承認事項");
+  const criterionBoundaries = new Map(SNAPSHOT_UNVERIFIED_BOUNDARIES
+    .filter(boundary => boundary.criterionId)
+    .map(boundary => {
+      const criterion = criterionById(boundary.criterionId);
+      if (!criterion) throw new Error(`unverified boundary criterion is missing: ${boundary.criterionId}`);
+      if (criterion.state !== boundary.expectedState) {
+        throw new Error(`unverified boundary ${boundary.id} state drifted: expected ${boundary.expectedState}, found ${criterion.state}`);
+      }
+      if (criterion.blockingAuthority !== boundary.authority) {
+        throw new Error(`unverified boundary ${boundary.id} blockingAuthority drifted from the Go/No-Go criterion`);
+      }
+      if (typeof criterion.unprovenScope !== "string" || criterion.unprovenScope.trim() === "") {
+        throw new Error(`unverified boundary ${boundary.id} requires the criterion unprovenScope`);
+      }
+      return [boundary.id, {
+        id: boundary.id,
+        criterionId: boundary.criterionId,
+        status: boundary.status,
+        state: criterion.state,
+        authority: boundary.authority,
+        blockingAuthority: criterion.blockingAuthority,
+        boundary: boundary.boundary,
+        unprovenScope: criterion.unprovenScope,
+      }];
+    }));
+  const physicalDevicesBoundary = SNAPSHOT_UNVERIFIED_BOUNDARIES.find(boundary => boundary.id === "physical-devices");
+  const physicalNetworkBoundary = SNAPSHOT_UNVERIFIED_BOUNDARIES.find(boundary => boundary.id === "physical-os-networking");
+  const installedPwaBoundary = SNAPSHOT_UNVERIFIED_BOUNDARIES.find(boundary => boundary.id === "installed-pwa");
+  if (!currentHandoffSection.includes("公開URL・物理端末・別GPU・別ブラウザの性能計測は未確認です")) {
+    throw new Error("unverified boundary physical-devices is missing from current handoff section 9");
+  }
+  if (!currentPwaSection.includes("物理／OSネットワーク断、公開URL、物理端末")
+      || !currentPwaSection.includes("確認したものではない")) {
+    throw new Error("unverified boundary physical-os-networking is missing from the current PWA section");
+  }
+  if (!currentPwaSection.includes("インストール済みPWA、ホーム画面追加と追加後起動")
+      || !currentPwaSection.includes("確認したものではない")) {
+    throw new Error("unverified boundary installed-pwa is missing from the current PWA section");
+  }
+  if (!physicalDevicesBoundary || !physicalNetworkBoundary || !installedPwaBoundary) {
+    throw new Error("unverified physical boundary constants are incomplete");
+  }
+  return SNAPSHOT_UNVERIFIED_BOUNDARIES.map(boundary => criterionBoundaries.get(boundary.id) ?? ({...boundary}));
 }
 
 function deriveOpticFacts(rootDir, registry, standardQuestions) {
@@ -315,6 +475,7 @@ export function deriveCurrentBetaSnapshot({rootDir = REPOSITORY_ROOT} = {}) {
   const routeCount = BETA_AUDIT_ROUTES.length;
   const viewportCount = BETA_AUDIT_VIEWPORTS.length;
   const phaseCount = BETA_AUDIT_PHASES.length;
+  const goNoGo = deriveGoNoGoFacts(rootDir);
   return {
     schemaVersion: SNAPSHOT_SCHEMA_VERSION,
     updated: SNAPSHOT_DATE,
@@ -332,8 +493,9 @@ export function deriveCurrentBetaSnapshot({rootDir = REPOSITORY_ROOT} = {}) {
       phaseCount,
       expectedChecks: routeCount * viewportCount * phaseCount,
     },
-    goNoGo: deriveGoNoGoFacts(rootDir),
+    goNoGo,
     pwa: derivePwaFacts(rootDir),
+    unverifiedBoundaries: deriveUnverifiedBoundaries(rootDir),
     opticPathway: deriveOpticFacts(rootDir, registry, standardQuestions),
   };
 }
@@ -361,6 +523,8 @@ export function validateCurrentBetaSnapshot(snapshot, {rootDir = REPOSITORY_ROOT
       mappingCount: expected?.provenance?.learnerMappings?.total ?? null,
       routeChecks: expected?.routes?.expectedChecks ?? null,
       pwaChecks: expected?.pwa?.matrix?.expectedChecks ?? null,
+      pwaBlockerCount: expected?.pwa?.blockerCount ?? null,
+      unverifiedBoundaryCount: expected?.unverifiedBoundaries?.length ?? null,
     },
   };
 }

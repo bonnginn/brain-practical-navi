@@ -10,9 +10,11 @@
     "app/page.tsx",
     "scripts/audit_beta_routes.mjs",
     "BETA_GO_NO_GO.json",
+    "BETA_GO_NO_GO_AUDIT.md",
     "scripts/audit_pwa_offline_browser.mjs",
     "PWA_OFFLINE_AUDIT.md",
     "PWA_INSTALL_AFFORDANCE_AUDIT.md",
+    "BETA_READINESS_DISPLAY_AUDIT.md",
     "OPTIC_PATHWAY_AUDIT.md",
     "STRUCTURE_PROVENANCE.md",
     "BETA_OBSERVATION_NOTES.md",
@@ -59,7 +61,50 @@
     "matrix": {
       "baseCount": 2,
       "actionsPerBase": 10,
-      "expectedChecks": 20
+      "expectedChecks": 20,
+      "baseIdentities": [
+        {
+          "id": "normal",
+          "basePath": "/",
+          "expectedPathname": "/"
+        },
+        {
+          "id": "pages",
+          "basePath": "/brain-practical-navi/",
+          "expectedPathname": "/brain-practical-navi/"
+        }
+      ],
+      "actionNames": [
+        "online-shell",
+        "online-home",
+        "online-visited-data",
+        "offline-targets",
+        "offline-visited-direct",
+        "offline-visited-reload",
+        "offline-navigation-fallback",
+        "offline-unvisited-error",
+        "online-restore",
+        "retry-unvisited"
+      ]
+    },
+    "host": "127.0.0.1",
+    "blockerCount": 0,
+    "runnerBoundary": {
+      "owner": "pwa-audit-runner",
+      "host": "127.0.0.1",
+      "scope": "loopback",
+      "method": "runner-owned-static-server-stop",
+      "tcpFailure": "ECONNREFUSED",
+      "samePortRelisten": true
+    },
+    "networkPolicy": {
+      "serverControlled": true,
+      "pageNavigatorState": "observed-only",
+      "offlineBadgeRequired": false,
+      "ordinaryHttpCache": "clear-and-disable",
+      "cacheStoragePreserved": true,
+      "networkEmulation": false,
+      "serviceWorkerInterception": false
     },
     "reportedEvidence": {
       "document": "PWA_OFFLINE_AUDIT.md",
@@ -73,8 +118,68 @@
       "physicalDevice": true,
       "installedPwaAndHomeScreenLaunch": true,
       "safariOrOtherBrowser": true
+    },
+    "nonEvidence": {
+      "physicalOrOsNetworkDisconnect": {
+        "status": "unverified",
+        "boundary": "physical-or-os-network-disconnect"
+      },
+      "installedPwaAndHomeScreenLaunch": {
+        "status": "unverified",
+        "boundary": "installed-pwa-and-home-screen-launch"
+      }
     }
   },
+  "unverifiedBoundaries": [
+    {
+      "id": "expert-review",
+      "criterionId": "criterion-11-expert-required-scope-review",
+      "status": "unverified",
+      "state": "expert-blocked",
+      "authority": "neuroanatomy expert reviewer",
+      "blockingAuthority": "neuroanatomy expert reviewer",
+      "boundary": "anatomical validity, boundaries, adoption, and expert review records",
+      "unprovenScope": "神経解剖学の専門家による必修範囲のレビュー記録は未取得。"
+    },
+    {
+      "id": "deployment-public-url",
+      "criterionId": "criterion-12-publish-known-limitations",
+      "status": "unverified",
+      "state": "deployment-blocked",
+      "authority": "deployment operator / public host maintainer",
+      "blockingAuthority": "deployment operator / public host maintainer",
+      "boundary": "public URL reflection and public-environment route behavior",
+      "unprovenScope": "公開URLへの反映と専門家・管理者による既知の制限の確認は未完了。"
+    },
+    {
+      "id": "physical-devices",
+      "status": "unverified",
+      "authority": "physical-device test operator",
+      "boundary": "physical PC, tablet, smartphone, touch input, GPU, and browser behavior"
+    },
+    {
+      "id": "administrator-operations",
+      "criterionId": "criterion-10-feedback-operations",
+      "status": "unverified",
+      "state": "administrator-blocked",
+      "authority": "administrator / feedback-channel maintainer",
+      "blockingAuthority": "administrator / feedback-channel maintainer",
+      "boundary": "rights documents, external feedback operations, and publication-screen operations",
+      "unprovenScope": "現行外部フォームはα版表記のまま。版名非依存表記の適用、ログアウト状態の全3ページ、テスト回答、Google Formsと回答シート双方からの削除、管理者による運用確認は未完了。"
+    },
+    {
+      "id": "physical-os-networking",
+      "status": "unverified",
+      "authority": "physical-network/OS test operator",
+      "boundary": "physical or OS-level network disconnect; runner-owned loopback server stop is not this evidence"
+    },
+    {
+      "id": "installed-pwa",
+      "status": "unverified",
+      "authority": "physical-device/PWA test operator",
+      "boundary": "actual installation, home-screen addition, and post-install launch"
+    }
+  ],
   "opticPathway": {
     "legacyId33": {
       "legacyVolumeId33TargetExcluded": true,

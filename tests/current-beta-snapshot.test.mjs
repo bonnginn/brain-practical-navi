@@ -1,10 +1,13 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import {copyFile, mkdtemp, readFile, rm, writeFile} from "node:fs/promises";
+import os from "node:os";
+import path from "node:path";
 import { test } from "node:test";
 
 import {
   auditCurrentBetaSnapshot,
   deriveCurrentBetaSnapshot,
+  deriveUnverifiedBoundaries,
   SNAPSHOT_MARKER_BLOCK,
   SNAPSHOT_MARKER_DOCUMENTS,
   validateCurrentBetaSnapshot,
@@ -25,6 +28,8 @@ test("current beta snapshot is derived from the checked-in authoritative contrac
     mappingCount: 222,
     routeChecks: 162,
     pwaChecks: 20,
+    pwaBlockerCount: 0,
+    unverifiedBoundaryCount: 6,
   });
 });
 
@@ -51,6 +56,41 @@ test("snapshot separates the PWA matrix and documented evidence from unverified 
     baseCount: 2,
     actionsPerBase: 10,
     expectedChecks: 20,
+    baseIdentities: [
+      {id: "normal", basePath: "/", expectedPathname: "/"},
+      {id: "pages", basePath: "/brain-practical-navi/", expectedPathname: "/brain-practical-navi/"},
+    ],
+    actionNames: [
+      "online-shell",
+      "online-home",
+      "online-visited-data",
+      "offline-targets",
+      "offline-visited-direct",
+      "offline-visited-reload",
+      "offline-navigation-fallback",
+      "offline-unvisited-error",
+      "online-restore",
+      "retry-unvisited",
+    ],
+  });
+  assert.equal(snapshot.pwa.host, "127.0.0.1");
+  assert.equal(snapshot.pwa.blockerCount, 0);
+  assert.deepEqual(snapshot.pwa.runnerBoundary, {
+    owner: "pwa-audit-runner",
+    host: "127.0.0.1",
+    scope: "loopback",
+    method: "runner-owned-static-server-stop",
+    tcpFailure: "ECONNREFUSED",
+    samePortRelisten: true,
+  });
+  assert.deepEqual(snapshot.pwa.networkPolicy, {
+    serverControlled: true,
+    pageNavigatorState: "observed-only",
+    offlineBadgeRequired: false,
+    ordinaryHttpCache: "clear-and-disable",
+    cacheStoragePreserved: true,
+    networkEmulation: false,
+    serviceWorkerInterception: false,
   });
   assert.deepEqual(snapshot.pwa.reportedEvidence, {
     document: "PWA_OFFLINE_AUDIT.md",
@@ -65,6 +105,111 @@ test("snapshot separates the PWA matrix and documented evidence from unverified 
     installedPwaAndHomeScreenLaunch: true,
     safariOrOtherBrowser: true,
   });
+  assert.deepEqual(snapshot.pwa.nonEvidence, {
+    physicalOrOsNetworkDisconnect: {
+      status: "unverified",
+      boundary: "physical-or-os-network-disconnect",
+    },
+    installedPwaAndHomeScreenLaunch: {
+      status: "unverified",
+      boundary: "installed-pwa-and-home-screen-launch",
+    },
+  });
+});
+
+test("snapshot records the fixed unverified boundary set without implying completion", () => {
+  assert.deepEqual(snapshot.unverifiedBoundaries, [
+    {
+      id: "expert-review",
+      criterionId: "criterion-11-expert-required-scope-review",
+      status: "unverified",
+      state: "expert-blocked",
+      authority: "neuroanatomy expert reviewer",
+      blockingAuthority: "neuroanatomy expert reviewer",
+      boundary: "anatomical validity, boundaries, adoption, and expert review records",
+      unprovenScope: "神経解剖学の専門家による必修範囲のレビュー記録は未取得。",
+    },
+    {
+      id: "deployment-public-url",
+      criterionId: "criterion-12-publish-known-limitations",
+      status: "unverified",
+      state: "deployment-blocked",
+      authority: "deployment operator / public host maintainer",
+      blockingAuthority: "deployment operator / public host maintainer",
+      boundary: "public URL reflection and public-environment route behavior",
+      unprovenScope: "公開URLへの反映と専門家・管理者による既知の制限の確認は未完了。",
+    },
+    {
+      id: "physical-devices",
+      status: "unverified",
+      authority: "physical-device test operator",
+      boundary: "physical PC, tablet, smartphone, touch input, GPU, and browser behavior",
+    },
+    {
+      id: "administrator-operations",
+      criterionId: "criterion-10-feedback-operations",
+      status: "unverified",
+      state: "administrator-blocked",
+      authority: "administrator / feedback-channel maintainer",
+      blockingAuthority: "administrator / feedback-channel maintainer",
+      boundary: "rights documents, external feedback operations, and publication-screen operations",
+      unprovenScope: "現行外部フォームはα版表記のまま。版名非依存表記の適用、ログアウト状態の全3ページ、テスト回答、Google Formsと回答シート双方からの削除、管理者による運用確認は未完了。",
+    },
+    {
+      id: "physical-os-networking",
+      status: "unverified",
+      authority: "physical-network/OS test operator",
+      boundary: "physical or OS-level network disconnect; runner-owned loopback server stop is not this evidence",
+    },
+    {
+      id: "installed-pwa",
+      status: "unverified",
+      authority: "physical-device/PWA test operator",
+      boundary: "actual installation, home-screen addition, and post-install launch",
+    },
+  ]);
+});
+
+test("boundary derivation rejects exact ledger and current-document drift", async () => {
+  const tempRoot = await mkdtemp(path.join(os.tmpdir(), "beta-snapshot-boundaries-"));
+  const sourceFiles = ["BETA_GO_NO_GO.json", "PWA_OFFLINE_AUDIT.md", "WINDOWS_HANDOFF.md"];
+  try {
+    for (const file of sourceFiles) await copyFile(new URL(file, root), path.join(tempRoot, file));
+    const ledgerPath = path.join(tempRoot, "BETA_GO_NO_GO.json");
+    const pwaPath = path.join(tempRoot, "PWA_OFFLINE_AUDIT.md");
+    const handoffPath = path.join(tempRoot, "WINDOWS_HANDOFF.md");
+    const readLedger = async () => JSON.parse(await readFile(ledgerPath, "utf8"));
+    const writeLedger = ledger => writeFile(ledgerPath, `${JSON.stringify(ledger, null, 2)}\n`, "utf8");
+
+    const expertState = await readLedger();
+    expertState.criteria.find(item => item.id === "criterion-11-expert-required-scope-review").state = "proven-local";
+    await writeLedger(expertState);
+    assert.throws(() => deriveUnverifiedBoundaries(tempRoot), /expert-review state drifted/);
+
+    await copyFile(new URL("BETA_GO_NO_GO.json", root), ledgerPath);
+    const administratorAuthority = await readLedger();
+    administratorAuthority.criteria.find(item => item.id === "criterion-10-feedback-operations").blockingAuthority = "project administrator";
+    await writeLedger(administratorAuthority);
+    assert.throws(() => deriveUnverifiedBoundaries(tempRoot), /administrator-operations blockingAuthority drifted/);
+
+    await copyFile(new URL("BETA_GO_NO_GO.json", root), ledgerPath);
+    const deploymentScope = await readLedger();
+    deploymentScope.criteria.find(item => item.id === "criterion-12-publish-known-limitations").unprovenScope = "";
+    await writeLedger(deploymentScope);
+    assert.throws(() => deriveUnverifiedBoundaries(tempRoot), /deployment-public-url requires the criterion unprovenScope/);
+
+    await copyFile(new URL("BETA_GO_NO_GO.json", root), ledgerPath);
+    const pwa = await readFile(pwaPath, "utf8");
+    await writeFile(pwaPath, pwa.replace("物理／OSネットワーク断、公開URL、物理端末", "公開URL、物理端末"), "utf8");
+    assert.throws(() => deriveUnverifiedBoundaries(tempRoot), /physical-os-networking is missing/);
+
+    await copyFile(new URL("PWA_OFFLINE_AUDIT.md", root), pwaPath);
+    const handoff = await readFile(handoffPath, "utf8");
+    await writeFile(handoffPath, handoff.replace("公開URL・物理端末・別GPU・別ブラウザの性能計測は未確認です", "公開URLの性能計測は未確認です"), "utf8");
+    assert.throws(() => deriveUnverifiedBoundaries(tempRoot), /physical-devices is missing/);
+  } finally {
+    await rm(tempRoot, {recursive: true, force: true});
+  }
 });
 
 test("snapshot keeps optic-pathway adoption boundaries explicit", () => {
@@ -196,6 +341,37 @@ test("validator rejects PWA matrix, evidence-status, and unverified-scope mutati
   const result = validateCurrentBetaSnapshot(mutated);
   assert.equal(result.ok, false);
   assert.match(result.errors.join("\n"), /matrix\.expectedChecks|reportedEvidence\.status|publicUrl/);
+});
+
+test("validator rejects PWA boundary, blocker, non-evidence, and unverified-boundary mutations", () => {
+  const mutations = [
+    ["blocker count", snapshot => { snapshot.pwa.blockerCount = 1; }, /pwa\.blockerCount/],
+    ["base id", snapshot => { snapshot.pwa.matrix.baseIdentities[0].id = "pages"; }, /pwa\.matrix\.baseIdentities\[0\]\.id/],
+    ["base path", snapshot => { snapshot.pwa.matrix.baseIdentities[1].basePath = "/"; }, /pwa\.matrix\.baseIdentities\[1\]\.basePath/],
+    ["action order", snapshot => { [snapshot.pwa.matrix.actionNames[0], snapshot.pwa.matrix.actionNames[1]] = [snapshot.pwa.matrix.actionNames[1], snapshot.pwa.matrix.actionNames[0]]; }, /pwa\.matrix\.actionNames\[0\]/],
+    ["action identity", snapshot => { snapshot.pwa.matrix.actionNames[9] = "retry-other"; }, /pwa\.matrix\.actionNames\[9\]/],
+    ["host", snapshot => { snapshot.pwa.host = "localhost"; }, /pwa\.host/],
+    ["runner owner", snapshot => { snapshot.pwa.runnerBoundary.owner = "browser"; }, /pwa\.runnerBoundary\.owner/],
+    ["server stop method", snapshot => { snapshot.pwa.runnerBoundary.method = "physical-network-disconnect"; }, /pwa\.runnerBoundary\.method/],
+    ["ordinary cache policy", snapshot => { snapshot.pwa.networkPolicy.ordinaryHttpCache = "preserve"; }, /pwa\.networkPolicy\.ordinaryHttpCache/],
+    ["cache storage policy", snapshot => { snapshot.pwa.networkPolicy.cacheStoragePreserved = false; }, /pwa\.networkPolicy\.cacheStoragePreserved/],
+    ["network emulation policy", snapshot => { snapshot.pwa.networkPolicy.networkEmulation = true; }, /pwa\.networkPolicy\.networkEmulation/],
+    ["worker interception policy", snapshot => { snapshot.pwa.networkPolicy.serviceWorkerInterception = true; }, /pwa\.networkPolicy\.serviceWorkerInterception/],
+    ["non-evidence status", snapshot => { snapshot.pwa.nonEvidence.installedPwaAndHomeScreenLaunch.status = "proven"; }, /pwa\.nonEvidence\.installedPwaAndHomeScreenLaunch\.status/],
+    ["boundary status", snapshot => { snapshot.unverifiedBoundaries[0].status = "verified"; }, /unverifiedBoundaries\[0\]\.status/],
+    ["boundary state", snapshot => { snapshot.unverifiedBoundaries[0].state = "proven-local"; }, /unverifiedBoundaries\[0\]\.state/],
+    ["boundary ledger authority", snapshot => { snapshot.unverifiedBoundaries[1].blockingAuthority = "project administrator"; }, /unverifiedBoundaries\[1\]\.blockingAuthority/],
+    ["boundary unproven scope", snapshot => { snapshot.unverifiedBoundaries[2].unprovenScope = "complete"; }, /unverifiedBoundaries\[2\]\.unprovenScope/],
+    ["boundary authority", snapshot => { snapshot.unverifiedBoundaries[4].authority = "browser automation"; }, /unverifiedBoundaries\[4\]\.authority/],
+    ["boundary removal", snapshot => { snapshot.unverifiedBoundaries.pop(); }, /unverifiedBoundaries/],
+  ];
+  for (const [label, mutate, expectedError] of mutations) {
+    const mutated = structuredClone(snapshot);
+    mutate(mutated);
+    const result = validateCurrentBetaSnapshot(mutated);
+    assert.equal(result.ok, false, `${label} mutation should fail`);
+    assert.match(result.errors.join("\n"), expectedError, `${label} mutation error`);
+  }
 });
 
 test("validator rejects optic adoption and exclusion mutations", () => {

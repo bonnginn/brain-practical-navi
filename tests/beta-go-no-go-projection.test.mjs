@@ -18,7 +18,14 @@ import {
 const ledger = JSON.parse(fs.readFileSync(path.join(REPOSITORY_ROOT, "BETA_GO_NO_GO.json"), "utf8"));
 const clone = value => structuredClone(value);
 const projection = createBetaGoNoGoProjection(ledger);
+const committedProjection = JSON.parse(fs.readFileSync(path.join(REPOSITORY_ROOT, "app", "beta-go-no-go-display.json"), "utf8"));
 const audit = candidate => auditBetaGoNoGoProjection({ledger, projection: candidate, rootDir: REPOSITORY_ROOT});
+
+test("committed learner-facing projection is synchronized and independently audited", () => {
+  const result = auditBetaGoNoGoProjection({ledger, projection: committedProjection, rootDir: REPOSITORY_ROOT});
+  assert.equal(result.ok, true, result.errors.join("\n"));
+  assert.deepEqual(committedProjection, projection);
+});
 
 test("read-only projection exposes the exact five groups and fixed counts", () => {
   const result = audit(projection);
