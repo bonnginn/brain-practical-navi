@@ -33,3 +33,22 @@ jobs:
         run: node scripts/audit_public_rights_notices.mjs --mode dist --root . --dist-root dist --expected-base / --expected-source-url https://github.com/bonnginn/brain-practical-navi --output work/public-rights-notices-dist-normal-ci.json
       - name: Validate atlas assets and quiz visibility
         run: npm test
+
+  verify-pages-base:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          package-manager-cache: false
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+      - name: Type-check and build Pages base
+        run: npm run build
+        env:
+          DEPLOY_GITHUB_PAGES: "true"
+          VITE_SOURCE_REPOSITORY_URL: https://github.com/bonnginn/brain-practical-navi
+      - name: Audit Pages-base rights and notices distribution
+        run: node scripts/audit_public_rights_notices.mjs --mode dist --root . --dist-root dist --expected-base /brain-practical-navi/ --expected-source-url https://github.com/bonnginn/brain-practical-navi --output work/public-rights-notices-dist-pages-ci.json

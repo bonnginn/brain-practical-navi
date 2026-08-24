@@ -9,6 +9,32 @@ const removedStarterPaths = [
   "examples/d1/app/api/notes/route.ts", "examples/d1/db/schema.ts", "worker/index.ts",
 ];
 
+function pagesBaseCiJob(source) {
+  const normalized = source.replace(/\r\n?/g, "\n");
+  const start = normalized.indexOf("  verify-pages-base:\n");
+  assert.notEqual(start, -1, "CI must define the independent Pages-base verification job");
+  const rest = normalized.slice(start);
+  const nextJob = rest.search(/\n  [A-Za-z0-9_-]+:\n/);
+  return nextJob < 0 ? rest : rest.slice(0, nextJob);
+}
+
+function assertPagesBaseCiContract(source) {
+  const job = pagesBaseCiJob(source);
+  assert.match(job, /actions\/checkout@v7/, "Pages-base verification must use its own checkout");
+  assert.match(job, /actions\/setup-node@v7/, "Pages-base verification must use its own Node setup");
+  assert.match(job, /package-manager-cache:\s*false/);
+  assert.match(job, /run: npm ci --no-audit --no-fund/, "Pages-base verification must install from the lockfile");
+  assert.match(job, /run: npm run build/, "Pages-base verification must build the Pages variant");
+  assert.match(job, /DEPLOY_GITHUB_PAGES:\s*[\"']?true[\"']?/, "Pages-base build must enable the Pages base");
+  assert.match(job, /VITE_SOURCE_REPOSITORY_URL:\s*https:\/\/github\.com\/bonnginn\/brain-practical-navi/);
+  assert.match(job, /scripts\/audit_public_rights_notices\.mjs/);
+  assert.match(job, /--mode dist/);
+  assert.match(job, /--dist-root dist/);
+  assert.match(job, /--expected-base \/brain-practical-navi\//, "Pages audit must pin the repository base path");
+  assert.match(job, /--expected-source-url https:\/\/github\.com\/bonnginn\/brain-practical-navi/);
+  assert.doesNotMatch(job, /(?:configure-pages|upload-pages-artifact|deploy-pages)/, "The verification job must not deploy");
+}
+
 test("unused Next, D1, Drizzle, and Vinext starter files stay removed", async () => {
   for (const path of removedStarterPaths) {
     await assert.rejects(access(new URL(path, root)), {code: "ENOENT"}, path);
@@ -79,4 +105,15 @@ test("active workflows install the exact npm lockfile graph", async () => {
     assert.match(source, /run: npm ci --no-audit --no-fund/, `${workflow} must install from package-lock.json`);
     assert.doesNotMatch(source, /run:\s*npm install\b/, `${workflow} must not resolve a new dependency graph`);
   }
+});
+
+test("CI independently verifies the Pages base-path rights contract without deploying", async () => {
+  const ci = await readFile(new URL(".github/workflows/ci.yml", root), "utf8");
+  assertPagesBaseCiContract(ci);
+
+  const missingPagesEnv = ci.replace('          DEPLOY_GITHUB_PAGES: "true"\n', "");
+  assert.throws(() => assertPagesBaseCiContract(missingPagesEnv), /Pages-base build must enable the Pages base/);
+
+  const wrongPagesBase = ci.replace("--expected-base /brain-practical-navi/", "--expected-base /");
+  assert.throws(() => assertPagesBaseCiContract(wrongPagesBase), /Pages audit must pin the repository base path/);
 });

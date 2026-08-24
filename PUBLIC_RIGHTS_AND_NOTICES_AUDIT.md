@@ -37,6 +37,8 @@ node scripts/audit_public_rights_notices.mjs --mode dist --dist-root dist --expe
 
 `source` と `dist` は別の検査です。`dist` では期待するbase pathと対応ソースURLを必須入力とし、indexの一意な対応ソースmetaが期待URLへ一致すること、indexの全origin-relative local参照を期待base pathから解決してdist内に実在すること、対応ソースanchor markerが存在すること、source/distのatlasバイト列が一致すること、bundle内の8つの法的markerが各1件ずつ存在することを確認します。CIの通常buildとPages buildは同じ公式 `VITE_SOURCE_REPOSITORY_URL` を明示的に渡します。fixture/mutationテストは旧単数schema、固定manifest群のfield/pattern改変、欠落・重複・未一致、通知の欠落・空、privacy/endorsement表示欠落、source URL/base不一致、任意prefixの参照、atlasの1バイト差分・missing・extraを拒否します。
 
+2026-08-24から、PR CIにも独立した非デプロイのPages base-path検証jobを置きました。このjobは独自にcheckoutと `npm ci --no-audit --no-fund` を行い、`DEPLOY_GITHUB_PAGES=true` と公式 `VITE_SOURCE_REPOSITORY_URL` でbuildした後、期待base `/brain-practical-navi/` を固定したdist rights監査を実行します。これはPagesの公開・公開URL・CDN反映を確認するものではありません。
+
 ## 未確認範囲
 
 今回のローカル監査は公開リポジトリの作業ツリーとローカルbuildの対応だけを扱います。公開host上の最終URL、CDNキャッシュ、公開版bundleへの反映は未確認であり、Go/No-Goでは `deployment-blocked` を維持します。表示義務の法的判断、第三者の推薦・承認、専門家レビューをこの監査から主張しません。
