@@ -32,7 +32,7 @@ criterion 10は、2026-08-24にログアウト状態の実ブラウザで現行G
 
 criterion 03の中心操作証拠は、`work/browser-audit/core-interactions-pc-tablet-2026-08-23.json` の脳表・水平断・自由観察・クイズ×PC 1366×768／横向きタブレット幅1024×768＝8/8件・40操作です。独立validatorが実測viewport、操作前後、5問queue、回答対象から導出した復習先、error／loader／overflow／fallbackを再計算しています。両条件は `mobile:false`・`touch:false` のローカルデスクトップエミュレーションであり、公開URL、物理端末、実機タッチの証拠ではありません。
 
-criterion 04の現在の中心操作証拠は、`work/browser-audit/phone-core-interactions-v17-block-guided-2026-08-24.json`（local-only）です。Windows Chrome 151の390×768、DPR1、`mobile:true`・`touch:true`・coarse pointerで、dock／surface-lateral／sections-horizontal／quiz／側脳室block guideの5 journeyをCDP `Input.dispatchTouchEvent`で実行し、44 px以上・画面内・hit-test可能な操作対象、意味キーと状態連続性、block guide終了後の手動layer復元、loader／UI・console・request error／横overflow／WebGL fallback 0件を独立validatorで確認しています。旧mobile route記録は履歴として残しますが、監査は `PHONE_CORE_INTERACTION_AUDIT.md`、`BLOCK_GUIDED_OBSERVATION_AUDIT.md`、`scripts/audit_phone_core_interactions.mjs`、`tests/phone-core-interaction-audit.test.mjs` と、このv17 artifactの併記をcriterion 04の必須条件とします。物理スマートフォン、実機タッチ、Safari・別ブラウザ・別GPU、公開URLは未確認です。
+criterion 04の現在の中心操作証拠は、`work/browser-audit/phone-core-interactions-v18-focus4-guided-2026-08-24.json`（local-only）です。Windows Chrome 151の390×768、DPR1、`mobile:true`・`touch:true`・coarse pointerで、dock／surface-lateral／sections-horizontal／quiz／β重点4 block guideの5 journeyをCDP `Input.dispatchTouchEvent`で実行しました。block guideでは4標本、合計17 single-layer段階、4 final all、段階番号、終了後の手動layer復元を含め、44 px以上・画面内・hit-test可能な操作対象、意味キーと状態連続性、loader／UI・console・request error／横overflow／WebGL fallback 0件を独立validatorで確認しています。旧mobile route記録は履歴として残しますが、監査は `PHONE_CORE_INTERACTION_AUDIT.md`、`BLOCK_GUIDED_OBSERVATION_AUDIT.md`、`scripts/audit_phone_core_interactions.mjs`、`tests/phone-core-interaction-audit.test.mjs` と、このv18 artifactの併記をcriterion 04の必須条件とします。物理スマートフォン、実機タッチ、Safari・別ブラウザ・別GPU、公開URLは未確認です。
 
 criterion 02へは、`work/anatomy-review/orthogonal-review-bundle-v3/manifest.json`（local-only）と、それが参照する161枚のPNGを直交断の客観資料として同期しています。ID33・39・40の全占有X/Y/Z断面、ID39・40の外側endpoint、raw grayscale+outline、manifest schema・入力／画素／PNG hash・pixel-to-voxel geometry・Fortran anchorのstrict validator再計算を記録します。manifestの `review.status` は `unreviewed` であり、この資料は解剖学的妥当性、境界、採用、専門家確認、ground truthを証明しません。必須の追跡可能な根拠は `ORTHOGONAL_REVIEW_BUNDLE_AUDIT.md`、`scripts/build_orthogonal_review_bundle.py`、`tests/orthogonal-review-bundle.test.mjs` です。ignoredなbundleの存在はCIで要求しません。
 
@@ -44,7 +44,7 @@ criterion 02へは、`work/anatomy-review/orthogonal-review-bundle-v3/manifest.j
 - 5状態と `locallyProven` のローカル主張配列、`blockingAuthority`、未確認範囲の整合
 - `locallyProven` の非空文字列・重複なし、`committedEvidenceRefs` の存在・追跡対象・非 `work/`
 - 更新日のISO形式、任意の `localArtifactRefs` の重複なし・`work/`・`localOnly: true`・`label: local-only`
-- criterion 04のphone v17必須refs（phone／block監査文書・runner・focused test）と、`work/browser-audit/phone-core-interactions-v17-block-guided-2026-08-24.json` のexact local-only path。旧mobile route refsだけへの退行を拒否
+- criterion 04のphone v18必須refs（phone／block監査文書・runner・focused test）と、`work/browser-audit/phone-core-interactions-v18-focus4-guided-2026-08-24.json` のexact local-only path。旧mobile route refsだけへの退行を拒否
 - criterion 02のorthogonal review bundle v3必須refs（監査文書・生成／strict validator・focused test）と、`work/anatomy-review/orthogonal-review-bundle-v3/manifest.json` のexact local-only path。旧objective auditだけ、欠落、v2等の誤ったbundle pathへの退行を拒否
 - criterion 02の `review.status=unreviewed`、解剖学的妥当性・境界・採用が未証明であることを確認し、`reviewed`／`verified`／`検証済み`／`専門家確認済み` 等の過剰主張だけを拒否する（`未確認` 等の否定記録は拒否しない）
 - criterionTextを含め、公開・専門家・全体・β readyをローカル根拠から主張していないこと

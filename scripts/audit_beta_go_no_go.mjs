@@ -49,7 +49,7 @@ export const PHONE_CORE_REQUIRED_COMMITTED_EVIDENCE_REFS = Object.freeze([
   "scripts/audit_phone_core_interactions.mjs",
   "tests/phone-core-interaction-audit.test.mjs",
 ]);
-export const PHONE_CORE_REQUIRED_LOCAL_ARTIFACT_PATH = "work/browser-audit/phone-core-interactions-v17-block-guided-2026-08-24.json";
+export const PHONE_CORE_REQUIRED_LOCAL_ARTIFACT_PATH = "work/browser-audit/phone-core-interactions-v18-focus4-guided-2026-08-24.json";
 export const ORTHOGONAL_CRITERION_ID = "criterion-02-learning-target-integrity";
 export const ORTHOGONAL_REQUIRED_COMMITTED_EVIDENCE_REFS = Object.freeze([
   "ORTHOGONAL_REVIEW_BUNDLE_AUDIT.md",
@@ -286,12 +286,12 @@ function validatePhoneCoreCriterionEvidence(item, index, errors) {
   const committedRefs = Array.isArray(item.committedEvidenceRefs) ? new Set(item.committedEvidenceRefs) : new Set();
   for (const requiredRef of PHONE_CORE_REQUIRED_COMMITTED_EVIDENCE_REFS) {
     if (!committedRefs.has(requiredRef)) {
-      errors.push(`${label}.committedEvidenceRefs must include phone v17 evidence: ${requiredRef}`);
+      errors.push(`${label}.committedEvidenceRefs must include phone v18 evidence: ${requiredRef}`);
     }
   }
   const localArtifacts = Array.isArray(item.localArtifactRefs) ? item.localArtifactRefs : [];
   if (!localArtifacts.some(artifact => isRecord(artifact) && artifact.path === PHONE_CORE_REQUIRED_LOCAL_ARTIFACT_PATH)) {
-    errors.push(`${label}.localArtifactRefs must include the exact phone v17 artifact path: ${PHONE_CORE_REQUIRED_LOCAL_ARTIFACT_PATH}`);
+    errors.push(`${label}.localArtifactRefs must include the exact phone v18 artifact path: ${PHONE_CORE_REQUIRED_LOCAL_ARTIFACT_PATH}`);
   }
 }
 

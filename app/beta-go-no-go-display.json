@@ -60,7 +60,7 @@
       "state": "partial-local",
       "stateLabel": "ローカル部分確認",
       "locallyProven": [
-        "Windows Chrome 151のローカルproduction previewを390×768・DPR1・mobile:true・touch:true・coarse pointerで実行し、dock、surface-lateral、sections-horizontal、quiz、側脳室block guideの5 journeyを確認した。",
+        "Windows Chrome 151のローカルproduction previewを390×768・DPR1・mobile:true・touch:true・coarse pointerで実行し、dock、surface-lateral、sections-horizontal、quiz、β重点4 block guideの5 journeyを確認した。",
         "全journeyでCDP Input.dispatchTouchEventによる実タッチ列、44 px以上・画面内・hit-test可能な操作対象、意味キーと状態連続性を独立validatorが再計算した。",
         "初期・最終probeでloader、UI／console／request error、横overflow、WebGL fallbackが0件で、独立validatorのvalidation.passed=trueを確認した。",
         "旧来のcoarse-touch／fine-pointer狭幅経路のローカル記録も履歴として保持している。",
@@ -226,7 +226,7 @@
           "state": "partial-local",
           "stateLabel": "ローカル部分確認",
           "locallyProven": [
-            "Windows Chrome 151のローカルproduction previewを390×768・DPR1・mobile:true・touch:true・coarse pointerで実行し、dock、surface-lateral、sections-horizontal、quiz、側脳室block guideの5 journeyを確認した。",
+            "Windows Chrome 151のローカルproduction previewを390×768・DPR1・mobile:true・touch:true・coarse pointerで実行し、dock、surface-lateral、sections-horizontal、quiz、β重点4 block guideの5 journeyを確認した。",
             "全journeyでCDP Input.dispatchTouchEventによる実タッチ列、44 px以上・画面内・hit-test可能な操作対象、意味キーと状態連続性を独立validatorが再計算した。",
             "初期・最終probeでloader、UI／console／request error、横overflow、WebGL fallbackが0件で、独立validatorのvalidation.passed=trueを確認した。",
             "旧来のcoarse-touch／fine-pointer狭幅経路のローカル記録も履歴として保持している。",

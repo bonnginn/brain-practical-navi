@@ -40,7 +40,7 @@ coarse phoneは26経路×direct/reload＝52/52件に合格し、segmentはCanvas
 
 ## 2026-08-23 coarse-touch phone中心操作監査
 
-既存の表示・設定確認に加え、coarse-touch phoneでの中心操作を固定した。最終の権威ある結果は `work/browser-audit/phone-core-interactions-v17-block-guided-2026-08-24.json`（ローカル作業用・配布対象外）である。Windows 11 Home、Node 24.19.0、Chrome 151.0.7922.170、通常production preview `http://127.0.0.1:4329/` を使い、Chrome DevTools Protocolで幅390×高さ768、DPR 1、`mobile:true`、`touch:true`、最大同時タッチ5、縦向き、`hover:none`、`pointer:coarse`を設定した。`allPassed: true`、5 journey、独立validatorのfailure 0である。途中のv12／v13失敗artifactは成果根拠に含めない。
+既存の表示・設定確認に加え、coarse-touch phoneでの中心操作を固定した。最終の権威ある結果は `work/browser-audit/phone-core-interactions-v18-focus4-guided-2026-08-24.json`（ローカル作業用・配布対象外）である。Windows 11 Home、Node 24.19.0、Chrome 151.0.7922.170、通常production preview `http://127.0.0.1:4330/` を使い、Chrome DevTools Protocolで幅390×高さ768、DPR 1、`mobile:true`、`touch:true`、最大同時タッチ5、縦向き、`hover:none`、`pointer:coarse`を設定した。`allPassed: true`、5 journey、独立validatorのfailure 0である。途中のv12／v13失敗artifactは成果根拠に含めない。
 
 - 下部dockのHome・脳表・断面・ブロック標本・復習を、実タッチイベント列で順に選択し、hash、active状態、Canvas数を確認した。全操作対象は画面内・hit-test可能で、最小44 px以上だった。
 - 脳表では初期の内側面から設定sheetの実タッチで左外側面へ遷移し、設定sheetの開閉、構造選択、3Dドラッグ回転、向きのリセットを確認した。構造target key `precentral`が選択結果とafterProbeへ連続してコピーされ、ドラッグ後・reset後も選択状態が維持された。ドラッグ前後の回転差分は記録された入力差分から再計算した。
@@ -49,7 +49,7 @@ coarse phoneは26経路×direct/reload＝52/52件に合格し、segmentはCanvas
 
 全journeyでready後のloader、UI／console／request error、横overflow、WebGL fallbackは0件だった。Solレビュー後の独立validatorは、action summaryとprobeの対応、touch targetのrect／point／geometry、primaryTouchIdとtarget／touch ID、タッチ点数（tapは1→0、dragは1→1→0）、イベントsequence、実設定遷移をreportから再計算する。これはChromeのcoarse-touch emulationによるローカル実ブラウザでの導線・状態遷移の確認であり、画素品質、解剖学的妥当性、専門家レビューを判定しない。スマートフォンUI全体のβ完了判定にも用いない。
 
-5つ目のblocks journeyでは、側脳室標本の試作intro閉鎖、部品確認ガイドの開始、`ventricular-cavity`から`caudate`への次段階、終了後の開始前4 layer復元までを実タッチで確認した。UI上の確認順と状態復元だけを対象とし、解剖学的順序・摘出順・実習手順は検証していない。
+5つ目のblocks journeyでは、β重点4標本の試作intro閉鎖、部品確認ガイドの開始、合計17 single-layer段階、4件の最終all段階、終了後の開始前layer復元までを実タッチで確認した。段階表示も側脳室5、レンズ核・投射線維8、脈絡叢4、内側側頭葉4段階として固定契約から再計算した。UI上の確認順と状態復元だけを対象とし、解剖学的順序・摘出順・実習手順は検証していない。
 
 物理スマートフォン、実機タッチ、Safari・別ブラウザ、別GPU、公開URL・公開回線、インストール済みPWAとホーム画面追加後の起動は未確認である。詳細な契約と保存形式は [PHONE_CORE_INTERACTION_AUDIT.md](PHONE_CORE_INTERACTION_AUDIT.md) に分離して記録する。
 

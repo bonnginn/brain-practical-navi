@@ -137,7 +137,7 @@
     {
       "id": "change-block-guided-observation",
       "heading": "β重点4の部品確認ガイド",
-      "body": "β重点4の既存ブロック標本layerを画面上の部品確認順に1件ずつ表示し、最終段階だけ全layerを表示するガイドを追加しました。開始前の手動選択は終了・標本切替・workspace離脱・unmountで復元し、発展4には表示しません。解剖・摘出順、実習手順、由来、確度、専門家レビューの順位を示さず、mesh・voxel・label・plane・rotation・camera・color・provenanceは変更していません。Chrome 151 production preview http://127.0.0.1:4316でfocus4全件の開始→single layer列→final all→終了後manual復元、側脳室のactive中diencephalon切替cleanup、発展4のguide count 0を確認しました。PCはCanvas 1・loader／UI error／overflow 0、canonical route 162/162、cold payload 27/27、390 px相当はroute health／overflow 0・CSS 44 px契約を確認（ガイド実クリックはPCのみ）。全tests 330/330、tsc、通常／Pages buildも成功。物理端末・タッチ、公開URL、別browser／GPU、専門家レビューは未確認です。",
+      "body": "β重点4の既存ブロック標本layerを画面上の部品確認順に1件ずつ表示し、最終段階だけ全layerを表示するガイドを追加しました。開始前の手動選択は終了・標本切替・workspace離脱・unmountで復元し、発展4には表示しません。解剖・摘出順、実習手順、由来、確度、専門家レビューの順位を示さず、mesh・voxel・label・plane・rotation・camera・color・provenanceは変更していません。PC Chromeでfocus4全件、active中の標本切替cleanup、発展4のguide非表示を確認しました。さらに390×768 coarse-touch相当で、側脳室4、レンズ核・投射線維7、脈絡叢3、内側側頭葉3の全single layer、4 final all、終了後manual復元を実タッチし、独立validator failure 0でした。物理端末・タッチ、公開URL、別browser／GPU、専門家レビューは未確認です。",
       "evidenceRefs": ["BLOCK_GUIDED_OBSERVATION_AUDIT.md", "BETA_ROADMAP.md", "WINDOWS_HANDOFF.md", "PRESENTATION_AUDIT.md", "PERFORMANCE_AUDIT.md", "scripts/audit_block_guided_observation.mjs", "tests/block-guided-observation.test.mjs"]
     }
   ]
