@@ -1,17 +1,19 @@
 # 公開α版リリース監査
 
-## 現行 refresh candidate（2026-08-24、公開前）
+## 現行公開α refresh（2026-08-24、配備済み）
 
-公開α版へβ候補に向けた更新を積み上げた現行 refresh candidate は、公開前のローカル成果物として整理しています。現行候補はまだデプロイしておらず、公開URLでの反映・巡回も未確認です。これはβ版の公開、専門家による承認、解剖学的な最終確認を意味しません。
+β候補に向けた更新のうち、公開αとして提示できる範囲をGitHub Pagesへ反映しました。PR #14をmerge commit `6f13cd58e3e6450049e02be04c320a4e9abc1fc3` でmainへ統合し、GitHub Pages run `32711938345` のbuild・権利表示監査・deployが成功しました。公開先は <https://bonnginn.github.io/brain-practical-navi/> です。これはβ版の公開、専門家による承認、解剖学的な最終確認を意味しません。
 
 - 現行スナップショット: [BETA_CURRENT_SNAPSHOT.json](BETA_CURRENT_SNAPSHOT.json)
 - Go/No-Go台帳: [BETA_GO_NO_GO.json](BETA_GO_NO_GO.json)
 - 現行の在庫: クイズ41問（既存23問＋神経血管pilot 18問）、canonical route 27経路。全自動テスト件数は公開直前の再実行結果を下記へ記録する
-- 現行候補の扱い: 公開前の更新候補。公開URL、公開環境での全経路、物理端末、専門家レビュー、管理者運用は未確認または未完了
+- 現行版の扱い: 既知の制限を明示した公開α。物理端末、別ブラウザ・別GPU、専門家レビュー、Google Formの送信・削除運用は未確認または未完了
 
-公開直前の2026-08-24再検証では、全自動テスト404/404、TypeScript型検査、通常baseとPages baseの本番build、source・通常dist・Pages distの権利表示監査に合格しました。Windows Chrome 151のローカル通常buildで更新履歴画面を開き、「公開α掲載中／β候補・β公開判断前」とβ公開・専門家承認を意味しない説明を確認しました。PC相当ではdocument幅970/970、小画面指定390×768（実効295×582）ではdocument幅284/284・dialog幅267/267で、loader・画面内error・横overflowは0でした。これは公開前のローカル証拠であり、公開URL反映の証拠ではありません。
+公開直前の2026-08-24再検証では、全自動テスト404/404、TypeScript型検査、通常baseとPages baseの本番build、source・通常dist・Pages distの権利表示監査に合格しました。Windows Chrome 151のローカル通常buildで更新履歴画面を開き、「公開α掲載中／β候補・β公開判断前」とβ公開・専門家承認を意味しない説明を確認しました。PC相当ではdocument幅970/970、小画面指定390×768（実効295×582）ではdocument幅284/284・dialog幅267/267で、loader・画面内error・横overflowは0でした。
 
-下記の2026-08-14本文は、最初の公開α版に対する歴史的な初回ゲート記録です。現行 refresh candidate の公開証拠やβ公開判定へ自動的に読み替えません。
+配備後は、公式URLだけを許可するread-only監査でcanonical 27経路×PC・横向きタブレット幅・スマートフォン幅×direct/reload＝162/162件をChrome 151で確認しました。全件で主文書HTTP 2xx、公式origin・pathnameとの一致、期待URL・画面見出し・Canvas数を確認し、missing、duplicate、fail、外部redirect、console／request／UI error、loader、横overflow、WebGL fallbackは0件でした。証拠は `work/browser-audit/alpha-public-refresh-2026-08-24.json` に保持します。公開版のstatusと利用条件では、公開α、β判断前、専門家未承認、非公式・非診断用途、対応ソースを確認しました。公開監査支援と引き継ぎ更新を含む最終ローカル再検証は、全自動テスト406/406、TypeScript型検査、通常base／Pages base本番buildに合格しました。
+
+下記の2026-08-14本文は、最初の公開α版に対する歴史的な初回ゲート記録です。現行refreshの証拠やβ公開判定へ自動的に読み替えません。
 
 ## 2026-08-14 初回公開αゲート（歴史記録）
 

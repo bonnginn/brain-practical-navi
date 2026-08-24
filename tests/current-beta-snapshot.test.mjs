@@ -205,7 +205,7 @@ test("boundary derivation rejects exact ledger and current-document drift", asyn
 
     await copyFile(new URL("PWA_OFFLINE_AUDIT.md", root), pwaPath);
     const handoff = await readFile(handoffPath, "utf8");
-    await writeFile(handoffPath, handoff.replace("公開URL・物理端末・別GPU・別ブラウザの性能計測は未確認です", "公開URLの性能計測は未確認です"), "utf8");
+    await writeFile(handoffPath, handoff.replace("公開回線の性能、物理端末、別GPU・別ブラウザの性能計測は未確認です", "公開URLの性能計測は未確認です"), "utf8");
     assert.throws(() => deriveUnverifiedBoundaries(tempRoot), /physical-devices is missing/);
   } finally {
     await rm(tempRoot, {recursive: true, force: true});
@@ -234,7 +234,7 @@ test("snapshot keeps optic-pathway adoption boundaries explicit", () => {
   });
 });
 
-test("Windows handoff is synchronized to the current Draft PR and local groundwork", async () => {
+test("Windows handoff is synchronized to the merged alpha refresh and local groundwork", async () => {
   const handoff = await readFile(new URL("WINDOWS_HANDOFF.md", root), "utf8");
   const result = validateWindowsHandoffFreshness({documentText: handoff});
   assert.equal(result.ok, true, result.errors.join("; "));
@@ -245,12 +245,12 @@ test("handoff validator rejects stale baselines, interruption, local publication
   const mutations = [
     [
       "baseline",
-      handoff.replace("dd17284 Make feedback preflight contract exact", "7d6a811 Audit public rights and notices"),
+      handoff.replace("6f13cd58 public alpha refresh merge", "7d6a811 Audit public rights and notices"),
       /stale handoff baseline/,
     ],
     [
       "interruption",
-      handoff.replace("ここでいう確認は監査・実装・Draft PR更新の範囲に限り", "Mac側では、この基準コミット以降の実装作業を中断しています。ここでいう確認は監査・実装・Draft PR更新の範囲に限り"),
+      `${handoff}\nMac側では、この基準コミット以降の実装作業を中断しています。`,
       /stale interruption wording/,
     ],
     [
@@ -259,9 +259,9 @@ test("handoff validator rejects stale baselines, interruption, local publication
       /local publication directive/,
     ],
     [
-      "main and new branch",
-      handoff.replace("開始時に `git fetch origin`、`git switch codex/optic-orthogonal-review`、`git pull --ff-only`、`git status`、`git log -5 --oneline` を実行し、Draft PR #14の現行ブランチを継続してください。", "開始時に main をgit pull --ff-onlyし、新しい codex/ ブランチを作ってください。"),
-      /stale main\/new-branch workflow/,
+      "stale Draft PR branch",
+      `${handoff}\n開始時に Draft PR #14の現行ブランチを継続してください。`,
+      /stale Draft PR workflow/,
     ],
     [
       "section-9 unstarted heading",
@@ -287,9 +287,9 @@ test("handoff validator rejects stale baselines, interruption, local publication
 
   for (const [label, phrase, expectedError] of [
     ["expert blocker", "- 専門家による構造位置・範囲・連続性の確認。\n", /section 9 is missing expert blocker/],
-    ["physical blocker", "- 公開URL・物理端末・別GPU・別ブラウザの性能計測は未確認です（ローカルWindows Chromeの基礎31件＋全8標本context ON 48件＝79\/79件は完了）。\n", /section 9 is missing physical-device blocker/],
+    ["physical blocker", "- 公開URLの全27経路表示はChrome 151で162/162件を確認済みです。ただし、公開回線の性能、物理端末、別GPU・別ブラウザの性能計測は未確認です（ローカルWindows Chromeの基礎31件＋全8標本context ON 48件＝79\/79件は完了）。\n", /section 9 is missing physical-device blocker/],
     ["administrator blocker", "- 管理者による権利文書、Google Form、公開画面をまたぐ最終実ブラウザ巡回は未完了です。\n", /section 9 is missing administrator blocker/],
-    ["deployment blocker", "Codex内蔵ブラウザの管理ポリシーにより公開URL操作が拒否された経路は、上記のローカル実画面計測とは区別します。そのため、公開環境の実画面計測を推測で完了扱いにはしていません。", /section 9 is missing deployment blocker/],
+    ["deployment blocker", "公開環境のroute表示は `work/browser-audit/alpha-public-refresh-2026-08-24.json` の実測だけを証拠とし、物理端末、別ブラウザ・GPU、公開回線性能、β版としての公開判断へは拡張しません。", /section 9 is missing deployment boundary/],
   ]) {
     const result = validateWindowsHandoffFreshness({documentText: handoff.replace(phrase, "")});
     assert.equal(result.ok, false, `${label} removal should fail`);

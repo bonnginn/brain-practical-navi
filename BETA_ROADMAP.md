@@ -208,6 +208,8 @@ PWAのキャッシュ境界、更新方針、未確認項目は [PWA_OFFLINE_AUD
 
 2026-08-24 追記: `#workspace/status` へ12件の公開前チェックを追加し、Go／No-Go台帳から状態別件数、ローカル確認範囲、未確認範囲、次操作を読み取り専用で表示した。件数3／1／4／1／3と各stateは変更せず、総合合格・公開可・専門家確認済みとは表示しない。Chrome 151でdirect、詳細、focus／Esc／背景click、390 px相当一列、error／loader／overflow 0を確認した。公開URL反映待ちのため、本項目とcriterion 12は未完了のまま維持する。詳細は [BETA_READINESS_DISPLAY_AUDIT.md](BETA_READINESS_DISPLAY_AUDIT.md)。
 
+公開α更新後の技術確認（2026-08-24）: PR #14をmainへ統合し、GitHub Pagesへ現行αを配備した。公式URL限定のread-only監査で27経路×3幅×direct/reload＝162/162件が合格し、主文書HTTP 2xx、公式origin・path、画面identity、Canvas、error／loader／overflow／WebGL fallbackを確認した。status、既知の制限、利用条件、対応ソースも公開αへ反映済みである。ただし、これはβ公開や専門家承認ではなく、物理端末、別ブラウザ・GPU、Google Formの送信・削除運用は未確認である。Go／No-Go台帳のauthority stateはこのα配備だけでは自動変更せず、次回の台帳再判定で公開αの証拠とβ公開条件を区別して整理する。詳細は [ALPHA_RELEASE_AUDIT.md](ALPHA_RELEASE_AUDIT.md)。
+
 ## 関連文書
 
 - [ALPHA_RELEASE_AUDIT.md](ALPHA_RELEASE_AUDIT.md): α版で達成した項目と既知の不足
