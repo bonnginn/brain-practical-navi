@@ -1,7 +1,7 @@
 # Windows Codex への引き継ぎ（β改修）
 
 更新日: 2026-08-24
-引き継ぎ基準コミット: `7d6a811 Audit public rights and notices`
+引き継ぎ基準コミット: `dd17284 Make feedback preflight contract exact`
 
 <!-- beta-current-snapshot:start -->
 Current machine-readable values: [BETA_CURRENT_SNAPSHOT.json](BETA_CURRENT_SNAPSHOT.json). All other counts in this document are dated historical evidence, not current inventory or approval.
@@ -9,11 +9,11 @@ Current machine-readable values: [BETA_CURRENT_SNAPSHOT.json](BETA_CURRENT_SNAPS
 
 ローカル確認済み範囲と、専門家・管理者・公開・物理端末待ちの境界も同snapshotから確認します。
 
-この文書だけで、Windows側のCodexが公開α版の現在地を確認し、β候補版への改修を再開できるようにしています。Mac側では、この基準コミット以降の実装作業を中断しています。
+この文書だけで、Windows側のCodexがDraft PR #14（`codex/optic-orthogonal-review`）のローカル実装・監査状況を確認し、β候補版への作業を継続できるようにしています。ここでいう確認は監査・実装・Draft PR更新の範囲に限り、main統合や公開サイト更新を含みません。
 
 ## 1. 目標
 
-> 脳実習ナビをβ候補版へ進めるため、`BETA_ROADMAP.md` のうち専門家監修を必要としないP0・P1項目を自律的に監査・実装・検証・公開し、解剖学的監修が必要な残課題を、根拠・対象画面・確認方法が明確なレビュー待ち状態まで整備する。
+> 脳実習ナビをβ候補版へ進めるため、`BETA_ROADMAP.md` のうち専門家監修を必要としないP0・P1項目を自律的に監査・実装・検証し、解剖学的監修が必要な残課題を、根拠・対象画面・確認方法が明確なレビュー待ち状態まで整備する。
 
 「項目を1つずつ指示待ちで直す」のではなく、ロードマップを作業台帳として使い、複数の関連項目を一つのマイルストーンにまとめて進めます。ただし、模式形状を解剖学的に正しいものと断定したり、専門家確認なしに「検証済み」へ昇格したりしません。
 
@@ -39,7 +39,7 @@ Homeへ、対応ブラウザがpromptを提供した場合だけ利用者の明�
 
 ### 2026-08-24 公開前チェック表示
 
-`#workspace/status` 冒頭へ、Go／No-Go台帳12件の状態、ローカル確認範囲、未確認範囲、次操作を読み取り専用で表示しました。件数はローカル証拠あり3、部分確認1、専門家待ち4、管理者待ち1、公開反映待ち3で、stateは変更していません。ブラウザへは安全な生成projectionだけを配布し、local-only証拠パスや台帳原文はbundleしません。Chrome 151でdirect、詳細、Esc、背景click、Tab循環、起点focus、小画面一列、error／loader／overflow 0、summary実効高さ44.99 pxを確認しました。最終buildのroute監査162/162、cold payload 27/27、全tests 347/347、型検査、通常／Pages buildも成功しました。公開URL、物理端末、実際の専門家・管理者・公開作業は未完了です。詳細は [BETA_READINESS_DISPLAY_AUDIT.md](BETA_READINESS_DISPLAY_AUDIT.md) を参照してください。
+`#workspace/status` 冒頭へ、Go／No-Go台帳12件の状態、ローカル確認範囲、未確認範囲、次操作を読み取り専用で表示しました。件数はローカル証拠あり3、部分確認1、専門家待ち4、管理者待ち1、公開反映待ち3で、stateは変更していません。ブラウザへは安全な生成projectionだけを表示し、local-only証拠パスや台帳原文はbundleしません。Chrome 151でdirect、詳細、Esc、背景click、Tab循環、起点focus、小画面一列、error／loader／overflow 0、summary実効高さ44.99 pxを確認しました。最終buildのroute監査162/162、cold payload 27/27、全tests 347/347、型検査、通常／Pages buildも成功しました。公開URL、物理端末、実際の専門家・管理者・公開作業は未完了です。詳細は [BETA_READINESS_DISPLAY_AUDIT.md](BETA_READINESS_DISPLAY_AUDIT.md) を参照してください。
 
 ## 2026-08-23 数値読込進捗
 
@@ -67,7 +67,7 @@ Chrome 151のPages想定buildで総量不明表示、総量既知の `12 MB / 12
 
 上記3候補は寄稿者ツールの専用パネルから直接開けます。ボタンは表示位置・zoom・pan・cursorだけを変更し、編集差分や履歴、端末内ドラフトを変更しません。Chrome 151の `http://127.0.0.1:4215/` で3位置、表示数、差分0の維持、矢状・冠状の編集無効を実操作し、全経路監査も156/156件に合格しました。全テスト211/211、型検査、通常／Pagesビルドも成功しています。公開URL、物理端末、専門家確認は未完了です。
 
-2026-08-24、脳室ラベルの黒い内部欠損を保守的に補修しました。背景値255を一括充填すると脳外背景へ漏れるため不採用とし、X・Y・Z各軸で同じ脳室ラベルに挟まれ、別ラベルと6近傍接触しない未ラベルvoxelだけを1回抽出しました。三断面の局所プレビューで既存ラベル内部の小欠損と確認した33 voxel（左側脳室14、右15、第三4、第四0）を、PR #14のproject-reviewed strict patchとして公開教材ラベルへ適用しています。採用後圧縮ラベルSHA-256は `b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3`、raw voxel SHA-256は `b1105fd3a11fab27d3b1bac60d4d989386e4ef49a41151f5b684d984f72aaaa9` です。ローカルには元NIfTI一式がなかったため、採用前公開artifactを固定fixture化し、公式buildのapproved patch段階だけを決定論的に再実行しました。テストは採用前後でこの33 voxel以外が変わらないことを検証します。通常production previewで3脳室の同時表示と側脳室クイズを実確認し、全テスト304/304、型検査、通常／Pages build、Go/No-Go台帳監査に合格しました。これは専門家レビュー、脳室全体の境界確定、研究用ground truth、機関承認ではありません。詳細は [VENTRICLE_CAVITY_AUDIT.md](VENTRICLE_CAVITY_AUDIT.md) を参照してください。
+2026-08-24、脳室ラベルの黒い内部欠損を保守的に補修しました。背景値255を一括充填すると脳外背景へ漏れるため不採用とし、X・Y・Z各軸で同じ脳室ラベルに挟まれ、別ラベルと6近傍接触しない未ラベルvoxelだけを1回抽出しました。三断面の局所プレビューで既存ラベル内部の小欠損と確認した33 voxel（左側脳室14、右15、第三4、第四0）を、PR #14のproject-reviewed strict patchとして配布対象の教材ラベルへ適用しています。採用後圧縮ラベルSHA-256は `b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3`、raw voxel SHA-256は `b1105fd3a11fab27d3b1bac60d4d989386e4ef49a41151f5b684d984f72aaaa9` です。ローカルには元NIfTI一式がなかったため、採用前の配布artifactを固定fixture化し、公式buildのapproved patch段階だけを決定論的に再実行しました。テストは採用前後でこの33 voxel以外が変わらないことを検証します。通常production previewで3脳室の同時表示と側脳室クイズを実確認し、全テスト304/304、型検査、通常／Pages build、Go/No-Go台帳監査に合格しました。これは専門家レビュー、脳室全体の境界確定、研究用ground truth、機関承認ではありません。詳細は [VENTRICLE_CAVITY_AUDIT.md](VENTRICLE_CAVITY_AUDIT.md) を参照してください。
 
 同日、M2の最小単位として、共同制作ページへ脳室系の3Dモデル方針A/B比較pilotを追加しました。現行同一格子の左右側脳室＋第三脳室と、既存標本・アトラス頂点・ラベルを使わない寄稿者作成の模式案を、同じ回転・視点・色・表示ON/OFFで比較します。Bは常に「模式・専門家未確認」「実標本由来ではない」と表示し、通常教材・ラベル・由来台帳・クイズを変更しません。比較用chunkと7,980 bytesのmeshは明示的に開くまで取得しません。Chrome 151でPC・390 px相当の開閉、共通操作、フォーカス復帰、横overflow 0を確認し、canonical全経路156/156、初回payload 26/26、全テスト217/217、型検査、通常／Pages本番ビルドに合格しました。評価7項目と未確認事項は [MODEL_STRATEGY_COMPARISON_AUDIT.md](MODEL_STRATEGY_COMPARISON_AUDIT.md) に記録し、採否は専門家・学習者レビュー待ちです。
 
@@ -91,7 +91,7 @@ git log -1 --oneline
 npm install
 ```
 
-作業対象はDraft PR #14の `codex/optic-orthogonal-review` です。`git log -1` が少なくとも `63e6974` 以降であることを確認してください。既存のWindows作業フォルダを使う場合は、未コミット変更を確認してから `git pull --ff-only` します。上書き・resetはしません。ユーザーの明示承認なしにmainへマージせず、公開サイトも更新せず、PRはDraftのまま維持します。
+作業対象はDraft PR #14の `codex/optic-orthogonal-review` です。`git log -1` が `dd17284 Make feedback preflight contract exact` 以降であることを確認してください。既存のWindows作業フォルダを使う場合は、未コミット変更を確認してから `git pull --ff-only` します。上書き・resetはしません。ユーザーの明示承認なしにmainへマージせず、公開サイトも更新せず、PRはDraftのまま維持します。
 
 通常は環境変数なしで動作します。意見フォームを変更する場合だけ `.env.example` から `.env.local` を作ります。`.env.local` はコミットしません。
 
@@ -103,14 +103,14 @@ npm run build
 npm run dev -- --host 127.0.0.1
 ```
 
-引き継ぎ基準コミットでは、自動テスト、TypeScript、本番ビルドが成功しています。テスト件数は追加監査ごとに増えるため固定値とせず、現在の全件結果を再実行して確認してください。Viteが表示したURLをブラウザで開いてください。公開α版は次です。
+引き継ぎ基準コミット `dd17284` では、自動テスト、TypeScript、本番ビルドが成功しています。テスト件数は追加監査ごとに増えるため固定値とせず、現在の全件結果を再実行して確認してください。Viteが表示したURLをブラウザで開いてください。下記は現行公開ホストの反映確認対象であり、この作業ではローカル監査とDraft PR更新だけを行います。
 
 - 公開アプリ: https://bonnginn.github.io/brain-practical-navi/
 - 対応ソース: https://github.com/bonnginn/brain-practical-navi
 
 ## 4. 直前までに完了したβ向け変更
 
-- 公開配布物を139.9 MiBから78.5 MiBへ削減し、100 MiB上限の自動テストを追加。
+- 配布対象データを139.9 MiBから78.5 MiBへ削減し、100 MiB上限の自動テストを追加。
 - 血管、脳神経、脳底・深部・溝、局所標本を必要時読込へ変更。
 - 断面の通常画面に、ラベル由来を表示。
   - `標本同一格子・手動分節`
@@ -249,19 +249,24 @@ Chrome 151の通常production preview `http://127.0.0.1:4330/` で、Windows 11 
 - 小脳の表示平滑化は `MESH_VISIBILITY_AUDIT.md` に記録済みです。元の1 mmアトラス境界は変更せず、細かな小脳葉・裂と小脳核は専門家レビュー待ちのままです。
 - ブロック標本はβでも「試作・未保証」を維持して構いません。
 
-## 9. Mac側で残した未着手事項
+## 9. 残る確認・承認事項
 
-- 公開URL・物理端末・別GPU・別ブラウザの性能計測（ローカルWindows Chromeの基礎31件＋全8標本context ON 48件＝79/79件は完了）。
-- 冠状断・矢状断のセグメンテーション照合表示。
-- 現行再構成モデルと知識ベースモデルの比較試作。
+### ローカルで整備済み（未承認）
+
+- 冠状断・矢状断の同一ラベル照合表示は、`app/ManualSegmentationWorkbench.tsx`の直交断表示と、`ORTHOGONAL_REVIEW_BUNDLE_AUDIT.md`のローカル証拠束・独立監査まで整備済みです。この照合表示・証拠束による新たなラベル採用や境界確定、専門家確認は行っていません。既存のプロジェクト内レビュー済みID39・40と33 voxelの脳室補修は、その採用記録を維持します。
+- 現行再構成モデルと知識ベース模式モデルの比較pilotは、専用URL、A/B操作、端末内レビュー下書き、`MODEL_STRATEGY_COMPARISON_AUDIT.md`のローカル監査まで整備済みです。専門家・学習者の採点、β本体への採否は行っていません。
+
+### 残る外部確認・承認
+
+- 公開URL・物理端末・別GPU・別ブラウザの性能計測は未確認です（ローカルWindows Chromeの基礎31件＋全8標本context ON 48件＝79/79件は完了）。
 - 専門家による構造位置・範囲・連続性の確認。
-- 権利文書、Google Form、公開画面をまたぐ最終実ブラウザ巡回。
+- 管理者による権利文書、Google Form、公開画面をまたぐ最終実ブラウザ巡回は未完了です。
 - スマートフォン専用UIのローカル親確認は完了（`MOBILE_UI_AUDIT.md`）。Chrome 151・`http://127.0.0.1:4198`で、coarse touch phoneの5件dock、native settings dialog、focus／背景scroll、sectionsの既存rail操作、rangeとpage scroll、segment直接URLのCanvas非生成を確認し、coarse 26経路52/52、fine/non-touch 26経路×3幅×direct/reload 156/156に合格した。fine-pointer狭幅ではphoneMode=false、dockなし、既存sections／segment workbenchを確認した。公開URL、物理端末、実機タッチ、Safari・別ブラウザ、別GPU、専門家レビューは未確認である。詳細な画像・probe・監査JSONは `MOBILE_UI_AUDIT.md` を参照する。
 - 専門家レビュー準備キューは `ANATOMY_REVIEW_HANDOFF.md` に沿った読み取り専用台帳で、provenance台帳のexpert pending 75件を共同制作画面へ表示する。2026-08-24、各カードへ1項目単位の構造化された端末内下書きを追加した。氏名・所属・連絡先・自由記述は保存せず、台帳全体・対象entryのSHA-256、固定3観察項目、固定懸念コード、未提出・未採用・expert未主張を独立検査する。古い台帳、JSON不正、保存障害、別タブ競合はfail closedとする。Chrome 151のローカル通常build `http://127.0.0.1:4332/` で連続変更、再読込復元、懸念コード必須、JSON書き出し表示、390 px相当の横overflow 0・44 px操作を確認した。最終canonical route監査は27経路×3幅×direct／reload＝162/162件に合格し、error／loader／overflow／WebGL fallbackは0件だった。これは準備記録で、専門家確認、本人性・署名、解剖学的妥当性、採否は未完了である。詳細は `ANATOMY_REVIEW_RECORD_DRAFT_AUDIT.md`。
 
 2026-08-23追加: `ORTHOGONAL_REVIEW_BUNDLE_AUDIT.md` に、WindowsローカルのGit管理外 `work/anatomy-review/orthogonal-review-bundle-v3/`（固定入力SHA・BBS1寸法・ID33/39/40の全占有断面、ID39/40の外側断面、ID27のcrop内context-only、期待161 PNG＋manifest）を記録した。PNG／pixel SHA、空metadata、flat anchor、exact file/schema、link境界まで独立検証済みだが、`review.status=unreviewed` であり、ラベル本体・公開資産・ID36–38は変更していない。乳頭体付着部と視交叉・左右視索境界の解剖判断、専門家確認、公開URL・物理端末確認は残る。
 
-Mac側のブラウザ操作は、アプリの不具合ではなくCodex内蔵ブラウザの管理ポリシーにより公開URL操作が拒否されました。そのため、上記の実画面計測を推測で完了扱いにはしていません。
+Codex内蔵ブラウザの管理ポリシーにより公開URL操作が拒否された経路は、上記のローカル実画面計測とは区別します。そのため、公開環境の実画面計測を推測で完了扱いにはしていません。
 
 ## 10. Windows Codexへ渡す開始指示
 
@@ -270,9 +275,9 @@ Mac側のブラウザ操作は、アプリの不具合ではなくCodex内蔵ブ
 ```text
 https://github.com/bonnginn/brain-practical-navi を取得し、WINDOWS_HANDOFF.md、BETA_ROADMAP.md、STRUCTURE_PROVENANCE.md を最初に通読してください。
 
-目標は、専門家監修を必要としないP0・P1項目を自律的に監査・実装・検証・公開し、解剖学的判断が必要な課題を、対象URL・角度・構造・根拠・スクリーンショットが揃ったレビュー待ち状態へ整備することです。1項目ずつ指示待ちにせず、WINDOWS_HANDOFF.md のM1から関連作業をまとめて進めてください。
+目標は、専門家監修を必要としないP0・P1項目を自律的に監査・実装・検証し、解剖学的判断が必要な課題を、対象URL・角度・構造・根拠・スクリーンショットが揃ったレビュー待ち状態へ整備することです。1項目ずつ指示待ちにせず、WINDOWS_HANDOFF.md のM1から関連作業をまとめて進めてください。成果はDraft PR #14へ記録します。
 
-開始時に main をgit pull --ff-onlyし、新しい codex/ ブランチを作り、npm test と npm run build を実行してください。ブラウザ操作が使えるWindows環境なので、全経路の実画面回帰とNetwork/Performance計測を最優先してください。模式表示を専門家確認なしに検証済みへ変更せず、第三者の教科書・講義・標本画像をリポジトリやIssueへ転載しないでください。完了した作業はBETA_ROADMAP.mdと各監査文書へ証拠つきで反映し、テスト・ビルド・公開確認まで行ってください。
+開始時に `git fetch origin`、`git switch codex/optic-orthogonal-review`、`git pull --ff-only`、`git status`、`git log -5 --oneline` を実行し、Draft PR #14の現行ブランチを継続してください。npm test と npm run build を実行し、ブラウザ操作が使えるWindows環境では全経路の実画面回帰とNetwork/Performance計測を優先します。模式表示を専門家確認なしに検証済みへ変更せず、第三者の教科書・講義・標本画像をリポジトリやIssueへ転載しないでください。完了した作業はBETA_ROADMAP.mdと各監査文書へ証拠つきで反映し、テスト・ビルド・Draft PR更新まで行ってください。main統合・公開サイト更新・公開環境の確認は、管理者の明示承認なしに行わないでください。
 ```
 
 ## 11. 完了の報告形式

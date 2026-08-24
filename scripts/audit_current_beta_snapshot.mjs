@@ -17,6 +17,8 @@ export const SNAPSHOT_RELATIVE_PATH = "BETA_CURRENT_SNAPSHOT.json";
 export const SNAPSHOT_SCHEMA_VERSION = 1;
 export const SNAPSHOT_DATE = "2026-08-24";
 export const SNAPSHOT_TOOL = "scripts/audit_current_beta_snapshot.mjs";
+export const WINDOWS_HANDOFF_RELATIVE_PATH = "WINDOWS_HANDOFF.md";
+export const WINDOWS_HANDOFF_BASELINE = "dd17284 Make feedback preflight contract exact";
 
 const PROVENANCE_RELATIVE_PATH = "public/atlas/structure-provenance.json";
 const PAGE_RELATIVE_PATH = "app/page.tsx";
@@ -98,6 +100,70 @@ function markdownSection(markdown, heading) {
   const rest = markdown.slice(contentStart);
   const nextHeading = rest.search(/^##\s+/m);
   return nextHeading < 0 ? rest : rest.slice(0, nextHeading);
+}
+
+const WINDOWS_HANDOFF_REQUIRED_PATTERNS = Object.freeze([
+  ["current handoff baseline", `引き継ぎ基準コミット: \`${WINDOWS_HANDOFF_BASELINE}\``],
+  ["Draft PR identity", /Draft PR #14/],
+  ["branch identity", /codex\/optic-orthogonal-review/],
+  ["no merge or public-site update guard", /mainへマージせず、公開サイトも更新せず、PRはDraftのまま維持/],
+  ["audit implementation goal", /自律的に監査・実装・検証し、解剖学的監修が必要な残課題/],
+  ["section 9 current heading", /## 9\. 残る確認・承認事項/],
+  ["local orthogonal groundwork", /冠状断・矢状断の同一ラベル照合表示は[\s\S]{0,180}ORTHOGONAL_REVIEW_BUNDLE_AUDIT\.md[\s\S]{0,100}整備済みです/],
+  ["local model-comparison groundwork", /現行再構成モデルと知識ベース模式モデルの比較pilotは[\s\S]{0,180}MODEL_STRATEGY_COMPARISON_AUDIT\.md[\s\S]{0,100}整備済みです/],
+  ["active Draft PR branch continuation", /git fetch origin[\s\S]{0,100}git switch codex\/optic-orthogonal-review[\s\S]{0,100}git pull --ff-only[\s\S]{0,100}git status[\s\S]{0,100}git log -5 --oneline/],
+]);
+
+const WINDOWS_HANDOFF_FORBIDDEN_PATTERNS = Object.freeze([
+  ["stale handoff baseline", /引き継ぎ基準コミット:\s*`7d6a811\b/],
+  ["stale interruption wording", /Mac側では、この基準コミット以降の実装作業を中断/],
+  ["local alpha-publication wording", /公開α版の現在地/],
+  ["local publication directive", /専門家監修を必要としないP0・P1項目を自律的に監査・実装・検証・(?:公開|デプロイ)/],
+  ["stale main/new-branch workflow", /開始時に\s*main\s*をgit pull --ff-onlyし、新しい\s*codex\/\s*ブランチを作/],
+]);
+
+export function validateWindowsHandoffFreshness({rootDir = REPOSITORY_ROOT, documentText} = {}) {
+  const errors = [];
+  let text = documentText;
+  if (typeof text !== "string") {
+    try {
+      text = readText(rootDir, WINDOWS_HANDOFF_RELATIVE_PATH);
+    } catch (error) {
+      return {ok: false, errors: [`${WINDOWS_HANDOFF_RELATIVE_PATH}: could not read handoff: ${error.message}`]};
+    }
+  }
+  for (const [label, pattern] of WINDOWS_HANDOFF_REQUIRED_PATTERNS) {
+    const present = typeof pattern === "string" ? text.includes(pattern) : pattern.test(text);
+    if (!present) errors.push(`${WINDOWS_HANDOFF_RELATIVE_PATH}: missing ${label} marker`);
+  }
+  for (const [label, pattern] of WINDOWS_HANDOFF_FORBIDDEN_PATTERNS) {
+    if (pattern.test(text)) errors.push(`${WINDOWS_HANDOFF_RELATIVE_PATH}: stale ${label} wording is present`);
+  }
+  const currentSection = markdownSection(text, "## 9. 残る確認・承認事項");
+  if (/^## 9\..*未着手/m.test(text)) {
+    errors.push(`${WINDOWS_HANDOFF_RELATIVE_PATH}: section 9 must not be an unstarted-items section`);
+  }
+  if (/^-\s*冠状断・矢状断のセグメンテーション照合表示。/m.test(currentSection)) {
+    errors.push(`${WINDOWS_HANDOFF_RELATIVE_PATH}: section 9 must not relist orthogonal display as unstarted`);
+  }
+  if (/^-\s*現行再構成モデルと知識ベースモデルの比較試作。/m.test(currentSection)) {
+    errors.push(`${WINDOWS_HANDOFF_RELATIVE_PATH}: section 9 must not relist model comparison as unstarted`);
+  }
+  for (const [label, pattern] of [
+    ["expert blocker", /専門家による構造位置・範囲・連続性の確認/],
+    ["physical-device blocker", /公開URL・物理端末・別GPU・別ブラウザの性能計測は未確認/],
+    ["administrator blocker", /管理者による権利文書、Google Form、公開画面[\s\S]{0,40}未完了/],
+    ["deployment blocker", /公開環境の実画面計測[\s\S]{0,40}完了扱いにはしていません/],
+  ]) {
+    if (!pattern.test(currentSection)) errors.push(`${WINDOWS_HANDOFF_RELATIVE_PATH}: section 9 is missing ${label}`);
+  }
+  if (!/Draft PR #14へ記録します。/.test(text)) {
+    errors.push(`${WINDOWS_HANDOFF_RELATIVE_PATH}: work handoff must direct results to Draft PR #14`);
+  }
+  if (!/main統合・公開サイト更新・公開環境の確認は、管理者の明示承認なしに行わない/.test(text)) {
+    errors.push(`${WINDOWS_HANDOFF_RELATIVE_PATH}: deployment guard must remain explicit`);
+  }
+  return {ok: errors.length === 0, errors};
 }
 
 export function validateSnapshotDocumentMarkers({rootDir = REPOSITORY_ROOT, documentTexts = {}} = {}) {
@@ -299,7 +365,7 @@ export function validateCurrentBetaSnapshot(snapshot, {rootDir = REPOSITORY_ROOT
   };
 }
 
-export function auditCurrentBetaSnapshot({snapshot, rootDir = REPOSITORY_ROOT} = {}) {
+export function auditCurrentBetaSnapshot({snapshot, rootDir = REPOSITORY_ROOT, documentTexts = {}} = {}) {
   let loaded = snapshot;
   const errors = [];
   try {
@@ -309,6 +375,11 @@ export function auditCurrentBetaSnapshot({snapshot, rootDir = REPOSITORY_ROOT} =
   }
   const validation = validateCurrentBetaSnapshot(loaded, {rootDir});
   errors.push(...validation.errors);
+  const handoffAudit = validateWindowsHandoffFreshness({
+    rootDir,
+    documentText: documentTexts[WINDOWS_HANDOFF_RELATIVE_PATH],
+  });
+  errors.push(...handoffAudit.errors);
   return {ok: errors.length === 0, errors, summary: validation.summary ?? {}};
 }
 

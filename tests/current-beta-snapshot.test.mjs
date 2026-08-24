@@ -8,6 +8,7 @@ import {
   SNAPSHOT_MARKER_BLOCK,
   SNAPSHOT_MARKER_DOCUMENTS,
   validateCurrentBetaSnapshot,
+  validateWindowsHandoffFreshness,
   validateSnapshotDocumentMarkers,
 } from "../scripts/audit_current_beta_snapshot.mjs";
 
@@ -86,6 +87,77 @@ test("snapshot keeps optic-pathway adoption boundaries explicit", () => {
     expertReview: "pending",
     orthogonalBoundaryReviewPending: true,
   });
+});
+
+test("Windows handoff is synchronized to the current Draft PR and local groundwork", async () => {
+  const handoff = await readFile(new URL("WINDOWS_HANDOFF.md", root), "utf8");
+  const result = validateWindowsHandoffFreshness({documentText: handoff});
+  assert.equal(result.ok, true, result.errors.join("; "));
+});
+
+test("handoff validator rejects stale baselines, interruption, local publication, and unstarted section-9 claims", async () => {
+  const handoff = await readFile(new URL("WINDOWS_HANDOFF.md", root), "utf8");
+  const mutations = [
+    [
+      "baseline",
+      handoff.replace("dd17284 Make feedback preflight contract exact", "7d6a811 Audit public rights and notices"),
+      /stale handoff baseline/,
+    ],
+    [
+      "interruption",
+      handoff.replace("ここでいう確認は監査・実装・Draft PR更新の範囲に限り", "Mac側では、この基準コミット以降の実装作業を中断しています。ここでいう確認は監査・実装・Draft PR更新の範囲に限り"),
+      /stale interruption wording/,
+    ],
+    [
+      "local publication",
+      handoff.replace("専門家監修を必要としないP0・P1項目を自律的に監査・実装・検証し", "専門家監修を必要としないP0・P1項目を自律的に監査・実装・検証・公開し"),
+      /local publication directive/,
+    ],
+    [
+      "main and new branch",
+      handoff.replace("開始時に `git fetch origin`、`git switch codex/optic-orthogonal-review`、`git pull --ff-only`、`git status`、`git log -5 --oneline` を実行し、Draft PR #14の現行ブランチを継続してください。", "開始時に main をgit pull --ff-onlyし、新しい codex/ ブランチを作ってください。"),
+      /stale main\/new-branch workflow/,
+    ],
+    [
+      "section-9 unstarted heading",
+      handoff.replace("## 9. 残る確認・承認事項", "## 9. Mac側で残した未着手事項"),
+      /section 9 must not be an unstarted-items section/,
+    ],
+    [
+      "orthogonal unstarted claim",
+      handoff.replace("### 残る外部確認・承認", "- 冠状断・矢状断のセグメンテーション照合表示。\n\n### 残る外部確認・承認"),
+      /relist orthogonal display as unstarted/,
+    ],
+    [
+      "model comparison unstarted claim",
+      handoff.replace("### 残る外部確認・承認", "- 現行再構成モデルと知識ベースモデルの比較試作。\n\n### 残る外部確認・承認"),
+      /relist model comparison as unstarted/,
+    ],
+  ];
+  for (const [label, mutatedText, expectedError] of mutations) {
+    const result = validateWindowsHandoffFreshness({documentText: mutatedText});
+    assert.equal(result.ok, false, `${label} mutation should fail`);
+    assert.match(result.errors.join("\n"), expectedError, `${label} mutation error`);
+  }
+
+  for (const [label, phrase, expectedError] of [
+    ["expert blocker", "- 専門家による構造位置・範囲・連続性の確認。\n", /section 9 is missing expert blocker/],
+    ["physical blocker", "- 公開URL・物理端末・別GPU・別ブラウザの性能計測は未確認です（ローカルWindows Chromeの基礎31件＋全8標本context ON 48件＝79\/79件は完了）。\n", /section 9 is missing physical-device blocker/],
+    ["administrator blocker", "- 管理者による権利文書、Google Form、公開画面をまたぐ最終実ブラウザ巡回は未完了です。\n", /section 9 is missing administrator blocker/],
+    ["deployment blocker", "Codex内蔵ブラウザの管理ポリシーにより公開URL操作が拒否された経路は、上記のローカル実画面計測とは区別します。そのため、公開環境の実画面計測を推測で完了扱いにはしていません。", /section 9 is missing deployment blocker/],
+  ]) {
+    const result = validateWindowsHandoffFreshness({documentText: handoff.replace(phrase, "")});
+    assert.equal(result.ok, false, `${label} removal should fail`);
+    assert.match(result.errors.join("\n"), expectedError, `${label} removal error`);
+  }
+
+  const integratedMutation = handoff.replace("### 残る外部確認・承認", "- 冠状断・矢状断のセグメンテーション照合表示。\n\n### 残る外部確認・承認");
+  const integrated = auditCurrentBetaSnapshot({
+    snapshot,
+    documentTexts: {"WINDOWS_HANDOFF.md": integratedMutation},
+  });
+  assert.equal(integrated.ok, false);
+  assert.match(integrated.errors.join("\n"), /WINDOWS_HANDOFF\.md: section 9 must not relist orthogonal display as unstarted/);
 });
 
 test("validator rejects provenance count mutations", () => {
