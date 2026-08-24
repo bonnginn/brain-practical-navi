@@ -12,16 +12,18 @@ export const QUIZ_INVENTORY_RELATIVE_PATH = "NEUROVASCULAR_QUIZ_AUDIT.md";
 
 export const PILOT_TARGETS = Object.freeze([
   "ica", "aca", "mca", "vertebral", "basilar", "pca",
-  "cn1", "cn3", "cn4", "cn5", "cn6", "cn7", "cn8", "cn9", "cn10", "cn11", "cn12",
+  "cn1", "cn2", "cn3", "cn4", "cn5", "cn6", "cn7", "cn8", "cn9", "cn10", "cn11", "cn12",
 ]);
 export const PILOT_ARTERY_TARGETS = Object.freeze(["ica", "aca", "mca", "vertebral", "basilar", "pca"]);
-export const PILOT_NERVE_TARGETS = Object.freeze(["cn1", "cn3", "cn4", "cn5", "cn6", "cn7", "cn8", "cn9", "cn10", "cn11", "cn12"]);
-export const FORBIDDEN_PILOT_KEYS = Object.freeze(["cn2", "opticChiasm", "acomm", "pcomm", "cerebellarArteries"]);
+export const PILOT_NERVE_TARGETS = Object.freeze(["cn1", "cn2", "cn3", "cn4", "cn5", "cn6", "cn7", "cn8", "cn9", "cn10", "cn11", "cn12"]);
+export const FORBIDDEN_PILOT_KEYS = Object.freeze(["opticChiasm", "acomm", "pcomm", "cerebellarArteries"]);
+export const CN2_OVERLAY_REGION_IDS = Object.freeze([23, 24]);
+export const CN2_FORBIDDEN_REGION_IDS = Object.freeze([25, 33, 36, 37, 38]);
 export const PILOT_PROMPT = "白色で強調された模式3Dの名称はどれですか？";
 
-// Updated after the 17-question inventory is intentionally frozen. This hash
+// Updated after the 18-question inventory is intentionally frozen. This hash
 // covers only the new pilot fields, never the separate 23-question snapshot.
-export const EXPECTED_NEUROVASCULAR_QUIZ_SHA256 = "eab57546bcd84d17eb24929b309a84db945ca8c0e6fa75a6a77531e865a9c08f";
+export const EXPECTED_NEUROVASCULAR_QUIZ_SHA256 = "96f557dfcc0a9dfb1e06f9baef6e8df602a05f9a4446bf91f6613d5fba356c9d";
 
 function readRepositoryFile(rootDir, relativePath) {
   return fs.readFileSync(path.join(rootDir, relativePath), "utf8");
@@ -162,6 +164,11 @@ export function auditNeurovascularQuiz({ rootDir = REPOSITORY_ROOT, source, meta
         if (!optionItem) errors.push(`${question.target}: option is missing from neurovascular registry: ${option}`);
         else if (optionItem.kind !== item.kind) errors.push(`${question.target}: option ${option} crosses registry kind`);
       }
+      if (question.target === "cn2") {
+        if (JSON.stringify(item.ids) !== JSON.stringify(CN2_OVERLAY_REGION_IDS)) errors.push("cn2: registry IDs must be exactly [23,24]");
+        if (item.ids.some(id => CN2_FORBIDDEN_REGION_IDS.includes(id))) errors.push("cn2: forbidden optic/legacy/unsegmented region ID is present");
+        if (question.options.some(option => option === "opticChiasm")) errors.push("cn2: opticChiasm cannot be a quiz option");
+      }
     }
   }
   for (const target of PILOT_TARGETS) if (!seenTargets.has(target)) errors.push(`missing pilot target: ${target}`);
@@ -192,9 +199,9 @@ export function auditNeurovascularQuiz({ rootDir = REPOSITORY_ROOT, source, meta
   const filters = { category: "all", format: "neurovascular", detail: "all", includeProvisional: true, wrongOnly: false };
   const filterQuestions = questions.map(question => ({ target: question.target, category: question.category, format: question.format, detail: question.detail, origin: question.origin }));
   if (filterQuizCandidates(filterQuestions, { ...filters, includeProvisional: false }, []).length !== 0) errors.push("provisional OFF must hide every pilot question");
-  if (filterQuizCandidates(filterQuestions, filters, []).length !== PILOT_TARGETS.length) errors.push("neurovascular ON candidate count must be 17");
+  if (filterQuizCandidates(filterQuestions, filters, []).length !== PILOT_TARGETS.length) errors.push("neurovascular ON candidate count must be 18");
   if (filterQuizCandidates(filterQuestions, { ...filters, detail: "arteries" }, []).length !== PILOT_ARTERY_TARGETS.length) errors.push("arteries candidate count must be 6");
-  if (filterQuizCandidates(filterQuestions, { ...filters, detail: "cranialNerves" }, []).length !== PILOT_NERVE_TARGETS.length) errors.push("cranialNerves candidate count must be 11");
+  if (filterQuizCandidates(filterQuestions, { ...filters, detail: "cranialNerves" }, []).length !== PILOT_NERVE_TARGETS.length) errors.push("cranialNerves candidate count must be 12");
   if (filterQuizCandidates(filterQuestions, { ...filters, wrongOnly: true }, ["cn6"]).length !== 1) errors.push("wrong-only pilot candidate count must follow target history");
 
   return {

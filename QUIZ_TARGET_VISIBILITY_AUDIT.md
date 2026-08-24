@@ -8,26 +8,26 @@
 
 ## 固定した対象と環境
 
-- 対象: 断面17、脳表6、神経血管17、計40 target。
-- 画面: PC 1366×768、横向きタブレット1024×768、phone 390×768。計120件。
+- 対象: 断面17、脳表6、神経血管18、計41 target。
+- 画面: PC 1366×768、横向きタブレット1024×768、phone 390×768。計123件。
 - ブラウザ: Chrome 151.0.7922.170。
 - OS／実行環境: Windows `10.0.26200`、Node 24.19.0。
-- ローカルproduction preview: `http://127.0.0.1:4296/`。
-- 証拠: `work/quiz-visibility-formal-v4-20260824/report.json` と同階層のRGBA／mask artifact（local-only）。
+- ローカルproduction preview: `http://127.0.0.1:4325/`。
+- 証拠: `work/browser-audit/quiz-target-visibility-cn2-v2-2026-08-24/report.json` と同階層のRGBA／mask artifact（local-only）。
 
 各targetで、着色H1、無着色C、再着色H2を取得した。H1とH2のRGBA完全一致、対象別の表示状態・ID・表示形式、viewport、回転・倍率、loader、console／request／UI error、横overflow、WebGL fallback、artifact SHAとbyte数を独立validatorが再計算する。
 
 ## 結果
 
-120/120件に合格した。missing、duplicate、validation errorは0で、全件でH1とH2が完全一致した。
+123/123件に合格した。missing、duplicate、validation errorは0で、全件でH1とH2が完全一致した。
 
 | 形式 | 件数 | 最小coverage | 最大outside ratio | 着色変化面積の範囲 |
 | --- | ---: | ---: | ---: | ---: |
 | 断面 | 51 | 0.9501 | 0.0183 | 66–17,978 px |
 | 脳表 | 18 | 0.9622 | 0.0005 | 2,065–25,453 px |
-| 神経血管 | 51 | 0.9762 | 0.0357 | 93–2,967 px |
+| 神経血管 | 54 | 0.9003 | 0.0357 | 93–2,967 px |
 
-後大脳動脈（PCA）は、PC coverage 0.9936／outside 0、横向きタブレット0.9942／0、phone 0.9917／0だった。
+後大脳動脈（PCA）は、PC coverage 0.9936／outside 0、横向きタブレット0.9942／0、phone 0.9917／0だった。追加した`cn2`はPC 0.9038、横向きタブレット0.9031、phone 0.9003で、outsideはいずれも0だった。Chrome 151でphone viewportを切り替えた直後だけtouch API反映が1回遅れる挙動があったため、各viewportの測定前に同じmetrics／touch設定を再適用し、観測値が固定条件と一致してからH1を取得するようrunnerを補強した。
 
 ## 半透明重なりの監査修正
 
@@ -49,6 +49,6 @@
 
 ```bash
 node scripts/audit_quiz_target_visibility_browser.mjs \
-  --base-url http://127.0.0.1:4296/ \
-  --output-dir work/quiz-visibility-formal-v4-20260824
+  --base-url http://127.0.0.1:4325/ \
+  --output-dir work/browser-audit/quiz-target-visibility-cn2-v2-2026-08-24
 ```

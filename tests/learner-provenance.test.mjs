@@ -242,7 +242,7 @@ test("app-only optic rows stay separate from legacy and atlas label namespaces",
     assert.ok(entry, `missing app-only row ${key}`);
     assert.equal(entry.expertReview, "pending");
     assert.equal(entry.projectReview, "pending");
-    assert.equal(entry.quizEligibility, "none");
+    assert.equal(entry.quizEligibility, key === "app-schematic-optic-nerve" ? "pilot" : "none");
     assert.deepEqual(entry.sourceRefs, ["project-authored-teaching-overlays"]);
     assert.equal(Object.hasOwn(entry, "labelIds"), false, `${key} must not carry labelIds`);
     assert.equal(Object.hasOwn(entry, "legacyIds"), false, `${key} must not carry legacyIds`);

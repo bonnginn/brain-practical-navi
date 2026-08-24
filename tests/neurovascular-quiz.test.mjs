@@ -18,15 +18,15 @@ const [page, css, canvas] = await Promise.all([
   readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8"),
 ]);
 
-test("neurovascular pilot has a separate frozen 17-question inventory", () => {
+test("neurovascular pilot has a separate frozen 18-question inventory", () => {
   const report = auditNeurovascularQuiz();
   assert.equal(report.ok, true, report.errors.join("\n"));
   assert.equal(report.contentSha256, EXPECTED_NEUROVASCULAR_QUIZ_SHA256);
   assert.deepEqual(report.summary, {
-    questionCount: 17,
+    questionCount: 18,
     arteryCount: 6,
-    nerveCount: 11,
-    uniqueTargetCount: 17,
+    nerveCount: 12,
+    uniqueTargetCount: 18,
     overlayRegionCount: 45,
     bnm3FileCount: 5,
     oldSectionId33Excluded: true,
@@ -39,7 +39,10 @@ test("pilot target/options stay in the overlay namespace and distinguish valid o
   assert.equal(report.ok, true, report.errors.join("\n"));
   assert.match(page, /cn6[^\n]*ids:\[32,33\]/);
   const pilotBlock = page.match(/const neurovascularQuizQuestions:NeurovascularQuizQuestion\[\]=\[[\s\S]*?\n\];/)?.[0] ?? "";
-  assert.doesNotMatch(pilotBlock, /cn2|opticChiasm|acomm|pcomm|cerebellarArteries/);
+  assert.match(pilotBlock, /\{target:"cn2"[^\n]*options:\["cn2","cn1","cn3","cn4"\]/);
+  assert.doesNotMatch(pilotBlock, /opticChiasm|acomm|pcomm|cerebellarArteries/);
+  assert.match(page, /cn2:\{[^\n]*ids:\[23,24\]/);
+  assert.doesNotMatch(pilotBlock, /target:"cn2"[^\n]*(?:25|33|36|37|38)/);
   assert.doesNotMatch(pilotBlock, /(?:target|options):[^\n]*33/);
 });
 

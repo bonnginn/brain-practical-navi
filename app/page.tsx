@@ -329,7 +329,7 @@ const neurovascularStructures:Record<NeurovascularStructureKey,{name:string;lati
   pca:{name:"後大脳動脈",latin:"Posterior cerebral artery",kind:"arteries",ids:[13,14],note:"中脳周囲を外側・後方へ回り、後頭葉下面へ向かう。"},
   cerebellarArteries:{name:"小脳動脈群",latin:"SCA / AICA / PICA",kind:"arteries",ids:[15,16,17,18,19,20],note:"脳底動脈・椎骨動脈から小脳へ向かう上・前下・後下小脳動脈。"},
   cn1:{name:"I 嗅球・嗅索",latin:"Olfactory bulb and tract",kind:"nerves",ids:[21,22],note:"前端の嗅球から、前頭葉下面の嗅溝に沿って嗅索が後方へ走る模式です。"},
-  cn2:{name:"II 視神経・視索",latin:"Optic nerve / tract",kind:"nerves",ids:[23,24],note:"視神経は後内側の視交叉へ集まり、その後方では視索として外後方へ続く。"},
+  cn2:{name:"II 視神経・視索",latin:"Optic nerve / tract",kind:"nerves",ids:[23,24],note:"IIの視神経・視索をまとめた既存の模式表示です。個体境界や視交叉を分節した表示ではありません。"},
   opticChiasm:{name:"II 視交叉",latin:"Optic chiasm",kind:"nerves",ids:[25],note:"視床下部前下方で左右の視神経線維が交叉する。"},
   cn3:{name:"III 動眼神経",latin:"Oculomotor nerve",kind:"nerves",ids:[26,27],note:"中脳の脚間窩から腹側へ現れる。"},
   cn4:{name:"IV 滑車神経",latin:"Trochlear nerve",kind:"nerves",ids:[28,29],note:"中脳背側から出た後、外側を回って腹面へ現れる。"},
@@ -478,6 +478,7 @@ const neurovascularQuizQuestions:NeurovascularQuizQuestion[]=[
   {target:"basilar",category:"neurovascular",view:"arteries",format:"neurovascular",detail:"arteries",origin:"provisional",prompt:"白色で強調された模式3Dの名称はどれですか？",options:["basilar","vertebral","pca","mca"]},
   {target:"pca",category:"neurovascular",view:"arteries",format:"neurovascular",detail:"arteries",origin:"provisional",prompt:"白色で強調された模式3Dの名称はどれですか？",options:["pca","basilar","vertebral","mca"]},
   {target:"cn1",category:"neurovascular",view:"cranialNerves",format:"neurovascular",detail:"cranialNerves",origin:"provisional",prompt:"白色で強調された模式3Dの名称はどれですか？",options:["cn1","cn3","cn5","cn12"]},
+  {target:"cn2",category:"neurovascular",view:"cranialNerves",format:"neurovascular",detail:"cranialNerves",origin:"provisional",prompt:"白色で強調された模式3Dの名称はどれですか？",options:["cn2","cn1","cn3","cn4"]},
   {target:"cn3",category:"neurovascular",view:"cranialNerves",format:"neurovascular",detail:"cranialNerves",origin:"provisional",prompt:"白色で強調された模式3Dの名称はどれですか？",options:["cn3","cn4","cn5","cn6"]},
   {target:"cn4",category:"neurovascular",view:"cranialNerves",format:"neurovascular",detail:"cranialNerves",origin:"provisional",prompt:"白色で強調された模式3Dの名称はどれですか？",options:["cn4","cn3","cn6","cn7"]},
   {target:"cn5",category:"neurovascular",view:"cranialNerves",format:"neurovascular",detail:"cranialNerves",origin:"provisional",prompt:"白色で強調された模式3Dの名称はどれですか？",options:["cn5","cn6","cn7","cn8"]},
@@ -581,7 +582,7 @@ function quizVisibilityAuditTargetOverride():QuizQuestion|null{
   const target=params.get("target");
   return allQuizQuestions.find(question=>question.target===target)??null;
 }
-const QUIZ_VISIBILITY_INVENTORY_SHA256="91b9b9cd4f14ccbe740643d3714ea03819f9dfee24aa52e67315d8127222773b";
+const QUIZ_VISIBILITY_INVENTORY_SHA256="ef5741723a07e8224ebc263e2848c31d9ea07f5a060dcadeca1d74b843df0d44";
 
 const anatomyReviewSurfaceLabels:Record<AnatomyReviewSurface,string>={all:"すべての表示面",surface:"脳表",sections:"断面",blocks:"ブロック標本",quiz:"復習"};
 const anatomyReviewRepresentationLabels:Record<string,string>={

@@ -10,7 +10,7 @@
 
 ### 2026-08-23 最終ローカル実ブラウザ確認
 
-registry 75件、expert pending 75件、表示面フィルタは脳表54／断面16／ブロック標本30／復習21です。学習者向けmappingは222/222件が解決済みで、未解決はありません。Chrome 151のin-app browserでローカルproduction preview `http://127.0.0.1:4201` を確認し、review panel 75/75、filter surface54／sections16／blocks30／quiz21／all75を表示しました。
+registry 75件、expert pending 75件、表示面フィルタは脳表54／断面16／ブロック標本30／復習22です。学習者向けmappingは222/222件が解決済みで、未解決はありません。2026-08-24、`cn2` quiz pilot追加後のChrome 151ローカルpreview `http://127.0.0.1:4325` で、review panel 75/75と復習filter 22件を実操作で確認しました。2026-08-23の追加前filter surface54／sections16／blocks30／quiz21／all75は履歴として保持します。
 
 56件からの増分は、脳表・ブロックのapp-only行18件とoptic nerve（`cn2`）行1件の計19件です。旧解剖ラベルID33とアプリの`cn2`／`opticChiasm`は別名前空間で、ID33の除外条件は維持します。ID39・40も、プロジェクト内レビュー済み・expert pendingのままです。詳細は [LEARNER_PROVENANCE_DISPLAY_AUDIT.md](LEARNER_PROVENANCE_DISPLAY_AUDIT.md) を参照してください。
 

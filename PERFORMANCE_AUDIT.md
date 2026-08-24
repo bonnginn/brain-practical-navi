@@ -321,3 +321,7 @@ missing／duplicate／unexpected route key、console／request／UI error、残�
 ### β重点4の部品確認ガイド追加後
 
 `work/performance/initial-route-payload-block-guided-observation-2026-08-24.json` でcanonical 27/27件を再測定した。既存lesson layerを順に切り替えるUIと状態契約だけを追加し、8標本の既存exact asset allowlistとartifact-derived budgetはすべて維持された。新しいatlas asset request、missing／duplicate／unexpected、console／request／UI error、loader、overflow、WebGL fallbackは0件だった。route監査も `work/browser-audit/beta-route-audit-block-guided-observation-2026-08-24.json` のPC・tablet・390 px相当、direct／reload計162/162件に合格した。ガイドの実クリック確認はPCで行い、390 px相当はroute health、overflow 0、CSS 44 px操作契約までを確認した。公開回線、物理端末・タッチ、別GPU／別ブラウザの性能は未確認である。
+
+### 第II脳神経名称同定pilot追加後
+
+`work/performance/initial-route-payload-cn2-quiz-2026-08-24.json` でcanonical 27/27件を再測定した。既存の模式`cn2`をクイズ在庫へ加えただけで、新しい画像、mesh、volume、atlas requestは追加していない。全経路でexact allowlistとartifact-derived budgetを維持し、missing／duplicate／unexpected、console／request／UI error、loader、overflow、WebGL fallbackは0件だった。route監査も `work/browser-audit/beta-route-audit-cn2-quiz-2026-08-24.json` のPC・tablet・390 px相当、direct／reload計162/162件に合格した。公開回線、物理端末・タッチ、別GPU／別ブラウザの性能は未確認である。

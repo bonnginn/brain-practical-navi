@@ -18,7 +18,7 @@
 | --- | ---: |
 | provenance registry entries | 75 |
 | expert pending | 75 |
-| review filter（surface / sections / blocks / quiz） | 54 / 16 / 30 / 21 |
+| review filter（surface / sections / blocks / quiz） | 54 / 16 / 30 / 22 |
 | learner provenance mapping（resolved / total） | 222 / 222 |
 | learner family（sections / surface / free / neurovascular / blocks） | 21 / 52 / 75 / 22 / 52 |
 | app inventory（regions / landmarks / deep / basal） | 26 / 8 / 5 / 13 |
@@ -28,7 +28,7 @@
 
 ## 2026-08-23 最終ローカル実ブラウザ確認
 
-Chrome 151のin-app browserで、ローカルproduction preview `http://127.0.0.1:4201` を確認した。review panelは75/75件を表示し、filterはsurface54／sections16／blocks30／quiz21／all75だった。app-onlyカードでは日本語見出し（縁上回、II 視神経・視索）を確認し、自由観察の縁上回は「試作」バッジとCerebrA詳細を表示した。`cn2` と`opticChiasm`はそれぞれ「模式」、blockのchoroid plexusは「模式」と未保証説明を表示した。
+2026-08-23のChrome 151 in-app browser記録は、`cn2` quiz pilot追加前のreview panel 75/75件、filter surface54／sections16／blocks30／quiz21／all75だった。2026-08-24、追加後のローカルpreview `http://127.0.0.1:4325` でreview panel 75/75とquiz filter 22件を実操作し、機械値と一致することを確認した。app-onlyカードでは日本語見出し（縁上回、II 視神経・視索）を確認し、自由観察の縁上回は「試作」バッジとCerebrA詳細を表示した。`cn2` と`opticChiasm`はそれぞれ「模式」、blockのchoroid plexusは「模式」と未保証説明を表示した。
 
 同じローカルbuildのroute auditは `work/browser-audit/beta-route-audit-learner-provenance-final-2026-08-23.json` に保存し、26経路×3幅×direct/reload＝156/156、`allPassed: true` だった。390 px設定時の`clientWidth`は375 pxで、overflow、画面内error、残留loader、WebGL fallbackはいずれもなかった。
 
@@ -57,7 +57,7 @@ node scripts/audit_structure_provenance.mjs
 node scripts/audit_beta_status.mjs
 ```
 
-期待する主要結果は `entryCount: 75`、`pendingCount: 75`、review filter の `54 / 16 / 30 / 21`、mapping `222 / 222` resolved、unresolved `0` である。実ブラウザでの表示面フィルタ、カード、リンク、狭幅レイアウトの再確認は別作業として残す。
+期待する主要結果は `entryCount: 75`、`pendingCount: 75`、review filter の `54 / 16 / 30 / 22`、mapping `222 / 222` resolved、unresolved `0` である。quiz filter 22件は実ブラウザでも確認済みで、全表示面フィルタ、カード、リンク、狭幅レイアウトの一括再確認は別作業として残す。
 
 ## 履歴の扱い
 

@@ -6,11 +6,12 @@
 
 ## インベントリ
 
-- 既存23問は `const quizQuestions` の内容、target、options、position、viewを別のSHA-256スナップショットで監査し、今回の17問と混ぜません。
-- 新規17問は `const neurovascularQuizQuestions` に分離し、全問 `format:"neurovascular"`、`origin:"provisional"`、画面表示「模式3D・専門家未確認」です。
+- 既存23問は `const quizQuestions` の内容、target、options、position、viewを別のSHA-256スナップショットで監査し、今回の18問と混ぜません。
+- 新規18問は `const neurovascularQuizQuestions` に分離し、全問 `format:"neurovascular"`、`origin:"provisional"`、画面表示「模式3D・専門家未確認」です。
 - 血管6対象: `ica`, `aca`, `mca`, `vertebral`, `basilar`, `pca`。
-- 脳神経11対象: `cn1`, `cn3`–`cn12`。`cn2`、`opticChiasm`、`acomm`、`pcomm`、`cerebellarArteries`は対象・選択肢に含めません。
-- 新規pilotのインベントリSHA-256: `eab57546bcd84d17eb24929b309a84db945ca8c0e6fa75a6a77531e865a9c08f`。
+- 脳神経12対象: `cn1`, `cn2`, `cn3`–`cn12`。IIは既存の視神経・視索をまとめた模式レイヤーの名称だけを問い、`opticChiasm`、`acomm`、`pcomm`、`cerebellarArteries`は対象・選択肢に含めません。
+- `cn2`の正答対象は既存overlay region ID `[23,24]`だけです。opticChiasm region ID25、旧BigBrain／断面ID33、未分節の視覚路ID36–38はこの問題へ含めません。
+- 新規pilotのインベントリSHA-256: `96f557dfcc0a9dfb1e06f9baef6e8df602a05f9a4446bf91f6613d5fba356c9d`。
 
 ## 表示契約
 
@@ -18,16 +19,20 @@
 - `arteries` は血管オーバーレイ、`cranialNerves` は脳神経オーバーレイだけを必要時に読み込みます。未選択カテゴリのoverlay meshをpilotのために先読みしません。白色対象が不透明な脳表や小脳に隠れないよう、既存の神経血管学習画面と同じ透過脳表・小脳OFFを使います。
 - 正答・選択肢は既存 `neurovascularStructures` registryのkindとregion IDsへ一致し、Canvasでは対象region IDsを `[255,255,255]` で強調します。
 - 復習リンクは既存の脳表 `arteries` / `cranialNerves` 画面を透過表示のまま開き、該当targetを白色選択します。WebGL fallback時も通常の問題進行を止めない既存挙動を維持します。
-- 試作問題は既定ONですが、試作OFFでは候補0件です。ONの候補数は全17、`arteries` 6、`cranialNerves` 11です。wrong-onlyは保存済みtargetだけを候補にします。
+- 試作問題は既定ONですが、試作OFFでは候補0件です。ONの候補数は全18、`arteries` 6、`cranialNerves` 12です。wrong-onlyは保存済みtargetだけを候補にします。
+
+## 2026-08-24 bounded inventory update
+
+既存overlayの `cn2` を1問だけ追加しました。問題文は従来の白色強調された模式3Dの名称同定で、起始・走行・視交叉・接続を判定しません。`cn2`のregistry IDsは `[23,24]` に固定し、`app-schematic-optic-nerve` を `learnerSurfaces:["surface","quiz"]`・`quizEligibility:"pilot"` として `cn2`へ解決しました。`app-schematic-optic-chiasm` と `opticChiasm` は引き続き `quizEligibility:"none"` です。メッシュ、BNM3、voxel、分節、標準クイズ23問、解剖レビュー状態は変更していません。Chrome 151のローカルpreview `http://127.0.0.1:4325` で全41問・脳神経12問、`cn2`の誤答説明と観察リンク、試作OFF時0問を実操作し、可視性監査は41 target×3幅の123/123件に合格しました。最終buildのcanonical routeは162/162、cold初回payloadは27/27件に合格しました。
 
 ## データ・名前空間監査
 
 `scripts/audit_neurovascular_quiz.mjs` と `tests/neurovascular-quiz.test.mjs` で、次を機械検査します。
 
-- 新規17問の数、重複、target集合、選択肢数、kind一致、prompt、provisional属性、固定SHA。
+- 新規18問の数、重複、target集合、選択肢数、kind一致、prompt、provisional属性、固定SHA。
 - `public/atlas/neurovascular-overlays.json` の45 region metadata、各IDの非空名、5つのBNM3 meshの有限頂点・bbox、mesh内region IDの実在。
 - 旧BigBrain／断面ラベルID 33はpilotへ持ち込みません。一方、neurovascular overlayの右VI外転神経は別名前空間のregion ID 33として正当に保持されます。
-- `public/atlas/structure-provenance.json` の対応entry、`learnerSurfaces:["surface","quiz"]`、`quizEligibility:"pilot"`、appKeys、17件のquizTargets。
+- `public/atlas/structure-provenance.json` の対応entry、`learnerSurfaces:["surface","quiz"]`、`quizEligibility:"pilot"`、appKeys、18件のneurovascular quizTargets（全体41件）。
 
 ## 実ブラウザ確認記録
 
@@ -42,4 +47,4 @@
 
 ## 未確認事項
 
-今回のローカル確認は、公開URL、物理端末、異なるGPU、専門家による解剖学的妥当性を証明しません。専門家レビュー、細枝・静脈・連絡動脈、`cn2`、視覚路の個別分節は未完了です。
+今回のローカル確認は、公開URL、物理端末、異なるGPU、専門家による解剖学的妥当性を証明しません。専門家レビュー、細枝・静脈・連絡動脈、視覚路の個別分節は未完了です。`cn2`は合成模式レイヤーの名称同定pilotとして追加しただけで、純粋な視神経分節や視索・視交叉の境界を主張しません。

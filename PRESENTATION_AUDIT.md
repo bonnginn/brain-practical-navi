@@ -288,3 +288,7 @@ Windows Chrome 151のローカルproduction preview `http://127.0.0.1:4314` で�
 Chrome 151のローカルproduction preview `http://127.0.0.1:4315` で全8標本を順に選択し、区分、hash、バッジ、Canvas 1、loader／UI error／横overflow 0を確認した。canonical route監査は `work/browser-audit/beta-route-audit-block-priority-2026-08-24.json` の162/162件、cold payload監査は `work/performance/initial-route-payload-block-priority-2026-08-24.json` の27/27件に合格した。公開URL、物理端末、別GPU／別ブラウザ、専門家による形状・優先順位の確認は未完了である。
 
 追加したβ重点4の部品確認ガイドは、既存lesson layerを1件ずつ単独表示し、最終段階だけ全layerを表示する。開始前の手動選択は終了・標本切替・workspace離脱・unmountで復元し、発展4にはガイドを表示しない。画面上の順序はUI上の部品確認順であり、解剖・摘出順や実習手順ではない。独立監査`ok: true`、全tests 330/330、TypeScript型検査、通常／Pages buildが成功した。Chrome 151 production preview `http://127.0.0.1:4316`でfocus4全件の開始→single layer列→final all→終了後manual復元、側脳室のactive中diencephalon切替cleanup、発展4のguide count 0を確認し、PC Canvas 1・loader／UI error／overflow 0だった。canonical routeはPC・tablet・390 px相当のdirect/reloadで162/162、cold payloadは27/27。390 px相当ではroute health／overflow 0とCSS 44 px契約を確認したが、ガイド実クリックはPCのみである。物理端末・タッチ、公開URL、別browser／GPU、専門家レビューは未確認。詳細は [BLOCK_GUIDED_OBSERVATION_AUDIT.md](BLOCK_GUIDED_OBSERVATION_AUDIT.md)。
+
+### 2026-08-24 第II脳神経名称同定pilot
+
+既存の`cn2`模式レイヤーを、白色強調の名称だけを問う試作問題へ追加した。Chrome 151のローカルpreview `http://127.0.0.1:4325` で全41問・脳神経12問、誤答説明、観察画面への復帰と`cn2`選択、試作OFF時の脳神経・血管3D 0問、共同制作の復習filter 22件を実操作した。最終build `http://127.0.0.1:4326` はcanonical route 162/162、cold payload 27/27件に合格し、console／request／UI error、loader、overflow、WebGL fallbackは0件だった。公開URL、物理端末、別browser／GPU、専門家レビューは未確認である。

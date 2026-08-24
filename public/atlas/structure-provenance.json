@@ -978,12 +978,12 @@
       "coverage": "app-surface-only",
       "appLabel": "II 視神経・視索",
       "representations": ["schematic-3d"],
-      "learnerSurfaces": ["surface"],
+      "learnerSurfaces": ["surface", "quiz"],
       "expertReview": "pending",
       "projectReview": "pending",
-      "quizEligibility": "none",
+      "quizEligibility": "pilot",
       "sourceRefs": ["project-authored-teaching-overlays"],
-      "knownLimitations": ["視神経・視索の近位経路を表す模式3Dであり、個体境界・全走行・断面分節を示すものではありません。"],
+      "knownLimitations": ["視神経・視索をまとめた模式3Dであり、個体境界・全走行・視交叉の分節を示すものではありません。クイズはこの合成模式レイヤーの名称だけを扱います。"],
       "appKeys": ["cn2"]
     },
     {
@@ -1031,6 +1031,7 @@
     {"target": "vertebral", "entryKey": "vascular-vertebrobasilar-arteries", "eligibility": "pilot"},
     {"target": "basilar", "entryKey": "vascular-vertebrobasilar-arteries", "eligibility": "pilot"},
     {"target": "cn1", "entryKey": "cranial-nerves-one-to-twelve", "eligibility": "pilot"},
+    {"target": "cn2", "entryKey": "app-schematic-optic-nerve", "eligibility": "pilot"},
     {"target": "cn3", "entryKey": "cranial-nerves-one-to-twelve", "eligibility": "pilot"},
     {"target": "cn4", "entryKey": "cranial-nerves-one-to-twelve", "eligibility": "pilot"},
     {"target": "cn5", "entryKey": "cranial-nerves-one-to-twelve", "eligibility": "pilot"},

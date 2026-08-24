@@ -41,9 +41,9 @@ Chrome 151のPages想定buildで総量不明表示、総量既知の `12 MB / 12
 
 ## 2026-08-23 来歴表示監査の現在値
 
-機械台帳は registry 75件、expert pending 75件、表示面フィルタ（脳表／断面／ブロック標本／復習）54／16／30／21件です。学習者向けmappingは222/222件が解決済みで、family別は sections21／surface52／free75／neurovascular22／blocks52です。アプリ在庫は regions26／landmarks8／deep5／basal13／neurovascular22／sections21／block specimens8／layers44／pathways3です。
+機械台帳は registry 75件、expert pending 75件、表示面フィルタ（脳表／断面／ブロック標本／復習）54／16／30／22件です。学習者向けmappingは222/222件が解決済みで、family別は sections21／surface52／free75／neurovascular22／blocks52です。アプリ在庫は regions26／landmarks8／deep5／basal13／neurovascular22／sections21／block specimens8／layers44／pathways3です。
 
-現行Go / No-Goの12項目とsourceCounts（provenance／expert pending 75件、unique quiz targets 40件＝既存23件＋模式3D pilot 17件、learner mapping 222/222件）は [BETA_GO_NO_GO_AUDIT.md](BETA_GO_NO_GO_AUDIT.md) と [BETA_GO_NO_GO.json](BETA_GO_NO_GO.json) を基準にします。ローカル確認を公開・専門家確認・デプロイ完了とは扱いません。
+現行Go / No-Goの12項目とsourceCounts（provenance／expert pending 75件、unique quiz targets 41件＝既存23件＋模式3D pilot 18件、learner mapping 222/222件）は [BETA_GO_NO_GO_AUDIT.md](BETA_GO_NO_GO_AUDIT.md) と [BETA_GO_NO_GO.json](BETA_GO_NO_GO.json) を基準にします。ローカル確認を公開・専門家確認・デプロイ完了とは扱いません。
 
 56件から75件への19件追加（surface／block app-only 18行とoptic nerve `cn2`行1件）、旧ID33と`cn2`／`opticChiasm`の分離、ID39・40のexpert pending維持は [LEARNER_PROVENANCE_DISPLAY_AUDIT.md](LEARNER_PROVENANCE_DISPLAY_AUDIT.md) に固定しています。
 
@@ -155,7 +155,7 @@ Chrome 151の通常production preview `http://127.0.0.1:4250/` で、Windows 11 
 
 - 主要経路の表示条件とURL復元をテストで固定する。
 - クイズ対象の着色面積、未確認構造の通常問題除外、断面スライダー操作を監査する。
-  - 2026-08-24、40 target×3幅の実ブラウザ可視性監査は120/120件合格。半透明神経血管のdepth・描画順・alpha合成を独立再計算し、PCAを含め十分な着色変化、解除、完全再現を確認した。詳細は `QUIZ_TARGET_VISIBILITY_AUDIT.md`。専門家による形状・境界・問題採否の確認は別途必要。
+  - 2026-08-24、`cn2`追加後の41 target×3幅＝123/123件がChrome 151で合格した。半透明神経血管のdepth・描画順・alpha合成を独立再計算し、PCAと`cn2`を含む着色変化、解除、完全再現を確認した。証拠は `work/browser-audit/quiz-target-visibility-cn2-v2-2026-08-24/report.json`、詳細は `QUIZ_TARGET_VISIBILITY_AUDIT.md` に保持する。専門家による形状・境界・問題採否の確認は別途必要。
 - 配布物全体だけでなく、トップ、脳表、断面、各局所標本の取得量予算を再現可能なスクリプトへする。
 - 初回画面の取得量を経路別に自動集計する監査スクリプトは完了。Windows 11／Chrome 151.0.7922.170／Node 24.19.0、ローカルpreview `http://127.0.0.1:4211/`、requested desktop 1366×768のcold loadでcanonical 26経路を測定し、26/26件、topology 0、console／request／UI error・loader・overflow・WebGL fallback 0。圧縮pial物理パスだけを要求し、raw要求は0件だった。結果は `work/performance/initial-route-payload-audit-pial-gzip-2026-08-23.json`、設計とroute表は `PERFORMANCE_AUDIT.md` に記録した。sectionsは26,441,013 Bで旧34,688,033 B（34.69 MB）から23.8%減ったが、旧値は履歴として保持する。
 - 読込中の対象が分かる表示を整え、失敗時再試行を実画面で確認する。
@@ -247,7 +247,7 @@ Chrome 151の通常production preview `http://127.0.0.1:4250/` で、Windows 11 
 - 専門家による構造位置・範囲・連続性の確認。
 - 権利文書、Google Form、公開画面をまたぐ最終実ブラウザ巡回。
 - スマートフォン専用UIのローカル親確認は完了（`MOBILE_UI_AUDIT.md`）。Chrome 151・`http://127.0.0.1:4198`で、coarse touch phoneの5件dock、native settings dialog、focus／背景scroll、sectionsの既存rail操作、rangeとpage scroll、segment直接URLのCanvas非生成を確認し、coarse 26経路52/52、fine/non-touch 26経路×3幅×direct/reload 156/156に合格した。fine-pointer狭幅ではphoneMode=false、dockなし、既存sections／segment workbenchを確認した。公開URL、物理端末、実機タッチ、Safari・別ブラウザ、別GPU、専門家レビューは未確認である。詳細な画像・probe・監査JSONは `MOBILE_UI_AUDIT.md` を参照する。
-- 専門家レビュー準備キューは `ANATOMY_REVIEW_HANDOFF.md` に沿った読み取り専用の準備段階であり、provenance台帳のexpert pending 75件を共同制作画面へ表示する。一般のForm・Issue・PR入口の後ろで既定閉鎖にし、観察リンクは対象を自動選択しない一般workspace入口だけに限定する。Chrome 151のローカル通常buildで全75件、表示面フィルタ54／16／30／21件、複合フィルタ、ID39・40、旧ID33、390 px相当の横はみ出しなし・内側スクロールなしを親確認し、通常26経路×3幅×direct/reloadも156/156件に合格した。専門家確認、解剖学的妥当性、採否は未完了で、ID39・40もexpert pending、旧ID33は断面／通常クイズ正答と分節入口から除外したままである。
+- 専門家レビュー準備キューは `ANATOMY_REVIEW_HANDOFF.md` に沿った読み取り専用の準備段階であり、provenance台帳のexpert pending 75件を共同制作画面へ表示する。一般のForm・Issue・PR入口の後ろで既定閉鎖にし、観察リンクは対象を自動選択しない一般workspace入口だけに限定する。2026-08-24、Chrome 151のローカル通常buildで全75件と復習filter 22件を確認し、既存の表示面54／16／30／21件、複合フィルタ、ID39・40、旧ID33、390 px相当の回帰履歴も保持する。専門家確認、解剖学的妥当性、採否は未完了で、ID39・40もexpert pending、旧ID33は断面／通常クイズ正答と分節入口から除外したままである。
 
 2026-08-23追加: `ORTHOGONAL_REVIEW_BUNDLE_AUDIT.md` に、WindowsローカルのGit管理外 `work/anatomy-review/orthogonal-review-bundle-v3/`（固定入力SHA・BBS1寸法・ID33/39/40の全占有断面、ID39/40の外側断面、ID27のcrop内context-only、期待161 PNG＋manifest）を記録した。PNG／pixel SHA、空metadata、flat anchor、exact file/schema、link境界まで独立検証済みだが、`review.status=unreviewed` であり、ラベル本体・公開資産・ID36–38は変更していない。乳頭体付着部と視交叉・左右視索境界の解剖判断、専門家確認、公開URL・物理端末確認は残る。
 
