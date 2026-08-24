@@ -42,6 +42,10 @@ Chrome 151のin-app browserでローカルproduction preview `http://127.0.0.1:4
 
 同日、8ブロック標本をβ重点4／発展観察4へ分ける観察導線を追加したため、`change-block-priority-routing` を追加した。区分はロードマップ上の改善順であり、実習頻度、由来、確度、専門家レビュー、品質の順位ではない。全8標本・既存URL・機能を維持し、形状や境界を変更していないことを利用者向け本文にも残す。
 
+2026-08-24、`CONTENT_ACCURACY_REVIEW.md` に基づく文言・分類・由来注記の反映を `change-content-accuracy-review` として更新履歴へ追加した。STN、淡蒼球、尾状核と側脳室、第三脳室、脳梁・脳弓、脳表5領域の説明を同期したが、構造ID・分節形状・座標・色・クイズ在庫は変更していない。これは参照資料に基づくプロジェクト内レビューであり、専門家確認・境界確認・Go / No-Goの完了や、所属機関による承認を意味しない。
+
+同項目追加後の通常production preview `http://127.0.0.1:4340/#workspace/status` をCodex内蔵ブラウザで確認した。390×768指定時の実効document client／scroll widthは284／284 px、dialog client／scroll widthは267／267 px、追加カード幅は223.22 pxで横overflowはなかった。追加見出し・本文、専門家確認と境界確認の未完了、所属機関による承認を意味しない記述を表示し、loader／UI error／console warning・errorは0件、Escでdialogが閉じてHomeへ戻ることを確認した。これは表示と操作のローカル確認であり、専門家確認や公開URL反映ではない。
+
 ## 根拠と更新方法
 
 - 各項目の`evidenceRefs`は、リポジトリ内の監査文書、アプリ実装、または機械可読な由来索引を参照する。
@@ -66,7 +70,7 @@ Chrome 151のin-app browserでローカルproduction preview `http://127.0.0.1:4
 
 ## 実装検証
 
-- 全自動テスト: 2026-08-24の現行作業ツリーで323/323成功（ブロック標本の重点導線、由来台帳、Go / No-Go台帳、クイズ全選択肢由来の異常系を含む）。
+- 全自動テスト: 2026-08-24の現行作業ツリーで398/398成功（変更履歴、内容正確性、lockfile、ブロック標本、由来・Go / No-Go台帳、クイズ全選択肢由来の異常系を含む）。
 - TypeScript型検査: 成功。
 - 通常本番ビルド: 成功。
 - GitHub Pages向けビルド: 成功。

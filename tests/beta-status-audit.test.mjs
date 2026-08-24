@@ -14,7 +14,7 @@ test("beta status registry is valid and covers the fixed provenance references",
   assert.equal(result.ok, true, result.errors.join("\n"));
   assert.equal(baseStatus.phase, STATUS_PHASE);
   assert.equal(baseStatus.knownLimitations.length, 6);
-  assert.equal(baseStatus.changes.length, 16);
+  assert.equal(baseStatus.changes.length, 17);
   assert.match(baseStatus.changes.find(item => item.id === "change-beta-readiness-display").body, /専門家確認待ち4/);
   assert.match(baseStatus.changes.find(item => item.id === "change-pwa-install-affordance").body, /実際のホーム画面追加と追加後起動は未確認/);
   assert.match(baseStatus.changes.find(item => item.id === "change-ventricle-cavity-repair").body, /33 voxel/);
@@ -22,6 +22,21 @@ test("beta status registry is valid and covers the fixed provenance references",
   assert.match(baseStatus.changes.find(item => item.id === "change-block-priority-routing").body, /観察導線/);
   assert.match(baseStatus.changes.find(item => item.id === "change-block-guided-observation").body, /最終段階だけ全layer/);
   assert.match(baseStatus.changes.find(item => item.id === "change-download-progress").body, /総量不明/);
+  const contentAccuracyChange = baseStatus.changes.find(item => item.id === "change-content-accuracy-review");
+  assert.deepEqual(contentAccuracyChange.evidenceRefs, ["CONTENT_ACCURACY_REVIEW.md", "tests/content-accuracy-review.test.mjs", "public/atlas/structure-provenance.json"]);
+  assert.match(contentAccuracyChange.body, /間脳の視床下域.*中脳・視床下域.*中脳核・視床下域/);
+  assert.match(contentAccuracyChange.body, /GPe.*基底核内回路の中継・調節.*GPi.*主要な出力部/);
+  assert.match(contentAccuracyChange.body, /尾状核頭部.*側脳室前角の外側壁.*体部.*側脳室体部の外側.*尾部.*下角の上方・天井側/);
+  assert.match(contentAccuracyChange.body, /第三脳室の側壁上部は視床、下部は視床下部に接する/);
+  assert.match(contentAccuracyChange.body, /CORPUS CALLOSUM AND FORNIX/);
+  for (const name of ["中前頭回前部", "中前頭回後部", "鳥距溝周囲皮質", "外側後頭皮質", "眼窩前頭皮質"]) {
+    assert.match(contentAccuracyChange.body, new RegExp(name));
+  }
+  assert.match(contentAccuracyChange.body, /CerebrA／Desikan系アトラス区画/);
+  assert.match(contentAccuracyChange.body, /構造ID.*分節形状.*座標.*色.*クイズ在庫.*変更していません/);
+  assert.match(contentAccuracyChange.body, /参照資料に基づくプロジェクト内レビュー/);
+  assert.match(contentAccuracyChange.body, /専門家確認と解剖学的境界の確認は未完了/);
+  assert.match(contentAccuracyChange.body, /所属機関による承認を意味しません/);
   assert.match(baseStatus.knownLimitations.find(item => item.id === "limitation-optic-id33").body, /ID33/);
   assert.match(baseStatus.knownLimitations.find(item => item.id === "limitation-mammillary-39-40").body, /ID39・40/);
 });

@@ -139,6 +139,12 @@
       "heading": "β重点4の部品確認ガイド",
       "body": "β重点4の既存ブロック標本layerを画面上の部品確認順に1件ずつ表示し、最終段階だけ全layerを表示するガイドを追加しました。開始前の手動選択は終了・標本切替・workspace離脱・unmountで復元し、発展4には表示しません。解剖・摘出順、実習手順、由来、確度、専門家レビューの順位を示さず、mesh・voxel・label・plane・rotation・camera・color・provenanceは変更していません。PC Chromeでfocus4全件、active中の標本切替cleanup、発展4のguide非表示を確認しました。さらに390×768 coarse-touch相当で、側脳室4、レンズ核・投射線維7、脈絡叢3、内側側頭葉3の全single layer、4 final all、終了後manual復元を実タッチし、独立validator failure 0でした。物理端末・タッチ、公開URL、別browser／GPU、専門家レビューは未確認です。",
       "evidenceRefs": ["BLOCK_GUIDED_OBSERVATION_AUDIT.md", "BETA_ROADMAP.md", "WINDOWS_HANDOFF.md", "PRESENTATION_AUDIT.md", "PERFORMANCE_AUDIT.md", "scripts/audit_block_guided_observation.mjs", "tests/block-guided-observation.test.mjs"]
+    },
+    {
+      "id": "change-content-accuracy-review",
+      "heading": "コンテンツ正確性レビューの反映",
+      "body": "公開教材の文言・分類・由来注記を、参照資料に基づくプロジェクト内レビューとして反映しました。視床下核（STN）は間脳の視床下域として扱い、関連するグループ見出しを「中脳・視床下域」「中脳核・視床下域」に整理しました。淡蒼球外節（GPe）は主に基底核内回路の中継・調節に関与し、内節（GPi）は主要な出力部であることを区別しました。尾状核頭部は側脳室前角の外側壁、体部は側脳室体部の外側、尾部は下角の上方・天井側を走るという部位関係と、第三脳室の側壁上部は視床、下部は視床下部に接することを注記しました。英見出しは「CORPUS CALLOSUM AND FORNIX」に統一し、脳表の5領域（中前頭回前部・中前頭回後部・鳥距溝周囲皮質・外側後頭皮質・眼窩前頭皮質）へ「CerebrA／Desikan系アトラス区画」の表示を付けました。構造ID、分節形状、座標、色、クイズ在庫は変更していません。これはプロジェクト内レビューの反映であり、専門家確認と解剖学的境界の確認は未完了です。所属機関による承認を意味しません。",
+      "evidenceRefs": ["CONTENT_ACCURACY_REVIEW.md", "tests/content-accuracy-review.test.mjs", "public/atlas/structure-provenance.json"]
     }
   ]
 }
