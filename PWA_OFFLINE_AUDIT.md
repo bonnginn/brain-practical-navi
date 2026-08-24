@@ -57,3 +57,11 @@
 ## 2026-08-24 端末追加導線後の再監査
 
 Homeへ明示クリック式の端末追加カードを追加した後、通常／Pages buildでserver-unavailability監査を再実行し、各10 action、合計20/20、blocker 0、独立validator passを維持した。合成 `beforeinstallprompt` によるPC／390 px相当のUI状態監査は6/6件、canonical routeは162/162件、cold初期payloadは27/27件だった。実インストールを行った結果ではない。詳細は [PWA_INSTALL_AFFORDANCE_AUDIT.md](PWA_INSTALL_AFFORDANCE_AUDIT.md) を参照する。
+
+## 2026-08-24 コミット63e6974再監査
+
+Google Formの読み取り専用preflight追加後のコミット `63e6974` から、通常／Pagesの本番生成物を別rootへ作り、`scripts/audit_pwa_offline_browser.mjs` をポート4330／4331で再実行した。権威あるローカル成果物は `work/browser-audit/pwa-offline-recovery-current-head-63e6974-2026-08-24.json` である。Windows 11 Home／Node 24.19.0／Headless Chrome 151.0.7922.170で、各base 10 action、合計20/20、blocker 0、独立validator passだった。
+
+両baseでlistener停止時に追跡socket 6件を破棄し、同じhost／portへのTCP接続が `ECONNREFUSED` になることを確認した。通常HTTP cacheはclear＋disable ACK、Cache Storageは保持した。訪問済み脳表経路は停止中もService Workerからdirect／reload／`about:blank`復帰し、未訪問の `bigbrain-icbm500.bin.gz` は停止中に既存error／retry UIを示した。再listen後の再試行はGET 200・11,904,805 bytes、Cache Storage +1、Canvas 3、loader／UI error／横overflow／WebGL fallback 0だった。
+
+これはコミット `63e6974` のローカル生成物に対するrunner所有HTTP server停止の再確認であり、物理／OSネットワーク断、公開URL、物理端末、Safari・別ブラウザ、インストール済みPWA、ホーム画面追加と追加後起動を確認したものではない。PWA全体のチェックとGo／No-Go stateは未完了のまま維持する。

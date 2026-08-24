@@ -31,6 +31,8 @@ Codex内蔵ブラウザの安全ポリシーが通信遮断後の再読込を拒
 
 この結果はrunner所有のローカルHTTP listener停止による回復性の証拠であり、物理／OSネットワーク断、公開URL、物理端末、Safari・別ブラウザ、インストール済みPWA、ホーム画面追加後の起動の証拠ではありません。PWA全体の公開／インストール判定は未完了のままです。再現手順とmutationを含む契約は `tests/pwa-offline-browser-audit.test.mjs` にあります。
 
+2026-08-24、コミット `63e6974` の通常／Pages本番生成物で同じ監査を再実行し、各10 action、合計20/20、blocker 0、独立validator passを確認しました。両baseでsocket 6件破棄、TCP `ECONNREFUSED`、HTTP cache clear＋disable ACK、訪問済み経路のService Worker direct／reload／`about:blank`復帰、未訪問11,904,805 byte教材の停止中error／retryと再listen後GET 200・Cache Storage +1・Canvas 3を再確認しています。成果物は `work/browser-audit/pwa-offline-recovery-current-head-63e6974-2026-08-24.json` です。公開URL、物理端末、実インストール等の未確認境界は変更していません。
+
 ### 2026-08-24 Homeの端末追加導線
 
 Homeへ、対応ブラウザがpromptを提供した場合だけ利用者の明示クリックで開始する端末追加カードを追加しました。非対応環境の控えめなメニュー案内と、約92 MBを一括保存せず利用時cacheに限定する説明を同じカードへ置いています。合成イベントによるPC／390 px相当6/6、通常／Pages停止・復帰20/20、canonical route 162/162、cold payload 27/27に合格しました。実際のホーム画面追加、追加後起動、公開URL、物理端末、Safariは未確認です。詳細は [PWA_INSTALL_AFFORDANCE_AUDIT.md](PWA_INSTALL_AFFORDANCE_AUDIT.md) を参照してください。
@@ -89,7 +91,7 @@ git log -1 --oneline
 npm install
 ```
 
-作業対象はDraft PR #14の `codex/optic-orthogonal-review` です。`git log -1` が少なくとも `7d6a811` 以降であることを確認してください。既存のWindows作業フォルダを使う場合は、未コミット変更を確認してから `git pull --ff-only` します。上書き・resetはしません。ユーザーの明示承認なしにmainへマージせず、公開サイトも更新せず、PRはDraftのまま維持します。
+作業対象はDraft PR #14の `codex/optic-orthogonal-review` です。`git log -1` が少なくとも `63e6974` 以降であることを確認してください。既存のWindows作業フォルダを使う場合は、未コミット変更を確認してから `git pull --ff-only` します。上書き・resetはしません。ユーザーの明示承認なしにmainへマージせず、公開サイトも更新せず、PRはDraftのまま維持します。
 
 通常は環境変数なしで動作します。意見フォームを変更する場合だけ `.env.example` から `.env.local` を作ります。`.env.local` はコミットしません。
 
