@@ -208,7 +208,7 @@ IDs 30–32はBigBrain画像、CerebrA白質確率、近接核・脳室との位
 
 `comparison-schematic-ventricle.mesh` は、共同制作ページの寄稿者限定A/B比較pilotだけで使う独立した模式メッシュです。`scripts/build_comparison_schematic_ventricle.mjs` の座標列から決定的に生成し、既存標本・アトラス頂点・断面ラベルを抽出または変形していません。画面では「模式・専門家未確認」「実標本由来ではない」と表示し、学習者向けモデル、正解セグメンテーション、検証済み形状として扱いません。個別の配布義務は `public/atlas/DATA-MANIFEST.json` の `contributor-comparison-prototype-assets` に記録しています。
 
-`public/og.png` は本プロジェクト用に追加したプロモーション用イラストです。解剖データや第三者の標本画像として扱わず、教材上の位置・形状の根拠にも使用していません。一般公開前に、作成履歴をプロジェクト記録として保持してください。
+`public/og.png` は本プロジェクトが作成したSNS共有用プロモーションイラストです。解剖データや第三者の標本画像として扱わず、教材上の位置・形状の根拠にも使用していません。プロジェクト作成の公開視覚素材として、現在の自作教材・プロジェクト作成物の扱いであるCC BY-NC-SA 4.0に従います。作成履歴と現行ファイルのSHA-256は [PUBLIC_ASSET_CREATION_RECORD.md](PUBLIC_ASSET_CREATION_RECORD.md) に記録します。
 
 ## 7. 参照したが同梱していない著作物
 
@@ -253,7 +253,7 @@ AGPLはオープンソースであり、コードの販売や業務利用その�
 | BigBrain帰属・変更表示 | 対応済み | 公開ビルドでもリンクを確認 |
 | MNI著作権表示 | 対応済み | `public/atlas/LICENSE.txt` を同梱 |
 | 講義・教科書画像の非収録 | 対応済み | 新規アセット追加時に再監査 |
-| OGPイラストの作成履歴 | 要記録保持 | `public/og.png` のプロジェクト内作成履歴を保持 |
+| OGPイラストの作成履歴 | 記録済み | [PUBLIC_ASSET_CREATION_RECORD.md](PUBLIC_ASSET_CREATION_RECORD.md) に `public/og.png` の作成履歴と現行SHA-256を記録 |
 | アプリコードのライセンス | 対応済み | AGPL-3.0-or-laterとソース導線を維持 |
 | 自作教材文書のライセンス | 対応済み | CC BY-NC-SA 4.0表示を維持 |
 | 公開ソースURL | 対応済み | `bonnginn/brain-practical-navi` への導線を維持 |

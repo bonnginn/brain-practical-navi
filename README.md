@@ -8,6 +8,8 @@
 
 現在は**公開α版**です。未収録・専門家未確認の構造を明示したうえで、神経解剖学の監修、セグメンテーション確認、3Dモデル、教材設計、Web実装の共同制作者を募集できる導線をアプリ内に用意しています。ブロック標本は位置関係を学ぶための試作教材として提供し、形状・範囲・接続関係の完全性や解剖学的正確性は保証しません。
 
+2026-08-24時点では、公開α版へβ候補向け更新を積み上げた refresh candidate をローカルで準備中です。これはまだ公開前の更新候補であり、β版の公開や専門家による承認を意味しません。2026-08-14の初回αゲート（歴史記録）と、現行候補の状態は [ALPHA_RELEASE_AUDIT.md](ALPHA_RELEASE_AUDIT.md) で区別しています。
+
 β版では、現行の断面・アトラス再構成モデルに加え、解剖知識に基づいて一から造形する教育用3Dモデルを試作し、同定しやすさと表示品質を比較する予定です。β版までの優先順位、完了条件、公開判断は [BETA_ROADMAP.md](BETA_ROADMAP.md) に整理しています。
 
 > **公開条件（重要）**
@@ -82,7 +84,7 @@ Windows側のCodexへ開発を引き継ぐ場合は、取得手順、実画面�
 | IDs 39–40 | BigBrain水平連続切片から作成した左右乳頭体 | BigBrainのCC BY-NC-SA 4.0 | プロジェクト内確認を経た公開教材ラベル。研究用正解マスクではなく、直交断確認で改訂可能 |
 | 模式3D局所補助・脳表／脳底・神経血管 | 本プロジェクトの手作業経路・形状 | CC BY-NC-SA 4.0 | 主要な溝・裂の線状ガイド、放線群、脈絡叢、小脳脚、丘・膝状体、菱形窩・錐体・オリーブ等の位置目安、脳弓・乳頭体・中脳水道、前有孔質、嗅球を含む脳底ランドマーク・神経血管の重ね合わせ。旧海馬采・鉤近似はβ候補から除外 |
 
-完全な出典、必須表示、改変内容、引用文献、公開前チェックは [DATA_AND_LICENSES.md](DATA_AND_LICENSES.md) を参照してください。公開配布する `public/atlas/` の全ファイルは [DATA-MANIFEST.json](public/atlas/DATA-MANIFEST.json) で出典群、改変、ライセンス、表示義務、同梱通知へ機械的に対応づけています。SNS共有画像を含む公開視覚素材は [ASSET-NOTICE.txt](public/ASSET-NOTICE.txt) で用途と非転載を明示しています。アプリ右上の「利用条件・クレジット」にも同じ要点を表示します。
+完全な出典、必須表示、改変内容、引用文献、公開前チェックは [DATA_AND_LICENSES.md](DATA_AND_LICENSES.md) を参照してください。公開配布する `public/atlas/` の全ファイルは [DATA-MANIFEST.json](public/atlas/DATA-MANIFEST.json) で出典群、改変、ライセンス、表示義務、同梱通知へ機械的に対応づけています。SNS共有画像を含む公開視覚素材は [ASSET-NOTICE.txt](public/ASSET-NOTICE.txt) と [PUBLIC_ASSET_CREATION_RECORD.md](PUBLIC_ASSET_CREATION_RECORD.md) で用途・非転載・作成履歴を明示しています。アプリ右上の「利用条件・クレジット」にも同じ要点を表示します。
 
 公開HTTPSホストの本番版だけで、利用状況と表示性能の把握に [Cloudflare Web Analytics](https://developers.cloudflare.com/web-analytics/about/) を使用します。localhost、127.0.0.1、開発ビルドではビーコンを読み込みません。Cloudflareの説明ではCookieやlocalStorageを使わず、訪問者の個人データを収集・利用しません。本アプリ側でも利用者を識別する独自IDは付与しません。
 

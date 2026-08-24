@@ -1985,7 +1985,7 @@ test("status dialog renders the JSON registry through a durable direct route", a
     readFile(new URL("app/beta-status.json", root), "utf8"),
   ]);
   const data = JSON.parse(status);
-  assert.equal(data.phase, "公開α／β候補・公開判断前");
+  assert.equal(data.phase, "公開α掲載中／β候補・β公開判断前");
   assert.ok(data.knownLimitations.some(item => item.body.includes("ID33")));
   assert.ok(data.changes.some(item => item.body.includes("162/162")));
   assert.ok(data.knownLimitations.some(item => item.body.includes("162/162")));
@@ -1998,6 +1998,8 @@ test("status dialog renders the JSON registry through a durable direct route", a
   assert.match(page, /更新履歴・既知の制限/);
   assert.match(page, /betaStatusData\.knownLimitations\.map/);
   assert.match(page, /betaStatusData\.changes\.map/);
+  assert.match(page, /公開α版にはβ候補へ向けた進捗を掲載していますが、β版の公開や専門家による承認・最終確認を意味しません/);
+  assert.doesNotMatch(page, /公開判断前のローカル候補であり、専門家による最終確認や公開URLでの確認を意味しません/);
   assert.match(page, /data-status-id=\{item\.id\}/);
   assert.match(page, /className="betaStatusEvidence"/);
   assert.match(page, /className="homeEnter"[\s\S]*openOverlay\("status"\)/);

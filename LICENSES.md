@@ -14,7 +14,7 @@ AGPLはオープンソースライセンスであり、商用利用そのもの�
 
 ## 2. 本プロジェクトが作成した教材文書
 
-README、学習範囲、共同制作ガイド、解説文など、本プロジェクトが新規作成し、第三者著作物を含まない教材文書は、特記のない限り **Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International（CC BY-NC-SA 4.0）**で提供します。
+README、学習範囲、共同制作ガイド、解説文など、本プロジェクトが新規作成し、第三者著作物を含まない教材文書と、`public/ASSET-NOTICE.txt` でプロジェクト作成物と明示した公開視覚素材は、特記のない限り **Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International（CC BY-NC-SA 4.0）**で提供します。
 
 - 表示: 適切なクレジット、ライセンスへのリンク、変更の明示が必要です。
 - 非営利: 主として商業上の利得または金銭的報酬を目的とする利用はできません。
