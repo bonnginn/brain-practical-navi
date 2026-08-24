@@ -23,7 +23,7 @@ export const SNAPSHOT_SCHEMA_VERSION = 1;
 export const SNAPSHOT_DATE = "2026-08-24";
 export const SNAPSHOT_TOOL = "scripts/audit_current_beta_snapshot.mjs";
 export const WINDOWS_HANDOFF_RELATIVE_PATH = "WINDOWS_HANDOFF.md";
-export const WINDOWS_HANDOFF_BASELINE = "dd17284 Make feedback preflight contract exact";
+export const WINDOWS_HANDOFF_BASELINE = "6f13cd58 public alpha refresh merge";
 export const SNAPSHOT_PWA_BLOCKER_COUNT = 0;
 export const SNAPSHOT_PWA_RUNNER_BOUNDARY = Object.freeze({
   owner: "pwa-audit-runner",
@@ -174,22 +174,23 @@ function markdownSection(markdown, heading) {
 
 const WINDOWS_HANDOFF_REQUIRED_PATTERNS = Object.freeze([
   ["current handoff baseline", `引き継ぎ基準コミット: \`${WINDOWS_HANDOFF_BASELINE}\``],
-  ["Draft PR identity", /Draft PR #14/],
-  ["branch identity", /codex\/optic-orthogonal-review/],
-  ["no merge or public-site update guard", /mainへマージせず、公開サイトも更新せず、PRはDraftのまま維持/],
+  ["merged alpha refresh identity", /PR #14は[\s\S]{0,100}mainへ統合済み/],
+  ["published alpha merge", /6f13cd58e3e6450049e02be04c320a4e9abc1fc3/],
+  ["no merge or public-site update guard", /ユーザーの明示承認なしにmainへマージせず、公開サイトも更新しません/],
   ["audit implementation goal", /自律的に監査・実装・検証し、解剖学的監修が必要な残課題/],
   ["section 9 current heading", /## 9\. 残る確認・承認事項/],
   ["local orthogonal groundwork", /冠状断・矢状断の同一ラベル照合表示は[\s\S]{0,180}ORTHOGONAL_REVIEW_BUNDLE_AUDIT\.md[\s\S]{0,100}整備済みです/],
   ["local model-comparison groundwork", /現行再構成モデルと知識ベース模式モデルの比較pilotは[\s\S]{0,180}MODEL_STRATEGY_COMPARISON_AUDIT\.md[\s\S]{0,100}整備済みです/],
-  ["active Draft PR branch continuation", /git fetch origin[\s\S]{0,100}git switch codex\/optic-orthogonal-review[\s\S]{0,100}git pull --ff-only[\s\S]{0,100}git status[\s\S]{0,100}git log -5 --oneline/],
+  ["main and new branch continuation", /git fetch origin[\s\S]{0,100}git switch main[\s\S]{0,100}git pull --ff-only[\s\S]{0,100}git status[\s\S]{0,100}git log -5 --oneline[\s\S]{0,180}mainから新しい作業ブランチ/],
 ]);
 
 const WINDOWS_HANDOFF_FORBIDDEN_PATTERNS = Object.freeze([
   ["stale handoff baseline", /引き継ぎ基準コミット:\s*`7d6a811\b/],
+  ["stale pre-refresh handoff baseline", /引き継ぎ基準コミット:\s*`dd17284\b/],
   ["stale interruption wording", /Mac側では、この基準コミット以降の実装作業を中断/],
   ["local alpha-publication wording", /公開α版の現在地/],
   ["local publication directive", /専門家監修を必要としないP0・P1項目を自律的に監査・実装・検証・(?:公開|デプロイ)/],
-  ["stale main/new-branch workflow", /開始時に\s*main\s*をgit pull --ff-onlyし、新しい\s*codex\/\s*ブランチを作/],
+  ["stale Draft PR workflow", /Draft PR #14の現行ブランチを継続/],
 ]);
 
 export function validateWindowsHandoffFreshness({rootDir = REPOSITORY_ROOT, documentText} = {}) {
@@ -221,14 +222,14 @@ export function validateWindowsHandoffFreshness({rootDir = REPOSITORY_ROOT, docu
   }
   for (const [label, pattern] of [
     ["expert blocker", /専門家による構造位置・範囲・連続性の確認/],
-    ["physical-device blocker", /公開URL・物理端末・別GPU・別ブラウザの性能計測は未確認/],
+    ["physical-device blocker", /公開回線の性能、物理端末、別GPU・別ブラウザの性能計測は未確認/],
     ["administrator blocker", /管理者による権利文書、Google Form、公開画面[\s\S]{0,40}未完了/],
-    ["deployment blocker", /公開環境の実画面計測[\s\S]{0,40}完了扱いにはしていません/],
+    ["deployment boundary", /公開環境のroute表示[\s\S]{0,180}β版としての公開判断へは拡張しません/],
   ]) {
     if (!pattern.test(currentSection)) errors.push(`${WINDOWS_HANDOFF_RELATIVE_PATH}: section 9 is missing ${label}`);
   }
-  if (!/Draft PR #14へ記録します。/.test(text)) {
-    errors.push(`${WINDOWS_HANDOFF_RELATIVE_PATH}: work handoff must direct results to Draft PR #14`);
+  if (!/成果はmainから作る新しい作業ブランチとPRへ記録します。/.test(text)) {
+    errors.push(`${WINDOWS_HANDOFF_RELATIVE_PATH}: work handoff must direct results to a new branch and PR`);
   }
   if (!/main統合・公開サイト更新・公開環境の確認は、管理者の明示承認なしに行わない/.test(text)) {
     errors.push(`${WINDOWS_HANDOFF_RELATIVE_PATH}: deployment guard must remain explicit`);
@@ -362,7 +363,7 @@ export function deriveUnverifiedBoundaries(rootDir = REPOSITORY_ROOT) {
   const physicalDevicesBoundary = SNAPSHOT_UNVERIFIED_BOUNDARIES.find(boundary => boundary.id === "physical-devices");
   const physicalNetworkBoundary = SNAPSHOT_UNVERIFIED_BOUNDARIES.find(boundary => boundary.id === "physical-os-networking");
   const installedPwaBoundary = SNAPSHOT_UNVERIFIED_BOUNDARIES.find(boundary => boundary.id === "installed-pwa");
-  if (!currentHandoffSection.includes("公開URL・物理端末・別GPU・別ブラウザの性能計測は未確認です")) {
+  if (!currentHandoffSection.includes("公開回線の性能、物理端末、別GPU・別ブラウザの性能計測は未確認です")) {
     throw new Error("unverified boundary physical-devices is missing from current handoff section 9");
   }
   if (!currentPwaSection.includes("物理／OSネットワーク断、公開URL、物理端末")

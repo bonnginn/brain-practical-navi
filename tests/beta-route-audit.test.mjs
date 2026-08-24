@@ -7,12 +7,17 @@ import {
   BETA_AUDIT_ROUTES,
   BETA_AUDIT_VIEWPORTS,
   BETA_AUDIT_EXPECTED_CHECKS,
+  BETA_PUBLIC_READONLY_BASE_URL,
   aggregateBetaAuditReport,
+  attachMainDocumentStatusObserver,
   buildBetaAuditMatrix,
   collectBrowserAuditCheck,
+  createAuditRouteResolver,
   expectedCanvasCount,
   parseAuditArgs,
+  resolveAuditRoute,
   runBetaRouteAudit,
+  validateAuditBaseUrl,
   validateAuditCheck,
   waitForAuditStable,
 } from "../scripts/audit_beta_routes.mjs";
@@ -36,10 +41,18 @@ function validProbe(route, viewport) {
   };
 }
 
-function validCheck(entry, route, viewport) {
+function validCheck(entry, route, viewport, baseUrl = "http://localhost:4173", publicReadonly = false) {
   const probe = validProbe(route, viewport);
-  const validation = validateAuditCheck({ route, viewport, probe, consoleErrors: [], requestErrors: [] });
-  return { ...entry, route, viewport, probe, consoleErrors: [], requestErrors: [], error: null, validation, passed: validation.passed };
+  const url = resolveAuditRoute(baseUrl, route.hash, { publicReadonly });
+  const mainDocumentResponse = {
+    requestId: "document",
+    type: "Document",
+    url: new URL(url.split("#", 1)[0]).href,
+    status: 200,
+    statusText: "OK",
+  };
+  const validation = validateAuditCheck({ route, viewport, probe, consoleErrors: [], requestErrors: [], mainDocumentResponse, expectedUrl: url });
+  return { ...entry, route, viewport, url, mainDocumentResponse, probe, consoleErrors: [], requestErrors: [], error: null, validation, passed: validation.passed };
 }
 
 test("beta route audit fixes the canonical 27 × 3 × 2 matrix", () => {
@@ -112,6 +125,89 @@ test("beta route audit rejects missing, duplicate, and non-passing matrix result
   const contradictory = [...results];
   contradictory[0] = { ...contradictory[0], validation: { passed: false, failures: ["injected"] } };
   assert.equal(aggregateBetaAuditReport({ baseUrl: "http://localhost:4173", results: contradictory, environment: {} }).allPassed, false);
+
+  const missingUrl = [...results];
+  delete missingUrl[0].url;
+  const missingUrlReport = aggregateBetaAuditReport({ baseUrl: "http://localhost:4173", results: missingUrl, environment: {} });
+  assert.equal(missingUrlReport.allPassed, false);
+  assert.ok(missingUrlReport.matrix.invalidUrlKeys.includes(results[0].key));
+  const wrongUrl = [...results];
+  wrongUrl[0] = { ...wrongUrl[0], url: "http://localhost:4173/#workspace/quiz" };
+  assert.equal(aggregateBetaAuditReport({ baseUrl: "http://localhost:4173", results: wrongUrl, environment: {} }).allPassed, false);
+  const externalUrl = [...results];
+  externalUrl[0] = { ...externalUrl[0], url: "https://example.com/#workspace/home" };
+  assert.equal(aggregateBetaAuditReport({ baseUrl: "http://localhost:4173", results: externalUrl, environment: {} }).allPassed, false);
+  const redirectedDocument = [...results];
+  redirectedDocument[0] = {
+    ...redirectedDocument[0],
+    mainDocumentResponse: { ...redirectedDocument[0].mainDocumentResponse, url: "https://example.com/" },
+  };
+  const redirectedReport = aggregateBetaAuditReport({ baseUrl: "http://localhost:4173", results: redirectedDocument, environment: {} });
+  assert.equal(redirectedReport.allPassed, false);
+  assert.ok(redirectedReport.matrix.invalidMainDocumentKeys.includes(results[0].key));
+});
+
+test("beta route audit keeps public traversal explicit, exact, and read-only", async () => {
+  assert.equal(validateAuditBaseUrl("http://localhost:4173").hostname, "localhost");
+  const publicResolver = createAuditRouteResolver(BETA_PUBLIC_READONLY_BASE_URL, { publicReadonly: true });
+  assert.equal(publicResolver("#workspace/home"), `${BETA_PUBLIC_READONLY_BASE_URL}#workspace/home`);
+  for (const fragment of [
+    "https://example.com/#workspace/home",
+    "//example.com/#workspace/home",
+    "#workspace/home?preview=1",
+    "#workspace/home/path?preview=1",
+  ]) {
+    assert.throws(() => publicResolver(fragment), /canonical #workspace/);
+  }
+
+  assert.deepEqual(parseAuditArgs([
+    "--base-url", BETA_PUBLIC_READONLY_BASE_URL,
+    "--public-readonly",
+    "--output", "public-route.json",
+  ]), {
+    baseUrl: BETA_PUBLIC_READONLY_BASE_URL,
+    output: "public-route.json",
+    publicReadonly: true,
+    help: false,
+  });
+
+  const invalidPublicBases = [
+    BETA_PUBLIC_READONLY_BASE_URL.replace("https://", "http://"),
+    "https://example.com/brain-practical-navi/",
+    "https://bonnginn.github.io/other/",
+    "https://user:password@bonnginn.github.io/brain-practical-navi/",
+    `${BETA_PUBLIC_READONLY_BASE_URL}?preview=1`,
+    `${BETA_PUBLIC_READONLY_BASE_URL}#workspace/home`,
+  ];
+  for (const baseUrl of invalidPublicBases) {
+    assert.throws(() => parseAuditArgs(["--base-url", baseUrl, "--public-readonly", "--output", "x.json"]), /exactly equal/);
+  }
+  assert.throws(() => parseAuditArgs(["--base-url", BETA_PUBLIC_READONLY_BASE_URL, "--output", "x.json"]), /localhost or a loopback/);
+
+  const publicRoutes = BETA_AUDIT_ROUTES.slice(0, 1);
+  const publicViewports = BETA_AUDIT_VIEWPORTS.slice(0, 1);
+  const publicPhases = ["direct"];
+  const publicUrls = [];
+  const results = await runBetaRouteAudit(BETA_PUBLIC_READONLY_BASE_URL, {
+    publicReadonly: true,
+    routes: publicRoutes,
+    viewports: publicViewports,
+    phases: publicPhases,
+    runCheck: async ({ entry, route, viewport, resolveRoute }) => {
+      publicUrls.push(resolveRoute(route.hash));
+      return validCheck(entry, route, viewport, BETA_PUBLIC_READONLY_BASE_URL, true);
+    },
+  });
+  assert.deepEqual(publicUrls, [`${BETA_PUBLIC_READONLY_BASE_URL}#workspace/home`]);
+  const publicReport = aggregateBetaAuditReport({ baseUrl: BETA_PUBLIC_READONLY_BASE_URL, publicReadonly: true, routes: publicRoutes, viewports: publicViewports, phases: publicPhases, results, environment: {} });
+  assert.equal(publicReport.allPassed, true);
+  assert.equal(publicReport.mode, "public-readonly");
+  assert.equal(publicReport.publicBoundary, BETA_PUBLIC_READONLY_BASE_URL);
+  assert.deepEqual(publicReport.baseValidation, { valid: true, error: null });
+
+  const missingFlag = aggregateBetaAuditReport({ baseUrl: BETA_PUBLIC_READONLY_BASE_URL, routes: publicRoutes, viewports: publicViewports, phases: publicPhases, results, environment: {} });
+  assert.equal(missingFlag.allPassed, false);
+  assert.equal(missingFlag.baseValidation.valid, false);
 });
 
 test("beta route audit rejects hash, identity, canvas, loader, error, overflow, and WebGL fallback regressions", () => {
@@ -135,13 +231,56 @@ test("beta route audit rejects hash, identity, canvas, loader, error, overflow, 
     assert.equal(validation.passed, false, name);
     assert.ok(validation.failures.some(value => value.startsWith(failure)), `${name}: ${validation.failures.join(",")}`);
   }
+  const validResponse = { requestId: "document", type: "Document", url: "http://localhost:4173/", status: 200, statusText: "OK" };
+  assert.equal(validateAuditCheck({ route, viewport, probe: base, mainDocumentResponse: validResponse }).passed, true);
+  for (const [name, mainDocumentResponse] of [
+    ["missing status", null],
+    ["server error", { ...validResponse, status: 500, statusText: "Internal Server Error" }],
+    ["external redirect", { ...validResponse, url: "https://example.com/" }],
+  ]) {
+    const validation = validateAuditCheck({ route, viewport, probe: base, mainDocumentResponse, expectedUrl: "http://localhost:4173/#workspace/home" });
+    assert.equal(validation.passed, false, name);
+    const expectedFailure = name === "external redirect" ? "main-document-url" : "main-document-status";
+    assert.ok(validation.failures.includes(expectedFailure), `${name}: ${validation.failures.join(",")}`);
+  }
+});
+
+test("beta route audit records the final main-document HTTP status only", () => {
+  const listeners = new Map();
+  const cdp = {
+    on(method, callback) {
+      const callbacks = listeners.get(method) || [];
+      callbacks.push(callback);
+      listeners.set(method, callbacks);
+      return () => listeners.set(method, (listeners.get(method) || []).filter(item => item !== callback));
+    },
+  };
+  const state = { collecting: true, mainDocumentRequestId: null, mainDocumentResponse: null };
+  const emit = (method, params) => (listeners.get(method) || []).forEach(callback => callback(params));
+  const detach = attachMainDocumentStatusObserver(cdp, state);
+  emit("Network.requestWillBeSent", { requestId: "main", type: "Document" });
+  emit("Network.requestWillBeSent", { requestId: "iframe", type: "Document" });
+  emit("Network.responseReceived", { requestId: "iframe", type: "Document", response: { status: 200, url: "http://localhost:4173/frame" } });
+  emit("Network.responseReceived", { requestId: "main", type: "Document", response: { status: 503, url: "http://localhost:4173/", statusText: "Service Unavailable" } });
+  emit("Network.responseReceived", { requestId: "main", type: "Document", response: { status: 200, url: "http://localhost:4173/", statusText: "OK" } });
+  assert.deepEqual(state.mainDocumentResponse, {
+    requestId: "main",
+    type: "Document",
+    url: "http://localhost:4173/",
+    status: 200,
+    statusText: "OK",
+  });
+  detach();
+  emit("Network.responseReceived", { requestId: "main", type: "Document", response: { status: 500, url: "http://localhost:4173/" } });
+  assert.equal(state.mainDocumentResponse.status, 200);
 });
 
 test("beta route audit coordinator supports a fake injected check without launching Chrome", async () => {
   const calls = [];
   const results = await runBetaRouteAudit("http://localhost:4173", {
-    runCheck: async ({ entry, route, viewport }) => {
+    runCheck: async ({ entry, route, viewport, resolveRoute }) => {
       calls.push(entry.key);
+      assert.equal(resolveRoute("#workspace/home").startsWith("http://localhost:4173/"), true);
       return validCheck(entry, route, viewport);
     },
   });
@@ -189,6 +328,13 @@ test("collectBrowserAuditCheck isolates direct and reload phases with injectable
         consoleErrorCount: stableState.consoleErrors.length,
         requestErrorCount: stableState.requestErrors.length,
       });
+      stableState.mainDocumentResponse = {
+        requestId: "document",
+        type: "Document",
+        url: "http://localhost:4173/",
+        status: 200,
+        statusText: "OK",
+      };
       return validProbe(stableRoute, stableViewport);
     },
     reload: async () => calls.push({ type: "reload" }),
@@ -287,6 +433,7 @@ test("beta route audit CLI accepts a loopback base URL", () => {
   ]), {
     baseUrl: "http://localhost:4173",
     output: "work/browser-audit/beta-route-audit.json",
+    publicReadonly: false,
     help: false,
   });
   assert.throws(() => parseAuditArgs(["--base-url", "https://example.com", "--output", "x.json"]), /localhost or a loopback/);

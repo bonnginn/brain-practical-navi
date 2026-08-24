@@ -20,11 +20,12 @@ import {
   launchChrome,
   navigate,
   prepareRoute,
-  resolveRoute,
   waitForDocumentReady,
 } from "./measure_browser_performance.mjs";
 
 export const BETA_ROUTE_AUDIT_SCHEMA_VERSION = 1;
+export const BETA_PUBLIC_READONLY_BASE_URL = "https://bonnginn.github.io/brain-practical-navi/";
+export const BETA_AUDIT_MODES = Object.freeze(["loopback", "public-readonly"]);
 export const BETA_AUDIT_PHASES = Object.freeze(["direct", "reload"]);
 export const BETA_AUDIT_VIEWPORTS = Object.freeze([
   Object.freeze({ id: "pc", label: "PC", width: 1366, height: 768 }),
@@ -36,6 +37,110 @@ const NO_CANVAS = Object.freeze({ pc: 0, "tablet-landscape": 0, mobile: 0 });
 const ONE_CANVAS = Object.freeze({ pc: 1, "tablet-landscape": 1, mobile: 1 });
 const TWO_CANVAS = Object.freeze({ pc: 2, "tablet-landscape": 2, mobile: 2 });
 const SECTION_CANVAS = Object.freeze({ pc: 3, "tablet-landscape": 3, mobile: 1 });
+const CANONICAL_ROUTE_FRAGMENT_PATTERN = /^#workspace\/[a-z0-9-]+(?:\/[a-z0-9-]+)*$/;
+
+export function validateRouteFragment(route) {
+  if (typeof route !== "string" || !CANONICAL_ROUTE_FRAGMENT_PATTERN.test(route)) {
+    throw new Error(`route must be a canonical #workspace/... fragment without a scheme, //, query, or external path: ${String(route)}`);
+  }
+  return route;
+}
+
+export function validateAuditBaseUrl(baseUrl, { publicReadonly = false } = {}) {
+  let url;
+  try {
+    url = new URL(String(baseUrl));
+  } catch {
+    throw new Error(`--base-url must be an absolute URL: ${String(baseUrl)}`);
+  }
+  if (!/^https?:$/.test(url.protocol)) throw new Error("--base-url must use http or https");
+  if (publicReadonly) {
+    const exactPublicBase = url.protocol === "https:"
+      && url.hostname === "bonnginn.github.io"
+      && url.port === ""
+      && url.username === ""
+      && url.password === ""
+      && url.pathname === "/brain-practical-navi/"
+      && url.search === ""
+      && url.hash === ""
+      && url.href === BETA_PUBLIC_READONLY_BASE_URL;
+    if (!exactPublicBase) throw new Error(`--base-url must exactly equal ${BETA_PUBLIC_READONLY_BASE_URL} when --public-readonly is set`);
+    return url;
+  }
+  const hostname = url.hostname.toLowerCase();
+  const loopback = hostname === "localhost" || hostname === "127.0.0.1" || hostname === "[::1]" || hostname === "::1";
+  if (!loopback) throw new Error("--base-url must point to localhost or a loopback address; use --public-readonly only for the exact public base");
+  return url;
+}
+
+export function createAuditRouteResolver(baseUrl, { publicReadonly = false } = {}) {
+  const validatedBase = validateAuditBaseUrl(baseUrl, { publicReadonly });
+  return route => {
+    const fragment = validateRouteFragment(route);
+    const resolved = new URL(fragment, validatedBase);
+    if (resolved.origin !== validatedBase.origin
+      || resolved.pathname !== validatedBase.pathname
+      || resolved.search !== ""
+      || resolved.hash !== fragment) {
+      throw new Error(`resolved route escaped the validated base or changed its hash: ${fragment}`);
+    }
+    return resolved.href;
+  };
+}
+
+export function resolveAuditRoute(baseUrl, route, options = {}) {
+  return createAuditRouteResolver(baseUrl, options)(route);
+}
+
+function isSuccessfulMainDocumentStatus(status) {
+  return Number.isInteger(status) && status >= 200 && status < 300;
+}
+
+function expectedMainDocumentUrl(routeUrl) {
+  if (typeof routeUrl !== "string") return null;
+  try {
+    const url = new URL(routeUrl);
+    url.hash = "";
+    return url.href;
+  } catch {
+    return null;
+  }
+}
+
+function isExpectedMainDocumentResponse(response, routeUrl) {
+  return isSuccessfulMainDocumentStatus(response?.status)
+    && response?.url === expectedMainDocumentUrl(routeUrl);
+}
+
+export function attachMainDocumentStatusObserver(cdp, state) {
+  const requestRemover = cdp.on("Network.requestWillBeSent", params => {
+    if (!state.collecting || params?.type !== "Document") return;
+    // The first Document request in a collection window is the top-level
+    // navigation. Keeping its request id prevents an iframe document from
+    // replacing the main-document status evidence.
+    if (state.mainDocumentRequestId === null || state.mainDocumentRequestId === undefined) {
+      state.mainDocumentRequestId = String(params.requestId);
+    }
+  });
+  const responseRemover = cdp.on("Network.responseReceived", params => {
+    if (!state.collecting || params?.type !== "Document") return;
+    const requestId = String(params.requestId);
+    if (state.mainDocumentRequestId !== requestId) return;
+    const response = params.response || {};
+    const numericStatus = Number(response.status);
+    state.mainDocumentResponse = {
+      requestId,
+      type: "Document",
+      url: typeof response.url === "string" ? response.url : null,
+      status: Number.isInteger(numericStatus) ? numericStatus : null,
+      statusText: typeof response.statusText === "string" ? response.statusText : null,
+    };
+  });
+  return () => {
+    requestRemover();
+    responseRemover();
+  };
+}
 
 function routeSpec({ id, hash, identitySelector, identityText, canvas, prepare = "none" }) {
   return Object.freeze({
@@ -86,7 +191,14 @@ function usage() {
     "    --base-url http://localhost:4173 \\",
     "    --output work/browser-audit/beta-route-audit.json",
     "",
+    "  # Explicit read-only public-host audit (no writes or form interactions)",
+    "  node scripts/audit_beta_routes.mjs \\",
+    `    --base-url ${BETA_PUBLIC_READONLY_BASE_URL} \\`,
+    "    --public-readonly \\",
+    "    --output work/browser-audit/beta-route-audit-public.json",
+    "",
     "Required options: --base-url, --output",
+    `Optional: --public-readonly (only with exact ${BETA_PUBLIC_READONLY_BASE_URL}; default is loopback-only)`,
   ].join("\n");
 }
 
@@ -99,11 +211,15 @@ function argumentValue(argv, index, name) {
 }
 
 export function parseAuditArgs(argv) {
-  const options = { baseUrl: null, output: null, help: false };
+  const options = { baseUrl: null, output: null, publicReadonly: false, help: false };
   for (let index = 0; index < argv.length; index += 1) {
     const token = argv[index];
     if (token === "--help" || token === "-h") {
       options.help = true;
+      continue;
+    }
+    if (token === "--public-readonly") {
+      options.publicReadonly = true;
       continue;
     }
     const name = ["--base-url", "--output"].find(candidate => token === candidate || token.startsWith(`${candidate}=`));
@@ -116,7 +232,7 @@ export function parseAuditArgs(argv) {
   if (options.help) return options;
   const missing = ["baseUrl", "output"].filter(key => options[key] === null || options[key] === "");
   if (missing.length) throw new Error(`missing required option(s): ${missing.map(key => `--${key.replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`)}`).join(", ")}`);
-  resolveRoute(options.baseUrl, "/");
+  validateAuditBaseUrl(options.baseUrl, { publicReadonly: options.publicReadonly });
   return options;
 }
 
@@ -201,7 +317,7 @@ class AuditStabilityError extends Error {
   }
 }
 
-function auditProbeFailureNames(probe, route, viewport) {
+function auditProbeFailureNames(probe, route, viewport, mainDocumentResponse = undefined) {
   const failures = [];
   if (!probe) return ["probe-missing"];
   if (probe.readyState !== "complete") failures.push("document-not-ready");
@@ -215,6 +331,7 @@ function auditProbeFailureNames(probe, route, viewport) {
   if (probe.horizontalOverflow !== false) failures.push("horizontal-overflow");
   if (probe.webglFallback !== false) failures.push("webgl-fallback");
   if (probe.canvasCount !== expectedCanvasCount(route, viewport)) failures.push(`canvas-count:${probe.canvasCount}!=${expectedCanvasCount(route, viewport)}`);
+  if (mainDocumentResponse !== undefined && !isSuccessfulMainDocumentStatus(mainDocumentResponse?.status)) failures.push("main-document-status");
   return failures;
 }
 
@@ -242,7 +359,9 @@ export async function waitForAuditStable(cdp, state, route, viewport, {
       continue;
     }
     const noInFlight = state?.inFlight?.size === 0;
-    if (probeReadyForContract(latest, route, viewport) && noInFlight) {
+    const statusEvidenceRequired = Object.prototype.hasOwnProperty.call(state || {}, "mainDocumentResponse");
+    const mainDocumentReady = !statusEvidenceRequired || isSuccessfulMainDocumentStatus(state.mainDocumentResponse?.status);
+    if (probeReadyForContract(latest, route, viewport) && noInFlight && mainDocumentReady) {
       if (quietSince === null) quietSince = Date.now();
       failedQuietSince = null;
       if (Date.now() - quietSince >= quietMs) return latest;
@@ -253,7 +372,7 @@ export async function waitForAuditStable(cdp, state, route, viewport, {
       if (probeCoreReady(latest, route, viewport) && noInFlight) {
         if (failedQuietSince === null) failedQuietSince = Date.now();
         if (Date.now() - failedQuietSince >= quietMs) {
-          throw new AuditStabilityError(`audit contract failed: ${auditProbeFailureNames(latest, route, viewport).join(", ")}`, latest);
+          throw new AuditStabilityError(`audit contract failed: ${auditProbeFailureNames(latest, route, viewport, statusEvidenceRequired ? state.mainDocumentResponse : undefined).join(", ")}`, latest);
         }
       } else {
         failedQuietSince = null;
@@ -261,10 +380,11 @@ export async function waitForAuditStable(cdp, state, route, viewport, {
     }
     await sleepFn(50);
   }
-  throw new AuditStabilityError(`audit route did not become stable${latest ? ` (${auditProbeFailureNames(latest, route, viewport).join(", ")})` : ""}`, latest);
+  const statusEvidenceRequired = Object.prototype.hasOwnProperty.call(state || {}, "mainDocumentResponse");
+  throw new AuditStabilityError(`audit route did not become stable${latest ? ` (${auditProbeFailureNames(latest, route, viewport, statusEvidenceRequired ? state.mainDocumentResponse : undefined).join(", ")})` : ""}`, latest);
 }
 
-export function validateAuditCheck({ route, viewport, probe = null, consoleErrors = [], requestErrors = [], error = null } = {}) {
+export function validateAuditCheck({ route, viewport, probe = null, consoleErrors = [], requestErrors = [], error = null, mainDocumentResponse = null, expectedUrl = null } = {}) {
   const failures = [];
   if (!route) failures.push("route-missing");
   if (!viewport) failures.push("viewport-missing");
@@ -285,6 +405,8 @@ export function validateAuditCheck({ route, viewport, probe = null, consoleError
   if (probe && probe.horizontalOverflow !== false) failures.push("horizontal-overflow");
   if (probe && probe.webglFallback !== false) failures.push("webgl-fallback");
   if (probe && expectedCanvas !== null && probe.canvasCount !== expectedCanvas) failures.push(`canvas-count:${probe.canvasCount}!=${expectedCanvas}`);
+  if (!isSuccessfulMainDocumentStatus(mainDocumentResponse?.status)) failures.push("main-document-status");
+  if (expectedUrl !== null && mainDocumentResponse?.url !== expectedMainDocumentUrl(expectedUrl)) failures.push("main-document-url");
   return { passed: failures.length === 0, failures };
 }
 
@@ -296,6 +418,8 @@ export function resetMeasurementState(state) {
   state.encodedBytes = 0;
   state.consoleErrors.length = 0;
   state.requestErrors.length = 0;
+  if (Object.prototype.hasOwnProperty.call(state, "mainDocumentRequestId")) state.mainDocumentRequestId = null;
+  if (Object.prototype.hasOwnProperty.call(state, "mainDocumentResponse")) state.mainDocumentResponse = null;
 }
 
 function browserInfo(session) {
@@ -308,13 +432,15 @@ function browserInfo(session) {
 
 function failedAuditCheck(entry, route, viewport, error, browser = null) {
   const message = error instanceof Error ? error.message : String(error);
-  const validation = validateAuditCheck({ route, viewport, error: message });
+  const validation = validateAuditCheck({ route, viewport, error: message, mainDocumentResponse: null });
   return {
     ...entry,
     route,
     viewport,
     browser,
+    url: null,
     probe: null,
+    mainDocumentResponse: null,
     consoleErrors: [],
     requestErrors: [],
     error: message,
@@ -325,13 +451,16 @@ function failedAuditCheck(entry, route, viewport, error, browser = null) {
 
 export async function collectBrowserAuditCheck(cdp, state, {
   baseUrl,
+  publicReadonly = false,
+  resolveRouteFn = null,
   entry,
   route,
   viewport,
   browser,
   dependencies = {},
 } = {}) {
-  const url = resolveRoute(baseUrl, route.hash);
+  const routeResolver = resolveRouteFn || createAuditRouteResolver(baseUrl, { publicReadonly });
+  const url = routeResolver(route.hash);
   let probe = null;
   let error = null;
   const navigateFn = dependencies.navigate || navigate;
@@ -379,6 +508,7 @@ export async function collectBrowserAuditCheck(cdp, state, {
   } finally {
     state.collecting = false;
   }
+  const mainDocumentResponse = state.mainDocumentResponse ? { ...state.mainDocumentResponse } : null;
   const validation = validateAuditCheck({
     route,
     viewport,
@@ -386,6 +516,8 @@ export async function collectBrowserAuditCheck(cdp, state, {
     consoleErrors: [...state.consoleErrors],
     requestErrors: [...state.requestErrors],
     error,
+    mainDocumentResponse,
+    expectedUrl: url,
   });
   return {
     ...entry,
@@ -394,6 +526,7 @@ export async function collectBrowserAuditCheck(cdp, state, {
     url,
     browser,
     probe,
+    mainDocumentResponse,
     consoleErrors: [...state.consoleErrors],
     requestErrors: [...state.requestErrors],
     error,
@@ -412,12 +545,14 @@ function collectAuditEnvironment() {
 }
 
 export async function runBetaRouteAudit(baseUrl, {
+  publicReadonly = false,
   routes = BETA_AUDIT_ROUTES,
   viewports = BETA_AUDIT_VIEWPORTS,
   phases = BETA_AUDIT_PHASES,
   runCheck = null,
   onResult = null,
 } = {}) {
+  const resolveRouteFn = createAuditRouteResolver(baseUrl, { publicReadonly });
   const matrix = buildBetaAuditMatrix({ routes, viewports, phases });
   const results = [];
   if (typeof runCheck === "function") {
@@ -426,7 +561,7 @@ export async function runBetaRouteAudit(baseUrl, {
       const viewport = viewports.find(candidate => candidate.id === entry.viewportId);
       let result;
       try {
-        result = await runCheck({ baseUrl, entry, route, viewport });
+        result = await runCheck({ baseUrl, publicReadonly, resolveRoute: resolveRouteFn, entry, route, viewport });
       } catch (error) {
         result = failedAuditCheck(entry, route, viewport, error);
       }
@@ -441,10 +576,14 @@ export async function runBetaRouteAudit(baseUrl, {
     const viewportEntries = matrix.filter(entry => entry.viewportId === viewport.id);
     let session = null;
     let detachObservers = () => {};
+    let detachMainDocumentStatus = () => {};
     const state = createMeasurementState();
+    state.mainDocumentRequestId = null;
+    state.mainDocumentResponse = null;
     try {
       session = await launchChrome();
       detachObservers = attachObservers(session.cdp, state);
+      detachMainDocumentStatus = attachMainDocumentStatusObserver(session.cdp, state);
       await configurePage(session.cdp);
       await session.cdp.send("Emulation.setDeviceMetricsOverride", {
         width: viewport.width,
@@ -457,7 +596,7 @@ export async function runBetaRouteAudit(baseUrl, {
       const browser = browserInfo(session);
       for (const entry of viewportEntries) {
         const route = routes.find(candidate => candidate.id === entry.routeId);
-        const result = await collectBrowserAuditCheck(session.cdp, state, { baseUrl, entry, route, viewport, browser });
+        const result = await collectBrowserAuditCheck(session.cdp, state, { baseUrl, publicReadonly, resolveRouteFn, entry, route, viewport, browser });
         results.push(result);
         if (typeof onResult === "function") await onResult(result, entry);
       }
@@ -472,6 +611,7 @@ export async function runBetaRouteAudit(baseUrl, {
         if (typeof onResult === "function") await onResult(result, entry);
       }
     } finally {
+      detachMainDocumentStatus();
       detachObservers();
       await closeChrome(session);
     }
@@ -479,7 +619,23 @@ export async function runBetaRouteAudit(baseUrl, {
   return results;
 }
 
-export function aggregateBetaAuditReport({ baseUrl, routes = BETA_AUDIT_ROUTES, viewports = BETA_AUDIT_VIEWPORTS, phases = BETA_AUDIT_PHASES, results = [], generatedAt = new Date().toISOString(), environment = collectAuditEnvironment() } = {}) {
+export function expectedAuditResultUrl(result, routes, baseUrl, { publicReadonly = false } = {}) {
+  const route = routes.find(candidate => candidate.id === result?.routeId);
+  if (!route || result?.hash !== route.hash) return null;
+  try {
+    return resolveAuditRoute(baseUrl, route.hash, { publicReadonly });
+  } catch {
+    return null;
+  }
+}
+
+export function aggregateBetaAuditReport({ baseUrl, publicReadonly = false, routes = BETA_AUDIT_ROUTES, viewports = BETA_AUDIT_VIEWPORTS, phases = BETA_AUDIT_PHASES, results = [], generatedAt = new Date().toISOString(), environment = collectAuditEnvironment() } = {}) {
+  let baseUrlError = null;
+  try {
+    validateAuditBaseUrl(baseUrl, { publicReadonly });
+  } catch (error) {
+    baseUrlError = error instanceof Error ? error.message : String(error);
+  }
   const matrix = buildBetaAuditMatrix({ routes, viewports, phases });
   const expectedKeys = matrix.map(entry => entry.key);
   const expectedSet = new Set(expectedKeys);
@@ -488,16 +644,28 @@ export function aggregateBetaAuditReport({ baseUrl, routes = BETA_AUDIT_ROUTES, 
   for (const key of resultKeys) counts.set(key, (counts.get(key) || 0) + 1);
   const duplicateKeys = [...counts.entries()].filter(([, count]) => count > 1).map(([key]) => key);
   const missingKeys = expectedKeys.filter(key => !counts.has(key));
+  const invalidUrlKeys = results
+    .filter(result => result?.url !== expectedAuditResultUrl(result, routes, baseUrl, { publicReadonly }))
+    .map(result => result?.key || "unknown");
+  const invalidMainDocumentKeys = results
+    .filter(result => !isExpectedMainDocumentResponse(result?.mainDocumentResponse, expectedAuditResultUrl(result, routes, baseUrl, { publicReadonly })))
+    .map(result => result?.key || "unknown");
   const allPassed = results.length === matrix.length
+    && baseUrlError === null
     && resultKeys.every(key => expectedSet.has(key))
     && duplicateKeys.length === 0
     && missingKeys.length === 0
+    && invalidUrlKeys.length === 0
+    && invalidMainDocumentKeys.length === 0
     && results.every(result => result?.passed === true && result?.validation?.passed === true);
   return {
     schemaVersion: BETA_ROUTE_AUDIT_SCHEMA_VERSION,
     generatedAt,
     tool: "scripts/audit_beta_routes.mjs",
     baseUrl,
+    mode: publicReadonly ? "public-readonly" : "loopback",
+    publicBoundary: publicReadonly ? BETA_PUBLIC_READONLY_BASE_URL : "loopback-only",
+    baseValidation: { valid: baseUrlError === null, error: baseUrlError },
     environment,
     matrix: {
       routes: routes.map(route => ({ ...route, identity: { ...route.identity }, canvas: { ...route.canvas } })),
@@ -506,6 +674,8 @@ export function aggregateBetaAuditReport({ baseUrl, routes = BETA_AUDIT_ROUTES, 
       expectedChecks: matrix.length,
       missingKeys,
       duplicateKeys,
+      invalidUrlKeys,
+      invalidMainDocumentKeys,
       results,
     },
     allPassed,
@@ -520,9 +690,10 @@ export async function main(argv = process.argv.slice(2)) {
   }
   const matrix = buildBetaAuditMatrix();
   const results = await runBetaRouteAudit(args.baseUrl, {
+    publicReadonly: args.publicReadonly,
     onResult: result => console.log(`${result.key}: ${result.passed ? "passed" : "failed"}`),
   });
-  const report = aggregateBetaAuditReport({ baseUrl: args.baseUrl, results });
+  const report = aggregateBetaAuditReport({ baseUrl: args.baseUrl, publicReadonly: args.publicReadonly, results });
   const outputPath = isAbsolute(args.output) ? args.output : resolve(args.output);
   await mkdir(dirname(outputPath), { recursive: true });
   await writeFile(outputPath, `${JSON.stringify(report, null, 2)}\n`, "utf8");

@@ -1,7 +1,7 @@
 # Windows Codex への引き継ぎ（β改修）
 
 更新日: 2026-08-24
-引き継ぎ基準コミット: `dd17284 Make feedback preflight contract exact`
+引き継ぎ基準コミット: `6f13cd58 public alpha refresh merge`
 
 <!-- beta-current-snapshot:start -->
 Current machine-readable values: [BETA_CURRENT_SNAPSHOT.json](BETA_CURRENT_SNAPSHOT.json). All other counts in this document are dated historical evidence, not current inventory or approval.
@@ -9,7 +9,11 @@ Current machine-readable values: [BETA_CURRENT_SNAPSHOT.json](BETA_CURRENT_SNAPS
 
 ローカル確認済み範囲と、専門家・管理者・公開・物理端末待ちの境界も同snapshotから確認します。
 
-この文書だけで、Windows側のCodexがDraft PR #14（`codex/optic-orthogonal-review`）のローカル実装・監査状況を確認し、β候補版への作業を継続できるようにしています。ここでいう確認は監査・実装・Draft PR更新の範囲に限り、main統合や公開サイト更新を含みません。
+この文書だけで、Windows側のCodexが公開α refresh後の実装・監査状況を確認し、β候補版への作業を継続できるようにしています。PR #14は2026-08-24にmainへ統合済みで、GitHub Pagesの公開αも差し替え済みです。以後のmain統合や再公開は、今回の一回限りの承認を継続承認とみなさず、改めてユーザーの明示承認を得ます。
+
+### 2026-08-24 公開α refresh
+
+PR #14はmerge commit `6f13cd58e3e6450049e02be04c320a4e9abc1fc3` でmainへ統合し、GitHub Pages run `32711938345` が成功しました。公開URL限定read-only監査は、canonical 27経路×3幅×direct/reload＝162/162件で合格し、主文書HTTP 2xx、公式origin・path、missing／duplicate／fail 0、console／request／UI error・loader・overflow・WebGL fallback 0を確認しています。証拠は `work/browser-audit/alpha-public-refresh-2026-08-24.json`、公開判断の境界は [ALPHA_RELEASE_AUDIT.md](ALPHA_RELEASE_AUDIT.md) を参照してください。β公開、専門家承認、物理端末・別ブラウザ確認は未完了です。
 
 ## 1. 目標
 
@@ -85,13 +89,15 @@ Git、Node.js 22以降、npmをインストールしたPowerShellで実行しま
 git clone https://github.com/bonnginn/brain-practical-navi.git
 cd brain-practical-navi
 git fetch origin
-git switch codex/optic-orthogonal-review
+git switch main
 git pull --ff-only
+git status
+git log -5 --oneline
 git log -1 --oneline
 npm install
 ```
 
-作業対象はDraft PR #14の `codex/optic-orthogonal-review` です。`git log -1` が `dd17284 Make feedback preflight contract exact` 以降であることを確認してください。既存のWindows作業フォルダを使う場合は、未コミット変更を確認してから `git pull --ff-only` します。上書き・resetはしません。ユーザーの明示承認なしにmainへマージせず、公開サイトも更新せず、PRはDraftのまま維持します。
+PR #14はmerge済みです。新しい作業は、まずmainが `6f13cd58` 以降であることを確認し、mainから新しい作業ブランチを作成します。既存のWindows作業フォルダを使う場合は、未コミット変更を確認してから `git pull --ff-only` します。上書き・resetはしません。ユーザーの明示承認なしにmainへマージせず、公開サイトも更新しません。
 
 通常は環境変数なしで動作します。意見フォームを変更する場合だけ `.env.example` から `.env.local` を作ります。`.env.local` はコミットしません。
 
@@ -103,7 +109,7 @@ npm run build
 npm run dev -- --host 127.0.0.1
 ```
 
-引き継ぎ基準コミット `dd17284` では、自動テスト、TypeScript、本番ビルドが成功しています。テスト件数は追加監査ごとに増えるため固定値とせず、現在の全件結果を再実行して確認してください。Viteが表示したURLをブラウザで開いてください。下記は現行公開ホストの反映確認対象であり、この作業ではローカル監査とDraft PR更新だけを行います。
+公開α refreshでは自動テスト404/404、TypeScript、通常／Pages本番ビルド、source／dist権利監査、GitHub Actions、公開27経路162/162件が成功しています。テスト件数は追加監査ごとに増えるため固定値とせず、現在の全件結果を再実行して確認してください。Viteが表示したURLをブラウザで開いてください。
 
 - 公開アプリ: https://bonnginn.github.io/brain-practical-navi/
 - 対応ソース: https://github.com/bonnginn/brain-practical-navi
@@ -258,7 +264,7 @@ Chrome 151の通常production preview `http://127.0.0.1:4330/` で、Windows 11 
 
 ### 残る外部確認・承認
 
-- 公開URL・物理端末・別GPU・別ブラウザの性能計測は未確認です（ローカルWindows Chromeの基礎31件＋全8標本context ON 48件＝79/79件は完了）。
+- 公開URLの全27経路表示はChrome 151で162/162件を確認済みです。ただし、公開回線の性能、物理端末、別GPU・別ブラウザの性能計測は未確認です（ローカルWindows Chromeの基礎31件＋全8標本context ON 48件＝79/79件は完了）。
 - 専門家による構造位置・範囲・連続性の確認。
 - 管理者による権利文書、Google Form、公開画面をまたぐ最終実ブラウザ巡回は未完了です。
 - スマートフォン専用UIのローカル親確認は完了（`MOBILE_UI_AUDIT.md`）。Chrome 151・`http://127.0.0.1:4198`で、coarse touch phoneの5件dock、native settings dialog、focus／背景scroll、sectionsの既存rail操作、rangeとpage scroll、segment直接URLのCanvas非生成を確認し、coarse 26経路52/52、fine/non-touch 26経路×3幅×direct/reload 156/156に合格した。fine-pointer狭幅ではphoneMode=false、dockなし、既存sections／segment workbenchを確認した。公開URL、物理端末、実機タッチ、Safari・別ブラウザ、別GPU、専門家レビューは未確認である。詳細な画像・probe・監査JSONは `MOBILE_UI_AUDIT.md` を参照する。
@@ -266,7 +272,7 @@ Chrome 151の通常production preview `http://127.0.0.1:4330/` で、Windows 11 
 
 2026-08-23追加: `ORTHOGONAL_REVIEW_BUNDLE_AUDIT.md` に、WindowsローカルのGit管理外 `work/anatomy-review/orthogonal-review-bundle-v3/`（固定入力SHA・BBS1寸法・ID33/39/40の全占有断面、ID39/40の外側断面、ID27のcrop内context-only、期待161 PNG＋manifest）を記録した。PNG／pixel SHA、空metadata、flat anchor、exact file/schema、link境界まで独立検証済みだが、`review.status=unreviewed` であり、ラベル本体・公開資産・ID36–38は変更していない。乳頭体付着部と視交叉・左右視索境界の解剖判断、専門家確認、公開URL・物理端末確認は残る。
 
-Codex内蔵ブラウザの管理ポリシーにより公開URL操作が拒否された経路は、上記のローカル実画面計測とは区別します。そのため、公開環境の実画面計測を推測で完了扱いにはしていません。
+公開環境のroute表示は `work/browser-audit/alpha-public-refresh-2026-08-24.json` の実測だけを証拠とし、物理端末、別ブラウザ・GPU、公開回線性能、β版としての公開判断へは拡張しません。
 
 ## 10. Windows Codexへ渡す開始指示
 
@@ -275,9 +281,9 @@ Codex内蔵ブラウザの管理ポリシーにより公開URL操作が拒否さ
 ```text
 https://github.com/bonnginn/brain-practical-navi を取得し、WINDOWS_HANDOFF.md、BETA_ROADMAP.md、STRUCTURE_PROVENANCE.md を最初に通読してください。
 
-目標は、専門家監修を必要としないP0・P1項目を自律的に監査・実装・検証し、解剖学的判断が必要な課題を、対象URL・角度・構造・根拠・スクリーンショットが揃ったレビュー待ち状態へ整備することです。1項目ずつ指示待ちにせず、WINDOWS_HANDOFF.md のM1から関連作業をまとめて進めてください。成果はDraft PR #14へ記録します。
+目標は、専門家監修を必要としないP0・P1項目を自律的に監査・実装・検証し、解剖学的判断が必要な課題を、対象URL・角度・構造・根拠・スクリーンショットが揃ったレビュー待ち状態へ整備することです。1項目ずつ指示待ちにせず、WINDOWS_HANDOFF.md のM1から関連作業をまとめて進めてください。成果はmainから作る新しい作業ブランチとPRへ記録します。
 
-開始時に `git fetch origin`、`git switch codex/optic-orthogonal-review`、`git pull --ff-only`、`git status`、`git log -5 --oneline` を実行し、Draft PR #14の現行ブランチを継続してください。npm test と npm run build を実行し、ブラウザ操作が使えるWindows環境では全経路の実画面回帰とNetwork/Performance計測を優先します。模式表示を専門家確認なしに検証済みへ変更せず、第三者の教科書・講義・標本画像をリポジトリやIssueへ転載しないでください。完了した作業はBETA_ROADMAP.mdと各監査文書へ証拠つきで反映し、テスト・ビルド・Draft PR更新まで行ってください。main統合・公開サイト更新・公開環境の確認は、管理者の明示承認なしに行わないでください。
+開始時に `git fetch origin`、`git switch main`、`git pull --ff-only`、`git status`、`git log -5 --oneline` を実行し、mainから新しい作業ブランチを作成してください。npm test と npm run build を実行し、ブラウザ操作が使えるWindows環境では全経路の実画面回帰とNetwork/Performance計測を優先します。模式表示を専門家確認なしに検証済みへ変更せず、第三者の教科書・講義・標本画像をリポジトリやIssueへ転載しないでください。完了した作業はBETA_ROADMAP.mdと各監査文書へ証拠つきで反映し、テスト・ビルド・新しいPR更新まで行ってください。main統合・公開サイト更新・公開環境の確認は、管理者の明示承認なしに行わないでください。
 ```
 
 ## 11. 完了の報告形式
