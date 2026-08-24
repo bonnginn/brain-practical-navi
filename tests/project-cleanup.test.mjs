@@ -33,3 +33,22 @@ test("cleanup preserves the active Vite, Sites, and PWA configuration", async ()
   assert.doesNotMatch(sitesPlugin, /drizzle/);
   assert.match(pwaPlugin, /service-worker\.js/);
 });
+
+test("active workflows use the current Node 24 action generation", async () => {
+  const [ci, pages] = await Promise.all([
+    readFile(new URL(".github/workflows/ci.yml", root), "utf8"),
+    readFile(new URL(".github/workflows/pages.yml", root), "utf8"),
+  ]);
+  assert.match(ci, /actions\/checkout@v7/);
+  assert.match(ci, /actions\/setup-node@v7/);
+  assert.match(ci, /actions\/setup-python@v7/);
+  assert.match(ci, /package-manager-cache: false/);
+  assert.match(pages, /actions\/checkout@v7/);
+  assert.match(pages, /actions\/setup-node@v7/);
+  assert.match(pages, /actions\/configure-pages@v6/);
+  assert.match(pages, /actions\/upload-pages-artifact@v5/);
+  assert.match(pages, /actions\/deploy-pages@v5/);
+  assert.match(pages, /permissions:\s+actions: read/);
+  assert.match(pages, /package-manager-cache: false/);
+  assert.doesNotMatch(`${ci}\n${pages}`, /actions\/(?:checkout|setup-node)@v4|actions\/setup-python@v5/);
+});
