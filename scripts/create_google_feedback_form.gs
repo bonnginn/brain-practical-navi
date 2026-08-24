@@ -1,5 +1,5 @@
 /**
- * 脳実習ナビ：α版フィードバック／共同制作フォーム生成スクリプト
+ * 脳実習ナビ：フィードバック／共同制作フォーム生成スクリプト
  *
  * 使い方:
  * 1. https://script.google.com/ で「新しいプロジェクト」を作る。
@@ -13,11 +13,11 @@
  */
 
 var CONFIG = {
-  FORM_TITLE: '脳実習ナビ α版｜修正提案・共同制作フォーム',
-  RESPONSE_SHEET_TITLE: '脳実習ナビ α版｜フォーム回答・運用管理',
+  FORM_TITLE: '脳実習ナビ｜修正提案・共同制作フォーム',
+  RESPONSE_SHEET_TITLE: '脳実習ナビ｜フォーム回答・運用管理',
   PROJECT_NAME: '脳実習ナビ',
   CONTACT_TEXT: '不具合・修正提案：https://github.com/bonnginn/brain-practical-navi/issues',
-  RETENTION_TEXT: '保存期間：α版の改善と共同制作の連絡に必要な期間。不要になった連絡先は削除します。',
+  RETENTION_TEXT: '保存期間：教材改善と共同制作の連絡に必要な期間。不要になった連絡先は削除します。',
 };
 
 function createBrainPracticalFeedbackForm() {
@@ -222,7 +222,7 @@ function createBrainPracticalFeedbackForm() {
 
 function collaborationAcknowledgements_() {
   return [
-    '公開αへの参加希望であり、報酬・採用・継続参加は個別の合意がない限り保証されないことを理解しました。',
+    '教育用試作教材への参加希望であり、報酬・採用・継続参加は個別の合意がない限り保証されないことを理解しました。',
     '公式版への採用・編集・見送りの最終判断は、当面プロジェクト管理者が行うことを理解しました。',
     'コード・教材・セグメンテーション等を提出する場合は、自分に提出権限があり、指定ライセンスとDCOを確認します。',
     '患者情報、公開許諾のない標本写真、第三者の講義・教科書図版を提出しません。',
@@ -241,7 +241,7 @@ function refreshExistingForm_(form, spreadsheet) {
 
 function buildDescription_() {
   return [
-    CONFIG.PROJECT_NAME + 'は、脳解剖実習の予習・復習を補助する非営利の教育用α版です。',
+    CONFIG.PROJECT_NAME + 'は、脳解剖実習の予習・復習を補助する非営利の教育用試作教材です。',
     '神経解剖学的な誤り、構造表示のずれ、操作性の問題、共同制作の提案を募集しています。',
     '',
     '患者情報、献体者・学生を特定できる情報、実習標本の写真、公開許諾のない講義・教科書・アトラス図版は送信しないでください。',

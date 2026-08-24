@@ -2151,10 +2151,15 @@ test("ships a reproducible Google Form generator for feedback and collaborators"
   assert.match(script, /refreshExistingForm_\(existingForm, existingSheet\)/);
   assert.match(script, /form\.setTitle\(CONFIG\.FORM_TITLE\)\.setDescription\(buildDescription_\(\)\)/);
   assert.match(script, /spreadsheet\.rename\(CONFIG\.RESPONSE_SHEET_TITLE\)/);
+  assert.match(script, /FORM_TITLE: '脳実習ナビ｜修正提案・共同制作フォーム'/);
+  assert.match(script, /非営利の教育用試作教材です/);
+  assert.doesNotMatch(script, /α版|公開α|β版/);
   assert.match(script, /VITE_FEEDBACK_FORM_URL/);
   assert.doesNotMatch(script, /addFileUploadItem/);
   assert.match(guide, /リンクを知っている全員/);
   assert.match(guide, /CONTACT_TEXT/);
+  assert.match(guide, /現行フォームのタイトル・説明・保存期間は引き続き「α版」表記/);
+  assert.match(guide, /回答の作成・送信・削除は行っていません/);
 });
 
 test("research-backed anatomy cautions distinguish source data from teaching schematics", async () => {

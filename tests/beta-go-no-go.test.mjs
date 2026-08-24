@@ -39,6 +39,16 @@ test("beta Go/No-Go ledger is valid, exact, and source-counted", () => {
   });
 });
 
+test("criterion 10 records the current external feedback preflight without claiming submission", () => {
+  const criterion = baseLedger.criteria.find(item => item.id === "criterion-10-feedback-operations");
+  assert.equal(criterion.state, "administrator-blocked");
+  assert.equal(criterion.nextAction, "管理者が既存Google Formへ版名非依存表記を適用する。");
+  assert.ok(criterion.committedEvidenceRefs.includes("ALPHA_FEEDBACK.md"));
+  assert.match(criterion.locallyProven.join(" "), /ログアウト状態.*ログインは回答保存の任意導線.*GitHub Issues/);
+  assert.match(criterion.unprovenScope, /α版表記.*テスト回答.*Google Formsと回答シート双方からの削除/);
+  assert.doesNotMatch(criterion.locallyProven.join(" "), /送信済み|削除済み|運用確認済み/);
+});
+
 test("audit rejects missing and duplicate criteria", () => {
   const missing = clone(baseLedger);
   missing.criteria.pop();
