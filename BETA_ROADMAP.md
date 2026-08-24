@@ -1,12 +1,14 @@
 # β版ロードマップ
 
-更新日: 2026-08-23
+更新日: 2026-08-24
 
 この文書は、公開α版への意見と利用状況を踏まえ、β版までに行う作業を優先度と完了条件つきで整理したものです。β版の目標は「すべての構造を完全に再現すること」ではなく、実習で重要な構造を誤解しにくい形で観察でき、模式表示・推定ラベル・検証済みデータの違いが利用者に明確な教材にすることです。
 
-## 2026-08-23 来歴表示監査の現在値
+## 2026-08-24 来歴表示監査の現在値
 
 機械台帳の現在値は registry 75件、expert pending 75件、表示面フィルタ（脳表／断面／ブロック標本／復習）54／16／30／22件です。学習者向けmappingは222/222件が解決済みで、family別は sections21／surface52／free75／neurovascular22／blocks52です。アプリ在庫は regions26／landmarks8／deep5／basal13／neurovascular22／sections21／block specimens8／layers44／pathways3です。
+
+横断的な現在値と、ローカル確認済み／専門家・管理者・公開・物理端末待ちの境界は [BETA_CURRENT_SNAPSHOT.json](BETA_CURRENT_SNAPSHOT.json) に固定し、`scripts/audit_current_beta_snapshot.mjs` で既存台帳・在庫・経路契約から再計算します。過去の監査文書に残る旧件数は履歴であり、現在値には使用しません。
 
 12項目の現行Go / No-Go状態と本文の機械突合は [BETA_GO_NO_GO_AUDIT.md](BETA_GO_NO_GO_AUDIT.md) と [BETA_GO_NO_GO.json](BETA_GO_NO_GO.json) に固定しています。ここでのローカル確認は、公開・専門家確認・デプロイ完了を意味しません。
 

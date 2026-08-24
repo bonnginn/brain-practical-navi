@@ -2,6 +2,12 @@
 
 判定基準: `未確認` / `要修正` / `発表可（α注記あり）`
 
+<!-- beta-current-snapshot:start -->
+Current machine-readable values: [BETA_CURRENT_SNAPSHOT.json](BETA_CURRENT_SNAPSHOT.json). All other counts in this document are dated historical evidence, not current inventory or approval.
+<!-- beta-current-snapshot:end -->
+
+本書は各監査時点の表示結果を保存します。ローカル表示の合格を、専門家レビュー、公開URL、物理端末の確認へ読み替えることはできません。
+
 ## 2026-08-24 公開前チェック表示
 
 更新履歴・既知の制限dialogの冒頭へ、12件のGo／No-Go状態を5 groupで示す読み取り専用表示を追加した。Chrome 151の通常production previewで5 group・12 item・件数3／1／4／1／3、詳細開閉、内部scroll、Esc、背景click、Tab循環、起点focus復帰を確認した。390×768 override（実効innerWidth 295／clientWidth 284）でも一列、横overflow 0、summary実効高さ44.99 pxだった。最終buildのcanonical route監査は162/162、cold payloadは27/27、全testsは347/347件に合格した。総合合格・公開可・専門家確認済みとは表示せず、各stateも変更していない。詳細は [BETA_READINESS_DISPLAY_AUDIT.md](BETA_READINESS_DISPLAY_AUDIT.md)。
@@ -56,11 +62,7 @@ Chrome 151のローカルproduction preview `http://127.0.0.1:4216/#workspace/co
 | 意見・共同制作 | 2対象者別カード、背景マスク、閉じる導線を確認 | 匿名報告・共同参加のフォーム導線を確認（外部送信は未実行） | 個人情報・患者情報を送らない注意と公開α方針を確認 | 発表可 |
 | 利用条件・クレジット | 2列のライセンス情報とスクロール、閉じる導線を確認 | 対応ソース・外部データリンクを確認 | プロジェクト名のみを表示し、個人名・所属・メールは掲載しない | 発表可 |
 
-## 2026-08-23 来歴表示監査の最終ローカル実ブラウザ確認
-
-機械台帳の現在値は registry 75件、expert pending 75件、表示面フィルタ（脳表／断面／ブロック標本／復習）54／16／30／21件です。学習者向けmappingは222/222件が解決済みで、family別は sections21／surface52／free75／neurovascular22／blocks52です。アプリ在庫は regions26／landmarks8／deep5／basal13／neurovascular22／sections21／block specimens8／layers44／pathways3です。
-
-56件から75件への増分は、surface／block app-only 18行とoptic nerve `cn2`行1件の計19件です。旧解剖ラベルID33とアプリの`cn2`／`opticChiasm`を別名前空間として扱い、ID39・40はプロジェクト内レビュー済み・expert pendingのまま維持します。詳細は [LEARNER_PROVENANCE_DISPLAY_AUDIT.md](LEARNER_PROVENANCE_DISPLAY_AUDIT.md) を参照してください。
+## 2026-08-23 来歴表示監査の実ブラウザ履歴
 
 Chrome 151のin-app browserでローカルproduction preview `http://127.0.0.1:4201`を確認し、review panel 75/75、filter surface54／sections16／blocks30／quiz21／all75を表示した。app-onlyカードの日本語見出し（縁上回、II 視神経・視索）、自由観察の縁上回「試作」＋CerebrA詳細、`cn2`／`opticChiasm`の「模式」、block choroid plexusの「模式」＋未保証説明を確認した。route auditは `work/browser-audit/beta-route-audit-learner-provenance-final-2026-08-23.json` に保存し、26経路×3幅×direct/reload＝156/156、`allPassed: true`。390 px設定の`clientWidth`は375 pxで、overflow／error／loader／WebGL fallbackはなかった。これは表示回帰の確認であり、解剖学的妥当性の検証ではない。公開URL、物理端末、別GPU、専門家レビューは未確認である。
 

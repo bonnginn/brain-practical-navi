@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-08-24",
+  "description": "Current beta-candidate snapshot. Values are checked against the provenance registry, learner mapping source, quiz inventories, canonical route contract, Go/No-Go ledger, PWA audit contract, and optic-pathway restrictions; this file is not an anatomical or expert approval record.",
+  "authoritativeSources": [
+    "public/atlas/structure-provenance.json",
+    "src/learnerProvenance.mjs",
+    "scripts/audit_anatomy_review_queue.mjs",
+    "scripts/audit_learner_provenance.mjs",
+    "app/page.tsx",
+    "scripts/audit_beta_routes.mjs",
+    "BETA_GO_NO_GO.json",
+    "scripts/audit_pwa_offline_browser.mjs",
+    "PWA_OFFLINE_AUDIT.md",
+    "PWA_INSTALL_AFFORDANCE_AUDIT.md",
+    "OPTIC_PATHWAY_AUDIT.md",
+    "STRUCTURE_PROVENANCE.md",
+    "BETA_OBSERVATION_NOTES.md",
+    "PRESENTATION_AUDIT.md",
+    "PERFORMANCE_AUDIT.md",
+    "WINDOWS_HANDOFF.md"
+  ],
+  "provenance": {
+    "registryEntryCount": 75,
+    "expertPendingCount": 75,
+    "reviewFilterCounts": {
+      "surface": 54,
+      "sections": 16,
+      "blocks": 30,
+      "quiz": 22
+    },
+    "learnerMappings": {
+      "total": 222,
+      "resolved": 222
+    }
+  },
+  "quiz": {
+    "existingQuestionCount": 23,
+    "neurovascularPilotCount": 18,
+    "totalQuestionCount": 41
+  },
+  "routes": {
+    "canonicalRouteCount": 27,
+    "viewportCount": 3,
+    "phaseCount": 2,
+    "expectedChecks": 162
+  },
+  "goNoGo": {
+    "criterionCount": 12,
+    "stateCounts": {
+      "proven-local": 3,
+      "partial-local": 1,
+      "expert-blocked": 4,
+      "administrator-blocked": 1,
+      "deployment-blocked": 3
+    }
+  },
+  "pwa": {
+    "matrix": {
+      "baseCount": 2,
+      "actionsPerBase": 10,
+      "expectedChecks": 20
+    },
+    "reportedEvidence": {
+      "document": "PWA_OFFLINE_AUDIT.md",
+      "date": "2026-08-24",
+      "scope": "local-runner",
+      "status": "documented-not-recomputed"
+    },
+    "unverifiedScope": {
+      "physicalNetworkOrOsOffline": true,
+      "publicUrl": true,
+      "physicalDevice": true,
+      "installedPwaAndHomeScreenLaunch": true,
+      "safariOrOtherBrowser": true
+    }
+  },
+  "opticPathway": {
+    "legacyId33": {
+      "legacyVolumeId33TargetExcluded": true,
+      "semanticOpticChiasmWrongOptionPresent": true,
+      "legacyEntryLearnerMappingCount": 0
+    },
+    "ids36To38": {
+      "status": "unsegmented",
+      "perId": {
+        "36": {"adopted": false},
+        "37": {"adopted": false},
+        "38": {"adopted": false}
+      },
+      "anyAdopted": false,
+      "allAdopted": false,
+      "expertReviewPending": true
+    },
+    "ids39To40": {
+      "status": "adopted-project-reviewed",
+      "adopted": true,
+      "projectReview": "reviewed-by-project",
+      "expertReview": "pending",
+      "orthogonalBoundaryReviewPending": true
+    }
+  }
+}

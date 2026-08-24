@@ -1,7 +1,13 @@
 # Windows Codex への引き継ぎ（β改修）
 
 更新日: 2026-08-24
-引き継ぎ基準コミット: `9c1a962 Add segmentation review metadata`
+引き継ぎ基準コミット: `7d6a811 Audit public rights and notices`
+
+<!-- beta-current-snapshot:start -->
+Current machine-readable values: [BETA_CURRENT_SNAPSHOT.json](BETA_CURRENT_SNAPSHOT.json). All other counts in this document are dated historical evidence, not current inventory or approval.
+<!-- beta-current-snapshot:end -->
+
+ローカル確認済み範囲と、専門家・管理者・公開・物理端末待ちの境界も同snapshotから確認します。
 
 この文書だけで、Windows側のCodexが公開α版の現在地を確認し、β候補版への改修を再開できるようにしています。Mac側では、この基準コミット以降の実装作業を中断しています。
 
@@ -39,13 +45,15 @@ Homeへ、対応ブラウザがpromptを提供した場合だけ利用者の明�
 
 Chrome 151のPages想定buildで総量不明表示、総量既知の `12 MB / 12 MB（100%）` とバー値の一致、390 px相当の横はみ出しなし、完了後loader／alert 0を確認しました。全経路は `work/browser-audit/beta-route-audit-download-progress-2026-08-23.json` の156/156件、全テスト227/227、型検査、通常／Pages buildに合格しています。公開URL、物理端末、別ブラウザ、実公開回線は未確認です。詳細は [DOWNLOAD_PROGRESS_AUDIT.md](DOWNLOAD_PROGRESS_AUDIT.md) を参照してください。
 
-## 2026-08-23 来歴表示監査の現在値
+## 2026-08-24 来歴表示台帳の現在値
 
 機械台帳は registry 75件、expert pending 75件、表示面フィルタ（脳表／断面／ブロック標本／復習）54／16／30／22件です。学習者向けmappingは222/222件が解決済みで、family別は sections21／surface52／free75／neurovascular22／blocks52です。アプリ在庫は regions26／landmarks8／deep5／basal13／neurovascular22／sections21／block specimens8／layers44／pathways3です。
 
 現行Go / No-Goの12項目とsourceCounts（provenance／expert pending 75件、unique quiz targets 41件＝既存23件＋模式3D pilot 18件、learner mapping 222/222件）は [BETA_GO_NO_GO_AUDIT.md](BETA_GO_NO_GO_AUDIT.md) と [BETA_GO_NO_GO.json](BETA_GO_NO_GO.json) を基準にします。ローカル確認を公開・専門家確認・デプロイ完了とは扱いません。
 
 56件から75件への19件追加（surface／block app-only 18行とoptic nerve `cn2`行1件）、旧ID33と`cn2`／`opticChiasm`の分離、ID39・40のexpert pending維持は [LEARNER_PROVENANCE_DISPLAY_AUDIT.md](LEARNER_PROVENANCE_DISPLAY_AUDIT.md) に固定しています。
+
+### 2026-08-23 実ブラウザ履歴
 
 最終ローカル実ブラウザ確認として、Chrome 151のin-app browserで`http://127.0.0.1:4201`を確認し、review panel 75/75、filter surface54／sections16／blocks30／quiz21／all75、app-onlyカードの日本語見出し、縁上回の「試作」＋CerebrA詳細、`cn2`／`opticChiasm`の「模式」、block choroid plexusの「模式」＋未保証説明を確認しました。route auditは `work/browser-audit/beta-route-audit-learner-provenance-final-2026-08-23.json` に保存し、26経路×3幅×direct/reload＝156/156、`allPassed: true`。390 px設定の`clientWidth`は375 pxで、overflow／error／loader／WebGL fallbackはありませんでした。これは表示回帰の確認であり、解剖学的妥当性の検証ではありません。公開URL、物理端末、別GPU、専門家レビューは未確認です。
 
@@ -74,14 +82,14 @@ Git、Node.js 22以降、npmをインストールしたPowerShellで実行しま
 ```powershell
 git clone https://github.com/bonnginn/brain-practical-navi.git
 cd brain-practical-navi
-git switch main
+git fetch origin
+git switch codex/optic-orthogonal-review
 git pull --ff-only
 git log -1 --oneline
-git switch -c codex/beta-candidate
 npm install
 ```
 
-`git log -1` が少なくとも `9c1a962` 以降であることを確認してください。既存のWindows作業フォルダを使う場合は、未コミット変更を確認してから `git pull --ff-only` します。上書き・resetはしません。
+作業対象はDraft PR #14の `codex/optic-orthogonal-review` です。`git log -1` が少なくとも `7d6a811` 以降であることを確認してください。既存のWindows作業フォルダを使う場合は、未コミット変更を確認してから `git pull --ff-only` します。上書き・resetはしません。ユーザーの明示承認なしにmainへマージせず、公開サイトも更新せず、PRはDraftのまま維持します。
 
 通常は環境変数なしで動作します。意見フォームを変更する場合だけ `.env.example` から `.env.local` を作ります。`.env.local` はコミットしません。
 
@@ -93,7 +101,7 @@ npm run build
 npm run dev -- --host 127.0.0.1
 ```
 
-基準コミットでは、自動テスト **40件**、TypeScript、本番ビルドが成功しています。Viteが表示したURLをブラウザで開いてください。公開α版は次です。
+引き継ぎ基準コミットでは、自動テスト、TypeScript、本番ビルドが成功しています。テスト件数は追加監査ごとに増えるため固定値とせず、現在の全件結果を再実行して確認してください。Viteが表示したURLをブラウザで開いてください。公開α版は次です。
 
 - 公開アプリ: https://bonnginn.github.io/brain-practical-navi/
 - 対応ソース: https://github.com/bonnginn/brain-practical-navi

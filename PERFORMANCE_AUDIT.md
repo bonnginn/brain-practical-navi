@@ -2,6 +2,12 @@
 
 更新日: 2026-08-23
 
+<!-- beta-current-snapshot:start -->
+Current machine-readable values: [BETA_CURRENT_SNAPSHOT.json](BETA_CURRENT_SNAPSHOT.json). All other counts in this document are dated historical evidence, not current inventory or approval.
+<!-- beta-current-snapshot:end -->
+
+本書の転送量・経路数・ローカルserver停止によるPWA回復性は、各節の日付時点の再現履歴です。公開回線、物理端末、OS全体の通信断、実インストール、Safari・別ブラウザは未確認です。
+
 ## 目的
 
 高解像度断面と3Dモデルを維持しつつ、閲覧しないデータまで利用者へ配信しないことを公開条件とします。ここでいう「公開物全体」はGitHub Pagesのビルドへ入る `public/` 以下の合計であり、1回の閲覧ですべてを取得する量とは異なります。
