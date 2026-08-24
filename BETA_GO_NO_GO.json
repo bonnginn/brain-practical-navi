@@ -237,10 +237,11 @@
     },
     {
       "id": "criterion-08-expert-review-handoff",
-      "criterionText": "専門家レビューの対象と根拠を引き継げる。（準備のみ: `ANATOMY_REVIEW_HANDOFF.md` と共同制作画面の読み取り専用キューで、provenance台帳のexpert pending 75件を表示。パネルは一般のForm・Issue・PR入口の後ろで既定閉鎖、開いたときだけフィルタと一覧を表示する。観察リンクは対象を自動選択しない一般workspace入口に限定。Chrome 151のローカル通常buildで表示面別54／16／30／22件を確認し、既存の複合フィルタ、ID39・40、旧ID33、狭幅回帰記録も維持する。専門家確認、解剖学的妥当性、採否は未完了。ID39・40はプロジェクト内レビュー済みだがexpert pending、旧ID33混合領域は断面／通常クイズ正答と分節入口から除外。）",
+      "criterionText": "専門家レビューの対象と根拠を引き継げる。（準備のみ: `ANATOMY_REVIEW_HANDOFF.md` と共同制作画面の読み取り専用キューで、provenance台帳のexpert pending 75件を表示。各カードへ1項目単位の構造化された端末内下書きを追加し、台帳全体・対象entryのSHA-256、固定3観察項目、固定懸念コード、未提出・未採用・expert未主張を検証する。氏名・所属・連絡先・自由記述は保存せず、古い台帳、JSON不正、保存障害、別タブ競合はロックする。Chrome 151のローカル通常buildで連続変更、再読込復元、JSON書き出し表示、390 px相当の44 px操作・overflow 0を確認し、最終route監査162/162件にも合格した。専門家確認、本人性・署名、解剖学的妥当性、採否は未完了。ID39・40はプロジェクト内レビュー済みだがexpert pending、旧ID33混合領域は断面／通常クイズ正答と分節入口から除外。詳細は `ANATOMY_REVIEW_RECORD_DRAFT_AUDIT.md`。）",
       "state": "proven-local",
       "locallyProven": [
         "ローカル読み取り専用レビューキューと根拠参照の引き継ぎ準備を確認した。",
+        "1項目単位の構造化された端末内下書きで、現在台帳SHA、固定観察項目、未提出・未採用・expert未主張を検証し、古い台帳・保存障害・別タブ競合をロックすることを確認した。",
         "ローカルstatus画面で12件の公開前チェックを状態別に表示し、専門家確認待ち4件と次操作をGo/No-Go台帳から読み取り専用で引き継げることを確認した。",
         "実際の専門家レビュー・採否は未確認。"
       ],
@@ -248,8 +249,10 @@
       "blockingAuthority": null,
       "committedEvidenceRefs": [
         "ANATOMY_REVIEW_HANDOFF.md",
+        "ANATOMY_REVIEW_RECORD_DRAFT_AUDIT.md",
         "BETA_READINESS_DISPLAY_AUDIT.md",
         "scripts/audit_anatomy_review_queue.mjs",
+        "scripts/audit_anatomy_review_record_draft.mjs",
         "scripts/audit_beta_go_no_go_projection.mjs",
         "public/atlas/structure-provenance.json",
         "app/page.tsx"

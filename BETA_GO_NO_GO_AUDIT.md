@@ -8,6 +8,8 @@
 
 `#workspace/status` に12基準の読み取り専用projectionを追加した。5状態と件数は3／1／4／1／3のままで、今回の表示追加によるstate変更はない。criterion 08には専門家確認待ち4件の引継ぎ表示、criterion 12には未確認範囲と次操作の表示をローカル根拠として追記したが、criterion 12は公開URL未反映のため `deployment-blocked` を維持する。配布projectionと独立監査の境界は [BETA_READINESS_DISPLAY_AUDIT.md](BETA_READINESS_DISPLAY_AUDIT.md) に記録する。
 
+同日、criterion 08の引き継ぎ準備へ1項目単位の構造化された端末内下書きを追加した。現在台帳と対象entryのSHA-256、固定3観察項目、固定懸念コード、未提出・未採用・expert未主張を検査し、台帳不一致、JSON不正、保存障害、別タブ競合ではロックする。Chrome 151相当のローカル通常buildで連続変更、再読込復元、JSON書き出し表示、390 px相当を確認した。criterion 08は引き継ぎ準備の `proven-local` を維持するが、criterion 11の専門家レビュー記録は未取得で `expert-blocked` のままである。詳細は [ANATOMY_REVIEW_RECORD_DRAFT_AUDIT.md](ANATOMY_REVIEW_RECORD_DRAFT_AUDIT.md)。
+
 ## 現在の分類
 
 | 状態 | 項目 | 解釈 |

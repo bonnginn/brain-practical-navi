@@ -1280,6 +1280,36 @@ html, body, #root { height: 100%; overflow: hidden; }
 .anatomyReviewSubdetails summary { min-height: 28px; cursor: pointer; color: #315e58; font-weight: 700; }
 .anatomyReviewSubdetails ul { margin: 6px 0 0; padding-left: 18px; }
 .anatomyReviewSubdetails p { margin: 5px 0 0; }
+.anatomyReviewRecordDraft { display: grid; gap: 11px; min-width: 0; width: 100%; max-width: 100%; box-sizing: border-box; margin: 13px 0 0; padding: 12px; border: 1px solid #bed0c7; background: #f1f7f3; }
+.anatomyReviewRecordLaunch { display: inline-flex; align-items: center; min-height: 44px; margin-top: 12px; padding: 7px 11px; border: 1px solid #37766d; background: #edf5f2; color: #245d55; font-size: 12px; font-weight: 800; }
+.anatomyReviewRecordHeader { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.anatomyReviewRecordHeader > div { min-width: 0; }
+.anatomyReviewRecordHeader > div > span { color: #56736d; font: 11px monospace; letter-spacing: .08em; }
+.anatomyReviewRecordHeader h3 { margin: 4px 0 0; color: #294b45; font-size: 17px; }
+.anatomyReviewRecordHeader p { margin: 5px 0 0; color: #4a5f59; font-size: 12px; line-height: 1.55; }
+.anatomyReviewRecordHeader output { flex: 0 0 auto; max-width: 230px; color: #5b6d67; font-size: 11px; line-height: 1.45; text-align: right; }
+.anatomyReviewRecordScope { display: grid; grid-template-columns: auto minmax(150px,1fr) minmax(150px,1fr); min-width: 0; align-items: end; gap: 8px; padding: 9px; border: 1px solid #d2ddd7; background: #f8fbf9; }
+.anatomyReviewRecordScope > b { align-self: center; color: #42635c; font-size: 12px; }
+.anatomyReviewRecordScope label,.anatomyReviewRecordChecks label { display: grid; min-width: 0; gap: 4px; color: #52645f; font-size: 11px; font-weight: 700; }
+.anatomyReviewRecordDraft select { width: 100%; max-width: 100%; min-width: 0; box-sizing: border-box; min-height: 40px; padding: 6px 8px; border: 1px solid #9db6ab; background: #fff; color: #2f403c; }
+.anatomyReviewRecordChecks { display: grid; min-width: 0; gap: 8px; }
+.anatomyReviewRecordChecks fieldset { display: grid; min-width: 0; gap: 7px; margin: 0; padding: 9px 10px 10px; border: 1px solid #c9d8d0; background: #fff; }
+.anatomyReviewRecordChecks legend { padding: 0 4px; color: #35675e; font-size: 12px; font-weight: 800; }
+.anatomyReviewRecordConcerns { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 5px 10px; padding-top: 4px; border-top: 1px solid #e0e7e3; }
+.anatomyReviewRecordConcerns b { grid-column: 1/-1; color: #785532; font-size: 11px; }
+.anatomyReviewRecordConcerns label { display: flex; grid-template-columns: none; align-items: center; gap: 5px; color: #596963; font-size: 11px; font-weight: 600; }
+.anatomyReviewRecordConcerns input { min-width: 18px; min-height: 18px; }
+.anatomyReviewRecordError { margin: 0; padding: 8px 9px; border-left: 3px solid #ba704d; background: #fff3e8; color: #744a35; font-size: 12px; line-height: 1.5; }
+.anatomyReviewRecordActions { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; }
+.anatomyReviewRecordActions button,.anatomyReviewRecordLocked button { min-height: 40px; padding: 7px 10px; border: 1px solid #37766d; background: #fff; color: #245d55; font-size: 12px; font-weight: 800; }
+.anatomyReviewRecordActions button.secondary { border-color: #aab5af; color: #5b6863; }
+.anatomyReviewRecordActions button:disabled { cursor: not-allowed; opacity: .5; }
+.anatomyReviewRecordActions [role="status"] { flex: 1 1 220px; color: #5f706a; font-size: 11px; }
+.anatomyReviewRecordLoading,.anatomyReviewRecordLocked { margin-top: 13px; padding: 11px; border: 1px solid #d5c7a8; background: #fff9ed; color: #66553a; font-size: 12px; line-height: 1.55; }
+.anatomyReviewRecordLocked { display: grid; gap: 6px; }
+.anatomyReviewRecordLocked b { color: #795532; }
+.anatomyReviewRecordLocked p,.anatomyReviewRecordLocked small { margin: 0; }
+.anatomyReviewRecordLocked button { justify-self: start; border-color: #aa8761; color: #765334; }
 .anatomyReviewObserve { display: inline-flex; align-items: center; min-height: 44px; margin-top: 11px; padding: 7px 11px; border: 1px solid #1d6e69; background: #edf5f2; color: #165c56; font-size: 13px; font-weight: 700; text-decoration: none; }
 .anatomyReviewNoObserve { display: inline-flex; align-items: center; min-height: 44px; margin-top: 11px; color: #697570; font-size: 13px; }
 .anatomyReviewEmpty { margin: 14px 0 0; padding: 14px; border: 1px dashed #b7c1ba; color: #5f6c68; }
@@ -1356,6 +1386,14 @@ html, body, #root { height: 100%; overflow: hidden; }
   .anatomyReviewFilters{display:grid;grid-template-columns:1fr}
   .anatomyReviewFilters label{min-width:0}
   .anatomyReviewFilters output{padding-inline:0}
+  .anatomyReviewRecordHeader{display:grid;gap:8px}
+  .anatomyReviewRecordHeader output{max-width:none;text-align:left}
+  .anatomyReviewRecordScope{grid-template-columns:1fr}
+  .anatomyReviewRecordScope>b{align-self:auto}
+  .anatomyReviewRecordDraft select{min-height:44px}
+  .anatomyReviewRecordConcerns{grid-template-columns:1fr}
+  .anatomyReviewRecordActions{display:grid;grid-template-columns:1fr}
+  .anatomyReviewRecordActions button,.anatomyReviewRecordLocked button{width:100%;min-height:44px}
   .anatomyReviewPanel[open] .anatomyReviewList{max-height:none;overflow:visible}
   .anatomyReviewFacts{grid-template-columns:1fr}
   .anatomyReviewCard>summary{align-items:flex-start;flex-direction:column;min-height:74px}

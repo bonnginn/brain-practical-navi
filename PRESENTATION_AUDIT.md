@@ -253,6 +253,10 @@ coarse phoneの26経路×direct/reloadは52/52件、通常fine/non-touchの26経
 
 ### 2026-08-22 専門家レビュー準備キュー（準備のみ）
 
+2026-08-24、75件の読み取り専用台帳を変更せず、各カードへ1項目単位の「確認記録の端末内下書き」を追加した。氏名・所属・連絡先・自由記述を持たず、固定3観察項目・固定懸念コード、台帳全体・対象entry SHA-256、未提出・未採用・expert未主張を固定する。台帳不一致、JSON不正、保存障害、別タブ競合では編集・保存・通常書き出しを停止し、Web Locksと保存前照合、単調増加revisionで上書きと古い非同期完了を防ぐ。
+
+Chrome 151相当のローカル通常production preview `http://127.0.0.1:4332/` で、遅延オープン、固定select 5件、連続変更、自動保存、再読込復元、懸念コード必須、日本語案内、JSON書き出し完了表示を確認した。390 px指定（実効 `innerWidth` 295、`clientWidth` / `scrollWidth` 284）でカード幅233 px、select 156–158 px、操作ボタン44 px、横overflow 0、console error／warning 0だった。最終通常buildのcanonical route監査は162/162件に合格し、missing／duplicate／fail、console／request／UI error、残留loader、横overflow、WebGL fallbackは0件だった。これは専門家レビュー、本人性・署名、妥当性、採否を示さない。詳細は [ANATOMY_REVIEW_RECORD_DRAFT_AUDIT.md](ANATOMY_REVIEW_RECORD_DRAFT_AUDIT.md)。
+
 `public/atlas/structure-provenance.json` を単一情報源として、expert pending 56件を共同制作画面の読み取り専用パネルへ表示した。パネルはForm・Issue・PRなど一般入口の後ろに置いた既定閉鎖の`details`で、summaryに件数と読み取り専用を示し、開いたときだけ表示面・representationのフィルタ、既知の制限、source refs、プロジェクトレビュー状態を表示する。各リンクは「一般の○○画面を開く（この項目・構造・位置は自動選択されません）」と明示し、既存workspaceの一般入口だけへ遷移する。専門家レビュー完了、解剖学的妥当性、採否は示さない。旧ID33混合領域は断面／通常クイズ正答と分節入口から除外し、ID39・40はプロジェクト内レビュー済みだが専門家pendingとして明記している。詳細と監査は [ANATOMY_REVIEW_HANDOFF.md](ANATOMY_REVIEW_HANDOFF.md) と `scripts/audit_anatomy_review_queue.mjs` に固定した。
 
 Chrome 151のローカル通常production preview `http://127.0.0.1:4199` で、既定閉鎖、一般入口より後ろの配置、全56件、表示面別36／16／29／21件、複合フィルタ、乳頭体・旧ID33カード、一般断面／脳表リンクの注意文を実操作した。390 px指定のアプリ内ブラウザ（実効 `innerWidth` 295）では `clientWidth` / `scrollWidth` 284、横はみ出し0、一覧内側のスクロールなしだった。同じ通常buildの26経路×3幅×direct/reloadは156/156件に合格し、`work/browser-audit/beta-route-audit-anatomy-review-final-2026-08-22.json` に保存した。全テスト161/161、台帳監査、型検査、通常buildにも合格した。公開URL、物理端末、別ブラウザ・別GPU、専門家レビューは未確認である。

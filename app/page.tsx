@@ -1,6 +1,6 @@
 "use client";
 
-import { KeyboardEvent as ReactKeyboardEvent, lazy, PointerEvent, Suspense, useEffect, useMemo, useRef, useState } from "react";
+import { KeyboardEvent as ReactKeyboardEvent, lazy, PointerEvent, SyntheticEvent, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { AtlasVolumeCanvas, QUIZ_SECTION_ACCENT_HEX, type BlockContextSpecimen, type HighlightLayer, type IdentifiedPoint } from "./AtlasVolumeCanvas";
 import { ManualSegmentationWorkbench } from "./ManualSegmentationWorkbench";
 import betaStatus from "./beta-status.json";
@@ -14,6 +14,7 @@ import type { BlockContextEvent } from "../src/blockContext.mjs";
 import { phoneCapabilityFromMedia } from "../src/mobileUi.mjs";
 import { deriveAnatomyReviewQueue, filterAnatomyReviewQueue, isLegacyOpticEntry, isMammillaryEntry, observationHashForEntry, observationWorkspaceForEntry } from "../src/anatomyReviewQueue.mjs";
 import type { AnatomyReviewQueueItem, AnatomyReviewSurface } from "../src/anatomyReviewQueue.mjs";
+import { AnatomyReviewRecordDraftCard } from "./AnatomyReviewRecordDraft";
 import { advanceBasalStepperIndex, advancePapezStepperIndex, BASAL_GANGLIA_STEPS, PAPEZ_STEPS, startBasalGangliaStepperTimer, startPapezStepperTimer } from "../src/pathwayStepper.mjs";
 import type { BasalGangliaStep, PapezStep } from "../src/pathwayStepper.mjs";
 import { BLOCK_PRIORITY_DISCLAIMER, BLOCK_PRIORITY_ENTRY_BY_KEY, BLOCK_PRIORITY_GROUPS, BLOCK_PRIORITY_GROUP_KEYS, BLOCK_SPECIMEN_KEYS } from "../src/blockPriority.mjs";
@@ -601,10 +602,12 @@ const anatomyReviewQuizLabels:Record<string,string>={standard:"通常クイズ�
 
 function AnatomyReviewQueuePanel({items,total,surfaceFilter,representationFilter,onSurfaceChange,onRepresentationChange}:{items:AnatomyReviewQueueItem[];total:number;surfaceFilter:AnatomyReviewSurface;representationFilter:string;onSurfaceChange:(value:AnatomyReviewSurface)=>void;onRepresentationChange:(value:string)=>void}){
   const representationOptions=Array.isArray(anatomyReviewRegistry.representationEnum)?anatomyReviewRegistry.representationEnum:[];
+  const [openReviewCards,setOpenReviewCards]=useState<Set<string>>(()=>new Set());
+  function toggleReviewCard(event:SyntheticEvent<HTMLDetailsElement>){const open=event.currentTarget.open,key=event.currentTarget.dataset.reviewEntryKey;if(!key)return;setOpenReviewCards(current=>{const next=new Set(current);if(open)next.add(key);else next.delete(key);return next})}
   return <details className="anatomyReviewPanel anatomyReviewReadOnly">
     <summary className="anatomyReviewPanelSummary"><span><span>REVIEW PREPARATION · READ ONLY</span><b>専門家レビュー準備</b><small>expert pending {total}件・フィルタ後 {items.length}件</small></span><em className="anatomyReviewReadOnlyBadge">読み取り専用</em></summary>
     <div className="anatomyReviewPanelBody">
-      <p className="anatomyReviewIntro">この一覧は、由来台帳で <code>expertReview: pending</code> の項目を、専門家が確認する前の準備用に表示します。専門家レビュー完了、解剖学的妥当性、採否は示しません。項目の編集・承認・保存や、レビュー担当者名の入力はできません。</p>
+      <p className="anatomyReviewIntro">この一覧は、由来台帳で <code>expertReview: pending</code> の項目を、専門家が確認する前の準備用に表示します。専門家レビュー完了、解剖学的妥当性、採否は示しません。台帳の項目・ラベル・境界は変更せず、各カードに固定形式の確認記録だけを端末内に残せます。</p>
       <div className="anatomyReviewFilters">
         <label><span>表示面</span><select value={surfaceFilter} onChange={event=>onSurfaceChange(event.target.value as AnatomyReviewSurface)}>{Object.entries(anatomyReviewSurfaceLabels).map(([key,label])=><option key={key} value={key}>{label}</option>)}</select></label>
         <label><span>表示区分</span><select value={representationFilter} onChange={event=>onRepresentationChange(event.target.value)}><option value="all">すべての表示区分</option>{representationOptions.map(value=><option key={value} value={value}>{anatomyReviewRepresentationLabels[value]??value}</option>)}</select></label>
@@ -617,7 +620,7 @@ function AnatomyReviewQueuePanel({items,total,surfaceFilter,representationFilter
       const observationHash=observationHashForEntry(entry);
       const observationWorkspace=observationWorkspaceForEntry(entry);
       const observationLabel=observationWorkspace?anatomyReviewSurfaceLabels[observationWorkspace]:"";
-      return <details className="anatomyReviewCard" key={item.key}>
+      return <details className="anatomyReviewCard" key={item.key} data-review-entry-key={item.key} onToggle={toggleReviewCard}>
         <summary><span><b>{entry.lectureLabel??entry.appLabel??item.key}</b><small>{item.key}</small></span><em>専門家レビュー未完了</em></summary>
         <div className="anatomyReviewCardBody">
           <dl className="anatomyReviewFacts">
@@ -631,6 +634,7 @@ function AnatomyReviewQueuePanel({items,total,surfaceFilter,representationFilter
           {mammillary&&<p className="anatomyReviewNote"><b>ID39・40</b> プロジェクト内レビューを経て公開教材ラベルとして採用していますが、専門家レビューは未完了です。</p>}
           <details className="anatomyReviewSubdetails"><summary>既知の制限</summary><ul>{entry.knownLimitations.map((value,index)=><li key={`${item.key}-limit-${index}`}>{value}</li>)}</ul></details>
           <details className="anatomyReviewSubdetails"><summary>source refs</summary>{entry.sourceRefs.length?<ul>{entry.sourceRefs.map(value=><li key={value}><code>{value}</code></li>)}</ul>:<p>この項目に記録されたsource refsはありません。</p>}</details>
+          {openReviewCards.has(item.key)&&<AnatomyReviewRecordDraftCard registry={anatomyReviewRegistry} entry={entry}/>}
           {observationHash?<a className="anatomyReviewObserve" href={observationHash}>一般の{observationLabel}画面を開く（この項目・構造・位置は自動選択されません） →</a>:<span className="anatomyReviewNoObserve">対応する利用者向け観察入口はありません</span>}
         </div>
       </details>;
