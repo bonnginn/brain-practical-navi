@@ -56,6 +56,9 @@ test("cleanup preserves the active Vite, Sites, and PWA configuration", async ()
   assert.match(vite, /pwa\(/);
   assert.match(sitesPlugin, /hosting\.json/);
   assert.match(sitesPlugin, /serverDirectory/);
+  assert.match(sitesPlugin, /process\.env\.DEPLOY_OPENAI_SITES === "true"/);
+  assert.match(sitesPlugin, /resolve\(distributionDirectory, "client"\)/);
+  assert.match(sitesPlugin, /\["\.openai", "client", "server"\]\.includes\(entry\.name\)/);
   assert.doesNotMatch(sitesPlugin, /drizzle/);
   assert.match(pwaPlugin, /service-worker\.js/);
 });
