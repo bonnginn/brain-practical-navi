@@ -1982,9 +1982,10 @@ test("help, feedback, and credit dialogs have durable shareable URLs", async () 
 });
 
 test("status dialog renders the JSON registry through a durable direct route", async () => {
-  const [page, status] = await Promise.all([
+  const [page, status, css] = await Promise.all([
     readFile(new URL("app/page.tsx", root), "utf8"),
     readFile(new URL("app/beta-status.json", root), "utf8"),
+    readFile(new URL("app/canvas.css", root), "utf8"),
   ]);
   const data = JSON.parse(status);
   assert.equal(data.phase, "公開α掲載中／β候補・β公開判断前");
@@ -2005,6 +2006,7 @@ test("status dialog renders the JSON registry through a durable direct route", a
   assert.match(page, /data-status-id=\{item\.id\}/);
   assert.match(page, /className="betaStatusEvidence"/);
   assert.match(page, /className="homeEnter"[\s\S]*openOverlay\("status"\)/);
+  assert.match(css, /\.homeNotice footer \.homeEnter\s*\{[^}]*min-height:\s*56px[^}]*font-size:\s*18px/);
   assert.match(page, /TemplateFlow<\/a><button onClick=\{\(\)=>openOverlay\("status"\)\}>更新履歴・既知の制限/);
   assert.match(page, /document\.querySelector<HTMLButtonElement>\('\.legalDialog header button'\)\?\.focus\(\)/);
   assert.match(page, /overlayReturnFocus\.current\?\.focus\(\)/);
