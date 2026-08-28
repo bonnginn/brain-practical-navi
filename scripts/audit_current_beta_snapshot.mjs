@@ -7,6 +7,7 @@ import { auditBetaGoNoGo, STATE_ENUM } from "./audit_beta_go_no_go.mjs";
 import { BETA_AUDIT_PHASES, BETA_AUDIT_ROUTES, BETA_AUDIT_VIEWPORTS } from "./audit_beta_routes.mjs";
 import { auditLearnerProvenance } from "./audit_learner_provenance.mjs";
 import { auditNeurovascularQuiz, parseNeurovascularQuizInventory } from "./audit_neurovascular_quiz.mjs";
+import { auditQuizConceptBank } from "./audit_quiz_concept_bank.mjs";
 import {
   PWA_AUDIT_ACTION_NAMES,
   PWA_AUDIT_BASES,
@@ -108,6 +109,8 @@ const AUTHORITATIVE_SOURCES = Object.freeze([
   "scripts/audit_anatomy_review_queue.mjs",
   "scripts/audit_learner_provenance.mjs",
   PAGE_RELATIVE_PATH,
+  "app/quiz-concept-bank.json",
+  "scripts/audit_quiz_concept_bank.mjs",
   "scripts/audit_beta_routes.mjs",
   "BETA_GO_NO_GO.json",
   "BETA_GO_NO_GO_AUDIT.md",
@@ -442,11 +445,13 @@ export function deriveCurrentBetaSnapshot({rootDir = REPOSITORY_ROOT} = {}) {
   const standardQuizAudit = auditQuizGranularity(rootDir);
   const pageSource = readText(rootDir, PAGE_RELATIVE_PATH);
   const neurovascularQuizAudit = auditNeurovascularQuiz({rootDir, source: pageSource});
+  const conceptQuizAudit = auditQuizConceptBank({rootDir, source: pageSource});
   for (const [label, report] of [
     ["learner provenance", learnerAudit],
     ["anatomy review queue", reviewAudit],
     ["quiz granularity", standardQuizAudit],
     ["neurovascular quiz", neurovascularQuizAudit],
+    ["quiz concept bank", conceptQuizAudit],
   ]) {
     if (!report?.ok) throw new Error(`${label} audit failed: ${(report?.errors ?? ["unknown failure"]).join("; ")}`);
   }
@@ -466,6 +471,7 @@ export function deriveCurrentBetaSnapshot({rootDir = REPOSITORY_ROOT} = {}) {
   };
   const standardQuestionCount = standardQuizAudit.summary?.questionCount ?? 0;
   const neurovascularPilotCount = neurovascularQuizAudit.summary?.questionCount ?? 0;
+  const conceptVariantCount = conceptQuizAudit.summary?.conceptQuestionCount ?? 0;
   const standardQuestions = parseQuizGranularity(pageSource);
   const neurovascularQuestions = parseNeurovascularQuizInventory(pageSource);
   if (standardQuestions.length !== standardQuestionCount || neurovascularQuestions.length !== neurovascularPilotCount) {
@@ -487,7 +493,9 @@ export function deriveCurrentBetaSnapshot({rootDir = REPOSITORY_ROOT} = {}) {
     quiz: {
       existingQuestionCount: standardQuestionCount,
       neurovascularPilotCount,
-      totalQuestionCount: standardQuestionCount + neurovascularPilotCount,
+      conceptVariantCount,
+      uniqueVisualTargetCount: standardQuestionCount + neurovascularPilotCount,
+      totalQuestionCount: standardQuestionCount + neurovascularPilotCount + conceptVariantCount,
     },
     routes: {
       canonicalRouteCount: routeCount,

@@ -36,7 +36,7 @@ test("current beta snapshot is derived from the checked-in authoritative contrac
 test("snapshot records the current review, quiz, and route boundaries", () => {
   assert.deepEqual(snapshot.provenance.reviewFilterCounts, {surface: 54, sections: 16, blocks: 30, quiz: 25});
   assert.deepEqual(snapshot.provenance.learnerMappings, {total: 222, resolved: 222});
-  assert.deepEqual(snapshot.quiz, {existingQuestionCount: 23, neurovascularPilotCount: 22, totalQuestionCount: 45});
+  assert.deepEqual(snapshot.quiz, {existingQuestionCount: 23, neurovascularPilotCount: 22, conceptVariantCount: 55, uniqueVisualTargetCount: 45, totalQuestionCount: 100});
   assert.deepEqual(snapshot.routes, {canonicalRouteCount: 27, viewportCount: 3, phaseCount: 2, expectedChecks: 162});
 });
 

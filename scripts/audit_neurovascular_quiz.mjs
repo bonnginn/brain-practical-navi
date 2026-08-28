@@ -110,7 +110,8 @@ function overlayMetadata(metadata) {
 
 function assertSourceContract(source, errors) {
   const requiredSnippets = [
-    "const allQuizQuestions:QuizQuestion[]=[...quizQuestions,...neurovascularQuizQuestions]",
+    "const visualQuizQuestions:QuizQuestion[]=[...quizQuestions,...neurovascularQuizQuestions]",
+    "const allQuizQuestions:QuizQuestion[]=[...visualQuizQuestions,...conceptQuizQuestions]",
     "shuffledQuestions(allQuizQuestions).slice(0,10)",
     "key in structures||key in surfaceRegions||key in neurovascularStructures",
     "neurovascularOverlay={neurovascularQuiz?(quizQuestion.detail===\"arteries\"?\"vessels\":\"nerves\"):\"none\"}",

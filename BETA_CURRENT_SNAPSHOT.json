@@ -8,6 +8,8 @@
     "scripts/audit_anatomy_review_queue.mjs",
     "scripts/audit_learner_provenance.mjs",
     "app/page.tsx",
+    "app/quiz-concept-bank.json",
+    "scripts/audit_quiz_concept_bank.mjs",
     "scripts/audit_beta_routes.mjs",
     "BETA_GO_NO_GO.json",
     "BETA_GO_NO_GO_AUDIT.md",
@@ -39,7 +41,9 @@
   "quiz": {
     "existingQuestionCount": 23,
     "neurovascularPilotCount": 22,
-    "totalQuestionCount": 45
+    "conceptVariantCount": 55,
+    "uniqueVisualTargetCount": 45,
+    "totalQuestionCount": 100
   },
   "routes": {
     "canonicalRouteCount": 27,

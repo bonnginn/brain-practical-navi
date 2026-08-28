@@ -57,7 +57,7 @@ Chrome 151のPages想定buildで総量不明表示、総量既知の `12 MB / 12
 
 現行Go / No-Goの12項目とsourceCounts（provenance／expert pending 75件、unique quiz targets 45件＝既存23件＋模式3D pilot 22件、learner mapping 222/222件）は [BETA_GO_NO_GO_AUDIT.md](BETA_GO_NO_GO_AUDIT.md) と [BETA_GO_NO_GO.json](BETA_GO_NO_GO.json) を基準にします。ローカル確認を公開・専門家確認・デプロイ完了とは扱いません。
 
-2026-08-28、脳神経クイズは大脳半球を透過したまま中脳・橋・延髄を不透明な位置基準として残すよう変更し、前交通動脈・後交通動脈・小脳動脈群・視交叉を追加した。現行は全45問（神経血管22問）で、視交叉はoverlay ID25だけを使い、旧断面ID33・未分節ID36–38を使わない。Chrome 152のローカルproduction previewで45 target×3幅＝135/135件に合格した。公開URL、物理端末、別GPU、専門家レビューは未確認。
+2026-08-28、脳神経クイズは大脳半球を透過したまま中脳・橋・延髄を不透明な位置基準として残すよう変更し、前交通動脈・後交通動脈・小脳動脈群・視交叉を追加した。表示対象は45（神経血管22）のまま、同じ色付き構造について機能・位置関係・経路を問う55問を加え、現行は全100問とした。追加55問はプロジェクト内レビュー・専門家未確認の試作である。視交叉はoverlay ID25だけを使い、旧断面ID33・未分節ID36–38を使わない。Chrome 152のローカルproduction previewで45 target×3幅＝135/135件に合格した。この可視性監査は追加55問の専門家確認を意味しない。公開URL、物理端末、別GPU、専門家レビューは未確認。
 
 56件から75件への19件追加（surface／block app-only 18行とoptic nerve `cn2`行1件）、旧ID33と`cn2`／`opticChiasm`の分離、ID39・40のexpert pending維持は [LEARNER_PROVENANCE_DISPLAY_AUDIT.md](LEARNER_PROVENANCE_DISPLAY_AUDIT.md) に固定しています。
 

@@ -723,6 +723,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 .quizQuestionCard { min-height: 0; overflow-y: auto; padding: 26px 28px; border: 1px solid #c7cac4; background: #e7e5df; }
 .quizQuestionCard h2 { margin: 10px 0 20px; font: 400 23px/1.55 Georgia,"Yu Mincho",serif; }
 .provisionalQuizFlag { display: inline-block; margin-top: 8px; padding: 3px 7px; border: 1px solid #d1a276; border-radius: 999px; background: #fff0df; color: #82502b; font-size: 12px; font-weight: 700; }
+.quizQuestionKind { display: inline-block; margin: 8px 6px 0 0; padding: 3px 7px; border: 1px solid #9ab5b2; border-radius: 999px; background: #edf5f3; color: #285e5a; font-size: 12px; font-weight: 700; }
 .quizOptions { display: grid; gap: 7px; }
 .quizOptions button { display: grid; grid-template-columns: 34px 1fr auto; align-items: center; gap: 10px; min-height: 58px; padding: 8px 12px; border: 1px solid #bdc1bb; background: #f6f4ef; text-align: left; }
 .quizOptions button > i { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: #e2e2dc; color: #6e7775; font: 700 16px monospace; font-style: normal; }
