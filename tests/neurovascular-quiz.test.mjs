@@ -18,15 +18,15 @@ const [page, css, canvas] = await Promise.all([
   readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8"),
 ]);
 
-test("neurovascular pilot has a separate frozen 18-question inventory", () => {
+test("neurovascular pilot has a separate frozen 22-question inventory", () => {
   const report = auditNeurovascularQuiz();
   assert.equal(report.ok, true, report.errors.join("\n"));
   assert.equal(report.contentSha256, EXPECTED_NEUROVASCULAR_QUIZ_SHA256);
   assert.deepEqual(report.summary, {
-    questionCount: 18,
-    arteryCount: 6,
-    nerveCount: 12,
-    uniqueTargetCount: 18,
+    questionCount: 22,
+    arteryCount: 9,
+    nerveCount: 13,
+    uniqueTargetCount: 22,
     overlayRegionCount: 45,
     bnm3FileCount: 5,
     oldSectionId33Excluded: true,
@@ -34,16 +34,20 @@ test("neurovascular pilot has a separate frozen 18-question inventory", () => {
   assert.deepEqual(parseNeurovascularQuizInventory(page).map(question => question.target), PILOT_TARGETS);
 });
 
-test("pilot target/options stay in the overlay namespace and distinguish valid overlay ID 33", () => {
+test("pilot target/options stay in the overlay namespace and keep optic overlays separate from legacy section ID 33", () => {
   const report = auditNeurovascularQuiz();
   assert.equal(report.ok, true, report.errors.join("\n"));
   assert.match(page, /cn6[^\n]*ids:\[32,33\]/);
   const pilotBlock = page.match(/const neurovascularQuizQuestions:NeurovascularQuizQuestion\[\]=\[[\s\S]*?\n\];/)?.[0] ?? "";
   assert.match(pilotBlock, /\{target:"cn2"[^\n]*options:\["cn2","cn1","cn3","cn4"\]/);
-  assert.doesNotMatch(pilotBlock, /opticChiasm|acomm|pcomm|cerebellarArteries/);
+  assert.match(pilotBlock, /target:"acomm"/);
+  assert.match(pilotBlock, /target:"pcomm"/);
+  assert.match(pilotBlock, /target:"cerebellarArteries"/);
+  assert.match(pilotBlock, /target:"opticChiasm"/);
   assert.match(page, /cn2:\{[^\n]*ids:\[23,24\]/);
+  assert.match(page, /opticChiasm:\{[^\n]*ids:\[25\]/);
   assert.doesNotMatch(pilotBlock, /target:"cn2"[^\n]*(?:25|33|36|37|38)/);
-  assert.doesNotMatch(pilotBlock, /(?:target|options):[^\n]*33/);
+  assert.doesNotMatch(pilotBlock, /target:"opticChiasm"[^\n]*(?:23|24|33|36|37|38)/);
 });
 
 test("candidate counts and provisional gating are fixed for each pilot detail", () => {
@@ -52,8 +56,9 @@ test("candidate counts and provisional gating are fixed for each pilot detail", 
   assert.equal(report.summary.arteryCount, PILOT_ARTERY_TARGETS.length);
   assert.equal(report.summary.nerveCount, PILOT_NERVE_TARGETS.length);
   assert.match(page, /quizIncludeProvisional,setQuizIncludeProvisional\]=useState\(true\)/);
-  assert.match(page, /const allQuizQuestions:QuizQuestion\[\]=\[\.\.\.quizQuestions,\.\.\.neurovascularQuizQuestions\]/);
-  assert.match(page, /function isProvisionalQuiz\(question:QuizQuestion\)\{[\s\S]*?if\(isNeurovascularQuiz\(question\)\|\|isSurfaceQuiz\(question\)\)return true;/);
+  assert.match(page, /const visualQuizQuestions:QuizQuestion\[\]=\[\.\.\.quizQuestions,\.\.\.neurovascularQuizQuestions\]/);
+  assert.match(page, /const allQuizQuestions:QuizQuestion\[\]=\[\.\.\.visualQuizQuestions,\.\.\.conceptQuizQuestions\]/);
+  assert.match(page, /function isProvisionalQuiz\(question:QuizQuestion\)\{[\s\S]*?if\(isConceptQuiz\(question\)\)return true;[\s\S]*?if\(isNeurovascularQuiz\(question\)\|\|isSurfaceQuiz\(question\)\)return true;/);
 });
 
 test("pilot uses lazy relevant overlays, white target highlights, and review links", () => {
@@ -67,6 +72,9 @@ test("pilot uses lazy relevant overlays, white target highlights, and review lin
   assert.match(page, /白色で強調された構造は？/);
   assert.match(page, /view=\{neurovascularQuiz\?"ghost":"inside"\}/);
   assert.match(page, /showCerebellum=\{neurovascularQuiz\?false:quizQuestion\.view!=="medial"\}/);
+  assert.match(page, /keepBrainstemOpaqueInGhost=\{neurovascularQuiz&&quizQuestion\.detail==="cranialNerves"\}/);
+  assert.match(page, /脳幹は起始位置の目安として不透明表示/);
+  assert.match(canvas, /keepBrainstemOpaqueInGhost&&view==="ghost"&&i>=3/);
   assert.match(page, /setSelectedNeurovascularStructure\(question\.target\)/);
   assert.match(page, /chooseSurface\(question\.view,"replace"\)/);
   assert.doesNotMatch(page, /isNeurovascularQuiz\(question\)[\s\S]{0,500}setSurfaceGhost\(false\)/);
@@ -85,5 +93,5 @@ test("overlay audit rejects a changed pilot inventory hash", () => {
   const changed = page.replace('{target:"ica",category:"neurovascular"', '{target:"cn2",category:"neurovascular"');
   const report = auditNeurovascularQuiz({ source: changed });
   assert.equal(report.ok, false);
-  assert.match(report.errors.join("\n"), /forbidden target is present|unexpected pilot target|inventory hash changed/);
+  assert.match(report.errors.join("\n"), /duplicate pilot target|missing pilot target|inventory hash changed/);
 });

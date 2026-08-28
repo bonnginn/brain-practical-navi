@@ -34,9 +34,9 @@ test("current beta snapshot is derived from the checked-in authoritative contrac
 });
 
 test("snapshot records the current review, quiz, and route boundaries", () => {
-  assert.deepEqual(snapshot.provenance.reviewFilterCounts, {surface: 54, sections: 16, blocks: 30, quiz: 22});
+  assert.deepEqual(snapshot.provenance.reviewFilterCounts, {surface: 54, sections: 16, blocks: 30, quiz: 25});
   assert.deepEqual(snapshot.provenance.learnerMappings, {total: 222, resolved: 222});
-  assert.deepEqual(snapshot.quiz, {existingQuestionCount: 23, neurovascularPilotCount: 18, totalQuestionCount: 41});
+  assert.deepEqual(snapshot.quiz, {existingQuestionCount: 23, neurovascularPilotCount: 22, conceptVariantCount: 55, uniqueVisualTargetCount: 45, totalQuestionCount: 100});
   assert.deepEqual(snapshot.routes, {canonicalRouteCount: 27, viewportCount: 3, phaseCount: 2, expectedChecks: 162});
 });
 
@@ -235,13 +235,13 @@ test("snapshot keeps optic-pathway adoption boundaries explicit", () => {
 });
 
 test("Windows handoff is synchronized to the merged alpha refresh and local groundwork", async () => {
-  const handoff = await readFile(new URL("WINDOWS_HANDOFF.md", root), "utf8");
+  const handoff = (await readFile(new URL("WINDOWS_HANDOFF.md", root), "utf8")).replace(/\r\n/g, "\n");
   const result = validateWindowsHandoffFreshness({documentText: handoff});
   assert.equal(result.ok, true, result.errors.join("; "));
 });
 
 test("handoff validator rejects stale baselines, interruption, local publication, and unstarted section-9 claims", async () => {
-  const handoff = await readFile(new URL("WINDOWS_HANDOFF.md", root), "utf8");
+  const handoff = (await readFile(new URL("WINDOWS_HANDOFF.md", root), "utf8")).replace(/\r\n/g, "\n");
   const mutations = [
     [
       "baseline",

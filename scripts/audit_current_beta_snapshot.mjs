@@ -7,6 +7,7 @@ import { auditBetaGoNoGo, STATE_ENUM } from "./audit_beta_go_no_go.mjs";
 import { BETA_AUDIT_PHASES, BETA_AUDIT_ROUTES, BETA_AUDIT_VIEWPORTS } from "./audit_beta_routes.mjs";
 import { auditLearnerProvenance } from "./audit_learner_provenance.mjs";
 import { auditNeurovascularQuiz, parseNeurovascularQuizInventory } from "./audit_neurovascular_quiz.mjs";
+import { auditQuizConceptBank } from "./audit_quiz_concept_bank.mjs";
 import {
   PWA_AUDIT_ACTION_NAMES,
   PWA_AUDIT_BASES,
@@ -20,7 +21,7 @@ const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 export const REPOSITORY_ROOT = path.resolve(SCRIPT_DIR, "..");
 export const SNAPSHOT_RELATIVE_PATH = "BETA_CURRENT_SNAPSHOT.json";
 export const SNAPSHOT_SCHEMA_VERSION = 1;
-export const SNAPSHOT_DATE = "2026-08-24";
+export const SNAPSHOT_DATE = "2026-08-28";
 export const SNAPSHOT_TOOL = "scripts/audit_current_beta_snapshot.mjs";
 export const WINDOWS_HANDOFF_RELATIVE_PATH = "WINDOWS_HANDOFF.md";
 export const WINDOWS_HANDOFF_BASELINE = "6f13cd58 public alpha refresh merge";
@@ -108,6 +109,8 @@ const AUTHORITATIVE_SOURCES = Object.freeze([
   "scripts/audit_anatomy_review_queue.mjs",
   "scripts/audit_learner_provenance.mjs",
   PAGE_RELATIVE_PATH,
+  "app/quiz-concept-bank.json",
+  "scripts/audit_quiz_concept_bank.mjs",
   "scripts/audit_beta_routes.mjs",
   "BETA_GO_NO_GO.json",
   "BETA_GO_NO_GO_AUDIT.md",
@@ -247,9 +250,10 @@ export function validateSnapshotDocumentMarkers({rootDir = REPOSITORY_ROOT, docu
       errors.push(`${document}: could not read snapshot marker document: ${error.message}`);
       continue;
     }
-    const exactCount = occurrenceCount(text, SNAPSHOT_MARKER_BLOCK);
-    const startCount = occurrenceCount(text, "<!-- beta-current-snapshot:start -->");
-    const endCount = occurrenceCount(text, "<!-- beta-current-snapshot:end -->");
+    const normalizedText = text.replace(/\r\n/g, "\n");
+    const exactCount = occurrenceCount(normalizedText, SNAPSHOT_MARKER_BLOCK);
+    const startCount = occurrenceCount(normalizedText, "<!-- beta-current-snapshot:start -->");
+    const endCount = occurrenceCount(normalizedText, "<!-- beta-current-snapshot:end -->");
     if (exactCount !== 1 || startCount !== 1 || endCount !== 1) {
       errors.push(`${document}: exact beta current snapshot marker block must appear once (exact=${exactCount}, start=${startCount}, end=${endCount})`);
     }
@@ -441,11 +445,13 @@ export function deriveCurrentBetaSnapshot({rootDir = REPOSITORY_ROOT} = {}) {
   const standardQuizAudit = auditQuizGranularity(rootDir);
   const pageSource = readText(rootDir, PAGE_RELATIVE_PATH);
   const neurovascularQuizAudit = auditNeurovascularQuiz({rootDir, source: pageSource});
+  const conceptQuizAudit = auditQuizConceptBank({rootDir, source: pageSource});
   for (const [label, report] of [
     ["learner provenance", learnerAudit],
     ["anatomy review queue", reviewAudit],
     ["quiz granularity", standardQuizAudit],
     ["neurovascular quiz", neurovascularQuizAudit],
+    ["quiz concept bank", conceptQuizAudit],
   ]) {
     if (!report?.ok) throw new Error(`${label} audit failed: ${(report?.errors ?? ["unknown failure"]).join("; ")}`);
   }
@@ -465,6 +471,7 @@ export function deriveCurrentBetaSnapshot({rootDir = REPOSITORY_ROOT} = {}) {
   };
   const standardQuestionCount = standardQuizAudit.summary?.questionCount ?? 0;
   const neurovascularPilotCount = neurovascularQuizAudit.summary?.questionCount ?? 0;
+  const conceptVariantCount = conceptQuizAudit.summary?.conceptQuestionCount ?? 0;
   const standardQuestions = parseQuizGranularity(pageSource);
   const neurovascularQuestions = parseNeurovascularQuizInventory(pageSource);
   if (standardQuestions.length !== standardQuestionCount || neurovascularQuestions.length !== neurovascularPilotCount) {
@@ -486,7 +493,9 @@ export function deriveCurrentBetaSnapshot({rootDir = REPOSITORY_ROOT} = {}) {
     quiz: {
       existingQuestionCount: standardQuestionCount,
       neurovascularPilotCount,
-      totalQuestionCount: standardQuestionCount + neurovascularPilotCount,
+      conceptVariantCount,
+      uniqueVisualTargetCount: standardQuestionCount + neurovascularPilotCount,
+      totalQuestionCount: standardQuestionCount + neurovascularPilotCount + conceptVariantCount,
     },
     routes: {
       canonicalRouteCount: routeCount,

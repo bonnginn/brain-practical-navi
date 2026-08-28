@@ -1,6 +1,6 @@
 # β版 Go / No-Go 台帳監査
 
-更新日: 2026-08-24
+更新日: 2026-08-28
 
 この文書は、`BETA_GO_NO_GO.json` と `BETA_ROADMAP.md` の12項目を機械的に突合するための監査索引です。`proven-local` はローカル確認の範囲だけを示し、公開版・全体品質・専門家確認の合格を意味しません。専門家、管理者、デプロイが必要なゲートは未通過のまま記録します。
 
@@ -27,7 +27,7 @@ criterion 10は、2026-08-24にログアウト状態の実ブラウザで現行G
 監査スクリプトは台帳本文や説明文の数値を信用せず、次のソースを読み取って集計します。
 
 - `public/atlas/structure-provenance.json`: `entryCount = 75`, `expertPendingCount = 75`
-- `app/page.tsx`: 既存23問と模式3D pilot 18問の一意な `quizTargetCount = 41`
+- `app/page.tsx`: 既存23問と模式3D pilot 22問の一意な `quizTargetCount = 45`
 - `src/learnerProvenance.mjs` と同台帳監査: `mappingCount = 222`, `resolvedMappingCount = 222`
 
 現行のローカル表示・初回payload証拠は、2026-08-24の`cn2`名称同定pilot追加後の成果物（route `162/162`: `work/browser-audit/beta-route-audit-cn2-quiz-2026-08-24.json`、初回payload `27/27`: `work/performance/initial-route-payload-cn2-quiz-2026-08-24.json`）を参照します。性能suiteは2026-08-23のpial-gzip成果物 `37/37`（`work/performance/performance-suite-pial-gzip-2026-08-23.json`）を維持します。これらは公開URL・デプロイ・専門家確認の証拠ではありません。旧26経路156/156件と2026-08-22の56件・filter36／16／29／21件は、各文書に残す歴史記録です。

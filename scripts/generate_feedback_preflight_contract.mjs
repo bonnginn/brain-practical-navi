@@ -10,6 +10,11 @@ const PREFLIGHT_PATH = path.join(REPOSITORY_ROOT, "scripts", "preflight_google_f
 export const GENERATED_START = "// feedback-contract-generated:start";
 export const GENERATED_END = "// feedback-contract-generated:end";
 
+export function feedbackContractSha256(contractBytes) {
+  const canonicalBytes = Buffer.from(contractBytes.toString("utf8").replaceAll("\r\n", "\n"), "utf8");
+  return crypto.createHash("sha256").update(canonicalBytes).digest("hex");
+}
+
 export function deriveFeedbackPreflightDescriptor(contract) {
   return {
     title: contract.form.title,
@@ -30,7 +35,7 @@ export function deriveFeedbackPreflightDescriptor(contract) {
 export function generateExpectedPreflightSource(contractBytes, currentSource) {
   const contract = JSON.parse(contractBytes.toString("utf8"));
   const descriptor = deriveFeedbackPreflightDescriptor(contract);
-  const sha256 = crypto.createHash("sha256").update(contractBytes).digest("hex");
+  const sha256 = feedbackContractSha256(contractBytes);
   const block = `${GENERATED_START}\nvar FEEDBACK_PREFLIGHT_CONTRACT_SHA256 = '${sha256}';\nvar FEEDBACK_PREFLIGHT_EXPECTED = ${JSON.stringify(descriptor, null, 2)};\n${GENERATED_END}`;
   const start = currentSource.indexOf(GENERATED_START);
   const end = currentSource.lastIndexOf(GENERATED_END);

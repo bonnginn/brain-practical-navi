@@ -6,7 +6,7 @@
 
 - 現行スナップショット: [BETA_CURRENT_SNAPSHOT.json](BETA_CURRENT_SNAPSHOT.json)
 - Go/No-Go台帳: [BETA_GO_NO_GO.json](BETA_GO_NO_GO.json)
-- 現行の在庫: クイズ41問（既存23問＋神経血管pilot 18問）、canonical route 27経路。全自動テスト件数は公開直前の再実行結果を下記へ記録する
+- 現行候補の在庫: クイズ45問（既存23問＋神経血管pilot 22問）、canonical route 27経路。全自動テスト件数は公開直前の再実行結果を下記へ記録する
 - 現行版の扱い: 既知の制限を明示した公開α。物理端末、別ブラウザ・別GPU、専門家レビュー、Google Formの送信・削除運用は未確認または未完了
 
 公開直前の2026-08-24再検証では、全自動テスト404/404、TypeScript型検査、通常baseとPages baseの本番build、source・通常dist・Pages distの権利表示監査に合格しました。Windows Chrome 151のローカル通常buildで更新履歴画面を開き、「公開α掲載中／β候補・β公開判断前」とβ公開・専門家承認を意味しない説明を確認しました。PC相当ではdocument幅970/970、小画面指定390×768（実効295×582）ではdocument幅284/284・dialog幅267/267で、loader・画面内error・横overflowは0でした。

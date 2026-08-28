@@ -30,7 +30,7 @@ test("surface and representation filters preserve queue references", () => {
   assert.equal(filterAnatomyReviewQueue(queue, {surface: "surface"}).length, 54);
   assert.equal(filterAnatomyReviewQueue(queue, {surface: "sections"}).length, 16);
   assert.equal(filterAnatomyReviewQueue(queue, {surface: "blocks"}).length, 30);
-  assert.equal(filterAnatomyReviewQueue(queue, {surface: "quiz"}).length, 22);
+  assert.equal(filterAnatomyReviewQueue(queue, {surface: "quiz"}).length, 25);
   const schematic = filterAnatomyReviewQueue(queue, {representation: "schematic-3d"});
   assert.ok(schematic.length > 0);
   assert.ok(schematic.every(item => item.entry.representations.includes("schematic-3d")));
@@ -40,7 +40,7 @@ test("surface and representation filters preserve queue references", () => {
 test("audit accepts the complete read-only review queue and exposes the expected UI contract", () => {
   const report = auditAnatomyReviewQueue();
   assert.equal(report.ok, true, report.errors.join("; "));
-  assert.deepEqual(report.summary, {entryCount: 75, pendingCount: 75, expertReviewedCount: 0, surfaceCount: 54, sectionsCount: 16, blocksCount: 30, quizCount: 22});
+  assert.deepEqual(report.summary, {entryCount: 75, pendingCount: 75, expertReviewedCount: 0, surfaceCount: 54, sectionsCount: 16, blocksCount: 30, quizCount: 25});
   assert.match(page, /anatomyReviewReadOnly/);
   assert.match(page, /専門家レビュー準備/);
   assert.match(page, /一般の\{observationLabel\}画面を開く/);

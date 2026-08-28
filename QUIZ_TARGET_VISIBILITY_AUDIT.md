@@ -1,6 +1,6 @@
 # クイズ正答対象の実描画可視性監査
 
-更新日: 2026-08-24
+更新日: 2026-08-28
 
 ## 目的
 
@@ -8,8 +8,8 @@
 
 ## 固定した対象と環境
 
-- 対象: 断面17、脳表6、神経血管18、計41 target。
-- 画面: PC 1366×768、横向きタブレット1024×768、phone 390×768。計123件。
+- 現行対象: 断面17、脳表6、神経血管22、計45 target。
+- 画面: PC 1366×768、横向きタブレット1024×768、phone 390×768。現行マトリクスは計135件。
 - ブラウザ: Chrome 151.0.7922.170。
 - OS／実行環境: Windows `10.0.26200`、Node 24.19.0。
 - ローカルproduction preview: `http://127.0.0.1:4325/`。
@@ -17,7 +17,13 @@
 
 各targetで、着色H1、無着色C、再着色H2を取得した。H1とH2のRGBA完全一致、対象別の表示状態・ID・表示形式、viewport、回転・倍率、loader、console／request／UI error、横overflow、WebGL fallback、artifact SHAとbyte数を独立validatorが再計算する。
 
-## 結果
+## 2026-08-28の現行実測
+
+Chrome 152.0.7977.64のローカルproduction preview `http://127.0.0.1:4360/` で、45 target×3幅＝135/135件に合格した。missing、duplicate、validation errorは0で、全件H1とH2が完全一致した。証拠は `work/browser-audit/quiz-target-visibility-brainstem-context-v2-2026-08-28/report.json` と同階層のRGBA／mask artifact（local-only）。
+
+追加4対象は、前交通動脈coverage 1.0000／outside最大0.0000、後交通動脈1.0000／0.0062、小脳動脈群0.9906以上／0.0000、視交叉0.9951以上／0.0267だった。脳神経13対象×3幅の最小coverageは0.9002、最大outside ratioは0.0358。脳神経問題の中脳・橋・延髄を不透明表示へ変更しても、既存神経を含む白色強調、解除、再強調の合格閾値は緩和していない。公開URL、物理端末、別ブラウザ・GPU、形状の専門家確認は未実施である。
+
+## 2026-08-24の実測結果（追加4問前）
 
 123/123件に合格した。missing、duplicate、validation errorは0で、全件でH1とH2が完全一致した。
 
@@ -49,6 +55,6 @@
 
 ```bash
 node scripts/audit_quiz_target_visibility_browser.mjs \
-  --base-url http://127.0.0.1:4325/ \
-  --output-dir work/browser-audit/quiz-target-visibility-cn2-v2-2026-08-24
+  --base-url http://127.0.0.1:4360/ \
+  --output-dir work/browser-audit/quiz-target-visibility-brainstem-context-v2-2026-08-28
 ```

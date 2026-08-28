@@ -610,12 +610,13 @@
      "lectureLabel": "前交通・後交通動脈",
      "lectureGroupKey": "vascular-communicating-arteries",
      "representations": ["schematic-3d"],
-     "learnerSurfaces": ["surface"],
+     "learnerSurfaces": ["surface", "quiz"],
      "expertReview": "pending",
       "projectReview": "pending",
-      "quizEligibility": "none",
+      "quizEligibility": "pilot",
       "sourceRefs": ["project-authored-teaching-overlays"],
-      "knownLimitations": ["ウィリス動脈輪の典型配置を示す模式表示で、欠損・低形成・胎児型などの個体差は表しません。"]
+      "knownLimitations": ["ウィリス動脈輪の典型配置を示す模式表示で、欠損・低形成・胎児型などの個体差は表しません。名称同定pilotは白色強調した既存模式形状だけを扱い、走行・接続・起始を判定しません。"],
+      "appKeys": ["acomm", "pcomm"]
     },
     {
      "key": "vascular-vertebrobasilar-arteries",
@@ -635,12 +636,13 @@
      "lectureLabel": "上小脳・前下小脳・後下小脳動脈",
      "lectureGroupKey": "vascular-cerebellar-arteries",
      "representations": ["schematic-3d"],
-     "learnerSurfaces": ["surface"],
+     "learnerSurfaces": ["surface", "quiz"],
      "expertReview": "pending",
       "projectReview": "pending",
-      "quizEligibility": "none",
+      "quizEligibility": "pilot",
       "sourceRefs": ["project-authored-teaching-overlays"],
-      "knownLimitations": ["小脳動脈を一括強調する模式表示で、3本を個別選択できず、支配領域や個体差を示しません。"]
+      "knownLimitations": ["小脳動脈を一括強調する模式表示で、3本を個別選択できず、支配領域や個体差を示しません。名称同定pilotはSCA・AICA・PICAを一括した既存模式形状だけを扱います。"],
+      "appKeys": ["cerebellarArteries"]
     },
     {
      "key": "cranial-nerves-one-to-twelve",
@@ -959,17 +961,17 @@
       "appKeys": ["choroid-plexus"]
     },
     {
-      "key": "app-schematic-optic-chiasm",
+     "key": "app-schematic-optic-chiasm",
       "lectureLabel": null,
       "coverage": "app-surface-only",
       "appLabel": "II 視交叉",
       "representations": ["schematic-3d"],
-      "learnerSurfaces": ["surface"],
+     "learnerSurfaces": ["surface", "quiz"],
       "expertReview": "pending",
       "projectReview": "pending",
-      "quizEligibility": "none",
+      "quizEligibility": "pilot",
       "sourceRefs": ["project-authored-teaching-overlays"],
-      "knownLimitations": ["視神経線維が正中で交叉する位置を示す模式3Dで、視交叉の個体境界・遠位視索・神経経路全体を検証した分節ではありません。"],
+      "knownLimitations": ["視神経線維が正中で交叉する位置を示す模式3Dで、視交叉の個体境界・遠位視索・神経経路全体を検証した分節ではありません。名称同定pilotはoverlay region ID25だけを使い、旧断面ID33や未分節ID36–38を使いません。"],
       "appKeys": ["opticChiasm"]
     },
     {
@@ -1026,12 +1028,16 @@
     {"target": "fusiform", "entryKey": "app-quiz-fusiform", "eligibility": "pilot"},
     {"target": "ica", "entryKey": "vascular-major-anterior-posterior-arteries", "eligibility": "pilot"},
     {"target": "aca", "entryKey": "vascular-major-anterior-posterior-arteries", "eligibility": "pilot"},
+    {"target": "acomm", "entryKey": "vascular-communicating-arteries", "eligibility": "pilot"},
     {"target": "mca", "entryKey": "vascular-major-anterior-posterior-arteries", "eligibility": "pilot"},
+    {"target": "pcomm", "entryKey": "vascular-communicating-arteries", "eligibility": "pilot"},
     {"target": "pca", "entryKey": "vascular-major-anterior-posterior-arteries", "eligibility": "pilot"},
     {"target": "vertebral", "entryKey": "vascular-vertebrobasilar-arteries", "eligibility": "pilot"},
     {"target": "basilar", "entryKey": "vascular-vertebrobasilar-arteries", "eligibility": "pilot"},
+    {"target": "cerebellarArteries", "entryKey": "vascular-cerebellar-arteries", "eligibility": "pilot"},
     {"target": "cn1", "entryKey": "cranial-nerves-one-to-twelve", "eligibility": "pilot"},
     {"target": "cn2", "entryKey": "app-schematic-optic-nerve", "eligibility": "pilot"},
+    {"target": "opticChiasm", "entryKey": "app-schematic-optic-chiasm", "eligibility": "pilot"},
     {"target": "cn3", "entryKey": "cranial-nerves-one-to-twelve", "eligibility": "pilot"},
     {"target": "cn4", "entryKey": "cranial-nerves-one-to-twelve", "eligibility": "pilot"},
     {"target": "cn5", "entryKey": "cranial-nerves-one-to-twelve", "eligibility": "pilot"},

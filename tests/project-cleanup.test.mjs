@@ -111,7 +111,7 @@ test("CI independently verifies the Pages base-path rights contract without depl
   const ci = await readFile(new URL(".github/workflows/ci.yml", root), "utf8");
   assertPagesBaseCiContract(ci);
 
-  const missingPagesEnv = ci.replace('          DEPLOY_GITHUB_PAGES: "true"\n', "");
+  const missingPagesEnv = ci.replace(/          DEPLOY_GITHUB_PAGES: "true"\r?\n/, "");
   assert.throws(() => assertPagesBaseCiContract(missingPagesEnv), /Pages-base build must enable the Pages base/);
 
   const wrongPagesBase = ci.replace("--expected-base /brain-practical-navi/", "--expected-base /");

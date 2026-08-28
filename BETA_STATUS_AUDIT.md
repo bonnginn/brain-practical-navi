@@ -16,9 +16,11 @@
 
 2026-08-23、教材内8ブロック標本へ既存メッシュだけを使う位置確認表示を拡張したため、`change-block-context-all-specimens` を追加した。切り出し範囲・解剖学的境界の専門家レビュー未完了と、新しい形状・切断幅・摘出順・実習手順を追加していないことを利用者向け本文にも残す。
 
-同日の機械結果は、expert pending 75件、表示面フィルタ54／16／30／22件、学習者向けmapping 222/222件解決済みである。構造由来監査のクイズ正答対象は既存23件と模式3D pilot 18件の合計41件なので、status本文も41件へ同期する。この同期自体は解剖学的妥当性の検証や実ブラウザ確認ではなく、最終ローカル確認は下記に別記する。2026-08-22に確認した全56件・表示面36／16／29／21件・route156/156の歴史記録と、公開URL未確認の記述は変更しない。
+現行の機械結果は、expert pending 75件、表示面フィルタ54／16／30／25件、学習者向けmapping 222/222件解決済みである。構造由来監査のクイズ正答対象は既存23件と模式3D pilot 22件の合計45件なので、status本文も45件へ同期する。この同期自体は解剖学的妥当性の検証や公開確認ではない。2026-08-22・24の旧在庫と実測結果は履歴として保持する。
 
-Go / No-Go 12項目の現行状態とcriterionTextの突合は [BETA_GO_NO_GO.json](BETA_GO_NO_GO.json) と [BETA_GO_NO_GO_AUDIT.md](BETA_GO_NO_GO_AUDIT.md) を基準にする。sourceCountsは provenance／expert pending 75件、unique quiz targets 41件（既存23件＋模式3D pilot 18件）、learner mapping 222/222件であり、statusのローカル確認を公開・専門家確認・デプロイ完了とは扱わない。
+Go / No-Go 12項目の現行状態とcriterionTextの突合は [BETA_GO_NO_GO.json](BETA_GO_NO_GO.json) と [BETA_GO_NO_GO_AUDIT.md](BETA_GO_NO_GO_AUDIT.md) を基準にする。sourceCountsは provenance／expert pending 75件、unique quiz targets 45件（既存23件＋模式3D pilot 22件）、learner mapping 222/222件であり、statusのローカル確認を公開・専門家確認・デプロイ完了とは扱わない。
+
+2026-08-28、脳神経問題で中脳・橋・延髄を不透明な位置基準として残し、前交通動脈・後交通動脈・小脳動脈群・視交叉の4問を追加した。追加問題は模式3D・専門家未確認で、視交叉はoverlay ID25だけを使い旧断面ID33や未分節ID36–38を使わない。Chrome 152のローカルproduction previewで45 target×3幅＝135/135件に合格し、VI外転神経問題の脳幹表示と候補数を実ブラウザで確認した。Go / No-Goの状態件数（3／1／4／1／3）は変更していない。
 
 2026-08-24のbounded更新では、既存の `cn2` 模式レイヤーを名称同定pilotへ1問追加した。`cn2`はoverlay region ID23・24だけを使う合成模式レイヤーで、`opticChiasm`のquizEligibilityは`none`のまま、解剖レビュー状態・専門家pending状態・Go / No-Go状態（3／1／4／1／3）は変更していない。Chrome 151のローカルpreview `http://127.0.0.1:4325` で全41問・脳神経12問、誤答後の`cn2`観察リンク、試作OFF時0問、review filter復習22件を確認し、3幅の可視性監査も123/123件に合格した。最終build `http://127.0.0.1:4326` のcanonical routeは162/162、cold初回payloadは27/27件に合格した。
 

@@ -32,7 +32,7 @@ test("beta Go/No-Go ledger is valid, exact, and source-counted", () => {
   assert.deepEqual(result.sourceCounts, {
     entryCount: 75,
     expertPendingCount: 75,
-    quizTargetCount: 41,
+    quizTargetCount: 45,
     mappingCount: 222,
     resolvedMappingCount: 222,
     staticMappingCount: 222,

@@ -1,6 +1,6 @@
 {
   "ledgerId": "beta-go-no-go",
-  "updated": "2026-08-24",
+  "updated": "2026-08-28",
   "itemCount": 12,
   "stateCounts": {
     "proven-local": 3,
@@ -101,7 +101,7 @@
       "locallyProven": [
         "ローカルクイズ粒度監査で、既存23問を標準7件・試作16件に分類し、targetと全選択肢の由来を照合した。",
         "provisional選択肢を含む4問を試作へ隔離し、unknown由来を拒否する分類を確認した。",
-        "Chrome 151のローカルproduction previewで、断面17・脳表6・神経血管18 targetを3幅で着色・解除・再着色し、独立validatorが123/123件を確認した。",
+        "Chrome 152のローカルproduction previewで、断面17・脳表6・神経血管22 targetを3幅で着色・解除・再着色し、独立validatorが135/135件を確認した。追加4件のoverlay namespace・由来・試作区分と、脳神経問題の不透明な脳幹位置基準も確認した。",
         "未確認構造の標準採用は専門家未確認。"
       ],
       "unprovenScope": "専門家による標準採用判断と、未確認構造が正答・選択肢へ現れないことの全範囲確認は未完了。",
@@ -287,7 +287,7 @@
           "locallyProven": [
             "ローカルクイズ粒度監査で、既存23問を標準7件・試作16件に分類し、targetと全選択肢の由来を照合した。",
             "provisional選択肢を含む4問を試作へ隔離し、unknown由来を拒否する分類を確認した。",
-            "Chrome 151のローカルproduction previewで、断面17・脳表6・神経血管18 targetを3幅で着色・解除・再着色し、独立validatorが123/123件を確認した。",
+            "Chrome 152のローカルproduction previewで、断面17・脳表6・神経血管22 targetを3幅で着色・解除・再着色し、独立validatorが135/135件を確認した。追加4件のoverlay namespace・由来・試作区分と、脳神経問題の不透明な脳幹位置基準も確認した。",
             "未確認構造の標準採用は専門家未確認。"
           ],
           "unprovenScope": "専門家による標準採用判断と、未確認構造が正答・選択肢へ現れないことの全範囲確認は未完了。",
