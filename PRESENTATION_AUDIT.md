@@ -6,6 +6,10 @@
 Current machine-readable values: [BETA_CURRENT_SNAPSHOT.json](BETA_CURRENT_SNAPSHOT.json). All other counts in this document are dated historical evidence, not current inventory or approval.
 <!-- beta-current-snapshot:end -->
 
+## 2026-08-28 神経血管クイズ表示
+
+脳神経問題では大脳半球を透過しつつ中脳・橋・延髄を不透明な位置基準として残し、神経根と脳幹の関係を追いやすくした。前交通動脈・後交通動脈・小脳動脈群・視交叉を追加し、全45問／神経血管22問。Chrome 152のローカルproduction previewで45 target×3幅＝135/135件に合格し、VI外転神経問題を実ブラウザで目視確認した。公開URL・物理端末・別GPU・専門家レビューは未確認。
+
 本書は各監査時点の表示結果を保存します。ローカル表示の合格を、専門家レビュー、公開URL、物理端末の確認へ読み替えることはできません。
 
 ## 2026-08-24 公開前チェック表示

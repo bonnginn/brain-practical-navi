@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-08-24",
+  "updated": "2026-08-28",
   "description": "Current beta-candidate snapshot. Values are checked against the provenance registry, learner mapping source, quiz inventories, canonical route contract, Go/No-Go ledger, PWA audit contract, and optic-pathway restrictions; this file is not an anatomical or expert approval record.",
   "authoritativeSources": [
     "public/atlas/structure-provenance.json",
@@ -29,7 +29,7 @@
       "surface": 54,
       "sections": 16,
       "blocks": 30,
-      "quiz": 22
+      "quiz": 25
     },
     "learnerMappings": {
       "total": 222,
@@ -38,8 +38,8 @@
   },
   "quiz": {
     "existingQuestionCount": 23,
-    "neurovascularPilotCount": 18,
-    "totalQuestionCount": 41
+    "neurovascularPilotCount": 22,
+    "totalQuestionCount": 45
   },
   "routes": {
     "canonicalRouteCount": 27,

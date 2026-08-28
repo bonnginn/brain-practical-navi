@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-08-24",
+  "updated": "2026-08-28",
   "phase": "公開α掲載中／β候補・β公開判断前",
   "knownLimitations": [
     {
@@ -44,6 +44,12 @@
     }
   ],
   "changes": [
+    {
+      "id": "change-neurovascular-quiz-context",
+      "heading": "神経血管クイズの位置基準と問題追加",
+      "body": "脳神経の模式3D問題では、大脳半球を透過しつつ中脳・橋・延髄を不透明な位置基準として残しました。既存の模式3Dから前交通動脈、後交通動脈、小脳動脈群、視交叉の4問を追加し、全45問としました。追加問題は専門家未確認の試作で、視交叉はoverlay region ID25だけを使い、旧断面ID33や未分節ID36–38を使いません。ローカルChrome 152で45 target×3幅＝135/135件の表示監査に合格しました。",
+      "evidenceRefs": ["NEUROVASCULAR_QUIZ_AUDIT.md", "QUIZ_TARGET_VISIBILITY_AUDIT.md", "scripts/audit_neurovascular_quiz.mjs"]
+    },
     {
       "id": "change-download-progress",
       "heading": "大容量データの読込進捗",
@@ -131,7 +137,7 @@
     {
       "id": "change-provenance-audit",
       "heading": "由来監査",
-      "body": "講義行・表示面・由来・監修状態・クイズ適格性・既知の制限を機械可読な監査索引へ整理し、75 entries、51講義行、41件のクイズ正答対象（既存23件と模式3D pilot 18件）をアプリ実装と照合しました。専門家による最終確認を意味しません。",
+      "body": "講義行・表示面・由来・監修状態・クイズ適格性・既知の制限を機械可読な監査索引へ整理し、75 entries、51講義行、45件のクイズ正答対象（既存23件と模式3D pilot 22件）をアプリ実装と照合しました。専門家による最終確認を意味しません。",
       "evidenceRefs": ["STRUCTURE_PROVENANCE.md", "LECTURE_COVERAGE_AUDIT.md", "public/atlas/structure-provenance.json"]
     },
     {

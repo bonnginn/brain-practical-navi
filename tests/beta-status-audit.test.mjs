@@ -15,7 +15,7 @@ test("beta status registry is valid and covers the fixed provenance references",
   assert.equal(STATUS_PHASE, "公開α掲載中／β候補・β公開判断前");
   assert.equal(baseStatus.phase, STATUS_PHASE);
   assert.equal(baseStatus.knownLimitations.length, 6);
-  assert.equal(baseStatus.changes.length, 17);
+  assert.equal(baseStatus.changes.length, 18);
   assert.match(baseStatus.changes.find(item => item.id === "change-beta-readiness-display").body, /専門家確認待ち4/);
   assert.match(baseStatus.changes.find(item => item.id === "change-pwa-install-affordance").body, /実際のホーム画面追加と追加後起動は未確認/);
   assert.match(baseStatus.changes.find(item => item.id === "change-ventricle-cavity-repair").body, /33 voxel/);

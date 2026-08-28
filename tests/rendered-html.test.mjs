@@ -212,7 +212,8 @@ test("keeps reviewed section structures colourable and withholds the unsplit opt
   assert.match(page, /opticChiasm: \{ name:"視交叉〜視索候補"/);
   assert.match(page, /視交叉だけの境界や乳頭体の分節を示すものではありません/);
   assert.match(page, /filter\(key=>key!=="opticChiasm"\)/);
-  assert.doesNotMatch(page, /\{target:"opticChiasm",category:/);
+  assert.doesNotMatch(page, /\{target:"opticChiasm",category:"(?!neurovascular")/);
+  assert.match(page, /\{target:"opticChiasm",category:"neurovascular"/);
   assert.match(page, /insula:[^\n]+bigbrainIds:\[34,35\]/);
   assert.match(page, /mammillaryBody:[^\n]+bigbrainIds:\[39,40\]/);
   assert.match(page, /mammillaryBody:[^\n]+labelSource:"image-guided-reviewed"/);
@@ -2095,7 +2096,7 @@ test("describes specimen fidelity limits without implying anatomical validation"
 test("labels provisional questions and includes them in the default quiz setup", async () => {
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
   assert.match(page, /function isStandardQuizStructure\(key:string\)\{const source=structures\[key as StructureKey\]\?\.labelSource;return source==="manual"\|\|source==="image-guided-reviewed"\}/);
-  assert.match(page, /function isProvisionalQuiz\(question:QuizQuestion\)\{[\s\S]*?question\.options\.some\(option=>!isStandardQuizStructure\(option\)\);\n\}/);
+  assert.match(page, /function isProvisionalQuiz\(question:QuizQuestion\)\{[\s\S]*?question\.options\.some\(option=>!isStandardQuizStructure\(option\)\);\r?\n\}/);
   assert.match(page, /standardQuizQuestions=quizQuestions\.filter\(question=>!isProvisionalQuiz\(question\)\)/);
   assert.match(page, /useState<QuizQuestion\[]>\(\(\)=>shuffledQuestions\(allQuizQuestions\)/);
   assert.match(page, /quizIncludeProvisional,setQuizIncludeProvisional\]=useState\(true\)/);

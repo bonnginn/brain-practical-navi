@@ -11,19 +11,20 @@ export const OVERLAY_METADATA_RELATIVE_PATH = "public/atlas/neurovascular-overla
 export const QUIZ_INVENTORY_RELATIVE_PATH = "NEUROVASCULAR_QUIZ_AUDIT.md";
 
 export const PILOT_TARGETS = Object.freeze([
-  "ica", "aca", "mca", "vertebral", "basilar", "pca",
-  "cn1", "cn2", "cn3", "cn4", "cn5", "cn6", "cn7", "cn8", "cn9", "cn10", "cn11", "cn12",
+  "ica", "aca", "acomm", "mca", "pcomm", "vertebral", "basilar", "pca", "cerebellarArteries",
+  "cn1", "cn2", "opticChiasm", "cn3", "cn4", "cn5", "cn6", "cn7", "cn8", "cn9", "cn10", "cn11", "cn12",
 ]);
-export const PILOT_ARTERY_TARGETS = Object.freeze(["ica", "aca", "mca", "vertebral", "basilar", "pca"]);
-export const PILOT_NERVE_TARGETS = Object.freeze(["cn1", "cn2", "cn3", "cn4", "cn5", "cn6", "cn7", "cn8", "cn9", "cn10", "cn11", "cn12"]);
-export const FORBIDDEN_PILOT_KEYS = Object.freeze(["opticChiasm", "acomm", "pcomm", "cerebellarArteries"]);
+export const PILOT_ARTERY_TARGETS = Object.freeze(["ica", "aca", "acomm", "mca", "pcomm", "vertebral", "basilar", "pca", "cerebellarArteries"]);
+export const PILOT_NERVE_TARGETS = Object.freeze(["cn1", "cn2", "opticChiasm", "cn3", "cn4", "cn5", "cn6", "cn7", "cn8", "cn9", "cn10", "cn11", "cn12"]);
 export const CN2_OVERLAY_REGION_IDS = Object.freeze([23, 24]);
 export const CN2_FORBIDDEN_REGION_IDS = Object.freeze([25, 33, 36, 37, 38]);
+export const OPTIC_CHIASM_OVERLAY_REGION_IDS = Object.freeze([25]);
+export const OPTIC_CHIASM_FORBIDDEN_REGION_IDS = Object.freeze([23, 24, 33, 36, 37, 38]);
 export const PILOT_PROMPT = "白色で強調された模式3Dの名称はどれですか？";
 
-// Updated after the 18-question inventory is intentionally frozen. This hash
+// Updated after the 22-question inventory is intentionally frozen. This hash
 // covers only the new pilot fields, never the separate 23-question snapshot.
-export const EXPECTED_NEUROVASCULAR_QUIZ_SHA256 = "96f557dfcc0a9dfb1e06f9baef6e8df602a05f9a4446bf91f6613d5fba356c9d";
+export const EXPECTED_NEUROVASCULAR_QUIZ_SHA256 = "d5cfdee13e96bcb90f0c5d7e8396c0f613c18a049d01787bc20f204f8b53719d";
 
 function readRepositoryFile(rootDir, relativePath) {
   return fs.readFileSync(path.join(rootDir, relativePath), "utf8");
@@ -116,21 +117,13 @@ function assertSourceContract(source, errors) {
     "neurovascularHighlights={neurovascularQuiz?quizNeurovascularHighlight:[]}",
     "view={neurovascularQuiz?\"ghost\":\"inside\"}",
     "showCerebellum={neurovascularQuiz?false:quizQuestion.view!==\"medial\"}",
+    "keepBrainstemOpaqueInGhost={neurovascularQuiz&&quizQuestion.detail===\"cranialNerves\"}",
+    "脳幹は起始位置の目安として不透明表示",
     "color:[255,255,255]",
     "function reviewQuizQuestion(question:QuizQuestion)",
   ];
   for (const snippet of requiredSnippets) if (!source.includes(snippet)) errors.push(`app source missing pilot contract: ${snippet}`);
   if (/isNeurovascularQuiz\(question\)[\s\S]{0,500}setSurfaceGhost\(false\)/.test(source)) errors.push("neurovascular review link must preserve the transparent surface policy");
-  for (const forbidden of FORBIDDEN_PILOT_KEYS) {
-    const block = source.match(/const neurovascularQuizQuestions:NeurovascularQuizQuestion\[\]=\[[\s\S]*?\n\];/)?.[0] ?? "";
-    if (block.includes(`target:"${forbidden}"`) || block.includes(`options:["${forbidden}`) || block.includes(`,"${forbidden}"`)) errors.push(`forbidden key appears in pilot inventory: ${forbidden}`);
-  }
-  // The overlay namespace may legitimately contain region ID 33 for right VI;
-  // only the section/BigBrain legacy namespace is forbidden from this pilot.
-  if (source.includes("old ID33") && source.includes("neurovascularQuizQuestions")) {
-    const block = source.match(/const neurovascularQuizQuestions:NeurovascularQuizQuestion\[\]=\[[\s\S]*?\n\];/)?.[0] ?? "";
-    if (/33/.test(block)) errors.push("legacy BigBrain/section ID33 must not be encoded in pilot inventory");
-  }
 }
 
 export function auditNeurovascularQuiz({ rootDir = REPOSITORY_ROOT, source, metadata } = {}) {
@@ -169,10 +162,13 @@ export function auditNeurovascularQuiz({ rootDir = REPOSITORY_ROOT, source, meta
         if (item.ids.some(id => CN2_FORBIDDEN_REGION_IDS.includes(id))) errors.push("cn2: forbidden optic/legacy/unsegmented region ID is present");
         if (question.options.some(option => option === "opticChiasm")) errors.push("cn2: opticChiasm cannot be a quiz option");
       }
+      if (question.target === "opticChiasm") {
+        if (JSON.stringify(item.ids) !== JSON.stringify(OPTIC_CHIASM_OVERLAY_REGION_IDS)) errors.push("opticChiasm: registry IDs must be exactly [25]");
+        if (item.ids.some(id => OPTIC_CHIASM_FORBIDDEN_REGION_IDS.includes(id))) errors.push("opticChiasm: forbidden optic-nerve/legacy/unsegmented region ID is present");
+      }
     }
   }
   for (const target of PILOT_TARGETS) if (!seenTargets.has(target)) errors.push(`missing pilot target: ${target}`);
-  for (const forbidden of FORBIDDEN_PILOT_KEYS) if (seenTargets.has(forbidden)) errors.push(`forbidden target is present: ${forbidden}`);
   const contentSha256 = inventoryHash(questions);
   if (contentSha256 !== EXPECTED_NEUROVASCULAR_QUIZ_SHA256) errors.push(`neurovascular pilot inventory hash changed: expected ${EXPECTED_NEUROVASCULAR_QUIZ_SHA256}, got ${contentSha256}`);
 
@@ -199,9 +195,9 @@ export function auditNeurovascularQuiz({ rootDir = REPOSITORY_ROOT, source, meta
   const filters = { category: "all", format: "neurovascular", detail: "all", includeProvisional: true, wrongOnly: false };
   const filterQuestions = questions.map(question => ({ target: question.target, category: question.category, format: question.format, detail: question.detail, origin: question.origin }));
   if (filterQuizCandidates(filterQuestions, { ...filters, includeProvisional: false }, []).length !== 0) errors.push("provisional OFF must hide every pilot question");
-  if (filterQuizCandidates(filterQuestions, filters, []).length !== PILOT_TARGETS.length) errors.push("neurovascular ON candidate count must be 18");
-  if (filterQuizCandidates(filterQuestions, { ...filters, detail: "arteries" }, []).length !== PILOT_ARTERY_TARGETS.length) errors.push("arteries candidate count must be 6");
-  if (filterQuizCandidates(filterQuestions, { ...filters, detail: "cranialNerves" }, []).length !== PILOT_NERVE_TARGETS.length) errors.push("cranialNerves candidate count must be 12");
+  if (filterQuizCandidates(filterQuestions, filters, []).length !== PILOT_TARGETS.length) errors.push("neurovascular ON candidate count must be 22");
+  if (filterQuizCandidates(filterQuestions, { ...filters, detail: "arteries" }, []).length !== PILOT_ARTERY_TARGETS.length) errors.push("arteries candidate count must be 9");
+  if (filterQuizCandidates(filterQuestions, { ...filters, detail: "cranialNerves" }, []).length !== PILOT_NERVE_TARGETS.length) errors.push("cranialNerves candidate count must be 13");
   if (filterQuizCandidates(filterQuestions, { ...filters, wrongOnly: true }, ["cn6"]).length !== 1) errors.push("wrong-only pilot candidate count must follow target history");
 
   return {

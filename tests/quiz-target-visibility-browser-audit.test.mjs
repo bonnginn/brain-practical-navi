@@ -27,11 +27,12 @@ import {
 const root=new URL("../",import.meta.url),scriptPath=new URL("scripts/audit_quiz_target_visibility_browser.mjs",root),appSource=fs.readFileSync(new URL("app/page.tsx",root),"utf8"),atlasSource=fs.readFileSync(new URL("app/AtlasVolumeCanvas.tsx",root),"utf8"),runnerSource=fs.readFileSync(scriptPath,"utf8");
 function validateFixture(fixture){return validateQuizTargetVisibilityFixture(fixture.report,{rawArtifactLoader:fixture.rawArtifactLoader,sourceRoot:fixture.sourceRoot})}
 
-test("freezes exact 17/6/18 inventory, options/render dependency, and 123-row matrix",()=>{
+test("freezes exact 17/6/22 inventory, options/render dependency, and 135-row matrix",()=>{
   const audit=auditQuizTargetVisibilitySource({source:appSource});assert.equal(audit.ok,true,audit.errors.join("; "));assert.deepEqual(audit.counts,EXPECTED_QUIZ_TARGET_COUNTS);assert.equal(audit.inventorySha256,EXPECTED_QUIZ_TARGET_INVENTORY_SHA256);assert.equal(audit.optionsSha256,EXPECTED_QUIZ_VISIBILITY_OPTIONS_SHA256);
-  const matrix=buildQuizTargetVisibilityMatrix();assert.equal(matrix.length,123);assert.equal(new Set(matrix.map(row=>row.key)).size,123);assert.deepEqual(QUIZ_TARGET_VISIBILITY_VIEWPORTS.at(-1),{id:"phone",label:"phone",width:390,height:768,dpr:1,deviceScaleFactor:1,mobile:true,isMobile:true,touch:true,hasTouch:true,coarse:true,pointer:"coarse"});
+  const matrix=buildQuizTargetVisibilityMatrix();assert.equal(matrix.length,135);assert.equal(new Set(matrix.map(row=>row.key)).size,135);assert.deepEqual(QUIZ_TARGET_VISIBILITY_VIEWPORTS.at(-1),{id:"phone",label:"phone",width:390,height:768,dpr:1,deviceScaleFactor:1,mobile:true,isMobile:true,touch:true,hasTouch:true,coarse:true,pointer:"coarse"});
   assert.ok(QUIZ_TARGET_VISIBILITY_INVENTORY.every(entry=>entry.options.length===4&&entry.options.includes(entry.target)&&entry.expectedIds.length>0));
-  assert.deepEqual(QUIZ_TARGET_VISIBILITY_INVENTORY[0].expectedTransform,{rotation:{x:-8,y:-28,z:0},zoom:1,pan:{x:0,y:0}});assert.deepEqual(QUIZ_TARGET_VISIBILITY_INVENTORY[17].expectedTransform,{rotation:{x:0,y:-90,z:0},zoom:1,pan:{x:0,y:0}});assert.deepEqual(QUIZ_TARGET_VISIBILITY_INVENTORY[23].expectedTransform,{rotation:{x:110,y:2,z:180},zoom:1,pan:{x:0,y:0}});assert.deepEqual(QUIZ_TARGET_VISIBILITY_INVENTORY[29].expectedTransform,{rotation:{x:-42,y:2,z:0},zoom:1,pan:{x:0,y:0}});
+  const transformFor=target=>QUIZ_TARGET_VISIBILITY_INVENTORY.find(entry=>entry.target===target)?.expectedTransform;
+  assert.deepEqual(transformFor("ventricle"),{rotation:{x:-8,y:-28,z:0},zoom:1,pan:{x:0,y:0}});assert.deepEqual(transformFor("precentral"),{rotation:{x:0,y:-90,z:0},zoom:1,pan:{x:0,y:0}});assert.deepEqual(transformFor("ica"),{rotation:{x:110,y:2,z:180},zoom:1,pan:{x:0,y:0}});assert.deepEqual(transformFor("cn1"),{rotation:{x:-42,y:2,z:0},zoom:1,pan:{x:0,y:0}});
   const changedRotation=auditQuizTargetVisibilitySource({source:appSource.replace('lateral:{name:"左外側面",en:"LATERAL",visual:"cortex",rotation:{x:0,y:-90,z:0}','lateral:{name:"左外側面",en:"LATERAL",visual:"cortex",rotation:{x:1,y:-90,z:0}')});assert.equal(changedRotation.ok,false);assert.ok(changedRotation.errors.some(error=>error.includes("options/render hash")));
 });
 
@@ -75,7 +76,7 @@ function expectMutation(label,mutate,reason){const fixture=createValidQuizTarget
 test("rejects fabricated provenance, matrix, capture identity, URL, viewport, transform, and health",()=>{
   const cases=[
     ["provenance",f=>f.report.provenance="live-browser","provenance"],
-    ["missing",f=>f.report.results.pop(),"123"],
+    ["missing",f=>f.report.results.pop(),"135"],
     ["duplicate",f=>f.report.results[1].key=f.report.results[0].key,"duplicate"],
     ["unknown",f=>f.report.results[0].identity.target="unknown","identity"],
     ["matrix",f=>f.report.matrix[0].target="unknown","matrix fabricated"],
@@ -97,11 +98,11 @@ test("rejects fabricated provenance, matrix, capture identity, URL, viewport, tr
     ["errors",f=>f.report.results[0].captures.H1.probe.consoleErrors.push("boom"),"consoleErrors"],
     ["overflow",f=>f.report.results[0].captures.H1.probe.horizontalOverflow=true,"overflow"],
     ["fallback",f=>f.report.results[0].captures.H1.probe.webglFallback=true,"fallback"],
-    ["summary",f=>f.report.summary.passedCount=122,"summary fabricated"],
+    ["summary",f=>f.report.summary.passedCount=134,"summary fabricated"],
   ];for(const [label,mutate,reason]of cases)expectMutation(label,mutate,reason);
 });
 
-test("accepts Chrome 151 product with HeadlessChrome 151 user agent and rejects old major",()=>{const fixture=createValidQuizTargetVisibilityFixture();try{fixture.report.environment.browser.product="Chrome/151.0.7922.170";assert.equal(validateFixture(fixture).passed,true);fixture.report.environment.browser.product="Chrome/150.0.0.0";const result=validateFixture(fixture);assert.equal(result.passed,false);assert.ok(result.errors.some(error=>error.includes("environment")))}finally{fixture.cleanup()}});
+test("accepts Chrome 152 product with HeadlessChrome 152 user agent and rejects old major",()=>{const fixture=createValidQuizTargetVisibilityFixture();try{fixture.report.environment.browser.product="Chrome/152.0.7977.64";assert.equal(validateFixture(fixture).passed,true);fixture.report.environment.browser.product="Chrome/151.0.0.0";const result=validateFixture(fixture);assert.equal(result.passed,false);assert.ok(result.errors.some(error=>error.includes("environment")))}finally{fixture.cleanup()}});
 
 test("a persisted validation remains independently re-readable and stale validation is rejected",()=>{const fixture=createValidQuizTargetVisibilityFixture();try{fixture.report.validation=validateFixture(fixture);assert.equal(validateFixture(fixture).passed,true);fixture.report.validation.summary.passedCount=0;const result=validateFixture(fixture);assert.equal(result.passed,false);assert.ok(result.errors.some(error=>error.includes("persisted validation")))}finally{fixture.cleanup()}});
 

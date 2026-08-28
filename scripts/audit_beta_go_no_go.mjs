@@ -24,7 +24,7 @@ export const STATE_ENUM = Object.freeze([
 export const EXPECTED_SOURCE_COUNTS = Object.freeze({
   entryCount: 75,
   expertPendingCount: 75,
-  quizTargetCount: 41,
+  quizTargetCount: 45,
   mappingCount: 222,
   resolvedMappingCount: 222,
 });
