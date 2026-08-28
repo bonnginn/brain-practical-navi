@@ -2007,6 +2007,8 @@ test("status dialog renders the JSON registry through a durable direct route", a
   assert.match(page, /className="betaStatusEvidence"/);
   assert.match(page, /className="homeEnter"[\s\S]*openOverlay\("status"\)/);
   assert.match(css, /\.homeNotice footer \.homeEnter\s*\{[^}]*min-height:\s*56px[^}]*font-size:\s*18px/);
+  assert.match(css, /\.homeArea\s*\{[^}]*grid-template-rows:\s*auto auto[^}]*align-content:\s*start[^}]*overflow-y:\s*auto/);
+  assert.match(css, /\.homeNotice\s*\{[^}]*align-self:\s*start/);
   assert.match(page, /TemplateFlow<\/a><button onClick=\{\(\)=>openOverlay\("status"\)\}>更新履歴・既知の制限/);
   assert.match(page, /document\.querySelector<HTMLButtonElement>\('\.legalDialog header button'\)\?\.focus\(\)/);
   assert.match(page, /overlayReturnFocus\.current\?\.focus\(\)/);
