@@ -9,11 +9,18 @@ import {
   validateEmbeddedPreflightSubset,
   validatePreflightSource,
 } from "../scripts/audit_feedback_form_preflight.mjs";
-import {checkFeedbackPreflightGenerated, deriveFeedbackPreflightDescriptor} from "../scripts/generate_feedback_preflight_contract.mjs";
+import {checkFeedbackPreflightGenerated, deriveFeedbackPreflightDescriptor, feedbackContractSha256} from "../scripts/generate_feedback_preflight_contract.mjs";
 
 const root = new URL("../", import.meta.url);
 const contract = JSON.parse(await readFile(new URL("feedback-form-contract.json", root), "utf8"));
+const contractSource = await readFile(new URL("feedback-form-contract.json", root), "utf8");
 const preflight = await readFile(new URL("scripts/preflight_google_feedback_form.gs", root), "utf8");
+
+test("feedback contract hash is stable across LF and CRLF checkouts", () => {
+  const lf = Buffer.from(contractSource.replaceAll("\r\n", "\n"), "utf8");
+  const crlf = Buffer.from(lf.toString("utf8").replaceAll("\n", "\r\n"), "utf8");
+  assert.equal(feedbackContractSha256(lf), feedbackContractSha256(crlf));
+});
 
 test("feedback form contract and read-only preflight pass the repository audit", () => {
   const report = auditFeedbackFormPreflight();

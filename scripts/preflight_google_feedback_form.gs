@@ -3,7 +3,7 @@
  * 出力にはフォーム／シートID、URL、回答内容を含めません。
  */
 // feedback-contract-generated:start
-var FEEDBACK_PREFLIGHT_CONTRACT_SHA256 = '66c9152a5aa7e6ad3b193f2e241029a9f1a6596bf0e7e8e6967a6b43c0ebf160';
+var FEEDBACK_PREFLIGHT_CONTRACT_SHA256 = 'e9571bbf5fb94d1d33f7645fe1c4e2065fb9306b19e322dbf4fe9bc5756f8734';
 var FEEDBACK_PREFLIGHT_EXPECTED = {
   "title": "脳実習ナビ｜修正提案・共同制作フォーム",
   "description": "脳実習ナビは、脳解剖実習の予習・復習を補助する非営利の教育用試作教材です。\n神経解剖学的な誤り、構造表示のずれ、操作性の問題、共同制作の提案を募集しています。\n\n患者情報、献体者・学生を特定できる情報、実習標本の写真、公開許諾のない講義・教科書・アトラス図版は送信しないでください。\n修正提案は匿名で送信できます。氏名・所属・連絡先は、共同制作または返信を希望する場合だけ任意で入力してください。\n回答は教材改善、権利確認、希望者への共同制作の連絡にのみ使用し、本人の確認なく所属や連絡先を公開しません。\n保存期間：教材改善と共同制作の連絡に必要な期間。不要になった連絡先は削除します。\n不具合・修正提案：https://github.com/bonnginn/brain-practical-navi/issues",

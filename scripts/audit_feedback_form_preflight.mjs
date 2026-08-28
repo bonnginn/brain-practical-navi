@@ -1,8 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
-import crypto from "node:crypto";
 import {fileURLToPath, pathToFileURL} from "node:url";
-import {deriveFeedbackPreflightDescriptor, generateExpectedPreflightSource, GENERATED_END, GENERATED_START} from "./generate_feedback_preflight_contract.mjs";
+import {deriveFeedbackPreflightDescriptor, feedbackContractSha256, generateExpectedPreflightSource, GENERATED_END, GENERATED_START} from "./generate_feedback_preflight_contract.mjs";
 
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 export const REPOSITORY_ROOT = path.resolve(SCRIPT_DIR, "..");
@@ -167,7 +166,7 @@ export function auditFeedbackFormPreflight({rootDir = REPOSITORY_ROOT, contract,
   }
   generatorErrors.push(...validateExistingReuseSource(generator).errors);
   if (generator.includes("function refreshExistingForm_")) generatorErrors.push("automatic existing-form refresh must remain absent until the full contract is compared");
-  const contractSha256 = crypto.createHash("sha256").update(contractBytes).digest("hex");
+  const contractSha256 = feedbackContractSha256(contractBytes);
   if (!source.includes(`FEEDBACK_PREFLIGHT_CONTRACT_SHA256 = '${contractSha256}'`)) generatorErrors.push("preflight contractSha256 does not match feedback-form-contract.json");
   const regenerated = generateExpectedPreflightSource(contractBytes, source).replaceAll("\r\n", "\n");
   if (regenerated !== source.replaceAll("\r\n", "\n")) generatorErrors.push("preflight generated contract block is stale; run generate_feedback_preflight_contract.mjs --write");
