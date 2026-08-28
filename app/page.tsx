@@ -12,7 +12,7 @@ import { QUIZ_GRANULARITY_BY_TARGET, countQuizChoice, detailOptionsForFormat, fi
 import type { QuizDetail, QuizFormat, QuizFilterQuestion, QuizFilters, QuizOrigin } from "../src/quizGranularity.mjs";
 import { createBlockContextState, shouldRenderBlockContext, transitionBlockContext } from "../src/blockContext.mjs";
 import type { BlockContextEvent } from "../src/blockContext.mjs";
-import { phoneCapabilityFromMedia } from "../src/mobileUi.mjs";
+import { phoneCapabilityFromMedia, phoneUiOverride } from "../src/mobileUi.mjs";
 import { deriveAnatomyReviewQueue, filterAnatomyReviewQueue, isLegacyOpticEntry, isMammillaryEntry, observationHashForEntry, observationWorkspaceForEntry } from "../src/anatomyReviewQueue.mjs";
 import type { AnatomyReviewQueueItem, AnatomyReviewSurface } from "../src/anatomyReviewQueue.mjs";
 import { AnatomyReviewRecordDraftCard } from "./AnatomyReviewRecordDraft";
@@ -37,6 +37,9 @@ type BetaStatusItem = { id:string; heading:string; body:string; evidenceRefs:str
 type BetaStatusData = { schemaVersion:number; updated:string; phase:string; knownLimitations:BetaStatusItem[]; changes:BetaStatusItem[] };
 const betaStatusData=betaStatus as BetaStatusData;
 const betaGoNoGoData=betaGoNoGoDisplay as BetaGoNoGoProjection;
+const publicAccessBase="https://bonnginn.github.io/brain-practical-navi/";
+const desktopAccessUrl=`${publicAccessBase}?ui=desktop#workspace/home`;
+const smartphoneAccessUrl=`${publicAccessBase}?ui=phone#workspace/home`;
 const anatomyReviewQueue=deriveAnatomyReviewQueue(anatomyReviewRegistry);
 type SurfaceViewKey = "lateral" | "superior" | "inferior" | "medial" | "arteries" | "cranialNerves" | "free";
 const surfaceViewKeys:SurfaceViewKey[]=["lateral","superior","inferior","medial","arteries","cranialNerves","free"];
@@ -574,6 +577,8 @@ function OrientationCompass({rotation,compact=false}:{rotation:Rotation;compact?
 
 function currentPhoneCapability(){
   if(typeof window==="undefined")return false;
+  const override=phoneUiOverride(window.location.search);
+  if(override!==null)return override;
   return phoneCapabilityFromMedia({
     width:window.innerWidth,
     hoverMatches:window.matchMedia("(hover: none)").matches,
@@ -932,7 +937,8 @@ export default function Home() {
     const hoverQuery=window.matchMedia("(hover: none)");
     const pointerQuery=window.matchMedia("(pointer: coarse)");
     const mediaQueries=[widthQuery,hoverQuery,pointerQuery];
-    const update=()=>setPhoneMode(phoneCapabilityFromMedia({width:window.innerWidth,hoverMatches:hoverQuery.matches,pointerMatches:pointerQuery.matches}));
+    const override=phoneUiOverride(window.location.search);
+    const update=()=>setPhoneMode(override??phoneCapabilityFromMedia({width:window.innerWidth,hoverMatches:hoverQuery.matches,pointerMatches:pointerQuery.matches}));
     update();
     window.addEventListener("resize",update);
     window.addEventListener("orientationchange",update);
@@ -1255,6 +1261,13 @@ export default function Home() {
           <section><b>公開α版</b><p>解剖学的表示は継続して確認・改訂しています。教科書や検証済み資料と照合して利用してください。</p></section>
           <section><b>利用上の注意</b><p>診断、治療、手術計画、定量研究のためには使用できません。出典・利用条件は事前に確認してください。</p></section>
         </div>
+        <section className="accessQrCard" aria-labelledby="access-qr-heading">
+          <header><span>DEVICE ACCESS</span><h2 id="access-qr-heading">端末に合わせて開く</h2><p>カメラで読み取ると、選んだ端末向けの画面構成で開きます。</p></header>
+          <div className="accessQrGrid">
+            <a href={desktopAccessUrl} target="_blank" rel="noreferrer" data-access-ui="desktop"><img src={`${import.meta.env.BASE_URL}access-pc-tablet.png`} width="342" height="342" alt="PC・タブレット用ページを開くQRコード"/><span><b>PC・タブレット用</b><small>広い画面の操作パネルを使用</small></span></a>
+            <a href={smartphoneAccessUrl} target="_blank" rel="noreferrer" data-access-ui="phone"><img src={`${import.meta.env.BASE_URL}access-smartphone.png`} width="342" height="342" alt="スマートフォン用ページを開くQRコード"/><span><b>スマートフォン用</b><small>下部ナビゲーション中心の専用UI</small></span></a>
+          </div>
+        </section>
         <section className="pwaInstallCard" data-pwa-install-card="true" data-pwa-install-state={pwaInstallState.installed?"installed":pwaInstallState.canInstall?"available":"unavailable"}>
           <header><div><span>OPTIONAL DEVICE INSTALL</span><h2>端末に追加</h2></div>{pwaInstallState.installed&&<b className="pwaInstallBadge">アプリとして起動中</b>}</header>
           <p>一度開いた同一サイトの教材を利用時に保存します。教材画像を約92MB一括保存するものではありません。未訪問の教材や保存を削除した後は通信が必要です。</p>

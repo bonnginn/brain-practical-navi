@@ -1,5 +1,5 @@
 Public visual asset notice
-Updated: 2026-08-23
+Updated: 2026-08-28
 
 og.png is a project-created composite illustration used only for social-link
 previews. It is not a scan, photograph, or reproduction from a lecture handout,
@@ -16,6 +16,11 @@ favicon.svg is a project-created interface mark. icon-192.png and icon-512.png
 are rasterized size variants of the same mark for the Web App Manifest. file.svg, globe.svg, and
 window.svg are unused generic starter icons and are not included in the
 application interface or educational content.
+
+access-pc-tablet.png and access-smartphone.png are project-generated QR codes.
+They encode only the public application URL plus the explicit desktop or phone
+UI query parameter. They contain no anatomical image, personal data, tracker,
+redirect service, or third-party visual material.
 
 No lecture slides, textbook figures, web specimen photographs, patient images,
 or third-party anatomical illustrations are distributed in public/.

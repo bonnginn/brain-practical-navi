@@ -1,10 +1,12 @@
 # スマートフォン専用UI監査
 
-更新日: 2026-08-24
+更新日: 2026-08-28
 
 ## 対象と境界
 
 この監査は、既存の教材データ、メッシュ、Canvas描画、クイズ内容、回転、教材状態、URL hashを変更せず、スマートフォンでの導線と設定操作を分離する実装を対象とします。phone判定は `width <= 760`、`hover: none`、`pointer: coarse` の3条件を同時に満たす場合だけです。狭いfine-pointer PCはphone扱いにせず、既存のcompact desktopを維持します。
+
+HomeにはPC・タブレット用とスマートフォン用のQRを3D領域と分離して配置しました。両方とも同じGitHub Pages公開アプリへ直接遷移し、外部短縮URLや追跡サービスは使いません。前者は `?ui=desktop`、後者は `?ui=phone` を付け、QR経由では画面幅・pointer判定より明示指定を優先します。通常URLでは従来どおり能力判定を使います。この指定はUI構成だけを選び、教材内容、表示対象、権限、キャッシュ範囲を変更しません。
 
 phoneでは、Home・脳表・断面・ブロック標本・復習をsafe-area対応の下部dockへ置き、上部の教材横スクロールナビを隠します。workspace固有の既存 `leftRail` は1つだけをsettings `dialog` 内へ置き、別の設定DOMは生成しません。dialogは `showModal()` / `close()` と `cancel` で開閉し、44px以上の操作対象、背景クリック、Esc、focus trap、起点focus復帰、`html` と `body` の背景scroll固定を備えます。dialogの上端とrailはsafe-area上端を考慮します。
 

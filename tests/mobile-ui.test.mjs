@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { test } from "node:test";
-import { isPhoneCapability, phoneCapabilityFromMedia } from "../src/mobileUi.mjs";
+import { isPhoneCapability, phoneCapabilityFromMedia, phoneUiOverride } from "../src/mobileUi.mjs";
 
 const root = new URL("../", import.meta.url);
 const [page, css, globals] = await Promise.all([
@@ -18,6 +18,15 @@ test("phone capability requires narrow width and touch-first media", () => {
   assert.equal(isPhoneCapability({width: 390, hover: "none", pointer: "coarse"}), true);
   assert.equal(phoneCapabilityFromMedia({width: 390, hoverMatches: true, pointerMatches: true}), true);
   assert.equal(phoneCapabilityFromMedia({width: 390, hoverMatches: false, pointerMatches: true}), false);
+});
+
+test("QR entry can explicitly select phone or desktop learner UI", () => {
+  assert.equal(phoneUiOverride("?ui=phone"), true);
+  assert.equal(phoneUiOverride("?ui=desktop"), false);
+  assert.equal(phoneUiOverride("?ui=unknown"), null);
+  assert.equal(phoneUiOverride(""), null);
+  assert.match(page, /const override=phoneUiOverride\(window\.location\.search\)/);
+  assert.match(page, /override\?\?phoneCapabilityFromMedia/);
 });
 
 test("phone navigation is a five-destination student dock and hides editing entry", () => {
