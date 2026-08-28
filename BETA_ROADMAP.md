@@ -108,7 +108,7 @@ PWAのキャッシュ境界、更新方針、未確認項目は [PWA_OFFLINE_AUD
 ### 5. 権利・公開運用
 
 - [x] すべての配布データについて、出典、改変内容、ライセンス、表示義務を再監査する（`public/atlas/DATA-MANIFEST.json` で全ファイルを一意に分類し、同梱通知と個別メタデータを自動照合）。
-- [x] 実習書、講義資料、ウェブ上の標本写真を許諾なく転載しない（公開物のラスター／文書を全監査し、画像はプロジェクト用SNSカード1点のみ。`public/ASSET-NOTICE.txt` で用途と非転載を明示）。
+- [x] 実習書、講義資料、ウェブ上の標本写真を許諾なく転載しない（公開ラスターはプロジェクト作成のSNSカード、アプリアイコン、アプリ自身のHomeスクリーンショット、端末別QRのみ。`public/ASSET-NOTICE.txt` で用途と非転載を明示）。
 - [x] BigBrain由来データの非営利・継承条件と教育用免責を、READMEとアプリ内で一致させる（BigBrain公式ライセンス掲示を再確認し、README、利用条件、同梱通知、データ監査を照合）。
 - [x] Cloudflare Web Analyticsの利用をプライバシー説明へ明記し、収集内容を必要最小限にする（公式説明を再確認し、公開HTTPS本番ホストだけでビーコンを読込。localhost、127.0.0.1、開発ビルドは除外）。
 - [x] 公開データの権利通知を独立監査する（2026-08-24、`DATA-MANIFEST.json` を `bundledNotices:string[]` へ移行し、110配布ファイルのexactly-one分類、5通知の存在・非空・逆参照、project-authored 21ファイル一覧、source/dist分離validator、利用条件の端末内保存・自動送信なし・サイトデータ消去・原著者／データ提供機関の非推奨承認表示を追加。通常／Pages生成物の111 atlas path byte identityと対応ソースmetaを照合し、ローカル通常buildの実ブラウザでも8 marker・対応ソースURL・小画面の横溢れ0を確認。詳細は [PUBLIC_RIGHTS_AND_NOTICES_AUDIT.md](PUBLIC_RIGHTS_AND_NOTICES_AUDIT.md)。公開hostの最終照合は未確認。）

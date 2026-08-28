@@ -6,6 +6,10 @@
 Current machine-readable values: [BETA_CURRENT_SNAPSHOT.json](BETA_CURRENT_SNAPSHOT.json). All other counts in this document are dated historical evidence, not current inventory or approval.
 <!-- beta-current-snapshot:end -->
 
+## 2026-08-28 Home端末別QR
+
+Homeの案内欄へ、PC・タブレット用とスマートフォン用のQRを2列で追加した。小画面では1列にし、3D表示や操作領域には重ねない。QRは同じGitHub Pages公開アプリへ直接リンクし、`ui=desktop`／`ui=phone` でUI構成だけを明示する。短縮URL、追跡サービス、個人情報は含まない。画像寸法・URL・SHA-256は [QR_ACCESS_AUDIT.md](QR_ACCESS_AUDIT.md) に記録した。
+
 ## 2026-08-28 神経血管クイズ表示
 
 脳神経問題では大脳半球を透過しつつ中脳・橋・延髄を不透明な位置基準として残し、神経根と脳幹の関係を追いやすくした。前交通動脈・後交通動脈・小脳動脈群・視交叉を追加して表示対象を45／神経血管22とし、さらに同じ色付き構造の機能・位置関係・経路を問う55問を加えて全100問とした。Chrome 152のローカルproduction previewで45 target×3幅＝135/135件に合格し、VI外転神経問題を実ブラウザで目視確認した。追加55問はプロジェクト内レビュー・専門家未確認であり、物理端末・公開URL・別GPUも未確認。

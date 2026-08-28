@@ -18,3 +18,9 @@ export function phoneCapabilityFromMedia({width, hoverMatches, pointerMatches} =
     pointer: pointerMatches ? "coarse" : "fine",
   });
 }
+
+/** A QR entry may explicitly select the device-specific learner UI. */
+export function phoneUiOverride(search = "") {
+  const value = new URLSearchParams(search).get("ui");
+  return value === "phone" ? true : value === "desktop" ? false : null;
+}
