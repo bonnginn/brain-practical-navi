@@ -14,9 +14,17 @@ const reviewed:Record<string,string> = {
   "乳頭体":"Mammillary body",
   "画像誘導・確認済み":"Image-guided, project-reviewed",
   "専門家レビュー未完了":"Expert review pending",
+  "5問":"5 questions",
+  "10問":"10 questions",
+  "15問":"15 questions",
+  "20問":"20 questions",
+  "教材の誤りや操作上の問題を、匿名で非公開送信できます。":"You can privately submit an anonymous report about an error in the material or a usability problem.",
 };
 const translations={...catalog,...reviewed};
-const replacementKeys=Object.keys(translations).filter(key=>/[\u3040-\u30ff\u3400-\u9fff]/u.test(key)).sort((a,b)=>b.length-a.length);
+// Single-character substitutions can corrupt an otherwise untranslated sentence
+// (for example, replacing every Japanese possessive particle independently).
+// Exact single-character text nodes remain supported through translations[value].
+const replacementKeys=Object.keys(translations).filter(key=>key.length>=2&&/[\u3040-\u30ff\u3400-\u9fff]/u.test(key)).sort((a,b)=>b.length-a.length);
 const excludedTags=new Set(["SCRIPT","STYLE","NOSCRIPT","TEXTAREA"]);
 
 function translated(value:string){

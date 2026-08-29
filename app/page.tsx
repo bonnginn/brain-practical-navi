@@ -29,6 +29,7 @@ import { surfaceAtlasNomenclatureCompactLabel, surfaceAtlasNomenclatureLabel } f
 import { languageSwitchUrl, localeFromSearch, localizedPublicUrl, publicWorkspaceForLocale } from "../src/locale.mjs";
 
 const ModelStrategyComparison=lazy(()=>import("./ModelStrategyComparison"));
+const EnglishLocalization=lazy(()=>import("./EnglishLocalization").then(module=>({default:module.EnglishLocalization})));
 
 type Plane = "coronal" | "horizontal" | "sagittal";
 type Focus = "ventricle" | "caudate" | "hippocampus" | "thalamus";
@@ -1200,18 +1201,8 @@ export default function Home() {
   function restoreAllQuiz(){setQuizWrongOnly(false);setQuizCategory("all");setQuizFormat("all");setQuizDetail("all");setQuizIncludeProvisional(true);setQuizQueue(shuffledQuestions(allQuizQuestions).slice(0,quizCount));resetQuiz()}
   function resetWrongHistory(){saveWrongTargets([]);if(quizWrongOnly){setQuizQueue([]);resetQuiz()}}
 
-  if(englishEdition)return <main className="englishSafetyHold" data-locale="en" lang="en">
-    <section role="status" aria-labelledby="english-safety-title">
-      <span>ENGLISH EDITION</span>
-      <h1 id="english-safety-title">Translation quality review in progress</h1>
-      <p>The English edition is temporarily unavailable because we found unacceptable errors in the first translation draft. We have withdrawn the translated learning content to prevent inaccurate neuroanatomy information from being presented.</p>
-      <p>The Japanese edition remains available. A revised English edition will return only after the learner-facing text, anatomical terminology, cautions, and quiz content have been reviewed again.</p>
-      <a href={languageSwitchUrl(window.location.href,"ja")} lang="ja">日本語版を開く</a>
-      <small>This notice does not indicate expert review or anatomical validation of the Japanese source content.</small>
-    </section>
-  </main>;
-
   return <main className={`appShell workspace-${workspace} ${workspace==="home"?"homeShell":""} ${phoneMode?"phone-mode":""}`} data-locale={locale}>
+    <Suspense fallback={null}><EnglishLocalization enabled={englishEdition}/></Suspense>
     <button className="skipLink" onClick={()=>document.getElementById("workspace")?.focus()}>本文へ移動</button>
     <header className="topbar">
       <a className="brand" href="#workspace/home" onClick={event=>{event.preventDefault();openWorkspace("home")}}><span className="brandMark">脳</span><span>脳実習ナビ<small>脳解剖実習 学習補助アプリ</small></span></a>

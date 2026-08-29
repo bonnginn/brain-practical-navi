@@ -32,8 +32,8 @@ test("English generator stores distinct targets and exposes only responder URL t
   assert.match(generator, /VITE_FEEDBACK_FORM_URL_EN/);
 });
 
-test("README stays synchronized with the English safety hold, quiz total, and form split", () => {
-  assert.match(readme, /English edition safety notice/);
+test("README stays synchronized with the reviewed English edition, quiz total, and form split", () => {
+  assert.match(readme, /English edition \(project-reviewed preview\)/);
   assert.match(readme, /全100問/);
   assert.match(readme, /VITE_FEEDBACK_FORM_URL_EN/);
   assert.match(readme, /create_google_feedback_form_en\.gs/);

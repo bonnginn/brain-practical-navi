@@ -29,11 +29,11 @@ test("English catalog contains reviewed anatomy and no Japanese output",()=>{
   assert.match(catalog["視床下核"]??"",/Subthalamic nucleus/i);
 });
 
-test("unsafe English draft is held behind a plain-language safety notice",()=>{
+test("reviewed English catalog is enabled without the former safety hold",()=>{
   const page=fs.readFileSync(new URL("../app/page.tsx",import.meta.url),"utf8");
-  assert.match(page,/if\(englishEdition\)return <main className="englishSafetyHold"/);
-  assert.match(page,/Translation quality review in progress/);
-  assert.match(page,/unacceptable errors in the first translation draft/);
-  assert.match(page,/withdrawn the translated learning content/);
-  assert.match(page,/languageSwitchUrl\(window\.location\.href,"ja"\)/);
+  const localization=fs.readFileSync(new URL("../app/EnglishLocalization.tsx",import.meta.url),"utf8");
+  assert.doesNotMatch(page,/englishSafetyHold|Translation quality review in progress/);
+  assert.match(page,/const EnglishLocalization=lazy\(\(\)=>import\("\.\/EnglishLocalization"\)/);
+  assert.match(page,/<Suspense fallback=\{null\}><EnglishLocalization enabled=\{englishEdition\}\/><\/Suspense>/);
+  assert.match(localization,/key\.length>=2/);
 });
