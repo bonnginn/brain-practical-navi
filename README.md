@@ -2,6 +2,8 @@
 
 [公開α版をブラウザで開く](https://bonnginn.github.io/brain-practical-navi/)
 
+> **English edition safety notice (2026-08-29):** The first English translation draft was withdrawn after serious translation errors were found. English learning content is temporarily unavailable while the complete learner-facing text and neuroanatomical terminology are reviewed again. The Japanese edition remains the canonical public edition. See [ENGLISH_EDITION_AUDIT.md](ENGLISH_EDITION_AUDIT.md).
+
 脳解剖実習の予習・復習を目的とした、非営利の学習補助アプリです。単一標本の連続断面、全脳3Dモデル、構造の重ね合わせ、脳表・ブロック標本の観察、構造同定クイズを一つの画面系で扱うことを目標に開発しています。
 
 主対象はPCと横向きタブレットです。スマートフォンでも閲覧、クイズ、基本操作を利用できますが、画面の広さが必要な全3D操作の正式な推奨端末とはしません。授業や監督下の実習を置き換えるものではありません。
@@ -31,7 +33,7 @@
 - 脳底面で視神経・視交叉・視索、漏斗（下垂体茎）、乳頭体、前有孔質を個別強調する模式3Dランドマーク
 - 下面の嗅球・嗅索、大脳脚、錐体、オリーブと、内側面の脳梁・脳弓・視床・視床下部を個別に着脱する立体部品
 - 大脳基底核、脳室系、辺縁系などの一括表示
-- 実習講義の到達目標を基にした脳表4方向＋脳底動脈・脳神経、8種の局所標本、断面17問・脳表6問の構造同定クイズ
+- 実習講義の到達目標を基にした45表示対象・全100問の復習クイズ（名称同定45問、機能・位置関係・経路を問う試作55問。追加55問は専門家未確認）
 - クイズの5/10/15/20問指定・項目指定、間違い問題の端末内保存と履歴消去
 - 脳表観察内で高密度全脳モデルへ主要脳底動脈と脳神経根を重ねる、脱着・脳表透過・個別構造強調が可能な教育用模式3Dレイヤー
 - 共同制作者向けの水平断手動セグメンテーション編集、ブラシ・消去・差分取消・Undo/Redo・端末内自動保存・版固定差分JSON入出力・複数差分の競合監査
@@ -52,9 +54,9 @@ npm install
 npm run dev
 ```
 
-意見募集用Google Formの回答者URLはアプリへ設定済みです。別フォームへ切り替える場合は、`.env.example` を参考に `VITE_FEEDBACK_FORM_URL` で上書きできます。編集URLと回答スプレッドシートURLは公開コードへ設定しません。対応ソースは [bonnginn/brain-practical-navi](https://github.com/bonnginn/brain-practical-navi)、不具合・修正提案は [GitHub Issues](https://github.com/bonnginn/brain-practical-navi/issues) で公開します。
+日本語版の意見募集用Google Formの回答者URLはアプリへ設定済みです。別フォームへ切り替える場合は、`.env.example` を参考に `VITE_FEEDBACK_FORM_URL` で上書きできます。英語版は共同制作者募集を含まない独立フォームを `VITE_FEEDBACK_FORM_URL_EN` に設定し、未設定時も日本語フォームへフォールバックしません。編集URLと回答スプレッドシートURLは公開コードへ設定しません。対応ソースは [bonnginn/brain-practical-navi](https://github.com/bonnginn/brain-practical-navi)、不具合・修正提案は [GitHub Issues](https://github.com/bonnginn/brain-practical-navi/issues) で公開します。
 
-フォームは `scripts/create_google_feedback_form.gs` をGoogle Apps Scriptで実行すると、匿名フィードバック／共同制作希望の分岐、回答スプレッドシート、運用メモを自動生成できます。作成後はGoogle Forms側で回答者の公開範囲を確認し、実行ログの `RESPONDER_URL` を設定してください。詳しくは `ALPHA_FEEDBACK.md` を参照してください。
+日本語フォームは `scripts/create_google_feedback_form.gs`、英語の匿名フィードバック専用フォームは `scripts/create_google_feedback_form_en.gs` をGoogle Apps Scriptで実行すると、回答スプレッドシートと運用メモを自動生成できます。作成後はGoogle Forms側で回答者の公開範囲を確認し、実行ログの `RESPONDER_URL` を対応する環境変数へ設定してください。詳しくは `ALPHA_FEEDBACK.md` を参照してください。
 
 質問項目と運用案は [ALPHA_FEEDBACK.md](ALPHA_FEEDBACK.md) に用意しています。
 
