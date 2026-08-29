@@ -46,7 +46,8 @@ test("脳表5領域のアトラス由来注記は利用者向けにも表示す�
     assert.match(page, new RegExp(name));
   }
   assert.match(page, /国際標準Terminologia Neuroanatomica（FIPAT／TNA）の確定用語だとは主張しません/);
-  assert.match(page, /標準ラテン語への置換は行っていません/);
+  assert.match(page, /学習画面で併記する名称は英語へ統一しています/);
+  assert.match(page, /Latin原語は検索互換・由来確認のため内部に保持/);
 });
 
 test("脳表アトラス区画マーカーは指定5項目だけに限定し、台帳と対応する", () => {
