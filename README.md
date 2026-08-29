@@ -54,7 +54,7 @@ npm install
 npm run dev
 ```
 
-日本語版の意見募集用Google Formの回答者URLはアプリへ設定済みです。別フォームへ切り替える場合は、`.env.example` を参考に `VITE_FEEDBACK_FORM_URL` で上書きできます。英語版は共同制作者募集を含まない独立フォームを `VITE_FEEDBACK_FORM_URL_EN` に設定し、未設定時も日本語フォームへフォールバックしません。編集URLと回答スプレッドシートURLは公開コードへ設定しません。対応ソースは [bonnginn/brain-practical-navi](https://github.com/bonnginn/brain-practical-navi)、不具合・修正提案は [GitHub Issues](https://github.com/bonnginn/brain-practical-navi/issues) で公開します。
+日本語版と英語版には、それぞれ独立した意見募集用Google Formの回答者URLを設定済みです。別フォームへ切り替える場合は、`.env.example` を参考に日本語版を `VITE_FEEDBACK_FORM_URL`、英語版を `VITE_FEEDBACK_FORM_URL_EN` で上書きできます。英語フォームは共同制作者募集を含まず、日本語フォームへフォールバックしません。編集URLと回答スプレッドシートURLは公開コードへ設定しません。対応ソースは [bonnginn/brain-practical-navi](https://github.com/bonnginn/brain-practical-navi)、不具合・修正提案は [GitHub Issues](https://github.com/bonnginn/brain-practical-navi/issues) で公開します。
 
 日本語フォームは `scripts/create_google_feedback_form.gs`、英語の匿名フィードバック専用フォームは `scripts/create_google_feedback_form_en.gs` をGoogle Apps Scriptで実行すると、回答スプレッドシートと運用メモを自動生成できます。作成後はGoogle Forms側で回答者の公開範囲を確認し、実行ログの `RESPONDER_URL` を対応する環境変数へ設定してください。詳しくは `ALPHA_FEEDBACK.md` を参照してください。
 

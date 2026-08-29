@@ -799,7 +799,7 @@ export default function Home() {
   const [quizMisses,setQuizMisses]=useState<QuizTargetKey[]>([]);
   const quizVisibilityAuditHighlight=quizVisibilityAuditHighlightOverride();
   const feedbackFormUrlJa=(import.meta.env.VITE_FEEDBACK_FORM_URL as string|undefined)?.trim()||"https://docs.google.com/forms/d/e/1FAIpQLSeM5Kge0Zl9Q0lCHMEP1g____uHvDZsfzjSGA0FzeT9Gf75dA/viewform";
-  const feedbackFormUrlEn=(import.meta.env.VITE_FEEDBACK_FORM_URL_EN as string|undefined)?.trim()||"";
+  const feedbackFormUrlEn=(import.meta.env.VITE_FEEDBACK_FORM_URL_EN as string|undefined)?.trim()||"https://docs.google.com/forms/d/e/1FAIpQLSemCNM1RVH6tJCJeTfmGWdboCurpDeLwnd0Mg3xjfdF5KNsfA/viewform";
   // English feedback has a separate, feedback-only form. Never fall back to the
   // Japanese form, which also contains Japanese collaborator-recruitment fields.
   const feedbackFormUrl=englishEdition?feedbackFormUrlEn:feedbackFormUrlJa;

@@ -9,10 +9,11 @@ const generator = await readFile(new URL("scripts/create_google_feedback_form_en
 const readme = await readFile(new URL("README.md", root), "utf8");
 
 test("English feedback uses a separate responder URL and never falls back to Japanese", () => {
-  assert.match(envExample, /^VITE_FEEDBACK_FORM_URL_EN=$/m);
+  assert.match(envExample, /^VITE_FEEDBACK_FORM_URL_EN=https:\/\/docs\.google\.com\/forms\/d\/e\/[A-Za-z0-9_-]+\/viewform$/m);
   assert.match(page, /VITE_FEEDBACK_FORM_URL_EN/);
   assert.match(page, /englishEdition\?feedbackFormUrlEn:feedbackFormUrlJa/);
   assert.doesNotMatch(page, /feedbackFormUrlEn\s*\|\|\s*feedbackFormUrlJa/);
+  assert.match(page, /1FAIpQLSemCNM1RVH6tJCJeTfmGWdboCurpDeLwnd0Mg3xjfdF5KNsfA/);
 });
 
 test("English form is anonymous, feedback-only, and contains no upload or collaboration route", () => {
