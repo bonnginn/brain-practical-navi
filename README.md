@@ -1,6 +1,6 @@
 # 脳実習ナビ
 
-[公開α版をブラウザで開く](https://bonnginn.github.io/brain-practical-navi/)
+[公開α版をブラウザで開く](https://neuro-atlas-lab.hnoriinaba.chatgpt.site/) · [English edition](https://neuro-atlas-lab.hnoriinaba.chatgpt.site/?lang=en#workspace/home) · [English README](#english)
 
 脳解剖実習の予習・復習を目的とした、非営利の学習補助アプリです。単一標本の連続断面、全脳3Dモデル、構造の重ね合わせ、脳表・ブロック標本の観察、構造同定クイズを一つの画面系で扱うことを目標に開発しています。
 
@@ -8,7 +8,7 @@
 
 現在は**公開α版**です。未収録・専門家未確認の構造を明示したうえで、神経解剖学の監修、セグメンテーション確認、3Dモデル、教材設計、Web実装の共同制作者を募集できる導線をアプリ内に用意しています。ブロック標本は位置関係を学ぶための試作教材として提供し、形状・範囲・接続関係の完全性や解剖学的正確性は保証しません。
 
-2026-08-24時点では、公開α版へβ候補向け更新を積み上げた refresh candidate をローカルで準備中です。これはまだ公開前の更新候補であり、β版の公開や専門家による承認を意味しません。2026-08-14の初回αゲート（歴史記録）と、現行候補の状態は [ALPHA_RELEASE_AUDIT.md](ALPHA_RELEASE_AUDIT.md) で区別しています。
+2026-08-29時点では、β候補向け更新を公開α版へ順次反映しています。これはβ版の公開や専門家による承認を意味しません。2026-08-14の初回αゲート（歴史記録）と、現行候補の状態は [ALPHA_RELEASE_AUDIT.md](ALPHA_RELEASE_AUDIT.md) および [BETA_ROADMAP.md](BETA_ROADMAP.md) で区別しています。
 
 β版では、現行の断面・アトラス再構成モデルに加え、解剖知識に基づいて一から造形する教育用3Dモデルを試作し、同定しやすさと表示品質を比較する予定です。β版までの優先順位、完了条件、公開判断は [BETA_ROADMAP.md](BETA_ROADMAP.md) に整理しています。
 
@@ -31,7 +31,7 @@
 - 脳底面で視神経・視交叉・視索、漏斗（下垂体茎）、乳頭体、前有孔質を個別強調する模式3Dランドマーク
 - 下面の嗅球・嗅索、大脳脚、錐体、オリーブと、内側面の脳梁・脳弓・視床・視床下部を個別に着脱する立体部品
 - 大脳基底核、脳室系、辺縁系などの一括表示
-- 実習講義の到達目標を基にした脳表4方向＋脳底動脈・脳神経、8種の局所標本、断面17問・脳表6問の構造同定クイズ
+- 実習講義の到達目標を基にした断面・脳表・脳神経／主要血管の構造同定と、機能・位置関係・経路を問う計100問の復習クイズ
 - クイズの5/10/15/20問指定・項目指定、間違い問題の端末内保存と履歴消去
 - 脳表観察内で高密度全脳モデルへ主要脳底動脈と脳神経根を重ねる、脱着・脳表透過・個別構造強調が可能な教育用模式3Dレイヤー
 - 共同制作者向けの水平断手動セグメンテーション編集、ブラシ・消去・差分取消・Undo/Redo・端末内自動保存・版固定差分JSON入出力・複数差分の競合監査
@@ -130,3 +130,75 @@ Windows側のCodexへ開発を引き継ぐ場合は、取得手順、実画面�
 - [x] 公開URLでデータ取得と権利表示が正常に動くことを確認する
 
 この文書は開発上のライセンス監査結果であり、法的助言ではありません。判断が重要な公開・共同研究・商用利用では、所属機関の知財担当者または法律専門家へ確認してください。
+
+---
+
+# English
+
+[Open the public alpha](https://neuro-atlas-lab.hnoriinaba.chatgpt.site/?lang=en#workspace/home) · [GitHub Pages mirror](https://bonnginn.github.io/brain-practical-navi/?lang=en#workspace/home) · [日本語](#脳実習ナビ)
+
+Brain Practical Navigator is a nonprofit learning aid for preparation and review in practical neuroanatomy. It brings serial sections from one specimen, whole-brain 3D models, structural overlays, brain-surface and block-specimen observation, and review quizzes into one interface.
+
+The primary targets are desktop computers and landscape tablets. Viewing, quizzes, and basic controls are also available in the dedicated phone interface. The application does not replace supervised practical teaching, anatomical dissection, or expert instruction.
+
+This is a **public alpha**. Labels and 3D teaching aids are explicitly separated into specimen-matched, atlas-provisional, image-guided, project-reviewed, and schematic representations. They must not be treated as research ground truth or as expert-verified anatomy.
+
+The English edition provides the same five learner destinations—Home, Brain Surface, Sections, Block Specimens, and Review Quiz—plus help, private error reporting, beta status, and terms/credits. It intentionally omits collaborator recruitment and the contributor segmentation editor. Japanese remains the canonical source language. The current English text is a machine-assisted project draft with manually fixed high-risk anatomy terms; expert and native-language review are still pending. See [ENGLISH_EDITION_AUDIT.md](ENGLISH_EDITION_AUDIT.md).
+
+> **Important distribution condition**
+> The complete distribution contains BigBrain-derived data and is therefore limited to **non-commercial use**. Modified BigBrain-derived data must retain the attribution, non-commercial, and share-alike requirements of CC BY-NC-SA 4.0. Commercial redistribution requires separate permission from the relevant rights holders or replacement of the restricted data.
+
+## Current capabilities
+
+- Continuous coronal, horizontal, and sagittal observation of the BigBrain 0.5 mm single-specimen volume
+- Comparison with fixed-brain MRI and average T1/T2 sources
+- Multi-structure colouring, click identification, zooming, panning, and synchronized 3D section-position views
+- Seven brain-surface views, including major cerebral arteries, cranial nerves, and free exploration
+- Eight local 3D block specimens with independently toggleable tissue and structural parts
+- Educational overlays for major sulci, basal landmarks, neurovascular structures, basal-ganglia pathways, and the Papez circuit
+- A 100-question review bank covering identification, function, anatomical relationships, and pathways
+- Five-, ten-, fifteen-, or twenty-question sessions, topic/detail filters, and device-local storage of incorrect answers
+- A touch-oriented phone interface and installable PWA with bounded offline caching
+- Explicit provenance, confidence, limitations, and review status for learner-visible structures
+
+This application is for education only. Do not use it for diagnosis, treatment decisions, or quantitative research. Provisional and schematic labels are not anatomical ground-truth segmentations.
+
+## Local development
+
+Node.js 22 or later is required.
+
+```bash
+npm install
+npm run dev
+```
+
+Validation:
+
+```bash
+npm run build
+npm test
+```
+
+The public responder URL for private feedback is configured in the application. To use another form, set `VITE_FEEDBACK_FORM_URL` as described in `.env.example`. Never commit a form-editing URL or response-spreadsheet URL.
+
+## Data, licensing, and privacy
+
+- Application code: **AGPL-3.0-or-later**
+- Project-authored teaching documents: **CC BY-NC-SA 4.0**
+- BigBrain, MNI, CerebrA, and derived assets: the original licence of each source remains applicable
+- BigBrain-derived material in the complete application restricts the distributed teaching package to non-commercial use
+
+Complete provenance, required notices, modifications, and citations are documented in [DATA_AND_LICENSES.md](DATA_AND_LICENSES.md), [LICENSES.md](LICENSES.md), and the machine-readable [DATA-MANIFEST.json](public/atlas/DATA-MANIFEST.json). The application does not distribute lecture slides, textbook figures, web specimen photographs, or patient images.
+
+Public production hosts use privacy-first Cloudflare Web Analytics. The application does not assign its own user identifier. Quiz-error history and other supported drafts remain in the browser's local storage and are not uploaded automatically. Private feedback must not contain identifying information about patients, students, donors, or third parties.
+
+## Citation
+
+Please cite the relevant source datasets when using material from this project:
+
+- Amunts K, et al. *BigBrain: an ultrahigh-resolution 3D human brain model.* Science. 2013;340(6139):1472–1475. [doi:10.1126/science.1235381](https://doi.org/10.1126/science.1235381)
+- Xiao Y, et al. *Bridging micro and macro: accurate registration of the BigBrain dataset with the MNI PD25 and ICBM152 atlases.* [doi:10.1101/561118](https://doi.org/10.1101/561118)
+- Manera AL, et al. *CerebrA, registration and manual label correction of Mindboggle-101 atlas for MNI-ICBM152 template.* Scientific Data. 2020;7:237. [doi:10.1038/s41597-020-0557-9](https://doi.org/10.1038/s41597-020-0557-9)
+- Paquola C, et al. *BigBrainWarp: Toolbox for integration of BigBrain 3D histology with multimodal neuroimaging.* eLife. 2021;10:e70119. [doi:10.7554/eLife.70119](https://doi.org/10.7554/eLife.70119)
+
+This README summarizes a development and licensing audit; it is not legal advice. Seek institutional intellectual-property or legal advice for consequential publication, collaboration, or commercial-use decisions.
