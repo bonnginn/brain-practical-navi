@@ -28,3 +28,12 @@ test("English catalog contains reviewed anatomy and no Japanese output",()=>{
   for(const value of Object.values(catalog))assert.doesNotMatch(value,/[\u3040-\u30ff\u3400-\u9fff]/u);
   assert.match(catalog["視床下核"]??"",/Subthalamic nucleus/i);
 });
+
+test("unsafe English draft is held behind a plain-language safety notice",()=>{
+  const page=fs.readFileSync(new URL("../app/page.tsx",import.meta.url),"utf8");
+  assert.match(page,/if\(englishEdition\)return <main className="englishSafetyHold"/);
+  assert.match(page,/Translation quality review in progress/);
+  assert.match(page,/unacceptable errors in the first translation draft/);
+  assert.match(page,/withdrawn the translated learning content/);
+  assert.match(page,/languageSwitchUrl\(window\.location\.href,"ja"\)/);
+});

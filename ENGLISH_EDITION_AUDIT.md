@@ -2,6 +2,10 @@
 
 Updated: 2026-08-29
 
+## Safety hold
+
+The first public English draft was withdrawn on 2026-08-29 after repeated words, missing terminology, malformed punctuation, and meaning loss were found in learner-facing text. English URLs now show a bounded safety notice and a link to the Japanese edition; they do not render the translated anatomy content. Re-publication requires a new translation source, systematic linguistic and anatomy review, and route-level verification. The catalogue's absence of Japanese script is not evidence of translation quality and must not be used as a release gate by itself.
+
 ## Public scope
 
 The English edition uses the same learner application and routes as the Japanese edition. It is selected with `?lang=en`; Japanese remains the default. The header provides a language switch that retains the current learner route and UI query parameters.
