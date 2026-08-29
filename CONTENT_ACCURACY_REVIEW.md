@@ -17,7 +17,7 @@
 | 側脳室と尾状核 | 尾状核頭・体・尾を、側脳室前角の外側壁・体部の外側・下角の上方（天井側）という部位別の関係として注記した。 | source-backed project review、expert pending |
 | 第三脳室 | 左右の視床・視床下部に囲まれる正中腔として、上方が視床、下方（底側）が視床下部という教材上の位置関係を表示した。 | source-backed project review、expert pending |
 | 脳梁・脳弓標本 | 英見出しを `CORPUS CALLOSUM AND FORNIX` に統一した。標本の形状・由来は変更していない。 | 表記修正 |
-| 脳表5領域 | 中前頭回前部・中前頭回後部・鳥距溝周囲皮質・外側後頭皮質・眼窩前頭皮質を、CerebrA／Desikan-style の区画名を教材上で対応づけた表示として明示した。併記する英語・Latinはアトラス表示用の文字列で、FIPAT／TNAの国際標準用語だとは主張せず、標準語への置換も行っていない。 | source-backed project review、expert pending |
+| 脳表5領域 | 中前頭回前部・中前頭回後部・鳥距溝周囲皮質・外側後頭皮質・眼窩前頭皮質を、CerebrA／Desikan-style の区画名を教材上で対応づけた表示として明示した。日本語学習画面の併記名は英語へ統一し、元のアトラス名称・Latin原語は検索互換と由来確認のため内部に保持する。FIPAT／TNAの国際標準用語だとは主張しない。 | source-backed project review、expert pending |
 
 ## 照合した資料
 
