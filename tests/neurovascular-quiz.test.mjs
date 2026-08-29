@@ -79,6 +79,9 @@ test("pilot uses lazy relevant overlays, white target highlights, and review lin
   assert.match(page, /chooseSurface\(question\.view,"replace"\)/);
   assert.doesNotMatch(page, /isNeurovascularQuiz\(question\)[\s\S]{0,500}setSurfaceGhost\(false\)/);
   assert.match(page, /復習問題の模式3D神経血管モデル/);
+  assert.match(page, /quizQuestion\.target==="cn4"\?\{x:-42,y:-118,z:0\}/);
+  assert.match(page, /setRotation\(\{\.\.\.quizModelInitialRotation\}\)/);
+  assert.match(css, /data-quiz-format="neurovascular"[^}]+top:\s*18px[^}]+bottom:\s*auto[^}]+width:\s*max-content/);
 });
 
 test("pilot controls preserve 44px touch targets and narrow-flow behavior", () => {

@@ -32,6 +32,36 @@ test("the display map translates representative anatomy groups and preserves Eng
   assert.equal(anatomyDisplayEnglish("Abducens nerve"), "Abducens nerve");
 });
 
+test("Japanese learner labels use unambiguous standard English anatomy wording", () => {
+  assert.equal(
+    anatomyDisplayEnglish("Pars opercularis et triangularis"),
+    "Opercular and triangular parts of the inferior frontal gyrus",
+  );
+  assert.equal(
+    anatomyDisplayEnglish("Globus pallidus externus"),
+    "Globus pallidus, external segment (GPe)",
+  );
+  assert.equal(
+    anatomyDisplayEnglish("Globus pallidus internus"),
+    "Globus pallidus, internal segment (GPi)",
+  );
+  assert.equal(anatomyDisplayEnglish("Olivae"), "Medullary olives");
+});
+
+test("Japanese page English headings describe the paired Japanese view or specimen", () => {
+  for (const expected of [
+    'name:"左外側面",en:"LEFT LATERAL SURFACE"',
+    'name:"上面",en:"SUPERIOR SURFACE"',
+    'name:"下面",en:"INFERIOR SURFACE"',
+    'name:"脳神経・脳幹",en:"CRANIAL NERVES & BRAINSTEM"',
+    'name:"側脳室の全景",en:"LATERAL VENTRICLE OVERVIEW"',
+    'name:"レンズ核・投射線維",en:"LENTIFORM NUCLEUS & PROJECTION FIBERS"',
+    'name:"中脳核・大脳脚標本",en:"MIDBRAIN CROSS-SECTION"',
+  ]) {
+    assert.ok(page.includes(expected), `missing audited Japanese/English pair: ${expected}`);
+  }
+});
+
 test("learner-visible Latin fields pass through the English display helper", () => {
   const displayCalls = page.match(/anatomyDisplayEnglish\([^)]*\.latin\)/g) ?? [];
   assert.ok(displayCalls.length >= 10, "expected all learner-visible label sites");

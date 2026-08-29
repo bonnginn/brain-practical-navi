@@ -1,7 +1,9 @@
 import {readFile,writeFile} from "node:fs/promises";
+import {anatomyDisplayEnglish} from "../src/anatomyDisplayEnglish.mjs";
 
 const catalogUrl=new URL("../app/english-catalog.json",import.meta.url);
 const catalog=JSON.parse(await readFile(catalogUrl,"utf8"));
+const pageSource=await readFile(new URL("../app/page.tsx",import.meta.url),"utf8");
 
 const replacements=[
   [/Brain Table/g,"Brain Surface"],[/brain table/g,"brain surface"],
@@ -745,12 +747,121 @@ const exact={
   "データ順位で選んだ出発点です。ボタンで表示位置へ移動しますが、編集は作成されません。解剖学的検証・専門家確認ではなく、ID 33を36–38へ機械的に分割する根拠でもありません。":"This is a data-ranked starting point. The button navigates to the display location without creating an edit. It is neither anatomical validation nor expert review, and it does not justify mechanically splitting ID 33 into IDs 36–38.",
   "断面・立体・標本作製をつなぐ、脳解剖実習の学習補助アプリ。":"A neuroanatomy practical learning aid linking sections, 3D views, and specimen preparation.",
   "神経解剖学の確認者を依頼し、必修範囲のレビュー記録を取得する。":"Invite a neuroanatomy reviewer and obtain a review record for the required learning scope.",
+  "本文へ移動":"Skip to main content",
+  "すべて解除":"Deselect all",
+  "向きを戻す":"Reset orientation",
+  "小脳を戻す":"Restore cerebellum",
+  "脳表を戻す":"Restore brain surface",
+  "拡大":"Zoom in",
+  "拡大・縮小":"Zoom",
+  "出題位置へ戻す":"Return to question position",
+  "今回を最初から":"Restart this quiz",
+  "間違い履歴を消去":"Clear mistake history",
+  "同じ問題を再挑戦":"Retry the same questions",
+  "この条件で新しく出題":"New questions with these settings",
+  "前後位置":"Anteroposterior position",
+  "同定する構造":"Structures to identify",
+  "匿名の意見・誤り報告":"Anonymous feedback and error reports",
+  "匿名の意見・誤り報告を表示":"Show anonymous feedback and error reports",
+  "構造索引または検索から複数の対象を追加する":"Add multiple structures from the structure index or search.",
+  "透過、選択だけ、組織表示、脱着の各ボタンを使う":"Use the controls for transparency, isolating the selection, tissue display, and adding or removing parts.",
+  "標本同一格子・試作":"Same-grid specimen · Provisional",
+  "標本対応・試作":"Specimen-based · Provisional",
+  "試作分節":"Provisional segmentation",
+  "試作":"Provisional",
+  "模式3D":"Schematic 3D",
+  "模式3D・専門家未確認":"Schematic 3D · Not expert reviewed",
+  "試作・専門家未確認":"Provisional · Not expert reviewed",
+  "既存の模式3Dで名称を確認する試作問題です。専門家確認は継続中です。":"This provisional question uses the existing schematic 3D model for structure identification. Expert review is ongoing.",
+  "側頭葉・後頭葉下面で内外側の溝間にある脳回はどれですか？":"Which gyrus lies between the medial and lateral occipitotemporal sulci on the inferior temporal and occipital surfaces?",
+  "側頭葉・後頭葉下面の内外側溝間":"Between the medial and lateral occipitotemporal sulci on the inferior temporal and occipital surfaces",
+  "内包には皮質へ向かう線維と皮質から下行する線維が高密度に通ります。":"The internal capsule contains densely packed fibres ascending toward the cerebral cortex and descending from it.",
+  "尾状核・視床とレンズ核の間を走る白質路です。冠状断で前脚・膝・後脚の曲がりを追います。":"A white-matter pathway running between the caudate nucleus and thalamus medially and the lentiform nucleus laterally. In coronal sections, follow the bends of the anterior limb, genu, and posterior limb.",
+  "尾状核・視床とレンズ核の間を通る白質路はどれですか？":"Which white-matter pathway runs between the caudate nucleus and thalamus medially and the lentiform nucleus laterally?",
+  "レンズ核の内側、尾状核・視床の外側を通ります。":"Runs medial to the lentiform nucleus and lateral to the caudate nucleus and thalamus.",
+  "大脳脚の背側に沿う帯状の核はどれですか？":"Which band-like nucleus lies along the dorsal aspect of the cerebral peduncle?",
+  "側脳室前角の外側に沿う核はどれですか？":"Which nucleus follows the lateral wall of the anterior horn of the lateral ventricle?",
+  "淡蒼球の外側にあるレンズ核の構成要素はどれですか？":"Which component of the lentiform nucleus lies lateral to the globus pallidus?",
+  "漏斗の後方、脚間窩の前方に左右一対で見える小隆起はどれですか？":"Which paired small elevations lie posterior to the infundibulum and anterior to the interpeduncular fossa?",
+  "漏斗の後方、脚間窩の前方に左右一対で位置":"Paired structures posterior to the infundibulum and anterior to the interpeduncular fossa",
+  "漏斗の後方、脚間窩の前方に左右一対の小さな隆起として並びます。":"A pair of small elevations posterior to the infundibulum and anterior to the interpeduncular fossa.",
+  "第三脳室の両側を占める大きな灰白質はどれですか？":"Which paired large grey-matter structure forms the upper lateral walls of the third ventricle?",
+  "第四脳室の腹側で中脳・橋・延髄へ連続する構造はどれですか？":"Which structure lies ventral to the fourth ventricle and continues through the midbrain, pons, and medulla?",
+  "頭頂後頭溝と鳥距溝に挟まれる領域はどれですか？":"Which region lies between the parieto-occipital and calcarine sulci?",
+  "外側眼窩前頭皮質":"Lateral orbitofrontal cortex",
+  "下前頭回眼窩部":"Orbital part of the inferior frontal gyrus",
+  "0.5 mm格子・Shiftドラッグで移動":"0.5 mm grid · Shift+drag to pan",
+  "内側面":"Medial view",
+  "外側面":"Lateral view",
+  "左半球・内側面":"Left hemisphere, medial surface",
+  "断面・深部":"Sections and deep structures",
+  "大脳基底核":"Basal ganglia",
+  "脳表・局所標本":"Brain surface and local specimens",
+  "軸回転":"Axial rotation",
+  "・ドラッグ：回転／Shift・右：傾き":"Drag: rotate · Shift/right-drag: tilt",
+  "レンズ核・投射線維":"Lentiform nucleus and projection fibres",
+  "レンズ核の外側部です。淡蒼球との境界と、外側を走る外包を確認します。":"The lateral part of the lentiform nucleus. Examine its boundary with the globus pallidus and the external capsule running lateral to it.",
+  "中脳脚と被蓋の境界に沿う帯状の核です。赤核より腹側に位置します。":"A band-like nucleus along the boundary between the cerebral peduncle and tegmentum, ventral to the red nucleus.",
+  "舌下神経は舌筋の運動を支配し、延髄の錐体とオリーブの間から現れます。":"The hypoglossal nerve supplies the tongue muscles and emerges from the medulla between the pyramid and olive.",
+  "ブロック標本は試作中です":"Block specimens are provisional",
+  "ブロック標本（試作中）":"Block specimens (provisional)",
+  "構造名を押して追加・解除。脳表では「全選択」「すべて解除」も利用可能":"Press a structure name to add or remove it. On brain-surface views, Select all and Deselect all are also available.",
+  "この環境では自動追加を利用できません。共有メニューやブラウザメニューから追加できる場合があります。":"Automatic installation is unavailable in this environment. You may still be able to install it from the share menu or browser menu.",
+  "下前頭回三角部":"Triangular part of the inferior frontal gyrus",
+  "帯状回峡部":"Isthmus of the cingulate gyrus",
+  "頭頂後頭溝":"Parieto-occipital sulcus",
+  "既存 CerebrA/Desikan 系の帯状回アトラス領域":"Existing CerebrA/Desikan-style cingulate-gyrus atlas regions",
+  "頭頂間溝の上方に広がる頭頂葉領域":"Parietal region superior to the intraparietal sulcus",
+  "頭頂間溝の下方で縁上回・角回周辺を含む領域":"Region inferior to the intraparietal sulcus, including the supramarginal and angular gyri",
+  "中心溝の後方に沿う一次体性感覚野の主要部":"Major portion of primary somatosensory cortex along the posterior side of the central sulcus",
+  "傾き":"Tilt",
+  "隠す":"Hide",
+  "非表示":"Hidden",
+  "前大脳動脈・前交通動脈":"Anterior cerebral and anterior communicating arteries",
+  "・ドラッグで回転":" · Drag to rotate",
+  "脳表3Dモデル。ドラッグまたは矢印キーで回転、Rキーで向きを戻す":"Brain-surface 3D model. Drag or use the arrow keys to rotate; press R to reset the orientation.",
+  "局所標本3Dモデル。ドラッグまたは矢印キーで回転、Rキーで向きを戻す":"Local-specimen 3D model. Drag or use the arrow keys to rotate; press R to reset the orientation.",
+  "復習問題の模式3D神経血管モデル。ドラッグまたは矢印キーで回転、Rキーで向きを戻す":"Schematic neurovascular 3D model for a review question. Drag or use the arrow keys to rotate; press R to reset the orientation.",
+  "ドラッグで回転・ホイールで拡大":"Drag to rotate · Use the wheel to zoom",
+  "ホイールで拡大":"Use the wheel to zoom",
+  "ホイールで拡大縮小":"Use the wheel to zoom",
+  "すべての詳細（":"All details (",
+  "この条件で出題（":"Start quiz (",
+  "白色で強調された模式3Dの名称はどれですか？":"Which schematic 3D structure is highlighted in white?",
+  "白色で強調された構造は？":"Which structure is highlighted in white?",
+  "脳幹は起始位置の目安として不透明表示":"The brainstem is shown opaque as a landmark for the nerve roots",
+  "（":" (",
+  "問候補":" candidate questions",
+  "・試作":" · Provisional",
+  "間脳・白質":"Diencephalon and white matter",
+  "すべて":"All",
+  "前有孔質（位置目安）":"Anterior perforated substance (positional guide)",
+  "I 嗅球・嗅索":"I · Olfactory bulb and tract",
+  "II 視神経・視索":"II · Optic nerve / tract",
+  "II 視交叉":"II · Optic chiasm",
+  "III 動眼神経":"III · Oculomotor nerve",
+  "IV 滑車神経":"IV · Trochlear nerve",
+  "V 三叉神経":"V · Trigeminal nerve",
+  "VI 外転神経":"VI · Abducens nerve",
+  "VII 顔面神経":"VII · Facial nerve",
+  "VIII 内耳神経":"VIII · Vestibulocochlear nerve",
+  "IX 舌咽神経":"IX · Glossopharyngeal nerve",
+  "X 迷走神経":"X · Vagus nerve",
+  "XI 副神経":"XI · Accessory nerve",
+  "XII 舌下神経":"XII · Hypoglossal nerve",
+  "中前頭回前部・中前頭回後部・鳥距溝周囲皮質・外側後頭皮質・眼窩前頭皮質の5領域は、CerebrA／Desikan-styleアトラスの区画名を教材上で対応づけた表示です。学習画面で併記する名称は英語へ統一しています。元のアトラス名称とLatin原語は検索互換・由来確認のため内部に保持しており、国際標準Terminologia Neuroanatomica（FIPAT／TNA）の確定用語だとは主張しません。":"The five regions labelled rostral middle frontal gyrus, caudal middle frontal gyrus, pericalcarine cortex, lateral occipital cortex, and orbitofrontal cortex are teaching mappings of CerebrA/Desikan-style atlas parcels. Accompanying names in the learner interface are standardised in English. Original atlas names and Latin source terms are retained internally for search compatibility and provenance; they are not presented as definitive Terminologia Neuroanatomica (FIPAT/TNA) terms.",
 };
+
+const anatomyNamePairs=new Map();
+for(const match of pageSource.matchAll(/name:"([^"]+)",latin:"([^"]+)"/gu)){
+  anatomyNamePairs.set(match[1],anatomyDisplayEnglish(match[2]));
+}
 
 for(const [key,value] of Object.entries(catalog)){
   let repaired=value;
   for(const [pattern,replacement] of replacements)repaired=repaired.replace(pattern,replacement);
-  catalog[key]=exact[key]??repaired;
+  catalog[key]=exact[key]??anatomyNamePairs.get(key)??repaired;
 }
+for(const [key,value] of Object.entries(exact))catalog[key]=value;
 
 await writeFile(catalogUrl,`${JSON.stringify(catalog,null,2)}\n`,"utf8");

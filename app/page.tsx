@@ -144,12 +144,12 @@ const quizDetailLabels:Record<QuizDetail,string>={coronal:"冠状断",horizontal
 const QUIZ_WRONG_CACHE_KEY="brain-practical-quiz-wrong-v1";
 
 const surfaceViews:Record<SurfaceViewKey,{name:string;en:string;visual:"cortex"|"arteries"|"nerves";rotation:Rotation;hemisphere:"both"|"left"|"right";intro:string;structures:string[];caution?:string}>= {
-  lateral:{name:"左外側面",en:"LATERAL",visual:"cortex",rotation:{x:0,y:-90,z:0},hemisphere:"both",intro:"外側溝から中心溝をたどり、前頭・頭頂・側頭葉の境界を組み立てます。",structures:["外側溝（シルビウス溝）","中心前溝・中心溝","中心前回・中心後回","上側頭回","下前頭回 弁蓋部・三角部"]},
-  superior:{name:"上面",en:"SUPERIOR",visual:"cortex",rotation:{x:-72,y:-6},hemisphere:"both",intro:"大脳縦裂を基準に、上前頭溝と逆Ω型の中心前回を見つけます。",structures:["大脳縦裂","上前頭溝","中心前溝","中心溝","中心前回・中心後回"]},
-  inferior:{name:"下面",en:"INFERIOR",visual:"cortex",rotation:{x:70,y:4},hemisphere:"both",intro:"嗅覚路・視覚路、視床下部底面と脳幹を前後方向に並べ、中脳から橋・延髄への連続も観察します。",structures:["嗅球・嗅索・嗅溝","視神経・視交叉・視索","視床下部・漏斗・乳頭体","大脳脚・中脳・上丘・下丘","橋・延髄","錐体・オリーブ","小脳半球"]},
+  lateral:{name:"左外側面",en:"LEFT LATERAL SURFACE",visual:"cortex",rotation:{x:0,y:-90,z:0},hemisphere:"both",intro:"外側溝から中心溝をたどり、前頭・頭頂・側頭葉の境界を組み立てます。",structures:["外側溝（シルビウス溝）","中心前溝・中心溝","中心前回・中心後回","上側頭回","下前頭回 弁蓋部・三角部"]},
+  superior:{name:"上面",en:"SUPERIOR SURFACE",visual:"cortex",rotation:{x:-72,y:-6},hemisphere:"both",intro:"大脳縦裂を基準に、上前頭溝と逆Ω型の中心前回を見つけます。",structures:["大脳縦裂","上前頭溝","中心前溝","中心溝","中心前回・中心後回"]},
+  inferior:{name:"下面",en:"INFERIOR SURFACE",visual:"cortex",rotation:{x:70,y:4},hemisphere:"both",intro:"嗅覚路・視覚路、視床下部底面と脳幹を前後方向に並べ、中脳から橋・延髄への連続も観察します。",structures:["嗅球・嗅索・嗅溝","視神経・視交叉・視索","視床下部・漏斗・乳頭体","大脳脚・中脳・上丘・下丘","橋・延髄","錐体・オリーブ","小脳半球"]},
   medial:{name:"左半球・内側面",en:"LEFT MEDIAL HEMISPHERE",visual:"cortex",rotation:{x:0,y:90,z:0},hemisphere:"left",intro:"右半球を外し、左半球の内側面を正中側から観察します。まず皮質と脳溝を確認し、深部構造は必要なものだけ追加します。",structures:["帯状回・脳梁周囲","中心傍小葉","楔前部・楔部","頭頂後頭溝","鳥距溝","必要時のみ脳梁・左視床・視床下部を追加"]},
   arteries:{name:"脳底の主要動脈",en:"BASAL CEREBRAL ARTERIES",visual:"arteries",rotation:{x:110,y:2,z:180},hemisphere:"both",intro:"高密度全脳モデルの下面へ主要動脈を重ね、内頸動脈系と椎骨脳底動脈系が脳底の動脈輪で連絡する標準的な配置を追います。",structures:["内頸動脈・中大脳動脈","前大脳動脈・前交通動脈","後交通動脈・後大脳動脈","椎骨動脈・脳底動脈","上小脳・前下小脳・後下小脳動脈","視交叉・脳幹との位置関係"],caution:"赤い管は主要幹の典型的な連絡を標準空間へ置いた模式3Dです。Willis動脈輪は欠損・低形成・胎児型などの個体差が多く、完全な輪が常に存在するわけではありません。穿通枝・正確な血管径・個人差は再現していません。"},
-  cranialNerves:{name:"脳神経・脳幹",en:"CRANIAL NERVES",visual:"nerves",rotation:{x:-42,y:2,z:0},hemisphere:"both",intro:"脳底面モデルへ脳神経の近位部を重ね、I・IIは前脳側、III–XIIは中脳・橋・延髄のどの高さから現れるかを区別します。",structures:["嗅球・嗅索・視神経・視交叉","動眼神経・滑車神経","三叉神経","外転・顔面・内耳神経","舌咽・迷走・副神経","舌下神経と錐体・オリーブ"],caution:"I・IIは脳幹から出る神経根ではありません。IIIは脚間窩、IVは下丘尾側の中脳背側、Vは橋外側、VI–VIIIは橋延髄境界、IX–XIはオリーブ後溝、XIIは錐体とオリーブの間に置いた模式です。神経核・頭蓋孔・遠位走行・太さは再現していません。"},
+  cranialNerves:{name:"脳神経・脳幹",en:"CRANIAL NERVES & BRAINSTEM",visual:"nerves",rotation:{x:-42,y:2,z:0},hemisphere:"both",intro:"脳底面モデルへ脳神経の近位部を重ね、I・IIは前脳側、III–XIIは中脳・橋・延髄のどの高さから現れるかを区別します。",structures:["嗅球・嗅索・視神経・視交叉","動眼神経・滑車神経","三叉神経","外転・顔面・内耳神経","舌咽・迷走・副神経","舌下神経と錐体・オリーブ"],caution:"I・IIは脳幹から出る神経根ではありません。IIIは脚間窩、IVは下丘尾側の中脳背側、Vは橋外側、VI–VIIIは橋延髄境界、IX–XIはオリーブ後溝、XIIは錐体とオリーブの間に置いた模式です。神経核・頭蓋孔・遠位走行・太さは再現していません。"},
   free:{name:"自由観察",en:"FREE EXPLORATION",visual:"cortex",rotation:{x:-8,y:-28,z:0},hemisphere:"both",intro:"3Dを自由に回転し、表面をクリックするか構造名を検索して、複数の構造を同時に着色します。",structures:["主要な脳回・皮質領域","主要な溝・裂","内側の深部構造","脳底動脈","脳神経"]},
 };
 
@@ -255,7 +255,7 @@ const cranialNerveBrainstemKeys:BasalLandmarkPartKey[]=["midbrain","pons","medul
 const detachableBrainstemNerveKeys:NeurovascularStructureKey[]=["cn5","cn6","cn7","cn8","cn9","cn10","cn11","cn12"];
 
 const blockSpecimens:Record<BlockSpecimenKey,BlockLesson>={
-  "lateral-ventricle":{name:"側脳室の全景",en:"LATERAL VENTRICLE",visual:"model",plane:"sagittal",position:58,focus:"ventricle",view:"inside",rotation:{x:-12,y:-58},intro:"側脳室のC字形の連続を隠さないよう、右側脳室の外側壁を開き、周囲実質を必要最小限だけ残した局所標本です。色レイヤーを着脱して、腔と周囲構造の隣接を組み立てます。",observe:["前角・体部・三角部・後角・下角","尾状核頭・体・尾との並走","視床と体部の位置関係","海馬と下角の位置関係","正中側にある第三脳室の方向"],caution:"側脳室腔は同一0.5 mm格子の教育用ラベル、尾状核・視床・海馬は手動分節です。脳弓・モンロー孔・薄い脳室壁は独立分節できていないため、全境界を正解形状として扱わないでください。",layers:[
+  "lateral-ventricle":{name:"側脳室の全景",en:"LATERAL VENTRICLE OVERVIEW",visual:"model",plane:"sagittal",position:58,focus:"ventricle",view:"inside",rotation:{x:-12,y:-58},intro:"側脳室のC字形の連続を隠さないよう、右側脳室の外側壁を開き、周囲実質を必要最小限だけ残した局所標本です。色レイヤーを着脱して、腔と周囲構造の隣接を組み立てます。",observe:["前角・体部・三角部・後角・下角","尾状核頭・体・尾との並走","視床と体部の位置関係","海馬と下角の位置関係","正中側にある第三脳室の方向"],caution:"側脳室腔は同一0.5 mm格子の教育用ラベル、尾状核・視床・海馬は手動分節です。脳弓・モンロー孔・薄い脳室壁は独立分節できていないため、全境界を正解形状として扱わないでください。",layers:[
     {key:"ventricular-cavity",name:"側脳室腔",latin:"Ventriculus lateralis",color:"#45aebd",source:"試作分節",note:"前角から下角まで連続する腔の形を示します。"},
     {key:"caudate",name:"尾状核",latin:"Nucleus caudatus",color:"#dc914b",source:"標本分節",note:"頭部は側脳室前角の外側壁を形成し、体部は側脳室体部の外側に位置し、尾部は下角の上方・天井側を走ります。"},
     {key:"thalamus",name:"視床",latin:"Thalamus",color:"#8d82c4",source:"標本分節",note:"側脳室体部の床と第三脳室の外側に位置します。"},
@@ -267,7 +267,7 @@ const blockSpecimens:Record<BlockSpecimenKey,BlockLesson>={
     {key:"hypothalamus",name:"視床下部領域",latin:"Hypothalamus",color:"#b97864",source:"位置目安",note:"視床腹側から第三脳室底へ続く領域を示します。核境界ではありません。"},
     {key:"subthalamic-nuclei",name:"視床下核",latin:"Nucleus subthalamicus",color:"#e0ad45",source:"標本分節",note:"間脳の視床下域にある小さな核を左右表示します。視床下部・中脳そのものとは区別してください。"},
   ]},
-  radiations:{name:"レンズ核・投射線維",en:"LENTIFORM & RADIATIONS",visual:"model",plane:"horizontal",position:53,focus:"caudate",view:"inside",rotation:{x:-58,y:-8},intro:"レンズ核と内包を含む水平切断標本に、放線冠・視放線・聴放線の走行目安を重ねます。被殻・淡蒼球外節・内節を別々に外しながら、内包を中心とする広がりを確認します。",observe:["被殻・淡蒼球外節・内節の層状配列","レンズ核内側の内包","上方へ扇状に広がる放線冠","外側膝状体から後頭葉へ向かう視放線","内側膝状体から側頭葉へ向かう聴放線"],caution:"被殻と淡蒼球外節・内節は手動分節、内包は画像誘導の試作分節です。3種類の放線は現在の組織像から抽出した線維束ではなく、切断面上へ投影した走行模式です。位置関係の学習用で、束の太さ・全線維・個人差は表しません。",layers:[
+  radiations:{name:"レンズ核・投射線維",en:"LENTIFORM NUCLEUS & PROJECTION FIBERS",visual:"model",plane:"horizontal",position:53,focus:"caudate",view:"inside",rotation:{x:-58,y:-8},intro:"レンズ核と内包を含む水平切断標本に、放線冠・視放線・聴放線の走行目安を重ねます。被殻・淡蒼球外節・内節を別々に外しながら、内包を中心とする広がりを確認します。",observe:["被殻・淡蒼球外節・内節の層状配列","レンズ核内側の内包","上方へ扇状に広がる放線冠","外側膝状体から後頭葉へ向かう視放線","内側膝状体から側頭葉へ向かう聴放線"],caution:"被殻と淡蒼球外節・内節は手動分節、内包は画像誘導の試作分節です。3種類の放線は現在の組織像から抽出した線維束ではなく、切断面上へ投影した走行模式です。位置関係の学習用で、束の太さ・全線維・個人差は表しません。",layers:[
     {key:"putamen",name:"被殻",latin:"Putamen",color:"#d9854f",source:"標本分節",note:"レンズ核の外側部です。"},
     {key:"pallidum-external",name:"淡蒼球外節",latin:"Globus pallidus externus",color:"#d0ae5c",source:"標本分節",note:"被殻の内側、淡蒼球内節の外側に位置する、内部の中継・調節部です。"},
     {key:"pallidum-internal",name:"淡蒼球内節",latin:"Globus pallidus internus",color:"#b88d42",source:"標本分節",note:"外節の内側で内包に接し、淡蒼球から視床などへ向かう主要な出力部です。"},
@@ -292,7 +292,7 @@ const blockSpecimens:Record<BlockSpecimenKey,BlockLesson>={
     {key:"amygdala",name:"扁桃体",latin:"Corpus amygdaloideum",color:"#9c6cae",source:"標本分節",note:"海馬の前方、側脳室下角前端の近くに位置します。"},
     {key:"inferior-horn",name:"側脳室下角",latin:"Cornu inferius",color:"#45aebd",source:"試作分節",note:"海馬と扁桃体の上下前後関係を読む空間基準です。"},
   ]},
-  "midbrain-section":{name:"中脳核・大脳脚標本",en:"MIDBRAIN TRANSVERSE",visual:"model",plane:"horizontal",position:67,focus:"thalamus",view:"inside",rotation:{x:-62,y:0},intro:"赤核と黒質が現れる高さで中脳を横断した局所標本です。中脳水道を背側の基準に、被蓋の赤核、腹側の黒質と大脳脚を層状に比較し、丘・膝状体の方向も確認します。",observe:["正中背側寄りの中脳水道","被蓋に並ぶ左右の赤核","赤核の腹外側に沿う黒質","黒質腹側の大脳脚と脚間窩","上丘・下丘と外側・内側膝状体の対応"],caution:"赤核・黒質は手動分節、褐色組織は同一標本の脳幹ラベルから作った10 mm厚の横断標本です。中脳水道は模式3D、大脳脚、上丘・下丘、膝状体、脚間窩は位置目安で、核境界の正解分節ではありません。",layers:[
+  "midbrain-section":{name:"中脳核・大脳脚標本",en:"MIDBRAIN CROSS-SECTION",visual:"model",plane:"horizontal",position:67,focus:"thalamus",view:"inside",rotation:{x:-62,y:0},intro:"赤核と黒質が現れる高さで中脳を横断した局所標本です。中脳水道を背側の基準に、被蓋の赤核、腹側の黒質と大脳脚を層状に比較し、丘・膝状体の方向も確認します。",observe:["正中背側寄りの中脳水道","被蓋に並ぶ左右の赤核","赤核の腹外側に沿う黒質","黒質腹側の大脳脚と脚間窩","上丘・下丘と外側・内側膝状体の対応"],caution:"赤核・黒質は手動分節、褐色組織は同一標本の脳幹ラベルから作った10 mm厚の横断標本です。中脳水道は模式3D、大脳脚、上丘・下丘、膝状体、脚間窩は位置目安で、核境界の正解分節ではありません。",layers:[
     {key:"red-nuclei",name:"赤核",latin:"Nuclei rubri",color:"#d24f49",source:"標本分節",note:"中脳被蓋内に左右一対で現れる円形の核です。"},
     {key:"substantia-nigra",name:"黒質",latin:"Substantia nigra",color:"#716387",source:"標本分節",note:"被蓋と大脳脚の間に沿う帯状の核です。"},
     {key:"aqueduct",name:"中脳水道",latin:"Aqueductus mesencephali",color:"#45aebd",source:"模式補助",note:"第三脳室と第四脳室を結ぶ正中の細い腔を、視認できる太さで示します。"},
@@ -892,6 +892,7 @@ export default function Home() {
   const quizQuestionKindLabel:Record<QuizQuestionKind,string>={identification:"名称", "function-to-structure":"機能から同定", "function-choice":"機能", "relation-choice":"位置関係", "pathway-choice":"経路"};
   const neurovascularQuiz=isNeurovascularQuiz(quizQuestion);
   const surfaceQuiz=isSurfaceQuiz(quizQuestion);
+  const quizModelInitialRotation:Rotation=isNeurovascularQuiz(quizQuestion)?(quizQuestion.target==="cn4"?{x:-42,y:-118,z:0}:{...surfaceViews[quizQuestion.view].rotation}):isSurfaceQuiz(quizQuestion)?{...surfaceViews[quizQuestion.view].rotation}:{...homeRotation};
   const quizModelQuestion=surfaceQuiz||neurovascularQuiz;
   const quizSurfaceView=quizModelQuestion?quizQuestion.view:"lateral";
   const quizFilters:QuizFilters={category:quizCategory,format:quizFormat,detail:quizDetail,includeProvisional:quizIncludeProvisional,wrongOnly:quizWrongOnly};
@@ -942,7 +943,7 @@ export default function Home() {
   },[workspace,blockSpecimen]);
   useEffect(()=>{try{const saved=JSON.parse(localStorage.getItem(QUIZ_WRONG_CACHE_KEY)??"[]");if(Array.isArray(saved))setWrongTargets(saved.filter((key):key is QuizTargetKey=>typeof key==="string"&&(key in structures||key in surfaceRegions||key in neurovascularStructures)))}catch{/* invalid cache is ignored */}},[]);
   useEffect(()=>setQuizSlicePosition(quizStartPosition),[quizStartPosition,surfaceQuiz]);
-  useEffect(()=>{if(isSurfaceQuiz(quizQuestion)||isNeurovascularQuiz(quizQuestion))setRotation({...surfaceViews[quizQuestion.view].rotation})},[quizQuestion]);
+  useEffect(()=>{if(isSurfaceQuiz(quizQuestion)||isNeurovascularQuiz(quizQuestion))setRotation({...quizModelInitialRotation})},[quizQuestion]);
   useEffect(()=>{if(quizVisibilityAuditTarget&&!isSurfaceQuiz(quizQuestion)&&!isNeurovascularQuiz(quizQuestion))setRotation({...homeRotation})},[quizVisibilityAuditTarget?.target,quizQuestion]);
   useEffect(()=>{
     const widthQuery=window.matchMedia("(max-width: 760px)");
@@ -1040,7 +1041,7 @@ export default function Home() {
   function resetCurrentModelRotation(){
     if(workspace==="surface")return resetSurfaceView();
     if(workspace==="blocks"){setBlockViewPreset("initial");setRotation({...blockInitialRotations[blockSpecimen]});return}
-    if(workspace==="quiz"&&(isSurfaceQuiz(quizQuestion)||isNeurovascularQuiz(quizQuestion))){setRotation({...surfaceViews[quizQuestion.view].rotation});return}
+    if(workspace==="quiz"&&(isSurfaceQuiz(quizQuestion)||isNeurovascularQuiz(quizQuestion))){setRotation({...quizModelInitialRotation});return}
     setRotation(workspace==="sections"?{x:-7,y:-18,z:0}:{...homeRotation});
   }
 
@@ -1253,7 +1254,7 @@ export default function Home() {
           <label><span>次回出題項目（トピック）</span><select value={quizCategory} onChange={event=>setQuizCategory(event.target.value as "all"|QuizCategory)}>{quizCategories.map(category=><option key={category.key} value={category.key}>{category.label}（{quizChoiceCount("category",category.key)}問）</option>)}</select></label>
           <label><span>次回の教材形式</span><select value={quizFormat} onChange={event=>chooseQuizFormat(event.target.value as QuizFormatFilter)}>{quizFormatOptions.map(option=><option key={option.key} value={option.key}>{option.label}（{quizChoiceCount("format",option.key)}問）</option>)}</select></label>
           <label><span>次回の詳細（形式と組合せ）</span><select value={quizDetail} onChange={event=>setQuizDetail(event.target.value as QuizDetailFilter)}><option value="all">すべての詳細（{quizChoiceCount("detail","all")}問）</option>{quizDetailOptions.map(detail=><option key={detail} value={detail}>{quizDetailLabels[detail]}（{quizChoiceCount("detail",detail)}問）</option>)}</select><small className="quizFilterHint">名称同定に加えて、機能・位置関係・経路を問う試作問題を含みます。新しい解説問題は専門家未確認です。</small></label>
-          <div className="quizCandidateSummary" role="status" aria-live="polite"><b>次回 {quizCandidateCount}問候補</b><span>標準 {quizStandardCandidateCount}・試作 {quizProvisionalCandidateCount}</span></div>
+          <div className="quizCandidateSummary" role="status" aria-live="polite"><b>次回 {quizCandidateCount}問候補</b>{" "}<span>標準 {quizStandardCandidateCount}・試作 {quizProvisionalCandidateCount}</span></div>
           {quizCandidateCount===0&&<p className="quizCandidateEmptyNote" role="status" aria-live="polite">現在の条件の組合せに該当する問題がありません。トピック・形式・詳細・「間違った問題のみ」・「試作問題を含む」を見直してください。</p>}
           <div><span>次回の問題数（候補に応じて）</span><div className="quizCountButtons" role="group" aria-label="次回の問題数（上限）">{([5,10,15,20] as const).map(count=>{const actual=Math.min(count,quizCandidateCount);const label=quizCandidateCount<count?`${count}問（実際${actual}問）`:`${count}問`;return <button key={count} className={quizCount===count?"active":""} onClick={()=>setQuizCount(count)} disabled={quizCandidateCount===0} aria-pressed={quizCount===count} aria-label={`${count}問を上限に${actual}問（候補${quizCandidateCount}）`}>{label}</button>})}</div></div>
           <label className="wrongOnlyToggle"><input data-quiz-wrong-only="true" type="checkbox" checked={quizWrongOnly} onChange={event=>setQuizWrongOnly(event.target.checked)}/><span>間違った問題のみ</span><b data-quiz-candidate-count={quizCandidateCount}>{wrongTargets.length}</b></label>
