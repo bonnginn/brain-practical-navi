@@ -34,3 +34,4 @@ This is an educational alpha translation, not an expert-reviewed medical transla
 - Translation quality is project-reviewed only for selected high-risk terms; expert and native-language review remain pending.
 - QR bitmap payloads still point to the Japanese-default entry, although clicking each QR card preserves the English locale.
 - Public URL, physical phones/tablets, installed PWA language persistence, Safari, and assistive-technology reading order require post-deployment observation.
+- The English Google Form has not yet been created or configured. English must use the dedicated `VITE_FEEDBACK_FORM_URL_EN`; it must never fall back to the Japanese feedback/collaboration form. Before release, verify logged-out access, optional reply contact, the absence of file upload and collaborator-recruitment fields, and one complete submit/delete lifecycle in both Forms and its response sheet.
