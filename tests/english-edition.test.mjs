@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
+import { anatomyDisplayEnglish } from "../src/anatomyDisplayEnglish.mjs";
 import { languageSwitchUrl, localeFromSearch, localizedPublicUrl, publicWorkspaceForLocale } from "../src/locale.mjs";
 
 test("English locale is explicit and Japanese remains the default",()=>{
@@ -29,6 +30,19 @@ test("English catalog contains reviewed anatomy and no Japanese output",()=>{
   assert.match(catalog["視床下核"]??"",/Subthalamic nucleus/i);
 });
 
+test("learner anatomy names agree with their English display term",()=>{
+  const catalog=JSON.parse(fs.readFileSync(new URL("../app/english-catalog.json",import.meta.url),"utf8"));
+  const page=fs.readFileSync(new URL("../app/page.tsx",import.meta.url),"utf8");
+  const pairs=[...page.matchAll(/name:"([^"]+)",latin:"([^"]+)"/gu)];
+  assert.ok(pairs.length>80);
+  const representativeNames=new Set(["III 動眼神経","XII 舌下神経","帯状回","眼窩前頭皮質","頭頂後頭溝","内包","黒質"]);
+  for(const [,name,sourceTerm] of pairs.filter(([,name])=>representativeNames.has(name))){
+    const expected=anatomyDisplayEnglish(sourceTerm);
+    assert.ok(catalog[name]===expected||catalog[name]?.startsWith(`${expected} (`)||catalog[name]?.endsWith(` · ${expected}`),`${name} must use the reviewed English display term for ${sourceTerm}`);
+  }
+  assert.equal(representativeNames.size,7);
+});
+
 test("reviewed English catalog is enabled without the former safety hold",()=>{
   const page=fs.readFileSync(new URL("../app/page.tsx",import.meta.url),"utf8");
   const localization=fs.readFileSync(new URL("../app/EnglishLocalization.tsx",import.meta.url),"utf8");
@@ -36,4 +50,7 @@ test("reviewed English catalog is enabled without the former safety hold",()=>{
   assert.match(page,/const EnglishLocalization=lazy\(\(\)=>import\("\.\/EnglishLocalization"\)/);
   assert.match(page,/<Suspense fallback=\{null\}><EnglishLocalization enabled=\{englishEdition\}\/><\/Suspense>/);
   assert.match(localization,/key\.length>=2/);
+  assert.match(localization,/"aria-label","title","placeholder","alt"/);
+  const css=fs.readFileSync(new URL("../app/canvas.css",import.meta.url),"utf8");
+  assert.match(css,/html\[lang="en"\] \.quizOptions button span small/);
 });

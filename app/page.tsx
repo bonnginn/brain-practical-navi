@@ -892,6 +892,7 @@ export default function Home() {
   const quizQuestionKindLabel:Record<QuizQuestionKind,string>={identification:"名称", "function-to-structure":"機能から同定", "function-choice":"機能", "relation-choice":"位置関係", "pathway-choice":"経路"};
   const neurovascularQuiz=isNeurovascularQuiz(quizQuestion);
   const surfaceQuiz=isSurfaceQuiz(quizQuestion);
+  const quizModelInitialRotation:Rotation=isNeurovascularQuiz(quizQuestion)?(quizQuestion.target==="cn4"?{x:-42,y:-118,z:0}:{...surfaceViews[quizQuestion.view].rotation}):isSurfaceQuiz(quizQuestion)?{...surfaceViews[quizQuestion.view].rotation}:{...homeRotation};
   const quizModelQuestion=surfaceQuiz||neurovascularQuiz;
   const quizSurfaceView=quizModelQuestion?quizQuestion.view:"lateral";
   const quizFilters:QuizFilters={category:quizCategory,format:quizFormat,detail:quizDetail,includeProvisional:quizIncludeProvisional,wrongOnly:quizWrongOnly};
@@ -942,7 +943,7 @@ export default function Home() {
   },[workspace,blockSpecimen]);
   useEffect(()=>{try{const saved=JSON.parse(localStorage.getItem(QUIZ_WRONG_CACHE_KEY)??"[]");if(Array.isArray(saved))setWrongTargets(saved.filter((key):key is QuizTargetKey=>typeof key==="string"&&(key in structures||key in surfaceRegions||key in neurovascularStructures)))}catch{/* invalid cache is ignored */}},[]);
   useEffect(()=>setQuizSlicePosition(quizStartPosition),[quizStartPosition,surfaceQuiz]);
-  useEffect(()=>{if(isSurfaceQuiz(quizQuestion)||isNeurovascularQuiz(quizQuestion))setRotation({...surfaceViews[quizQuestion.view].rotation})},[quizQuestion]);
+  useEffect(()=>{if(isSurfaceQuiz(quizQuestion)||isNeurovascularQuiz(quizQuestion))setRotation({...quizModelInitialRotation})},[quizQuestion]);
   useEffect(()=>{if(quizVisibilityAuditTarget&&!isSurfaceQuiz(quizQuestion)&&!isNeurovascularQuiz(quizQuestion))setRotation({...homeRotation})},[quizVisibilityAuditTarget?.target,quizQuestion]);
   useEffect(()=>{
     const widthQuery=window.matchMedia("(max-width: 760px)");
@@ -1040,7 +1041,7 @@ export default function Home() {
   function resetCurrentModelRotation(){
     if(workspace==="surface")return resetSurfaceView();
     if(workspace==="blocks"){setBlockViewPreset("initial");setRotation({...blockInitialRotations[blockSpecimen]});return}
-    if(workspace==="quiz"&&(isSurfaceQuiz(quizQuestion)||isNeurovascularQuiz(quizQuestion))){setRotation({...surfaceViews[quizQuestion.view].rotation});return}
+    if(workspace==="quiz"&&(isSurfaceQuiz(quizQuestion)||isNeurovascularQuiz(quizQuestion))){setRotation({...quizModelInitialRotation});return}
     setRotation(workspace==="sections"?{x:-7,y:-18,z:0}:{...homeRotation});
   }
 
@@ -1253,7 +1254,7 @@ export default function Home() {
           <label><span>次回出題項目（トピック）</span><select value={quizCategory} onChange={event=>setQuizCategory(event.target.value as "all"|QuizCategory)}>{quizCategories.map(category=><option key={category.key} value={category.key}>{category.label}（{quizChoiceCount("category",category.key)}問）</option>)}</select></label>
           <label><span>次回の教材形式</span><select value={quizFormat} onChange={event=>chooseQuizFormat(event.target.value as QuizFormatFilter)}>{quizFormatOptions.map(option=><option key={option.key} value={option.key}>{option.label}（{quizChoiceCount("format",option.key)}問）</option>)}</select></label>
           <label><span>次回の詳細（形式と組合せ）</span><select value={quizDetail} onChange={event=>setQuizDetail(event.target.value as QuizDetailFilter)}><option value="all">すべての詳細（{quizChoiceCount("detail","all")}問）</option>{quizDetailOptions.map(detail=><option key={detail} value={detail}>{quizDetailLabels[detail]}（{quizChoiceCount("detail",detail)}問）</option>)}</select><small className="quizFilterHint">名称同定に加えて、機能・位置関係・経路を問う試作問題を含みます。新しい解説問題は専門家未確認です。</small></label>
-          <div className="quizCandidateSummary" role="status" aria-live="polite"><b>次回 {quizCandidateCount}問候補</b><span>標準 {quizStandardCandidateCount}・試作 {quizProvisionalCandidateCount}</span></div>
+          <div className="quizCandidateSummary" role="status" aria-live="polite"><b>次回 {quizCandidateCount}問候補</b>{" "}<span>標準 {quizStandardCandidateCount}・試作 {quizProvisionalCandidateCount}</span></div>
           {quizCandidateCount===0&&<p className="quizCandidateEmptyNote" role="status" aria-live="polite">現在の条件の組合せに該当する問題がありません。トピック・形式・詳細・「間違った問題のみ」・「試作問題を含む」を見直してください。</p>}
           <div><span>次回の問題数（候補に応じて）</span><div className="quizCountButtons" role="group" aria-label="次回の問題数（上限）">{([5,10,15,20] as const).map(count=>{const actual=Math.min(count,quizCandidateCount);const label=quizCandidateCount<count?`${count}問（実際${actual}問）`:`${count}問`;return <button key={count} className={quizCount===count?"active":""} onClick={()=>setQuizCount(count)} disabled={quizCandidateCount===0} aria-pressed={quizCount===count} aria-label={`${count}問を上限に${actual}問（候補${quizCandidateCount}）`}>{label}</button>})}</div></div>
           <label className="wrongOnlyToggle"><input data-quiz-wrong-only="true" type="checkbox" checked={quizWrongOnly} onChange={event=>setQuizWrongOnly(event.target.checked)}/><span>間違った問題のみ</span><b data-quiz-candidate-count={quizCandidateCount}>{wrongTargets.length}</b></label>
