@@ -33,7 +33,7 @@ test("freezes exact 17/6/22 inventory, options/render dependency, and 135-row ma
   assert.ok(QUIZ_TARGET_VISIBILITY_INVENTORY.every(entry=>entry.options.length===4&&entry.options.includes(entry.target)&&entry.expectedIds.length>0));
   const transformFor=target=>QUIZ_TARGET_VISIBILITY_INVENTORY.find(entry=>entry.target===target)?.expectedTransform;
   assert.deepEqual(transformFor("ventricle"),{rotation:{x:-8,y:-28,z:0},zoom:1,pan:{x:0,y:0}});assert.deepEqual(transformFor("precentral"),{rotation:{x:0,y:-90,z:0},zoom:1,pan:{x:0,y:0}});assert.deepEqual(transformFor("ica"),{rotation:{x:110,y:2,z:180},zoom:1,pan:{x:0,y:0}});assert.deepEqual(transformFor("cn1"),{rotation:{x:-42,y:2,z:0},zoom:1,pan:{x:0,y:0}});
-  const changedRotation=auditQuizTargetVisibilitySource({source:appSource.replace('lateral:{name:"左外側面",en:"LATERAL",visual:"cortex",rotation:{x:0,y:-90,z:0}','lateral:{name:"左外側面",en:"LATERAL",visual:"cortex",rotation:{x:1,y:-90,z:0}')});assert.equal(changedRotation.ok,false);assert.ok(changedRotation.errors.some(error=>error.includes("options/render hash")));
+  const changedRotation=auditQuizTargetVisibilitySource({source:appSource.replace('lateral:{name:"左外側面",en:"LEFT LATERAL SURFACE",visual:"cortex",rotation:{x:0,y:-90,z:0}','lateral:{name:"左外側面",en:"LEFT LATERAL SURFACE",visual:"cortex",rotation:{x:1,y:-90,z:0}')});assert.equal(changedRotation.ok,false);assert.ok(changedRotation.errors.some(error=>error.includes("options/render hash")));
 });
 
 test("unit fixture is external-artifact evidence and is rejected by live mode",()=>{
