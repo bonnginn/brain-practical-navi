@@ -299,3 +299,11 @@ https://github.com/bonnginn/brain-practical-navi を取得し、WINDOWS_HANDOFF.
 - 専門家・管理者・実機での確認が残る項目
 
 β版への昇格は、`BETA_ROADMAP.md` のGo / No-Goを満たし、少なくとも1名の神経解剖学に詳しい確認者の記録を得た後に、プロジェクト管理者が決定します。
+# English edition checkpoint (2026-08-29)
+
+- English learner mode: `?lang=en`
+- Japanese remains the default and canonical content source.
+- Same learner structure: Home, surface, sections, blocks, quiz, help, feedback, status, and terms.
+- Collaboration recruitment and contributor segmentation are not exposed in English mode; direct routes return to Home.
+- Translation catalogue and route tests are in `app/english-catalog.json`, `app/EnglishLocalization.tsx`, `src/locale.mjs`, and `tests/english-edition.test.mjs`.
+- Expert/native-language review and post-deployment device checks remain pending. See `ENGLISH_EDITION_AUDIT.md`.

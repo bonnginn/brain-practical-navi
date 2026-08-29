@@ -231,3 +231,6 @@ PWAのキャッシュ境界、更新方針、未確認項目は [PWA_OFFLINE_AUD
 - [PHONE_CORE_INTERACTION_AUDIT.md](PHONE_CORE_INTERACTION_AUDIT.md): coarse-touch phoneの中心操作5 journeyと未確認範囲
 - [ANATOMY_REVIEW_HANDOFF.md](ANATOMY_REVIEW_HANDOFF.md): 専門家レビュー準備キューの範囲、導線、監査
 - [ANATOMY_REVIEW_RECORD_DRAFT_AUDIT.md](ANATOMY_REVIEW_RECORD_DRAFT_AUDIT.md): 未提出・非採用の構造化された端末内確認記録
+# English learner edition (2026-08-29)
+
+An English learner edition is available through `?lang=en` with the same five learning destinations. Contributor recruitment and segmentation editing are excluded from English mode. Translation is a deterministic project-reviewed draft with selected anatomy overrides; expert and native-language review remain pending. See `ENGLISH_EDITION_AUDIT.md`.
