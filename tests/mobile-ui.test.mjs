@@ -38,6 +38,8 @@ test("phone navigation is a five-destination student dock and hides editing entr
   assert.match(page, /編集ツールはPCで利用/);
   assert.match(page, /phoneMode\?<div className="phoneSegmentGuard"/);
   assert.match(page, /<ManualSegmentationWorkbench\/>/);
+  assert.match(page, /const ManualSegmentationWorkbench=lazy\(\(\)=>import\("\.\/ManualSegmentationWorkbench"\)/);
+  assert.match(page, /編集ツールを読み込み中…[\s\S]*<ManualSegmentationWorkbench\/>/);
   assert.match(page, /className="segmentationEntry"/);
   assert.match(css, /\.phone-mode \.segmentationEntry\{display:none\}/);
 });

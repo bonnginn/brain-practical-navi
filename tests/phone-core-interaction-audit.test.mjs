@@ -299,6 +299,8 @@ test("phone audit exposes a fixed five-destination dock, coarse-touch policy, an
   assert.match(page, /data-block-guided-action="stop"/);
   assert.match(page, /data-block-intro-action="close"/);
   assert.match(css, /\.phone-mode \.sectionLayoutSwitch button\{min-height:44px\}/);
+  assert.match(css, /\.sectionResizeHandle\{width:100%;min-width:0;height:1px;min-height:1px/);
+  assert.match(css, /\.sectionModelViewSwitch button\{min-width:44px;min-height:36px/);
   assert.match(css, /\.phone-mode \.panelActions button\{min-height:44px\}/);
   assert.match(css, /\.phone-mode \.sliceTimeline input\[type=range\]\{min-height:44px\}/);
   assert.match(css, /\.phone-mode \.quizFeedback button\{min-height:44px\}/);

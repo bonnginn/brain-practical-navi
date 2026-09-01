@@ -1,8 +1,7 @@
 "use client";
 
-import { KeyboardEvent as ReactKeyboardEvent, lazy, PointerEvent, SyntheticEvent, Suspense, useEffect, useMemo, useRef, useState } from "react";
+import { KeyboardEvent as ReactKeyboardEvent, lazy, PointerEvent, SyntheticEvent, Suspense, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { AtlasVolumeCanvas, QUIZ_SECTION_ACCENT_HEX, type BlockContextSpecimen, type HighlightLayer, type IdentifiedPoint } from "./AtlasVolumeCanvas";
-import { ManualSegmentationWorkbench } from "./ManualSegmentationWorkbench";
 import betaStatus from "./beta-status.json";
 import betaGoNoGoDisplay from "./beta-go-no-go-display.json";
 import quizConceptBank from "./quiz-concept-bank.json";
@@ -15,7 +14,6 @@ import type { BlockContextEvent } from "../src/blockContext.mjs";
 import { phoneCapabilityFromMedia, phoneUiOverride } from "../src/mobileUi.mjs";
 import { deriveAnatomyReviewQueue, filterAnatomyReviewQueue, isLegacyOpticEntry, isMammillaryEntry, observationHashForEntry, observationWorkspaceForEntry } from "../src/anatomyReviewQueue.mjs";
 import type { AnatomyReviewQueueItem, AnatomyReviewSurface } from "../src/anatomyReviewQueue.mjs";
-import { AnatomyReviewRecordDraftCard } from "./AnatomyReviewRecordDraft";
 import { advanceBasalStepperIndex, advancePapezStepperIndex, BASAL_GANGLIA_STEPS, PAPEZ_STEPS, startBasalGangliaStepperTimer, startPapezStepperTimer } from "../src/pathwayStepper.mjs";
 import type { BasalGangliaStep, PapezStep } from "../src/pathwayStepper.mjs";
 import { BLOCK_PRIORITY_DISCLAIMER, BLOCK_PRIORITY_ENTRY_BY_KEY, BLOCK_PRIORITY_GROUPS, BLOCK_PRIORITY_GROUP_KEYS, BLOCK_SPECIMEN_KEYS } from "../src/blockPriority.mjs";
@@ -31,6 +29,8 @@ import { anatomyDisplayEnglish } from "../src/anatomyDisplayEnglish.mjs";
 
 const ModelStrategyComparison=lazy(()=>import("./ModelStrategyComparison"));
 const EnglishLocalization=lazy(()=>import("./EnglishLocalization").then(module=>({default:module.EnglishLocalization})));
+const ManualSegmentationWorkbench=lazy(()=>import("./ManualSegmentationWorkbench").then(module=>({default:module.ManualSegmentationWorkbench})));
+const AnatomyReviewRecordDraftCard=lazy(()=>import("./AnatomyReviewRecordDraft").then(module=>({default:module.AnatomyReviewRecordDraftCard})));
 
 type Plane = "coronal" | "horizontal" | "sagittal";
 type Focus = "ventricle" | "caudate" | "hippocampus" | "thalamus";
@@ -663,7 +663,7 @@ function AnatomyReviewQueuePanel({items,total,surfaceFilter,representationFilter
           {mammillary&&<p className="anatomyReviewNote"><b>ID39・40</b> プロジェクト内レビューを経て公開教材ラベルとして採用していますが、専門家レビューは未完了です。</p>}
           <details className="anatomyReviewSubdetails"><summary>既知の制限</summary><ul>{entry.knownLimitations.map((value,index)=><li key={`${item.key}-limit-${index}`}>{value}</li>)}</ul></details>
           <details className="anatomyReviewSubdetails"><summary>source refs</summary>{entry.sourceRefs.length?<ul>{entry.sourceRefs.map(value=><li key={value}><code>{value}</code></li>)}</ul>:<p>この項目に記録されたsource refsはありません。</p>}</details>
-          {openReviewCards.has(item.key)&&<AnatomyReviewRecordDraftCard registry={anatomyReviewRegistry} entry={entry}/>}
+          {openReviewCards.has(item.key)&&<Suspense fallback={<div className="atlasLoading" role="status">確認記録を読み込み中…</div>}><AnatomyReviewRecordDraftCard registry={anatomyReviewRegistry} entry={entry}/></Suspense>}
           {observationHash?<a className="anatomyReviewObserve" href={observationHash}>一般の{observationLabel}画面を開く（この項目・構造・位置は自動選択されません） →</a>:<span className="anatomyReviewNoObserve">対応する利用者向け観察入口はありません</span>}
         </div>
       </details>;
@@ -722,6 +722,9 @@ export default function Home() {
   const [labels, setLabels] = useState(true);
   const [block, setBlock] = useState<"inside" | "ghost" | "extracted" | "segmented">("ghost");
   const [sectionLayout,setSectionLayout]=useState<"both"|"slice"|"model">(()=>typeof window!=="undefined"&&window.matchMedia("(max-width: 760px)").matches?"slice":"both");
+  const [sectionModelShare,setSectionModelShare]=useState(40);
+  const [sectionModelViews,setSectionModelViews]=useState<1|2>(2);
+  const [compactSectionLayout,setCompactSectionLayout]=useState(()=>typeof window!=="undefined"&&window.matchMedia("(max-width: 760px)").matches);
   const [display, setDisplay] = useState<"specimen" | "diagram" | "outline">("specimen");
   const [contrast, setContrast] = useState<"t1" | "t2" | "bigbrain" | "single">("bigbrain");
   const [rotation, setRotation] = useState<Rotation>(()=>workspace==="sections"?{x:-7,y:-18,z:0}:workspace==="surface"?surfaceViews[surfaceView].rotation:workspace==="blocks"?blockInitialRotations[initialBlockSpecimen]:{...homeRotation});
@@ -744,6 +747,7 @@ export default function Home() {
   const pwaInstallAffordanceRef=useRef<ReturnType<typeof createPwaInstallAffordance>|null>(null);
   const phoneSettingsDialogRef=useRef<HTMLDialogElement|null>(null);
   const phoneSettingsReturnFocus=useRef<HTMLElement|null>(null);
+  const sectionStageRef=useRef<HTMLDivElement|null>(null);
   const overlayOpen=helpOpen||feedbackOpen||legalOpen||statusOpen;
   const [surfaceCerebellum,setSurfaceCerebellum]=useState(surfaceView!=="cranialNerves"&&surfaceView!=="arteries"&&surfaceView!=="medial"&&surfaceView!=="inferior");
   const [surfaceVisibleRegions,setSurfaceVisibleRegions]=useState<SurfaceRegionKey[]>([]);
@@ -951,7 +955,7 @@ export default function Home() {
     const pointerQuery=window.matchMedia("(pointer: coarse)");
     const mediaQueries=[widthQuery,hoverQuery,pointerQuery];
     const override=phoneUiOverride(window.location.search);
-    const update=()=>setPhoneMode(override??phoneCapabilityFromMedia({width:window.innerWidth,hoverMatches:hoverQuery.matches,pointerMatches:pointerQuery.matches}));
+    const update=()=>{setCompactSectionLayout(widthQuery.matches);setPhoneMode(override??phoneCapabilityFromMedia({width:window.innerWidth,hoverMatches:hoverQuery.matches,pointerMatches:pointerQuery.matches}))};
     update();
     window.addEventListener("resize",update);
     window.addEventListener("orientationchange",update);
@@ -1066,6 +1070,44 @@ export default function Home() {
       :{...r,x:wrapAngle(r.x-dy*.42),y:wrapAngle(r.y+dx*.42)});
     if(workspace==="blocks")setBlockViewPreset("custom");
     setDrag({x:e.clientX,y:e.clientY,mode:drag.mode});
+  }
+
+  function setBoundedSectionModelShare(value:number){
+    setSectionModelShare(Math.max(25,Math.min(75,Math.round(value))));
+  }
+
+  function resizeSectionAreas(event:PointerEvent<HTMLButtonElement>){
+    const stage=sectionStageRef.current;
+    if(!stage)return;
+    const rect=stage.getBoundingClientRect();
+    const share=compactSectionLayout
+      ?((rect.bottom-event.clientY)/rect.height)*100
+      :((rect.right-event.clientX)/rect.width)*100;
+    setBoundedSectionModelShare(share);
+  }
+
+  function beginSectionResize(event:PointerEvent<HTMLButtonElement>){
+    event.preventDefault();
+    event.currentTarget.setPointerCapture?.(event.pointerId);
+    resizeSectionAreas(event);
+  }
+
+  function moveSectionResize(event:PointerEvent<HTMLButtonElement>){
+    if(!event.currentTarget.hasPointerCapture?.(event.pointerId))return;
+    resizeSectionAreas(event);
+  }
+
+  function endSectionResize(event:PointerEvent<HTMLButtonElement>){
+    if(event.currentTarget.hasPointerCapture?.(event.pointerId))event.currentTarget.releasePointerCapture?.(event.pointerId);
+  }
+
+  function handleSectionResizeKey(event:ReactKeyboardEvent<HTMLButtonElement>){
+    const modelGrowthKey=compactSectionLayout?"ArrowUp":"ArrowLeft";
+    const modelShrinkKey=compactSectionLayout?"ArrowDown":"ArrowRight";
+    if(event.key==="Home"){event.preventDefault();setSectionModelShare(40);return}
+    if(event.key!==modelGrowthKey&&event.key!==modelShrinkKey)return;
+    event.preventDefault();
+    setBoundedSectionModelShare(sectionModelShare+(event.key===modelGrowthKey?5:-5));
   }
 
   function beginBlockContextRotation(e:PointerEvent<HTMLDivElement>){
@@ -1204,7 +1246,7 @@ export default function Home() {
   function resetWrongHistory(){saveWrongTargets([]);if(quizWrongOnly){setQuizQueue([]);resetQuiz()}}
 
   return <main className={`appShell workspace-${workspace} ${workspace==="home"?"homeShell":""} ${phoneMode?"phone-mode":""}`} data-locale={locale}>
-    <Suspense fallback={null}><EnglishLocalization enabled={englishEdition}/></Suspense>
+    {englishEdition&&<Suspense fallback={null}><EnglishLocalization enabled/></Suspense>}
     <button className="skipLink" onClick={()=>document.getElementById("workspace")?.focus()}>本文へ移動</button>
     <header className="topbar">
       <a className="brand" href="#workspace/home" onClick={event=>{event.preventDefault();openWorkspace("home")}}><span className="brandMark">脳</span><span>脳実習ナビ<small>脳解剖実習 学習補助アプリ</small></span></a>
@@ -1297,15 +1339,16 @@ export default function Home() {
     {workspace==="sections"&&<section className="workArea" id="workspace" tabIndex={-1}><h1 className="srOnly">断面実習</h1>
       <div className="visualGrid"><section className="slicePanel">
         <div className="panelHead"><div><b>{planeData[plane].ja}</b><small>位置 {position}・BigBrain公開組織画像 0.5 mm（表示用再標本化・同一格子で検証済み）・実習標本調</small></div><div className="sliceTools">{sectionDeveloperControls&&<><div className="contrastSwitch" aria-label="開発者用・断面画像ソース"><button className={contrast === "bigbrain" ? "active" : ""} onClick={() => setContrast("bigbrain")}>BigBrain組織 0.5</button><button className={contrast === "single" ? "active" : ""} onClick={() => setContrast("single")}>単一固定脳 MRI 0.444 mm</button><button className={contrast === "t1" ? "active" : ""} onClick={() => setContrast("t1")}>平均T1</button><button className={contrast === "t2" ? "active" : ""} onClick={() => setContrast("t2")}>T2</button></div><div className="displaySwitch" aria-label="開発者用・断面表示調"><button className={display === "specimen" ? "active" : ""} onClick={() => setDisplay("specimen")}>実習標本調</button><button className={display === "diagram" ? "active" : ""} onClick={() => setDisplay("diagram")}>学習図</button><button className={display === "outline" ? "active" : ""} onClick={() => setDisplay("outline")}>輪郭</button></div></>}<div className="sectionLayoutSwitch" aria-label="断面と全脳3Dの表示"><button className={sectionLayout==="both"?"active":""} aria-pressed={sectionLayout==="both"} onClick={()=>setSectionLayout("both")} disabled={webglUnavailable}>断面＋3D</button><button className={sectionLayout==="slice"?"active":""} aria-pressed={sectionLayout==="slice"} onClick={()=>setSectionLayout("slice")}>断面のみ</button><button className={sectionLayout==="model"?"active":""} aria-pressed={sectionLayout==="model"} onClick={()=>setSectionLayout("model")} disabled={webglUnavailable}>3Dのみ</button></div><label className="labelToggle compactToggle"><input type="checkbox" checked={labels} onChange={e => setLabels(e.target.checked)}/><span/>構造表示</label></div></div>
-        <div className={`sliceStage ${plane} ${sliceVariant(position)} layout-${sectionLayout}`}>
+        <div ref={sectionStageRef} className={`sliceStage ${plane} ${sliceVariant(position)} layout-${sectionLayout}`} style={{"--section-model-share":`${sectionModelShare}%`} as CSSProperties}>
           {sectionLayout!=="model"&&<div className="sliceViewport">
             <AtlasVolumeCanvas kind="slice" plane={plane} position={position} focus={focus} display={display} rotation={rotation} contrast={contrast} highlights={highlightLayers} onIdentify={contrast==="single"?undefined:identify} onViewChange={()=>setIdentified(null)}/>
             <div className={`identifyHint ${contrast==="single"?"unavailable":""}`}><b>{contrast==="single"?"ホイールで拡大縮小":"クリックで同定・ホイールで拡大"}</b><span>{contrast==="bigbrain"?"0.5 mm格子・Shiftドラッグで移動":contrast==="single"?"画像参照・Shiftドラッグで移動":"アトラス対応・Shiftドラッグで移動"}</span></div>
             {identified&&<div className={`identifyMarker ${identified.id===0?"outside":""}`} style={{left:`clamp(88px, ${identified.x}px, calc(100% - 88px))`,top:`clamp(70px, ${identified.y}px, calc(100% - 18px))`}}><i/><b>{labels?`${identified.side}${identified.name}`:"？"}</b>{sectionDeveloperControls&&<small>{identified.certainty==="atlas"?"ATLAS":identified.certainty==="manual"?"MANUAL":identified.certainty==="reviewed"?"REVIEWED":"PILOT"}</small>}</div>}
           </div>}
-          {sectionLayout!=="slice"&&<aside className="modelInset" aria-label="全脳を2方向から見て切断位置を確認">
-            <div className="insetHead"><div><b>全脳モデル</b><small>{contrast==="single"?"別個体MRIのため切断位置は概略":block==="ghost"?"透過脳表で内部構造を確認":block==="segmented"?"不透明な分節モデルで切断位置を確認":"切断面と選択構造を確認"}</small></div><span>{planeData[plane].en.slice(0,3)} {position}</span></div>
-            <div className={`insetViews ${webglUnavailable?"webglUnavailable":""}`}>{sectionModelRotations.slice(0,webglUnavailable?1:undefined).map((modelRotation,index)=><div key={index} className={`modelStage insetStage ${webglUnavailable?"webglUnavailable":""}`} tabIndex={webglUnavailable?undefined:0} aria-label={webglUnavailable?undefined:`切断位置の全脳3Dモデル・${index===0?"基準方向":"直交方向"}。ドラッグまたは矢印キーで回転、Rキーで向きを戻す`} onKeyDown={webglUnavailable?undefined:handleModelKey} onPointerDown={webglUnavailable?undefined:beginRotation} onPointerMove={webglUnavailable?undefined:move} onPointerUp={webglUnavailable?undefined:()=>setDrag(null)} onPointerCancel={webglUnavailable?undefined:()=>setDrag(null)} onContextMenu={webglUnavailable?undefined:event=>event.preventDefault()}>
+          {sectionLayout==="both"&&<button type="button" className="sectionResizeHandle" role="separator" aria-label="断面と3Dの境界。ドラッグで表示面積を変更" aria-orientation={compactSectionLayout?"horizontal":"vertical"} aria-valuemin={25} aria-valuemax={75} aria-valuenow={sectionModelShare} onPointerDown={beginSectionResize} onPointerMove={moveSectionResize} onPointerUp={endSectionResize} onPointerCancel={endSectionResize} onKeyDown={handleSectionResizeKey}><span/></button>}
+          {sectionLayout!=="slice"&&<aside className="modelInset" aria-label={`全脳を${sectionModelViews===1?"1方向":"2方向"}から見て切断位置を確認`}>
+            <div className="insetHead"><div><b>全脳モデル</b><small>{contrast==="single"?"別個体MRIのため切断位置は概略":block==="ghost"?"透過脳表で内部構造を確認":block==="segmented"?"不透明な分節モデルで切断位置を確認":"切断面と選択構造を確認"}</small></div><div className="insetHeadActions"><div className="sectionModelViewSwitch" aria-label="3D表示数"><button type="button" className={sectionModelViews===1?"active":""} aria-pressed={sectionModelViews===1} onClick={()=>setSectionModelViews(1)}>1面</button><button type="button" className={sectionModelViews===2?"active":""} aria-pressed={sectionModelViews===2} onClick={()=>setSectionModelViews(2)}>2面</button></div><span>{planeData[plane].en.slice(0,3)} {position}</span></div></div>
+            <div className={`insetViews views-${sectionModelViews} ${webglUnavailable?"webglUnavailable":""}`}>{sectionModelRotations.slice(0,webglUnavailable?1:sectionModelViews).map((modelRotation,index)=><div key={index} className={`modelStage insetStage ${webglUnavailable?"webglUnavailable":""}`} tabIndex={webglUnavailable?undefined:0} aria-label={webglUnavailable?undefined:`切断位置の全脳3Dモデル・${index===0?"基準方向":"直交方向"}。ドラッグまたは矢印キーで回転、Rキーで向きを戻す`} onKeyDown={webglUnavailable?undefined:handleModelKey} onPointerDown={webglUnavailable?undefined:beginRotation} onPointerMove={webglUnavailable?undefined:move} onPointerUp={webglUnavailable?undefined:()=>setDrag(null)} onPointerCancel={webglUnavailable?undefined:()=>setDrag(null)} onContextMenu={webglUnavailable?undefined:event=>event.preventDefault()}>
               <AtlasVolumeCanvas kind="surface" plane={plane} position={position} focus={focus} display={display} rotation={modelRotation} view={block} contrast={contrast} showFocus={modelFocusVisible} showZoomControls={false} selectionMeshLayers={sectionSelectionMeshLayers} onWebGLUnavailableChange={setWebglUnavailable}/>
               {!webglUnavailable&&<><OrientationCompass rotation={modelRotation} compact/><span className="insetViewLabel">{index===0?"基準方向":"90°直交"}</span></>}
             </div>)}</div>
@@ -1440,7 +1483,7 @@ export default function Home() {
 
     {workspace==="segment"&&<section className="workArea segmentationArea" id="workspace" tabIndex={-1}>
       <div className="workHead"><div><span className="eyebrow">MANUAL SEGMENTATION · ALPHA</span><h1>セグメンテーション編集</h1></div><span className="sourceBadge">BigBrain公開組織画像 0.5 mm・水平断編集／直交断照合</span></div>
-      {phoneMode?<div className="phoneSegmentGuard"><span className="eyebrow">PHONE VIEW</span><h2>編集ツールはPCで利用</h2><p>セグメンテーション編集は、画像とCanvasを安全に扱えるPC向け機能です。スマートフォンでは編集Canvasを読み込まず、教材の閲覧と共同制作の案内だけを表示します。</p><div><button onClick={()=>openWorkspace("collaborate")}>共同制作の入口へ</button><button onClick={()=>openWorkspace("surface")}>学習画面へ戻る</button></div></div>:<><div className="segmentationReviewNotice"><b>端末内の差分編集です</b><p>ここでの編集は公式データを直接変更しません。差分JSONへ根拠を記録し、Pull Requestと解剖学的レビューを経て、採用された変更だけが公開版へ統合されます。</p><button onClick={()=>openWorkspace("collaborate")}>共同制作の入口へ戻る</button></div><ManualSegmentationWorkbench/></>}
+      {phoneMode?<div className="phoneSegmentGuard"><span className="eyebrow">PHONE VIEW</span><h2>編集ツールはPCで利用</h2><p>セグメンテーション編集は、画像とCanvasを安全に扱えるPC向け機能です。スマートフォンでは編集Canvasを読み込まず、教材の閲覧と共同制作の案内だけを表示します。</p><div><button onClick={()=>openWorkspace("collaborate")}>共同制作の入口へ</button><button onClick={()=>openWorkspace("surface")}>学習画面へ戻る</button></div></div>:<><div className="segmentationReviewNotice"><b>端末内の差分編集です</b><p>ここでの編集は公式データを直接変更しません。差分JSONへ根拠を記録し、Pull Requestと解剖学的レビューを経て、採用された変更だけが公開版へ統合されます。</p><button onClick={()=>openWorkspace("collaborate")}>共同制作の入口へ戻る</button></div><Suspense fallback={<div className="atlasLoading" role="status">編集ツールを読み込み中…</div>}><ManualSegmentationWorkbench/></Suspense></>}
     </section>}
 
     {workspace==="sections"&&detailsOpen&&<button className="inspectorBackdrop" aria-label="解説を閉じる" onClick={()=>setDetailsOpen(false)}/>}

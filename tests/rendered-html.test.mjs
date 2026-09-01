@@ -400,14 +400,26 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /複数選択/);
   assert.match(page, /useState<"inside" \| "ghost" \| "extracted" \| "segmented">\("ghost"\)/);
   assert.match(page, /useState<"both"\|"slice"\|"model">\(\(\)=>typeof window/);
+  assert.match(page, /const \[sectionModelShare,setSectionModelShare\]=useState\(40\)/);
+  assert.match(page, /const \[sectionModelViews,setSectionModelViews\]=useState<1\|2>\(2\)/);
+  assert.match(page, /const \[compactSectionLayout,setCompactSectionLayout\]=useState\(\(\)=>typeof window/);
+  assert.match(page, /setCompactSectionLayout\(widthQuery\.matches\)/);
   assert.match(page, /className="sectionLayoutSwitch" aria-label="断面と全脳3Dの表示"/);
   assert.match(page, /断面＋3D/);
   assert.match(page, /断面のみ/);
   assert.match(page, /3Dのみ/);
+  assert.doesNotMatch(page, /className="sectionAreaControl"/);
+  assert.match(page, /className="sectionResizeHandle" role="separator"/);
+  assert.match(page, /aria-label="断面と3Dの境界。ドラッグで表示面積を変更"/);
+  assert.match(page, /aria-valuemin=\{25\} aria-valuemax=\{75\} aria-valuenow=\{sectionModelShare\}/);
+  assert.match(page, /onPointerDown=\{beginSectionResize\} onPointerMove=\{moveSectionResize\}/);
+  assert.match(page, /className="sectionModelViewSwitch" aria-label="3D表示数"/);
+  assert.match(page, /setSectionModelViews\(1\).*1面.*setSectionModelViews\(2\).*2面/);
+  assert.match(page, /"--section-model-share":`\$\{sectionModelShare\}%`/);
   assert.match(page, /sectionLayout!=="model"&&<div className="sliceViewport">/);
   assert.match(page, /sectionLayout!=="slice"&&<aside className="modelInset"/);
   assert.match(page, /const sectionModelRotations:Rotation\[]=\[rotation,\{\.\.\.rotation,y:wrapAngle\(rotation\.y\+90\)\}\]/);
-  assert.match(page, /className=\{`insetViews \$\{webglUnavailable\?"webglUnavailable":""\}`\}/);
+  assert.match(page, /className=\{`insetViews views-\$\{sectionModelViews\} \$\{webglUnavailable\?"webglUnavailable":""\}`\}/);
   assert.match(page, /"90°直交"/);
   assert.match(page, /const sectionSelectionMeshLayers=activeVisibleStructures\.flatMap/);
   assert.match(page, /selectionMeshLayers=\{sectionSelectionMeshLayers\}/);
@@ -420,7 +432,10 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(canvas, /if\(showFocus&&selectionLayers\.length\)/);
   assert.match(canvas, /selectionLayers\.forEach\(layer=>layer\.meshes\.forEach/);
   assert.match(canvasCss, /\.insetViews \{[^}]*grid-template-rows: repeat\(2,minmax\(0,1fr\)\)/);
-  assert.match(canvasCss, /\.sliceStage\.layout-model \.insetViews \{ grid-template-columns: repeat\(2,minmax\(0,1fr\)\); grid-template-rows: minmax\(0,1fr\); \}/);
+  assert.match(canvasCss, /\.insetViews\.views-1 \{ grid-template-columns: minmax\(0,1fr\); grid-template-rows: minmax\(0,1fr\); \}/);
+  assert.match(canvasCss, /\.insetViews\.views-2 \{ grid-template-columns: minmax\(0,1fr\); grid-template-rows: repeat\(2,minmax\(0,1fr\)\); \}/);
+  assert.match(canvasCss, /\.sliceStage\.layout-both \{ grid-template-columns: minmax\(0,calc\(100% - var\(--section-model-share,40%\) - 1px\)\) 1px minmax\(0,var\(--section-model-share,40%\)\); \}/);
+  assert.match(canvasCss, /\.sectionResizeHandle \{[^}]*cursor: col-resize;[^}]*touch-action: none/);
   assert.match(page, /const sectionDeveloperControls=\(import\.meta\.env\.VITE_SECTION_DEVELOPER_CONTROLS as string\|undefined\)==="true"/);
   assert.match(page, /位置 \{position\}・BigBrain公開組織画像 0\.5 mm（表示用再標本化・同一格子で検証済み）・実習標本調/);
   assert.match(page, /BigBrain公開組織画像 0\.5 mm/);
@@ -975,12 +990,12 @@ test("keeps patch source paths canonical in a GitHub Pages-base build", async ()
     encoding:"utf8",
   });
   assert.equal(result.status, 0, result.stderr);
-  const assetName = (await readdir(new URL("dist/assets/", root))).find(name => /^index-.*\.js$/.test(name));
-  assert.ok(assetName);
-  const bundle = await readFile(new URL(`dist/assets/${assetName}`, root), "utf8");
-  assert.match(bundle, /\/atlas\/bigbrain-icbm500\.bin\.gz/);
-  assert.match(bundle, /\/atlas\/bigbrain-practical-segmentation-icbm500\.bin\.gz/);
-  assert.doesNotMatch(bundle, /\/brain-practical-navi\/atlas\/bigbrain-icbm500\.bin\.gz/);
+  const assetNames = (await readdir(new URL("dist/assets/", root))).filter(name => name.endsWith(".js"));
+  assert.ok(assetNames.length>1);
+  const bundles = (await Promise.all(assetNames.map(name=>readFile(new URL(`dist/assets/${name}`, root), "utf8")))).join("\n");
+  assert.match(bundles, /\/atlas\/bigbrain-icbm500\.bin\.gz/);
+  assert.match(bundles, /\/atlas\/bigbrain-practical-segmentation-icbm500\.bin\.gz/);
+  assert.doesNotMatch(bundles, /\/brain-practical-navi\/atlas\/bigbrain-icbm500\.bin\.gz/);
 });
 
 test("adds orthogonal read-only audit planes without changing the horizontal patch contract", async () => {
