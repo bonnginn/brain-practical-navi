@@ -2,7 +2,6 @@
 
 import { KeyboardEvent as ReactKeyboardEvent, lazy, PointerEvent, SyntheticEvent, Suspense, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { AtlasVolumeCanvas, QUIZ_SECTION_ACCENT_HEX, type BlockContextSpecimen, type HighlightLayer, type IdentifiedPoint } from "./AtlasVolumeCanvas";
-import { ManualSegmentationWorkbench } from "./ManualSegmentationWorkbench";
 import betaStatus from "./beta-status.json";
 import betaGoNoGoDisplay from "./beta-go-no-go-display.json";
 import quizConceptBank from "./quiz-concept-bank.json";
@@ -15,7 +14,6 @@ import type { BlockContextEvent } from "../src/blockContext.mjs";
 import { phoneCapabilityFromMedia, phoneUiOverride } from "../src/mobileUi.mjs";
 import { deriveAnatomyReviewQueue, filterAnatomyReviewQueue, isLegacyOpticEntry, isMammillaryEntry, observationHashForEntry, observationWorkspaceForEntry } from "../src/anatomyReviewQueue.mjs";
 import type { AnatomyReviewQueueItem, AnatomyReviewSurface } from "../src/anatomyReviewQueue.mjs";
-import { AnatomyReviewRecordDraftCard } from "./AnatomyReviewRecordDraft";
 import { advanceBasalStepperIndex, advancePapezStepperIndex, BASAL_GANGLIA_STEPS, PAPEZ_STEPS, startBasalGangliaStepperTimer, startPapezStepperTimer } from "../src/pathwayStepper.mjs";
 import type { BasalGangliaStep, PapezStep } from "../src/pathwayStepper.mjs";
 import { BLOCK_PRIORITY_DISCLAIMER, BLOCK_PRIORITY_ENTRY_BY_KEY, BLOCK_PRIORITY_GROUPS, BLOCK_PRIORITY_GROUP_KEYS, BLOCK_SPECIMEN_KEYS } from "../src/blockPriority.mjs";
@@ -31,6 +29,8 @@ import { anatomyDisplayEnglish } from "../src/anatomyDisplayEnglish.mjs";
 
 const ModelStrategyComparison=lazy(()=>import("./ModelStrategyComparison"));
 const EnglishLocalization=lazy(()=>import("./EnglishLocalization").then(module=>({default:module.EnglishLocalization})));
+const ManualSegmentationWorkbench=lazy(()=>import("./ManualSegmentationWorkbench").then(module=>({default:module.ManualSegmentationWorkbench})));
+const AnatomyReviewRecordDraftCard=lazy(()=>import("./AnatomyReviewRecordDraft").then(module=>({default:module.AnatomyReviewRecordDraftCard})));
 
 type Plane = "coronal" | "horizontal" | "sagittal";
 type Focus = "ventricle" | "caudate" | "hippocampus" | "thalamus";
@@ -663,7 +663,7 @@ function AnatomyReviewQueuePanel({items,total,surfaceFilter,representationFilter
           {mammillary&&<p className="anatomyReviewNote"><b>ID39・40</b> プロジェクト内レビューを経て公開教材ラベルとして採用していますが、専門家レビューは未完了です。</p>}
           <details className="anatomyReviewSubdetails"><summary>既知の制限</summary><ul>{entry.knownLimitations.map((value,index)=><li key={`${item.key}-limit-${index}`}>{value}</li>)}</ul></details>
           <details className="anatomyReviewSubdetails"><summary>source refs</summary>{entry.sourceRefs.length?<ul>{entry.sourceRefs.map(value=><li key={value}><code>{value}</code></li>)}</ul>:<p>この項目に記録されたsource refsはありません。</p>}</details>
-          {openReviewCards.has(item.key)&&<AnatomyReviewRecordDraftCard registry={anatomyReviewRegistry} entry={entry}/>}
+          {openReviewCards.has(item.key)&&<Suspense fallback={<div className="atlasLoading" role="status">確認記録を読み込み中…</div>}><AnatomyReviewRecordDraftCard registry={anatomyReviewRegistry} entry={entry}/></Suspense>}
           {observationHash?<a className="anatomyReviewObserve" href={observationHash}>一般の{observationLabel}画面を開く（この項目・構造・位置は自動選択されません） →</a>:<span className="anatomyReviewNoObserve">対応する利用者向け観察入口はありません</span>}
         </div>
       </details>;
@@ -1246,7 +1246,7 @@ export default function Home() {
   function resetWrongHistory(){saveWrongTargets([]);if(quizWrongOnly){setQuizQueue([]);resetQuiz()}}
 
   return <main className={`appShell workspace-${workspace} ${workspace==="home"?"homeShell":""} ${phoneMode?"phone-mode":""}`} data-locale={locale}>
-    <Suspense fallback={null}><EnglishLocalization enabled={englishEdition}/></Suspense>
+    {englishEdition&&<Suspense fallback={null}><EnglishLocalization enabled/></Suspense>}
     <button className="skipLink" onClick={()=>document.getElementById("workspace")?.focus()}>本文へ移動</button>
     <header className="topbar">
       <a className="brand" href="#workspace/home" onClick={event=>{event.preventDefault();openWorkspace("home")}}><span className="brandMark">脳</span><span>脳実習ナビ<small>脳解剖実習 学習補助アプリ</small></span></a>
@@ -1483,7 +1483,7 @@ export default function Home() {
 
     {workspace==="segment"&&<section className="workArea segmentationArea" id="workspace" tabIndex={-1}>
       <div className="workHead"><div><span className="eyebrow">MANUAL SEGMENTATION · ALPHA</span><h1>セグメンテーション編集</h1></div><span className="sourceBadge">BigBrain公開組織画像 0.5 mm・水平断編集／直交断照合</span></div>
-      {phoneMode?<div className="phoneSegmentGuard"><span className="eyebrow">PHONE VIEW</span><h2>編集ツールはPCで利用</h2><p>セグメンテーション編集は、画像とCanvasを安全に扱えるPC向け機能です。スマートフォンでは編集Canvasを読み込まず、教材の閲覧と共同制作の案内だけを表示します。</p><div><button onClick={()=>openWorkspace("collaborate")}>共同制作の入口へ</button><button onClick={()=>openWorkspace("surface")}>学習画面へ戻る</button></div></div>:<><div className="segmentationReviewNotice"><b>端末内の差分編集です</b><p>ここでの編集は公式データを直接変更しません。差分JSONへ根拠を記録し、Pull Requestと解剖学的レビューを経て、採用された変更だけが公開版へ統合されます。</p><button onClick={()=>openWorkspace("collaborate")}>共同制作の入口へ戻る</button></div><ManualSegmentationWorkbench/></>}
+      {phoneMode?<div className="phoneSegmentGuard"><span className="eyebrow">PHONE VIEW</span><h2>編集ツールはPCで利用</h2><p>セグメンテーション編集は、画像とCanvasを安全に扱えるPC向け機能です。スマートフォンでは編集Canvasを読み込まず、教材の閲覧と共同制作の案内だけを表示します。</p><div><button onClick={()=>openWorkspace("collaborate")}>共同制作の入口へ</button><button onClick={()=>openWorkspace("surface")}>学習画面へ戻る</button></div></div>:<><div className="segmentationReviewNotice"><b>端末内の差分編集です</b><p>ここでの編集は公式データを直接変更しません。差分JSONへ根拠を記録し、Pull Requestと解剖学的レビューを経て、採用された変更だけが公開版へ統合されます。</p><button onClick={()=>openWorkspace("collaborate")}>共同制作の入口へ戻る</button></div><Suspense fallback={<div className="atlasLoading" role="status">編集ツールを読み込み中…</div>}><ManualSegmentationWorkbench/></Suspense></>}
     </section>}
 
     {workspace==="sections"&&detailsOpen&&<button className="inspectorBackdrop" aria-label="解説を閉じる" onClick={()=>setDetailsOpen(false)}/>}

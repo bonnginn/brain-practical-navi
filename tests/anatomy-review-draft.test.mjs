@@ -160,6 +160,8 @@ test("standalone audit validates one record and exposes non-adoptive claims", as
 
 test("UI integration exposes only fixed choices and delete-only locked recovery", () => {
   assert.match(page, /AnatomyReviewRecordDraftCard/);
+  assert.match(page, /const AnatomyReviewRecordDraftCard=lazy\(\(\)=>import\("\.\/AnatomyReviewRecordDraft"\)/);
+  assert.match(page, /確認記録を読み込み中…[\s\S]*<AnatomyReviewRecordDraftCard/);
   assert.doesNotMatch(page, /reviewedCount|anatomyReviewDraftStorageState|AnatomyReviewDraftToolbar/);
   assert.match(draftModule, /この観察範囲では懸念を記録しない（承認・妥当性確認ではありません）/);
   assert.match(component, /端末内記録を消去して再開/);

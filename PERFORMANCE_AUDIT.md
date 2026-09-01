@@ -331,3 +331,11 @@ missing／duplicate／unexpected route key、console／request／UI error、残�
 ### 第II脳神経名称同定pilot追加後
 
 `work/performance/initial-route-payload-cn2-quiz-2026-08-24.json` でcanonical 27/27件を再測定した。既存の模式`cn2`をクイズ在庫へ加えただけで、新しい画像、mesh、volume、atlas requestは追加していない。全経路でexact allowlistとartifact-derived budgetを維持し、missing／duplicate／unexpected、console／request／UI error、loader、overflow、WebGL fallbackは0件だった。route監査も `work/browser-audit/beta-route-audit-cn2-quiz-2026-08-24.json` のPC・tablet・390 px相当、direct／reload計162/162件に合格した。公開回線、物理端末・タッチ、別GPU／別ブラウザの性能は未確認である。
+
+## 2026-09-01 利用時読込によるJavaScript分離
+
+日本語版でも常に描画していた `EnglishLocalization` のlazy boundaryを、`lang=en` の場合だけ描画する条件へ移した。さらに、寄稿者専用の `ManualSegmentationWorkbench` と、個別項目を開いた時だけ必要な `AnatomyReviewRecordDraftCard` をdynamic importへ分離した。教材データ、表示内容、操作仕様、atlas requestは変更していない。
+
+通常buildの共通entry JavaScriptは635.65 kB／gzip 181.97 kBから587.82 kB／166.88 kBへ減少した（47.83 kB、gzip 15.09 kB減）。分離後の遅延chunkは、分節ツール28.05 kB／gzip 10.15 kB、確認記録20.33 kB／6.78 kBで、対象UIを開くまで取得しない。英語辞書chunk 236.70 kB／gzip 83.19 kBは英語版だけが取得する。
+
+Windows Chrome 151のローカルproduction previewで、PC相当coldの日本語Homeは205,931 encoded bytes・8 requests、英語Homeは289,132 bytes・9 requestsとなり、差83,201 bytesは英語辞書chunkの取得分と一致した。日本語Home、英語Home、分節ツールはいずれもstable、console／request／UI error 0、残留loader 0だった。記録は `work/performance/optimization-ja-home.json`、`optimization-en-home.json`、`optimization-segment.json`（ローカル作業用・配布対象外）。公開回線・物理端末・別ブラウザでの性能値ではない。

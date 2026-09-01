@@ -990,12 +990,12 @@ test("keeps patch source paths canonical in a GitHub Pages-base build", async ()
     encoding:"utf8",
   });
   assert.equal(result.status, 0, result.stderr);
-  const assetName = (await readdir(new URL("dist/assets/", root))).find(name => /^index-.*\.js$/.test(name));
-  assert.ok(assetName);
-  const bundle = await readFile(new URL(`dist/assets/${assetName}`, root), "utf8");
-  assert.match(bundle, /\/atlas\/bigbrain-icbm500\.bin\.gz/);
-  assert.match(bundle, /\/atlas\/bigbrain-practical-segmentation-icbm500\.bin\.gz/);
-  assert.doesNotMatch(bundle, /\/brain-practical-navi\/atlas\/bigbrain-icbm500\.bin\.gz/);
+  const assetNames = (await readdir(new URL("dist/assets/", root))).filter(name => name.endsWith(".js"));
+  assert.ok(assetNames.length>1);
+  const bundles = (await Promise.all(assetNames.map(name=>readFile(new URL(`dist/assets/${name}`, root), "utf8")))).join("\n");
+  assert.match(bundles, /\/atlas\/bigbrain-icbm500\.bin\.gz/);
+  assert.match(bundles, /\/atlas\/bigbrain-practical-segmentation-icbm500\.bin\.gz/);
+  assert.doesNotMatch(bundles, /\/brain-practical-navi\/atlas\/bigbrain-icbm500\.bin\.gz/);
 });
 
 test("adds orthogonal read-only audit planes without changing the horizontal patch contract", async () => {
