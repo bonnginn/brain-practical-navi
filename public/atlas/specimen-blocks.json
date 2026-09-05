@@ -243,8 +243,8 @@
     "commissural-system": [
       {
         "file": "block-commissural-system-tissue.mesh",
-        "vertices": 19402,
-        "faces": 38612,
+        "vertices": 19514,
+        "faces": 38832,
         "shadeMin": 0.1581,
         "shadeMax": 1.0,
         "part": "tissue",
@@ -255,8 +255,8 @@
       },
       {
         "file": "block-commissural-system-corpus-callosum.mesh",
-        "vertices": 13362,
-        "faces": 26704,
+        "vertices": 13606,
+        "faces": 27176,
         "shadeMin": 0.82,
         "shadeMax": 0.82,
         "part": "corpus-callosum",

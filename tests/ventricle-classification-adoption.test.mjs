@@ -18,7 +18,7 @@ test('archived classification stage contains exactly 47 edits and current labels
  for(let i=10;i<next.length;i++)if(old[i]!==next[i])assert.equal(actual[i],next[i]);
  assert.deepEqual(metadata.projectReviewedPartialIds,[41]);
  assert.equal(metadata.labelCounts['26'],8520);assert.equal(metadata.labelCounts['41'],16);
- assert.equal(metadata.reviewedPatchAudits.length,4);
+ assert.equal(metadata.reviewedPatchAudits.length,5);
 });
 
 test('fourth ventricle mesh metadata matches the classification repair',async()=>{

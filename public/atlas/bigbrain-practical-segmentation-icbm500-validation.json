@@ -104,7 +104,7 @@
     "27": 254786,
     "28": 737856,
     "29": 748960,
-    "30": 149775,
+    "30": 148179,
     "31": 58250,
     "32": 54585,
     "33": 8482,
@@ -137,7 +137,7 @@
       "33->40": 303
     }
   },
-  "teachingPolicy": "IDs 23-35 are provisional teaching overlays; the 33-voxel ventricle repair is project-reviewed under PR #14 and is not expert-reviewed or research ground truth; IDs 39-40 are project-reviewed image-guided teaching labels, not research ground truth ID41 is only a partial aqueduct candidate; the 47-voxel classification correction is AI-assisted project adoption under PR #27, not expert review. ID30 remains a provisional candidate after the local 1605-voxel exclusion; remaining cingulum/fornix contamination is unresolved and no complete callosal boundary is claimed.",
+  "teachingPolicy": "IDs 23-35 are provisional teaching overlays; the 33-voxel ventricle repair is project-reviewed under PR #14 and is not expert-reviewed or research ground truth; IDs 39-40 are project-reviewed image-guided teaching labels, not research ground truth ID41 is only a partial aqueduct candidate; the 47-voxel classification correction is AI-assisted project adoption under PR #27, not expert review. ID30 remains a provisional candidate after the local 1605-voxel and additional 1596-voxel exclusions; remaining cingulum/fornix contamination is unresolved and no complete callosal boundary is claimed.",
   "ventriclePatchAudit": {
     "path": "segmentation-patches\\review\\ventricles-orthogonally-bracketed-candidate-2026-08-23.json",
     "workflowMetadataVersion": 1,
@@ -354,6 +354,33 @@
         }
       },
       "workflowMetadataStatus": "strict"
+    },
+    {
+      "path": "segmentation-patches\\review\\callosum-cortical-followup-project-review-2026-09-06.json",
+      "sourceCompressedSha256": "5348b7650a3ba28c95a00407d62cf4054fb0c670a62de717f2c572f66a51c9a3",
+      "sourceRawVoxelSha256": "35b2a2bf42c0f045141ea51c2adf66d9daea99fcf851a6404133a52b8cbde734",
+      "editCount": 1596,
+      "indicesSha256": "88da382e9f7ea296be43c4c31530ac392510d20cb851c74e172316d26f7d5f80",
+      "transitions": {
+        "30->0": 1596
+      },
+      "completeCallosum": false,
+      "expertReviewed": false,
+      "labelStatus": "image-guided candidate",
+      "review": {
+        "decision": "approved",
+        "reviewer": {
+          "kind": "project-role",
+          "id": "ai-assisted-project-review-under-maintainer-direction"
+        },
+        "decidedAt": "2026-09-06",
+        "reason": "原画像と全占有／隣接三方向182断面をAIが目視し、脳梁本体から離れた周辺皮質・溝側への誤収録を認めた固定3成分1596 voxelだけを30→0へ変更する。ユーザーの自律修復指示に基づくプロジェクト採用であり、個々の境界の人間による承認や専門家レビューではない。白質／帯状束や脳弓との分離、残りの皮質候補を一括修正しない。公開・main統合は行わない。",
+        "pullRequest": {
+          "number": 27,
+          "mergeCommit": null
+        }
+      },
+      "workflowMetadataStatus": "strict"
     }
   ],
   "preVentricleCompressedSha256": "6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56",
@@ -388,7 +415,7 @@
     "workflowMetadataStatus": "strict"
   },
   "preClassificationCompressedSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
-  "rawVoxelSha256": "35b2a2bf42c0f045141ea51c2adf66d9daea99fcf851a6404133a52b8cbde734",
+  "rawVoxelSha256": "3c9d959acbdb67b7603ed7f2f105d7c333f0f89facc7e637f16b5fb740a16cd5",
   "callosalLocalPatchAudit": {
     "path": "segmentation-patches\\review\\callosum-local-exclusion-project-review-2026-09-06.json",
     "sourceCompressedSha256": "930eaaed7eed8782b1b162f3aa5c59c2428f4062d0d2da3a9a1cb563f49b7db7",
@@ -416,5 +443,33 @@
     },
     "workflowMetadataStatus": "strict"
   },
-  "preCallosalRepairCompressedSha256": "930eaaed7eed8782b1b162f3aa5c59c2428f4062d0d2da3a9a1cb563f49b7db7"
+  "preCallosalRepairCompressedSha256": "930eaaed7eed8782b1b162f3aa5c59c2428f4062d0d2da3a9a1cb563f49b7db7",
+  "callosalFollowupPatchAudit": {
+    "path": "segmentation-patches\\review\\callosum-cortical-followup-project-review-2026-09-06.json",
+    "sourceCompressedSha256": "5348b7650a3ba28c95a00407d62cf4054fb0c670a62de717f2c572f66a51c9a3",
+    "sourceRawVoxelSha256": "35b2a2bf42c0f045141ea51c2adf66d9daea99fcf851a6404133a52b8cbde734",
+    "editCount": 1596,
+    "indicesSha256": "88da382e9f7ea296be43c4c31530ac392510d20cb851c74e172316d26f7d5f80",
+    "transitions": {
+      "30->0": 1596
+    },
+    "completeCallosum": false,
+    "expertReviewed": false,
+    "labelStatus": "image-guided candidate",
+    "review": {
+      "decision": "approved",
+      "reviewer": {
+        "kind": "project-role",
+        "id": "ai-assisted-project-review-under-maintainer-direction"
+      },
+      "decidedAt": "2026-09-06",
+      "reason": "原画像と全占有／隣接三方向182断面をAIが目視し、脳梁本体から離れた周辺皮質・溝側への誤収録を認めた固定3成分1596 voxelだけを30→0へ変更する。ユーザーの自律修復指示に基づくプロジェクト採用であり、個々の境界の人間による承認や専門家レビューではない。白質／帯状束や脳弓との分離、残りの皮質候補を一括修正しない。公開・main統合は行わない。",
+      "pullRequest": {
+        "number": 27,
+        "mergeCommit": null
+      }
+    },
+    "workflowMetadataStatus": "strict"
+  },
+  "preCallosalFollowupCompressedSha256": "5348b7650a3ba28c95a00407d62cf4054fb0c670a62de717f2c572f66a51c9a3"
 }
