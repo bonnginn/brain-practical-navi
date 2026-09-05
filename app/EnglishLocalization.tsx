@@ -58,7 +58,7 @@ function localizeNode(node:Node){
     return;
   }
   if(!(node instanceof Element)||excludedTags.has(node.tagName)||node.closest("[data-no-localize]"))return;
-  for(const attribute of ["aria-label","title","placeholder","alt"]){const value=node.getAttribute(attribute);if(value){const next=translated(value);if(next!==value)node.setAttribute(attribute,next)}}
+  for(const attribute of ["aria-label","title","placeholder","alt","label"]){const value=node.getAttribute(attribute);if(value){const next=translated(value);if(next!==value)node.setAttribute(attribute,next)}}
   for(const child of node.childNodes)localizeNode(child);
 }
 
@@ -77,9 +77,9 @@ export function EnglishLocalization({enabled}:{enabled:boolean}){
     const observer=new MutationObserver(records=>{
       observer.disconnect();
       for(const record of records){if(record.type==="characterData")localizeNode(record.target);else if(record.type==="attributes")localizeNode(record.target);else for(const node of record.addedNodes)localizeNode(node)}
-      observer.observe(root,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:["aria-label","title","placeholder","alt"]});
+      observer.observe(root,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:["aria-label","title","placeholder","alt","label"]});
     });
-    observer.observe(root,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:["aria-label","title","placeholder","alt"]});
+    observer.observe(root,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:["aria-label","title","placeholder","alt","label"]});
     return()=>observer.disconnect();
   },[enabled]);
   return null;

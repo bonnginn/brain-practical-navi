@@ -1,50 +1,34 @@
 # 脳実習ナビ
 
-未公開の追加修正: 断面の位置・機能説明の英訳を校正しました。詳細解説にあった、画像の測定値ではない「見えやすさ」バーを削除し、隣接断面で確認する案内に置き換えています。
-
-Additional unpublished changes: English location and function descriptions have been revised. The detail panel's visibility bar, which was not based on image measurements, has been replaced with guidance to compare neighbouring sections.
-
 [公開α版をブラウザで開く](https://bonnginn.github.io/brain-practical-navi/)
 
-開発中（2026-09-05・未公開）: 誤答履歴を構造単位から問題単位へ変更し、旧履歴の保守的な移行を追加しています。誤答時に正答と選んだ答えを比較し、名称問題では既存の位置・構造説明も表示します。英語の断面説明・再生操作名・位置表示も修正中です。新しい分節や3D境界の採用、専門家レビュー完了を意味しません。
+## 2026-09-05の改善候補（未公開）
 
-同じ開発ブランチでは、教材開始ボタンの前方配置、脳表の長い注意書きの折り畳み、端末UI明示指定の一貫性、断面方向別の位置と表示設定の端末内復元を追加しています。保存はブラウザ単位で、アカウント間同期や解剖ラベルの変更は行いません。
+今回の開発ブランチには、次の改善をまとめています。mainへの統合・公開更新は別途承認後に行います。
 
-クイズでは名称・機能・位置関係・経路などの問題タイプを選択でき、同じ構造への連続出題やトピックの偏りを減らしています。既存100問の問題文・正答キーを変えるものではなく、試作・専門家未確認の区分は維持します。
+- 問題単位の誤答履歴、問題タイプの選択、構造・トピックの偏りを減らした出題順、誤答時の説明比較。
+- 教材開始ボタンを見つけやすい位置へ移動し、脳表の長い注記を折り畳み、3Dを覆っていた操作ボタンを専用欄へ移動。
+- 断面方向別の位置・表示設定を端末内に保存。ラベルの版を固定した「この観察のリンク」で位置・構造・表示配分を再現（回転・拡大率は対象外）。
+- 明示的なスマホUI指定とレイアウトを統一。ブロック標本を「部品ガイド付き／自由観察」として案内し、旧モデル比較は過去資料へ整理。
+- 脳表・断面・8ブロック・回路ガイド・追加55問の英語を原文と照合し、欠落した位置関係・構造名・機能説明を修復。実測に基づかない「見えやすさ」バーは除去。
+- レビュー台帳から、対応が明らかな既存の構造・観察位置へ移動する導線を追加。
 
-ブロック標本の入口は「部品ガイド付き／自由観察」とし、開発優先順位と学習内容を区別します。旧3Dモデル比較は、採用見送りの過去資料として案内します。
+既存100問の日本語問題文・正答キー、配布ラベル、3D形状は変更していません。乳頭体・旧視覚路領域・脳室の連続断面を再点検しましたが、今回の追加分節は採用せず、曖昧な境界を[原画像監査](SEPTEMBER_ANATOMY_IMAGE_REVIEW.md)と[脳室再点検](SEPTEMBER_VENTRICLE_REVIEW.md)へ座標付きで記録しました。AIによる点検を専門家レビュー完了とは扱いません。
 
-脳表の神経血管・下面・自由観察の表示操作は3Dの下の専用欄へ移し、長い英語ボタンがモデルを覆わない配置へ変更しています。
+実装・検証記録は[全体レビュー進捗](SEPTEMBER_REVIEW_PROGRESS.md)を参照してください。保存はブラウザ単位で、自動送信やアカウント間同期は行いません。
 
-英語校正では、側脳室ブロックの位置説明が構造名だけに省略されていた箇所を修復し、3D操作の読み上げ文と件数の単数・複数を整えています。脳表・脳底動脈・脳神経の説明、自由観察の操作名、ブロックの短い位置説明も日本語原文に照らして修正中です。専門家監修完了の表示には変更しません。
+## September 5 review candidate — not yet published
 
-断面画面の「この観察のリンク」では、現在のBigBrain断面位置・構造選択・表示配分をリンクで再現できます。ラベルの版が異なる場合は適用せず通知します。回転・拡大率は含まず、URLには言語・端末モード以外の既存queryを引き継ぎません。
+This development branch includes:
 
-英語ブロック全8標本の観察項目・位置説明を校正し、断面の構造数表示と1面/2面の読み上げも実操作で確認しています。日本語原文・ラベル・正答キーは変更しません。
+- Per-question mistake history, question-type filters, less repetitive ordering, and explanations comparing an incorrect choice with the correct answer.
+- A more prominent learning entry, collapsible surface-label notes, and layer controls moved clear of the 3D model.
+- Browser-local restoration of section positions and layout, plus revision-pinned observation links (rotation and zoom are excluded).
+- Consistent explicit phone mode, guided/free block categories, and archived alternative-model proposals.
+- English corrections across surface views, sections, all eight blocks, pathway guides, and the 55 additional concept questions. The unmeasured visibility rating has been removed.
+- Links from supported contributor-review entries to existing structure observations.
 
-分節再点検では乳頭体・旧視覚路領域・脳室の連続断面を照合しています。今回の追加ラベル修正は採用せず、曖昧な境界を[原画像監査](SEPTEMBER_ANATOMY_IMAGE_REVIEW.md)と[脳室再点検](SEPTEMBER_VENTRICLE_REVIEW.md)へ座標付きで記録しています。
-
-日本語のレビュー準備一覧には、台帳の構造キーと既存クイズの観察位置が対応する項目だけ、対象を選択して観察画面へ移動するボタンを追加しています。未収録構造や旧混合領域の境界・位置を新たに推測するものではありません。
-
-In development (2026-09-05; not yet published): incorrect-answer history now distinguishes individual questions, with conservative migration of legacy structure-level records. Incorrect answers show a comparison with the correct answer; identification questions also reuse existing location and structure descriptions. Section descriptions and controls in English are being corrected. These changes do not approve new segmentation boundaries or constitute expert anatomical review.
-
-The development branch also brings the learning entry forward, makes the long surface-label notice expandable, aligns explicit device UI selection with its layout, and restores per-plane section positions and display preferences locally. This is browser-local storage, not account synchronization or a change to anatomical labels.
-
-Quiz settings now include question types such as identification, function, spatial relationships, and pathways. Question ordering reduces consecutive repeats of a structure and topic imbalance. The existing 100 questions and answer keys are unchanged, and provisional or pending-review labels remain in place.
-
-Block specimens are grouped by guided or free exploration rather than development priority. The earlier 3D model comparison is explicitly marked as archived material; its alternative model was not adopted.
-
-Surface-layer controls for neurovascular, inferior, and free-exploration views now sit in a dedicated row below the 3D model, preventing long English buttons from covering the anatomy.
-
-English corrections restore omitted spatial relationships in the lateral-ventricle block, improve 3D accessibility descriptions, and distinguish singular and plural counts. Brain-surface, basal-artery and cranial-nerve descriptions, free-exploration controls, and short block notes are also being corrected against the Japanese source. These language corrections do not constitute expert anatomical review.
-
-The observation lists and spatial descriptions for all eight block specimens have been proofread. Section counts and accessibility labels for one- and two-view 3D layouts have also been checked in the browser. The Japanese source, anatomical labels, and answer keys remain unchanged.
-
-Serial-section reinspection covers the mammillary bodies, former mixed optic-pathway region, and ventricles. No additional label repair has been adopted; ambiguous boundaries are recorded with coordinates in the [image review](SEPTEMBER_ANATOMY_IMAGE_REVIEW.md) and [ventricular review](SEPTEMBER_VENTRICLE_REVIEW.md), without implying expert approval.
-
-“Link to this observation” reproduces the current BigBrain slice position, structure selection and panel layout. Links with a different label revision are rejected with a notice. Rotation and zoom are excluded; unrelated URL query parameters are not copied.
-
-In the Japanese contributor review list, entries with matching registry keys and existing quiz observation positions can open the corresponding selected structure. This does not infer positions for missing structures or boundaries for the legacy mixed optic region.
+The 100 Japanese questions, answer keys, distributed labels, and 3D geometry are unchanged. Image reinspection did not justify adopting additional segmentation; coordinate-specific review candidates are documented in the [image review](SEPTEMBER_ANATOMY_IMAGE_REVIEW.md) and [ventricular review](SEPTEMBER_VENTRICLE_REVIEW.md). AI assessment is not expert anatomical approval. Local preferences are not automatically transmitted or synchronized between accounts. Merge and publication require separate approval.
 
 > **English edition (project-reviewed preview) (updated 2026-08-30):** A follow-up browser audit found residual corruption in short anatomy labels, controls, and several quiz prompts. The current candidate derives learner anatomy names from their recorded English/Latin source terms and adds regression checks for those reported failures. The paired English labels shown in the canonical Japanese edition were also re-audited for correspondence and standard anatomical wording. It has not received expert anatomical review or independent native-language proofreading; the Japanese edition remains the canonical project source. See [ENGLISH_EDITION_AUDIT.md](ENGLISH_EDITION_AUDIT.md).
 

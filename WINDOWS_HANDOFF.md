@@ -1,5 +1,9 @@
 # Windows Codex への引き継ぎ（β改修）
 
+## 最新: 2026-09-05 全体レビュー候補
+
+作業ブランチは `codex/september-learning-review`。正規公開先は https://bonnginn.github.io/brain-practical-navi/ です。今回の改善・検証・残る専門家確認は [SEPTEMBER_RELEASE_REVIEW.md](SEPTEMBER_RELEASE_REVIEW.md) と [SEPTEMBER_REVIEW_PROGRESS.md](SEPTEMBER_REVIEW_PROGRESS.md) を優先してください。下記の過去PR番号・旧ブランチは履歴です。mainへのマージと公開更新は改めてユーザー承認が必要です。完了報告では重要な変更を一度に並べず、一つずつ確認を案内します。
+
 更新日: 2026-08-24
 引き継ぎ基準コミット: `6f13cd58 public alpha refresh merge`
 
