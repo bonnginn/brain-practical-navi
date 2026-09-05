@@ -1,4 +1,5 @@
 {
+  "現在の条件の組合せに該当する問題がありません。トピック・形式・詳細・問題タイプ・「間違った問題のみ」・「試作問題を含む」を見直してください。": "No questions match the current filters. Review the topic, format, detail, question type, previously missed questions and provisional-question settings.",
   "クイズの誤答履歴、断面の観察設定、分節差分、M2比較の下書き、解剖レビューの下書きは端末内のlocalStorageに保存されます。自動送信は行わず、サイトデータを消去すると失われます。": "Quiz mistake history, section viewing preferences, segmentation differences, M2 comparison drafts, and anatomy-review drafts are stored only in localStorage on this device. They are not transmitted automatically and are lost when site data is cleared.",
   "部品ガイド付き 4": "Guided exploration · 4",
   "部品ガイド付き": "With a component guide",
