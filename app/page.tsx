@@ -11,6 +11,7 @@ import { readSectionLink, sectionLinkHash, observationUrl } from "../src/section
 import { SEGMENTATION_LABEL_SHA256 } from "./segmentationLabelRevision";
 import { observationQuestionsForEntry } from "../src/anatomyReviewQueue.mjs";
 import { balancedQuizOrder } from "../src/quizOrder.mjs";
+import { quizAnswerComparison } from "../src/quizComparison.mjs";
 import anatomyReviewRegistry from "../public/atlas/structure-provenance.json";
 import { freeObservationReadings, matchesJapaneseSearch, normalizeJapaneseSearch } from "../src/japaneseSearch";
 import { QUIZ_GRANULARITY_BY_TARGET, countQuizChoice, detailOptionsForFormat, filterQuizCandidates } from "../src/quizGranularity.mjs";
@@ -926,6 +927,7 @@ export default function Home() {
   const sectionQuizTarget=surfaceQuiz||neurovascularQuiz?structures.caudate:structures[quizQuestion.target];
   const surfaceQuizTarget=surfaceQuiz?surfaceRegions[quizQuestion.target]:surfaceRegions.precentral;
   const neurovascularQuizTarget=neurovascularQuiz?neurovascularStructures[quizQuestion.target]:neurovascularStructures.ica;
+  const quizComparison=quizAnswerComparison(quizQuestion,quizChoice,neurovascularQuiz?neurovascularStructures:surfaceQuiz?surfaceRegions:structures);
   // Neurovascular overlays are rendered in white. The prompt may ask for a
   // name, function, relation, or pathway while retaining the same visual target.
   const quizTarget=neurovascularQuiz?{...neurovascularQuizTarget,color:"#ffffff"}:surfaceQuiz?surfaceQuizTarget:{...sectionQuizTarget,color:QUIZ_SECTION_ACCENT_HEX};
@@ -1503,7 +1505,7 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
             const option=quizQuestion.optionLabels?.[key]?{name:quizQuestion.optionLabels[key],latin:""}:registryOption;
             return <button key={key} data-quiz-option={key} className={quizChoice?(correct?"correct":chosen?"wrong":"muted"):""} onClick={()=>answerQuiz(key)} disabled={!!quizChoice}><i>{String.fromCharCode(65+i)}</i><span>{option.name}<small>{anatomyDisplayEnglish(option.latin)}</small></span>{quizChoice&&correct&&<b>正解</b>}{quizChoice&&chosen&&!correct&&<b>選択</b>}</button>
           })}</div>
-          {quizChoice&&<div className={`quizFeedback ${quizChoice===quizCorrectKey?"correct":"wrong"}`} role="status" aria-live="polite"><b>{quizChoice===quizCorrectKey?"正解です":"解説と観察画面で確認"}</b><p>{quizQuestion.explanation??(neurovascularQuiz?"既存の模式3Dで名称を確認する試作問題です。専門家確認は継続中です。":surfaceQuiz?surfaceQuizTarget.note:`${sectionQuizTarget.relation}。${sectionQuizTarget.note}`)}</p>{!surfaceQuiz&&!neurovascularQuiz&&sectionQuizTarget.labelSource&&<small className={`provenanceBadge ${learnerLabelSourceDisplay[sectionQuizTarget.labelSource].className}`}>{learnerLabelSourceDisplay[sectionQuizTarget.labelSource].label}</small>}<div>{quizChoice!==quizCorrectKey&&<button className="reviewTarget" onClick={()=>reviewQuizQuestion(quizQuestion)}>観察画面で位置を確認</button>}<button className="quizNextPrimary" onClick={nextQuiz}>{quizIndex===quizQueue.length-1?"結果を見る":"次の問題へ"} →</button></div></div>}
+{quizChoice&&<div className={`quizFeedback ${quizChoice===quizCorrectKey?"correct":"wrong"}`} role="status" aria-live="polite"><b>{quizChoice===quizCorrectKey?"正解です":"解説と観察画面で確認"}</b><p>{quizQuestion.explanation??(neurovascularQuiz?"既存の模式3Dで名称を確認する試作問題です。専門家確認は継続中です。":surfaceQuiz?surfaceQuizTarget.note:`${sectionQuizTarget.relation}。${sectionQuizTarget.note}`)}</p>{quizComparison&&<section className="quizAnswerComparison" aria-label="正答と選択した答えの比較"><dl>{([["正答",quizComparison.expected],["あなたの選択",quizComparison.selected]] as const).map(([label,item])=><div key={label}><dt>{label}</dt><dd><strong>{item.name}</strong>{item.relation&&<p>{item.relation}</p>}{item.note&&<p>{item.note}</p>}</dd></div>)}</dl><small>位置と説明は既存の教材データです。図の強調表示は問題文の観察対象です。</small></section>}{!surfaceQuiz&&!neurovascularQuiz&&sectionQuizTarget.labelSource&&<small className={`provenanceBadge ${learnerLabelSourceDisplay[sectionQuizTarget.labelSource].className}`}>{learnerLabelSourceDisplay[sectionQuizTarget.labelSource].label}</small>}<div>{quizChoice!==quizCorrectKey&&<button className="reviewTarget" onClick={()=>reviewQuizQuestion(quizQuestion)}>観察画面で位置を確認</button>}<button className="quizNextPrimary" onClick={nextQuiz}>{quizIndex===quizQueue.length-1?"結果を見る":"次の問題へ"} →</button></div></div>}
           <div className="quizScoreLine"><span>現在の正答</span><b>{quizScore}</b><small>/ {quizChoice?quizIndex+1:quizIndex}</small></div>
         </aside>
       </div>}

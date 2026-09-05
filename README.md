@@ -2,7 +2,7 @@
 
 [公開α版をブラウザで開く](https://bonnginn.github.io/brain-practical-navi/)
 
-開発中（2026-09-05・未公開）: 誤答履歴を構造単位から問題単位へ変更し、旧履歴の保守的な移行を追加しています。英語の断面説明・再生操作名・位置表示も修正中です。新しい分節や3D境界の採用、専門家レビュー完了を意味しません。
+開発中（2026-09-05・未公開）: 誤答履歴を構造単位から問題単位へ変更し、旧履歴の保守的な移行を追加しています。誤答時に正答と選んだ答えを比較し、名称問題では既存の位置・構造説明も表示します。英語の断面説明・再生操作名・位置表示も修正中です。新しい分節や3D境界の採用、専門家レビュー完了を意味しません。
 
 同じ開発ブランチでは、教材開始ボタンの前方配置、脳表の長い注意書きの折り畳み、端末UI明示指定の一貫性、断面方向別の位置と表示設定の端末内復元を追加しています。保存はブラウザ単位で、アカウント間同期や解剖ラベルの変更は行いません。
 
@@ -22,7 +22,7 @@
 
 日本語のレビュー準備一覧には、台帳の構造キーと既存クイズの観察位置が対応する項目だけ、対象を選択して観察画面へ移動するボタンを追加しています。未収録構造や旧混合領域の境界・位置を新たに推測するものではありません。
 
-In development (2026-09-05; not yet published): incorrect-answer history now distinguishes individual questions, with conservative migration of legacy structure-level records. Section descriptions and controls in English are being corrected. These changes do not approve new segmentation boundaries or constitute expert anatomical review.
+In development (2026-09-05; not yet published): incorrect-answer history now distinguishes individual questions, with conservative migration of legacy structure-level records. Incorrect answers show a comparison with the correct answer; identification questions also reuse existing location and structure descriptions. Section descriptions and controls in English are being corrected. These changes do not approve new segmentation boundaries or constitute expert anatomical review.
 
 The development branch also brings the learning entry forward, makes the long surface-label notice expandable, aligns explicit device UI selection with its layout, and restores per-plane section positions and display preferences locally. This is browser-local storage, not account synchronization or a change to anatomical labels.
 

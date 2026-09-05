@@ -1459,6 +1459,13 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
   .topActions>span{display:none}
   .inspectorBackdrop,.inspector{top:104px}
 }
+.quizAnswerComparison{margin:12px 0;padding:10px;border:1px solid #c7ceca;background:#f7f8f4;color:#293835}
+.quizAnswerComparison dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0}
+.quizAnswerComparison dt{font-size:12px;font-weight:800;color:#49615c}
+.quizAnswerComparison dd{margin:5px 0 0;overflow-wrap:anywhere}
+.quizAnswerComparison dd p{margin:6px 0;font-size:13px;line-height:1.6}
+.quizAnswerComparison>small{display:block;margin-top:8px;color:#52635f;line-height:1.5}
+@media(max-width:1200px){.quizAnswerComparison dl{grid-template-columns:1fr}.quizAnswerComparison dl>div+div{padding-top:8px;border-top:1px solid #d6dcd7}}
 /* Layer controls occupy their own row: translated labels must never cover
    the anatomy or intercept a drag intended for the model. */
 .surfaceModelCard:has(.surfaceDisplayControls){grid-template-rows:max-content minmax(280px,1fr) max-content;overflow-y:auto}
