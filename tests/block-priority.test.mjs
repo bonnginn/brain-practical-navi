@@ -87,8 +87,8 @@ test("validator rejects a drifted focus set or a cross-group assignment", () => 
 test("priority UI is additive and does not introduce specimen geometry or voxel fields", () => {
   const page = fs.readFileSync(path.join(REPOSITORY_ROOT, "app/page.tsx"), "utf8");
   assert.match(page, /BLOCK_PRIORITY_GROUP_KEYS\.map/);
-  assert.equal(BLOCK_PRIORITY_GROUPS.focus.label, "β重点 4");
-  assert.equal(BLOCK_PRIORITY_GROUPS.development.label, "発展観察 4");
+  assert.equal(BLOCK_PRIORITY_GROUPS.focus.label, "部品ガイド付き 4");
+  assert.equal(BLOCK_PRIORITY_GROUPS.development.label, "自由観察 4");
   assert.match(page, /blockPriorityBadge/);
   assert.match(page, /BLOCK_PRIORITY_DISCLAIMER/);
   assert.match(page, /specimenBlock=\{blockSpecimen\}/);

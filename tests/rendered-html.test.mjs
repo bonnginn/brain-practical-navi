@@ -399,9 +399,9 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /key==="lingual"\?\{ids:surfaceRegions\.pericalcarine\.ids,axis:0,max:-14\}/);
   assert.match(page, /複数選択/);
   assert.match(page, /useState<"inside" \| "ghost" \| "extracted" \| "segmented">\("ghost"\)/);
-  assert.match(page, /useState<"both"\|"slice"\|"model">\(\(\)=>typeof window/);
-  assert.match(page, /const \[sectionModelShare,setSectionModelShare\]=useState\(40\)/);
-  assert.match(page, /const \[sectionModelViews,setSectionModelViews\]=useState<1\|2>\(2\)/);
+  assert.match(page, /useState<"both"\|"slice"\|"model">\(\(\)=>savedSectionSession\?\.layout\?\?\(typeof window/);
+  assert.match(page, /const \[sectionModelShare,setSectionModelShare\]=useState\(savedSectionSession\?\.share\?\?40\)/);
+  assert.match(page, /const \[sectionModelViews,setSectionModelViews\]=useState<1\|2>\(savedSectionSession\?\.views\?\?2\)/);
   assert.match(page, /const \[compactSectionLayout,setCompactSectionLayout\]=useState\(\(\)=>typeof window/);
   assert.match(page, /setCompactSectionLayout\(widthQuery\.matches\)/);
   assert.match(page, /className="sectionLayoutSwitch" aria-label="断面と全脳3Dの表示"/);
@@ -656,7 +656,7 @@ test("keeps student navigation separate and records only screen-level history", 
   assert.match(page, /function updateScreenHistory\(nextHash:string,mode:"push"\|"replace"\|"none"="push"\)/);
   assert.match(page, /function jump\(nextPlane: Plane, nextPosition\?: number,historyMode:"push"\|"replace"\|"none"="push"\)/);
   assert.match(page, /chooseSurface\(surfaceViewFromHash\(window\.location\.hash\),"none"\)/);
-  assert.match(page, /jump\(planeFromHash\(window\.location\.hash\),52,"none"\)/);
+  assert.match(page, /jump\(planeFromHash\(window\.location\.hash\),undefined,"none"\)/);
   assert.match(page, /chooseBlock\(blockSpecimenFromHash\(window\.location\.hash\),"none"\)/);
   assert.doesNotMatch(page, /setPosition\([^)]*\)[^\n]*pushState/);
   assert.doesNotMatch(page, /setRotation\([^\n]*pushState/);
@@ -2120,7 +2120,7 @@ test("labels provisional questions and includes them in the default quiz setup",
   assert.match(page, /standardQuizQuestions=quizQuestions\.filter\(question=>!isProvisionalQuiz\(question\)\)/);
   assert.match(page, /useState<QuizQuestion\[]>\(\(\)=>shuffledQuestions\(allQuizQuestions\)/);
   assert.match(page, /quizIncludeProvisional,setQuizIncludeProvisional\]=useState\(true\)/);
-  assert.match(page, /const quizFilters:QuizFilters=\{category:quizCategory,format:quizFormat,detail:quizDetail,includeProvisional:quizIncludeProvisional,wrongOnly:quizWrongOnly\}/);
+  assert.match(page, /const quizFilters:QuizFilters=\{category:quizCategory,format:quizFormat,detail:quizDetail,kind:quizKind,includeProvisional:quizIncludeProvisional,wrongOnly:quizWrongOnly\}/);
   assert.match(page, /filterQuizCandidates\(quizQuestionsForFiltering,quizFilters,wrongTargets\)/);
   assert.match(page, /function startQuiz\(\)\{let candidates=quizCandidates;/);
   assert.doesNotMatch(page, /quizIncludeProvisional\|\|!isProvisionalQuiz\(question\)/);

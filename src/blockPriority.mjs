@@ -22,9 +22,9 @@ export const BLOCK_PRIORITY_GROUP_KEYS = Object.freeze(["focus", "development"])
 export const BLOCK_PRIORITY_GROUPS = Object.freeze({
   focus: Object.freeze({
     key: "focus",
-    label: "β重点 4",
-    shortLabel: "β重点",
-    description: "β候補版で先に位置関係を組み立てる4項目",
+    label: "部品ガイド付き 4",
+    shortLabel: "部品ガイド付き",
+    description: "部品を順に表示しながら位置関係を観察する4項目",
     specimenKeys: Object.freeze([
       "lateral-ventricle",
       "radiations",
@@ -34,9 +34,9 @@ export const BLOCK_PRIORITY_GROUPS = Object.freeze({
   }),
   development: Object.freeze({
     key: "development",
-    label: "発展観察 4",
-    shortLabel: "発展観察",
-    description: "同じ8項目から、別の関係を広げて観察する4項目",
+    label: "自由観察 4",
+    shortLabel: "自由観察",
+    description: "部品を自分で切り替えて位置関係を観察する4項目",
     specimenKeys: Object.freeze([
       "diencephalon",
       "commissural-system",
