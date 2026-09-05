@@ -1313,6 +1313,7 @@ export default function Home() {
     {workspace==="home"&&<section className="homeArea homeNoticeArea" id="workspace" tabIndex={-1}>
       <article className="homeNotice">
         <header><span>PUBLIC ALPHA · EDUCATIONAL USE ONLY</span><h1>脳実習ナビ</h1><p><strong>本アプリは、神経解剖学の教育・自主学習目的で提供しています。</strong>教育目的以外での利用はお控えください。</p></header>
+        <footer><button className="homeEnter" onClick={()=>openWorkspace("surface")}>教育目的で教材を開く</button><button onClick={()=>openOverlay("legal")}>利用条件・データ・クレジット</button><button onClick={()=>openOverlay("status")}>更新履歴・既知の制限</button><button onClick={()=>openOverlay("feedback")}>匿名の意見・誤り報告</button></footer>
         <div className="homeNoticePoints">
           <section><b>教育目的での利用</b><p>脳表、断面、3Dモデルを行き来しながら、構造の見え方と位置関係を確認する学習教材です。</p></section>
           <section><b>公開α版</b><p>解剖学的表示は継続して確認・改訂しています。教科書や検証済み資料と照合して利用してください。</p></section>
@@ -1332,7 +1333,6 @@ export default function Home() {
           {!pwaInstallState.installed&&!pwaInstallState.canInstall&&<small className="pwaInstallHint">この環境では自動追加を利用できません。共有メニューやブラウザメニューから追加できる場合があります。</small>}
           {pwaInstallFeedback&&<p className="pwaInstallFeedback" data-pwa-install-result={pwaInstallFeedback.status} role="status" aria-live="polite">{pwaInstallFeedback.message}</p>}
         </section>
-        <footer><button className="homeEnter" onClick={()=>openWorkspace("surface")}>教育目的で教材を開く</button><button onClick={()=>openOverlay("legal")}>利用条件・データ・クレジット</button><button onClick={()=>openOverlay("status")}>更新履歴・既知の制限</button><button onClick={()=>openOverlay("feedback")}>匿名の意見・誤り報告</button></footer>
       </article>
       <p className="homeQuietNote">教育目的の試作教材です。内容への懸念や解剖学的な指摘は、匿名の意見・誤り報告からお知らせください。</p>
     </section>}
@@ -1385,7 +1385,7 @@ export default function Home() {
         </section>
         <aside className="learningGuide" key={surfaceView}>
           <span className="guideIndex">{surfaceView==="free"?"FREE EXPLORATION":`観察 0${(Object.keys(surfaceViews) as SurfaceViewKey[]).indexOf(surfaceView)+1}`}</span><h2>{surfaceLesson.name}</h2><p>{surfaceLesson.intro}</p>
-          {surfaceView!=="arteries"&&surfaceView!=="cranialNerves"&&<div className="accuracyNote surfaceNomenclatureNote" data-surface-nomenclature-note="cerebra-desikan-five"><b>脳表ラベルの注意</b><p>{surfaceAtlasNomenclatureNote}</p></div>}
+          {surfaceView!=="arteries"&&surfaceView!=="cranialNerves"&&<details className="accuracyNote surfaceNomenclatureNote" data-surface-nomenclature-note="cerebra-desikan-five"><summary>脳表ラベルの注意</summary><p>{surfaceAtlasNomenclatureNote}</p></details>}
           {surfaceView==="inferior"&&<div className="basalLandmarkPicker surfaceRegionPicker"><header><div><b>同定する構造</b><small>脳底構造は常時表示し、選択した構造を着色</small></div><span className="pickerActions"><button onClick={()=>setSurfaceVisibleBasalLandmarks(basalLandmarkKeys)} disabled={surfaceVisibleBasalLandmarks.length===basalLandmarkKeys.length}>すべて選択</button><button onClick={()=>setSurfaceVisibleBasalLandmarks([])} disabled={surfaceVisibleBasalLandmarks.length===0}>すべて解除</button></span></header><div>{basalLandmarkKeys.map(key=>{const item=basalLandmarks[key],active=surfaceVisibleBasalLandmarks.includes(key);return <button key={key} className={active?"active":""} aria-pressed={active} title={item.note} onClick={()=>toggleBasalLandmark(key)}><i style={{background:item.color}}/><span>{item.name}<small>{anatomyDisplayEnglish(item.latin)}</small></span></button>})}</div><em>上丘・下丘は中脳背側の構造です。選択後にモデルを回転して確認します。橋・延髄のボタンでは、付随する脳神経も一緒に着脱します。</em></div>}
           {surfaceView==="free"?<div className="freeExplorer">
             <header><div><b>構造を探す</b><small>文字検索または分類別索引から追加</small></div><button onClick={clearFreeObservation} disabled={freeSelections.length===0&&selectedPathway===null}>すべて解除</button></header>
