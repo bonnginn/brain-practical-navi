@@ -3,6 +3,7 @@ export type QuizDetail = "coronal" | "horizontal" | "sagittal" | "lateral" | "su
 export type QuizOrigin = "standard" | "provisional";
 export type QuizFilterQuestion = {
   id?: string;
+  questionKind?: string;
   target: string;
   category: string;
   format: QuizFormat;
@@ -10,6 +11,7 @@ export type QuizFilterQuestion = {
   origin: QuizOrigin;
 };
 export type QuizFilters = {
+  kind?: string;
   category: string;
   format: "all" | QuizFormat;
   detail: string;

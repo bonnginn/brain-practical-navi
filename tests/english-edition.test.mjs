@@ -36,6 +36,12 @@ test("English catalog contains reviewed anatomy and no Japanese output",()=>{
   assert.match(catalog["視床下核"]??"",/Subthalamic nucleus/i);
 });
 
+test("quiz controls use complete English and distinguish function from features",()=>{
+  const catalog=JSON.parse(fs.readFileSync(new URL("../app/english-catalog.json",import.meta.url),"utf8"));
+  for(const [key,value] of Object.entries({"機能":"Function","位置関係":"Spatial relationships","経路":"Pathway","1断面戻る":"Previous slice","1断面進む":"Next slice","この色の構造は？":"Which structure is highlighted?"}))assert.equal(catalog[key],value);
+  assert.match(catalog["・BigBrain公開組織画像 0.5 mm"],/histological image/);
+});
+
 test("learner anatomy names agree with their English display term",()=>{
   const catalog=JSON.parse(fs.readFileSync(new URL("../app/english-catalog.json",import.meta.url),"utf8"));
   const page=fs.readFileSync(new URL("../app/page.tsx",import.meta.url),"utf8");

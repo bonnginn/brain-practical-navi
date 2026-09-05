@@ -33,6 +33,10 @@ function translatedDynamic(core:string){
   const planeNames:Record<string,string>={"冠状断":"coronal","水平断":"horizontal","矢状断":"sagittal"};
   sectionMatch=core.match(/^(冠状断|水平断|矢状断)の(前後|上下|左右)位置$/u);
   if(sectionMatch)return `${planeNames[sectionMatch[1]]} slice position`;
+  sectionMatch=core.match(/^復習問題の(前後|上下|左右)位置$/u);
+  if(sectionMatch)return `Quiz slice position (${{"前後":"anteroposterior","上下":"superoinferior","左右":"left–right"}[sectionMatch[1]]})`;
+  sectionMatch=core.match(/^(coronal|horizontal|sagittal)断面 ([\d.]+)。ホイールで拡大縮小、Shiftドラッグで移動$/u);
+  if(sectionMatch)return `${sectionMatch[1]} slice ${sectionMatch[2]}. Use the wheel to zoom and Shift-drag to pan.`;
   if(core.startsWith("位置：")){
     const location=translations[core.slice(3)];
     if(location)return `Location: ${location}`;

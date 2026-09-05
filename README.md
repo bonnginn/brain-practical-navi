@@ -6,9 +6,13 @@
 
 同じ開発ブランチでは、教材開始ボタンの前方配置、脳表の長い注意書きの折り畳み、端末UI明示指定の一貫性、断面方向別の位置と表示設定の端末内復元を追加しています。保存はブラウザ単位で、アカウント間同期や解剖ラベルの変更は行いません。
 
+クイズでは名称・機能・位置関係・経路などの問題タイプを選択でき、同じ構造への連続出題やトピックの偏りを減らしています。既存100問の問題文・正答キーを変えるものではなく、試作・専門家未確認の区分は維持します。
+
 In development (2026-09-05; not yet published): incorrect-answer history now distinguishes individual questions, with conservative migration of legacy structure-level records. Section descriptions and controls in English are being corrected. These changes do not approve new segmentation boundaries or constitute expert anatomical review.
 
 The development branch also brings the learning entry forward, makes the long surface-label notice expandable, aligns explicit device UI selection with its layout, and restores per-plane section positions and display preferences locally. This is browser-local storage, not account synchronization or a change to anatomical labels.
+
+Quiz settings now include question types such as identification, function, spatial relationships, and pathways. Question ordering reduces consecutive repeats of a structure and topic imbalance. The existing 100 questions and answer keys are unchanged, and provisional or pending-review labels remain in place.
 
 > **English edition (project-reviewed preview) (updated 2026-08-30):** A follow-up browser audit found residual corruption in short anatomy labels, controls, and several quiz prompts. The current candidate derives learner anatomy names from their recorded English/Latin source terms and adds regression checks for those reported failures. The paired English labels shown in the canonical Japanese edition were also re-audited for correspondence and standard anatomical wording. It has not received expert anatomical review or independent native-language proofreading; the Japanese edition remains the canonical project source. See [ENGLISH_EDITION_AUDIT.md](ENGLISH_EDITION_AUDIT.md).
 

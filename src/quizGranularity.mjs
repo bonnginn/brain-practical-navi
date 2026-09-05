@@ -91,6 +91,7 @@ export function filtersForQuizChoice(filters, dimension, value) {
  * @param {readonly string[]} wrongTargets
  */
 export function matchesQuizFilters(question, filters, wrongTargets) {
+  if (filters.kind && filters.kind !== "all" && (question.questionKind ?? "identification") !== filters.kind) return false;
   if (filters.category !== "all" && question.category !== filters.category) return false;
   if (filters.format !== "all" && question.format !== filters.format) return false;
   if (filters.detail !== "all" && question.detail !== filters.detail) return false;
