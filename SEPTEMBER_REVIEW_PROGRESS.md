@@ -2,6 +2,8 @@
 
 ## 全体目標の追跡（途中完了を全体完了にしない）
 
+最新の提出先は[ドラフトPR #27](https://github.com/bonnginn/brain-practical-navi/pull/27)。下記の番号付きリストは段階ごとの進捗履歴を含むため、最終的な対応と証拠は [SEPTEMBER_RELEASE_REVIEW.md](SEPTEMBER_RELEASE_REVIEW.md) を参照。英語ブロック入口・詳細解説・動的件数・回路ガイドは第十三〜十七段階で対応済み。CIはPRの現HEADに対する結果を確認し、過去の合格から推定しない。main統合・公開更新は未実施。
+
 第十七段階（回路ガイド・全55追加問題の英語）: Papez全6段階のlabel/note/provenance、基底核5段階のlabel、3プリセット導入文、追加55問のprompt/explanation/全optionを日本語と辞書で通読照合した。嗅内野、視床前部核の未分節、GPe/GPi両区分、海馬交連、上側頭回の聴覚、舌咽神経の耳下腺、誤答選択肢の完全な文などを復元した。optgroupのlabel属性も翻訳対象とし、段階移動の「前/次」は「前の段階/次の段階」に明確化。既存正答キー・55問の内容・画像/メッシュは変更していない。4344英語実ブラウザでPapez6段階、基底核5段階を順送りして通読。最終修正後の前部核未分節・Canvas非表示の注記と全5基底核段階を再確認。英語29/29、先行pathway関連27/27、型検査・通常build成功。以降は完了監査と最終回帰・PR。
 
 第十六段階後の全体回帰: `node --test --test-concurrency=1 tests/*.test.mjs` は465/465成功（278秒、skip/cancel/fail=0、`work/september-full-tests-final.log`）。実行中にアプリ/テストは変更していない。テストによるdist更新後、通常buildを再生成して成功。これは当段階の全体回帰であり、残る回路ガイド英語の校正やPR作成を完了した主張ではない。

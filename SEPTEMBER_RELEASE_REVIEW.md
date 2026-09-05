@@ -23,7 +23,7 @@ This is a development candidate for GitHub Pages, not a published beta or an ana
 
 - At stage 16: full suite 465/465, no failures/skips, 278 seconds; typecheck and normal build passed.
 - Stage 17: English tests 29/29; prior pathway/English focused set 27/27; typecheck and normal build passed.
-- Final candidate full-suite/Pages build/PR results: pending final recording. Do not treat this document as the completion gate until these are filled in.
+- Final candidate: [draft PR #27](https://github.com/bonnginn/brain-practical-navi/pull/27). The PR's current-head `verify` and `verify-pages-base` checks are the authoritative CI gates; inspect them before merge, not historical green runs. Local final-suite output is `work/september-release-tests.log`. Tests run without concurrent application changes. CI includes normal and Pages-base production builds and rights/notices audits.
 - Browser evidence is local desktop Chrome/in-app rendering, including narrow CSS viewport overrides. It is not physical-phone, Safari, installed-PWA, or fresh public-deployment evidence.
 - Main bundle remains about 596 kB minified and triggers the existing Vite 500 kB advisory; no build failure. No additional anatomy payload introduced.
 
