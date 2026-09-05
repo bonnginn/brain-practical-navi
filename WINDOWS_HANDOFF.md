@@ -2,6 +2,8 @@
 
 ## 2026-09-06 10:00 JSTまでの自律作業
 
+**背景図の継続位置**: 018・019（ID7）、080（ID8）、499–504（ID15）の全28シート82断面、9成分10 voxelまで実際に目視した。499は視床内部の白い領域、それ以外は主に輪郭端。背景255を一律に脳外扱いして削除できない。**次は520-image-background-code-16の01から**。背景画像のファイルはmanual-all22-conflicts-background-v1。小成分・非手動競合はまだ図未生成。cb58777までcommit/push済み、CIは未確認。assetsは098edf…不変。
+
 **競合列挙・再発防止を追加**: audit_registered_manual_conflicts.pyとテスト5件。背景35成分45 voxel、小別成分16成分17 voxel、非手動ID競合540成分2,525 voxel。背景局所図324断面112シートをwork/anatomy-review/manual-all22-conflicts-background-v1へ生成、読んだのは018-image-background-code-07の3シート9断面のみ。次は残りから。manual/practical旧CLIは--legacy-grid-reproduction＋work内新規出力を必須化し、入力ロード前にpublic更新を拒否。metadataもspatialAlignmentValidated:false。既存6段階パッチ関数・SHAは保持。ガード3/3、競合5/5、全Python66/66、関連Node81/81成功。新しい実ブラウザ判定・asset採用はまだなし。
 
 **全22候補の第一巡目視を完了**: 視床・海馬・側坐核・扁桃体の残り84シート324断面比較を読み、総計210シート810断面比較まで到達した。全占有Z＋前後1断、X/Yは代表5位置±1断であり全直交断ではない。海馬では特に左の旧下内側の張り出しが減り、扁桃体では海馬側への旧延長が減る。視床上後方の欠落も改善。側坐核／尾状核の連続灰白質、海馬亜区分等は未確定。MANUAL_REGISTERED_CANDIDATE_REVIEW.mdに全11群の所見を記録。**次は背景45・小成分・他ID重複2,525の局所比較と生成経路修復**。研究候補のまま、assets・main・公開未変更。以下の時刻付き到達点は途中経過の履歴。
