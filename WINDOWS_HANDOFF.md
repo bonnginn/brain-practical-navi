@@ -2,6 +2,8 @@
 
 ## 2026-09-06 10:00 JSTまでの自律作業
 
+**05:35 JST頃の追加到達点**: `MANUAL_REGISTERED_CANDIDATE_REVIEW.md`。元300 µm手動全22 IDを公式3gridで表示画像へ逆変換採取したwork候補を作成。候補476,590 voxel、最大計算残差0.004252 mm、旧手動から外れる49,233、他ID重複2,525、原画像255重なり45。NPZはwork/anatomy-review/manual-all22-registered-v1、raw SHA89f62f…、研究reportの固定コピーはsegmentation-patches/review/manual-all22-registered-candidate-2026-09-06.json（adopted:false）。810比較断面210シートを生成し、赤核・黒質・視床下核の全42シート162断面だけ実際に目視済み。特に赤核上端の欠落・位置ずれが改善。他ID7–22はまだ図未読、次にそこから続ける。図はmanual-all22-registered-review-v1。新規対象5/5、全Python58/58成功。アプリassetsは098edf…のまま、公開・main未変更。直前ab50be3 CI33989762171成功。
+
 **新しい最優先事項（05:20 JST頃）**: `MANUAL_LABEL_SPACE_REVIEW.md`。公式20190708 MINCを取得し、現在の画像は非線形変換済み画像と全voxel一致、ID1–22全446,874 voxelは未変形の手動500 µmと全voxel一致することを確認した。manual historyは300→500の`--like`だけでtransformなし。shape/affine一致だけでは座標空間の同一性を保証しなかった。公式3gridの独立逆変換で淡蒼球だけwork候補を作り、29比較図を全目視。右上後方の淡い帯への張り出しが減る。まだassetsへ採用なし。次は全22 ID候補の変換・原画像レビュー・重複と生成規約の修復を優先する。源流を直さず局所を閾値で切り続けない。診断JSONはsegmentation-patches/review/manual-label-space-diagnostic-2026-09-06.json、adopted:false。0.3 mm変換済み原画像も取得済みだが未目視。別の古い18ラベル版は不採用でworkにのみ保存。
 
 保存ab87b57（追加淡蒼球点検）のCI run33989040958成功。新しい診断はその後の作業。

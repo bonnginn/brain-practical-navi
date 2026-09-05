@@ -4,7 +4,7 @@
 
 ## 2026-09-05–06の改善候補（未公開）
 
-重要な追加調査: 表示画像と手動ラベルID1–22の非線形位置合わせ履歴が一致しない問題を確認しました。現在は淡蒼球の変換比較候補までで、本体の修復・全核の再点検は進行中です。全分節が正常という判定はしていません。[位置合わせの診断](MANUAL_LABEL_SPACE_REVIEW.md)。An additional audit identified mismatched nonlinear-registration histories between the displayed image and manual labels 1–22. A transformed pallidal comparison is available as a research candidate; integration and reassessment of all nuclei remain in progress. This is not a finding that all segmentation boundaries are correct.
+重要な追加調査: 表示画像と手動ラベルID1–22の非線形位置合わせ履歴が一致しない問題を確認しました。全22ラベルの変換候補を作成し、まず赤核・黒質・視床下核の原画像比較を行いました。まだ本体への採用はせず、残る構造と周辺区画との重複を点検中です。全分節が正常という判定はしていません。[位置合わせの診断](MANUAL_LABEL_SPACE_REVIEW.md)・[全22候補の進捗](MANUAL_REGISTERED_CANDIDATE_REVIEW.md)。An additional audit identified mismatched nonlinear-registration histories between the displayed image and manual labels 1–22. A registered research candidate now covers all 22 labels; initial raw-image comparisons cover the red nuclei, substantia nigra and subthalamic nuclei. It is not adopted into the app. Review of the remaining structures and conflicts with neighboring labels is ongoing; this is not a finding that all segmentation boundaries are correct.
 
 断面のクリック同定で、ラベル未登録の場所に以前選択した別構造の説明が残る問題を修正しました。未ラベルを組織の不存在と誤解しない説明にしています（開発版のみ）。Section identification now uses the explanation for the clicked location rather than a previously selected structure; an unlabelled location is not presented as absence of tissue (development only).
 
