@@ -2,7 +2,9 @@
 
 ## 2026-09-06 10:00 JSTまでの自律作業
 
-**背景図の継続位置**: 018・019（ID7）、080（ID8）、499–504（ID15）の全28シート82断面、9成分10 voxelまで実際に目視した。499は視床内部の白い領域、それ以外は主に輪郭端。背景255を一律に脳外扱いして削除できない。**次は520-image-background-code-16の01から**。背景画像のファイルはmanual-all22-conflicts-background-v1。小成分・非手動競合はまだ図未生成。cb58777までcommit/push済み、CIは未確認。assetsは098edf…不変。
+**競合図の現在位置**: manual-all22-conflicts-pairs-v1の19組425シート1,253断面を生成。実際に目視したのはpair-03-over-27全5、04-over-27全8、05-over-31全15、06-over-32全14、07-over-23全3シートの計45シート130断面、115 voxel。黒質／脳幹の競合は濃い核の縁へ修正する候補を支持。STN／内包は薄い上外側接触部。側脳室1 voxel[173,262,184]は背景018と同じ壁際で、一括手動優先では上書きしない候補。**次はpair-07-over-31の01から**。全Python68/68成功。表示専用のgroup追加のみ、volume／meshは098edf…不変、採用経路未接続。詳細・SHAはMANUAL_REGISTERED_CANDIDATE_REVIEW.md。
+
+**背景・小成分図の目視を完了（06:20 JST頃）**: manual-all22-conflicts-background-v1の全35成分45 voxel、112シート324断面比較と、manual-all22-conflicts-small-v1の全16成分17 voxel、49シート145比較を実際に目視した。視床499・537は内部の白い領域、右海馬569–572も内部の白い帯にあり、他は主に輪郭端。小成分も本体近傍の灰白質／線維帯の縁であり、背景値や小さい6近傍成分だけで削除・橋渡ししない。詳細はMANUAL_REGISTERED_CANDIDATE_REVIEW.md。**次は非手動ID競合**。audit_registered_manual_conflicts.pyに表示専用--group-by-pairを追加、全キー・全点・全XYZ範囲を保持。対象7/7成功。manual-all22-conflicts-pairs-v1へ生成中、まだ目視数へ加算しない。cb58777・c1074bd・76ac4e8のCI成功。assetsは098edf…不変。以下は途中到達点の履歴。
 
 **競合列挙・再発防止を追加**: audit_registered_manual_conflicts.pyとテスト5件。背景35成分45 voxel、小別成分16成分17 voxel、非手動ID競合540成分2,525 voxel。背景局所図324断面112シートをwork/anatomy-review/manual-all22-conflicts-background-v1へ生成、読んだのは018-image-background-code-07の3シート9断面のみ。次は残りから。manual/practical旧CLIは--legacy-grid-reproduction＋work内新規出力を必須化し、入力ロード前にpublic更新を拒否。metadataもspatialAlignmentValidated:false。既存6段階パッチ関数・SHAは保持。ガード3/3、競合5/5、全Python66/66、関連Node81/81成功。新しい実ブラウザ判定・asset採用はまだなし。
 

@@ -59,6 +59,30 @@ def issue_planes(points, dims):
             for i in range(max(0, int(points[:, n].min())-1), min(dims[n], int(points[:, n].max())+2))]
 
 
+def group_overlap_pairs(records):
+    """Retain every overlap voxel while combining fragmented label-pair findings.
+
+    Grouping is a presentation operation, not a component merger in the volume.
+    Original component keys remain available for exact traceability.
+    """
+    pairs = {}
+    for record in records:
+        if record['kind'] == 'nonmanual-overlap':
+            pairs.setdefault((record['candidateId'], record['currentId']), []).append(record)
+    groups = []
+    for (candidate, current), members in sorted(pairs.items()):
+        points = np.asarray([p for member in members for p in member['points']], dtype=int)
+        if len(np.unique(points, axis=0)) != len(points) or len(points) != sum(m['voxelCount'] for m in members):
+            raise ValueError('Overlap group contains duplicate or inconsistent voxel evidence')
+        center = points[np.argmin(np.sum((points-points.mean(0))**2, axis=1))]
+        groups.append(dict(key=f'pair-{candidate:02d}-over-{current:02d}', kind='nonmanual-overlap',
+            candidateId=candidate, currentId=current, componentKeys=[m['key'] for m in members],
+            componentCount=len(members), voxelCount=len(points), points=points.tolist(),
+            minimum=points.min(0).tolist(), maximum=points.max(0).tolist(), representative=center.tolist(),
+            decision='unreviewed; grouping does not approve a priority or label mutation'))
+    return groups
+
+
 def render_issue(raw, old, new, issue, axis, index, crop):
     gray = _oriented_crop(raw, axis, index, crop)
     before = _oriented_crop(old, axis, index, crop)
@@ -97,7 +121,10 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--render-kind', choices=['none', 'image-background-code', 'small-six-component', 'nonmanual-overlap'], default='none')
     parser.add_argument('--keys', nargs='*', help='Render exact finding keys only, after enumeration')
+    parser.add_argument('--group-by-pair', action='store_true', help='Render overlap pairs as whole groups, retaining all component records and all occupied-axis ranges')
     args = parser.parse_args(); output = args.output.resolve()
+    if args.group_by_pair and args.render_kind != 'nonmanual-overlap':
+        raise ValueError('Pair grouping requires nonmanual-overlap rendering')
     if not output.is_relative_to((ROOT/'work').resolve()) or output.exists():
         raise ValueError('Output must be a new directory within work')
     path = args.candidate_dir/'candidate-all22.npz'
@@ -115,10 +142,12 @@ def main():
     if hashlib.sha256(new.tobytes(order='F')).hexdigest() != CANDIDATE_RAW_SHA:
         raise ValueError('Candidate raw mismatch')
     records = collect_findings(old[slices], new[slices], raw[slices], low)
-    if args.keys and not set(args.keys).issubset({r['key'] for r in records}):
+    groups = group_overlap_pairs(records) if args.group_by_pair else []
+    render_records = groups if args.group_by_pair else records
+    if args.keys and not set(args.keys).issubset({r['key'] for r in render_records}):
         raise ValueError('Unknown finding key')
     output.mkdir(parents=True)
-    for issue in records:
+    for issue in render_records:
         issue['sheets'] = []
         if issue['kind'] != args.render_kind or (args.keys and issue['key'] not in args.keys):
             continue
@@ -141,7 +170,9 @@ def main():
     totals = {kind: dict(components=sum(r['kind'] == kind for r in records), voxels=sum(r['voxelCount'] for r in records if r['kind'] == kind)) for kind in ('image-background-code', 'small-six-component', 'nonmanual-overlap')}
     report = dict(schemaVersion=1, adopted=False, labelMutation=False, expertReview=False,
         labelsSha256=LABEL_SHA, imageSha256=EXPECTED_IMAGE_SHA256, candidateSha256=CANDIDATE_SHA,
-        totals=totals, findings=records, visualReview='Generator only; no anatomical decision. Categories may overlap; do not sum them as unique voxels.')
+        totals=totals, findings=records, overlapGroups=groups,
+        renderGrouping='label-pair' if args.group_by_pair else 'component',
+        visualReview='Generator only; no anatomical decision. Categories may overlap; do not sum them as unique voxels.')
     (output/'report.json').write_text(json.dumps(report, indent=2)+'\n', encoding='utf-8')
     print(json.dumps(totals), flush=True)
 

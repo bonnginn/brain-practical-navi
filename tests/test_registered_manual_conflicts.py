@@ -3,7 +3,7 @@ import unittest
 from pathlib import Path
 import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]/'scripts'))
-from audit_registered_manual_conflicts import collect_findings, issue_planes, render_issue
+from audit_registered_manual_conflicts import collect_findings, issue_planes, render_issue, group_overlap_pairs
 
 
 class RegisteredConflictTests(unittest.TestCase):
@@ -43,6 +43,27 @@ class RegisteredConflictTests(unittest.TestCase):
         self.assertEqual(records[0]['voxelCount'], 1)
         # Selection of a largest component for enumeration never deletes a tie.
         self.assertEqual(np.count_nonzero(new), 2)
+
+    def test_pair_groups_preserve_exact_points_and_component_keys(self):
+        old, new, raw = self.fixture()
+        old[6, 7, 5] = 31
+        old[2, 3, 3] = 32
+        records = collect_findings(old, new, raw, (10, 20, 30))
+        groups = group_overlap_pairs(records)
+        self.assertEqual([(g['candidateId'], g['currentId'], g['voxelCount']) for g in groups], [(1, 31, 2), (1, 32, 1)])
+        self.assertEqual(groups[0]['componentCount'], 2)
+        overlaps = [r for r in records if r['kind'] == 'nonmanual-overlap']
+        self.assertEqual(sorted(k for g in groups for k in g['componentKeys']), sorted(r['key'] for r in overlaps))
+        self.assertEqual(sorted(tuple(p) for g in groups for p in g['points']), sorted(tuple(p) for r in overlaps for p in r['points']))
+        planes = issue_planes(groups[0]['points'], (30, 40, 50))
+        self.assertIn(('x', 10), planes)
+        self.assertIn(('x', 17), planes)
+        self.assertIn(('z', 36), planes)
+
+    def test_pair_group_refuses_duplicate_evidence(self):
+        records = collect_findings(*self.fixture())
+        overlap = next(r for r in records if r['kind'] == 'nonmanual-overlap')
+        with self.assertRaises(ValueError): group_overlap_pairs([overlap, overlap])
 
     def test_invalid_shape_dtype_and_labels_refused(self):
         old, new, raw = self.fixture()
