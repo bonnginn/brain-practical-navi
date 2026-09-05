@@ -255,8 +255,8 @@
       },
       {
         "file": "block-commissural-system-corpus-callosum.mesh",
-        "vertices": 13240,
-        "faces": 26480,
+        "vertices": 13362,
+        "faces": 26704,
         "shadeMin": 0.82,
         "shadeMax": 0.82,
         "part": "corpus-callosum",
@@ -405,8 +405,8 @@
     "midbrain-section": [
       {
         "file": "block-midbrain-section-tissue.mesh",
-        "vertices": 2237,
-        "faces": 4474,
+        "vertices": 2083,
+        "faces": 4154,
         "shadeMin": 0.2372,
         "shadeMax": 1.0,
         "part": "tissue",
@@ -563,8 +563,8 @@
       },
       {
         "file": "block-hindbrain-fourth-ventricle.mesh",
-        "vertices": 1258,
-        "faces": 2500,
+        "vertices": 1228,
+        "faces": 2452,
         "shadeMin": 0.82,
         "shadeMax": 0.82,
         "part": "fourth-ventricle",

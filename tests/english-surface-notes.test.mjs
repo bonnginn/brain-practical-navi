@@ -23,7 +23,7 @@ test("arterial explanations retain the named connections and limitations",()=>{
 });
 
 test("nerve descriptions do not lose emergence sites or relative directions",()=>{
-  assert.match(catalog["中脳の脚間窩から腹側へ現れる。"],/ventrally from the interpeduncular fossa/);
+  assert.match(catalog["中脳の脚間窩から腹側へ現れる。現行の模式表示では脳幹に隠れて経路を確認しにくいため、出現位置の正解図としては扱わないでください。"],/ventrally from the interpeduncular fossa/);
   assert.match(catalog["橋延髄境界の正中寄りから現れる。"],/near the midline at the pontomedullary junction/);
   assert.match(catalog["橋延髄境界の外側で、内耳神経の内側に並ぶ。"],/medial to the vestibulocochlear nerve/);
   assert.match(catalog["迷走神経より尾側の根列として並ぶ。"],/roots caudal to the vagus nerve/);
@@ -34,4 +34,9 @@ test("deep and block notes retain schematic scope and projection destinations",(
   assert.match(catalog["内側膝状体から側頭葉の聴覚皮質へ向かいます。"],/medial geniculate body toward the auditory cortex in the temporal lobe/);
   assert.match(catalog["海馬の前方、側脳室下角前端の近くに位置します。"],/anterior to the hippocampus.*inferior horn/);
   assert.match(catalog["間脳の視床下域にある小さな核を左右表示します。視床下部・中脳そのものとは区別してください。"],/subthalamus of the diencephalon/);
+  assert.equal(catalog["画像誘導・試作"],"Image-guided · provisional");
+  assert.match(catalog["クリックで同定・ホイールで拡大"],/wheel to zoom/);
+  assert.match(catalog["現行の同一格子分節から再構成した左右側脳室と第三脳室の比較用3D表示"],/left and right lateral ventricles and the third ventricle/);
+  assert.match(catalog["現行再構成と、実標本由来ではない専門家未確認の模式案を、同じ操作条件でA/B比較します。学習用モデルやラベルは変更しません。"],/not derived from an actual specimen.*not been reviewed by an expert/);
+  assert.ok(!JSON.stringify(catalog).includes("lateralrd"));
 });

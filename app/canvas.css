@@ -244,7 +244,8 @@ html, body, #root { height: 100%; overflow: hidden; }
 .rule { margin: 12px 0; }
 .inspector > p { font-size: 14px; line-height: 1.55; }
 .inspector dl { margin-top: 10px; }
-.inspector dl div { padding-block: 7px; font-size: 16px; }
+.inspector dl div { grid-template-columns: minmax(0,100px) minmax(0,1fr); column-gap: 12px; padding-block: 7px; font-size: 16px; }
+.inspector dt, .inspector dd { min-width: 0; overflow-wrap: anywhere; }
 .identifyCard { margin-top: 10px; padding: 9px 11px; }
 .continuity { margin-top: 10px; }
 .quiz { margin-top: 12px; padding: 10px; }
@@ -1449,7 +1450,7 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
 
 /* Mid-width desktop and landscape-tablet headers need two real rows. Keeping
    every action in one row made the utility buttons cover the quiz destination. */
-@media(max-width:1200px) and (min-width:761px){
+@media(max-width:1600px) and (min-width:761px){
   .appShell{grid-template-rows:104px 1fr}
   .topbar{height:104px;display:grid;grid-template-columns:240px minmax(0,1fr) auto;grid-template-rows:52px 52px;align-content:start;gap:0 8px;padding:0 14px}
   .brand{grid-column:1;grid-row:1}
@@ -1473,7 +1474,7 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
 .surfaceDisplayControls .neurovascularControls,.surfaceDisplayControls .freeObservationControls{position:static;max-width:100%;padding:0;border:0;box-shadow:none;background:transparent}
 .surfaceDisplayControls .freeObservationControls>div{flex-wrap:wrap}
 .surfaceDisplayControls button{min-height:44px;white-space:normal}
-@media(max-width:1200px) and (min-width:761px){
+@media(max-width:1600px) and (min-width:761px){
   html[lang="en"] .brand{font-size:14px;letter-spacing:.025em;line-height:1.1}
   html[lang="en"] .brand small{font-size:9px;letter-spacing:.015em}
   html[lang="en"] .brandMark{flex-shrink:0}
@@ -1546,3 +1547,42 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
 .sectionObservationLink summary { cursor: pointer; padding: .35rem; }
 .sectionObservationLink p { margin: .4rem 0; }
 .sectionObservationLink input { box-sizing: border-box; width: 100%; min-width: 0; padding: .5rem; font: inherit; }
+
+/* Quiz density follows usable panel width, not just the device category.
+   Keep readable text; reflow the panels instead of shrinking the whole UI. */
+@media (min-width:761px) {
+  .appShell.workspace-quiz:not(.phone-mode) { grid-template-columns: clamp(250px,20vw,290px) minmax(0,1fr); }
+}
+.quizArea { container: quiz-area / inline-size; overflow-y: auto; }
+.quizArea .workHead { flex-wrap: wrap; gap: .5rem; }
+.quizArea .workHead h1 { font-size: clamp(1.5rem,1.1rem + 1cqi,2rem); }
+.quizWorkspace { grid-template-columns: minmax(0,1fr) minmax(280px,.85fr); }
+.quizQuestionCard { min-width: 0; padding: clamp(.875rem,2cqi,1.75rem); }
+.quizQuestionCard h2 { font-size: clamp(1.125rem,.875rem + .8cqi,1.4375rem); overflow-wrap: anywhere; }
+.quizOptions button { grid-template-columns: 28px minmax(0,1fr) auto; gap: .5rem; padding-inline: .625rem; }
+.quizOptions button > span { min-width: 0; font-size: 1rem; overflow-wrap: anywhere; }
+.quizOptions button small { font-size: .875rem; }
+.quizOptions button > b { font-size: .875rem; overflow-wrap: anywhere; }
+.quizSetup label > span, .quizSetup > div > span { font-size: .875rem; line-height: 1.5; }
+.quizSetup .quizCandidateSummary { grid-template-columns: minmax(0,1fr); }
+.quizCountButtons button { min-height: 44px; }
+.quizImageCard .panelHead { flex-wrap: wrap; gap: .375rem; }
+.quizImageCard .panelHead small { font-size: .875rem; }
+.quizImageCard { container: quiz-image / inline-size; min-width: 0; }
+.quizImageCard .panelHead > div { min-width: 0; }
+.quizImageCard .panelHead small { white-space: normal; overflow-wrap: anywhere; }
+.quizTargetTag { min-width: 0; max-width: calc(100% - 36px); grid-template-columns: 8px minmax(0,1fr); box-sizing: border-box; }
+.quizTargetTag b, .quizTargetTag small { overflow-wrap: anywhere; }
+@container quiz-image (max-width: 32rem) {
+  .quizSliceNavigator { grid-template-columns: minmax(0,1fr) auto; gap: .5rem; }
+  .quizSliceAxis { grid-column: 1 / -1; }
+  .quizSliceNavigator > button { grid-column: 1 / -1; white-space: normal; }
+}
+@container quiz-area (max-width: 42rem) {
+  .quizWorkspace { display: grid; flex: 0 0 auto; grid-template-columns: minmax(0,1fr); }
+  .quizImageCard { height: clamp(360px,55svh,560px); }
+  .quizQuestionCard { overflow: visible; margin-top: 0; }
+  .quizSliceNavigator { grid-template-columns: minmax(0,1fr) auto; gap: .5rem; }
+  .quizSliceAxis { grid-column: 1 / -1; }
+  .quizSliceNavigator > button { grid-column: 1 / -1; }
+}

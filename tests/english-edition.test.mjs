@@ -7,7 +7,10 @@ import { languageSwitchUrl, localeFromSearch, localizedPublicUrl, publicWorkspac
 test("section text and playback action retain their intended meaning",()=>{
   const catalog=JSON.parse(fs.readFileSync(new URL("../app/english-catalog.json",import.meta.url),"utf8"));
   assert.equal(catalog["連続断面を再生"],"Play serial sections");
-  assert.match(catalog["側脳室に沿って前後へ連続する核です。断面を移動して頭・体・尾の位置変化を追います。"],/^The caudate nucleus follows/);
+  assert.equal(catalog["アトラス照合・試作"],"Atlas-matched · provisional");
+  assert.match(catalog["別アトラスを位置照合した教育用候補です。手動正解分節ではありません。"],/not manually delineated ground-truth labels/);
+  assert.match(catalog["指した場所の構造名を表示します。ホイールで拡大縮小できます。"],/mouse wheel to zoom/);
+  assert.match(catalog["側脳室に沿って弧状に走る核です。現在の分節は頭部・体部が中心で、下角へ回り込む尾部全長を収録していません。ラベルの終端を尾状核そのものの終端と誤認しないでください。"],/^The caudate nucleus curves along the lateral ventricle/);
 });
 
 test("English locale is explicit and Japanese remains the default",()=>{

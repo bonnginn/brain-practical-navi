@@ -1,0 +1,215 @@
+{
+  "format": "brain-practical-segmentation-patch",
+  "version": 1,
+  "sourceImage": "/atlas/bigbrain-icbm500.bin.gz",
+  "sourceLabels": "/atlas/bigbrain-practical-segmentation-icbm500.bin.gz",
+  "sourceLabelsSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
+  "dims": [
+    394,
+    466,
+    378
+  ],
+  "voxelSizeMm": [
+    0.5,
+    0.5,
+    0.5
+  ],
+  "primaryPlane": "horizontal",
+  "authorGitHub": "",
+  "authorNote": "AI three-plane review: anterior pontine exterior fragments are not the fourth ventricle. Exclusion candidate only.",
+  "targetSide": "bilateral",
+  "confidence": "medium",
+  "evidence": "FOURTH_VENTRICLE_REPAIR.md; ventricle-fragments-v1: whole-brain locators and every occupied X/Y/Z plane plus adjacent margins. Only anterior left 16 and right 15 voxels are excluded; the upper 2 and aqueduct candidate 16 are unchanged. Zero means unlabelled, not anatomical absence.",
+  "workflowMetadataVersion": 1,
+  "reviewStatus": "unreviewed",
+  "review": {
+    "decision": "unreviewed",
+    "reviewer": null,
+    "decidedAt": null,
+    "reason": "",
+    "pullRequest": null
+  },
+  "editCount": 31,
+  "runs": [
+    {
+      "start": 13497429,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13497430,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13497431,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13497432,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13497475,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13497476,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13497477,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13497478,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13497823,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13497824,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13497825,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13497826,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13497869,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13497870,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13497871,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13497872,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13681033,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13681034,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13681035,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13681036,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13681080,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13681081,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13681082,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13681427,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13681428,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13681429,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13681430,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13681473,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13681474,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13681475,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13681476,
+      "length": 1,
+      "label": 0
+    }
+  ],
+  "targetStructures": [
+    {
+      "id": 26,
+      "name": "第四脳室"
+    }
+  ],
+  "sliceRanges": [
+    {
+      "plane": "horizontal",
+      "axis": "Z",
+      "min": 73,
+      "max": 74
+    }
+  ],
+  "changeSummary": {
+    "changedVoxelCount": 31,
+    "unchangedVoxelCount": 0,
+    "transitions": [
+      {
+        "from": 26,
+        "to": 0,
+        "voxels": 31
+      }
+    ]
+  }
+}

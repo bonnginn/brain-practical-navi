@@ -1,0 +1,144 @@
+{
+  "format": "brain-practical-segmentation-patch",
+  "version": 1,
+  "sourceImage": "/atlas/bigbrain-icbm500.bin.gz",
+  "sourceLabels": "/atlas/bigbrain-practical-segmentation-icbm500.bin.gz",
+  "sourceLabelsSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
+  "dims": [
+    394,
+    466,
+    378
+  ],
+  "voxelSizeMm": [
+    0.5,
+    0.5,
+    0.5
+  ],
+  "primaryPlane": "horizontal",
+  "authorNote": "User-directed reclassification as partial cerebral aqueduct candidate. Not a complete aqueduct or expert-reviewed boundary.",
+  "authorGitHub": "",
+  "targetSide": "midline",
+  "confidence": "medium",
+  "evidence": "FOURTH_VENTRICLE_REPAIR.md; original BigBrain all Z116-123 and orthogonal X195-196/Y199-202. Remove only the isolated midbrain fragment from ID26; retain its exact coordinates for later aqueduct review. No cavity filling. Supersedes the exclusion proposal: identical 16 voxels become ID41, without expansion. User requested aqueduct classification on 2026-09-05.",
+  "workflowMetadataVersion": 1,
+  "reviewStatus": "unreviewed",
+  "review": {
+    "decision": "unreviewed",
+    "reviewer": null,
+    "decidedAt": null,
+    "reason": "",
+    "pullRequest": null
+  },
+  "editCount": 16,
+  "runs": [
+    {
+      "start": 21377059,
+      "length": 1,
+      "label": 41
+    },
+    {
+      "start": 21377060,
+      "length": 1,
+      "label": 41
+    },
+    {
+      "start": 21560663,
+      "length": 1,
+      "label": 41
+    },
+    {
+      "start": 21560664,
+      "length": 1,
+      "label": 41
+    },
+    {
+      "start": 21744267,
+      "length": 1,
+      "label": 41
+    },
+    {
+      "start": 21744268,
+      "length": 1,
+      "label": 41
+    },
+    {
+      "start": 21927477,
+      "length": 1,
+      "label": 41
+    },
+    {
+      "start": 21927478,
+      "length": 1,
+      "label": 41
+    },
+    {
+      "start": 21927871,
+      "length": 1,
+      "label": 41
+    },
+    {
+      "start": 21927872,
+      "length": 1,
+      "label": 41
+    },
+    {
+      "start": 22111475,
+      "length": 1,
+      "label": 41
+    },
+    {
+      "start": 22295079,
+      "length": 1,
+      "label": 41
+    },
+    {
+      "start": 22295473,
+      "length": 1,
+      "label": 41
+    },
+    {
+      "start": 22479077,
+      "length": 1,
+      "label": 41
+    },
+    {
+      "start": 22479471,
+      "length": 1,
+      "label": 41
+    },
+    {
+      "start": 22663075,
+      "length": 1,
+      "label": 41
+    }
+  ],
+  "targetStructures": [
+    {
+      "id": 26,
+      "name": "第四脳室"
+    },
+    {
+      "id": 41,
+      "name": "中脳水道候補（部分）"
+    }
+  ],
+  "sliceRanges": [
+    {
+      "plane": "horizontal",
+      "axis": "Z",
+      "min": 116,
+      "max": 123
+    }
+  ],
+  "changeSummary": {
+    "changedVoxelCount": 16,
+    "unchangedVoxelCount": 0,
+    "transitions": [
+      {
+        "from": 26,
+        "to": 41,
+        "voxels": 16
+      }
+    ]
+  }
+}

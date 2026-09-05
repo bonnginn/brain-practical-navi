@@ -2,7 +2,13 @@
 
 [公開α版をブラウザで開く](https://bonnginn.github.io/brain-practical-navi/)
 
-## 2026-09-05の改善候補（未公開）
+## 2026-09-05–06の改善候補（未公開）
+
+断面のクリック同定で、ラベル未登録の場所に以前選択した別構造の説明が残る問題を修正しました。未ラベルを組織の不存在と誤解しない説明にしています（開発版のみ）。Section identification now uses the explanation for the clicked location rather than a previously selected structure; an unlabelled location is not presented as absence of tissue (development only).
+
+開発版では第四脳室の47 voxelを修正しました。16 voxelを「中脳水道候補（部分）」へ分類し直し、橋の前方にあった誤分類の小片31 voxelを未ラベルに戻しました。原画像・連続断・直交断に基づくAI支援のプロジェクト採用であり、専門家レビューではありません。水道全長の分節ではなく、通常クイズにも追加していません。公開サイトは未変更です。The development labels contain a reversible 47-voxel correction: 16 voxels reclassified as a partial cerebral aqueduct candidate and 31 anterior fragments removed from the fourth-ventricle label. This is AI-assisted project adoption based on image review, not expert validation or a complete aqueduct segmentation. Standard quizzes and the live site are unchanged. 詳細は [修復記録](FOURTH_VENTRICLE_REPAIR.md) を参照してください。
+
+脳梁候補も、原画像と全該当直交断を確認した局所1,605 voxelを未ラベルへ戻し、対応する3D部品を同期しました。周辺皮質や組織間隙への明瞭なはみ出しの修正であり、帯状回・脳弓との分離などは未完了です。AI支援のプロジェクト採用で、専門家レビューではありません。[脳梁局所修復記録](CALLOSUM_LOCAL_REPAIR.md)。The development branch also removes 1,605 locally reviewed voxels from the provisional callosal label and synchronizes its 3D part. This corrects selected spillover into adjacent cortex and tissue gaps, not the entire boundary. Separation from the cingulate gyrus and fornix remains incomplete; this is AI-assisted project adoption, not expert review.
 
 今回の開発ブランチには、次の改善をまとめています。mainへの統合・公開更新は別途承認後に行います。
 
@@ -12,12 +18,15 @@
 - 明示的なスマホUI指定とレイアウトを統一。ブロック標本を「部品ガイド付き／自由観察」として案内し、旧モデル比較は過去資料へ整理。
 - 脳表・断面・8ブロック・回路ガイド・追加55問の英語を原文と照合し、欠落した位置関係・構造名・機能説明を修復。実測に基づかない「見えやすさ」バーは除去。
 - レビュー台帳から、対応が明らかな既存の構造・観察位置へ移動する導線を追加。
+- 下頭頂小葉の着色がアトラスの一部区画であることを明示し、脳梁の試作境界についての注意を日英で追加。
+- クイズの設定欄の幅を確保し、利用可能な幅に応じて見出し・余白と3D／問題文の配置を調整。狭い断面操作欄も折り返す。
+- 中間幅のPCでも上部メニューを2段に分け、英語の長いラベルが操作欄や詳細の値に重ならないよう調整。
 
-既存100問の日本語問題文・正答キー、配布ラベル、3D形状は変更していません。乳頭体・旧視覚路領域・脳室の連続断面を再点検しましたが、今回の追加分節は採用せず、曖昧な境界を[原画像監査](SEPTEMBER_ANATOMY_IMAGE_REVIEW.md)と[脳室再点検](SEPTEMBER_VENTRICLE_REVIEW.md)へ座標付きで記録しました。AIによる点検を専門家レビュー完了とは扱いません。
+既存100問の日本語問題文・正答キーは変更していません。開発ブランチでは上記47 voxelと対応する第四脳室メッシュを修正し、中脳標本では模式的な筒による組織の人工的な穴あけを撤回しました（未公開）。[全構造AIレビュー](FULL_ANATOMY_REVIEW.md)は、修正前の全37非空IDの全Z範囲（1,275原画像／輪郭対）、疑い箇所の直交面、自由観察72項目と全8ブロック44レイヤーの個別多方向目視まで完了しました。脳梁・脳幹の欠け／混入候補、第四脳室ラベルへの中脳水道混在、尾状核尾部の未収録などを記録し、確実な注意表示を日英で訂正しました。全境界が正常という判定ではなく、曖昧な形状の修復と専門家確認は残ります。
 
 実装・検証記録は[全体レビュー進捗](SEPTEMBER_REVIEW_PROGRESS.md)を参照してください。保存はブラウザ単位で、自動送信やアカウント間同期は行いません。
 
-## September 5 review candidate — not yet published
+## September 5–6 review candidate — not yet published
 
 This development branch includes:
 
@@ -27,8 +36,11 @@ This development branch includes:
 - Consistent explicit phone mode, guided/free block categories, and archived alternative-model proposals.
 - English corrections across surface views, sections, all eight blocks, pathway guides, and the 55 additional concept questions. The unmeasured visibility rating has been removed.
 - Links from supported contributor-review entries to existing structure observations.
+- Clarified the limited atlas-parcel coverage of the inferior parietal overlay and added Japanese/English caveats about the provisional callosal boundary.
+- Responsive quiz typography and panel layout, a wider desktop settings rail, and reflowing slice controls in narrow panels.
+- Two-row navigation at intermediate desktop widths and wrapping detail labels to prevent long English text from overlapping adjacent controls or values.
 
-The 100 Japanese questions, answer keys, distributed labels, and 3D geometry are unchanged. Image reinspection did not justify adopting additional segmentation; coordinate-specific review candidates are documented in the [image review](SEPTEMBER_ANATOMY_IMAGE_REVIEW.md) and [ventricular review](SEPTEMBER_VENTRICLE_REVIEW.md). AI assessment is not expert anatomical approval. Local preferences are not automatically transmitted or synchronized between accounts. Merge and publication require separate approval.
+The 100 Japanese questions and answer keys are unchanged. The development branch includes the 47-voxel correction above and its fourth-ventricle mesh update, and removes an artificial excavation from the midbrain tissue mesh. None of these changes is published. The [completed AI anatomical review](FULL_ANATOMY_REVIEW.md) covers the full occupied Z range of all 37 previously nonempty IDs (1,275 raw-image/outline pairs), targeted orthogonal checks, all 72 free-observation items and all 44 layers of the eight blocks in multiple views. Findings include callosal/brainstem boundary problems, an aqueduct portion mixed into the fourth-ventricle label, and incomplete caudate-tail coverage. Specific learner caveats were corrected in Japanese and English. This is not a finding that every boundary is normal: uncertain geometry repairs and expert review remain outstanding. Merge and publication require separate approval.
 
 > **English edition (project-reviewed preview) (updated 2026-08-30):** A follow-up browser audit found residual corruption in short anatomy labels, controls, and several quiz prompts. The current candidate derives learner anatomy names from their recorded English/Latin source terms and adds regression checks for those reported failures. The paired English labels shown in the canonical Japanese edition were also re-audited for correspondence and standard anatomical wording. It has not received expert anatomical review or independent native-language proofreading; the Japanese edition remains the canonical project source. See [ENGLISH_EDITION_AUDIT.md](ENGLISH_EDITION_AUDIT.md).
 

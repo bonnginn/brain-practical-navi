@@ -174,7 +174,7 @@ const surfaceRegions:Record<SurfaceRegionKey,{name:string;latin:string;ids:numbe
   transverseTemporal:{name:"横側頭回",latin:"Gyri temporales transversi",ids:[65,14],color:"#8266a9",rgb:[130,102,169],note:"外側溝の深部に位置する聴覚皮質周辺の横走脳回"},
   supramarginal:{name:"縁上回",latin:"Gyrus supramarginalis",ids:[102,51],color:"#5967c2",rgb:[89,103,194],note:"外側溝後端を取り囲む下頭頂小葉"},
   superiorParietal:{name:"上頭頂小葉",latin:"Lobulus parietalis superior",ids:[60,9],color:"#68a06c",rgb:[104,160,108],note:"頭頂間溝の上方に広がる頭頂葉領域"},
-  inferiorParietal:{name:"下頭頂小葉",latin:"Lobulus parietalis inferior",ids:[61,10],color:"#5b91a4",rgb:[91,145,164],note:"頭頂間溝の下方で縁上回・角回周辺を含む領域"},
+  inferiorParietal:{name:"下頭頂小葉",latin:"Lobulus parietalis inferior",ids:[61,10],color:"#5b91a4",rgb:[91,145,164],note:"頭頂間溝の下方にあるCerebrAの下頭頂区画です。下頭頂小葉全体の着色ではなく、縁上回は別項目で表示します。"},
   paracentral:{name:"中心傍小葉",latin:"Lobulus paracentralis",ids:[67,16],color:"#ad708c",rgb:[173,112,140],note:"中心前回・後回が内側面へ連続する部分"},
   precuneus:{name:"楔前部",latin:"Precuneus",ids:[82,31],color:"#7d9c5e",rgb:[125,156,94],note:"中心傍小葉の後方、頭頂後頭溝の前方"},
   cuneus:{name:"楔部",latin:"Cuneus",ids:[94,43],color:"#6d8db7",rgb:[109,141,183],note:"頭頂後頭溝と鳥距溝に挟まれる内側後頭葉"},
@@ -222,7 +222,7 @@ const surfaceViewLandmarks:Record<SurfaceViewKey,SurfaceLandmarkKey[]>={
   free:surfaceLandmarkKeys,
 };
 const surfaceDeepLandmarks:Record<SurfaceDeepLandmarkKey,{name:string;latin:string;color:string;source:string;note:string}>={
-  "corpus-callosum":{name:"脳梁",latin:"Corpus callosum",color:"#dbc270",source:"試作分節",note:"左右半球を結ぶ大交連のうち、左半球側だけを内側面の位置関係用に表示します。"},
+  "corpus-callosum":{name:"脳梁",latin:"Corpus callosum",color:"#dbc270",source:"試作分節",note:"左右半球を結ぶ大交連のうち、左半球側だけを内側面の位置関係用に表示します。試作分節は帯状回・脳弓など周辺構造との分離が不十分であり、確定境界ではありません。"},
   "septum-pellucidum":{name:"透明中隔（位置目安）",latin:"Septum pellucidum",color:"#a9c5bd",source:"模式補助",note:"脳梁下面と脳弓上面を結ぶ両葉性の薄い隔壁のうち、左葉の位置だけを示します。輪郭は正解分節ではなく、上下関係の確認に限ってください。"},
   fornix:{name:"脳弓",latin:"Fornix",color:"#e8d9a6",source:"模式補助",note:"左海馬系から乳頭体方向へ弓状に走る概略形状です。右側成分は表示しません。"},
   thalami:{name:"視床",latin:"Thalamus",color:"#8d82c4",source:"標本分節",note:"第三脳室の外側を占める灰白質のうち、左視床だけを表示します。"},
@@ -264,7 +264,7 @@ const detachableBrainstemNerveKeys:NeurovascularStructureKey[]=["cn5","cn6","cn7
 const blockSpecimens:Record<BlockSpecimenKey,BlockLesson>={
   "lateral-ventricle":{name:"側脳室の全景",en:"LATERAL VENTRICLE OVERVIEW",visual:"model",plane:"sagittal",position:58,focus:"ventricle",view:"inside",rotation:{x:-12,y:-58},intro:"側脳室のC字形の連続を隠さないよう、右側脳室の外側壁を開き、周囲実質を必要最小限だけ残した局所標本です。色レイヤーを着脱して、腔と周囲構造の隣接を組み立てます。",observe:["前角・体部・三角部・後角・下角","尾状核頭・体・尾との並走","視床と体部の位置関係","海馬と下角の位置関係","正中側にある第三脳室の方向"],caution:"側脳室腔は同一0.5 mm格子の教育用ラベル、尾状核・視床・海馬は手動分節です。脳弓・モンロー孔・薄い脳室壁は独立分節できていないため、全境界を正解形状として扱わないでください。",layers:[
     {key:"ventricular-cavity",name:"側脳室腔",latin:"Ventriculus lateralis",color:"#45aebd",source:"試作分節",note:"前角から下角まで連続する腔の形を示します。"},
-    {key:"caudate",name:"尾状核",latin:"Nucleus caudatus",color:"#dc914b",source:"標本分節",note:"頭部は側脳室前角の外側壁を形成し、体部は側脳室体部の外側に位置し、尾部は下角の上方・天井側を走ります。"},
+    {key:"caudate",name:"尾状核",latin:"Nucleus caudatus",color:"#dc914b",source:"標本分節",note:"頭部は側脳室前角の外側壁を形成し、体部は側脳室体部の外側に位置し、尾部は下角の上方・天井側を走ります。ただし、この分節モデルは頭部・体部が中心で、下角へ回り込む尾部全長を収録していません。"},
     {key:"thalamus",name:"視床",latin:"Thalamus",color:"#8d82c4",source:"標本分節",note:"側脳室体部の床と第三脳室の外側に位置します。"},
     {key:"hippocampus",name:"海馬",latin:"Hippocampus",color:"#c8798d",source:"標本分節",note:"側脳室下角の床を内側から隆起させます。"},
   ]},
@@ -284,7 +284,7 @@ const blockSpecimens:Record<BlockSpecimenKey,BlockLesson>={
     {key:"auditory-radiation",name:"聴放線",latin:"Radiatio acustica",color:"#74b99e",source:"模式補助",note:"内側膝状体から側頭葉の聴覚皮質へ向かいます。"},
   ]},
   "commissural-system":{name:"脳梁・脳弓標本",en:"CORPUS CALLOSUM AND FORNIX",visual:"model",plane:"sagittal",position:50,focus:"ventricle",view:"inside",rotation:{x:-7,y:76},intro:"正中周囲だけを残し、脳梁の弧、側脳室、透明中隔、脳弓の上下関係を内側から見る標本です。側脳室を空間基準に、交連線維と辺縁系の出力路を分けて観察します。",observe:["脳梁の膝・幹・膨大へ続く弧","脳梁直下の側脳室","脳梁と脳弓の間の透明中隔","海馬から乳頭体方向へ続く脳弓","脳梁と脳弓が別の線維系であること"],caution:"脳梁は画像誘導の試作分節、側脳室は同一格子の試作分節です。脳弓は模式3D、透明中隔は位置目安であり、薄い膜や線維束の実測境界ではありません。脳弓柱・交連前後の詳細形態は今後の修正対象です。",layers:[
-    {key:"corpus-callosum",name:"脳梁",latin:"Corpus callosum",color:"#dbc270",source:"試作分節",note:"左右大脳半球を結ぶ大きな交連線維の弧です。"},
+    {key:"corpus-callosum",name:"脳梁",latin:"Corpus callosum",color:"#dbc270",source:"試作分節",note:"左右大脳半球を結ぶ大きな交連線維の弧です。局所的な誤収録は修正しましたが、帯状回・脳弓など周辺構造との分離には未修正部分が残ります。原画像と照合してください。"},
     {key:"lateral-ventricles",name:"側脳室",latin:"Ventriculi laterales",color:"#45aebd",source:"試作分節",note:"脳梁・透明中隔・脳弓の位置を読む空間基準です。"},
     {key:"fornix",name:"脳弓",latin:"Fornix",color:"#e7d9a6",source:"模式補助",note:"海馬から中隔野・乳頭体方向へ弧を描く線維路の模式です。"},
     {key:"septum-pellucidum",name:"透明中隔",latin:"Septum pellucidum",color:"#a9c5bd",source:"位置目安",note:"脳梁下面と脳弓上面を結ぶ両葉性の薄い隔壁の位置を示します。現在の3Dは左葉だけの模式です。"},
@@ -299,7 +299,7 @@ const blockSpecimens:Record<BlockSpecimenKey,BlockLesson>={
     {key:"amygdala",name:"扁桃体",latin:"Corpus amygdaloideum",color:"#9c6cae",source:"標本分節",note:"海馬の前方、側脳室下角前端の近くに位置します。"},
     {key:"inferior-horn",name:"側脳室下角",latin:"Cornu inferius",color:"#45aebd",source:"試作分節",note:"海馬と扁桃体の上下前後関係を読む空間基準です。"},
   ]},
-  "midbrain-section":{name:"中脳核・大脳脚標本",en:"MIDBRAIN CROSS-SECTION",visual:"model",plane:"horizontal",position:67,focus:"thalamus",view:"inside",rotation:{x:-62,y:0},intro:"赤核と黒質が現れる高さで中脳を横断した局所標本です。中脳水道を背側の基準に、被蓋の赤核、腹側の黒質と大脳脚を層状に比較し、丘・膝状体の方向も確認します。",observe:["正中背側寄りの中脳水道","被蓋に並ぶ左右の赤核","赤核の腹外側に沿う黒質","黒質腹側の大脳脚と脚間窩","上丘・下丘と外側・内側膝状体の対応"],caution:"赤核・黒質は手動分節、褐色組織は同一標本の脳幹ラベルから作った10 mm厚の横断標本です。中脳水道は模式3D、大脳脚、上丘・下丘、膝状体、脚間窩は位置目安で、核境界の正解分節ではありません。",layers:[
+  "midbrain-section":{name:"中脳核・大脳脚標本",en:"MIDBRAIN CROSS-SECTION",visual:"model",plane:"horizontal",position:67,focus:"thalamus",view:"inside",rotation:{x:-62,y:0},intro:"中脳の位置関係を比較する試作表示です。現在の褐色組織は中脳の一部しか覆わず、完全な横断標本ではありません。赤核・黒質の分節と、大脳脚・丘・膝状体などの位置目安を重ねています。",observe:["正中背側寄りの中脳水道","被蓋に並ぶ左右の赤核","赤核の腹外側に沿う黒質","黒質腹側の大脳脚と脚間窩","上丘・下丘と外側・内側膝状体の対応"],caution:"赤核・黒質は手動分節です。褐色組織は同一標本の脳幹ラベルを10 mm厚に切り出していますが、元ラベルの欠けにより大脳脚側などの組織が不足しています。部品が組織から離れて見える状態を実際の解剖として覚えないでください。中脳水道は模式3D、大脳脚、上丘・下丘、膝状体、脚間窩は位置目安で、核境界の正解分節ではありません。",layers:[
     {key:"red-nuclei",name:"赤核",latin:"Nuclei rubri",color:"#d24f49",source:"標本分節",note:"中脳被蓋内に左右一対で現れる円形の核です。"},
     {key:"substantia-nigra",name:"黒質",latin:"Substantia nigra",color:"#716387",source:"標本分節",note:"被蓋と大脳脚の間に沿う帯状の核です。"},
     {key:"aqueduct",name:"中脳水道",latin:"Aqueductus mesencephali",color:"#45aebd",source:"模式補助",note:"第三脳室と第四脳室を結ぶ正中の細い腔を、視認できる太さで示します。"},
@@ -311,7 +311,7 @@ const blockSpecimens:Record<BlockSpecimenKey,BlockLesson>={
     {key:"interpeduncular-fossa",name:"脚間窩",latin:"Fossa interpeduncularis",color:"#8f6d58",source:"位置目安",note:"左右大脳脚の間で動眼神経が現れる腹側のくぼみです。"},
   ]},
   hindbrain:{name:"脳幹・小脳の脱着",en:"BRAINSTEM & CEREBELLUM",visual:"model",plane:"horizontal",position:80,focus:"thalamus",view:"inside",rotation:{x:-4,y:8},intro:"単一標本から脳幹・小脳を切り離した標本です。橋・延髄と小脳を外して第四脳室と菱形窩を露出し、小脳脚や表面隆起の位置目安を重ねられます。中脳は上方との連続を保つため残します。",observe:["中脳・橋・延髄","第四脳室と菱形窩","小脳虫部・半球","上・中・下小脳脚の方向","顔面神経丘・前庭野・舌下／迷走神経三角","錐体・オリーブ"],caution:"橋・延髄、第四脳室、小脳は同一格子に基づきます。小脳脚は走行の模式3D、菱形窩の隆起と錐体・オリーブは表面上の位置目安で、神経核・線維束の正解分節ではありません。",layers:[
-    {key:"fourth-ventricle",name:"第四脳室",latin:"Ventriculus quartus",color:"#45aebd",source:"試作分節",note:"橋・延髄の背側と小脳の腹側にある腔を示します。"},
+    {key:"fourth-ventricle",name:"第四脳室",latin:"Ventriculus quartus",color:"#45aebd",source:"試作分節",note:"橋・延髄と小脳の間にある腔です。中脳水道候補の一部を別ラベルへ分け、橋の前方にあった誤分類の小片を除外しました。上方の微小片の帰属と腔の連続性は未確定のため、原画像と見比べてください。"},
     {key:"superior-cerebellar-peduncles",name:"上小脳脚",latin:"Pedunculus cerebellaris superior",color:"#e8ba52",source:"模式補助",note:"小脳から中脳方向へ上行する結合の概略走行です。"},
     {key:"middle-cerebellar-peduncles",name:"中小脳脚",latin:"Pedunculus cerebellaris medius",color:"#db8747",source:"模式補助",note:"橋外側から小脳半球へ入る最も太い結合の概略走行です。"},
     {key:"inferior-cerebellar-peduncles",name:"下小脳脚",latin:"Pedunculus cerebellaris inferior",color:"#6dad7a",source:"模式補助",note:"延髄背外側から小脳へ向かう結合の概略走行です。"},
@@ -352,7 +352,7 @@ const neurovascularStructures:Record<NeurovascularStructureKey,{name:string;lati
   cn1:{name:"I 嗅球・嗅索",latin:"Olfactory bulb and tract",kind:"nerves",ids:[21,22],note:"前端の嗅球から、前頭葉下面の嗅溝に沿って嗅索が後方へ走る模式です。"},
   cn2:{name:"II 視神経・視索",latin:"Optic nerve / tract",kind:"nerves",ids:[23,24],note:"IIの視神経・視索をまとめた既存の模式表示です。個体境界や視交叉を分節した表示ではありません。"},
   opticChiasm:{name:"II 視交叉",latin:"Optic chiasm",kind:"nerves",ids:[25],note:"視床下部前下方で左右の視神経線維が交叉する。"},
-  cn3:{name:"III 動眼神経",latin:"Oculomotor nerve",kind:"nerves",ids:[26,27],note:"中脳の脚間窩から腹側へ現れる。"},
+  cn3:{name:"III 動眼神経",latin:"Oculomotor nerve",kind:"nerves",ids:[26,27],note:"中脳の脚間窩から腹側へ現れる。現行の模式表示では脳幹に隠れて経路を確認しにくいため、出現位置の正解図としては扱わないでください。"},
   cn4:{name:"IV 滑車神経",latin:"Trochlear nerve",kind:"nerves",ids:[28,29],note:"中脳背側から出た後、外側を回って腹面へ現れる。"},
   cn5:{name:"V 三叉神経",latin:"Trigeminal nerve",kind:"nerves",ids:[30,31],note:"橋外側から太い根として現れる。"},
   cn6:{name:"VI 外転神経",latin:"Abducens nerve",kind:"nerves",ids:[32,33],note:"橋延髄境界の正中寄りから現れる。"},
@@ -391,10 +391,10 @@ const papezStepSourceLabels:Record<PapezStep["source"],string>={"existing-quiz-s
 const structures: Record<StructureKey, StructureInfo> = {
   ventricle: { name: "側脳室", latin: "Ventriculus lateralis", color: "#49a9b4", rgb:[73,169,180], ids:[92,41,56,5], bigbrainIds:[23,24], labelSource:"atlas-provisional", meshFocus:"ventricle", note: "前角・体部・後角・下角が連続する空間です。断面を動かして形の変化を追います。", relation: "脳梁の下方、尾状核・視床の内側" },
   thirdVentricle: { name:"第三脳室", latin:"Ventriculus tertius", color:"#58aeb8", rgb:[88,174,184], ids:[80,29], bigbrainIds:[25], labelSource:"atlas-provisional", meshFocus:"ventricle", note:"左右の視床・視床下部に囲まれる正中の細い腔です。上方は視床、下方（底側）は視床下部に接し、水平断・冠状断で側脳室との位置関係を確認します。", relation:"左右の視床・視床下部の間（上方：視床、下方：視床下部）" },
-  fourthVentricle: { name:"第四脳室", latin:"Ventriculus quartus", color:"#4997b0", rgb:[73,151,176], ids:[88,37], bigbrainIds:[26], labelSource:"atlas-provisional", meshFocus:"ventricle", note:"橋・延髄と小脳の間にある腔です。矢状断で中脳水道から中心管への連続を追います。", relation:"脳幹の背側、小脳の腹側" },
-  corpusCallosum: { name:"脳梁", latin:"Corpus callosum", color:"#dbc270", rgb:[219,194,112], ids:[], bigbrainIds:[30], labelSource:"image-guided", note:"左右大脳半球を結ぶ交連線維です。矢状断で膝・幹・膨大を連続して確認します。", relation:"側脳室の上方、帯状回の下方" },
+  fourthVentricle: { name:"第四脳室", latin:"Ventriculus quartus", color:"#4997b0", rgb:[73,151,176], ids:[88,37], bigbrainIds:[26], labelSource:"atlas-provisional", meshFocus:"ventricle", note:"橋・延髄と小脳の間にある腔です。中脳水道候補の一部を別ラベルへ分け、橋の前方にあった誤分類の小片を除外しました。上方の微小片の帰属と腔の連続性は未確定のため、原画像と見比べてください。", relation:"脳幹の背側、小脳の腹側" },
+  corpusCallosum: { name:"脳梁", latin:"Corpus callosum", color:"#dbc270", rgb:[219,194,112], ids:[], bigbrainIds:[30], labelSource:"image-guided", note:"左右大脳半球を結ぶ交連線維です。矢状断で膝・幹・膨大を連続して確認します。局所的な誤収録は修正しましたが、帯状回・脳弓との分離など未修正部分があり、輪郭は確定境界ではありません。", relation:"側脳室の上方、帯状回の下方" },
   internalCapsule: { name:"内包", latin:"Capsula interna", color:"#e3d8b0", rgb:[227,216,176], ids:[], bigbrainIds:[31,32], labelSource:"image-guided", note:"尾状核・視床とレンズ核の間を走る白質路です。冠状断で前脚・膝・後脚の曲がりを追います。", relation:"尾状核・視床の外側、被殻・淡蒼球の内側" },
-  caudate: { name: "尾状核", latin: "Nucleus caudatus", color: "#e19749", rgb:[225,151,73], ids:[100,49], bigbrainIds:[7,8], labelSource:"manual", meshFocus:"caudate", note: "側脳室に沿って前後へ連続する核です。断面を移動して頭・体・尾の位置変化を追います。", relation: "側脳室の外側、内包の内側" },
+  caudate: { name: "尾状核", latin: "Nucleus caudatus", color: "#e19749", rgb:[225,151,73], ids:[100,49], bigbrainIds:[7,8], labelSource:"manual", meshFocus:"caudate", note: "側脳室に沿って弧状に走る核です。現在の分節は頭部・体部が中心で、下角へ回り込む尾部全長を収録していません。ラベルの終端を尾状核そのものの終端と誤認しないでください。", relation: "側脳室の外側、内包の内側" },
   putamen: { name:"被殻", latin:"Putamen", color:"#d9854f", rgb:[217,133,79], ids:[72,21], bigbrainIds:[9,10], labelSource:"manual", note:"レンズ核の外側部です。淡蒼球との境界と、外側を走る外包を確認します。", relation:"淡蒼球の外側、島皮質の内側" },
   pallidumExternal: { name:"淡蒼球外節", latin:"Globus pallidus externus", color:"#d0ae5c", rgb:[208,174,92], ids:[], bigbrainIds:[11,12], labelSource:"manual", note:"淡蒼球の外側区画です。内節の主要出力へつながる大脳基底核内の中継・調節部として、内外の髄板を手がかりに確認します。", relation:"被殻の内側、淡蒼球内節の外側" },
   pallidumInternal: { name:"淡蒼球内節", latin:"Globus pallidus internus", color:"#b88d42", rgb:[184,141,66], ids:[], bigbrainIds:[13,14], labelSource:"manual", note:"淡蒼球の内側区画です。大脳基底核から視床などへ向かう主要な出力部で、外節より小さく内包に接する位置を確認します。", relation:"淡蒼球外節の内側、内包の外側" },
@@ -462,6 +462,9 @@ const atlasRegions:{ids:number[];name:string}[]=[
 const atlasNameById=new Map(atlasRegions.flatMap(region=>region.ids.map(id=>[id,region.name] as const)));
 atlasNameById.set(201,"白質");atlasNameById.set(202,"灰白質");atlasNameById.set(203,"髄液腔");
 const bigBrainNameById=new Map<number,string>([[1,"左赤核"],[2,"右赤核"],[3,"左黒質"],[4,"右黒質"],[5,"左視床下核"],[6,"右視床下核"],[7,"左尾状核"],[8,"右尾状核"],[9,"左被殻"],[10,"右被殻"],[11,"左淡蒼球外節"],[12,"右淡蒼球外節"],[13,"左淡蒼球内節"],[14,"右淡蒼球内節"],[15,"左視床"],[16,"右視床"],[17,"左海馬"],[18,"右海馬"],[19,"左側坐核"],[20,"右側坐核"],[21,"左扁桃体"],[22,"右扁桃体"],[23,"左側脳室（試作）"],[24,"右側脳室（試作）"],[25,"第三脳室（試作）"],[26,"第四脳室（試作）"],[27,"脳幹（試作）"],[28,"左小脳（試作）"],[29,"右小脳（試作）"],[30,"脳梁候補（試作）"],[31,"左内包候補（試作）"],[32,"右内包候補（試作）"],[33,"視交叉候補（試作）"],[34,"左島皮質候補（試作）"],[35,"右島皮質候補（試作）"],[39,"左乳頭体"],[40,"右乳頭体"]]);
+
+// A partial review label is identifiable without becoming a selectable quiz target.
+bigBrainNameById.set(41,"中脳水道候補（部分）");
 
 const quizQuestions:QuizQuestion[]=[
   {target:"caudate",category:"basal",plane:"coronal",position:65,prompt:"側脳室前角の外側に沿う核はどれですか？",options:["caudate","putamen","pallidum","thalamus"]},
@@ -732,7 +735,7 @@ export default function Home() {
   const [focus, setFocus] = useState<Focus>(structures[(savedSectionSession?.selected as StructureKey)??"ventricle"].meshFocus??"ventricle");
   const [selectedStructure, setSelectedStructure] = useState<StructureKey>((savedSectionSession?.selected as StructureKey)??"ventricle");
   const [visibleStructures, setVisibleStructures] = useState<StructureKey[]>((savedSectionSession?.visible as StructureKey[])??["ventricle", "caudate"]);
-  const [identified, setIdentified] = useState<(IdentifiedPoint & {name:string;side:string}) | null>(null);
+  const [identified, setIdentified] = useState<(IdentifiedPoint & {name:string;side:string;note:string}) | null>(null);
   const [labels, setLabels] = useState(true);
   const [block, setBlock] = useState<"inside" | "ghost" | "extracted" | "segmented">("ghost");
   const [sectionLayout,setSectionLayout]=useState<"both"|"slice"|"model">(()=>savedSectionSession?.layout??(typeof window!=="undefined"&&window.matchMedia("(max-width: 760px)").matches?"slice":"both"));
@@ -1199,8 +1202,10 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
   function toggleGroup(members:StructureKey[]){const available=members.filter(structureAvailable);if(!available.length)return;const allVisible=available.every(key=>visibleSet.has(key));setVisibleStructures(previous=>allVisible?previous.filter(key=>!available.includes(key)):Array.from(new Set([...previous,...available])));if(!allVisible)focusStructure(available[0])}
   function identify(point:IdentifiedPoint){
     const bigbrain=point.certainty!=="atlas",name=bigbrain?(bigBrainNameById.get(point.id)??(point.id===0?"ラベルの範囲外":`未登録領域 ${point.id}`)):(atlasNameById.get(point.id)??(point.id===0?"アトラス領域外":`未登録領域 ${point.id}`)),side=bigbrain||point.id===0||point.id>=200?"":point.id>=52?"左":"右";
-    setIdentified({...point,name,side});
-    const match=structureKeys.find(key=>(bigbrain?structures[key].bigbrainIds:structures[key].ids)?.includes(point.id));if(match)focusStructure(match,true);
+    const match=structureKeys.find(key=>(bigbrain?structures[key].bigbrainIds:structures[key].ids)?.includes(point.id));
+    const note=bigbrain&&point.id===41?"中脳水道の一部分だけを示す候補です。全長や境界の確定を意味せず、通常クイズの正答対象には含めません。":match?structures[match].note:point.id===0?"この位置には対応するラベルがありません。組織が存在しないことを意味するものではありません。":"この位置のラベル名を表示しています。選択中の別構造の解説とは区別してください。";
+    setIdentified({...point,name,side,note});
+    if(match)focusStructure(match,true);
   }
 
   function chooseSurface(key:SurfaceViewKey,historyMode:"push"|"replace"|"none"="push"){const next=surfaceViews[key];updateScreenHistory(workspaceHash("surface",key),historyMode);setSurfaceView(key);setRotation(next.rotation);setSurfaceVisibleRegions([]);setSurfaceVisibleLandmarks([]);setSurfaceVisibleDeepLandmarks(key==="medial"?defaultMedialDeepLandmarks:[]);setSurfaceVisibleBasalLandmarks([]);setSurfaceGhost(key==="cranialNerves"||key==="arteries");setSurfacePonsMedulla(key!=="medial");if(key==="arteries"){setSurfaceVessels(true);setSurfaceNerves(true);setSurfaceCerebellum(false);setSelectedNeurovascularStructure("ica")}else if(key==="cranialNerves"){setSurfaceVessels(false);setSurfaceNerves(true);setSurfaceCerebellum(false);setSelectedNeurovascularStructure("cn1")}else{setSurfaceVessels(false);setSurfaceNerves(key==="inferior");setSurfaceCerebellum(key!=="medial"&&key!=="inferior")}}
@@ -1542,7 +1547,7 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
       <div className="rule"/><h3>主な役割</h3><p>{structureFunctions[selectedStructure]}</p>
       <h3>この断面で見ること</h3><p>{current.note}</p>
       <dl><div><dt>位置関係</dt><dd>{current.relation}</dd></div><div><dt>現在の断面</dt><dd>{planeData[plane].ja}・位置 {position}</dd></div></dl>
-      <div className="identifyCard"><span>クリック同定</span>{contrast==="single"?<><b>画像参照モード</b><small>座標未確認のラベルは重ねません。照合済みの「BigBrain組織 0.5」を選択してください。</small></>:identified?<><b>{labels?`${identified.side}${identified.name}`:"解答非表示"}</b><small>{sectionDeveloperControls?(identified.certainty==="atlas"?"位置照合した試作ラベル":identified.certainty==="manual"?"画像と同一格子のBigBrain手動ラベル":identified.certainty==="reviewed"?"連続切片で確認した画像誘導ラベル":"位置照合または画像誘導による試作ラベル"):current.note}</small></>:<><b>断面上をクリック</b><small>指した場所の構造名を表示します。ホイールで拡大縮小できます。</small></>}</div>
+      <div className="identifyCard"><span>クリック同定</span>{contrast==="single"?<><b>画像参照モード</b><small>座標未確認のラベルは重ねません。照合済みの「BigBrain組織 0.5」を選択してください。</small></>:identified?<><b>{labels?`${identified.side}${identified.name}`:"解答非表示"}</b><small>{sectionDeveloperControls?(identified.certainty==="atlas"?"位置照合した試作ラベル":identified.certainty==="manual"?"画像と同一格子のBigBrain手動ラベル":identified.certainty==="reviewed"?"連続切片で確認した画像誘導ラベル":"位置照合または画像誘導による試作ラベル"):identified.note}</small></>:<><b>断面上をクリック</b><small>指した場所の構造名を表示します。ホイールで拡大縮小できます。</small></>}</div>
       <p className="sectionReviewReminder">連続性や境界は前後の断面と見比べて確認してください。この画面は構造の見えやすさや正確性を数値評価していません。</p>
       <button className="quiz" onClick={() => setLabels(!labels)} disabled={contrast==="single"}>{contrast==="single"?"固定脳MRIは画像参照のみ":labels ? "ラベルを隠して確認" : "答えを表示"}<b>→</b></button>
       {sectionDeveloperControls&&<p className="atlasCredit">解剖基盤：BigBrain（Amunts et al., 2013）、BigBrain manual subcortical segmentation（Xiao et al.）、CerebrA。BigBrainは単一個体の20 µm組織再構成で、本アプリでは表示用0.5 mmへ再標本化しています。1–22は同一格子の手動ラベル、脳室・脳幹・小脳・島皮質は位置照合済みアトラス由来、脳梁・内包は画像誘導の試作です。旧ID 33は視交叉と視索を未分割のため学習表示から除外しています。試作輪郭は手動正解データではありません。診断用途ではありません。</p>}

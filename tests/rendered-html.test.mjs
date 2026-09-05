@@ -178,7 +178,10 @@ test("keeps official labels separate from provisional teaching overlays", async 
   assert.deepEqual(metadata.officialManualIds, Array.from({ length: 22 }, (_, index) => index + 1));
   assert.equal(metadata.officialLabelsPreserved, true);
   assert.deepEqual(metadata.atlasDerivedIds, [23, 24, 25, 26, 27, 28, 29, 33, 34, 35]);
-  assert.deepEqual(metadata.imageGuidedCandidateIds, [30, 31, 32]);
+  assert.deepEqual(metadata.imageGuidedCandidateIds, [30, 31, 32, 41]);
+  assert.deepEqual(metadata.projectReviewedPartialIds, [41]);
+  assert.equal(metadata.labelCounts[26], 8520);
+  assert.equal(metadata.labelCounts[41], 16);
   assert.deepEqual(metadata.imageGuidedReviewedIds, [39, 40]);
   for (const id of Array.from({ length: 35 }, (_, index) => index + 1)) {
     assert.ok(metadata.labelCounts[id] > 0, `label ${id} must contain voxels`);
@@ -1070,10 +1073,10 @@ test("reproduces the objective orthogonal mammillary audit and rejects a wrong v
   ], {encoding:"utf8", cwd:localPath("")});
   assert.equal(result.status, 0, result.stderr);
   const audit = JSON.parse(result.stdout);
-  const saved = JSON.parse(await readFile(new URL("segmentation-patches/review/mammillary-bodies-orthogonal-objective-audit-2026-08-22.json", root), "utf8"));
+  const saved = JSON.parse(await readFile(new URL("segmentation-patches/review/mammillary-bodies-orthogonal-objective-audit-2026-09-06-callosal.json", root), "utf8"));
   assert.deepEqual(audit, saved);
   assert.equal(audit.magic, "BBS1");
-  assert.equal(audit.inputSha256, "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3");
+  assert.equal(audit.inputSha256, "5348b7650a3ba28c95a00407d62cf4054fb0c670a62de717f2c572f66a51c9a3");
   assert.deepEqual(audit.dims, [394, 466, 378]);
   assert.deepEqual(audit.voxelSizeMm, [0.5, 0.5, 0.5]);
   assert.equal(audit.validation.passed, true);

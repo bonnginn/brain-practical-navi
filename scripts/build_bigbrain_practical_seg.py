@@ -30,6 +30,13 @@ MAMMILLARY_SOURCE_LABELS_SHA256 = "1ef06fcb799ce2c81bd2d7352d8bde310ff694dcfb8ac
 VENTRICLE_PATCH = ROOT / "segmentation-patches/review/ventricles-orthogonally-bracketed-candidate-2026-08-23.json"
 VENTRICLE_SOURCE_COMPRESSED_SHA256 = "6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56"
 VENTRICLE_SOURCE_LABELS_SHA256 = "088fafcdf6afcea74a7a60075bf3b8a481e1a7aa6379a7c58fb9b9c17f5e731d"
+AQUEDUCT_SOURCE_COMPRESSED_SHA256 = "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3"
+AQUEDUCT_SOURCE_LABELS_SHA256 = "b1105fd3a11fab27d3b1bac60d4d989386e4ef49a41151f5b684d984f72aaaa9"
+AQUEDUCT_PARTIAL_INDICES = (
+    21377059, 21377060, 21560663, 21560664, 21744267, 21744268,
+    21927477, 21927478, 21927871, 21927872, 22111475, 22295079,
+    22295473, 22479077, 22479471, 22663075,
+)
 
 import numpy as np
 from apply_segmentation_patch import validate_patch
@@ -61,6 +68,7 @@ PRACTICAL_LABELS = {
     35: "right insula atlas candidate",
     39: "left mammillary body (reviewed image-guided)",
     40: "right mammillary body (reviewed image-guided)",
+    41: "cerebral aqueduct candidate (partial; project-adopted reclassification)",
 }
 
 
@@ -84,15 +92,13 @@ def apply_approved_patch(volume: np.ndarray, path: Path) -> dict[str, object]:
         key = f"{old}->{label}"
         transitions[key] = transitions.get(key, 0) + 1
         baseline[index] = label
-        x = index % dims[0]
-        y = (index // dims[0]) % dims[1]
-        z = index // (dims[0] * dims[1])
-        volume[x, y, z] = label
     edit_count = len(edits)
     expected = {"0->39": 316, "0->40": 426, "27->39": 17, "33->39": 228, "33->40": 303}
     if transitions != expected:
         raise ValueError(f"reviewed patch source transitions changed: {transitions}")
-    return {
+    # Construct provenance before mutation too: an invalid report path must
+    # not cause a late exception after the caller-owned volume has changed.
+    audit = {
         "path": str(path.relative_to(ROOT)),
         "workflowMetadataVersion": patch.get("workflowMetadataVersion"),
         "workflowMetadataStatus": metadata["status"],
@@ -107,6 +113,8 @@ def apply_approved_patch(volume: np.ndarray, path: Path) -> dict[str, object]:
         "editCount": edit_count,
         "transitions": transitions,
     }
+    volume[...] = np.frombuffer(baseline, dtype=np.uint8).reshape(dims, order="F")
+    return audit
 
 
 def apply_approved_ventricle_patch(volume: np.ndarray, path: Path) -> dict[str, object]:
@@ -136,15 +144,11 @@ def apply_approved_ventricle_patch(volume: np.ndarray, path: Path) -> dict[str, 
         key = f"{old}->{label}"
         transitions[key] = transitions.get(key, 0) + 1
         baseline[index] = label
-        x = index % dims[0]
-        y = (index // dims[0]) % dims[1]
-        z = index // (dims[0] * dims[1])
-        volume[x, y, z] = label
 
     expected = {"0->23": 14, "0->24": 15, "0->25": 4}
     if transitions != expected:
         raise ValueError(f"ventricle repair source transitions changed: {transitions}")
-    return {
+    audit = {
         "path": str(path.relative_to(ROOT)),
         "workflowMetadataVersion": patch.get("workflowMetadataVersion"),
         "workflowMetadataStatus": metadata["status"],
@@ -161,6 +165,91 @@ def apply_approved_ventricle_patch(volume: np.ndarray, path: Path) -> dict[str, 
         "sourceCompressedSha256": VENTRICLE_SOURCE_COMPRESSED_SHA256,
         "sourceRawVoxelSha256": VENTRICLE_SOURCE_LABELS_SHA256,
     }
+    volume[...] = np.frombuffer(baseline, dtype=np.uint8).reshape(dims, order="F")
+    return audit
+
+
+def apply_approved_partial_aqueduct_patch(volume: np.ndarray, path: Path) -> dict[str, object]:
+    """Prepared adoption stage; deliberately not called by main until integration.
+
+    Only the exact previously reviewed 16-voxel fragment may change. Approval,
+    source identity, source values, and exact coordinates are all mandatory.
+    """
+    if volume.dtype != np.uint8 or volume.shape != (394, 466, 378):
+        raise ValueError("partial aqueduct patch requires the exact uint8 BigBrain grid")
+    baseline = bytearray(volume.tobytes(order="F"))
+    if hashlib.sha256(baseline).hexdigest() != AQUEDUCT_SOURCE_LABELS_SHA256:
+        raise ValueError("partial aqueduct baseline labels changed")
+    patch, edits, metadata = validate_patch(path, volume.shape, volume.size, baseline, AQUEDUCT_SOURCE_COMPRESSED_SHA256)
+    if metadata["status"] != "strict" or patch.get("reviewStatus") != "approved":
+        raise ValueError("partial aqueduct patch requires strict approved review")
+    expected = [(index, 41) for index in AQUEDUCT_PARTIAL_INDICES]
+    if sorted(edits) != expected or any(baseline[index] != 26 for index, _ in edits):
+        raise ValueError("partial aqueduct patch must be the exact 16-voxel 26->41 reclassification")
+    for index, value in edits:
+        baseline[index] = value
+    audit = dict(path=str(path), sourceCompressedSha256=AQUEDUCT_SOURCE_COMPRESSED_SHA256,
+        sourceRawVoxelSha256=AQUEDUCT_SOURCE_LABELS_SHA256, editCount=16,
+        transitions={"26->41": 16}, completeAqueduct=False, expertReviewed=False,
+        review=patch["review"], workflowMetadataStatus=metadata["status"])
+    volume[...] = np.frombuffer(baseline, dtype=np.uint8).reshape(volume.shape, order="F")
+    return audit
+
+
+def apply_approved_ventricle_classification_patch(volume: np.ndarray, path: Path) -> dict[str, object]:
+    """Apply exactly the project-adopted 47-voxel classification correction."""
+    if volume.dtype != np.uint8 or volume.shape != (394, 466, 378):
+        raise ValueError("ventricle classification requires the exact uint8 BigBrain grid")
+    baseline = bytearray(volume.tobytes(order="F"))
+    if hashlib.sha256(baseline).hexdigest() != AQUEDUCT_SOURCE_LABELS_SHA256:
+        raise ValueError("ventricle classification baseline labels changed")
+    patch, edits, metadata = validate_patch(path, volume.shape, volume.size, baseline, AQUEDUCT_SOURCE_COMPRESSED_SHA256)
+    if metadata["status"] != "strict" or patch.get("reviewStatus") != "approved":
+        raise ValueError("ventricle classification requires strict approved review")
+    anterior_indices = (13497429, 13497430, 13497431, 13497432, 13497475, 13497476, 13497477, 13497478, 13497823, 13497824, 13497825, 13497826, 13497869, 13497870, 13497871, 13497872, 13681033, 13681034, 13681035, 13681036, 13681080, 13681081, 13681082, 13681427, 13681428, 13681429, 13681430, 13681473, 13681474, 13681475, 13681476,)
+    expected = sorted([(i, 0) for i in anterior_indices] + [(i, 41) for i in AQUEDUCT_PARTIAL_INDICES])
+    if sorted(edits) != expected or any(baseline[i] != 26 for i, _ in edits):
+        raise ValueError("ventricle classification must be the exact 47-voxel correction")
+    for index, value in edits:
+        baseline[index] = value
+    audit = dict(path=str(path.relative_to(ROOT)), sourceCompressedSha256=AQUEDUCT_SOURCE_COMPRESSED_SHA256,
+        sourceRawVoxelSha256=AQUEDUCT_SOURCE_LABELS_SHA256, editCount=47,
+        transitions={"26->0":31,"26->41":16}, completeAqueduct=False, expertReviewed=False,
+        review=patch["review"], workflowMetadataStatus=metadata["status"])
+    volume[...] = np.frombuffer(baseline, dtype=np.uint8).reshape(volume.shape, order="F")
+    return audit
+
+
+CALLOSUM_SOURCE_COMPRESSED_SHA256 = "930eaaed7eed8782b1b162f3aa5c59c2428f4062d0d2da3a9a1cb563f49b7db7"
+CALLOSUM_SOURCE_LABELS_SHA256 = "261beb616856653d4d7acd2d411a98f1435eb6beab8b91a2b8ac7b5642909d18"
+CALLOSUM_REPAIR_INDICES_SHA256 = "3374e25c75c68b4a1b0b305655f962efc043a07cc7e9c3d1580fb8c0d4997eed"
+
+
+def apply_approved_callosal_local_patch(volume: np.ndarray, path: Path) -> dict[str, object]:
+    """Remove only 1,605 specifically image-reviewed non-callosal voxels."""
+    if volume.dtype != np.uint8 or volume.shape != (394, 466, 378):
+        raise ValueError("callosal repair requires the exact uint8 BigBrain grid")
+    baseline = bytearray(volume.tobytes(order="F"))
+    if hashlib.sha256(baseline).hexdigest() != CALLOSUM_SOURCE_LABELS_SHA256:
+        raise ValueError("callosal repair baseline labels changed")
+    patch, edits, metadata = validate_patch(path, volume.shape, volume.size, baseline, CALLOSUM_SOURCE_COMPRESSED_SHA256)
+    if metadata["status"] != "strict" or patch.get("reviewStatus") != "approved":
+        raise ValueError("callosal repair requires strict approved review")
+    indices = np.asarray(sorted(i for i, _ in edits), dtype='<u4')
+    if (len(edits) != 1605 or hashlib.sha256(indices.tobytes()).hexdigest() != CALLOSUM_REPAIR_INDICES_SHA256
+            or any(value != 0 or baseline[index] != 30 for index, value in edits)):
+        raise ValueError("callosal repair must be the exact 1605-voxel 30->0 exclusion")
+    for index, value in edits:
+        baseline[index] = value
+    # Construct the complete audit before committing edits, including path
+    # conversion which may fail independently of otherwise valid voxels.
+    audit = dict(path=str(path.relative_to(ROOT)), sourceCompressedSha256=CALLOSUM_SOURCE_COMPRESSED_SHA256,
+        sourceRawVoxelSha256=CALLOSUM_SOURCE_LABELS_SHA256, editCount=1605,
+        indicesSha256=CALLOSUM_REPAIR_INDICES_SHA256, transitions={"30->0":1605},
+        completeCallosum=False, expertReviewed=False, labelStatus="image-guided candidate",
+        review=patch["review"], workflowMetadataStatus=metadata["status"])
+    volume[...] = np.frombuffer(baseline, dtype=np.uint8).reshape(volume.shape, order="F")
+    return audit
 
 
 def load_nifti_entry(path: Path) -> nib.Nifti1Image:
@@ -187,9 +276,23 @@ def atlas_white_matter_candidates(
     cerebra: np.ndarray,
     wm_probability: np.ndarray,
     affine: np.ndarray,
+    *,
+    preserve_nuclear_exclusions: bool = True,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """Create conservative CC/internal-capsule candidates in the 1 mm atlas grid."""
     from scipy import ndimage
+
+    # Distances below are voxel distances interpreted as millimetres, and the
+    # coordinate calculation assumes axis-aligned world x/y/z. Reject grids
+    # that would silently invalidate either assumption.
+    if cerebra.ndim != 3 or wm_probability.shape != cerebra.shape:
+        raise ValueError("white-matter candidate grids must be matching 3-D arrays")
+    if affine.shape != (4, 4) or not np.isfinite(affine).all():
+        raise ValueError("white-matter candidates require a finite 4x4 affine")
+    if (not np.allclose(affine[:3, :3], np.diag(np.diag(affine[:3, :3])), atol=1e-6, rtol=0)
+            or not np.allclose(np.abs(np.diag(affine[:3, :3])), 1, atol=1e-6, rtol=0)
+            or not np.allclose(affine[3], [0, 0, 0, 1], atol=1e-6, rtol=0)):
+        raise ValueError("white-matter candidates require an axis-aligned 1 mm atlas grid")
 
     grid = np.indices(cerebra.shape, dtype=np.float32)
     x = affine[0, 0] * grid[0] + affine[0, 3]
@@ -234,6 +337,10 @@ def atlas_white_matter_candidates(
         & ~lateral
     )
     capsule = ndimage.binary_closing(capsule, iterations=1)
+    # Closing can refill holes deliberately excluded as neighbouring nuclei.
+    # Preserve that anatomical exclusion after morphology, not only before it.
+    if preserve_nuclear_exclusions:
+        capsule &= ~medial & ~lateral
     left_capsule = capsule & (x < 0)
     right_capsule = capsule & (x > 0)
     return callosum, left_capsule, right_capsule
@@ -302,7 +409,12 @@ def main() -> None:
         empty = practical == 0
 
     callosum, left_capsule, right_capsule = atlas_white_matter_candidates(
-        cerebra, wm_probability, cerebra_nii.affine
+        cerebra, wm_probability, cerebra_nii.affine,
+        # Reproduce the pinned pre-review baseline. The stricter morphology
+        # remains an unadopted experiment (INTERNAL_CAPSULE_REPAIR.md); changing
+        # it here would invalidate both reviewed patch inputs. Once reviewed,
+        # apply the bounded capsule correction as a new pinned patch stage.
+        preserve_nuclear_exclusions=False,
     )
     candidate_masks = {
         30: resample_mask(callosum, cerebra_nii, manual_nii),
@@ -328,10 +440,14 @@ def main() -> None:
 
     reviewed_patch_audit = apply_approved_patch(practical, MAMMILLARY_PATCH)
     ventricle_patch_audit = apply_approved_ventricle_patch(practical, VENTRICLE_PATCH)
+    classification_patch_audit = apply_approved_ventricle_classification_patch(practical,
+        ROOT / "segmentation-patches/review/ventricle-classification-project-review-2026-09-06.json")
+    callosal_patch_audit = apply_approved_callosal_local_patch(practical,
+        ROOT / "segmentation-patches/review/callosum-local-exclusion-project-review-2026-09-06.json")
 
     if not np.array_equal(practical[manual > 0], manual[manual > 0]):
         raise ValueError("official manual labels were modified")
-    published_ids = list(range(1, 36)) + [39, 40]
+    published_ids = list(range(1, 36)) + [39, 40, 41]
     counts = {str(label_id): int((practical == label_id).sum()) for label_id in published_ids}
     if any(counts[str(label_id)] == 0 for label_id in PRACTICAL_LABELS):
         raise ValueError(f"one or more practical labels are empty: {counts}")
@@ -346,20 +462,26 @@ def main() -> None:
         "officialManualIds": list(range(1, 23)),
         "officialLabelsPreserved": True,
         "atlasDerivedIds": list(range(23, 30)) + [33, 34, 35],
-        "imageGuidedCandidateIds": [30, 31, 32],
+        "imageGuidedCandidateIds": [30, 31, 32, 41],
+        "projectReviewedPartialIds": [41],
         "imageGuidedReviewedIds": [39, 40],
         "labelNames": {str(key): value for key, value in PRACTICAL_LABELS.items()},
         "labelCounts": counts,
         "atlasToManualDiceAudit": overlap_audit,
         "ventricleLabelsRestrictedToEmptySpace": True,
-        "ventricleTissueOverlap": float((~empty_space[np.isin(practical, [23, 24, 25, 26])]).mean()),
+        "ventricleTissueOverlap": float((~empty_space[np.isin(practical, [23, 24, 25, 26, 41])]).mean()),
         "coordinatePolicy": "exact BigBrain ICBM2009sym 0.5 mm output grid; CerebrA resampling accepted only after overlap audit",
         "reviewedPatchAudit": reviewed_patch_audit,
         "ventriclePatchAudit": ventricle_patch_audit,
-        "reviewedPatchAudits": [reviewed_patch_audit, ventricle_patch_audit],
+        "ventricleClassificationPatchAudit": classification_patch_audit,
+        "callosalLocalPatchAudit": callosal_patch_audit,
+        "reviewedPatchAudits": [reviewed_patch_audit, ventricle_patch_audit, classification_patch_audit, callosal_patch_audit],
         "preVentricleCompressedSha256": VENTRICLE_SOURCE_COMPRESSED_SHA256,
         "preVentricleRawVoxelSha256": VENTRICLE_SOURCE_LABELS_SHA256,
-        "teachingPolicy": "IDs 23-35 are provisional teaching overlays; the 33-voxel ventricle repair is project-reviewed under PR #14 and is not expert-reviewed or research ground truth; IDs 39-40 are project-reviewed image-guided teaching labels, not research ground truth",
+        "preClassificationCompressedSha256": AQUEDUCT_SOURCE_COMPRESSED_SHA256,
+        "preCallosalRepairCompressedSha256": CALLOSUM_SOURCE_COMPRESSED_SHA256,
+        "rawVoxelSha256": hashlib.sha256(practical.tobytes(order='F')).hexdigest(),
+        "teachingPolicy": "IDs 23-35 are provisional teaching overlays; the 33-voxel ventricle repair is project-reviewed under PR #14 and is not expert-reviewed or research ground truth; IDs 39-40 are project-reviewed image-guided teaching labels, not research ground truth. ID41 is only a partial aqueduct candidate; the 47-voxel classification correction is AI-assisted project adoption under PR #27, not expert review. ID30 remains a provisional candidate after the local 1605-voxel exclusion; remaining cingulum/fornix contamination is unresolved and no complete callosal boundary is claimed.",
     }
     validation_output.write_text(json.dumps(validation, ensure_ascii=False, indent=2) + "\n")
     print(json.dumps({"output": str(output), "validation": str(validation_output), **validation}, ensure_ascii=False))
