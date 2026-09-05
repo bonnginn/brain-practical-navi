@@ -1,8 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
 import {englishDynamic} from '../src/englishDynamic.mjs';
 
 test('dynamic question and structure counts distinguish zero, one and many',()=>{
+  const page=fs.readFileSync(new URL('../app/page.tsx',import.meta.url),'utf8');
+  assert.ok(page.includes('<small>{`${activeVisibleStructures.length}構造を同時表示中`}</small>'),'React must emit the count as one translatable text node, not separate number and suffix nodes');
   for(const n of [0,1,2,100]){
     const suffix=n===1?'':'s';
     assert.equal(englishDynamic(`全項目（${n}問）`,{'全項目':'All topics'}),`All topics (${n} question${suffix})`);
@@ -10,6 +13,12 @@ test('dynamic question and structure counts distinguish zero, one and many',()=>
     assert.equal(englishDynamic(`${n}問`,{}),`${n} question${suffix}`);
   }
   assert.equal(englishDynamic('5問を上限に1問（候補1）',{}),'Up to 5 questions; 1 selected from 1 candidate');
+});
+
+test('section model accessibility names retain both view directions',()=>{
+  for(const [ja,en] of [['基準方向','reference'],['直交方向','orthogonal']]){
+    assert.equal(englishDynamic(`切断位置の全脳3Dモデル・${ja}。ドラッグまたは矢印キーで回転、Rキーで向きを戻す`,{}),`Whole-brain 3D model showing the section plane, ${en} view. Drag or use the arrow keys to rotate; press R to reset the orientation.`);
+  }
 });
 
 test('all surface-label combinations are complete, correctly spaced instructions',()=>{

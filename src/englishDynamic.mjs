@@ -4,6 +4,8 @@ export function englishDynamic(core, translations) {
   let m=core.match(/^(\d+)構造を同時表示中$/u);
   if(m)return `${counted(m[1],"structure")} displayed`;
   const planes={"冠状断":"coronal","水平断":"horizontal","矢状断":"sagittal"};
+  m=core.match(/^切断位置の全脳3Dモデル・(基準方向|直交方向)。ドラッグまたは矢印キーで回転、Rキーで向きを戻す$/u);
+  if(m)return `Whole-brain 3D model showing the section plane, ${m[1]==="基準方向"?"reference":"orthogonal"} view. Drag or use the arrow keys to rotate; press R to reset the orientation.`;
   m=core.match(/^(冠状断|水平断|矢状断)の(前後|上下|左右)位置$/u);
   if(m)return `${planes[m[1]]} slice position`;
   m=core.match(/^復習問題の(前後|上下|左右)位置$/u);

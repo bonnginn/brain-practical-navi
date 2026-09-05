@@ -16,6 +16,8 @@
 
 断面画面の「この観察のリンク」では、現在のBigBrain断面位置・構造選択・表示配分をリンクで再現できます。ラベルの版が異なる場合は適用せず通知します。回転・拡大率は含まず、URLには言語・端末モード以外の既存queryを引き継ぎません。
 
+英語ブロック全8標本の観察項目・位置説明を校正し、断面の構造数表示と1面/2面の読み上げも実操作で確認しています。日本語原文・ラベル・正答キーは変更しません。
+
 日本語のレビュー準備一覧には、台帳の構造キーと既存クイズの観察位置が対応する項目だけ、対象を選択して観察画面へ移動するボタンを追加しています。未収録構造や旧混合領域の境界・位置を新たに推測するものではありません。
 
 In development (2026-09-05; not yet published): incorrect-answer history now distinguishes individual questions, with conservative migration of legacy structure-level records. Section descriptions and controls in English are being corrected. These changes do not approve new segmentation boundaries or constitute expert anatomical review.
@@ -29,6 +31,8 @@ Block specimens are grouped by guided or free exploration rather than developmen
 Surface-layer controls for neurovascular, inferior, and free-exploration views now sit in a dedicated row below the 3D model, preventing long English buttons from covering the anatomy.
 
 English corrections restore omitted spatial relationships in the lateral-ventricle block, improve 3D accessibility descriptions, and distinguish singular and plural counts. Brain-surface, basal-artery and cranial-nerve descriptions, free-exploration controls, and short block notes are also being corrected against the Japanese source. These language corrections do not constitute expert anatomical review.
+
+The observation lists and spatial descriptions for all eight block specimens have been proofread. Section counts and accessibility labels for one- and two-view 3D layouts have also been checked in the browser. The Japanese source, anatomical labels, and answer keys remain unchanged.
 
 “Link to this observation” reproduces the current BigBrain slice position, structure selection and panel layout. Links with a different label revision are rejected with a notice. Rotation and zoom are excluded; unrelated URL query parameters are not copied.
 
