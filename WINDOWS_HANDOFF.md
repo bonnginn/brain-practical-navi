@@ -2,6 +2,10 @@
 
 ## 2026-09-06 10:00 JSTまでの自律作業
 
+追加の淡蒼球精査: `PALLIDAL_BOUNDARY_REVIEW.md`。左右全X/Y＋上方Z147–160の230原画像対／78シートと全体付き3図をAIが目視。手動由来ID11–14の位置・値が旧b75a…と不変であることも確認。主たる内外関係は追えるが、右外節の上後方の淡い帯は境界未確定、追加採用なし。原画像パネル947,114 pixel block照合成功、対象Python3/3・全Python50/50成功。元volume098edf…／全mesh不変。単なるwhite閾値や左右鏡映で切り取らない。
+
+脳室穴調査を88df796でcommit/push済み、CI run33988477329成功。ここまで公開・main未変更、draft PR27。
+
 最新の段階: `CALLOSUM_INFERIOR_REPAIR.md`。固定下方弧2,160 voxelを全114占有／隣接断面24シート＋3全体図でAIが確認し、第6段階で30→0へ除外した。**開発volumeは098edf…／raw afc550…、ID30=146,019**。脳梁局所除外の合計5,361。新しい脳弓ラベルへ塗り替えたわけではない。旧8cc65e…fixtureとstrict採用記録を保存。55 block比較では脳梁mask270格子voxelだけ変更、他54不変。新脳梁mesh c9e416…、13,022頂点／26,012面。Python全44/44・全Node489/489・型検査・通常build・6段階全voxel再構成差異0。実ブラウザ24/24、新規同定6＋block8画像を目視。全体ログwork/callosal-inferior-full-node.log。公開未変更、保存先は作業ブランチ／draft PR27のみ。
 
 読み取り専用の脳室穴調査: 098edf…でID23/24/25/26の補集合6近傍では170/22/1/0 voxel、18近傍では118/2/1/0、26近傍では116/0/1/0。すべて未ラベル・原画像非255。大きい7成分の代表±1断を三方向、計63対／21シートでAIが目視した。小島状の濃淡や壁際の境界で、一律の空隙埋めを支持せず追加採用0。全候補の逐一精査／全境界の正常判定ではない。`audit_ventricle_enclosed_holes.py`、`SEPTEMBER_VENTRICLE_REVIEW.md`追補、work/anatomy-review/ventricle-enclosed-holes-v2参照。元volume不変。既存の背景255候補と混同しない。
