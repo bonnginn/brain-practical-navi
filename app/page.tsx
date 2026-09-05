@@ -9,6 +9,7 @@ import { restoreQuizHistory, recordQuizAnswer } from "../src/quizHistory.mjs";
 import { SECTION_SESSION_KEY, readSectionSession } from "../src/sectionSession.mjs";
 import { readSectionLink, sectionLinkHash, observationUrl } from "../src/sectionLink.mjs";
 import { SEGMENTATION_LABEL_SHA256 } from "./segmentationLabelRevision";
+import { observationQuestionsForEntry } from "../src/anatomyReviewQueue.mjs";
 import { balancedQuizOrder } from "../src/quizOrder.mjs";
 import anatomyReviewRegistry from "../public/atlas/structure-provenance.json";
 import { freeObservationReadings, matchesJapaneseSearch, normalizeJapaneseSearch } from "../src/japaneseSearch";
@@ -634,7 +635,7 @@ const anatomyReviewRepresentationLabels:Record<string,string>={
 const anatomyReviewProjectLabels:Record<string,string>={pending:"プロジェクト内レビュー未完了","reviewed-by-project":"プロジェクト内レビュー済み（専門家レビューとは別）"};
 const anatomyReviewQuizLabels:Record<string,string>={standard:"通常クイズ対象",pilot:"試作クイズ対象",none:"クイズ対象外"};
 
-function AnatomyReviewQueuePanel({items,total,surfaceFilter,representationFilter,onSurfaceChange,onRepresentationChange}:{items:AnatomyReviewQueueItem[];total:number;surfaceFilter:AnatomyReviewSurface;representationFilter:string;onSurfaceChange:(value:AnatomyReviewSurface)=>void;onRepresentationChange:(value:string)=>void}){
+function AnatomyReviewQueuePanel({items,total,surfaceFilter,representationFilter,onSurfaceChange,onRepresentationChange,onObserve}:{items:AnatomyReviewQueueItem[];total:number;surfaceFilter:AnatomyReviewSurface;representationFilter:string;onSurfaceChange:(value:AnatomyReviewSurface)=>void;onRepresentationChange:(value:string)=>void;onObserve:(question:QuizQuestion)=>void}){
   const representationOptions=Array.isArray(anatomyReviewRegistry.representationEnum)?anatomyReviewRegistry.representationEnum:[];
   const [openReviewCards,setOpenReviewCards]=useState<Set<string>>(()=>new Set());
   function toggleReviewCard(event:SyntheticEvent<HTMLDetailsElement>){const open=event.currentTarget.open,key=event.currentTarget.dataset.reviewEntryKey;if(!key)return;setOpenReviewCards(current=>{const next=new Set(current);if(open)next.add(key);else next.delete(key);return next})}
@@ -652,6 +653,7 @@ function AnatomyReviewQueuePanel({items,total,surfaceFilter,representationFilter
       const legacyOptic=isLegacyOpticEntry(entry);
       const mammillary=isMammillaryEntry(entry);
       const observationHash=observationHashForEntry(entry);
+      const targetQuestions=observationQuestionsForEntry(entry,allQuizQuestions);
       const observationWorkspace=observationWorkspaceForEntry(entry);
       const observationLabel=observationWorkspace?anatomyReviewSurfaceLabels[observationWorkspace]:"";
       return <details className="anatomyReviewCard" key={item.key} data-review-entry-key={item.key} onToggle={toggleReviewCard}>
@@ -670,6 +672,7 @@ function AnatomyReviewQueuePanel({items,total,surfaceFilter,representationFilter
           <details className="anatomyReviewSubdetails"><summary>source refs</summary>{entry.sourceRefs.length?<ul>{entry.sourceRefs.map(value=><li key={value}><code>{value}</code></li>)}</ul>:<p>この項目に記録されたsource refsはありません。</p>}</details>
           {openReviewCards.has(item.key)&&<Suspense fallback={<div className="atlasLoading" role="status">確認記録を読み込み中…</div>}><AnatomyReviewRecordDraftCard registry={anatomyReviewRegistry} entry={entry}/></Suspense>}
           {observationHash?<a className="anatomyReviewObserve" href={observationHash}>一般の{observationLabel}画面を開く（この項目・構造・位置は自動選択されません） →</a>:<span className="anatomyReviewNoObserve">対応する利用者向け観察入口はありません</span>}
+          {targetQuestions.map(question=><button type="button" className="anatomyReviewObserve" key={question.target} onClick={()=>onObserve(question)}>{isNeurovascularQuiz(question)?neurovascularStructures[question.target].name:isSurfaceQuiz(question)?surfaceRegions[question.target].name:structures[question.target].name}を既存クイズ位置で観察 →</button>)}
         </div>
       </details>;
       })}</div>:<p className="anatomyReviewEmpty">この条件に一致する準備項目はありません。</p>}
@@ -1518,7 +1521,7 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
          <article><span>権利・再利用</span><h2>ライセンスを確認する</h2><p>コード、教材文書、BigBrain・MNI・CerebrA由来データでは適用条件が異なります。公開・再配布前に確認してください。</p><div><a href={licenseGuideUrl} target="_blank" rel="noreferrer">ライセンス境界</a><button onClick={()=>openOverlay("legal")}>画面上の利用条件 →</button></div></article>
       </div>
       {modelStrategyComparisonOpen&&<div id="model-strategy-comparison" ref={modelStrategyPanelRef}><Suspense fallback={<div className="modelStrategyLoading" role="status">比較試作を読み込み中…</div>}><ModelStrategyComparison onClose={closeModelStrategyComparison}/></Suspense></div>}
-      <AnatomyReviewQueuePanel items={anatomyReviewItems} total={anatomyReviewQueue.length} surfaceFilter={anatomyReviewSurfaceFilter} representationFilter={anatomyReviewRepresentationFilter} onSurfaceChange={setAnatomyReviewSurfaceFilter} onRepresentationChange={setAnatomyReviewRepresentationFilter}/>
+      <AnatomyReviewQueuePanel onObserve={reviewQuizQuestion} items={anatomyReviewItems} total={anatomyReviewQueue.length} surfaceFilter={anatomyReviewSurfaceFilter} representationFilter={anatomyReviewRepresentationFilter} onSurfaceChange={setAnatomyReviewSurfaceFilter} onRepresentationChange={setAnatomyReviewRepresentationFilter}/>
     </section>}
 
     {workspace==="segment"&&<section className="workArea segmentationArea" id="workspace" tabIndex={-1}>

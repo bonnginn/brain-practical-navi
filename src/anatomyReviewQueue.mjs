@@ -66,3 +66,14 @@ export function observationHashForEntry(entry) {
   const workspace = observationWorkspaceForEntry(entry);
   return workspace ? `#workspace/${workspace}` : null;
 }
+
+/** Use only declared app keys and existing teaching positions, never infer a target. */
+export function observationQuestionsForEntry(entry, questions) {
+  if(isLegacyOpticEntry(entry)||entry?.excludedFromSectionAndQuizTargets)return [];
+  const keys=Array.isArray(entry?.appKeys)?entry.appKeys:[];
+  const surfaces=Array.isArray(entry?.learnerSurfaces)?entry.learnerSurfaces:[];
+  return [...new Set(keys)].flatMap(key=>{
+    const question=questions.find(q=>q.target===key&&surfaces.includes(q.view?'surface':'sections')&&(q.plane||q.view));
+    return question?[question]:[];
+  });
+}
