@@ -6,6 +6,10 @@ import {englishDynamic} from '../src/englishDynamic.mjs';
 test('dynamic question and structure counts distinguish zero, one and many',()=>{
   const page=fs.readFileSync(new URL('../app/page.tsx',import.meta.url),'utf8');
   assert.ok(page.includes('<small>{`${activeVisibleStructures.length}構造を同時表示中`}</small>'),'React must emit the count as one translatable text node, not separate number and suffix nodes');
+  assert.ok(page.includes('{`${category.label}（${quizChoiceCount("category",category.key)}問）`}'));
+  assert.ok(page.includes('{`${option.label}（${quizChoiceCount("format",option.key)}問）`}'));
+  assert.ok(page.includes('{`${quizDetailLabels[detail]}（${quizChoiceCount("detail",detail)}問）`}'));
+  assert.doesNotMatch(page,/100-Math\.abs\(position-52\)/,'slice position alone must not masquerade as anatomical visibility');
   for(const n of [0,1,2,100]){
     const suffix=n===1?'':'s';
     assert.equal(englishDynamic(`全項目（${n}問）`,{'全項目':'All topics'}),`All topics (${n} question${suffix})`);

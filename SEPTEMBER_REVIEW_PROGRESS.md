@@ -2,6 +2,10 @@
 
 ## 全体目標の追跡（途中完了を全体完了にしない）
 
+第十六段階後の全体回帰: `node --test --test-concurrency=1 tests/*.test.mjs` は465/465成功（278秒、skip/cancel/fail=0、`work/september-full-tests-final.log`）。実行中にアプリ/テストは変更していない。テストによるdist更新後、通常buildを再生成して成功。これは当段階の全体回帰であり、残る回路ガイド英語の校正やPR作成を完了した主張ではない。
+
+第十六段階（断面の詳細英語・表示根拠）: structuresの全note/relationとstructureFunctionsの全項目を日本語原文と英語辞書で照合。第三脳室・脳梁・GPe/GPi・視床・海馬・黒質・脳幹・小脳などで位置方向が欠落した英訳、機能説明の途切れや運動をexerciseとする誤訳、組織切片をorganizational fragmentとする読込文を修正した。クイズの分類・形式・詳細optionは完全な一文で翻訳するよう変更し、4344実ブラウザで4候補の1 questionを確認。詳細解説の「見えやすさ」バーが画像情報ではなくpositionから一律算出されていたため、数値評価ではないことと隣接断面での確認を促す文章に置換。GPe詳細の機能・位置説明・新しい確認案内とバー除去を実DOMで確認。型検査、関連9/9、通常build成功。最終全テストを開始（work/september-full-tests-final.log）；結果未確定。
+
 第十五段階（クイズ解説比較）: 誤答時に正答と選択肢を比較する欄を追加。名称/機能から同定では既存registryのnote/relationを使い、機能・関係・経路の文選択ではoptionLabelsだけを比較する。correctAnswerと観察対象targetを混同せず、新しい解剖学的説明や正答キーは追加しない。英語のSelectedがPetsとなる誤訳、解説見出しの欠け、被殻の位置説明も修正。比較/英語回帰5/5、型検査、通常build成功。4344実ブラウザで小脳の関係問題、扁桃体/被殻の名称問題、脳底動脈/後大脳動脈の3D名称問題を誤答し、比較内容を確認。修正後のSelected/解説見出しも確認。試験誤答は同じ問題への正答で解消した。390×780 CSS pxで比較欄1列、document scrollWidth=clientWidth=379を確認（物理端末ではない）。全体検証はまだ未実施。フィルタ候補の一部に残る1 questions、動的文・詳細解説の校正を次の残件とする。
 
 1. 公開先・到達性: GitHub Pages正常。QR/READMEは変更不要と確定。

@@ -1,5 +1,9 @@
 # 脳実習ナビ
 
+未公開の追加修正: 断面の位置・機能説明の英訳を校正しました。詳細解説にあった、画像の測定値ではない「見えやすさ」バーを削除し、隣接断面で確認する案内に置き換えています。
+
+Additional unpublished changes: English location and function descriptions have been revised. The detail panel's visibility bar, which was not based on image measurements, has been replaced with guidance to compare neighbouring sections.
+
 [公開α版をブラウザで開く](https://bonnginn.github.io/brain-practical-navi/)
 
 開発中（2026-09-05・未公開）: 誤答履歴を構造単位から問題単位へ変更し、旧履歴の保守的な移行を追加しています。誤答時に正答と選んだ答えを比較し、名称問題では既存の位置・構造説明も表示します。英語の断面説明・再生操作名・位置表示も修正中です。新しい分節や3D境界の採用、専門家レビュー完了を意味しません。
