@@ -18,6 +18,8 @@
 
 英語ブロック全8標本の観察項目・位置説明を校正し、断面の構造数表示と1面/2面の読み上げも実操作で確認しています。日本語原文・ラベル・正答キーは変更しません。
 
+分節再点検では乳頭体・旧視覚路領域・脳室の連続断面を照合しています。今回の追加ラベル修正は採用せず、曖昧な境界を[原画像監査](SEPTEMBER_ANATOMY_IMAGE_REVIEW.md)と[脳室再点検](SEPTEMBER_VENTRICLE_REVIEW.md)へ座標付きで記録しています。
+
 日本語のレビュー準備一覧には、台帳の構造キーと既存クイズの観察位置が対応する項目だけ、対象を選択して観察画面へ移動するボタンを追加しています。未収録構造や旧混合領域の境界・位置を新たに推測するものではありません。
 
 In development (2026-09-05; not yet published): incorrect-answer history now distinguishes individual questions, with conservative migration of legacy structure-level records. Section descriptions and controls in English are being corrected. These changes do not approve new segmentation boundaries or constitute expert anatomical review.
@@ -33,6 +35,8 @@ Surface-layer controls for neurovascular, inferior, and free-exploration views n
 English corrections restore omitted spatial relationships in the lateral-ventricle block, improve 3D accessibility descriptions, and distinguish singular and plural counts. Brain-surface, basal-artery and cranial-nerve descriptions, free-exploration controls, and short block notes are also being corrected against the Japanese source. These language corrections do not constitute expert anatomical review.
 
 The observation lists and spatial descriptions for all eight block specimens have been proofread. Section counts and accessibility labels for one- and two-view 3D layouts have also been checked in the browser. The Japanese source, anatomical labels, and answer keys remain unchanged.
+
+Serial-section reinspection covers the mammillary bodies, former mixed optic-pathway region, and ventricles. No additional label repair has been adopted; ambiguous boundaries are recorded with coordinates in the [image review](SEPTEMBER_ANATOMY_IMAGE_REVIEW.md) and [ventricular review](SEPTEMBER_VENTRICLE_REVIEW.md), without implying expert approval.
 
 “Link to this observation” reproduces the current BigBrain slice position, structure selection and panel layout. Links with a different label revision are rejected with a notice. Rotation and zoom are excluded; unrelated URL query parameters are not copied.
 
