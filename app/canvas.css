@@ -150,6 +150,7 @@
 .selectedStructureList p { display: grid; gap: 3px; margin: 0; color: #465351; font-size: 14px; line-height: 1.45; }
 .selectedStructureList p em { color: #697371; font-style: normal; }
 .selectedStructureList p em::before { content: "位置："; font-weight: 700; }
+html[lang="en"] .selectedStructureList p em::before { content: "Location: "; }
 .selectedStructureBar button { border: 1px solid #b9bdb7; background: #f8f7f2; padding: 7px 11px; font-size: 16px; }
 .selectedStructureList > button { border: 0; padding: 9px 18px; }
 .selectedStructureBar button:disabled, .quiz:disabled { cursor: default; opacity: .48; }

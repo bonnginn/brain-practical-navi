@@ -2,6 +2,10 @@
 
 [公開α版をブラウザで開く](https://bonnginn.github.io/brain-practical-navi/)
 
+開発中（2026-09-05・未公開）: 誤答履歴を構造単位から問題単位へ変更し、旧履歴の保守的な移行を追加しています。英語の断面説明・再生操作名・位置表示も修正中です。新しい分節や3D境界の採用、専門家レビュー完了を意味しません。
+
+In development (2026-09-05; not yet published): incorrect-answer history now distinguishes individual questions, with conservative migration of legacy structure-level records. Section descriptions and controls in English are being corrected. These changes do not approve new segmentation boundaries or constitute expert anatomical review.
+
 > **English edition (project-reviewed preview) (updated 2026-08-30):** A follow-up browser audit found residual corruption in short anatomy labels, controls, and several quiz prompts. The current candidate derives learner anatomy names from their recorded English/Latin source terms and adds regression checks for those reported failures. The paired English labels shown in the canonical Japanese edition were also re-audited for correspondence and standard anatomical wording. It has not received expert anatomical review or independent native-language proofreading; the Japanese edition remains the canonical project source. See [ENGLISH_EDITION_AUDIT.md](ENGLISH_EDITION_AUDIT.md).
 
 脳解剖実習の予習・復習を目的とした、非営利の学習補助アプリです。単一標本の連続断面、全脳3Dモデル、構造の重ね合わせ、脳表・ブロック標本の観察、構造同定クイズを一つの画面系で扱うことを目標に開発しています。

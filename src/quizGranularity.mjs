@@ -95,7 +95,7 @@ export function matchesQuizFilters(question, filters, wrongTargets) {
   if (filters.format !== "all" && question.format !== filters.format) return false;
   if (filters.detail !== "all" && question.detail !== filters.detail) return false;
   if (!filters.includeProvisional && question.origin === "provisional") return false;
-  if (filters.wrongOnly && !wrongTargets.includes(question.target)) return false;
+  if (filters.wrongOnly && !wrongTargets.includes(question.id ?? question.target)) return false;
   return true;
 }
 

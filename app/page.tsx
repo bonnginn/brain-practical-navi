@@ -5,6 +5,7 @@ import { AtlasVolumeCanvas, QUIZ_SECTION_ACCENT_HEX, type BlockContextSpecimen, 
 import betaStatus from "./beta-status.json";
 import betaGoNoGoDisplay from "./beta-go-no-go-display.json";
 import quizConceptBank from "./quiz-concept-bank.json";
+import { restoreQuizHistory, recordQuizAnswer } from "../src/quizHistory.mjs";
 import anatomyReviewRegistry from "../public/atlas/structure-provenance.json";
 import { freeObservationReadings, matchesJapaneseSearch, normalizeJapaneseSearch } from "../src/japaneseSearch";
 import { QUIZ_GRANULARITY_BY_TARGET, countQuizChoice, detailOptionsForFormat, filterQuizCandidates } from "../src/quizGranularity.mjs";
@@ -141,7 +142,7 @@ const quizFormatOptions:{key:QuizFormatFilter;label:string}[]=[
   {key:"neurovascular",label:"脳神経・血管3D"},
 ];
 const quizDetailLabels:Record<QuizDetail,string>={coronal:"冠状断",horizontal:"水平断",sagittal:"矢状断",lateral:"外側面",superior:"上面",inferior:"下面",medial:"内側面",arteries:"主要血管3D",cranialNerves:"脳神経3D"};
-const QUIZ_WRONG_CACHE_KEY="brain-practical-quiz-wrong-v1";
+const QUIZ_WRONG_CACHE_KEY="brain-practical-quiz-wrong-v2";
 
 const surfaceViews:Record<SurfaceViewKey,{name:string;en:string;visual:"cortex"|"arteries"|"nerves";rotation:Rotation;hemisphere:"both"|"left"|"right";intro:string;structures:string[];caution?:string}>= {
   lateral:{name:"左外側面",en:"LEFT LATERAL SURFACE",visual:"cortex",rotation:{x:0,y:-90,z:0},hemisphere:"both",intro:"外側溝から中心溝をたどり、前頭・頭頂・側頭葉の境界を組み立てます。",structures:["外側溝（シルビウス溝）","中心前溝・中心溝","中心前回・中心後回","上側頭回","下前頭回 弁蓋部・三角部"]},
@@ -797,7 +798,7 @@ export default function Home() {
   const [quizCount,setQuizCount]=useState<5|10|15|20>(10);
   const [quizWrongOnly,setQuizWrongOnly]=useState(false);
   const [quizIncludeProvisional,setQuizIncludeProvisional]=useState(true);
-  const [wrongTargets,setWrongTargets]=useState<QuizTargetKey[]>([]);
+  const [wrongTargets,setWrongTargets]=useState<string[]>([]);
   const [quizChoice,setQuizChoice]=useState<string|null>(null);
   const [quizScore,setQuizScore]=useState(0);
   const [quizFinished,setQuizFinished]=useState(false);
@@ -945,7 +946,7 @@ export default function Home() {
     setBlockGuidedState(finished);
     setBlockLayers([...finished.restoredLayers]);
   },[workspace,blockSpecimen]);
-  useEffect(()=>{try{const saved=JSON.parse(localStorage.getItem(QUIZ_WRONG_CACHE_KEY)??"[]");if(Array.isArray(saved))setWrongTargets(saved.filter((key):key is QuizTargetKey=>typeof key==="string"&&(key in structures||key in surfaceRegions||key in neurovascularStructures)))}catch{/* invalid cache is ignored */}},[]);
+  useEffect(()=>{try{const restored=restoreQuizHistory(localStorage.getItem(QUIZ_WRONG_CACHE_KEY),localStorage.getItem("brain-practical-quiz-wrong-v1"),allQuizQuestions);setWrongTargets(restored);localStorage.setItem(QUIZ_WRONG_CACHE_KEY,JSON.stringify(restored))}catch{/* Invalid or inaccessible storage is left untouched. */}},[]);
   useEffect(()=>setQuizSlicePosition(quizStartPosition),[quizStartPosition,surfaceQuiz]);
   useEffect(()=>{if(isSurfaceQuiz(quizQuestion)||isNeurovascularQuiz(quizQuestion))setRotation({...quizModelInitialRotation})},[quizQuestion]);
   useEffect(()=>{if(quizVisibilityAuditTarget&&!isSurfaceQuiz(quizQuestion)&&!isNeurovascularQuiz(quizQuestion))setRotation({...homeRotation})},[quizVisibilityAuditTarget?.target,quizQuestion]);
@@ -1233,11 +1234,11 @@ export default function Home() {
   function openWorkspace(key:WorkspaceMode){if(key!=="blocks")stopBlockGuided();if(englishEdition&&(key==="collaborate"||key==="segment"))key="home";setPhoneSettingsOpen(false);setHelpOpen(false);setFeedbackOpen(false);setLegalOpen(false);setStatusOpen(false);setModelStrategyComparisonOpen(false);const nextHash=workspaceHash(key,surfaceView,plane,blockSpecimen);if(window.location.hash!==nextHash)window.history.pushState(null,"",nextHash);transitionBlockContextState({type:key==="blocks"?"enter-workspace":"leave-workspace",workspace:key});setBlockContextDrag(null);setWorkspace(key);if(key==="home")setRotation({...homeRotation});if(key==="sections")setRotation({x:-7,y:-18,z:0});if(key==="surface")setRotation(surfaceViews[surfaceView].rotation);if(key==="blocks"){setBlockIntroOpen(true);setRotation({...blockInitialRotations[blockSpecimen]});setBlockViewPreset("initial")}}
   function openModelStrategyComparison(origin?:HTMLElement){modelStrategyReturnFocus.current=origin??(document.activeElement instanceof HTMLElement?document.activeElement:null);setModelStrategyComparisonOpen(true);updateScreenHistory(MODEL_STRATEGY_ROUTE,"push")}
   function closeModelStrategyComparison(){setModelStrategyComparisonOpen(false);updateScreenHistory(workspaceHash("collaborate",surfaceView,plane,blockSpecimen),"replace");window.requestAnimationFrame(()=>modelStrategyReturnFocus.current?.focus())}
-  function saveWrongTargets(next:QuizTargetKey[]){setWrongTargets(next);try{localStorage.setItem(QUIZ_WRONG_CACHE_KEY,JSON.stringify(next))}catch{/* private browsing may block storage */}}
+  function saveWrongTargets(next:string[]){setWrongTargets(next);try{localStorage.setItem(QUIZ_WRONG_CACHE_KEY,JSON.stringify(next))}catch{/* private browsing may block storage */}}
   function quizChoiceCount(dimension:"category"|"format"|"detail",value:string){return countQuizChoice(quizQuestionsForFiltering,quizFilters,wrongTargets,dimension,value)}
   function chooseQuizFormat(value:QuizFormatFilter){setQuizFormat(value);if(quizDetail!=="all"&&!detailOptionsForFormat(value).includes(quizDetail))setQuizDetail("all")}
   function startQuiz(){let candidates=quizCandidates;setQuizQueue(shuffledQuestions(candidates).slice(0,quizActualCount));setQuizIndex(0);setQuizChoice(null);setQuizScore(0);setQuizMisses([]);setQuizFinished(false)}
-  function answerQuiz(key:string){if(quizChoice||quizEmpty)return;setQuizChoice(key);const correct=key===quizCorrectAnswer(quizQuestion);if(correct){setQuizScore(score=>score+1);if(wrongTargets.includes(quizQuestion.target))saveWrongTargets(wrongTargets.filter(target=>target!==quizQuestion.target))}else{setQuizMisses(previous=>previous.includes(quizQuestion.target)?previous:[...previous,quizQuestion.target]);if(!wrongTargets.includes(quizQuestion.target))saveWrongTargets([...wrongTargets,quizQuestion.target])}}
+  function answerQuiz(key:string){if(quizChoice||quizEmpty)return;setQuizChoice(key);const correct=key===quizCorrectAnswer(quizQuestion);if(correct)setQuizScore(score=>score+1);else setQuizMisses(previous=>previous.includes(quizQuestion.target)?previous:[...previous,quizQuestion.target]);saveWrongTargets(recordQuizAnswer(wrongTargets,quizQuestion,correct))}
   function nextQuiz(){if(quizIndex>=quizQueue.length-1){setQuizChoice(null);setQuizFinished(true);return}setQuizChoice(null);setQuizIndex(index=>index+1)}
   function resetQuiz(){setQuizIndex(0);setQuizChoice(null);setQuizScore(0);setQuizMisses([]);setQuizFinished(false)}
   function reviewQuizQuestion(question:QuizQuestion){if(isNeurovascularQuiz(question)){openWorkspace("surface");chooseSurface(question.view,"replace");setSelectedNeurovascularStructure(question.target);setSurfaceVessels(question.view==="arteries");setSurfaceNerves(question.view==="cranialNerves");return}if(isSurfaceQuiz(question)){openWorkspace("surface");chooseSurface(question.view,"replace");setSurfaceVisibleRegions([question.target]);return}openWorkspace("sections");jump(question.plane,question.position,"replace");setVisibleStructures([question.target]);focusStructure(question.target,true);setLabels(true)}

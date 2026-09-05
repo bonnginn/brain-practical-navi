@@ -4,6 +4,12 @@ import fs from "node:fs";
 import { anatomyDisplayEnglish } from "../src/anatomyDisplayEnglish.mjs";
 import { languageSwitchUrl, localeFromSearch, localizedPublicUrl, publicWorkspaceForLocale } from "../src/locale.mjs";
 
+test("section text and playback action retain their intended meaning",()=>{
+  const catalog=JSON.parse(fs.readFileSync(new URL("../app/english-catalog.json",import.meta.url),"utf8"));
+  assert.equal(catalog["連続断面を再生"],"Play serial sections");
+  assert.match(catalog["側脳室に沿って前後へ連続する核です。断面を移動して頭・体・尾の位置変化を追います。"],/^The caudate nucleus follows/);
+});
+
 test("English locale is explicit and Japanese remains the default",()=>{
   assert.equal(localeFromSearch("?lang=en&ui=phone"),"en");
   assert.equal(localeFromSearch("?ui=desktop"),"ja");

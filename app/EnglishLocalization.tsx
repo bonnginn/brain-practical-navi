@@ -28,6 +28,15 @@ const replacementKeys=Object.keys(translations).filter(key=>key.length>=2&&/[\u3
 const excludedTags=new Set(["SCRIPT","STYLE","NOSCRIPT","TEXTAREA"]);
 
 function translatedDynamic(core:string){
+  let sectionMatch=core.match(/^(\d+)構造を同時表示中$/u);
+  if(sectionMatch)return `${sectionMatch[1]} structures displayed`;
+  const planeNames:Record<string,string>={"冠状断":"coronal","水平断":"horizontal","矢状断":"sagittal"};
+  sectionMatch=core.match(/^(冠状断|水平断|矢状断)の(前後|上下|左右)位置$/u);
+  if(sectionMatch)return `${planeNames[sectionMatch[1]]} slice position`;
+  if(core.startsWith("位置：")){
+    const location=translations[core.slice(3)];
+    if(location)return `Location: ${location}`;
+  }
   let match=core.match(/^(.+)（(\d+)問）$/u);
   if(match){const label=translations[match[1]];if(label)return `${label} (${match[2]} questions)`}
   match=core.match(/^次回 (\d+)問候補$/u);

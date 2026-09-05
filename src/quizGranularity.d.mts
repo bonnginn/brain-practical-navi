@@ -2,6 +2,7 @@ export type QuizFormat = "section" | "surface" | "neurovascular";
 export type QuizDetail = "coronal" | "horizontal" | "sagittal" | "lateral" | "superior" | "inferior" | "medial" | "arteries" | "cranialNerves";
 export type QuizOrigin = "standard" | "provisional";
 export type QuizFilterQuestion = {
+  id?: string;
   target: string;
   category: string;
   format: QuizFormat;
