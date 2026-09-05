@@ -42,6 +42,15 @@ test("quiz controls use complete English and distinguish function from features"
   assert.match(catalog["・BigBrain公開組織画像 0.5 mm"],/histological image/);
 });
 
+test("ventricular block descriptions retain the Japanese spatial relationships",()=>{
+  const catalog=JSON.parse(fs.readFileSync(new URL("../app/english-catalog.json",import.meta.url),"utf8"));
+  assert.match(catalog["海馬と下角の位置関係"],/hippocampus and inferior horn/);
+  assert.match(catalog["視床と体部の位置関係"],/thalamus and the body of the lateral ventricle/);
+  assert.match(catalog["側脳室体部の床と第三脳室の外側に位置します。"],/floor.*lateral ventricle and lateral to the third ventricle/);
+  assert.match(catalog["側脳室下角の床を内側から隆起させます。"],/medial part of the floor of the inferior horn/);
+  assert.equal(catalog["脳梁・脳弓標本"],"Corpus callosum and fornix");
+});
+
 test("learner anatomy names agree with their English display term",()=>{
   const catalog=JSON.parse(fs.readFileSync(new URL("../app/english-catalog.json",import.meta.url),"utf8"));
   const page=fs.readFileSync(new URL("../app/page.tsx",import.meta.url),"utf8");

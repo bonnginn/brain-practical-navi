@@ -2,6 +2,7 @@
 
 import { useLayoutEffect } from "react";
 import catalogData from "./english-catalog.json";
+import { englishDynamic } from "../src/englishDynamic.mjs";
 
 const catalog = catalogData as Record<string,string>;
 const reviewed:Record<string,string> = {
@@ -27,34 +28,7 @@ const translations={...catalog,...reviewed};
 const replacementKeys=Object.keys(translations).filter(key=>key.length>=2&&/[\u3040-\u30ff\u3400-\u9fff]/u.test(key)).sort((a,b)=>b.length-a.length);
 const excludedTags=new Set(["SCRIPT","STYLE","NOSCRIPT","TEXTAREA"]);
 
-function translatedDynamic(core:string){
-  let sectionMatch=core.match(/^(\d+)構造を同時表示中$/u);
-  if(sectionMatch)return `${sectionMatch[1]} structures displayed`;
-  const planeNames:Record<string,string>={"冠状断":"coronal","水平断":"horizontal","矢状断":"sagittal"};
-  sectionMatch=core.match(/^(冠状断|水平断|矢状断)の(前後|上下|左右)位置$/u);
-  if(sectionMatch)return `${planeNames[sectionMatch[1]]} slice position`;
-  sectionMatch=core.match(/^復習問題の(前後|上下|左右)位置$/u);
-  if(sectionMatch)return `Quiz slice position (${{"前後":"anteroposterior","上下":"superoinferior","左右":"left–right"}[sectionMatch[1]]})`;
-  sectionMatch=core.match(/^(coronal|horizontal|sagittal)断面 ([\d.]+)。ホイールで拡大縮小、Shiftドラッグで移動$/u);
-  if(sectionMatch)return `${sectionMatch[1]} slice ${sectionMatch[2]}. Use the wheel to zoom and Shift-drag to pan.`;
-  if(core.startsWith("位置：")){
-    const location=translations[core.slice(3)];
-    if(location)return `Location: ${location}`;
-  }
-  let match=core.match(/^(.+)（(\d+)問）$/u);
-  if(match){const label=translations[match[1]];if(label)return `${label} (${match[2]} questions)`}
-  match=core.match(/^次回 (\d+)問候補$/u);
-  if(match)return `Next: ${match[1]} candidate questions`;
-  match=core.match(/^標準 (\d+)・試作 (\d+)$/u);
-  if(match)return `Standard ${match[1]} · Provisional ${match[2]}`;
-  match=core.match(/^(\d+)問を上限に(\d+)問（候補(\d+)）$/u);
-  if(match)return `Up to ${match[1]} questions; ${match[2]} selected from ${match[3]} candidates`;
-  match=core.match(/^(\d+)問（実際(\d+)問）$/u);
-  if(match)return `${match[1]} questions (${match[2]} available)`;
-  match=core.match(/^(\d+)問$/u);
-  if(match)return `${match[1]} questions`;
-  return null;
-}
+const translatedDynamic=(core:string)=>englishDynamic(core,translations);
 
 function translated(value:string){
   const direct=translations[value];
