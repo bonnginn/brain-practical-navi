@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Build the practical teaching overlay for the 0.5 mm BigBrain grid.
+"""Reproduce the historical practical overlay for the 0.5 mm BigBrain grid.
+
+The original image/manual pair has a known nonlinear-registration-history
+mismatch (MANUAL_LABEL_SPACE_REVIEW.md). This CLI requires explicit legacy
+research mode and a new work/ directory. It cannot regenerate public assets.
 
 Labels 1-22 are copied byte-for-byte from the Xiao et al. manual
 subcortical segmentation.  Labels 23-29 are resampled from CerebrA after an
@@ -408,9 +412,7 @@ def atlas_white_matter_candidates(
 
 
 def main() -> None:
-    import nibabel as nib
-    from nibabel.processing import resample_from_to
-    from build_bigbrain_manual_seg import write_browser_volume
+    from build_bigbrain_manual_seg import write_browser_volume, require_legacy_reproduction
 
     parser = argparse.ArgumentParser()
     parser.add_argument("image_entry", type=Path)
@@ -418,7 +420,12 @@ def main() -> None:
     parser.add_argument("--cerebra", type=Path, required=True)
     parser.add_argument("--wm-prob", type=Path, required=True)
     parser.add_argument("--output-dir", type=Path, required=True)
+    parser.add_argument("--legacy-grid-reproduction", action="store_true", help="Acknowledge known manual/image space mismatch; research output inside new work/ directory only")
     args = parser.parse_args()
+    args.output_dir = require_legacy_reproduction(args.output_dir, args.legacy_grid_reproduction)
+
+    import nibabel as nib
+    from nibabel.processing import resample_from_to
 
     image_nii = load_nifti_entry(args.image_entry)
     manual_nii = load_nifti_entry(args.manual_entry)
@@ -522,6 +529,8 @@ def main() -> None:
     validation_output = args.output_dir / "bigbrain-practical-segmentation-icbm500-validation.json"
     write_browser_volume(output, b"BBS1", practical)
     validation = {
+        "spatialRegistrationStatus": "legacy-grid-only; known nonlinear image/manual history mismatch",
+        "spatialAlignmentValidated": False,
         "shape": list(practical.shape),
         "voxelSizeMm": list(map(float, manual_nii.header.get_zooms()[:3])),
         "officialManualIds": list(range(1, 23)),
@@ -535,7 +544,7 @@ def main() -> None:
         "atlasToManualDiceAudit": overlap_audit,
         "ventricleLabelsRestrictedToEmptySpace": True,
         "ventricleTissueOverlap": float((~empty_space[np.isin(practical, [23, 24, 25, 26, 41])]).mean()),
-        "coordinatePolicy": "exact BigBrain ICBM2009sym 0.5 mm output grid; CerebrA resampling accepted only after overlap audit",
+        "coordinatePolicy": "historical reproduction only: exact 0.5 mm grid and CerebrA overlap checks do not establish image/manual nonlinear spatial alignment",
         "reviewedPatchAudit": reviewed_patch_audit,
         "ventriclePatchAudit": ventricle_patch_audit,
         "ventricleClassificationPatchAudit": classification_patch_audit,
