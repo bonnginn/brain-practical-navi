@@ -4,6 +4,8 @@
 
 ## 2026-09-05–06の改善候補（未公開）
 
+重要な追加調査: 表示画像と手動ラベルID1–22の非線形位置合わせ履歴が一致しない問題を確認しました。現在は淡蒼球の変換比較候補までで、本体の修復・全核の再点検は進行中です。全分節が正常という判定はしていません。[位置合わせの診断](MANUAL_LABEL_SPACE_REVIEW.md)。An additional audit identified mismatched nonlinear-registration histories between the displayed image and manual labels 1–22. A transformed pallidal comparison is available as a research candidate; integration and reassessment of all nuclei remain in progress. This is not a finding that all segmentation boundaries are correct.
+
 断面のクリック同定で、ラベル未登録の場所に以前選択した別構造の説明が残る問題を修正しました。未ラベルを組織の不存在と誤解しない説明にしています（開発版のみ）。Section identification now uses the explanation for the clicked location rather than a previously selected structure; an unlabelled location is not presented as absence of tissue (development only).
 
 開発版では第四脳室の47 voxelを修正しました。16 voxelを「中脳水道候補（部分）」へ分類し直し、橋の前方にあった誤分類の小片31 voxelを未ラベルに戻しました。原画像・連続断・直交断に基づくAI支援のプロジェクト採用であり、専門家レビューではありません。水道全長の分節ではなく、通常クイズにも追加していません。公開サイトは未変更です。The development labels contain a reversible 47-voxel correction: 16 voxels reclassified as a partial cerebral aqueduct candidate and 31 anterior fragments removed from the fourth-ventricle label. This is AI-assisted project adoption based on image review, not expert validation or a complete aqueduct segmentation. Standard quizzes and the live site are unchanged. 詳細は [修復記録](FOURTH_VENTRICLE_REPAIR.md) を参照してください。

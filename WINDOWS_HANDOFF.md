@@ -2,6 +2,10 @@
 
 ## 2026-09-06 10:00 JSTまでの自律作業
 
+**新しい最優先事項（05:20 JST頃）**: `MANUAL_LABEL_SPACE_REVIEW.md`。公式20190708 MINCを取得し、現在の画像は非線形変換済み画像と全voxel一致、ID1–22全446,874 voxelは未変形の手動500 µmと全voxel一致することを確認した。manual historyは300→500の`--like`だけでtransformなし。shape/affine一致だけでは座標空間の同一性を保証しなかった。公式3gridの独立逆変換で淡蒼球だけwork候補を作り、29比較図を全目視。右上後方の淡い帯への張り出しが減る。まだassetsへ採用なし。次は全22 ID候補の変換・原画像レビュー・重複と生成規約の修復を優先する。源流を直さず局所を閾値で切り続けない。診断JSONはsegmentation-patches/review/manual-label-space-diagnostic-2026-09-06.json、adopted:false。0.3 mm変換済み原画像も取得済みだが未目視。別の古い18ラベル版は不採用でworkにのみ保存。
+
+保存ab87b57（追加淡蒼球点検）のCI run33989040958成功。新しい診断はその後の作業。
+
 追加の淡蒼球精査: `PALLIDAL_BOUNDARY_REVIEW.md`。左右全X/Y＋上方Z147–160の230原画像対／78シートと全体付き3図をAIが目視。手動由来ID11–14の位置・値が旧b75a…と不変であることも確認。主たる内外関係は追えるが、右外節の上後方の淡い帯は境界未確定、追加採用なし。原画像パネル947,114 pixel block照合成功、対象Python3/3・全Python50/50成功。元volume098edf…／全mesh不変。単なるwhite閾値や左右鏡映で切り取らない。
 
 脳室穴調査を88df796でcommit/push済み、CI run33988477329成功。ここまで公開・main未変更、draft PR27。
