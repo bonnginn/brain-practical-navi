@@ -12,6 +12,8 @@
 
 英語校正では、側脳室ブロックの位置説明が構造名だけに省略されていた箇所を修復し、3D操作の読み上げ文と件数の単数・複数を整えています。専門家監修完了の表示には変更しません。
 
+断面画面の「この観察のリンク」では、現在のBigBrain断面位置・構造選択・表示配分をリンクで再現できます。ラベルの版が異なる場合は適用せず通知します。回転・拡大率は含まず、URLには言語・端末モード以外の既存queryを引き継ぎません。
+
 In development (2026-09-05; not yet published): incorrect-answer history now distinguishes individual questions, with conservative migration of legacy structure-level records. Section descriptions and controls in English are being corrected. These changes do not approve new segmentation boundaries or constitute expert anatomical review.
 
 The development branch also brings the learning entry forward, makes the long surface-label notice expandable, aligns explicit device UI selection with its layout, and restores per-plane section positions and display preferences locally. This is browser-local storage, not account synchronization or a change to anatomical labels.
@@ -21,6 +23,8 @@ Quiz settings now include question types such as identification, function, spati
 Block specimens are grouped by guided or free exploration rather than development priority. The earlier 3D model comparison is explicitly marked as archived material; its alternative model was not adopted.
 
 English corrections restore omitted spatial relationships in the lateral-ventricle block, improve 3D accessibility descriptions, and distinguish singular and plural counts. These language corrections do not constitute expert anatomical review.
+
+“Link to this observation” reproduces the current BigBrain slice position, structure selection and panel layout. Links with a different label revision are rejected with a notice. Rotation and zoom are excluded; unrelated URL query parameters are not copied.
 
 > **English edition (project-reviewed preview) (updated 2026-08-30):** A follow-up browser audit found residual corruption in short anatomy labels, controls, and several quiz prompts. The current candidate derives learner anatomy names from their recorded English/Latin source terms and adds regression checks for those reported failures. The paired English labels shown in the canonical Japanese edition were also re-audited for correspondence and standard anatomical wording. It has not received expert anatomical review or independent native-language proofreading; the Japanese edition remains the canonical project source. See [ENGLISH_EDITION_AUDIT.md](ENGLISH_EDITION_AUDIT.md).
 

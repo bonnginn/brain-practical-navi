@@ -1,4 +1,5 @@
 {
+  "クイズの誤答履歴、断面の観察設定、分節差分、M2比較の下書き、解剖レビューの下書きは端末内のlocalStorageに保存されます。自動送信は行わず、サイトデータを消去すると失われます。": "Quiz mistake history, section viewing preferences, segmentation differences, M2 comparison drafts, and anatomy-review drafts are stored only in localStorage on this device. They are not transmitted automatically and are lost when site data is cleared.",
   "部品ガイド付き 4": "Guided exploration · 4",
   "部品ガイド付き": "With a component guide",
   "自由観察 4": "Free exploration · 4",

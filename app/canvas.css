@@ -1523,3 +1523,7 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
   .phone-mode .rangeWrap button{min-width:44px;min-height:44px}
   .phone-mode .workspace-sections .slicePanel{overflow:visible}
 }
+.sectionObservationLink { margin: .25rem 0 .5rem; font-size: .875rem; }
+.sectionObservationLink summary { cursor: pointer; padding: .35rem; }
+.sectionObservationLink p { margin: .4rem 0; }
+.sectionObservationLink input { box-sizing: border-box; width: 100%; min-width: 0; padding: .5rem; font: inherit; }
