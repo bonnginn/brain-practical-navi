@@ -6,6 +6,7 @@ import betaStatus from "./beta-status.json";
 import betaGoNoGoDisplay from "./beta-go-no-go-display.json";
 import quizConceptBank from "./quiz-concept-bank.json";
 import { restoreQuizHistory, recordQuizAnswer } from "../src/quizHistory.mjs";
+import { SECTION_SESSION_KEY, readSectionSession } from "../src/sectionSession.mjs";
 import anatomyReviewRegistry from "../public/atlas/structure-provenance.json";
 import { freeObservationReadings, matchesJapaneseSearch, normalizeJapaneseSearch } from "../src/japaneseSearch";
 import { QUIZ_GRANULARITY_BY_TARGET, countQuizChoice, detailOptionsForFormat, filterQuizCandidates } from "../src/quizGranularity.mjs";
@@ -711,20 +712,23 @@ export default function Home() {
   const locale=typeof window==="undefined"?"ja":localeFromSearch(window.location.search);
   const englishEdition=locale==="en";
   const initialPlane=typeof window==="undefined"?"coronal":planeFromHash(window.location.hash);
+  const [savedSectionSession]=useState(()=>{try{return readSectionSession(localStorage.getItem(SECTION_SESSION_KEY),Object.keys(structures).filter(key=>key!=="opticChiasm"))}catch{return null}});
+  const sectionPositions=useRef(savedSectionSession?.positions??{coronal:52,horizontal:52,sagittal:52});
+  const sectionSnapshotForExit=useRef<string|null>(null);
   const initialBlockSpecimen=typeof window==="undefined"?"lateral-ventricle":blockSpecimenFromHash(window.location.hash);
   const [workspace, setWorkspace] = useState<WorkspaceMode>(()=>typeof window==="undefined"?"home":workspaceFromHash(window.location.hash));
   const [surfaceView,setSurfaceView]=useState<SurfaceViewKey>(()=>typeof window==="undefined"?"lateral":surfaceViewFromHash(window.location.hash));
   const [plane, setPlane] = useState<Plane>(initialPlane);
-  const [position, setPosition] = useState(52);
-  const [focus, setFocus] = useState<Focus>("ventricle");
-  const [selectedStructure, setSelectedStructure] = useState<StructureKey>("ventricle");
-  const [visibleStructures, setVisibleStructures] = useState<StructureKey[]>(["ventricle", "caudate"]);
+  const [position, setPosition] = useState(sectionPositions.current[initialPlane]);
+  const [focus, setFocus] = useState<Focus>(structures[(savedSectionSession?.selected as StructureKey)??"ventricle"].meshFocus??"ventricle");
+  const [selectedStructure, setSelectedStructure] = useState<StructureKey>((savedSectionSession?.selected as StructureKey)??"ventricle");
+  const [visibleStructures, setVisibleStructures] = useState<StructureKey[]>((savedSectionSession?.visible as StructureKey[])??["ventricle", "caudate"]);
   const [identified, setIdentified] = useState<(IdentifiedPoint & {name:string;side:string}) | null>(null);
   const [labels, setLabels] = useState(true);
   const [block, setBlock] = useState<"inside" | "ghost" | "extracted" | "segmented">("ghost");
-  const [sectionLayout,setSectionLayout]=useState<"both"|"slice"|"model">(()=>typeof window!=="undefined"&&window.matchMedia("(max-width: 760px)").matches?"slice":"both");
-  const [sectionModelShare,setSectionModelShare]=useState(40);
-  const [sectionModelViews,setSectionModelViews]=useState<1|2>(2);
+  const [sectionLayout,setSectionLayout]=useState<"both"|"slice"|"model">(()=>savedSectionSession?.layout??(typeof window!=="undefined"&&window.matchMedia("(max-width: 760px)").matches?"slice":"both"));
+  const [sectionModelShare,setSectionModelShare]=useState(savedSectionSession?.share??40);
+  const [sectionModelViews,setSectionModelViews]=useState<1|2>(savedSectionSession?.views??2);
   const [compactSectionLayout,setCompactSectionLayout]=useState(()=>typeof window!=="undefined"&&window.matchMedia("(max-width: 760px)").matches);
   const [display, setDisplay] = useState<"specimen" | "diagram" | "outline">("specimen");
   const [contrast, setContrast] = useState<"t1" | "t2" | "bigbrain" | "single">("bigbrain");
@@ -964,6 +968,20 @@ export default function Home() {
     return()=>{window.removeEventListener("resize",update);window.removeEventListener("orientationchange",update);mediaQueries.forEach(query=>query.removeEventListener("change",update))};
   },[]);
   useEffect(()=>{if(!phoneMode)setPhoneSettingsOpen(false)},[phoneMode]);
+  useEffect(()=>{
+    if(workspace!=="sections"||contrast!=="bigbrain")return;
+    sectionPositions.current[plane]=position;
+    const state={version:1,positions:sectionPositions.current,visible:visibleStructures.filter(key=>key!=="opticChiasm"),selected:selectedStructure,layout:sectionLayout,views:sectionModelViews,share:sectionModelShare};
+    const serialized=JSON.stringify(state);
+    sectionSnapshotForExit.current=serialized;
+    const timer=window.setTimeout(()=>{try{localStorage.setItem(SECTION_SESSION_KEY,serialized)}catch{/* Storage is optional; observation remains usable. */}},200);
+    return()=>window.clearTimeout(timer);
+  },[workspace,contrast,plane,position,visibleStructures,selectedStructure,sectionLayout,sectionModelViews,sectionModelShare]);
+  useEffect(()=>{
+    const flush=()=>{if(sectionSnapshotForExit.current!==null)try{localStorage.setItem(SECTION_SESSION_KEY,sectionSnapshotForExit.current)}catch{/* Private-mode storage may be unavailable. */}};
+    window.addEventListener("pagehide",flush);
+    return()=>{window.removeEventListener("pagehide",flush);flush()};
+  },[]);
   useEffect(()=>{const update=()=>setOffline(!navigator.onLine);window.addEventListener("online",update);window.addEventListener("offline",update);return()=>{window.removeEventListener("online",update);window.removeEventListener("offline",update)}},[]);
   useEffect(()=>{
     const affordance=createPwaInstallAffordance({windowLike:window as unknown as NonNullable<PwaInstallAffordanceOptions["windowLike"]>,onChange:setPwaInstallState});
@@ -993,7 +1011,7 @@ export default function Home() {
     else if((!phoneMode||!phoneSettingsOpen)&&dialog.open)dialog.close();
     return()=>dialog.removeEventListener("close",handleClose);
   },[phoneMode,phoneSettingsOpen]);
-  useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.hash);setHelpOpen(overlay==="help");setFeedbackOpen(overlay==="feedback");setLegalOpen(overlay==="legal");setStatusOpen(overlay==="status");setPhoneSettingsOpen(false);const requestedWorkspace=workspaceFromHash(window.location.hash);const nextWorkspace=publicWorkspaceForLocale(requestedWorkspace,locale) as WorkspaceMode;if(englishEdition&&nextWorkspace==="home"&&(requestedWorkspace==="collaborate"||requestedWorkspace==="segment"))window.history.replaceState(null,"",workspaceHash("home"));setModelStrategyComparisonOpen(nextWorkspace==="collaborate"&&modelStrategyFromHash(window.location.hash));transitionBlockContextState({type:"restore-route",workspace:nextWorkspace,specimen:blockSpecimenFromHash(window.location.hash)});setBlockContextDrag(null);setWorkspace(nextWorkspace);if(nextWorkspace==="surface")chooseSurface(surfaceViewFromHash(window.location.hash),"none");else if(nextWorkspace==="sections")jump(planeFromHash(window.location.hash),52,"none");else if(nextWorkspace==="blocks")chooseBlock(blockSpecimenFromHash(window.location.hash),"none")};restore();window.addEventListener("hashchange",restore);window.addEventListener("popstate",restore);return()=>{window.removeEventListener("hashchange",restore);window.removeEventListener("popstate",restore)}},[]);
+useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.hash);setHelpOpen(overlay==="help");setFeedbackOpen(overlay==="feedback");setLegalOpen(overlay==="legal");setStatusOpen(overlay==="status");setPhoneSettingsOpen(false);const requestedWorkspace=workspaceFromHash(window.location.hash);const nextWorkspace=publicWorkspaceForLocale(requestedWorkspace,locale) as WorkspaceMode;if(englishEdition&&nextWorkspace==="home"&&(requestedWorkspace==="collaborate"||requestedWorkspace==="segment"))window.history.replaceState(null,"",workspaceHash("home"));setModelStrategyComparisonOpen(nextWorkspace==="collaborate"&&modelStrategyFromHash(window.location.hash));transitionBlockContextState({type:"restore-route",workspace:nextWorkspace,specimen:blockSpecimenFromHash(window.location.hash)});setBlockContextDrag(null);setWorkspace(nextWorkspace);if(nextWorkspace==="surface")chooseSurface(surfaceViewFromHash(window.location.hash),"none");else if(nextWorkspace==="sections")jump(planeFromHash(window.location.hash),undefined,"none");else if(nextWorkspace==="blocks")chooseBlock(blockSpecimenFromHash(window.location.hash),"none")};restore();window.addEventListener("hashchange",restore);window.addEventListener("popstate",restore);return()=>{window.removeEventListener("hashchange",restore);window.removeEventListener("popstate",restore)}},[]);
   useEffect(()=>{
     if(!phoneMode||!phoneSettingsOpen)return;
     const dialog=phoneSettingsDialogRef.current;
@@ -1150,7 +1168,7 @@ export default function Home() {
   function jump(nextPlane: Plane, nextPosition?: number,historyMode:"push"|"replace"|"none"="push") {
     updateScreenHistory(workspaceHash("sections",surfaceView,nextPlane,blockSpecimen),historyMode);
     setPlane(nextPlane);
-    if (nextPosition !== undefined) setPosition(nextPosition);
+    setPosition(nextPosition ?? sectionPositions.current[nextPlane]);
   }
 
   function focusStructure(key:StructureKey,ensureVisible=false){setSelectedStructure(key);if(ensureVisible)setVisibleStructures(previous=>previous.includes(key)?previous:[...previous,key]);const meshFocus=structures[key].meshFocus;if(meshFocus)setFocus(meshFocus)}
@@ -1265,7 +1283,7 @@ export default function Home() {
     <aside className={`leftRail rail-${workspace}`} key={`rail-${workspace}`}>
       {workspace==="sections"&&<>
         <p className="eyebrow">CUTTING PLANE</p>
-        {(Object.keys(planeData) as Plane[]).map((p, i) => <button key={p} className={`planeBtn ${plane === p ? "active" : ""}`} aria-current={plane===p?"page":undefined} onClick={() => jump(p,p===plane?undefined:52)}><span>0{i + 1}</span><b>{planeData[p].ja}</b><small>{planeData[p].en}</small></button>)}
+{(Object.keys(planeData) as Plane[]).map((p, i) => <button key={p} className={`planeBtn ${plane === p ? "active" : ""}`} aria-current={plane===p?"page":undefined} onClick={() => jump(p)}><span>0{i + 1}</span><b>{planeData[p].ja}</b><small>{planeData[p].en}</small></button>)}
         <div className="railLine"/>
         <p className="eyebrow structureHeading">FOCUS STRUCTURE <small>複数選択</small></p>
         <div className="structureGroupGrid" role="group" aria-label="構造グループの一括表示">
