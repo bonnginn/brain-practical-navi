@@ -10,6 +10,8 @@
 
 ブロック標本の入口は「部品ガイド付き／自由観察」とし、開発優先順位と学習内容を区別します。旧3Dモデル比較は、採用見送りの過去資料として案内します。
 
+脳表の神経血管・下面・自由観察の表示操作は3Dの下の専用欄へ移し、長い英語ボタンがモデルを覆わない配置へ変更しています。
+
 英語校正では、側脳室ブロックの位置説明が構造名だけに省略されていた箇所を修復し、3D操作の読み上げ文と件数の単数・複数を整えています。脳表・脳底動脈・脳神経の説明、自由観察の操作名、ブロックの短い位置説明も日本語原文に照らして修正中です。専門家監修完了の表示には変更しません。
 
 断面画面の「この観察のリンク」では、現在のBigBrain断面位置・構造選択・表示配分をリンクで再現できます。ラベルの版が異なる場合は適用せず通知します。回転・拡大率は含まず、URLには言語・端末モード以外の既存queryを引き継ぎません。
@@ -23,6 +25,8 @@ The development branch also brings the learning entry forward, makes the long su
 Quiz settings now include question types such as identification, function, spatial relationships, and pathways. Question ordering reduces consecutive repeats of a structure and topic imbalance. The existing 100 questions and answer keys are unchanged, and provisional or pending-review labels remain in place.
 
 Block specimens are grouped by guided or free exploration rather than development priority. The earlier 3D model comparison is explicitly marked as archived material; its alternative model was not adopted.
+
+Surface-layer controls for neurovascular, inferior, and free-exploration views now sit in a dedicated row below the 3D model, preventing long English buttons from covering the anatomy.
 
 English corrections restore omitted spatial relationships in the lateral-ventricle block, improve 3D accessibility descriptions, and distinguish singular and plural counts. Brain-surface, basal-artery and cranial-nerve descriptions, free-exploration controls, and short block notes are also being corrected against the Japanese source. These language corrections do not constitute expert anatomical review.
 

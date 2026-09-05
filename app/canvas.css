@@ -1459,6 +1459,18 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
   .topActions>span{display:none}
   .inspectorBackdrop,.inspector{top:104px}
 }
+/* Layer controls occupy their own row: translated labels must never cover
+   the anatomy or intercept a drag intended for the model. */
+.surfaceModelCard:has(.surfaceDisplayControls){grid-template-rows:max-content minmax(280px,1fr) max-content;overflow-y:auto}
+.surfaceDisplayControls{padding:8px;border-top:1px solid #667174;background:#20282a;min-width:0}
+.surfaceDisplayControls .neurovascularControls,.surfaceDisplayControls .freeObservationControls{position:static;max-width:100%;padding:0;border:0;box-shadow:none;background:transparent}
+.surfaceDisplayControls .freeObservationControls>div{flex-wrap:wrap}
+.surfaceDisplayControls button{min-height:44px;white-space:normal}
+@media(max-width:1200px) and (min-width:761px){
+  html[lang="en"] .brand{font-size:14px;letter-spacing:.025em;line-height:1.1}
+  html[lang="en"] .brand small{font-size:9px;letter-spacing:.015em}
+  html[lang="en"] .brandMark{flex-shrink:0}
+}
 /* Touch-first phone chrome.  The rail remains one DOM subtree; on phones it
    is moved into the settings sheet rather than rendered a second time. */
 .phoneDock,.phoneRailToggle,.phoneSettingsHeader,.phoneSettingsBackdrop{display:none}
