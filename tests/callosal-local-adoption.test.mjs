@@ -21,7 +21,7 @@ test('archived first callosal stage is exactly 1605 edits retained by the curren
  const metadata=JSON.parse(await readFile(new URL('public/atlas/bigbrain-practical-segmentation-icbm500-validation.json',root),'utf8'));
  const live=gunzipSync(await readFile(new URL('public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz',root)));
  for(const index of indices)assert.equal(live[index+10],0);
- assert.equal(metadata.labelCounts['30'],148179);assert.equal(metadata.rawVoxelSha256,sha(live.subarray(10)));
+ assert.equal(metadata.labelCounts['30'],146019);assert.equal(metadata.rawVoxelSha256,sha(live.subarray(10)));
  assert.equal(metadata.callosalLocalPatchAudit.completeCallosum,false);assert.equal(metadata.callosalLocalPatchAudit.expertReviewed,false);
  assert.ok(metadata.imageGuidedCandidateIds.includes(30));assert.ok(!metadata.imageGuidedReviewedIds.includes(30));
  const catalog=JSON.parse(await readFile(new URL('app/english-catalog.json',root),'utf8'));
@@ -31,7 +31,7 @@ test('archived first callosal stage is exactly 1605 edits retained by the curren
 test('callosal block mesh carries the corresponding actual geometry metadata',async()=>{
  const name='block-commissural-system-corpus-callosum.mesh';
  const data=await readFile(new URL('public/atlas/'+name,root));
- assert.equal(sha(data),'cf752f1d2e83fe9317a7f0efb29d8febd59dfd535bf272dec7b3729292c30156');
+ assert.equal(sha(data),'c9e4162ee7e4c43c5c8356c50db34b0e69488cf73c6c061dadddc9d84724bed3');
  const metadata=JSON.parse(await readFile(new URL('public/atlas/specimen-blocks.json',root),'utf8'));
  const part=metadata.specimens['commissural-system'].find(p=>p.file===name);
  assert.equal(part.vertices,data.readUInt32LE(4));assert.equal(part.faces,data.readUInt32LE(8));

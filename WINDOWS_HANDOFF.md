@@ -2,6 +2,12 @@
 
 ## 2026-09-06 10:00 JSTまでの自律作業
 
+最新の段階: `CALLOSUM_INFERIOR_REPAIR.md`。固定下方弧2,160 voxelを全114占有／隣接断面24シート＋3全体図でAIが確認し、第6段階で30→0へ除外した。**開発volumeは098edf…／raw afc550…、ID30=146,019**。脳梁局所除外の合計5,361。新しい脳弓ラベルへ塗り替えたわけではない。旧8cc65e…fixtureとstrict採用記録を保存。55 block比較では脳梁mask270格子voxelだけ変更、他54不変。新脳梁mesh c9e416…、13,022頂点／26,012面。Python全44/44・全Node489/489・型検査・通常build・6段階全voxel再構成差異0。実ブラウザ24/24、新規同定6＋block8画像を目視。全体ログwork/callosal-inferior-full-node.log。公開未変更、保存先は作業ブランチ／draft PR27のみ。
+
+次の調査に向けた読み取り専用集計: 098edf…で脳室ID23/24/25/26のラベル内側の穴を調べた。背景6近傍では170/22/1/0 voxel、18近傍では118/2/1/0、26近傍では116/0/1/0。すべて未ラベル・原画像非255であり、単純な背景の塗り残しとは別の候補。まだこの穴群の新規局所画像精査はしておらず、脈絡叢などの組織を確認してから扱う。元volume不変。既存のSEPTEMBER_VENTRICLE_REVIEW.mdで確認済みの背景255候補と混同しない。VENTRICLE_CAVITY_AUDIT.mdの「255は組織不存在」という強すぎる説明だけは符号化の限界へ訂正した。
+
+直前の追加皮質修復8cc65e…はf8581a2としてcommit/push済み、CI run33986940472はverify／verify-pages-baseとも成功。draft PR27 OPENのまま。
+
 直近保存: 0580e5aを作業ブランチへcommit/push済み。draft PR27へチェックポイントコメントを追加し、GitHub CIのverify（Python36件を含む）／verify-pages-baseとも成功。公開・mainは未変更。以下のcommit/push未実施記載は保存前の履歴。
 
 追加修復: `CALLOSUM_CORTICAL_FOLLOWUP_REPAIR.md`。固定成分15/76/83の全39シート・182局所断面をAIが目視し、左297＋右682＋右617＝1,596 voxelの30→0を別strict採用記録・生成本体第5段階へ接続した。**開発volumeは8cc65e…／raw3c9d95…、ID30=148,179へ更新済み**。入力5348…をfixtureに保存し、旧1605の履歴を保持。55 mask比較で脳梁223格子voxel除外・標本組織34格子voxel復帰の2 meshだけ変更、他53は不変。日英10同定＋block8視点の実ブラウザ18/18と全画像目視、Python40/40（追加補強後4/4）、型検査・通常build成功。全Node初回487/488の旧乳頭体監査参照1件を修正し、再実行488/488成功。脳室4同定も現行distで成功。生成5段階の全voxel再構成差異0。公開・main未変更。保存は作業ブランチ／draft PR27のみ。

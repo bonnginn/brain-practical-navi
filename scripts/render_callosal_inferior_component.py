@@ -16,7 +16,7 @@ from build_orthogonal_review_bundle import (
 )
 
 LABEL_SHA = '8cc65edf36e1e3a420168bfb663d6440418dd67189808263d11c180c4b403d16'
-LABEL_PATH = ROOT/'public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz'
+LABEL_PATH = ROOT/'tests/fixtures/bigbrain-practical-segmentation-pre-callosal-inferior-8cc6.bin.gz'
 
 
 def frame(raw, labels, target, axis, index, crop, scale):

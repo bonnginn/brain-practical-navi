@@ -266,9 +266,11 @@ AGPLはオープンソースであり、コードの販売や業務利用その�
 > 非営利教育用。BigBrain (Amunts et al., 2013) 由来データは CC BY-NC-SA 4.0、BigBrain co-registration/manual labels (Xiao et al.) は CC BY 4.0、MNI152/CerebrAはMNIライセンスに基づき使用しています。表示用に再標本化、圧縮、マスク、色調調整を行っています。試作ラベルは正解データではなく、診断用途には使用できません。
 ## 2026-09-06 開発用脳梁の局所修正（未公開）
 
-後続の追加3成分1,596 voxel（30→0）は `CALLOSUM_CORTICAL_FOLLOWUP_REPAIR.md` に記録し、独立した採用stageとして適用した。初回との合計は3,201 voxel。現行開発volume圧縮SHAは `8cc65edf36e1e3a420168bfb663d6440418dd67189808263d11c180c4b403d16`、旧5348…はfixtureへ保存。脳梁meshと、脳梁マスクで除外されていた原画像由来の周辺組織meshを同期した。新規の模式組織を加えたのではない。専門家レビューではなく、元画像・ライセンス・帰属条件は不変。
+最新の下方弧2,160 voxel（30→0）は `CALLOSUM_INFERIOR_REPAIR.md` に記録し、第6段階として適用した。脳梁本体と異なる走行の固定成分を全114占有／隣接断面でAIが確認し、未ラベルへ戻すことに限定。脳弓への自動置換ではない。脳梁の局所除外は合計5,361 voxel、現行開発volume圧縮SHAは `098edfbf365016c6c53ccf7b7032258db72a4912378c457d348c01613a4a1694`。旧8cc65e…をfixtureへ保存。脳梁meshの270個の1 mm生成格子voxelだけが変わり、他54 block maskと原画像は不変。AI補助プロジェクト採用で、専門家承認・公開更新ではない。
 
-前段の脳室47 voxel修正を保持したまま、ID30の1,605 voxelを未ラベルへ戻した。原画像と連続・直交断のAI補助レビュー、厳密な可逆差分、残る境界問題を `CALLOSUM_LOCAL_REPAIR.md` に記録した。専門家承認でも全脳梁の完成でもなく、画像誘導・試作区分を維持する。現行開発volume圧縮SHAは `5348b7650a3ba28c95a00407d62cf4054fb0c670a62de717f2c572f66a51c9a3`。旧930e…は履歴fixtureへ保存。脳梁block mesh1点を同じ生成処理で同期し、原画像は変更しない。
+前段の追加3成分1,596 voxel（30→0）は `CALLOSUM_CORTICAL_FOLLOWUP_REPAIR.md` に記録し、独立した採用stageとして適用した。初回との合計は3,201 voxel。その時点の開発volume圧縮SHAは `8cc65edf36e1e3a420168bfb663d6440418dd67189808263d11c180c4b403d16`、旧5348…はfixtureへ保存。脳梁meshと、脳梁マスクで除外されていた原画像由来の周辺組織meshを同期した。新規の模式組織を加えたのではない。専門家レビューではなく、元画像・ライセンス・帰属条件は不変。
+
+前段の脳室47 voxel修正を保持したまま、ID30の1,605 voxelを未ラベルへ戻した。原画像と連続・直交断のAI補助レビュー、厳密な可逆差分、残る境界問題を `CALLOSUM_LOCAL_REPAIR.md` に記録した。専門家承認でも全脳梁の完成でもなく、画像誘導・試作区分を維持する。その時点の開発volume圧縮SHAは `5348b7650a3ba28c95a00407d62cf4054fb0c670a62de717f2c572f66a51c9a3`。旧930e…は履歴fixtureへ保存。脳梁block mesh1点を同じ生成処理で同期し、原画像は変更しない。
 
 補助根拠にはBigBrain2015の0.4 mm組織分類（Wagstyl et al., 2018）とXiao2019の公開変位場を使用した。出典・ファイルSHA・CC BY-NC-SA 4.0／変換資産のCC BY 4.0の区別は `OFFICIAL_TISSUE_ALIGNMENT_REVIEW.md`。補助volumeと変位場自体はwork内だけにあり、アプリへ再配布していない。元データ・派生ラベルの帰属とライセンスは維持する。
 

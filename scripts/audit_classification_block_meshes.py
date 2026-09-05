@@ -19,6 +19,7 @@ def main():
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument('--callosal', action='store_true', help='Compare the archived 1605-voxel callosal repair, keeping the ventricle set unchanged')
     mode.add_argument('--callosal-followup', action='store_true', help='Compare the additional 1596-voxel callosal repair')
+    mode.add_argument('--callosal-inferior', action='store_true', help='Compare the inferior 2160-voxel callosal exclusion')
     args = parser.parse_args()
     original_atlas = b.ATLAS
     old_path = b.ROOT / ('tests/fixtures/bigbrain-practical-segmentation-pre-callosum-930e.bin.gz' if args.callosal else 'tests/fixtures/bigbrain-practical-segmentation-pre-classification-b75a.bin.gz')
@@ -27,9 +28,14 @@ def main():
     new_sha = '5348b7650a3ba28c95a00407d62cf4054fb0c670a62de717f2c572f66a51c9a3' if args.callosal else '930eaaed7eed8782b1b162f3aa5c59c2428f4062d0d2da3a9a1cb563f49b7db7'
     if args.callosal_followup:
         old_path=b.ROOT/'tests/fixtures/bigbrain-practical-segmentation-pre-callosal-followup-5348.bin.gz'
-        new_path=b.SEGMENTATION
+        new_path=b.ROOT/'tests/fixtures/bigbrain-practical-segmentation-pre-callosal-inferior-8cc6.bin.gz'
         old_sha='5348b7650a3ba28c95a00407d62cf4054fb0c670a62de717f2c572f66a51c9a3'
         new_sha='8cc65edf36e1e3a420168bfb663d6440418dd67189808263d11c180c4b403d16'
+    if args.callosal_inferior:
+        old_path=b.ROOT/'tests/fixtures/bigbrain-practical-segmentation-pre-callosal-inferior-8cc6.bin.gz'
+        new_path=b.SEGMENTATION
+        old_sha='8cc65edf36e1e3a420168bfb663d6440418dd67189808263d11c180c4b403d16'
+        new_sha='098edfbf365016c6c53ccf7b7032258db72a4912378c457d348c01613a4a1694'
     assert sha(old_path) == old_sha
     assert sha(new_path) == new_sha
     raw, _ = b.read_volume(b.BIGBRAIN, b'BBV1')
@@ -37,12 +43,13 @@ def main():
     new, _ = b.read_volume(new_path, b'BBS1')
     raw = raw[::2, ::2, ::2].copy()
     # Reproduce the previous generator's ventricle set for the old baseline.
-    b.VENTRICLES = (23, 24, 25, 26, 41) if args.callosal or args.callosal_followup else (23, 24, 25, 26)
+    b.VENTRICLES = (23, 24, 25, 26, 41) if args.callosal or args.callosal_followup or args.callosal_inferior else (23, 24, 25, 26)
     before = b.specimen_definitions(raw, old[::2, ::2, ::2])
     b.VENTRICLES = (23, 24, 25, 26, 41)
     after = b.specimen_definitions(raw, new[::2, ::2, ::2])
     out = b.ROOT / ('work/anatomy-review/callosal-block-meshes-v1' if args.callosal else 'work/anatomy-review/classification-block-meshes-v1')
     if args.callosal_followup:out=b.ROOT/'work/anatomy-review/callosal-followup-block-meshes-v1'
+    if args.callosal_inferior:out=b.ROOT/'work/anatomy-review/callosal-inferior-block-meshes-v1'
     out.mkdir(parents=True, exist_ok=True)
     rows = []
     for key, parts in before.items():

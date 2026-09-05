@@ -19,9 +19,11 @@ test('follow-up record defines exactly 1596 reviewed exclusions from its preserv
  const encoded=Buffer.alloc(indices.length*4);indices.sort((a,b)=>a-b).forEach((i,n)=>encoded.writeUInt32LE(i,n*4));
  assert.equal(sha(encoded),'88da382e9f7ea296be43c4c31530ac392510d20cb851c74e172316d26f7d5f80');
  assert.equal(sha(after),'3c9d959acbdb67b7603ed7f2f105d7c333f0f89facc7e637f16b5fb740a16cd5');
- const installed=await readFile(new URL('public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz',root));
+ const installed=await readFile(new URL('tests/fixtures/bigbrain-practical-segmentation-pre-callosal-inferior-8cc6.bin.gz',root));
  assert.equal(sha(installed),'8cc65edf36e1e3a420168bfb663d6440418dd67189808263d11c180c4b403d16');
  assert.deepEqual(gunzipSync(installed).subarray(10),after);
+ const current=gunzipSync(await readFile(new URL('public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz',root))).subarray(10);
+ for(const index of indices)assert.equal(current[index],0);
  const metadata=JSON.parse(await readFile(new URL('public/atlas/bigbrain-practical-segmentation-icbm500-validation.json',root),'utf8'));
  assert.equal(metadata.callosalFollowupPatchAudit.editCount,1596);
  assert.equal(metadata.callosalFollowupPatchAudit.expertReviewed,false);

@@ -5,10 +5,10 @@ import {resolve,sep,extname} from 'node:path';
 import {createHash} from 'node:crypto';
 import assert from 'node:assert/strict';
 import {launchChrome,closeChrome,configurePage,navigate,evaluate,waitForUiReady} from './measure_browser_performance.mjs';
-const root=resolve('dist'),out=resolve('work/anatomy-review/callosal-followup-browser-v1');
+const root=resolve('dist'),out=resolve('work/anatomy-review/callosal-inferior-browser-v1');
 const expectedAssets={
- '/atlas/bigbrain-practical-segmentation-icbm500.bin.gz':'8cc65edf36e1e3a420168bfb663d6440418dd67189808263d11c180c4b403d16',
- '/atlas/block-commissural-system-corpus-callosum.mesh':'cf752f1d2e83fe9317a7f0efb29d8febd59dfd535bf272dec7b3729292c30156',
+ '/atlas/bigbrain-practical-segmentation-icbm500.bin.gz':'098edfbf365016c6c53ccf7b7032258db72a4912378c457d348c01613a4a1694',
+ '/atlas/block-commissural-system-corpus-callosum.mesh':'c9e4162ee7e4c43c5c8356c50db34b0e69488cf73c6c061dadddc9d84724bed3',
  '/atlas/block-commissural-system-tissue.mesh':'8aec8d9a37e9709aa32911d19848967d7a7f1281ddc1664da5ce583aa08b2478',
 };
 assert.match(await readFile(resolve(root,'index.html'),'utf8'),/src="\/assets\//,'Requires normal-base build');
@@ -31,7 +31,8 @@ try{
  const capture=async(file)=>{const shot=await cdp.send('Page.captureScreenshot',{format:'png',captureBeyondViewport:true});await writeFile(resolve(out,file),Buffer.from(shot.data,'base64'));};
  for(const lang of ['ja','en']){
   await navigate(cdp,'about:blank');await navigate(cdp,`${base}/?lang=${lang}#workspace/sections/sagittal`);await waitForUiReady(cdp);
-  for(const job of [{key:'removed',xyz:[212,314,196],position:54},{key:'retained',xyz:[212,271,191],position:54},{key:'removed-left15',xyz:[181,276,202],position:46},{key:'removed-right76',xyz:[212,197,205],position:54},{key:'removed-right83',xyz:[212,293,203],position:54}]){
+  for(const job of [{key:'removed',xyz:[212,314,196],position:54},{key:'retained',xyz:[212,271,191],position:54},{key:'removed-left15',xyz:[181,276,202],position:46},{key:'removed-right76',xyz:[212,197,205],position:54},{key:'removed-right83',xyz:[212,293,203],position:54},{key:'removed-inferior-body',xyz:[197,248,177],position:50},{key:'removed-inferior-column',xyz:[197,270,157],position:50},{key:'retained-main-body',xyz:[197,260,197],position:50}]){
+   assert.equal(Math.round(393*job.position/100),job.xyz[0]);
    await evaluate(cdp,"document.querySelector('.inspectorClose')?.click()");await frame();
    await evaluate(cdp,'Promise.all(document.getAnimations().map(a=>a.finished.catch(()=>{})))');
    await evaluate(cdp,"document.querySelector('.rangeWrap input').focus()");
@@ -57,6 +58,6 @@ try{
   const file=`mesh-${mode==='通常'?'solid':'ghost'}-${({'初期':'initial','反対側':'opposite','上面':'top','下面':'bottom'})[view]}.png`;await capture(file);report.results.push({mode,view,probe,file});
  }
  for(const path of Object.keys(expectedAssets))assert.ok(responses.some(r=>r.path===path));
- assert.equal(report.results.length,18);assert.deepEqual(serverErrors,[]);
- await writeFile(resolve(out,'report.json'),JSON.stringify(report,null,2));console.log('18 actual callosal follow-up label/mesh checks passed');
+ assert.equal(report.results.length,24);assert.deepEqual(serverErrors,[]);
+ await writeFile(resolve(out,'report.json'),JSON.stringify(report,null,2));console.log('24 actual callosal inferior label/mesh checks passed');
 }finally{if(session)await closeChrome(session);await new Promise(r=>server.close(r));}

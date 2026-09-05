@@ -255,8 +255,8 @@
       },
       {
         "file": "block-commissural-system-corpus-callosum.mesh",
-        "vertices": 13606,
-        "faces": 27176,
+        "vertices": 13022,
+        "faces": 26012,
         "shadeMin": 0.82,
         "shadeMax": 0.82,
         "part": "corpus-callosum",

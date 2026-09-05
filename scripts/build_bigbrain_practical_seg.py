@@ -283,6 +283,36 @@ def apply_approved_callosal_followup_patch(volume: np.ndarray, path: Path) -> di
     return audit
 
 
+CALLOSUM_INFERIOR_SOURCE_SHA256 = "8cc65edf36e1e3a420168bfb663d6440418dd67189808263d11c180c4b403d16"
+CALLOSUM_INFERIOR_RAW_SHA256 = "3c9d959acbdb67b7603ed7f2f105d7c333f0f89facc7e637f16b5fb740a16cd5"
+CALLOSUM_INFERIOR_INDICES_SHA256 = "6a4b7677801edf90d45a3b43a409bbe379c13035fe5d99a1e412e8e49b677675"
+
+
+def apply_approved_callosal_inferior_patch(volume: np.ndarray, path: Path) -> dict[str, object]:
+    """Exclude the fixed inferior 2,160-voxel island, without calling it fornix."""
+    if volume.dtype != np.uint8 or volume.shape != (394, 466, 378):
+        raise ValueError("callosal inferior repair requires the exact uint8 BigBrain grid")
+    baseline = bytearray(volume.tobytes(order="F"))
+    if hashlib.sha256(baseline).hexdigest() != CALLOSUM_INFERIOR_RAW_SHA256:
+        raise ValueError("callosal inferior baseline changed")
+    patch, edits, metadata = validate_patch(path, volume.shape, volume.size, baseline, CALLOSUM_INFERIOR_SOURCE_SHA256)
+    if metadata["status"] != "strict" or patch.get("reviewStatus") != "approved":
+        raise ValueError("callosal inferior repair requires strict approved review")
+    indices = np.asarray(sorted(i for i, _ in edits), dtype='<u4')
+    if (len(edits) != 2160 or hashlib.sha256(indices.tobytes()).hexdigest() != CALLOSUM_INFERIOR_INDICES_SHA256
+            or any(value != 0 or baseline[index] != 30 for index, value in edits)):
+        raise ValueError("callosal inferior repair must be the exact 2160-voxel 30->0 exclusion")
+    for index, value in edits:
+        baseline[index] = value
+    audit = dict(path=str(path.relative_to(ROOT)), sourceCompressedSha256=CALLOSUM_INFERIOR_SOURCE_SHA256,
+        sourceRawVoxelSha256=CALLOSUM_INFERIOR_RAW_SHA256, editCount=2160,
+        indicesSha256=CALLOSUM_INFERIOR_INDICES_SHA256, transitions={"30->0":2160},
+        completeCallosum=False, completeFornix=False, expertReviewed=False,
+        labelStatus="image-guided candidate", review=patch["review"], workflowMetadataStatus=metadata["status"])
+    volume[...] = np.frombuffer(baseline, dtype=np.uint8).reshape(volume.shape, order="F")
+    return audit
+
+
 def load_nifti_entry(path: Path) -> nib.Nifti1Image:
     import nibabel as nib
     from build_bigbrain_manual_seg import extract_zip_entry
@@ -477,6 +507,8 @@ def main() -> None:
         ROOT / "segmentation-patches/review/callosum-local-exclusion-project-review-2026-09-06.json")
     callosal_followup_audit = apply_approved_callosal_followup_patch(practical,
         ROOT / "segmentation-patches/review/callosum-cortical-followup-project-review-2026-09-06.json")
+    callosal_inferior_audit = apply_approved_callosal_inferior_patch(practical,
+        ROOT / "segmentation-patches/review/callosum-inferior-exclusion-project-review-2026-09-06.json")
 
     if not np.array_equal(practical[manual > 0], manual[manual > 0]):
         raise ValueError("official manual labels were modified")
@@ -509,14 +541,16 @@ def main() -> None:
         "ventricleClassificationPatchAudit": classification_patch_audit,
         "callosalLocalPatchAudit": callosal_patch_audit,
         "callosalFollowupPatchAudit": callosal_followup_audit,
-        "reviewedPatchAudits": [reviewed_patch_audit, ventricle_patch_audit, classification_patch_audit, callosal_patch_audit, callosal_followup_audit],
+        "callosalInferiorPatchAudit": callosal_inferior_audit,
+        "reviewedPatchAudits": [reviewed_patch_audit, ventricle_patch_audit, classification_patch_audit, callosal_patch_audit, callosal_followup_audit, callosal_inferior_audit],
         "preVentricleCompressedSha256": VENTRICLE_SOURCE_COMPRESSED_SHA256,
         "preVentricleRawVoxelSha256": VENTRICLE_SOURCE_LABELS_SHA256,
         "preClassificationCompressedSha256": AQUEDUCT_SOURCE_COMPRESSED_SHA256,
         "preCallosalRepairCompressedSha256": CALLOSUM_SOURCE_COMPRESSED_SHA256,
         "preCallosalFollowupCompressedSha256": CALLOSUM_FOLLOWUP_SOURCE_SHA256,
+        "preCallosalInferiorCompressedSha256": CALLOSUM_INFERIOR_SOURCE_SHA256,
         "rawVoxelSha256": hashlib.sha256(practical.tobytes(order='F')).hexdigest(),
-        "teachingPolicy": "IDs 23-35 are provisional teaching overlays; the 33-voxel ventricle repair is project-reviewed under PR #14 and is not expert-reviewed or research ground truth; IDs 39-40 are project-reviewed image-guided teaching labels, not research ground truth. ID41 is only a partial aqueduct candidate; the 47-voxel classification correction is AI-assisted project adoption under PR #27, not expert review. ID30 remains a provisional candidate after the local 1605-voxel and additional 1596-voxel exclusions; remaining cingulum/fornix contamination is unresolved and no complete callosal boundary is claimed.",
+        "teachingPolicy": "IDs 23-35 are provisional teaching overlays; the 33-voxel ventricle repair is project-reviewed under PR #14 and is not expert-reviewed or research ground truth; IDs 39-40 are project-reviewed image-guided teaching labels, not research ground truth. ID41 is only a partial aqueduct candidate; the 47-voxel classification correction is AI-assisted project adoption under PR #27, not expert review. ID30 remains a provisional candidate after the 1605-voxel, 1596-voxel and inferior 2160-voxel exclusions; remaining cingulum/fornix separation is incomplete and no complete callosal or fornix boundary is claimed.",
     }
     validation_output.write_text(json.dumps(validation, ensure_ascii=False, indent=2) + "\n")
     print(json.dumps({"output": str(output), "validation": str(validation_output), **validation}, ensure_ascii=False))

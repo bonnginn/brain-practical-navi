@@ -47,7 +47,7 @@ def main():
     def assigns(node,name):
         return isinstance(node,ast.Assign) and any(isinstance(t,ast.Name) and t.id==name for t in node.targets)
     start=next(i for i,n in enumerate(fn.body) if assigns(n,'practical'))
-    stop=next(i for i,n in enumerate(fn.body) if assigns(n,'callosal_followup_audit'))
+    stop=next(i for i,n in enumerate(fn.body) if assigns(n,'callosal_inferior_audit'))
     namespace=dict(builder.__dict__)
     namespace.update(manual=manual,manual_nii=manual_nii,cerebra_nii=cerebra_nii,
         cerebra=cerebra,wm_probability=wm_probability,resampled_atlas=resampled_atlas,empty_space=raw==255)
@@ -58,13 +58,14 @@ def main():
         generatorSha256=hashlib.sha256(source_path.read_bytes()).hexdigest(),
         reconstructedRawSha256=hashlib.sha256(reconstructed.tobytes(order='F')).hexdigest(),
         mismatchVoxels=mismatch,passed=mismatch==0,publicMutation=False,
-        scope='Exact current label pipeline including all five approved patch stages; original NIfTI ingestion not rerun.',
+        scope='Exact current label pipeline including all six approved patch stages; original NIfTI ingestion not rerun.',
         mammillaryTransitions=namespace['reviewed_patch_audit']['transitions'],
         ventricleTransitions=namespace['ventricle_patch_audit']['transitions'],
         classificationTransitions=namespace['classification_patch_audit']['transitions'],
         callosalTransitions=namespace['callosal_patch_audit']['transitions'],
-        callosalFollowupTransitions=namespace['callosal_followup_audit']['transitions'])
-    out=ROOT/'work/anatomy-review/practical-reconstruction-v4.json'
+        callosalFollowupTransitions=namespace['callosal_followup_audit']['transitions'],
+        callosalInferiorTransitions=namespace['callosal_inferior_audit']['transitions'])
+    out=ROOT/'work/anatomy-review/practical-reconstruction-v5.json'
     out.parent.mkdir(parents=True,exist_ok=True)
     out.write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
     print(json.dumps(report))
