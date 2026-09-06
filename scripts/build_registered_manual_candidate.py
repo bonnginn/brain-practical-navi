@@ -11,7 +11,7 @@ import numpy as np
 from scipy.ndimage import map_coordinates, label as components, generate_binary_structure
 from audit_manual_label_space import SOURCE, FILES, LABEL_SHA, load_identity_minc
 from build_orthogonal_review_bundle import ROOT, DEFAULT_LABELS, DEFAULT_IMAGE, MAGIC_LABELS, MAGIC_IMAGE, EXPECTED_IMAGE_SHA256, read_browser_volume
-from review_bigbrain_grid_transform import load_published_grids, forward_chain, inverse_chain, XFM_SHA, GRID_SHAS
+from review_bigbrain_grid_transform import load_published_grids, forward_chain, inverse_chain, precise_inverse, XFM_SHA, GRID_SHAS
 
 
 def nearest_labels(source, world, start, step):
@@ -63,6 +63,7 @@ def analyze_labels(old, candidate, raw):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', required=True, type=Path)
+    parser.add_argument('--precision', choices=('historical', 'tight'), default='historical')
     args = parser.parse_args()
     output = args.output.resolve()
     if not output.is_relative_to((ROOT/'work').resolve()) or output.exists():
@@ -92,7 +93,7 @@ def main():
         indices = np.arange(offset, min(offset+40000, target_count))
         points = np.column_stack(np.unravel_index(indices, target_shape))+minimum
         world = points*spacing+origin
-        inverse = inverse_chain(grids, world)
+        inverse = precise_inverse(grids, world)[0] if args.precision == 'tight' else inverse_chain(grids, world)
         residual_max = max(residual_max, float(np.max(np.abs(forward_chain(grids, inverse)-world))))
         values[indices] = nearest_labels(source, inverse, start, step)
         print(f'Inverse {min(offset+40000,target_count)}/{target_count}; max residual {residual_max:.6f} mm', flush=True)
@@ -115,6 +116,7 @@ def main():
         transformSha256=XFM_SHA, gridSha256=GRID_SHAS, sourceNonzeroCount=source_positive,
         sourceSpace='BigBrain2015 ICBM old-symmetric', targetSpace='Xiao2019 refined ICBM2009 symmetric',
         sampling='Ordered published forward extent; checked composed inverse; Catmull-Rom grids; nearest source300 labels; padding4. Independent evaluator, not native MINC.',
+        inversePrecision=args.precision, perGridToleranceMm=1e-6 if args.precision == 'tight' else .001,
         targetBox=dict(minimum=minimum.tolist(), maximumExclusive=maximum.tolist(), voxelCount=target_count),
         maximumComposedResidualMm=residual_max, candidateSha256=hashlib.sha256((output/'candidate-all22.npz').read_bytes()).hexdigest(),
         candidateRawFullGridSha256=hashlib.sha256(candidate.tobytes(order='F')).hexdigest(),

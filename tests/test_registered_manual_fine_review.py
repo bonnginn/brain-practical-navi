@@ -3,10 +3,18 @@ import unittest
 from pathlib import Path
 import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]/'scripts'))
-from render_registered_manual_fine_review import fine_box, encode_image, render_fine_row
+from render_registered_manual_fine_review import fine_box, encode_image, render_fine_row, region_set
 
 
 class FineReviewTests(unittest.TestCase):
+    def test_fixed_region_sets_preserve_previous_review_and_reject_unknown(self):
+        self.assertEqual(len(region_set('background')), 5)
+        selected = region_set('conflicts')
+        self.assertEqual([r[1] for r in selected], [13, 14, 19, 20])
+        self.assertEqual(len({r[0] for r in selected}), 4)
+        self.assertEqual(selected[0][2], [163, 254, 137])
+        with self.assertRaises(ValueError): region_set('all')
+
     def test_box_uses_physical_image_origin_and_spacing(self):
         start = np.array([-98.1,-134.1,-72.1]); step = np.full(3,.3)
         center = np.array([50,60,70]); world = center*step+start

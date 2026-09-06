@@ -20,6 +20,14 @@ from build_orthogonal_review_bundle import ROOT, DEFAULT_LABELS, MAGIC_LABELS, r
 
 COARSE_OVERRIDE_IDS = (27, 31, 32)
 POLICY = 'research-v1-clear-obsolete-manual-preserve-other-except-coarse-27-31-32'
+TIGHT_CANDIDATE_SHA = 'fdf1ac7aba8c7cb1081e1956a78309c85698f18ee524c34a14471172cad0f4b6'
+TIGHT_CANDIDATE_RAW_SHA = '86ee9c8f279020d5472dd82e986f0243179111a3b717972e503e859c0c948825'
+
+
+def candidate_identity(version):
+    if version == 'historical': return CANDIDATE_SHA, CANDIDATE_RAW_SHA
+    if version == 'tight': return TIGHT_CANDIDATE_SHA, TIGHT_CANDIDATE_RAW_SHA
+    raise ValueError('Unknown research candidate version')
 
 
 def compose(old, registered):
@@ -79,11 +87,13 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--candidate-dir',type=Path,required=True)
     parser.add_argument('--output',type=Path,required=True)
+    parser.add_argument('--candidate-version',choices=('historical','tight'),default='historical')
     args=parser.parse_args(); output=args.output.resolve()
     if not output.is_relative_to((ROOT/'work').resolve()) or output.exists():
         raise ValueError('Output must be a new directory strictly inside work')
     path=args.candidate_dir/'candidate-all22.npz'
-    if hashlib.sha256(path.read_bytes()).hexdigest()!=CANDIDATE_SHA:
+    candidate_sha,candidate_raw_sha=candidate_identity(args.candidate_version)
+    if hashlib.sha256(path.read_bytes()).hexdigest()!=candidate_sha:
         raise ValueError('Unexpected registered candidate')
     _, dims, old=read_browser_volume(DEFAULT_LABELS,MAGIC_LABELS,LABEL_SHA)
     registered=np.zeros(dims,dtype=np.uint8)
@@ -92,7 +102,7 @@ def main():
         if not np.array_equal(source['dimensions'],dims) or low.shape!=(3,) or high.shape!=(3,) or np.any(low<0) or np.any(high>dims) or np.any(low>=high):
             raise ValueError('Invalid candidate geometry')
         registered[tuple(slice(int(a),int(b)) for a,b in zip(low,high))]=source['labels']
-    if raw_sha(registered)!=CANDIDATE_RAW_SHA:
+    if raw_sha(registered)!=candidate_raw_sha:
         raise ValueError('Registered raw identity mismatch')
     before_sha=raw_sha(old)
     composed,stats=compose(old,registered)
@@ -105,7 +115,8 @@ def main():
     report=dict(schemaVersion=1,adopted=False,publicAssetMutation=False,expertReview=False,
         scope='Research composite only. Priority policy still requires anatomical/composed review; never deploy this artifact directly.',
         inputCompressedSha256=LABEL_SHA,inputRawSha256=before_sha,
-        registeredCandidateSha256=CANDIDATE_SHA,registeredRawSha256=CANDIDATE_RAW_SHA,
+        registeredCandidateSha256=candidate_sha,registeredRawSha256=candidate_raw_sha,
+        candidateVersion=args.candidate_version,
         outputCompressedSha256=hashlib.sha256(compressed).hexdigest(),outputRawSha256=raw_sha(composed),
         dimensions=dims,statistics=stats,changedVoxelCount=len(indices),
         transitions={f'{int(a)}->{int(b)}':int(n) for (a,b),n in zip(transitions,count)},

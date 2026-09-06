@@ -160,3 +160,20 @@ def inverse_chain(grids, world, return_valid=False):
     if not valid.all():
         raise ValueError('Composed inverse residual exceeds 0.01 mm')
     return result
+
+
+def precise_inverse(grids, world):
+    """Tighter research inverse for nearest-label sampling near voxel boundaries.
+
+    Does not change historical inverse defaults or claim native-MINC parity.
+    """
+    world = np.asarray(world, dtype=float)
+    if world.ndim != 2 or world.shape[1] != 3 or not len(world) or not np.isfinite(world).all():
+        raise ValueError('Expected nonempty finite Nx3 target points')
+    result = world.copy()
+    for grid in reversed(grids):
+        result = grid.inverse(result, tolerance=1e-6)
+    residual = float(np.max(np.abs(forward_chain(grids, result)-world)))
+    if not np.isfinite(residual) or residual > 1e-5:
+        raise ValueError('Tight composed inverse did not converge')
+    return result, residual

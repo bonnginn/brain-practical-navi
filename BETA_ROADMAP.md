@@ -1,5 +1,9 @@
 # β版ロードマップ
 
+## 2026-09-06 位置合わせ確認の結論（未公開）
+
+手動22ラベルの原画像・競合・原300 µm追加照合・数値精度・可逆合成の確認を完了し、[最終結論](MANUAL_REGISTERED_REVIEW_CONCLUSIONS.md) に構造別判断を記録した。未変形手動区画と変形済み表示画像の履歴不一致を確認し、高精度位置補正候補を作成したが、実用volume／meshへの採用・実ブラウザ統合は別工程。全境界正常・専門家承認・公開完了ではない。脳室47 voxelと脳梁5,361 voxelの以前の開発版修復は保持しており、下の9月5日時点の「追加ラベル不採用」はその時点の履歴である。
+
 ## 2026-09-05 全体レビュー候補（未公開）
 
 公開先はGitHub Pagesです。英語・復習履歴・出題順/比較解説・ホーム導線・断面設定保存/観察リンク・端末UI・旧モデル案内の改善を `codex/september-learning-review` に集約しています。項目別の証拠と確認待ちは [SEPTEMBER_REVIEW_PROGRESS.md](SEPTEMBER_REVIEW_PROGRESS.md) と [SEPTEMBER_RELEASE_REVIEW.md](SEPTEMBER_RELEASE_REVIEW.md) を参照してください。今回の分節再点検は追加ラベル不採用で、具体的な曖昧境界を監査文書へ残しています。β公開、専門家承認、main統合を意味しません。

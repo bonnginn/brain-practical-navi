@@ -3,10 +3,17 @@ import unittest
 from pathlib import Path
 import numpy as np
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'scripts'))
-from compose_registered_practical_candidate import compose, make_delta, replay_delta
+from compose_registered_practical_candidate import compose, make_delta, replay_delta, candidate_identity
 
 
 class RegisteredCompositeTests(unittest.TestCase):
+    def test_explicit_candidate_versions_do_not_rebase_historical_identity(self):
+        old=candidate_identity('historical');tight=candidate_identity('tight')
+        self.assertTrue(old[0].startswith('62c8aaea'))
+        self.assertTrue(tight[0].startswith('fdf1ac7a'))
+        self.assertNotEqual(old,tight)
+        with self.assertRaises(ValueError):candidate_identity('latest')
+
     def test_priority_preserves_reviewed_and_ventricular_labels(self):
         old=np.arange(42,dtype=np.uint8).reshape(7,3,2)
         registered=np.ones_like(old)

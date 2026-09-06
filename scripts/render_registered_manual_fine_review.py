@@ -28,6 +28,20 @@ REGIONS = [
     ('left-hippocampal-laminar-edge', 17, [161, 249, 103]),
     ('right-hippocampal-white-band', 18, [250, 235, 100]),
 ]
+CONFLICT_REGIONS = [
+    ('left-GPi-internal-capsule-edge', 13, [163, 254, 137]),
+    ('right-GPi-internal-capsule-edge', 14, [227, 254, 137]),
+    ('left-accumbens-posterior-edge', 19, [174, 283, 131]),
+    ('right-accumbens-posterior-edge', 20, [217, 283, 131]),
+]
+
+
+def region_set(name):
+    if name == 'background':
+        return REGIONS
+    if name == 'conflicts':
+        return CONFLICT_REGIONS
+    raise ValueError('Unknown fine-review region set')
 
 
 def fine_box(world, start, step, dimensions, radius_mm=3.):
@@ -72,6 +86,7 @@ def render_fine_row(raw, old, candidate, axis, index, value):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--region-set', choices=('background', 'conflicts'), default='background')
     args = parser.parse_args()
     output = args.output.resolve()
     if not output.is_relative_to((ROOT/'work').resolve()) or output.exists():
@@ -92,8 +107,8 @@ def main():
         sourceHistory=source_history, currentLabelsSha256=LABEL_SHA, transformSha256=XFM_SHA, gridSha256=GRID_SHAS,
         imageStart=image_start.tolist(), imageStep=image_step.tolist(), intensityWindow=geometry['intensityWindow'],
         method='Original 300um transformed image, nearest 500um current label projection, independently inverse-transferred original 300um manual labels. Not an upsampled 500um candidate and not native MINC equivalence.',
-        visualReview='Generator only; no anatomical decision', regions=[])
-    for name, value, app_point in REGIONS:
+        visualReview='Generator only; no anatomical decision', regionSet=args.region_set, regions=[])
+    for name, value, app_point in region_set(args.region_set):
         world = np.asarray(app_point)*app_step+app_start
         low, high, center = fine_box(world, image_start, image_step, original.shape)
         shape = tuple(high-low)
