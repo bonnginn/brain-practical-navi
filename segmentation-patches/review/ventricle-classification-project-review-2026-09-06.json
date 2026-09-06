@@ -1,0 +1,310 @@
+{
+  "format": "brain-practical-segmentation-patch",
+  "version": 1,
+  "sourceImage": "/atlas/bigbrain-icbm500.bin.gz",
+  "sourceLabels": "/atlas/bigbrain-practical-segmentation-icbm500.bin.gz",
+  "sourceLabelsSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
+  "dims": [
+    394,
+    466,
+    378
+  ],
+  "voxelSizeMm": [
+    0.5,
+    0.5,
+    0.5
+  ],
+  "primaryPlane": "horizontal",
+  "authorNote": "Project adoption under the maintainer's autonomous-repair instruction: 16 voxels reclassified as partial aqueduct at the user's direction; 31 anterior pontine exterior voxels excluded after AI raw-image review. Not human-expert approval.",
+  "authorGitHub": "",
+  "targetSide": "mixed",
+  "confidence": "medium",
+  "evidence": "FOURTH_VENTRICLE_REPAIR.md; raw-image, adjacent-plane and orthogonal evidence in aqueduct-reclassification-v1 and ventricle-fragments-v1. The original candidates remain unchanged. Preserve the separate upper two voxels and all other labels. 0 means unlabelled; ID41 is a partial candidate, not a complete aqueduct.",
+  "workflowMetadataVersion": 1,
+  "reviewStatus": "approved",
+  "review": {
+    "decision": "approved",
+    "reviewer": {
+      "kind": "project-role",
+      "id": "ai-assisted-project-review-under-maintainer-direction"
+    },
+    "decidedAt": "2026-09-06",
+    "reason": "ユーザーの中脳水道への分類変更指示と、根拠が揃った修正を自律的に進める指示に基づく開発版への採用。16 voxelは位置・境界を変えず26→41、橋の腹側外部の左右小片31 voxelはAIが全占有断と直交断・全体位置を確認して26→0。ユーザーが31 voxelを個別に目視承認したという記録ではなく、専門家レビューでもない。Z114の2 voxelは保留し、公開・main統合はしない。",
+    "pullRequest": {
+      "number": 27,
+      "mergeCommit": null
+    }
+  },
+  "editCount": 47,
+  "runs": [
+    {
+      "start": 13497429,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13497430,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13497431,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13497432,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13497475,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13497476,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13497477,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13497478,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13497823,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13497824,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13497825,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13497826,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13497869,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13497870,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13497871,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13497872,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13681033,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13681034,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13681035,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13681036,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13681080,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13681081,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13681082,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13681427,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13681428,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13681429,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13681430,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13681473,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13681474,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13681475,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 13681476,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 21377059,
+      "length": 1,
+      "label": 41
+    },
+    {
+      "start": 21377060,
+      "length": 1,
+      "label": 41
+    },
+    {
+      "start": 21560663,
+      "length": 1,
+      "label": 41
+    },
+    {
+      "start": 21560664,
+      "length": 1,
+      "label": 41
+    },
+    {
+      "start": 21744267,
+      "length": 1,
+      "label": 41
+    },
+    {
+      "start": 21744268,
+      "length": 1,
+      "label": 41
+    },
+    {
+      "start": 21927477,
+      "length": 1,
+      "label": 41
+    },
+    {
+      "start": 21927478,
+      "length": 1,
+      "label": 41
+    },
+    {
+      "start": 21927871,
+      "length": 1,
+      "label": 41
+    },
+    {
+      "start": 21927872,
+      "length": 1,
+      "label": 41
+    },
+    {
+      "start": 22111475,
+      "length": 1,
+      "label": 41
+    },
+    {
+      "start": 22295079,
+      "length": 1,
+      "label": 41
+    },
+    {
+      "start": 22295473,
+      "length": 1,
+      "label": 41
+    },
+    {
+      "start": 22479077,
+      "length": 1,
+      "label": 41
+    },
+    {
+      "start": 22479471,
+      "length": 1,
+      "label": 41
+    },
+    {
+      "start": 22663075,
+      "length": 1,
+      "label": 41
+    }
+  ],
+  "targetStructures": [
+    {
+      "id": 26,
+      "name": "第四脳室"
+    },
+    {
+      "id": 41,
+      "name": "中脳水道候補（部分）"
+    }
+  ],
+  "sliceRanges": [
+    {
+      "plane": "horizontal",
+      "axis": "Z",
+      "min": 73,
+      "max": 123
+    }
+  ],
+  "changeSummary": {
+    "changedVoxelCount": 47,
+    "unchangedVoxelCount": 0,
+    "transitions": [
+      {
+        "from": 26,
+        "to": 0,
+        "voxels": 31
+      },
+      {
+        "from": 26,
+        "to": 41,
+        "voxels": 16
+      }
+    ]
+  }
+}

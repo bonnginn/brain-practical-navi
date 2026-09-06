@@ -178,7 +178,10 @@ test("keeps official labels separate from provisional teaching overlays", async 
   assert.deepEqual(metadata.officialManualIds, Array.from({ length: 22 }, (_, index) => index + 1));
   assert.equal(metadata.officialLabelsPreserved, true);
   assert.deepEqual(metadata.atlasDerivedIds, [23, 24, 25, 26, 27, 28, 29, 33, 34, 35]);
-  assert.deepEqual(metadata.imageGuidedCandidateIds, [30, 31, 32]);
+  assert.deepEqual(metadata.imageGuidedCandidateIds, [30, 31, 32, 41]);
+  assert.deepEqual(metadata.projectReviewedPartialIds, [41]);
+  assert.equal(metadata.labelCounts[26], 8520);
+  assert.equal(metadata.labelCounts[41], 16);
   assert.deepEqual(metadata.imageGuidedReviewedIds, [39, 40]);
   for (const id of Array.from({ length: 35 }, (_, index) => index + 1)) {
     assert.ok(metadata.labelCounts[id] > 0, `label ${id} must contain voxels`);
@@ -306,7 +309,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /形状・範囲・接続関係の完全性や解剖学的正確性は保証しません/);
   assert.match(page, /Cloudflare Web Analytics/);
   assert.match(page, /CookieやlocalStorageを使わず、訪問者の個人データを収集・利用しません/);
-  assert.match(page, /クイズの誤答履歴、分節差分、M2比較の下書き、解剖レビューの下書きは端末内のlocalStorageに保存されます/);
+  assert.match(page, /クイズの誤答履歴、断面の観察設定、分節差分、M2比較の下書き、解剖レビューの下書きは端末内のlocalStorageに保存されます/);
   assert.match(page, /自動送信は行わず、サイトデータを消去すると失われます/);
   assert.match(page, /原著者やデータ提供機関の推奨・承認を示すものではありません/);
   for (const marker of ["source-credit", "license-boundaries", "modifications", "no-endorsement", "educational-nonclinical", "privacy-analytics", "privacy-local-storage", "corresponding-source"]) assert.equal((page.match(new RegExp(`data-legal-disclosure=\\"${marker}\\"`, "g")) ?? []).length, 1, marker);
@@ -399,9 +402,9 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /key==="lingual"\?\{ids:surfaceRegions\.pericalcarine\.ids,axis:0,max:-14\}/);
   assert.match(page, /複数選択/);
   assert.match(page, /useState<"inside" \| "ghost" \| "extracted" \| "segmented">\("ghost"\)/);
-  assert.match(page, /useState<"both"\|"slice"\|"model">\(\(\)=>typeof window/);
-  assert.match(page, /const \[sectionModelShare,setSectionModelShare\]=useState\(40\)/);
-  assert.match(page, /const \[sectionModelViews,setSectionModelViews\]=useState<1\|2>\(2\)/);
+  assert.match(page, /useState<"both"\|"slice"\|"model">\(\(\)=>savedSectionSession\?\.layout\?\?\(typeof window/);
+  assert.match(page, /const \[sectionModelShare,setSectionModelShare\]=useState\(savedSectionSession\?\.share\?\?40\)/);
+  assert.match(page, /const \[sectionModelViews,setSectionModelViews\]=useState<1\|2>\(savedSectionSession\?\.views\?\?2\)/);
   assert.match(page, /const \[compactSectionLayout,setCompactSectionLayout\]=useState\(\(\)=>typeof window/);
   assert.match(page, /setCompactSectionLayout\(widthQuery\.matches\)/);
   assert.match(page, /className="sectionLayoutSwitch" aria-label="断面と全脳3Dの表示"/);
@@ -656,7 +659,7 @@ test("keeps student navigation separate and records only screen-level history", 
   assert.match(page, /function updateScreenHistory\(nextHash:string,mode:"push"\|"replace"\|"none"="push"\)/);
   assert.match(page, /function jump\(nextPlane: Plane, nextPosition\?: number,historyMode:"push"\|"replace"\|"none"="push"\)/);
   assert.match(page, /chooseSurface\(surfaceViewFromHash\(window\.location\.hash\),"none"\)/);
-  assert.match(page, /jump\(planeFromHash\(window\.location\.hash\),52,"none"\)/);
+  assert.match(page, /jump\(planeFromHash\(window\.location\.hash\),undefined,"none"\)/);
   assert.match(page, /chooseBlock\(blockSpecimenFromHash\(window\.location\.hash\),"none"\)/);
   assert.doesNotMatch(page, /setPosition\([^)]*\)[^\n]*pushState/);
   assert.doesNotMatch(page, /setRotation\([^\n]*pushState/);
@@ -1070,10 +1073,10 @@ test("reproduces the objective orthogonal mammillary audit and rejects a wrong v
   ], {encoding:"utf8", cwd:localPath("")});
   assert.equal(result.status, 0, result.stderr);
   const audit = JSON.parse(result.stdout);
-  const saved = JSON.parse(await readFile(new URL("segmentation-patches/review/mammillary-bodies-orthogonal-objective-audit-2026-08-22.json", root), "utf8"));
+  const saved = JSON.parse(await readFile(new URL("segmentation-patches/review/mammillary-bodies-orthogonal-objective-audit-2026-09-06-callosal-inferior.json", root), "utf8"));
   assert.deepEqual(audit, saved);
   assert.equal(audit.magic, "BBS1");
-  assert.equal(audit.inputSha256, "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3");
+assert.equal(audit.inputSha256, "098edfbf365016c6c53ccf7b7032258db72a4912378c457d348c01613a4a1694");
   assert.deepEqual(audit.dims, [394, 466, 378]);
   assert.deepEqual(audit.voxelSizeMm, [0.5, 0.5, 0.5]);
   assert.equal(audit.validation.passed, true);
@@ -2120,7 +2123,7 @@ test("labels provisional questions and includes them in the default quiz setup",
   assert.match(page, /standardQuizQuestions=quizQuestions\.filter\(question=>!isProvisionalQuiz\(question\)\)/);
   assert.match(page, /useState<QuizQuestion\[]>\(\(\)=>shuffledQuestions\(allQuizQuestions\)/);
   assert.match(page, /quizIncludeProvisional,setQuizIncludeProvisional\]=useState\(true\)/);
-  assert.match(page, /const quizFilters:QuizFilters=\{category:quizCategory,format:quizFormat,detail:quizDetail,includeProvisional:quizIncludeProvisional,wrongOnly:quizWrongOnly\}/);
+  assert.match(page, /const quizFilters:QuizFilters=\{category:quizCategory,format:quizFormat,detail:quizDetail,kind:quizKind,includeProvisional:quizIncludeProvisional,wrongOnly:quizWrongOnly\}/);
   assert.match(page, /filterQuizCandidates\(quizQuestionsForFiltering,quizFilters,wrongTargets\)/);
   assert.match(page, /function startQuiz\(\)\{let candidates=quizCandidates;/);
   assert.doesNotMatch(page, /quizIncludeProvisional\|\|!isProvisionalQuiz\(question\)/);

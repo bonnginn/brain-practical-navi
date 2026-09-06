@@ -101,14 +101,16 @@ test("contributor comparison is opt-in, code-split, and has a durable contributo
   assert.match(page, /MODEL_STRATEGY_ROUTE="#workspace\/collaborate\/model-strategy"/);
   assert.match(page, /modelStrategyFromHash\(window\.location\.hash\)/);
   assert.match(page, /updateScreenHistory\(MODEL_STRATEGY_ROUTE,"push"\)/);
-  assert.match(page, /M2 · CONTRIBUTOR PILOT/);
+  assert.match(page, /ARCHIVED · M2 PILOT/);
+  assert.match(page, /過去の3Dモデル比較資料/);
   assert.match(page, /A\/B比較を開く/);
 });
 
 test("A and B share controls while B keeps its full provenance warning", async () => {
   const component = await readFile(componentUrl, "utf8");
   const canvas = await readFile(canvasUrl, "utf8");
-  assert.match(component, /同じ観察課題・色・向き・表示操作/);
+  assert.match(component, /この比較は過去の開発資料です/);
+  assert.match(component, /Bの模式案は学習教材に採用していません/);
   assert.match(component, /Bは模式・専門家未確認です/);
   assert.match(component, /実標本由来、正解セグメンテーション、検証済み形状ではありません/);
   assert.match(component, /specimen:"model-strategy-current-ventricles"/);

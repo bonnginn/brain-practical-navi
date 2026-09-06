@@ -150,6 +150,7 @@
 .selectedStructureList p { display: grid; gap: 3px; margin: 0; color: #465351; font-size: 14px; line-height: 1.45; }
 .selectedStructureList p em { color: #697371; font-style: normal; }
 .selectedStructureList p em::before { content: "位置："; font-weight: 700; }
+html[lang="en"] .selectedStructureList p em::before { content: "Location: "; }
 .selectedStructureBar button { border: 1px solid #b9bdb7; background: #f8f7f2; padding: 7px 11px; font-size: 16px; }
 .selectedStructureList > button { border: 0; padding: 9px 18px; }
 .selectedStructureBar button:disabled, .quiz:disabled { cursor: default; opacity: .48; }
@@ -243,7 +244,8 @@ html, body, #root { height: 100%; overflow: hidden; }
 .rule { margin: 12px 0; }
 .inspector > p { font-size: 14px; line-height: 1.55; }
 .inspector dl { margin-top: 10px; }
-.inspector dl div { padding-block: 7px; font-size: 16px; }
+.inspector dl div { grid-template-columns: minmax(0,100px) minmax(0,1fr); column-gap: 12px; padding-block: 7px; font-size: 16px; }
+.inspector dt, .inspector dd { min-width: 0; overflow-wrap: anywhere; }
 .identifyCard { margin-top: 10px; padding: 9px 11px; }
 .continuity { margin-top: 10px; }
 .quiz { margin-top: 12px; padding: 10px; }
@@ -1448,7 +1450,7 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
 
 /* Mid-width desktop and landscape-tablet headers need two real rows. Keeping
    every action in one row made the utility buttons cover the quiz destination. */
-@media(max-width:1200px) and (min-width:761px){
+@media(max-width:1600px) and (min-width:761px){
   .appShell{grid-template-rows:104px 1fr}
   .topbar{height:104px;display:grid;grid-template-columns:240px minmax(0,1fr) auto;grid-template-rows:52px 52px;align-content:start;gap:0 8px;padding:0 14px}
   .brand{grid-column:1;grid-row:1}
@@ -1457,6 +1459,25 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
   .topActions{grid-column:3;grid-row:1}
   .topActions>span{display:none}
   .inspectorBackdrop,.inspector{top:104px}
+}
+.quizAnswerComparison{margin:12px 0;padding:10px;border:1px solid #c7ceca;background:#f7f8f4;color:#293835}
+.quizAnswerComparison dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0}
+.quizAnswerComparison dt{font-size:12px;font-weight:800;color:#49615c}
+.quizAnswerComparison dd{margin:5px 0 0;overflow-wrap:anywhere}
+.quizAnswerComparison dd p{margin:6px 0;font-size:13px;line-height:1.6}
+.quizAnswerComparison>small{display:block;margin-top:8px;color:#52635f;line-height:1.5}
+@media(max-width:1200px){.quizAnswerComparison dl{grid-template-columns:1fr}.quizAnswerComparison dl>div+div{padding-top:8px;border-top:1px solid #d6dcd7}}
+/* Layer controls occupy their own row: translated labels must never cover
+   the anatomy or intercept a drag intended for the model. */
+.surfaceModelCard:has(.surfaceDisplayControls){grid-template-rows:max-content minmax(280px,1fr) max-content;overflow-y:auto}
+.surfaceDisplayControls{padding:8px;border-top:1px solid #667174;background:#20282a;min-width:0}
+.surfaceDisplayControls .neurovascularControls,.surfaceDisplayControls .freeObservationControls{position:static;max-width:100%;padding:0;border:0;box-shadow:none;background:transparent}
+.surfaceDisplayControls .freeObservationControls>div{flex-wrap:wrap}
+.surfaceDisplayControls button{min-height:44px;white-space:normal}
+@media(max-width:1600px) and (min-width:761px){
+  html[lang="en"] .brand{font-size:14px;letter-spacing:.025em;line-height:1.1}
+  html[lang="en"] .brand small{font-size:9px;letter-spacing:.015em}
+  html[lang="en"] .brandMark{flex-shrink:0}
 }
 /* Touch-first phone chrome.  The rail remains one DOM subtree; on phones it
    is moved into the settings sheet rather than rendered a second time. */
@@ -1470,7 +1491,9 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
 .phoneSegmentGuard>div{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
 .phoneSegmentGuard button{min-height:44px;padding:9px 13px;border:1px solid #b77a49;background:#fff;color:#744526;font-weight:800}
 
-@media(max-width:760px) and (hover:none) and (pointer:coarse){
+/* JS resolves automatic capability and explicit ui=phone/desktop once.
+   Scope all phone chrome to that state, including on a mouse-driven preview. */
+@media screen{
   .phone-mode{padding-top:60px!important;padding-bottom:calc(82px + env(safe-area-inset-bottom))}
   .phone-mode .topbar{height:60px;display:flex;grid-template-columns:none;grid-template-rows:none;align-items:center;padding-inline:6px}
   .phone-mode .brand{grid-column:auto;grid-row:auto}
@@ -1480,30 +1503,30 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
   .phone-mode .phoneRailToggle{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:5px 8px;border:1px solid #90a9a4;background:#edf4f2;color:#24534e;font-size:13px;font-weight:800;white-space:nowrap}
   .phone-mode .topActions{min-width:0}
   .phone-mode .topActions>button,.phone-mode .topActions>.languageSwitch{min-height:44px}
-  .phoneDock{position:fixed;z-index:40;right:0;bottom:0;left:0;display:block;padding:6px 8px calc(6px + env(safe-area-inset-bottom));border-top:1px solid #aeb8b2;background:rgba(247,246,242,.97);box-shadow:0 -8px 24px rgba(29,43,42,.14)}
-  .phoneDock>div{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;max-width:720px;margin:0 auto}
-  .phoneDock button{display:grid;min-width:0;min-height:44px;align-content:center;gap:1px;padding:5px 2px;border:1px solid transparent;background:transparent;color:#43504e;font-size:12px;font-weight:800;line-height:1.1;text-align:center}
-  .phoneDock button small{color:#64706d;font-size:10px;font-weight:600}
-  .phoneDock button.active{border-color:#5d938b;background:#e7f0ec;color:#174f4a}
-  .phoneDock button.active small{color:#28736b}
-  .phoneSettingsSheet:not([open]){display:none}
-  .phoneSettingsSheet[open]{position:fixed;z-index:50;inset:0;display:block;width:100%;max-width:none;height:100dvh;margin:0;padding:0;border:0;background:transparent;overflow:hidden}
-  .phoneSettingsSheet::backdrop{background:rgba(19,28,29,.4)}
-  .phoneSettingsBackdrop{position:absolute;inset:0;display:block;background:rgba(19,28,29,.22)}
-  .phoneSettingsHeader{position:absolute;z-index:2;top:env(safe-area-inset-top);right:0;left:0;display:flex;align-items:center;justify-content:space-between;min-height:58px;padding:7px 12px 7px 16px;border-bottom:1px solid #bfc4bf;background:#f7f5ef;color:#25312f;font-weight:800}
-  .phoneSettingsSheet .leftRail{position:absolute;z-index:1;top:calc(58px + env(safe-area-inset-top));right:0;bottom:0;left:0;display:block;height:auto;min-height:0;padding:14px 12px calc(24px + env(safe-area-inset-bottom));overflow-y:auto;border:0;background:#f7f5ef}
+  .phone-mode .phoneDock{position:fixed;z-index:40;right:0;bottom:0;left:0;display:block;padding:6px 8px calc(6px + env(safe-area-inset-bottom));border-top:1px solid #aeb8b2;background:rgba(247,246,242,.97);box-shadow:0 -8px 24px rgba(29,43,42,.14)}
+  .phone-mode .phoneDock>div{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;max-width:720px;margin:0 auto}
+  .phone-mode .phoneDock button{display:grid;min-width:0;min-height:44px;align-content:center;gap:1px;padding:5px 2px;border:1px solid transparent;background:transparent;color:#43504e;font-size:12px;font-weight:800;line-height:1.1;text-align:center}
+  .phone-mode .phoneDock button small{color:#64706d;font-size:10px;font-weight:600}
+  .phone-mode .phoneDock button.active{border-color:#5d938b;background:#e7f0ec;color:#174f4a}
+  .phone-mode .phoneDock button.active small{color:#28736b}
+  .phone-mode .phoneSettingsSheet:not([open]){display:none}
+  .phone-mode .phoneSettingsSheet[open]{position:fixed;z-index:50;inset:0;display:block;width:100%;max-width:none;height:100dvh;margin:0;padding:0;border:0;background:transparent;overflow:hidden}
+  .phone-mode .phoneSettingsSheet::backdrop{background:rgba(19,28,29,.4)}
+  .phone-mode .phoneSettingsBackdrop{position:absolute;inset:0;display:block;background:rgba(19,28,29,.22)}
+  .phone-mode .phoneSettingsHeader{position:absolute;z-index:2;top:env(safe-area-inset-top);right:0;left:0;display:flex;align-items:center;justify-content:space-between;min-height:58px;padding:7px 12px 7px 16px;border-bottom:1px solid #bfc4bf;background:#f7f5ef;color:#25312f;font-weight:800}
+  .phone-mode .phoneSettingsSheet .leftRail{position:absolute;z-index:1;top:calc(58px + env(safe-area-inset-top));right:0;bottom:0;left:0;display:block;height:auto;min-height:0;padding:14px 12px calc(24px + env(safe-area-inset-bottom));overflow-y:auto;border:0;background:#f7f5ef}
   /* The generic compact layout hides dense rails; the open phone sheet must
      restore the existing section controls instead of cloning or redesigning them. */
-  .phoneSettingsSheet .leftRail>.eyebrow{display:block}
-  .phoneSettingsSheet .leftRail .railLine{display:block}
-  .phoneSettingsSheet .leftRail .structureBtn{display:flex}
-  .phoneSettingsSheet .leftRail .structureGroupGrid{display:grid}
-  .phoneSettingsSheet .leftRail .clearStructures{display:block}
-  .phoneSettingsSheet .leftRail .bookNotice{display:block}
-  .phoneSettingsSheet .leftRail button,.phoneSettingsSheet .leftRail select{min-height:44px}
-  .phoneSettingsSheet .leftRail input{min-width:20px;min-height:20px}
-  .phoneSettingsSheet .leftRail .lessonRailBtn{min-height:44px}
-  .phoneSettingsSheet .leftRail .quizCountButtons button{min-height:44px}
+  .phone-mode .phoneSettingsSheet .leftRail>.eyebrow{display:block}
+  .phone-mode .phoneSettingsSheet .leftRail .railLine{display:block}
+  .phone-mode .phoneSettingsSheet .leftRail .structureBtn{display:flex}
+  .phone-mode .phoneSettingsSheet .leftRail .structureGroupGrid{display:grid}
+  .phone-mode .phoneSettingsSheet .leftRail .clearStructures{display:block}
+  .phone-mode .phoneSettingsSheet .leftRail .bookNotice{display:block}
+  .phone-mode .phoneSettingsSheet .leftRail button,.phone-mode .phoneSettingsSheet .leftRail select{min-height:44px}
+  .phone-mode .phoneSettingsSheet .leftRail input{min-width:20px;min-height:20px}
+  .phone-mode .phoneSettingsSheet .leftRail .lessonRailBtn{min-height:44px}
+  .phone-mode .phoneSettingsSheet .leftRail .quizCountButtons button{min-height:44px}
   .phone-mode .sectionLayoutSwitch button{min-height:44px}
   .phone-mode .panelActions button{min-height:44px}
   .phone-mode .sliceTimeline input[type=range]{min-height:44px}
@@ -1519,4 +1542,47 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
   .phone-mode .sliceStage{min-height:610px}
   .phone-mode .rangeWrap button{min-width:44px;min-height:44px}
   .phone-mode .workspace-sections .slicePanel{overflow:visible}
+}
+.sectionObservationLink { margin: .25rem 0 .5rem; font-size: .875rem; }
+.sectionObservationLink summary { cursor: pointer; padding: .35rem; }
+.sectionObservationLink p { margin: .4rem 0; }
+.sectionObservationLink input { box-sizing: border-box; width: 100%; min-width: 0; padding: .5rem; font: inherit; }
+
+/* Quiz density follows usable panel width, not just the device category.
+   Keep readable text; reflow the panels instead of shrinking the whole UI. */
+@media (min-width:761px) {
+  .appShell.workspace-quiz:not(.phone-mode) { grid-template-columns: clamp(250px,20vw,290px) minmax(0,1fr); }
+}
+.quizArea { container: quiz-area / inline-size; overflow-y: auto; }
+.quizArea .workHead { flex-wrap: wrap; gap: .5rem; }
+.quizArea .workHead h1 { font-size: clamp(1.5rem,1.1rem + 1cqi,2rem); }
+.quizWorkspace { grid-template-columns: minmax(0,1fr) minmax(280px,.85fr); }
+.quizQuestionCard { min-width: 0; padding: clamp(.875rem,2cqi,1.75rem); }
+.quizQuestionCard h2 { font-size: clamp(1.125rem,.875rem + .8cqi,1.4375rem); overflow-wrap: anywhere; }
+.quizOptions button { grid-template-columns: 28px minmax(0,1fr) auto; gap: .5rem; padding-inline: .625rem; }
+.quizOptions button > span { min-width: 0; font-size: 1rem; overflow-wrap: anywhere; }
+.quizOptions button small { font-size: .875rem; }
+.quizOptions button > b { font-size: .875rem; overflow-wrap: anywhere; }
+.quizSetup label > span, .quizSetup > div > span { font-size: .875rem; line-height: 1.5; }
+.quizSetup .quizCandidateSummary { grid-template-columns: minmax(0,1fr); }
+.quizCountButtons button { min-height: 44px; }
+.quizImageCard .panelHead { flex-wrap: wrap; gap: .375rem; }
+.quizImageCard .panelHead small { font-size: .875rem; }
+.quizImageCard { container: quiz-image / inline-size; min-width: 0; }
+.quizImageCard .panelHead > div { min-width: 0; }
+.quizImageCard .panelHead small { white-space: normal; overflow-wrap: anywhere; }
+.quizTargetTag { min-width: 0; max-width: calc(100% - 36px); grid-template-columns: 8px minmax(0,1fr); box-sizing: border-box; }
+.quizTargetTag b, .quizTargetTag small { overflow-wrap: anywhere; }
+@container quiz-image (max-width: 32rem) {
+  .quizSliceNavigator { grid-template-columns: minmax(0,1fr) auto; gap: .5rem; }
+  .quizSliceAxis { grid-column: 1 / -1; }
+  .quizSliceNavigator > button { grid-column: 1 / -1; white-space: normal; }
+}
+@container quiz-area (max-width: 42rem) {
+  .quizWorkspace { display: grid; flex: 0 0 auto; grid-template-columns: minmax(0,1fr); }
+  .quizImageCard { height: clamp(360px,55svh,560px); }
+  .quizQuestionCard { overflow: visible; margin-top: 0; }
+  .quizSliceNavigator { grid-template-columns: minmax(0,1fr) auto; gap: .5rem; }
+  .quizSliceAxis { grid-column: 1 / -1; }
+  .quizSliceNavigator > button { grid-column: 1 / -1; }
 }

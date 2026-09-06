@@ -1,0 +1,2 @@
+export type QuizComparisonEntry={key:string;name:string;note:string|null;relation:string|null};
+export function quizAnswerComparison(question:{target:string;correctAnswer?:string;questionKind?:string;options:readonly string[];optionLabels?:Record<string,string>},choice:string|null,registry:Record<string,{name:string;note?:string;relation?:string}>):{expected:QuizComparisonEntry;selected:QuizComparisonEntry}|null;

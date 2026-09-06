@@ -63,8 +63,8 @@ const SURFACE_LANDMARKS:{key:SurfaceLandmark;color:[number,number,number,number]
 ];
 const SURFACE_BOUNDARY_LABELS:Partial<Record<SurfaceLandmark,{a:number[];b:number[]}>>={
   "central-sulcus":{a:[86,35],b:[64,13]},
-  "precentral-sulcus":{a:[86,35],b:[89,38,93,42,52,103,83,32,73,22]},
-  "superior-frontal-sulcus":{a:[89,38],b:[93,42,52,103]},
+  "precentral-sulcus":{a:[86,35],b:[89,38,93,42,52,1,83,32,73,22]},
+  "superior-frontal-sulcus":{a:[89,38],b:[93,42,52,1]},
   "parieto-occipital-sulcus":{a:[82,31],b:[94,43]},
   "calcarine-sulcus":{a:[57,6],b:[94,43]},
   "olfactory-sulcus":{a:[66,15],b:[58,7]},

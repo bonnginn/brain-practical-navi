@@ -1,0 +1,299 @@
+{
+  "schemaVersion": 1,
+  "adopted": false,
+  "publicAssetMutation": false,
+  "expertReview": false,
+  "scope": "Research composite only. Priority policy still requires anatomical/composed review; never deploy this artifact directly.",
+  "inputCompressedSha256": "098edfbf365016c6c53ccf7b7032258db72a4912378c457d348c01613a4a1694",
+  "inputRawSha256": "afc55069f2ecdcad36429f1026276f10c8e17a31fa9c6bf985b3beec3f640130",
+  "registeredCandidateSha256": "fdf1ac7aba8c7cb1081e1956a78309c85698f18ee524c34a14471172cad0f4b6",
+  "registeredRawSha256": "86ee9c8f279020d5472dd82e986f0243179111a3b717972e503e859c0c948825",
+  "candidateVersion": "tight",
+  "outputCompressedSha256": "7ebed144c2b200233ad1389d3288b2407edcb542fe46eaf8626ef872522f8c3f",
+  "outputRawSha256": "153ba1ede7988736785a127f42b50793427e50e6f029e46bd9a69218a3920834",
+  "dimensions": [
+    394,
+    466,
+    378
+  ],
+  "statistics": {
+    "policy": "research-v1-clear-obsolete-manual-preserve-other-except-coarse-27-31-32",
+    "oldManualCount": 446874,
+    "registeredManualCount": 476608,
+    "acceptedManualCount": 476607,
+    "preservedConflicts": 1,
+    "obsoleteManualClearedToUnlabeled": 49225,
+    "replacedCoarseCount": 2522,
+    "protectedConflictCounts": {
+      "23->7": 1
+    },
+    "vacatedPolicy": "Unlabeled, NOT background/tissue absence. No morphological fill or nearest-label invention."
+  },
+  "changedVoxelCount": 139452,
+  "transitions": {
+    "0->1": 890,
+    "0->2": 1002,
+    "0->3": 457,
+    "0->4": 831,
+    "0->5": 290,
+    "0->6": 379,
+    "0->7": 3931,
+    "0->8": 1769,
+    "0->9": 3714,
+    "0->10": 8459,
+    "0->11": 199,
+    "0->12": 271,
+    "0->13": 554,
+    "0->14": 373,
+    "0->15": 11967,
+    "0->16": 10166,
+    "0->17": 13233,
+    "0->18": 8364,
+    "0->19": 2106,
+    "0->20": 1621,
+    "0->21": 2953,
+    "0->22": 2907,
+    "1->0": 139,
+    "2->0": 193,
+    "3->0": 1118,
+    "3->5": 4,
+    "4->0": 1005,
+    "4->6": 15,
+    "5->0": 216,
+    "5->3": 28,
+    "6->0": 264,
+    "6->4": 8,
+    "7->0": 1659,
+    "7->19": 1,
+    "8->0": 5552,
+    "8->20": 9,
+    "9->0": 1671,
+    "9->7": 8,
+    "9->11": 53,
+    "9->19": 12,
+    "10->0": 3200,
+    "10->12": 928,
+    "10->20": 5,
+    "11->0": 1836,
+    "11->9": 2637,
+    "11->13": 91,
+    "12->0": 3050,
+    "12->10": 1419,
+    "12->14": 331,
+    "13->0": 862,
+    "13->11": 1391,
+    "14->0": 983,
+    "14->12": 987,
+    "15->0": 2925,
+    "16->0": 3865,
+    "17->0": 10928,
+    "17->15": 1,
+    "17->21": 496,
+    "18->0": 7223,
+    "18->22": 175,
+    "19->0": 156,
+    "19->7": 820,
+    "19->9": 167,
+    "20->0": 79,
+    "20->8": 1007,
+    "20->10": 100,
+    "21->0": 1293,
+    "21->17": 409,
+    "22->0": 1008,
+    "22->18": 166,
+    "22->19": 1,
+    "27->3": 15,
+    "27->4": 29,
+    "27->15": 54,
+    "27->16": 24,
+    "31->5": 41,
+    "31->7": 173,
+    "31->9": 784,
+    "31->11": 265,
+    "31->13": 93,
+    "31->15": 54,
+    "31->19": 14,
+    "32->6": 30,
+    "32->8": 80,
+    "32->10": 497,
+    "32->12": 46,
+    "32->14": 110,
+    "32->16": 176,
+    "32->20": 37
+  },
+  "deltaOrder": "Fortran XYZ; x + dimX*(y + dimY*z)",
+  "roundTripVerified": true,
+  "byLabel": {
+    "0": {
+      "before": 66662381,
+      "after": 66635170
+    },
+    "1": {
+      "before": 2136,
+      "after": 2887
+    },
+    "2": {
+      "before": 2079,
+      "after": 2888
+    },
+    "3": {
+      "before": 4861,
+      "after": 4239
+    },
+    "4": {
+      "before": 4676,
+      "after": 4524
+    },
+    "5": {
+      "before": 1278,
+      "after": 1369
+    },
+    "6": {
+      "before": 1305,
+      "after": 1457
+    },
+    "7": {
+      "before": 37431,
+      "after": 40703
+    },
+    "8": {
+      "before": 39582,
+      "after": 36877
+    },
+    "9": {
+      "before": 47602,
+      "after": 53160
+    },
+    "10": {
+      "before": 48994,
+      "after": 55336
+    },
+    "11": {
+      "before": 14098,
+      "after": 11442
+    },
+    "12": {
+      "before": 13932,
+      "after": 11364
+    },
+    "13": {
+      "before": 5906,
+      "after": 4391
+    },
+    "14": {
+      "before": 6009,
+      "after": 4853
+    },
+    "15": {
+      "before": 57325,
+      "after": 66476
+    },
+    "16": {
+      "before": 60797,
+      "after": 67298
+    },
+    "17": {
+      "before": 33042,
+      "after": 35259
+    },
+    "18": {
+      "before": 33119,
+      "after": 34251
+    },
+    "19": {
+      "before": 3198,
+      "after": 4189
+    },
+    "20": {
+      "before": 3434,
+      "after": 3920
+    },
+    "21": {
+      "before": 12900,
+      "after": 14647
+    },
+    "22": {
+      "before": 13170,
+      "after": 15077
+    },
+    "23": {
+      "before": 63847,
+      "after": 63847
+    },
+    "24": {
+      "before": 62869,
+      "after": 62869
+    },
+    "25": {
+      "before": 10420,
+      "after": 10420
+    },
+    "26": {
+      "before": 8520,
+      "after": 8520
+    },
+    "27": {
+      "before": 254786,
+      "after": 254664
+    },
+    "28": {
+      "before": 737856,
+      "after": 737856
+    },
+    "29": {
+      "before": 748960,
+      "after": 748960
+    },
+    "30": {
+      "before": 146019,
+      "after": 146019
+    },
+    "31": {
+      "before": 58250,
+      "after": 56826
+    },
+    "32": {
+      "before": 54585,
+      "after": 53609
+    },
+    "33": {
+      "before": 8482,
+      "after": 8482
+    },
+    "34": {
+      "before": 66084,
+      "after": 66084
+    },
+    "35": {
+      "before": 71073,
+      "after": 71073
+    },
+    "36": {
+      "before": 0,
+      "after": 0
+    },
+    "37": {
+      "before": 0,
+      "after": 0
+    },
+    "38": {
+      "before": 0,
+      "after": 0
+    },
+    "39": {
+      "before": 561,
+      "after": 561
+    },
+    "40": {
+      "before": 729,
+      "after": 729
+    },
+    "41": {
+      "before": 16,
+      "after": 16
+    }
+  },
+  "historicalStages": "Input is the unchanged strict six-stage current volume. No original patch SHA or expert-review status is rebased.",
+  "visualReview": "Not performed by this generator. Unlabeled old positions are not inferred tissue/background.",
+  "deltaSha256": "89a12961fde178e28fd8d9a6640e32c3b12be79aaeb3b5ca2a902c03018c8626"
+}

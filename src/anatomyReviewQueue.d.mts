@@ -1,4 +1,5 @@
 export type AnatomyReviewSurface = "all" | "surface" | "sections" | "blocks" | "quiz";
+export function observationQuestionsForEntry<T extends {target:string;format?:string;plane?:string;view?:string}>(entry:AnatomyReviewRegistryEntry,questions:readonly T[]):T[];
 export type AnatomyReviewRegistryEntry = {
   key: string;
   lectureLabel?: string | null;

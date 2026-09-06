@@ -82,7 +82,7 @@ export default function ModelStrategyComparison({onClose}:{onClose:()=>void}){
     {key:"schematic" as const,title:"B 知識ベース模式",badge:"模式・専門家未確認",specimen:"model-strategy-ventricle" as const,aria:"知識ベースで作成した専門家未確認の模式脳室系3D。実標本由来ではない比較用表示"},
   ];
   return <section className="modelStrategyComparison" aria-labelledby="model-strategy-title">
-    <header className="modelStrategyHead"><div><span>CONTRIBUTOR-ONLY PILOT</span><h2 id="model-strategy-title">3Dモデル方針 A/B比較</h2><p>同じ観察課題・色・向き・表示操作で、現行再構成方式と知識ベース方式を比較します。</p></div><button type="button" onClick={onClose} aria-label="3Dモデル方針比較を閉じる">×</button></header>
+    <header className="modelStrategyHead"><div><span>ARCHIVED · CONTRIBUTOR PILOT</span><h2 id="model-strategy-title">3Dモデル方針 A/B比較（過去資料）</h2><p>新規モデルの採用は見送り、MNI脳表を継続使用しています。この比較は過去の開発資料です。Bの模式案は学習教材に採用していません。</p></div><button type="button" onClick={onClose} aria-label="3Dモデル方針比較を閉じる">×</button></header>
     <div className="modelStrategyWarning" role="note"><b>Bは模式・専門家未確認です</b><p>実標本由来、正解セグメンテーション、検証済み形状ではありません。連結部や個人差を表現せず、β本体のモデルやラベルを置換しません。採用判断も行いません。</p></div>
     <div className="modelStrategyTask"><b>共通の観察課題</b><p>全体の曲がり方と前後・下方への広がりが、回転したときにも追いやすいかを比較してください。</p></div>
     <div className="modelStrategyControls"><div role="group" aria-label="両モデル共通の視点">{(Object.keys(PRESET_LABELS) as ViewPreset[]).map(key=><button key={key} type="button" className={viewPreset===key?"active":""} aria-pressed={viewPreset===key} onClick={()=>chooseView(key)}>{PRESET_LABELS[key]}</button>)}</div><button type="button" className={cavityVisible?"active":""} aria-pressed={cavityVisible} onClick={()=>setCavityVisible(value=>!value)}>{cavityVisible?"構造を外す":"構造を戻す"}</button></div>

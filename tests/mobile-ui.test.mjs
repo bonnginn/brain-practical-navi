@@ -70,22 +70,27 @@ test("the settings sheet keeps one existing rail subtree and restores interactio
 });
 
 test("phone CSS provides safe-area dock, 44px controls, and touch-friendly scrolling", () => {
-  assert.match(css, /@media\(max-width:760px\) and \(hover:none\) and \(pointer:coarse\)/);
+  assert.match(css, /@media screen\{[\s\S]*\.phone-mode \.phoneDock\{/);
   assert.match(css, /env\(safe-area-inset-bottom\)/);
   assert.match(css, /top:calc\(58px \+ env\(safe-area-inset-top\)\)/);
   assert.match(css, /\.phoneDock>div\{display:grid;grid-template-columns:repeat\(5/);
   assert.match(css, /\.phoneDock button\{[^}]*min-height:44px/);
   assert.match(css, /\.phoneSettingsSheet \.leftRail\{[^}]*overflow-y:auto/);
-  assert.match(css, /\.phoneSettingsSheet \.leftRail button,\.phoneSettingsSheet \.leftRail select\{min-height:44px/);
+  assert.match(css, /\.phone-mode \.phoneSettingsSheet \.leftRail button,\.phone-mode \.phoneSettingsSheet \.leftRail select\{min-height:44px/);
   assert.match(css, /\.phone-mode \.quizImageCard\{height:clamp/);
   assert.match(css, /\.phone-mode \.sliceStage\{min-height:610px/);
   assert.match(css, /\.phoneSettingsSheet:not\(\[open\]\)\{display:none\}/);
 });
 
-test("existing narrow compact rules remain width-based while phone capability stays touch-gated", () => {
+test("automatic phone detection stays touch-gated; explicit UI mode owns all phone chrome", () => {
   assert.match(css, /@media\(max-width:760px\)\{/);
   assert.match(globals, /@media\(max-width:760px\)\{/);
-  assert.match(css, /@media\(max-width:760px\) and \(hover:none\) and \(pointer:coarse\)[\s\S]*\.phoneDock/);
+  assert.doesNotMatch(css, /@media\(max-width:760px\) and \(hover:none\) and \(pointer:coarse\)/);
+  const phoneRules=css.slice(css.indexOf("@media screen{"));
+  for(const line of phoneRules.split(/\r?\n/)){
+    if(!line.trimStart().startsWith(".phone"))continue;
+    for(const selector of line.slice(0,line.indexOf("{")).split(","))assert.match(selector.trim(),/^\.phone-mode(?:[ .]|$)/);
+  }
   assert.match(page, /phoneCapabilityFromMedia/);
   assert.match(page, /pointer: coarse/);
   assert.match(page, /hover: none/);

@@ -33,6 +33,8 @@ jobs:
         run: node scripts/audit_public_rights_notices.mjs --mode dist --root . --dist-root dist --expected-base / --expected-source-url https://github.com/bonnginn/brain-practical-navi --output work/public-rights-notices-dist-normal-ci.json
       - name: Validate atlas assets and quiz visibility
         run: npm test
+      - name: Test segmentation transactions and synthetic geometry
+        run: python -m unittest discover -s tests -p 'test_*.py'
 
   verify-pages-base:
     runs-on: ubuntu-latest
