@@ -2,7 +2,9 @@
 
 ## 2026-09-06 10:00 JSTまでの自律作業
 
-**競合図の現在位置**: manual-all22-conflicts-pairs-v1の19組425シート1,253断面を生成。実際に目視したのはpair-03-over-27全5、04-over-27全8、05-over-31全15、06-over-32全14、07-over-23全3シートの計45シート130断面、115 voxel。黒質／脳幹の競合は濃い核の縁へ修正する候補を支持。STN／内包は薄い上外側接触部。側脳室1 voxel[173,262,184]は背景018と同じ壁際で、一括手動優先では上書きしない候補。**次はpair-07-over-31の01から**。全Python68/68成功。表示専用のgroup追加のみ、volume／meshは098edf…不変、採用経路未接続。詳細・SHAはMANUAL_REGISTERED_CANDIDATE_REVIEW.md。
+**現在位置（09:25 JST頃）**: 左被殻9／内包31の全58シート172断面を追加目視。競合完了は8組182シート538断面、1,155 voxel（240成分）。**次はpair-10-over-32-01、残り11組**。複数ラベル合成比較を新設し、6群の代表全18シート54断面を目視、内外節・被殻・内包、海馬・扁桃体、赤核・黒質・視床下核を同時確認。凡例の切れを修正したv2も生成し、2図の凡例を再確認。元データへの追加採用なし、volume098edf…不変。原300 µm照合／可逆合成／合成図の新規スクリプトとテストを含め全Python78/78成功。詳細・SHAはMANUAL_REGISTERED_CANDIDATE_REVIEW.md。7438cc6 CI33992967259成功。以下は途中到達点の履歴。
+
+**現在位置（06:45 JST頃）**: 公式300 µm原画像へ5部位を追加照合。manual-fine-boundaries-v2の全15シート45断面を目視。元300 µm手動区画を独立逆変換で元画像格子へ採取し、500 µm候補の拡大と区別した。尾状核の脳室1 voxelは依然壁際なので上書き保留、左右視床の白い局所と右海馬の白い帯は原画像にもあり一括背景削除しない。新規スクリプト対象3/3成功。競合pairは07-over-31全40、08-over-32全39も読み、完了7組124シート366断面370 voxel。**次は09-over-31の01から、残り12組**。work専用のcompose_registered_practical_candidate.pyを追加し、manual-practical-composite-v1へ可逆候補を生成（候補raw ac1548…、139,447変更、旧位置49,233は未ラベル、脳室1点保持、27/31/32競合2,524は比較用核優先）。対象4/4成功、正逆全voxel再生一致。volume／meshは098edf…不変、採用経路未接続。次は合成原画像比較と、残り競合の原画像レビュー。詳細・SHAはMANUAL_REGISTERED_CANDIDATE_REVIEW.md。
 
 **背景・小成分図の目視を完了（06:20 JST頃）**: manual-all22-conflicts-background-v1の全35成分45 voxel、112シート324断面比較と、manual-all22-conflicts-small-v1の全16成分17 voxel、49シート145比較を実際に目視した。視床499・537は内部の白い領域、右海馬569–572も内部の白い帯にあり、他は主に輪郭端。小成分も本体近傍の灰白質／線維帯の縁であり、背景値や小さい6近傍成分だけで削除・橋渡ししない。詳細はMANUAL_REGISTERED_CANDIDATE_REVIEW.md。**次は非手動ID競合**。audit_registered_manual_conflicts.pyに表示専用--group-by-pairを追加、全キー・全点・全XYZ範囲を保持。対象7/7成功。manual-all22-conflicts-pairs-v1へ生成中、まだ目視数へ加算しない。cb58777・c1074bd・76ac4e8のCI成功。assetsは098edf…不変。以下は途中到達点の履歴。
 
