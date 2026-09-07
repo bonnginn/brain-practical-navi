@@ -34,7 +34,7 @@ jobs:
       - name: Validate atlas assets and quiz visibility
         run: npm test
       - name: Test segmentation transactions and synthetic geometry
-        run: python -m unittest discover -s tests -p 'test_*.py'
+        run: python scripts/run_python_tests.py
 
   verify-pages-base:
     runs-on: ubuntu-latest

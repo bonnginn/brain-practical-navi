@@ -186,6 +186,7 @@ def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None):
     changed_parts=[r for r in rows if r['changedMaskVoxels']]
     if changed_parts and not mesh_report_sha:
         raise ValueError('Block changes require a pinned impact report')
+    if SOURCE.read_bytes() not in (base,data):raise ValueError('Unrelated current labels')
     retained_meshes=[]; mesh_writes=[]
     for part in changed_parts:
         entry=next(p for p in manifest['specimens'][part['block']] if p['part']==part['part'])
@@ -215,7 +216,6 @@ def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None):
     expected_sections={name+'.mesh' for name,ids in GROUPS.items() if affected.intersection(ids)}
     if set(changed)!=expected_sections:
         raise ValueError('Unexpected section impact')
-    if SOURCE.read_bytes() not in (base,data):raise ValueError('Unrelated current labels')
     record_path=ROOT/f'segmentation-patches/review/{prefix}-adoption-2026-09-07.json'
     record.update(status='AI-image-reviewed-project-adopted-development-only',adopted=True,projectAdopted=True,
         expertReviewed=False,published=False,meshImpact=impact,

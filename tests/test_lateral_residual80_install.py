@@ -11,6 +11,12 @@ import install_lateral_residual80 as installer
 class InstallTests(unittest.TestCase):
     def test_plan_readonly_exact(self):
         before = installer.SOURCE.read_bytes()
+        if installer.digest(before) not in (installer.SHA, installer.FINAL):
+            # A historical installer must refuse to overwrite a newer adoption.
+            with self.assertRaisesRegex(ValueError, 'Unrelated current labels'):
+                installer.plan()
+            self.assertEqual(installer.SOURCE.read_bytes(), before)
+            return
         changes = installer.plan()
         self.assertEqual(installer.SOURCE.read_bytes(), before)
         self.assertEqual(len(changes), 20)

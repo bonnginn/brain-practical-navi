@@ -11,6 +11,12 @@ import install_lateral_crop34 as installer
 class InstallTests(unittest.TestCase):
     def test_plan_readonly_exact(self):
         before = installer.SOURCE.read_bytes()
+        if installer.digest(before) not in (installer.SHA, installer.FINAL):
+            # A historical installer must refuse to overwrite a newer adoption.
+            with self.assertRaisesRegex(ValueError, 'Unrelated current labels'):
+                installer.plan()
+            self.assertEqual(installer.SOURCE.read_bytes(), before)
+            return
         changes = installer.plan()
         self.assertEqual(installer.SOURCE.read_bytes(), before)
         self.assertEqual(len(changes), 20)
@@ -49,6 +55,12 @@ class RegionalBatchTests(unittest.TestCase):
 
     def test_regional_preflight_retains_changed_mesh_and_does_not_write(self):
         before = installer.SOURCE.read_bytes()
+        stage = ROOT/'work/anatomy-review'/f'{self.prefix}-stage-v1'
+        if before not in ((stage/'before.bin.gz').read_bytes(), (stage/'labels.bin.gz').read_bytes()):
+            with self.assertRaisesRegex(ValueError, 'Unrelated current labels'):
+                installer.plan_unchanged_blocks(self.prefix, self.record_sha, self.impact_sha)
+            self.assertEqual(installer.SOURCE.read_bytes(), before)
+            return
         changes = installer.plan_unchanged_blocks(self.prefix, self.record_sha, self.impact_sha)
         self.assertEqual(installer.SOURCE.read_bytes(), before)
         self.assertEqual(len(changes), len(dict(changes)))
@@ -67,6 +79,14 @@ class MixedExclusionTests(unittest.TestCase):
         import gzip
         import numpy as np
         before_bytes=installer.SOURCE.read_bytes()
+        stage=ROOT/'work/anatomy-review/ventricular-exclusions46-stage-v1'
+        if before_bytes not in ((stage/'before.bin.gz').read_bytes(), (stage/'labels.bin.gz').read_bytes()):
+            with self.assertRaisesRegex(ValueError, 'Unrelated current labels'):
+                installer.plan_unchanged_blocks('ventricular-exclusions46',
+                    'df144c3615712322e24abe0b7809a85093ea36191b28dd9a42e10bec050b3fe4',
+                    'e21033c73247c0fcd1418123cb2b24e6a8467c68aae078fc8fb79163f8c99618')
+            self.assertEqual(installer.SOURCE.read_bytes(), before_bytes)
+            return
         outputs=dict(installer.plan_unchanged_blocks('ventricular-exclusions46',
             'df144c3615712322e24abe0b7809a85093ea36191b28dd9a42e10bec050b3fe4',
             'e21033c73247c0fcd1418123cb2b24e6a8467c68aae078fc8fb79163f8c99618'))

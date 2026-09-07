@@ -42,7 +42,9 @@ class PallidalCurrentTests(unittest.TestCase):
         for f in report['figures']:
             self.assertLessEqual(len(f['planes']),3)
             self.assertEqual(digest((folder/f['path']).read_bytes()),f['sha256'])
-        self.assertEqual(digest((ROOT/'public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz').read_bytes()),LABEL_SHA)
+        # This report belongs to its historical label version, not today's file.
+        baseline=ROOT/'tests/fixtures/bigbrain-practical-segmentation-pre-inferior-outer40-58d8.bin.gz'
+        self.assertEqual(digest(baseline.read_bytes()),LABEL_SHA)
 
 
 if __name__ == '__main__': unittest.main()
