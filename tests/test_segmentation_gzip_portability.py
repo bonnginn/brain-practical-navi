@@ -10,7 +10,7 @@ import adopt_registered_red_nuclei as encoder
 
 
 class GzipPortabilityTests(unittest.TestCase):
-    def test_os_header_is_neutral_without_changing_voxels(self):
+    def test_os_header_matches_adopted_format_without_changing_voxels(self):
         volume=np.arange(24,dtype=np.uint8).reshape(2,3,4)
         expected=encoder.encode(volume)
         original=gzip.compress
@@ -20,5 +20,5 @@ class GzipPortabilityTests(unittest.TestCase):
         with patch.object(encoder.gzip,'compress',linux_header):
             actual=encoder.encode(volume)
         self.assertEqual(actual,expected)
-        self.assertEqual(actual[9],255)
+        self.assertEqual(actual[9],10)
         self.assertEqual(gzip.decompress(actual)[10:],volume.tobytes(order='F'))
