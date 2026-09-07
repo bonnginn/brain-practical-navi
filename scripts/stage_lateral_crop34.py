@@ -122,7 +122,7 @@ def save_left_region(points,source_sha,evidence,prefix,rationale,limitation,*,la
 
 
 def save_ventricular_region(points,source_sha,evidence,prefix,rationale,limitation,*,label_id):
-    if type(label_id) is not int or label_id not in (23,24,26):raise ValueError('Invalid ventricular label')
+    if type(label_id) is not int or label_id not in (23,24,25,26):raise ValueError('Invalid ventricular label')
     if not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*',prefix):raise ValueError('Invalid stage name')
     points=np.asarray(points);count=len(points)
     if count==0 or points.shape!=(count,3) or points.dtype.kind not in 'iu' or len(np.unique(points,axis=0))!=count:
@@ -143,7 +143,7 @@ def save_ventricular_region(points,source_sha,evidence,prefix,rationale,limitati
         transition=f'0->{label_id}',
         evidence=evidence,status='AI-image-reviewed-work-stage-only',adopted=False,expertReviewed=False,publicMutation=False,
         rationale=rationale,limitation=limitation)
-    name={23:'leftLateral',24:'rightLateral',26:'fourthVentricle'}[label_id]
+    name={23:'leftLateral',24:'rightLateral',25:'thirdVentricle',26:'fourthVentricle'}[label_id]
     report[f'{name}Before']=int((before==label_id).sum())
     report[f'{name}After']=int((after==label_id).sum())
     out.mkdir()

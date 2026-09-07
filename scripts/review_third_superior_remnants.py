@@ -12,7 +12,27 @@ if __name__=='__main__':
     mode=parser.add_mutually_exclusive_group()
     mode.add_argument('--ends',action='store_true')
     mode.add_argument('--coverage-gaps',action='store_true')
+    mode.add_argument('--roof-extent',choices=['x','y','z'],
+                      help='Read-only continuous review of the retained 152-cell roof region after remnants91')
     args=parser.parse_args()
+    if args.roof_extent:
+        current_sha='bd0c1c048262876fd5f84d7fd5622c9ddb341b6a18716b14a03e5ad57ff360fb'
+        _,_,labels=read_browser_volume(DEFAULT_LABELS,MAGIC_LABELS,current_sha)
+        cc,_=ndimage.label(labels==25,ndimage.generate_binary_structure(3,3))
+        # Component seeds are review locators, not an exclusion or cavity rule.
+        groups=[]
+        for seed,count in [((193,241,172),145),((193,248,172),1),
+                           ((196,254,168),1),((197,250,169),1),((197,259,161),4)]:
+            ident=cc[seed]
+            group=np.argwhere(cc==ident) if ident else np.empty((0,3),int)
+            if len(group)!=count:raise ValueError('Retained roof inventory changed')
+            groups.append(group)
+        points=np.concatenate(groups)
+        if len(np.unique(points,axis=0))!=152:raise ValueError('Duplicate component locator')
+        render(args.roof_extent,component_count=152,labels_sha=current_sha,
+               prefix='third-roof152-2026-09-08',label_id=25,context_margin=20,
+               existing_points=points,existing_label_id=25)
+        raise SystemExit(0)
     _,_,labels=read_browser_volume(DEFAULT_LABELS,MAGIC_LABELS,SHA)
     cc,_=ndimage.label(labels==25,ndimage.generate_binary_structure(3,3))
     main_id=cc[197,259,107]

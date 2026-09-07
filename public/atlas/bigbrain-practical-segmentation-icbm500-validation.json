@@ -109,7 +109,7 @@
     "22": 15077,
     "23": 80373,
     "24": 79082,
-    "25": 11886,
+    "25": 11947,
     "26": 9008,
     "27": 249983,
     "28": 735945,
@@ -123,7 +123,7 @@
     "39": 559,
     "40": 729,
     "41": 16,
-    "0": 66631027
+    "0": 66630966
   },
   "atlasToManualDiceAudit": {
     "caudate": 0.8448,
@@ -454,7 +454,7 @@
     "workflowMetadataStatus": "strict"
   },
   "preClassificationCompressedSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
-  "rawVoxelSha256": "aca9ded8c1987f8ef646195edf4064ecc5ae23a82362abdb800cf3aac1e431b1",
+  "rawVoxelSha256": "7f199c773b18bee28a6984aafac6f6faf39dc6c3d5d02b9f8b7ebe8f657fadf8",
   "brainstemThreeIslandsAudit": {
     "record": "segmentation-patches/review/brainstem-three-islands-adoption-2026-09-06.json",
     "recordSha256": "9c7b14f4272969261e3e2415d3f522b7e5d7db1eeca7cb0c8ae28b225458be66",
@@ -1158,6 +1158,17 @@
       "record": "segmentation-patches/review/third-remnants91-adoption-2026-09-08.json",
       "recordSha256": "1a5b82f171a2461c879bf3d50fc2e2cebe74936bbca4c55ee6f55ae4b80ea212",
       "changedVoxelCount": 91,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-third-ventricle.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "third-central-fringe61": {
+      "record": "segmentation-patches/review/third-central-fringe61-adoption-2026-09-08.json",
+      "recordSha256": "a568ec85d72f0acc6fa022f61f33f3812a58e165f1e5124c9f25623f3372317a",
+      "changedVoxelCount": 61,
       "projectAdopted": true,
       "expertReviewed": false,
       "changedSectionMeshes": [

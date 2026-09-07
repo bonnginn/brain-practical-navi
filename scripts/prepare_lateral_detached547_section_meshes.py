@@ -48,6 +48,8 @@ def main(residual80=False, cavity21=False, crop34=False, stage_prefix=None, reco
         expected={name+'.mesh' for name,labels in GROUPS.items() if ids.intersection(labels)}
     elif batch and batch.get('transition') in ('0->26','27->26','mixed-to-26'):
         expected={'section-current-fourth-ventricle.mesh','section-current-ventricular-system.mesh'}
+    elif batch and batch.get('transition') == '0->25':
+        expected={'section-current-third-ventricle.mesh','section-current-ventricular-system.mesh'}
     if set(changed) != expected:
         raise ValueError('Unexpected mesh impact')
     out.mkdir()

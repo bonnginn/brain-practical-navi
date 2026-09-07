@@ -161,7 +161,7 @@ def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None, *, review_da
         source_values=np.asarray([p['before'] for p in record['points']]);destination=26;affected={0,26,27}
     else:
         transition=record['transition'].split('->')
-        if len(transition)!=2 or transition[0]!='0' or transition[1] not in ('23','24','26'):
+        if len(transition)!=2 or transition[0]!='0' or transition[1] not in ('23','24','25','26'):
             raise ValueError('Unsupported regional fill')
         destination=int(transition[1]);source_values=0;affected={0,destination}
     if (points.shape!=(count,3) or points.dtype.kind not in 'iu' or len(np.unique(points,axis=0))!=count
