@@ -71,7 +71,7 @@ type BlockVisual = "model";
 type BlockLayer = {key:string;name:string;latin:string;color:string;source:"標本分節"|"試作分節"|"模式補助"|"位置目安";note:string};
 type BlockLesson = {name:string;en:string;visual:BlockVisual;plane:Plane;position:number;focus:Focus;view:"inside"|"ghost"|"extracted"|"segmented";rotation:Rotation;intro:string;observe:string[];caution:string;layers:BlockLayer[]};
 type NeurovascularStructureKey = "ica" | "aca" | "acomm" | "mca" | "pcomm" | "vertebral" | "basilar" | "pca" | "cerebellarArteries" | "cn1" | "cn2" | "opticChiasm" | "cn3" | "cn4" | "cn5" | "cn6" | "cn7" | "cn8" | "cn9" | "cn10" | "cn11" | "cn12";
-type StructureKey = Focus | "thirdVentricle" | "fourthVentricle" | "corpusCallosum" | "internalCapsule" | "putamen" | "pallidumExternal" | "pallidumInternal" | "pallidum" | "amygdala" | "accumbens" | "redNucleus" | "substantiaNigra" | "subthalamic" | "brainstem" | "cerebellum" | "opticChiasm" | "mammillaryBody" | "insula";
+type StructureKey = Focus | "thirdVentricle" | "fourthVentricle" | "aqueductPartial" | "corpusCallosum" | "internalCapsule" | "putamen" | "pallidumExternal" | "pallidumInternal" | "pallidum" | "amygdala" | "accumbens" | "redNucleus" | "substantiaNigra" | "subthalamic" | "brainstem" | "cerebellum" | "opticChiasm" | "mammillaryBody" | "insula";
 type LabelSource = "manual" | "atlas-provisional" | "image-guided" | "image-guided-reviewed";
 type StructureInfo = { name: string; latin: string; color: string; rgb: [number,number,number]; ids: number[]; bigbrainIds?: number[]; labelSource?: LabelSource; note: string; relation: string; meshFocus?: Focus };
 const labelSourceDisplay:Record<LabelSource,{label:string;detail:string;className:"source"|"provisional"}>={
@@ -391,6 +391,7 @@ const papezStepKindLabels:Record<PapezStep["kind"],string>={"section-label":"断
 const papezStepSourceLabels:Record<PapezStep["source"],string>={"existing-quiz-section-label":"既存クイズ断面ラベル","schematic-3d":"模式3D","atlas-3d":"CerebrA／Desikan系アトラス3D"};
 
 const structures: Record<StructureKey, StructureInfo> = {
+  aqueductPartial: {name:"中脳水道候補（部分）",latin:"Cerebral aqueduct (partial)",color:"#d58ba8",rgb:[213,139,168],ids:[],bigbrainIds:[41],labelSource:"image-guided",meshFocus:"ventricle",note:"中脳水道の一部分だけを示す候補です。全長や境界の確定を意味せず、通常クイズの正答対象には含めません。",relation:"中脳蓋と被蓋の間。第三・第四脳室との移行部は未完成"},
   ventricle: { name: "側脳室", latin: "Ventriculus lateralis", color: "#49a9b4", rgb:[73,169,180], ids:[92,41,56,5], bigbrainIds:[23,24], labelSource:"atlas-provisional", meshFocus:"ventricle", note: "前角・体部・後角・下角が連続する空間です。断面を動かして形の変化を追います。", relation: "脳梁の下方、尾状核・視床の内側" },
   thirdVentricle: { name:"第三脳室", latin:"Ventriculus tertius", color:"#58aeb8", rgb:[88,174,184], ids:[80,29], bigbrainIds:[25], labelSource:"atlas-provisional", meshFocus:"ventricle", note:"左右の視床・視床下部に囲まれる正中の細い腔です。上方は視床、下方（底側）は視床下部に接し、水平断・冠状断で側脳室との位置関係を確認します。", relation:"左右の視床・視床下部の間（上方：視床、下方：視床下部）" },
   fourthVentricle: { name:"第四脳室", latin:"Ventriculus quartus", color:"#4997b0", rgb:[73,151,176], ids:[88,37], bigbrainIds:[26], labelSource:"atlas-provisional", meshFocus:"ventricle", note:"橋・延髄と小脳の間にある腔です。中脳水道候補の一部を別ラベルへ分け、橋の前方にあった誤分類の小片を除外しました。上方の微小片の帰属と腔の連続性は未確定のため、原画像と見比べてください。", relation:"脳幹の背側、小脳の腹側" },
@@ -425,13 +426,14 @@ const structureMeshFiles:Partial<Record<StructureKey,string[]>>={
 // Uncropped current labels are used only with their matching BigBrain sections.
 // Keep the MNI and block-specimen mappings separate.
 const bigbrainSectionMeshFiles:Partial<Record<StructureKey,string[]>>={
+  aqueductPartial:["section-current-aqueduct-partial"],
   ventricle:["section-current-lateral-ventricles"],
   thirdVentricle:["section-current-third-ventricle"],
   fourthVentricle:["section-current-fourth-ventricle"],
 };
 
 const structureGroups:{key:string;name:string;color:string;members:StructureKey[]}[]=[
-  {key:"ventricles",name:"脳室系",color:"#49a9b4",members:["ventricle","thirdVentricle","fourthVentricle"]},
+  {key:"ventricles",name:"脳室系",color:"#49a9b4",members:["ventricle","thirdVentricle","fourthVentricle","aqueductPartial"]},
   {key:"basal",name:"大脳基底核",color:"#d9854f",members:["caudate","putamen","pallidumExternal","pallidumInternal","accumbens"]},
   {key:"midline",name:"白質・視床",color:"#d2b765",members:["corpusCallosum","internalCapsule","thalamus"]},
   {key:"limbic",name:"辺縁系",color:"#c8798d",members:["hippocampus","amygdala","mammillaryBody"]},
@@ -440,6 +442,7 @@ const structureGroups:{key:string;name:string;color:string;members:StructureKey[
 ];
 
 const structureFunctions:Record<StructureKey,string>={
+  aqueductPartial:"中脳水道は第三脳室と第四脳室を結ぶ髄液の通路です。ここに表示するのはその一部分で、通路全体の再現ではありません。",
   ventricle:"脳脊髄液を含む腔で、脳室系の連続性と周囲構造の位置を知る基準になります。",
   thirdVentricle:"左右の視床・視床下部に囲まれる間脳正中の髄液腔です。上方は視床、下方（底側）は視床下部で、各構造の位置関係を読む基準になります。",
   fourthVentricle:"後脳の髄液腔で、中脳水道からくも膜下腔へ至る髄液循環の通路です。",

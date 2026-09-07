@@ -101,7 +101,7 @@ test("published validation metadata records the approved ventricle repair and th
   ]);
   const metadata = JSON.parse(validation);
   const digest = createHash("sha256").update(labels).digest("hex");
-assert.equal(digest, "2983ac84a194043b0f974a6ee93fd34e74efce94d7c58c66e69f34f1475a7ef3");
+assert.equal(digest, "a21cb6ab8aa7080b6e26766c2f82834871d3e72c174b72d0b018733ee5ef278a");
   assert.equal(metadata.ventriclePatchAudit.editCount, 33);
   assert.deepEqual(metadata.ventriclePatchAudit.transitions, { "0->25": 4, "0->23": 14, "0->24": 15 });
   assert.deepEqual(metadata.ventriclePatchAudit.review.pullRequest, { number: 14, mergeCommit: null });

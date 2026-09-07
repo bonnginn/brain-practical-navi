@@ -5,6 +5,8 @@ const sources = [
   {name:"Paquola et al. (2021) — BigBrainWarp",url:"https://doi.org/10.7554/eLife.70119",ja:"脳表モデルの元となる配布表面データ。アプリ独自の形状加工や溝ガイドは原論文の確定境界ではありません。",en:"Distributed surface data underlying the surface model. App-specific shape modifications and sulcal guides are not validated boundaries from this paper."},
 ];
 const readings = [
+  {name:"Longatti et al. (2007) — Endoscopic anatomy of the cerebral aqueduct",url:"https://pubmed.ncbi.nlm.nih.gov/17876227/",ja:"抄録を参照。中脳水道の内形と後交連などの位置関係の背景資料です。内視鏡所見を本標本の境界へ転写していません。",en:"Abstract consulted for aqueduct morphology and landmarks including the posterior commissure. Endoscopic findings were not transferred to this specimen's boundaries."},
+  {name:"Rubino & Hogg — Cerebral Aqueduct (StatPearls, updated 2023)",url:"https://www.ncbi.nlm.nih.gov/books/NBK540988/",ja:"解剖解説を参照。第三・第四脳室との移行を区別する補助資料で、原画像や採用マスクの出典ではありません。",en:"Anatomical background for distinguishing transitions to the third and fourth ventricles; not a source image or adopted mask."},
   {name:"Campos da Silva et al. (2024) — Stereotactic anatomy of the third ventricle",url:"https://doi.org/10.1007/s00276-024-03312-1",ja:"第三脳室底と漏斗陥凹の位置関係を照合。標本で失われた壁を推測で再建したり、文献からボクセル境界を転写したりする根拠にはしていません。",en:"Context for the third-ventricle floor and infundibular recess. Not a basis for reconstructing missing specimen walls or transferring voxel boundaries."},
   {name:"Nagata, Rhoton & Barry (1988) — Microsurgical anatomy of the choroidal fissure",url:"https://pubmed.ncbi.nlm.nih.gov/3394010/",ja:"抄録を参照。側脳室下角・海馬采・脳槽の位置関係の照合。文献からボクセル境界を転写していません。",en:"Abstract consulted for relationships between the temporal horn, fimbria and cisterns. Voxel boundaries were not transferred from this paper."},
   {name:"Oculomotor fascicular anatomy — PubMed 23242853",url:"https://pubmed.ncbi.nlm.nih.gov/23242853/",ja:"赤核の外形と内部線維を区別する参考。局所の白い帯の線維名を確定する根拠ではありません。",en:"Context for distinguishing the red-nucleus outline from internal fibres; not identification of a specific pale band."},
@@ -14,6 +16,7 @@ const readings = [
 
 export function SegmentationReferences({english}:{english:boolean}) {
   return <section className="legalReferences" data-segmentation-references="true">
+    <p data-aqueduct-representation="partial-versus-schematic">{english?"The partial cerebral aqueduct in Sections is an image-guided BigBrain label (ID41), not the schematic aqueduct in the block specimen. Only part of the lumen is represented; its full extent and transition boundaries remain unconfirmed.":"断面画面の中脳水道候補（部分）はBigBrain画像誘導ラベルID41で、ブロック標本の模式中脳水道とは別です。腔の一部分だけを示し、全長と移行境界は未確定です。"}</p>
     <h3>{english?"References and use in this app":"参考文献と本アプリでの用途"}</h3>
     <p>{english?"Primary sources and selected review references. Citation does not imply author endorsement or completed expert review. Resolution and review coverage differ between repairs.":"主要な出典と照合資料です。引用元による承認や専門家レビュー完了を意味しません。使用解像度・確認範囲は修正ごとに異なります。"}</p>
     <h4>{english?"Source images, labels and surfaces":"原画像・ラベル・表面データ"}</h4>

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-08-23",
+  "updated": "2026-09-08",
   "description": "Lecture coverage and learner-facing structure provenance index. This is an educational audit registry, not an anatomical ground-truth catalogue. The surface workspace includes free observation, so surface covers that observation mode and no separate free learner-surface enum is used. Sections, blocks and quiz are separate learner surfaces, and an entry may list more than one when the same representation is reused.",
   "representationEnum": [
     "manual-same-grid",
@@ -422,6 +422,20 @@
       "quizEligibility": "none",
       "sourceRefs": ["specimen-block-assets", "project-authored-teaching-overlays"],
       "knownLimitations": ["中脳横断ブロックの模式腔であり、同一格子の独立腔ラベルではありません。"]
+    },
+    {
+     "key": "section-cerebral-aqueduct-partial",
+     "lectureLabel": null,
+     "coverage": "app-section-only",
+     "appLabel": "中脳水道候補（部分）",
+     "representations": ["image-guided-provisional"],
+     "learnerSurfaces": ["sections"],
+     "expertReview": "pending",
+     "projectReview": "pending",
+     "quizEligibility": "none",
+     "sourceRefs": ["combined-practical-segmentation"],
+     "knownLimitations": ["ID41は中央部を補修した部分分節で、全長および第三・第四脳室との移行境界は未完成です。断面3Dは同じ195 voxelから再構成し、ブロック標本の模式中脳水道とは区別します。部分採用記録はdocs/AQUEDUCT_PARTIAL_REPAIR.mdを参照。構造全体の専門家レビューは未完了で、通常クイズの正答対象には含めません。"],
+     "appKeys": ["aqueductPartial"]
     },
     {
      "key": "section-fornix",

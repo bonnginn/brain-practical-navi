@@ -131,14 +131,21 @@ def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None, *, review_da
     exclusions=record['transition']=='mixed-ventricular-exclusions'
     brainstem_reclassification=record['transition']=='27->26'
     mixed_cavity=record['transition']=='mixed-to-26'
+    partial_aqueduct=record['transition']=='mixed-to-41'
     mixed_repair=record['transition']=='mixed-ventricular-repair'
-    points=np.asarray([p['xyz'] for p in record['points']] if exclusions or brainstem_reclassification or mixed_cavity or mixed_repair else record['points']); count=record['count']
+    points=np.asarray([p['xyz'] for p in record['points']] if exclusions or brainstem_reclassification or mixed_cavity or mixed_repair or partial_aqueduct else record['points']); count=record['count']
     if mixed_repair:
         from stage_ventricular_mixed12 import replay as replay_mixed
         if prefix!='ventricular-mixed12' or record_sha!='7d688ef29bac9d40de94bbd21e0f5a9857e9e5e2439badb83d38ffb9e933d708':
             raise ValueError('Unreviewed mixed ventricular repair')
         if not np.array_equal(replay_mixed(before,record['points']),after):raise ValueError('Mixed replay differs')
         source_values=np.asarray([p['before'] for p in record['points']]);destination=np.asarray([p['after'] for p in record['points']]);affected={0,25,26}
+    elif partial_aqueduct:
+        from stage_aqueduct_core179 import replay as replay_aqueduct
+        if prefix!='aqueduct-core179' or record_sha!='7fd5af19d6f0813b35c02cb98cf685616964d9866df4b08af1cb15288f493c70':
+            raise ValueError('Unreviewed partial aqueduct repair')
+        if not np.array_equal(replay_aqueduct(before,record['points']),after):raise ValueError('Aqueduct replay differs')
+        source_values=np.asarray([p['before'] for p in record['points']]);destination=41;affected={0,27,41}
     elif exclusions:
         entries=record['points']
         if any(type(p['before']) is not int or p['before'] not in (23,24,25,26,41) or type(p['after']) is not int or p['after']!=0 for p in entries):

@@ -10,6 +10,7 @@
 - [分節に用いた参考文献](SEGMENTATION_REFERENCES.md)
 - [分節の残件](ANATOMY_REMAINING_WORK.md)
 - [第三脳室の小片修正（2026-09-08・未公開）](THIRD_VENTRICLE_REMNANTS_REPAIR.md)
+- [中脳水道の部分補修（2026-09-08・未公開）](AQUEDUCT_PARTIAL_REPAIR.md)
 - [データ・権利・引用](../DATA_AND_LICENSES.md)
 
 ## 記録の読み方 / Reading the records

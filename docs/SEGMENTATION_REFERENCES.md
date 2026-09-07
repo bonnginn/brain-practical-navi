@@ -1,8 +1,12 @@
 # 分節の参考文献・データ索引 / Segmentation references
 
-「利用条件・クレジット → 参考文献と本アプリでの用途」に主要8件を日英で公開済み（PR #27）。2026-09-08の開発版では第三脳室の照合資料1件を追加、計9件（追加分は未公開）。データ由来と背景調査を区別し、本索引の全項目を掲載したとは扱わない。
+「利用条件・クレジット → 参考文献と本アプリでの用途」に主要8件を日英で公開済み（PR #27）。2026-09-08の開発版では第三脳室1件・中脳水道2件を追加、計11件（追加分は未公開）。データ由来と背景調査を区別し、本索引の全項目を掲載したとは扱わない。
 
 更新日: 2026-09-08。既存の出典・監査記録を用途別に整理した索引です。引用元による本アプリの承認や、専門家レビュー完了を意味しません。
+
+## 中脳水道の照合資料（2026-09-08追記）
+
+中脳水道の背景資料はLongatti P, Fiorindi A, Perin A, Martinuzzi A. *Endoscopic anatomy of the cerebral aqueduct*. Neurosurgery. 2007;61(3 Suppl):1–5; discussion 5–6 ([読んだPubMed抄録](https://pubmed.ncbi.nlm.nih.gov/17876227/))。補助解説としてRubino JM, Hogg JP. *Neuroanatomy, Cerebral Aqueduct (Sylvian)*, updated July 24, 2023 ([NCBI Bookshelf](https://www.ncbi.nlm.nih.gov/books/NBK540988/))のStructure and Functionを参照。両者は形態・第三／第四脳室との移行を考える背景で、採用境界データではない。使用原画像・確認範囲・未採用の両端は [中脳水道部分補修](AQUEDUCT_PARTIAL_REPAIR.md) に記録。
 
 ## 第三脳室下端の照合資料（2026-09-08追記）
 

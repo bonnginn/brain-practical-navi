@@ -11,11 +11,11 @@
     "deployment-blocked"
   ],
   "sourceCounts": {
-    "entryCount": 75,
-    "expertPendingCount": 75,
+    "entryCount": 76,
+    "expertPendingCount": 76,
     "quizTargetCount": 45,
-    "mappingCount": 222,
-    "resolvedMappingCount": 222
+    "mappingCount": 223,
+    "resolvedMappingCount": 223
   },
   "criteria": [
     {

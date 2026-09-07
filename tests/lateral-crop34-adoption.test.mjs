@@ -37,12 +37,13 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
   assert.equal(sha(bytes),audit.recordSha256);
   const base=await read('tests/fixtures/bigbrain-practical-segmentation-pre-'+name+'.bin.gz');
   assert.equal(sha(base),r.beforeSha256);if(current)assert.deepEqual(gunzipSync(base),current);
-  const expected=gunzipSync(base),seen=new Set(),label=r.transition==='mixed-to-26'?26:Number(r.transition.split('->')[1]);
+  const expected=gunzipSync(base),seen=new Set(),label=r.transition==='mixed-to-26'?26:r.transition==='mixed-to-41'?41:Number(r.transition.split('->')[1]);
   const exclusions=r.transition==='mixed-ventricular-exclusions';
   const brainstem=r.transition==='27->26';
-  const mixed=r.transition==='mixed-to-26';
+  const mixed=['mixed-to-26','mixed-to-41'].includes(r.transition);
   const combined=r.transition==='mixed-ventricular-repair';
   if(combined){assert.equal(name,'ventricular-mixed12');assert.equal(r.count,12);assert.equal(r.points.filter(p=>p.before===0&&p.after===26).length,8);assert.equal(r.points.filter(p=>p.before===25&&p.after===0).length,4);}
+  else if(mixed&&label===41){assert.equal(name,'aqueduct-core179');assert.equal(r.count,179);assert.equal(r.points.filter(p=>p.before===0).length,64);assert.equal(r.points.filter(p=>p.before===27).length,115);assert.ok(r.points.every(p=>p.after===41));}
   else if(mixed){assert.equal(name,'fourth-depth27');assert.equal(r.count,27);assert.equal(r.points.filter(p=>p.before===0).length,16);assert.equal(r.points.filter(p=>p.before===27).length,11);assert.ok(r.points.every(p=>p.after===26));}
   else if(brainstem){assert.equal(name,'fourth-brainstem48');assert.equal(r.count,48);assert.ok(r.points.every(p=>p.before===27&&p.after===26));}
   else if(!exclusions){assert.ok([23,24,25,26].includes(label));assert.equal(r.transition,'0->'+label);if(label===25){assert.equal(name,'third-central-fringe61');assert.equal(r.count,61);}if(label===26){const counts={'fourth-remaining-anterior173':173,'fourth-upper-posterior111':111};assert.ok(Object.hasOwn(counts,name));assert.equal(r.count,counts[name]);}}
@@ -84,6 +85,7 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
   expectedChanges['ventricular-mixed12']=[['diencephalon','tissue',0,1],['hindbrain','fourth-ventricle',3,0]];
   expectedChanges['third-remnants91']=[['diencephalon','third-ventricle',0,10]];
   expectedChanges['third-central-fringe61']=[['diencephalon','third-ventricle',2,0]];
+  expectedChanges['aqueduct-core179']=[['diencephalon','hypothalamus',0,3],['radiations','tissue',0,6],['midbrain-section','tissue',0,1],['hindbrain','midbrain',0,5]];
   if(name==='left-medial-anterior1092'){assert.equal(r.count,1092);assert.equal(r.transition,'0->23');}
   assert.deepEqual(changed.map(p=>[p.block,p.part,p.added,p.removed]),expectedChanges[name]??[]);
   for(const p of changed){

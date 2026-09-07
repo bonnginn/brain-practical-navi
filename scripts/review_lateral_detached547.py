@@ -15,10 +15,18 @@ SHA='b45c0669122b628529f56e73af06fa1cb697b621da99d51c8b921b136ea52463'
 
 def main(series=None, *, component_count=547, seed=(242,119,153), labels_sha=SHA,
          prefix='lateral-detached547', representative_y=135, candidate_points=None, label_id=24, context_margin=12,
-         existing_points=None, existing_label_id=None, reference_points=None, selection_title=None):
+         existing_points=None, existing_label_id=None, reference_points=None, selection_title=None,
+         candidate_before_labels=None):
     if type(label_id) is not int or label_id not in (23,24,25,26,41):raise ValueError('Expected ventricular label')
     if type(context_margin) is not int or not 1<=context_margin<=120:raise ValueError('Invalid context margin')
     if selection_title is not None and (not isinstance(selection_title,str) or not selection_title.strip() or len(selection_title)>80):raise ValueError('Invalid selection title')
+    before=None
+    if candidate_before_labels is not None:
+        before=np.asarray(candidate_before_labels)
+        if (candidate_points is None or existing_points is not None or label_id!=41
+                or before.shape!=(component_count,) or before.dtype.kind not in 'iu'
+                or not np.isin(before,[0,27]).all()):
+            raise ValueError('Explicit 0/27-to-41 review values required')
     out=ROOT/f'work/anatomy-review/{prefix}-native300-v1'
     if series:out=ROOT/f'work/anatomy-review/{prefix}-series-{series}-v1'
     if out.exists():raise ValueError('Preserve evidence')
@@ -42,7 +50,7 @@ def main(series=None, *, component_count=547, seed=(242,119,153), labels_sha=SHA
         points=np.asarray(candidate_points)
         if (points.shape!=(component_count,3) or points.dtype.kind not in 'iu'
                 or len(np.unique(points,axis=0))!=component_count or np.any(points<0)
-                or np.any(points>=labels.shape) or np.any(labels[tuple(points.T)]!=0)):
+                or np.any(points>=labels.shape) or np.any(labels[tuple(points.T)]!=(0 if before is None else before))):
             raise ValueError('Invalid unlabelled candidates')
         selected=np.zeros(labels.shape,dtype=np.uint8);selected[tuple(points.T)]=1
     raw,start,step,history=load_identity_minc(SOURCE/IMAGE_NAME,IMAGE_SHA)
@@ -105,6 +113,7 @@ def main(series=None, *, component_count=547, seed=(242,119,153), labels_sha=SHA
         nativeCropExclusive=dict(low=low.tolist(),high=high.tolist()),figures=figures,mutation=False,adopted=False,seriesAxis=series,
         limitation=('Continuous registered300 finite-cell extent plus margin on the named axis only; generated, not yet visually reviewed. Not proof of cavity identity. ' if series else 'Sparse local raw context only; not all boundary planes or proof of cavity identity. ')+ ('Red marks existing label, not an approved boundary.' if candidate_points is None else f'Red marks unadopted candidate cells; cyan marks existing ID{label_id}. No labels changed.'))
     if label_id!=24:report['labelId']=label_id
+    if before is not None:report['candidateBeforeLabels']=before.tolist()
     if existing_points is not None:report['existingLabelId']=existing_label_id
     (out/'report.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
     print(json.dumps(dict(count=len(points),references=report['referencePoints'],figures=len(figures))))

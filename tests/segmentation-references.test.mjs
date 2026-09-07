@@ -10,10 +10,13 @@ const source=await readFile(new URL('../app/SegmentationReferences.tsx',import.m
 const compiled=ts.transpileModule(source,{compilerOptions:{jsx:ts.JsxEmit.ReactJSX,module:ts.ModuleKind.CommonJS}}).outputText;
 const exported={};
 vm.runInNewContext(compiled,{exports:exported,require:createRequire(import.meta.url)});
-for(const english of [false,true])test(`browser references render source roles and nine links (${english?'en':'ja'})`,async()=>{
+for(const english of [false,true])test(`browser references render source roles and eleven links (${english?'en':'ja'})`,async()=>{
   const html=renderToStaticMarkup(exported.SegmentationReferences({english}));
-  assert.equal((html.match(/<a /g)||[]).length,9);
-  assert.equal((html.match(/target="_blank" rel="noreferrer"/g)||[]).length,9);
+  assert.equal((html.match(/<a /g)||[]).length,11);
+  assert.equal((html.match(/target="_blank" rel="noreferrer"/g)||[]).length,11);
+  assert.match(html,/17876227/);assert.match(html,/NBK540988/);
+  assert.match(html,/data-aqueduct-representation="partial-versus-schematic"/);
+  assert.match(html,english?/not the schematic aqueduct/:/模式中脳水道とは別/);
   assert.match(html,/s00276-024-03312-1/);
   assert.match(html,english?/missing specimen walls/:/標本で失われた壁/);
   assert.match(html,/s41597-019-0217-0/);

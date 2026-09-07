@@ -50,6 +50,8 @@ def main(residual80=False, cavity21=False, crop34=False, stage_prefix=None, reco
         expected={'section-current-fourth-ventricle.mesh','section-current-ventricular-system.mesh'}
     elif batch and batch.get('transition') == '0->25':
         expected={'section-current-third-ventricle.mesh','section-current-ventricular-system.mesh'}
+    elif batch and batch.get('transition') == 'mixed-to-41':
+        expected={'section-current-ventricular-system.mesh'}
     if set(changed) != expected:
         raise ValueError('Unexpected mesh impact')
     out.mkdir()

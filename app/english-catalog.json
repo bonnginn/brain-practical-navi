@@ -1,4 +1,6 @@
 {
+  "中脳蓋と被蓋の間。第三・第四脳室との移行部は未完成": "Between the midbrain tectum and tegmentum. The transitions to the third and fourth ventricles remain incomplete",
+  "中脳水道は第三脳室と第四脳室を結ぶ髄液の通路です。ここに表示するのはその一部分で、通路全体の再現ではありません。": "The cerebral aqueduct carries cerebrospinal fluid between the third and fourth ventricles. Only part of it is shown here, not the complete passage.",
   "分節修正と断面・3Dの同期": "Segmentation repairs and synchronized section/3D views",
   "原画像に基づいて採用した脳室などの塗り残し・誤収録の修正と、位置合わせを見直した皮質下核ラベルを反映しました。関連する断面3D・ブロック部品も同期しています。分節全体の完成や専門家レビュー完了ではなく、未確定の境界と未採用の候補は残っています。": "Adopted source-image-based repairs address omissions and mislabelled areas in the ventricles and other regions, alongside subcortical labels with reviewed registration. Related section meshes and block components are synchronized. This does not mean segmentation or expert review is complete; uncertain boundaries and unadopted candidates remain.",
   "ブラウザ内の参考文献": "References in the browser",
