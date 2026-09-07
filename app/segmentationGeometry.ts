@@ -21,6 +21,13 @@ export function planePositionForSlice(index:number,plane:SegmentationPlane,dims:
   const size=planeAxisSize(dims,plane),bounded=Math.max(0,Math.min(size-1,index));
   return (plane==="horizontal"?1-bounded/(size-1):bounded/(size-1))*100;
 }
+/** Move one voxel in slider order, preserving the horizontal axis reversal. */
+export function stepPlanePosition(position:number,plane:SegmentationPlane,dims:[number,number,number],direction:-1|1){
+  const delta=plane==="horizontal"?-direction:direction;
+  return planePositionForSlice(planeSliceIndex(position,plane,dims)+delta,plane,dims);
+}
+/** Display precision only: never feed this rounded label back into sampling. */
+export function formatSectionPosition(position:number){return String(Number(position.toFixed(2)));}
 export function planeVoxel(a:number,b:number,slice:number,plane:SegmentationPlane,dims:[number,number,number]):[number,number,number]{
   const[dx,dy,dz]=dims;
   if(plane==="horizontal")return[a,dy-1-b,slice];

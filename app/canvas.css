@@ -226,6 +226,12 @@ html, body, #root { height: 100%; overflow: hidden; }
 .workspace-sections .selectedStructureBar { max-height: none; overflow: visible; }
 .workspace-sections .selectedStructureSummary { position: static; }
 .workspace-sections .rangeWrap { margin: 12px 0 4px; }
+.sectionSliceStepper { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.2fr) minmax(0,1fr); align-items:center; gap:6px; width:min(100%,330px); margin:10px auto 0; }
+.sectionSliceStepper button { min-width:0; min-height:44px; padding:6px; border:1px solid #aeb6b4; border-radius:3px; background:#edf0ed; color:#315f63; font-size:14px; }
+.sectionSliceStepper button:disabled { opacity:.45; }
+.sectionSliceStepper > span { min-width:0; text-align:center; font-variant-numeric:tabular-nums; }
+.sectionSliceStepper b,.sectionSliceStepper small { display:block; }
+.sectionSliceStepper small { font-size:12px; color:#53605f; }
 .sectionLayoutSwitch { display: flex; overflow: hidden; border: 1px solid #aeb6b4; border-radius: 3px; }
 .sectionLayoutSwitch button { min-height: 34px; padding: 5px 8px; border: 0; border-right: 1px solid #c6cbc7; background: #edf0ed; color: #53605f; font-size: 14px; font-weight: 700; white-space: nowrap; }
 .sectionLayoutSwitch button:last-child { border-right: 0; }

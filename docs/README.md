@@ -11,6 +11,7 @@
 - [分節の残件](ANATOMY_REMAINING_WORK.md)
 - [第三脳室の小片修正（2026-09-08・未公開）](THIRD_VENTRICLE_REMNANTS_REPAIR.md)
 - [中脳水道の部分補修（2026-09-08・未公開）](AQUEDUCT_PARTIAL_REPAIR.md)
+- [断面の0.5 mm・1枚送り（2026-09-08・未公開）](SECTION_SINGLE_SLICE_NAVIGATION.md)
 - [データ・権利・引用](../DATA_AND_LICENSES.md)
 
 ## 記録の読み方 / Reading the records
