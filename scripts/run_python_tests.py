@@ -18,6 +18,7 @@ def configure(suite):
 
 
 if __name__ == '__main__':
+    (ROOT/'work').mkdir(exist_ok=True)
     suite = unittest.defaultTestLoader.discover(str(ROOT/'tests'), pattern='test_*.py')
     configure(suite)
     result = unittest.TextTestRunner(verbosity=2).run(suite)

@@ -14,7 +14,13 @@ class FourthAnteriorRepairTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         _,_,cls.before = read_browser_volume(ROOT/'tests/fixtures/bigbrain-practical-segmentation-pre-fourth-anterior105-e98c.bin.gz',MAGIC_LABELS,BASE_SHA)
-        cls.points = reviewed_points()
+        data=(ROOT/'segmentation-patches/review/fourth-anterior105-adoption-2026-09-07.json').read_bytes()
+        if hashlib.sha256(data).hexdigest() != '1f92f500b16ba715d54cd91917723b6737ec0ca47f6e38a9ecf150a5fda52332':
+            raise ValueError('Committed adoption evidence changed')
+        cls.points = [tuple(p['xyz']) for p in json.loads(data)['points']]
+
+    def test_local_points_match_committed_adoption(self):
+        self.assertEqual([tuple(p) for p in reviewed_points()], self.points)
 
     def test_exact_reversible_repair(self):
         after = replay(self.before,self.points)
@@ -38,6 +44,8 @@ class FourthAnteriorRepairTests(unittest.TestCase):
 
     def test_registered_source_support_and_complete_raw_plane_evidence(self):
         from audit_manual_label_space import SOURCE, load_identity_minc
+        if not SOURCE.exists():
+            self.skipTest('Requires uncommitted official BigBrain source images')
         from render_registered_manual_fine_review import IMAGE_NAME, IMAGE_SHA, encode_image
         raw,start,step,_ = load_identity_minc(SOURCE/IMAGE_NAME,IMAGE_SHA)
         geometry=json.loads((ROOT/'public/atlas/bigbrain-icbm500-validation.json').read_text())
