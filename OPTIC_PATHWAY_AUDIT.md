@@ -4,7 +4,7 @@
 
 ## 結論
 
-2026-09-05追記: 配布画像の輪郭なし/ありを並べ、乳頭体周囲の52連続断面と旧ID33代表周囲15断面をAIが画像照合した。明確に修正根拠を示せるvoxelは特定できず、端部・付着側の具体的な確認候補を [SEPTEMBER_ANATOMY_IMAGE_REVIEW.md](SEPTEMBER_ANATOMY_IMAGE_REVIEW.md) に記録した。旧証拠束のunreviewed/専門家待ちを解除するものではなく、配布ラベル・正答キーを変更していない。
+2026-09-05追記: 配布画像の輪郭なし/ありを並べ、乳頭体周囲の52連続断面と旧ID33代表周囲15断面をAIが画像照合した。明確に修正根拠を示せるvoxelは特定できず、端部・付着側の具体的な確認候補を [SEPTEMBER_ANATOMY_IMAGE_REVIEW.md](docs/SEPTEMBER_ANATOMY_IMAGE_REVIEW.md) に記録した。旧証拠束のunreviewed/専門家待ちを解除するものではなく、配布ラベル・正答キーを変更していない。
 
 断面のID 33は、BigBrainの手動分節ではなく、CerebrAの左右 `Optic Chiasm` ラベル（68・17）をBigBrain表示格子へ再標本化した試作領域です。CerebrA原著では視交叉と視索の連続性を保つために再定義されたラベルであり、視交叉、左右視索、左右乳頭体を個別に同定する本教材の正解分節としては使えません。
 

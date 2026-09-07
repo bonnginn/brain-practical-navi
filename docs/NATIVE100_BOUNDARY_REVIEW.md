@@ -43,4 +43,4 @@ BigBrain公式の [Histological Space配布](https://ftp.bigbrainproject.org/big
 
 技術参考: [NiBabel MINC2 API](https://nipy.org/nibabel/reference/nibabel.minc2.html) の `get_scaled_data(sliceobj)` と、ローカルNiBabel 5.4.2のminc1.py `_normalize` / minc2.py `get_scaled_data` を照合した。上記の独立数値比較は、この実装による限定cropとの比較であり、MINC CLIでの検証ではない。
 
-追加のラベル・mesh・公開更新はない。BigBrainの既存帰属・ライセンス条件は [DATA_AND_LICENSES.md](DATA_AND_LICENSES.md) に従い、この大きい原データは公開教材へ同梱しない。専門家確認や新しい手動分節を意味しない。構造ごとの実際の使用範囲は、今後の画像レビューと差分記録から追跡する。
+追加のラベル・mesh・公開更新はない。BigBrainの既存帰属・ライセンス条件は [DATA_AND_LICENSES.md](../DATA_AND_LICENSES.md) に従い、この大きい原データは公開教材へ同梱しない。専門家確認や新しい手動分節を意味しない。構造ごとの実際の使用範囲は、今後の画像レビューと差分記録から追跡する。

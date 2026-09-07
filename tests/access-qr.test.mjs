@@ -5,7 +5,7 @@ import test from "node:test";
 
 const page = fs.readFileSync(new URL("../app/page.tsx", import.meta.url), "utf8");
 const css = fs.readFileSync(new URL("../app/canvas.css", import.meta.url), "utf8");
-const audit = fs.readFileSync(new URL("../QR_ACCESS_AUDIT.md", import.meta.url), "utf8");
+const audit = fs.readFileSync(new URL("../docs/QR_ACCESS_AUDIT.md", import.meta.url), "utf8");
 
 const assets = [
   ["access-pc-tablet.png", "3a3b6a19627a61b8a6f8097f70f622a320952c210d145e9262a5169fd1fe839b"],

@@ -2,11 +2,11 @@
 
 ## 2026-09-06 位置合わせ確認の結論（未公開）
 
-手動22ラベルの原画像・競合・原300 µm追加照合・数値精度・可逆合成の確認を完了し、[最終結論](MANUAL_REGISTERED_REVIEW_CONCLUSIONS.md) に構造別判断を記録した。未変形手動区画と変形済み表示画像の履歴不一致を確認し、高精度位置補正候補を作成したが、実用volume／meshへの採用・実ブラウザ統合は別工程。全境界正常・専門家承認・公開完了ではない。脳室47 voxelと脳梁5,361 voxelの以前の開発版修復は保持しており、下の9月5日時点の「追加ラベル不採用」はその時点の履歴である。
+手動22ラベルの原画像・競合・原300 µm追加照合・数値精度・可逆合成の確認を完了し、[最終結論](docs/MANUAL_REGISTERED_REVIEW_CONCLUSIONS.md) に構造別判断を記録した。未変形手動区画と変形済み表示画像の履歴不一致を確認し、高精度位置補正候補を作成したが、実用volume／meshへの採用・実ブラウザ統合は別工程。全境界正常・専門家承認・公開完了ではない。脳室47 voxelと脳梁5,361 voxelの以前の開発版修復は保持しており、下の9月5日時点の「追加ラベル不採用」はその時点の履歴である。
 
 ## 2026-09-05 全体レビュー候補（未公開）
 
-公開先はGitHub Pagesです。英語・復習履歴・出題順/比較解説・ホーム導線・断面設定保存/観察リンク・端末UI・旧モデル案内の改善を `codex/september-learning-review` に集約しています。項目別の証拠と確認待ちは [SEPTEMBER_REVIEW_PROGRESS.md](SEPTEMBER_REVIEW_PROGRESS.md) と [SEPTEMBER_RELEASE_REVIEW.md](SEPTEMBER_RELEASE_REVIEW.md) を参照してください。今回の分節再点検は追加ラベル不採用で、具体的な曖昧境界を監査文書へ残しています。β公開、専門家承認、main統合を意味しません。
+公開先はGitHub Pagesです。英語・復習履歴・出題順/比較解説・ホーム導線・断面設定保存/観察リンク・端末UI・旧モデル案内の改善を `codex/september-learning-review` に集約しています。項目別の証拠と確認待ちは [SEPTEMBER_REVIEW_PROGRESS.md](docs/SEPTEMBER_REVIEW_PROGRESS.md) と [SEPTEMBER_RELEASE_REVIEW.md](docs/SEPTEMBER_RELEASE_REVIEW.md) を参照してください。今回の分節再点検は追加ラベル不採用で、具体的な曖昧境界を監査文書へ残しています。β公開、専門家承認、main統合を意味しません。
 
 更新日: 2026-08-24
 
@@ -20,11 +20,11 @@
 
 12項目の現行Go / No-Go状態と本文の機械突合は [BETA_GO_NO_GO_AUDIT.md](BETA_GO_NO_GO_AUDIT.md) と [BETA_GO_NO_GO.json](BETA_GO_NO_GO.json) に固定しています。ここでのローカル確認は、公開・専門家確認・デプロイ完了を意味しません。
 
-これは来歴表示の機械監査であり、解剖学的妥当性の検証や専門家レビュー完了を示しません。56件からの19件追加（surface／block app-only 18行とoptic nerve `cn2`行1件）、旧ID33と`cn2`／`opticChiasm`の分離、ID39・40のexpert pending維持は [LEARNER_PROVENANCE_DISPLAY_AUDIT.md](LEARNER_PROVENANCE_DISPLAY_AUDIT.md) に記録しています。2026-08-22の全56件・表示面36／16／29／21件およびroute156/156の実測履歴は、下記の既存記録を書き換えず保持します。
+これは来歴表示の機械監査であり、解剖学的妥当性の検証や専門家レビュー完了を示しません。56件からの19件追加（surface／block app-only 18行とoptic nerve `cn2`行1件）、旧ID33と`cn2`／`opticChiasm`の分離、ID39・40のexpert pending維持は [LEARNER_PROVENANCE_DISPLAY_AUDIT.md](docs/LEARNER_PROVENANCE_DISPLAY_AUDIT.md) に記録しています。2026-08-22の全56件・表示面36／16／29／21件およびroute156/156の実測履歴は、下記の既存記録を書き換えず保持します。
 
 ### 2026-08-23 source-backed コンテンツレビュー
 
-視床下核の分類を「間脳の視床下域」として表示し、quiz／構造グループの見出しを「中脳・視床下域」「中脳核・視床下域」へ整理した。淡蒼球は外節（GPe）の内部中継・調節と内節（GPi）の主要出力を区別し、側脳室と尾状核、第三脳室の位置関係、脳梁・脳弓標本の英見出し、脳表5領域のCerebrA／Desikan-style由来注記も同期した。詳細は [CONTENT_ACCURACY_REVIEW.md](CONTENT_ACCURACY_REVIEW.md) に記録する。これは資料照合に基づくプロジェクト内レビューであり、専門家レビュー完了・機関承認・解剖学的境界の確定を意味しない。`expertReview` と該当項目のGo/No-Goは未完了のまま維持する。
+視床下核の分類を「間脳の視床下域」として表示し、quiz／構造グループの見出しを「中脳・視床下域」「中脳核・視床下域」へ整理した。淡蒼球は外節（GPe）の内部中継・調節と内節（GPi）の主要出力を区別し、側脳室と尾状核、第三脳室の位置関係、脳梁・脳弓標本の英見出し、脳表5領域のCerebrA／Desikan-style由来注記も同期した。詳細は [CONTENT_ACCURACY_REVIEW.md](docs/CONTENT_ACCURACY_REVIEW.md) に記録する。これは資料照合に基づくプロジェクト内レビューであり、専門家レビュー完了・機関承認・解剖学的境界の確定を意味しない。`expertReview` と該当項目のGo/No-Goは未完了のまま維持する。
 
 2026-08-24 部分実装: 脳表の5つのCerebrA／Desikan-style区画（中前頭回前部・中前頭回後部・鳥距溝周囲皮質・眼窩前頭皮質・外側後頭皮質）について、脳表の同定ボタン、自由観察の検索結果・構造索引・選択カード・3D選択表示に「CerebrA／Desikan系アトラス区画」または「［アトラス区画］」を表示する固定マーカーを追加した。来歴台帳の5行、`atlas-surface`、`quizEligibility: none`、project／expert review pendingとの対応を静的テストで確認した。Chrome 151のローカル通常buildで5検索結果、対象外の中心前回、左右外側面・下面の同定ボタン、構造索引、選択カード、3D選択表示を確認した。390 px指定（実効`innerWidth` 295、`clientWidth` / `scrollWidth` 284）でも検索マーカーは3行に折り返して全文表示され、横overflow、loader、UI errorは0件だった。最終canonical route監査も27経路×3幅×direct／reload＝162/162件に合格し、missing／duplicate／fail、console／request／UI error、残留loader、横overflow、WebGL fallbackは0件だった。これは表示由来の明示を強める部分実装であり、境界・形状の解剖学的検証、専門家レビュー、機関承認、クイズ在庫の変更を意味しない。
 
@@ -47,7 +47,7 @@ Chrome 151のin-app browserで`http://127.0.0.1:4201`を確認し、review panel
 - [ ] 脳神経I–XIIの見かけの起始部と主要脳底動脈の走行を確認する。
 - [ ] 断面の必修構造について、冠状・水平・矢状の連続断でラベルの位置と連続性を確認する。
 - [ ] 脳梁・内包、視交叉・島皮質、脳室・脳幹・小脳候補の由来と確度を再確認する。
-  - 2026-08-24 脳室部分監査: BigBrain背景値255へ連結する空隙の単純3D補完は、左右側脳室・第三・第四脳室のすべてで外側背景へ漏れるため不採用。X・Y・Z各軸で現行の同一脳室ラベルに挟まれ、別ラベルと6近傍接触しない未ラベル背景だけを抽出し、左14、右15、第三4、第四0 voxelの計33 voxelへ固定した。ローカル三断面で既存ラベル内の小欠損と確認し、PR #14のstrict approved教育用修正として公開ラベルへ適用。新SHAは `b75a2490…b176f3`。通常production previewで3脳室同時表示と側脳室クイズを確認し、Canvas／loader／error／overflowは正常。全テスト304/304、型検査、通常／Pages build、Go/No-Go台帳監査に合格した。専門家レビュー・ground truthではない。詳細は [VENTRICLE_CAVITY_AUDIT.md](VENTRICLE_CAVITY_AUDIT.md)。
+  - 2026-08-24 脳室部分監査: BigBrain背景値255へ連結する空隙の単純3D補完は、左右側脳室・第三・第四脳室のすべてで外側背景へ漏れるため不採用。X・Y・Z各軸で現行の同一脳室ラベルに挟まれ、別ラベルと6近傍接触しない未ラベル背景だけを抽出し、左14、右15、第三4、第四0 voxelの計33 voxelへ固定した。ローカル三断面で既存ラベル内の小欠損と確認し、PR #14のstrict approved教育用修正として公開ラベルへ適用。新SHAは `b75a2490…b176f3`。通常production previewで3脳室同時表示と側脳室クイズを確認し、Canvas／loader／error／overflowは正常。全テスト304/304、型検査、通常／Pages build、Go/No-Go台帳監査に合格した。専門家レビュー・ground truthではない。詳細は [VENTRICLE_CAVITY_AUDIT.md](docs/VENTRICLE_CAVITY_AUDIT.md)。
 - [ ] 視索・視床下部・乳頭体について、断面ラベル、画像上の構造、模式3Dレイヤーの重複・取り違えを連続断と表示モード別に確認する。（客観資料追加: 現行旧ID33を変更せず、8,482 voxel、bbox、12個の6近傍成分、全X/Y/Z占有断面、全境界面接触、代表候補X187／Y262／Z114を固定JSONへ記録し、寄稿者ツールから3候補へ編集を作らず移動できるようにした。Chrome 151で3位置と表示数を確認し、最終route監査156/156件に合格。これは専門家の画像確認を支援する格子監査で、ID36–38への機械分割や解剖学的検証ではない。）
 追加監査記録（2026-08-23）: [ORTHOGONAL_REVIEW_BUNDLE_AUDIT.md](ORTHOGONAL_REVIEW_BUNDLE_AUDIT.md) に、現行ラベルを変更しないローカル証拠束 v3（manifest＋期待161 PNG）を記録した。固定入力SHA・BBS1寸法、ID39・40の全X/Y/Z占有と両端外側、ID33の全占有断面、ID27のcrop内context-only、pixel／PNG SHA、空metadata、flat anchor、exact schema/file/link境界を検査済みである。`review.status=unreviewed` で、これは本チェック項目やβ Go/No-Goの完了を意味しない。乳頭体の視床下部付着部と、旧ID33内の視交叉・左右視索境界は、ユーザー／専門家による原画像・隣接断確認が必要である。
 
@@ -85,7 +85,7 @@ Chrome 151のin-app browserで`http://127.0.0.1:4201`を確認し、review panel
 
 - [x] 選択した全構造が断面と透過3Dの双方で同時表示される（20構造の一括表示をWindows実ブラウザで確認。旧メッシュ面数の互換読込も追加）。
 - [x] 構造が周囲に埋もれる場合に、透過・単独表示・脱着で観察できる（レンズ核標本の透過／選択だけ／組織非表示と、後脳標本の小脳・橋延髄脱着を実操作）。
-- [x] クイズでは正解対象が十分な面積で表示され、断面問題ではスライダーを動かせる（全断面問題の着色面積を自動検査し、スライダーに1断面ずつの送り／戻しを追加。通常幅・390 pxで実操作）。2026-08-28、断面17・脳表6・神経血管22 targetをPC／横向きタブレット／phoneの計135件で着色→解除→再着色し、Chrome 152の独立validatorで135/135件に合格した。脳神経問題では中脳・橋・延髄を不透明な位置基準として残し、追加4対象を含む半透明神経血管のdepth・描画順・selected色の残存を再現した。1 px許容・合格閾値は緩和していない。詳細は [QUIZ_TARGET_VISIBILITY_AUDIT.md](QUIZ_TARGET_VISIBILITY_AUDIT.md)。
+- [x] クイズでは正解対象が十分な面積で表示され、断面問題ではスライダーを動かせる（全断面問題の着色面積を自動検査し、スライダーに1断面ずつの送り／戻しを追加。通常幅・390 pxで実操作）。2026-08-28、断面17・脳表6・神経血管22 targetをPC／横向きタブレット／phoneの計135件で着色→解除→再着色し、Chrome 152の独立validatorで135/135件に合格した。脳神経問題では中脳・橋・延髄を不透明な位置基準として残し、追加4対象を含む半透明神経血管のdepth・描画順・selected色の残存を再現した。1 px許容・合格閾値は緩和していない。詳細は [QUIZ_TARGET_VISIBILITY_AUDIT.md](docs/QUIZ_TARGET_VISIBILITY_AUDIT.md)。
 - [x] 脳表、断面、局所標本、クイズ、自由観察、権利表示の全経路を直アクセスと再読み込みで維持する（M1 Windows実ブラウザで全23経路を確認）。
 - [x] 小画面でも閲覧、クイズ、基本操作が画面外へ消えず、デスクトップでは観察領域を不必要に縮めない（1366、760 / 761、390 pxで確認）。主対象はPCと横向きタブレットとし、スマートフォンの全3D操作完遂はβ公開条件にしない。
 - [x] 3D、断面、着色・脱着、クイズ復習、編集ツールのマウス・タッチ・キーボード操作を共通ガイドへ集約し、`#workspace/help` の直接URLと再読み込みで維持する（390、760 / 761 pxで横はみ出し、フォーカス循環、元画面への復帰を確認）。
@@ -98,7 +98,7 @@ Chrome 151のin-app browserで`http://127.0.0.1:4201`を確認し、review panel
 - [x] 開発用・比較用の画像や未使用データを公開配布物から除外する（第1回監査で139.9 MiBから78.5 MiBへ削減）。
 - [x] 圧縮後転送量、ブラウザキャッシュ有効時の再訪転送量、初回表示時間、メモリ使用量をPCと横向きタブレット相当で計測し、スマートフォンでは閲覧・クイズ・基本操作の破綻がないことを確認する（Windows desktop ChromeのDevTools Protocol、`Emulation.setDeviceMetricsOverride` は `mobile:false`、デスクトップUA・タッチエミュレーションなし、viewport 390 pxの実効 `clientWidth` 375 px。DOMイベント操作でクイズ回答・水平断range・表示切替を確認し、backing storageはcold／warmペアの `sampledPeak` 最大値として記録。物理スマートフォン、公開回線、OS全体メモリの測定ではない）。
 - [x] Homeは実モデルの軽量静止プレビューだけを取得し、本格3Dメッシュを脳表観察の開始まで遅延する。
-- [x] 大容量データの取得中、実測byte・総量・整数％（総量取得可能時のみ）と失敗時の再試行を明示する（2026-08-23、全資産のstream計測、複数資産集約、受信／展開phase、再試行世代分離を実装。総量不明時は推定％を出さない。Chrome 151で既知／未知表示、390 px相当の横はみ出しなし、完了後loader 0を確認し、route 156/156、全テスト227/227、型検査、通常／Pages buildに合格。詳細は [DOWNLOAD_PROGRESS_AUDIT.md](DOWNLOAD_PROGRESS_AUDIT.md)）。
+- [x] 大容量データの取得中、実測byte・総量・整数％（総量取得可能時のみ）と失敗時の再試行を明示する（2026-08-23、全資産のstream計測、複数資産集約、受信／展開phase、再試行世代分離を実装。総量不明時は推定％を出さない。Chrome 151で既知／未知表示、390 px相当の横はみ出しなし、完了後loader 0を確認し、route 156/156、全テスト227/227、型検査、通常／Pages buildに合格。詳細は [DOWNLOAD_PROGRESS_AUDIT.md](docs/DOWNLOAD_PROGRESS_AUDIT.md)）。
 - [ ] PWAとしてホーム画面へ追加でき、オンラインで一度開いた主要教材をオフラインでも再利用できるようにする（2026-08-24、manifest、base-path対応Service Worker、release別shell／data cache、オフライン表示、runner所有server停止・復帰に加え、Homeへ明示クリック式の端末追加案内を実装。合成 `beforeinstallprompt` のUI状態はPC／390 px相当×3状態＝6/6、通常／Pages停止・復帰は各10 action＝20/20、blocker 0、route 162/162、cold payload 27/27。約92 MBの一括保存を行わず、未訪問・保存削除後は通信が必要と画面で明示する。ただし合成イベントは実インストールではなく、ホーム画面追加・追加後起動、公開URL、物理端末、Safari・別ブラウザ、インストール済みPWAは未確認のため、このPWA Go/No-Go項目は未完了のまま維持する）。
 
 暫定目標: 公開物全体は100 MB未満を目指し、通常の1観察セッションでの初回転送量は20–30 MB程度を目安にする。教材品質を損なう場合は数値を固定せず、実測値と理由を公開する。
@@ -119,7 +119,7 @@ PWAのキャッシュ境界、更新方針、未確認項目は [PWA_OFFLINE_AUD
 - [x] 実習書、講義資料、ウェブ上の標本写真を許諾なく転載しない（公開ラスターはプロジェクト作成のSNSカード、アプリアイコン、アプリ自身のHomeスクリーンショット、端末別QRのみ。`public/ASSET-NOTICE.txt` で用途と非転載を明示）。
 - [x] BigBrain由来データの非営利・継承条件と教育用免責を、READMEとアプリ内で一致させる（BigBrain公式ライセンス掲示を再確認し、README、利用条件、同梱通知、データ監査を照合）。
 - [x] Cloudflare Web Analyticsの利用をプライバシー説明へ明記し、収集内容を必要最小限にする（公式説明を再確認し、公開HTTPS本番ホストだけでビーコンを読込。localhost、127.0.0.1、開発ビルドは除外）。
-- [x] 公開データの権利通知を独立監査する（2026-08-24、`DATA-MANIFEST.json` を `bundledNotices:string[]` へ移行し、110配布ファイルのexactly-one分類、5通知の存在・非空・逆参照、project-authored 21ファイル一覧、source/dist分離validator、利用条件の端末内保存・自動送信なし・サイトデータ消去・原著者／データ提供機関の非推奨承認表示を追加。通常／Pages生成物の111 atlas path byte identityと対応ソースmetaを照合し、ローカル通常buildの実ブラウザでも8 marker・対応ソースURL・小画面の横溢れ0を確認。詳細は [PUBLIC_RIGHTS_AND_NOTICES_AUDIT.md](PUBLIC_RIGHTS_AND_NOTICES_AUDIT.md)。公開hostの最終照合は未確認。）
+- [x] 公開データの権利通知を独立監査する（2026-08-24、`DATA-MANIFEST.json` を `bundledNotices:string[]` へ移行し、110配布ファイルのexactly-one分類、5通知の存在・非空・逆参照、project-authored 21ファイル一覧、source/dist分離validator、利用条件の端末内保存・自動送信なし・サイトデータ消去・原著者／データ提供機関の非推奨承認表示を追加。通常／Pages生成物の111 atlas path byte identityと対応ソースmetaを照合し、ローカル通常buildの実ブラウザでも8 marker・対応ソースURL・小画面の横溢れ0を確認。詳細は [PUBLIC_RIGHTS_AND_NOTICES_AUDIT.md](docs/PUBLIC_RIGHTS_AND_NOTICES_AUDIT.md)。公開hostの最終照合は未確認。）
 - [ ] Google Formを公開版の表記へ同期し、ログイン不要のテスト回答と削除手順を確認する。（2026-08-24、ログアウト状態で現行回答者URLが開き、ログインは回答保存の任意導線、匿名分岐とGitHub Issuesリンクが表示されることを再確認。さらに、版名非依存の20質問・3ページ・匿名性・分岐を `feedback-form-contract.json` に固定し、回答や外部設定を変更しないpreflightとローカル異常系監査を追加した。現行フォームはまだ「α版」表記であり、管理者がpreflight差分を確認して移行し、全3ページ・送信・Formsと回答シート双方からの削除を確認するまで未完了。）
 - [ ] `CONTRIBUTING.md` の共同制作条件を管理者が確認し、「公開前ドラフト」を正式版へ更新する。
 
@@ -153,7 +153,7 @@ PWAのキャッシュ境界、更新方針、未確認項目は [PWA_OFFLINE_AUD
 
 ### 9. 局所標本
 
-- [x] 8標本を一律に磨くのではなく、改善対象の優先順位をつける（2026-08-24、ロードマップが既に挙げる側脳室、レンズ核・投射線維、脈絡叢、内側側頭葉を「β重点4」、残る4標本を「発展観察4」として導線を分離。これは実習頻度、解剖学的確度、由来、専門家レビューの順位ではなく、全8標本・既存番号・URL・機能を維持する。詳細は [BLOCK_SPECIMEN_PRIORITY_AUDIT.md](BLOCK_SPECIMEN_PRIORITY_AUDIT.md)）。
+- [x] 8標本を一律に磨くのではなく、改善対象の優先順位をつける（2026-08-24、ロードマップが既に挙げる側脳室、レンズ核・投射線維、脈絡叢、内側側頭葉を「β重点4」、残る4標本を「発展観察4」として導線を分離。これは実習頻度、解剖学的確度、由来、専門家レビューの順位ではなく、全8標本・既存番号・URL・機能を維持する。詳細は [BLOCK_SPECIMEN_PRIORITY_AUDIT.md](docs/BLOCK_SPECIMEN_PRIORITY_AUDIT.md)）。
 - [ ] 脳室全景、レンズ核と投射線維、脈絡叢、内側側頭葉など、切り出す意味が明確な標本から改善する。（部分完了: β重点4の入口、観察理由、既存layerを単独表示して最終段階だけ全表示する部品確認ガイド、手動表示の終了・標本切替・workspace離脱時復元、独立監査を実装。PC Chromeでfocus4の全single→final all→終了後manual復元、active切替cleanup、発展4のguide非表示を確認した。さらに390×768、`mobile:true`・`touch:true`・coarse pointerで、側脳室4、レンズ核・投射線維7、脈絡叢3、内側側頭葉3の全single-layer段階、4件のfinal all、終了後復元を実タッチし、`work/browser-audit/phone-core-interactions-v18-focus4-guided-2026-08-24.json` の独立validatorに合格した。これはUI上の確認順であり、解剖・摘出順や実習手順ではない。物理端末・タッチ、公開URL、別ブラウザ／GPU、形状・境界・切り出しの専門家確認は未完了。詳細は [BLOCK_GUIDED_OBSERVATION_AUDIT.md](BLOCK_GUIDED_OBSERVATION_AUDIT.md)。）
 - [x] 内側側頭葉の海馬采・鉤の位置と連続性を再検討する（一次資料と現行生成式を照合し、4点線と楕円では連続性を保持できないためβ候補の3Dから除外。海馬・扁桃体・下角だけを残し、未収録を画面表示。`MEDIAL_TEMPORAL_AUDIT.md` に判断を記録）。
 - [x] 正当に利用できる資料と監修がない限り、実標本らしい質感を正確性の代用にしない（全8標本の共通注意へ、褐色表示は湿潤感・線維感・切断面を再現せず、実在感を正確性の根拠にしないと明記）。
@@ -218,29 +218,29 @@ PWAのキャッシュ境界、更新方針、未確認項目は [PWA_OFFLINE_AUD
 
 2026-08-24 追記: `#workspace/status` へ12件の公開前チェックを追加し、Go／No-Go台帳から状態別件数、ローカル確認範囲、未確認範囲、次操作を読み取り専用で表示した。件数3／1／4／1／3と各stateは変更せず、総合合格・公開可・専門家確認済みとは表示しない。Chrome 151でdirect、詳細、focus／Esc／背景click、390 px相当一列、error／loader／overflow 0を確認した。公開URL反映待ちのため、本項目とcriterion 12は未完了のまま維持する。詳細は [BETA_READINESS_DISPLAY_AUDIT.md](BETA_READINESS_DISPLAY_AUDIT.md)。
 
-公開α更新後の技術確認（2026-08-24）: PR #14をmainへ統合し、GitHub Pagesへ現行αを配備した。公式URL限定のread-only監査で27経路×3幅×direct/reload＝162/162件が合格し、主文書HTTP 2xx、公式origin・path、画面identity、Canvas、error／loader／overflow／WebGL fallbackを確認した。status、既知の制限、利用条件、対応ソースも公開αへ反映済みである。ただし、これはβ公開や専門家承認ではなく、物理端末、別ブラウザ・GPU、Google Formの送信・削除運用は未確認である。Go／No-Go台帳のauthority stateはこのα配備だけでは自動変更せず、次回の台帳再判定で公開αの証拠とβ公開条件を区別して整理する。詳細は [ALPHA_RELEASE_AUDIT.md](ALPHA_RELEASE_AUDIT.md)。
+公開α更新後の技術確認（2026-08-24）: PR #14をmainへ統合し、GitHub Pagesへ現行αを配備した。公式URL限定のread-only監査で27経路×3幅×direct/reload＝162/162件が合格し、主文書HTTP 2xx、公式origin・path、画面identity、Canvas、error／loader／overflow／WebGL fallbackを確認した。status、既知の制限、利用条件、対応ソースも公開αへ反映済みである。ただし、これはβ公開や専門家承認ではなく、物理端末、別ブラウザ・GPU、Google Formの送信・削除運用は未確認である。Go／No-Go台帳のauthority stateはこのα配備だけでは自動変更せず、次回の台帳再判定で公開αの証拠とβ公開条件を区別して整理する。詳細は [ALPHA_RELEASE_AUDIT.md](docs/ALPHA_RELEASE_AUDIT.md)。
 
 ## 関連文書
 
-- [ALPHA_RELEASE_AUDIT.md](ALPHA_RELEASE_AUDIT.md): α版で達成した項目と既知の不足
-- [LEARNING_SCOPE.md](LEARNING_SCOPE.md): 必修・発展構造の範囲
+- [ALPHA_RELEASE_AUDIT.md](docs/ALPHA_RELEASE_AUDIT.md): α版で達成した項目と既知の不足
+- [LEARNING_SCOPE.md](docs/LEARNING_SCOPE.md): 必修・発展構造の範囲
 - [LECTURE_COVERAGE_AUDIT.md](LECTURE_COVERAGE_AUDIT.md): 講義資料との照合
-- [SEGMENTATION_WORKFLOW.md](SEGMENTATION_WORKFLOW.md): 手動ラベル修正の手順
-- [ACCURACY_AND_VIEWER_RESEARCH.md](ACCURACY_AND_VIEWER_RESEARCH.md): 正確性と3D閲覧方式の調査
+- [SEGMENTATION_WORKFLOW.md](docs/SEGMENTATION_WORKFLOW.md): 手動ラベル修正の手順
+- [ACCURACY_AND_VIEWER_RESEARCH.md](docs/ACCURACY_AND_VIEWER_RESEARCH.md): 正確性と3D閲覧方式の調査
 - [DATA_AND_LICENSES.md](DATA_AND_LICENSES.md): データと権利の監査
 - [STRUCTURE_PROVENANCE.md](STRUCTURE_PROVENANCE.md): 構造表示の由来・確度・監修台帳
-- [VISUAL_CONTRAST_AUDIT.md](VISUAL_CONTRAST_AUDIT.md): 3D選択色と暗背景の可読性監査
-- [MESH_VISIBILITY_AUDIT.md](MESH_VISIBILITY_AUDIT.md): 小脳法線平滑化と大脳・小脳配色の監査
-- [TRANSPARENCY_VISIBILITY_AUDIT.md](TRANSPARENCY_VISIBILITY_AUDIT.md): 脳表透過時の奥行き・不透明度・選択強調の監査
+- [VISUAL_CONTRAST_AUDIT.md](docs/VISUAL_CONTRAST_AUDIT.md): 3D選択色と暗背景の可読性監査
+- [MESH_VISIBILITY_AUDIT.md](docs/MESH_VISIBILITY_AUDIT.md): 小脳法線平滑化と大脳・小脳配色の監査
+- [TRANSPARENCY_VISIBILITY_AUDIT.md](docs/TRANSPARENCY_VISIBILITY_AUDIT.md): 脳表透過時の奥行き・不透明度・選択強調の監査
 - [CONTRIBUTING.md](CONTRIBUTING.md): 共同制作の入口
-- [MEDIAL_TEMPORAL_AUDIT.md](MEDIAL_TEMPORAL_AUDIT.md): 海馬采・鉤の表示除外判断と根拠
-- [QUIZ_GRANULARITY_AUDIT.md](QUIZ_GRANULARITY_AUDIT.md): クイズ23問の形式・方向・トピック・由来分類と候補数フィルタの監査
-- [QUIZ_CONCEPT_BANK_AUDIT.md](QUIZ_CONCEPT_BANK_AUDIT.md): 45表示対象を使う100問の構成、追加55問の出典・正答・専門家未確認状態の監査
+- [MEDIAL_TEMPORAL_AUDIT.md](docs/MEDIAL_TEMPORAL_AUDIT.md): 海馬采・鉤の表示除外判断と根拠
+- [QUIZ_GRANULARITY_AUDIT.md](docs/QUIZ_GRANULARITY_AUDIT.md): クイズ23問の形式・方向・トピック・由来分類と候補数フィルタの監査
+- [QUIZ_CONCEPT_BANK_AUDIT.md](docs/QUIZ_CONCEPT_BANK_AUDIT.md): 45表示対象を使う100問の構成、追加55問の出典・正答・専門家未確認状態の監査
 - [BETA_OBSERVATION_NOTES.md](BETA_OBSERVATION_NOTES.md): 利用観察から得た次期改善候補と実装・監修上の注意
-- [MOBILE_UI_AUDIT.md](MOBILE_UI_AUDIT.md): phone能力判定、専用dock、設定dialog、編集画面ガードの監査
+- [MOBILE_UI_AUDIT.md](docs/MOBILE_UI_AUDIT.md): phone能力判定、専用dock、設定dialog、編集画面ガードの監査
 - [PHONE_CORE_INTERACTION_AUDIT.md](PHONE_CORE_INTERACTION_AUDIT.md): coarse-touch phoneの中心操作5 journeyと未確認範囲
-- [ANATOMY_REVIEW_HANDOFF.md](ANATOMY_REVIEW_HANDOFF.md): 専門家レビュー準備キューの範囲、導線、監査
-- [ANATOMY_REVIEW_RECORD_DRAFT_AUDIT.md](ANATOMY_REVIEW_RECORD_DRAFT_AUDIT.md): 未提出・非採用の構造化された端末内確認記録
+- [ANATOMY_REVIEW_HANDOFF.md](docs/ANATOMY_REVIEW_HANDOFF.md): 専門家レビュー準備キューの範囲、導線、監査
+- [ANATOMY_REVIEW_RECORD_DRAFT_AUDIT.md](docs/ANATOMY_REVIEW_RECORD_DRAFT_AUDIT.md): 未提出・非採用の構造化された端末内確認記録
 # English learner edition (2026-08-29)
 
 An English learner edition is available through `?lang=en` with the same five learning destinations. Contributor recruitment and segmentation editing are excluded from English mode. Translation is a deterministic project-reviewed draft with selected anatomy overrides; expert and native-language review remain pending. See `ENGLISH_EDITION_AUDIT.md`.

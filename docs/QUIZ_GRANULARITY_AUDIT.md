@@ -10,7 +10,7 @@
 
 復習クイズの既存23問は、問題本文・正答target・選択肢・既存のトピック分類を変更せず、教材形式と表示方向で絞り込める。今回、由来区分だけを正答target単独から全選択肢を含む保守的な判定へ改めた。出題を増やす変更ではない。
 
-形式・詳細の単一情報源は [`src/quizGranularity.mjs`](src/quizGranularity.mjs) の `QUIZ_GRANULARITY_BY_TARGET` で、アプリと監査スクリプトが同じ表を参照する。`origin` はtargetと全選択肢の由来から導く期待値を台帳へ記録したもので、全target・選択肢が解決済みかつ標準由来のときだけ標準とし、provisionalまたはunknownの選択肢を1つでも含む問題は試作とする。監査ではこのoption-aware判定、質問targetとの相互完全一致、重複、形式と詳細の不整合、問題行に重複して書かれた分類値と台帳の不一致を検査する。問題行に分類値を追加する場合も、台帳との一致が必要である。
+形式・詳細の単一情報源は [`src/quizGranularity.mjs`](../src/quizGranularity.mjs) の `QUIZ_GRANULARITY_BY_TARGET` で、アプリと監査スクリプトが同じ表を参照する。`origin` はtargetと全選択肢の由来から導く期待値を台帳へ記録したもので、全target・選択肢が解決済みかつ標準由来のときだけ標準とし、provisionalまたはunknownの選択肢を1つでも含む問題は試作とする。監査ではこのoption-aware判定、質問targetとの相互完全一致、重複、形式と詳細の不整合、問題行に重複して書かれた分類値と台帳の不一致を検査する。問題行に分類値を追加する場合も、台帳との一致が必要である。
 
 ## 現在の分類
 
@@ -71,4 +71,4 @@ node scripts/audit_quiz_granularity.mjs
 - 同じ最終ビルドの全経路監査は、Chrome 151、1366×768／1024×768／390×768、26経路×direct/reloadの156/156件に合格し、`allPassed: true` だった。結果は `work/browser-audit/beta-route-audit-option-provenance-2026-08-23.json`（ローカル作業用・配布対象外）へ保存した。
 - 公開URL、物理端末、別GPU／別ブラウザ、問題内容と標準採用基準の専門家確認は未実施である。
 
-この監査は問題内容の解剖学的妥当性を新たに保証するものではない。由来・確度・専門家レビューの状態は [`STRUCTURE_PROVENANCE.md`](STRUCTURE_PROVENANCE.md) と既存のクイズ監査に従う。
+この監査は問題内容の解剖学的妥当性を新たに保証するものではない。由来・確度・専門家レビューの状態は [`STRUCTURE_PROVENANCE.md`](../STRUCTURE_PROVENANCE.md) と既存のクイズ監査に従う。

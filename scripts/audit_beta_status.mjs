@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import { documentPath } from "./document_path.mjs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
@@ -72,7 +73,7 @@ function validateItem(item, label, rootDir, errors, ids) {
       }
       if (refs.has(ref)) errors.push(`${label}.evidenceRefs contains a duplicate: ${ref}`);
       refs.add(ref);
-      if (!fs.existsSync(path.join(rootDir, ref))) errors.push(`${label}.evidenceRefs file does not exist: ${ref}`);
+      if (!fs.existsSync(documentPath(rootDir, ref))) errors.push(`${label}.evidenceRefs file does not exist: ${ref}`);
     }
   }
   if (item.provenanceKeys !== undefined && (!Array.isArray(item.provenanceKeys) || item.provenanceKeys.some(key => typeof key !== "string" || !key))) {

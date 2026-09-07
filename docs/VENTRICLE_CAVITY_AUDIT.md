@@ -42,7 +42,7 @@ BigBrain断面で脳室腔が黒い空隙として見えることを利用し、
 
 合計33 voxel（4.125 mm³）。候補同士の重複は0である。左右側脳室候補は同じY・Z範囲にあり、X座標もほぼ鏡像だが、左右14対15 voxelの差を機械的なミラー補完でそろえてはいない。
 
-差分は [segmentation-patches/review/ventricles-orthogonally-bracketed-candidate-2026-08-23.json](segmentation-patches/review/ventricles-orthogonally-bracketed-candidate-2026-08-23.json) に保存した。採用後JSONのSHA-256は `b30489a98f2ba89acdd79a7ab738f6c92d3d1e5870ec4a331f08e0f27bccf881`。strict patch validatorで33/33 voxel、遷移 `0→23:14`、`0→24:15`、`0→25:4`、`review.decision: approved`、PR #14を採用前fixtureに対して再計算した。
+差分は [segmentation-patches/review/ventricles-orthogonally-bracketed-candidate-2026-08-23.json](../segmentation-patches/review/ventricles-orthogonally-bracketed-candidate-2026-08-23.json) に保存した。採用後JSONのSHA-256は `b30489a98f2ba89acdd79a7ab738f6c92d3d1e5870ec4a331f08e0f27bccf881`。strict patch validatorで33/33 voxel、遷移 `0→23:14`、`0→24:15`、`0→25:4`、`review.decision: approved`、PR #14を採用前fixtureに対して再計算した。
 
 ## 採否と次の確認
 

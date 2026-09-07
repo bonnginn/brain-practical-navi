@@ -1,5 +1,7 @@
 # Windows Codex への引き継ぎ（β改修）
 
+**再開時は [RESUME_SUMMARY.md](docs/RESUME_SUMMARY.md) を最初に読む。** PR #27の統合と両公開先の更新は完了。以下の公開準備・進行中表記は履歴。矢状断「前＝左」は次回更新の依頼として記録済みで未実装。追加開発は停止中。
+
 2026-09-07公開作業：ユーザーが採用済み修正の公開差し替えとREADME更新を承認。現行ラベルは3aa4127843d1ca59ee4fa2d542632748ec542958c76329b627b3968b6d53f45e。日英ブラウザ参考文献8件・更新履歴・英語クレジットを整備。公開作業以外の自律的な解剖学レビューは停止を維持する。README冒頭とRELEASE_2026-09-07.mdを優先し、下記の「未公開」「現行」等は過去の工程記録として読む。
 
 最新状態（2026-09-07）：外側40点は全49原画像確認・可逆stage・55部品mask不変確認後に開発採用済み。現ラベルe98cd4060d735c732a5fd75030be2f701f57fe91b6cd5b9a12c65e1cb68b37e3、raw9a524981ddf521236b8fec835aef04891fa2b6ef58d22a2b5f03ca1a9f68d64d、ID24=64421。全Node550/550（work/inferior-outer40-full-node-v2.log、session14421 exit0）、型検査/build、ブラウザ12/12・全12PNG目視成功。位置数値の長い小数表示は残るUI課題。現在live検証jobなし。main/公開更新なし。
@@ -488,7 +490,7 @@ VII/VIII短縮候補の続き：audit_proximal_pontine_surface.pyで三角面の
 
 ## 2026-09-06 期限なしの確認 — 完了
 
-ユーザーが期限を撤回した後、残りの画像・数値精度・可逆合成の確認を完了した。**最初に [MANUAL_REGISTERED_REVIEW_CONCLUSIONS.md](MANUAL_REGISTERED_REVIEW_CONCLUSIONS.md) を読む。** 全19非手動競合425シート1,253比較、左右GPi／内包・側坐核後縁の公式300 µm追加12シート36比較を目視。旧候補は同一実装の別実行でNPZ SHA62c8…まで完全再現（別実装の同値検証ではない）。
+ユーザーが期限を撤回した後、残りの画像・数値精度・可逆合成の確認を完了した。**最初に [MANUAL_REGISTERED_REVIEW_CONCLUSIONS.md](docs/MANUAL_REGISTERED_REVIEW_CONCLUSIONS.md) を読む。** 全19非手動競合425シート1,253比較、左右GPi／内包・側坐核後縁の公式300 µm追加12シート36比較を目視。旧候補は同一実装の別実行でNPZ SHA62c8…まで完全再現（別実装の同値検証ではない）。
 
 数値精度依存が見つかったため全2,840,840点を `--precision tight` で再計算済み。NPZ fdf1ac…、raw86ee9c…、476,608 voxel、最大合成残差4.60451e-6 mm。旧版から変わる182点を全23シート546 XYZ比較で目視、新規5競合も全15シート45比較を目視。work合成7ebed1…／raw153ba1…は139,452変更点を正逆全格子再生して一致、左側脳室1点と既存保護IDを保持。全Python86/86（49.694秒）、図841シート2,667比較のSHA監査、追加差分／競合図SHA、diff-check成功。3 reportの固定コピーをsegmentation-patches/reviewへ保存。**確認は完了、実用版への採用は別工程**。native MINC同値・候補のmesh／実ブラウザは未検証、境界不確実性は構造別に明記。開発volume098edf…、main、公開は不変。下の10時終了・未読記録は前回の履歴で、次の作業開始位置ではない。
 
@@ -568,13 +570,13 @@ VII/VIII短縮候補の続き：audit_proximal_pontine_surface.pyで三角面の
 
 最新追加指示により、16 voxelの26→0除外案は26→41「中脳水道候補（部分）」への再分類案へ変更した。新旧差分を同時適用しない。編集ツール・差分validatorに41を追加したが、公開volumeは未変更。脳幹Z0–2は画像全体が255なので、1,832 voxelの削除は根拠不足として保留。詳細・再生成方法は `FOURTH_VENTRICLE_REPAIR.md`。
 
-分節修復に着手し、第四脳室ID26の中脳水道付近16 voxelを外すstrict未採用差分と三方向の比較画像を作成した。詳細は [FOURTH_VENTRICLE_REPAIR.md](FOURTH_VENTRICLE_REPAIR.md)。本体・生成本処理・公開は未変更。Z114の別2 voxelと主腔は保持。正式適用前に採否を確認し、未承認パッチの出力ガードを維持する。READMEは配布ラベル未変更の現状と一致するため今回の内部候補作成では変更不要。
+分節修復に着手し、第四脳室ID26の中脳水道付近16 voxelを外すstrict未採用差分と三方向の比較画像を作成した。詳細は [FOURTH_VENTRICLE_REPAIR.md](docs/FOURTH_VENTRICLE_REPAIR.md)。本体・生成本処理・公開は未変更。Z114の別2 voxelと主腔は保持。正式適用前に採否を確認し、未承認パッチの出力ガードを維持する。READMEは配布ラベル未変更の現状と一致するため今回の内部候補作成では変更不要。
 
-追加依頼「全構造を確認」のAI先行精査は [FULL_ANATOMY_REVIEW.md](FULL_ANATOMY_REVIEW.md) で完了。全37非空IDの全Z範囲1,275原画像／輪郭対と直交51対、自由観察72項目、全8ブロック44レイヤーを個別目視した。脳梁・脳幹・脳室・海馬・内包などの具体的な問題と判定不能な境界を記録した。「全構造に問題なし」や専門家承認ではない。尾状核尾部未収録、第四脳室と中脳水道の混在、中脳標本組織不足、動眼神経の遮蔽を日英文言に反映。配布分節／メッシュ・公開は変更していない。旧 [ALL_STRUCTURE_ANATOMY_REVIEW.md](ALL_STRUCTURE_ANATOMY_REVIEW.md) は一次点検時点の履歴。
+追加依頼「全構造を確認」のAI先行精査は [FULL_ANATOMY_REVIEW.md](docs/FULL_ANATOMY_REVIEW.md) で完了。全37非空IDの全Z範囲1,275原画像／輪郭対と直交51対、自由観察72項目、全8ブロック44レイヤーを個別目視した。脳梁・脳幹・脳室・海馬・内包などの具体的な問題と判定不能な境界を記録した。「全構造に問題なし」や専門家承認ではない。尾状核尾部未収録、第四脳室と中脳水道の混在、中脳標本組織不足、動眼神経の遮蔽を日英文言に反映。配布分節／メッシュ・公開は変更していない。旧 [ALL_STRUCTURE_ANATOMY_REVIEW.md](docs/ALL_STRUCTURE_ANATOMY_REVIEW.md) は一次点検時点の履歴。
 
 続く修正依頼では、下頭頂区画の着色範囲説明と脳梁の境界注意を日英で更新。溝描画2方式を実装比較したが、標準上面で着色の連続性が悪化したため撤去し、従来描画を維持した。詳細は上記台帳末尾。分節形状はまだ修正していない。
 
-作業ブランチは `codex/september-learning-review`。正規公開先は https://bonnginn.github.io/brain-practical-navi/ です。今回の改善・検証・残る専門家確認は [SEPTEMBER_RELEASE_REVIEW.md](SEPTEMBER_RELEASE_REVIEW.md) と [SEPTEMBER_REVIEW_PROGRESS.md](SEPTEMBER_REVIEW_PROGRESS.md) を優先してください。下記の過去PR番号・旧ブランチは履歴です。mainへのマージと公開更新は改めてユーザー承認が必要です。完了報告では重要な変更を一度に並べず、一つずつ確認を案内します。
+作業ブランチは `codex/september-learning-review`。正規公開先は https://bonnginn.github.io/brain-practical-navi/ です。今回の改善・検証・残る専門家確認は [SEPTEMBER_RELEASE_REVIEW.md](docs/SEPTEMBER_RELEASE_REVIEW.md) と [SEPTEMBER_REVIEW_PROGRESS.md](docs/SEPTEMBER_REVIEW_PROGRESS.md) を優先してください。下記の過去PR番号・旧ブランチは履歴です。mainへのマージと公開更新は改めてユーザー承認が必要です。完了報告では重要な変更を一度に並べず、一つずつ確認を案内します。
 
 更新日: 2026-08-24
 引き継ぎ基準コミット: `6f13cd58 public alpha refresh merge`
@@ -589,7 +591,7 @@ Current machine-readable values: [BETA_CURRENT_SNAPSHOT.json](BETA_CURRENT_SNAPS
 
 ### 2026-08-24 公開α refresh
 
-PR #14はmerge commit `6f13cd58e3e6450049e02be04c320a4e9abc1fc3` でmainへ統合し、GitHub Pages run `32711938345` が成功しました。公開URL限定read-only監査は、canonical 27経路×3幅×direct/reload＝162/162件で合格し、主文書HTTP 2xx、公式origin・path、missing／duplicate／fail 0、console／request／UI error・loader・overflow・WebGL fallback 0を確認しています。証拠は `work/browser-audit/alpha-public-refresh-2026-08-24.json`、公開判断の境界は [ALPHA_RELEASE_AUDIT.md](ALPHA_RELEASE_AUDIT.md) を参照してください。β公開、専門家承認、物理端末・別ブラウザ確認は未完了です。
+PR #14はmerge commit `6f13cd58e3e6450049e02be04c320a4e9abc1fc3` でmainへ統合し、GitHub Pages run `32711938345` が成功しました。公開URL限定read-only監査は、canonical 27経路×3幅×direct/reload＝162/162件で合格し、主文書HTTP 2xx、公式origin・path、missing／duplicate／fail 0、console／request／UI error・loader・overflow・WebGL fallback 0を確認しています。証拠は `work/browser-audit/alpha-public-refresh-2026-08-24.json`、公開判断の境界は [ALPHA_RELEASE_AUDIT.md](docs/ALPHA_RELEASE_AUDIT.md) を参照してください。β公開、専門家承認、物理端末・別ブラウザ確認は未完了です。
 
 ## 1. 目標
 
@@ -625,7 +627,7 @@ Homeへ、対応ブラウザがpromptを提供した場合だけ利用者の明�
 
 断面画像、手動ラベル、3Dメッシュをstreamで読み、実測byteを複数資産で集約する数値進捗を追加しました。全資産の `Content-Length` が取得できる場合だけ総量と整数％を表示し、一つでも不明なら受信済みbyteと「総量不明」を表示して推定％を出しません。受信後の展開・解析を別表示にし、再試行時は進捗を初期化して旧試行の遅延イベントを世代tokenで無視します。
 
-Chrome 151のPages想定buildで総量不明表示、総量既知の `12 MB / 12 MB（100%）` とバー値の一致、390 px相当の横はみ出しなし、完了後loader／alert 0を確認しました。全経路は `work/browser-audit/beta-route-audit-download-progress-2026-08-23.json` の156/156件、全テスト227/227、型検査、通常／Pages buildに合格しています。公開URL、物理端末、別ブラウザ、実公開回線は未確認です。詳細は [DOWNLOAD_PROGRESS_AUDIT.md](DOWNLOAD_PROGRESS_AUDIT.md) を参照してください。
+Chrome 151のPages想定buildで総量不明表示、総量既知の `12 MB / 12 MB（100%）` とバー値の一致、390 px相当の横はみ出しなし、完了後loader／alert 0を確認しました。全経路は `work/browser-audit/beta-route-audit-download-progress-2026-08-23.json` の156/156件、全テスト227/227、型検査、通常／Pages buildに合格しています。公開URL、物理端末、別ブラウザ、実公開回線は未確認です。詳細は [DOWNLOAD_PROGRESS_AUDIT.md](docs/DOWNLOAD_PROGRESS_AUDIT.md) を参照してください。
 
 ## 2026-08-24 来歴表示台帳の現在値
 
@@ -635,7 +637,7 @@ Chrome 151のPages想定buildで総量不明表示、総量既知の `12 MB / 12
 
 2026-08-28、脳神経クイズは大脳半球を透過したまま中脳・橋・延髄を不透明な位置基準として残すよう変更し、前交通動脈・後交通動脈・小脳動脈群・視交叉を追加した。表示対象は45（神経血管22）のまま、同じ色付き構造について機能・位置関係・経路を問う55問を加え、現行は全100問とした。追加55問はプロジェクト内レビュー・専門家未確認の試作である。視交叉はoverlay ID25だけを使い、旧断面ID33・未分節ID36–38を使わない。Chrome 152のローカルproduction previewで45 target×3幅＝135/135件に合格した。この可視性監査は追加55問の専門家確認を意味しない。公開URL、物理端末、別GPU、専門家レビューは未確認。
 
-56件から75件への19件追加（surface／block app-only 18行とoptic nerve `cn2`行1件）、旧ID33と`cn2`／`opticChiasm`の分離、ID39・40のexpert pending維持は [LEARNER_PROVENANCE_DISPLAY_AUDIT.md](LEARNER_PROVENANCE_DISPLAY_AUDIT.md) に固定しています。
+56件から75件への19件追加（surface／block app-only 18行とoptic nerve `cn2`行1件）、旧ID33と`cn2`／`opticChiasm`の分離、ID39・40のexpert pending維持は [LEARNER_PROVENANCE_DISPLAY_AUDIT.md](docs/LEARNER_PROVENANCE_DISPLAY_AUDIT.md) に固定しています。
 
 ### 2026-08-23 実ブラウザ履歴
 
@@ -643,13 +645,13 @@ Chrome 151のPages想定buildで総量不明表示、総量既知の `12 MB / 12
 
 2026-08-22の全56件・表示面36／16／29／21件・route156/156の実測履歴は変更せず保持します。
 
-同日、通常クイズの標準／試作判定を正答targetだけでなく全選択肢の由来へ拡張しました。既存23問は標準7件・試作16件となり、模式3D pilot 17件を含む画面上の全40問は標準7件・試作33件です。問題本文・正答target・選択肢・position/viewのSHA-256は変更していません。Chrome 151のローカルpreview `http://127.0.0.1:4214/` で試作ON/OFF、標準7問queue、乳頭体問題の試作バッジを実操作し、最終route監査も156/156件に合格しました。詳細は [QUIZ_GRANULARITY_AUDIT.md](QUIZ_GRANULARITY_AUDIT.md) と `work/browser-audit/beta-route-audit-option-provenance-2026-08-23.json` に記録しています。専門家確認は未完了で、Go / No-Go criterion 07は `expert-blocked` のままです。
+同日、通常クイズの標準／試作判定を正答targetだけでなく全選択肢の由来へ拡張しました。既存23問は標準7件・試作16件となり、模式3D pilot 17件を含む画面上の全40問は標準7件・試作33件です。問題本文・正答target・選択肢・position/viewのSHA-256は変更していません。Chrome 151のローカルpreview `http://127.0.0.1:4214/` で試作ON/OFF、標準7問queue、乳頭体問題の試作バッジを実操作し、最終route監査も156/156件に合格しました。詳細は [QUIZ_GRANULARITY_AUDIT.md](docs/QUIZ_GRANULARITY_AUDIT.md) と `work/browser-audit/beta-route-audit-option-provenance-2026-08-23.json` に記録しています。専門家確認は未完了で、Go / No-Go criterion 07は `expert-blocked` のままです。
 
 旧視覚路混合領域ID33には、現行配布ボリュームを変更しない客観直交断監査を追加しました。現在値は8,482 voxel、12個の6近傍成分で、全軸の占有断面・全境界面接触・代表候補X187／Y262／Z114を固定JSONへ保存しています。乳頭体採用前の9,013 voxelという歴史値と混同しません。これは専門家レビューの準備資料で、ID36–38への機械分割、解剖学的妥当性、クイズ復帰を意味しません。詳細は [OPTIC_PATHWAY_AUDIT.md](OPTIC_PATHWAY_AUDIT.md) を参照してください。
 
 上記3候補は寄稿者ツールの専用パネルから直接開けます。ボタンは表示位置・zoom・pan・cursorだけを変更し、編集差分や履歴、端末内ドラフトを変更しません。Chrome 151の `http://127.0.0.1:4215/` で3位置、表示数、差分0の維持、矢状・冠状の編集無効を実操作し、全経路監査も156/156件に合格しました。全テスト211/211、型検査、通常／Pagesビルドも成功しています。公開URL、物理端末、専門家確認は未完了です。
 
-2026-08-24、脳室ラベルの黒い内部欠損を保守的に補修しました。背景値255を一括充填すると脳外背景へ漏れるため不採用とし、X・Y・Z各軸で同じ脳室ラベルに挟まれ、別ラベルと6近傍接触しない未ラベルvoxelだけを1回抽出しました。三断面の局所プレビューで既存ラベル内部の小欠損と確認した33 voxel（左側脳室14、右15、第三4、第四0）を、PR #14のproject-reviewed strict patchとして配布対象の教材ラベルへ適用しています。採用後圧縮ラベルSHA-256は `b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3`、raw voxel SHA-256は `b1105fd3a11fab27d3b1bac60d4d989386e4ef49a41151f5b684d984f72aaaa9` です。ローカルには元NIfTI一式がなかったため、採用前の配布artifactを固定fixture化し、公式buildのapproved patch段階だけを決定論的に再実行しました。テストは採用前後でこの33 voxel以外が変わらないことを検証します。通常production previewで3脳室の同時表示と側脳室クイズを実確認し、全テスト304/304、型検査、通常／Pages build、Go/No-Go台帳監査に合格しました。これは専門家レビュー、脳室全体の境界確定、研究用ground truth、機関承認ではありません。詳細は [VENTRICLE_CAVITY_AUDIT.md](VENTRICLE_CAVITY_AUDIT.md) を参照してください。
+2026-08-24、脳室ラベルの黒い内部欠損を保守的に補修しました。背景値255を一括充填すると脳外背景へ漏れるため不採用とし、X・Y・Z各軸で同じ脳室ラベルに挟まれ、別ラベルと6近傍接触しない未ラベルvoxelだけを1回抽出しました。三断面の局所プレビューで既存ラベル内部の小欠損と確認した33 voxel（左側脳室14、右15、第三4、第四0）を、PR #14のproject-reviewed strict patchとして配布対象の教材ラベルへ適用しています。採用後圧縮ラベルSHA-256は `b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3`、raw voxel SHA-256は `b1105fd3a11fab27d3b1bac60d4d989386e4ef49a41151f5b684d984f72aaaa9` です。ローカルには元NIfTI一式がなかったため、採用前の配布artifactを固定fixture化し、公式buildのapproved patch段階だけを決定論的に再実行しました。テストは採用前後でこの33 voxel以外が変わらないことを検証します。通常production previewで3脳室の同時表示と側脳室クイズを実確認し、全テスト304/304、型検査、通常／Pages build、Go/No-Go台帳監査に合格しました。これは専門家レビュー、脳室全体の境界確定、研究用ground truth、機関承認ではありません。詳細は [VENTRICLE_CAVITY_AUDIT.md](docs/VENTRICLE_CAVITY_AUDIT.md) を参照してください。
 
 同日、M2の最小単位として、共同制作ページへ脳室系の3Dモデル方針A/B比較pilotを追加しました。現行同一格子の左右側脳室＋第三脳室と、既存標本・アトラス頂点・ラベルを使わない寄稿者作成の模式案を、同じ回転・視点・色・表示ON/OFFで比較します。Bは常に「模式・専門家未確認」「実標本由来ではない」と表示し、通常教材・ラベル・由来台帳・クイズを変更しません。比較用chunkと7,980 bytesのmeshは明示的に開くまで取得しません。Chrome 151でPC・390 px相当の開閉、共通操作、フォーカス復帰、横overflow 0を確認し、canonical全経路156/156、初回payload 26/26、全テスト217/217、型検査、通常／Pages本番ビルドに合格しました。評価7項目と未確認事項は [MODEL_STRATEGY_COMPARISON_AUDIT.md](MODEL_STRATEGY_COMPARISON_AUDIT.md) に記録し、採否は専門家・学習者レビュー待ちです。
 
@@ -723,17 +725,17 @@ Windows側でブラウザ操作が使える利点を最優先します。
 
 2026-08-14時点で、M1の全経路回帰、代表経路の性能実測、読込進捗・一括再試行、共通操作ガイドまで完了しています。操作ガイドは `#workspace/help` の永続URL、キーボードフォーカス、390 / 760 / 761 pxの狭幅表示をWindows実ブラウザで確認済みです。20構造の断面・透過3D同時表示時に見つかった旧メッシュ面数の互換問題も修正し、透過・単独表示・後脳脱着を実操作しています。小画面の断面実習は3D比較を必要時読込とし、初期データセットから左右脳表17.5 MiBを外しました。PCでは従来どおり2方向3Dを同時表示し、表示切替も実操作しています。断面クイズには1断面ずつの送り／戻しを追加し、通常幅と390 pxで表示値・見出し・Canvasの同期を確認しました。標準クイズは同一格子の公開手動分節だけに限定し、位置照合・画像誘導・脳表問題を既定OFFの試作枠へ分離しています。内包は隣接する橙色の基底核群と区別できる淡色へ変更し、冠状断と透過3Dで確認しています。断面・編集ツールでは離脱後に大容量画像キャッシュへの参照を解放し、再訪時にも各Canvasが読込エラーなく復帰することを確認しました。権利監査では全配布データを機械可読マニフェストへ対応づけ、公開画像の非転載通知を追加し、解析ビーコンを公開HTTPS本番ホストだけへ限定しました。共同制作はForm・Issue・PRの3入口へ分離し、未ログインのForm経路を送信直前まで確認しました。自動テスト、型検査、本番Viteビルドは本ブランチの最終状態で再検証します。
 
-追記: スマートフォン専用UIは、幅だけでなく `hover: none` と `pointer: coarse` を満たす端末だけへ適用する実装へ整理しました。Chrome 151のローカル通常production preview `http://127.0.0.1:4198` で、coarse touch phoneの5導線dock、single settings dialog、sections rail操作、segment編集Canvas非生成、fine-pointer狭幅のcompact desktop維持を確認しました。coarse 26経路52/52、fine/non-touch 26経路×3幅×direct/reload 156/156に合格しています。公開URL、物理端末、実機タッチ、Safari・別ブラウザ、別GPU、専門家レビューは未確認です。内側側頭葉の海馬采・鉤の表示除外判断は [MEDIAL_TEMPORAL_AUDIT.md](MEDIAL_TEMPORAL_AUDIT.md) に、phone UIの詳細確認項目と記録は [MOBILE_UI_AUDIT.md](MOBILE_UI_AUDIT.md) に分離しています。
+追記: スマートフォン専用UIは、幅だけでなく `hover: none` と `pointer: coarse` を満たす端末だけへ適用する実装へ整理しました。Chrome 151のローカル通常production preview `http://127.0.0.1:4198` で、coarse touch phoneの5導線dock、single settings dialog、sections rail操作、segment編集Canvas非生成、fine-pointer狭幅のcompact desktop維持を確認しました。coarse 26経路52/52、fine/non-touch 26経路×3幅×direct/reload 156/156に合格しています。公開URL、物理端末、実機タッチ、Safari・別ブラウザ、別GPU、専門家レビューは未確認です。内側側頭葉の海馬采・鉤の表示除外判断は [MEDIAL_TEMPORAL_AUDIT.md](docs/MEDIAL_TEMPORAL_AUDIT.md) に、phone UIの詳細確認項目と記録は [MOBILE_UI_AUDIT.md](docs/MOBILE_UI_AUDIT.md) に分離しています。
 
 ### 2026-08-23 側脳室ブロック context ON 性能同期
 
 Windows 11／Chrome 151.0.7922.170／Node 24.19.0、ローカルpreview `http://127.0.0.1:4204/` で、既存31件＋context ON 6件の性能マトリクス37/37件を確認した。PC 1366×768、tablet 1024×768、390×768相当のcold/warmを対象に、baseとONのencoded bytes・unique request count・stable time、ON stable時のsettled backing storage、操作全体のsamplePeak backing storageを別フィールドで保存した。全件Canvas `1→2→2→1`、loader／UI／console／request error、overflow、WebGL fallbackは0件。warm primeはベース画面だけで、context assetは初回ON時に取得した。結果は `work/performance/performance-suite-block-context-final-v2-2026-08-23.json`、値の詳細は [PERFORMANCE_AUDIT.md](PERFORMANCE_AUDIT.md) を参照する。390 pxは `mobile:false` のデスクトップemulationでclientWidth 375 px。物理端末、公開ネットワーク、別GPU・別ブラウザ、解剖学的妥当性は未確認である。
 
-追記: 同じ初期OFFの位置コンテキストを教材内8ブロック標本へデータ駆動で拡張した。既存 `material: specimen` メッシュと既存 plane / position だけを使い、後脳標本は既存3部品をまとめて遅延読込する。新しい形状・切断幅・摘出順・実習手順は追加していない。通常production preview `http://127.0.0.1:4230/` で、Codex in-app BrowserのPC相当8/8件とChrome 151の390×768デスクトップemulation 8/8件を確認し、全件Canvas `1→2→2→1`、loader／UI／console／request error、横はみ出し、WebGL fallbackは0件だった。標本切替時はOFFかつ全脳表示へresetした。物理端末、公開URL、別GPU・別ブラウザ、専門家レビューは未確認である。契約と監査範囲は [BLOCK_CONTEXT_AUDIT.md](BLOCK_CONTEXT_AUDIT.md) を参照する。
+追記: 同じ初期OFFの位置コンテキストを教材内8ブロック標本へデータ駆動で拡張した。既存 `material: specimen` メッシュと既存 plane / position だけを使い、後脳標本は既存3部品をまとめて遅延読込する。新しい形状・切断幅・摘出順・実習手順は追加していない。通常production preview `http://127.0.0.1:4230/` で、Codex in-app BrowserのPC相当8/8件とChrome 151の390×768デスクトップemulation 8/8件を確認し、全件Canvas `1→2→2→1`、loader／UI／console／request error、横はみ出し、WebGL fallbackは0件だった。標本切替時はOFFかつ全脳表示へresetした。物理端末、公開URL、別GPU・別ブラウザ、専門家レビューは未確認である。契約と監査範囲は [BLOCK_CONTEXT_AUDIT.md](docs/BLOCK_CONTEXT_AUDIT.md) を参照する。
 
 性能追記: `http://127.0.0.1:4232/` で基礎31件＋8標本×3幅×cold/warmのcontext ON 48件＝79/79件を保存した。計測用ChromeだけService Workerを迂回し、48件すべて7 request／24,795,951 byte、Canvas `1→2→2→1`、error／loader／overflow／WebGL fallback 0。安定時間最大828.9 ms、settled backing最大61,288,760 byte、sampled peak最大240,644,605 byteで、実資産statと固定上限を使う独立監査にも合格した。結果は `work/performance/performance-suite-block-context-all-specimens-2026-08-23.json`、監査は `work/performance/block-context-performance-audit-all-specimens-2026-08-23.json`。追加7標本の保存済み性能値は完了し、物理端末、公開URL、別GPU・別ブラウザ、専門家レビューは未確認のままである。
 
-2026-08-24、8標本の形状を一律に変更せず、ロードマップが先行対象として挙げる側脳室、レンズ核・投射線維、脈絡叢、内側側頭葉を「β重点4」、残る4標本を「発展観察4」として左レールと選択中解説へ表示した。これは観察導線だけの区分で、実習頻度、由来、確度、専門家レビュー、品質の順位ではない。全8標本、既存番号、hash、初期標本、部品・代表断面・Canvas契約を維持する。Chrome 151で全8標本を順に確認し、canonical route 162/162、cold payload 27/27に合格した。詳細は [BLOCK_SPECIMEN_PRIORITY_AUDIT.md](BLOCK_SPECIMEN_PRIORITY_AUDIT.md)。
+2026-08-24、8標本の形状を一律に変更せず、ロードマップが先行対象として挙げる側脳室、レンズ核・投射線維、脈絡叢、内側側頭葉を「β重点4」、残る4標本を「発展観察4」として左レールと選択中解説へ表示した。これは観察導線だけの区分で、実習頻度、由来、確度、専門家レビュー、品質の順位ではない。全8標本、既存番号、hash、初期標本、部品・代表断面・Canvas契約を維持する。Chrome 151で全8標本を順に確認し、canonical route 162/162、cold payload 27/27に合格した。詳細は [BLOCK_SPECIMEN_PRIORITY_AUDIT.md](docs/BLOCK_SPECIMEN_PRIORITY_AUDIT.md)。
 
 同日、β重点4だけへ既存部品の確認ガイドを追加した。各lessonの既存layerを1件ずつ単独表示し、最終段階だけ全layerを表示する。開始前の手動選択は終了・標本切替・block workspace離脱・unmountで復元し、mesh、voxel、label、plane、rotation、camera、color、provenanceは変更しない。これはUI上の部品確認順であり、解剖・摘出順や実習手順ではない。Chrome 151 production previewでPCのfocus4全件、active切替cleanup、発展4のguide count 0を確認し、canonical route 162/162、cold payload 27/27に合格した。さらに390×768 coarse-touch相当で側脳室4、レンズ核・投射線維7、脈絡叢3、内側側頭葉3の全single layer、4 final all、終了後manual復元を実タッチし、独立validator failure 0だった。物理端末・タッチ、公開URL、別browser／GPU、専門家レビューは未確認。詳細は [BLOCK_GUIDED_OBSERVATION_AUDIT.md](BLOCK_GUIDED_OBSERVATION_AUDIT.md)。
 
@@ -743,7 +745,7 @@ Windows 11／Chrome 151.0.7922.170／Node 24.19.0、ローカルpreview `http://
 
 Chrome 151の通常production preview `http://127.0.0.1:4330/` で、Windows 11 Home／Node 24.19.0のローカル実ブラウザに、390×768、DPR1、`mobile:true`、`touch:true`、最大同時タッチ5、縦向き、`hover:none`、`pointer:coarse`を設定した。最終結果 `work/browser-audit/phone-core-interactions-v18-focus4-guided-2026-08-24.json` は、下部dock、脳表・左外側面、水平断、復習、β重点4ブロック標本ガイドの5 journeyを実タッチイベント列で確認し、`allPassed: true`、独立validator failure 0となった。blocksでは4標本をfresh direct routeで開き、合計17 single-layer段階、4 final all、段階番号、終了後manual layer復元を含む。Solレビュー後のvalidatorはsummary/probe、touch geometry／primaryTouchId／target・touch ID、tap 1→0／drag 1→1→0のtouchPoints、sequence、実設定遷移を独立検証する。loader、UI／console／request error、横overflow、WebGL fallbackは0件だった。v12／v13の失敗artifactは成果根拠に含めない。
 
-これはcoarse-touch emulationによるローカル導線・状態遷移の確認であり、スマートフォンUI全体のβ完了、画素・解剖学的妥当性、専門家レビューを意味しない。物理スマートフォン、実機タッチ、Safari・別ブラウザ、別GPU、公開URL・公開回線、インストール済みPWAとホーム画面追加後の起動は未確認である。詳細は [PHONE_CORE_INTERACTION_AUDIT.md](PHONE_CORE_INTERACTION_AUDIT.md) と [MOBILE_UI_AUDIT.md](MOBILE_UI_AUDIT.md) を参照する。
+これはcoarse-touch emulationによるローカル導線・状態遷移の確認であり、スマートフォンUI全体のβ完了、画素・解剖学的妥当性、専門家レビューを意味しない。物理スマートフォン、実機タッチ、Safari・別ブラウザ、別GPU、公開URL・公開回線、インストール済みPWAとホーム画面追加後の起動は未確認である。詳細は [PHONE_CORE_INTERACTION_AUDIT.md](PHONE_CORE_INTERACTION_AUDIT.md) と [MOBILE_UI_AUDIT.md](docs/MOBILE_UI_AUDIT.md) を参照する。
 
 ### M2: β公開条件の機械化
 
@@ -885,7 +887,7 @@ https://github.com/bonnginn/brain-practical-navi を取得し、WINDOWS_HANDOFF.
 - Expert/native-language review and post-deployment device checks remain pending. See `ENGLISH_EDITION_AUDIT.md`.
 # 2026-09-06 赤核のみ採用（後続更新）
 
-ユーザーの修正依頼により赤核ID1・2を開発版で位置補正。現行compressed SHAは `cec9c331d2a8e77bba1e79226c1d630905f2b7e89db7032cdc6e3db0e114dca8`。左2887／右2888 voxel、差分2224。他ID不変、赤核block mesh同期。内部白帯は切り抜かず核全体の領域とし、灰白質・特定線維の確定とはしない。[採用記録](RED_NUCLEUS_REGISTRATION_ADOPTION.md)。下記の098edf…や全22未採用は以前の到達点。公開・main未変更。
+ユーザーの修正依頼により赤核ID1・2を開発版で位置補正。現行compressed SHAは `cec9c331d2a8e77bba1e79226c1d630905f2b7e89db7032cdc6e3db0e114dca8`。左2887／右2888 voxel、差分2224。他ID不変、赤核block mesh同期。内部白帯は切り抜かず核全体の領域とし、灰白質・特定線維の確定とはしない。[採用記録](docs/RED_NUCLEUS_REGISTRATION_ADOPTION.md)。下記の098edf…や全22未採用は以前の到達点。公開・main未変更。
 
 ## 2026-09-06 後続更新：手動22ラベルを開発版へ採用
 

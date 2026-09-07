@@ -59,8 +59,8 @@ coarse phoneは26経路×direct/reload＝52/52件に合格し、segmentはCanvas
 
 5つ目のblocks journeyでは、β重点4標本の試作intro閉鎖、部品確認ガイドの開始、合計17 single-layer段階、4件の最終all段階、終了後の開始前layer復元までを実タッチで確認した。段階表示も側脳室5、レンズ核・投射線維8、脈絡叢4、内側側頭葉4段階として固定契約から再計算した。UI上の確認順と状態復元だけを対象とし、解剖学的順序・摘出順・実習手順は検証していない。
 
-物理スマートフォン、実機タッチ、Safari・別ブラウザ、別GPU、公開URL・公開回線、インストール済みPWAとホーム画面追加後の起動は未確認である。詳細な契約と保存形式は [PHONE_CORE_INTERACTION_AUDIT.md](PHONE_CORE_INTERACTION_AUDIT.md) に分離して記録する。
+物理スマートフォン、実機タッチ、Safari・別ブラウザ、別GPU、公開URL・公開回線、インストール済みPWAとホーム画面追加後の起動は未確認である。詳細な契約と保存形式は [PHONE_CORE_INTERACTION_AUDIT.md](../PHONE_CORE_INTERACTION_AUDIT.md) に分離して記録する。
 
 ## 2026-08-24 Homeの端末追加案内
 
-Homeへ端末追加カードを追加し、390×768相当で追加ボタン44 px以上、横overflow 0、loader／UI error 0を確認した。promptがない環境ではメニューから追加できる場合があると案内し、対応環境でも利用者の明示クリックまでpromptを呼ばない。合成イベントによる状態確認であり、物理端末への実追加、追加後起動、Safari対応完了を意味しない。詳細は [PWA_INSTALL_AFFORDANCE_AUDIT.md](PWA_INSTALL_AFFORDANCE_AUDIT.md) に記録した。
+Homeへ端末追加カードを追加し、390×768相当で追加ボタン44 px以上、横overflow 0、loader／UI error 0を確認した。promptがない環境ではメニューから追加できる場合があると案内し、対応環境でも利用者の明示クリックまでpromptを呼ばない。合成イベントによる状態確認であり、物理端末への実追加、追加後起動、Safari対応完了を意味しない。詳細は [PWA_INSTALL_AFFORDANCE_AUDIT.md](../PWA_INSTALL_AFFORDANCE_AUDIT.md) に記録した。

@@ -48,7 +48,7 @@
 Current machine-readable values: [BETA_CURRENT_SNAPSHOT.json](BETA_CURRENT_SNAPSHOT.json). All other counts in this document are dated historical evidence, not current inventory or approval.
 <!-- beta-current-snapshot:end -->
 
-表示面・対応表・アプリ在庫の詳細、app-only追加、ID33と`cn2`／`opticChiasm`の分離は [LEARNER_PROVENANCE_DISPLAY_AUDIT.md](LEARNER_PROVENANCE_DISPLAY_AUDIT.md) に固定しています。
+表示面・対応表・アプリ在庫の詳細、app-only追加、ID33と`cn2`／`opticChiasm`の分離は [LEARNER_PROVENANCE_DISPLAY_AUDIT.md](docs/LEARNER_PROVENANCE_DISPLAY_AUDIT.md) に固定しています。
 
 2026-08-24の機械監査値は、解剖学的妥当性の検証、専門家レビュー完了、実ブラウザ確認を意味しません。旧ID33は引き続き断面・通常クイズの正答対象と分節編集入口から除外し、ID39・40はプロジェクト内採用・専門家pending・直交断確認継続の状態を維持します。
 
@@ -88,7 +88,7 @@ Current machine-readable values: [BETA_CURRENT_SNAPSHOT.json](BETA_CURRENT_SNAPS
 
 ## 2026-08-23 コンテンツ正確性レビュー
 
-視床下核は「間脳の視床下域」に属する構造として説明し、視床下部や中脳そのものとは区別します。画面上の分類名は内部キーを変えずに「中脳・視床下域」「中脳核・視床下域」へ整理しました。淡蒼球は外節（GPe）を内部の中継・調節部、内節（GPi）を主要な出力部として説明し、淡蒼球全体の機能説明にも両者の差を反映しています。第三脳室は視床・視床下部に囲まれる正中腔として、上方が視床、下方（底側）が視床下部という教材上の位置関係を表示します。2026-08-24には、三軸で同一脳室ラベルに挟まれた内部欠損33 voxelのみをPR #14のプロジェクト内レビューで補完しましたが、脳室系全体の専門家レビュー状態はpendingのままです。詳細は [CONTENT_ACCURACY_REVIEW.md](CONTENT_ACCURACY_REVIEW.md) と [VENTRICLE_CAVITY_AUDIT.md](VENTRICLE_CAVITY_AUDIT.md) を参照してください。
+視床下核は「間脳の視床下域」に属する構造として説明し、視床下部や中脳そのものとは区別します。画面上の分類名は内部キーを変えずに「中脳・視床下域」「中脳核・視床下域」へ整理しました。淡蒼球は外節（GPe）を内部の中継・調節部、内節（GPi）を主要な出力部として説明し、淡蒼球全体の機能説明にも両者の差を反映しています。第三脳室は視床・視床下部に囲まれる正中腔として、上方が視床、下方（底側）が視床下部という教材上の位置関係を表示します。2026-08-24には、三軸で同一脳室ラベルに挟まれた内部欠損33 voxelのみをPR #14のプロジェクト内レビューで補完しましたが、脳室系全体の専門家レビュー状態はpendingのままです。詳細は [CONTENT_ACCURACY_REVIEW.md](docs/CONTENT_ACCURACY_REVIEW.md) と [VENTRICLE_CAVITY_AUDIT.md](docs/VENTRICLE_CAVITY_AUDIT.md) を参照してください。
 
 ## 3D表示
 
@@ -122,7 +122,7 @@ Current machine-readable values: [BETA_CURRENT_SNAPSHOT.json](BETA_CURRENT_SNAPS
 
 # 2026-09-06追記：赤核の位置補正
 
-開発版の左右赤核ID1・2のみ、公式変位場で元手動区画を転送した高精度候補を採用。AI補助のプロジェクト判断で、専門家レビューではない。内部の白い帯は核全体の領域内として保持するが、灰白質や特定線維への同定は未確定。断面と赤核ブロック部品を同期し、他の手動20ラベルは未採用のまま。[採用記録](RED_NUCLEUS_REGISTRATION_ADOPTION.md)。
+開発版の左右赤核ID1・2のみ、公式変位場で元手動区画を転送した高精度候補を採用。AI補助のプロジェクト判断で、専門家レビューではない。内部の白い帯は核全体の領域内として保持するが、灰白質や特定線維への同定は未確定。断面と赤核ブロック部品を同期し、他の手動20ラベルは未採用のまま。[採用記録](docs/RED_NUCLEUS_REGISTRATION_ADOPTION.md)。
 
 ## 2026-09-06 後続採用：残る20手動ラベル
 

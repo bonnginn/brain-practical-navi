@@ -8,7 +8,7 @@ const root = new URL("../", import.meta.url);
 test("public og asset has a project creation record and a current hash", async () => {
   const [asset, record, licenses] = await Promise.all([
     readFile(new URL("public/og.png", root)),
-    readFile(new URL("PUBLIC_ASSET_CREATION_RECORD.md", root), "utf8"),
+    readFile(new URL("docs/PUBLIC_ASSET_CREATION_RECORD.md", root), "utf8"),
     readFile(new URL("LICENSES.md", root), "utf8"),
   ]);
   const hash = createHash("sha256").update(asset).digest("hex");

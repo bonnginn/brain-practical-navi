@@ -31,4 +31,4 @@
 
 - 物理PC・物理タブレットの機種差、実機タッチ、別ブラウザ・別GPU、公開URL・公開回線は未確認。
 - この監査は表示と操作の成立を確認するもので、構造の位置、境界、名称、問題内容の解剖学的妥当性や専門家レビューを証明しない。
-- スマートフォン専用UIは [MOBILE_UI_AUDIT.md](MOBILE_UI_AUDIT.md)、全経路のdirect／reloadは [PRESENTATION_AUDIT.md](PRESENTATION_AUDIT.md) の別監査を参照する。
+- スマートフォン専用UIは [MOBILE_UI_AUDIT.md](docs/MOBILE_UI_AUDIT.md)、全経路のdirect／reloadは [PRESENTATION_AUDIT.md](PRESENTATION_AUDIT.md) の別監査を参照する。
