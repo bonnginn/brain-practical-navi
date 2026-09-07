@@ -22,6 +22,7 @@ class Residual116Review(unittest.TestCase):
         return folder, json.loads((folder/'report.json').read_text())
 
     def test_complete_same_component_and_all_figures(self):
+        (ROOT/'work/anatomy-review/lateral-residual80-stage-v1/labels.bin.gz').read_bytes()
         _, _, labels = read_browser_volume(ROOT/'work/anatomy-review/lateral-residual80-stage-v1/labels.bin.gz', MAGIC_LABELS, SHA)
         cc, _ = ndimage.label(labels == 24, ndimage.generate_binary_structure(3, 3))
         ident = int(cc[241,247,105])
