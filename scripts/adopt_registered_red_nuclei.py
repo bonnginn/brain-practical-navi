@@ -45,7 +45,10 @@ def compose_red(old, candidate):
 
 
 def encode(volume):
-    return gzip.compress(b'BBS1'+struct.pack('<3H', *volume.shape)+volume.tobytes(order='F'), mtime=0)
+    data=gzip.compress(b'BBS1'+struct.pack('<3H', *volume.shape)+volume.tobytes(order='F'), mtime=0)
+    # Python 3.11/3.12 can inherit zlib's platform-specific OS byte when mtime=0.
+    # Match the OS-neutral header used by the adopted Python 3.13 artifacts.
+    return data[:9]+b'\xff'+data[10:]
 
 
 def apply_record(old, record):
