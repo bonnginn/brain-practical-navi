@@ -15,10 +15,15 @@ from stage_ventricular_mixed12 import replay
 
 class PendingBatches(unittest.TestCase):
     def test_combination_and_invalid_changes(self):
-        folder=ROOT/'work/anatomy-review/ventricular-mixed12-stage-v1'
-        r=json.loads((folder/'repair.json').read_bytes())
-        before=np.frombuffer(gzip.decompress((folder/'before.bin.gz').read_bytes()),np.uint8,offset=10).reshape((394,466,378),order='F')
-        after=np.frombuffer(gzip.decompress((folder/'labels.bin.gz').read_bytes()),np.uint8,offset=10).reshape(before.shape,order='F')
+        evidence=(ROOT/'segmentation-patches/review/ventricular-mixed12-adoption-2026-09-07.json').read_bytes()
+        self.assertEqual(hashlib.sha256(evidence).hexdigest(),'91319d05addfd63bc1263d9dfcae7a2beb607dfc080603089fe9d52508f2a9f7')
+        r=json.loads(evidence)
+        baseline=(ROOT/'tests/fixtures/bigbrain-practical-segmentation-pre-ventricular-mixed12.bin.gz').read_bytes()
+        current=(ROOT/'public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz').read_bytes()
+        self.assertEqual(hashlib.sha256(baseline).hexdigest(),r['beforeSha256'])
+        self.assertEqual(hashlib.sha256(current).hexdigest(),r['afterSha256'])
+        before=np.frombuffer(gzip.decompress(baseline),np.uint8,offset=10).reshape((394,466,378),order='F')
+        after=np.frombuffer(gzip.decompress(current),np.uint8,offset=10).reshape(before.shape,order='F')
         self.assertTrue(np.array_equal(replay(before,r['points']),after))
         self.assertTrue(np.array_equal(replay(after,r['points'],True),before))
         self.assertEqual(np.count_nonzero(before!=after),12)
@@ -30,6 +35,8 @@ class PendingBatches(unittest.TestCase):
         with self.assertRaises(ValueError):replay(after,r['points'])
 
     def test_exact_reversible_differences_and_shared_base(self):
+        # Resolve optional local evidence before subTest can consume the error.
+        (ROOT/'work/anatomy-review/fourth-upper-residual8-stage-v1/repair.json').read_bytes()
         for name,count,before_id,after_id in [('fourth-upper-residual8',8,0,26),('third-inferior4',4,25,0)]:
             with self.subTest(name=name):
                 stage=ROOT/f'work/anatomy-review/{name}-stage-v1'
