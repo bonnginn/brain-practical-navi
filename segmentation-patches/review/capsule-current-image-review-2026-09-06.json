@@ -1,0 +1,2076 @@
+{
+  "inputSha256": "7ebed144c2b200233ad1389d3288b2407edcb542fe46eaf8626ef872522f8c3f",
+  "historicalCandidateSha256": "53b3d8709957a13234c068edc4bc8ca26e1c6f1e32a6704ec1fd9cb45213cf66",
+  "adopted": false,
+  "mutation": false,
+  "expertReviewed": false,
+  "warning": "Unreviewed historical removal; do not apply to current labels.",
+  "items": [
+    {
+      "oldLabel": 31,
+      "originalCandidateCount": 856,
+      "currentLabelCounts": {
+        "9": 108,
+        "11": 18,
+        "13": 15,
+        "15": 4,
+        "31": 711
+      },
+      "stillCapsule": 711,
+      "nowManual": 145
+    },
+    {
+      "oldLabel": 32,
+      "originalCandidateCount": 760,
+      "currentLabelCounts": {
+        "10": 54,
+        "12": 6,
+        "14": 11,
+        "16": 5,
+        "32": 684
+      },
+      "stillCapsule": 684,
+      "nowManual": 76
+    }
+  ],
+  "imageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
+  "frameCount": 107,
+  "sheets": [
+    {
+      "file": "current-00.png",
+      "sha256": "e8856268042c1855f5877619cccbeb0e211c4b31ccd0ddcc69da1461ced6d185",
+      "frames": [
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 129,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 12
+        },
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 130,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 12
+        },
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 131,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 17
+        },
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 132,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 14
+        },
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 133,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 32
+        },
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 134,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 31
+        }
+      ]
+    },
+    {
+      "file": "current-01.png",
+      "sha256": "cbdae62e80e728f90274962f36327f6c241d6191049a084f25bc02e258538876",
+      "frames": [
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 135,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 17
+        },
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 136,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 18
+        },
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 137,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 1
+        },
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 139,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 4
+        },
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 140,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 12
+        },
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 141,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 13
+        }
+      ]
+    },
+    {
+      "file": "current-02.png",
+      "sha256": "1a70e6198c1e1847ea2541c9d998ee0dcbc610f1fbed292580a3319758814898",
+      "frames": [
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 142,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 13
+        },
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 143,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 6
+        },
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 144,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 9
+        },
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 145,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 15
+        },
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 146,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 12
+        },
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 147,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 15
+        }
+      ]
+    },
+    {
+      "file": "current-03.png",
+      "sha256": "5e215cdca636abdb11a3cec2df32eb3c5ec906a1bfc38582a341dc78a4dc309e",
+      "frames": [
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 148,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 18
+        },
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 149,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 42
+        },
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 150,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 44
+        },
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 151,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 18
+        },
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 152,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 17
+        },
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 153,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 18
+        }
+      ]
+    },
+    {
+      "file": "current-04.png",
+      "sha256": "11b9d92e699b9771eb26924154054c02db6c9cfbd56afae7851cfb9b86c03717",
+      "frames": [
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 154,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 19
+        },
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 155,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 12
+        },
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 156,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 15
+        },
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 157,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 14
+        },
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 158,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 28
+        },
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 159,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 60
+        }
+      ]
+    },
+    {
+      "file": "current-05.png",
+      "sha256": "b2e5336551eaa10b0d155a96eedc35234470bcab45e99f8ff2963151f419d2a7",
+      "frames": [
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 160,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 61
+        },
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 161,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 2
+        },
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 162,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 4
+        },
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 163,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 13
+        },
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 164,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 17
+        },
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 165,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 7
+        }
+      ]
+    },
+    {
+      "file": "current-06.png",
+      "sha256": "5977c37677de6b2a0312ebe0b6d58c4516851c029be4d01e4e156973c69ad160",
+      "frames": [
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 166,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 10
+        },
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 167,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 12
+        },
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 168,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 12
+        },
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 169,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 4
+        },
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 170,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 3
+        },
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 175,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 4
+        }
+      ]
+    },
+    {
+      "file": "current-07.png",
+      "sha256": "c0e2c476302e01a5be1c5979798cfbbe29199a7d8b235af252198aa56c7d9cdb",
+      "frames": [
+        {
+          "label": 31,
+          "axis": "z",
+          "index": 176,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 4
+        },
+        {
+          "label": 31,
+          "axis": "x",
+          "index": 135,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 4
+        },
+        {
+          "label": 31,
+          "axis": "x",
+          "index": 155,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 32
+        },
+        {
+          "label": 31,
+          "axis": "x",
+          "index": 160,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 37
+        },
+        {
+          "label": 31,
+          "axis": "x",
+          "index": 169,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 23
+        },
+        {
+          "label": 31,
+          "axis": "x",
+          "index": 180,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 9
+        }
+      ]
+    },
+    {
+      "file": "current-08.png",
+      "sha256": "7c8192820441faab517876b13dfb94e7cb7e1058dd96ae09c8bef60a9a33ebc8",
+      "frames": [
+        {
+          "label": 31,
+          "axis": "y",
+          "index": 223,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 12
+        },
+        {
+          "label": 31,
+          "axis": "y",
+          "index": 254,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 1
+        },
+        {
+          "label": 31,
+          "axis": "y",
+          "index": 272,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 10
+        },
+        {
+          "label": 31,
+          "axis": "y",
+          "index": 290,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 11
+        },
+        {
+          "label": 31,
+          "axis": "y",
+          "index": 318,
+          "crop": {
+            "min": [
+              125,
+              213,
+              119
+            ],
+            "max": [
+              190,
+              328,
+              186
+            ]
+          },
+          "pointCount": 3
+        },
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 129,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 10
+        }
+      ]
+    },
+    {
+      "file": "current-09.png",
+      "sha256": "fd9d13c71aaeba71bef96ad1e8cbff03687d95789b79659bc4a66631493eccad",
+      "frames": [
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 130,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 8
+        },
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 131,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 15
+        },
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 132,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 15
+        },
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 133,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 38
+        },
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 134,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 36
+        },
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 135,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 9
+        }
+      ]
+    },
+    {
+      "file": "current-10.png",
+      "sha256": "3e6b5b1251f53b05f518c71b6c6cd36d9d9f709018aa6ea50cbc1a1402b7b65a",
+      "frames": [
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 136,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 13
+        },
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 137,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 3
+        },
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 138,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 4
+        },
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 139,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 10
+        },
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 140,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 21
+        },
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 141,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 7
+        }
+      ]
+    },
+    {
+      "file": "current-11.png",
+      "sha256": "8da99d479fec28803e1067e7c41a2e9a8392d1706886debc598fa47179162425",
+      "frames": [
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 142,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 7
+        },
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 143,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 9
+        },
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 144,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 12
+        },
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 145,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 8
+        },
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 146,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 11
+        },
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 147,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 13
+        }
+      ]
+    },
+    {
+      "file": "current-12.png",
+      "sha256": "317f4bcd66502c14f5750c77935c146935218363bb1c59d237fdcc1ea144491c",
+      "frames": [
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 148,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 14
+        },
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 149,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 50
+        },
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 150,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 51
+        },
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 151,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 19
+        },
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 152,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 17
+        },
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 153,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 15
+        }
+      ]
+    },
+    {
+      "file": "current-13.png",
+      "sha256": "4db2638ba3b5b59f21e72fae80b52cdf85d8546cf4c6714224df1baa1ce9dabe",
+      "frames": [
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 154,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 13
+        },
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 155,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 14
+        },
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 156,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 15
+        },
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 157,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 16
+        },
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 158,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 20
+        },
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 159,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 55
+        }
+      ]
+    },
+    {
+      "file": "current-14.png",
+      "sha256": "5a1ffc09cbd652a484b4cb814c33d658c83ff68ee6cd2225ed915dd1b2c22bf9",
+      "frames": [
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 160,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 52
+        },
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 161,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 3
+        },
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 162,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 4
+        },
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 163,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 13
+        },
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 164,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 15
+        },
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 165,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 8
+        }
+      ]
+    },
+    {
+      "file": "current-15.png",
+      "sha256": "82404a40a266e842f9160d93b49695318727a261d17ee8b1f150fad3a66a9fa8",
+      "frames": [
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 166,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 10
+        },
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 167,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 11
+        },
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 168,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 9
+        },
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 169,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 2
+        },
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 170,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 1
+        },
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 175,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 4
+        }
+      ]
+    },
+    {
+      "file": "current-16.png",
+      "sha256": "d653ae3214fc796c1e538180940baa78807cc94d4607d1482b9d5795a5abf431",
+      "frames": [
+        {
+          "label": 32,
+          "axis": "z",
+          "index": 176,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 4
+        },
+        {
+          "label": 32,
+          "axis": "x",
+          "index": 211,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 8
+        },
+        {
+          "label": 32,
+          "axis": "x",
+          "index": 223,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 19
+        },
+        {
+          "label": 32,
+          "axis": "x",
+          "index": 231,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 32
+        },
+        {
+          "label": 32,
+          "axis": "x",
+          "index": 236,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 36
+        },
+        {
+          "label": 32,
+          "axis": "x",
+          "index": 256,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 4
+        }
+      ]
+    },
+    {
+      "file": "current-17.png",
+      "sha256": "6c61be8a806fcee10291b07497499bfbb2d00fbd7667caeb791b534781d9a6a9",
+      "frames": [
+        {
+          "label": 32,
+          "axis": "y",
+          "index": 223,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 12
+        },
+        {
+          "label": 32,
+          "axis": "y",
+          "index": 258,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 6
+        },
+        {
+          "label": 32,
+          "axis": "y",
+          "index": 277,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 12
+        },
+        {
+          "label": 32,
+          "axis": "y",
+          "index": 290,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 12
+        },
+        {
+          "label": 32,
+          "axis": "y",
+          "index": 312,
+          "crop": {
+            "min": [
+              201,
+              213,
+              119
+            ],
+            "max": [
+              266,
+              322,
+              186
+            ]
+          },
+          "pointCount": 1
+        }
+      ]
+    }
+  ],
+  "legend": "Yellow: still-capsule historical review points, NOT approved deletion. Red: current capsule. Cyan: registered source nuclei. Raw at left.",
+  "display": "nearest-neighbor 2x; anatomical axis orientation inherited from the tested orthogonal bundle renderer"
+}

@@ -1,0 +1,4210 @@
+{
+  "inputCompressedSha256": "0d31037722a8a31eee3ff6feed49dc076ece3d6c864297240c687cd1526cc229",
+  "inputRawSha256": "b36c2bc3f2ceb8701283dde2cfdd47305b8861e11d357762bd1c160e9dafaa9d",
+  "outputCompressedSha256": "5f1847a300e0a988ec19037c947e18b525f5d4dc01da8de87222035abbf88eba",
+  "outputRawSha256": "6335e0b37e926a9523a1c4d451104157e044a968bddfcaadd069f0c1b7f471dd",
+  "changedVoxelCount": 304,
+  "transitions": {
+    "0->24": 304
+  },
+  "points": [
+    {
+      "xyz": [
+        251,
+        187,
+        150
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        251,
+        188,
+        152
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        251,
+        189,
+        152
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        252,
+        184,
+        149
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        252,
+        184,
+        150
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        252,
+        185,
+        148
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        252,
+        186,
+        148
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        252,
+        187,
+        149
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        253,
+        185,
+        145
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        253,
+        185,
+        146
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        253,
+        186,
+        146
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        254,
+        183,
+        151
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        254,
+        184,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        254,
+        185,
+        141
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        254,
+        185,
+        142
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        254,
+        185,
+        145
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        254,
+        185,
+        146
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        254,
+        186,
+        145
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        254,
+        187,
+        145
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        255,
+        184,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        255,
+        185,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        255,
+        186,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        255,
+        187,
+        143
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        255,
+        187,
+        144
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        256,
+        185,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        256,
+        186,
+        139
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        256,
+        186,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        256,
+        187,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        256,
+        187,
+        141
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        256,
+        187,
+        142
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        256,
+        189,
+        149
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        256,
+        189,
+        150
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        257,
+        185,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        257,
+        186,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        257,
+        186,
+        142
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        257,
+        186,
+        149
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        257,
+        187,
+        139
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        257,
+        187,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        257,
+        187,
+        141
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        257,
+        188,
+        141
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        257,
+        189,
+        148
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        257,
+        189,
+        149
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        257,
+        189,
+        150
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        257,
+        189,
+        151
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        257,
+        189,
+        152
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        257,
+        190,
+        150
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        257,
+        190,
+        151
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        257,
+        190,
+        152
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        257,
+        191,
+        151
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        257,
+        191,
+        152
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        257,
+        192,
+        151
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        257,
+        192,
+        152
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        258,
+        185,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        258,
+        186,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        258,
+        187,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        258,
+        188,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        258,
+        189,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        258,
+        189,
+        148
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        258,
+        189,
+        149
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        258,
+        189,
+        150
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        258,
+        189,
+        151
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        258,
+        190,
+        150
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        258,
+        190,
+        151
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        259,
+        185,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        259,
+        185,
+        151
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        259,
+        186,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        259,
+        187,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        259,
+        187,
+        149
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        259,
+        187,
+        150
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        259,
+        188,
+        139
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        259,
+        188,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        259,
+        189,
+        138
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        259,
+        189,
+        139
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        259,
+        189,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        259,
+        191,
+        149
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        260,
+        176,
+        143
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        260,
+        183,
+        146
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        260,
+        184,
+        143
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        260,
+        185,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        260,
+        186,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        260,
+        187,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        260,
+        187,
+        149
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        260,
+        189,
+        138
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        260,
+        189,
+        139
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        260,
+        190,
+        137
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        260,
+        190,
+        138
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        260,
+        190,
+        139
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        260,
+        192,
+        146
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        260,
+        192,
+        147
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        261,
+        175,
+        151
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        261,
+        175,
+        152
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        261,
+        176,
+        151
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        261,
+        177,
+        151
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        261,
+        181,
+        149
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        261,
+        181,
+        150
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        261,
+        184,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        261,
+        184,
+        143
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        261,
+        185,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        261,
+        186,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        262,
+        183,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        262,
+        184,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        262,
+        185,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        262,
+        186,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        263,
+        174,
+        147
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        263,
+        174,
+        148
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        263,
+        174,
+        149
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        263,
+        175,
+        145
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        263,
+        175,
+        146
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        263,
+        175,
+        147
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        263,
+        176,
+        145
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        263,
+        176,
+        146
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        263,
+        177,
+        145
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        263,
+        177,
+        146
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        263,
+        178,
+        145
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        263,
+        178,
+        146
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        263,
+        183,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        263,
+        184,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        263,
+        185,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        263,
+        186,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        263,
+        186,
+        142
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        263,
+        187,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        264,
+        182,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        264,
+        183,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        264,
+        184,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        264,
+        185,
+        139
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        264,
+        185,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        264,
+        186,
+        139
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        264,
+        186,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        264,
+        187,
+        139
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        264,
+        187,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        264,
+        188,
+        139
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        265,
+        174,
+        142
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        265,
+        174,
+        143
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        265,
+        175,
+        142
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        265,
+        175,
+        143
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        265,
+        176,
+        142
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        265,
+        176,
+        143
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        265,
+        177,
+        142
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        265,
+        177,
+        143
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        265,
+        178,
+        141
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        265,
+        178,
+        142
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        265,
+        178,
+        143
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        265,
+        180,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        265,
+        181,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        265,
+        181,
+        141
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        265,
+        182,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        265,
+        182,
+        141
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        265,
+        183,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        265,
+        184,
+        139
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        265,
+        184,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        265,
+        189,
+        139
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        265,
+        189,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        265,
+        190,
+        139
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        265,
+        190,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        266,
+        174,
+        143
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        266,
+        175,
+        142
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        266,
+        175,
+        143
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        266,
+        176,
+        142
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        266,
+        177,
+        141
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        266,
+        178,
+        141
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        266,
+        179,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        266,
+        180,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        266,
+        181,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        266,
+        181,
+        141
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        266,
+        182,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        266,
+        183,
+        139
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        266,
+        183,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        266,
+        184,
+        139
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        266,
+        184,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        266,
+        185,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        266,
+        186,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        266,
+        187,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        266,
+        188,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        266,
+        189,
+        139
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        266,
+        189,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        266,
+        190,
+        139
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        266,
+        191,
+        138
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        266,
+        191,
+        139
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        267,
+        179,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        267,
+        182,
+        139
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        267,
+        182,
+        140
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        267,
+        183,
+        139
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        267,
+        184,
+        139
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        267,
+        185,
+        139
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        267,
+        186,
+        139
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        267,
+        189,
+        139
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        267,
+        191,
+        138
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        268,
+        192,
+        137
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        268,
+        193,
+        136
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        268,
+        194,
+        135
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        268,
+        195,
+        135
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        269,
+        191,
+        137
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        269,
+        192,
+        137
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        269,
+        194,
+        135
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        269,
+        195,
+        134
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        269,
+        195,
+        135
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        269,
+        197,
+        131
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        269,
+        198,
+        131
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        269,
+        198,
+        132
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        269,
+        199,
+        133
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        269,
+        201,
+        132
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        269,
+        203,
+        131
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        270,
+        195,
+        134
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        270,
+        196,
+        134
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        270,
+        197,
+        131
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        270,
+        197,
+        132
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        270,
+        197,
+        133
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        270,
+        198,
+        131
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        270,
+        198,
+        132
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        270,
+        198,
+        133
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        270,
+        199,
+        131
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        270,
+        199,
+        132
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        270,
+        200,
+        131
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        271,
+        196,
+        133
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        271,
+        197,
+        131
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        271,
+        198,
+        129
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        271,
+        198,
+        130
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        271,
+        198,
+        131
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        271,
+        199,
+        128
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        271,
+        199,
+        129
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        271,
+        199,
+        130
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        271,
+        200,
+        127
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        271,
+        200,
+        128
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        271,
+        200,
+        129
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        271,
+        201,
+        127
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        271,
+        201,
+        128
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        271,
+        201,
+        129
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        271,
+        202,
+        128
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        271,
+        203,
+        128
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        271,
+        204,
+        127
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        271,
+        204,
+        128
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        272,
+        197,
+        131
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        272,
+        198,
+        129
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        272,
+        198,
+        130
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        272,
+        198,
+        131
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        272,
+        199,
+        128
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        272,
+        199,
+        129
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        272,
+        200,
+        127
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        272,
+        200,
+        128
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        272,
+        200,
+        129
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        272,
+        201,
+        127
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        272,
+        201,
+        128
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        272,
+        202,
+        127
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        272,
+        202,
+        128
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        272,
+        203,
+        127
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        272,
+        204,
+        127
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        272,
+        205,
+        127
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        272,
+        207,
+        125
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        272,
+        207,
+        126
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        272,
+        208,
+        125
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        272,
+        208,
+        126
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        272,
+        209,
+        125
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        272,
+        209,
+        126
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        272,
+        210,
+        125
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        272,
+        210,
+        126
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        272,
+        211,
+        125
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        273,
+        198,
+        129
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        273,
+        199,
+        128
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        273,
+        199,
+        129
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        273,
+        200,
+        127
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        273,
+        200,
+        128
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        273,
+        201,
+        125
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        273,
+        201,
+        126
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        273,
+        201,
+        127
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        273,
+        201,
+        128
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        273,
+        202,
+        125
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        273,
+        202,
+        126
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        273,
+        202,
+        127
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        273,
+        203,
+        125
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        273,
+        203,
+        126
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        273,
+        204,
+        125
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        273,
+        204,
+        126
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        273,
+        205,
+        125
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        273,
+        206,
+        125
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        273,
+        207,
+        122
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        273,
+        207,
+        125
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        273,
+        208,
+        125
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        273,
+        209,
+        121
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        273,
+        209,
+        124
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        273,
+        210,
+        124
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        273,
+        211,
+        124
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        274,
+        199,
+        128
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        274,
+        202,
+        125
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        274,
+        203,
+        125
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        274,
+        204,
+        124
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        274,
+        204,
+        125
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        274,
+        205,
+        124
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        274,
+        206,
+        123
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        274,
+        207,
+        122
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        274,
+        207,
+        123
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        274,
+        208,
+        122
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        274,
+        208,
+        123
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        274,
+        209,
+        122
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        274,
+        209,
+        123
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        274,
+        210,
+        122
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        274,
+        211,
+        122
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        275,
+        206,
+        123
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        275,
+        207,
+        122
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        275,
+        208,
+        122
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        275,
+        209,
+        122
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        275,
+        210,
+        121
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        275,
+        210,
+        122
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        275,
+        211,
+        121
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        275,
+        211,
+        122
+      ],
+      "before": 0,
+      "after": 24
+    }
+  ],
+  "reviewEvidence": [
+    {
+      "path": "work/anatomy-review/inferior-horn-cavity-finite-difference-v1/report.json",
+      "sha256": "be00a4dacacf62f98c61765d253b5dc2de269a16f935a65ef772c1af18992278"
+    },
+    {
+      "path": "work/anatomy-review/inferior-horn-cavity-wide-context-v1/report.json",
+      "sha256": "777913e141aa0856d9ad7ea68a4471a8011ea9d2cf16dcb7889b60e6ccc1bb09"
+    }
+  ],
+  "finiteEvidence": {
+    "path": "work/anatomy-review/inferior-horn-cavity-grid-v1.json",
+    "sha256": "ae68fb441a485258ab93d4294834c7a5ca560c5a6334c6a0b05f25d67b175ce2"
+  },
+  "status": "AI-image-reviewed-project-adopted-development-only",
+  "adopted": true,
+  "installed": true,
+  "published": false,
+  "expertReviewed": false,
+  "rationale": "Localized omissions within the right ventricular cavity; all projected change planes and adjacent planes reviewed against registered raw 300um images, with wider anatomical context at crop-near locations. Internal gray structures retained.",
+  "limitations": [
+    "Not full inferior-horn completion, expert ground truth, or approval of the threshold exploration.",
+    "Do not interpolate missing connections or transfer unreviewed threshold cells.",
+    "Development integration only; application tests/build/browser recorded separately. Not published."
+  ],
+  "projectAdopted": true,
+  "meshImpact": {
+    "inputSha256": "0d31037722a8a31eee3ff6feed49dc076ece3d6c864297240c687cd1526cc229",
+    "outputSha256": "5f1847a300e0a988ec19037c947e18b525f5d4dc01da8de87222035abbf88eba",
+    "blockMaskImpact": [
+      {
+        "block": "lateral-ventricle",
+        "part": "tissue",
+        "changedMaskVoxels": 55,
+        "file": "block-lateral-ventricle-tissue.mesh",
+        "beforeSha256": "59298b88b7278960eb0e6c278da3f240597a438dd3e24092dcc71176272b487a",
+        "afterSha256": "da76b2cb472f40b45d31957c526ea7c159be188f93dfbd03d289c34e6278918e",
+        "reproducedBeforeSha256": "59298b88b7278960eb0e6c278da3f240597a438dd3e24092dcc71176272b487a",
+        "beforeMatches": true,
+        "vertices": 34453,
+        "faces": 68114
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "ventricular-cavity",
+        "changedMaskVoxels": 31,
+        "file": "block-lateral-ventricle-ventricular-cavity.mesh",
+        "beforeSha256": "5a17093814b48960ddd70c21484a53acf908df33d2a3ca0f0731ee6e03c32c31",
+        "afterSha256": "5c0e6e2eb2f423954d813325a95829a87494424d7c77e9829bfbe7f865bd9820",
+        "reproducedBeforeSha256": "5a17093814b48960ddd70c21484a53acf908df33d2a3ca0f0731ee6e03c32c31",
+        "beforeMatches": true,
+        "vertices": 8587,
+        "faces": 17034
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "caudate",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "thalamus",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "hippocampus",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "tissue",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "thalami",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "third-ventricle",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "hypothalamus",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "subthalamic-nuclei",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "mammillary-bodies",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "radiations",
+        "part": "tissue",
+        "changedMaskVoxels": 5,
+        "file": "block-radiations-tissue.mesh",
+        "beforeSha256": "382810e88f65805fb54efce751b9851218992e744ea3ebbb8fe5d87d0989b935",
+        "afterSha256": "7b931aa8a7817655d14cb23e499e997c970174e068ff997cd8255bef2fdd8896",
+        "reproducedBeforeSha256": "382810e88f65805fb54efce751b9851218992e744ea3ebbb8fe5d87d0989b935",
+        "beforeMatches": true,
+        "vertices": 76482,
+        "faces": 150772
+      },
+      {
+        "block": "radiations",
+        "part": "putamen",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "radiations",
+        "part": "pallidum-external",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "radiations",
+        "part": "pallidum-internal",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "radiations",
+        "part": "internal-capsule",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "radiations",
+        "part": "corona-radiata",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "radiations",
+        "part": "optic-radiation",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "radiations",
+        "part": "auditory-radiation",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "tissue",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "corpus-callosum",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "lateral-ventricles",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "fornix",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "septum-pellucidum",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "tissue",
+        "changedMaskVoxels": 1,
+        "file": "block-choroid-plexus-tissue.mesh",
+        "beforeSha256": "7a4cddef3878e1752a74e527ed35a108e4932be086a84524a7ee113b92006f5b",
+        "afterSha256": "b20bfebab5861e2481869c7cd15d48497c668fd062b2c5cd85823089f05885c3",
+        "reproducedBeforeSha256": "7a4cddef3878e1752a74e527ed35a108e4932be086a84524a7ee113b92006f5b",
+        "beforeMatches": true,
+        "vertices": 17839,
+        "faces": 35466
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "ventricular-cavity",
+        "changedMaskVoxels": 28,
+        "file": "block-choroid-plexus-ventricular-cavity.mesh",
+        "beforeSha256": "7c3d7e7d5557bbd0caa1fbb908c7397fbb386becfe8cefe03b571784c935b20f",
+        "afterSha256": "adfb4f21e5a246cccadf3ae8ae30adac4ddb6161d7bc2d7c8bd4dfd2bb86cc56",
+        "reproducedBeforeSha256": "7c3d7e7d5557bbd0caa1fbb908c7397fbb386becfe8cefe03b571784c935b20f",
+        "beforeMatches": true,
+        "vertices": 8129,
+        "faces": 16146
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "choroid-plexus",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "hippocampus",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "tissue",
+        "changedMaskVoxels": 3,
+        "file": "block-medial-temporal-tissue.mesh",
+        "beforeSha256": "f0eb58722af85fa305d251e97c74a26d633ef0fb94a3da05972a268995b04e79",
+        "afterSha256": "cc33df1889bdb1f692fe27981ac89fa45d8b59c1670ee2d6e1fb431214953010",
+        "reproducedBeforeSha256": "f0eb58722af85fa305d251e97c74a26d633ef0fb94a3da05972a268995b04e79",
+        "beforeMatches": true,
+        "vertices": 29214,
+        "faces": 58288
+      },
+      {
+        "block": "medial-temporal",
+        "part": "hippocampus",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "amygdala",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "inferior-horn",
+        "changedMaskVoxels": 27,
+        "file": "block-medial-temporal-inferior-horn.mesh",
+        "beforeSha256": "8fbec5bbe34796939aa7102ab097effe3346034c60d936bcabe5ec01ca2e918f",
+        "afterSha256": "d944f922b098649f93d28fe982e1b7c5eafdabaa670ac578d36d58d8204bda9a",
+        "reproducedBeforeSha256": "8fbec5bbe34796939aa7102ab097effe3346034c60d936bcabe5ec01ca2e918f",
+        "beforeMatches": true,
+        "vertices": 930,
+        "faces": 1784
+      },
+      {
+        "block": "midbrain-section",
+        "part": "tissue",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "red-nuclei",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "substantia-nigra",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "aqueduct",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "cerebral-peduncles",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "superior-colliculi",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "inferior-colliculi",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "lateral-geniculate-bodies",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "medial-geniculate-bodies",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "interpeduncular-fossa",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "pons-medulla",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "cerebellum",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "midbrain",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "fourth-ventricle",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "superior-cerebellar-peduncles",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "middle-cerebellar-peduncles",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "inferior-cerebellar-peduncles",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "facial-colliculi",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "vestibular-areas",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "hypoglossal-trigones",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "vagal-trigones",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "pyramids",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "olives",
+        "changedMaskVoxels": 0
+      }
+    ],
+    "installed": false,
+    "anatomyValidatedByMaskComparison": false,
+    "installationBlocked": false
+  },
+  "contextMaskExplanation": {
+    "stageSha256": "470b0b86c0183416f2e5c308d10ce76e6ed797b5b64c49052819ccccecb06b50",
+    "sourceCodeSha256": "3c57d8dc4ed8e284d921ad7a9470575173d7742067af4ab5dca2c2d6d90adffa",
+    "changes": [
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          256,
+          182,
+          118
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 156,
+        "distanceBeforeMm": 11.180339887498949,
+        "distanceAfterMm": 10.954451150103322,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          250,
+          176,
+          120
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 142,
+        "distanceBeforeMm": 11.445523142259598,
+        "distanceAfterMm": 10.954451150103322,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          252,
+          176,
+          120
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 143,
+        "distanceBeforeMm": 11.40175425099138,
+        "distanceAfterMm": 10.816653826391969,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          254,
+          176,
+          120
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 147,
+        "distanceBeforeMm": 11.40175425099138,
+        "distanceAfterMm": 10.770329614269007,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          256,
+          176,
+          120
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 158,
+        "distanceBeforeMm": 11.045361017187261,
+        "distanceAfterMm": 10.816653826391969,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          248,
+          178,
+          120
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 164,
+        "distanceBeforeMm": 11.357816691600547,
+        "distanceAfterMm": 10.862780491200215,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          250,
+          178,
+          120
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 144,
+        "distanceBeforeMm": 11.224972160321824,
+        "distanceAfterMm": 10.63014581273465,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          252,
+          178,
+          120
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 148,
+        "distanceBeforeMm": 11.180339887498949,
+        "distanceAfterMm": 10.488088481701515,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          254,
+          178,
+          120
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 146,
+        "distanceBeforeMm": 11.180339887498949,
+        "distanceAfterMm": 10.44030650891055,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          246,
+          180,
+          120
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 195,
+        "distanceBeforeMm": 11.445523142259598,
+        "distanceAfterMm": 10.954451150103322,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          248,
+          180,
+          120
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 179,
+        "distanceBeforeMm": 11.224972160321824,
+        "distanceAfterMm": 10.63014581273465,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          250,
+          180,
+          120
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 167,
+        "distanceBeforeMm": 11.090536506409418,
+        "distanceAfterMm": 10.392304845413264,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          252,
+          180,
+          120
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 147,
+        "distanceBeforeMm": 11.045361017187261,
+        "distanceAfterMm": 10.246950765959598,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          246,
+          182,
+          120
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 238,
+        "distanceBeforeMm": 11.40175425099138,
+        "distanceAfterMm": 10.816653826391969,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          248,
+          182,
+          120
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 196,
+        "distanceBeforeMm": 11.180339887498949,
+        "distanceAfterMm": 10.488088481701515,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          250,
+          182,
+          120
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 181,
+        "distanceBeforeMm": 11.045361017187261,
+        "distanceAfterMm": 10.246950765959598,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          250,
+          184,
+          120
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 245,
+        "distanceBeforeMm": 11.090536506409418,
+        "distanceAfterMm": 10.198039027185569,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          252,
+          184,
+          120
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 223,
+        "distanceBeforeMm": 11.045361017187261,
+        "distanceAfterMm": 10.04987562112089,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          246,
+          188,
+          120
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 234,
+        "distanceBeforeMm": 11.789826122551595,
+        "distanceAfterMm": 10.954451150103322,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          248,
+          188,
+          120
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 243,
+        "distanceBeforeMm": 11.445523142259598,
+        "distanceAfterMm": 10.63014581273465,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          248,
+          190,
+          120
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 169,
+        "distanceBeforeMm": 11.045361017187261,
+        "distanceAfterMm": 10.816653826391969,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          250,
+          172,
+          122
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 148,
+        "distanceBeforeMm": 11.224972160321824,
+        "distanceAfterMm": 11.0,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          252,
+          172,
+          122
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 151,
+        "distanceBeforeMm": 11.180339887498949,
+        "distanceAfterMm": 10.862780491200215,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          254,
+          172,
+          122
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 149,
+        "distanceBeforeMm": 11.180339887498949,
+        "distanceAfterMm": 10.816653826391969,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          242,
+          182,
+          122
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 244,
+        "distanceBeforeMm": 11.180339887498949,
+        "distanceAfterMm": 10.862780491200215,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          242,
+          184,
+          122
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 245,
+        "distanceBeforeMm": 11.224972160321824,
+        "distanceAfterMm": 10.816653826391969,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          242,
+          188,
+          122
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 177,
+        "distanceBeforeMm": 11.575836902790225,
+        "distanceAfterMm": 11.0,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          244,
+          188,
+          122
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 168,
+        "distanceBeforeMm": 11.180339887498949,
+        "distanceAfterMm": 10.488088481701515,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          244,
+          190,
+          122
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 160,
+        "distanceBeforeMm": 11.489125293076057,
+        "distanceAfterMm": 10.723805294763608,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          246,
+          190,
+          122
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 161,
+        "distanceBeforeMm": 11.180339887498949,
+        "distanceAfterMm": 10.295630140987,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          246,
+          192,
+          122
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 159,
+        "distanceBeforeMm": 11.180339887498949,
+        "distanceAfterMm": 10.63014581273465,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          240,
+          188,
+          124
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 159,
+        "distanceBeforeMm": 11.224972160321824,
+        "distanceAfterMm": 10.816653826391969,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          242,
+          190,
+          124
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 167,
+        "distanceBeforeMm": 11.045361017187261,
+        "distanceAfterMm": 10.44030650891055,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          242,
+          192,
+          124
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 158,
+        "distanceBeforeMm": 11.445523142259598,
+        "distanceAfterMm": 10.770329614269007,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          244,
+          192,
+          124
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 157,
+        "distanceBeforeMm": 11.045361017187261,
+        "distanceAfterMm": 10.246950765959598,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          244,
+          194,
+          124
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 162,
+        "distanceBeforeMm": 11.445523142259598,
+        "distanceAfterMm": 10.677078252031311,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          278,
+          168,
+          126
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 130,
+        "distanceBeforeMm": 11.045361017187261,
+        "distanceAfterMm": 10.770329614269007,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          238,
+          188,
+          126
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 144,
+        "distanceBeforeMm": 11.045361017187261,
+        "distanceAfterMm": 10.816653826391969,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          240,
+          192,
+          126
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 148,
+        "distanceBeforeMm": 11.180339887498949,
+        "distanceAfterMm": 10.677078252031311,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          242,
+          194,
+          126
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 167,
+        "distanceBeforeMm": 11.180339887498949,
+        "distanceAfterMm": 10.488088481701515,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          242,
+          196,
+          126
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 179,
+        "distanceBeforeMm": 11.661903789690601,
+        "distanceAfterMm": 11.0,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          244,
+          196,
+          126
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 184,
+        "distanceBeforeMm": 11.180339887498949,
+        "distanceAfterMm": 10.44030650891055,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          244,
+          198,
+          126
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 177,
+        "distanceBeforeMm": 11.180339887498949,
+        "distanceAfterMm": 10.770329614269007,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          278,
+          164,
+          128
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 159,
+        "distanceBeforeMm": 11.090536506409418,
+        "distanceAfterMm": 11.0,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          280,
+          168,
+          128
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 139,
+        "distanceBeforeMm": 11.045361017187261,
+        "distanceAfterMm": 10.677078252031311,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          282,
+          172,
+          128
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 195,
+        "distanceBeforeMm": 11.180339887498949,
+        "distanceAfterMm": 10.770329614269007,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          284,
+          176,
+          128
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 198,
+        "distanceBeforeMm": 11.045361017187261,
+        "distanceAfterMm": 11.0,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          236,
+          188,
+          128
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 158,
+        "distanceBeforeMm": 11.045361017187261,
+        "distanceAfterMm": 11.0,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          238,
+          192,
+          128
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 172,
+        "distanceBeforeMm": 11.090536506409418,
+        "distanceAfterMm": 10.770329614269007,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          240,
+          196,
+          128
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 183,
+        "distanceBeforeMm": 11.575836902790225,
+        "distanceAfterMm": 11.0,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          242,
+          198,
+          128
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 164,
+        "distanceBeforeMm": 11.575836902790225,
+        "distanceAfterMm": 11.0,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          280,
+          164,
+          130
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 150,
+        "distanceBeforeMm": 11.180339887498949,
+        "distanceAfterMm": 11.0,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          282,
+          168,
+          130
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 176,
+        "distanceBeforeMm": 11.224972160321824,
+        "distanceAfterMm": 10.770329614269007,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          284,
+          172,
+          130
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 207,
+        "distanceBeforeMm": 11.532562594670797,
+        "distanceAfterMm": 11.0,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          284,
+          174,
+          130
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 204,
+        "distanceBeforeMm": 11.045361017187261,
+        "distanceAfterMm": 10.723805294763608,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "radiations",
+        "appXYZ": [
+          266,
+          184,
+          140
+        ],
+        "before": true,
+        "after": false,
+        "labelBefore": 0,
+        "labelAfter": 24,
+        "raw500": 250,
+        "distanceBeforeMm": 1.0,
+        "distanceAfterMm": 0.0,
+        "cutoffMm": null,
+        "reason": "new-ventricular-label-excluded-from-context"
+      },
+      {
+        "block": "radiations",
+        "appXYZ": [
+          266,
+          186,
+          140
+        ],
+        "before": true,
+        "after": false,
+        "labelBefore": 0,
+        "labelAfter": 24,
+        "raw500": 242,
+        "distanceBeforeMm": 1.4142135623730951,
+        "distanceAfterMm": 0.0,
+        "cutoffMm": null,
+        "reason": "new-ventricular-label-excluded-from-context"
+      },
+      {
+        "block": "radiations",
+        "appXYZ": [
+          266,
+          188,
+          140
+        ],
+        "before": true,
+        "after": false,
+        "labelBefore": 0,
+        "labelAfter": 24,
+        "raw500": 244,
+        "distanceBeforeMm": 2.23606797749979,
+        "distanceAfterMm": 0.0,
+        "cutoffMm": null,
+        "reason": "new-ventricular-label-excluded-from-context"
+      },
+      {
+        "block": "radiations",
+        "appXYZ": [
+          260,
+          192,
+          146
+        ],
+        "before": true,
+        "after": false,
+        "labelBefore": 0,
+        "labelAfter": 24,
+        "raw500": 246,
+        "distanceBeforeMm": 2.449489742783178,
+        "distanceAfterMm": 0.0,
+        "cutoffMm": null,
+        "reason": "new-ventricular-label-excluded-from-context"
+      },
+      {
+        "block": "radiations",
+        "appXYZ": [
+          252,
+          184,
+          150
+        ],
+        "before": true,
+        "after": false,
+        "labelBefore": 0,
+        "labelAfter": 24,
+        "raw500": 250,
+        "distanceBeforeMm": 1.0,
+        "distanceAfterMm": 0.0,
+        "cutoffMm": null,
+        "reason": "new-ventricular-label-excluded-from-context"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          256,
+          186,
+          122
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 248,
+        "distanceBeforeMm": 8.774964387392123,
+        "distanceAfterMm": 8.48528137423857,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "medial-temporal",
+        "appXYZ": [
+          266,
+          184,
+          140
+        ],
+        "before": true,
+        "after": false,
+        "labelBefore": 0,
+        "labelAfter": 24,
+        "raw500": 250,
+        "distanceBeforeMm": 1.0,
+        "distanceAfterMm": 0.0,
+        "cutoffMm": null,
+        "reason": "new-ventricular-label-excluded-from-context"
+      },
+      {
+        "block": "medial-temporal",
+        "appXYZ": [
+          266,
+          186,
+          140
+        ],
+        "before": true,
+        "after": false,
+        "labelBefore": 0,
+        "labelAfter": 24,
+        "raw500": 242,
+        "distanceBeforeMm": 1.4142135623730951,
+        "distanceAfterMm": 0.0,
+        "cutoffMm": null,
+        "reason": "new-ventricular-label-excluded-from-context"
+      },
+      {
+        "block": "medial-temporal",
+        "appXYZ": [
+          266,
+          188,
+          140
+        ],
+        "before": true,
+        "after": false,
+        "labelBefore": 0,
+        "labelAfter": 24,
+        "raw500": 244,
+        "distanceBeforeMm": 2.23606797749979,
+        "distanceAfterMm": 0.0,
+        "cutoffMm": null,
+        "reason": "new-ventricular-label-excluded-from-context"
+      }
+    ],
+    "unionReplayExact": true,
+    "reverseExact": true,
+    "installed": false,
+    "anatomyProvenByContext": false
+  },
+  "visualReview": {
+    "localPlanes": 164,
+    "widerContextPlanes": 14,
+    "expertReviewed": false
+  }
+}

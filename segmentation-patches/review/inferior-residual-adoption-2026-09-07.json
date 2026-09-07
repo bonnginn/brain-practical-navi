@@ -1,0 +1,5299 @@
+{
+  "inputCompressedSha256": "5f1847a300e0a988ec19037c947e18b525f5d4dc01da8de87222035abbf88eba",
+  "inputRawSha256": "6335e0b37e926a9523a1c4d451104157e044a968bddfcaadd069f0c1b7f471dd",
+  "outputCompressedSha256": "681fb599fd6d2181d7b7398a775abf5f1335eb644ce95afc2149b39fab9f9c88",
+  "outputRawSha256": "eaee5e5809932b06e8b497c4b195edf659438e2a6d0fdb823b55ea2dea2b3086",
+  "changedVoxelCount": 57,
+  "transitions": {
+    "0->24": 57
+  },
+  "points": [
+    {
+      "xyz": [
+        241,
+        247,
+        105
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        241,
+        248,
+        104
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        241,
+        248,
+        105
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        241,
+        249,
+        102
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        241,
+        249,
+        103
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        241,
+        249,
+        104
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        241,
+        249,
+        105
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        241,
+        249,
+        106
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        241,
+        250,
+        102
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        241,
+        250,
+        103
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        242,
+        248,
+        105
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        242,
+        249,
+        103
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        242,
+        249,
+        104
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        242,
+        249,
+        105
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        242,
+        249,
+        106
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        242,
+        249,
+        107
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        242,
+        250,
+        101
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        242,
+        250,
+        102
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        242,
+        250,
+        103
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        243,
+        249,
+        104
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        243,
+        249,
+        105
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        243,
+        249,
+        106
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        243,
+        249,
+        107
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        243,
+        250,
+        103
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        244,
+        249,
+        105
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        244,
+        249,
+        106
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        244,
+        249,
+        107
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        244,
+        249,
+        108
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        245,
+        249,
+        106
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        245,
+        249,
+        107
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        245,
+        249,
+        108
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        246,
+        248,
+        109
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        246,
+        249,
+        107
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        246,
+        249,
+        108
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        246,
+        249,
+        109
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        247,
+        247,
+        109
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        247,
+        249,
+        109
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        248,
+        249,
+        107
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        248,
+        249,
+        109
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        249,
+        246,
+        110
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        249,
+        249,
+        108
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        249,
+        249,
+        109
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        250,
+        246,
+        110
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        250,
+        249,
+        108
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        251,
+        246,
+        110
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        251,
+        249,
+        107
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        252,
+        246,
+        110
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        252,
+        249,
+        107
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        253,
+        246,
+        110
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        254,
+        246,
+        110
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        255,
+        246,
+        110
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        255,
+        249,
+        107
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        256,
+        246,
+        110
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        259,
+        252,
+        101
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        260,
+        252,
+        101
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        262,
+        252,
+        100
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        263,
+        249,
+        104
+      ],
+      "before": 0,
+      "after": 24
+    }
+  ],
+  "reviewEvidence": [
+    {
+      "path": "work/anatomy-review/inferior-horn-residual-51-finite-v1/report.json",
+      "sha256": "b1e8c8079036e2e7961dd2f7a2db689c2beab0cdbee4fba85ed055ffd1401df8"
+    },
+    {
+      "path": "work/anatomy-review/inferior-horn-residual-51-coronal-v1/report.json",
+      "sha256": "ecb7dffc1077169bbf6de0da9e02fc3751bd29625947eec0a166ea308e193ec4"
+    },
+    {
+      "path": "work/anatomy-review/inferior-horn-residual-51-native-v1/report.json",
+      "sha256": "06974a1ec40849199696e6160a5acfd1723d4496772aa86003c15104796cea40"
+    }
+  ],
+  "finiteEvidence": {
+    "path": "work/anatomy-review/inferior-horn-residual-51-grid-v1.json",
+    "sha256": "2478cea0ab00d3ba0a915ecc63c8d170526916f5196877b36ef036ffc2ea3129"
+  },
+  "status": "AI-image-reviewed-project-adopted-development-only",
+  "adopted": true,
+  "installed": true,
+  "published": false,
+  "expertReviewed": false,
+  "rationale": "Localized omissions within the right ventricular cavity; all projected change planes and adjacent planes reviewed against registered raw 300um images, with wider anatomical context at crop-near locations. Internal gray structures retained.",
+  "limitations": [
+    "Not full inferior-horn completion, expert ground truth, or approval of the threshold exploration.",
+    "Do not interpolate missing connections or transfer unreviewed threshold cells.",
+    "Development integration only; application tests/build/browser recorded separately. Not published."
+  ],
+  "projectAdopted": true,
+  "meshImpact": {
+    "inputSha256": "5f1847a300e0a988ec19037c947e18b525f5d4dc01da8de87222035abbf88eba",
+    "outputSha256": "681fb599fd6d2181d7b7398a775abf5f1335eb644ce95afc2149b39fab9f9c88",
+    "blockMaskImpact": [
+      {
+        "block": "lateral-ventricle",
+        "part": "tissue",
+        "changedMaskVoxels": 129,
+        "file": "block-lateral-ventricle-tissue.mesh",
+        "beforeSha256": "da76b2cb472f40b45d31957c526ea7c159be188f93dfbd03d289c34e6278918e",
+        "afterSha256": "8c296678ed657712a5d91317532881ffe0ceae85be1890b6d28db308a6e58c7d",
+        "reproducedBeforeSha256": "da76b2cb472f40b45d31957c526ea7c159be188f93dfbd03d289c34e6278918e",
+        "beforeMatches": true,
+        "vertices": 34466,
+        "faces": 68144
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "ventricular-cavity",
+        "changedMaskVoxels": 6,
+        "file": "block-lateral-ventricle-ventricular-cavity.mesh",
+        "beforeSha256": "5c0e6e2eb2f423954d813325a95829a87494424d7c77e9829bfbe7f865bd9820",
+        "afterSha256": "17f285abf46e4134b7deb976accc1ba5b7809fe1ef3f024d72a230987ac2e637",
+        "reproducedBeforeSha256": "5c0e6e2eb2f423954d813325a95829a87494424d7c77e9829bfbe7f865bd9820",
+        "beforeMatches": true,
+        "vertices": 8605,
+        "faces": 17070
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "caudate",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "thalamus",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "hippocampus",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "tissue",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "thalami",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "third-ventricle",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "hypothalamus",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "subthalamic-nuclei",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "mammillary-bodies",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "radiations",
+        "part": "tissue",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "radiations",
+        "part": "putamen",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "radiations",
+        "part": "pallidum-external",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "radiations",
+        "part": "pallidum-internal",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "radiations",
+        "part": "internal-capsule",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "radiations",
+        "part": "corona-radiata",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "radiations",
+        "part": "optic-radiation",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "radiations",
+        "part": "auditory-radiation",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "tissue",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "corpus-callosum",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "lateral-ventricles",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "fornix",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "septum-pellucidum",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "tissue",
+        "changedMaskVoxels": 125,
+        "file": "block-choroid-plexus-tissue.mesh",
+        "beforeSha256": "b20bfebab5861e2481869c7cd15d48497c668fd062b2c5cd85823089f05885c3",
+        "afterSha256": "1eeea021566cb9e2e01e807e753bd997575c77958f65aae84018a910ac7ae324",
+        "reproducedBeforeSha256": "b20bfebab5861e2481869c7cd15d48497c668fd062b2c5cd85823089f05885c3",
+        "beforeMatches": true,
+        "vertices": 17916,
+        "faces": 35636
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "ventricular-cavity",
+        "changedMaskVoxels": 6,
+        "file": "block-choroid-plexus-ventricular-cavity.mesh",
+        "beforeSha256": "adfb4f21e5a246cccadf3ae8ae30adac4ddb6161d7bc2d7c8bd4dfd2bb86cc56",
+        "afterSha256": "145349be3a2d46b457d92a07c0ede71d0176a10cc4c6098b7fa6fc0742982c57",
+        "reproducedBeforeSha256": "adfb4f21e5a246cccadf3ae8ae30adac4ddb6161d7bc2d7c8bd4dfd2bb86cc56",
+        "beforeMatches": true,
+        "vertices": 8147,
+        "faces": 16182
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "choroid-plexus",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "hippocampus",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "tissue",
+        "changedMaskVoxels": 5,
+        "file": "block-medial-temporal-tissue.mesh",
+        "beforeSha256": "cc33df1889bdb1f692fe27981ac89fa45d8b59c1670ee2d6e1fb431214953010",
+        "afterSha256": "23a19a1f8ba0d108c094af1b0bf99f6ac303512082a4336c911d2ec2a7b6212b",
+        "reproducedBeforeSha256": "cc33df1889bdb1f692fe27981ac89fa45d8b59c1670ee2d6e1fb431214953010",
+        "beforeMatches": true,
+        "vertices": 29217,
+        "faces": 58298
+      },
+      {
+        "block": "medial-temporal",
+        "part": "hippocampus",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "amygdala",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "inferior-horn",
+        "changedMaskVoxels": 6,
+        "file": "block-medial-temporal-inferior-horn.mesh",
+        "beforeSha256": "d944f922b098649f93d28fe982e1b7c5eafdabaa670ac578d36d58d8204bda9a",
+        "afterSha256": "de710e0f3747490732135e109154624fd73ba238b034f327898891d6a7b8998c",
+        "reproducedBeforeSha256": "d944f922b098649f93d28fe982e1b7c5eafdabaa670ac578d36d58d8204bda9a",
+        "beforeMatches": true,
+        "vertices": 948,
+        "faces": 1820
+      },
+      {
+        "block": "midbrain-section",
+        "part": "tissue",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "red-nuclei",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "substantia-nigra",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "aqueduct",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "cerebral-peduncles",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "superior-colliculi",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "inferior-colliculi",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "lateral-geniculate-bodies",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "medial-geniculate-bodies",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "interpeduncular-fossa",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "pons-medulla",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "cerebellum",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "midbrain",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "fourth-ventricle",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "superior-cerebellar-peduncles",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "middle-cerebellar-peduncles",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "inferior-cerebellar-peduncles",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "facial-colliculi",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "vestibular-areas",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "hypoglossal-trigones",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "vagal-trigones",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "pyramids",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "olives",
+        "changedMaskVoxels": 0
+      }
+    ],
+    "installed": false,
+    "anatomyValidatedByMaskComparison": false,
+    "installationBlocked": false
+  },
+  "contextMaskExplanation": {
+    "stageSha256": "4401e414aa3e940e3991b0e631215af27415dd221a60c41e4d1b8f10c33b34e1",
+    "sourceCodeSha256": "3c57d8dc4ed8e284d921ad7a9470575173d7742067af4ab5dca2c2d6d90adffa",
+    "changes": [
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          238,
+          234,
+          88
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 147,
+        "distanceBeforeMm": 11.224972160321824,
+        "distanceAfterMm": 10.816653826391969,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          234,
+          236,
+          88
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 194,
+        "distanceBeforeMm": 11.445523142259598,
+        "distanceAfterMm": 10.677078252031311,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          232,
+          238,
+          88
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 213,
+        "distanceBeforeMm": 11.357816691600547,
+        "distanceAfterMm": 10.488088481701515,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          228,
+          244,
+          88
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 249,
+        "distanceBeforeMm": 11.224972160321824,
+        "distanceAfterMm": 10.344080432788601,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          238,
+          232,
+          90
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 150,
+        "distanceBeforeMm": 12.24744871391589,
+        "distanceAfterMm": 11.0,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          240,
+          232,
+          90
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 158,
+        "distanceBeforeMm": 11.874342087037917,
+        "distanceAfterMm": 10.862780491200215,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          242,
+          232,
+          90
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 176,
+        "distanceBeforeMm": 11.575836902790225,
+        "distanceAfterMm": 10.816653826391969,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          244,
+          232,
+          90
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 180,
+        "distanceBeforeMm": 11.357816691600547,
+        "distanceAfterMm": 10.862780491200215,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          246,
+          232,
+          90
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 178,
+        "distanceBeforeMm": 11.180339887498949,
+        "distanceAfterMm": 11.0,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          234,
+          234,
+          90
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 162,
+        "distanceBeforeMm": 12.24744871391589,
+        "distanceAfterMm": 10.770329614269007,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          236,
+          234,
+          90
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 145,
+        "distanceBeforeMm": 11.832159566199232,
+        "distanceAfterMm": 10.44030650891055,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          238,
+          234,
+          90
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 150,
+        "distanceBeforeMm": 11.357816691600547,
+        "distanceAfterMm": 10.198039027185569,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          232,
+          236,
+          90
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 195,
+        "distanceBeforeMm": 11.832159566199232,
+        "distanceAfterMm": 10.488088481701515,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          234,
+          236,
+          90
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 146,
+        "distanceBeforeMm": 11.575836902790225,
+        "distanceAfterMm": 10.04987562112089,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          230,
+          238,
+          90
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 234,
+        "distanceBeforeMm": 11.575836902790225,
+        "distanceAfterMm": 10.392304845413264,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          232,
+          238,
+          90
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 160,
+        "distanceBeforeMm": 11.357816691600547,
+        "distanceAfterMm": 9.848857801796104,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          230,
+          240,
+          90
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 168,
+        "distanceBeforeMm": 11.180339887498949,
+        "distanceAfterMm": 9.848857801796104,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          228,
+          242,
+          90
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 225,
+        "distanceBeforeMm": 11.180339887498949,
+        "distanceAfterMm": 10.04987562112089,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          226,
+          244,
+          90
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 250,
+        "distanceBeforeMm": 11.357816691600547,
+        "distanceAfterMm": 10.44030650891055,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          226,
+          246,
+          90
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 165,
+        "distanceBeforeMm": 11.224972160321824,
+        "distanceAfterMm": 10.198039027185569,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          226,
+          248,
+          90
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 224,
+        "distanceBeforeMm": 11.180339887498949,
+        "distanceAfterMm": 10.04987562112089,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          224,
+          250,
+          90
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 221,
+        "distanceBeforeMm": 11.704699910719626,
+        "distanceAfterMm": 10.816653826391969,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          226,
+          250,
+          90
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 180,
+        "distanceBeforeMm": 11.224972160321824,
+        "distanceAfterMm": 10.0,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          224,
+          252,
+          90
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 210,
+        "distanceBeforeMm": 11.832159566199232,
+        "distanceAfterMm": 10.862780491200215,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          226,
+          252,
+          90
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 191,
+        "distanceBeforeMm": 11.224972160321824,
+        "distanceAfterMm": 10.04987562112089,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          224,
+          254,
+          90
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 216,
+        "distanceBeforeMm": 12.041594578792296,
+        "distanceAfterMm": 11.0,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          226,
+          254,
+          90
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 189,
+        "distanceBeforeMm": 11.180339887498949,
+        "distanceAfterMm": 10.198039027185569,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          226,
+          256,
+          90
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 181,
+        "distanceBeforeMm": 11.224972160321824,
+        "distanceAfterMm": 10.44030650891055,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          226,
+          258,
+          90
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 185,
+        "distanceBeforeMm": 11.357816691600547,
+        "distanceAfterMm": 10.770329614269007,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          236,
+          232,
+          92
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 150,
+        "distanceBeforeMm": 12.041594578792296,
+        "distanceAfterMm": 10.723805294763608,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          238,
+          232,
+          92
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 148,
+        "distanceBeforeMm": 12.0,
+        "distanceAfterMm": 10.488088481701515,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          240,
+          232,
+          92
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 173,
+        "distanceBeforeMm": 11.704699910719626,
+        "distanceAfterMm": 10.344080432788601,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          242,
+          232,
+          92
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 185,
+        "distanceBeforeMm": 11.489125293076057,
+        "distanceAfterMm": 10.295630140987,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          244,
+          232,
+          92
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 179,
+        "distanceBeforeMm": 11.357816691600547,
+        "distanceAfterMm": 10.344080432788601,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          246,
+          232,
+          92
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 179,
+        "distanceBeforeMm": 11.224972160321824,
+        "distanceAfterMm": 10.488088481701515,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          232,
+          234,
+          92
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 149,
+        "distanceBeforeMm": 11.575836902790225,
+        "distanceAfterMm": 10.677078252031311,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          234,
+          234,
+          92
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 153,
+        "distanceBeforeMm": 11.445523142259598,
+        "distanceAfterMm": 10.246950765959598,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          236,
+          234,
+          92
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 151,
+        "distanceBeforeMm": 11.40175425099138,
+        "distanceAfterMm": 9.899494936611665,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          238,
+          234,
+          92
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 156,
+        "distanceBeforeMm": 11.357816691600547,
+        "distanceAfterMm": 9.643650760992955,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          240,
+          234,
+          92
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 166,
+        "distanceBeforeMm": 11.045361017187261,
+        "distanceAfterMm": 9.486832980505138,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          224,
+          254,
+          92
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 185,
+        "distanceBeforeMm": 11.224972160321824,
+        "distanceAfterMm": 10.488088481701515,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          224,
+          256,
+          92
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 183,
+        "distanceBeforeMm": 11.532562594670797,
+        "distanceAfterMm": 10.723805294763608,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          226,
+          256,
+          92
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 181,
+        "distanceBeforeMm": 11.045361017187261,
+        "distanceAfterMm": 9.899494936611665,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          226,
+          258,
+          92
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 179,
+        "distanceBeforeMm": 11.445523142259598,
+        "distanceAfterMm": 10.246950765959598,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          226,
+          260,
+          92
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 181,
+        "distanceBeforeMm": 11.789826122551595,
+        "distanceAfterMm": 10.677078252031311,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          228,
+          262,
+          92
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 159,
+        "distanceBeforeMm": 11.180339887498949,
+        "distanceAfterMm": 10.488088481701515,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          238,
+          230,
+          94
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 144,
+        "distanceBeforeMm": 12.083045973594572,
+        "distanceAfterMm": 10.954451150103322,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          240,
+          230,
+          94
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 167,
+        "distanceBeforeMm": 11.789826122551595,
+        "distanceAfterMm": 10.816653826391969,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          242,
+          230,
+          94
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 178,
+        "distanceBeforeMm": 11.575836902790225,
+        "distanceAfterMm": 10.770329614269007,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          244,
+          230,
+          94
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 188,
+        "distanceBeforeMm": 11.445523142259598,
+        "distanceAfterMm": 10.816653826391969,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          246,
+          230,
+          94
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 181,
+        "distanceBeforeMm": 11.40175425099138,
+        "distanceAfterMm": 10.954451150103322,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          234,
+          232,
+          94
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 159,
+        "distanceBeforeMm": 11.357816691600547,
+        "distanceAfterMm": 10.63014581273465,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          236,
+          232,
+          94
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 151,
+        "distanceBeforeMm": 11.313708498984761,
+        "distanceAfterMm": 10.295630140987,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          238,
+          232,
+          94
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 153,
+        "distanceBeforeMm": 11.357816691600547,
+        "distanceAfterMm": 10.04987562112089,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          240,
+          232,
+          94
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 171,
+        "distanceBeforeMm": 11.045361017187261,
+        "distanceAfterMm": 9.899494936611665,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          222,
+          254,
+          94
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 176,
+        "distanceBeforeMm": 11.045361017187261,
+        "distanceAfterMm": 10.954451150103322,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          224,
+          258,
+          94
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 178,
+        "distanceBeforeMm": 11.180339887498949,
+        "distanceAfterMm": 10.63014581273465,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          226,
+          260,
+          94
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 167,
+        "distanceBeforeMm": 11.180339887498949,
+        "distanceAfterMm": 10.246950765959598,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          226,
+          262,
+          94
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 158,
+        "distanceBeforeMm": 11.74734012447073,
+        "distanceAfterMm": 10.770329614269007,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          228,
+          262,
+          94
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 178,
+        "distanceBeforeMm": 11.357816691600547,
+        "distanceAfterMm": 10.04987562112089,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          228,
+          264,
+          94
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 164,
+        "distanceBeforeMm": 11.874342087037917,
+        "distanceAfterMm": 10.677078252031311,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          230,
+          264,
+          94
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 177,
+        "distanceBeforeMm": 11.045361017187261,
+        "distanceAfterMm": 10.04987562112089,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          230,
+          266,
+          94
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 172,
+        "distanceBeforeMm": 11.532562594670797,
+        "distanceAfterMm": 10.770329614269007,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          238,
+          230,
+          96
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 154,
+        "distanceBeforeMm": 11.445523142259598,
+        "distanceAfterMm": 10.63014581273465,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          240,
+          230,
+          96
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 167,
+        "distanceBeforeMm": 11.224972160321824,
+        "distanceAfterMm": 10.488088481701515,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          226,
+          262,
+          96
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 175,
+        "distanceBeforeMm": 11.090536506409418,
+        "distanceAfterMm": 10.44030650891055,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          228,
+          264,
+          96
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 175,
+        "distanceBeforeMm": 11.357816691600547,
+        "distanceAfterMm": 10.344080432788601,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          230,
+          264,
+          96
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 161,
+        "distanceBeforeMm": 11.045361017187261,
+        "distanceAfterMm": 9.695359714832659,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          230,
+          266,
+          96
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 174,
+        "distanceBeforeMm": 11.789826122551595,
+        "distanceAfterMm": 10.44030650891055,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          232,
+          266,
+          96
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 153,
+        "distanceBeforeMm": 11.180339887498949,
+        "distanceAfterMm": 9.899494936611665,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          232,
+          268,
+          96
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 162,
+        "distanceBeforeMm": 11.74734012447073,
+        "distanceAfterMm": 10.723805294763608,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          234,
+          268,
+          96
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 162,
+        "distanceBeforeMm": 11.090536506409418,
+        "distanceAfterMm": 10.295630140987,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          236,
+          270,
+          96
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 169,
+        "distanceBeforeMm": 11.180339887498949,
+        "distanceAfterMm": 10.862780491200215,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          246,
+          228,
+          98
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 159,
+        "distanceBeforeMm": 11.045361017187261,
+        "distanceAfterMm": 11.0,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          226,
+          264,
+          98
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 177,
+        "distanceBeforeMm": 11.180339887498949,
+        "distanceAfterMm": 10.816653826391969,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          228,
+          266,
+          98
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 158,
+        "distanceBeforeMm": 11.532562594670797,
+        "distanceAfterMm": 10.816653826391969,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          230,
+          266,
+          98
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 167,
+        "distanceBeforeMm": 11.224972160321824,
+        "distanceAfterMm": 10.198039027185569,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          230,
+          268,
+          98
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 172,
+        "distanceBeforeMm": 12.041594578792296,
+        "distanceAfterMm": 11.0,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          232,
+          268,
+          98
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 168,
+        "distanceBeforeMm": 11.832159566199232,
+        "distanceAfterMm": 10.488088481701515,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          234,
+          268,
+          98
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 149,
+        "distanceBeforeMm": 11.575836902790225,
+        "distanceAfterMm": 10.04987562112089,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          234,
+          270,
+          98
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 175,
+        "distanceBeforeMm": 12.206555615733702,
+        "distanceAfterMm": 10.954451150103322,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          236,
+          270,
+          98
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 170,
+        "distanceBeforeMm": 11.661903789690601,
+        "distanceAfterMm": 10.63014581273465,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          238,
+          270,
+          98
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 160,
+        "distanceBeforeMm": 11.090536506409418,
+        "distanceAfterMm": 10.392304845413264,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          262,
+          252,
+          100
+        ],
+        "before": true,
+        "after": false,
+        "labelBefore": 0,
+        "labelAfter": 24,
+        "raw500": 250,
+        "distanceBeforeMm": 1.0,
+        "distanceAfterMm": 0.0,
+        "cutoffMm": 11,
+        "reason": "new-ventricular-label-excluded-from-context"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          228,
+          266,
+          100
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 165,
+        "distanceBeforeMm": 11.045361017187261,
+        "distanceAfterMm": 10.677078252031311,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          230,
+          268,
+          100
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 174,
+        "distanceBeforeMm": 11.575836902790225,
+        "distanceAfterMm": 10.862780491200215,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          232,
+          268,
+          100
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 175,
+        "distanceBeforeMm": 11.357816691600547,
+        "distanceAfterMm": 10.344080432788601,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          234,
+          268,
+          100
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 166,
+        "distanceBeforeMm": 11.224972160321824,
+        "distanceAfterMm": 9.899494936611665,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          236,
+          268,
+          100
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 170,
+        "distanceBeforeMm": 11.180339887498949,
+        "distanceAfterMm": 9.539392014169456,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          234,
+          270,
+          100
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 176,
+        "distanceBeforeMm": 12.12435565298214,
+        "distanceAfterMm": 10.816653826391969,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          236,
+          270,
+          100
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 174,
+        "distanceBeforeMm": 12.083045973594572,
+        "distanceAfterMm": 10.488088481701515,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          238,
+          270,
+          100
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 161,
+        "distanceBeforeMm": 11.575836902790225,
+        "distanceAfterMm": 10.246950765959598,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          230,
+          268,
+          102
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 162,
+        "distanceBeforeMm": 11.180339887498949,
+        "distanceAfterMm": 10.816653826391969,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          234,
+          270,
+          102
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 178,
+        "distanceBeforeMm": 11.74734012447073,
+        "distanceAfterMm": 10.770329614269007,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          236,
+          270,
+          102
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 174,
+        "distanceBeforeMm": 11.704699910719626,
+        "distanceAfterMm": 10.44030650891055,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          238,
+          270,
+          102
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 178,
+        "distanceBeforeMm": 11.74734012447073,
+        "distanceAfterMm": 10.198039027185569,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          240,
+          270,
+          102
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 174,
+        "distanceBeforeMm": 11.575836902790225,
+        "distanceAfterMm": 10.04987562112089,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          242,
+          272,
+          102
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 176,
+        "distanceBeforeMm": 11.661903789690601,
+        "distanceAfterMm": 11.0,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          234,
+          270,
+          104
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 183,
+        "distanceBeforeMm": 11.445523142259598,
+        "distanceAfterMm": 10.816653826391969,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          236,
+          270,
+          104
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 180,
+        "distanceBeforeMm": 11.40175425099138,
+        "distanceAfterMm": 10.488088481701515,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          238,
+          270,
+          104
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 172,
+        "distanceBeforeMm": 11.445523142259598,
+        "distanceAfterMm": 10.246950765959598,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          240,
+          270,
+          104
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 178,
+        "distanceBeforeMm": 11.575836902790225,
+        "distanceAfterMm": 10.099504938362077,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          242,
+          270,
+          104
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 179,
+        "distanceBeforeMm": 11.357816691600547,
+        "distanceAfterMm": 10.04987562112089,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          244,
+          270,
+          104
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 181,
+        "distanceBeforeMm": 11.090536506409418,
+        "distanceAfterMm": 10.099504938362077,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          234,
+          270,
+          106
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 188,
+        "distanceBeforeMm": 11.224972160321824,
+        "distanceAfterMm": 10.954451150103322,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          236,
+          270,
+          106
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 181,
+        "distanceBeforeMm": 11.180339887498949,
+        "distanceAfterMm": 10.63014581273465,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          238,
+          270,
+          106
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 184,
+        "distanceBeforeMm": 11.224972160321824,
+        "distanceAfterMm": 10.392304845413264,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          240,
+          270,
+          106
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 189,
+        "distanceBeforeMm": 11.357816691600547,
+        "distanceAfterMm": 10.246950765959598,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          242,
+          270,
+          106
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 181,
+        "distanceBeforeMm": 11.224972160321824,
+        "distanceAfterMm": 10.198039027185569,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          244,
+          270,
+          106
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 179,
+        "distanceBeforeMm": 11.090536506409418,
+        "distanceAfterMm": 10.246950765959598,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          246,
+          270,
+          106
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 186,
+        "distanceBeforeMm": 11.045361017187261,
+        "distanceAfterMm": 10.392304845413264,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          236,
+          270,
+          108
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 247,
+        "distanceBeforeMm": 11.045361017187261,
+        "distanceAfterMm": 10.862780491200215,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          238,
+          270,
+          108
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 223,
+        "distanceBeforeMm": 11.090536506409418,
+        "distanceAfterMm": 10.63014581273465,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          240,
+          270,
+          108
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 201,
+        "distanceBeforeMm": 11.224972160321824,
+        "distanceAfterMm": 10.488088481701515,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          242,
+          270,
+          108
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 179,
+        "distanceBeforeMm": 11.180339887498949,
+        "distanceAfterMm": 10.44030650891055,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          244,
+          270,
+          108
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 191,
+        "distanceBeforeMm": 11.045361017187261,
+        "distanceAfterMm": 10.488088481701515,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          248,
+          270,
+          108
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 194,
+        "distanceBeforeMm": 11.045361017187261,
+        "distanceAfterMm": 10.862780491200215,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          250,
+          246,
+          110
+        ],
+        "before": true,
+        "after": false,
+        "labelBefore": 0,
+        "labelAfter": 24,
+        "raw500": 249,
+        "distanceBeforeMm": 1.0,
+        "distanceAfterMm": 0.0,
+        "cutoffMm": 11,
+        "reason": "new-ventricular-label-excluded-from-context"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          252,
+          246,
+          110
+        ],
+        "before": true,
+        "after": false,
+        "labelBefore": 0,
+        "labelAfter": 24,
+        "raw500": 248,
+        "distanceBeforeMm": 1.0,
+        "distanceAfterMm": 0.0,
+        "cutoffMm": 11,
+        "reason": "new-ventricular-label-excluded-from-context"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          254,
+          246,
+          110
+        ],
+        "before": true,
+        "after": false,
+        "labelBefore": 0,
+        "labelAfter": 24,
+        "raw500": 242,
+        "distanceBeforeMm": 1.4142135623730951,
+        "distanceAfterMm": 0.0,
+        "cutoffMm": 11,
+        "reason": "new-ventricular-label-excluded-from-context"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          256,
+          246,
+          110
+        ],
+        "before": true,
+        "after": false,
+        "labelBefore": 0,
+        "labelAfter": 24,
+        "raw500": 243,
+        "distanceBeforeMm": 2.23606797749979,
+        "distanceAfterMm": 0.0,
+        "cutoffMm": 11,
+        "reason": "new-ventricular-label-excluded-from-context"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          242,
+          270,
+          110
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 248,
+        "distanceBeforeMm": 11.224972160321824,
+        "distanceAfterMm": 10.770329614269007,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          244,
+          270,
+          110
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 224,
+        "distanceBeforeMm": 11.090536506409418,
+        "distanceAfterMm": 10.816653826391969,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          246,
+          270,
+          110
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 192,
+        "distanceBeforeMm": 11.045361017187261,
+        "distanceAfterMm": 10.954451150103322,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          266,
+          270,
+          112
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 184,
+        "distanceBeforeMm": 11.045361017187261,
+        "distanceAfterMm": 11.0,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          260,
+          266,
+          118
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 186,
+        "distanceBeforeMm": 11.045361017187261,
+        "distanceAfterMm": 10.954451150103322,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          262,
+          264,
+          120
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 180,
+        "distanceBeforeMm": 11.045361017187261,
+        "distanceAfterMm": 10.723805294763608,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          264,
+          262,
+          122
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 175,
+        "distanceBeforeMm": 11.180339887498949,
+        "distanceAfterMm": 10.770329614269007,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "lateral-ventricle",
+        "appXYZ": [
+          260,
+          264,
+          122
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 189,
+        "distanceBeforeMm": 11.045361017187261,
+        "distanceAfterMm": 11.0,
+        "cutoffMm": 11,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          242,
+          238,
+          90
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 168,
+        "distanceBeforeMm": 8.774964387392123,
+        "distanceAfterMm": 8.48528137423857,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          236,
+          240,
+          90
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 162,
+        "distanceBeforeMm": 9.433981132056603,
+        "distanceAfterMm": 8.366600265340756,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          238,
+          240,
+          90
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 168,
+        "distanceBeforeMm": 8.831760866327848,
+        "distanceAfterMm": 8.06225774829855,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          234,
+          242,
+          90
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 153,
+        "distanceBeforeMm": 9.433981132056603,
+        "distanceAfterMm": 8.246211251235321,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          236,
+          242,
+          90
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 165,
+        "distanceBeforeMm": 8.717797887081348,
+        "distanceAfterMm": 7.810249675906654,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          232,
+          244,
+          90
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 161,
+        "distanceBeforeMm": 9.643650760992955,
+        "distanceAfterMm": 8.366600265340756,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          234,
+          244,
+          90
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 176,
+        "distanceBeforeMm": 8.831760866327848,
+        "distanceAfterMm": 7.810249675906654,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          232,
+          246,
+          90
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 172,
+        "distanceBeforeMm": 9.16515138991168,
+        "distanceAfterMm": 8.06225774829855,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          232,
+          248,
+          90
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 173,
+        "distanceBeforeMm": 8.774964387392123,
+        "distanceAfterMm": 7.874007874011811,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          230,
+          250,
+          90
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 172,
+        "distanceBeforeMm": 9.433981132056603,
+        "distanceAfterMm": 8.48528137423857,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          236,
+          238,
+          92
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 160,
+        "distanceBeforeMm": 10.295630140987,
+        "distanceAfterMm": 8.366600265340756,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          238,
+          238,
+          92
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 154,
+        "distanceBeforeMm": 9.899494936611665,
+        "distanceAfterMm": 8.06225774829855,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          234,
+          240,
+          92
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 161,
+        "distanceBeforeMm": 9.899494936611665,
+        "distanceAfterMm": 8.12403840463596,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          236,
+          240,
+          92
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 160,
+        "distanceBeforeMm": 9.695359714832659,
+        "distanceAfterMm": 7.681145747868608,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          232,
+          242,
+          92
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 170,
+        "distanceBeforeMm": 9.695359714832659,
+        "distanceAfterMm": 8.12403840463596,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          234,
+          242,
+          92
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 165,
+        "distanceBeforeMm": 9.539392014169456,
+        "distanceAfterMm": 7.54983443527075,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          236,
+          242,
+          92
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 159,
+        "distanceBeforeMm": 9.0,
+        "distanceAfterMm": 7.0710678118654755,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          230,
+          244,
+          92
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 168,
+        "distanceBeforeMm": 9.695359714832659,
+        "distanceAfterMm": 8.366600265340756,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          232,
+          244,
+          92
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 169,
+        "distanceBeforeMm": 9.433981132056603,
+        "distanceAfterMm": 7.681145747868608,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          230,
+          246,
+          92
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 164,
+        "distanceBeforeMm": 9.539392014169456,
+        "distanceAfterMm": 8.06225774829855,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          230,
+          248,
+          92
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 172,
+        "distanceBeforeMm": 9.486832980505138,
+        "distanceAfterMm": 7.874007874011811,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          230,
+          250,
+          92
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 168,
+        "distanceBeforeMm": 9.539392014169456,
+        "distanceAfterMm": 7.810249675906654,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          230,
+          252,
+          92
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 177,
+        "distanceBeforeMm": 9.539392014169456,
+        "distanceAfterMm": 7.874007874011811,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          232,
+          252,
+          92
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 160,
+        "distanceBeforeMm": 8.602325267042627,
+        "distanceAfterMm": 7.14142842854285,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          230,
+          254,
+          92
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 186,
+        "distanceBeforeMm": 9.486832980505138,
+        "distanceAfterMm": 8.06225774829855,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          232,
+          254,
+          92
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 169,
+        "distanceBeforeMm": 8.54400374531753,
+        "distanceAfterMm": 7.3484692283495345,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          230,
+          256,
+          92
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 184,
+        "distanceBeforeMm": 9.539392014169456,
+        "distanceAfterMm": 8.366600265340756,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          232,
+          256,
+          92
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 184,
+        "distanceBeforeMm": 8.602325267042627,
+        "distanceAfterMm": 7.681145747868608,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          232,
+          258,
+          92
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 175,
+        "distanceBeforeMm": 8.774964387392123,
+        "distanceAfterMm": 8.12403840463596,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          228,
+          246,
+          94
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 179,
+        "distanceBeforeMm": 9.0,
+        "distanceAfterMm": 8.306623862918075,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          228,
+          248,
+          94
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 175,
+        "distanceBeforeMm": 8.94427190999916,
+        "distanceAfterMm": 8.12403840463596,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          228,
+          250,
+          94
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 173,
+        "distanceBeforeMm": 9.0,
+        "distanceAfterMm": 8.06225774829855,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          228,
+          252,
+          94
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 172,
+        "distanceBeforeMm": 9.16515138991168,
+        "distanceAfterMm": 8.12403840463596,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          230,
+          252,
+          94
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 163,
+        "distanceBeforeMm": 8.774964387392123,
+        "distanceAfterMm": 7.280109889280518,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          228,
+          254,
+          94
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 183,
+        "distanceBeforeMm": 9.433981132056603,
+        "distanceAfterMm": 8.306623862918075,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          230,
+          254,
+          94
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 170,
+        "distanceBeforeMm": 9.055385138137417,
+        "distanceAfterMm": 7.483314773547883,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          232,
+          254,
+          94
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 163,
+        "distanceBeforeMm": 8.774964387392123,
+        "distanceAfterMm": 6.708203932499369,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          230,
+          256,
+          94
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 182,
+        "distanceBeforeMm": 9.433981132056603,
+        "distanceAfterMm": 7.810249675906654,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          232,
+          256,
+          94
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 183,
+        "distanceBeforeMm": 9.0,
+        "distanceAfterMm": 7.0710678118654755,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          230,
+          258,
+          94
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 182,
+        "distanceBeforeMm": 9.899494936611665,
+        "distanceAfterMm": 8.246211251235321,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          232,
+          258,
+          94
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 174,
+        "distanceBeforeMm": 9.16515138991168,
+        "distanceAfterMm": 7.54983443527075,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          232,
+          260,
+          94
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 165,
+        "distanceBeforeMm": 9.433981132056603,
+        "distanceAfterMm": 8.12403840463596,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          234,
+          260,
+          94
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 156,
+        "distanceBeforeMm": 8.602325267042627,
+        "distanceAfterMm": 7.54983443527075,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          234,
+          262,
+          94
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 161,
+        "distanceBeforeMm": 9.0,
+        "distanceAfterMm": 8.246211251235321,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          228,
+          254,
+          96
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 179,
+        "distanceBeforeMm": 8.602325267042627,
+        "distanceAfterMm": 7.874007874011811,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          228,
+          256,
+          96
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 179,
+        "distanceBeforeMm": 9.0,
+        "distanceAfterMm": 8.18535277187245,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          230,
+          256,
+          96
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 181,
+        "distanceBeforeMm": 8.602325267042627,
+        "distanceAfterMm": 7.3484692283495345,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          230,
+          258,
+          96
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 164,
+        "distanceBeforeMm": 9.1104335791443,
+        "distanceAfterMm": 7.810249675906654,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          232,
+          258,
+          96
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 161,
+        "distanceBeforeMm": 8.831760866327848,
+        "distanceAfterMm": 7.0710678118654755,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          234,
+          258,
+          96
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 160,
+        "distanceBeforeMm": 8.660254037844387,
+        "distanceAfterMm": 6.4031242374328485,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          230,
+          260,
+          96
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 162,
+        "distanceBeforeMm": 9.695359714832659,
+        "distanceAfterMm": 8.366600265340756,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          232,
+          260,
+          96
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 155,
+        "distanceBeforeMm": 9.433981132056603,
+        "distanceAfterMm": 7.681145747868608,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          234,
+          260,
+          96
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 163,
+        "distanceBeforeMm": 9.1104335791443,
+        "distanceAfterMm": 7.0710678118654755,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          232,
+          262,
+          96
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 151,
+        "distanceBeforeMm": 10.099504938362077,
+        "distanceAfterMm": 8.366600265340756,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          234,
+          262,
+          96
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 164,
+        "distanceBeforeMm": 9.486832980505138,
+        "distanceAfterMm": 7.810249675906654,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          236,
+          262,
+          96
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 149,
+        "distanceBeforeMm": 8.774964387392123,
+        "distanceAfterMm": 7.3484692283495345,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          236,
+          264,
+          96
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 158,
+        "distanceBeforeMm": 9.273618495495704,
+        "distanceAfterMm": 8.18535277187245,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          238,
+          264,
+          96
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 156,
+        "distanceBeforeMm": 8.660254037844387,
+        "distanceAfterMm": 7.874007874011811,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          228,
+          258,
+          98
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 164,
+        "distanceBeforeMm": 8.774964387392123,
+        "distanceAfterMm": 8.306623862918075,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          230,
+          260,
+          98
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 163,
+        "distanceBeforeMm": 9.0,
+        "distanceAfterMm": 8.06225774829855,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          232,
+          260,
+          98
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 163,
+        "distanceBeforeMm": 8.717797887081348,
+        "distanceAfterMm": 7.3484692283495345,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          234,
+          260,
+          98
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 165,
+        "distanceBeforeMm": 8.54400374531753,
+        "distanceAfterMm": 6.708203932499369,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          232,
+          262,
+          98
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 154,
+        "distanceBeforeMm": 9.433981132056603,
+        "distanceAfterMm": 8.06225774829855,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          234,
+          262,
+          98
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 167,
+        "distanceBeforeMm": 9.273618495495704,
+        "distanceAfterMm": 7.483314773547883,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          236,
+          262,
+          98
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 174,
+        "distanceBeforeMm": 9.219544457292887,
+        "distanceAfterMm": 7.0,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          238,
+          262,
+          98
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 162,
+        "distanceBeforeMm": 8.774964387392123,
+        "distanceAfterMm": 6.6332495807108,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          234,
+          264,
+          98
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 159,
+        "distanceBeforeMm": 10.04987562112089,
+        "distanceAfterMm": 8.306623862918075,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          236,
+          264,
+          98
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 162,
+        "distanceBeforeMm": 9.848857801796104,
+        "distanceAfterMm": 7.874007874011811,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          238,
+          264,
+          98
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 156,
+        "distanceBeforeMm": 9.273618495495704,
+        "distanceAfterMm": 7.54983443527075,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          240,
+          264,
+          98
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 170,
+        "distanceBeforeMm": 8.774964387392123,
+        "distanceAfterMm": 7.3484692283495345,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          238,
+          266,
+          98
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 159,
+        "distanceBeforeMm": 9.848857801796104,
+        "distanceAfterMm": 8.48528137423857,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          240,
+          266,
+          98
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 159,
+        "distanceBeforeMm": 9.273618495495704,
+        "distanceAfterMm": 8.306623862918075,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          242,
+          266,
+          98
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 160,
+        "distanceBeforeMm": 8.660254037844387,
+        "distanceAfterMm": 8.246211251235321,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          262,
+          252,
+          100
+        ],
+        "before": true,
+        "after": false,
+        "labelBefore": 0,
+        "labelAfter": 24,
+        "raw500": 250,
+        "distanceBeforeMm": 1.0,
+        "distanceAfterMm": 0.0,
+        "cutoffMm": 8.5,
+        "reason": "new-ventricular-label-excluded-from-context"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          232,
+          262,
+          100
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 168,
+        "distanceBeforeMm": 8.831760866327848,
+        "distanceAfterMm": 7.874007874011811,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          234,
+          262,
+          100
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 162,
+        "distanceBeforeMm": 8.660254037844387,
+        "distanceAfterMm": 7.280109889280518,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          236,
+          262,
+          100
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 166,
+        "distanceBeforeMm": 8.602325267042627,
+        "distanceAfterMm": 6.782329983125268,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          238,
+          262,
+          100
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 161,
+        "distanceBeforeMm": 8.660254037844387,
+        "distanceAfterMm": 6.4031242374328485,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          240,
+          262,
+          100
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 168,
+        "distanceBeforeMm": 8.602325267042627,
+        "distanceAfterMm": 6.164414002968976,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          234,
+          264,
+          100
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 163,
+        "distanceBeforeMm": 9.486832980505138,
+        "distanceAfterMm": 8.12403840463596,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          236,
+          264,
+          100
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 162,
+        "distanceBeforeMm": 9.433981132056603,
+        "distanceAfterMm": 7.681145747868608,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          238,
+          264,
+          100
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 167,
+        "distanceBeforeMm": 9.486832980505138,
+        "distanceAfterMm": 7.3484692283495345,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          240,
+          264,
+          100
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 171,
+        "distanceBeforeMm": 9.38083151964686,
+        "distanceAfterMm": 7.14142842854285,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          242,
+          264,
+          100
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 168,
+        "distanceBeforeMm": 8.774964387392123,
+        "distanceAfterMm": 7.0710678118654755,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          238,
+          266,
+          100
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 164,
+        "distanceBeforeMm": 10.344080432788601,
+        "distanceAfterMm": 8.306623862918075,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          240,
+          266,
+          100
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 165,
+        "distanceBeforeMm": 9.848857801796104,
+        "distanceAfterMm": 8.12403840463596,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          242,
+          266,
+          100
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 164,
+        "distanceBeforeMm": 9.273618495495704,
+        "distanceAfterMm": 8.06225774829855,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          244,
+          266,
+          100
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 163,
+        "distanceBeforeMm": 8.660254037844387,
+        "distanceAfterMm": 8.12403840463596,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          230,
+          262,
+          102
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 165,
+        "distanceBeforeMm": 8.602325267042627,
+        "distanceAfterMm": 8.48528137423857,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          234,
+          264,
+          102
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 165,
+        "distanceBeforeMm": 9.0,
+        "distanceAfterMm": 8.06225774829855,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          236,
+          264,
+          102
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 168,
+        "distanceBeforeMm": 8.94427190999916,
+        "distanceAfterMm": 7.615773105863909,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          238,
+          264,
+          102
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 167,
+        "distanceBeforeMm": 9.0,
+        "distanceAfterMm": 7.280109889280518,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          240,
+          264,
+          102
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 172,
+        "distanceBeforeMm": 9.055385138137417,
+        "distanceAfterMm": 7.0710678118654755,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          242,
+          264,
+          102
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 174,
+        "distanceBeforeMm": 8.774964387392123,
+        "distanceAfterMm": 7.0,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          244,
+          264,
+          102
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 170,
+        "distanceBeforeMm": 8.602325267042627,
+        "distanceAfterMm": 7.0710678118654755,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          238,
+          266,
+          102
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 171,
+        "distanceBeforeMm": 9.899494936611665,
+        "distanceAfterMm": 8.246211251235321,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          240,
+          266,
+          102
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 172,
+        "distanceBeforeMm": 9.9498743710662,
+        "distanceAfterMm": 8.06225774829855,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          242,
+          266,
+          102
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 170,
+        "distanceBeforeMm": 9.695359714832659,
+        "distanceAfterMm": 8.0,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          244,
+          266,
+          102
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 168,
+        "distanceBeforeMm": 9.273618495495704,
+        "distanceAfterMm": 8.06225774829855,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          246,
+          266,
+          102
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 172,
+        "distanceBeforeMm": 8.774964387392123,
+        "distanceAfterMm": 8.246211251235321,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          234,
+          264,
+          104
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 171,
+        "distanceBeforeMm": 8.602325267042627,
+        "distanceAfterMm": 8.12403840463596,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          236,
+          264,
+          104
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 172,
+        "distanceBeforeMm": 8.54400374531753,
+        "distanceAfterMm": 7.681145747868608,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          238,
+          264,
+          104
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 173,
+        "distanceBeforeMm": 8.602325267042627,
+        "distanceAfterMm": 7.3484692283495345,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          240,
+          264,
+          104
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 174,
+        "distanceBeforeMm": 8.774964387392123,
+        "distanceAfterMm": 7.14142842854285,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          238,
+          266,
+          104
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 174,
+        "distanceBeforeMm": 9.539392014169456,
+        "distanceAfterMm": 8.306623862918075,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          240,
+          266,
+          104
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 176,
+        "distanceBeforeMm": 9.695359714832659,
+        "distanceAfterMm": 8.12403840463596,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          242,
+          266,
+          104
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 182,
+        "distanceBeforeMm": 9.433981132056603,
+        "distanceAfterMm": 8.06225774829855,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          244,
+          266,
+          104
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 180,
+        "distanceBeforeMm": 9.273618495495704,
+        "distanceAfterMm": 8.12403840463596,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          246,
+          266,
+          104
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 174,
+        "distanceBeforeMm": 9.219544457292887,
+        "distanceAfterMm": 8.306623862918075,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          238,
+          266,
+          106
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 171,
+        "distanceBeforeMm": 9.273618495495704,
+        "distanceAfterMm": 8.48528137423857,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          240,
+          266,
+          106
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 176,
+        "distanceBeforeMm": 9.433981132056603,
+        "distanceAfterMm": 8.306623862918075,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          242,
+          266,
+          106
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 195,
+        "distanceBeforeMm": 9.273618495495704,
+        "distanceAfterMm": 8.246211251235321,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          244,
+          266,
+          106
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 189,
+        "distanceBeforeMm": 9.1104335791443,
+        "distanceAfterMm": 8.306623862918075,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          246,
+          266,
+          106
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 22,
+        "labelAfter": 22,
+        "raw500": 188,
+        "distanceBeforeMm": 9.055385138137417,
+        "distanceAfterMm": 8.48528137423857,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          250,
+          246,
+          110
+        ],
+        "before": true,
+        "after": false,
+        "labelBefore": 0,
+        "labelAfter": 24,
+        "raw500": 249,
+        "distanceBeforeMm": 1.0,
+        "distanceAfterMm": 0.0,
+        "cutoffMm": 8.5,
+        "reason": "new-ventricular-label-excluded-from-context"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          252,
+          246,
+          110
+        ],
+        "before": true,
+        "after": false,
+        "labelBefore": 0,
+        "labelAfter": 24,
+        "raw500": 248,
+        "distanceBeforeMm": 1.0,
+        "distanceAfterMm": 0.0,
+        "cutoffMm": 8.5,
+        "reason": "new-ventricular-label-excluded-from-context"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          254,
+          246,
+          110
+        ],
+        "before": true,
+        "after": false,
+        "labelBefore": 0,
+        "labelAfter": 24,
+        "raw500": 242,
+        "distanceBeforeMm": 1.4142135623730951,
+        "distanceAfterMm": 0.0,
+        "cutoffMm": 8.5,
+        "reason": "new-ventricular-label-excluded-from-context"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          256,
+          246,
+          110
+        ],
+        "before": true,
+        "after": false,
+        "labelBefore": 0,
+        "labelAfter": 24,
+        "raw500": 243,
+        "distanceBeforeMm": 2.23606797749979,
+        "distanceAfterMm": 0.0,
+        "cutoffMm": 8.5,
+        "reason": "new-ventricular-label-excluded-from-context"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          262,
+          264,
+          112
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 167,
+        "distanceBeforeMm": 8.54400374531753,
+        "distanceAfterMm": 8.48528137423857,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          260,
+          262,
+          114
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 176,
+        "distanceBeforeMm": 8.54400374531753,
+        "distanceAfterMm": 8.48528137423857,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          262,
+          260,
+          116
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 186,
+        "distanceBeforeMm": 8.54400374531753,
+        "distanceAfterMm": 8.18535277187245,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          260,
+          260,
+          118
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 179,
+        "distanceBeforeMm": 8.602325267042627,
+        "distanceAfterMm": 8.306623862918075,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          262,
+          258,
+          120
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 188,
+        "distanceBeforeMm": 8.774964387392123,
+        "distanceAfterMm": 8.366600265340756,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          264,
+          254,
+          122
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 161,
+        "distanceBeforeMm": 8.602325267042627,
+        "distanceAfterMm": 8.246211251235321,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "choroid-plexus",
+        "appXYZ": [
+          262,
+          256,
+          122
+        ],
+        "before": false,
+        "after": true,
+        "labelBefore": 0,
+        "labelAfter": 0,
+        "raw500": 188,
+        "distanceBeforeMm": 8.660254037844387,
+        "distanceAfterMm": 8.366600265340756,
+        "cutoffMm": 8.5,
+        "reason": "unchanged-tissue-enters-distance-cutoff"
+      },
+      {
+        "block": "medial-temporal",
+        "appXYZ": [
+          262,
+          252,
+          100
+        ],
+        "before": true,
+        "after": false,
+        "labelBefore": 0,
+        "labelAfter": 24,
+        "raw500": 250,
+        "distanceBeforeMm": 1.0,
+        "distanceAfterMm": 0.0,
+        "cutoffMm": null,
+        "reason": "new-ventricular-label-excluded-from-context"
+      },
+      {
+        "block": "medial-temporal",
+        "appXYZ": [
+          250,
+          246,
+          110
+        ],
+        "before": true,
+        "after": false,
+        "labelBefore": 0,
+        "labelAfter": 24,
+        "raw500": 249,
+        "distanceBeforeMm": 1.0,
+        "distanceAfterMm": 0.0,
+        "cutoffMm": null,
+        "reason": "new-ventricular-label-excluded-from-context"
+      },
+      {
+        "block": "medial-temporal",
+        "appXYZ": [
+          252,
+          246,
+          110
+        ],
+        "before": true,
+        "after": false,
+        "labelBefore": 0,
+        "labelAfter": 24,
+        "raw500": 248,
+        "distanceBeforeMm": 1.0,
+        "distanceAfterMm": 0.0,
+        "cutoffMm": null,
+        "reason": "new-ventricular-label-excluded-from-context"
+      },
+      {
+        "block": "medial-temporal",
+        "appXYZ": [
+          254,
+          246,
+          110
+        ],
+        "before": true,
+        "after": false,
+        "labelBefore": 0,
+        "labelAfter": 24,
+        "raw500": 242,
+        "distanceBeforeMm": 1.4142135623730951,
+        "distanceAfterMm": 0.0,
+        "cutoffMm": null,
+        "reason": "new-ventricular-label-excluded-from-context"
+      },
+      {
+        "block": "medial-temporal",
+        "appXYZ": [
+          256,
+          246,
+          110
+        ],
+        "before": true,
+        "after": false,
+        "labelBefore": 0,
+        "labelAfter": 24,
+        "raw500": 243,
+        "distanceBeforeMm": 2.23606797749979,
+        "distanceAfterMm": 0.0,
+        "cutoffMm": null,
+        "reason": "new-ventricular-label-excluded-from-context"
+      }
+    ],
+    "unionReplayExact": true,
+    "reverseExact": true,
+    "installed": false,
+    "anatomyProvenByContext": false
+  },
+  "visualReview": {
+    "localPlanes": 72,
+    "widerContextPlanes": 24,
+    "expertReviewed": false
+  }
+}

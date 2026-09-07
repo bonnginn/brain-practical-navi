@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "reviewType": "AI visual assessment",
+  "status": "union-image-review-and-finite-intensity-check-complete-not-adopted",
+  "adopted": false,
+  "expertReviewed": false,
+  "contactReport": "work/anatomy-review/lateral-fringe-medium-union-contacts-v1/report.json",
+  "contactReportSha256": "58fe90c1cdabcae56949198ac7bb41877ad7fc4fa3302a7bfba060d115fa3538",
+  "unionReportSha256": "b1596dd128c195cc151cd73a733c154e10a89b88f853d53e4f5e986b92002323",
+  "reviewedSheets": [
+    "contact-00.png", "contact-01.png", "contact-02.png", "contact-03.png",
+    "contact-04.png", "contact-05.png", "contact-06.png", "contact-07.png",
+    "contact-08.png", "contact-09.png", "contact-10.png", "contact-11.png",
+    "contact-12.png", "contact-13.png", "contact-14.png", "contact-15.png",
+    "contact-16.png", "contact-17.png", "contact-18.png", "contact-19.png",
+    "contact-20.png", "contact-21.png", "contact-22.png", "contact-23.png", "contact-24.png", "contact-25.png", "contact-26.png", "contact-27.png", "contact-28.png", "contact-29.png", "contact-30.png", "contact-31.png", "contact-32.png", "contact-33.png", "contact-34.png", "contact-35.png", "contact-36.png", "contact-37.png", "contact-38.png", "contact-39.png", "contact-40.png", "contact-41.png", "contact-42.png", "contact-43.png", "contact-44.png", "contact-45.png", "contact-46.png", "contact-47.png", "contact-48.png", "contact-49.png", "contact-50.png", "contact-51.png", "contact-52.png", "contact-53.png", "contact-54.png", "contact-55.png", "contact-56.png", "contact-57.png", "contact-58.png", "contact-59.png"
+  ],
+  "reviewedPanelCount": 357,
+  "totalPanelCount": 357,
+  "observations": [
+    {
+      "sheets": "21-32",
+      "finding": "Left C87 endpoint, C81/C74/C139/C92/C103 neighborhoods: combined margins follow the bright cavity without a gross crossing of the darker outer wall. C74 Z198 joins adjacent contours within a bright strip; geometric joining alone does not authorize additional filling. C192 Z168 retains the darker adjacent protrusion."
+    },
+    {
+      "sheets": "33-44",
+      "finding": "Left C288/C158/C224/C75/C80/C99/C333 neighborhoods: neighboring wall additions remain on the lumen side in the displayed crops. C224 X169 does not fill the darker adjacent tissue. Narrow tips retain incomplete labeling and partial-volume uncertainty. The first right C326 views likewise leave the darker lateral tissue outside."
+    },
+    {
+      "sheets": "45-59",
+      "finding": "Right C326/C329 preserve the adjacent dark foci outside the union contour. C76/C222/C194/C98 additions follow the lower oblique cavity margin without a gross bridge across the wall. C402/C404 X273-274 still show incomplete narrow-cavity labeling; union of these candidates does not complete its extent. No new gross tissue crossing was identified in these displayed union differences."
+    },
+    {
+      "sheets": "00-08",
+      "finding": "C135 and C166 neighborhoods: combined additions follow the bright cavity margins in these crops. No gross bridge across the surrounding darker tissue was seen."
+    },
+    {
+      "sheets": "09-14",
+      "finding": "C166 Z161, C86 and C252 neighborhoods: multiple small neighboring additions change the same contour, but the combined outline remains along the bright lumen in the displayed planes. The darker lower or lateral wall is not grossly crossed. Small isolated contours at narrow ends are not evidence that all nearby unlabeled areas should be filled."
+    },
+    {
+      "sheets": "15-20",
+      "finding": "C98 and C87 neighborhoods: upper/lower margin additions combine around the oblique bright lumen. No new gross crossing into the darker tissue below was seen. Partial-volume edge cells and incompletely labeled tips still require separate support assessment; these crops do not establish a complete ventricular endpoint."
+    }
+  ],
+  "integrityCheck": "All 60 contact-sheet hashes, all 357 source-image hashes, and exact ordered one-to-one panel mapping were checked. This validates artifact integrity, not anatomy or unseen images.",
+  "remaining": [
+    "Combine finite intensity evidence (lateral-fringe-medium-finite-support-v1.json) with the recorded anatomical image assessment; brightness alone is not cavity identity.",
+    "If adopted later, create a reversible patch, update dependent meshes and provenance, and verify tests, build and browser."
+  ],
+  "limitations": [
+    "This record does not authorize a product-label or mesh change.",
+    "Contact sheets 09-11 from the earlier truncated tool response were not counted until successfully displayed again.",
+    "All 357 changed union panels were displayed and assessed; 388 unchanged planes retain the separate individual-image review, not a new independent assessment.",
+    "No expert review, histological ground truth, or whole-ventricular completeness is claimed."
+  ]
+}

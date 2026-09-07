@@ -17,15 +17,20 @@ test('archived classification stage contains exactly 47 edits and current labels
  assert.equal(metadata.rawVoxelSha256,createHash('sha256').update(actual.subarray(10)).digest('hex'));
  for(let i=10;i<next.length;i++)if(old[i]!==next[i])assert.equal(actual[i],next[i]);
  assert.deepEqual(metadata.projectReviewedPartialIds,[41]);
- assert.equal(metadata.labelCounts['26'],8520);assert.equal(metadata.labelCounts['41'],16);
+ assert.equal(metadata.labelCounts['26'],9008);assert.equal(metadata.labelCounts['41'],16);
  assert.equal(metadata.reviewedPatchAudits.length,6);
 });
 
-test('fourth ventricle mesh metadata matches the classification repair',async()=>{
+test('archived fourth ventricle classification mesh is retained and current metadata matches current mesh',async()=>{
  const file='block-hindbrain-fourth-ventricle.mesh';
  const mesh=await readFile(new URL('../public/atlas/'+file,import.meta.url));
- assert.equal(createHash('sha256').update(mesh).digest('hex'),'1cfc2dade80d86c041f0696af721b3068c7121bfbcc77bee70c59ce717df5613');
+ const archived=await readFile(new URL('./fixtures/block-hindbrain-fourth-ventricle-pre-paired.mesh',import.meta.url));
+ assert.equal(createHash('sha256').update(archived).digest('hex'),'1cfc2dade80d86c041f0696af721b3068c7121bfbcc77bee70c59ce717df5613');
+ const previous='fff082ddd40824e7e4400a90475eb1a2a17d1778a657d8faffbce7f750b38e3a';
+ const successor=await regionalMeshSuccessor(file,previous);
+ assert.equal(createHash('sha256').update(mesh).digest('hex'),successor?.afterSha256??previous);
  const metadata=JSON.parse(await readFile(new URL('../public/atlas/specimen-blocks.json',import.meta.url),'utf8'));
  const part=metadata.specimens.hindbrain.find(x=>x.file===file);
  assert.equal(part.vertices,mesh.readUInt32LE(4));assert.equal(part.faces,mesh.readUInt32LE(8));
 });
+import {regionalMeshSuccessor} from './helpers/residual-mesh-successor.mjs';

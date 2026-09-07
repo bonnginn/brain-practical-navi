@@ -444,6 +444,20 @@ html, body, #root { height: 100%; overflow: hidden; }
 .learningModelCard .panelHead, .quizImageCard .panelHead { height: auto; min-height: 58px; padding-block: 7px; }
 .learningModelStage { height: auto; min-height: 0; cursor: grab; touch-action: none; user-select: none; background: radial-gradient(circle at 50% 44%,#515a5f 0,#343a3e 48%,#202528 100%); }
 .learningModelStage:active { cursor: grabbing; }
+/* Keep block controls outside the image, including in short/narrow views. */
+.blockModelCard { grid-template-rows: auto minmax(280px,1fr) auto; overflow-y: auto; }
+.blockModelToolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 10px; background: #202728; }
+.blockModelToolbar .specimenTissueControls,
+.blockModelToolbar .specimenViewControls,
+.blockModelToolbar .specimenAttachmentControls,
+.blockModelToolbar .modelLegend { position: static; margin: 0; max-width: 100%; box-sizing: border-box; box-shadow: none; }
+.blockModelToolbar .specimenViewControls,
+.blockModelToolbar .specimenTissueControls { flex-wrap: wrap; }
+.blockModelToolbar button { min-height: 44px; }
+.blockModelToolbar .modelLegend { flex: 1 1 100%; min-width: 0; padding: 5px 9px; overflow-wrap: anywhere; }
+.blockModelToolbar .modelLegend > span,
+.blockModelToolbar .modelLegend > b,
+.blockModelToolbar .specimenRotationHint { display: none; }
 .modelLegend { position: absolute; z-index: 8; left: 18px; top: 18px; display: grid; gap: 3px; min-width: 180px; padding: 11px 13px; border-left: 5px solid #d6dde0; background: rgba(20,25,27,.76); color: #f3f3ef; pointer-events: none; }
 .modelLegend > span { color: #aeb8ba; font-size: 15px; letter-spacing: .13em; }
 .modelLegend b { font-size: 15px; }

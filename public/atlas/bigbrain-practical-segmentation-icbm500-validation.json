@@ -33,7 +33,17 @@
     21,
     22
   ],
-  "officialLabelsPreserved": true,
+  "officialLabelsPreserved": false,
+  "officialLabelPolicy": "All source manual delineations now use the reviewed corrected registration. Internal bands and unresolved subregions are retained. Project adoption, not expert approval.",
+  "redNucleusRegistrationAudit": {
+    "record": "segmentation-patches/review/red-nuclei-registration-project-adoption-2026-09-06.json",
+    "recordSha256": "4e8e83794e932261c4d1d1b288989216cf33d301765b7c4f3977e1917ad8f102",
+    "inputCompressedSha256": "098edfbf365016c6c53ccf7b7032258db72a4912378c457d348c01613a4a1694",
+    "changedVoxelCount": 2224,
+    "projectAdopted": true,
+    "expertReviewed": false,
+    "scope": "Whole red-nucleus regions, not isolated gray matter. Internal bright bands retained without assigning a tract identity. Other labels unchanged."
+  },
   "atlasDerivedIds": [
     23,
     24,
@@ -75,44 +85,45 @@
     "41": "cerebral aqueduct candidate (partial; project-adopted reclassification)"
   },
   "labelCounts": {
-    "1": 2136,
-    "2": 2079,
-    "3": 4861,
-    "4": 4676,
-    "5": 1278,
-    "6": 1305,
-    "7": 37431,
-    "8": 39582,
-    "9": 47602,
-    "10": 48994,
-    "11": 14098,
-    "12": 13932,
-    "13": 5906,
-    "14": 6009,
-    "15": 57325,
-    "16": 60797,
-    "17": 33042,
-    "18": 33119,
-    "19": 3198,
-    "20": 3434,
-    "21": 12900,
-    "22": 13170,
-    "23": 63847,
-    "24": 62869,
-    "25": 10420,
-    "26": 8520,
-    "27": 254786,
-    "28": 737856,
-    "29": 748960,
+    "1": 2887,
+    "2": 2888,
+    "3": 4239,
+    "4": 4524,
+    "5": 1369,
+    "6": 1457,
+    "7": 40703,
+    "8": 36877,
+    "9": 53160,
+    "10": 55336,
+    "11": 11442,
+    "12": 11364,
+    "13": 4391,
+    "14": 4853,
+    "15": 66476,
+    "16": 67298,
+    "17": 35259,
+    "18": 34251,
+    "19": 4189,
+    "20": 3920,
+    "21": 14647,
+    "22": 15077,
+    "23": 80373,
+    "24": 79082,
+    "25": 11977,
+    "26": 9008,
+    "27": 249983,
+    "28": 735945,
+    "29": 725004,
     "30": 146019,
-    "31": 58250,
-    "32": 54585,
+    "31": 56826,
+    "32": 53609,
     "33": 8482,
     "34": 66084,
     "35": 71073,
-    "39": 561,
+    "39": 559,
     "40": 729,
-    "41": 16
+    "41": 16,
+    "0": 66630936
   },
   "atlasToManualDiceAudit": {
     "caudate": 0.8448,
@@ -124,7 +135,7 @@
     "amygdala": 0.7289
   },
   "ventricleLabelsRestrictedToEmptySpace": true,
-  "ventricleTissueOverlap": 0.0,
+  "ventricleTissueOverlap": 0,
   "coordinatePolicy": "exact BigBrain ICBM2009sym 0.5 mm output grid; CerebrA resampling accepted only after overlap audit",
   "reviewedPatchAudit": {
     "path": "segmentation-patches/review/mammillary-bodies-horizontal-core-plus-clear-rim-candidate-2026-08-16.json",
@@ -443,7 +454,37 @@
     "workflowMetadataStatus": "strict"
   },
   "preClassificationCompressedSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
-  "rawVoxelSha256": "afc55069f2ecdcad36429f1026276f10c8e17a31fa9c6bf985b3beec3f640130",
+  "rawVoxelSha256": "212ce93d5ae46fca79f274d34cf6ed92cd6d92674af78ccbb84643c87a57d552",
+  "brainstemThreeIslandsAudit": {
+    "record": "segmentation-patches/review/brainstem-three-islands-adoption-2026-09-06.json",
+    "recordSha256": "9c7b14f4272969261e3e2415d3f522b7e5d7db1eeca7cb0c8ae28b225458be66",
+    "changedVoxelCount": 27,
+    "sourceLabel": 27,
+    "targetLabel": 0,
+    "projectAdopted": true,
+    "expertReviewed": false,
+    "scope": "Three image-reviewed isolated components only; remaining tissue/mixed-boundary components retained."
+  },
+  "brainstemPairedIslandsAudit": {
+    "record": "segmentation-patches/review/brainstem-paired-islands-adoption-2026-09-06.json",
+    "recordSha256": "22ed2f98719a9bec65af4d1fffa985085e732965c4f7817b48573b25684d2600",
+    "changedVoxelCount": 16,
+    "sourceLabel": 27,
+    "targetLabel": 0,
+    "projectAdopted": true,
+    "expertReviewed": false,
+    "scope": "Two isolated image-reviewed components only. Other islands and missing ventral midbrain unchanged."
+  },
+  "brainstemIslandAudit": {
+    "record": "segmentation-patches/review/brainstem-island-adoption-2026-09-06.json",
+    "recordSha256": "2afc8d4bb428b9f808b6d09317ae98d8db4587ee61d6c6e008e20101465f9550",
+    "changedVoxelCount": 40,
+    "sourceLabel": 27,
+    "targetLabel": 0,
+    "projectAdopted": true,
+    "expertReviewed": false,
+    "scope": "One image-reviewed isolated component only; unlabelled, not reclassified as a cavity. Other components and missing ventral midbrain remain unresolved."
+  },
   "callosalLocalPatchAudit": {
     "path": "segmentation-patches\\review\\callosum-local-exclusion-project-review-2026-09-06.json",
     "sourceCompressedSha256": "930eaaed7eed8782b1b162f3aa5c59c2428f4062d0d2da3a9a1cb563f49b7db7",
@@ -528,5 +569,590 @@
     },
     "workflowMetadataStatus": "strict"
   },
-  "preCallosalInferiorCompressedSha256": "8cc65edf36e1e3a420168bfb663d6440418dd67189808263d11c180c4b403d16"
+  "preCallosalInferiorCompressedSha256": "8cc65edf36e1e3a420168bfb663d6440418dd67189808263d11c180c4b403d16",
+  "remainingRegistrationAudit": {
+    "record": "segmentation-patches/review/remaining-manual-registration-project-adoption-2026-09-06.json",
+    "recordSha256": "cd246260ac82b66f36078c4354138f28afc9b8fb2a5162d7affa92eb025af673",
+    "projectAdopted": true,
+    "expertReviewed": false,
+    "changedVoxelCount": 137228,
+    "preservedVentricleConflict": [
+      173,
+      262,
+      184
+    ],
+    "replacedCoarseBorderVoxels": 2522
+  },
+  "cerebellarIslandAudit": {
+    "record": "segmentation-patches/review/cerebellar-islands-adoption-2026-09-06.json",
+    "recordSha256": "85bc0bdfcd782173e53d13c4146641cda2024b0cfb55596effbebb590cd8947b",
+    "changedVoxelCount": 64,
+    "transitions": {
+      "27->28": 16,
+      "27->29": 20,
+      "27->0": 28
+    },
+    "projectAdopted": true,
+    "expertReviewed": false,
+    "unassignedBoundaryVoxelCount": 24,
+    "clearVoidVoxelCount": 4
+  },
+  "midlineSurfaceAudit": {
+    "record": "segmentation-patches/review/midline-surface-adoption-2026-09-06.json",
+    "recordSha256": "59f6aa6dae2f3eb3ee864c7b159361aa539bd1681df59eacb0b9f853f6b712fd",
+    "changedVoxelCount": 4,
+    "projectAdopted": true,
+    "expertReviewed": false,
+    "retainedBoundaryVoxelCount": 4,
+    "changedBlockPartMasks": []
+  },
+  "brainstemSupportAudit": {
+    "record": "segmentation-patches/review/brainstem-support-batch-adoption-2026-09-06.json",
+    "recordSha256": "fda267537a478ecda65b592ebeeb3fd75a6fe5551e8657cde8fd07ce657a5269",
+    "changedVoxelCount": 4005,
+    "inferiorImageSupportVoxels": 3385,
+    "externalSurfaceGapVoxels": 620,
+    "projectAdopted": true,
+    "expertReviewed": false,
+    "changedBlockPartMasks": []
+  },
+  "brainstemLateralDorsalAudit": {
+    "record": "segmentation-patches/review/brainstem-lateral-dorsal-adoption-2026-09-06.json",
+    "recordSha256": "a0909129446eeba7a7bae898b3a665e5e4f015f49a321288a100de4e56320621",
+    "changedVoxelCount": 466,
+    "lateralEdgeVoxels": 242,
+    "dorsalEdgeVoxels": 224,
+    "projectAdopted": true,
+    "expertReviewed": false,
+    "changedBlockPartMasks": []
+  },
+  "mammillaryTipAudit": {
+    "record": "segmentation-patches/review/mammillary-tip-adoption-2026-09-06.json",
+    "recordSha256": "52f783b745d492e577b6acf307399daad72a1c57faddd9a7c3ab3ae43a057b1d",
+    "changedVoxelCount": 2,
+    "projectAdopted": true,
+    "expertReviewed": false,
+    "changedBlockPartMasks": []
+  },
+  "cerebellarSupportAudit": {
+    "record": "segmentation-patches/review/cerebellar-support-adoption-2026-09-06.json",
+    "recordSha256": "16a105e685456721bc912963544540c3e6313b711fab4f36437af1d2151d89c9",
+    "changedVoxelCount": 348,
+    "projectAdopted": true,
+    "expertReviewed": false,
+    "changedBlockPartMasks": []
+  },
+  "cerebellarSupport2274Audit": {
+    "record": "segmentation-patches/review/cerebellar-support-2274-adoption-2026-09-06.json",
+    "recordSha256": "4e2dc72b4ec6d8e9425014e238a0225dd6c8f117c29d4472c4e1bd4d58d61a6c",
+    "changedVoxelCount": 52,
+    "projectAdopted": true,
+    "expertReviewed": false,
+    "changedBlockPartMasks": []
+  },
+  "cerebellarSupport997Audit": {
+    "record": "segmentation-patches/review/cerebellar-support-997-adoption-2026-09-06.json",
+    "recordSha256": "abede0311e99251a06d5a71f406c4a5b94f8ca93606f1f5075d2ae0b6b28a4f3",
+    "changedVoxelCount": 259,
+    "projectAdopted": true,
+    "expertReviewed": false,
+    "changedBlockPartMasks": []
+  },
+  "cerebellarSupport1393Audit": {
+    "record": "segmentation-patches/review/cerebellar-support-1393-adoption-2026-09-06.json",
+    "recordSha256": "2a668f715242cc7940c7dd79ed9a1e5e763ea027311960b2c2497b9c3423d97d",
+    "changedVoxelCount": 372,
+    "projectAdopted": true,
+    "expertReviewed": false,
+    "changedBlockPartMasks": []
+  },
+  "cerebellarSupport1603Audit": {
+    "record": "segmentation-patches/review/cerebellar-support-1603-adoption-2026-09-06.json",
+    "recordSha256": "9c4ea596cf6d23e1ddc0d01555c1c3925c46376aa9b225c723c5934c5f1ca52e",
+    "changedVoxelCount": 229,
+    "projectAdopted": true,
+    "expertReviewed": false,
+    "changedBlockPartMasks": []
+  },
+  "cerebellarSupport843Audit": {
+    "record": "segmentation-patches/review/cerebellar-support-843-adoption-2026-09-07.json",
+    "recordSha256": "d4c19567ab5e1e23adbefa3b676f0f2ace041be33613dd3d67079ce680c32d0d",
+    "changedVoxelCount": 3353,
+    "projectAdopted": true,
+    "expertReviewed": false,
+    "changedBlockPartMasks": []
+  },
+  "cerebellarSupport1105Audit": {
+    "record": "segmentation-patches/review/cerebellar-support-1105-adoption-2026-09-07.json",
+    "recordSha256": "ebe934dcd42387ff8d664c2cf38635dfad2b0289acf5725ada1167e3ec2b27bd",
+    "changedVoxelCount": 21290,
+    "projectAdopted": true,
+    "expertReviewed": false,
+    "changedBlockPartMasks": []
+  },
+  "thirdVentricleCoreAudit": {
+    "record": "segmentation-patches/review/third-ventricle-core-adoption-2026-09-07.json",
+    "recordSha256": "1e63951cf2f99626748885cba30a3bee082d97e33eedd14f427e3a071b2919aa",
+    "changedVoxelCount": 1587,
+    "projectAdopted": true,
+    "expertReviewed": false,
+    "changedBlockPartMasks": [
+      "block-diencephalon-third-ventricle.mesh"
+    ]
+  },
+  "fourthVentriclePairedAudit": {
+    "record": "segmentation-patches/review/fourth-ventricle-paired-adoption-2026-09-07.json",
+    "recordSha256": "929c7a7a2c904b3e1ebc90985b9059f6752a3d90755283c02c5368567eaf6824",
+    "changedVoxelCount": 16,
+    "projectAdopted": true,
+    "expertReviewed": false,
+    "changedBlockPartMasks": [
+      "block-hindbrain-fourth-ventricle.mesh"
+    ]
+  },
+  "lateralFringeAudit": {
+    "record": "segmentation-patches/review/lateral-fringe-adoption-2026-09-07.json",
+    "recordSha256": "282190247a2919b5f3518f8b8bce846946caee1bdb9c33e2ac5ce483aeeb0cbc",
+    "changedVoxelCount": 308,
+    "projectAdopted": true,
+    "expertReviewed": false,
+    "changedBlockPartMasks": [
+      "block-lateral-ventricle-ventricular-cavity.mesh",
+      "block-commissural-system-lateral-ventricles.mesh",
+      "block-choroid-plexus-ventricular-cavity.mesh"
+    ]
+  },
+  "lateralNextAudit": {
+    "record": "segmentation-patches/review/lateral-next-adoption-2026-09-07.json",
+    "recordSha256": "5c5c7423428bdad392385fe6aedfe6d4d4568cfbf8f9de5fe4330a15bc29ffba",
+    "changedVoxelCount": 265,
+    "projectAdopted": true,
+    "expertReviewed": false,
+    "changedBlockPartMasks": [
+      "block-lateral-ventricle-ventricular-cavity.mesh",
+      "block-commissural-system-lateral-ventricles.mesh",
+      "block-choroid-plexus-tissue.mesh",
+      "block-choroid-plexus-ventricular-cavity.mesh"
+    ]
+  },
+  "lateralRemainingAudit": {
+    "record": "segmentation-patches/review/lateral-remaining-adoption-2026-09-07.json",
+    "recordSha256": "c37a0269d53f4abbcec03a0ee79aaf45483c3c2be7868058998e2d63c5f936db",
+    "changedVoxelCount": 630,
+    "projectAdopted": true,
+    "expertReviewed": false,
+    "changedBlockPartMasks": [
+      "block-lateral-ventricle-tissue.mesh",
+      "block-lateral-ventricle-ventricular-cavity.mesh",
+      "block-commissural-system-lateral-ventricles.mesh",
+      "block-choroid-plexus-tissue.mesh",
+      "block-choroid-plexus-ventricular-cavity.mesh",
+      "block-medial-temporal-inferior-horn.mesh"
+    ]
+  },
+  "lateralMediumAudit": {
+    "record": "segmentation-patches/review/lateral-medium-adoption-2026-09-07.json",
+    "recordSha256": "d5f852f48611e8585189bea48a1d103ff3970626fe1c798a5668e1f1bb871d22",
+    "changedVoxelCount": 867,
+    "projectAdopted": true,
+    "expertReviewed": false,
+    "changedBlockPartMasks": [
+      "block-lateral-ventricle-tissue.mesh",
+      "block-lateral-ventricle-ventricular-cavity.mesh",
+      "block-commissural-system-tissue.mesh",
+      "block-commissural-system-lateral-ventricles.mesh",
+      "block-choroid-plexus-tissue.mesh",
+      "block-choroid-plexus-ventricular-cavity.mesh",
+      "block-medial-temporal-inferior-horn.mesh"
+    ]
+  },
+  "inferiorHornAudit": {
+    "record": "segmentation-patches/review/inferior-horn-adoption-2026-09-07.json",
+    "recordSha256": "d6e3965c9cdee2ba978d364cb490cf99a3c7e83c9b38f29785de9de46c42c72d",
+    "changedVoxelCount": 304,
+    "projectAdopted": true,
+    "expertReviewed": false,
+    "changedBlockPartMasks": [
+      "block-lateral-ventricle-tissue.mesh",
+      "block-lateral-ventricle-ventricular-cavity.mesh",
+      "block-radiations-tissue.mesh",
+      "block-choroid-plexus-tissue.mesh",
+      "block-choroid-plexus-ventricular-cavity.mesh",
+      "block-medial-temporal-tissue.mesh",
+      "block-medial-temporal-inferior-horn.mesh"
+    ]
+  },
+  "inferiorResidualAudit": {
+    "record": "segmentation-patches/review/inferior-residual-adoption-2026-09-07.json",
+    "recordSha256": "50c8f5e56601d32dc677679ef40ec4da4f4615270187f2249e5ca43dd3254f01",
+    "changedVoxelCount": 57,
+    "projectAdopted": true,
+    "expertReviewed": false,
+    "changedBlockPartMasks": [
+      "block-lateral-ventricle-tissue.mesh",
+      "block-lateral-ventricle-ventricular-cavity.mesh",
+      "block-choroid-plexus-tissue.mesh",
+      "block-choroid-plexus-ventricular-cavity.mesh",
+      "block-medial-temporal-tissue.mesh",
+      "block-medial-temporal-inferior-horn.mesh"
+    ]
+  },
+  "inferiorResidual53Audit": {
+    "record": "segmentation-patches/review/inferior-residual53-adoption-2026-09-07.json",
+    "recordSha256": "68735aed06349553083ddb321b43a26c60f08313b5ffb76bb4805901b883e71b",
+    "changedVoxelCount": 53,
+    "projectAdopted": true,
+    "expertReviewed": false,
+    "changedBlockPartMasks": [
+      "block-lateral-ventricle-tissue.mesh",
+      "block-lateral-ventricle-ventricular-cavity.mesh",
+      "block-choroid-plexus-tissue.mesh",
+      "block-choroid-plexus-ventricular-cavity.mesh",
+      "block-medial-temporal-inferior-horn.mesh"
+    ]
+  },
+  "inferiorPartial19Audit": {
+    "record": "segmentation-patches/review/inferior-partial19-adoption-2026-09-07.json",
+    "recordSha256": "f14aa7f45392704aff4b6f92f9a15cd7ede395088e509d13c6c31eef1227f36e",
+    "changedVoxelCount": 19,
+    "projectAdopted": true,
+    "expertReviewed": false,
+    "changedBlockPartMasks": [
+      "block-lateral-ventricle-tissue.mesh",
+      "block-lateral-ventricle-ventricular-cavity.mesh",
+      "block-choroid-plexus-tissue.mesh",
+      "block-choroid-plexus-ventricular-cavity.mesh",
+      "block-medial-temporal-tissue.mesh",
+      "block-medial-temporal-inferior-horn.mesh"
+    ]
+  },
+  "inferiorOuter40Audit": {
+    "record": "segmentation-patches/review/inferior-outer40-adoption-2026-09-07.json",
+    "recordSha256": "7edaf0b20781a4c4ca16ac2b668d17123bbf8cf2fdc9d0a6cfbb1842c0fc7ca0",
+    "changedVoxelCount": 40,
+    "projectAdopted": true,
+    "expertReviewed": false,
+    "changedBlockPartMasks": []
+  },
+  "fourthAnterior105Audit": {
+    "record": "segmentation-patches/review/fourth-anterior105-adoption-2026-09-07.json",
+    "recordSha256": "1f92f500b16ba715d54cd91917723b6737ec0ca47f6e38a9ecf150a5fda52332",
+    "changedVoxelCount": 105,
+    "projectAdopted": true,
+    "expertReviewed": false,
+    "changedBlockPartMasks": [
+      "block-hindbrain-fourth-ventricle.mesh"
+    ],
+    "changedSectionMeshes": [
+      "section-current-fourth-ventricle.mesh",
+      "section-current-ventricular-system.mesh"
+    ]
+  },
+  "thirdDetached8Audit": {
+    "record": "segmentation-patches/review/third-detached8-adoption-2026-09-07.json",
+    "recordSha256": "49cda6d411033f38cf71160dadd9e38224b28ffc02ba06fae66f1c03bdd96f36",
+    "changedVoxelCount": 8,
+    "projectAdopted": true,
+    "expertReviewed": false,
+    "changedBlockPartMasks": [],
+    "changedSectionMeshes": [
+      "section-current-third-ventricle.mesh",
+      "section-current-ventricular-system.mesh"
+    ]
+  },
+  "lateralDetached547Audit": {
+    "record": "segmentation-patches/review/lateral-detached547-adoption-2026-09-07.json",
+    "recordSha256": "6625f549a40776abea86ceff0e48bcda1dec33d9a0566079c63304b95511e927",
+    "changedVoxelCount": 547,
+    "projectAdopted": true,
+    "expertReviewed": false,
+    "changedBlockPartMasks": [
+      "block-lateral-ventricle-tissue.mesh",
+      "block-lateral-ventricle-ventricular-cavity.mesh",
+      "block-choroid-plexus-ventricular-cavity.mesh"
+    ],
+    "changedSectionMeshes": [
+      "section-current-lateral-ventricles.mesh",
+      "section-current-ventricular-system.mesh"
+    ]
+  },
+  "lateralResidual80Audit": {
+    "record": "segmentation-patches/review/lateral-residual80-adoption-2026-09-07.json",
+    "recordSha256": "1a8048a9272142a67936ec4f5ddba0a4d6de56c53075f6438b6e1e0dd7d0764a",
+    "changedVoxelCount": 80,
+    "projectAdopted": true,
+    "expertReviewed": false,
+    "changedBlockPartMasks": [
+      "block-lateral-ventricle-tissue.mesh",
+      "block-lateral-ventricle-ventricular-cavity.mesh",
+      "block-choroid-plexus-tissue.mesh",
+      "block-choroid-plexus-ventricular-cavity.mesh",
+      "block-medial-temporal-inferior-horn.mesh"
+    ],
+    "changedSectionMeshes": [
+      "section-current-lateral-ventricles.mesh",
+      "section-current-ventricular-system.mesh"
+    ]
+  },
+  "lateralCavity21Audit": {
+    "record": "segmentation-patches/review/lateral-cavity21-adoption-2026-09-07.json",
+    "recordSha256": "ce0f2881e29380f9b445144bbf1ddc3fefa467284ea2d4bf2ac9767b2df29590",
+    "changedVoxelCount": 21,
+    "projectAdopted": true,
+    "expertReviewed": false,
+    "changedBlockPartMasks": [
+      "block-lateral-ventricle-tissue.mesh",
+      "block-lateral-ventricle-ventricular-cavity.mesh",
+      "block-choroid-plexus-tissue.mesh",
+      "block-choroid-plexus-ventricular-cavity.mesh",
+      "block-medial-temporal-tissue.mesh",
+      "block-medial-temporal-inferior-horn.mesh"
+    ],
+    "changedSectionMeshes": [
+      "section-current-lateral-ventricles.mesh",
+      "section-current-ventricular-system.mesh"
+    ]
+  },
+  "lateralCrop34Audit": {
+    "record": "segmentation-patches/review/lateral-crop34-adoption-2026-09-07.json",
+    "recordSha256": "ebbbffbbfaf56f5ca8fd22ddbbeb66e376a47244eac15f824ac653c6631be837",
+    "changedVoxelCount": 34,
+    "projectAdopted": true,
+    "expertReviewed": false,
+    "changedBlockPartMasks": [
+      "block-lateral-ventricle-tissue.mesh",
+      "block-lateral-ventricle-ventricular-cavity.mesh",
+      "block-choroid-plexus-tissue.mesh",
+      "block-choroid-plexus-ventricular-cavity.mesh",
+      "block-medial-temporal-inferior-horn.mesh"
+    ],
+    "changedSectionMeshes": [
+      "section-current-lateral-ventricles.mesh",
+      "section-current-ventricular-system.mesh"
+    ]
+  },
+  "regionalBatchAudits": {
+    "left-lower-cavity": {
+      "record": "segmentation-patches/review/left-lower-cavity-adoption-2026-09-07.json",
+      "recordSha256": "e616707e4baf149637f7ddcf513e3bfbd34842f7f6114b0892081197d14a51b5",
+      "changedVoxelCount": 233,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-lateral-ventricles.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "left-lower-majority": {
+      "record": "segmentation-patches/review/left-lower-majority-adoption-2026-09-07.json",
+      "recordSha256": "4f32daa131d54720f103783e89caf1ad20dfe40833402611fa5535e3921638ee",
+      "changedVoxelCount": 1108,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-lateral-ventricles.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "left-lower-anterior397": {
+      "record": "segmentation-patches/review/left-lower-anterior397-adoption-2026-09-07.json",
+      "recordSha256": "fc0fd86bb1c4a3cd701a39bd9ea9f5d95a971461c3d2af1e0a9118ba8c503a0a",
+      "changedVoxelCount": 397,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-lateral-ventricles.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "left-lower-posterior1396": {
+      "record": "segmentation-patches/review/left-lower-posterior1396-adoption-2026-09-07.json",
+      "recordSha256": "f90c61aca9b5458885d8d40241fc78e007bdb026565e4d7a9548ac8303941c8c",
+      "changedVoxelCount": 1396,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-lateral-ventricles.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "ventricular-exclusions46": {
+      "record": "segmentation-patches/review/ventricular-exclusions46-adoption-2026-09-07.json",
+      "recordSha256": "f5c2142d56d7ec509cc01e19a50c0d948b997236cbf4cc297fcec126ea42a6e8",
+      "changedVoxelCount": 46,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-lateral-ventricles.mesh",
+        "section-current-third-ventricle.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "right-inferior-gap421": {
+      "record": "segmentation-patches/review/right-inferior-gap421-adoption-2026-09-07.json",
+      "recordSha256": "a7f7d3c965f333c8b70702bb89c3d2d0ebd51d9b0582f616549916665c550124",
+      "changedVoxelCount": 421,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-lateral-ventricles.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "right-inferior-wide830": {
+      "record": "segmentation-patches/review/right-inferior-wide830-adoption-2026-09-07.json",
+      "recordSha256": "0be7154b10c0a4ce88632bde83c95ff8f5fef611e440e6a1a4465c2ce0b24488",
+      "changedVoxelCount": 830,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-lateral-ventricles.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "right-posterior2308": {
+      "record": "segmentation-patches/review/right-posterior2308-adoption-2026-09-07.json",
+      "recordSha256": "5e11a29b68192df889bcb741c1d003a16d90ce00e8de09b0e76d63475cd48054",
+      "changedVoxelCount": 2308,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-lateral-ventricles.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "right-posterior-superior7160": {
+      "record": "segmentation-patches/review/right-posterior-superior7160-adoption-2026-09-07.json",
+      "recordSha256": "022781b9be36157a4d67049566ecc48421a09c7c3ac8ca40c7b1ef17777c24b4",
+      "changedVoxelCount": 7160,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-lateral-ventricles.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "left-posterior-superior5757": {
+      "record": "segmentation-patches/review/left-posterior-superior5757-adoption-2026-09-07.json",
+      "recordSha256": "8ebc86ddc82226d65720e6fadb3815daf49eb6fdea6d90bfcb9d9a050ec5ec67",
+      "changedVoxelCount": 5757,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-lateral-ventricles.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "left-anterior2224": {
+      "record": "segmentation-patches/review/left-anterior2224-adoption-2026-09-07.json",
+      "recordSha256": "1f35d3bad9dd6fecce517750cd5eb9023c489866b43eb1213a051931695e15bb",
+      "changedVoxelCount": 2224,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-lateral-ventricles.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "left-anterior-terminal3341": {
+      "record": "segmentation-patches/review/left-anterior-terminal3341-adoption-2026-09-07.json",
+      "recordSha256": "8597099265fc8bc1b53b7e8fe9204ef7615360378c519b068bccbfca72977803",
+      "changedVoxelCount": 3341,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-lateral-ventricles.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "right-anterior-terminal4515": {
+      "record": "segmentation-patches/review/right-anterior-terminal4515-adoption-2026-09-07.json",
+      "recordSha256": "c31cbacc8da4b708688ad6de2c3920a92ad9272d5e8275b8983562205864d2de",
+      "changedVoxelCount": 4515,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-lateral-ventricles.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "left-medial-anterior1092": {
+      "record": "segmentation-patches/review/left-medial-anterior1092-adoption-2026-09-07.json",
+      "recordSha256": "5d5c52bfaa1a6bc67476d1d9102320be30dd2069eb0e4a5e57bce2a248037f4e",
+      "changedVoxelCount": 1092,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-lateral-ventricles.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "posterior-ventricular-islands2": {
+      "record": "segmentation-patches/review/posterior-ventricular-islands2-adoption-2026-09-07.json",
+      "recordSha256": "a7fb258d93a53349759cddaaff3ce5a68fb5bdea8b9389b40a20fb32c7d3dda1",
+      "changedVoxelCount": 2,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-lateral-ventricles.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "fourth-remaining-anterior173": {
+      "record": "segmentation-patches/review/fourth-remaining-anterior173-adoption-2026-09-07.json",
+      "recordSha256": "0643798c5868d1694095510a7c438ae5d84d5e373b4847baa7d27ef00f836dd9",
+      "changedVoxelCount": 173,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-fourth-ventricle.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "fourth-brainstem48": {
+      "record": "segmentation-patches/review/fourth-brainstem48-adoption-2026-09-07.json",
+      "recordSha256": "5bd11e5a4040d0435f64d6aaf6b9c4eb2b3042fc4b3b8b174c33edd17d5b764b",
+      "changedVoxelCount": 48,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-fourth-ventricle.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "fourth-depth27": {
+      "record": "segmentation-patches/review/fourth-depth27-adoption-2026-09-07.json",
+      "recordSha256": "c7918dbdbc3295bc2d4cc94d0bdbe64a601900bd1f9b2c5c4aa28e48289a02a9",
+      "changedVoxelCount": 27,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-fourth-ventricle.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "fourth-upper-posterior111": {
+      "record": "segmentation-patches/review/fourth-upper-posterior111-adoption-2026-09-07.json",
+      "recordSha256": "f6884ddedd72edffecac9670ad5a36f7f349365b07ff682c24bf022e4d52bafc",
+      "changedVoxelCount": 111,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-fourth-ventricle.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "ventricular-mixed12": {
+      "record": "segmentation-patches/review/ventricular-mixed12-adoption-2026-09-07.json",
+      "recordSha256": "91319d05addfd63bc1263d9dfcae7a2beb607dfc080603089fe9d52508f2a9f7",
+      "changedVoxelCount": 12,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-third-ventricle.mesh",
+        "section-current-fourth-ventricle.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    }
+  }
 }

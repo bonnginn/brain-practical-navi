@@ -23,7 +23,7 @@ from typing import Iterable
 
 
 MAGIC = b"BBS1"
-EXPECTED_SHA256 = "098edfbf365016c6c53ccf7b7032258db72a4912378c457d348c01613a4a1694"
+EXPECTED_SHA256 = "3aa4127843d1ca59ee4fa2d542632748ec542958c76329b627b3968b6d53f45e"
 EXPECTED_DIMS = (394, 466, 378)
 VOXEL_SIZE_MM = (0.5, 0.5, 0.5)
 AUDIT_LABELS = (27, 33, 39, 40)
@@ -41,27 +41,27 @@ CONTACT_DIRECTIONS = (
 CONTACT_DIRECTION_ORDER = {direction: order for order, (direction, *_rest) in enumerate(CONTACT_DIRECTIONS)}
 CONTACT_INTERFACE_PAIRS = ((27, 39), (33, 39), (27, 40), (33, 40))
 EXPECTED_MAMMILLARY_BBOXES = {
-    39: {"min": [187, 246, 107], "max": [196, 256, 121]},
+    39: {"min": [187, 246, 108], "max": [196, 256, 121]},
     40: {"min": [197, 247, 108], "max": [204, 258, 121]},
 }
 EXPECTED_CONTACT_INTERFACE_FACE_COUNTS = {
-    "27-39": 69,
+    "27-39": 58,
     "33-39": 171,
-    "27-40": 38,
+    "27-40": 31,
     "33-40": 162,
 }
 EXPECTED_REPRESENTATIVE_SLICES = {
     39: {
         "axis": "y",
         "sliceIndex": 251,
-        "pairInPlaneFaceCounts": {"27": 12, "33": 12},
-        "pairUniqueMammillaryVoxelCounts": {"27": 10, "33": 9},
+        "pairInPlaneFaceCounts": {"27": 10, "33": 12},
+        "pairUniqueMammillaryVoxelCounts": {"27": 8, "33": 9},
     },
     40: {
         "axis": "y",
         "sliceIndex": 253,
-        "pairInPlaneFaceCounts": {"27": 8, "33": 6},
-        "pairUniqueMammillaryVoxelCounts": {"27": 8, "33": 5},
+        "pairInPlaneFaceCounts": {"27": 6, "33": 6},
+        "pairUniqueMammillaryVoxelCounts": {"27": 6, "33": 5},
     },
 }
 PAIR_KEYS = tuple(
@@ -544,7 +544,7 @@ def build_audit(path: Path) -> dict[str, object]:
         "expectedInputSha256": EXPECTED_SHA256,
         "expectedDims": list(EXPECTED_DIMS),
         "expectedVoxelSizeMm": list(VOXEL_SIZE_MM),
-        "expectedMammillaryVoxelCounts": {"39": 561, "40": 729},
+        "expectedMammillaryVoxelCounts": {"39": 559, "40": 729},
         "expectedMammillaryComponentCount6": {"39": 1, "40": 1},
         "expectedMammillaryBboxes": {
             str(label): expected for label, expected in EXPECTED_MAMMILLARY_BBOXES.items()
@@ -556,7 +556,7 @@ def build_audit(path: Path) -> dict[str, object]:
         "passed": (
             digest == EXPECTED_SHA256
             and dims == EXPECTED_DIMS
-            and all(len(positions[label]) == expected for label, expected in ((39, 561), (40, 729)))
+            and all(len(positions[label]) == expected for label, expected in ((39, 559), (40, 729)))
             and all(len(components_by_label[label]) == 1 for label in MAMMILLARY_LABELS)
             and all(
                 label_audits[str(label)]["bbox"][bound] == expected[bound]

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-08-28",
+  "updated": "2026-09-07",
   "phase": "公開α掲載中／β候補・β公開判断前",
   "knownLimitations": [
     {
@@ -44,6 +44,18 @@
     }
   ],
   "changes": [
+    {
+      "id": "change-september-adopted-segmentation",
+      "heading": "分節修正と断面・3Dの同期",
+      "body": "原画像に基づいて採用した脳室などの塗り残し・誤収録の修正と、位置合わせを見直した皮質下核ラベルを反映しました。関連する断面3D・ブロック部品も同期しています。分節全体の完成や専門家レビュー完了ではなく、未確定の境界と未採用の候補は残っています。",
+      "evidenceRefs": ["REGISTERED_LABELS_ADOPTION.md", "SEPTEMBER_VENTRICLE_REVIEW.md", "SECTION_VENTRICLE_MESH_SYNC.md"]
+    },
+    {
+      "id": "change-browser-segmentation-references",
+      "heading": "ブラウザ内の参考文献",
+      "body": "利用条件・クレジットに主要な参考文献8件を日英で追加しました。画像・ラベル・表面データの由来と背景調査を区別し、本アプリでの用途と限界を記載しています。引用は原著者の承認や専門家確認を意味しません。",
+      "evidenceRefs": ["SEGMENTATION_REFERENCES.md", "app/SegmentationReferences.tsx"]
+    },
     {
       "id": "change-quiz-concept-bank-100",
       "heading": "100問の多角的な復習クイズ",

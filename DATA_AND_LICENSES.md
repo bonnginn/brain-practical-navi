@@ -1,6 +1,48 @@
 # データ、権利、出典
 
+開発版の `section-current-*.mesh` は現在のBigBrain実習分節から全範囲を再構成した脳室表示です。原資料・分節の既存条件を継承し、新たな専門家確定データとは扱いません。[生成法・SHA・適用範囲](SECTION_VENTRICLE_MESH_SYNC.md)
+
+分節の原画像・ラベル・位置合わせ資料と参考文献は [分節の出典索引](SEGMENTATION_REFERENCES.md) から参照できます。
+
+53点修正の統合検証完了：全Node 547/547（work/inferior-residual53-full-node-v1.log、session30969 exit0）、型検査、本番build、実ブラウザ12/12と全12PNG目視成功。現ラベルba31c7b…、未完了項目の監査は継続。全分節完成・専門家レビュー・公開反映ではない。以下の実行中/未検証表記は工程履歴。現在live検証jobなし。
+
+2026-09-07 ローカル開発版：追加53 voxel（0→24）と関連5meshを組込み。現label SHA ba31c7b26409ce771fe5df47548299e671489649580a004017bd0617c9100efb、raw SHA 2b870431f39cb214d01a8cfc49bbd37f0cb5f23b23264615bbb256329f112d6a、ID24=64362。inferior-residual53-adoption-2026-09-07.jsonとpre-inferior-residual53復帰ファイルに根拠/差分を保存。新採用テスト2/2・型検査成功。過去57点の現行値テスト、SHA依存の客観監査、全テスト/build/実ブラウザは新段階では未更新・未完了。下記681f/545成功は直前段階の履歴。全目標は継続、main/公開変更なし。
+
+2026-09-07 最新ローカル組込み：下角の追加57 voxel（0→24）と関連6meshを適用。現compressed SHA `681fb599fd6d2181d7b7398a775abf5f1335eb644ce95afc2149b39fab9f9c88`、raw `eaee5e5809932b06e8b497c4b195edf659438e2a6d0fdb823b55ea2dea2b3086`、ID24=64309。可逆記録 `segmentation-patches/review/inferior-residual-adoption-2026-09-07.json`、変更前label/6meshはtests/fixturesのpre-inferior-residual系列に保存。新採用テスト2/2・型検査・本番build成功。過去採用meshの現行値照合・全体回帰・実ブラウザは次工程で未完了。全分節完成・専門家レビュー・公開反映ではない。以下の5f18等は過去段階。
+
+2026-09-07 下角修正の開発統合：原画像の全差分164面と広域14面を確認した304 voxel（0→右側脳室ID24）を採用し、関連7部品を同期。現圧縮SHA `5f1847a300e0a988ec19037c947e18b525f5d4dc01da8de87222035abbf88eba`、raw SHA `6335e0b37e926a9523a1c4d451104157e044a968bddfcaadd069f0c1b7f471dd`、ID24は64252 voxel。可逆記録は `segmentation-patches/review/inferior-horn-adoption-2026-09-07.json`、変更前ラベルと7meshはtests/fixturesに保存。以下の0d31等は過去段階の記録。AI画像レビューによる局所修正で、専門家確認・全脳室完成・公開反映ではない。脳弓・視放線の独立分節は未完了のまま。
+
+側脳室の中規模局所修正を開発版に適用：31領域867 voxel（左555・右312）と関連7部品。現ラベル圧縮SHA `0d31037722a8a31eee3ff6feed49dc076ece3d6c864297240c687cd1526cc229`、raw SHA `b36c2bc3f2ceb8701283dde2cfdd47305b8861e11d357762bd1c160e9dafaa9d`。採用記録は `segmentation-patches/review/lateral-medium-adoption-2026-09-07.json`、旧b473ラベルと変更前7meshはtests/fixturesへ保存。原画像・個別/統合差分・有限セル支持を照合したAI画像レビューによる局所補完であり、専門家監修・全脳室完成ではない。新旧採用テスト4/4、型検査、本番build成功。全Node試験は実行中、今回の実ブラウザ確認は未完了。main/公開変更なし。
+
+2026-09-07追補：既存BigBrain画像を照合した側脳室630点の開発修正と6mesh同期。現label compressed SHA `b473638881ac75dc3ce27cf9963d612ffa41f768906e895f2281954c44be9567`、raw `3c295bb532aacc1654f44fd20d2c6524644ef42e83d0ac44f8078607bffaf922`。旧7c54と6mesh fixture、lateral-remaining-adoption記録を保持。追加取得・ライセンス変更なし。専門家レビュー・研究用ground truth・公開反映ではない。
+
+2026-09-07追補：側脳室の追加265点を既存BigBrain画像照合後に開発採用、関連4meshを同期。現label compressed SHA `7c54fdd2e391ca3e1ed70f7e5fdead7be940d1007b891eb4bb4dd22d7407f0ef`、raw `bed9a7d37c5f8709aa4c82845112ed7f5f429c689b1a111bad95b22e31d09e7e`。前段83dc label/旧4mesh fixtureとlateral-next-adoption記録を保持。追加取得・ライセンス変更なし。専門家レビュー・研究用ground truth・公開反映ではない。
+
+2026-09-07開発データ追補（側脳室）：既存登録300µm/500µm画像に基づく308点補完と関連3mesh同期。追加取得・ライセンス変更なし。現label SHA `83dcbdda59e86f393cc93b9d91ccd8f68c1fa08bc1156df99467fe3aef792567`、raw `cfe86d863d828dbae8051f148114368f25b54b668f973715da02bd95f7d25672`。変更前label/mesh fixtureと `lateral-fringe-adoption-2026-09-07.json` に可逆性・由来を保存。AI画像レビューによる開発採用で、専門家確認・研究用ground truthではない。公開未更新。以下のSHAは各工程時点の履歴。
+
+2026-09-07開発データ追補（第四脳室）：既存登録300µm/500µm画像を照合し、0→26の16点を開発採用。追加取得・ライセンス変更なし。現label SHA `d4295e7cc00edd3639b631473445d5db1bb25f9fbe18c5c7f21ff8b8471d7152`、raw `b17bcfbcad38430f33d3bb6973d6ea847295e37670a4f04710d78a2986546142`。第四脳室mesh SHA `e821185cbf03824d477627d35db14bfd3cdadb33a5437edf6285e13ce1910291`。可逆採用記録 `segmentation-patches/review/fourth-ventricle-paired-adoption-2026-09-07.json` と変更前label/mesh fixtureを保存。専門家確認・全輪郭確定ではなく、公開版未更新。下記第三脳室段階のSHAは履歴。
+
+2026-09-07開発データ追補：既存BigBrain登録300µm/500µm画像による第三脳室中央1587点の補完を採用。追加データの取得・ライセンス変更なし。現label SHA `9bc51ab0b0f6932871a93a0d225491ed0649ef827012a7db41d3f3e049b166a8`、raw `f5d552ac7856dfb5bb555e289f16c5d1f0dfa918107af2b567491202dba54fbe`。可逆JSONと変更前fixtureを保存。対応する第三脳室meshはSHA `47c1ec43e59f7303954a510d111d9cc19a62adc5338deb9d9716a6e079e87f1a`。画像誘導の開発内採用であり専門家レビュー・研究用ground truthではない。公開更新なし。
+
+2026-09-07 追補：小脳外縁1105の21290点を開発採用し18701点保持。可逆差分・追加原画像図のSHAはcerebellar-support-1105-adoption-2026-09-07.json、修正前はpre-cerebellar-1105-212d fixtureに保存。既存BigBrain原画像のみを利用し、新規ライセンス・専門家承認・公開更新はない。
+
+2026-09-07 追補：小脳上部843の3353点を開発採用し3914点を保持。cerebellar-support-843-adoption-2026-09-07.jsonとpre-cerebellar-843-c989 fixtureに可逆差分・由来・画像レビュー根拠を保存。原画像は既存BigBrain 500/300µmデータで、今回新たな外部データの取得・ライセンス変更・専門家承認・公開更新はない。
+
+2026-09-06 追補：右小脳1603の229点（29→0）を開発採用、425点保持。cerebellar-support-1603-adoption-2026-09-06.jsonとpre-cerebellar-1603-0908 fixtureに可逆差分・由来を保存。累計1,260点の局所修正。既存BigBrain画像を用い、新規データ・ライセンス変更・専門家承認・公開更新はありません。
+
+2026-09-06 追補：右小脳1393の372点（29→0）を開発採用、571点保持。cerebellar-support-1393-adoption-2026-09-06.jsonとpre-cerebellar-1393-190f fixtureに可逆差分・由来を保存。小脳空隙の局所修正は累計1,031点。既存BigBrain画像によるもので、新規データ・ライセンス変更・専門家承認・公開更新はありません。
+
+2026-09-06 追補：左小脳component997の259点（28→0）を開発採用、748点保持。cerebellar-support-997-adoption-2026-09-06.jsonとpre-cerebellar-997-2fc8 fixtureに可逆差分・由来を保存。累計659点の局所修正で、新規データ・ライセンス変更なし。AI画像レビューであり、専門家承認・公開更新ではありません。
+
+2026-09-06 追補：別成分2274の52点（29→0）も開発採用。376点保持、既存348点と合計400点。cerebellar-support-2274-adoption-2026-09-06.jsonとpre-cerebellar-2274-2943 fixtureに可逆差分・由来を保存。新規外部データやライセンス変更なし。AI画像レビューであり専門家承認・公開サイト更新ではありません。
+
+2026-09-06 開発版：既存BigBrain画像を用い、小脳上外側の空隙に重なる348 voxelを右小脳ラベル29から未ラベル0へ戻しました。300 µm原画像支持・隣接直交断のAIレビューに基づく局所修正で、専門家承認や新規細分節ではありません。新規データ・ライセンス変更なし。可逆fixtureとcerebellar-support-adoption-2026-09-06.jsonに記録、公開サイト未変更。
+
+2026-09-06 開発版の模式模型改変：自作VII/VIII神経管の遠位rings8–15を除き、原画像の側頭葉組織へ入り込む表示を短縮。保持した頂点・法線・半径は元と同じで、原画像から実神経を分節したものではありません。新規外部データ・権利条件の変更はなく、公開サイトは未変更です。NERVE_ORIGIN_IMAGE_REVIEW.mdとsegmentation-patches/review/pontine-proximal-display-adoption-2026-09-06.jsonを参照。
+
 更新日: 2026-08-23
+
+2026-09-06 開発版の追加改変：BigBrain公式native100 µm画像を照合し、左乳頭体の外表面下端2 voxelを39→0へ修正。差分・画像と変換のSHA・可逆性・AIによる局所確認の限界はMAMMILLARY_NATIVE_SUPPORT_REVIEW.mdおよびsegmentation-patches/review/mammillary-tip-adoption-2026-09-06.jsonに記録。原データの権利条件は変更せず、専門家承認・全境界確定・公開サイトへの反映を意味しない。
 
 この文書は「脳実習ナビ」に同梱するデータの来歴、ライセンス、改変内容、公開条件を追跡するための監査記録です。ライセンス原文が本書と異なる場合は原文が優先します。本書は法的助言ではありません。
 
@@ -197,7 +239,7 @@ IDs 30–32はBigBrain画像、CerebrA白質確率、近接核・脳室との位
 - `public/atlas/basal-landmarks.json`
 - `public/atlas/comparison-schematic-ventricle.mesh`
 
-脳底動脈と脳神経根は、本プロジェクトが主要経路をMNI方向の表示空間へ手作業で置き、`scripts/build_neurovascular_overlays.py` で管状メッシュへ変換した模式3Dです。動脈はpial-like表面の表示補正を維持し、III–XIIの神経根は同一ICBM500格子の脳幹ラベル表面へ見かけの起始部を合わせています。嗅球・嗅索、視神経・視交叉・視索、漏斗（下垂体茎）、乳頭体、前有孔質は、同じ表示空間へ `scripts/build_basal_landmarks.py` で配置した独立部品です。外部の標本写真・教科書図版・アトラス図版をトレースまたは収録していません。BigBrain組織像、血管造影、tractography、献体標本から抽出したものでもありません。
+脳底動脈と脳神経根は、本プロジェクトが主要経路をMNI方向の表示空間へ手作業で置き、`scripts/build_neurovascular_overlays.py` で管状メッシュへ変換した模式3Dです。動脈はpial-like表面の表示補正を維持しています。III–XIIは脳幹近傍へ配置した近位経路の模式であり、現在の脳幹ラベル表面との距離・正確な出現境界は未検証です。個別根糸、三叉神経の感覚根と運動根、顔面神経の運動根と中間神経、前庭蝸牛神経の成分分離、副神経脊髄根と上行経路は再現していません。嗅球・嗅索、視神経・視交叉・視索、漏斗（下垂体茎）、乳頭体、前有孔質は、同じ表示空間へ `scripts/build_basal_landmarks.py` で配置した独立部品です。外部の標本写真・教科書図版・アトラス図版をトレースまたは収録していません。BigBrain組織像、血管造影、tractography、献体標本から抽出したものでもありません。
 
 - 動脈は内頸動脈系、椎骨脳底動脈系、ウィリス動脈輪、主要小脳動脈に限定します。
 - 脳神経はI–XIIの脳底面で見える近位部と、脳幹に対する起始レベルを単純化します。
@@ -277,3 +319,22 @@ AGPLはオープンソースであり、コードの販売や業務利用その�
 ## 2026-09-06 開発用脳室分類の修正（未公開・後続脳梁修正前）
 
 元BigBrain画像は変更せず、既存派生ラベル47 voxelだけを修正した（26→41:16、26→0:31）。AI支援のプロジェクト採用で、専門家レビュー／研究ground truthではない。原画像と連続・直交断の根拠、可逆差分と採否は `FOURTH_VENTRICLE_REPAIR.md` および `segmentation-patches/review/ventricle-classification-project-review-2026-09-06.json`。新volume圧縮SHAは `930eaaed7eed8782b1b162f3aa5c59c2428f4062d0d2da3a9a1cb563f49b7db7`。旧b75a…volumeを履歴fixtureに保持する。対応する第四脳室block mesh1点を同じ生成処理で同期した。元データと派生物の既存ライセンス・帰属条件を変更しない。以下の過去SHA・未変更記載は当時の記録。
+## 2026-09-06：赤核の位置合わせ修正（開発版）
+
+BigBrain元手動区画へ公式変位場を適用した高精度候補から、左右赤核ID1・2のみを採用。独立した新規解剖分節ではなく、由来を保持した位置補正である。AI補助のプロジェクト採用であり、原著者・提供機関の承認や専門家レビューを示さない。内部の白い帯は核全体の領域内として保持し、その組織名を確定していない。ライセンス、帰属、非臨床・非営利教育上の制約は従前どおり。[採用記録](RED_NUCLEUS_REGISTRATION_ADOPTION.md)。
+
+## 2026-09-06 後続：全22手動区画の位置補正
+
+赤核以外の20区画も開発版へ採用し、関連22 meshを既存規則で再生成した。原画像・原著者の区画由来、元ライセンス・帰属は維持。専門家・原提供機関の承認は意味しない。現在のSHAと差分台帳は REGISTERED_LABELS_ADOPTION.md。
+
+## 2026-09-06 後続：模式神経・血管と内包の再評価
+
+模式の後交通動脈の接続関係のみを修正。個体由来の新規分節ではなく、元データ・帰属・ライセンスは不変。NEUROVASCULAR_TOPOLOGY_REPAIR.md。
+
+## 2026-09-06 後続：脳幹の局所誤ラベル除外（未公開）
+
+後続：小脳側の別64点を画像誘導のプロジェクト判断で修正し、36点を小脳、28点を未ラベルへ変更した。24点の小脳/空隙境界は未確定で、未ラベルを背景分類とはしない。元画像・帰属・ライセンスは維持し、専門家承認を示さない。現在の版と対応2 meshはCEREBELLAR_ISLAND_REPAIR.md。以下の82384fa6…はこの修正前の履歴。
+
+さらに正中表面4点（MIDLINE_SURFACE_REPAIR.md）、下端支持範囲外3,385点と外表面の隙間620点（BRAINSTEM_INFERIOR_SUPPORT_REVIEW.md）、側縁・背側466点（BRAINSTEM_LATERAL_DORSAL_REVIEW.md）を未ラベルへ修正した。現行版e7e61a70…は最後の記録を参照。献体の組織不存在や解剖学的な脳幹下端の確定を意味せず、専門家・原提供者の承認を示さない。元画像・ライセンスは変更していない。
+
+原画像を変更せず、三方向で画像確認した孤立40 voxel、続いて16 voxelと27 voxel（計83）を27→0へ変更した。AI支援プロジェクト採用であり、専門家・原提供者による承認ではない。元のライセンス・帰属を保持する。現行SHA82384fa6…、可逆差分・修正前fixture・再現方法は BRAINSTEM_ISLAND_REPAIR.md。

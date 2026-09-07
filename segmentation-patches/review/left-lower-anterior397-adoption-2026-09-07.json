@@ -1,0 +1,3552 @@
+{
+  "beforeSha256": "daae0550693c30f447ccf3b806c7acf62fbf6432e657c10ef978f7f0f9ef9ce1",
+  "afterSha256": "0c9762075317a2c82a9dbcf136ca31e215a7df2a786806d3c8cb75fcc043a90a",
+  "afterRawVoxelSha256": "3fb8bbe38efc6d3e1644ef82fcedea382ec4c9b90f5c49ece99613a99d8b29dc",
+  "points": [
+    [
+      117,
+      208,
+      127
+    ],
+    [
+      117,
+      209,
+      127
+    ],
+    [
+      117,
+      211,
+      125
+    ],
+    [
+      117,
+      215,
+      124
+    ],
+    [
+      118,
+      196,
+      132
+    ],
+    [
+      118,
+      197,
+      132
+    ],
+    [
+      118,
+      199,
+      131
+    ],
+    [
+      118,
+      200,
+      131
+    ],
+    [
+      118,
+      201,
+      131
+    ],
+    [
+      118,
+      202,
+      131
+    ],
+    [
+      118,
+      203,
+      130
+    ],
+    [
+      118,
+      204,
+      129
+    ],
+    [
+      118,
+      205,
+      128
+    ],
+    [
+      118,
+      206,
+      128
+    ],
+    [
+      118,
+      207,
+      127
+    ],
+    [
+      118,
+      207,
+      128
+    ],
+    [
+      118,
+      208,
+      127
+    ],
+    [
+      118,
+      209,
+      126
+    ],
+    [
+      118,
+      209,
+      127
+    ],
+    [
+      118,
+      210,
+      125
+    ],
+    [
+      118,
+      210,
+      126
+    ],
+    [
+      118,
+      211,
+      124
+    ],
+    [
+      118,
+      211,
+      125
+    ],
+    [
+      118,
+      211,
+      126
+    ],
+    [
+      118,
+      212,
+      124
+    ],
+    [
+      118,
+      212,
+      125
+    ],
+    [
+      118,
+      213,
+      124
+    ],
+    [
+      118,
+      213,
+      125
+    ],
+    [
+      118,
+      214,
+      123
+    ],
+    [
+      118,
+      214,
+      124
+    ],
+    [
+      118,
+      214,
+      125
+    ],
+    [
+      118,
+      215,
+      123
+    ],
+    [
+      118,
+      215,
+      124
+    ],
+    [
+      119,
+      194,
+      132
+    ],
+    [
+      119,
+      196,
+      132
+    ],
+    [
+      119,
+      197,
+      132
+    ],
+    [
+      119,
+      198,
+      132
+    ],
+    [
+      119,
+      199,
+      131
+    ],
+    [
+      119,
+      200,
+      131
+    ],
+    [
+      119,
+      200,
+      132
+    ],
+    [
+      119,
+      201,
+      131
+    ],
+    [
+      119,
+      201,
+      132
+    ],
+    [
+      119,
+      202,
+      131
+    ],
+    [
+      119,
+      203,
+      130
+    ],
+    [
+      119,
+      203,
+      131
+    ],
+    [
+      119,
+      204,
+      129
+    ],
+    [
+      119,
+      205,
+      128
+    ],
+    [
+      119,
+      206,
+      127
+    ],
+    [
+      119,
+      206,
+      128
+    ],
+    [
+      119,
+      207,
+      127
+    ],
+    [
+      119,
+      207,
+      128
+    ],
+    [
+      119,
+      208,
+      125
+    ],
+    [
+      119,
+      208,
+      126
+    ],
+    [
+      119,
+      208,
+      127
+    ],
+    [
+      119,
+      208,
+      128
+    ],
+    [
+      119,
+      209,
+      124
+    ],
+    [
+      119,
+      209,
+      125
+    ],
+    [
+      119,
+      209,
+      126
+    ],
+    [
+      119,
+      209,
+      127
+    ],
+    [
+      119,
+      210,
+      125
+    ],
+    [
+      119,
+      210,
+      126
+    ],
+    [
+      119,
+      211,
+      125
+    ],
+    [
+      119,
+      211,
+      126
+    ],
+    [
+      119,
+      212,
+      123
+    ],
+    [
+      119,
+      212,
+      125
+    ],
+    [
+      119,
+      213,
+      123
+    ],
+    [
+      119,
+      213,
+      124
+    ],
+    [
+      119,
+      213,
+      125
+    ],
+    [
+      119,
+      214,
+      122
+    ],
+    [
+      119,
+      214,
+      123
+    ],
+    [
+      119,
+      214,
+      124
+    ],
+    [
+      119,
+      214,
+      125
+    ],
+    [
+      119,
+      215,
+      121
+    ],
+    [
+      119,
+      215,
+      122
+    ],
+    [
+      119,
+      215,
+      123
+    ],
+    [
+      119,
+      215,
+      124
+    ],
+    [
+      120,
+      198,
+      132
+    ],
+    [
+      120,
+      199,
+      131
+    ],
+    [
+      120,
+      199,
+      132
+    ],
+    [
+      120,
+      200,
+      130
+    ],
+    [
+      120,
+      200,
+      131
+    ],
+    [
+      120,
+      200,
+      132
+    ],
+    [
+      120,
+      201,
+      130
+    ],
+    [
+      120,
+      201,
+      131
+    ],
+    [
+      120,
+      201,
+      132
+    ],
+    [
+      120,
+      202,
+      130
+    ],
+    [
+      120,
+      202,
+      131
+    ],
+    [
+      120,
+      202,
+      132
+    ],
+    [
+      120,
+      203,
+      129
+    ],
+    [
+      120,
+      203,
+      130
+    ],
+    [
+      120,
+      203,
+      131
+    ],
+    [
+      120,
+      204,
+      128
+    ],
+    [
+      120,
+      204,
+      129
+    ],
+    [
+      120,
+      205,
+      127
+    ],
+    [
+      120,
+      205,
+      128
+    ],
+    [
+      120,
+      205,
+      129
+    ],
+    [
+      120,
+      206,
+      126
+    ],
+    [
+      120,
+      206,
+      127
+    ],
+    [
+      120,
+      206,
+      128
+    ],
+    [
+      120,
+      206,
+      129
+    ],
+    [
+      120,
+      207,
+      125
+    ],
+    [
+      120,
+      207,
+      126
+    ],
+    [
+      120,
+      207,
+      127
+    ],
+    [
+      120,
+      207,
+      128
+    ],
+    [
+      120,
+      208,
+      123
+    ],
+    [
+      120,
+      208,
+      124
+    ],
+    [
+      120,
+      208,
+      125
+    ],
+    [
+      120,
+      208,
+      126
+    ],
+    [
+      120,
+      208,
+      127
+    ],
+    [
+      120,
+      208,
+      128
+    ],
+    [
+      120,
+      209,
+      123
+    ],
+    [
+      120,
+      209,
+      125
+    ],
+    [
+      120,
+      209,
+      126
+    ],
+    [
+      120,
+      209,
+      127
+    ],
+    [
+      120,
+      210,
+      125
+    ],
+    [
+      120,
+      210,
+      126
+    ],
+    [
+      120,
+      211,
+      125
+    ],
+    [
+      120,
+      211,
+      126
+    ],
+    [
+      120,
+      212,
+      125
+    ],
+    [
+      120,
+      212,
+      126
+    ],
+    [
+      120,
+      213,
+      123
+    ],
+    [
+      120,
+      213,
+      124
+    ],
+    [
+      120,
+      213,
+      125
+    ],
+    [
+      120,
+      214,
+      123
+    ],
+    [
+      120,
+      214,
+      124
+    ],
+    [
+      120,
+      214,
+      125
+    ],
+    [
+      120,
+      215,
+      123
+    ],
+    [
+      120,
+      215,
+      124
+    ],
+    [
+      121,
+      194,
+      132
+    ],
+    [
+      121,
+      194,
+      133
+    ],
+    [
+      121,
+      194,
+      134
+    ],
+    [
+      121,
+      197,
+      132
+    ],
+    [
+      121,
+      198,
+      132
+    ],
+    [
+      121,
+      198,
+      133
+    ],
+    [
+      121,
+      199,
+      131
+    ],
+    [
+      121,
+      199,
+      132
+    ],
+    [
+      121,
+      200,
+      131
+    ],
+    [
+      121,
+      200,
+      132
+    ],
+    [
+      121,
+      201,
+      131
+    ],
+    [
+      121,
+      201,
+      132
+    ],
+    [
+      121,
+      202,
+      129
+    ],
+    [
+      121,
+      202,
+      131
+    ],
+    [
+      121,
+      202,
+      132
+    ],
+    [
+      121,
+      203,
+      128
+    ],
+    [
+      121,
+      203,
+      129
+    ],
+    [
+      121,
+      203,
+      130
+    ],
+    [
+      121,
+      203,
+      131
+    ],
+    [
+      121,
+      204,
+      127
+    ],
+    [
+      121,
+      204,
+      129
+    ],
+    [
+      121,
+      204,
+      130
+    ],
+    [
+      121,
+      205,
+      126
+    ],
+    [
+      121,
+      205,
+      129
+    ],
+    [
+      121,
+      205,
+      130
+    ],
+    [
+      121,
+      206,
+      125
+    ],
+    [
+      121,
+      206,
+      129
+    ],
+    [
+      121,
+      208,
+      123
+    ],
+    [
+      121,
+      208,
+      126
+    ],
+    [
+      121,
+      208,
+      127
+    ],
+    [
+      121,
+      208,
+      128
+    ],
+    [
+      121,
+      209,
+      123
+    ],
+    [
+      121,
+      209,
+      127
+    ],
+    [
+      121,
+      210,
+      127
+    ],
+    [
+      121,
+      211,
+      124
+    ],
+    [
+      121,
+      212,
+      124
+    ],
+    [
+      121,
+      212,
+      126
+    ],
+    [
+      121,
+      213,
+      124
+    ],
+    [
+      121,
+      213,
+      125
+    ],
+    [
+      121,
+      215,
+      123
+    ],
+    [
+      121,
+      215,
+      124
+    ],
+    [
+      122,
+      193,
+      133
+    ],
+    [
+      122,
+      193,
+      134
+    ],
+    [
+      122,
+      194,
+      132
+    ],
+    [
+      122,
+      194,
+      133
+    ],
+    [
+      122,
+      194,
+      134
+    ],
+    [
+      122,
+      195,
+      132
+    ],
+    [
+      122,
+      195,
+      133
+    ],
+    [
+      122,
+      195,
+      134
+    ],
+    [
+      122,
+      196,
+      132
+    ],
+    [
+      122,
+      196,
+      133
+    ],
+    [
+      122,
+      196,
+      134
+    ],
+    [
+      122,
+      197,
+      132
+    ],
+    [
+      122,
+      197,
+      133
+    ],
+    [
+      122,
+      198,
+      132
+    ],
+    [
+      122,
+      198,
+      133
+    ],
+    [
+      122,
+      199,
+      132
+    ],
+    [
+      122,
+      199,
+      133
+    ],
+    [
+      122,
+      200,
+      131
+    ],
+    [
+      122,
+      200,
+      132
+    ],
+    [
+      122,
+      200,
+      133
+    ],
+    [
+      122,
+      201,
+      130
+    ],
+    [
+      122,
+      201,
+      131
+    ],
+    [
+      122,
+      201,
+      132
+    ],
+    [
+      122,
+      202,
+      131
+    ],
+    [
+      122,
+      202,
+      132
+    ],
+    [
+      122,
+      203,
+      129
+    ],
+    [
+      122,
+      203,
+      130
+    ],
+    [
+      122,
+      203,
+      131
+    ],
+    [
+      122,
+      204,
+      128
+    ],
+    [
+      122,
+      204,
+      129
+    ],
+    [
+      122,
+      204,
+      130
+    ],
+    [
+      122,
+      205,
+      123
+    ],
+    [
+      122,
+      205,
+      124
+    ],
+    [
+      122,
+      205,
+      127
+    ],
+    [
+      122,
+      205,
+      128
+    ],
+    [
+      122,
+      205,
+      129
+    ],
+    [
+      122,
+      205,
+      130
+    ],
+    [
+      122,
+      206,
+      123
+    ],
+    [
+      122,
+      206,
+      124
+    ],
+    [
+      122,
+      206,
+      129
+    ],
+    [
+      122,
+      206,
+      130
+    ],
+    [
+      122,
+      207,
+      126
+    ],
+    [
+      122,
+      207,
+      127
+    ],
+    [
+      122,
+      207,
+      128
+    ],
+    [
+      122,
+      207,
+      129
+    ],
+    [
+      122,
+      210,
+      127
+    ],
+    [
+      122,
+      211,
+      125
+    ],
+    [
+      122,
+      211,
+      127
+    ],
+    [
+      122,
+      212,
+      125
+    ],
+    [
+      122,
+      213,
+      125
+    ],
+    [
+      122,
+      213,
+      126
+    ],
+    [
+      122,
+      214,
+      124
+    ],
+    [
+      122,
+      214,
+      125
+    ],
+    [
+      123,
+      193,
+      133
+    ],
+    [
+      123,
+      193,
+      135
+    ],
+    [
+      123,
+      194,
+      132
+    ],
+    [
+      123,
+      194,
+      135
+    ],
+    [
+      123,
+      195,
+      133
+    ],
+    [
+      123,
+      195,
+      134
+    ],
+    [
+      123,
+      196,
+      133
+    ],
+    [
+      123,
+      197,
+      133
+    ],
+    [
+      123,
+      197,
+      134
+    ],
+    [
+      123,
+      198,
+      132
+    ],
+    [
+      123,
+      198,
+      133
+    ],
+    [
+      123,
+      199,
+      133
+    ],
+    [
+      123,
+      200,
+      133
+    ],
+    [
+      123,
+      201,
+      128
+    ],
+    [
+      123,
+      201,
+      133
+    ],
+    [
+      123,
+      202,
+      131
+    ],
+    [
+      123,
+      202,
+      132
+    ],
+    [
+      123,
+      203,
+      130
+    ],
+    [
+      123,
+      203,
+      131
+    ],
+    [
+      123,
+      204,
+      124
+    ],
+    [
+      123,
+      205,
+      131
+    ],
+    [
+      123,
+      206,
+      122
+    ],
+    [
+      123,
+      206,
+      130
+    ],
+    [
+      123,
+      206,
+      131
+    ],
+    [
+      123,
+      207,
+      121
+    ],
+    [
+      123,
+      207,
+      122
+    ],
+    [
+      123,
+      208,
+      121
+    ],
+    [
+      123,
+      212,
+      126
+    ],
+    [
+      123,
+      212,
+      127
+    ],
+    [
+      124,
+      193,
+      134
+    ],
+    [
+      124,
+      193,
+      135
+    ],
+    [
+      124,
+      193,
+      136
+    ],
+    [
+      124,
+      194,
+      135
+    ],
+    [
+      124,
+      195,
+      135
+    ],
+    [
+      124,
+      196,
+      135
+    ],
+    [
+      124,
+      197,
+      133
+    ],
+    [
+      124,
+      197,
+      134
+    ],
+    [
+      124,
+      198,
+      132
+    ],
+    [
+      124,
+      198,
+      133
+    ],
+    [
+      124,
+      199,
+      133
+    ],
+    [
+      124,
+      199,
+      134
+    ],
+    [
+      124,
+      200,
+      128
+    ],
+    [
+      124,
+      200,
+      133
+    ],
+    [
+      124,
+      200,
+      134
+    ],
+    [
+      124,
+      201,
+      126
+    ],
+    [
+      124,
+      201,
+      128
+    ],
+    [
+      124,
+      201,
+      133
+    ],
+    [
+      124,
+      202,
+      125
+    ],
+    [
+      124,
+      202,
+      127
+    ],
+    [
+      124,
+      203,
+      124
+    ],
+    [
+      124,
+      203,
+      125
+    ],
+    [
+      124,
+      204,
+      123
+    ],
+    [
+      124,
+      204,
+      125
+    ],
+    [
+      124,
+      205,
+      123
+    ],
+    [
+      124,
+      206,
+      123
+    ],
+    [
+      124,
+      210,
+      129
+    ],
+    [
+      124,
+      211,
+      129
+    ],
+    [
+      124,
+      212,
+      128
+    ],
+    [
+      124,
+      213,
+      127
+    ],
+    [
+      124,
+      214,
+      127
+    ],
+    [
+      125,
+      193,
+      137
+    ],
+    [
+      125,
+      194,
+      134
+    ],
+    [
+      125,
+      194,
+      136
+    ],
+    [
+      125,
+      195,
+      134
+    ],
+    [
+      125,
+      195,
+      136
+    ],
+    [
+      125,
+      196,
+      134
+    ],
+    [
+      125,
+      197,
+      134
+    ],
+    [
+      125,
+      197,
+      135
+    ],
+    [
+      125,
+      198,
+      132
+    ],
+    [
+      125,
+      198,
+      133
+    ],
+    [
+      125,
+      198,
+      134
+    ],
+    [
+      125,
+      199,
+      131
+    ],
+    [
+      125,
+      199,
+      132
+    ],
+    [
+      125,
+      199,
+      133
+    ],
+    [
+      125,
+      199,
+      135
+    ],
+    [
+      125,
+      200,
+      133
+    ],
+    [
+      125,
+      200,
+      134
+    ],
+    [
+      125,
+      201,
+      125
+    ],
+    [
+      125,
+      201,
+      126
+    ],
+    [
+      125,
+      201,
+      127
+    ],
+    [
+      125,
+      201,
+      128
+    ],
+    [
+      125,
+      202,
+      124
+    ],
+    [
+      125,
+      202,
+      125
+    ],
+    [
+      125,
+      202,
+      126
+    ],
+    [
+      125,
+      202,
+      127
+    ],
+    [
+      125,
+      203,
+      123
+    ],
+    [
+      125,
+      203,
+      124
+    ],
+    [
+      125,
+      203,
+      125
+    ],
+    [
+      125,
+      203,
+      126
+    ],
+    [
+      125,
+      204,
+      126
+    ],
+    [
+      125,
+      204,
+      127
+    ],
+    [
+      125,
+      208,
+      131
+    ],
+    [
+      125,
+      209,
+      130
+    ],
+    [
+      125,
+      210,
+      130
+    ],
+    [
+      125,
+      212,
+      128
+    ],
+    [
+      125,
+      213,
+      128
+    ],
+    [
+      125,
+      214,
+      128
+    ],
+    [
+      125,
+      215,
+      127
+    ],
+    [
+      126,
+      193,
+      135
+    ],
+    [
+      126,
+      193,
+      137
+    ],
+    [
+      126,
+      193,
+      138
+    ],
+    [
+      126,
+      194,
+      134
+    ],
+    [
+      126,
+      194,
+      137
+    ],
+    [
+      126,
+      195,
+      133
+    ],
+    [
+      126,
+      195,
+      137
+    ],
+    [
+      126,
+      196,
+      137
+    ],
+    [
+      126,
+      197,
+      132
+    ],
+    [
+      126,
+      197,
+      135
+    ],
+    [
+      126,
+      197,
+      136
+    ],
+    [
+      126,
+      198,
+      130
+    ],
+    [
+      126,
+      198,
+      132
+    ],
+    [
+      126,
+      198,
+      135
+    ],
+    [
+      126,
+      199,
+      130
+    ],
+    [
+      126,
+      199,
+      131
+    ],
+    [
+      126,
+      199,
+      132
+    ],
+    [
+      126,
+      200,
+      127
+    ],
+    [
+      126,
+      200,
+      128
+    ],
+    [
+      126,
+      200,
+      130
+    ],
+    [
+      126,
+      201,
+      128
+    ],
+    [
+      126,
+      201,
+      129
+    ],
+    [
+      126,
+      202,
+      128
+    ],
+    [
+      126,
+      211,
+      130
+    ],
+    [
+      126,
+      212,
+      129
+    ],
+    [
+      126,
+      213,
+      129
+    ],
+    [
+      126,
+      214,
+      129
+    ],
+    [
+      126,
+      215,
+      128
+    ],
+    [
+      127,
+      193,
+      134
+    ],
+    [
+      127,
+      193,
+      135
+    ],
+    [
+      127,
+      193,
+      139
+    ],
+    [
+      127,
+      194,
+      132
+    ],
+    [
+      127,
+      194,
+      134
+    ],
+    [
+      127,
+      194,
+      138
+    ],
+    [
+      127,
+      195,
+      132
+    ],
+    [
+      127,
+      195,
+      133
+    ],
+    [
+      127,
+      195,
+      134
+    ],
+    [
+      127,
+      195,
+      138
+    ],
+    [
+      127,
+      196,
+      131
+    ],
+    [
+      127,
+      196,
+      132
+    ],
+    [
+      127,
+      197,
+      130
+    ],
+    [
+      127,
+      197,
+      131
+    ],
+    [
+      127,
+      197,
+      132
+    ],
+    [
+      127,
+      198,
+      132
+    ],
+    [
+      127,
+      199,
+      132
+    ],
+    [
+      127,
+      214,
+      129
+    ],
+    [
+      128,
+      193,
+      134
+    ],
+    [
+      128,
+      193,
+      135
+    ],
+    [
+      128,
+      193,
+      137
+    ],
+    [
+      128,
+      194,
+      132
+    ],
+    [
+      128,
+      194,
+      137
+    ],
+    [
+      128,
+      194,
+      139
+    ],
+    [
+      128,
+      195,
+      132
+    ],
+    [
+      128,
+      195,
+      133
+    ],
+    [
+      128,
+      195,
+      134
+    ],
+    [
+      128,
+      196,
+      133
+    ],
+    [
+      128,
+      197,
+      132
+    ],
+    [
+      128,
+      199,
+      133
+    ],
+    [
+      129,
+      193,
+      131
+    ],
+    [
+      129,
+      193,
+      139
+    ],
+    [
+      129,
+      193,
+      140
+    ],
+    [
+      129,
+      194,
+      132
+    ],
+    [
+      129,
+      194,
+      133
+    ],
+    [
+      129,
+      195,
+      133
+    ],
+    [
+      129,
+      195,
+      134
+    ],
+    [
+      129,
+      198,
+      134
+    ],
+    [
+      129,
+      199,
+      134
+    ],
+    [
+      130,
+      193,
+      133
+    ],
+    [
+      130,
+      193,
+      134
+    ],
+    [
+      130,
+      193,
+      135
+    ],
+    [
+      130,
+      193,
+      136
+    ],
+    [
+      130,
+      194,
+      136
+    ],
+    [
+      130,
+      195,
+      135
+    ],
+    [
+      131,
+      193,
+      137
+    ],
+    [
+      131,
+      193,
+      138
+    ],
+    [
+      131,
+      194,
+      137
+    ],
+    [
+      132,
+      193,
+      138
+    ]
+  ],
+  "count": 397,
+  "transition": "0->23",
+  "leftLateralBefore": 66179,
+  "leftLateralAfter": 66576,
+  "evidence": [
+    {
+      "path": "work/anatomy-review/left-lower-anterior-exploration-v1/report.json",
+      "sha256": "9f987f81518d1fc92046b286a1f1be925703667812bd9de624b6e230891b8c7f",
+      "scope": "Candidate locator, not sole anatomical evidence"
+    },
+    {
+      "path": "work/anatomy-review/left-lower-anterior397-series-y-v1/report.json",
+      "sha256": "6b3204e53bba57f723b86ee346fbd9468bae950059199454b4e312234c969e54",
+      "visuallyInspectedFigures": [
+        {
+          "path": "point-0-y.png",
+          "axis": "y",
+          "indices": [
+            320,
+            321,
+            322
+          ],
+          "sha256": "17ebf52c3b47dfde1fbf40b34ebc65b3abfcc4e124bb9cc85d1f29e27cf50d60"
+        },
+        {
+          "path": "point-1-y.png",
+          "axis": "y",
+          "indices": [
+            323,
+            324,
+            325
+          ],
+          "sha256": "5b62e90ded7e3f02d6d0626adcfcb18519f84a7d48dada01d812964c6bc3d998"
+        },
+        {
+          "path": "point-2-y.png",
+          "axis": "y",
+          "indices": [
+            326,
+            327,
+            328
+          ],
+          "sha256": "2d8b6e179154239513fdcfa0a5eecf7eb29dc41358830177b7bb375846b72030"
+        },
+        {
+          "path": "point-3-y.png",
+          "axis": "y",
+          "indices": [
+            329,
+            330,
+            331
+          ],
+          "sha256": "aeeb3652017d869fbfbe3d7d3850577ef98ecaa4410db5e4d42cc3c60aad7808"
+        },
+        {
+          "path": "point-4-y.png",
+          "axis": "y",
+          "indices": [
+            332,
+            333,
+            334
+          ],
+          "sha256": "cc584f6ea794e67869012f4192bf31d3ab93f4d1d3c0fec5441abb7c6c0c96ee"
+        },
+        {
+          "path": "point-5-y.png",
+          "axis": "y",
+          "indices": [
+            335,
+            336,
+            337
+          ],
+          "sha256": "0d833e899bd2377cb13abf5b05a2c35f3457de760252c6c9ac4b31563e0dac85"
+        },
+        {
+          "path": "point-6-y.png",
+          "axis": "y",
+          "indices": [
+            338,
+            339,
+            340
+          ],
+          "sha256": "a3a5f7de5c9b3e65a7ab040b27324bd4a90cc5e26728f82c74f784a4e2e46562"
+        },
+        {
+          "path": "point-7-y.png",
+          "axis": "y",
+          "indices": [
+            341,
+            342,
+            343
+          ],
+          "sha256": "184eee4e6f280d83c5348271ae7e6b911e26c0fec5a923e29932725c761e0902"
+        },
+        {
+          "path": "point-8-y.png",
+          "axis": "y",
+          "indices": [
+            344,
+            345,
+            346
+          ],
+          "sha256": "56a84ad5f24a6792f69af617bc5f92abfa1ff64027700e88e69592c776b7b037"
+        },
+        {
+          "path": "point-9-y.png",
+          "axis": "y",
+          "indices": [
+            347,
+            348,
+            349
+          ],
+          "sha256": "26e661d113e6e407e7e4fcb1ccbae34cd7acbfe8979039f9aaaa716e8bda93c2"
+        },
+        {
+          "path": "point-10-y.png",
+          "axis": "y",
+          "indices": [
+            350,
+            351,
+            352
+          ],
+          "sha256": "e785bf5ad194a0de9e6f71d048d60d9867f487e13debad10c0e35349559a1f8e"
+        },
+        {
+          "path": "point-11-y.png",
+          "axis": "y",
+          "indices": [
+            353,
+            354,
+            355
+          ],
+          "sha256": "8cc189f85867e2978474e75aeb401dd4c3d9241d2dd9df470af9f919139ddff0"
+        },
+        {
+          "path": "point-12-y.png",
+          "axis": "y",
+          "indices": [
+            356,
+            357,
+            358
+          ],
+          "sha256": "e92d1756ec0124b143656639a2c6fc2be703e1b5265c605b2e2fc54eadec694d"
+        },
+        {
+          "path": "point-13-y.png",
+          "axis": "y",
+          "indices": [
+            359,
+            360,
+            361
+          ],
+          "sha256": "6d6e17e3e02b5111f44dc2f3cd319c5edcdd0c2cd77c61738dc09828cb6a3f2d"
+        }
+      ],
+      "scope": "Only the listed figures were visually inspected; generation alone is not review"
+    },
+    {
+      "path": "work/anatomy-review/left-lower-anterior397-native300-v1/report.json",
+      "sha256": "25f60918ec3cfe1fcb1c78616a7322bea32987ec926cd76b4147c80d9873b317",
+      "visuallyInspectedFigures": [
+        {
+          "path": "point-0-x.png",
+          "axis": "x",
+          "indices": [
+            194,
+            195,
+            196
+          ],
+          "sha256": "e6242003f2f1056eb1ca5903cce3ebacaac9d403645e008632291fb9de6dd6db"
+        },
+        {
+          "path": "point-0-z.png",
+          "axis": "z",
+          "indices": [
+            211,
+            212,
+            213
+          ],
+          "sha256": "9c4d7bacf8c1dd2a8f88c1f95c876af106812a71d2be497b18e26b1a51dc482f"
+        },
+        {
+          "path": "point-1-x.png",
+          "axis": "x",
+          "indices": [
+            196,
+            197,
+            198
+          ],
+          "sha256": "dc1ec33e2fa296d2b177a41dca678249315c05e2d22b0382c8a1ebc2ac5f90e0"
+        },
+        {
+          "path": "point-1-z.png",
+          "axis": "z",
+          "indices": [
+            211,
+            212,
+            213
+          ],
+          "sha256": "95946297a99d71f782e801301c0f9d430aaeaab58bd8318e6f58825c7b776bb4"
+        },
+        {
+          "path": "point-2-x.png",
+          "axis": "x",
+          "indices": [
+            194,
+            195,
+            196
+          ],
+          "sha256": "b3885fd01e1dde1bcff9e5807465bd126dcd47ad99502f5b840658df7b87c4d7"
+        },
+        {
+          "path": "point-2-z.png",
+          "axis": "z",
+          "indices": [
+            206,
+            207,
+            208
+          ],
+          "sha256": "57b8f2253a2cd3a87471c1fad8e359495f46fc40e8a9803d09c46633f0e72aeb"
+        }
+      ],
+      "scope": "Only the listed figures were visually inspected; generation alone is not review"
+    },
+    {
+      "path": "work/anatomy-review/left-lower-anterior397-series-x-v1/report.json",
+      "sha256": "74753ee6e8dc7535fa0c4cff82f49ac848e3df2306a15e363eb2b623bcef957f",
+      "visuallyInspectedFigures": [
+        {
+          "path": "point-3-x.png",
+          "axis": "x",
+          "indices": [
+            202,
+            203,
+            204
+          ],
+          "sha256": "73e53d6ff39b22eda1853ea62c74b74445e02655646bf267bf813a40cb3c074d"
+        },
+        {
+          "path": "point-6-x.png",
+          "axis": "x",
+          "indices": [
+            211,
+            212,
+            213
+          ],
+          "sha256": "232a2ebe34d29826c46f6a15830a127cb9144d3b3acc8b00e205a0aa7abb2543"
+        },
+        {
+          "path": "point-9-x.png",
+          "axis": "x",
+          "indices": [
+            220,
+            221,
+            222
+          ],
+          "sha256": "4d6e646e0e2e29d117e053e3ad0f73ef7cb2d7d1cf85ea58db4cb83f4e47dcbe"
+        },
+        {
+          "path": "point-10-x.png",
+          "axis": "x",
+          "indices": [
+            223,
+            224,
+            225
+          ],
+          "sha256": "2f819722b2d01ca876113adf481eab1ff0f22a056c031835512c4ea17f322e7b"
+        }
+      ],
+      "scope": "Only the listed figures were visually inspected; generation alone is not review"
+    }
+  ],
+  "status": "AI-image-reviewed-project-adopted-development-only",
+  "adopted": true,
+  "expertReviewed": false,
+  "publicMutation": false,
+  "rationale": "Regional omission repair following all Y320-361 source planes and targeted X/Z checks. Selected cells follow the bright cavity adjacent to the hippocampus, including gaps around the retained 49-cell component; no nonzero labels are overwritten. Majority overlap is a locator, not independent anatomical approval.",
+  "limitation": "Not expert review or complete ventricular segmentation. X/Z checks are representative, not exhaustive, and no native100 review was added. Crop continuation remains unresolved. Integration verification recorded separately; not public deployment.",
+  "projectAdopted": true,
+  "published": false,
+  "meshImpact": {
+    "inputSha256": "daae0550693c30f447ccf3b806c7acf62fbf6432e657c10ef978f7f0f9ef9ce1",
+    "outputSha256": "0c9762075317a2c82a9dbcf136ca31e215a7df2a786806d3c8cb75fcc043a90a",
+    "blockMaskImpact": [
+      {
+        "block": "lateral-ventricle",
+        "part": "tissue",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "ventricular-cavity",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "caudate",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "thalamus",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "hippocampus",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "tissue",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "thalami",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "third-ventricle",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "hypothalamus",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "subthalamic-nuclei",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "mammillary-bodies",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "tissue",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "putamen",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "pallidum-external",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "pallidum-internal",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "internal-capsule",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "corona-radiata",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "optic-radiation",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "auditory-radiation",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "tissue",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "corpus-callosum",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "lateral-ventricles",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "fornix",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "septum-pellucidum",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "tissue",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "ventricular-cavity",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "choroid-plexus",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "hippocampus",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "tissue",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "hippocampus",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "amygdala",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "inferior-horn",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "tissue",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "red-nuclei",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "substantia-nigra",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "aqueduct",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "cerebral-peduncles",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "superior-colliculi",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "inferior-colliculi",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "lateral-geniculate-bodies",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "medial-geniculate-bodies",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "interpeduncular-fossa",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "pons-medulla",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "cerebellum",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "midbrain",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "fourth-ventricle",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "superior-cerebellar-peduncles",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "middle-cerebellar-peduncles",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "inferior-cerebellar-peduncles",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "facial-colliculi",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "vestibular-areas",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "hypoglossal-trigones",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "vagal-trigones",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "pyramids",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "olives",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      }
+    ],
+    "installed": false,
+    "anatomyValidatedByMaskComparison": false,
+    "installationBlocked": false
+  },
+  "sectionMeshImpact": {
+    "before": {
+      "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
+      "sourceSha256": "daae0550693c30f447ccf3b806c7acf62fbf6432e657c10ef978f7f0f9ef9ce1",
+      "rawVoxelSha256": "c23a40e50e965da4069125689fcb5bced009a5e7119aced6ff58af43f5bccf85",
+      "dimensionsXYZ": [
+        394,
+        466,
+        378
+      ],
+      "samplingMm": 0.5,
+      "displayOriginZYX": [
+        -90.0,
+        -116.0,
+        -98.0
+      ],
+      "method": "marching cubes 0.5; no smoothing, resampling, filling or component removal",
+      "scope": "section-view BigBrain selection/context only; not expert validation",
+      "meshes": {
+        "section-current-lateral-ventricles": {
+          "voxels": 130028,
+          "components6": 128,
+          "componentSizes": [
+            63922,
+            61833,
+            1999,
+            1748,
+            137,
+            108,
+            39,
+            11,
+            9,
+            8,
+            7,
+            7,
+            7,
+            6,
+            6,
+            5,
+            5,
+            5,
+            5,
+            5,
+            4,
+            4,
+            4,
+            4,
+            4,
+            3,
+            3,
+            3,
+            3,
+            3,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "boundsZYX": [
+            [
+              80,
+              111,
+              117
+            ],
+            [
+              200,
+              328,
+              275
+            ]
+          ],
+          "vertices": 70424,
+          "faces": 141616,
+          "sha256": "bdcbc42cc69471be40078f8c7b8a98a00e6b7f354ec8b27b594c697144e7848b",
+          "bytes": 3671276,
+          "labelIds": [
+            23,
+            24
+          ]
+        },
+        "section-current-third-ventricle": {
+          "voxels": 12015,
+          "components6": 32,
+          "componentSizes": [
+            11521,
+            104,
+            95,
+            93,
+            35,
+            20,
+            16,
+            14,
+            10,
+            10,
+            8,
+            8,
+            8,
+            8,
+            7,
+            7,
+            6,
+            6,
+            5,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "boundsZYX": [
+            [
+              103,
+              191,
+              177
+            ],
+            [
+              174,
+              274,
+              214
+            ]
+          ],
+          "vertices": 9359,
+          "faces": 18690,
+          "sha256": "6bd87620c66070e80d5435ef9b9de12c72a5a57adfe79e9dfdbed39abc908d8b",
+          "bytes": 486344,
+          "labelIds": [
+            25
+          ]
+        },
+        "section-current-fourth-ventricle": {
+          "voxels": 8641,
+          "components6": 2,
+          "componentSizes": [
+            8639,
+            2
+          ],
+          "boundsZYX": [
+            [
+              59,
+              157,
+              179
+            ],
+            [
+              114,
+              196,
+              212
+            ]
+          ],
+          "vertices": 5146,
+          "faces": 10300,
+          "sha256": "1193538671e9a47c5a10f22b0787078fcc64f84474fe822814f2414e69cd34cd",
+          "bytes": 267700,
+          "labelIds": [
+            26
+          ]
+        },
+        "section-current-ventricular-system": {
+          "voxels": 150700,
+          "components6": 160,
+          "componentSizes": [
+            75443,
+            61837,
+            8639,
+            1999,
+            1748,
+            137,
+            108,
+            104,
+            95,
+            93,
+            39,
+            35,
+            20,
+            16,
+            16,
+            14,
+            11,
+            10,
+            10,
+            9,
+            8,
+            8,
+            8,
+            8,
+            8,
+            7,
+            7,
+            7,
+            7,
+            7,
+            6,
+            6,
+            6,
+            6,
+            5,
+            5,
+            5,
+            5,
+            5,
+            5,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            3,
+            3,
+            3,
+            3,
+            3,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "boundsZYX": [
+            [
+              59,
+              111,
+              117
+            ],
+            [
+              200,
+              328,
+              275
+            ]
+          ],
+          "vertices": 84964,
+          "faces": 170688,
+          "sha256": "3066e4c1c3985d71f2ee7451b62e6a733f69bce8075f872365ef3b00f87fafbd",
+          "bytes": 4427260,
+          "labelIds": [
+            23,
+            24,
+            25,
+            26,
+            41
+          ]
+        }
+      }
+    },
+    "after": {
+      "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
+      "sourceSha256": "0c9762075317a2c82a9dbcf136ca31e215a7df2a786806d3c8cb75fcc043a90a",
+      "rawVoxelSha256": "3fb8bbe38efc6d3e1644ef82fcedea382ec4c9b90f5c49ece99613a99d8b29dc",
+      "dimensionsXYZ": [
+        394,
+        466,
+        378
+      ],
+      "samplingMm": 0.5,
+      "displayOriginZYX": [
+        -90.0,
+        -116.0,
+        -98.0
+      ],
+      "method": "marching cubes 0.5; no smoothing, resampling, filling or component removal",
+      "scope": "section-view BigBrain selection/context only; not expert validation",
+      "meshes": {
+        "section-current-lateral-ventricles": {
+          "voxels": 130425,
+          "components6": 121,
+          "componentSizes": [
+            63922,
+            61833,
+            2544,
+            1748,
+            137,
+            12,
+            11,
+            9,
+            7,
+            7,
+            7,
+            7,
+            6,
+            5,
+            5,
+            5,
+            5,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "boundsZYX": [
+            [
+              80,
+              111,
+              117
+            ],
+            [
+              200,
+              328,
+              275
+            ]
+          ],
+          "vertices": 71180,
+          "faces": 143252,
+          "sha256": "9a9225c231b71fb748df6f039237a7f6eee0671acf0765e9e2995517baee987b",
+          "bytes": 3712076,
+          "labelIds": [
+            23,
+            24
+          ]
+        },
+        "section-current-third-ventricle": {
+          "voxels": 12015,
+          "components6": 32,
+          "componentSizes": [
+            11521,
+            104,
+            95,
+            93,
+            35,
+            20,
+            16,
+            14,
+            10,
+            10,
+            8,
+            8,
+            8,
+            8,
+            7,
+            7,
+            6,
+            6,
+            5,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "boundsZYX": [
+            [
+              103,
+              191,
+              177
+            ],
+            [
+              174,
+              274,
+              214
+            ]
+          ],
+          "vertices": 9359,
+          "faces": 18690,
+          "sha256": "6bd87620c66070e80d5435ef9b9de12c72a5a57adfe79e9dfdbed39abc908d8b",
+          "bytes": 486344,
+          "labelIds": [
+            25
+          ]
+        },
+        "section-current-fourth-ventricle": {
+          "voxels": 8641,
+          "components6": 2,
+          "componentSizes": [
+            8639,
+            2
+          ],
+          "boundsZYX": [
+            [
+              59,
+              157,
+              179
+            ],
+            [
+              114,
+              196,
+              212
+            ]
+          ],
+          "vertices": 5146,
+          "faces": 10300,
+          "sha256": "1193538671e9a47c5a10f22b0787078fcc64f84474fe822814f2414e69cd34cd",
+          "bytes": 267700,
+          "labelIds": [
+            26
+          ]
+        },
+        "section-current-ventricular-system": {
+          "voxels": 151097,
+          "components6": 153,
+          "componentSizes": [
+            75443,
+            61837,
+            8639,
+            2544,
+            1748,
+            137,
+            104,
+            95,
+            93,
+            35,
+            20,
+            16,
+            16,
+            14,
+            12,
+            11,
+            10,
+            10,
+            9,
+            8,
+            8,
+            8,
+            8,
+            7,
+            7,
+            7,
+            7,
+            7,
+            7,
+            6,
+            6,
+            6,
+            5,
+            5,
+            5,
+            5,
+            5,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            3,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "boundsZYX": [
+            [
+              59,
+              111,
+              117
+            ],
+            [
+              200,
+              328,
+              275
+            ]
+          ],
+          "vertices": 85720,
+          "faces": 172324,
+          "sha256": "cd0bc16f363e9bc9a9dadb028bc1e8df3bde3159e294f1454d8f173d78cf1ff4",
+          "bytes": 4468060,
+          "labelIds": [
+            23,
+            24,
+            25,
+            26,
+            41
+          ]
+        }
+      }
+    },
+    "changedFiles": [
+      "section-current-lateral-ventricles.mesh",
+      "section-current-ventricular-system.mesh"
+    ]
+  }
+}

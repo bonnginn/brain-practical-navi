@@ -1,0 +1,102 @@
+{
+  "scope": "paired-isolated-id27-components-16",
+  "decision": "project-adopted-for-integration",
+  "expertReviewed": false,
+  "date": "2026-09-06",
+  "inputCompressedSha256": "c58f8bebc02ca6ce10a9d1a82c4e8fe7a4fe9c8c349f66a4e1675ffd93b94899",
+  "outputCompressedSha256": "189fbd26080448aa7813918dae6f17bdfed11a5ca15a12211cadfa3a6a5723d8",
+  "inputRawSha256": "47965fba566883004c105ab445a6311db94425441da608a4789335dd61000aeb",
+  "outputRawSha256": "0e3e5f0e3652af3e81a840d41c889fff0d0ee7d9dacac9f640eb0df7f8841b5b",
+  "changedVoxelCount": 16,
+  "sourceLabel": 27,
+  "targetLabel": 0,
+  "points": [
+    [
+      175,
+      201,
+      133
+    ],
+    [
+      175,
+      201,
+      134
+    ],
+    [
+      175,
+      202,
+      133
+    ],
+    [
+      175,
+      202,
+      134
+    ],
+    [
+      176,
+      201,
+      133
+    ],
+    [
+      176,
+      201,
+      134
+    ],
+    [
+      176,
+      202,
+      133
+    ],
+    [
+      176,
+      202,
+      134
+    ],
+    [
+      215,
+      201,
+      133
+    ],
+    [
+      215,
+      201,
+      134
+    ],
+    [
+      215,
+      202,
+      133
+    ],
+    [
+      215,
+      202,
+      134
+    ],
+    [
+      216,
+      201,
+      133
+    ],
+    [
+      216,
+      201,
+      134
+    ],
+    [
+      216,
+      202,
+      133
+    ],
+    [
+      216,
+      202,
+      134
+    ]
+  ],
+  "imageReviewRecord": "segmentation-patches/review/brainstem-paired-islands-image-review-2026-09-06.json",
+  "imageReviewSha256": "4b948e5da0c47d1e9ed32d5ad34ae64ddb871f0c40133c87dae37972dde9d266",
+  "evidence": "BRAINSTEM_ISLAND_REPAIR.md: all 24 orthogonal comparisons on 6 sheets viewed. Both islands lie in an image void separated from tissue. Not a global intensity or component-size deletion rule.",
+  "beforeCount": 254624,
+  "afterCount": 254608,
+  "changedBlockPartMasks": [],
+  "limitations": "Work-stage only pending integration; not expert review, not aqueduct/ventricle reclassification. Other components and missing ventral midbrain untouched."
+}

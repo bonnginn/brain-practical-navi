@@ -31,13 +31,13 @@ test("audited practical segmentation shows every target at the synchronized step
   assert.equal(result.summary.targetCount, 7);
   for (const stage of result.summary.stages) for (const count of Object.values(stage.pixelCounts)) assert.ok(count > 0);
   assert.deepEqual(result.summary.pixelCounts, {
-    caudate: 1170,
-    putamen: 1899,
-    pallidumExternal: 612,
-    pallidumInternal: 558,
-    subthalamic: 256,
-    substantiaNigra: 574,
-    thalamus: 2398,
+    caudate: 1213,
+    putamen: 2395,
+    pallidumExternal: 688,
+    pallidumInternal: 423,
+    subthalamic: 290,
+    substantiaNigra: 521,
+    thalamus: 2729,
   });
 });
 
@@ -173,7 +173,7 @@ test("Papez section stages show existing pixels and 3D-only stages do not invent
   assert.equal(result.ok, true, result.errors.join("\n"));
   assert.equal(result.summary.stepCount, 6);
   assert.equal(result.summary.targetCount, 7);
-  assert.deepEqual(result.summary.sectionPixelCounts, {hippocampus: 1400, mammillaryBody: 120, thalamus: 2398});
+  assert.deepEqual(result.summary.sectionPixelCounts, {hippocampus: 1398, mammillaryBody: 120, thalamus: 2729});
   assert.deepEqual(result.summary.stages.filter(stage => !stage.sectionCanvas).map(stage => stage.key), ["fornix", "cingulate", "parahippocampal-entorhinal"]);
   assert.equal(advancePapezStepperIndex(0, PAPEZ_STEPS.length), 1);
   assert.equal(advancePapezStepperIndex(PAPEZ_STEPS.length - 1, PAPEZ_STEPS.length), PAPEZ_STEPS.length - 1);

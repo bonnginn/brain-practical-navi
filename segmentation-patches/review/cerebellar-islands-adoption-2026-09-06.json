@@ -1,0 +1,741 @@
+{
+  "scope": "four-cerebellar-side-islands",
+  "decision": "project-adopted-for-integration",
+  "expertReviewed": false,
+  "date": "2026-09-06",
+  "inputCompressedSha256": "82384fa6961b4eb6aa272aa556f76febd4027cf1f67937504ee227ac0a8e4726",
+  "outputCompressedSha256": "2a73ff567741aa9b7965eef645765bfc0d87b3cad80d789d5512cabf4ffc2ed2",
+  "inputRawSha256": "4550dd6ddf6272dde98253f1fc18484b48dd06970a5ee0a42ebfb382a22a7ac8",
+  "outputRawSha256": "8276db63377bb3f8738d8b062678b46d1af8f0b09c9691f5caf4d5fd5e1783e3",
+  "sourceLabel": 27,
+  "changedVoxelCount": 64,
+  "transitions": {
+    "27->28": 16,
+    "27->29": 20,
+    "27->0": 28
+  },
+  "edits": [
+    {
+      "xyz": [
+        155,
+        205,
+        81
+      ],
+      "fromLabel": 27,
+      "toLabel": 28
+    },
+    {
+      "xyz": [
+        155,
+        205,
+        82
+      ],
+      "fromLabel": 27,
+      "toLabel": 28
+    },
+    {
+      "xyz": [
+        155,
+        206,
+        81
+      ],
+      "fromLabel": 27,
+      "toLabel": 28
+    },
+    {
+      "xyz": [
+        155,
+        206,
+        82
+      ],
+      "fromLabel": 27,
+      "toLabel": 28
+    },
+    {
+      "xyz": [
+        155,
+        207,
+        81
+      ],
+      "fromLabel": 27,
+      "toLabel": 28
+    },
+    {
+      "xyz": [
+        155,
+        207,
+        82
+      ],
+      "fromLabel": 27,
+      "toLabel": 28
+    },
+    {
+      "xyz": [
+        155,
+        208,
+        81
+      ],
+      "fromLabel": 27,
+      "toLabel": 28
+    },
+    {
+      "xyz": [
+        155,
+        208,
+        82
+      ],
+      "fromLabel": 27,
+      "toLabel": 28
+    },
+    {
+      "xyz": [
+        163,
+        191,
+        51
+      ],
+      "fromLabel": 27,
+      "toLabel": 28
+    },
+    {
+      "xyz": [
+        163,
+        191,
+        52
+      ],
+      "fromLabel": 27,
+      "toLabel": 28
+    },
+    {
+      "xyz": [
+        163,
+        192,
+        51
+      ],
+      "fromLabel": 27,
+      "toLabel": 28
+    },
+    {
+      "xyz": [
+        163,
+        192,
+        52
+      ],
+      "fromLabel": 27,
+      "toLabel": 28
+    },
+    {
+      "xyz": [
+        163,
+        193,
+        51
+      ],
+      "fromLabel": 27,
+      "toLabel": 28
+    },
+    {
+      "xyz": [
+        163,
+        193,
+        52
+      ],
+      "fromLabel": 27,
+      "toLabel": 28
+    },
+    {
+      "xyz": [
+        163,
+        194,
+        51
+      ],
+      "fromLabel": 27,
+      "toLabel": 28
+    },
+    {
+      "xyz": [
+        163,
+        194,
+        52
+      ],
+      "fromLabel": 27,
+      "toLabel": 28
+    },
+    {
+      "xyz": [
+        235,
+        205,
+        81
+      ],
+      "fromLabel": 27,
+      "toLabel": 29
+    },
+    {
+      "xyz": [
+        235,
+        205,
+        82
+      ],
+      "fromLabel": 27,
+      "toLabel": 29
+    },
+    {
+      "xyz": [
+        235,
+        206,
+        81
+      ],
+      "fromLabel": 27,
+      "toLabel": 29
+    },
+    {
+      "xyz": [
+        235,
+        206,
+        82
+      ],
+      "fromLabel": 27,
+      "toLabel": 29
+    },
+    {
+      "xyz": [
+        235,
+        207,
+        81
+      ],
+      "fromLabel": 27,
+      "toLabel": 29
+    },
+    {
+      "xyz": [
+        235,
+        207,
+        82
+      ],
+      "fromLabel": 27,
+      "toLabel": 29
+    },
+    {
+      "xyz": [
+        235,
+        208,
+        81
+      ],
+      "fromLabel": 27,
+      "toLabel": 29
+    },
+    {
+      "xyz": [
+        235,
+        208,
+        82
+      ],
+      "fromLabel": 27,
+      "toLabel": 29
+    },
+    {
+      "xyz": [
+        236,
+        205,
+        81
+      ],
+      "fromLabel": 27,
+      "toLabel": 29
+    },
+    {
+      "xyz": [
+        236,
+        205,
+        82
+      ],
+      "fromLabel": 27,
+      "toLabel": 29
+    },
+    {
+      "xyz": [
+        236,
+        206,
+        81
+      ],
+      "fromLabel": 27,
+      "toLabel": 29
+    },
+    {
+      "xyz": [
+        236,
+        206,
+        82
+      ],
+      "fromLabel": 27,
+      "toLabel": 29
+    },
+    {
+      "xyz": [
+        236,
+        207,
+        81
+      ],
+      "fromLabel": 27,
+      "toLabel": 29
+    },
+    {
+      "xyz": [
+        236,
+        207,
+        82
+      ],
+      "fromLabel": 27,
+      "toLabel": 29
+    },
+    {
+      "xyz": [
+        236,
+        208,
+        81
+      ],
+      "fromLabel": 27,
+      "toLabel": 29
+    },
+    {
+      "xyz": [
+        236,
+        208,
+        82
+      ],
+      "fromLabel": 27,
+      "toLabel": 29
+    },
+    {
+      "xyz": [
+        228,
+        191,
+        51
+      ],
+      "fromLabel": 27,
+      "toLabel": 29
+    },
+    {
+      "xyz": [
+        228,
+        191,
+        52
+      ],
+      "fromLabel": 27,
+      "toLabel": 29
+    },
+    {
+      "xyz": [
+        228,
+        192,
+        51
+      ],
+      "fromLabel": 27,
+      "toLabel": 29
+    },
+    {
+      "xyz": [
+        228,
+        192,
+        52
+      ],
+      "fromLabel": 27,
+      "toLabel": 29
+    },
+    {
+      "xyz": [
+        227,
+        192,
+        52
+      ],
+      "fromLabel": 27,
+      "toLabel": 0
+    },
+    {
+      "xyz": [
+        227,
+        193,
+        51
+      ],
+      "fromLabel": 27,
+      "toLabel": 0
+    },
+    {
+      "xyz": [
+        227,
+        194,
+        51
+      ],
+      "fromLabel": 27,
+      "toLabel": 0
+    },
+    {
+      "xyz": [
+        228,
+        194,
+        51
+      ],
+      "fromLabel": 27,
+      "toLabel": 0
+    },
+    {
+      "xyz": [
+        156,
+        205,
+        81
+      ],
+      "fromLabel": 27,
+      "toLabel": 0
+    },
+    {
+      "xyz": [
+        156,
+        205,
+        82
+      ],
+      "fromLabel": 27,
+      "toLabel": 0
+    },
+    {
+      "xyz": [
+        156,
+        206,
+        81
+      ],
+      "fromLabel": 27,
+      "toLabel": 0
+    },
+    {
+      "xyz": [
+        156,
+        206,
+        82
+      ],
+      "fromLabel": 27,
+      "toLabel": 0
+    },
+    {
+      "xyz": [
+        156,
+        207,
+        81
+      ],
+      "fromLabel": 27,
+      "toLabel": 0
+    },
+    {
+      "xyz": [
+        156,
+        207,
+        82
+      ],
+      "fromLabel": 27,
+      "toLabel": 0
+    },
+    {
+      "xyz": [
+        156,
+        208,
+        81
+      ],
+      "fromLabel": 27,
+      "toLabel": 0
+    },
+    {
+      "xyz": [
+        156,
+        208,
+        82
+      ],
+      "fromLabel": 27,
+      "toLabel": 0
+    },
+    {
+      "xyz": [
+        164,
+        191,
+        51
+      ],
+      "fromLabel": 27,
+      "toLabel": 0
+    },
+    {
+      "xyz": [
+        164,
+        191,
+        52
+      ],
+      "fromLabel": 27,
+      "toLabel": 0
+    },
+    {
+      "xyz": [
+        164,
+        192,
+        51
+      ],
+      "fromLabel": 27,
+      "toLabel": 0
+    },
+    {
+      "xyz": [
+        164,
+        192,
+        52
+      ],
+      "fromLabel": 27,
+      "toLabel": 0
+    },
+    {
+      "xyz": [
+        164,
+        193,
+        51
+      ],
+      "fromLabel": 27,
+      "toLabel": 0
+    },
+    {
+      "xyz": [
+        164,
+        193,
+        52
+      ],
+      "fromLabel": 27,
+      "toLabel": 0
+    },
+    {
+      "xyz": [
+        164,
+        194,
+        51
+      ],
+      "fromLabel": 27,
+      "toLabel": 0
+    },
+    {
+      "xyz": [
+        164,
+        194,
+        52
+      ],
+      "fromLabel": 27,
+      "toLabel": 0
+    },
+    {
+      "xyz": [
+        227,
+        191,
+        51
+      ],
+      "fromLabel": 27,
+      "toLabel": 0
+    },
+    {
+      "xyz": [
+        227,
+        191,
+        52
+      ],
+      "fromLabel": 27,
+      "toLabel": 0
+    },
+    {
+      "xyz": [
+        227,
+        192,
+        51
+      ],
+      "fromLabel": 27,
+      "toLabel": 0
+    },
+    {
+      "xyz": [
+        227,
+        193,
+        52
+      ],
+      "fromLabel": 27,
+      "toLabel": 0
+    },
+    {
+      "xyz": [
+        227,
+        194,
+        52
+      ],
+      "fromLabel": 27,
+      "toLabel": 0
+    },
+    {
+      "xyz": [
+        228,
+        193,
+        51
+      ],
+      "fromLabel": 27,
+      "toLabel": 0
+    },
+    {
+      "xyz": [
+        228,
+        193,
+        52
+      ],
+      "fromLabel": 27,
+      "toLabel": 0
+    },
+    {
+      "xyz": [
+        228,
+        194,
+        52
+      ],
+      "fromLabel": 27,
+      "toLabel": 0
+    }
+  ],
+  "unresolvedBoundaryPoints": [
+    [
+      156,
+      205,
+      81
+    ],
+    [
+      156,
+      205,
+      82
+    ],
+    [
+      156,
+      206,
+      81
+    ],
+    [
+      156,
+      206,
+      82
+    ],
+    [
+      156,
+      207,
+      81
+    ],
+    [
+      156,
+      207,
+      82
+    ],
+    [
+      156,
+      208,
+      81
+    ],
+    [
+      156,
+      208,
+      82
+    ],
+    [
+      164,
+      191,
+      51
+    ],
+    [
+      164,
+      191,
+      52
+    ],
+    [
+      164,
+      192,
+      51
+    ],
+    [
+      164,
+      192,
+      52
+    ],
+    [
+      164,
+      193,
+      51
+    ],
+    [
+      164,
+      193,
+      52
+    ],
+    [
+      164,
+      194,
+      51
+    ],
+    [
+      164,
+      194,
+      52
+    ],
+    [
+      227,
+      191,
+      51
+    ],
+    [
+      227,
+      191,
+      52
+    ],
+    [
+      227,
+      192,
+      51
+    ],
+    [
+      227,
+      193,
+      52
+    ],
+    [
+      227,
+      194,
+      52
+    ],
+    [
+      228,
+      193,
+      51
+    ],
+    [
+      228,
+      193,
+      52
+    ],
+    [
+      228,
+      194,
+      52
+    ]
+  ],
+  "imageReviewRecord": "segmentation-patches/review/cerebellar-island-voxel-review-2026-09-06.json",
+  "imageReviewSha256": "73a198e8f970cb0493bec2ed716dbab4c37f003b0dc8142782d41111490943f0",
+  "evidence": "CEREBELLAR_ISLAND_REPAIR.md; 64 voxels reviewed in 32 planes with raw intensity unobscured, plus prior full adjacent planes and wider regional context.",
+  "beforeCounts": {
+    "27": 254581,
+    "28": 737856,
+    "29": 748960
+  },
+  "afterCounts": {
+    "27": 254517,
+    "28": 737872,
+    "29": 748980
+  },
+  "changedBlockPartMasks": [
+    [
+      "hindbrain",
+      "pons-medulla"
+    ],
+    [
+      "hindbrain",
+      "cerebellum"
+    ]
+  ],
+  "limitations": "28 unassigned voxels comprise 4 clear void points and 24 uncertain cerebellar/space boundary points, not a claim of tissue absence. All 64 lie outside reviewed brainstem tissue. Not complete cerebellar segmentation or expert approval. Work-stage pending integration."
+}

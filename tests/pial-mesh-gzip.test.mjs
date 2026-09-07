@@ -65,7 +65,7 @@ test("mesh loader source maps only the two pial logical names and inflates only 
   assert.match(source, /const COMPRESSED_MESH_ASSETS:[^=]+=Object\.freeze\(\{"pial-left":"pial-left\.mesh\.gz","pial-right":"pial-right\.mesh\.gz"\}\)/);
   assert.match(source, /function meshAssetFileName\(name:string\)\{return COMPRESSED_MESH_ASSETS\[name\]\|\|`\$\{name\}\.mesh`\}/);
   assert.match(source, /const fileName=meshAssetFileName\(name\),id=`mesh:\$\{fileName\}`/);
-  assert.match(source, /fetchAtlasBuffer\(`\$\{ASSET_BASE\}atlas\/\$\{fileName\}`,id,name,token\)/);
+  assert.ok(source.includes('fetchAtlasBuffer(`${ASSET_BASE}atlas/${fileName}${name==="overlay-arteries-anterior"?"?v=8e1d872281eb6439":name==="overlay-nerves-pontine"?"?v=1244f483c765ef08":(name.startsWith("block-")||name.startsWith("section-current-")||name==="section-accumbens")?`?v=${SEGMENTATION_LABEL_REVISION}`:""}`,id,name,token)'));
   assert.match(source, /if\(hasGzipMagic\(buf\)\)\{const stream=new Blob\(\[buf\]\)\.stream\(\)\.pipeThrough\(new DecompressionStream\("gzip"\)\)/);
   assert.match(source, /magic!==0x424e4d31&&magic!==0x424e4d32&&magic!==0x424e4d33/);
   assert.doesNotMatch(source, /atlas\/\$\{name\}\.mesh`/);

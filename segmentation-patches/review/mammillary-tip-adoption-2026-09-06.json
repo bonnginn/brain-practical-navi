@@ -1,0 +1,1713 @@
+{
+  "scope": "left-mammillary-inferior-two-tip-voxels",
+  "date": "2026-09-06",
+  "decision": "AI-image-reviewed-project-adopted-development-only",
+  "expertReviewed": false,
+  "inputCompressedSha256": "e7e61a7060c7f1ddfa8106ba659c0488e077495acdd6564862db44663d233ea3",
+  "outputCompressedSha256": "86e3b22dc7ce69cf31c5ba821e980ce283a366fd952bf46ce880efd8f3127e14",
+  "inputRawSha256": "816be7e87f80cb79e3b15d3cdb26831d7a1f0013b6b92de2dc0e7e99225acf27",
+  "outputRawSha256": "1f826fc89569429efd9e8cc322bdce49a28f1d1012e93ea419487afcc9d405aa",
+  "imageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
+  "points": [
+    [
+      193,
+      252,
+      107
+    ],
+    [
+      193,
+      253,
+      107
+    ]
+  ],
+  "transitions": {
+    "39->0": 2
+  },
+  "changedVoxelCount": 2,
+  "beforeCount39": 561,
+  "afterCount39": 559,
+  "retainedCount40": 729,
+  "changedBlockPartMasks": [],
+  "evidence": [
+    {
+      "path": "work/anatomy-review/mammillary-voxel-extent-v1.json",
+      "sha256": "e6934e296afcbb305a0fad373b9fa19d2406f7de4235fe10c48aa7f3b19052b5",
+      "record": {
+        "inputSha256": "c59cb68dc2141ebc9b4c922dd31d7438d9df7aa7c7ba83cee408ca738a7a536d",
+        "nativeSha256": "3a18798134c26515f0ad3543885fdbe22f25243060965611d6c9253c034c77b0",
+        "labelsSha256": "e7e61a7060c7f1ddfa8106ba659c0488e077495acdd6564862db44663d233ea3",
+        "mutation": false,
+        "method": "125 evenly spaced points including voxel faces/corners, offsets -0.5,-0.25,0,0.25,0.5 app index",
+        "warning": "Sample proportions are not tissue-volume fractions. Thresholds are review screens, not anatomical classification.",
+        "maximumRoundtripErrorMm": 3.164791625209773e-06,
+        "entries": [
+          {
+            "appXYZ": [
+              188,
+              251,
+              110
+            ],
+            "nativeXYZ": [
+              205.87449421772138,
+              24.542905697386885,
+              108.58755476045317
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 249,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 13912.3828125,
+            "nativeSamplesBelow500": 113,
+            "nativeSamplesAbove3000": 9
+          },
+          {
+            "appXYZ": [
+              188,
+              252,
+              110
+            ],
+            "nativeXYZ": [
+              205.43248873169833,
+              27.411602172181304,
+              108.50990080256295
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 249,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 13246.826171875,
+            "nativeSamplesBelow500": 111,
+            "nativeSamplesAbove3000": 10
+          },
+          {
+            "appXYZ": [
+              189,
+              250,
+              110
+            ],
+            "nativeXYZ": [
+              210.72185355599618,
+              21.36927293342259,
+              109.12536583685899
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 246,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 21002.818359375,
+            "nativeSamplesBelow500": 97,
+            "nativeSamplesAbove3000": 17
+          },
+          {
+            "appXYZ": [
+              189,
+              252,
+              109
+            ],
+            "nativeXYZ": [
+              210.3863856696281,
+              26.353727594744125,
+              105.14471247116172
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 245,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 19740.759765625,
+            "nativeSamplesBelow500": 110,
+            "nativeSamplesAbove3000": 11
+          },
+          {
+            "appXYZ": [
+              189,
+              253,
+              109
+            ],
+            "nativeXYZ": [
+              210.08355390814305,
+              29.266118243396182,
+              104.9512659672542
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 246,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 18080.642578125,
+            "nativeSamplesBelow500": 110,
+            "nativeSamplesAbove3000": 8
+          },
+          {
+            "appXYZ": [
+              189,
+              254,
+              109
+            ],
+            "nativeXYZ": [
+              209.73891407476324,
+              32.16182410826286,
+              104.75071868646992
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 250,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 13861.40234375,
+            "nativeSamplesBelow500": 110,
+            "nativeSamplesAbove3000": 8
+          },
+          {
+            "appXYZ": [
+              190,
+              249,
+              110
+            ],
+            "nativeXYZ": [
+              215.57478649343565,
+              17.8960890694748,
+              110.12587178777532
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 239,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 23663.484375,
+            "nativeSamplesBelow500": 106,
+            "nativeSamplesAbove3000": 11
+          },
+          {
+            "appXYZ": [
+              190,
+              251,
+              109
+            ],
+            "nativeXYZ": [
+              215.1920885757636,
+              23.31963022465521,
+              105.9336524185138
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 231,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 26254.4921875,
+            "nativeSamplesBelow500": 77,
+            "nativeSamplesAbove3000": 36
+          },
+          {
+            "appXYZ": [
+              190,
+              256,
+              109
+            ],
+            "nativeXYZ": [
+              213.564974921677,
+              38.39867770095829,
+              104.43021165039336
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 243,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 14825.1982421875,
+            "nativeSamplesBelow500": 110,
+            "nativeSamplesAbove3000": 7
+          },
+          {
+            "appXYZ": [
+              191,
+              249,
+              109
+            ],
+            "nativeXYZ": [
+              220.24531708760665,
+              16.778028327810155,
+              107.47213466040535
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 250,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 1175.393310546875,
+            "nativeSamplesBelow500": 123,
+            "nativeSamplesAbove3000": 0
+          },
+          {
+            "appXYZ": [
+              191,
+              250,
+              109
+            ],
+            "nativeXYZ": [
+              220.06010436534987,
+              20.02562457424526,
+              107.17516881804232
+            ],
+            "nativeRaw": 28.464614868164062,
+            "appGray": 231,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 26149.8984375,
+            "nativeSamplesBelow500": 83,
+            "nativeSamplesAbove3000": 29
+          },
+          {
+            "appXYZ": [
+              191,
+              252,
+              108
+            ],
+            "nativeXYZ": [
+              219.91536259529278,
+              25.43189946016673,
+              102.96658488532255
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 237,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 25012.166015625,
+            "nativeSamplesBelow500": 87,
+            "nativeSamplesAbove3000": 29
+          },
+          {
+            "appXYZ": [
+              191,
+              253,
+              108
+            ],
+            "nativeXYZ": [
+              219.72244541094236,
+              28.580630856583262,
+              102.62182409517962
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 237,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 27232.390625,
+            "nativeSamplesBelow500": 79,
+            "nativeSamplesAbove3000": 37
+          },
+          {
+            "appXYZ": [
+              191,
+              254,
+              108
+            ],
+            "nativeXYZ": [
+              219.45943205723205,
+              31.724395109493866,
+              102.29714872298963
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 244,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 11775.3701171875,
+            "nativeSamplesBelow500": 110,
+            "nativeSamplesAbove3000": 9
+          },
+          {
+            "appXYZ": [
+              191,
+              256,
+              109
+            ],
+            "nativeXYZ": [
+              218.32087405928021,
+              38.790132244746864,
+              104.75689803354182
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 242,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 14825.1982421875,
+            "nativeSamplesBelow500": 107,
+            "nativeSamplesAbove3000": 12
+          },
+          {
+            "appXYZ": [
+              192,
+              248,
+              110
+            ],
+            "nativeXYZ": [
+              225.0866666841737,
+              13.748124666902752,
+              112.85938220917625
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 250,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 6693.58203125,
+            "nativeSamplesBelow500": 120,
+            "nativeSamplesAbove3000": 4
+          },
+          {
+            "appXYZ": [
+              192,
+              249,
+              109
+            ],
+            "nativeXYZ": [
+              224.95909002649188,
+              16.489582304103703,
+              108.77399962740706
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 250,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 1581.1983642578125,
+            "nativeSamplesBelow500": 122,
+            "nativeSamplesAbove3000": 0
+          },
+          {
+            "appXYZ": [
+              192,
+              250,
+              109
+            ],
+            "nativeXYZ": [
+              224.82277203227315,
+              19.81240859171086,
+              108.40607285167877
+            ],
+            "nativeRaw": 91.09156799316406,
+            "appGray": 216,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 21282.109375,
+            "nativeSamplesBelow500": 66,
+            "nativeSamplesAbove3000": 48
+          },
+          {
+            "appXYZ": [
+              192,
+              251,
+              108
+            ],
+            "nativeXYZ": [
+              224.84703298180187,
+              22.246639117443436,
+              104.38382690559496
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 249,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 13875.6708984375,
+            "nativeSamplesBelow500": 102,
+            "nativeSamplesAbove3000": 14
+          },
+          {
+            "appXYZ": [
+              192,
+              254,
+              108
+            ],
+            "nativeXYZ": [
+              224.28234634498673,
+              31.98310126172874,
+              103.10057348382098
+            ],
+            "nativeRaw": 51.814449310302734,
+            "appGray": 231,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 15712.3818359375,
+            "nativeSamplesBelow500": 86,
+            "nativeSamplesAbove3000": 29
+          },
+          {
+            "appXYZ": [
+              192,
+              255,
+              108
+            ],
+            "nativeXYZ": [
+              223.95950750646185,
+              35.26001158462067,
+              102.7655598078659
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 250,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 895.8991088867188,
+            "nativeSamplesBelow500": 124,
+            "nativeSamplesAbove3000": 0
+          },
+          {
+            "appXYZ": [
+              192,
+              256,
+              109
+            ],
+            "nativeXYZ": [
+              223.20131366872099,
+              39.151852994357164,
+              105.4592788225096
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 245,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 11761.3515625,
+            "nativeSamplesBelow500": 110,
+            "nativeSamplesAbove3000": 6
+          },
+          {
+            "appXYZ": [
+              193,
+              249,
+              109
+            ],
+            "nativeXYZ": [
+              229.77525096151334,
+              16.324708546902187,
+              110.22840972718082
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 247,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 572.0550537109375,
+            "nativeSamplesBelow500": 124,
+            "nativeSamplesAbove3000": 0
+          },
+          {
+            "appXYZ": [
+              193,
+              250,
+              109
+            ],
+            "nativeXYZ": [
+              229.6875137273154,
+              19.697186459286726,
+              109.8551967095479
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 221,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 15455.5361328125,
+            "nativeSamplesBelow500": 70,
+            "nativeSamplesAbove3000": 45
+          },
+          {
+            "appXYZ": [
+              193,
+              251,
+              108
+            ],
+            "nativeXYZ": [
+              229.7635851001317,
+              22.247682733378173,
+              105.71343506858561
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 243,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 15966.05078125,
+            "nativeSamplesBelow500": 90,
+            "nativeSamplesAbove3000": 26
+          },
+          {
+            "appXYZ": [
+              193,
+              252,
+              107
+            ],
+            "nativeXYZ": [
+              229.80997748178115,
+              24.770341340150885,
+              101.89080727118046
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 250,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 247.4220428466797,
+            "nativeSamplesBelow500": 125,
+            "nativeSamplesAbove3000": 0
+          },
+          {
+            "appXYZ": [
+              193,
+              253,
+              107
+            ],
+            "nativeXYZ": [
+              229.6781751686155,
+              28.160502514339996,
+              101.51571066762773
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 248,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 481.4941101074219,
+            "nativeSamplesBelow500": 125,
+            "nativeSamplesAbove3000": 0
+          },
+          {
+            "appXYZ": [
+              193,
+              254,
+              108
+            ],
+            "nativeXYZ": [
+              229.24582079454467,
+              32.178287035649014,
+              104.24406985051263
+            ],
+            "nativeRaw": 141.12062072753906,
+            "appGray": 244,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 16218.5400390625,
+            "nativeSamplesBelow500": 93,
+            "nativeSamplesAbove3000": 18
+          },
+          {
+            "appXYZ": [
+              193,
+              255,
+              109
+            ],
+            "nativeXYZ": [
+              228.62348593370166,
+              36.01562640607778,
+              106.99091689969353
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 239,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 12249.8037109375,
+            "nativeSamplesBelow500": 107,
+            "nativeSamplesAbove3000": 10
+          },
+          {
+            "appXYZ": [
+              193,
+              256,
+              109
+            ],
+            "nativeXYZ": [
+              228.2517820738919,
+              39.35704335198947,
+              106.55677319687743
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 237,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 12168.3154296875,
+            "nativeSamplesBelow500": 107,
+            "nativeSamplesAbove3000": 9
+          },
+          {
+            "appXYZ": [
+              194,
+              250,
+              109
+            ],
+            "nativeXYZ": [
+              234.41840513162052,
+              19.81442261925178,
+              111.45271388311282
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 233,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 12725.2978515625,
+            "nativeSamplesBelow500": 85,
+            "nativeSamplesAbove3000": 27
+          },
+          {
+            "appXYZ": [
+              194,
+              251,
+              108
+            ],
+            "nativeXYZ": [
+              234.54303221650952,
+              22.397228342142164,
+              107.2478052103908
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 242,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 13583.0185546875,
+            "nativeSamplesBelow500": 104,
+            "nativeSamplesAbove3000": 12
+          },
+          {
+            "appXYZ": [
+              194,
+              254,
+              109
+            ],
+            "nativeXYZ": [
+              233.83522294983288,
+              32.80369895053523,
+              109.12616734666258
+            ],
+            "nativeRaw": 213.29978942871094,
+            "appGray": 238,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 12555.4658203125,
+            "nativeSamplesBelow500": 86,
+            "nativeSamplesAbove3000": 26
+          },
+          {
+            "appXYZ": [
+              194,
+              255,
+              109
+            ],
+            "nativeXYZ": [
+              233.62036793251508,
+              36.09272202114107,
+              108.50644157307673
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 245,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 2168.5078125,
+            "nativeSamplesBelow500": 120,
+            "nativeSamplesAbove3000": 0
+          },
+          {
+            "appXYZ": [
+              195,
+              249,
+              110
+            ],
+            "nativeXYZ": [
+              238.85176394172262,
+              17.320872703426158,
+              117.14854893654223
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 245,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 10469.423828125,
+            "nativeSamplesBelow500": 111,
+            "nativeSamplesAbove3000": 7
+          },
+          {
+            "appXYZ": [
+              195,
+              251,
+              109
+            ],
+            "nativeXYZ": [
+              238.88375526546932,
+              23.405291620716877,
+              112.76598865356256
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 235,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 13640.8046875,
+            "nativeSamplesBelow500": 85,
+            "nativeSamplesAbove3000": 25
+          },
+          {
+            "appXYZ": [
+              195,
+              252,
+              109
+            ],
+            "nativeXYZ": [
+              238.79463216144907,
+              26.582785688615953,
+              112.24512841945827
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 249,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 14719.84375,
+            "nativeSamplesBelow500": 77,
+            "nativeSamplesAbove3000": 37
+          },
+          {
+            "appXYZ": [
+              195,
+              253,
+              110
+            ],
+            "nativeXYZ": [
+              238.26155706377241,
+              30.16641798003512,
+              115.29647535232928
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 247,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 12281.978515625,
+            "nativeSamplesBelow500": 84,
+            "nativeSamplesAbove3000": 26
+          },
+          {
+            "appXYZ": [
+              195,
+              253,
+              113
+            ],
+            "nativeXYZ": [
+              236.72377545132494,
+              30.99780568916776,
+              125.97966426606045
+            ],
+            "nativeRaw": 1.1342740058898926,
+            "appGray": 233,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 6723.0869140625,
+            "nativeSamplesBelow500": 76,
+            "nativeSamplesAbove3000": 31
+          },
+          {
+            "appXYZ": [
+              196,
+              251,
+              113
+            ],
+            "nativeXYZ": [
+              241.88299882647163,
+              25.29896973999069,
+              128.54794192720635
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 240,
+            "label": 39,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 5977.57666015625,
+            "nativeSamplesBelow500": 93,
+            "nativeSamplesAbove3000": 12
+          },
+          {
+            "appXYZ": [
+              197,
+              250,
+              110
+            ],
+            "nativeXYZ": [
+              247.2161077987172,
+              21.799059185330183,
+              120.09060839729251
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 250,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 9295.5185546875,
+            "nativeSamplesBelow500": 112,
+            "nativeSamplesAbove3000": 7
+          },
+          {
+            "appXYZ": [
+              197,
+              251,
+              110
+            ],
+            "nativeXYZ": [
+              247.09311671592403,
+              24.98880883357586,
+              119.85137408160433
+            ],
+            "nativeRaw": 369.7654113769531,
+            "appGray": 229,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 15019.3427734375,
+            "nativeSamplesBelow500": 64,
+            "nativeSamplesAbove3000": 48
+          },
+          {
+            "appXYZ": [
+              197,
+              252,
+              109
+            ],
+            "nativeXYZ": [
+              247.44719293232538,
+              27.456943801365608,
+              115.80195141085213
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 250,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 9925.2021484375,
+            "nativeSamplesBelow500": 101,
+            "nativeSamplesAbove3000": 14
+          },
+          {
+            "appXYZ": [
+              197,
+              253,
+              109
+            ],
+            "nativeXYZ": [
+              247.48949146458037,
+              30.444125887687772,
+              115.2237808897826
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 243,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 12887.7802734375,
+            "nativeSamplesBelow500": 92,
+            "nativeSamplesAbove3000": 25
+          },
+          {
+            "appXYZ": [
+              197,
+              254,
+              109
+            ],
+            "nativeXYZ": [
+              247.60795558956676,
+              33.456531374370506,
+              114.62878310859227
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 241,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 12609.2099609375,
+            "nativeSamplesBelow500": 92,
+            "nativeSamplesAbove3000": 19
+          },
+          {
+            "appXYZ": [
+              197,
+              255,
+              109
+            ],
+            "nativeXYZ": [
+              247.82775577623357,
+              36.488695811793974,
+              114.05092297021454
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 247,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 12609.2099609375,
+            "nativeSamplesBelow500": 108,
+            "nativeSamplesAbove3000": 7
+          },
+          {
+            "appXYZ": [
+              198,
+              250,
+              109
+            ],
+            "nativeXYZ": [
+              251.54155052762468,
+              21.72178933436733,
+              117.8069352703942
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 249,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 10472.8017578125,
+            "nativeSamplesBelow500": 117,
+            "nativeSamplesAbove3000": 5
+          },
+          {
+            "appXYZ": [
+              198,
+              251,
+              109
+            ],
+            "nativeXYZ": [
+              251.50847846290125,
+              24.939735715688,
+              117.69165623762642
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 237,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 12830.3359375,
+            "nativeSamplesBelow500": 78,
+            "nativeSamplesAbove3000": 37
+          },
+          {
+            "appXYZ": [
+              199,
+              249,
+              110
+            ],
+            "nativeXYZ": [
+              255.251342794256,
+              19.78317428275833,
+              122.44580935539705
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 249,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 12217.40625,
+            "nativeSamplesBelow500": 95,
+            "nativeSamplesAbove3000": 22
+          },
+          {
+            "appXYZ": [
+              199,
+              250,
+              109
+            ],
+            "nativeXYZ": [
+              255.5443700880497,
+              22.3053538288087,
+              118.98118875148917
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 244,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 11865.82421875,
+            "nativeSamplesBelow500": 98,
+            "nativeSamplesAbove3000": 18
+          },
+          {
+            "appXYZ": [
+              199,
+              252,
+              108
+            ],
+            "nativeXYZ": [
+              256.1032811701367,
+              27.58628420284305,
+              114.92347591839003
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 249,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 8689.1298828125,
+            "nativeSamplesBelow500": 107,
+            "nativeSamplesAbove3000": 11
+          },
+          {
+            "appXYZ": [
+              199,
+              253,
+              108
+            ],
+            "nativeXYZ": [
+              256.32375386826305,
+              30.540772922603345,
+              114.52760836777792
+            ],
+            "nativeRaw": 51.709007263183594,
+            "appGray": 243,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 11687.7119140625,
+            "nativeSamplesBelow500": 77,
+            "nativeSamplesAbove3000": 36
+          },
+          {
+            "appXYZ": [
+              199,
+              254,
+              108
+            ],
+            "nativeXYZ": [
+              256.6591379837129,
+              33.48471317006639,
+              114.12084601824463
+            ],
+            "nativeRaw": 419.63983154296875,
+            "appGray": 247,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 12007.2265625,
+            "nativeSamplesBelow500": 80,
+            "nativeSamplesAbove3000": 28
+          },
+          {
+            "appXYZ": [
+              200,
+              249,
+              110
+            ],
+            "nativeXYZ": [
+              259.17785241100046,
+              20.452861549100785,
+              123.30190450521474
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 236,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 20316.47265625,
+            "nativeSamplesBelow500": 75,
+            "nativeSamplesAbove3000": 37
+          },
+          {
+            "appXYZ": [
+              200,
+              250,
+              109
+            ],
+            "nativeXYZ": [
+              259.5836435023638,
+              22.845834672607044,
+              119.90414992890805
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 242,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 17170.08203125,
+            "nativeSamplesBelow500": 87,
+            "nativeSamplesAbove3000": 28
+          },
+          {
+            "appXYZ": [
+              200,
+              252,
+              108
+            ],
+            "nativeXYZ": [
+              260.30899415641267,
+              27.9301664438103,
+              115.9645157691354
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 243,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 11297.626953125,
+            "nativeSamplesBelow500": 97,
+            "nativeSamplesAbove3000": 18
+          },
+          {
+            "appXYZ": [
+              200,
+              253,
+              108
+            ],
+            "nativeXYZ": [
+              260.59211359172355,
+              30.81794308294695,
+              115.61485016416547
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 230,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 15820.607421875,
+            "nativeSamplesBelow500": 79,
+            "nativeSamplesAbove3000": 36
+          },
+          {
+            "appXYZ": [
+              200,
+              254,
+              108
+            ],
+            "nativeXYZ": [
+              261.00532558496946,
+              33.67735994301704,
+              115.23708128612095
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 231,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 17181.810546875,
+            "nativeSamplesBelow500": 82,
+            "nativeSamplesAbove3000": 31
+          },
+          {
+            "appXYZ": [
+              200,
+              255,
+              108
+            ],
+            "nativeXYZ": [
+              261.5784496264047,
+              36.48159160510436,
+              114.82773503969237
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 238,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 14476.73828125,
+            "nativeSamplesBelow500": 103,
+            "nativeSamplesAbove3000": 13
+          },
+          {
+            "appXYZ": [
+              200,
+              256,
+              109
+            ],
+            "nativeXYZ": [
+              261.8579092745989,
+              39.978801891695014,
+              117.74345743059686
+            ],
+            "nativeRaw": 3.2044875621795654,
+            "appGray": 238,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 18898.70703125,
+            "nativeSamplesBelow500": 64,
+            "nativeSamplesAbove3000": 50
+          },
+          {
+            "appXYZ": [
+              201,
+              249,
+              110
+            ],
+            "nativeXYZ": [
+              263.15917513604336,
+              21.143371444101593,
+              123.92137180544445
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 219,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 23659.29296875,
+            "nativeSamplesBelow500": 71,
+            "nativeSamplesAbove3000": 48
+          },
+          {
+            "appXYZ": [
+              201,
+              250,
+              109
+            ],
+            "nativeXYZ": [
+              263.6897604522794,
+              23.38364176972826,
+              120.58038107543112
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 235,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 15690.3291015625,
+            "nativeSamplesBelow500": 88,
+            "nativeSamplesAbove3000": 27
+          },
+          {
+            "appXYZ": [
+              201,
+              252,
+              108
+            ],
+            "nativeXYZ": [
+              264.60020156677734,
+              28.25966948855509,
+              116.76715084043127
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 249,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 10889.021484375,
+            "nativeSamplesBelow500": 104,
+            "nativeSamplesAbove3000": 11
+          },
+          {
+            "appXYZ": [
+              201,
+              254,
+              108
+            ],
+            "nativeXYZ": [
+              265.42650323454455,
+              33.86910805639457,
+              116.14108557478079
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 249,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 10243.4580078125,
+            "nativeSamplesBelow500": 105,
+            "nativeSamplesAbove3000": 12
+          },
+          {
+            "appXYZ": [
+              201,
+              256,
+              109
+            ],
+            "nativeXYZ": [
+              266.42844792366316,
+              40.119933281435905,
+              118.72762387958169
+            ],
+            "nativeRaw": 170.9403839111328,
+            "appGray": 227,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 16942.685546875,
+            "nativeSamplesBelow500": 68,
+            "nativeSamplesAbove3000": 46
+          },
+          {
+            "appXYZ": [
+              202,
+              249,
+              110
+            ],
+            "nativeXYZ": [
+              267.23176522420084,
+              21.828028935752446,
+              124.31501271130934
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 232,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 23659.29296875,
+            "nativeSamplesBelow500": 82,
+            "nativeSamplesAbove3000": 32
+          },
+          {
+            "appXYZ": [
+              202,
+              250,
+              109
+            ],
+            "nativeXYZ": [
+              267.90290540663864,
+              23.90258125851579,
+              121.01972317061761
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 244,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 16933.87109375,
+            "nativeSamplesBelow500": 109,
+            "nativeSamplesAbove3000": 10
+          },
+          {
+            "appXYZ": [
+              202,
+              253,
+              108
+            ],
+            "nativeXYZ": [
+              269.40133406934046,
+              31.330924383555292,
+              117.1189829093404
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 250,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 2129.7900390625,
+            "nativeSamplesBelow500": 122,
+            "nativeSamplesAbove3000": 0
+          },
+          {
+            "appXYZ": [
+              202,
+              255,
+              109
+            ],
+            "nativeXYZ": [
+              270.16129385309586,
+              37.671050766754455,
+              120.00898989952248
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 230,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 16139.9228515625,
+            "nativeSamplesBelow500": 88,
+            "nativeSamplesAbove3000": 28
+          },
+          {
+            "appXYZ": [
+              202,
+              256,
+              109
+            ],
+            "nativeXYZ": [
+              271.0121025763692,
+              40.26013788655213,
+              119.56275687077034
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 248,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 16220.650390625,
+            "nativeSamplesBelow500": 101,
+            "nativeSamplesAbove3000": 13
+          },
+          {
+            "appXYZ": [
+              203,
+              249,
+              110
+            ],
+            "nativeXYZ": [
+              271.4367445663772,
+              22.502340021100036,
+              124.54087527233358
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 250,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 17860.759765625,
+            "nativeSamplesBelow500": 116,
+            "nativeSamplesAbove3000": 7
+          },
+          {
+            "appXYZ": [
+              203,
+              250,
+              110
+            ],
+            "nativeXYZ": [
+              271.74414671807585,
+              25.733022424107386,
+              124.96155860584139
+            ],
+            "nativeRaw": 253.73367309570312,
+            "appGray": 217,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 23130.607421875,
+            "nativeSamplesBelow500": 68,
+            "nativeSamplesAbove3000": 45
+          },
+          {
+            "appXYZ": [
+              203,
+              251,
+              109
+            ],
+            "nativeXYZ": [
+              272.5499085210084,
+              27.4076880591641,
+              121.5181765740058
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 249,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 16163.994140625,
+            "nativeSamplesBelow500": 108,
+            "nativeSamplesAbove3000": 11
+          },
+          {
+            "appXYZ": [
+              203,
+              252,
+              109
+            ],
+            "nativeXYZ": [
+              272.93704511498794,
+              30.17918643054644,
+              121.51851526156175
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 233,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 17392.41796875,
+            "nativeSamplesBelow500": 94,
+            "nativeSamplesAbove3000": 21
+          },
+          {
+            "appXYZ": [
+              203,
+              253,
+              109
+            ],
+            "nativeXYZ": [
+              273.4187089299032,
+              32.83301624077859,
+              121.3536862107777
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 246,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 16994.35546875,
+            "nativeSamplesBelow500": 105,
+            "nativeSamplesAbove3000": 10
+          },
+          {
+            "appXYZ": [
+              203,
+              254,
+              109
+            ],
+            "nativeXYZ": [
+              274.0384842259025,
+              35.42695341015713,
+              121.09201516404568
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 247,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 12960.119140625,
+            "nativeSamplesBelow500": 114,
+            "nativeSamplesAbove3000": 6
+          },
+          {
+            "appXYZ": [
+              203,
+              256,
+              110
+            ],
+            "nativeXYZ": [
+              275.38722455964313,
+              41.71097243371541,
+              123.96084473009142
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 238,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 15076.0693359375,
+            "nativeSamplesBelow500": 82,
+            "nativeSamplesAbove3000": 31
+          },
+          {
+            "appXYZ": [
+              204,
+              250,
+              110
+            ],
+            "nativeXYZ": [
+              276.168753515611,
+              26.350946240422886,
+              125.11874442662698
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 250,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 13815.677734375,
+            "nativeSamplesBelow500": 119,
+            "nativeSamplesAbove3000": 3
+          },
+          {
+            "appXYZ": [
+              204,
+              251,
+              110
+            ],
+            "nativeXYZ": [
+              276.59287654447627,
+              29.265354936354644,
+              125.43363496306436
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 239,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 18152.275390625,
+            "nativeSamplesBelow500": 98,
+            "nativeSamplesAbove3000": 18
+          },
+          {
+            "appXYZ": [
+              204,
+              252,
+              110
+            ],
+            "nativeXYZ": [
+              277.0910970359985,
+              31.986034415002003,
+              125.57686505570636
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 235,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 18639.193359375,
+            "nativeSamplesBelow500": 94,
+            "nativeSamplesAbove3000": 26
+          },
+          {
+            "appXYZ": [
+              204,
+              253,
+              110
+            ],
+            "nativeXYZ": [
+              277.6690247218595,
+              34.60979393973376,
+              125.55599258019039
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 243,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 18515.576171875,
+            "nativeSamplesBelow500": 90,
+            "nativeSamplesAbove3000": 25
+          },
+          {
+            "appXYZ": [
+              204,
+              254,
+              110
+            ],
+            "nativeXYZ": [
+              278.35741788543476,
+              37.13504952939786,
+              125.3941259922005
+            ],
+            "nativeRaw": 0.0,
+            "appGray": 249,
+            "label": 40,
+            "nativeSampleMin": 0.0,
+            "nativeSampleMax": 16398.318359375,
+            "nativeSamplesBelow500": 107,
+            "nativeSamplesAbove3000": 10
+          }
+        ]
+      }
+    },
+    {
+      "path": "work/anatomy-review/mammillary-tip-context-v2/report.json",
+      "sha256": "846219ab9405f68d35de0c9c288f6ba7871bce210bfd27b0bad18d5b728dcd96",
+      "record": {
+        "inputSha256": "e6934e296afcbb305a0fad373b9fa19d2406f7de4235fe10c48aa7f3b19052b5",
+        "nativeSha256": "3a18798134c26515f0ad3543885fdbe22f25243060965611d6c9253c034c77b0",
+        "labelsSha256": "e7e61a7060c7f1ddfa8106ba659c0488e077495acdd6564862db44663d233ea3",
+        "appSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
+        "mutation": false,
+        "note": "Native planes rounded to native centre; not same physical plane as app. Magenta boxes mark rounded centre only, not proposed boundaries.",
+        "figures": [
+          {
+            "path": "target-0-x.png",
+            "appXYZ": [
+              193,
+              252,
+              107
+            ],
+            "nativeRoundedXYZ": [
+              230,
+              25,
+              102
+            ],
+            "axis": "x",
+            "sha256": "2eb03266c3d275ab7bd2f1b6503742fff7944f43235c97c2cc9711e29b1ee76a"
+          },
+          {
+            "path": "target-0-y.png",
+            "appXYZ": [
+              193,
+              252,
+              107
+            ],
+            "nativeRoundedXYZ": [
+              230,
+              25,
+              102
+            ],
+            "axis": "y",
+            "sha256": "f8452a9f6fb164072c341562a077765db0e73a37430a00709a15e6d657411cc6"
+          },
+          {
+            "path": "target-0-z.png",
+            "appXYZ": [
+              193,
+              252,
+              107
+            ],
+            "nativeRoundedXYZ": [
+              230,
+              25,
+              102
+            ],
+            "axis": "z",
+            "sha256": "ff18de75863065df28f595172e8f12bfe2af6da4ac8af7a6bfabb282e2e01f72"
+          },
+          {
+            "path": "target-1-x.png",
+            "appXYZ": [
+              193,
+              253,
+              107
+            ],
+            "nativeRoundedXYZ": [
+              230,
+              28,
+              102
+            ],
+            "axis": "x",
+            "sha256": "39c59a0dcea03735c1a0a1381e95c9f5e7c284bdd1f95cc10ce08496de50decd"
+          },
+          {
+            "path": "target-1-y.png",
+            "appXYZ": [
+              193,
+              253,
+              107
+            ],
+            "nativeRoundedXYZ": [
+              230,
+              28,
+              102
+            ],
+            "axis": "y",
+            "sha256": "13c74ac5ed749883dc34544c2b4dac07d83c2e9bf90645af9aa314475a1e88e6"
+          },
+          {
+            "path": "target-1-z.png",
+            "appXYZ": [
+              193,
+              253,
+              107
+            ],
+            "nativeRoundedXYZ": [
+              230,
+              28,
+              102
+            ],
+            "axis": "z",
+            "sha256": "966bbc12d5bf1afbbef3c8b144b80182c5d93dbc71f165d3d3851f79c4146bab"
+          }
+        ]
+      }
+    }
+  ],
+  "rationale": "All six point-specific sheets visually inspected: adjacent coronal/sagittal/horizontal app and native raw show the two inferior tips beyond the visible tissue contour. All 125 finite-voxel samples per target are below native raw 500. Scope fixed to these two points, not the other 80 screened points; no automatic threshold deletion.",
+  "limitations": "AI-assisted project repair, not expert confirmation. Transform roundtrip tests numerical precision, not registration accuracy. Superior hypothalamic attachment and all other mammillary borders are not certified.",
+  "projectAdopted": true
+}

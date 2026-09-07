@@ -1,0 +1,11 @@
+{
+  "status": "AI-image-guided-localization-not-segmentation",
+  "sourceSha256": "ebf0e88def96476d0a32ddaff6f28e37d7afd125dec724e6d8855b12357c7e86",
+  "coordinates": "registered300 integer XYZ",
+  "referencePoints": [[321,422,284],[330,422,286],[321,428,282],[330,428,284],[321,434,281],[330,434,281]],
+  "evidence": "fornix-bend-series-v1 all 15 planes and fornix-bend-coordinates-v1 all 3 raw coordinate figures visually inspected",
+  "meaning": "Lower tissue-interior tracking references, not a classification of the full connected tissue as fornix. Bright internal patches and upper midline attachment are not included by implication.",
+  "adopted": false,
+  "expertReviewed": false,
+  "mutation": false
+}

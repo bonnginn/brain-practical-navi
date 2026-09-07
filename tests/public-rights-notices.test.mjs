@@ -35,7 +35,7 @@ test("source rights audit passes the exact manifest, notices and 21-file procedu
   const report = auditPublicRightsNotices({ mode: "source", repositoryRoot: ROOT });
   assert.equal(report.ok, true, JSON.stringify(report.errors, null, 2));
   assert.deepEqual(report.summary, {
-    assetCount: 110,
+    assetCount: 115,
     groupCount: 9,
     noticeCount: 5,
     projectAuthoredAssetCount: 21,

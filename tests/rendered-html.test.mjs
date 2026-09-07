@@ -9,6 +9,17 @@ import { fileURLToPath } from "node:url";
 import { gunzipSync } from "node:zlib";
 
 const root = new URL("../", import.meta.url);
+test("block controls sit outside the draggable image and retain touch-sized buttons", async () => {
+  const page = await readFile(new URL("app/page.tsx", root), "utf8");
+  const css = await readFile(new URL("app/canvas.css", root), "utf8");
+  const block = page.slice(page.indexOf('className="learningModelCard blockModelCard"'), page.indexOf('className="learningModelCard blockModelCard"') + 6500);
+  assert.match(block, /OrientationCompass rotation=\{rotation\}\/\>\}\s*<\/div>\s*\{!webglUnavailable&&<div className="blockModelToolbar">/);
+  for (const group of ["specimenTissueControls", "specimenViewControls", "specimenAttachmentControls"]) {
+    assert.ok(block.indexOf(group) > block.indexOf('className="blockModelToolbar"'));
+  }
+  assert.match(css, /\.blockModelToolbar button\s*\{\s*min-height:\s*44px/);
+  assert.match(css, /\.blockModelToolbar \.modelLegend\s*\{\s*position:\s*static/);
+});
 const localPath = (path) => fileURLToPath(new URL(path, root));
 
 function resolvePython() {
@@ -176,11 +187,13 @@ test("keeps official labels separate from provisional teaching overlays", async 
   const metadata = JSON.parse(metadataFile);
   assert.deepEqual(metadata.shape, labels.dims);
   assert.deepEqual(metadata.officialManualIds, Array.from({ length: 22 }, (_, index) => index + 1));
-  assert.equal(metadata.officialLabelsPreserved, true);
+  assert.equal(metadata.officialLabelsPreserved, false);
+  assert.equal(metadata.redNucleusRegistrationAudit.changedVoxelCount, 2224);
+  assert.equal(metadata.redNucleusRegistrationAudit.expertReviewed, false);
   assert.deepEqual(metadata.atlasDerivedIds, [23, 24, 25, 26, 27, 28, 29, 33, 34, 35]);
   assert.deepEqual(metadata.imageGuidedCandidateIds, [30, 31, 32, 41]);
   assert.deepEqual(metadata.projectReviewedPartialIds, [41]);
-  assert.equal(metadata.labelCounts[26], 8520);
+  assert.equal(metadata.labelCounts[26], 9008);
   assert.equal(metadata.labelCounts[41], 16);
   assert.deepEqual(metadata.imageGuidedReviewedIds, [39, 40]);
   for (const id of Array.from({ length: 35 }, (_, index) => index + 1)) {
@@ -189,9 +202,9 @@ test("keeps official labels separate from provisional teaching overlays", async 
   const values = labels.payload.subarray(10);
   let leftMammillary=0,rightMammillary=0;
   for(const value of values){if(value===39)leftMammillary++;else if(value===40)rightMammillary++}
-  assert.equal(leftMammillary, 561);
+  assert.equal(leftMammillary, 559);
   assert.equal(rightMammillary, 729);
-  assert.equal(metadata.labelCounts[39], 561);
+  assert.equal(metadata.labelCounts[39], 559);
   assert.equal(metadata.labelCounts[40], 729);
   assert.equal(metadata.reviewedPatchAudit.editCount, 1290);
   assert.equal(metadata.ventricleLabelsRestrictedToEmptySpace, true);
@@ -987,18 +1000,33 @@ test("builds a multi-slice multi-transition patch in the browser helper that Pyt
 });
 
 test("keeps patch source paths canonical in a GitHub Pages-base build", async () => {
-  const result = spawnSync(process.execPath, ["node_modules/vite/bin/vite.js", "build", "--configLoader", "runner"], {
+  // Never replace the output being served by an active local preview.
+  const tempRoot = await mkdtemp(join(tmpdir(), "brain-pages-build-"));
+  const output = join(tempRoot, "dist");
+  const previewIndex = await readFile(new URL("dist/index.html", root)).catch(error => {
+    if (error.code === "ENOENT") return null;
+    throw error;
+  });
+  try {
+  const result = spawnSync(process.execPath, ["node_modules/vite/bin/vite.js", "build", "--configLoader", "runner", "--outDir", output], {
     cwd:localPath(""),
-    env:{...process.env,DEPLOY_GITHUB_PAGES:"true"},
+    env:{...process.env,DEPLOY_GITHUB_PAGES:"true",DEPLOY_OPENAI_SITES:"false"},
     encoding:"utf8",
   });
   assert.equal(result.status, 0, result.stderr);
-  const assetNames = (await readdir(new URL("dist/assets/", root))).filter(name => name.endsWith(".js"));
+  const assetNames = (await readdir(join(output, "assets"))).filter(name => name.endsWith(".js"));
   assert.ok(assetNames.length>1);
-  const bundles = (await Promise.all(assetNames.map(name=>readFile(new URL(`dist/assets/${name}`, root), "utf8")))).join("\n");
+  const bundles = (await Promise.all(assetNames.map(name=>readFile(join(output, "assets", name), "utf8")))).join("\n");
   assert.match(bundles, /\/atlas\/bigbrain-icbm500\.bin\.gz/);
   assert.match(bundles, /\/atlas\/bigbrain-practical-segmentation-icbm500\.bin\.gz/);
   assert.doesNotMatch(bundles, /\/brain-practical-navi\/atlas\/bigbrain-icbm500\.bin\.gz/);
+  assert.ok((await stat(join(output, "server", "index.js"))).isFile());
+  assert.ok((await stat(join(output, ".openai", "hosting.json"))).isFile());
+  if (previewIndex) assert.deepEqual(await readFile(new URL("dist/index.html", root)), previewIndex);
+  } finally {
+    // Only this test's uniquely-created temporary build tree is removed.
+    await rm(tempRoot, {recursive:true, force:true});
+  }
 });
 
 test("adds orthogonal read-only audit planes without changing the horizontal patch contract", async () => {
@@ -1073,26 +1101,26 @@ test("reproduces the objective orthogonal mammillary audit and rejects a wrong v
   ], {encoding:"utf8", cwd:localPath("")});
   assert.equal(result.status, 0, result.stderr);
   const audit = JSON.parse(result.stdout);
-  const saved = JSON.parse(await readFile(new URL("segmentation-patches/review/mammillary-bodies-orthogonal-objective-audit-2026-09-06-callosal-inferior.json", root), "utf8"));
+  const saved = JSON.parse(await readFile(new URL("segmentation-patches/review/mammillary-bodies-orthogonal-objective-audit-2026-09-07-ventricular-mixed12.json", root), "utf8"));
   assert.deepEqual(audit, saved);
   assert.equal(audit.magic, "BBS1");
-assert.equal(audit.inputSha256, "098edfbf365016c6c53ccf7b7032258db72a4912378c457d348c01613a4a1694");
+assert.equal(audit.inputSha256, "3aa4127843d1ca59ee4fa2d542632748ec542958c76329b627b3968b6d53f45e");
   assert.deepEqual(audit.dims, [394, 466, 378]);
   assert.deepEqual(audit.voxelSizeMm, [0.5, 0.5, 0.5]);
   assert.equal(audit.validation.passed, true);
-  assert.equal(audit.labels["39"].voxelCount, 561);
+  assert.equal(audit.labels["39"].voxelCount, 559);
   assert.equal(audit.labels["40"].voxelCount, 729);
-  assert.deepEqual(audit.labels["39"].bbox.min, [187, 246, 107]);
+  assert.deepEqual(audit.labels["39"].bbox.min, [187, 246, 108]);
   assert.deepEqual(audit.labels["39"].bbox.max, [196, 256, 121]);
   assert.deepEqual(audit.labels["40"].bbox.min, [197, 247, 108]);
   assert.deepEqual(audit.labels["40"].bbox.max, [204, 258, 121]);
   assert.equal(audit.labels["39"].connectedComponentCount6, 1);
   assert.equal(audit.labels["40"].connectedComponentCount6, 1);
   assert.deepEqual(audit.validation.expectedMammillaryBboxes, {
-    "39": {min:[187,246,107], max:[196,256,121]},
+    "39": {min:[187,246,108], max:[196,256,121]},
     "40": {min:[197,247,108], max:[204,258,121]},
   });
-  assert.deepEqual(audit.faceContacts6, {"27-33":32,"27-39":69,"27-40":38,"33-39":171,"33-40":162,"39-40":1});
+  assert.deepEqual(audit.faceContacts6, {"27-33":29,"27-39":58,"27-40":31,"33-39":171,"33-40":162,"39-40":1});
   assert.deepEqual(Object.keys(audit.contactInterfaces), ["27-39", "33-39", "27-40", "33-40"]);
   const axisCoordinate = {x:0, y:1, z:2};
   for (const [pair, contact] of Object.entries(audit.contactInterfaces)) {
@@ -1138,8 +1166,8 @@ assert.equal(audit.inputSha256, "098edfbf365016c6c53ccf7b7032258db72a4912378c457
     }
   }
   for (const [label, expected] of Object.entries({
-    "39": {sliceIndex:251, pairInPlaneFaceCounts:{"27":12,"33":12}, pairUniqueMammillaryVoxelCounts:{"27":10,"33":9}},
-    "40": {sliceIndex:253, pairInPlaneFaceCounts:{"27":8,"33":6}, pairUniqueMammillaryVoxelCounts:{"27":8,"33":5}},
+    "39": {sliceIndex:251, pairInPlaneFaceCounts:{"27":10,"33":12}, pairUniqueMammillaryVoxelCounts:{"27":8,"33":9}},
+    "40": {sliceIndex:253, pairInPlaneFaceCounts:{"27":6,"33":6}, pairUniqueMammillaryVoxelCounts:{"27":6,"33":5}},
   })) {
     const representative = audit.representativeSlices[label];
     assert.equal(representative.plane, "coronal");
@@ -1503,17 +1531,17 @@ test("connects medial-surface study targets to visible surface or deep component
 
 test("bundles simplified neurovascular overlays as separately disclosed teaching meshes", async () => {
   const metadata = JSON.parse(await readFile(new URL("public/atlas/neurovascular-overlays.json", root), "utf8"));
-  assert.equal(metadata.version, 2);
+  assert.equal(metadata.version, 3);
   assert.match(metadata.coordinateSpace, /manually approximated/);
   assert.deepEqual(metadata.displayShiftMm, [0, 18, -18]);
   assert.match(metadata.alignmentPolicy, /anterior arteries and forebrain-associated cranial nerves I-II retain the pial display shift/i);
-  assert.match(metadata.alignmentPolicy, /vertebrobasilar arteries and cranial-nerve roots III-XII are anchored directly.*brainstem segmentation/i);
+  assert.match(metadata.alignmentPolicy, /vertebrobasilar arteries and proximal cranial-nerve paths III-XII use unshifted ICBM500-oriented schematic coordinates, not measured root attachments/i);
   assert.match(metadata.vertebrobasilarCalibration, /ventrolateral medulla.*pontomedullary junction.*ventral pons/i);
   assert.match(metadata.forebrainNerveCalibration, /olfactory bulbs and tracts.*optic nerves and chiasm.*exposed on the inferior surface/i);
-  assert.match(metadata.cranialNerveRootCalibration, /within 2 mm.*label 27 surface/i);
+  assert.match(metadata.cranialNerveRootCalibration, /current practical label 27 boundary.*not validated/i);
   assert.match(metadata.cranialNerveRootTopography.III, /interpeduncular fossa/i);
   assert.match(metadata.cranialNerveRootTopography.IV, /inferior colliculi/i);
-  assert.match(metadata.cranialNerveRootTopography["IX-XI"], /post-olivary sulcus/i);
+  assert.match(metadata.cranialNerveRootTopography["IX-XI"], /not rootlet rows.*XI spinal root and ascent omitted/i);
   assert.match(metadata.cranialNerveRootTopography.XII, /between pyramid and olive/i);
   assert.equal(metadata.anatomyReferences.length, 3);
   assert.match(metadata.status, /not validated morphometry/);
@@ -1530,8 +1558,15 @@ test("bundles simplified neurovascular overlays as separately disclosed teaching
   ]);
   for (const group of metadata.groups) {
     assert.ok(expected.delete(group.file), `unexpected or duplicate ${group.file}`);
-    assert.ok(group.vertices >= 1000);
-    assert.ok(group.faces >= 2000);
+    if(group.file === "overlay-nerves-pontine.mesh") {
+      // Four full 16-ring V/VI paths and four retained 8-ring VII/VIII paths.
+      assert.equal(group.vertices, 4*16*10 + 4*8*10);
+      assert.equal(group.faces, 4*15*20 + 4*7*20);
+      assert.deepEqual(group.structures.filter(s=>s.displayedRings===8).map(s=>s.id),[34,35,36,37]);
+    } else {
+      assert.ok(group.vertices >= 1000);
+      assert.ok(group.faces >= 2000);
+    }
     assert.ok(group.structures.length >= 8);
     assert.ok(group.structures.every(structure => Number.isInteger(structure.id) && structure.id > 0));
     assert.equal(group.displayShiftApplied, group.file === "overlay-arteries-anterior.mesh");
@@ -1859,7 +1894,7 @@ test("block specimens support continuous rotation and reuse the shared WebGL ren
   assert.match(canvas, /const loadOptional=\(needed:boolean,name:string\)=>needed\?loadMesh\(name\):Promise\.resolve\(EMPTY_MESH\)/);
   assert.match(canvas, /loadOptional\(wantVessels,"overlay-arteries-anterior"\)/);
   assert.match(canvas, /loadOptional\(surfaceLandmarks\.includes\(item\.key\),`surface-landmark-\$\{item\.key\}`\)/);
-  assert.match(canvas, /\[kind,specimenBlock,view,neurovascularOverlay,showBasalLandmarks,surfaceLandmarkKey,surfaceDeepLandmarkKey,retryVersion\]/);
+  assert.match(canvas, /\[kind,specimenBlock,view,contrast,neurovascularOverlay,showBasalLandmarks,surfaceLandmarkKey,surfaceDeepLandmarkKey,retryVersion\]/);
   assert.match(canvas, /let active=true;setBlockMeshes\(null\);setError\(""\)/);
   assert.match(canvas, /return\(\)=>\{active=false\}/);
   assert.match(canvas, /az=\(rot\.z\?\?0\)\*Math\.PI\/180/);

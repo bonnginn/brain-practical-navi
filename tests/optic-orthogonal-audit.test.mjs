@@ -42,11 +42,11 @@ test("reproduces the objective orthogonal inventory for legacy optic label 33", 
   const result = runAudit();
   assert.equal(result.status, 0, result.stderr);
   const audit = JSON.parse(result.stdout);
-  const savedText = await readFile(new URL("segmentation-patches/review/optic-pathway-orthogonal-objective-audit-2026-09-06-callosal-inferior.json", root), "utf8");
+  const savedText = await readFile(new URL("segmentation-patches/review/optic-pathway-orthogonal-objective-audit-2026-09-07-ventricular-mixed12.json", root), "utf8");
   assert.equal(result.stdout, savedText);
   const saved = JSON.parse(savedText);
   assert.deepEqual(audit, saved);
-assert.equal(audit.inputSha256, "098edfbf365016c6c53ccf7b7032258db72a4912378c457d348c01613a4a1694");
+assert.equal(audit.inputSha256, "3aa4127843d1ca59ee4fa2d542632748ec542958c76329b627b3968b6d53f45e");
   assert.deepEqual(audit.dims, [394, 466, 378]);
   assert.deepEqual(audit.voxelSizeMm, [0.5, 0.5, 0.5]);
   assert.equal(audit.auditedLabelId, 33);
@@ -54,7 +54,8 @@ assert.equal(audit.inputSha256, "098edfbf365016c6c53ccf7b7032258db72a4912378c457
   assert.deepEqual(audit.label.bbox, {min:[163,246,86], max:[228,302,122], size:[66,57,37]});
   assert.equal(audit.label.connectedComponentCount6, 12);
   assert.deepEqual(audit.label.connectedComponents6.map(component => component.voxelCount), [8099,285,55,18,5,4,4,3,3,2,2,2]);
-  assert.deepEqual(audit.faceContacts6ByNeighbourLabel, {"0":7569,"21":6,"25":54,"27":32,"39":171,"40":162});
+  // ID33 is unchanged; registered left amygdala no longer touches its six old border faces.
+  assert.deepEqual(audit.faceContacts6ByNeighbourLabel, {"0":7578,"25":54,"27":29,"39":171,"40":162});
   assert.deepEqual(Object.fromEntries(Object.entries(audit.representativeSlices).map(([axis, value]) => [axis, value.sliceIndex])), {x:187,y:262,z:114});
   for (const axis of ["x", "y", "z"]) {
     const occupancy = audit.label.sliceOccupancy[axis];
@@ -110,7 +111,7 @@ test("validates BBS1 dimensions independently after digest verification", async 
 });
 
 test("pins the contributor review candidates to the committed ID 33 audit", async () => {
-  const audit = JSON.parse(await readFile(new URL("segmentation-patches/review/optic-pathway-orthogonal-objective-audit-2026-09-06-callosal-inferior.json", root), "utf8"));
+  const audit = JSON.parse(await readFile(new URL("segmentation-patches/review/optic-pathway-orthogonal-objective-audit-2026-09-07-ventricular-mixed12.json", root), "utf8"));
   assert.deepEqual(OPTIC_REVIEW_AUDIT, {
     inputSha256: audit.inputSha256,
     dims: audit.dims,

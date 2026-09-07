@@ -1,0 +1,17 @@
+{
+  "status": "AI-image-localized-reference-points-not-segmentation",
+  "source": "registered300 BigBrain-to-ICBM2009sym-nonlin-300um.mnc",
+  "sourceSha256": "ebf0e88def96476d0a32ddaff6f28e37d7afd125dec724e6d8855b12357c7e86",
+  "coordinateSystem": "source volume XYZ integer indices, not application500 indices",
+  "evidenceReport": "work/anatomy-review/fornix-native300-coordinate-details-v1/report.json",
+  "evidenceReportSha256": "fc168302b784905f3f519f225100950e6c33f0a57362fc3021abec3b25527a50",
+  "points": [
+    {"xyz": [321,412,296], "role": "tissue-interior-reference", "interpretation": "candidate fornix body localization; boundary and tract identity require continuity"},
+    {"xyz": [333,412,296], "role": "tissue-interior-reference", "interpretation": "paired candidate body localization; not a full mask"},
+    {"xyz": [326,420,296], "role": "bright-cleft-reference", "interpretation": "do not bridge the visible central cleft using the historical island"}
+  ],
+  "expertReviewed": false,
+  "labelMutation": false,
+  "adoptedAsSegmentation": false,
+  "limitation": "Reference points chosen on magnified raw images. They do not authorize region growing, a bounding-box fill, or reclassification of the historical 2160 voxels."
+}

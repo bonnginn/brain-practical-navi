@@ -54,7 +54,14 @@ def tube_mesh(paths):
         radius = float(path["radius"])
         start = len(vertices)
         previous_normal = None
+        # Preserve the original full-curve tangents at the display cutoff.
+        # This limits a schematic segment; it is not an anatomical endpoint.
+        rings = path.get("display_rings", len(centerline))
+        if isinstance(rings, bool) or not isinstance(rings, int) or not 2 <= rings <= len(centerline):
+            raise ValueError("Invalid displayed ring count")
         for index, center in enumerate(centerline):
+            if index >= rings:
+                break
             if index == 0:
                 tangent = centerline[1] - center
             elif index == len(centerline) - 1:
@@ -83,7 +90,6 @@ def tube_mesh(paths):
                 vertices.append(center + radial * local_radius)
                 normals.append(radial)
                 regions.append(path["id"])
-        rings = len(centerline)
         for ring in range(rings - 1):
             for side in range(SIDES):
                 a = start + ring * SIDES + side
@@ -122,6 +128,7 @@ def write_mesh(name, paths, display_shift=True):
         "faces": len(faces),
         "displayShiftApplied": display_shift,
         "structures": [{"id": path["id"], "name": path["name"],
+                        **({"displayedRings": path["display_rings"], "anatomicalEndpoint": False} if "display_rings" in path else {}),
                         "displayShiftApplied": bool(display_shift or "display_shift" in path)}
                        for path in paths],
     }
@@ -132,6 +139,21 @@ def pair(name, points, radius):
         {"name": f"左{name}", "points": mirror(points), "radius": radius},
         {"name": f"右{name}", "points": points, "radius": radius},
     ]
+
+
+def connect_posterior_communicating(anterior, posterior):
+    """Share existing ICA/PCA knots in display space; schematic topology only.
+
+    Do not shift the posterior circulation or add a guessed bridging vessel.
+    Replace each existing PComm by the segment between its actual parent knots.
+    The anterior writer applies DISPLAY_SHIFT later, so undo it here.
+    """
+    for side in ('左', '右'):
+        def find(paths, name):
+            return next(path for path in paths if path['name'] == side + name)
+        origin=np.asarray(find(anterior, '内頸動脈')['points'][2])+DISPLAY_SHIFT
+        junction=np.asarray(find(posterior, '後大脳動脈')['points'][1])
+        find(anterior, '後交通動脈')['points']=[(origin-DISPLAY_SHIFT).tolist(), (junction-DISPLAY_SHIFT).tolist()]
 
 
 def main():
@@ -157,6 +179,8 @@ def main():
     posterior_arteries += pair("前下小脳動脈", [p(0, 7, -51), p(13, 3, -53), p(27, -6, -50), p(39, -18, -43)], 1.15)
     posterior_arteries += pair("後下小脳動脈", [p(9, -2, -66), p(18, -10, -68), p(30, -22, -61), p(40, -30, -50)], 1.15)
 
+    connect_posterior_communicating(anterior_arteries, posterior_arteries)
+
     anterior_nerves = []
     # The olfactory bulb and tract lie in the olfactory sulcus between the
     # gyrus rectus and orbital gyri. Keep the tract narrow and follow the local
@@ -176,8 +200,8 @@ def main():
     anterior_nerves += optic_paths
     anterior_nerves.append({"name": "II 視交叉", "points": [p(-9, 4, -24), p(0, 4, -24), p(9, 4, -24)], "radius": 2.55,
                             "display_shift": DISPLAY_SHIFT.tolist()})
-    # Roots III–XII are calibrated against practical label 27 in the same
-    # ICBM500 grid as the specimen. The first point is the apparent origin.
+    # III–XII are schematic proximal paths in ICBM500-oriented space.
+    # Their first knots are intended origins, not current-label measurements.
     # III: ventral midbrain in the interpeduncular fossa.
     anterior_nerves += pair("III 動眼神経", [p(4, -6, -30), p(7, -1, -31), p(12, 5, -31), p(18, 11, -29)], 1.05)
     # IV: dorsal caudal midbrain, then around its lateral surface to the base.
@@ -190,9 +214,14 @@ def main():
     pontine_nerves += pair("VI 外転神経", [p(3, 3, -58), p(6, 7, -58), p(10, 11, -57), p(14, 15, -54)], .72)
     pontine_nerves += pair("VII 顔面神経", [p(13, -1, -57), p(18, 3, -56), p(24, 7, -53), p(30, 11, -49)], .82)
     pontine_nerves += pair("VIII 内耳神経", [p(17, -6, -57), p(22, -3, -55), p(28, 1, -51), p(34, 5, -46)], 1.0)
+    # Image review found the previous VII/VIII distal portions in temporal tissue.
+    # Retain only existing rings0–7, without moving roots or changing thickness.
+    for path in pontine_nerves[4:]:
+        path["display_rings"] = 8
 
     medullary_nerves = []
-    # IX–XI: serial rootlets along the post-olivary sulcus.
+    # IX–XI: one schematic proximal path each, NOT serial rootlets.
+    # XI does not reproduce the spinal root or its ascending course.
     medullary_nerves += pair("IX 舌咽神経", [p(13, -26, -62), p(18, -22, -61), p(23, -17, -58), p(29, -11, -54)], .66)
     medullary_nerves += pair("X 迷走神経", [p(10.5, -25, -68), p(16, -22, -67), p(23, -18, -63), p(30, -13, -58)], .72)
     medullary_nerves += pair("XI 副神経", [p(9, -25, -76), p(14, -24, -74), p(20, -21, -70), p(27, -17, -64)], .68)
@@ -216,21 +245,23 @@ def main():
         for name, paths in groups.items()
     ]
     metadata = {
-        "version": 2,
+        "version": 3,
+        "pontineProximalDisplayPolicy": "VII/VIII retain original rings 0-7 only; unsupported distal extensions into temporal tissue are omitted. The cutoff is a display limit, not an observed nerve endpoint. Exact root exits, individual components and the course to the internal acoustic meatus remain unvalidated.",
+        "posteriorCommunicatingJunctionPolicy": "Existing PComm shares ICA knot 2 (shifted) and PCA knot 1 (unshifted), connected by a straight schematic segment. Topological correction only; not individual vessel morphology or expert validation.",
         "coordinateSpace": "manually approximated MNI-oriented display space",
         "displayShiftMm": DISPLAY_SHIFT.tolist(),
-        "alignmentPolicy": "anterior arteries and forebrain-associated cranial nerves I-II retain the pial display shift; vertebrobasilar arteries and cranial-nerve roots III-XII are anchored directly to the ICBM500 brainstem segmentation",
+        "alignmentPolicy": "anterior arteries and forebrain-associated cranial nerves I-II retain the pial display shift; vertebrobasilar arteries and proximal cranial-nerve paths III-XII use unshifted ICBM500-oriented schematic coordinates, not measured root attachments",
         "vertebrobasilarCalibration": "vertebral arteries track the ventrolateral medulla, unite at the pontomedullary junction, and continue over the ventral pons; teaching approximation",
         "forebrainNerveCalibration": "olfactory bulbs and tracts plus optic nerves and chiasm follow the shifted pial source so they remain exposed on the inferior surface; teaching approximation",
-        "cranialNerveRootCalibration": "III-XII apparent origins placed on or within 2 mm of practical label 27 surface; teaching approximation",
+        "cranialNerveRootCalibration": "Intended proximal origins are teaching approximations. Distances to the current practical label 27 boundary and exact root exit zones are not validated.",
         "cranialNerveRootTopography": {
             "I-II": "basal forebrain rather than brainstem roots",
             "III": "ventral midbrain, interpeduncular fossa",
             "IV": "dorsal caudal midbrain, just caudal to the inferior colliculi, then wraps laterally",
-            "V": "anterolateral mid-pons",
+            "V": "anterolateral mid-pons; one tube per side, sensory and motor roots not separated",
             "VI": "medial pontomedullary sulcus",
             "VII-VIII": "pontomedullary sulcus/cerebellopontine angle, lateral to VI; VII medial to VIII",
-            "IX-XI": "post-olivary sulcus, ordered superior to inferior",
+            "IX-XI": "simplified proximal paths in superior-to-inferior order, not rootlet rows; XI spinal root and ascent omitted",
             "XII": "pre-olivary sulcus between pyramid and olive",
         },
         "anatomyReferences": [
@@ -239,8 +270,8 @@ def main():
             "https://www.ncbi.nlm.nih.gov/books/NBK544297/",
         ],
         "status": "project-authored simplified teaching overlay; not validated morphometry",
-        "scope": "major basal arteries and visible cranial-nerve roots only",
-        "omissions": ["individual variation", "small perforators", "distal nerve course beyond the proximal olfactory bulb/tract and cranial-nerve roots", "skull foramina", "surgical accuracy"],
+        "scope": "major basal arteries and schematic proximal cranial-nerve paths, not an observed rootlet reconstruction",
+        "omissions": ["individual variation", "small perforators", "distal nerve course beyond the proximal olfactory bulb/tract and cranial-nerve roots", "skull foramina", "surgical accuracy", "individual cranial-nerve rootlets", "separate trigeminal sensory and motor roots", "separate facial motor and intermediate nerves", "separate vestibular and cochlear components", "accessory spinal root and ascending course"],
         "groups": results,
     }
     (OUT / "neurovascular-overlays.json").write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

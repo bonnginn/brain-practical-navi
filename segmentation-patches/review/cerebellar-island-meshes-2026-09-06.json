@@ -1,0 +1,28 @@
+{
+  "inputLabelSha256": "82384fa6961b4eb6aa272aa556f76febd4027cf1f67937504ee227ac0a8e4726",
+  "outputLabelSha256": "2a73ff567741aa9b7965eef645765bfc0d87b3cad80d789d5512cabf4ffc2ed2",
+  "meshes": [
+    {
+      "file": "block-hindbrain-pons-medulla.mesh",
+      "block": "hindbrain",
+      "part": "pons-medulla",
+      "vertices": 8662,
+      "faces": 17288,
+      "beforeSha256": "bfa5fef8e9db8d1b200b6dd16177c86c2133a351a4f7e0a5e646a2522cdf1d27",
+      "afterSha256": "91d7f8f4b8abf4ef4bf08e1a63931e5df078944f5ed753bbbb652e6db47185aa",
+      "beforeMatches": true,
+      "changedMaskVoxels": 8
+    },
+    {
+      "file": "block-hindbrain-cerebellum.mesh",
+      "block": "hindbrain",
+      "part": "cerebellum",
+      "vertices": 46399,
+      "faces": 90974,
+      "beforeSha256": "7f4593d2e8497f6c044a623ee0fb1f99187527e97d73ef786476824fdc653b42",
+      "afterSha256": "7520dcc8c0d18f4b9b7b8d67178a0ff2c92873064a48542ac935e67e58927570",
+      "beforeMatches": true,
+      "changedMaskVoxels": 3
+    }
+  ]
+}

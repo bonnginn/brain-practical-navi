@@ -1,0 +1,1078 @@
+{
+  "inputSha256": "82384fa6961b4eb6aa272aa556f76febd4027cf1f67937504ee227ac0a8e4726",
+  "imageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
+  "sourceInventorySha256": "9b3ca77273d9179d8548c9e7dcc7223fc6bdd8b33f14621867002c4dff8b3732",
+  "mutation": false,
+  "adopted": false,
+  "expertReviewed": false,
+  "pixelToVoxel": {
+    "arrayOrder": "x,y,z",
+    "pixelOrigin": "row=0,column=0 at the top-left of the crop PNG",
+    "planes": {
+      "x": {
+        "plane": "sagittal",
+        "slice": "x=sliceIndex",
+        "row": "z=crop.max[2]-row",
+        "column": "y=crop.min[1]+column"
+      },
+      "y": {
+        "plane": "coronal",
+        "slice": "y=sliceIndex",
+        "row": "z=crop.max[2]-row",
+        "column": "x=crop.min[0]+column"
+      },
+      "z": {
+        "plane": "horizontal",
+        "slice": "z=sliceIndex",
+        "row": "y=crop.max[1]-row",
+        "column": "x=crop.min[0]+column"
+      }
+    }
+  },
+  "components": [
+    {
+      "name": "left-low",
+      "points": [
+        [
+          155,
+          205,
+          81
+        ],
+        [
+          155,
+          205,
+          82
+        ],
+        [
+          155,
+          206,
+          81
+        ],
+        [
+          155,
+          206,
+          82
+        ],
+        [
+          155,
+          207,
+          81
+        ],
+        [
+          155,
+          207,
+          82
+        ],
+        [
+          155,
+          208,
+          81
+        ],
+        [
+          155,
+          208,
+          82
+        ],
+        [
+          156,
+          205,
+          81
+        ],
+        [
+          156,
+          205,
+          82
+        ],
+        [
+          156,
+          206,
+          81
+        ],
+        [
+          156,
+          206,
+          82
+        ],
+        [
+          156,
+          207,
+          81
+        ],
+        [
+          156,
+          207,
+          82
+        ],
+        [
+          156,
+          208,
+          81
+        ],
+        [
+          156,
+          208,
+          82
+        ]
+      ],
+      "rawValues": [
+        131,
+        123,
+        168,
+        139,
+        209,
+        179,
+        211,
+        165,
+        244,
+        234,
+        239,
+        232,
+        239,
+        237,
+        238,
+        241
+      ],
+      "sheets": [
+        {
+          "file": "left-low-00.png",
+          "sha256": "897bfbc663ca811834ea6b64a091f065aacd790b453b2f7661232d02f602e301",
+          "frames": [
+            {
+              "axis": "x",
+              "index": 155,
+              "crop": {
+                "min": [
+                  148,
+                  198,
+                  74
+                ],
+                "max": [
+                  163,
+                  215,
+                  89
+                ]
+              },
+              "scale": 16,
+              "selectedVoxelCount": 8
+            },
+            {
+              "axis": "x",
+              "index": 156,
+              "crop": {
+                "min": [
+                  148,
+                  198,
+                  74
+                ],
+                "max": [
+                  163,
+                  215,
+                  89
+                ]
+              },
+              "scale": 16,
+              "selectedVoxelCount": 8
+            },
+            {
+              "axis": "y",
+              "index": 205,
+              "crop": {
+                "min": [
+                  148,
+                  198,
+                  74
+                ],
+                "max": [
+                  163,
+                  215,
+                  89
+                ]
+              },
+              "scale": 16,
+              "selectedVoxelCount": 4
+            },
+            {
+              "axis": "y",
+              "index": 206,
+              "crop": {
+                "min": [
+                  148,
+                  198,
+                  74
+                ],
+                "max": [
+                  163,
+                  215,
+                  89
+                ]
+              },
+              "scale": 16,
+              "selectedVoxelCount": 4
+            }
+          ]
+        },
+        {
+          "file": "left-low-01.png",
+          "sha256": "3333f02a9a3dffe802631e654521e3269383724c3b0600736236b2a8dcf8b9c2",
+          "frames": [
+            {
+              "axis": "y",
+              "index": 207,
+              "crop": {
+                "min": [
+                  148,
+                  198,
+                  74
+                ],
+                "max": [
+                  163,
+                  215,
+                  89
+                ]
+              },
+              "scale": 16,
+              "selectedVoxelCount": 4
+            },
+            {
+              "axis": "y",
+              "index": 208,
+              "crop": {
+                "min": [
+                  148,
+                  198,
+                  74
+                ],
+                "max": [
+                  163,
+                  215,
+                  89
+                ]
+              },
+              "scale": 16,
+              "selectedVoxelCount": 4
+            },
+            {
+              "axis": "z",
+              "index": 81,
+              "crop": {
+                "min": [
+                  148,
+                  198,
+                  74
+                ],
+                "max": [
+                  163,
+                  215,
+                  89
+                ]
+              },
+              "scale": 16,
+              "selectedVoxelCount": 8
+            },
+            {
+              "axis": "z",
+              "index": 82,
+              "crop": {
+                "min": [
+                  148,
+                  198,
+                  74
+                ],
+                "max": [
+                  163,
+                  215,
+                  89
+                ]
+              },
+              "scale": 16,
+              "selectedVoxelCount": 8
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "left-inferior",
+      "points": [
+        [
+          163,
+          191,
+          51
+        ],
+        [
+          163,
+          191,
+          52
+        ],
+        [
+          163,
+          192,
+          51
+        ],
+        [
+          163,
+          192,
+          52
+        ],
+        [
+          163,
+          193,
+          51
+        ],
+        [
+          163,
+          193,
+          52
+        ],
+        [
+          163,
+          194,
+          51
+        ],
+        [
+          163,
+          194,
+          52
+        ],
+        [
+          164,
+          191,
+          51
+        ],
+        [
+          164,
+          191,
+          52
+        ],
+        [
+          164,
+          192,
+          51
+        ],
+        [
+          164,
+          192,
+          52
+        ],
+        [
+          164,
+          193,
+          51
+        ],
+        [
+          164,
+          193,
+          52
+        ],
+        [
+          164,
+          194,
+          51
+        ],
+        [
+          164,
+          194,
+          52
+        ]
+      ],
+      "rawValues": [
+        216,
+        193,
+        168,
+        159,
+        158,
+        176,
+        160,
+        168,
+        246,
+        240,
+        228,
+        234,
+        226,
+        228,
+        200,
+        199
+      ],
+      "sheets": [
+        {
+          "file": "left-inferior-00.png",
+          "sha256": "993ec3530440a1893fc7392e068642b9fb7dacf6b938438312475cfc2a2cd361",
+          "frames": [
+            {
+              "axis": "x",
+              "index": 163,
+              "crop": {
+                "min": [
+                  156,
+                  184,
+                  44
+                ],
+                "max": [
+                  171,
+                  201,
+                  59
+                ]
+              },
+              "scale": 16,
+              "selectedVoxelCount": 8
+            },
+            {
+              "axis": "x",
+              "index": 164,
+              "crop": {
+                "min": [
+                  156,
+                  184,
+                  44
+                ],
+                "max": [
+                  171,
+                  201,
+                  59
+                ]
+              },
+              "scale": 16,
+              "selectedVoxelCount": 8
+            },
+            {
+              "axis": "y",
+              "index": 191,
+              "crop": {
+                "min": [
+                  156,
+                  184,
+                  44
+                ],
+                "max": [
+                  171,
+                  201,
+                  59
+                ]
+              },
+              "scale": 16,
+              "selectedVoxelCount": 4
+            },
+            {
+              "axis": "y",
+              "index": 192,
+              "crop": {
+                "min": [
+                  156,
+                  184,
+                  44
+                ],
+                "max": [
+                  171,
+                  201,
+                  59
+                ]
+              },
+              "scale": 16,
+              "selectedVoxelCount": 4
+            }
+          ]
+        },
+        {
+          "file": "left-inferior-01.png",
+          "sha256": "2493b1e29dd10ffc9b8392139e7dc858d02f62840a115928d47eedbdb7a9c6dd",
+          "frames": [
+            {
+              "axis": "y",
+              "index": 193,
+              "crop": {
+                "min": [
+                  156,
+                  184,
+                  44
+                ],
+                "max": [
+                  171,
+                  201,
+                  59
+                ]
+              },
+              "scale": 16,
+              "selectedVoxelCount": 4
+            },
+            {
+              "axis": "y",
+              "index": 194,
+              "crop": {
+                "min": [
+                  156,
+                  184,
+                  44
+                ],
+                "max": [
+                  171,
+                  201,
+                  59
+                ]
+              },
+              "scale": 16,
+              "selectedVoxelCount": 4
+            },
+            {
+              "axis": "z",
+              "index": 51,
+              "crop": {
+                "min": [
+                  156,
+                  184,
+                  44
+                ],
+                "max": [
+                  171,
+                  201,
+                  59
+                ]
+              },
+              "scale": 16,
+              "selectedVoxelCount": 8
+            },
+            {
+              "axis": "z",
+              "index": 52,
+              "crop": {
+                "min": [
+                  156,
+                  184,
+                  44
+                ],
+                "max": [
+                  171,
+                  201,
+                  59
+                ]
+              },
+              "scale": 16,
+              "selectedVoxelCount": 8
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "right-inferior",
+      "points": [
+        [
+          227,
+          191,
+          51
+        ],
+        [
+          227,
+          191,
+          52
+        ],
+        [
+          227,
+          192,
+          51
+        ],
+        [
+          227,
+          192,
+          52
+        ],
+        [
+          227,
+          193,
+          51
+        ],
+        [
+          227,
+          193,
+          52
+        ],
+        [
+          227,
+          194,
+          51
+        ],
+        [
+          227,
+          194,
+          52
+        ],
+        [
+          228,
+          191,
+          51
+        ],
+        [
+          228,
+          191,
+          52
+        ],
+        [
+          228,
+          192,
+          51
+        ],
+        [
+          228,
+          192,
+          52
+        ],
+        [
+          228,
+          193,
+          51
+        ],
+        [
+          228,
+          193,
+          52
+        ],
+        [
+          228,
+          194,
+          51
+        ],
+        [
+          228,
+          194,
+          52
+        ]
+      ],
+      "rawValues": [
+        231,
+        208,
+        247,
+        255,
+        255,
+        249,
+        255,
+        248,
+        219,
+        190,
+        220,
+        213,
+        240,
+        234,
+        255,
+        247
+      ],
+      "sheets": [
+        {
+          "file": "right-inferior-00.png",
+          "sha256": "0e7ee39170020a4a9f270aaa395c7bdd7f353294dc37d7c41e03042335b12992",
+          "frames": [
+            {
+              "axis": "x",
+              "index": 227,
+              "crop": {
+                "min": [
+                  220,
+                  184,
+                  44
+                ],
+                "max": [
+                  235,
+                  201,
+                  59
+                ]
+              },
+              "scale": 16,
+              "selectedVoxelCount": 8
+            },
+            {
+              "axis": "x",
+              "index": 228,
+              "crop": {
+                "min": [
+                  220,
+                  184,
+                  44
+                ],
+                "max": [
+                  235,
+                  201,
+                  59
+                ]
+              },
+              "scale": 16,
+              "selectedVoxelCount": 8
+            },
+            {
+              "axis": "y",
+              "index": 191,
+              "crop": {
+                "min": [
+                  220,
+                  184,
+                  44
+                ],
+                "max": [
+                  235,
+                  201,
+                  59
+                ]
+              },
+              "scale": 16,
+              "selectedVoxelCount": 4
+            },
+            {
+              "axis": "y",
+              "index": 192,
+              "crop": {
+                "min": [
+                  220,
+                  184,
+                  44
+                ],
+                "max": [
+                  235,
+                  201,
+                  59
+                ]
+              },
+              "scale": 16,
+              "selectedVoxelCount": 4
+            }
+          ]
+        },
+        {
+          "file": "right-inferior-01.png",
+          "sha256": "d2e68a1daf78c7e6f75e1bbdba22448f4dd11d028055d5fc6e307d01cf14221b",
+          "frames": [
+            {
+              "axis": "y",
+              "index": 193,
+              "crop": {
+                "min": [
+                  220,
+                  184,
+                  44
+                ],
+                "max": [
+                  235,
+                  201,
+                  59
+                ]
+              },
+              "scale": 16,
+              "selectedVoxelCount": 4
+            },
+            {
+              "axis": "y",
+              "index": 194,
+              "crop": {
+                "min": [
+                  220,
+                  184,
+                  44
+                ],
+                "max": [
+                  235,
+                  201,
+                  59
+                ]
+              },
+              "scale": 16,
+              "selectedVoxelCount": 4
+            },
+            {
+              "axis": "z",
+              "index": 51,
+              "crop": {
+                "min": [
+                  220,
+                  184,
+                  44
+                ],
+                "max": [
+                  235,
+                  201,
+                  59
+                ]
+              },
+              "scale": 16,
+              "selectedVoxelCount": 8
+            },
+            {
+              "axis": "z",
+              "index": 52,
+              "crop": {
+                "min": [
+                  220,
+                  184,
+                  44
+                ],
+                "max": [
+                  235,
+                  201,
+                  59
+                ]
+              },
+              "scale": 16,
+              "selectedVoxelCount": 8
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "right-low",
+      "points": [
+        [
+          235,
+          205,
+          81
+        ],
+        [
+          235,
+          205,
+          82
+        ],
+        [
+          235,
+          206,
+          81
+        ],
+        [
+          235,
+          206,
+          82
+        ],
+        [
+          235,
+          207,
+          81
+        ],
+        [
+          235,
+          207,
+          82
+        ],
+        [
+          235,
+          208,
+          81
+        ],
+        [
+          235,
+          208,
+          82
+        ],
+        [
+          236,
+          205,
+          81
+        ],
+        [
+          236,
+          205,
+          82
+        ],
+        [
+          236,
+          206,
+          81
+        ],
+        [
+          236,
+          206,
+          82
+        ],
+        [
+          236,
+          207,
+          81
+        ],
+        [
+          236,
+          207,
+          82
+        ],
+        [
+          236,
+          208,
+          81
+        ],
+        [
+          236,
+          208,
+          82
+        ]
+      ],
+      "rawValues": [
+        31,
+        40,
+        87,
+        142,
+        98,
+        133,
+        109,
+        190,
+        180,
+        118,
+        160,
+        86,
+        95,
+        26,
+        168,
+        66
+      ],
+      "sheets": [
+        {
+          "file": "right-low-00.png",
+          "sha256": "87bee63622e9575ef9802f9503f6ad35a77ecf9677ffe73779f38767786aa7ab",
+          "frames": [
+            {
+              "axis": "x",
+              "index": 235,
+              "crop": {
+                "min": [
+                  228,
+                  198,
+                  74
+                ],
+                "max": [
+                  243,
+                  215,
+                  89
+                ]
+              },
+              "scale": 16,
+              "selectedVoxelCount": 8
+            },
+            {
+              "axis": "x",
+              "index": 236,
+              "crop": {
+                "min": [
+                  228,
+                  198,
+                  74
+                ],
+                "max": [
+                  243,
+                  215,
+                  89
+                ]
+              },
+              "scale": 16,
+              "selectedVoxelCount": 8
+            },
+            {
+              "axis": "y",
+              "index": 205,
+              "crop": {
+                "min": [
+                  228,
+                  198,
+                  74
+                ],
+                "max": [
+                  243,
+                  215,
+                  89
+                ]
+              },
+              "scale": 16,
+              "selectedVoxelCount": 4
+            },
+            {
+              "axis": "y",
+              "index": 206,
+              "crop": {
+                "min": [
+                  228,
+                  198,
+                  74
+                ],
+                "max": [
+                  243,
+                  215,
+                  89
+                ]
+              },
+              "scale": 16,
+              "selectedVoxelCount": 4
+            }
+          ]
+        },
+        {
+          "file": "right-low-01.png",
+          "sha256": "f1bc2cd03e0e56505f1b5fb740c63ba46735e6c8e7d63ed081069922e753f178",
+          "frames": [
+            {
+              "axis": "y",
+              "index": 207,
+              "crop": {
+                "min": [
+                  228,
+                  198,
+                  74
+                ],
+                "max": [
+                  243,
+                  215,
+                  89
+                ]
+              },
+              "scale": 16,
+              "selectedVoxelCount": 4
+            },
+            {
+              "axis": "y",
+              "index": 208,
+              "crop": {
+                "min": [
+                  228,
+                  198,
+                  74
+                ],
+                "max": [
+                  243,
+                  215,
+                  89
+                ]
+              },
+              "scale": 16,
+              "selectedVoxelCount": 4
+            },
+            {
+              "axis": "z",
+              "index": 81,
+              "crop": {
+                "min": [
+                  228,
+                  198,
+                  74
+                ],
+                "max": [
+                  243,
+                  215,
+                  89
+                ]
+              },
+              "scale": 16,
+              "selectedVoxelCount": 8
+            },
+            {
+              "axis": "z",
+              "index": 82,
+              "crop": {
+                "min": [
+                  228,
+                  198,
+                  74
+                ],
+                "max": [
+                  243,
+                  215,
+                  89
+                ]
+              },
+              "scale": 16,
+              "selectedVoxelCount": 8
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "status": "AI-image-reviewed-exclusion-candidate",
+  "adopted": false,
+  "expertReviewed": false,
+  "published": false,
+  "labelSha256": "c26c0a6d1f777684226ff2a02ffcab6438a9e0a3a94c3d09981ff2bf04e8845c",
+  "transition": "23->0",
+  "count": 12,
+  "points": [
+    [
+      137,
+      139,
+      153
+    ],
+    [
+      137,
+      140,
+      153
+    ],
+    [
+      137,
+      140,
+      154
+    ],
+    [
+      137,
+      141,
+      153
+    ],
+    [
+      137,
+      141,
+      154
+    ],
+    [
+      137,
+      142,
+      154
+    ],
+    [
+      137,
+      143,
+      154
+    ],
+    [
+      138,
+      140,
+      153
+    ],
+    [
+      138,
+      140,
+      154
+    ],
+    [
+      138,
+      141,
+      153
+    ],
+    [
+      138,
+      141,
+      154
+    ],
+    [
+      139,
+      142,
+      154
+    ]
+  ],
+  "evidence": [
+    {
+      "report": "work/anatomy-review/left-posterior12-native300-v1/report.json",
+      "sha256": "bec8fa45032dd6343d91447e5904c88d5f389573f19e05c9c8e9b7fd5e8cdab3",
+      "reviewedFigures": [
+        {
+          "path": "point-0-x.png",
+          "sha256": "8e9bd7d36f3e8ad627ec86351f65e79822636c6aabf8dab370cfc665c93cf29b"
+        },
+        {
+          "path": "point-0-z.png",
+          "sha256": "637035e35473b53fe770b52b6ddf732f72d0ee3dcdd7684f2987f66e942427fa"
+        },
+        {
+          "path": "point-2-x.png",
+          "sha256": "03757f4068dcd0cec6662b6026a643c4173c75e5b2a719a312c802bc0a649e6c"
+        },
+        {
+          "path": "point-2-z.png",
+          "sha256": "d6482b456489590dda5d1aaef138d77fa2e723aa622e31b15b9433c86ffdf617"
+        }
+      ]
+    },
+    {
+      "report": "work/anatomy-review/left-posterior12-series-y-v1/report.json",
+      "sha256": "d9e8f4b3b3c581ab3d187725c14a5fc75aa4f123d50a847fe7f1d92a9788b196",
+      "reviewedFigures": [
+        {
+          "path": "point-0-y.png",
+          "sha256": "9dd4efbc912e872f47c76621314b871f66ace4d2e8e296702421d1f2763c594d"
+        },
+        {
+          "path": "point-1-y.png",
+          "sha256": "adf4e6f7d802cf6e745a65d4e1a772c935214052a92b5720c9b6cfc9fc0d3eb2"
+        },
+        {
+          "path": "point-2-y.png",
+          "sha256": "c793da35a77636e06ce2a71b614c278469c2a16397f81ef3f18ef7b8424cf531"
+        },
+        {
+          "path": "point-3-y.png",
+          "sha256": "eb8737c5613b6a89a7d637758670e4ce108cef132783169bf708bdc08db08753"
+        }
+      ]
+    },
+    {
+      "report": "work/anatomy-review/left-posterior-cavity-region-exploration-v1/report.json",
+      "sha256": "59576426b2c2c93fb3b80c269c0c48e8b3cc54ffe59dd258f36a429e0fe9fa15",
+      "reviewedFigures": [
+        {
+          "path": "x-219.png",
+          "sha256": "7507f288e647e29a71e6b5afda84d84d94eac8247c843d5d0b3d9b9e7e51c2e1"
+        },
+        {
+          "path": "y-237.png",
+          "sha256": "9b4f3474699b6417a3b872bae71b0af6167462f1f5f9f910de90d9ceee5c6d18"
+        },
+        {
+          "path": "z-264.png",
+          "sha256": "1e59d5b1ae6fff36a7cf20309a93d706c60f88020191fa4ad3592af1d8e97e20"
+        }
+      ]
+    }
+  ],
+  "rationale": "Full Y230–241 coverage plus representative X/Z and wider raw context show a cortical-ribbon-lined gap separate from the ventricular cavity. Do not fill the threshold component or bridge to ID23. Specific sulcus name is not assigned.",
+  "limitation": "Candidate only; no product or mesh mutation. Integrate with the next coherent repair batch after replay and derived-mesh checks. Zero denotes unlabelled, not absent tissue."
+}

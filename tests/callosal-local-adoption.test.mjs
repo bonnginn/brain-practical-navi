@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {gunzipSync} from 'node:zlib';
+import {regionalMeshSuccessor} from './helpers/residual-mesh-successor.mjs';
 const sha=data=>createHash('sha256').update(data).digest('hex');
 const root=new URL('../',import.meta.url);
 
@@ -36,7 +37,13 @@ test('callosal block mesh carries the corresponding actual geometry metadata',as
  const part=metadata.specimens['commissural-system'].find(p=>p.file===name);
  assert.equal(part.vertices,data.readUInt32LE(4));assert.equal(part.faces,data.readUInt32LE(8));
  const tissueName='block-commissural-system-tissue.mesh',tissue=await readFile(new URL('public/atlas/'+tissueName,root));
- assert.equal(sha(tissue),'8aec8d9a37e9709aa32911d19848967d7a7f1281ddc1664da5ce583aa08b2478');
+ const historical=await readFile(new URL('tests/fixtures/pre-lateral-medium-'+tissueName,root));
+ assert.equal(sha(historical),'8aec8d9a37e9709aa32911d19848967d7a7f1281ddc1664da5ce583aa08b2478');
+ const medium=JSON.parse(await readFile(new URL('segmentation-patches/review/lateral-medium-adoption-2026-09-07.json',root),'utf8'));
+ const change=medium.meshImpact.blockMaskImpact.find(p=>p.file===tissueName);
+ assert.equal(change.beforeSha256,sha(historical));
+ const successor=await regionalMeshSuccessor(tissueName,change.afterSha256);
+ assert.equal(successor?.afterSha256??change.afterSha256,sha(tissue));
  const tissuePart=metadata.specimens['commissural-system'].find(p=>p.file===tissueName);
  assert.equal(tissuePart.vertices,tissue.readUInt32LE(4));assert.equal(tissuePart.faces,tissue.readUInt32LE(8));
 });

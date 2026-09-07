@@ -5,15 +5,16 @@ import type { Plugin } from "vite";
 // Packages the static Sites metadata after Vite finishes compiling.
 export function sites(): Plugin {
   let root = process.cwd();
+  let distributionDirectory = resolve(root, "dist");
 
   return {
     name: "sites",
     apply: "build",
     configResolved(config) {
       root = config.root;
+      distributionDirectory = resolve(root, config.build.outDir);
     },
     async closeBundle() {
-      const distributionDirectory = resolve(root, "dist");
       const outputDirectory = resolve(distributionDirectory, ".openai");
       const serverDirectory = resolve(distributionDirectory, "server");
       const hostingConfig = resolve(root, ".openai", "hosting.json");

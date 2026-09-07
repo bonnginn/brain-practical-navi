@@ -19,7 +19,8 @@ test('inferior repair changes only its exact reviewed 2160 voxels without identi
  const encoded=Buffer.alloc(indices.length*4);indices.sort((a,b)=>a-b).forEach((i,n)=>encoded.writeUInt32LE(i,n*4));
  assert.equal(sha(encoded),'6a4b7677801edf90d45a3b43a409bbe379c13035fe5d99a1e412e8e49b677675');
  assert.equal(sha(after),'afc55069f2ecdcad36429f1026276f10c8e17a31fa9c6bf985b3beec3f640130');
- const installed=await readFile(new URL('public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz',root));
+ // Preserve the exact historical sixth stage; the next adoption is tested separately.
+ const installed=await readFile(new URL('tests/fixtures/bigbrain-practical-segmentation-pre-red-registration-098e.bin.gz',root));
  assert.equal(sha(installed),'098edfbf365016c6c53ccf7b7032258db72a4912378c457d348c01613a4a1694');
  assert.deepEqual(gunzipSync(installed).subarray(10),after);
  const metadata=JSON.parse(await readFile(new URL('public/atlas/bigbrain-practical-segmentation-icbm500-validation.json',root),'utf8'));

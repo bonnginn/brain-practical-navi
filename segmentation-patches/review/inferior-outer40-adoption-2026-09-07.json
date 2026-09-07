@@ -1,0 +1,1527 @@
+{
+  "inputCompressedSha256": "58d8044071bd0b638bfdbbcc309c35ac3301a9c8f449b8ebcc5b77e5435cfae7",
+  "inputRawSha256": "94a8a3edd960256d0fc22e2c5fff2085d88e3f3e8fcc1415ae112b37c2d794f1",
+  "outputCompressedSha256": "e98cd4060d735c732a5fd75030be2f701f57fe91b6cd5b9a12c65e1cb68b37e3",
+  "outputRawSha256": "9a524981ddf521236b8fec835aef04891fa2b6ef58d22a2b5f03ca1a9f68d64d",
+  "sourceEvidence": {
+    "path": "work/official-bigbrain-tissue/mni_PD25_20190708_minc2/BigBrain-to-ICBM2009sym-nonlin-300um.mnc",
+    "sha256": "ebf0e88def96476d0a32ddaff6f28e37d7afd125dec724e6d8855b12357c7e86"
+  },
+  "gridEvidence": {
+    "path": "work/anatomy-review/inferior-horn-outer-after19-grid-v1.json",
+    "sha256": "f07efa84d1b8d9a324d8f9f462db90a68608af045fede6129fa89f98129251f3"
+  },
+  "reviewDecision": {
+    "path": "work/anatomy-review/inferior-horn-outer-after19-finite-v1/visual-review.md",
+    "sha256": "296949d7699c6d8ad401bdc8e015094b6844376802bdd2bb8122d714082b6a20"
+  },
+  "reviewEvidence": [
+    {
+      "path": "work/anatomy-review/inferior-horn-outer-after19-exploration-v1/report.json",
+      "sha256": "e759bd719aeb572cf2b06b0cc1ea22ad1d355425d3a4e25563fec49e5935693a"
+    },
+    {
+      "path": "work/anatomy-review/inferior-horn-outer-after19-finite-v1/report.json",
+      "sha256": "f73e4a835c638aa662c4c7bb7797d56364749ce04c85276f1616641b466f2fe8"
+    }
+  ],
+  "changedVoxelCount": 40,
+  "transitions": {
+    "0->24": 40
+  },
+  "points": [
+    {
+      "xyz": [
+        267,
+        245,
+        105
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        267,
+        246,
+        105
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        267,
+        247,
+        103
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        267,
+        247,
+        104
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        267,
+        249,
+        101
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        267,
+        249,
+        102
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        267,
+        250,
+        101
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        268,
+        249,
+        101
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        269,
+        243,
+        105
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        269,
+        243,
+        106
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        269,
+        244,
+        105
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        269,
+        245,
+        103
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        269,
+        245,
+        104
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        269,
+        246,
+        103
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        269,
+        246,
+        104
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        269,
+        247,
+        101
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        269,
+        247,
+        102
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        269,
+        248,
+        101
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        269,
+        249,
+        99
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        269,
+        249,
+        100
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        269,
+        250,
+        99
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        270,
+        243,
+        105
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        270,
+        245,
+        103
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        270,
+        247,
+        101
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        270,
+        249,
+        99
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        271,
+        241,
+        105
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        271,
+        243,
+        103
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        271,
+        243,
+        104
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        271,
+        244,
+        103
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        271,
+        244,
+        104
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        271,
+        245,
+        102
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        271,
+        246,
+        101
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        271,
+        247,
+        100
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        272,
+        241,
+        105
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        272,
+        243,
+        103
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        272,
+        243,
+        104
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        272,
+        244,
+        103
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        272,
+        245,
+        102
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        272,
+        246,
+        101
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        273,
+        240,
+        105
+      ],
+      "before": 0,
+      "after": 24
+    }
+  ],
+  "reverseExact": true,
+  "connectivity": {
+    "before": {
+      "totalLabel24": 64381,
+      "cropTopology": {
+        "voxels": 2360,
+        "components": {
+          "six": {
+            "count": 38,
+            "sizes": [
+              1686,
+              270,
+              148,
+              112,
+              71,
+              9,
+              7,
+              6,
+              5,
+              5,
+              5,
+              3,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "twentySix": {
+            "count": 11,
+            "sizes": [
+              1990,
+              148,
+              116,
+              80,
+              7,
+              7,
+              5,
+              3,
+              2,
+              1,
+              1
+            ]
+          }
+        }
+      },
+      "groups": [
+        {
+          "component": 1,
+          "count": 148,
+          "min": [
+            202,
+            279,
+            140
+          ],
+          "max": [
+            208,
+            296,
+            142
+          ],
+          "completeComponent": 1,
+          "completeComponentCount": 63584,
+          "cropFaces": [
+            "x-min",
+            "z-max"
+          ],
+          "nearestMainDistanceMm": 34.87477598494362,
+          "nearestPoint": [
+            208,
+            283,
+            141
+          ],
+          "nearestMainPoint": [
+            256,
+            252,
+            101
+          ],
+          "isLargest": false,
+          "otherCropComponentsInSameCompleteComponent": [
+            7
+          ]
+        },
+        {
+          "component": 2,
+          "count": 80,
+          "min": [
+            231,
+            232,
+            112
+          ],
+          "max": [
+            241,
+            240,
+            120
+          ],
+          "completeComponent": 4,
+          "completeComponentCount": 80,
+          "cropFaces": [],
+          "nearestMainDistanceMm": 13.729530217745982,
+          "nearestPoint": [
+            241,
+            235,
+            120
+          ],
+          "nearestMainPoint": [
+            264,
+            244,
+            108
+          ],
+          "isLargest": false,
+          "otherCropComponentsInSameCompleteComponent": []
+        },
+        {
+          "component": 3,
+          "count": 3,
+          "min": [
+            234,
+            247,
+            110
+          ],
+          "max": [
+            236,
+            248,
+            110
+          ],
+          "completeComponent": 5,
+          "completeComponentCount": 3,
+          "cropFaces": [],
+          "nearestMainDistanceMm": 11.146748404803978,
+          "nearestPoint": [
+            236,
+            248,
+            110
+          ],
+          "nearestMainPoint": [
+            256,
+            252,
+            101
+          ],
+          "isLargest": false,
+          "otherCropComponentsInSameCompleteComponent": []
+        },
+        {
+          "component": 4,
+          "count": 1,
+          "min": [
+            235,
+            247,
+            112
+          ],
+          "max": [
+            235,
+            247,
+            112
+          ],
+          "completeComponent": 6,
+          "completeComponentCount": 1,
+          "cropFaces": [],
+          "nearestMainDistanceMm": 12.114041439585717,
+          "nearestPoint": [
+            235,
+            247,
+            112
+          ],
+          "nearestMainPoint": [
+            256,
+            252,
+            101
+          ],
+          "isLargest": false,
+          "otherCropComponentsInSameCompleteComponent": []
+        },
+        {
+          "component": 5,
+          "count": 7,
+          "min": [
+            239,
+            239,
+            119
+          ],
+          "max": [
+            241,
+            240,
+            120
+          ],
+          "completeComponent": 9,
+          "completeComponentCount": 7,
+          "cropFaces": [],
+          "nearestMainDistanceMm": 13.038404810405298,
+          "nearestPoint": [
+            241,
+            240,
+            120
+          ],
+          "nearestMainPoint": [
+            259,
+            250,
+            104
+          ],
+          "isLargest": false,
+          "otherCropComponentsInSameCompleteComponent": []
+        },
+        {
+          "component": 6,
+          "count": 116,
+          "min": [
+            241,
+            242,
+            101
+          ],
+          "max": [
+            256,
+            250,
+            114
+          ],
+          "completeComponent": 11,
+          "completeComponentCount": 116,
+          "cropFaces": [],
+          "nearestMainDistanceMm": 2.5495097567963922,
+          "nearestPoint": [
+            255,
+            249,
+            107
+          ],
+          "nearestMainPoint": [
+            259,
+            250,
+            104
+          ],
+          "isLargest": false,
+          "otherCropComponentsInSameCompleteComponent": []
+        },
+        {
+          "component": 7,
+          "count": 1990,
+          "min": [
+            245,
+            173,
+            85
+          ],
+          "max": [
+            275,
+            258,
+            142
+          ],
+          "completeComponent": 1,
+          "completeComponentCount": 63584,
+          "cropFaces": [
+            "z-max"
+          ],
+          "nearestMainDistanceMm": 0.0,
+          "nearestPoint": [
+            245,
+            255,
+            85
+          ],
+          "nearestMainPoint": [
+            245,
+            255,
+            85
+          ],
+          "isLargest": true,
+          "otherCropComponentsInSameCompleteComponent": [
+            1
+          ]
+        },
+        {
+          "component": 8,
+          "count": 1,
+          "min": [
+            251,
+            239,
+            118
+          ],
+          "max": [
+            251,
+            239,
+            118
+          ],
+          "completeComponent": 15,
+          "completeComponentCount": 1,
+          "cropFaces": [],
+          "nearestMainDistanceMm": 8.573214099741124,
+          "nearestPoint": [
+            251,
+            239,
+            118
+          ],
+          "nearestMainPoint": [
+            264,
+            244,
+            108
+          ],
+          "isLargest": false,
+          "otherCropComponentsInSameCompleteComponent": []
+        },
+        {
+          "component": 9,
+          "count": 5,
+          "min": [
+            254,
+            251,
+            103
+          ],
+          "max": [
+            256,
+            251,
+            104
+          ],
+          "completeComponent": 16,
+          "completeComponentCount": 5,
+          "cropFaces": [],
+          "nearestMainDistanceMm": 1.0,
+          "nearestPoint": [
+            256,
+            251,
+            103
+          ],
+          "nearestMainPoint": [
+            258,
+            251,
+            103
+          ],
+          "isLargest": false,
+          "otherCropComponentsInSameCompleteComponent": []
+        },
+        {
+          "component": 10,
+          "count": 2,
+          "min": [
+            261,
+            192,
+            135
+          ],
+          "max": [
+            262,
+            192,
+            136
+          ],
+          "completeComponent": 20,
+          "completeComponentCount": 2,
+          "cropFaces": [],
+          "nearestMainDistanceMm": 1.224744871391589,
+          "nearestPoint": [
+            261,
+            192,
+            136
+          ],
+          "nearestMainPoint": [
+            260,
+            190,
+            137
+          ],
+          "isLargest": false,
+          "otherCropComponentsInSameCompleteComponent": []
+        },
+        {
+          "component": 11,
+          "count": 7,
+          "min": [
+            263,
+            193,
+            138
+          ],
+          "max": [
+            264,
+            196,
+            140
+          ],
+          "completeComponent": 21,
+          "completeComponentCount": 7,
+          "cropFaces": [],
+          "nearestMainDistanceMm": 1.4142135623730951,
+          "nearestPoint": [
+            264,
+            193,
+            138
+          ],
+          "nearestMainPoint": [
+            266,
+            191,
+            138
+          ],
+          "isLargest": false,
+          "otherCropComponentsInSameCompleteComponent": []
+        }
+      ]
+    },
+    "after": {
+      "totalLabel24": 64421,
+      "cropTopology": {
+        "voxels": 2400,
+        "components": {
+          "six": {
+            "count": 38,
+            "sizes": [
+              1726,
+              270,
+              148,
+              112,
+              71,
+              9,
+              7,
+              6,
+              5,
+              5,
+              5,
+              3,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              2,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          },
+          "twentySix": {
+            "count": 11,
+            "sizes": [
+              2030,
+              148,
+              116,
+              80,
+              7,
+              7,
+              5,
+              3,
+              2,
+              1,
+              1
+            ]
+          }
+        }
+      },
+      "groups": [
+        {
+          "component": 1,
+          "count": 148,
+          "min": [
+            202,
+            279,
+            140
+          ],
+          "max": [
+            208,
+            296,
+            142
+          ],
+          "completeComponent": 1,
+          "completeComponentCount": 63624,
+          "cropFaces": [
+            "x-min",
+            "z-max"
+          ],
+          "nearestMainDistanceMm": 34.87477598494362,
+          "nearestPoint": [
+            208,
+            283,
+            141
+          ],
+          "nearestMainPoint": [
+            256,
+            252,
+            101
+          ],
+          "isLargest": false,
+          "otherCropComponentsInSameCompleteComponent": [
+            7
+          ]
+        },
+        {
+          "component": 2,
+          "count": 80,
+          "min": [
+            231,
+            232,
+            112
+          ],
+          "max": [
+            241,
+            240,
+            120
+          ],
+          "completeComponent": 4,
+          "completeComponentCount": 80,
+          "cropFaces": [],
+          "nearestMainDistanceMm": 13.729530217745982,
+          "nearestPoint": [
+            241,
+            235,
+            120
+          ],
+          "nearestMainPoint": [
+            264,
+            244,
+            108
+          ],
+          "isLargest": false,
+          "otherCropComponentsInSameCompleteComponent": []
+        },
+        {
+          "component": 3,
+          "count": 3,
+          "min": [
+            234,
+            247,
+            110
+          ],
+          "max": [
+            236,
+            248,
+            110
+          ],
+          "completeComponent": 5,
+          "completeComponentCount": 3,
+          "cropFaces": [],
+          "nearestMainDistanceMm": 11.146748404803978,
+          "nearestPoint": [
+            236,
+            248,
+            110
+          ],
+          "nearestMainPoint": [
+            256,
+            252,
+            101
+          ],
+          "isLargest": false,
+          "otherCropComponentsInSameCompleteComponent": []
+        },
+        {
+          "component": 4,
+          "count": 1,
+          "min": [
+            235,
+            247,
+            112
+          ],
+          "max": [
+            235,
+            247,
+            112
+          ],
+          "completeComponent": 6,
+          "completeComponentCount": 1,
+          "cropFaces": [],
+          "nearestMainDistanceMm": 12.114041439585717,
+          "nearestPoint": [
+            235,
+            247,
+            112
+          ],
+          "nearestMainPoint": [
+            256,
+            252,
+            101
+          ],
+          "isLargest": false,
+          "otherCropComponentsInSameCompleteComponent": []
+        },
+        {
+          "component": 5,
+          "count": 7,
+          "min": [
+            239,
+            239,
+            119
+          ],
+          "max": [
+            241,
+            240,
+            120
+          ],
+          "completeComponent": 9,
+          "completeComponentCount": 7,
+          "cropFaces": [],
+          "nearestMainDistanceMm": 13.038404810405298,
+          "nearestPoint": [
+            241,
+            240,
+            120
+          ],
+          "nearestMainPoint": [
+            259,
+            250,
+            104
+          ],
+          "isLargest": false,
+          "otherCropComponentsInSameCompleteComponent": []
+        },
+        {
+          "component": 6,
+          "count": 116,
+          "min": [
+            241,
+            242,
+            101
+          ],
+          "max": [
+            256,
+            250,
+            114
+          ],
+          "completeComponent": 11,
+          "completeComponentCount": 116,
+          "cropFaces": [],
+          "nearestMainDistanceMm": 2.5495097567963922,
+          "nearestPoint": [
+            255,
+            249,
+            107
+          ],
+          "nearestMainPoint": [
+            259,
+            250,
+            104
+          ],
+          "isLargest": false,
+          "otherCropComponentsInSameCompleteComponent": []
+        },
+        {
+          "component": 7,
+          "count": 2030,
+          "min": [
+            245,
+            173,
+            85
+          ],
+          "max": [
+            275,
+            258,
+            142
+          ],
+          "completeComponent": 1,
+          "completeComponentCount": 63624,
+          "cropFaces": [
+            "z-max"
+          ],
+          "nearestMainDistanceMm": 0.0,
+          "nearestPoint": [
+            245,
+            255,
+            85
+          ],
+          "nearestMainPoint": [
+            245,
+            255,
+            85
+          ],
+          "isLargest": true,
+          "otherCropComponentsInSameCompleteComponent": [
+            1
+          ]
+        },
+        {
+          "component": 8,
+          "count": 1,
+          "min": [
+            251,
+            239,
+            118
+          ],
+          "max": [
+            251,
+            239,
+            118
+          ],
+          "completeComponent": 15,
+          "completeComponentCount": 1,
+          "cropFaces": [],
+          "nearestMainDistanceMm": 8.573214099741124,
+          "nearestPoint": [
+            251,
+            239,
+            118
+          ],
+          "nearestMainPoint": [
+            264,
+            244,
+            108
+          ],
+          "isLargest": false,
+          "otherCropComponentsInSameCompleteComponent": []
+        },
+        {
+          "component": 9,
+          "count": 5,
+          "min": [
+            254,
+            251,
+            103
+          ],
+          "max": [
+            256,
+            251,
+            104
+          ],
+          "completeComponent": 16,
+          "completeComponentCount": 5,
+          "cropFaces": [],
+          "nearestMainDistanceMm": 1.0,
+          "nearestPoint": [
+            256,
+            251,
+            103
+          ],
+          "nearestMainPoint": [
+            258,
+            251,
+            103
+          ],
+          "isLargest": false,
+          "otherCropComponentsInSameCompleteComponent": []
+        },
+        {
+          "component": 10,
+          "count": 2,
+          "min": [
+            261,
+            192,
+            135
+          ],
+          "max": [
+            262,
+            192,
+            136
+          ],
+          "completeComponent": 20,
+          "completeComponentCount": 2,
+          "cropFaces": [],
+          "nearestMainDistanceMm": 1.224744871391589,
+          "nearestPoint": [
+            261,
+            192,
+            136
+          ],
+          "nearestMainPoint": [
+            260,
+            190,
+            137
+          ],
+          "isLargest": false,
+          "otherCropComponentsInSameCompleteComponent": []
+        },
+        {
+          "component": 11,
+          "count": 7,
+          "min": [
+            263,
+            193,
+            138
+          ],
+          "max": [
+            264,
+            196,
+            140
+          ],
+          "completeComponent": 21,
+          "completeComponentCount": 7,
+          "cropFaces": [],
+          "nearestMainDistanceMm": 1.4142135623730951,
+          "nearestPoint": [
+            264,
+            193,
+            138
+          ],
+          "nearestMainPoint": [
+            266,
+            191,
+            138
+          ],
+          "isLargest": false,
+          "otherCropComponentsInSameCompleteComponent": []
+        }
+      ]
+    }
+  },
+  "cropAppXYZ": {
+    "min": [
+      202,
+      170,
+      72
+    ],
+    "maxExclusive": [
+      283,
+      303,
+      143
+    ]
+  },
+  "status": "AI-image-reviewed-project-adopted-development-only",
+  "imageReviewed": true,
+  "adopted": true,
+  "installed": true,
+  "published": false,
+  "expertReviewed": false,
+  "rationale": "Fixed finite-supported outer cavity omissions, reviewed in all 49 paired raw/overlay planes and 13 contact sheets. Preserve other labels and crop-edge cells.",
+  "limitations": [
+    "Development integration only; not expert ground truth or full inferior-horn completion.",
+    "Do not fill crop-edge threshold components or bridge separate medial fragments.",
+    "All 55 derived block masks unchanged; no mesh or specimen manifest replacement. Tests/build/browser tracked separately."
+  ],
+  "projectAdopted": true,
+  "meshImpact": {
+    "inputSha256": "58d8044071bd0b638bfdbbcc309c35ac3301a9c8f449b8ebcc5b77e5435cfae7",
+    "outputSha256": "e98cd4060d735c732a5fd75030be2f701f57fe91b6cd5b9a12c65e1cb68b37e3",
+    "blockMaskImpact": [
+      {
+        "block": "lateral-ventricle",
+        "part": "tissue",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "ventricular-cavity",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "caudate",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "thalamus",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "hippocampus",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "tissue",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "thalami",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "third-ventricle",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "hypothalamus",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "subthalamic-nuclei",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "mammillary-bodies",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "radiations",
+        "part": "tissue",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "radiations",
+        "part": "putamen",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "radiations",
+        "part": "pallidum-external",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "radiations",
+        "part": "pallidum-internal",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "radiations",
+        "part": "internal-capsule",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "radiations",
+        "part": "corona-radiata",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "radiations",
+        "part": "optic-radiation",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "radiations",
+        "part": "auditory-radiation",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "tissue",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "corpus-callosum",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "lateral-ventricles",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "fornix",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "septum-pellucidum",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "tissue",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "ventricular-cavity",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "choroid-plexus",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "hippocampus",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "tissue",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "hippocampus",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "amygdala",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "inferior-horn",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "tissue",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "red-nuclei",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "substantia-nigra",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "aqueduct",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "cerebral-peduncles",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "superior-colliculi",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "inferior-colliculi",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "lateral-geniculate-bodies",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "medial-geniculate-bodies",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "interpeduncular-fossa",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "pons-medulla",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "cerebellum",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "midbrain",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "fourth-ventricle",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "superior-cerebellar-peduncles",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "middle-cerebellar-peduncles",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "inferior-cerebellar-peduncles",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "facial-colliculi",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "vestibular-areas",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "hypoglossal-trigones",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "vagal-trigones",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "pyramids",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "olives",
+        "changedMaskVoxels": 0
+      }
+    ],
+    "installed": false,
+    "anatomyValidatedByMaskComparison": false,
+    "installationBlocked": false
+  },
+  "visualReview": {
+    "pairedPlanes": 49,
+    "contactSheets": 13,
+    "expertReviewed": false
+  }
+}

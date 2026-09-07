@@ -12,6 +12,20 @@ test("quiz bank expands 45 visual targets to 100 varied questions",()=>{
   const report=auditQuizConceptBank();
   assert.equal(report.ok,true,report.errors.join("\n"));
   assert.deepEqual(report.summary,{baseQuestionCount:45,conceptQuestionCount:55,totalQuestionCount:100,uniqueVisualTargetCount:45,conceptVisualTargetCount:38,reviewState:"project-reviewed-expert-pending"});
+  assert.deepEqual(report.eligibility,{authoredQuestionCount:100,heldVisualQuestionCount:4,heldConceptQuestionCount:4,eligibleQuestionCount:92});
+});
+
+test("audit rejects dropping the runtime anatomy hold even when authored bank is unchanged",()=>{
+  const report=auditQuizConceptBank({source:page.replace('.filter(isQuizAnatomyAvailable)','')});
+  assert.equal(report.ok,false);
+  assert.match(report.errors.join('\n'),/runtime pool must apply anatomy hold/);
+});
+
+test("eligibility reporting preserves validation failures for malformed concept collections",()=>{
+  for(const questions of [null,{},[null]]){
+    const malformed=clone();malformed.questions=questions;
+    assert.equal(auditQuizConceptBank({bank:malformed}).ok,false);
+  }
 });
 
 test("concept questions use independent answer keys, labels, explanations, and provisional gating",()=>{
