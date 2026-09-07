@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { SEGMENTATION_LABEL_REVISION } from "./segmentationLabelRevision";
 import { createDownloadProgressTracker, formatDownloadBytes } from "../src/downloadProgress.mjs";
+import { segmentationPlaneNames } from "./segmentationGeometry";
 
 const ASSET_BASE=import.meta.env.BASE_URL;
 
@@ -376,9 +377,18 @@ function midbrainDorsalPatchMesh(mesh:Mesh,key:"superior-colliculi"|"inferior-co
 
 const idx=(x:number,y:number,z:number,d:[number,number,number])=>x+d[0]*(y+d[1]*z);
 function sectionSize(d:[number,number,number],plane:Plane):[number,number]{return plane==="sagittal"?[d[1],d[2]]:plane==="horizontal"?[d[0],d[1]]:[d[0],d[2]]}
-function sectionVoxel(a:number,b:number,d:[number,number,number],plane:Plane,p:number):[number,number,number]{const[dx,dy,dz]=d;if(plane==="horizontal")return[a,dy-1-b,Math.round((1-p/100)*(dz-1))];if(plane==="sagittal")return[Math.round(p/100*(dx-1)),a,dz-1-b];return[a,Math.round(p/100*(dy-1)),dz-1-b]}
+function sectionVoxel(a:number,b:number,d:[number,number,number],plane:Plane,p:number):[number,number,number]{const[dx,dy,dz]=d;if(plane==="horizontal")return[a,dy-1-b,Math.round((1-p/100)*(dz-1))];if(plane==="sagittal")return[Math.round(p/100*(dx-1)),dy-1-a,dz-1-b];return[a,Math.round(p/100*(dy-1)),dz-1-b]}
 function viewTransform(w:number,h:number,d:[number,number,number],plane:Plane,zoom:number,pan:{x:number;y:number}){const[sw,sh]=sectionSize(d,plane),fit=Math.min((w-10)/sw,(h-10)/sh),scale=fit*zoom;return{sw,sh,scale,ox:(w-sw*scale)/2+pan.x,oy:(h-sh*scale)/2+pan.y}}
 function drawScale(c:CanvasRenderingContext2D,h:number,scale:number,voxelSizeMm:number){const width=20/voxelSizeMm*scale,x=18,y=h-20;c.save();c.strokeStyle="#f0f3f1";c.fillStyle="#f0f3f1";c.lineWidth=1;c.beginPath();c.moveTo(x,y);c.lineTo(x+width,y);c.moveTo(x,y-4);c.lineTo(x,y+3);c.moveTo(x+width,y-4);c.lineTo(x+width,y+3);c.stroke();c.font="16px monospace";c.fillText("20 mm",x,y-7);c.restore()}
+
+function drawSectionOrientation(c:CanvasRenderingContext2D,w:number,h:number,plane:Plane){
+  const labels=segmentationPlaneNames[plane];
+  c.save();c.font="bold 14px sans-serif";c.textAlign="center";c.textBaseline="middle";
+  for(const [text,x,y] of [[labels.left,14,h/2],[labels.right,w-14,h/2],[labels.top,w/2,14],[labels.bottom,w/2,h-14]] as [string,number,number][]){
+    c.fillStyle="rgba(17,23,25,.78)";c.fillRect(x-10,y-10,20,20);c.fillStyle="#f0f3f1";c.fillText(text,x,y);
+  }
+  c.restore();
+}
 
 function meshHighlightEvidence(meshes:Mesh[]|null,layers:HighlightLayer[]){
   const ids=new Set(layers.flatMap(layer=>layer.ids));
@@ -501,13 +511,14 @@ export function AtlasVolumeCanvas({kind,plane,position,focus,display,rotation,vi
 }
 
 function drawFixedSlice(c:CanvasRenderingContext2D,w:number,h:number,v:FixedBrain,plane:Plane,p:number,display:Display,tone:Tone,zoom:number,pan:{x:number;y:number}){
-  const[dx,dy,dz]=v.dims;let sw=dx,sh=dz,get=(a:number,b:number)=>idx(a,Math.round(p/100*(dy-1)),dz-1-b,v.dims);if(plane==="horizontal"){sw=dx;sh=dy;get=(a,b)=>idx(a,dy-1-b,Math.round((1-p/100)*(dz-1)),v.dims)}if(plane==="sagittal"){sw=dy;sh=dz;get=(a,b)=>idx(Math.round(p/100*(dx-1)),a,dz-1-b,v.dims)}
+  const[dx,dy,dz]=v.dims;let sw=dx,sh=dz,get=(a:number,b:number)=>idx(a,Math.round(p/100*(dy-1)),dz-1-b,v.dims);if(plane==="horizontal"){sw=dx;sh=dy;get=(a,b)=>idx(a,dy-1-b,Math.round((1-p/100)*(dz-1)),v.dims)}if(plane==="sagittal"){sw=dy;sh=dz;get=(a,b)=>idx(Math.round(p/100*(dx-1)),dy-1-a,dz-1-b,v.dims)}
   const values=v.values,off=document.createElement("canvas");off.width=sw;off.height=sh;const oc=off.getContext("2d")!,im=oc.createImageData(sw,sh),sample=(x:number,y:number)=>values[get(Math.max(0,Math.min(sw-1,x)),Math.max(0,Math.min(sh-1,y)))];
   for(let y=0;y<sh;y++)for(let x=0;x<sw;x++){const si=get(x,y),q=(y*sw+x)*4,raw=values[si],near=(sample(x-1,y)+sample(x+1,y)+sample(x,y-1)+sample(x,y+1))*.25,base=raw+(raw-near)*tone.sharpness,val=Math.max(0,Math.min(255,(base-128)*tone.contrast+128+tone.brightness)),edge=Math.min(22,(Math.abs(sample(x+1,y)-sample(x-1,y))+Math.abs(sample(x,y+1)-sample(x,y-1)))*(.07+tone.sharpness*.18));let r,g,b;if(display==="outline"){r=g=b=25+val*.72-edge}else if(display==="diagram"){r=78+val*.66;g=65+val*.59;b=51+val*.49}else{r=36+val*.78-edge;g=31+val*.68-edge*.74;b=25+val*.55-edge*.46}im.data[q]=r;im.data[q+1]=g;im.data[q+2]=b;im.data[q+3]=v.mask[si]?255:0}oc.putImageData(im,0,0);c.clearRect(0,0,w,h);c.fillStyle="#171b1c";c.fillRect(0,0,w,h);const{scale,ox,oy}=viewTransform(w,h,v.dims,plane,zoom,pan);c.imageSmoothingEnabled=false;c.drawImage(off,ox,oy,sw*scale,sh*scale);drawScale(c,h,scale,.444);
+  drawSectionOrientation(c,w,h,plane);
 }
 
 function drawSlice(c:CanvasRenderingContext2D,w:number,h:number,v:Volume|null,bb:BigBrain|null,manual:ManualSeg|null,plane:Plane,p:number,display:Display,contrast:"t1"|"t2"|"bigbrain",tone:Tone,labelColors:Map<number,[number,number,number]>,zoom:number,pan:{x:number;y:number},sectionHighlightMode:SectionHighlightMode="default"){
-  const isBB=contrast==="bigbrain"&&!!bb,dims=isBB?bb!.dims:v!.dims,[dx,dy,dz]=dims;let sw=dx,sh=dz,get=(a:number,b:number)=>idx(a,Math.round(p/100*(dy-1)),dz-1-b,dims);if(plane==="horizontal"){sw=dx;sh=dy;get=(a,b)=>idx(a,dy-1-b,Math.round((1-p/100)*(dz-1)),dims)}if(plane==="sagittal"){sw=dy;sh=dz;get=(a,b)=>idx(Math.round(p/100*(dx-1)),a,dz-1-b,dims)}
+  const isBB=contrast==="bigbrain"&&!!bb,dims=isBB?bb!.dims:v!.dims,[dx,dy,dz]=dims;let sw=dx,sh=dz,get=(a:number,b:number)=>idx(a,Math.round(p/100*(dy-1)),dz-1-b,dims);if(plane==="horizontal"){sw=dx;sh=dy;get=(a,b)=>idx(a,dy-1-b,Math.round((1-p/100)*(dz-1)),dims)}if(plane==="sagittal"){sw=dy;sh=dz;get=(a,b)=>idx(Math.round(p/100*(dx-1)),dy-1-a,dz-1-b,dims)}
   const values=isBB?bb!.values:contrast==="t2"?v!.t2:v!.t1,off=document.createElement("canvas");off.width=sw;off.height=sh;const oc=off.getContext("2d")!,im=oc.createImageData(sw,sh);
   const sample=(x:number,y:number)=>values[get(Math.max(0,Math.min(sw-1,x)),Math.max(0,Math.min(sh-1,y)))];
   for(let y=0;y<sh;y++)for(let x=0;x<sw;x++){
@@ -544,6 +555,7 @@ function drawSlice(c:CanvasRenderingContext2D,w:number,h:number,v:Volume|null,bb
     im.data[q]=r;im.data[q+1]=g;im.data[q+2]=b;im.data[q+3]=alpha;
   }
   oc.putImageData(im,0,0);c.clearRect(0,0,w,h);c.fillStyle="#171b1c";c.fillRect(0,0,w,h);const{scale,ox,oy}=viewTransform(w,h,dims,plane,zoom,pan);c.imageSmoothingEnabled=!isBB;c.imageSmoothingQuality="high";c.drawImage(off,ox,oy,sw*scale,sh*scale);drawScale(c,h,scale,isBB ? .5 : 1);
+  drawSectionOrientation(c,w,h,plane);
 }
 
 function shader(gl:WebGLRenderingContext,type:number,source:string){const s=gl.createShader(type)!;gl.shaderSource(s,source);gl.compileShader(s);return s}

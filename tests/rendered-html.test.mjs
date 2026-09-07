@@ -1044,7 +1044,7 @@ test("adds orthogonal read-only audit planes without changing the horizontal pat
   assert.match(editor, /X \{cursorVoxel\?\.\[0\]/);
   assert.match(editor, /aria-label=\{`\$\{planeInfo\.increment\}へ1 voxel移動`\}/);
   assert.match(geometry, /coronal:\{label:"冠状断",axis:"Y",rangeStart:"後方",rangeEnd:"前方",increment:"前方",decrement:"後方",top:"S",bottom:"I",left:"L",right:"R"\}/);
-  assert.match(geometry, /sagittal:\{label:"矢状断",axis:"X",rangeStart:"左",rangeEnd:"右",increment:"右",decrement:"左",top:"S",bottom:"I",left:"P",right:"A"\}/);
+  assert.match(geometry, /sagittal:\{label:"矢状断",axis:"X",rangeStart:"左",rangeEnd:"右",increment:"右",decrement:"左",top:"S",bottom:"I",left:"A",right:"P"\}/);
   assert.match(editor, /role="tab" aria-selected=\{plane===key\}/);
   assert.match(editor, /role="status"><b>照合専用<\/b>/);
   assert.match(editor, /disabled=\{!isEditablePlane\}/);
@@ -1066,7 +1066,7 @@ test("maps every orthogonal audit slice and display corner to the shared voxel g
   const expectations = {
     horizontal: { shape:[394,466], corners:[[0,465,113],[393,465,113],[0,0,113],[393,0,113]], increment:"上方", decrement:"下方", orientation:["A","P","L","R"] },
     coronal: { shape:[394,378], corners:[[0,251,377],[393,251,377],[0,251,0],[393,251,0]], increment:"前方", decrement:"後方", orientation:["S","I","L","R"] },
-    sagittal: { shape:[466,378], corners:[[194,0,377],[194,465,377],[194,0,0],[194,465,0]], increment:"右", decrement:"左", orientation:["S","I","P","A"] },
+    sagittal: { shape:[466,378], corners:[[194,465,377],[194,0,377],[194,465,0],[194,0,0]], increment:"右", decrement:"左", orientation:["S","I","A","P"] },
   };
   for (const [plane, expected] of Object.entries(expectations)) {
     assert.deepEqual(planeShape(dims, plane), expected.shape);
@@ -1101,10 +1101,10 @@ test("reproduces the objective orthogonal mammillary audit and rejects a wrong v
   ], {encoding:"utf8", cwd:localPath("")});
   assert.equal(result.status, 0, result.stderr);
   const audit = JSON.parse(result.stdout);
-  const saved = JSON.parse(await readFile(new URL("segmentation-patches/review/mammillary-bodies-orthogonal-objective-audit-2026-09-07-ventricular-mixed12.json", root), "utf8"));
+  const saved = JSON.parse(await readFile(new URL("segmentation-patches/review/mammillary-bodies-orthogonal-objective-audit-2026-09-08-third-remnants91.json", root), "utf8"));
   assert.deepEqual(audit, saved);
   assert.equal(audit.magic, "BBS1");
-assert.equal(audit.inputSha256, "3aa4127843d1ca59ee4fa2d542632748ec542958c76329b627b3968b6d53f45e");
+assert.equal(audit.inputSha256, "bd0c1c048262876fd5f84d7fd5622c9ddb341b6a18716b14a03e5ad57ff360fb");
   assert.deepEqual(audit.dims, [394, 466, 378]);
   assert.deepEqual(audit.voxelSizeMm, [0.5, 0.5, 0.5]);
   assert.equal(audit.validation.passed, true);

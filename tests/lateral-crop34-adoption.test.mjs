@@ -50,6 +50,7 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
    assert.equal(r.count,2);
    assert.deepEqual(r.points,[{xyz:[151,111,156],before:23,after:0},{xyz:[237,120,158],before:24,after:0}]);
   }
+  else if(name==='third-remnants91'){assert.equal(r.count,91);assert.ok(r.points.every(p=>p.before===25&&p.after===0));}
   else {assert.equal(name,'ventricular-exclusions46');assert.equal(r.count,46);assert.equal(r.points.filter(p=>p.before===23).length,12);assert.equal(r.points.filter(p=>p.before===25).length,34);}
   assert.equal(r.points.length,r.count);
   for(const entry of r.points){const p=exclusions||brainstem||mixed||combined?entry.xyz:entry;const [x,y,z]=p;assert.ok(p.length===3&&p.every(Number.isInteger)&&x>=0&&x<394&&y>=0&&y<466&&z>=0&&z<378);const i=10+x+394*(y+466*z);assert.ok(!seen.has(i));seen.add(i);assert.equal(expected[i],exclusions||brainstem||mixed||combined?entry.before:0);if(exclusions)assert.equal(entry.after,0);expected[i]=combined?entry.after:exclusions?0:label;}
@@ -81,6 +82,7 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
   expectedChanges['fourth-depth27']=[['diencephalon','tissue',0,2],['medial-temporal','tissue',0,1],['hindbrain','pons-medulla',0,3],['hindbrain','fourth-ventricle',6,0]];
   expectedChanges['fourth-upper-posterior111']=[['diencephalon','tissue',0,3],['medial-temporal','tissue',0,3],['hindbrain','fourth-ventricle',6,0]];
   expectedChanges['ventricular-mixed12']=[['diencephalon','tissue',0,1],['hindbrain','fourth-ventricle',3,0]];
+  expectedChanges['third-remnants91']=[['diencephalon','third-ventricle',0,10]];
   if(name==='left-medial-anterior1092'){assert.equal(r.count,1092);assert.equal(r.transition,'0->23');}
   assert.deepEqual(changed.map(p=>[p.block,p.part,p.added,p.removed]),expectedChanges[name]??[]);
   for(const p of changed){
@@ -94,5 +96,5 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
  }
  assert.ok(current);assert.deepEqual(gunzipSync(await read('public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz')),current);
  assert.equal(meta.rawVoxelSha256,sha(current.subarray(10)));
- assert.equal(meta.labelCounts['23'],80373);assert.equal(meta.labelCounts['24'],79082);assert.equal(meta.labelCounts['25'],11977);
+ assert.equal(meta.labelCounts['23'],80373);assert.equal(meta.labelCounts['24'],79082);assert.equal(meta.labelCounts['25'],11886);
 });

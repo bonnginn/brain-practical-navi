@@ -1,5 +1,6 @@
 """Preflight the reviewed ventricular omission repair and all development representations."""
 import argparse
+from datetime import date
 import gzip
 import json
 import numpy as np
@@ -115,8 +116,10 @@ def plan():
     return retained+writes+[(SOURCE, data), (meta_path, serialized(meta)), (manifest_path, serialized(manifest))]+[(ATLAS/n, b) for n, b in new_assets.items()]
 
 
-def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None):
+def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None, *, review_date='2026-09-07'):
     """Plan a regional fill; changed blocks additionally require a pinned impact report."""
+    if not isinstance(review_date,str) or date.fromisoformat(review_date).isoformat()!=review_date:
+        raise ValueError('Expected ISO review date')
     from stage_lateral_crop34 import load_batch_stage
     stage, record = load_batch_stage(prefix, record_sha)
     base=(stage/'before.bin.gz').read_bytes(); data=(stage/'labels.bin.gz').read_bytes()
@@ -216,7 +219,7 @@ def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None):
     expected_sections={name+'.mesh' for name,ids in GROUPS.items() if affected.intersection(ids)}
     if set(changed)!=expected_sections:
         raise ValueError('Unexpected section impact')
-    record_path=ROOT/f'segmentation-patches/review/{prefix}-adoption-2026-09-07.json'
+    record_path=ROOT/f'segmentation-patches/review/{prefix}-adoption-{review_date}.json'
     record.update(status='AI-image-reviewed-project-adopted-development-only',adopted=True,projectAdopted=True,
         expertReviewed=False,published=False,meshImpact=impact,
         sectionMeshImpact=dict(before=old_report,after=new_report,changedFiles=changed))
@@ -247,10 +250,12 @@ if __name__ == '__main__':
     parser.add_argument('--stage-prefix')
     parser.add_argument('--record-sha')
     parser.add_argument('--mesh-report-sha')
+    parser.add_argument('--review-date',default='2026-09-07')
     args = parser.parse_args()
     if bool(args.stage_prefix)!=bool(args.record_sha):raise ValueError('Stage and SHA required together')
     if args.mesh_report_sha and not args.stage_prefix:raise ValueError('Mesh report requires a regional stage')
-    changes = plan_unchanged_blocks(args.stage_prefix,args.record_sha,args.mesh_report_sha) if args.stage_prefix else plan()
+    if args.review_date!='2026-09-07' and not args.stage_prefix:raise ValueError('Review date requires a regional stage')
+    changes = plan_unchanged_blocks(args.stage_prefix,args.record_sha,args.mesh_report_sha,review_date=args.review_date) if args.stage_prefix else plan()
     if args.apply:
         for path, data in changes:
             path.write_bytes(data)

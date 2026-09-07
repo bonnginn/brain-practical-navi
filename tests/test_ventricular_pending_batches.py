@@ -19,7 +19,8 @@ class PendingBatches(unittest.TestCase):
         self.assertEqual(hashlib.sha256(evidence).hexdigest(),'91319d05addfd63bc1263d9dfcae7a2beb607dfc080603089fe9d52508f2a9f7')
         r=json.loads(evidence)
         baseline=(ROOT/'tests/fixtures/bigbrain-practical-segmentation-pre-ventricular-mixed12.bin.gz').read_bytes()
-        current=(ROOT/'public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz').read_bytes()
+        # Historical twelve-cell result, retained before the next reviewed batch.
+        current=(ROOT/'tests/fixtures/bigbrain-practical-segmentation-pre-third-remnants91.bin.gz').read_bytes()
         self.assertEqual(hashlib.sha256(baseline).hexdigest(),r['beforeSha256'])
         self.assertEqual(hashlib.sha256(current).hexdigest(),r['afterSha256'])
         before=np.frombuffer(gzip.decompress(baseline),np.uint8,offset=10).reshape((394,466,378),order='F')

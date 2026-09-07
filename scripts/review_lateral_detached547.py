@@ -15,16 +15,17 @@ SHA='b45c0669122b628529f56e73af06fa1cb697b621da99d51c8b921b136ea52463'
 
 def main(series=None, *, component_count=547, seed=(242,119,153), labels_sha=SHA,
          prefix='lateral-detached547', representative_y=135, candidate_points=None, label_id=24, context_margin=12,
-         existing_points=None, existing_label_id=None, reference_points=None):
+         existing_points=None, existing_label_id=None, reference_points=None, selection_title=None):
     if type(label_id) is not int or label_id not in (23,24,25,26,41):raise ValueError('Expected ventricular label')
     if type(context_margin) is not int or not 1<=context_margin<=120:raise ValueError('Invalid context margin')
+    if selection_title is not None and (not isinstance(selection_title,str) or not selection_title.strip() or len(selection_title)>80):raise ValueError('Invalid selection title')
     out=ROOT/f'work/anatomy-review/{prefix}-native300-v1'
     if series:out=ROOT/f'work/anatomy-review/{prefix}-series-{series}-v1'
     if out.exists():raise ValueError('Preserve evidence')
     _,_,labels=read_browser_volume(DEFAULT_LABELS,MAGIC_LABELS,labels_sha)
     if existing_points is not None:
-        if candidate_points is not None or type(existing_label_id) is not int or existing_label_id != 27:
-            raise ValueError('Only explicit brainstem conflict review is supported')
+        if candidate_points is not None or type(existing_label_id) is not int or existing_label_id not in (23,24,25,26,27,41):
+            raise ValueError('Expected an explicit ventricular or brainstem review label')
         points=np.asarray(existing_points)
         if (points.shape!=(component_count,3) or points.dtype.kind not in 'iu'
                 or len(np.unique(points,axis=0))!=component_count or np.any(points<0)
@@ -89,6 +90,7 @@ def main(series=None, *, component_count=547, seed=(242,119,153), labels_sha=SHA
                 row=Image.new('RGB',(max(780,w*scale*2+12),h*scale+42),'#181818')
                 draw=ImageDraw.Draw(row);draw.text((4,3),f'Original300 {axis}{index}; '+('continuous extent review' if series else f'app reference {p.tolist()}'),fill='white')
                 label=f'detached{component_count}' if candidate_points is None else f'UNADOPTED {component_count} candidates'
+                if selection_title is not None:label=selection_title
                 if existing_points is not None:label=f'EXISTING ID{existing_label_id} review {component_count}'
                 draw.text((4,21),f'Raw LEFT / red={label}, cyan=existing ID{label_id} RIGHT.',fill='white')
                 for col,picture in enumerate([np.repeat(plane[:,:,None],3,axis=2),rgb]):

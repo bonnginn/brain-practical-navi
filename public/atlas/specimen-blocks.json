@@ -120,8 +120,8 @@
       },
       {
         "file": "block-diencephalon-third-ventricle.mesh",
-        "vertices": 2186,
-        "faces": 4304,
+        "vertices": 2132,
+        "faces": 4224,
         "shadeMin": 0.82,
         "shadeMax": 0.82,
         "part": "third-ventricle",
@@ -129,8 +129,8 @@
         "sourceType": "same-grid-segmentation",
         "color": "#45aebd",
         "material": "model",
-        "meshSha256": "f838a4e30c405f06ac7c7598de52f5b0c0feca6614025bd0f61b8f581427bd7e",
-        "segmentationSourceSha256": "56dcff45e44fbcc40f59a4e6e06bf707e49dcdeee86f8b16bd169b81bc472c91",
+        "meshSha256": "c40a79607c481fdcd8251e67413d35308f9c991932b7ef2852bb9d4a236dd983",
+        "segmentationSourceSha256": "bd0c1c048262876fd5f84d7fd5622c9ddb341b6a18716b14a03e5ad57ff360fb",
         "repairReview": "AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review."
       },
       {

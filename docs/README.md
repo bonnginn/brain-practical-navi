@@ -1,6 +1,6 @@
 # 文書案内 / Documentation index
 
-利用方法は [トップのREADME](../README.md)、現在地と次の作業は [短い再開メモ](RESUME_SUMMARY.md) を参照してください。追加開発は停止中です。
+利用方法は [トップのREADME](../README.md)、現在地・作業期限と次の作業は [短い再開メモ](RESUME_SUMMARY.md) を参照してください。
 
 ## まず読む資料
 
@@ -9,6 +9,7 @@
 - [開発ガイド・フォーム設定](DEVELOPMENT.md)
 - [分節に用いた参考文献](SEGMENTATION_REFERENCES.md)
 - [分節の残件](ANATOMY_REMAINING_WORK.md)
+- [第三脳室の小片修正（2026-09-08・未公開）](THIRD_VENTRICLE_REMNANTS_REPAIR.md)
 - [データ・権利・引用](../DATA_AND_LICENSES.md)
 
 ## 記録の読み方 / Reading the records
@@ -97,6 +98,7 @@ Historical audit results describe their recorded checkpoint, not the current rel
 - [RESUME_SUMMARY.md](RESUME_SUMMARY.md)
 - [SECTION_VENTRICLE_MESH_SYNC.md](SECTION_VENTRICLE_MESH_SYNC.md)
 - [SEGMENTATION_REFERENCES.md](SEGMENTATION_REFERENCES.md)
+- [SAGITTAL_DISPLAY_AUDIT.md](SAGITTAL_DISPLAY_AUDIT.md)
 - [SEGMENTATION_WORKFLOW.md](SEGMENTATION_WORKFLOW.md)
 - [SEPTEMBER_ANATOMY_IMAGE_REVIEW.md](SEPTEMBER_ANATOMY_IMAGE_REVIEW.md)
 - [SEPTEMBER_RELEASE_REVIEW.md](SEPTEMBER_RELEASE_REVIEW.md)

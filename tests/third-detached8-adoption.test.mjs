@@ -22,7 +22,7 @@ test('third detached repair is exactly eight reversible zero-to-25 additions',as
  const currentRepair=await withRegionalBatches(JSON.parse(await read('segmentation-patches/review/lateral-crop34-adoption-2026-09-07.json')));assert.equal(currentRepair.beforeSha256,last.afterSha256);
  assert.equal(last.beforeSha256,final.afterSha256);
  assert.equal(final.beforeSha256,next.afterSha256);
- assert.equal(next.beforeSha256,r.afterSha256);assert.equal(meta.rawVoxelSha256,currentRepair.afterRawVoxelSha256);assert.equal(meta.thirdDetached8Audit.recordSha256,sha(bytes));assert.equal(meta.labelCounts['25'],11977);
+ assert.equal(next.beforeSha256,r.afterSha256);assert.equal(meta.rawVoxelSha256,currentRepair.afterRawVoxelSha256);assert.equal(meta.thirdDetached8Audit.recordSha256,sha(bytes));assert.equal(meta.labelCounts['25'],11886);
  assert.equal(r.projectAdopted,true);assert.equal(r.expertReviewed,false);assert.equal(r.published,false);
  for(const [name,info] of Object.entries(r.sectionMeshImpact.after.meshes)){assert.equal(next.sectionMeshImpact.before.meshes[name].sha256,info.sha256);assert.equal(final.sectionMeshImpact.before.meshes[name].sha256,next.sectionMeshImpact.after.meshes[name].sha256);assert.equal(last.sectionMeshImpact.before.meshes[name].sha256,final.sectionMeshImpact.after.meshes[name].sha256);assert.equal(currentRepair.sectionMeshImpact.before.meshes[name].sha256,last.sectionMeshImpact.after.meshes[name].sha256);assert.equal(sha(await read('public/atlas/'+name+'.mesh')),currentRepair.sectionMeshImpact.after.meshes[name].sha256);}
  assert.equal(r.meshImpact.blockMaskImpact.length,55);assert.ok(r.meshImpact.blockMaskImpact.every(p=>p.changedMaskVoxels===0));
