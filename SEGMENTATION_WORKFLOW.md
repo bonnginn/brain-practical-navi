@@ -33,6 +33,7 @@ bundleは、frameごとの原画像／出力／PNG SHA-256、空のPNG metadata�
 - ID 38: 右視索
 - ID 39: 左乳頭体
 - ID 40: 右乳頭体
+- ID 41: 中脳水道候補（部分）。編集・レビュー用のみ。現行配布volumeや通常クイズには未追加。16 voxelの再分類候補は `FOURTH_VENTRICLE_REPAIR.md` を参照し、旧26→0案と同時適用しない。
 
 乳頭体は既存の模式3D形状へ合わせません。画像上の輪郭と連続断を根拠にし、境界が不明瞭な部分は無理に塗らず、`confidence` と `evidence` に判断材料を残してください。
 

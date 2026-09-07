@@ -1,23 +1,25 @@
 {
-  "version": 2,
+  "version": 3,
+  "pontineProximalDisplayPolicy": "VII/VIII retain original rings 0-7 only; unsupported distal extensions into temporal tissue are omitted. The cutoff is a display limit, not an observed nerve endpoint. Exact root exits, individual components and the course to the internal acoustic meatus remain unvalidated.",
+  "posteriorCommunicatingJunctionPolicy": "Existing PComm shares ICA knot 2 (shifted) and PCA knot 1 (unshifted), connected by a straight schematic segment. Topological correction only; not individual vessel morphology or expert validation.",
   "coordinateSpace": "manually approximated MNI-oriented display space",
   "displayShiftMm": [
     0.0,
     18.0,
     -18.0
   ],
-  "alignmentPolicy": "anterior arteries and forebrain-associated cranial nerves I-II retain the pial display shift; vertebrobasilar arteries and cranial-nerve roots III-XII are anchored directly to the ICBM500 brainstem segmentation",
+  "alignmentPolicy": "anterior arteries and forebrain-associated cranial nerves I-II retain the pial display shift; vertebrobasilar arteries and proximal cranial-nerve paths III-XII use unshifted ICBM500-oriented schematic coordinates, not measured root attachments",
   "vertebrobasilarCalibration": "vertebral arteries track the ventrolateral medulla, unite at the pontomedullary junction, and continue over the ventral pons; teaching approximation",
   "forebrainNerveCalibration": "olfactory bulbs and tracts plus optic nerves and chiasm follow the shifted pial source so they remain exposed on the inferior surface; teaching approximation",
-  "cranialNerveRootCalibration": "III-XII apparent origins placed on or within 2 mm of practical label 27 surface; teaching approximation",
+  "cranialNerveRootCalibration": "Intended proximal origins are teaching approximations. Distances to the current practical label 27 boundary and exact root exit zones are not validated.",
   "cranialNerveRootTopography": {
     "I-II": "basal forebrain rather than brainstem roots",
     "III": "ventral midbrain, interpeduncular fossa",
     "IV": "dorsal caudal midbrain, just caudal to the inferior colliculi, then wraps laterally",
-    "V": "anterolateral mid-pons",
+    "V": "anterolateral mid-pons; one tube per side, sensory and motor roots not separated",
     "VI": "medial pontomedullary sulcus",
     "VII-VIII": "pontomedullary sulcus/cerebellopontine angle, lateral to VI; VII medial to VIII",
-    "IX-XI": "post-olivary sulcus, ordered superior to inferior",
+    "IX-XI": "simplified proximal paths in superior-to-inferior order, not rootlet rows; XI spinal root and ascent omitted",
     "XII": "pre-olivary sulcus between pyramid and olive"
   },
   "anatomyReferences": [
@@ -26,19 +28,24 @@
     "https://www.ncbi.nlm.nih.gov/books/NBK544297/"
   ],
   "status": "project-authored simplified teaching overlay; not validated morphometry",
-  "scope": "major basal arteries and visible cranial-nerve roots only",
+  "scope": "major basal arteries and schematic proximal cranial-nerve paths, not an observed rootlet reconstruction",
   "omissions": [
     "individual variation",
     "small perforators",
     "distal nerve course beyond the proximal olfactory bulb/tract and cranial-nerve roots",
     "skull foramina",
-    "surgical accuracy"
+    "surgical accuracy",
+    "individual cranial-nerve rootlets",
+    "separate trigeminal sensory and motor roots",
+    "separate facial motor and intermediate nerves",
+    "separate vestibular and cochlear components",
+    "accessory spinal root and ascending course"
   ],
   "groups": [
     {
       "file": "overlay-arteries-anterior.mesh",
-      "vertices": 1590,
-      "faces": 3000,
+      "vertices": 1390,
+      "faces": 2600,
       "displayShiftApplied": true,
       "structures": [
         {
@@ -206,8 +213,8 @@
     },
     {
       "file": "overlay-nerves-pontine.mesh",
-      "vertices": 1280,
-      "faces": 2400,
+      "vertices": 960,
+      "faces": 1760,
       "displayShiftApplied": false,
       "structures": [
         {
@@ -233,21 +240,29 @@
         {
           "id": 34,
           "name": "左VII 顔面神経",
+          "displayedRings": 8,
+          "anatomicalEndpoint": false,
           "displayShiftApplied": false
         },
         {
           "id": 35,
           "name": "右VII 顔面神経",
+          "displayedRings": 8,
+          "anatomicalEndpoint": false,
           "displayShiftApplied": false
         },
         {
           "id": 36,
           "name": "左VIII 内耳神経",
+          "displayedRings": 8,
+          "anatomicalEndpoint": false,
           "displayShiftApplied": false
         },
         {
           "id": 37,
           "name": "右VIII 内耳神経",
+          "displayedRings": 8,
+          "anatomicalEndpoint": false,
           "displayShiftApplied": false
         }
       ]

@@ -1,0 +1,1418 @@
+{
+  "inputCompressedSha256": "9bc51ab0b0f6932871a93a0d225491ed0649ef827012a7db41d3f3e049b166a8",
+  "inputRawSha256": "f5d552ac7856dfb5bb555e289f16c5d1f0dfa918107af2b567491202dba54fbe",
+  "outputCompressedSha256": "d4295e7cc00edd3639b631473445d5db1bb25f9fbe18c5c7f21ff8b8471d7152",
+  "outputRawSha256": "b17bcfbcad38430f33d3bb6973d6ea847295e37670a4f04710d78a2986546142",
+  "points": [
+    {
+      "xyz": [
+        187,
+        181,
+        71
+      ],
+      "before": 0,
+      "after": 26
+    },
+    {
+      "xyz": [
+        187,
+        181,
+        72
+      ],
+      "before": 0,
+      "after": 26
+    },
+    {
+      "xyz": [
+        187,
+        182,
+        71
+      ],
+      "before": 0,
+      "after": 26
+    },
+    {
+      "xyz": [
+        187,
+        182,
+        72
+      ],
+      "before": 0,
+      "after": 26
+    },
+    {
+      "xyz": [
+        188,
+        181,
+        71
+      ],
+      "before": 0,
+      "after": 26
+    },
+    {
+      "xyz": [
+        188,
+        181,
+        72
+      ],
+      "before": 0,
+      "after": 26
+    },
+    {
+      "xyz": [
+        188,
+        182,
+        71
+      ],
+      "before": 0,
+      "after": 26
+    },
+    {
+      "xyz": [
+        188,
+        182,
+        72
+      ],
+      "before": 0,
+      "after": 26
+    },
+    {
+      "xyz": [
+        203,
+        181,
+        71
+      ],
+      "before": 0,
+      "after": 26
+    },
+    {
+      "xyz": [
+        203,
+        181,
+        72
+      ],
+      "before": 0,
+      "after": 26
+    },
+    {
+      "xyz": [
+        203,
+        182,
+        71
+      ],
+      "before": 0,
+      "after": 26
+    },
+    {
+      "xyz": [
+        203,
+        182,
+        72
+      ],
+      "before": 0,
+      "after": 26
+    },
+    {
+      "xyz": [
+        204,
+        181,
+        71
+      ],
+      "before": 0,
+      "after": 26
+    },
+    {
+      "xyz": [
+        204,
+        181,
+        72
+      ],
+      "before": 0,
+      "after": 26
+    },
+    {
+      "xyz": [
+        204,
+        182,
+        71
+      ],
+      "before": 0,
+      "after": 26
+    },
+    {
+      "xyz": [
+        204,
+        182,
+        72
+      ],
+      "before": 0,
+      "after": 26
+    }
+  ],
+  "changedVoxelCount": 16,
+  "transitions": {
+    "0->26": 16
+  },
+  "excludedExploratoryPoints": 92,
+  "candidateSha256": "7151723811e2d39e7b6b2ccb2c053c5edbfa814aa5956574a2bdcdb4b4a71e9f",
+  "reviewEvidence": [
+    {
+      "path": "work/anatomy-review/fourth-ventricle-wall-extended-difference-v1/report.json",
+      "sha256": "ef94702a7434ae50d8061264af5103120d3eef8d94632055143614b4b5febb78",
+      "report": {
+        "inputSha256": "9bc51ab0b0f6932871a93a0d225491ed0649ef827012a7db41d3f3e049b166a8",
+        "candidateSha256": "7151723811e2d39e7b6b2ccb2c053c5edbfa814aa5956574a2bdcdb4b4a71e9f",
+        "points": [
+          [
+            181,
+            170,
+            72
+          ],
+          [
+            181,
+            171,
+            72
+          ],
+          [
+            181,
+            172,
+            71
+          ],
+          [
+            181,
+            172,
+            72
+          ],
+          [
+            181,
+            173,
+            70
+          ],
+          [
+            181,
+            174,
+            70
+          ],
+          [
+            182,
+            170,
+            72
+          ],
+          [
+            182,
+            171,
+            72
+          ],
+          [
+            182,
+            172,
+            71
+          ],
+          [
+            182,
+            172,
+            72
+          ],
+          [
+            182,
+            173,
+            70
+          ],
+          [
+            182,
+            174,
+            70
+          ],
+          [
+            183,
+            171,
+            72
+          ],
+          [
+            183,
+            172,
+            71
+          ],
+          [
+            183,
+            172,
+            72
+          ],
+          [
+            184,
+            171,
+            72
+          ],
+          [
+            184,
+            172,
+            71
+          ],
+          [
+            184,
+            172,
+            72
+          ],
+          [
+            184,
+            182,
+            73
+          ],
+          [
+            185,
+            170,
+            74
+          ],
+          [
+            185,
+            171,
+            73
+          ],
+          [
+            185,
+            171,
+            74
+          ],
+          [
+            185,
+            172,
+            73
+          ],
+          [
+            185,
+            172,
+            74
+          ],
+          [
+            185,
+            173,
+            70
+          ],
+          [
+            185,
+            173,
+            71
+          ],
+          [
+            185,
+            173,
+            72
+          ],
+          [
+            185,
+            174,
+            70
+          ],
+          [
+            185,
+            174,
+            71
+          ],
+          [
+            185,
+            174,
+            72
+          ],
+          [
+            186,
+            171,
+            74
+          ],
+          [
+            186,
+            172,
+            73
+          ],
+          [
+            186,
+            172,
+            74
+          ],
+          [
+            186,
+            173,
+            72
+          ],
+          [
+            186,
+            174,
+            70
+          ],
+          [
+            186,
+            174,
+            71
+          ],
+          [
+            186,
+            174,
+            72
+          ],
+          [
+            187,
+            171,
+            74
+          ],
+          [
+            187,
+            172,
+            73
+          ],
+          [
+            187,
+            172,
+            74
+          ],
+          [
+            187,
+            173,
+            72
+          ],
+          [
+            187,
+            174,
+            70
+          ],
+          [
+            187,
+            174,
+            71
+          ],
+          [
+            187,
+            174,
+            72
+          ],
+          [
+            187,
+            181,
+            71
+          ],
+          [
+            187,
+            181,
+            72
+          ],
+          [
+            187,
+            182,
+            71
+          ],
+          [
+            187,
+            182,
+            72
+          ],
+          [
+            188,
+            174,
+            70
+          ],
+          [
+            188,
+            174,
+            71
+          ],
+          [
+            188,
+            174,
+            72
+          ],
+          [
+            188,
+            181,
+            71
+          ],
+          [
+            188,
+            181,
+            72
+          ],
+          [
+            188,
+            182,
+            71
+          ],
+          [
+            188,
+            182,
+            72
+          ],
+          [
+            189,
+            172,
+            75
+          ],
+          [
+            189,
+            172,
+            76
+          ],
+          [
+            189,
+            174,
+            74
+          ],
+          [
+            189,
+            175,
+            70
+          ],
+          [
+            189,
+            176,
+            70
+          ],
+          [
+            190,
+            176,
+            70
+          ],
+          [
+            193,
+            176,
+            74
+          ],
+          [
+            195,
+            177,
+            75
+          ],
+          [
+            196,
+            177,
+            75
+          ],
+          [
+            196,
+            177,
+            76
+          ],
+          [
+            197,
+            177,
+            75
+          ],
+          [
+            198,
+            177,
+            75
+          ],
+          [
+            201,
+            176,
+            70
+          ],
+          [
+            202,
+            175,
+            70
+          ],
+          [
+            202,
+            176,
+            70
+          ],
+          [
+            203,
+            181,
+            71
+          ],
+          [
+            203,
+            181,
+            72
+          ],
+          [
+            203,
+            182,
+            71
+          ],
+          [
+            203,
+            182,
+            72
+          ],
+          [
+            204,
+            174,
+            72
+          ],
+          [
+            204,
+            181,
+            71
+          ],
+          [
+            204,
+            181,
+            72
+          ],
+          [
+            204,
+            182,
+            71
+          ],
+          [
+            204,
+            182,
+            72
+          ],
+          [
+            205,
+            171,
+            74
+          ],
+          [
+            205,
+            172,
+            73
+          ],
+          [
+            205,
+            172,
+            74
+          ],
+          [
+            205,
+            174,
+            70
+          ],
+          [
+            205,
+            174,
+            71
+          ],
+          [
+            205,
+            174,
+            72
+          ],
+          [
+            206,
+            170,
+            74
+          ],
+          [
+            206,
+            171,
+            73
+          ],
+          [
+            206,
+            171,
+            74
+          ],
+          [
+            206,
+            172,
+            73
+          ],
+          [
+            206,
+            172,
+            74
+          ],
+          [
+            206,
+            173,
+            70
+          ],
+          [
+            206,
+            173,
+            71
+          ],
+          [
+            206,
+            173,
+            72
+          ],
+          [
+            206,
+            174,
+            70
+          ],
+          [
+            206,
+            174,
+            71
+          ],
+          [
+            206,
+            174,
+            72
+          ],
+          [
+            207,
+            171,
+            72
+          ],
+          [
+            207,
+            172,
+            71
+          ],
+          [
+            207,
+            172,
+            72
+          ],
+          [
+            208,
+            171,
+            72
+          ],
+          [
+            208,
+            172,
+            71
+          ],
+          [
+            208,
+            172,
+            72
+          ],
+          [
+            209,
+            172,
+            71
+          ],
+          [
+            209,
+            172,
+            72
+          ],
+          [
+            209,
+            173,
+            70
+          ],
+          [
+            209,
+            174,
+            70
+          ],
+          [
+            210,
+            174,
+            70
+          ],
+          [
+            211,
+            175,
+            70
+          ]
+        ],
+        "crop": {
+          "min": [
+            178,
+            155,
+            55
+          ],
+          "max": [
+            214,
+            200,
+            100
+          ]
+        },
+        "figures": [
+          {
+            "path": "x-00.png",
+            "sha256": "89199ca17498698324a7e43555622ff06aa9a5835f15acdddbebe02b9b9c2a1f",
+            "axis": "x",
+            "indices": [
+              180,
+              181,
+              182
+            ]
+          },
+          {
+            "path": "x-01.png",
+            "sha256": "8f06f214460935dfe9f651b0774729a8d78e294af9b82e85e0cac652bb304466",
+            "axis": "x",
+            "indices": [
+              183,
+              184,
+              185
+            ]
+          },
+          {
+            "path": "x-02.png",
+            "sha256": "dbf72391643f2664462edd4a0212a71a0b63a2eaaad1008e2a440abc0170617d",
+            "axis": "x",
+            "indices": [
+              186,
+              187,
+              188
+            ]
+          },
+          {
+            "path": "x-03.png",
+            "sha256": "4f69aa7ec2082c4aa8ffc25f5af2564574f9875e513fd87154d8b5acfc121833",
+            "axis": "x",
+            "indices": [
+              189,
+              190,
+              191
+            ]
+          },
+          {
+            "path": "x-04.png",
+            "sha256": "8290549c903fb97ef82e15925e0ede0a737038fcf226f1c7901753fb2d833ac1",
+            "axis": "x",
+            "indices": [
+              192,
+              193,
+              194
+            ]
+          },
+          {
+            "path": "x-05.png",
+            "sha256": "def147217053d406b579454ea070168af2d7be71871b324ae8331d1ab01b976c",
+            "axis": "x",
+            "indices": [
+              195,
+              196,
+              197
+            ]
+          },
+          {
+            "path": "x-06.png",
+            "sha256": "473a127858b6558d65c79f53746b613f5b85ee1f112678e6b855a2b1b87dfb99",
+            "axis": "x",
+            "indices": [
+              198,
+              199,
+              200
+            ]
+          },
+          {
+            "path": "x-07.png",
+            "sha256": "78de51a9f7d98ec1c7e2f8117d74b22ccb92776d7322909de369b6eb0cfe7530",
+            "axis": "x",
+            "indices": [
+              201,
+              202,
+              203
+            ]
+          },
+          {
+            "path": "x-08.png",
+            "sha256": "08ada149ad29aa0093cce0c8d519e3a29f2acc3a31bc2c27fd16dd5f6cd55874",
+            "axis": "x",
+            "indices": [
+              204,
+              205,
+              206
+            ]
+          },
+          {
+            "path": "x-09.png",
+            "sha256": "4810f50897c0d883db9912066161fcd95554593ecb70b97d3674dd02928bb7ed",
+            "axis": "x",
+            "indices": [
+              207,
+              208,
+              209
+            ]
+          },
+          {
+            "path": "x-10.png",
+            "sha256": "afa6ac1fb2a2eb3f3b530b8bbc5b8454c094941fc7c6cab71de4bd45bf57d61d",
+            "axis": "x",
+            "indices": [
+              210,
+              211,
+              212
+            ]
+          },
+          {
+            "path": "y-00.png",
+            "sha256": "37e9ee9c3dab96b885d8009f37debdd0e307948a2bb208c7d43ee3307dd23bd2",
+            "axis": "y",
+            "indices": [
+              169,
+              170,
+              171
+            ]
+          },
+          {
+            "path": "y-01.png",
+            "sha256": "201eefb6bd4ad5f723ae105ac9c0893e42a5f50075730f348d5bff4d9775fcde",
+            "axis": "y",
+            "indices": [
+              172,
+              173,
+              174
+            ]
+          },
+          {
+            "path": "y-02.png",
+            "sha256": "cbc7716d241b623634f1e889d0ebcd53b2804df7da9dad248c64c52966658704",
+            "axis": "y",
+            "indices": [
+              175,
+              176,
+              177
+            ]
+          },
+          {
+            "path": "y-03.png",
+            "sha256": "39b7fb3a45a99490372840a3c65440565dcd243404f052e4f38ffb58c8ec8d93",
+            "axis": "y",
+            "indices": [
+              178,
+              179,
+              180
+            ]
+          },
+          {
+            "path": "y-04.png",
+            "sha256": "1ec7c9ca6f38ae240e58ab7029b3756ba8d7708c73b194abdcb53244fafd72e0",
+            "axis": "y",
+            "indices": [
+              181,
+              182,
+              183
+            ]
+          },
+          {
+            "path": "z-00.png",
+            "sha256": "c466ef628ca018f9405baf0355ae1bbfa7d6d3a6ad85e8d3fcfd03f43ede4f55",
+            "axis": "z",
+            "indices": [
+              69,
+              70,
+              71
+            ]
+          },
+          {
+            "path": "z-01.png",
+            "sha256": "68b2979ccd1664c0927d6a1dbac943672973c778d20dbcde9102e0d2756da70b",
+            "axis": "z",
+            "indices": [
+              72,
+              73,
+              74
+            ]
+          },
+          {
+            "path": "z-02.png",
+            "sha256": "dadaa626fd30a002ee4a0b45b38b0d26d19dd5165b5b8f115ff3723555650a56",
+            "axis": "z",
+            "indices": [
+              75,
+              76,
+              77
+            ]
+          }
+        ],
+        "adopted": false,
+        "mutation": false
+      }
+    },
+    {
+      "path": "work/anatomy-review/fourth-ventricle-wall-extended-native-v1/report.json",
+      "sha256": "673a5ec1d6c75987e0f2654c9e7503afcc1237500ad56988dfd6955ecacea836",
+      "report": {
+        "inputSha256": "9bc51ab0b0f6932871a93a0d225491ed0649ef827012a7db41d3f3e049b166a8",
+        "source300Sha256": "ebf0e88def96476d0a32ddaff6f28e37d7afd125dec724e6d8855b12357c7e86",
+        "cropExclusive": {
+          "low": [
+            283,
+            233,
+            58
+          ],
+          "high": [
+            372,
+            360,
+            202
+          ]
+        },
+        "history": "Thu Feb 14 22:02:27 2019>>> minccalc -expr A[0]>0.5?65535:A[1] BigBrain-pinealgland-mask-100um.mnc full16_100um_2009b_sym.mnc full16_100um_2009b_sym-fix.mnc -short\nThu Jun 27 13:54:35 2019>>> mincresample ../../../full16_100um_2009b_sym-fix.mnc -like ../../../full16_300um_2009b_sym-fix.mnc -transform tranformation/BigBrain-to-ICBM2009sym-nonlin.xfm MRI/MINC/BigBrain-to-ICBM2009sym-nonlin-300um-tmp.mnc -short\nThu Jun 27 14:24:54 2019>>> mincreshape -image_range 0 65535 -valid_range 0 65535 BigBrain-to-ICBM2009sym-nonlin-300um-tmp.mnc BigBrain-to-ICBM2009sym-nonlin-300um.mnc\n",
+        "figures": [
+          {
+            "path": "x-182.png",
+            "sha256": "49fa9d96cd3cc6a543652a099dcdbeef033c060595d403e786f3fa67cf7aff64",
+            "axis": "x",
+            "nativeIndices": [
+              303,
+              304,
+              305
+            ]
+          },
+          {
+            "path": "x-196.png",
+            "sha256": "1f88ac7f8310cdf26c7a3c053d61add162cda178cd8a1ea4d1461d2f61e29c45",
+            "axis": "x",
+            "nativeIndices": [
+              326,
+              327,
+              328
+            ]
+          },
+          {
+            "path": "x-208.png",
+            "sha256": "d460f26eb64077809d440fa0f9aa297eb080729dbf98be2875fa5d2f4d318650",
+            "axis": "x",
+            "nativeIndices": [
+              346,
+              347,
+              348
+            ]
+          },
+          {
+            "path": "y-170.png",
+            "sha256": "b2acd8eeee22e66d983c69b5bfbe58a7cb848db1e417d7fbaa132f9ef68a1304",
+            "axis": "y",
+            "nativeIndices": [
+              283,
+              284,
+              285
+            ]
+          },
+          {
+            "path": "y-177.png",
+            "sha256": "a827b1566d45840d4e480db544b800c8f7ddf60c6fe040af839436f22229d7c8",
+            "axis": "y",
+            "nativeIndices": [
+              294,
+              295,
+              296
+            ]
+          },
+          {
+            "path": "y-182.png",
+            "sha256": "6eb495a1519cd70db4b9d1a7dd6d675fd5d1b6759448737e3823cd334e3834ae",
+            "axis": "y",
+            "nativeIndices": [
+              303,
+              304,
+              305
+            ]
+          },
+          {
+            "path": "z-70.png",
+            "sha256": "41b15d60968a264aecd7572baaac4c73717769dac81bf3abb610d38e3b24c8d5",
+            "axis": "z",
+            "nativeIndices": [
+              116,
+              117,
+              118
+            ]
+          },
+          {
+            "path": "z-75.png",
+            "sha256": "d1a817eb72bdfa0a5f1d9b2ca44b4eafa3d4a87013f3fd86a3a9ee3f2967799e",
+            "axis": "z",
+            "nativeIndices": [
+              124,
+              125,
+              126
+            ]
+          }
+        ],
+        "mutation": false,
+        "generatedPlanes": 24,
+        "wallSeries": false,
+        "candidateSha256": "7151723811e2d39e7b6b2ccb2c053c5edbfa814aa5956574a2bdcdb4b4a71e9f",
+        "visualReviewPending": true,
+        "limitation": "Registered/resampled 300um source, not native20um or an expert boundary. Initial inferior-context sampling only."
+      }
+    },
+    {
+      "path": "work/anatomy-review/fourth-ventricle-paired-holes-native-v1/report.json",
+      "sha256": "e313275c32c92f1e52f79167063b5904c0ad408a4a680305dc2a4780c2352a5f",
+      "report": {
+        "inputSha256": "9bc51ab0b0f6932871a93a0d225491ed0649ef827012a7db41d3f3e049b166a8",
+        "source300Sha256": "ebf0e88def96476d0a32ddaff6f28e37d7afd125dec724e6d8855b12357c7e86",
+        "cropExclusive": {
+          "low": [
+            283,
+            233,
+            58
+          ],
+          "high": [
+            372,
+            360,
+            202
+          ]
+        },
+        "history": "Thu Feb 14 22:02:27 2019>>> minccalc -expr A[0]>0.5?65535:A[1] BigBrain-pinealgland-mask-100um.mnc full16_100um_2009b_sym.mnc full16_100um_2009b_sym-fix.mnc -short\nThu Jun 27 13:54:35 2019>>> mincresample ../../../full16_100um_2009b_sym-fix.mnc -like ../../../full16_300um_2009b_sym-fix.mnc -transform tranformation/BigBrain-to-ICBM2009sym-nonlin.xfm MRI/MINC/BigBrain-to-ICBM2009sym-nonlin-300um-tmp.mnc -short\nThu Jun 27 14:24:54 2019>>> mincreshape -image_range 0 65535 -valid_range 0 65535 BigBrain-to-ICBM2009sym-nonlin-300um-tmp.mnc BigBrain-to-ICBM2009sym-nonlin-300um.mnc\n",
+        "figures": [
+          {
+            "path": "x-188.png",
+            "sha256": "fe3c114dbd8c5d7e7edf76ffa9246d05230006dfef729e6d29e2b03c5646183a",
+            "axis": "x",
+            "nativeIndices": [
+              313,
+              314,
+              315
+            ]
+          },
+          {
+            "path": "x-204.png",
+            "sha256": "7a790b3b39ede44344f376927d23c4b3b230aab4a646026952cc6ba641e26cd5",
+            "axis": "x",
+            "nativeIndices": [
+              339,
+              340,
+              341
+            ]
+          },
+          {
+            "path": "y-182.png",
+            "sha256": "6eb495a1519cd70db4b9d1a7dd6d675fd5d1b6759448737e3823cd334e3834ae",
+            "axis": "y",
+            "nativeIndices": [
+              303,
+              304,
+              305
+            ]
+          },
+          {
+            "path": "y-184.png",
+            "sha256": "8729bb5fbececd9ed5e1f1e02d22c670eab67d283c4b9839813f60c661b78601",
+            "axis": "y",
+            "nativeIndices": [
+              306,
+              307,
+              308
+            ]
+          },
+          {
+            "path": "z-71.png",
+            "sha256": "b43a7f4af13f58fa20b872ded23fcdf384bc6b31de8903a6d2db50294ccf4604",
+            "axis": "z",
+            "nativeIndices": [
+              118,
+              119,
+              120
+            ]
+          },
+          {
+            "path": "z-73.png",
+            "sha256": "f7df942cd9bfce60984fd7272bd9a4bbb31b3331336c307959c81c762f5e9c0c",
+            "axis": "z",
+            "nativeIndices": [
+              121,
+              122,
+              123
+            ]
+          }
+        ],
+        "mutation": false,
+        "generatedPlanes": 18,
+        "wallSeries": false,
+        "candidateSha256": "7151723811e2d39e7b6b2ccb2c053c5edbfa814aa5956574a2bdcdb4b4a71e9f",
+        "visualReviewPending": true,
+        "limitation": "Registered/resampled 300um source, not native20um or an expert boundary. Initial inferior-context sampling only."
+      }
+    }
+  ],
+  "status": "AI-image-reviewed-project-adopted-development-only",
+  "imageReviewed": true,
+  "expertReviewed": false,
+  "installed": true,
+  "published": false,
+  "rationale": "Two localized anterior cavity omissions correspond to bright cavity in registered300 orthogonal and adjacent images; preserve other labels and cerebellar-facing margins.",
+  "limitations": [
+    "Not a complete cavity repair. Adjacent anterior contour deficits extend beyond these 16 points.",
+    "A hole in one plane is not evidence of a sealed 3D cavity.",
+    "Development assets integrated; downstream tests/build/browser verification recorded separately. Not published."
+  ],
+  "adopted": true,
+  "projectAdopted": true,
+  "meshImpact": {
+    "inputSha256": "9bc51ab0b0f6932871a93a0d225491ed0649ef827012a7db41d3f3e049b166a8",
+    "outputSha256": "d4295e7cc00edd3639b631473445d5db1bb25f9fbe18c5c7f21ff8b8471d7152",
+    "blockMaskImpact": [
+      {
+        "block": "lateral-ventricle",
+        "part": "tissue",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "ventricular-cavity",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "caudate",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "thalamus",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "hippocampus",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "tissue",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "thalami",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "third-ventricle",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "hypothalamus",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "subthalamic-nuclei",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "mammillary-bodies",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "radiations",
+        "part": "tissue",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "radiations",
+        "part": "putamen",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "radiations",
+        "part": "pallidum-external",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "radiations",
+        "part": "pallidum-internal",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "radiations",
+        "part": "internal-capsule",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "radiations",
+        "part": "corona-radiata",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "radiations",
+        "part": "optic-radiation",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "radiations",
+        "part": "auditory-radiation",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "tissue",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "corpus-callosum",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "lateral-ventricles",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "fornix",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "septum-pellucidum",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "tissue",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "ventricular-cavity",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "choroid-plexus",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "hippocampus",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "tissue",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "hippocampus",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "amygdala",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "inferior-horn",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "tissue",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "red-nuclei",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "substantia-nigra",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "aqueduct",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "cerebral-peduncles",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "superior-colliculi",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "inferior-colliculi",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "lateral-geniculate-bodies",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "medial-geniculate-bodies",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "interpeduncular-fossa",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "pons-medulla",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "cerebellum",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "midbrain",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "fourth-ventricle",
+        "changedMaskVoxels": 2,
+        "file": "block-hindbrain-fourth-ventricle.mesh",
+        "beforeSha256": "1cfc2dade80d86c041f0696af721b3068c7121bfbcc77bee70c59ce717df5613",
+        "afterSha256": "e821185cbf03824d477627d35db14bfd3cdadb33a5437edf6285e13ce1910291",
+        "reproducedBeforeSha256": "1cfc2dade80d86c041f0696af721b3068c7121bfbcc77bee70c59ce717df5613",
+        "beforeMatches": true,
+        "vertices": 1220,
+        "faces": 2436
+      },
+      {
+        "block": "hindbrain",
+        "part": "superior-cerebellar-peduncles",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "middle-cerebellar-peduncles",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "inferior-cerebellar-peduncles",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "facial-colliculi",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "vestibular-areas",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "hypoglossal-trigones",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "vagal-trigones",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "pyramids",
+        "changedMaskVoxels": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "olives",
+        "changedMaskVoxels": 0
+      }
+    ],
+    "installed": false,
+    "anatomyValidatedByMaskComparison": false,
+    "installationBlocked": false
+  }
+}

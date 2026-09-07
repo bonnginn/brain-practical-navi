@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Build a browser volume from a coordinate-matched BigBrain image/label pair.
+"""Reproduce the historical BigBrain image/manual-label browser artifacts.
 
-This intentionally refuses to resample labels by affine alone.  The Xiao et al.
-manual labels distributed with the PD25 package are in ICBM2009 symmetric
-space, so they must be paired with the BigBrain image from the very same grid.
+The distributed pair shares a grid but not a nonlinear registration history.
+See MANUAL_LABEL_SPACE_REVIEW.md. This legacy CLI is now restricted to explicit
+research reproduction in work/, not production regeneration. Geometry checks
+below are necessary bookkeeping, not proof of anatomical spatial alignment.
 """
 
 from __future__ import annotations
@@ -20,7 +21,6 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "work/pydeps"))
 
-import nibabel as nib
 import numpy as np
 
 
@@ -39,6 +39,8 @@ def extract_zip_entry(path: Path) -> bytes:
 
 
 def load_entry(path: Path) -> tuple[nib.Nifti1Image, str]:
+    import nibabel as nib
+
     raw = extract_zip_entry(path)
     return nib.Nifti1Image.from_bytes(raw), hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -58,6 +60,17 @@ def write_browser_volume(path: Path, magic: bytes, array: np.ndarray) -> None:
     payload = magic + struct.pack("<3H", *array.shape) + array.tobytes(order="F")
     with gzip.open(path, "wb", compresslevel=9) as stream:
         stream.write(payload)
+
+
+def require_legacy_reproduction(output_dir: Path, acknowledged: bool) -> Path:
+    """Stop accidental reuse of the known unregistered pair before any I/O."""
+    output = output_dir.resolve()
+    work = (ROOT / 'work').resolve()
+    if not acknowledged:
+        raise ValueError('Known nonlinear image/manual space mismatch: production generation is disabled. See MANUAL_LABEL_SPACE_REVIEW.md. Historical research reproduction requires --legacy-grid-reproduction and a new work/ subdirectory.')
+    if output == work or not output.is_relative_to(work) or output.exists():
+        raise ValueError('Legacy reproduction requires a new subdirectory inside work/; never public/ or existing artifacts')
+    return output
 
 
 def validate_pair(
@@ -97,6 +110,8 @@ def validate_pair(
             raise ValueError(f"left/right centroid check failed for labels {left_id}/{right_id}")
 
     return {
+        "spatialRegistrationStatus": "legacy-grid-only; known nonlinear image/manual history mismatch",
+        "spatialAlignmentValidated": False,
         "shape": list(image_nii.shape),
         "voxelSizeMm": list(map(float, image_nii.header.get_zooms()[:3])),
         "affine": image_nii.affine.tolist(),
@@ -113,7 +128,9 @@ def main() -> None:
     parser.add_argument("image_entry", type=Path, help="ZIP entry for BigBrain-to-ICBM2009sym-nonlin-500um.nii")
     parser.add_argument("label_entry", type=Path, help="ZIP entry for BigBrain-SubCorSeg-500um.nii")
     parser.add_argument("--output-dir", type=Path, required=True)
+    parser.add_argument("--legacy-grid-reproduction", action="store_true", help="Acknowledge known space mismatch; output only to a new work/ subdirectory")
     args = parser.parse_args()
+    args.output_dir = require_legacy_reproduction(args.output_dir, args.legacy_grid_reproduction)
 
     image_nii, image_sha = load_entry(args.image_entry)
     labels_nii, labels_sha = load_entry(args.label_entry)
@@ -131,7 +148,7 @@ def main() -> None:
             "sourceImageEntrySha256": image_sha,
             "sourceLabelEntrySha256": labels_sha,
             "intensityWindow": list(window),
-            "coordinatePolicy": "exact shared ICBM2009 symmetric grid; no affine-only label transfer",
+            "coordinatePolicy": "historical reproduction only: shared grid does not establish shared nonlinear space; manual labels remain untransformed",
         }
     )
 

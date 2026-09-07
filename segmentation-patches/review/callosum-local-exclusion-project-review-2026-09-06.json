@@ -1,0 +1,2011 @@
+{
+  "format": "brain-practical-segmentation-patch",
+  "version": 1,
+  "sourceImage": "/atlas/bigbrain-icbm500.bin.gz",
+  "sourceLabels": "/atlas/bigbrain-practical-segmentation-icbm500.bin.gz",
+  "sourceLabelsSha256": "930eaaed7eed8782b1b162f3aa5c59c2428f4062d0d2da3a9a1cb563f49b7db7",
+  "dims": [
+    394,
+    466,
+    378
+  ],
+  "voxelSizeMm": [
+    0.5,
+    0.5,
+    0.5
+  ],
+  "primaryPlane": "horizontal",
+  "authorGitHub": "",
+  "targetSide": "right",
+  "confidence": "medium",
+  "authorNote": "AI-assisted project adoption under maintainer-directed autonomous repair. Original image plus adjacent/orthogonal review of three gaps (291 voxels) and a specific cortical-spillover component (1314 voxels). Not human per-voxel approval or expert review.",
+  "evidence": "CALLOSUM_LOCAL_REPAIR.md; CALLOSUM_EMPTY_SPACE_REVIEW.md; OFFICIAL_TISSUE_ALIGNMENT_REVIEW.md. Three gaps: all 97 occupied/adjacent X/Y/Z planes. Component85: all 99 occupied/adjacent X/Y/Z planes. Full callosal X175-216 reviewed separately. Published tissue classification with validated inverse displacement is supplementary evidence, not regional ground truth. Preserve every other voxel; 0 means unlabelled, not absence of tissue. Broader cingulum/fornix contamination remains unresolved.",
+  "workflowMetadataVersion": 1,
+  "reviewStatus": "approved",
+  "review": {
+    "decision": "approved",
+    "reviewer": {
+      "kind": "project-role",
+      "id": "ai-assisted-project-review-under-maintainer-direction"
+    },
+    "decidedAt": "2026-09-06",
+    "reason": "原画像と全占有／隣接三方向断面をAIが目視し、脳梁本体ではない組織間隙291 voxelと周辺皮質へのはみ出し1,314 voxelだけを開発版で30→0とする。ユーザーの自律修復指示に基づくプロジェクト採用であり、ユーザーによる個々の境界の目視承認や専門家レビューではない。脳梁全境界の完成を意味せず、隣接帯状束・脳弓・残りのはみ出しは別途保留。公開・main統合は行わない。",
+    "pullRequest": {
+      "number": 27,
+      "mergeCommit": null
+    }
+  },
+  "editCount": 1605,
+  "runs": [
+    {
+      "start": 32443752,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 32444143,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 32444538,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 32444925,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 32444932,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 32626566,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 32626959,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 32627352,
+      "length": 5,
+      "label": 0
+    },
+    {
+      "start": 32627746,
+      "length": 5,
+      "label": 0
+    },
+    {
+      "start": 32628135,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 32628138,
+      "length": 7,
+      "label": 0
+    },
+    {
+      "start": 32628529,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 32628533,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 32628927,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 32629321,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 32629323,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 32629717,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 32808988,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 32809382,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 32809774,
+      "length": 5,
+      "label": 0
+    },
+    {
+      "start": 32810167,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 32810561,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 32810563,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 32810955,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 32811345,
+      "length": 10,
+      "label": 0
+    },
+    {
+      "start": 32811739,
+      "length": 10,
+      "label": 0
+    },
+    {
+      "start": 32812133,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 32812137,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 32812527,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 32812531,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 32812923,
+      "length": 8,
+      "label": 0
+    },
+    {
+      "start": 32813317,
+      "length": 8,
+      "label": 0
+    },
+    {
+      "start": 32992200,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 32992592,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 32992985,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 32993376,
+      "length": 7,
+      "label": 0
+    },
+    {
+      "start": 32993770,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 32993775,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 32994161,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 32994163,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 32994555,
+      "length": 8,
+      "label": 0
+    },
+    {
+      "start": 32994564,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 32994949,
+      "length": 8,
+      "label": 0
+    },
+    {
+      "start": 32994958,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 32995343,
+      "length": 10,
+      "label": 0
+    },
+    {
+      "start": 32995739,
+      "length": 8,
+      "label": 0
+    },
+    {
+      "start": 32996133,
+      "length": 8,
+      "label": 0
+    },
+    {
+      "start": 33175409,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 33175802,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 33176194,
+      "length": 5,
+      "label": 0
+    },
+    {
+      "start": 33176585,
+      "length": 8,
+      "label": 0
+    },
+    {
+      "start": 33176977,
+      "length": 10,
+      "label": 0
+    },
+    {
+      "start": 33177371,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 33177380,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 33177765,
+      "length": 5,
+      "label": 0
+    },
+    {
+      "start": 33177774,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 33178159,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 33178168,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 33178553,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 33178558,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 33178562,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 33178947,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 33178953,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 33178956,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 33179343,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 33179347,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 33179737,
+      "length": 5,
+      "label": 0
+    },
+    {
+      "start": 33359012,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 33359404,
+      "length": 5,
+      "label": 0
+    },
+    {
+      "start": 33359794,
+      "length": 7,
+      "label": 0
+    },
+    {
+      "start": 33359802,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 33360187,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 33360196,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 33360581,
+      "length": 5,
+      "label": 0
+    },
+    {
+      "start": 33360590,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 33360975,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 33360983,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 33361369,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 33361378,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 33361769,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 33362163,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 33362558,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 33542222,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 33542615,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 33543006,
+      "length": 7,
+      "label": 0
+    },
+    {
+      "start": 33543397,
+      "length": 7,
+      "label": 0
+    },
+    {
+      "start": 33543405,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 33543791,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 33543799,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 33544185,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 33544194,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 33544588,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 33544982,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 33545371,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 33545374,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 33545763,
+      "length": 8,
+      "label": 0
+    },
+    {
+      "start": 33546157,
+      "length": 8,
+      "label": 0
+    },
+    {
+      "start": 33725432,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 33725824,
+      "length": 5,
+      "label": 0
+    },
+    {
+      "start": 33726217,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 33726607,
+      "length": 5,
+      "label": 0
+    },
+    {
+      "start": 33727001,
+      "length": 9,
+      "label": 0
+    },
+    {
+      "start": 33727397,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 33727402,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 33727789,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 33727798,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 33728183,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 33728192,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 33728579,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 33728586,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 33728973,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 33728978,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 33729369,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 33729763,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 33908643,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 33909035,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 33909425,
+      "length": 8,
+      "label": 0
+    },
+    {
+      "start": 33909817,
+      "length": 5,
+      "label": 0
+    },
+    {
+      "start": 33909824,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 33910211,
+      "length": 9,
+      "label": 0
+    },
+    {
+      "start": 33910605,
+      "length": 9,
+      "label": 0
+    },
+    {
+      "start": 33910999,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 33911008,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 33911402,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 33911796,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 33912183,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 33912187,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 33912577,
+      "length": 8,
+      "label": 0
+    },
+    {
+      "start": 33912973,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 33913367,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 34092244,
+      "length": 5,
+      "label": 0
+    },
+    {
+      "start": 34092635,
+      "length": 8,
+      "label": 0
+    },
+    {
+      "start": 34093027,
+      "length": 7,
+      "label": 0
+    },
+    {
+      "start": 34093421,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 34093425,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 34093430,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 34093815,
+      "length": 5,
+      "label": 0
+    },
+    {
+      "start": 34093823,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 34094209,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 34275064,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 34275456,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 34275847,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 34276237,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 34276245,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 34276631,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 34276635,
+      "length": 5,
+      "label": 0
+    },
+    {
+      "start": 34277025,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 34277034,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 34277419,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 34277423,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 34277814,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 34458666,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 34459058,
+      "length": 5,
+      "label": 0
+    },
+    {
+      "start": 34459448,
+      "length": 5,
+      "label": 0
+    },
+    {
+      "start": 34459841,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 34459845,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 34460235,
+      "length": 10,
+      "label": 0
+    },
+    {
+      "start": 34460629,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 34460636,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 34461025,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 34461031,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 34461419,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 34461426,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 34461820,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 34641484,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 34641876,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 34642266,
+      "length": 7,
+      "label": 0
+    },
+    {
+      "start": 34642660,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 34643052,
+      "length": 9,
+      "label": 0
+    },
+    {
+      "start": 34643445,
+      "length": 5,
+      "label": 0
+    },
+    {
+      "start": 34643839,
+      "length": 5,
+      "label": 0
+    },
+    {
+      "start": 34643845,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 34644233,
+      "length": 5,
+      "label": 0
+    },
+    {
+      "start": 34644239,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 34644627,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 34644629,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 34645023,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 34645417,
+      "length": 7,
+      "label": 0
+    },
+    {
+      "start": 34824694,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 34825085,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 34825478,
+      "length": 5,
+      "label": 0
+    },
+    {
+      "start": 34825869,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 34826662,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 34826664,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 34827051,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 34827058,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 34827443,
+      "length": 7,
+      "label": 0
+    },
+    {
+      "start": 34827451,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 34827839,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 34828233,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 35007903,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 35008294,
+      "length": 5,
+      "label": 0
+    },
+    {
+      "start": 35008684,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 35008687,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 35009077,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 35009080,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 35009871,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 35010260,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 35010653,
+      "length": 9,
+      "label": 0
+    },
+    {
+      "start": 35011047,
+      "length": 10,
+      "label": 0
+    },
+    {
+      "start": 35011443,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 35011837,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 35011840,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 35191114,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 35191497,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 35191503,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 35191893,
+      "length": 10,
+      "label": 0
+    },
+    {
+      "start": 35192287,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 35192681,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 35193078,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 35193083,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 35193469,
+      "length": 7,
+      "label": 0
+    },
+    {
+      "start": 35193863,
+      "length": 8,
+      "label": 0
+    },
+    {
+      "start": 35374707,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 35374716,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 35375101,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 35375106,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 35375111,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 35375497,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 35375506,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 35375891,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 35375894,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 35375899,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 35376288,
+      "length": 7,
+      "label": 0
+    },
+    {
+      "start": 35376680,
+      "length": 9,
+      "label": 0
+    },
+    {
+      "start": 35377073,
+      "length": 10,
+      "label": 0
+    },
+    {
+      "start": 35377467,
+      "length": 10,
+      "label": 0
+    },
+    {
+      "start": 35558313,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 35558321,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 35558707,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 35558712,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 35559103,
+      "length": 5,
+      "label": 0
+    },
+    {
+      "start": 35559110,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 35559495,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 35559501,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 35559892,
+      "length": 7,
+      "label": 0
+    },
+    {
+      "start": 35560285,
+      "length": 8,
+      "label": 0
+    },
+    {
+      "start": 35741521,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 35741917,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 35741921,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 35742313,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 35742320,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 35742705,
+      "length": 10,
+      "label": 0
+    },
+    {
+      "start": 35743099,
+      "length": 10,
+      "label": 0
+    },
+    {
+      "start": 35743495,
+      "length": 8,
+      "label": 0
+    },
+    {
+      "start": 35743889,
+      "length": 8,
+      "label": 0
+    },
+    {
+      "start": 35925130,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 35925136,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 35925521,
+      "length": 10,
+      "label": 0
+    },
+    {
+      "start": 35925915,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 35925919,
+      "length": 5,
+      "label": 0
+    },
+    {
+      "start": 35926311,
+      "length": 7,
+      "label": 0
+    },
+    {
+      "start": 35926705,
+      "length": 8,
+      "label": 0
+    },
+    {
+      "start": 35927101,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 35927495,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 36107159,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 36107163,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 36107554,
+      "length": 5,
+      "label": 0
+    },
+    {
+      "start": 36107947,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 36108338,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 36108346,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 36108731,
+      "length": 10,
+      "label": 0
+    },
+    {
+      "start": 36109125,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 36109129,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 36109519,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 36109523,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 36109915,
+      "length": 7,
+      "label": 0
+    },
+    {
+      "start": 36110309,
+      "length": 7,
+      "label": 0
+    },
+    {
+      "start": 36110705,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 36289586,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 36289978,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 36290369,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 36290761,
+      "length": 8,
+      "label": 0
+    },
+    {
+      "start": 36291153,
+      "length": 10,
+      "label": 0
+    },
+    {
+      "start": 36291547,
+      "length": 8,
+      "label": 0
+    },
+    {
+      "start": 36291941,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 36291944,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 36291947,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 36291950,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 36292336,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 36292341,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 36292733,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 36292737,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 36293127,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 36472402,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 36472795,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 36473187,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 36473578,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 36473970,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 36474362,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 36474368,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 36474757,
+      "length": 7,
+      "label": 0
+    },
+    {
+      "start": 36475153,
+      "length": 5,
+      "label": 0
+    },
+    {
+      "start": 36475547,
+      "length": 8,
+      "label": 0
+    },
+    {
+      "start": 36475940,
+      "length": 5,
+      "label": 0
+    },
+    {
+      "start": 36475946,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 36476337,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 36476731,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 36656398,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 36656790,
+      "length": 5,
+      "label": 0
+    },
+    {
+      "start": 36657183,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 36657575,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 36657581,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 36657968,
+      "length": 9,
+      "label": 0
+    },
+    {
+      "start": 36658363,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 36658757,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 36839215,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 36839610,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 36840000,
+      "length": 5,
+      "label": 0
+    },
+    {
+      "start": 36840392,
+      "length": 7,
+      "label": 0
+    },
+    {
+      "start": 36840785,
+      "length": 8,
+      "label": 0
+    },
+    {
+      "start": 36841178,
+      "length": 9,
+      "label": 0
+    },
+    {
+      "start": 36841571,
+      "length": 10,
+      "label": 0
+    },
+    {
+      "start": 36841967,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 36842361,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 37022032,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 37022424,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 37022815,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 37023209,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 37023603,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 37023995,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 37024389,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 37205242,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 37205632,
+      "length": 5,
+      "label": 0
+    },
+    {
+      "start": 37206024,
+      "length": 7,
+      "label": 0
+    },
+    {
+      "start": 37206418,
+      "length": 7,
+      "label": 0
+    },
+    {
+      "start": 37206811,
+      "length": 8,
+      "label": 0
+    },
+    {
+      "start": 37207204,
+      "length": 9,
+      "label": 0
+    },
+    {
+      "start": 37207599,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 37207993,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 37388057,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 37388449,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 37388843,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 37389236,
+      "length": 5,
+      "label": 0
+    },
+    {
+      "start": 37389627,
+      "length": 8,
+      "label": 0
+    },
+    {
+      "start": 37390021,
+      "length": 8,
+      "label": 0
+    },
+    {
+      "start": 37571267,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 37571661,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 37572055,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 37572449,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 37572836,
+      "length": 9,
+      "label": 0
+    },
+    {
+      "start": 37573231,
+      "length": 8,
+      "label": 0
+    },
+    {
+      "start": 37573625,
+      "length": 8,
+      "label": 0
+    },
+    {
+      "start": 37753690,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 37754082,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 37754478,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 37754870,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 37755262,
+      "length": 5,
+      "label": 0
+    },
+    {
+      "start": 37755659,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 37756446,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 37936900,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 37937292,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 37937688,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 37938080,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 37938470,
+      "length": 7,
+      "label": 0
+    },
+    {
+      "start": 37938864,
+      "length": 7,
+      "label": 0
+    },
+    {
+      "start": 38119716,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 38120110,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 38120502,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 38120890,
+      "length": 8,
+      "label": 0
+    },
+    {
+      "start": 38121283,
+      "length": 5,
+      "label": 0
+    },
+    {
+      "start": 38121289,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 38121683,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 38122073,
+      "length": 8,
+      "label": 0
+    },
+    {
+      "start": 38122469,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 38302924,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 38303318,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 38303711,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 38304100,
+      "length": 8,
+      "label": 0
+    },
+    {
+      "start": 38304493,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 38304887,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 38304892,
+      "length": 5,
+      "label": 0
+    },
+    {
+      "start": 38305283,
+      "length": 8,
+      "label": 0
+    },
+    {
+      "start": 38305677,
+      "length": 5,
+      "label": 0
+    },
+    {
+      "start": 38306073,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 38486529,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 38486922,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 38487313,
+      "length": 5,
+      "label": 0
+    },
+    {
+      "start": 38487707,
+      "length": 6,
+      "label": 0
+    },
+    {
+      "start": 38488101,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 38488106,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 38488496,
+      "length": 5,
+      "label": 0
+    },
+    {
+      "start": 38670527,
+      "length": 2,
+      "label": 0
+    },
+    {
+      "start": 38670919,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 38671311,
+      "length": 4,
+      "label": 0
+    },
+    {
+      "start": 38671316,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 38671705,
+      "length": 3,
+      "label": 0
+    },
+    {
+      "start": 38671710,
+      "length": 1,
+      "label": 0
+    },
+    {
+      "start": 38672100,
+      "length": 5,
+      "label": 0
+    }
+  ],
+  "targetStructures": [
+    {
+      "id": 30,
+      "name": "脳梁候補"
+    }
+  ],
+  "sliceRanges": [
+    {
+      "plane": "horizontal",
+      "axis": "Z",
+      "min": 176,
+      "max": 210
+    }
+  ],
+  "changeSummary": {
+    "changedVoxelCount": 1605,
+    "unchangedVoxelCount": 0,
+    "transitions": [
+      {
+        "from": 30,
+        "to": 0,
+        "voxels": 1605
+      }
+    ]
+  }
+}

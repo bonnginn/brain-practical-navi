@@ -104,7 +104,7 @@ test("audit rejects a quiz content snapshot change", () => {
 
 test("zero next-queue candidates keep a reasoned setting note without hiding the current queue", () => {
   assert.match(page, /quizCandidateCount===0&&<p className="quizCandidateEmptyNote" role="status" aria-live="polite">/);
-  assert.match(page, /現在の条件の組合せに該当する問題がありません。トピック・形式・詳細・「間違った問題のみ」・「試作問題を含む」を見直してください。/);
+  assert.match(page, /現在の条件の組合せに該当する問題がありません。トピック・形式・詳細・問題タイプ・「間違った問題のみ」・「試作問題を含む」を見直してください。/);
   assert.match(page, /:quizEmpty\?<div className="quizEmptyState"/);
   assert.match(css, /\.quizCandidateEmptyNote\{margin-top:-4px;padding:7px;font-size:11px;line-height:1\.6\}/);
 });

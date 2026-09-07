@@ -55,6 +55,7 @@ test("candidate counts and provisional gating are fixed for each pilot detail", 
   assert.equal(report.ok, true, report.errors.join("\n"));
   assert.equal(report.summary.arteryCount, PILOT_ARTERY_TARGETS.length);
   assert.equal(report.summary.nerveCount, PILOT_NERVE_TARGETS.length);
+  assert.deepEqual(report.eligibility,{scope:"visual pilot only; concept questions audited separately",heldTargets:["cn5","cn9","cn10","cn11"],heldQuestionCount:4,eligibleQuestionCount:18,eligibleNerveCount:9});
   assert.match(page, /quizIncludeProvisional,setQuizIncludeProvisional\]=useState\(true\)/);
   assert.match(page, /const visualQuizQuestions:QuizQuestion\[\]=\[\.\.\.quizQuestions,\.\.\.neurovascularQuizQuestions\]/);
   assert.match(page, /const allQuizQuestions:QuizQuestion\[\]=\[\.\.\.visualQuizQuestions,\.\.\.conceptQuizQuestions\]/);

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-08-24",
+  "updated": "2026-09-07",
   "scope": "Every file distributed under public/atlas except this manifest itself must match exactly one group pattern.",
   "groups": [
     {
@@ -27,12 +27,12 @@
     },
     {
       "id": "combined-practical-segmentation",
-      "pattern": "^bigbrain-practical-segmentation-icbm500(?:\\.bin\\.gz|-validation\\.json)$",
+      "pattern": "^(bigbrain-practical-segmentation-icbm500(?:\\.bin\\.gz|-validation\\.json)|section-current-(?:lateral-ventricles|third-ventricle|fourth-ventricle|ventricular-system)\\.mesh|section-current-ventricles\\.json)$",
       "source": "Combined exact-grid teaching labels: Xiao manual labels, CerebrA-derived provisional masks, project-authored image-guided candidates, and reviewed image-guided mammillary bodies",
       "sourceUrl": "https://github.com/bonnginn/brain-practical-navi/blob/main/DATA_AND_LICENSES.md",
       "license": "Mixed by label source; distributed with the non-commercial BigBrain teaching package",
       "licenseUrl": "https://github.com/bonnginn/brain-practical-navi/blob/main/LICENSES.md",
-      "modifications": "Merge into unused label IDs, apply approved exact-grid segmentation patches, validate and compress, and record provenance and confidence metadata.",
+      "modifications": "Merge into unused label IDs, apply approved exact-grid segmentation patches, validate and compress, and record provenance and confidence metadata. Uncropped section-current ventricular meshes reconstruct current labels at 0.5 mm without smoothing, hole filling or component removal; source and mesh hashes are recorded in section-current-ventricles.json.",
       "displayObligation": "Show manual, atlas-provisional, image-guided candidate and image-guided reviewed status separately; retain all BigBrain, Xiao, MNI and project notices; never describe the combined file as anatomical ground truth.",
       "bundledNotices": ["ATTRIBUTION.txt", "BIGBRAIN-DATA-LICENSE.txt", "BIGBRAIN-MANUAL-LICENSE.txt", "LICENSE.txt", "PROCEDURAL-NEUROVASCULAR-NOTICE.txt"]
     },

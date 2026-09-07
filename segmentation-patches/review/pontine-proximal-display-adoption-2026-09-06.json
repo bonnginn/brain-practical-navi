@@ -1,0 +1,66 @@
+{
+  "developmentOnly": true,
+  "expertReviewed": false,
+  "scope": "Remove VII/VIII rings8-15 only; retain original proximal vertices, normals and radius. Display cutoff, not anatomical endpoint or validated root exit.",
+  "retainedRings": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "removedRings": [
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "regionIds": [
+    34,
+    35,
+    36,
+    37
+  ],
+  "imageReview": "NERVE_ORIGIN_IMAGE_REVIEW.md",
+  "sourceImageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
+  "candidateBrowserReport": "work/proximal-crop-browser-v3.json",
+  "meshes": [
+    {
+      "file": "overlay-arteries-anterior.mesh",
+      "beforeSha256": "8e1d872281eb6439b5a68b513fcd2a2b8cf8ca991e4a5854c5e3f090e6c824ad",
+      "afterSha256": "8e1d872281eb6439b5a68b513fcd2a2b8cf8ca991e4a5854c5e3f090e6c824ad",
+      "changed": false
+    },
+    {
+      "file": "overlay-arteries-posterior.mesh",
+      "beforeSha256": "b4bb74af5491644ca8e8dc697a75ad2cd7d8b0bf9606f7fa202eb1f29f6aa46b",
+      "afterSha256": "b4bb74af5491644ca8e8dc697a75ad2cd7d8b0bf9606f7fa202eb1f29f6aa46b",
+      "changed": false
+    },
+    {
+      "file": "overlay-nerves-anterior.mesh",
+      "beforeSha256": "b30f480b37b596bdc0711bb3eda08bda09a0da3eee4923c8f5344097a4265df8",
+      "afterSha256": "b30f480b37b596bdc0711bb3eda08bda09a0da3eee4923c8f5344097a4265df8",
+      "changed": false
+    },
+    {
+      "file": "overlay-nerves-medullary.mesh",
+      "beforeSha256": "e4528cc306b535837d049385817c49aada20d25bf37a7a2caf7fa81d18ad157e",
+      "afterSha256": "e4528cc306b535837d049385817c49aada20d25bf37a7a2caf7fa81d18ad157e",
+      "changed": false
+    },
+    {
+      "file": "overlay-nerves-pontine.mesh",
+      "beforeSha256": "a6c912f35ad37e5a98f4f482e72df22a74f7dee22fbc1cb05e07aba050d11b1f",
+      "afterSha256": "1244f483c765ef084648a74bbad13cff78ea498d4edb9918e15812709e4fd823",
+      "changed": true
+    }
+  ]
+}

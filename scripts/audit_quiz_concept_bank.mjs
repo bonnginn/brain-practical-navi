@@ -1,6 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { isQuizAnatomyAvailable } from "../src/quizAnatomyHold.mjs";
+import { parseNeurovascularQuizInventory } from "./audit_neurovascular_quiz.mjs";
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),"..");
 export const CONCEPT_COUNT=55;
@@ -43,7 +45,17 @@ export function validateQuizConceptBank(bank,source=""){
 export function auditQuizConceptBank({rootDir=root,bank,source}={}){
   const data=bank??JSON.parse(fs.readFileSync(path.join(rootDir,"app","quiz-concept-bank.json"),"utf8"));
   const appSource=source??fs.readFileSync(path.join(rootDir,"app","page.tsx"),"utf8");
-  return validateQuizConceptBank(data,appSource);
+  const report=validateQuizConceptBank(data,appSource);
+  let visual=[];
+  try{visual=parseNeurovascularQuizInventory(appSource);}catch(error){report.errors.push(`visual inventory: ${error.message}`);}
+  const authoredConcept=Array.isArray(data?.questions)?data.questions:[];
+  const heldVisual=visual.filter(q=>!isQuizAnatomyAvailable(q));
+  const heldConcept=authoredConcept.filter(q=>q&&!isQuizAnatomyAvailable(q));
+  if(!appSource.includes("const allQuizQuestions:QuizQuestion[]=[...visualQuizQuestions,...conceptQuizQuestions].filter(isQuizAnatomyAvailable)"))report.errors.push("runtime pool must apply anatomy hold after combining question kinds");
+  if(JSON.stringify(heldVisual.map(q=>q.target))!==JSON.stringify(["cn5","cn9","cn10","cn11"])||JSON.stringify(heldConcept.map(q=>q.target))!==JSON.stringify(["cn5","cn9","cn10","cn11"]))report.errors.push("expected exactly four held visual and four held concept questions");
+  report.eligibility={authoredQuestionCount:BASE_COUNT+authoredConcept.length,heldVisualQuestionCount:heldVisual.length,heldConceptQuestionCount:heldConcept.length,eligibleQuestionCount:BASE_COUNT+authoredConcept.length-heldVisual.length-heldConcept.length};
+  report.ok=report.errors.length===0;
+  return report;
 }
 
 if(import.meta.url===pathToFileURL(process.argv[1]??"").href){const report=auditQuizConceptBank();console.log(JSON.stringify(report,null,2));process.exitCode=report.ok?0:1}

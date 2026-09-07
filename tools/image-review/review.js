@@ -1,0 +1,25 @@
+const $=id=>document.getElementById(id), canvas=$('canvas'), ctx=canvas.getContext('2d');
+let config, original, imageName='', sourceHash='', strokes=[], active=null, dirty=false, busy=false;
+const message=text=>$('status').textContent=text;
+function controls(){for(const id of ['undo','clear'])$(id).disabled=!strokes.length||busy; $('save').disabled=!original||busy||!dirty; $('download').disabled=!original||busy;for(const id of ['file','reference'])$(id).disabled=busy;}
+function draw(){if(!original)return;ctx.clearRect(0,0,canvas.width,canvas.height);ctx.drawImage(original,0,0);for(const s of [...strokes,...(active?[active]:[])]){ctx.strokeStyle=s.color;ctx.fillStyle=s.color;ctx.lineWidth=s.width;ctx.lineCap='round';ctx.lineJoin='round';ctx.beginPath();s.points.forEach(([x,y],i)=>i?ctx.lineTo(x,y):ctx.moveTo(x,y));ctx.stroke();if(s.points.length===1){ctx.beginPath();ctx.arc(...s.points[0],s.width/2,0,Math.PI*2);ctx.fill();}}}
+function point(e){const r=canvas.getBoundingClientRect();return [Math.max(0,Math.min(canvas.width,(e.clientX-r.left)*canvas.width/r.width)),Math.max(0,Math.min(canvas.height,(e.clientY-r.top)*canvas.height/r.height))];}
+canvas.addEventListener('pointerdown',e=>{if(!original||busy||active||e.button!==0)return;e.preventDefault();active={color:$('color').value,width:Number($('width').value),points:[point(e)],pointerId:e.pointerId};canvas.setPointerCapture(e.pointerId);draw();});
+canvas.addEventListener('pointermove',e=>{if(active?.pointerId!==e.pointerId)return;if(active.points.length<20000)active.points.push(point(e));draw();});
+function finish(e){if(active?.pointerId!==e.pointerId)return;const {pointerId,...stroke}=active;strokes.push(stroke);active=null;dirty=true;controls();draw();}
+canvas.addEventListener('pointerup',finish);canvas.addEventListener('pointercancel',e=>{if(active?.pointerId===e.pointerId){active=null;draw();}});
+$('undo').onclick=()=>{strokes.pop();dirty=true;controls();draw();};
+$('clear').onclick=()=>{if(confirm('描いた線をすべて消しますか？')){strokes=[];dirty=true;controls();draw();}};
+$('note').oninput=()=>{dirty=true;controls();};
+$('zoom').onchange=()=>{canvas.style.width=`${Number($('zoom').value)*100}%`;};
+function exportCanvas(){const c=document.createElement('canvas');c.width=canvas.width;c.height=canvas.height;return c;}
+function sourcePng(){const c=exportCanvas();c.getContext('2d').drawImage(original,0,0);return c.toDataURL('image/png');}
+async function load(blob,name,reference){if(blob.size>16*1024*1024)throw Error('画像は16MB以下にしてください。');const url=URL.createObjectURL(blob);const img=new Image();try{img.src=url;await img.decode();if(img.width*img.height>16000000)throw Error('画像は1600万画素以下にしてください。');const hash=await crypto.subtle.digest('SHA-256',await blob.arrayBuffer());sourceHash=[...new Uint8Array(hash)].map(n=>n.toString(16).padStart(2,'0')).join('');original=img;imageName=name;canvas.width=img.width;canvas.height=img.height;strokes=[];active=null;dirty=false;$('note').value='';$('legend').hidden=!reference;$('instruction').textContent=reference?'左が原画像、右が現在のラベルです。赤枠付近で「中脳に含める上端の目安」を線で示してください。赤枠そのものは境界案ではありません。':'画像上へ境界の目安を描いてください。この画像の色の意味は元資料で確認してください。';draw();controls();message('マウス・ペン・指で描けます。描いた後は「確認を保存」を押してください。');}finally{URL.revokeObjectURL(url);}}
+const canReplace=()=>!dirty||confirm('未保存の線・メモを破棄して画像を切り替えますか？');
+async function reference(){const r=await fetch('/reference.png');if(!r.ok)throw Error('確認図を読み込めません。別の画像を選べます。');await load(await r.blob(),config?.referenceName||'user-review-midbrain-limit.png',true);}
+$('reference').onclick=()=>{if(canReplace())reference().catch(e=>message(e.message));};
+$('file').onchange=async e=>{const f=e.target.files[0];if(!f||!canReplace())return;try{if(!['image/png','image/jpeg','image/webp'].includes(f.type))throw Error('PNG・JPEG・WebPを選んでください。');await load(f,f.name,false);}catch(err){message(err.message);}finally{e.target.value='';}};
+$('save').onclick=async()=>{if(!original||busy)return;busy=true;controls();$('note').disabled=true;try{const response=await fetch('/api/save',{method:'POST',headers:{'Content-Type':'application/json','X-Review-Token':config.token},body:JSON.stringify({schemaVersion:1,imageName,sourceHash,width:canvas.width,height:canvas.height,strokes,note:$('note').value,sourcePng:sourcePng(),annotatedPng:canvas.toDataURL('image/png')})});const result=await response.json();if(!response.ok)throw Error(result.error||'保存に失敗しました');dirty=false;message(`保存しました：${result.id}。このチャットで「保存した」とお知らせください。`);}catch(e){message(`保存できません：${e.message}。線は残っています。PNGダウンロードも利用できます。`);}finally{busy=false;$('note').disabled=false;controls();}};
+$('download').onclick=()=>{const a=document.createElement('a');a.download='boundary-review.png';a.href=canvas.toDataURL('image/png');a.click();};
+window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
+try{const r=await fetch('/config');if(!r.ok)throw Error('確認ツールへ接続できません');config=await r.json();await reference();}catch(e){message(e.message);$('instruction').textContent='別の画像を選んで確認できます。';}

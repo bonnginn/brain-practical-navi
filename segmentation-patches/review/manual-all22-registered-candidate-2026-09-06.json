@@ -1,0 +1,765 @@
+{
+  "schemaVersion": 1,
+  "adopted": false,
+  "labelMutation": false,
+  "expertReview": false,
+  "scope": "All22 research-only registered manual candidate; not a practical volume",
+  "labelsSha256": "098edfbf365016c6c53ccf7b7032258db72a4912378c457d348c01613a4a1694",
+  "imageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
+  "sourceSha256": "614fac6afa9d9c400d74419f5d6c9b09cd297ba19d3a57aa81b55f73db6e682c",
+  "sourceHistory": "Thu Jun 20 17:28:45 2019>>> nii2mnc BigBrain-SubCorSeg-0.3mm-v2.nii.gz BigBrain-SubCorSeg-0.3mm-v2.mnc\n",
+  "transformSha256": "1ca059cb2ccc682daa945cabaec0dcfc61a2e28e8f275141e31f40b995ab0c71",
+  "gridSha256": [
+    "fa7d59742c38447b2b454d1c4cb940024611628b9da563a648c8a1ea35bd4ceb",
+    "32b9611a78c6005ef8d324f42f2517b9bec6014c08ad059365b86c1586869e5d",
+    "a651912a0def70359e0fad2b8a0148d51c131c16a458241925d44858964e29f5"
+  ],
+  "sourceNonzeroCount": 2069142,
+  "sourceSpace": "BigBrain2015 ICBM old-symmetric",
+  "targetSpace": "Xiao2019 refined ICBM2009 symmetric",
+  "sampling": "Ordered published forward extent; checked composed inverse; Catmull-Rom grids; nearest source300 labels; padding4. Independent evaluator, not native MINC.",
+  "targetBox": {
+    "minimum": [
+      118,
+      180,
+      78
+    ],
+    "maximumExclusive": [
+      276,
+      325,
+      202
+    ],
+    "voxelCount": 2840840
+  },
+  "maximumComposedResidualMm": 0.0042519988741887005,
+  "candidateSha256": "62c8aaea0e5ebd38ec5f3e81360b90c0aa6e9573d4fd885cbe818c098e7fa66d",
+  "candidateRawFullGridSha256": "89f62ff6a32f84951cd0242bb573e3fc2af717d776799edff44648221e0141d0",
+  "byLabel": {
+    "1": {
+      "oldCount": 2136,
+      "candidateCount": 2887,
+      "intersection": 1997,
+      "oldVsCandidateDice": 0.7951423452120246,
+      "centroid": [
+        186.11811569102875,
+        230.17422930377555,
+        124.51749220644267
+      ],
+      "bboxMin": [
+        179,
+        220,
+        114
+      ],
+      "bboxMax": [
+        193,
+        240,
+        134
+      ],
+      "sixConnectedComponents": 1,
+      "componentSizesDescending": [
+        2887
+      ],
+      "encodedBackgroundVoxels": 0,
+      "overlapsCurrentLabels": {
+        "0": 890,
+        "1": 1997
+      }
+    },
+    "2": {
+      "oldCount": 2079,
+      "candidateCount": 2887,
+      "intersection": 1886,
+      "oldVsCandidateDice": 0.7595650422875554,
+      "centroid": [
+        206.06511950121234,
+        230.0117769310703,
+        124.49567024593003
+      ],
+      "bboxMin": [
+        199,
+        221,
+        113
+      ],
+      "bboxMax": [
+        213,
+        240,
+        134
+      ],
+      "sixConnectedComponents": 1,
+      "componentSizesDescending": [
+        2887
+      ],
+      "encodedBackgroundVoxels": 0,
+      "overlapsCurrentLabels": {
+        "0": 1001,
+        "2": 1886
+      }
+    },
+    "3": {
+      "oldCount": 4861,
+      "candidateCount": 4237,
+      "intersection": 3738,
+      "oldVsCandidateDice": 0.8217190591338756,
+      "centroid": [
+        176.77295256077414,
+        234.86594288411612,
+        116.07151286287467
+      ],
+      "bboxMin": [
+        165,
+        217,
+        104
+      ],
+      "bboxMax": [
+        188,
+        250,
+        128
+      ],
+      "sixConnectedComponents": 1,
+      "componentSizesDescending": [
+        4237
+      ],
+      "encodedBackgroundVoxels": 0,
+      "overlapsCurrentLabels": {
+        "0": 456,
+        "3": 3738,
+        "5": 28,
+        "27": 15
+      }
+    },
+    "4": {
+      "oldCount": 4676,
+      "candidateCount": 4522,
+      "intersection": 3655,
+      "oldVsCandidateDice": 0.7947379865188084,
+      "centroid": [
+        215.4252543122512,
+        234.27908005307387,
+        116.23949579831933
+      ],
+      "bboxMin": [
+        203,
+        216,
+        104
+      ],
+      "bboxMax": [
+        227,
+        250,
+        128
+      ],
+      "sixConnectedComponents": 1,
+      "componentSizesDescending": [
+        4522
+      ],
+      "encodedBackgroundVoxels": 0,
+      "overlapsCurrentLabels": {
+        "0": 831,
+        "4": 3655,
+        "6": 8,
+        "27": 28
+      }
+    },
+    "5": {
+      "oldCount": 1278,
+      "candidateCount": 1370,
+      "intersection": 1034,
+      "oldVsCandidateDice": 0.7809667673716012,
+      "centroid": [
+        173.12992700729927,
+        242.65839416058395,
+        129.1824817518248
+      ],
+      "bboxMin": [
+        164,
+        233,
+        122
+      ],
+      "bboxMax": [
+        183,
+        252,
+        137
+      ],
+      "sixConnectedComponents": 1,
+      "componentSizesDescending": [
+        1370
+      ],
+      "encodedBackgroundVoxels": 0,
+      "overlapsCurrentLabels": {
+        "0": 291,
+        "3": 4,
+        "5": 1034,
+        "31": 41
+      }
+    },
+    "6": {
+      "oldCount": 1305,
+      "candidateCount": 1454,
+      "intersection": 1032,
+      "oldVsCandidateDice": 0.7480971366437115,
+      "centroid": [
+        218.87276478679505,
+        241.80330123796423,
+        128.85281980742778
+      ],
+      "bboxMin": [
+        208,
+        231,
+        120
+      ],
+      "bboxMax": [
+        228,
+        251,
+        136
+      ],
+      "sixConnectedComponents": 1,
+      "componentSizesDescending": [
+        1454
+      ],
+      "encodedBackgroundVoxels": 0,
+      "overlapsCurrentLabels": {
+        "0": 377,
+        "4": 15,
+        "6": 1032,
+        "32": 30
+      }
+    },
+    "7": {
+      "oldCount": 37431,
+      "candidateCount": 40711,
+      "intersection": 35773,
+      "oldVsCandidateDice": 0.9155895677100663,
+      "centroid": [
+        168.72415317727396,
+        290.3340866104984,
+        160.49075188523986
+      ],
+      "bboxMin": [
+        154,
+        223,
+        119
+      ],
+      "bboxMax": [
+        186,
+        320,
+        196
+      ],
+      "sixConnectedComponents": 5,
+      "componentSizesDescending": [
+        40706,
+        2,
+        1,
+        1,
+        1
+      ],
+      "encodedBackgroundVoxels": 3,
+      "overlapsCurrentLabels": {
+        "0": 3934,
+        "7": 35773,
+        "9": 8,
+        "19": 822,
+        "23": 1,
+        "31": 173
+      }
+    },
+    "8": {
+      "oldCount": 39582,
+      "candidateCount": 36883,
+      "intersection": 34022,
+      "oldVsCandidateDice": 0.8898711828941346,
+      "centroid": [
+        223.32819998373233,
+        290.8036764905241,
+        160.73491852615027
+      ],
+      "bboxMin": [
+        207,
+        221,
+        119
+      ],
+      "bboxMax": [
+        237,
+        319,
+        195
+      ],
+      "sixConnectedComponents": 5,
+      "componentSizesDescending": [
+        36879,
+        1,
+        1,
+        1,
+        1
+      ],
+      "encodedBackgroundVoxels": 1,
+      "overlapsCurrentLabels": {
+        "0": 1773,
+        "8": 34022,
+        "20": 1006,
+        "32": 82
+      }
+    },
+    "9": {
+      "oldCount": 47602,
+      "candidateCount": 53154,
+      "intersection": 45857,
+      "oldVsCandidateDice": 0.9102584461471277,
+      "centroid": [
+        144.8233434924935,
+        273.02771193136925,
+        144.68674041464425
+      ],
+      "bboxMin": [
+        130,
+        225,
+        117
+      ],
+      "bboxMax": [
+        170,
+        310,
+        174
+      ],
+      "sixConnectedComponents": 2,
+      "componentSizesDescending": [
+        53153,
+        1
+      ],
+      "encodedBackgroundVoxels": 0,
+      "overlapsCurrentLabels": {
+        "0": 3710,
+        "9": 45857,
+        "11": 2635,
+        "19": 167,
+        "31": 785
+      }
+    },
+    "10": {
+      "oldCount": 48994,
+      "candidateCount": 55319,
+      "intersection": 44856,
+      "oldVsCandidateDice": 0.860027034022605,
+      "centroid": [
+        246.8860246931434,
+        273.3563332670511,
+        144.40242954500263
+      ],
+      "bboxMin": [
+        221,
+        223,
+        114
+      ],
+      "bboxMax": [
+        263,
+        310,
+        173
+      ],
+      "sixConnectedComponents": 2,
+      "componentSizesDescending": [
+        55318,
+        1
+      ],
+      "encodedBackgroundVoxels": 0,
+      "overlapsCurrentLabels": {
+        "0": 8449,
+        "10": 44856,
+        "12": 1417,
+        "20": 100,
+        "32": 497
+      }
+    },
+    "11": {
+      "oldCount": 14098,
+      "candidateCount": 11446,
+      "intersection": 9537,
+      "oldVsCandidateDice": 0.7467115565299092,
+      "centroid": [
+        154.7408701729862,
+        263.56884501135767,
+        142.56517560719902
+      ],
+      "bboxMin": [
+        139,
+        236,
+        128
+      ],
+      "bboxMax": [
+        174,
+        284,
+        158
+      ],
+      "sixConnectedComponents": 2,
+      "componentSizesDescending": [
+        11445,
+        1
+      ],
+      "encodedBackgroundVoxels": 0,
+      "overlapsCurrentLabels": {
+        "0": 199,
+        "9": 53,
+        "11": 9537,
+        "13": 1392,
+        "31": 265
+      }
+    },
+    "12": {
+      "oldCount": 13932,
+      "candidateCount": 11361,
+      "intersection": 9132,
+      "oldVsCandidateDice": 0.7220970228917092,
+      "centroid": [
+        237.61587888390108,
+        263.0189243904586,
+        141.72775283865857
+      ],
+      "bboxMin": [
+        217,
+        233,
+        129
+      ],
+      "bboxMax": [
+        256,
+        284,
+        158
+      ],
+      "sixConnectedComponents": 2,
+      "componentSizesDescending": [
+        11360,
+        1
+      ],
+      "encodedBackgroundVoxels": 0,
+      "overlapsCurrentLabels": {
+        "0": 270,
+        "10": 927,
+        "12": 9132,
+        "14": 986,
+        "32": 46
+      }
+    },
+    "13": {
+      "oldCount": 5906,
+      "candidateCount": 4392,
+      "intersection": 3653,
+      "oldVsCandidateDice": 0.7094581472130511,
+      "centroid": [
+        159.35769581056465,
+        257.9175774134791,
+        136.62158469945356
+      ],
+      "bboxMin": [
+        146,
+        242,
+        128
+      ],
+      "bboxMax": [
+        174,
+        271,
+        150
+      ],
+      "sixConnectedComponents": 2,
+      "componentSizesDescending": [
+        4391,
+        1
+      ],
+      "encodedBackgroundVoxels": 0,
+      "overlapsCurrentLabels": {
+        "0": 554,
+        "11": 91,
+        "13": 3653,
+        "31": 94
+      }
+    },
+    "14": {
+      "oldCount": 6009,
+      "candidateCount": 4850,
+      "intersection": 4037,
+      "oldVsCandidateDice": 0.7435307118519201,
+      "centroid": [
+        232.49154639175256,
+        256.43711340206187,
+        136.279793814433
+      ],
+      "bboxMin": [
+        217,
+        239,
+        128
+      ],
+      "bboxMax": [
+        247,
+        270,
+        147
+      ],
+      "sixConnectedComponents": 2,
+      "componentSizesDescending": [
+        4849,
+        1
+      ],
+      "encodedBackgroundVoxels": 0,
+      "overlapsCurrentLabels": {
+        "0": 372,
+        "12": 331,
+        "14": 4037,
+        "32": 110
+      }
+    },
+    "15": {
+      "oldCount": 57325,
+      "candidateCount": 66473,
+      "intersection": 54398,
+      "oldVsCandidateDice": 0.8788187208193994,
+      "centroid": [
+        172.7123794623381,
+        230.61670151790952,
+        157.23757014126036
+      ],
+      "bboxMin": [
+        148,
+        197,
+        135
+      ],
+      "bboxMax": [
+        194,
+        265,
+        182
+      ],
+      "sixConnectedComponents": 1,
+      "componentSizesDescending": [
+        66473
+      ],
+      "encodedBackgroundVoxels": 6,
+      "overlapsCurrentLabels": {
+        "0": 11967,
+        "15": 54398,
+        "17": 1,
+        "27": 53,
+        "31": 54
+      }
+    },
+    "16": {
+      "oldCount": 60797,
+      "candidateCount": 67304,
+      "intersection": 56933,
+      "oldVsCandidateDice": 0.8888767456928517,
+      "centroid": [
+        219.47634613098776,
+        230.76485795792226,
+        156.82203138000713
+      ],
+      "bboxMin": [
+        199,
+        198,
+        134
+      ],
+      "bboxMax": [
+        245,
+        267,
+        182
+      ],
+      "sixConnectedComponents": 1,
+      "componentSizesDescending": [
+        67304
+      ],
+      "encodedBackgroundVoxels": 24,
+      "overlapsCurrentLabels": {
+        "0": 10171,
+        "16": 56933,
+        "27": 24,
+        "32": 176
+      }
+    },
+    "17": {
+      "oldCount": 33042,
+      "candidateCount": 35253,
+      "intersection": 21615,
+      "oldVsCandidateDice": 0.6329892378651438,
+      "centroid": [
+        146.24094403313194,
+        221.4962130882478,
+        115.8619975604913
+      ],
+      "bboxMin": [
+        123,
+        184,
+        83
+      ],
+      "bboxMax": [
+        179,
+        258,
+        158
+      ],
+      "sixConnectedComponents": 3,
+      "componentSizesDescending": [
+        35251,
+        1,
+        1
+      ],
+      "encodedBackgroundVoxels": 4,
+      "overlapsCurrentLabels": {
+        "0": 13229,
+        "17": 21615,
+        "21": 409
+      }
+    },
+    "18": {
+      "oldCount": 33119,
+      "candidateCount": 34250,
+      "intersection": 25720,
+      "oldVsCandidateDice": 0.7635559381911562,
+      "centroid": [
+        246.69690510948905,
+        222.15947445255475,
+        115.07956204379562
+      ],
+      "bboxMin": [
+        215,
+        184,
+        83
+      ],
+      "bboxMax": [
+        270,
+        256,
+        158
+      ],
+      "sixConnectedComponents": 1,
+      "componentSizesDescending": [
+        34250
+      ],
+      "encodedBackgroundVoxels": 7,
+      "overlapsCurrentLabels": {
+        "0": 8364,
+        "18": 25720,
+        "22": 166
+      }
+    },
+    "19": {
+      "oldCount": 3198,
+      "candidateCount": 4188,
+      "intersection": 2053,
+      "oldVsCandidateDice": 0.5559165989710263,
+      "centroid": [
+        177.53557784145175,
+        285.5272206303725,
+        124.88538681948424
+      ],
+      "bboxMin": [
+        165,
+        276,
+        114
+      ],
+      "bboxMax": [
+        188,
+        296,
+        136
+      ],
+      "sixConnectedComponents": 1,
+      "componentSizesDescending": [
+        4188
+      ],
+      "encodedBackgroundVoxels": 0,
+      "overlapsCurrentLabels": {
+        "0": 2107,
+        "7": 1,
+        "9": 12,
+        "19": 2053,
+        "22": 1,
+        "31": 14
+      }
+    },
+    "20": {
+      "oldCount": 3434,
+      "candidateCount": 3922,
+      "intersection": 2250,
+      "oldVsCandidateDice": 0.6117455138662317,
+      "centroid": [
+        214.0277919428863,
+        285.51300356960735,
+        124.99464558898521
+      ],
+      "bboxMin": [
+        204,
+        277,
+        114
+      ],
+      "bboxMax": [
+        225,
+        295,
+        136
+      ],
+      "sixConnectedComponents": 1,
+      "componentSizesDescending": [
+        3922
+      ],
+      "encodedBackgroundVoxels": 0,
+      "overlapsCurrentLabels": {
+        "0": 1621,
+        "8": 9,
+        "10": 5,
+        "20": 2250,
+        "32": 37
+      }
+    },
+    "21": {
+      "oldCount": 12900,
+      "candidateCount": 14650,
+      "intersection": 11200,
+      "oldVsCandidateDice": 0.8130671506352087,
+      "centroid": [
+        148.1984300341297,
+        259.54211604095565,
+        104.34907849829352
+      ],
+      "bboxMin": [
+        128,
+        243,
+        83
+      ],
+      "bboxMax": [
+        169,
+        270,
+        125
+      ],
+      "sixConnectedComponents": 1,
+      "componentSizesDescending": [
+        14650
+      ],
+      "encodedBackgroundVoxels": 0,
+      "overlapsCurrentLabels": {
+        "0": 2954,
+        "17": 496,
+        "21": 11200
+      }
+    },
+    "22": {
+      "oldCount": 13170,
+      "candidateCount": 15077,
+      "intersection": 11997,
+      "oldVsCandidateDice": 0.8494353382660106,
+      "centroid": [
+        244.45930888107713,
+        259.810638721231,
+        104.68369038933474
+      ],
+      "bboxMin": [
+        224,
+        243,
+        84
+      ],
+      "bboxMax": [
+        264,
+        271,
+        125
+      ],
+      "sixConnectedComponents": 1,
+      "componentSizesDescending": [
+        15077
+      ],
+      "encodedBackgroundVoxels": 0,
+      "overlapsCurrentLabels": {
+        "0": 2904,
+        "18": 176,
+        "22": 11997
+      }
+    }
+  },
+  "oldManualVacatedVoxels": 49233,
+  "newManualOverOtherLabels": 2525,
+  "oldManualVacatedEncodedBackground": 955,
+  "visualReview": "Not performed by this generator; figures and human/AI observations are separate."
+}

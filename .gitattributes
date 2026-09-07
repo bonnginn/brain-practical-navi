@@ -5,3 +5,7 @@
 *.glb binary
 *.mesh binary
 *.png binary
+
+# These evidence records have byte-level SHA-256 references. Never normalize
+# their original line endings during commit or checkout on another OS.
+segmentation-patches/**/*.json -text

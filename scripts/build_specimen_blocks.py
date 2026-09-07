@@ -41,7 +41,7 @@ RIGHT_THALAMUS = 16
 RIGHT_HIPPOCAMPUS = 18
 RIGHT_AMYGDALA = 22
 RIGHT_LATERAL_VENTRICLE = 24
-VENTRICLES = (23, 24, 25, 26)
+VENTRICLES = (23, 24, 25, 26, 41)  # Include the partial aqueduct cavity, not tissue.
 LATERAL_VENTRICLES = (23, 24)
 THIRD_VENTRICLE = 25
 CEREBELLUM = (28, 29)
@@ -268,7 +268,10 @@ def specimen_definitions(raw: np.ndarray, seg: np.ndarray) -> dict[str, list[Par
     ) & tissue & midbrain_box
     red_in_slab = red_nuclei & midbrain_box
     nigra_in_slab = substantia_nigra & midbrain_box
-    midbrain_slab &= ~(red_in_slab | nigra_in_slab | aqueduct | cerebral_peduncles)
+    # The schematic aqueduct is a location guide, not a measured lumen mask.
+    # Do not drill its cylinder through image-derived tissue. Actual labelled
+    # ventricular space has already been excluded by the tissue mask above.
+    midbrain_slab &= ~(red_in_slab | nigra_in_slab | cerebral_peduncles)
     superior_colliculi = (
         ellipse_mask(zz, yy, xx, (-6.5, -25, -25.5), (4.6, 4.0, 3.2))
         | ellipse_mask(zz, yy, xx, (6.5, -25, -25.5), (4.6, 4.0, 3.2))

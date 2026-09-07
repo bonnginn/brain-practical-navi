@@ -3,6 +3,7 @@ import path from "node:path";
 import crypto from "node:crypto";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { filterQuizCandidates } from "../src/quizGranularity.mjs";
+import { isQuizAnatomyAvailable } from "../src/quizAnatomyHold.mjs";
 
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url));
 export const REPOSITORY_ROOT = path.resolve(SCRIPT_DIR, "..");
@@ -113,7 +114,8 @@ function assertSourceContract(source, errors) {
     "const visualQuizQuestions:QuizQuestion[]=[...quizQuestions,...neurovascularQuizQuestions]",
     "const allQuizQuestions:QuizQuestion[]=[...visualQuizQuestions,...conceptQuizQuestions]",
     "shuffledQuestions(allQuizQuestions).slice(0,10)",
-    "key in structures||key in surfaceRegions||key in neurovascularStructures",
+    "restoreQuizHistory(localStorage.getItem(QUIZ_WRONG_CACHE_KEY),localStorage.getItem(\"brain-practical-quiz-wrong-v1\"),allQuizQuestions)",
+    "recordQuizAnswer(wrongTargets,quizQuestion,correct)",
     "neurovascularOverlay={neurovascularQuiz?(quizQuestion.detail===\"arteries\"?\"vessels\":\"nerves\"):\"none\"}",
     "neurovascularHighlights={neurovascularQuiz?quizNeurovascularHighlight:[]}",
     "view={neurovascularQuiz?\"ghost\":\"inside\"}",
@@ -196,15 +198,24 @@ export function auditNeurovascularQuiz({ rootDir = REPOSITORY_ROOT, source, meta
   const filters = { category: "all", format: "neurovascular", detail: "all", includeProvisional: true, wrongOnly: false };
   const filterQuestions = questions.map(question => ({ target: question.target, category: question.category, format: question.format, detail: question.detail, origin: question.origin }));
   if (filterQuizCandidates(filterQuestions, { ...filters, includeProvisional: false }, []).length !== 0) errors.push("provisional OFF must hide every pilot question");
-  if (filterQuizCandidates(filterQuestions, filters, []).length !== PILOT_TARGETS.length) errors.push("neurovascular ON candidate count must be 22");
+  if (filterQuizCandidates(filterQuestions, filters, []).length !== PILOT_TARGETS.length) errors.push("authored neurovascular inventory must contain 22 questions before the anatomy hold");
   if (filterQuizCandidates(filterQuestions, { ...filters, detail: "arteries" }, []).length !== PILOT_ARTERY_TARGETS.length) errors.push("arteries candidate count must be 9");
   if (filterQuizCandidates(filterQuestions, { ...filters, detail: "cranialNerves" }, []).length !== PILOT_NERVE_TARGETS.length) errors.push("cranialNerves candidate count must be 13");
   if (filterQuizCandidates(filterQuestions, { ...filters, wrongOnly: true }, ["cn6"]).length !== 1) errors.push("wrong-only pilot candidate count must follow target history");
+  const eligibleQuestions=filterQuestions.filter(isQuizAnatomyAvailable);
+  const heldTargets=filterQuestions.filter(question=>!isQuizAnatomyAvailable(question)).map(question=>question.target);
+  if(JSON.stringify(heldTargets)!==JSON.stringify(["cn5","cn9","cn10","cn11"]))errors.push("anatomy hold must preserve exactly the four reviewed nerve targets");
+  if(!appSource.includes("const allQuizQuestions:QuizQuestion[]=[...visualQuizQuestions,...conceptQuizQuestions].filter(isQuizAnatomyAvailable)"))errors.push("runtime pool must apply anatomy hold after combining question kinds");
+  const eligibleCount=filterQuizCandidates(eligibleQuestions,filters,[]).length;
+  const eligibleNerveCount=filterQuizCandidates(eligibleQuestions,{...filters,detail:"cranialNerves"},[]).length;
+  if(eligibleCount!==18||eligibleNerveCount!==9)errors.push("eligible visual pilot count must be 18, including 9 nerve questions");
+  if(filterQuizCandidates(eligibleQuestions,{...filters,wrongOnly:true},heldTargets).length!==0)errors.push("wrong-answer history must not restore held questions");
 
   return {
     ok: errors.length === 0,
     errors,
     contentSha256,
+    eligibility:{scope:"visual pilot only; concept questions audited separately",heldTargets,heldQuestionCount:heldTargets.length,eligibleQuestionCount:eligibleCount,eligibleNerveCount},
     summary: {
       questionCount: questions.length,
       arteryCount: arteries.length,
@@ -218,7 +229,7 @@ export function auditNeurovascularQuiz({ rootDir = REPOSITORY_ROOT, source, meta
 }
 
 function overlayMetadataById(metadata, errors) {
-  if (!metadata || metadata.version !== 2 || !Array.isArray(metadata.groups)) errors.push("overlay metadata version/groups are invalid");
+  if (!metadata || metadata.version !== 3 || !Array.isArray(metadata.groups)) errors.push("overlay metadata version/groups are invalid");
   const byId = new Map();
   for (const group of metadata.groups ?? []) {
     if (typeof group.file !== "string" || group.file.length === 0) errors.push("overlay group file must be non-empty");

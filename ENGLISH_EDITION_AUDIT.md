@@ -1,5 +1,9 @@
 # English edition audit
 
+## September 5 follow-up (unpublished branch)
+
+The review covers all seven surface views, all eight block introductions/observation notes, section structure notes/relations/functions, the six Papez and five basal-ganglia observation stages, and all prompts/explanations/options of the 55 added concept questions. Corrections restore omitted structures, spatial directions, functional terms, and unsegmented/expert-pending qualifications. Dynamic counts now use complete text nodes; optgroup label attributes are translated. Representative controls and corrected descriptions were checked in the local browser, including every pathway stage. This is project language review, not independent native-speaker proofreading or expert anatomical validation. Detailed evidence and limitations: [SEPTEMBER_REVIEW_PROGRESS.md](SEPTEMBER_REVIEW_PROGRESS.md).
+
 Updated: 2026-08-30
 
 ## Current state

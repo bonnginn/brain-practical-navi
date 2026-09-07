@@ -1,0 +1,290 @@
+{
+  "labelsSha256": "098edfbf365016c6c53ccf7b7032258db72a4912378c457d348c01613a4a1694",
+  "imageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
+  "sourceDigests": {
+    "BigBrain-SubCorSeg-300um.mnc": "614fac6afa9d9c400d74419f5d6c9b09cd297ba19d3a57aa81b55f73db6e682c",
+    "BigBrain-SubCorSeg-500um.mnc": "cf37a4fba1f3c2b79b75139b00b57aa41d78ebe8bf7775067c68181ed3aa8de7",
+    "BigBrain-to-ICBM2009sym-nonlin-500um.mnc": "997cc5f576d8dded6e3f97680a4b2d41926b83e12402100014b9e42485f8d198"
+  },
+  "manual500History": "Thu Jun 20 17:28:45 2019>>> nii2mnc BigBrain-SubCorSeg-0.3mm-v2.nii.gz BigBrain-SubCorSeg-0.3mm-v2.mnc\nThu Jun 27 16:42:02 2019>>>itk_resample BigBrain-SubCorSeg-300um.mnc --like ../../MRI/MINC/BigBrain-to-ICBM2009asym-nonlin-500um.mnc --labels --short BigBrain-SubCorSeg-500um.mnc \n",
+  "transformedImage500History": "Thu Feb 14 16:48:02 2019>>> minccalc -expr A[0]>0.5?65535:A[1] BigBrain-pinealgland-mask-300um.mnc full16_300um_2009b_sym.mnc full16_300um_2009b_sym-fix.mnc -short\nWed Jun 26 15:59:22 2019>>>itk_resample ../../../full16_300um_2009b_sym-fix.mnc --like ../../../full16_500um_2009b_sym-fix.mnc --transform tranformation/BigBrain-to-ICBM2009sym-nonlin.xfm MRI/MINC/BigBrain-to-ICBM2009sym-nonlin-500um-tmp.mnc --short \nThu Jun 27 02:42:45 2019>>> mincreshape -image_range 0 65535 -valid_range 0 65535 BigBrain-to-ICBM2009sym-nonlin-500um-tmp.mnc BigBrain-to-ICBM2009sym-nonlin-500um.mnc\n",
+  "allManualVoxels": 446874,
+  "directManualMismatch": 0,
+  "encodedImageMismatch": 0,
+  "labelMutation": false,
+  "adopted": false,
+  "expertReview": false,
+  "transformSha256": "1ca059cb2ccc682daa945cabaec0dcfc61a2e28e8f275141e31f40b995ab0c71",
+  "gridSha256": [
+    "fa7d59742c38447b2b454d1c4cb940024611628b9da563a648c8a1ea35bd4ceb",
+    "32b9611a78c6005ef8d324f42f2517b9bec6014c08ad059365b86c1586869e5d",
+    "a651912a0def70359e0fad2b8a0148d51c131c16a458241925d44858964e29f5"
+  ],
+  "candidateScope": "IDs11-14 only, research comparison",
+  "figures": [
+    {
+      "file": "x-145.png",
+      "axis": "x",
+      "index": 145,
+      "sha256": "34a7ed3808a9964a88e3f557e9dc051b03c63cc5568ac146cd7694f9dde30352"
+    },
+    {
+      "file": "x-150.png",
+      "axis": "x",
+      "index": 150,
+      "sha256": "9efe25d501ba116c7bb7bd64db4740bbf7baba42aa3e6773952a2e832b036b87"
+    },
+    {
+      "file": "x-155.png",
+      "axis": "x",
+      "index": 155,
+      "sha256": "dc340aa9d41458f35c5cbc5511925d47d2629e603cf1a814fc02702f68fa31b6"
+    },
+    {
+      "file": "x-160.png",
+      "axis": "x",
+      "index": 160,
+      "sha256": "ae23c3a3876b46d4f7809ac06277f97a527ec5075637a41b80c8579c0a22a2d5"
+    },
+    {
+      "file": "x-165.png",
+      "axis": "x",
+      "index": 165,
+      "sha256": "4e85d71d62ffbe6085c397a0b9c7c933f5cf5f3c4942839475591c1a24a8be24"
+    },
+    {
+      "file": "x-170.png",
+      "axis": "x",
+      "index": 170,
+      "sha256": "5b1977e9718665724b82304bec40ea3614b64bb54d242c4a69e5f607265b9e3b"
+    },
+    {
+      "file": "x-220.png",
+      "axis": "x",
+      "index": 220,
+      "sha256": "64f73cf4a87766ccf20504914b35cdb011370b3d2f45873f04d02e86e3145761"
+    },
+    {
+      "file": "x-225.png",
+      "axis": "x",
+      "index": 225,
+      "sha256": "81ab6361266cba0f62703054a6e3a443d31644fac3aafebd805f83c68bb6d2d4"
+    },
+    {
+      "file": "x-230.png",
+      "axis": "x",
+      "index": 230,
+      "sha256": "5fdee92695034de9fd4ecf03ee80b395f060a3327f40ceb48d1534e3d3c59f06"
+    },
+    {
+      "file": "x-235.png",
+      "axis": "x",
+      "index": 235,
+      "sha256": "a1169329fa668b23776748f40bd803857daecb891a0c1095764b65b9be3e8b34"
+    },
+    {
+      "file": "x-240.png",
+      "axis": "x",
+      "index": 240,
+      "sha256": "4da65003590f2bb7c5814b9cc66ef9e642c37b910d1c4f94a7a8ddc3a8344269"
+    },
+    {
+      "file": "x-245.png",
+      "axis": "x",
+      "index": 245,
+      "sha256": "c9654aa0953711af52977db6aa9a366f2e8d3d2e30acb6985fd931b22b469470"
+    },
+    {
+      "file": "x-250.png",
+      "axis": "x",
+      "index": 250,
+      "sha256": "1f362b09bd4cb35bc835cc579d6299a69b8e9bcba1682085ee96bef7e1a1a1ff"
+    },
+    {
+      "file": "y-232.png",
+      "axis": "y",
+      "index": 232,
+      "sha256": "9382cff4bf8f16adc6635698f374e87056139221bc2b408b0cad019ad8780cd5"
+    },
+    {
+      "file": "y-238.png",
+      "axis": "y",
+      "index": 238,
+      "sha256": "26f5299c72ed15449347f21853194c82f3421c5c06f988222221ca1468236771"
+    },
+    {
+      "file": "y-244.png",
+      "axis": "y",
+      "index": 244,
+      "sha256": "d8e6bb188e3ad5a39fdef1930f5a1629b25300c33a5133bb6f1d8a769c439548"
+    },
+    {
+      "file": "y-250.png",
+      "axis": "y",
+      "index": 250,
+      "sha256": "f1d056408d0ea643aca73e438f6485a008dd75d0cdaea075e14623aed03dbd2e"
+    },
+    {
+      "file": "y-256.png",
+      "axis": "y",
+      "index": 256,
+      "sha256": "7eb27ba74685d9c011a752a2da27be794191313c7b22ad34efd594549ae0b32e"
+    },
+    {
+      "file": "y-262.png",
+      "axis": "y",
+      "index": 262,
+      "sha256": "b7fdeee257b5e087bad0f8615e20b7a7a9e718f3b75bc007df918e3e92ea5e81"
+    },
+    {
+      "file": "y-268.png",
+      "axis": "y",
+      "index": 268,
+      "sha256": "46701e3b7f5afbe36155b80b8cab8627aee9e37138cdcc7e54d300c45f8bd6f3"
+    },
+    {
+      "file": "y-274.png",
+      "axis": "y",
+      "index": 274,
+      "sha256": "0ff3dbdb51e89b87698b0121a82f621d262831ce2d59b1e9ba0c5c78be69b29e"
+    },
+    {
+      "file": "y-280.png",
+      "axis": "y",
+      "index": 280,
+      "sha256": "7e93814764375879d24ea16f42564d1c61b72a4d58bf8645ee28194170c5ecc5"
+    },
+    {
+      "file": "z-130.png",
+      "axis": "z",
+      "index": 130,
+      "sha256": "0ee27e021352a67afb7b1439befb44a6ca8eb32c10de9c8ef7f09320ebe437a7"
+    },
+    {
+      "file": "z-135.png",
+      "axis": "z",
+      "index": 135,
+      "sha256": "89f421f089ea050f18e293cc68fd769b7f30eaa4d07d68fbe32e8e4c1baacc26"
+    },
+    {
+      "file": "z-140.png",
+      "axis": "z",
+      "index": 140,
+      "sha256": "4ab2cddf1f7528397a3af12150b2da6f34bb58fe0e9b71b7bf61bb22e9f57793"
+    },
+    {
+      "file": "z-145.png",
+      "axis": "z",
+      "index": 145,
+      "sha256": "caa422dcbe400157b9b293e9712871ca40258b2a2dfe25338b0f00c3bd457f9f"
+    },
+    {
+      "file": "z-150.png",
+      "axis": "z",
+      "index": 150,
+      "sha256": "74d3e80c79ac3dc961ac3da9c91727442b37143ac16db2c6cb2df10386bce984"
+    },
+    {
+      "file": "z-155.png",
+      "axis": "z",
+      "index": 155,
+      "sha256": "c6fddcba99e53a4e5d37f23cf0062034c2a578141af63e6f8e81a72e06fbb9df"
+    },
+    {
+      "file": "z-160.png",
+      "axis": "z",
+      "index": 160,
+      "sha256": "7249cef6ae1b3e97a20fed35c50f8ff8238370332267db49e0a4d81cca32fa33"
+    }
+  ],
+  "source300History": "Thu Jun 20 17:28:45 2019>>> nii2mnc BigBrain-SubCorSeg-0.3mm-v2.nii.gz BigBrain-SubCorSeg-0.3mm-v2.mnc\n",
+  "candidateTargetBox": {
+    "min": [
+      136,
+      229,
+      124
+    ],
+    "maxExclusive": [
+      261,
+      289,
+      164
+    ],
+    "voxelCount": 300000
+  },
+  "sampling": "Published forward extent plus 3 voxels; checked composed inverse; Catmull-Rom displacement; nearest source300 labels. Independent evaluator, not native MINC.",
+  "byLabel": {
+    "11": {
+      "oldCount": 14098,
+      "candidateCount": 11446,
+      "intersection": 9537,
+      "dice": 0.7467115565299092,
+      "identity300CountInCandidateRoi": 14063,
+      "identity300DiceInCandidateRoi": 0.9987571464081532,
+      "oldCentroidVoxels": [
+        153.48560079443894,
+        264.59263725351116,
+        142.07298907646475
+      ],
+      "candidateCentroidVoxels": [
+        154.7408701729862,
+        263.56884501135767,
+        142.56517560719902
+      ]
+    },
+    "12": {
+      "oldCount": 13932,
+      "candidateCount": 11361,
+      "intersection": 9132,
+      "dice": 0.7220970228917092,
+      "identity300CountInCandidateRoi": 13915,
+      "identity300DiceInCandidateRoi": 0.9993895213128883,
+      "oldCentroidVoxels": [
+        238.49590869939706,
+        261.67657192075797,
+        142.29651162790697
+      ],
+      "candidateCentroidVoxels": [
+        237.61587888390108,
+        263.0189243904586,
+        141.72775283865857
+      ]
+    },
+    "13": {
+      "oldCount": 5906,
+      "candidateCount": 4392,
+      "intersection": 3653,
+      "dice": 0.7094581472130511,
+      "identity300CountInCandidateRoi": 5906,
+      "identity300DiceInCandidateRoi": 1.0,
+      "oldCentroidVoxels": [
+        159.4063664070437,
+        259.8872333220454,
+        137.7236708432103
+      ],
+      "candidateCentroidVoxels": [
+        159.35769581056465,
+        257.9175774134791,
+        136.62158469945356
+      ]
+    },
+    "14": {
+      "oldCount": 6009,
+      "candidateCount": 4850,
+      "intersection": 4037,
+      "dice": 0.7435307118519201,
+      "identity300CountInCandidateRoi": 6009,
+      "identity300DiceInCandidateRoi": 1.0,
+      "oldCentroidVoxels": [
+        231.27658512231653,
+        258.9773672824097,
+        137.21434514894324
+      ],
+      "candidateCentroidVoxels": [
+        232.49154639175256,
+        256.43711340206187,
+        136.279793814433
+      ]
+    }
+  },
+  "candidateSha256": "314a8595638d30a63d1d788c9abdbffc87b1dec51a397e7b2e1d381f32ad3d56"
+}

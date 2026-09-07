@@ -1,0 +1,305 @@
+{
+  "scope": "mid-low-external-surface-four-voxels",
+  "date": "2026-09-06",
+  "decision": "image-reviewed-stage-pending-integration",
+  "expertReviewed": false,
+  "inputCompressedSha256": "2a73ff567741aa9b7965eef645765bfc0d87b3cad80d789d5512cabf4ffc2ed2",
+  "outputCompressedSha256": "732bdf1996109926c516d5114d8861e338f22c414ec80804b7cd096885a25ef2",
+  "inputRawSha256": "8276db63377bb3f8738d8b062678b46d1af8f0b09c9691f5caf4d5fd5e1783e3",
+  "outputRawSha256": "487250d2e46e5cbd7aff0991377bf1bd42018aceadd3163def582acef720224d",
+  "changedVoxelCount": 4,
+  "transitions": {
+    "27->0": 4
+  },
+  "points": [
+    [
+      195,
+      242,
+      73
+    ],
+    [
+      195,
+      242,
+      74
+    ],
+    [
+      196,
+      242,
+      73
+    ],
+    [
+      196,
+      242,
+      74
+    ]
+  ],
+  "retainedPoints": [
+    [
+      195,
+      239,
+      73
+    ],
+    [
+      195,
+      239,
+      74
+    ],
+    [
+      195,
+      240,
+      73
+    ],
+    [
+      195,
+      240,
+      74
+    ],
+    [
+      195,
+      241,
+      73
+    ],
+    [
+      195,
+      241,
+      74
+    ],
+    [
+      196,
+      239,
+      73
+    ],
+    [
+      196,
+      239,
+      74
+    ],
+    [
+      196,
+      240,
+      73
+    ],
+    [
+      196,
+      240,
+      74
+    ],
+    [
+      196,
+      241,
+      73
+    ],
+    [
+      196,
+      241,
+      74
+    ]
+  ],
+  "beforeCount27": 254517,
+  "afterCount27": 254513,
+  "changedBlockPartMasks": [],
+  "review": {
+    "inputSha256": "2a73ff567741aa9b7965eef645765bfc0d87b3cad80d789d5512cabf4ffc2ed2",
+    "imageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
+    "sourceInventorySha256": "9b3ca77273d9179d8548c9e7dcc7223fc6bdd8b33f14621867002c4dff8b3732",
+    "points": [
+      [
+        195,
+        239,
+        73
+      ],
+      [
+        195,
+        239,
+        74
+      ],
+      [
+        195,
+        240,
+        73
+      ],
+      [
+        195,
+        240,
+        74
+      ],
+      [
+        195,
+        241,
+        73
+      ],
+      [
+        195,
+        241,
+        74
+      ],
+      [
+        195,
+        242,
+        73
+      ],
+      [
+        195,
+        242,
+        74
+      ],
+      [
+        196,
+        239,
+        73
+      ],
+      [
+        196,
+        239,
+        74
+      ],
+      [
+        196,
+        240,
+        73
+      ],
+      [
+        196,
+        240,
+        74
+      ],
+      [
+        196,
+        241,
+        73
+      ],
+      [
+        196,
+        241,
+        74
+      ],
+      [
+        196,
+        242,
+        73
+      ],
+      [
+        196,
+        242,
+        74
+      ]
+    ],
+    "rawValues": [
+      213,
+      212,
+      236,
+      212,
+      250,
+      248,
+      255,
+      255,
+      215,
+      212,
+      224,
+      216,
+      248,
+      250,
+      255,
+      255
+    ],
+    "crop": {
+      "min": [
+        186,
+        230,
+        64
+      ],
+      "max": [
+        205,
+        251,
+        83
+      ]
+    },
+    "scale": 14,
+    "sheets": [
+      {
+        "file": "points-00.png",
+        "sha256": "ec5d4099d5d39f40b5efc5ddbd6af26524915e104943b3eae580d2b441987fba",
+        "frames": [
+          {
+            "axis": "x",
+            "index": 195,
+            "selectedVoxelCount": 8
+          },
+          {
+            "axis": "x",
+            "index": 196,
+            "selectedVoxelCount": 8
+          },
+          {
+            "axis": "y",
+            "index": 239,
+            "selectedVoxelCount": 4
+          },
+          {
+            "axis": "y",
+            "index": 240,
+            "selectedVoxelCount": 4
+          }
+        ]
+      },
+      {
+        "file": "points-01.png",
+        "sha256": "c2b6bb785080d58588073478b5f7839df834507f9ceb3aedee4a828decf0bf26",
+        "frames": [
+          {
+            "axis": "y",
+            "index": 241,
+            "selectedVoxelCount": 4
+          },
+          {
+            "axis": "y",
+            "index": 242,
+            "selectedVoxelCount": 4
+          },
+          {
+            "axis": "z",
+            "index": 73,
+            "selectedVoxelCount": 8
+          },
+          {
+            "axis": "z",
+            "index": 74,
+            "selectedVoxelCount": 8
+          }
+        ]
+      }
+    ],
+    "mutation": false,
+    "expertReviewed": false
+  },
+  "pixelToVoxel": {
+    "arrayOrder": "x,y,z",
+    "pixelOrigin": "row=0,column=0 at the top-left of the crop PNG",
+    "planes": {
+      "x": {
+        "plane": "sagittal",
+        "slice": "x=sliceIndex",
+        "row": "z=crop.max[2]-row",
+        "column": "y=crop.min[1]+column"
+      },
+      "y": {
+        "plane": "coronal",
+        "slice": "y=sliceIndex",
+        "row": "z=crop.max[2]-row",
+        "column": "x=crop.min[0]+column"
+      },
+      "z": {
+        "plane": "horizontal",
+        "slice": "z=sliceIndex",
+        "row": "y=crop.max[1]-row",
+        "column": "x=crop.min[0]+column"
+      }
+    }
+  },
+  "reviewedSheets": [
+    "points-00.png",
+    "points-01.png"
+  ],
+  "rationale": "All 8 pointwise planes and prior wide orthogonal context were visually inspected. Y242 four voxels lie beyond the tissue surface in continuous external space; not a ventricle or aqueduct. Y239-240 eight tissue-side voxels retained; Y241 four partial-volume boundary voxels retained as uncertain. No intensity-threshold expansion or wholesale removal of the disconnected component.",
+  "limitations": "AI-assisted local review, not expert confirmation or approval of the complete brainstem surface. Stage only; no public asset mutation."
+}

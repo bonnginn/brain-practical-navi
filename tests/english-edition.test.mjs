@@ -4,6 +4,15 @@ import fs from "node:fs";
 import { anatomyDisplayEnglish } from "../src/anatomyDisplayEnglish.mjs";
 import { languageSwitchUrl, localeFromSearch, localizedPublicUrl, publicWorkspaceForLocale } from "../src/locale.mjs";
 
+test("section text and playback action retain their intended meaning",()=>{
+  const catalog=JSON.parse(fs.readFileSync(new URL("../app/english-catalog.json",import.meta.url),"utf8"));
+  assert.equal(catalog["連続断面を再生"],"Play serial sections");
+  assert.equal(catalog["アトラス照合・試作"],"Atlas-matched · provisional");
+  assert.match(catalog["別アトラスを位置照合した教育用候補です。手動正解分節ではありません。"],/not manually delineated ground-truth labels/);
+  assert.match(catalog["指した場所の構造名を表示します。ホイールで拡大縮小できます。"],/mouse wheel to zoom/);
+  assert.match(catalog["側脳室に沿って弧状に走る核です。現在の分節は頭部・体部が中心で、下角へ回り込む尾部全長を収録していません。ラベルの終端を尾状核そのものの終端と誤認しないでください。"],/^The caudate nucleus curves along the lateral ventricle/);
+});
+
 test("English locale is explicit and Japanese remains the default",()=>{
   assert.equal(localeFromSearch("?lang=en&ui=phone"),"en");
   assert.equal(localeFromSearch("?ui=desktop"),"ja");
@@ -28,6 +37,21 @@ test("English catalog contains reviewed anatomy and no Japanese output",()=>{
   assert.ok(Object.keys(catalog).length>1800);
   for(const value of Object.values(catalog))assert.doesNotMatch(value,/[\u3040-\u30ff\u3400-\u9fff]/u);
   assert.match(catalog["視床下核"]??"",/Subthalamic nucleus/i);
+});
+
+test("quiz controls use complete English and distinguish function from features",()=>{
+  const catalog=JSON.parse(fs.readFileSync(new URL("../app/english-catalog.json",import.meta.url),"utf8"));
+  for(const [key,value] of Object.entries({"機能":"Function","位置関係":"Spatial relationships","経路":"Pathway","1断面戻る":"Previous slice","1断面進む":"Next slice","この色の構造は？":"Which structure is highlighted?"}))assert.equal(catalog[key],value);
+  assert.match(catalog["・BigBrain公開組織画像 0.5 mm"],/histological image/);
+});
+
+test("ventricular block descriptions retain the Japanese spatial relationships",()=>{
+  const catalog=JSON.parse(fs.readFileSync(new URL("../app/english-catalog.json",import.meta.url),"utf8"));
+  assert.match(catalog["海馬と下角の位置関係"],/hippocampus and inferior horn/);
+  assert.match(catalog["視床と体部の位置関係"],/thalamus and the body of the lateral ventricle/);
+  assert.match(catalog["側脳室体部の床と第三脳室の外側に位置します。"],/floor.*lateral ventricle and lateral to the third ventricle/);
+  assert.match(catalog["側脳室下角の床を内側から隆起させます。"],/medial part of the floor of the inferior horn/);
+  assert.equal(catalog["脳梁・脳弓標本"],"Corpus callosum and fornix");
 });
 
 test("learner anatomy names agree with their English display term",()=>{

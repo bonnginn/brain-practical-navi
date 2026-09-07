@@ -1,0 +1,157 @@
+{
+  "scope": "three-isolated-id27-components-27",
+  "decision": "project-adopted-for-integration",
+  "expertReviewed": false,
+  "date": "2026-09-06",
+  "inputCompressedSha256": "189fbd26080448aa7813918dae6f17bdfed11a5ca15a12211cadfa3a6a5723d8",
+  "outputCompressedSha256": "82384fa6961b4eb6aa272aa556f76febd4027cf1f67937504ee227ac0a8e4726",
+  "inputRawSha256": "0e3e5f0e3652af3e81a840d41c889fff0d0ee7d9dacac9f640eb0df7f8841b5b",
+  "outputRawSha256": "4550dd6ddf6272dde98253f1fc18484b48dd06970a5ee0a42ebfb382a22a7ac8",
+  "changedVoxelCount": 27,
+  "sourceLabel": 27,
+  "targetLabel": 0,
+  "points": [
+    [
+      163,
+      231,
+      91
+    ],
+    [
+      163,
+      231,
+      92
+    ],
+    [
+      163,
+      232,
+      91
+    ],
+    [
+      163,
+      232,
+      92
+    ],
+    [
+      164,
+      231,
+      91
+    ],
+    [
+      164,
+      231,
+      92
+    ],
+    [
+      164,
+      232,
+      91
+    ],
+    [
+      164,
+      232,
+      92
+    ],
+    [
+      195,
+      253,
+      109
+    ],
+    [
+      195,
+      254,
+      109
+    ],
+    [
+      195,
+      254,
+      110
+    ],
+    [
+      196,
+      251,
+      109
+    ],
+    [
+      196,
+      251,
+      110
+    ],
+    [
+      196,
+      252,
+      109
+    ],
+    [
+      196,
+      252,
+      110
+    ],
+    [
+      196,
+      253,
+      109
+    ],
+    [
+      196,
+      253,
+      110
+    ],
+    [
+      196,
+      254,
+      109
+    ],
+    [
+      196,
+      254,
+      110
+    ],
+    [
+      227,
+      231,
+      91
+    ],
+    [
+      227,
+      231,
+      92
+    ],
+    [
+      227,
+      232,
+      91
+    ],
+    [
+      227,
+      232,
+      92
+    ],
+    [
+      228,
+      231,
+      91
+    ],
+    [
+      228,
+      231,
+      92
+    ],
+    [
+      228,
+      232,
+      91
+    ],
+    [
+      228,
+      232,
+      92
+    ]
+  ],
+  "imageReviewRecord": "segmentation-patches/review/brainstem-remaining-islands-image-review-2026-09-06.json",
+  "imageReviewSha256": "9b3ca77273d9179d8548c9e7dcc7223fc6bdd8b33f14621867002c4dff8b3732",
+  "evidence": "BRAINSTEM_ISLAND_REPAIR.md: all 121 orthogonal comparisons on 34 sheets reviewed. The three selected components (38 comparisons) lie in an image void separated from tissue. Not a global intensity or component-size deletion rule.",
+  "beforeCount": 254608,
+  "afterCount": 254581,
+  "changedBlockPartMasks": [],
+  "limitations": "Work-stage only pending integration; not expert review, not aqueduct/ventricle reclassification. Other components and missing ventral midbrain untouched."
+}

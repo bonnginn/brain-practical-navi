@@ -63,8 +63,8 @@ const SURFACE_LANDMARKS:{key:SurfaceLandmark;color:[number,number,number,number]
 ];
 const SURFACE_BOUNDARY_LABELS:Partial<Record<SurfaceLandmark,{a:number[];b:number[]}>>={
   "central-sulcus":{a:[86,35],b:[64,13]},
-  "precentral-sulcus":{a:[86,35],b:[89,38,93,42,52,103,83,32,73,22]},
-  "superior-frontal-sulcus":{a:[89,38],b:[93,42,52,103]},
+  "precentral-sulcus":{a:[86,35],b:[89,38,93,42,52,1,83,32,73,22]},
+  "superior-frontal-sulcus":{a:[89,38],b:[93,42,52,1]},
   "parieto-occipital-sulcus":{a:[82,31],b:[94,43]},
   "calcarine-sulcus":{a:[57,6],b:[94,43]},
   "olfactory-sulcus":{a:[66,15],b:[58,7]},
@@ -225,7 +225,7 @@ async function loadManualSeg(name:"icbm500"){
 }
 function loadMesh(name:string){
   const fileName=meshAssetFileName(name),id=`mesh:${fileName}`;
-  if(!meshCache.has(name))meshCache.set(name,trackAtlasProcessing(id,async token=>{let buf=await fetchAtlasBuffer(`${ASSET_BASE}atlas/${fileName}`,id,name,token);const auditSource=quizVisibilityAuditEnabled()?{path:`public/atlas/${fileName}`,sha256:COMPRESSED_MESH_AUDIT_SHA256[fileName]??await sha256Hex(buf)}:undefined;if(hasGzipMagic(buf)){const stream=new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));buf=await new Response(stream).arrayBuffer()}
+if(!meshCache.has(name))meshCache.set(name,trackAtlasProcessing(id,async token=>{let buf=await fetchAtlasBuffer(`${ASSET_BASE}atlas/${fileName}${name==="overlay-arteries-anterior"?"?v=8e1d872281eb6439":name==="overlay-nerves-pontine"?"?v=1244f483c765ef08":(name.startsWith("block-")||name.startsWith("section-current-")||name==="section-accumbens")?`?v=${SEGMENTATION_LABEL_REVISION}`:""}`,id,name,token);const auditSource=quizVisibilityAuditEnabled()?{path:`public/atlas/${fileName}`,sha256:COMPRESSED_MESH_AUDIT_SHA256[fileName]??await sha256Hex(buf)}:undefined;if(hasGzipMagic(buf)){const stream=new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));buf=await new Response(stream).arrayBuffer()}
     const v=new DataView(buf),magic=v.getUint32(0,false),nv=v.getUint32(4,true),declaredFaces=v.getUint32(8,true),hasShade=magic===0x424e4d32||magic===0x424e4d33;
     if(magic!==0x424e4d31&&magic!==0x424e4d32&&magic!==0x424e4d33)throw new Error(`${name} invalid mesh header`);
     const faceOffset=magic===0x424e4d33?12+nv*32:magic===0x424e4d32?12+nv*28:12+nv*24,faceBytes=buf.byteLength-faceOffset;
@@ -434,14 +434,14 @@ export function AtlasVolumeCanvas({kind,plane,position,focus,display,rotation,vi
     const loadOptional=(needed:boolean,name:string)=>needed?loadMesh(name):Promise.resolve(EMPTY_MESH);
     Promise.all([
       loadMesh("pial-left"),loadMesh("pial-right"),loadMesh("segment-cerebellum"),loadMesh("segment-pons-medulla"),loadMesh("segment-midbrain"),
-      loadOptional(segmented,"segment-deep"),loadOptional(segmented,"segment-ventricles"),
+      loadOptional(segmented,"segment-deep"),loadOptional(segmented,contrast==="bigbrain"?"section-current-ventricular-system":"segment-ventricles"),
       loadOptional(wantVessels,"overlay-arteries-anterior"),loadOptional(wantVessels,"overlay-arteries-posterior"),loadOptional(wantNerves,"overlay-nerves-anterior"),loadOptional(wantNerves,"overlay-nerves-pontine"),loadOptional(wantNerves,"overlay-nerves-medullary"),
       ...["landmark-olfactory-pathway","landmark-optic-pathway","landmark-infundibulum","landmark-mammillary-bodies","landmark-anterior-perforated-substance","block-midbrain-section-cerebral-peduncles","block-hindbrain-pyramids","block-hindbrain-olives"].map(name=>loadOptional(showBasalLandmarks,name)),
       ...SURFACE_DEEP_LANDMARKS.map(item=>loadOptional(surfaceDeepLandmarks.includes(item.key)||(showBasalLandmarks&&item.key==="hypothalamus"),item.key==="corpus-callosum"?"block-commissural-system-corpus-callosum":item.key==="septum-pellucidum"?"block-commissural-system-septum-pellucidum":item.key==="fornix"?"block-commissural-system-fornix":item.key==="thalami"?"block-diencephalon-thalami":"block-diencephalon-hypothalamus")),
       ...SURFACE_LANDMARKS.map(item=>loadOptional(surfaceLandmarks.includes(item.key),`surface-landmark-${item.key}`)),
     ]).then(([left,right,cerebellum,ponsMedulla,midbrain,deep,ventricles,...rest])=>{if(active)setMeshes({surface:[left,right,cerebellum,ponsMedulla,midbrain],segments:[left,right,cerebellum,ponsMedulla,midbrain,deep,ventricles],overlays:rest.slice(0,5),basal:rest.slice(5,13),deep:rest.slice(13,18),landmarks:rest.slice(18)})}).catch(e=>{if(active)setError(String(e))});
     return()=>{active=false};
-  },[kind,specimenBlock,view,neurovascularOverlay,showBasalLandmarks,surfaceLandmarkKey,surfaceDeepLandmarkKey,retryVersion]);
+  },[kind,specimenBlock,view,contrast,neurovascularOverlay,showBasalLandmarks,surfaceLandmarkKey,surfaceDeepLandmarkKey,retryVersion]);
   useEffect(()=>{
     if(kind!=="surface"||specimenBlock==="none"){setBlockMeshes(null);return}
     let active=true;setBlockMeshes(null);setError("");
@@ -617,6 +617,10 @@ function drawWebGL(canvas:HTMLCanvasElement,selectionLayers:{meshes:Mesh[];color
   if(showBasalLandmarks){
     // Do not clear depth here: helpers must remain depth-tested in ghost mode.
     gl.uniform1f(gl.getUniformLocation(prog,"clipOn"),0);gl.disable(gl.CULL_FACE);gl.depthFunc(gl.LEQUAL);const keys:BasalLandmark[]=["olfactory","optic","infundibulum","mammillary","perforated","peduncles","pyramids","olives"],palette=[[.88,.65,.27,1],[.95,.84,.42,1],[.85,.42,.54,1],[.73,.44,.27,1],[.31,.65,.63,1],[.31,.47,.72,1],[.89,.68,.26,1],[.84,.42,.33,1]],neutral=[.78,.82,.83,1],hypothalamicOnly=basalLandmark==="hypothalamic",brainstemOnly=basalLandmark==="brainstem-only",hideBrainstemPatches=basalLandmark==="without-brainstem-patches",nerveOverlayVisible=neurovascularOverlay==="nerves"||neurovascularOverlay==="both";basal.forEach((part,index)=>{const key=keys[index];if(key==="mammillary")return;if(nerveOverlayVisible&&(["olfactory","optic"] as BasalLandmark[]).includes(key))return;if(hideBrainstemPatches&&(key==="pyramids"||key==="olives"))return;if(brainstemOnly&&!(["peduncles","pyramids","olives"] as BasalLandmark[]).includes(key))return;if(hypothalamicOnly&&!(["infundibulum","mammillary"] as BasalLandmark[]).includes(key))return;const active=hypothalamicOnly||basalHighlights.includes(key);if(basalOnlySelected&&!active)return;
+      // The peduncular teaching region is an approximation, not the actual
+      // brainstem shell. Display it only when explicitly selected; its neutral
+      // solid otherwise obscures the cranial nerves as if it were real tissue.
+      if(key==="peduncles"&&!active)return;
       // Pyramids and olives are generated colour patches on the real
       // pons-medulla mesh, not independent anatomy. Never leave their helper
       // polygons visible in the neutral/default model.

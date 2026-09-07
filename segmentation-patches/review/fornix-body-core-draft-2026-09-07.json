@@ -1,0 +1,23 @@
+{
+  "status": "AI-image-guided-interior-draft-awaiting-overlay-review",
+  "sourceSha256": "ebf0e88def96476d0a32ddaff6f28e37d7afd125dec724e6d8855b12357c7e86",
+  "space": "registered300 source XYZ integer voxel indices",
+  "axis": "y",
+  "polygonCoordinates": "XZ",
+  "slices": [
+    {"index": 411, "polygons": [[[318,296],[320,299],[323,299],[324,296],[322,293],[319,293]],[[330,299],[333,299],[336,297],[333,293],[330,293]]]},
+    {"index": 412, "polygons": [[[318,296],[320,299],[323,299],[324,296],[322,293],[319,293]],[[330,299],[333,299],[336,297],[333,293],[330,293]]]},
+    {"index": 413, "polygons": [[[318,296],[320,299],[323,299],[324,296],[322,293],[319,293]],[[330,299],[333,299],[336,297],[333,293],[330,293]]]}
+  ],
+  "author": "AI image review",
+  "reviewEvidence": ["fornix-native300-coordinate-details-v1", "fornix-native300-seed-orthogonal-v1"],
+  "rationale": "Finite interior draft around the two reviewed tissue reference points; excludes the midline cleft and superior attachment. Not derived by rasterizing the historical removed mask.",
+  "expertReviewed": false,
+  "adopted": false,
+  "labelMutation": false,
+  "limitations": [
+    "Only three source planes, not the full body, crura or columns.",
+    "Polygon edges are conservative draft limits, not asserted anatomical outer boundaries.",
+    "Rasterized source overlay, neighboring planes and application-grid mapping still require verification before any label use."
+  ]
+}
