@@ -1,5 +1,10 @@
 # Brain Practical Navigator: working instructions
 
+## Current checkpoint
+
+- Read docs/RESUME_SUMMARY.md first for the latest published baseline, pause status and next-update requests. Autonomous development is paused until the user explicitly resumes it; older progress notes do not override that pause.
+- Keep README concise and bilingual. Put development history and new review notes in docs/; use docs/README.md as the index. Existing machine-read audit documents and public licence-link targets remain at the root for compatibility. Historical evidence may name a document by basename; look in docs/ if it is no longer at the root. Do not rewrite hash-pinned evidence just to rename documentation.
+
 ## Scope and evidence
 
 - Preserve the user's changes. Develop on a task branch; do not infer permission to merge or publish from permission to implement.

@@ -4,8 +4,8 @@
 
 β候補に向けた更新のうち、公開αとして提示できる範囲をGitHub Pagesへ反映しました。PR #14をmerge commit `6f13cd58e3e6450049e02be04c320a4e9abc1fc3` でmainへ統合し、GitHub Pages run `32711938345` のbuild・権利表示監査・deployが成功しました。公開先は <https://bonnginn.github.io/brain-practical-navi/> です。これはβ版の公開、専門家による承認、解剖学的な最終確認を意味しません。
 
-- 現行スナップショット: [BETA_CURRENT_SNAPSHOT.json](BETA_CURRENT_SNAPSHOT.json)
-- Go/No-Go台帳: [BETA_GO_NO_GO.json](BETA_GO_NO_GO.json)
+- 現行スナップショット: [BETA_CURRENT_SNAPSHOT.json](../BETA_CURRENT_SNAPSHOT.json)
+- Go/No-Go台帳: [BETA_GO_NO_GO.json](../BETA_GO_NO_GO.json)
 - 現行候補の在庫: クイズ45問（既存23問＋神経血管pilot 22問）、canonical route 27経路。全自動テスト件数は公開直前の再実行結果を下記へ記録する
 - 現行版の扱い: 既知の制限を明示した公開α。物理端末、別ブラウザ・別GPU、専門家レビュー、Google Formの送信・削除運用は未確認または未完了
 
@@ -85,7 +85,7 @@
 
 比較項目は、実習での同定しやすさ、表面の滑らかさ、構造間の位置関係、回転時の見やすさ、部品の脱着・着色、動作負荷、制作・修正コストとします。知識ベースモデルを採用する場合も「実標本由来の再構成」や「正解セグメンテーション」とは表示せず、解剖学専門家による監修と、標本・検証済みアトラスとの照合をβ移行条件にします。
 
-これらはアプリ内の「利用条件・クレジット」と [LECTURE_COVERAGE_AUDIT.md](LECTURE_COVERAGE_AUDIT.md) にも表示し、収録済みと誤認させません。
+これらはアプリ内の「利用条件・クレジット」と [LECTURE_COVERAGE_AUDIT.md](../LECTURE_COVERAGE_AUDIT.md) にも表示し、収録済みと誤認させません。
 
 ## 配備後の最終確認
 

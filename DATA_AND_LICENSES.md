@@ -1,8 +1,8 @@
 # データ、権利、出典
 
-開発版の `section-current-*.mesh` は現在のBigBrain実習分節から全範囲を再構成した脳室表示です。原資料・分節の既存条件を継承し、新たな専門家確定データとは扱いません。[生成法・SHA・適用範囲](SECTION_VENTRICLE_MESH_SYNC.md)
+開発版の `section-current-*.mesh` は現在のBigBrain実習分節から全範囲を再構成した脳室表示です。原資料・分節の既存条件を継承し、新たな専門家確定データとは扱いません。[生成法・SHA・適用範囲](docs/SECTION_VENTRICLE_MESH_SYNC.md)
 
-分節の原画像・ラベル・位置合わせ資料と参考文献は [分節の出典索引](SEGMENTATION_REFERENCES.md) から参照できます。
+分節の原画像・ラベル・位置合わせ資料と参考文献は [分節の出典索引](docs/SEGMENTATION_REFERENCES.md) から参照できます。
 
 53点修正の統合検証完了：全Node 547/547（work/inferior-residual53-full-node-v1.log、session30969 exit0）、型検査、本番build、実ブラウザ12/12と全12PNG目視成功。現ラベルba31c7b…、未完了項目の監査は継続。全分節完成・専門家レビュー・公開反映ではない。以下の実行中/未検証表記は工程履歴。現在live検証jobなし。
 
@@ -252,7 +252,7 @@ IDs 30–32はBigBrain画像、CerebrA白質確率、近接核・脳室との位
 
 `comparison-schematic-ventricle.mesh` は、共同制作ページの寄稿者限定A/B比較pilotだけで使う独立した模式メッシュです。`scripts/build_comparison_schematic_ventricle.mjs` の座標列から決定的に生成し、既存標本・アトラス頂点・断面ラベルを抽出または変形していません。画面では「模式・専門家未確認」「実標本由来ではない」と表示し、学習者向けモデル、正解セグメンテーション、検証済み形状として扱いません。個別の配布義務は `public/atlas/DATA-MANIFEST.json` の `contributor-comparison-prototype-assets` に記録しています。
 
-`public/og.png` は本プロジェクトが作成したSNS共有用プロモーションイラストです。解剖データや第三者の標本画像として扱わず、教材上の位置・形状の根拠にも使用していません。プロジェクト作成の公開視覚素材として、現在の自作教材・プロジェクト作成物の扱いであるCC BY-NC-SA 4.0に従います。作成履歴と現行ファイルのSHA-256は [PUBLIC_ASSET_CREATION_RECORD.md](PUBLIC_ASSET_CREATION_RECORD.md) に記録します。
+`public/og.png` は本プロジェクトが作成したSNS共有用プロモーションイラストです。解剖データや第三者の標本画像として扱わず、教材上の位置・形状の根拠にも使用していません。プロジェクト作成の公開視覚素材として、現在の自作教材・プロジェクト作成物の扱いであるCC BY-NC-SA 4.0に従います。作成履歴と現行ファイルのSHA-256は [PUBLIC_ASSET_CREATION_RECORD.md](docs/PUBLIC_ASSET_CREATION_RECORD.md) に記録します。
 
 ## 7. 参照したが同梱していない著作物
 
@@ -297,7 +297,7 @@ AGPLはオープンソースであり、コードの販売や業務利用その�
 | BigBrain帰属・変更表示 | 対応済み | 公開ビルドでもリンクを確認 |
 | MNI著作権表示 | 対応済み | `public/atlas/LICENSE.txt` を同梱 |
 | 講義・教科書画像の非収録 | 対応済み | 新規アセット追加時に再監査 |
-| OGPイラストの作成履歴 | 記録済み | [PUBLIC_ASSET_CREATION_RECORD.md](PUBLIC_ASSET_CREATION_RECORD.md) に `public/og.png` の作成履歴と現行SHA-256を記録 |
+| OGPイラストの作成履歴 | 記録済み | [PUBLIC_ASSET_CREATION_RECORD.md](docs/PUBLIC_ASSET_CREATION_RECORD.md) に `public/og.png` の作成履歴と現行SHA-256を記録 |
 | アプリコードのライセンス | 対応済み | AGPL-3.0-or-laterとソース導線を維持 |
 | 自作教材文書のライセンス | 対応済み | CC BY-NC-SA 4.0表示を維持 |
 | 公開ソースURL | 対応済み | `bonnginn/brain-practical-navi` への導線を維持 |
@@ -321,7 +321,7 @@ AGPLはオープンソースであり、コードの販売や業務利用その�
 元BigBrain画像は変更せず、既存派生ラベル47 voxelだけを修正した（26→41:16、26→0:31）。AI支援のプロジェクト採用で、専門家レビュー／研究ground truthではない。原画像と連続・直交断の根拠、可逆差分と採否は `FOURTH_VENTRICLE_REPAIR.md` および `segmentation-patches/review/ventricle-classification-project-review-2026-09-06.json`。新volume圧縮SHAは `930eaaed7eed8782b1b162f3aa5c59c2428f4062d0d2da3a9a1cb563f49b7db7`。旧b75a…volumeを履歴fixtureに保持する。対応する第四脳室block mesh1点を同じ生成処理で同期した。元データと派生物の既存ライセンス・帰属条件を変更しない。以下の過去SHA・未変更記載は当時の記録。
 ## 2026-09-06：赤核の位置合わせ修正（開発版）
 
-BigBrain元手動区画へ公式変位場を適用した高精度候補から、左右赤核ID1・2のみを採用。独立した新規解剖分節ではなく、由来を保持した位置補正である。AI補助のプロジェクト採用であり、原著者・提供機関の承認や専門家レビューを示さない。内部の白い帯は核全体の領域内として保持し、その組織名を確定していない。ライセンス、帰属、非臨床・非営利教育上の制約は従前どおり。[採用記録](RED_NUCLEUS_REGISTRATION_ADOPTION.md)。
+BigBrain元手動区画へ公式変位場を適用した高精度候補から、左右赤核ID1・2のみを採用。独立した新規解剖分節ではなく、由来を保持した位置補正である。AI補助のプロジェクト採用であり、原著者・提供機関の承認や専門家レビューを示さない。内部の白い帯は核全体の領域内として保持し、その組織名を確定していない。ライセンス、帰属、非臨床・非営利教育上の制約は従前どおり。[採用記録](docs/RED_NUCLEUS_REGISTRATION_ADOPTION.md)。
 
 ## 2026-09-06 後続：全22手動区画の位置補正
 

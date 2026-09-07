@@ -9,7 +9,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const [page, provenanceText, review] = await Promise.all([
   readFile(resolve(root, "app/page.tsx"), "utf8"),
   readFile(resolve(root, "public/atlas/structure-provenance.json"), "utf8"),
-  readFile(resolve(root, "CONTENT_ACCURACY_REVIEW.md"), "utf8"),
+  readFile(resolve(root, "docs/CONTENT_ACCURACY_REVIEW.md"), "utf8"),
 ]);
 const provenance = JSON.parse(provenanceText);
 

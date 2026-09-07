@@ -6,7 +6,7 @@
 
 `app/beta-status.json`を、アプリ内の「更新履歴・既知の制限」画面の単一データ源とする。`#workspace/status`への直接アクセスと再読み込みで同じ画面を復元できる候補実装を用意する。状態は「公開α掲載中／β候補・β公開判断前」であり、公開済みβ版、大学公式教材、専門家による最終確認済み資料を意味しない。公開α版にはβ候補へ向けた進捗を掲載するが、β版の公開や専門家による承認・最終確認を意味しない。
 
-2026-08-24、同じstatus dialogの冒頭へ `BETA_GO_NO_GO.json` 由来の「公開前チェック」を追加した。更新履歴・既知の制限は引き続き `app/beta-status.json`、12基準の状態は `BETA_GO_NO_GO.json` をそれぞれ唯一の原本とし、状態をstatus JSONへ複製しない。配布用projectionは原本と完全一致を独立監査し、local-only証拠パスを含めない。詳細は [BETA_READINESS_DISPLAY_AUDIT.md](BETA_READINESS_DISPLAY_AUDIT.md)。
+2026-08-24、同じstatus dialogの冒頭へ `BETA_GO_NO_GO.json` 由来の「公開前チェック」を追加した。更新履歴・既知の制限は引き続き `app/beta-status.json`、12基準の状態は `BETA_GO_NO_GO.json` をそれぞれ唯一の原本とし、状態をstatus JSONへ複製しない。配布用projectionは原本と完全一致を独立監査し、local-only証拠パスを含めない。詳細は [BETA_READINESS_DISPLAY_AUDIT.md](../BETA_READINESS_DISPLAY_AUDIT.md)。
 
 掲載する制限は、専門家レビュー未完了、視覚路ID36–38の未分節と旧ID33の正答対象外、乳頭体ID39・40のプロジェクト内レビュー済み・専門家レビュー未完了・付着境界継続確認、模式表示（ブロック、神経血管、脳溝など）、未収録項目（海馬采・鉤、XI脊髄根、閂・薄束・楔状束詳細、静脈系など）、ローカル検証範囲である。
 
@@ -18,7 +18,7 @@
 
 現行の機械結果は、expert pending 75件、表示面フィルタ54／16／30／25件、学習者向けmapping 222/222件解決済みである。構造由来監査のクイズ正答対象は既存23件と模式3D pilot 22件の合計45件なので、status本文も45件へ同期する。この同期自体は解剖学的妥当性の検証や公開確認ではない。2026-08-22・24の旧在庫と実測結果は履歴として保持する。
 
-Go / No-Go 12項目の現行状態とcriterionTextの突合は [BETA_GO_NO_GO.json](BETA_GO_NO_GO.json) と [BETA_GO_NO_GO_AUDIT.md](BETA_GO_NO_GO_AUDIT.md) を基準にする。sourceCountsは provenance／expert pending 75件、unique quiz targets 45件（既存23件＋模式3D pilot 22件）、learner mapping 222/222件であり、statusのローカル確認を公開・専門家確認・デプロイ完了とは扱わない。
+Go / No-Go 12項目の現行状態とcriterionTextの突合は [BETA_GO_NO_GO.json](../BETA_GO_NO_GO.json) と [BETA_GO_NO_GO_AUDIT.md](../BETA_GO_NO_GO_AUDIT.md) を基準にする。sourceCountsは provenance／expert pending 75件、unique quiz targets 45件（既存23件＋模式3D pilot 22件）、learner mapping 222/222件であり、statusのローカル確認を公開・専門家確認・デプロイ完了とは扱わない。
 
 2026-08-28、脳神経問題で中脳・橋・延髄を不透明な位置基準として残し、前交通動脈・後交通動脈・小脳動脈群・視交叉の4問を追加した。追加問題は模式3D・専門家未確認で、視交叉はoverlay ID25だけを使い旧断面ID33や未分節ID36–38を使わない。Chrome 152のローカルproduction previewで45 target×3幅＝135/135件に合格し、VI外転神経問題の脳幹表示と候補数を実ブラウザで確認した。Go / No-Goの状態件数（3／1／4／1／3）は変更していない。
 

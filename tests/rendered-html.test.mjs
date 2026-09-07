@@ -275,7 +275,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
     readFile(new URL("app/canvas.css", root), "utf8"),
     readFile(new URL("app/ManualSegmentationWorkbench.tsx", root), "utf8"),
     readFile(new URL("app/segmentationPatchMetadata.ts", root), "utf8"),
-    readFile(new URL("SEGMENTATION_WORKFLOW.md", root), "utf8"),
+    readFile(new URL("docs/SEGMENTATION_WORKFLOW.md", root), "utf8"),
     readFile(new URL("README.md", root), "utf8"),
     readFile(new URL("DATA_AND_LICENSES.md", root), "utf8"),
     readFile(new URL("public/atlas/ATTRIBUTION.txt", root), "utf8"),
@@ -617,7 +617,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
 test("documents strict patch metadata and review decisions without reviewer input in the student editor", async () => {
   const [template, workflow, roadmap, editor, patchMetadata] = await Promise.all([
     readFile(new URL(".github/PULL_REQUEST_TEMPLATE.md", root), "utf8"),
-    readFile(new URL("SEGMENTATION_WORKFLOW.md", root), "utf8"),
+    readFile(new URL("docs/SEGMENTATION_WORKFLOW.md", root), "utf8"),
     readFile(new URL("BETA_ROADMAP.md", root), "utf8"),
     readFile(new URL("app/ManualSegmentationWorkbench.tsx", root), "utf8"),
     readFile(new URL("app/segmentationPatchMetadata.ts", root), "utf8"),
@@ -650,7 +650,7 @@ test("connects only the public Google Form responder URL", async () => {
 test("separates private feedback, public discussion, and pull requests", async () => {
   const [page, feedback, contributing] = await Promise.all([
     readFile(new URL("app/page.tsx", root), "utf8"),
-    readFile(new URL("ALPHA_FEEDBACK.md", root), "utf8"),
+    readFile(new URL("docs/ALPHA_FEEDBACK.md", root), "utf8"),
     readFile(new URL("CONTRIBUTING.md", root), "utf8"),
   ]);
   assert.match(page, /非公開・匿名[\s\S]*Google Formを開く/);
@@ -2079,7 +2079,7 @@ test("status dialog renders the JSON registry through a durable direct route", a
 test("keeps simultaneously selectable surface colours distinct on the dark model", async () => {
   const [page, audit] = await Promise.all([
     readFile(new URL("app/page.tsx", root), "utf8"),
-    readFile(new URL("VISUAL_CONTRAST_AUDIT.md", root), "utf8"),
+    readFile(new URL("docs/VISUAL_CONTRAST_AUDIT.md", root), "utf8"),
   ]);
   const block = page.split("const surfaceRegions")[1].split("const surfaceRegionKeys")[0];
   const entries = [...block.matchAll(/\s([A-Za-z]+):\{name:"([^"]+)"[^\n]+rgb:\[(\d+),(\d+),(\d+)\]/g)].map(match=>[match[1],[Number(match[3]),Number(match[4]),Number(match[5])]]);
@@ -2111,7 +2111,7 @@ test("keeps ghost-surface teaching layers depth-tested and opacity-consistent", 
   const [atlasCanvas, page, audit] = await Promise.all([
     readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8"),
     readFile(new URL("app/page.tsx", root), "utf8"),
-    readFile(new URL("TRANSPARENCY_VISIBILITY_AUDIT.md", root), "utf8"),
+    readFile(new URL("docs/TRANSPARENCY_VISIBILITY_AUDIT.md", root), "utf8"),
   ]);
   assert.match(atlasCanvas, /const SURFACE_GHOST_OPACITY=\.18/);
   assert.match(atlasCanvas, /const TEACHING_OVERLAY_OPACITY=\.78/);
@@ -2223,7 +2223,7 @@ test("narrow layouts keep destination rails and full workflow panels distinct", 
 test("ships a reproducible Google Form generator for feedback and collaborators", async () => {
   const [script, guide] = await Promise.all([
     readFile(new URL("scripts/create_google_feedback_form.gs", root), "utf8"),
-    readFile(new URL("ALPHA_FEEDBACK.md", root), "utf8"),
+    readFile(new URL("docs/ALPHA_FEEDBACK.md", root), "utf8"),
   ]);
   assert.match(script, /function createBrainPracticalFeedbackForm\(\)/);
   assert.match(script, /FormApp\.create\(CONFIG\.FORM_TITLE, true\)/);
@@ -2247,7 +2247,7 @@ test("ships a reproducible Google Form generator for feedback and collaborators"
 test("research-backed anatomy cautions distinguish source data from teaching schematics", async () => {
   const [page, research] = await Promise.all([
     readFile(new URL("app/page.tsx", root), "utf8"),
-    readFile(new URL("ACCURACY_AND_VIEWER_RESEARCH.md", root), "utf8"),
+    readFile(new URL("docs/ACCURACY_AND_VIEWER_RESEARCH.md", root), "utf8"),
   ]);
   assert.match(page, /完全な輪が常に存在するわけではありません/);
   assert.match(page, /I・IIは脳幹から出る神経根ではありません/);

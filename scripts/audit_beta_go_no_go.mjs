@@ -1,5 +1,6 @@
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
+import { documentPath } from "./document_path.mjs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
@@ -249,9 +250,10 @@ function validateCommittedEvidenceRefs(item, index, rootDir, trackedPaths, error
       errors.push(`${label} must not reference ignored work artifacts`);
       return;
     }
-    const absolute = path.join(rootDir, ref);
+    const absolute = documentPath(rootDir, ref);
     if (!fs.existsSync(absolute) || !fs.statSync(absolute).isFile()) errors.push(`${label} does not exist: ${ref}`);
-    if (!trackedPaths || !trackedPaths.has(ref)) errors.push(`${label} is not tracked/committed: ${ref}`);
+    const trackedRef = path.relative(rootDir, absolute).split(path.sep).join("/");
+    if (!trackedPaths || !trackedPaths.has(trackedRef)) errors.push(`${label} is not tracked/committed: ${ref}`);
   });
 }
 

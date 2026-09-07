@@ -6,7 +6,7 @@
 
 既存Google Formへ更新を加える前に、質問順、必須性、ページ分岐、匿名性、回答シートの運用見出しがリポジトリ内の契約と一致するかを確認します。外部フォームのID、編集URL、回答シートURL、回答内容はリポジトリや監査出力へ記録しません。
 
-機械可読な正本は [feedback-form-contract.json](feedback-form-contract.json) です。`scripts/audit_feedback_form_preflight.mjs` は契約、生成スクリプト、読み取り専用Apps Scriptの安全条件をローカルで監査します。`scripts/preflight_google_feedback_form.gs` は、フォーム管理者が後日Google Apps Script上で明示的に実行するための読み取り専用点検です。
+機械可読な正本は [feedback-form-contract.json](../feedback-form-contract.json) です。`scripts/audit_feedback_form_preflight.mjs` は契約、生成スクリプト、読み取り専用Apps Scriptの安全条件をローカルで監査します。`scripts/preflight_google_feedback_form.gs` は、フォーム管理者が後日Google Apps Script上で明示的に実行するための読み取り専用点検です。
 
 ## 安全境界
 

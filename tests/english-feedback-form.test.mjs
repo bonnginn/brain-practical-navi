@@ -7,6 +7,7 @@ const page = await readFile(new URL("app/page.tsx", root), "utf8");
 const envExample = await readFile(new URL(".env.example", root), "utf8");
 const generator = await readFile(new URL("scripts/create_google_feedback_form_en.gs", root), "utf8");
 const readme = await readFile(new URL("README.md", root), "utf8");
+const development = await readFile(new URL("docs/DEVELOPMENT.md", root), "utf8");
 
 test("English feedback uses a separate responder URL and never falls back to Japanese", () => {
   assert.match(envExample, /^VITE_FEEDBACK_FORM_URL_EN=https:\/\/docs\.google\.com\/forms\/d\/e\/[A-Za-z0-9_-]+\/viewform$/m);
@@ -35,6 +36,8 @@ test("English generator stores distinct targets and exposes only responder URL t
 test("README stays synchronized with the reviewed English edition, quiz total, and form split", () => {
   assert.match(readme, /English edition \(project-reviewed preview\)/);
   assert.match(readme, /全100問/);
-  assert.match(readme, /VITE_FEEDBACK_FORM_URL_EN/);
-  assert.match(readme, /create_google_feedback_form_en\.gs/);
+  assert.match(readme, /92問/);
+  assert.match(readme, /docs\/DEVELOPMENT\.md/);
+  assert.match(development, /VITE_FEEDBACK_FORM_URL_EN/);
+  assert.match(development, /create_google_feedback_form_en\.gs/);
 });

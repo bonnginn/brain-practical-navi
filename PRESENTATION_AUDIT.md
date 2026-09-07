@@ -8,7 +8,7 @@ Current machine-readable values: [BETA_CURRENT_SNAPSHOT.json](BETA_CURRENT_SNAPS
 
 ## 2026-08-28 Home端末別QR
 
-Homeの案内欄へ、PC・タブレット用とスマートフォン用のQRを2列で追加した。小画面では1列にし、3D表示や操作領域には重ねない。QRは同じGitHub Pages公開アプリへ直接リンクし、`ui=desktop`／`ui=phone` でUI構成だけを明示する。短縮URL、追跡サービス、個人情報は含まない。画像寸法・URL・SHA-256は [QR_ACCESS_AUDIT.md](QR_ACCESS_AUDIT.md) に記録した。
+Homeの案内欄へ、PC・タブレット用とスマートフォン用のQRを2列で追加した。小画面では1列にし、3D表示や操作領域には重ねない。QRは同じGitHub Pages公開アプリへ直接リンクし、`ui=desktop`／`ui=phone` でUI構成だけを明示する。短縮URL、追跡サービス、個人情報は含まない。画像寸法・URL・SHA-256は [QR_ACCESS_AUDIT.md](docs/QR_ACCESS_AUDIT.md) に記録した。
 
 Homeの主操作「教育目的で教材を開く」は、注意・補助操作より判別しやすいよう高さ56 px、文字18 pxの強調ボタンとした。小画面では従来どおり横幅いっぱいを使用する。
 
@@ -32,7 +32,7 @@ Chrome 151のローカルproduction previewで、脳表・水平断・自由観�
 
 ## 2026-08-23 source-backed 文言・分類監査
 
-視床下核を「間脳の視床下域」と明示し、quiz／構造グループでは「中脳・視床下域」「中脳核・視床下域」と表記した。淡蒼球はGPe（内部の中継・調節）とGPi（主要出力）を分けて説明し、側脳室と尾状核、第三脳室の上下関係、脳梁・脳弓標本の英見出しも同期した。脳表の中前頭回前部・中前頭回後部・鳥距溝周囲皮質・外側後頭皮質・眼窩前頭皮質はCerebrA／Desikan-styleの教材対応ラベルであり、併記LatinをFIPAT／TNA標準語とは扱わない注意を画面と台帳へ追加した。これは表示文言の根拠整理で、境界・形状の解剖学的検証や専門家レビュー完了を示さない。詳細は [CONTENT_ACCURACY_REVIEW.md](CONTENT_ACCURACY_REVIEW.md) と [STRUCTURE_PROVENANCE.md](STRUCTURE_PROVENANCE.md) を参照。
+視床下核を「間脳の視床下域」と明示し、quiz／構造グループでは「中脳・視床下域」「中脳核・視床下域」と表記した。淡蒼球はGPe（内部の中継・調節）とGPi（主要出力）を分けて説明し、側脳室と尾状核、第三脳室の上下関係、脳梁・脳弓標本の英見出しも同期した。脳表の中前頭回前部・中前頭回後部・鳥距溝周囲皮質・外側後頭皮質・眼窩前頭皮質はCerebrA／Desikan-styleの教材対応ラベルであり、併記LatinをFIPAT／TNA標準語とは扱わない注意を画面と台帳へ追加した。これは表示文言の根拠整理で、境界・形状の解剖学的検証や専門家レビュー完了を示さない。詳細は [CONTENT_ACCURACY_REVIEW.md](docs/CONTENT_ACCURACY_REVIEW.md) と [STRUCTURE_PROVENANCE.md](STRUCTURE_PROVENANCE.md) を参照。
 
 2026-08-24、上記5領域だけに共通の「CerebrA／Desikan系アトラス区画」マーカーを追加した。Chrome 151のローカル通常production preview `http://127.0.0.1:4335/` で、自由観察の5検索結果、構造索引、選択カード、3D選択表示、左右外側面・下面の同定ボタンを確認し、対象外の中心前回には表示されないことも確認した。390 px指定時は実効`innerWidth` 295、`clientWidth` / `scrollWidth` 284/284で、検索結果の長いマーカーは省略されず3行に折り返し、横overflow、残留loader、UI errorは0件だった。同じ最終通常buildのcanonical route監査は162/162件に合格し、missing／duplicate／fail、console／request／UI error、残留loader、横overflow、WebGL fallbackは0件だった。結果はローカル作業用 `work/browser-audit/beta-route-audit-atlas-nomenclature-2026-08-24.json` に保存した。名称、Latin、ID、色、形状、クイズ在庫、来歴・レビュー状態は変更していない。
 
@@ -42,7 +42,7 @@ Chrome 151のローカルproduction previewで、脳表・水平断・自由観�
 
 断面画像・手動ラベル・3Dメッシュの読込表示へ、実受信byte、総量、整数％を追加した。総量を取得できない場合は「総量不明」と受信済みbyteだけを示し、推定％を作らない。受信後の展開・解析を区別し、再試行時は値を初期化する。数値は読み上げ用 `aria-valuetext` と進捗バーへ同期し、狭幅では折り返す。
 
-Chrome 151のPages想定buildを低速化して、総量不明表示と総量既知表示、バーの `value/max` 一致、390 px相当の横はみ出しなし、完了後loader／alert 0を確認した。同じbuildのroute監査は26経路×3幅×direct/reload＝156/156件に合格した。公開URL、実公開回線、物理端末、別ブラウザは未確認である。詳細は [DOWNLOAD_PROGRESS_AUDIT.md](DOWNLOAD_PROGRESS_AUDIT.md) を参照。
+Chrome 151のPages想定buildを低速化して、総量不明表示と総量既知表示、バーの `value/max` 一致、390 px相当の横はみ出しなし、完了後loader／alert 0を確認した。同じbuildのroute監査は26経路×3幅×direct/reload＝156/156件に合格した。公開URL、実公開回線、物理端末、別ブラウザは未確認である。詳細は [DOWNLOAD_PROGRESS_AUDIT.md](docs/DOWNLOAD_PROGRESS_AUDIT.md) を参照。
 
 ## 2026-08-23 3Dモデル方針A/B比較pilot
 
@@ -267,15 +267,15 @@ Chrome 151のローカル通常production preview `http://127.0.0.1:4198` で、
 
 coarse touch emulationはCDP width / clientWidth / scrollWidth 390、`mobile:true`、`touch:true`、`hover:none`、`pointer:coarse`で、`phoneMode=true`、dock 5件、sections Canvas 1を確認した。settings native dialogのrole、閉じた直後の初期focus、structure buttons 21件・structure groups 1件・全解除、html/body overflow hidden、Shift+Tabのdialog内循環、Esc／背景click後の起点phoneRailToggle focus復帰を確認した。rangeは52→53、page scrollY 220だった。segment directはguard true、workbench false、Canvas 0、dock 5件、overflow 0だった。画像は `work/browser-audit/mobile-ui-settings-390.png` と `work/browser-audit/mobile-ui-segment-390.png`、probe JSONは `work/browser-audit/mobile-ui-coarse-probe-2026-08-22.json` に保存した。
 
-coarse phoneの26経路×direct/reloadは52/52件、通常fine/non-touchの26経路×3幅×direct/reloadは156/156件に合格した。結果はそれぞれ `work/browser-audit/mobile-ui-route-audit-2026-08-22.json` と `work/browser-audit/beta-route-audit-mobile-ui-final-2026-08-22.json` に保存し、両reportでmissing/duplicate/fail、console/request/UI error、残留loader、横overflow、WebGL fallbackは0件だった。公開URL、物理端末、実機タッチ、Safari・別ブラウザ、別GPU、専門家レビューは未確認である。詳細は [MOBILE_UI_AUDIT.md](MOBILE_UI_AUDIT.md) を参照。
+coarse phoneの26経路×direct/reloadは52/52件、通常fine/non-touchの26経路×3幅×direct/reloadは156/156件に合格した。結果はそれぞれ `work/browser-audit/mobile-ui-route-audit-2026-08-22.json` と `work/browser-audit/beta-route-audit-mobile-ui-final-2026-08-22.json` に保存し、両reportでmissing/duplicate/fail、console/request/UI error、残留loader、横overflow、WebGL fallbackは0件だった。公開URL、物理端末、実機タッチ、Safari・別ブラウザ、別GPU、専門家レビューは未確認である。詳細は [MOBILE_UI_AUDIT.md](docs/MOBILE_UI_AUDIT.md) を参照。
 
 ### 2026-08-22 専門家レビュー準備キュー（準備のみ）
 
 2026-08-24、75件の読み取り専用台帳を変更せず、各カードへ1項目単位の「確認記録の端末内下書き」を追加した。氏名・所属・連絡先・自由記述を持たず、固定3観察項目・固定懸念コード、台帳全体・対象entry SHA-256、未提出・未採用・expert未主張を固定する。台帳不一致、JSON不正、保存障害、別タブ競合では編集・保存・通常書き出しを停止し、Web Locksと保存前照合、単調増加revisionで上書きと古い非同期完了を防ぐ。
 
-Chrome 151相当のローカル通常production preview `http://127.0.0.1:4332/` で、遅延オープン、固定select 5件、連続変更、自動保存、再読込復元、懸念コード必須、日本語案内、JSON書き出し完了表示を確認した。390 px指定（実効 `innerWidth` 295、`clientWidth` / `scrollWidth` 284）でカード幅233 px、select 156–158 px、操作ボタン44 px、横overflow 0、console error／warning 0だった。最終通常buildのcanonical route監査は162/162件に合格し、missing／duplicate／fail、console／request／UI error、残留loader、横overflow、WebGL fallbackは0件だった。これは専門家レビュー、本人性・署名、妥当性、採否を示さない。詳細は [ANATOMY_REVIEW_RECORD_DRAFT_AUDIT.md](ANATOMY_REVIEW_RECORD_DRAFT_AUDIT.md)。
+Chrome 151相当のローカル通常production preview `http://127.0.0.1:4332/` で、遅延オープン、固定select 5件、連続変更、自動保存、再読込復元、懸念コード必須、日本語案内、JSON書き出し完了表示を確認した。390 px指定（実効 `innerWidth` 295、`clientWidth` / `scrollWidth` 284）でカード幅233 px、select 156–158 px、操作ボタン44 px、横overflow 0、console error／warning 0だった。最終通常buildのcanonical route監査は162/162件に合格し、missing／duplicate／fail、console／request／UI error、残留loader、横overflow、WebGL fallbackは0件だった。これは専門家レビュー、本人性・署名、妥当性、採否を示さない。詳細は [ANATOMY_REVIEW_RECORD_DRAFT_AUDIT.md](docs/ANATOMY_REVIEW_RECORD_DRAFT_AUDIT.md)。
 
-`public/atlas/structure-provenance.json` を単一情報源として、expert pending 56件を共同制作画面の読み取り専用パネルへ表示した。パネルはForm・Issue・PRなど一般入口の後ろに置いた既定閉鎖の`details`で、summaryに件数と読み取り専用を示し、開いたときだけ表示面・representationのフィルタ、既知の制限、source refs、プロジェクトレビュー状態を表示する。各リンクは「一般の○○画面を開く（この項目・構造・位置は自動選択されません）」と明示し、既存workspaceの一般入口だけへ遷移する。専門家レビュー完了、解剖学的妥当性、採否は示さない。旧ID33混合領域は断面／通常クイズ正答と分節入口から除外し、ID39・40はプロジェクト内レビュー済みだが専門家pendingとして明記している。詳細と監査は [ANATOMY_REVIEW_HANDOFF.md](ANATOMY_REVIEW_HANDOFF.md) と `scripts/audit_anatomy_review_queue.mjs` に固定した。
+`public/atlas/structure-provenance.json` を単一情報源として、expert pending 56件を共同制作画面の読み取り専用パネルへ表示した。パネルはForm・Issue・PRなど一般入口の後ろに置いた既定閉鎖の`details`で、summaryに件数と読み取り専用を示し、開いたときだけ表示面・representationのフィルタ、既知の制限、source refs、プロジェクトレビュー状態を表示する。各リンクは「一般の○○画面を開く（この項目・構造・位置は自動選択されません）」と明示し、既存workspaceの一般入口だけへ遷移する。専門家レビュー完了、解剖学的妥当性、採否は示さない。旧ID33混合領域は断面／通常クイズ正答と分節入口から除外し、ID39・40はプロジェクト内レビュー済みだが専門家pendingとして明記している。詳細と監査は [ANATOMY_REVIEW_HANDOFF.md](docs/ANATOMY_REVIEW_HANDOFF.md) と `scripts/audit_anatomy_review_queue.mjs` に固定した。
 
 Chrome 151のローカル通常production preview `http://127.0.0.1:4199` で、既定閉鎖、一般入口より後ろの配置、全56件、表示面別36／16／29／21件、複合フィルタ、乳頭体・旧ID33カード、一般断面／脳表リンクの注意文を実操作した。390 px指定のアプリ内ブラウザ（実効 `innerWidth` 295）では `clientWidth` / `scrollWidth` 284、横はみ出し0、一覧内側のスクロールなしだった。同じ通常buildの26経路×3幅×direct/reloadは156/156件に合格し、`work/browser-audit/beta-route-audit-anatomy-review-final-2026-08-22.json` に保存した。全テスト161/161、台帳監査、型検査、通常buildにも合格した。公開URL、物理端末、別ブラウザ・別GPU、専門家レビューは未確認である。
 

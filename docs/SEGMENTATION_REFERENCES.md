@@ -17,9 +17,9 @@ Nagata S, Rhoton AL Jr, Barry M. *Microsurgical anatomy of the choroidal fissure
 
 | 資料 | 使用目的 | 詳細記録 |
 | --- | --- | --- |
-| BigBrain, Amunts et al. (2013) — [公式配布案内](https://bigbrainproject.org/) | 標本画像と連続・直交断の照合。最近の脳室補完は登録300 µm画像等によるもので、元20 µm画像の直接確認とは異なる | [脳室レビュー](LATERAL_VENTRICLE_FRINGE_REVIEW.md)、[データ台帳](DATA_AND_LICENSES.md) |
-| Xiao Y, Lau JC, Anderson T, et al. (2019). *An accurate registration of the BigBrain dataset with the MNI PD25 and ICBM152 atlases*. Scientific Data 6, 210. [正式論文 DOI](https://doi.org/10.1038/s41597-019-0217-0)、[配布元](https://nist.mni.mcgill.ca/multi-contrast-pd25-atlas/)、[旧台帳のプレプリント](https://doi.org/10.1101/561118) | 配布手動ラベルと位置合わせ。赤核等では元区画の位置補正に使用。GPe/GPiも別の手動区画として由来を保持 | [赤核採用記録](RED_NUCLEUS_REGISTRATION_ADOPTION.md)、[淡蒼球レビュー](PALLIDAL_BOUNDARY_REVIEW.md)、[由来台帳](STRUCTURE_PROVENANCE.md) |
-| Manera et al. — [CerebrA論文](https://doi.org/10.1038/s41597-020-0557-9)、[MNIテンプレート配布](https://github.com/templateflow/tpl-MNI152NLin2009cSym) | アトラス対応・初期候補。同一標本の手動分節とは区別する | [データ台帳](DATA_AND_LICENSES.md) |
+| BigBrain, Amunts et al. (2013) — [公式配布案内](https://bigbrainproject.org/) | 標本画像と連続・直交断の照合。最近の脳室補完は登録300 µm画像等によるもので、元20 µm画像の直接確認とは異なる | [脳室レビュー](LATERAL_VENTRICLE_FRINGE_REVIEW.md)、[データ台帳](../DATA_AND_LICENSES.md) |
+| Xiao Y, Lau JC, Anderson T, et al. (2019). *An accurate registration of the BigBrain dataset with the MNI PD25 and ICBM152 atlases*. Scientific Data 6, 210. [正式論文 DOI](https://doi.org/10.1038/s41597-019-0217-0)、[配布元](https://nist.mni.mcgill.ca/multi-contrast-pd25-atlas/)、[旧台帳のプレプリント](https://doi.org/10.1101/561118) | 配布手動ラベルと位置合わせ。赤核等では元区画の位置補正に使用。GPe/GPiも別の手動区画として由来を保持 | [赤核採用記録](RED_NUCLEUS_REGISTRATION_ADOPTION.md)、[淡蒼球レビュー](PALLIDAL_BOUNDARY_REVIEW.md)、[由来台帳](../STRUCTURE_PROVENANCE.md) |
+| Manera et al. — [CerebrA論文](https://doi.org/10.1038/s41597-020-0557-9)、[MNIテンプレート配布](https://github.com/templateflow/tpl-MNI152NLin2009cSym) | アトラス対応・初期候補。同一標本の手動分節とは区別する | [データ台帳](../DATA_AND_LICENSES.md) |
 | BigBrain2015組織分類（Wagstyl et al., 2018）と公式変位場 | 組織支持・位置合わせの補助。補助volume自体はアプリに再配布していない | [照合記録・出典・ファイルSHA](OFFICIAL_TISSUE_ALIGNMENT_REVIEW.md) |
 
 第四脳室の前方105 voxel補完には、Xiao配布の登録300 µm BigBrain画像を直接照合に使用しました。
@@ -41,4 +41,4 @@ native100は左右2参照点の補助照合であり、105点全体のnative100�
 
 各修正の監査記録に、対象構造、使用画像・ラベル・変換のファイル名とSHA-256、解像度・座標系、文献の書誌情報・DOI/URL、用途（直接使用／参考のみ）、確認範囲、採否と未解決点を残し、本索引からリンクします。候補調査だけの資料を採用分節の出典として扱いません。
 
-この索引は全監査文献の整理完了を意味しません。既存の個別記録も順次索引へ追加します。ライセンス・配布条件は [DATA_AND_LICENSES.md](DATA_AND_LICENSES.md) を参照してください。
+この索引は全監査文献の整理完了を意味しません。既存の個別記録も順次索引へ追加します。ライセンス・配布条件は [DATA_AND_LICENSES.md](../DATA_AND_LICENSES.md) を参照してください。
