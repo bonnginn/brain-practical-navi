@@ -46,3 +46,5 @@
 ローカル4346で最終圧縮ラベル・変更2meshとメタデータの配信bytesを照合。実Chromeで水平Z110の断面＋3D、中脳横断／後脳ブロックの初期描画、日英の利用条件内参考文献12件を確認。右のユーザー画面は側脳室Z156を保ち、最終revisionへ更新した。全操作・全境界の専門家監修ではない。main統合・push・公開更新なし。
 
 検証ログ：`work/midbrain-final14789-full-node-v2.log`、`work/midbrain-final14789-full-python-v1.log`、`work/midbrain-final14789-typecheck.log`、`work/midbrain-final14789-normal-build.log`、`work/midbrain-final14789-pages-build.log`、`work/midbrain-final14789-http.log`。
+
+採用後の再現性も確認：候補除外rendererと両stageを現publicデータではなくSHA固定の採用前fixtureから読めるよう整理し、`--output`で新しい証拠ディレクトリだけを指定可能にした。既存ディレクトリは引き続き拒否。`midbrain-ventral-connected-replay-v1` と両 `*-replay-v1` へ再実行し、13図のreport・両repair.json・前後volumeが元のSHAと一致。旧証拠は上書きせず、分節・meshの追加変更なし。このツール整理後は保護テストを含む専用Python6/6を確認（上記全343件の実行後に1試験追加、全344件の再実行とは数えない）。

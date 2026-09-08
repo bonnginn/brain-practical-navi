@@ -3,6 +3,7 @@ import gzip
 from pathlib import Path
 import sys
 import unittest
+import tempfile
 import numpy as np
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -13,6 +14,19 @@ from stage_midbrain_ventral14803 import replay, COUNT, LABEL_SHA, digest
 
 
 class MidbrainVentralTest(unittest.TestCase):
+    def test_saved_inputs_and_existing_output_are_protected(self):
+        import refine_midbrain_ventral_tissue as refine
+        import stage_midbrain_ventral14803 as ventral
+        import stage_midbrain_interface14 as interface
+        for module in [refine,ventral,interface]:
+            self.assertEqual(digest(module.BASELINE.read_bytes()),module.LABEL_SHA)
+            self.assertIn('fixtures',module.BASELINE.parts)
+            with tempfile.TemporaryDirectory() as existing:
+                sentinel=Path(existing)/'keep.txt';sentinel.write_text('keep',encoding='utf-8')
+                with self.assertRaisesRegex(ValueError,'Preserve'):
+                    module.main(existing)
+                self.assertEqual(sentinel.read_text(encoding='utf-8'),'keep')
+
     def test_axial_anchor_and_explicit_open_context(self):
         tissue=np.zeros((7,7,2),bool);tissue[2:5,2:5,:]=True
         labels=np.zeros(tissue.shape,np.uint8);labels[3,3,:]=27

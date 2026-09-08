@@ -1,9 +1,11 @@
 """Reversible local lower-midbrain omission repair, not an upper boundary definition."""
 import gzip
 import json
+import argparse
+from pathlib import Path
 import numpy as np
-from build_orthogonal_review_bundle import ROOT, DEFAULT_LABELS, MAGIC_LABELS, read_browser_volume
-from refine_midbrain_ventral_tissue import LABEL_SHA, EXPLORATION, EXPLORATION_SHA, connected_candidates
+from build_orthogonal_review_bundle import ROOT, MAGIC_LABELS, read_browser_volume
+from refine_midbrain_ventral_tissue import BASELINE, LABEL_SHA, EXPLORATION, EXPLORATION_SHA, connected_candidates
 from stage_lateral_detached547 import digest
 
 REVIEW='work/anatomy-review/midbrain-ventral-connected-v1/report.json'
@@ -22,8 +24,8 @@ def replay(labels, points, reverse=False):
     return result
 
 
-def main():
-    out=ROOT/'work/anatomy-review/midbrain-ventral14803-stage-v1'
+def main(output=None):
+    out=Path(output) if output is not None else ROOT/'work/anatomy-review/midbrain-ventral14803-stage-v1'
     if out.exists():raise ValueError('Preserve evidence')
     evidence=[];reports=[]
     for name,expected in [(EXPLORATION,EXPLORATION_SHA),(REVIEW,REVIEW_SHA)]:
@@ -34,7 +36,7 @@ def main():
         evidence.append(dict(path=name,sha256=expected,visuallyInspectedFigures=report['figures']))
         reports.append(report)
     exploration,review=reports
-    _,_,before=read_browser_volume(DEFAULT_LABELS,MAGIC_LABELS,LABEL_SHA)
+    _,_,before=read_browser_volume(BASELINE,MAGIC_LABELS,LABEL_SHA)
     original=np.asarray([p['xyz'] for p in exploration['points']]);keep=connected_candidates(before,original)
     points=np.asarray([p['xyz'] for p in review['points']])
     if (review['labelSha256']!=LABEL_SHA or not np.array_equal(points,original[keep])
@@ -49,7 +51,7 @@ def main():
             if tuple(p['xyz'] if isinstance(p,dict) else p) in point_set:raise ValueError('Prior excluded cell reintroduced')
     after=replay(before,points)
     if not np.array_equal(replay(after,points,True),before):raise ValueError('Reverse mismatch')
-    base=DEFAULT_LABELS.read_bytes();raw=gzip.decompress(base);data=gzip.compress(raw[:10]+after.tobytes(order='F'),mtime=0)
+    base=BASELINE.read_bytes();raw=gzip.decompress(base);data=gzip.compress(raw[:10]+after.tobytes(order='F'),mtime=0)
     record=dict(beforeSha256=LABEL_SHA,afterSha256=digest(data),afterRawVoxelSha256=digest(after.tobytes(order='F')),
         points=points.tolist(),count=COUNT,transition='0->27',evidence=evidence,
         rejectedCount=315,rejectedXYZ=original[~keep].tolist(),priorExclusionRecords=exploration['priorExclusionRecords'],
@@ -72,4 +74,7 @@ def main():
     print('recordSha256',digest((out/'repair.json').read_bytes()))
 
 
-if __name__=='__main__':main()
+if __name__=='__main__':
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output',type=Path,help='New evidence directory; existing directories are never overwritten')
+    main(parser.parse_args().output)

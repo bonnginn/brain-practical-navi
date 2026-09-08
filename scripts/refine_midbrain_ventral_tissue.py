@@ -1,15 +1,18 @@
 """Review-only pruning of disconnected lower-midbrain candidates; no adoption."""
 import json
+import argparse
+from pathlib import Path
 import numpy as np
 from scipy import ndimage
 from PIL import Image, ImageDraw
 from audit_manual_label_space import SOURCE, load_identity_minc
 from render_registered_manual_fine_review import IMAGE_NAME, IMAGE_SHA, encode_image
-from build_orthogonal_review_bundle import ROOT, DEFAULT_LABELS, MAGIC_LABELS, read_browser_volume, _outline, _oriented_crop
+from build_orthogonal_review_bundle import ROOT, MAGIC_LABELS, read_browser_volume, _outline, _oriented_crop
 from build_registered_manual_candidate import nearest_labels
 from review_aqueduct_native100 import sha
 
 LABEL_SHA='976684fb22e372f3b0942190d2a8985bc41b1535cd56e332e7a055f5b6d88ffb'
+BASELINE=ROOT/'tests/fixtures/bigbrain-practical-segmentation-pre-midbrain-ventral14803.bin.gz'
 EXPLORATION='work/anatomy-review/lower-midbrain-ventral-tissue-2026-09-08-v3-partial-context/report.json'
 EXPLORATION_SHA='492e59958130b2569ccddd7d9c3adc8b8d68e4633c2bff1c63c8454252a21ef2'
 
@@ -25,12 +28,12 @@ def connected_candidates(labels, points):
     return reached[tuple(p.T)]
 
 
-def main():
-    out=ROOT/'work/anatomy-review/midbrain-ventral-connected-v1'
+def main(output=None):
+    out=Path(output) if output is not None else ROOT/'work/anatomy-review/midbrain-ventral-connected-v1'
     if out.exists():raise ValueError('Preserve prior evidence')
     blob=(ROOT/EXPLORATION).read_bytes();source=json.loads(blob)
     if sha(blob)!=EXPLORATION_SHA:raise ValueError('Exploration changed')
-    _,_,labels=read_browser_volume(DEFAULT_LABELS,MAGIC_LABELS,LABEL_SHA)
+    _,_,labels=read_browser_volume(BASELINE,MAGIC_LABELS,LABEL_SHA)
     entries=source['points'];p=np.array([e['xyz'] for e in entries]);keep=connected_candidates(labels,p)
     if len(p)!=15118 or int(keep.sum())!=14803:raise ValueError('Unexpected connectivity result')
     # No label or mesh is generated. 1 = retained candidate; 2 = rejected disconnected candidate.
@@ -87,4 +90,7 @@ def main():
                          figures=len(report['figures']),reportSha256=sha((out/'report.json').read_bytes()))))
 
 
-if __name__=='__main__':main()
+if __name__=='__main__':
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output',type=Path,help='New evidence directory; existing directories are never overwritten')
+    main(parser.parse_args().output)
