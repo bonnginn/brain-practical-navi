@@ -12,6 +12,9 @@
 - [第三脳室の小片修正（2026-09-08・未公開）](THIRD_VENTRICLE_REMNANTS_REPAIR.md)
 - [中脳水道の部分補修（2026-09-08・未公開）](AQUEDUCT_PARTIAL_REPAIR.md)
 - [第三脳室後方の組織除外・水道尾側の補完（未公開）](POSTERIOR_VENTRICLES_REPAIR.md)
+- [側脳室Z174–202の塗り残し補完（未公開）](LATERAL_UPPER_CAVITY_REPAIR.md)
+- [側脳室前方Z136–173の塗り残し補完（未公開）](LATERAL_ANTERIOR_CAVITY_REPAIR.md)
+- [独立したBrodmann参照脳表の観察（別タスクで開発・未公開）](BRODMANN_SURFACE_OBSERVATION.md)
 - [断面の0.5 mm・1枚送り（2026-09-08・未公開）](SECTION_SINGLE_SLICE_NAVIGATION.md)
 - [データ・権利・引用](../DATA_AND_LICENSES.md)
 

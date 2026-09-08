@@ -46,12 +46,12 @@ class PosteriorVentriclesTest(unittest.TestCase):
         for invalid in [True,1,10,3.0]:
             with self.assertRaises(ValueError):interior_offsets(invalid)
 
-    def test_adoption_matches_all_current_label_bytes_and_reverses(self):
+    def test_adoption_matches_all_retained_stage_bytes_and_reverses(self):
         path=ROOT/'segmentation-patches/review/posterior-ventricles158-adoption-2026-09-08.json'
         raw=path.read_bytes();self.assertEqual(sha(raw),'f45703a468358528c46b80dfc83d7c1bfaaa3b29079e842d0c45fab82df7c2ec')
         r=json.loads(raw)
         base=(ROOT/'tests/fixtures/bigbrain-practical-segmentation-pre-posterior-ventricles158.bin.gz').read_bytes()
-        current=(ROOT/'public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz').read_bytes()
+        current=(ROOT/'tests/fixtures/bigbrain-practical-segmentation-pre-lateral-upper729.bin.gz').read_bytes()
         self.assertEqual(sha(base),r['beforeSha256']);self.assertEqual(sha(current),r['afterSha256'])
         load=lambda b:np.frombuffer(gzip.decompress(b),np.uint8,offset=10).reshape((394,466,378),order='F')
         before=load(base);after=load(current)

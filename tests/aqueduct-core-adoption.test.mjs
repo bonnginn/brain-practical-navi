@@ -16,7 +16,7 @@ test('partial aqueduct is selectable only for BigBrain, labelled partial, and ab
  assert.doesNotMatch(questions,/aqueductPartial/);
  assert.doesNotMatch((await read('app/quiz-concept-bank.json')).toString(),/aqueductPartial/);
  const report=JSON.parse(await read('public/atlas/section-current-aqueduct-partial.json'));
- assert.equal(report.sourceSha256,'63ac0815f7631e35029b9811485593e1bf0f2121cfe362366af74d1664f2dea8');
+ assert.equal(report.sourceSha256,'976684fb22e372f3b0942190d2a8985bc41b1535cd56e332e7a055f5b6d88ffb');
  assert.equal(report.voxels,259);assert.equal(report.partialExtent,true);assert.equal(report.expertReviewed,false);
  assert.equal(sha(await read('public/atlas/section-current-aqueduct-partial.mesh')),report.sha256);
  const catalog=JSON.parse(await read('app/english-catalog.json'));

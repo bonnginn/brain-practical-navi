@@ -1,7 +1,7 @@
 {
   "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
-  "sourceSha256": "63ac0815f7631e35029b9811485593e1bf0f2121cfe362366af74d1664f2dea8",
-  "rawVoxelSha256": "11d3bbee8617b73b8862e0100b703bb2c2df1632019e9fa7f71eaa54d912db02",
+  "sourceSha256": "976684fb22e372f3b0942190d2a8985bc41b1535cd56e332e7a055f5b6d88ffb",
+  "rawVoxelSha256": "ca91058fd433fe07561af026cd90bce80c44ffbcbd31fdaf076fb5bde1ad06dc",
   "dimensionsXYZ": [
     394,
     466,
@@ -17,11 +17,11 @@
   "scope": "section-view BigBrain selection/context only; not expert validation",
   "meshes": {
     "section-current-lateral-ventricles": {
-      "voxels": 159455,
-      "components6": 70,
+      "voxels": 163652,
+      "components6": 67,
       "componentSizes": [
-        80298,
-        79033,
+        82150,
+        81381,
         12,
         7,
         7,
@@ -86,9 +86,6 @@
         1,
         1,
         1,
-        1,
-        1,
-        1,
         1
       ],
       "boundsZYX": [
@@ -103,10 +100,10 @@
           276
         ]
       ],
-      "vertices": 79868,
-      "faces": 161208,
-      "sha256": "2632d13fdc3ed6422a4cf6e3444b07e2723b091978468c8d13b142cffb91b831",
-      "bytes": 4170812,
+      "vertices": 80274,
+      "faces": 162076,
+      "sha256": "09502dbdb0e18920a6bbf1e91bb2757d7ed387b6beabbc43a8c3ee529da5f785",
+      "bytes": 4192596,
       "labelIds": [
         23,
         24
@@ -189,11 +186,11 @@
       ]
     },
     "section-current-ventricular-system": {
-      "voxels": 180575,
-      "components6": 92,
+      "voxels": 184772,
+      "components6": 89,
       "componentSizes": [
-        92026,
-        79037,
+        93109,
+        82154,
         9006,
         104,
         95,
@@ -280,9 +277,6 @@
         1,
         1,
         1,
-        1,
-        1,
-        1,
         1
       ],
       "boundsZYX": [
@@ -297,10 +291,10 @@
           276
         ]
       ],
-      "vertices": 94636,
-      "faces": 190828,
-      "sha256": "874874b6a392409b9d37530383e236689c9aea391f235b933b8fe4236707e00c",
-      "bytes": 4939756,
+      "vertices": 95042,
+      "faces": 191696,
+      "sha256": "6fe57a2c4432bf95ca8a03d9dd4d39f4935065d19b9d185225e5c0e53fcbaaad",
+      "bytes": 4961540,
       "labelIds": [
         23,
         24,

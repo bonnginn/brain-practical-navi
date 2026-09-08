@@ -107,8 +107,8 @@
     "20": 3920,
     "21": 14647,
     "22": 15077,
-    "23": 80373,
-    "24": 79082,
+    "23": 81455,
+    "24": 82197,
     "25": 11853,
     "26": 9008,
     "27": 249816,
@@ -123,7 +123,7 @@
     "39": 559,
     "40": 729,
     "41": 259,
-    "0": 66630984
+    "0": 66626787
   },
   "atlasToManualDiceAudit": {
     "caudate": 0.8448,
@@ -454,7 +454,7 @@
     "workflowMetadataStatus": "strict"
   },
   "preClassificationCompressedSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
-  "rawVoxelSha256": "11d3bbee8617b73b8862e0100b703bb2c2df1632019e9fa7f71eaa54d912db02",
+  "rawVoxelSha256": "ca91058fd433fe07561af026cd90bce80c44ffbcbd31fdaf076fb5bde1ad06dc",
   "brainstemThreeIslandsAudit": {
     "record": "segmentation-patches/review/brainstem-three-islands-adoption-2026-09-06.json",
     "recordSha256": "9c7b14f4272969261e3e2415d3f522b7e5d7db1eeca7cb0c8ae28b225458be66",
@@ -1194,6 +1194,39 @@
       "expertReviewed": false,
       "changedSectionMeshes": [
         "section-current-third-ventricle.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "lateral-upper729": {
+      "record": "segmentation-patches/review/lateral-upper729-adoption-2026-09-08.json",
+      "recordSha256": "f0941060af13f01ca7d97d3c5a221b3df1ebdd4a7c80864844a54fba59c4b901",
+      "changedVoxelCount": 729,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-lateral-ventricles.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "lateral-anterior1981": {
+      "record": "segmentation-patches/review/lateral-anterior1981-adoption-2026-09-08.json",
+      "recordSha256": "34307863602af0fffc7bb37412f301dbad12dcfe37b09c036159f64e991facbe",
+      "changedVoxelCount": 1981,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-lateral-ventricles.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "lateral-upper-nearblack1487": {
+      "record": "segmentation-patches/review/lateral-upper-nearblack1487-adoption-2026-09-08.json",
+      "recordSha256": "8c5d8c1b0c52eb5cfecfa2067ee29419158fcb523377a99454af12a07131b88c",
+      "changedVoxelCount": 1487,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-lateral-ventricles.mesh",
         "section-current-ventricular-system.mesh"
       ]
     }

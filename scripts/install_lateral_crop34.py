@@ -134,8 +134,20 @@ def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None, *, review_da
     partial_aqueduct=record['transition']=='mixed-to-41'
     mixed_repair=record['transition']=='mixed-ventricular-repair'
     posterior_repair=record['transition']=='mixed-posterior-ventricular-repair'
-    points=np.asarray([p['xyz'] for p in record['points']] if exclusions or brainstem_reclassification or mixed_cavity or mixed_repair or partial_aqueduct or posterior_repair else record['points']); count=record['count']
-    if posterior_repair:
+    bilateral_fill=record['transition']=='mixed-lateral-cavity-fill'
+    points=np.asarray([p['xyz'] for p in record['points']] if exclusions or brainstem_reclassification or mixed_cavity or mixed_repair or partial_aqueduct or posterior_repair or bilateral_fill else record['points']); count=record['count']
+    if bilateral_fill:
+        if prefix=='lateral-upper729' and record_sha=='cd0d9bb10cff47e170197d4cb37a25b9faac26d65f0ebe2fc996c0033f43f3ec':
+            from stage_lateral_upper729 import replay as replay_bilateral
+        elif prefix=='lateral-anterior1981' and record_sha=='835ee20097df4be2b38a0b5d6c7f5faaae3236aa72881beb0ddbf907aea69ba2':
+            from stage_lateral_anterior1981 import replay as replay_bilateral
+        elif prefix=='lateral-upper-nearblack1487' and record_sha=='c83a417c9a53bbae1f710da114c20317902cc7ad7cc0b41858fe7d924edd56c5':
+            from stage_lateral_upper_nearblack1487 import replay as replay_bilateral
+        else:
+            raise ValueError('Unreviewed bilateral cavity fill')
+        if not np.array_equal(replay_bilateral(before,record['points']),after):raise ValueError('Bilateral replay differs')
+        source_values=0;destination=np.asarray([p['after'] for p in record['points']]);affected={0,23,24}
+    elif posterior_repair:
         from stage_posterior_ventricles158 import replay as replay_posterior
         if prefix!='posterior-ventricles158' or record_sha!='3d2670bbd02c1880d254c024c64aa2915f99454d9a41040bc7dcb42bee774cf1':
             raise ValueError('Unreviewed posterior ventricular repair')

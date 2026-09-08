@@ -4,6 +4,8 @@
 
 2026-09-08追加：中脳水道の中央179点＋尾側64点を補修し、部分ID41は259点。元候補の両端30点は未採用。第三脳室後方の組織重なり94点もnative100で照合後に除外した。断面3D・関連ブロックを同期。現行SHA `63ac0815f7631e35029b9811485593e1bf0f2121cfe362366af74d1664f2dea8`。詳細・検証は [AQUEDUCT_PARTIAL_REPAIR.md](AQUEDUCT_PARTIAL_REPAIR.md)・[POSTERIOR_VENTRICLES_REPAIR.md](POSTERIOR_VENTRICLES_REPAIR.md)。中脳腹側の不足は次の局所候補を検討中だが、脚・間脳境界の拡張はまだ採用していない（[記録](MIDBRAIN_BOUNDARY_PROTOCOL_REVIEW.md)）。
 
+2026-09-08の最新追加：側脳室Z174–202に729＋1,487点、Z136–173前方に1,981点、計4,197点を補完。開発版SHAは `976684fb22e372f3b0942190d2a8985bc41b1535cd56e332e7a055f5b6d88ffb`。原画像と直交断を照合し既存組織を保持。専門家確認・全脳室完成ではない。[上方の記録](LATERAL_UPPER_CAVITY_REPAIR.md)／[前方の記録](LATERAL_ANTERIOR_CAVITY_REPAIR.md)。以下のSHAや「最新」は過去工程の記録。
+
 ## 過去の現在位置（2026-09-07更新）
 
 **一時停止（ユーザー指示）**：以下の12点統合後の全Node561/561成功、参考文献表示追加後の関連81試験・型検査・通常build・日英表示・配信一致確認まで完了。これ以降の「進行中」「次は」は履歴または再開後の予定で、現在の自律作業は停止。全体完了ではない。最新状態・公開候補は [PAUSE_CHECKPOINT_2026-09-07.md](PAUSE_CHECKPOINT_2026-09-07.md) を優先する。
