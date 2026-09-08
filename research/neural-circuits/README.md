@@ -4,6 +4,8 @@
 
 This independent preparation module does not change the running application or segmentation. It provides curriculum targets, geometry adapters and evidence contracts. Subnuclear coordinates, masks and connectivity remain unreviewed and unpopulated.
 
+教材への展開案： [ガイドツアーの検討と第1ツアー台本](../guided-tours/README.md)。既存の位置関係ステッパーを土台に、問い・ヒント・再同定を加える案を別に保存した。
+
 ## 用意したもの
 
 | ファイル | 用途 |
