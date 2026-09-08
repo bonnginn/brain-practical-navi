@@ -1,7 +1,7 @@
 {
   "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
-  "sourceSha256": "a21cb6ab8aa7080b6e26766c2f82834871d3e72c174b72d0b018733ee5ef278a",
-  "rawVoxelSha256": "b3891d708763e760874ac3619c684c45bfcd87aacce1e07c422add285c6e276c",
+  "sourceSha256": "63ac0815f7631e35029b9811485593e1bf0f2121cfe362366af74d1664f2dea8",
+  "rawVoxelSha256": "11d3bbee8617b73b8862e0100b703bb2c2df1632019e9fa7f71eaa54d912db02",
   "dimensionsXYZ": [
     394,
     466,
@@ -113,10 +113,10 @@
       ]
     },
     "section-current-third-ventricle": {
-      "voxels": 11947,
-      "components6": 20,
+      "voxels": 11853,
+      "components6": 24,
       "componentSizes": [
-        11566,
+        11468,
         104,
         95,
         93,
@@ -135,6 +135,10 @@
         1,
         1,
         1,
+        1,
+        1,
+        1,
+        1,
         1
       ],
       "boundsZYX": [
@@ -149,10 +153,10 @@
           204
         ]
       ],
-      "vertices": 8971,
-      "faces": 17962,
-      "sha256": "947414637efff8ccd47f5de8a472af53f445cbd7df00c789ce9c206f80a8ff46",
-      "bytes": 466744,
+      "vertices": 9165,
+      "faces": 18386,
+      "sha256": "31b7f16fbb3d01e95d2653c5fd319a9a6499cf79c522e67eba1d2bdf46343df2",
+      "bytes": 477264,
       "labelIds": [
         25
       ]
@@ -185,10 +189,10 @@
       ]
     },
     "section-current-ventricular-system": {
-      "voxels": 180605,
-      "components6": 88,
+      "voxels": 180575,
+      "components6": 92,
       "componentSizes": [
-        92060,
+        92026,
         79037,
         9006,
         104,
@@ -275,6 +279,10 @@
         1,
         1,
         1,
+        1,
+        1,
+        1,
+        1,
         1
       ],
       "boundsZYX": [
@@ -289,10 +297,10 @@
           276
         ]
       ],
-      "vertices": 94322,
-      "faces": 190164,
-      "sha256": "c60f91577adee88ff53c11b0683d00c4b011ffd98e31c367fa3ee1578223ca3a",
-      "bytes": 4922996,
+      "vertices": 94636,
+      "faces": 190828,
+      "sha256": "874874b6a392409b9d37530383e236689c9aea391f235b933b8fe4236707e00c",
+      "bytes": 4939756,
       "labelIds": [
         23,
         24,

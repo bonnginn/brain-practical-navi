@@ -1,8 +1,8 @@
 {
   "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
-  "sourceSha256": "63ac0815f7631e35029b9811485593e1bf0f2121cfe362366af74d1664f2dea8",
-  "adoption": "segmentation-patches/review/posterior-ventricles158-adoption-2026-09-08.json",
-  "adoptionSha256": "f45703a468358528c46b80dfc83d7c1bfaaa3b29079e842d0c45fab82df7c2ec",
+  "sourceSha256": "a21cb6ab8aa7080b6e26766c2f82834871d3e72c174b72d0b018733ee5ef278a",
+  "adoption": "segmentation-patches/review/aqueduct-core179-adoption-2026-09-08.json",
+  "adoptionSha256": "4ba89544a86ec75b180e1901444c5c3bb34043a738b64b7a2cfc30c2830f9a78",
   "labelIds": [
     41
   ],
@@ -16,25 +16,25 @@
   ],
   "method": "marching cubes 0.5; no resampling, smoothing, filling or component removal",
   "scope": "BigBrain section selection only. Partial image-derived mask, not the separate schematic block aqueduct.",
-  "voxels": 259,
+  "voxels": 195,
   "components6": 1,
   "componentSizes": [
-    259
+    195
   ],
   "boundsZYX": [
     [
-      114,
+      116,
       199,
-      192
+      194
     ],
     [
       135,
       218,
-      198
+      197
     ]
   ],
-  "vertices": 514,
-  "faces": 1024,
-  "sha256": "22b992bfa93ec644aaf29d7644aebe12b50513b27c877941c70c65e641a4eeef",
-  "bytes": 26692
+  "vertices": 394,
+  "faces": 784,
+  "sha256": "2578d4aa1d8f720fc531c849f6ce6d0e8fa8bf83acea320d1929a753889ac407",
+  "bytes": 20452
 }

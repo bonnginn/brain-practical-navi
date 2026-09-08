@@ -42,7 +42,7 @@ def main(residual80=False, cavity21=False, crop34=False, stage_prefix=None, reco
             raise ValueError('Baseline reproduction mismatch: '+name)
     changed = [name for name in old_assets if name.endswith('.mesh') and old_assets[name] != new_assets[name]]
     expected={'section-current-lateral-ventricles.mesh', 'section-current-ventricular-system.mesh'}
-    if batch and batch.get('transition') in ('mixed-ventricular-exclusions','mixed-ventricular-repair'):
+    if batch and batch.get('transition') in ('mixed-ventricular-exclusions','mixed-ventricular-repair','mixed-posterior-ventricular-repair'):
         from build_section_ventricle_meshes import GROUPS
         ids={v for p in batch['points'] for v in (p['before'],p['after']) if v!=0}
         expected={name+'.mesh' for name,labels in GROUPS.items() if ids.intersection(labels)}

@@ -7,16 +7,16 @@ test('midbrain context mesh matches the recorded source-preserving repair and me
  const [data,text]=await Promise.all([
   readFile(new URL('../public/atlas/block-midbrain-section-tissue.mesh',import.meta.url)),
   readFile(new URL('../public/atlas/specimen-blocks.json',import.meta.url),'utf8')]);
- // Preserve the registered baseline; one later cavity-mask cell is now excluded.
- const record=JSON.parse(await readFile(new URL('../segmentation-patches/review/aqueduct-core179-adoption-2026-09-08.json',import.meta.url),'utf8'));
+ // The registered tissue is preserved except reviewed cavity-mask corrections.
+ const record=JSON.parse(await readFile(new URL('../segmentation-patches/review/posterior-ventricles158-adoption-2026-09-08.json',import.meta.url),'utf8'));
  const impact=record.meshImpact.blockMaskImpact.find(p=>p.block==='midbrain-section'&&p.part==='tissue');
- assert.equal(impact.beforeSha256,'3c97152029b7c12f19b5b5bab482e3f69e8a57612ae821e2d4edb5b9f57b673c');
- assert.equal(impact.removed,1);assert.equal(impact.added,0);
+ assert.equal(impact.beforeSha256,'a9276115e005f5db68d82f4ff73c678213005ce6d5833ce1f3b92bf6b4f9da2d');
+ assert.equal(impact.removed,2);assert.equal(impact.added,0);
  assert.equal(createHash('sha256').update(data).digest('hex'),impact.afterSha256);
  assert.equal(data.subarray(0,4).toString(),'BNM2');
  const vertices=data.readUInt32LE(4),faces=data.readUInt32LE(8);
  const meta=JSON.parse(text).specimens['midbrain-section'].find(x=>x.part==='tissue');
- assert.equal(vertices,2083);assert.equal(faces,4154);
+ assert.equal(vertices,2087);assert.equal(faces,4162);
  assert.equal(meta.vertices,vertices);assert.equal(meta.faces,faces);
  assert.equal(data.length,12+vertices*28+faces*12);
  for(let offset=12;offset<12+vertices*24;offset+=4)assert.ok(Number.isFinite(data.readFloatLE(offset)));

@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {gunzipSync} from 'node:zlib';
+import {withRegionalBatches} from './helpers/residual-mesh-successor.mjs';
 const read=p=>readFile(new URL('../'+p,import.meta.url));
 const sha=b=>createHash('sha256').update(b).digest('hex');
 
@@ -32,9 +33,10 @@ test('central third-ventricle fill changes exactly 61 reviewed zero cells and re
  assert.equal(r.evidence.filter(e=>e.visuallyInspectedFigures).reduce((n,e)=>n+e.visuallyInspectedFigures.length,0),46);
  const meta=JSON.parse(await read('public/atlas/bigbrain-practical-segmentation-icbm500-validation.json'));
  assert.equal(meta.regionalBatchAudits['third-central-fringe61'].recordSha256,sha(bytes));
- assert.equal(meta.labelCounts['25'],11947);
+ assert.equal(meta.labelCounts['25'],11853);
  const successor=JSON.parse(await read('segmentation-patches/review/aqueduct-core179-adoption-2026-09-08.json'));
- assert.equal(successor.beforeSha256,r.afterSha256);assert.equal(meta.rawVoxelSha256,successor.afterRawVoxelSha256);
+ const latest=await withRegionalBatches(r,{afterRevision:r.afterSha256});
+ assert.equal(successor.beforeSha256,r.afterSha256);assert.equal(meta.rawVoxelSha256,latest.afterRawVoxelSha256);
 });
 
 test('central fill synchronizes its two section meshes and only two coarse third-ventricle block cells',async()=>{
@@ -43,10 +45,11 @@ test('central fill synchronizes its two section meshes and only two coarse third
  const changed=r.meshImpact.blockMaskImpact.filter(p=>p.changedMaskVoxels);
  assert.deepEqual(changed.map(p=>[p.block,p.part,p.added,p.removed]),[['diencephalon','third-ventricle',2,0]]);
  assert.deepEqual(r.sectionMeshImpact.changedFiles,['section-current-third-ventricle.mesh','section-current-ventricular-system.mesh']);
- const p=changed[0],mesh=await read('public/atlas/'+p.file);
+ const p=changed[0],mesh=await read('tests/fixtures/block-diencephalon-third-ventricle-pre-posterior-ventricles158.mesh');
  assert.equal(sha(mesh),p.afterSha256);assert.equal(mesh.readUInt32LE(4),2134);assert.equal(mesh.readUInt32LE(8),4228);
  assert.equal(sha(await read('tests/fixtures/block-diencephalon-third-ventricle-pre-third-central-fringe61.mesh')),p.beforeSha256);
  const successor=JSON.parse(await read('segmentation-patches/review/aqueduct-core179-adoption-2026-09-08.json'));
  assert.deepEqual(successor.sectionMeshImpact.before,r.sectionMeshImpact.after);
- for(const [name,info] of Object.entries(successor.sectionMeshImpact.after.meshes))assert.equal(sha(await read('public/atlas/'+name+'.mesh')),info.sha256);
+ const latest=await withRegionalBatches(r,{afterRevision:r.afterSha256});
+ for(const [name,info] of Object.entries(latest.sectionMeshImpact.after.meshes))assert.equal(sha(await read('public/atlas/'+name+'.mesh')),info.sha256);
 });

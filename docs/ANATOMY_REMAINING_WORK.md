@@ -2,7 +2,7 @@
 
 最新状態は [RESUME_SUMMARY.md](RESUME_SUMMARY.md)：PR #27公開後、2026-09-08に期限付きで再開。第三脳室91点の除去＋中央腔縁61点の補完は開発版採用・未公開（[修正記録](THIRD_VENTRICLE_REMNANTS_REPAIR.md)）。上方正中152点の連続84面は追加目視したが帰属保留で保持。以下は地域別の残件と過去の工程履歴で、「一時停止」「進行中」やSHAは各記載当時の状態。
 
-2026-09-08追加：中脳水道の中央179点を補修し、部分ID41を195点へ。両端94候補は未採用。原画像111面を目視し、断面3D・関連4ブロックを同期。現行SHA `a21cb6ab8aa7080b6e26766c2f82834871d3e72c174b72d0b018733ee5ef278a`。詳細・検証は [AQUEDUCT_PARTIAL_REPAIR.md](AQUEDUCT_PARTIAL_REPAIR.md)。中脳腹側の不足も代表33面を確認したが、脚・間脳境界の拡張はまだ採用していない（[記録](MIDBRAIN_BOUNDARY_PROTOCOL_REVIEW.md)）。
+2026-09-08追加：中脳水道の中央179点＋尾側64点を補修し、部分ID41は259点。元候補の両端30点は未採用。第三脳室後方の組織重なり94点もnative100で照合後に除外した。断面3D・関連ブロックを同期。現行SHA `63ac0815f7631e35029b9811485593e1bf0f2121cfe362366af74d1664f2dea8`。詳細・検証は [AQUEDUCT_PARTIAL_REPAIR.md](AQUEDUCT_PARTIAL_REPAIR.md)・[POSTERIOR_VENTRICLES_REPAIR.md](POSTERIOR_VENTRICLES_REPAIR.md)。中脳腹側の不足は次の局所候補を検討中だが、脚・間脳境界の拡張はまだ採用していない（[記録](MIDBRAIN_BOUNDARY_PROTOCOL_REVIEW.md)）。
 
 ## 過去の現在位置（2026-09-07更新）
 

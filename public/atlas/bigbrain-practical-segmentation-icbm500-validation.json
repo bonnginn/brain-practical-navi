@@ -109,9 +109,9 @@
     "22": 15077,
     "23": 80373,
     "24": 79082,
-    "25": 11947,
+    "25": 11853,
     "26": 9008,
-    "27": 249868,
+    "27": 249816,
     "28": 735945,
     "29": 725004,
     "30": 146019,
@@ -122,8 +122,8 @@
     "35": 71073,
     "39": 559,
     "40": 729,
-    "41": 195,
-    "0": 66630902
+    "41": 259,
+    "0": 66630984
   },
   "atlasToManualDiceAudit": {
     "caudate": 0.8448,
@@ -454,7 +454,7 @@
     "workflowMetadataStatus": "strict"
   },
   "preClassificationCompressedSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
-  "rawVoxelSha256": "b3891d708763e760874ac3619c684c45bfcd87aacce1e07c422add285c6e276c",
+  "rawVoxelSha256": "11d3bbee8617b73b8862e0100b703bb2c2df1632019e9fa7f71eaa54d912db02",
   "brainstemThreeIslandsAudit": {
     "record": "segmentation-patches/review/brainstem-three-islands-adoption-2026-09-06.json",
     "recordSha256": "9c7b14f4272969261e3e2415d3f522b7e5d7db1eeca7cb0c8ae28b225458be66",
@@ -1183,6 +1183,17 @@
       "projectAdopted": true,
       "expertReviewed": false,
       "changedSectionMeshes": [
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "posterior-ventricles158": {
+      "record": "segmentation-patches/review/posterior-ventricles158-adoption-2026-09-08.json",
+      "recordSha256": "f45703a468358528c46b80dfc83d7c1bfaaa3b29079e842d0c45fab82df7c2ec",
+      "changedVoxelCount": 158,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-third-ventricle.mesh",
         "section-current-ventricular-system.mesh"
       ]
     }

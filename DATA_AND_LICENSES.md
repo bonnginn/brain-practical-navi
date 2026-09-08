@@ -318,7 +318,7 @@ AGPLはオープンソースであり、コードの販売や業務利用その�
 
 ## 2026-09-06 開発用脳室分類の修正（未公開・後続脳梁修正前）
 
-後続2026-09-08：中央179点を補修した部分ID41を計195点へ更新し、断面用の独立meshを追加した。模式ブロックの中脳水道とは区別し、全長完成・専門家承認とは扱わない。原画像と元ライセンスは変更しない。採用差分・原画像根拠・mesh再現方法は [AQUEDUCT_PARTIAL_REPAIR.md](docs/AQUEDUCT_PARTIAL_REPAIR.md)。以下の47点は以前の工程記録。
+後続2026-09-08：中央179点と尾側64点を補修した部分ID41は計259点。第三脳室後方の原画像組織に重なる94点は無ラベルへ除外した。断面・ブロックの派生meshも同期。模式ブロックの中脳水道とは区別し、全長完成・専門家承認とは扱わない。原画像と元ライセンスは変更しない。根拠は [AQUEDUCT_PARTIAL_REPAIR.md](docs/AQUEDUCT_PARTIAL_REPAIR.md)・[POSTERIOR_VENTRICLES_REPAIR.md](docs/POSTERIOR_VENTRICLES_REPAIR.md)。以下の47点は以前の工程記録。
 
 元BigBrain画像は変更せず、既存派生ラベル47 voxelだけを修正した（26→41:16、26→0:31）。AI支援のプロジェクト採用で、専門家レビュー／研究ground truthではない。原画像と連続・直交断の根拠、可逆差分と採否は `FOURTH_VENTRICLE_REPAIR.md` および `segmentation-patches/review/ventricle-classification-project-review-2026-09-06.json`。新volume圧縮SHAは `930eaaed7eed8782b1b162f3aa5c59c2428f4062d0d2da3a9a1cb563f49b7db7`。旧b75a…volumeを履歴fixtureに保持する。対応する第四脳室block mesh1点を同じ生成処理で同期した。元データと派生物の既存ライセンス・帰属条件を変更しない。以下の過去SHA・未変更記載は当時の記録。
 ## 2026-09-06：赤核の位置合わせ修正（開発版）

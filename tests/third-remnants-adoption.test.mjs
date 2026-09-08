@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {gunzipSync} from 'node:zlib';
+import {withRegionalBatches} from './helpers/residual-mesh-successor.mjs';
 const read=p=>readFile(new URL('../'+p,import.meta.url));
 const sha=b=>createHash('sha256').update(b).digest('hex');
 
@@ -30,7 +31,7 @@ test('third-ventricle regional exclusions replay exactly, leaving all unrelated 
  assert.match(r.limitation,/not expert review/);
  const meta=JSON.parse(await read('public/atlas/bigbrain-practical-segmentation-icbm500-validation.json'));
  assert.equal(meta.regionalBatchAudits['third-remnants91'].recordSha256,sha(bytes));
- assert.equal(meta.labelCounts['25'],11947);
+ assert.equal(meta.labelCounts['25'],11853);
  const latest=gunzipSync(await read('public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz'));
  for(const i of seen)assert.equal(latest[i],0,'A previously excluded cell must not be filled again');
 });
@@ -47,7 +48,8 @@ test('third-ventricle repair synchronizes only its section meshes and one block 
  const successor=JSON.parse(await read('segmentation-patches/review/third-central-fringe61-adoption-2026-09-08.json'));
  assert.equal(successor.beforeSha256,r.afterSha256);
  assert.deepEqual(successor.sectionMeshImpact.before,r.sectionMeshImpact.after);
- const latest=JSON.parse(await read('segmentation-patches/review/aqueduct-core179-adoption-2026-09-08.json'));
- assert.deepEqual(latest.sectionMeshImpact.before,successor.sectionMeshImpact.after);
+ const intermediate=JSON.parse(await read('segmentation-patches/review/aqueduct-core179-adoption-2026-09-08.json'));
+ assert.deepEqual(intermediate.sectionMeshImpact.before,successor.sectionMeshImpact.after);
+ const latest=await withRegionalBatches(r,{afterRevision:r.afterSha256});
  for(const [name,info] of Object.entries(latest.sectionMeshImpact.after.meshes))assert.equal(sha(await read('public/atlas/'+name+'.mesh')),info.sha256);
 });

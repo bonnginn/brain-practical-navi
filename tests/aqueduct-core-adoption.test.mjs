@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {gunzipSync} from 'node:zlib';
+import {withRegionalBatches,regionalMeshSuccessor} from './helpers/residual-mesh-successor.mjs';
 const read=p=>readFile(new URL('../'+p,import.meta.url));
 const sha=b=>createHash('sha256').update(b).digest('hex');
 
@@ -15,8 +16,8 @@ test('partial aqueduct is selectable only for BigBrain, labelled partial, and ab
  assert.doesNotMatch(questions,/aqueductPartial/);
  assert.doesNotMatch((await read('app/quiz-concept-bank.json')).toString(),/aqueductPartial/);
  const report=JSON.parse(await read('public/atlas/section-current-aqueduct-partial.json'));
- assert.equal(report.sourceSha256,'a21cb6ab8aa7080b6e26766c2f82834871d3e72c174b72d0b018733ee5ef278a');
- assert.equal(report.voxels,195);assert.equal(report.partialExtent,true);assert.equal(report.expertReviewed,false);
+ assert.equal(report.sourceSha256,'63ac0815f7631e35029b9811485593e1bf0f2121cfe362366af74d1664f2dea8');
+ assert.equal(report.voxels,259);assert.equal(report.partialExtent,true);assert.equal(report.expertReviewed,false);
  assert.equal(sha(await read('public/atlas/section-current-aqueduct-partial.mesh')),report.sha256);
  const catalog=JSON.parse(await read('app/english-catalog.json'));
  assert.equal(catalog['中脳水道候補（部分）'],'Cerebral aqueduct candidate (partial)');
@@ -26,7 +27,7 @@ test('partial aqueduct is selectable only for BigBrain, labelled partial, and ab
 test('partial aqueduct repair replays exactly 64 zero and 115 brainstem cells with no other changes',async()=>{
  const bytes=await read('segmentation-patches/review/aqueduct-core179-adoption-2026-09-08.json');
  assert.equal(sha(bytes),'4ba89544a86ec75b180e1901444c5c3bb34043a738b64b7a2cfc30c2830f9a78');
- const r=JSON.parse(bytes),base=await read('tests/fixtures/bigbrain-practical-segmentation-pre-aqueduct-core179.bin.gz'),current=await read('public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz');
+ const r=JSON.parse(bytes),base=await read('tests/fixtures/bigbrain-practical-segmentation-pre-aqueduct-core179.bin.gz'),current=await read('tests/fixtures/bigbrain-practical-segmentation-pre-posterior-ventricles158.bin.gz');
  assert.equal(sha(base),'2983ac84a194043b0f974a6ee93fd34e74efce94d7c58c66e69f34f1475a7ef3');
  assert.equal(sha(current),'a21cb6ab8aa7080b6e26766c2f82834871d3e72c174b72d0b018733ee5ef278a');
  assert.equal(r.beforeSha256,sha(base));assert.equal(r.afterSha256,sha(current));
@@ -48,8 +49,9 @@ test('partial aqueduct repair replays exactly 64 zero and 115 brainstem cells wi
  assert.equal(r.evidence.reduce((n,e)=>n+(e.visuallyInspectedFigures?.length??0),0),37);
  const meta=JSON.parse(await read('public/atlas/bigbrain-practical-segmentation-icbm500-validation.json'));
  assert.equal(meta.regionalBatchAudits['aqueduct-core179'].recordSha256,sha(bytes));
- assert.equal(meta.labelCounts['41'],195);assert.equal(meta.labelCounts['27'],249868);assert.equal(meta.labelCounts['25'],11947);
- assert.equal(meta.rawVoxelSha256,r.afterRawVoxelSha256);
+ const latest=await withRegionalBatches(r,{afterRevision:r.afterSha256});
+ assert.equal(meta.labelCounts['41'],259);assert.equal(meta.labelCounts['27'],249816);assert.equal(meta.labelCounts['25'],11853);
+ assert.equal(meta.rawVoxelSha256,latest.afterRawVoxelSha256);
 });
 
 test('partial aqueduct synchronizes all affected tissue masks without replacing the schematic aqueduct',async()=>{
@@ -58,9 +60,10 @@ test('partial aqueduct synchronizes all affected tissue masks without replacing 
  const changed=r.meshImpact.blockMaskImpact.filter(p=>p.changedMaskVoxels);
  assert.deepEqual(changed.map(p=>[p.block,p.part,p.added,p.removed]),[['diencephalon','hypothalamus',0,3],['radiations','tissue',0,6],['midbrain-section','tissue',0,1],['hindbrain','midbrain',0,5]]);
  const manifest=JSON.parse(await read('public/atlas/specimen-blocks.json'));
- for(const p of changed){assert.equal(p.beforeMatches,true);assert.equal(p.reproducedBeforeSha256,p.beforeSha256);assert.equal(sha(await read('public/atlas/'+p.file)),p.afterSha256);assert.equal(sha(await read('tests/fixtures/'+p.file.slice(0,-5)+'-pre-aqueduct-core179.mesh')),p.beforeSha256);assert.equal(manifest.specimens[p.block].find(q=>q.part===p.part).meshSha256,p.afterSha256);}
+ for(const p of changed){const successor=await regionalMeshSuccessor(p.file,p.afterSha256,r.afterSha256),latest=successor??p;assert.equal(p.beforeMatches,true);assert.equal(p.reproducedBeforeSha256,p.beforeSha256);assert.equal(sha(await read('public/atlas/'+p.file)),latest.afterSha256);assert.equal(sha(await read('tests/fixtures/'+p.file.slice(0,-5)+'-pre-aqueduct-core179.mesh')),p.beforeSha256);assert.equal(manifest.specimens[p.block].find(q=>q.part===p.part).meshSha256,latest.afterSha256);}
  assert.deepEqual(r.sectionMeshImpact.changedFiles,['section-current-ventricular-system.mesh']);
- for(const [name,info] of Object.entries(r.sectionMeshImpact.after.meshes))assert.equal(sha(await read('public/atlas/'+name+'.mesh')),info.sha256);
+ const latest=await withRegionalBatches(r,{afterRevision:r.afterSha256});
+ for(const [name,info] of Object.entries(latest.sectionMeshImpact.after.meshes))assert.equal(sha(await read('public/atlas/'+name+'.mesh')),info.sha256);
  const page=await read('app/page.tsx');assert.match(page.toString(),/中脳水道は模式3D/);
  assert.ok(r.meshImpact.blockMaskImpact.filter(p=>p.part==='aqueduct').every(p=>p.changedMaskVoxels===0));
 });

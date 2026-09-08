@@ -17,7 +17,7 @@ test('archived classification stage contains exactly 47 edits and current labels
  assert.equal(metadata.rawVoxelSha256,createHash('sha256').update(actual.subarray(10)).digest('hex'));
  for(let i=10;i<next.length;i++)if(old[i]!==next[i])assert.equal(actual[i],next[i]);
  assert.deepEqual(metadata.projectReviewedPartialIds,[41]);
- assert.equal(metadata.labelCounts['26'],9008);assert.equal(metadata.labelCounts['41'],195);
+ assert.equal(metadata.labelCounts['26'],9008);assert.equal(metadata.labelCounts['41'],259);
  assert.equal(metadata.reviewedPatchAudits.length,6);
 });
 

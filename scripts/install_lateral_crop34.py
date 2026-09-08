@@ -133,8 +133,15 @@ def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None, *, review_da
     mixed_cavity=record['transition']=='mixed-to-26'
     partial_aqueduct=record['transition']=='mixed-to-41'
     mixed_repair=record['transition']=='mixed-ventricular-repair'
-    points=np.asarray([p['xyz'] for p in record['points']] if exclusions or brainstem_reclassification or mixed_cavity or mixed_repair or partial_aqueduct else record['points']); count=record['count']
-    if mixed_repair:
+    posterior_repair=record['transition']=='mixed-posterior-ventricular-repair'
+    points=np.asarray([p['xyz'] for p in record['points']] if exclusions or brainstem_reclassification or mixed_cavity or mixed_repair or partial_aqueduct or posterior_repair else record['points']); count=record['count']
+    if posterior_repair:
+        from stage_posterior_ventricles158 import replay as replay_posterior
+        if prefix!='posterior-ventricles158' or record_sha!='3d2670bbd02c1880d254c024c64aa2915f99454d9a41040bc7dcb42bee774cf1':
+            raise ValueError('Unreviewed posterior ventricular repair')
+        if not np.array_equal(replay_posterior(before,record['points']),after):raise ValueError('Posterior replay differs')
+        source_values=np.asarray([p['before'] for p in record['points']]);destination=np.asarray([p['after'] for p in record['points']]);affected={0,25,27,41}
+    elif mixed_repair:
         from stage_ventricular_mixed12 import replay as replay_mixed
         if prefix!='ventricular-mixed12' or record_sha!='7d688ef29bac9d40de94bbd21e0f5a9857e9e5e2439badb83d38ffb9e933d708':
             raise ValueError('Unreviewed mixed ventricular repair')
