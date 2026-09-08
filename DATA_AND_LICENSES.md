@@ -324,6 +324,8 @@ AGPLはオープンソースであり、コードの販売や業務利用その�
 
 Z174–202の近黒色の縁も追加照合し、原画像支持と同側連続性を満たす1,487点を補完。3回の側脳室補修は計4,197点。新規外部素材なし、原ライセンス不変。詳細は上方の修正記録末尾。
 
+中脳腹側の後続補修：同じ登録300 µm原画像を照合し、ID27へ正味14,789点を追加。乳頭体／旧視覚路との新規接触14点は保留に戻し、上位境界を確定していない。対応する中脳ブロック2部品だけ同期。元データ・ライセンス不変、AI支援の局所補修・未公開・専門家未確認。[根拠・可逆差分](docs/MIDBRAIN_VENTRAL_PARTIAL_REPAIR.md)。Iglesias2015は規約の照合のみで、新規の外部境界データを採用したものではない。
+
 後続2026-09-08：中央179点と尾側64点を補修した部分ID41は計259点。第三脳室後方の原画像組織に重なる94点は無ラベルへ除外した。断面・ブロックの派生meshも同期。模式ブロックの中脳水道とは区別し、全長完成・専門家承認とは扱わない。原画像と元ライセンスは変更しない。根拠は [AQUEDUCT_PARTIAL_REPAIR.md](docs/AQUEDUCT_PARTIAL_REPAIR.md)・[POSTERIOR_VENTRICLES_REPAIR.md](docs/POSTERIOR_VENTRICLES_REPAIR.md)。以下の47点は以前の工程記録。
 
 元BigBrain画像は変更せず、既存派生ラベル47 voxelだけを修正した（26→41:16、26→0:31）。AI支援のプロジェクト採用で、専門家レビュー／研究ground truthではない。原画像と連続・直交断の根拠、可逆差分と採否は `FOURTH_VENTRICLE_REPAIR.md` および `segmentation-patches/review/ventricle-classification-project-review-2026-09-06.json`。新volume圧縮SHAは `930eaaed7eed8782b1b162f3aa5c59c2428f4062d0d2da3a9a1cb563f49b7db7`。旧b75a…volumeを履歴fixtureに保持する。対応する第四脳室block mesh1点を同じ生成処理で同期した。元データと派生物の既存ライセンス・帰属条件を変更しない。以下の過去SHA・未変更記載は当時の記録。

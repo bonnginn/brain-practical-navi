@@ -40,7 +40,7 @@ class LateralUpperNearblackTest(unittest.TestCase):
         from scipy import ndimage
         r=json.loads((ROOT/'segmentation-patches/review/lateral-upper-nearblack1487-adoption-2026-09-08.json').read_bytes())
         base=(ROOT/'tests/fixtures/bigbrain-practical-segmentation-pre-lateral-upper-nearblack1487.bin.gz').read_bytes()
-        current=(ROOT/'public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz').read_bytes()
+        current=(ROOT/'tests/fixtures/bigbrain-practical-segmentation-pre-midbrain-ventral14803.bin.gz').read_bytes()
         self.assertEqual(digest(base),LABEL_SHA);self.assertEqual(digest(current),r['afterSha256'])
         load=lambda b:np.frombuffer(gzip.decompress(b),np.uint8,offset=10).reshape((394,466,378),order='F')
         before=load(base);after=load(current)

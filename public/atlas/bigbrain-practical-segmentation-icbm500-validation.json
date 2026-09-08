@@ -111,7 +111,7 @@
     "24": 82197,
     "25": 11853,
     "26": 9008,
-    "27": 249816,
+    "27": 264605,
     "28": 735945,
     "29": 725004,
     "30": 146019,
@@ -123,7 +123,7 @@
     "39": 559,
     "40": 729,
     "41": 259,
-    "0": 66626787
+    "0": 66611998
   },
   "atlasToManualDiceAudit": {
     "caudate": 0.8448,
@@ -454,7 +454,7 @@
     "workflowMetadataStatus": "strict"
   },
   "preClassificationCompressedSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
-  "rawVoxelSha256": "ca91058fd433fe07561af026cd90bce80c44ffbcbd31fdaf076fb5bde1ad06dc",
+  "rawVoxelSha256": "ccea376ca68aa638dd722c2279f3b624e6fafb16cd3e6f7ff73b47f77da0d24c",
   "brainstemThreeIslandsAudit": {
     "record": "segmentation-patches/review/brainstem-three-islands-adoption-2026-09-06.json",
     "recordSha256": "9c7b14f4272969261e3e2415d3f522b7e5d7db1eeca7cb0c8ae28b225458be66",
@@ -1229,6 +1229,22 @@
         "section-current-lateral-ventricles.mesh",
         "section-current-ventricular-system.mesh"
       ]
+    },
+    "midbrain-ventral14803": {
+      "record": "segmentation-patches/review/midbrain-ventral14803-adoption-2026-09-08.json",
+      "recordSha256": "fbfb4963986a67627f8b5ba8ed6a6c900768bab5bd2f75e2720246d9eb73e95e",
+      "changedVoxelCount": 14803,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": []
+    },
+    "midbrain-interface14": {
+      "record": "segmentation-patches/review/midbrain-interface14-adoption-2026-09-08.json",
+      "recordSha256": "635600b0de7bb17a96c3c61a9ca30eb4b6ad302101907a45f8dd4f444e65361d",
+      "changedVoxelCount": 14,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": []
     }
   }
 }

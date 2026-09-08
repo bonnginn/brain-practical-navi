@@ -185,6 +185,18 @@ def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None, *, review_da
             raise ValueError('Unreviewed mixed cavity repair')
         if not np.array_equal(replay_depth(before,record['points']),after):raise ValueError('Mixed cavity replay differs')
         source_values=np.asarray([p['before'] for p in record['points']]);destination=26;affected={0,26,27}
+    elif record['transition']=='27->0':
+        from stage_midbrain_interface14 import replay as replay_interface
+        if prefix!='midbrain-interface14' or record_sha!='c19a98eceed7ef2e307409a7740553410143d630ea38aed69b5c385c4352c751':
+            raise ValueError('Unreviewed midbrain interface hold')
+        if not np.array_equal(replay_interface(before,points),after):raise ValueError('Interface hold replay differs')
+        source_values=27;destination=0;affected={0,27}
+    elif record['transition']=='0->27':
+        from stage_midbrain_ventral14803 import replay as replay_ventral
+        if prefix!='midbrain-ventral14803' or record_sha!='8fff92c8ee7bc4e0d0c5de27caf54a40c3a8c77ea95c6e47815cd4d7a5fefb7d':
+            raise ValueError('Unreviewed brainstem tissue fill')
+        if not np.array_equal(replay_ventral(before,points),after):raise ValueError('Ventral repair replay differs')
+        source_values=0;destination=27;affected={0,27}
     else:
         transition=record['transition'].split('->')
         if len(transition)!=2 or transition[0]!='0' or transition[1] not in ('23','24','25','26'):
@@ -233,7 +245,8 @@ def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None, *, review_da
         mesh_writes.append((ATLAS/name,new_mesh))
         entry.update(vertices=part['vertices'],faces=part['faces'],meshSha256=part['afterSha256'],
             segmentationSourceSha256=record['afterSha256'],
-            repairReview='AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review.')
+            repairReview=('AI-image-reviewed partial lower-midbrain tissue repair; derived block synchronized. Development only, not expert review.'
+                if record['transition']=='0->27' else 'AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review.'))
     old_report,old_assets=build_assets(base); new_report,new_assets=build_assets(data)
     changed=[]
     for name,payload in new_assets.items():

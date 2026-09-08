@@ -489,8 +489,8 @@
     "midbrain-section": [
       {
         "file": "block-midbrain-section-tissue.mesh",
-        "vertices": 2087,
-        "faces": 4162,
+        "vertices": 3065,
+        "faces": 6106,
         "shadeMin": 0.2512,
         "shadeMax": 1.0,
         "part": "tissue",
@@ -499,10 +499,10 @@
         "color": "#c9a27d",
         "material": "specimen",
         "registrationSourceSha256": "7ebed144c2b200233ad1389d3288b2407edcb542fe46eaf8626ef872522f8c3f",
-        "meshSha256": "8fe82f43cbafeaf169b6945c5e8a4b397a0b9cbe9acec223cdd068bafd98c723",
+        "meshSha256": "1cdbcdc3700967a553dcafa16410e4ef94605a34586b6b086d7ee6d9fad9d8cd",
         "registrationReview": "AI-assisted source-registration project adoption; not expert review. Existing meshing and cutaway rules retained.",
-        "segmentationSourceSha256": "63ac0815f7631e35029b9811485593e1bf0f2121cfe362366af74d1664f2dea8",
-        "repairReview": "AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review."
+        "segmentationSourceSha256": "409dac37154b25dd6bc9caa387c4aa5a7b774cb430794c082bdfc956e874f7b5",
+        "repairReview": "AI-image-reviewed partial lower-midbrain tissue repair; derived block synchronized. Development only, not expert review."
       },
       {
         "file": "block-midbrain-section-red-nuclei.mesh",
@@ -653,8 +653,8 @@
       },
       {
         "file": "block-hindbrain-midbrain.mesh",
-        "vertices": 3987,
-        "faces": 7962,
+        "vertices": 5185,
+        "faces": 10354,
         "shadeMin": 0.1628,
         "shadeMax": 1.0,
         "part": "midbrain",
@@ -663,10 +663,10 @@
         "color": "#bd8e69",
         "material": "specimen",
         "registrationSourceSha256": "7ebed144c2b200233ad1389d3288b2407edcb542fe46eaf8626ef872522f8c3f",
-        "meshSha256": "b9083b1404758171d9970d6bf28b62d7e0b7ead37b4c2b0aa1520266fc5c1cbb",
+        "meshSha256": "f00f66c0747fa103473dd4927f77b385881eeef98e880d1951d7a9b63e5f09af",
         "registrationReview": "AI-assisted source-registration project adoption; not expert review. Existing meshing and cutaway rules retained.",
-        "segmentationSourceSha256": "63ac0815f7631e35029b9811485593e1bf0f2121cfe362366af74d1664f2dea8",
-        "repairReview": "AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review."
+        "segmentationSourceSha256": "409dac37154b25dd6bc9caa387c4aa5a7b774cb430794c082bdfc956e874f7b5",
+        "repairReview": "AI-image-reviewed partial lower-midbrain tissue repair; derived block synchronized. Development only, not expert review."
       },
       {
         "file": "block-hindbrain-fourth-ventricle.mesh",
