@@ -4,7 +4,7 @@
 
 This independent preparation module does not change the running application or segmentation. It provides curriculum targets, geometry adapters and evidence contracts. Subnuclear coordinates, masks and connectivity remain unreviewed and unpopulated.
 
-教材への展開案： [ガイドツアーの検討と第1ツアー台本](../guided-tours/README.md)。既存の位置関係ステッパーを土台に、問い・ヒント・再同定を加える案を別に保存した。
+教材への展開案： [神経解剖学を体系的に学ぶコース](../neuroanatomy-course/README.md)。視床核と神経回路の準備を、全18章・54課の学習順序、解説、観察、演習、復習へつなぐ。短いガイドツアー中心の旧案から方針を変更した。
 
 ## 用意したもの
 
