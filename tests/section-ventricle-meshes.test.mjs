@@ -41,5 +41,5 @@ test('BigBrain section selection/context are distinct from legacy MNI and croppe
   assert.match(page, /contrast==="bigbrain"\?bigbrainSectionMeshFiles\[key\]:undefined/);
   assert.match(canvas, /contrast==="bigbrain"\?"section-current-ventricular-system":"segment-ventricles"/);
   assert.match(canvas, /name.startsWith\("section-current-"\)/);
-  assert.match(canvas, /\[kind,specimenBlock,view,contrast,/);
+  assert.match(canvas, /\[kind,specimenBlock,surfaceAtlas,view,contrast,/);
 });

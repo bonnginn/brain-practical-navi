@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "retrieved": "2026-09-08",
+  "files": {
+    "lh.PALS_B12.labels.gii": {
+      "url": "https://www.freesurfer.net/pub/dist/freesurfer/tutorial_versions_centos6/freesurfer/subjects/fsaverage/label/lh.PALS_B12.labels.gii",
+      "sha256": "7c4e21c8e74fefb32d1043f77d2473a3e54977a38512ece466b08abc7cab534e",
+      "bytes": 282993
+    },
+    "lh.pial": {
+      "url": "https://www.freesurfer.net/pub/dist/freesurfer/tutorial_versions_centos6/freesurfer/subjects/fsaverage/surf/lh.pial",
+      "sha256": "9cb004f61a2eeb977b1b595ad6de6656afdfc1f37ade0c00a8dde91e990a0f29",
+      "bytes": 5898808
+    },
+    "lh.sulc": {
+      "url": "https://www.freesurfer.net/pub/dist/freesurfer/tutorial_versions_centos6/freesurfer/subjects/fsaverage/surf/lh.sulc",
+      "sha256": "6ebd903d42cd17b51d84229d641fe10a3b32d839c0a69266b089811df5874d91",
+      "bytes": 655383
+    },
+    "rh.PALS_B12.labels.gii": {
+      "url": "https://www.freesurfer.net/pub/dist/freesurfer/tutorial_versions_centos6/freesurfer/subjects/fsaverage/label/rh.PALS_B12.labels.gii",
+      "sha256": "5a24633bfcfec84c7905596734146849035b33b44f46a6d392466a07e316ce41",
+      "bytes": 330157
+    },
+    "rh.pial": {
+      "url": "https://www.freesurfer.net/pub/dist/freesurfer/tutorial_versions_centos6/freesurfer/subjects/fsaverage/surf/rh.pial",
+      "sha256": "4f752701f74c1626ee3b6239046b9aa793ca4e87c6ae9a6b74a233c04e651212",
+      "bytes": 5898808
+    },
+    "rh.sulc": {
+      "url": "https://www.freesurfer.net/pub/dist/freesurfer/tutorial_versions_centos6/freesurfer/subjects/fsaverage/surf/rh.sulc",
+      "sha256": "11db597df4edff92b1aa8e6d99bfb4728da4f8178a9984951df2e0572f040f4c",
+      "bytes": 655383
+    },
+    "FreeSurferSoftwareLicense.raw.txt": {
+      "url": "https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferSoftwareLicense?action=raw",
+      "sha256": "0d6c8754c3d49802981a0e5188b8d7a7c9a06df7f2e0260a1df763a57c2d0dfb",
+      "bytes": 10119
+    },
+    "lh.inflated": {
+      "url": "https://www.freesurfer.net/pub/dist/freesurfer/tutorial_versions_centos6/freesurfer/subjects/fsaverage/surf/lh.inflated",
+      "sha256": "ce534434e04bf5cc7de314cad411ea723a34a92c748d0397b08ffa2385d111b2",
+      "bytes": 5899528
+    },
+    "rh.inflated": {
+      "url": "https://www.freesurfer.net/pub/dist/freesurfer/tutorial_versions_centos6/freesurfer/subjects/fsaverage/surf/rh.inflated",
+      "sha256": "63572d5f4ce9dec4466b38aa4ca40d0be1457a14584efdb76adcfb370fb24240",
+      "bytes": 5899528
+    }
+  }
+}

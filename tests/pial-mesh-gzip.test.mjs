@@ -60,9 +60,10 @@ test("pial gzip sidecars are deterministic and gunzip to the exact raw bytes", a
   }
 });
 
-test("mesh loader source maps only the two pial logical names and inflates only gzip payloads", () => {
+test("mesh loader preserves pial names, adds separate Brodmann paths, and inflates only gzip payloads", () => {
   const source = readFileSync(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8");
-  assert.match(source, /const COMPRESSED_MESH_ASSETS:[^=]+=Object\.freeze\(\{"pial-left":"pial-left\.mesh\.gz","pial-right":"pial-right\.mesh\.gz"\}\)/);
+  const mapping = JSON.parse(source.match(/const COMPRESSED_MESH_ASSETS:[^=]+=Object\.freeze\((\{[^;]+\})\)/)[1]);
+  assert.deepEqual(mapping, Object.fromEntries(['pial-left','pial-right','brodmann-left','brodmann-right','brodmann-left-inflated','brodmann-right-inflated'].map(name => [name, `${name}.mesh.gz`])));
   assert.match(source, /function meshAssetFileName\(name:string\)\{return COMPRESSED_MESH_ASSETS\[name\]\|\|`\$\{name\}\.mesh`\}/);
   assert.match(source, /const fileName=meshAssetFileName\(name\),id=`mesh:\$\{fileName\}`/);
   assert.ok(source.includes('fetchAtlasBuffer(`${ASSET_BASE}atlas/${fileName}${name==="overlay-arteries-anterior"?"?v=8e1d872281eb6439":name==="overlay-nerves-pontine"?"?v=1244f483c765ef08":(name.startsWith("block-")||name.startsWith("section-current-")||name==="section-accumbens")?`?v=${SEGMENTATION_LABEL_REVISION}`:""}`,id,name,token)'));

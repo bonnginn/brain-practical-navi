@@ -9,3 +9,8 @@
 # These evidence records have byte-level SHA-256 references. Never normalize
 # their original line endings during commit or checkout on another OS.
 segmentation-patches/**/*.json -text
+
+# Brodmann input lock and reproducible generated records are byte-pinned too.
+scripts/brodmann-source-lock.json -text whitespace=cr-at-eol
+public/atlas/brodmann-surface.json -text
+public/atlas/BRODMANN-FREESURFER-NOTICE.txt -text

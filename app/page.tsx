@@ -38,6 +38,7 @@ import { surfaceAtlasNomenclatureCompactLabel, surfaceAtlasNomenclatureLabel } f
 import { languageSwitchUrl, localeFromSearch, localizedPublicUrl, publicWorkspaceForLocale } from "../src/locale.mjs";
 import { anatomyDisplayEnglish } from "../src/anatomyDisplayEnglish.mjs";
 
+const BrodmannExplorer=lazy(()=>import("./BrodmannExplorer"));
 const ModelStrategyComparison=lazy(()=>import("./ModelStrategyComparison"));
 const EnglishLocalization=lazy(()=>import("./EnglishLocalization").then(module=>({default:module.EnglishLocalization})));
 const ManualSegmentationWorkbench=lazy(()=>import("./ManualSegmentationWorkbench").then(module=>({default:module.ManualSegmentationWorkbench})));
@@ -743,6 +744,7 @@ export default function Home() {
   const sectionSnapshotForExit=useRef<string|null>(null);
   const initialBlockSpecimen=typeof window==="undefined"?"lateral-ventricle":blockSpecimenFromHash(window.location.hash);
   const [workspace, setWorkspace] = useState<WorkspaceMode>(()=>typeof window==="undefined"?"home":workspaceFromHash(window.location.hash));
+  const [brodmannActive,setBrodmannActive]=useState(false);
   const [surfaceView,setSurfaceView]=useState<SurfaceViewKey>(()=>typeof window==="undefined"?"lateral":surfaceViewFromHash(window.location.hash));
   const [plane, setPlane] = useState<Plane>(initialPlane);
   const [position, setPosition] = useState(sectionPositions.current[initialPlane]);
@@ -891,10 +893,10 @@ export default function Home() {
   const freeSelectedItems=useMemo(()=>freeSelections.map(key=>freeObservationByKey.get(key)).filter((item):item is FreeObservationItem=>!!item),[freeSelections]);
   const freeFocusedItem=freeFocusedKey?freeObservationByKey.get(freeFocusedKey):undefined;
   const activePathway=selectedPathway?pathwayPresets[selectedPathway]:null;
-  const basalStepperActive=selectedPathway==="basal-ganglia"&&workspace==="surface"&&surfaceView==="free";
+  const basalStepperActive=selectedPathway==="basal-ganglia"&&!brodmannActive&&workspace==="surface"&&surfaceView==="free";
   const basalStepperStep=(BASAL_GANGLIA_STEPS[basalStepperIndex]??BASAL_GANGLIA_STEPS[0]) as BasalGangliaStep;
   const basalStepperStructureKeys=basalStepperStep.targetKeys as readonly StructureKey[];
-  const papezStepperActive=selectedPathway==="papez"&&workspace==="surface"&&surfaceView==="free";
+  const papezStepperActive=selectedPathway==="papez"&&!brodmannActive&&workspace==="surface"&&surfaceView==="free";
   const papezStepperStep=(PAPEZ_STEPS[papezStepperIndex]??PAPEZ_STEPS[0]) as PapezStep;
   const papezStepperSectionKeys=(papezStepperStep.kind==="section-label"?papezStepperStep.targetKeys:[]) as readonly StructureKey[];
   const papezStepperRegionKeys=(papezStepperStep.kind==="atlas-3d"?papezStepperStep.targetKeys:[]) as readonly SurfaceRegionKey[];
@@ -1224,7 +1226,7 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
     if(match)focusStructure(match,true);
   }
 
-  function chooseSurface(key:SurfaceViewKey,historyMode:"push"|"replace"|"none"="push"){const next=surfaceViews[key];updateScreenHistory(workspaceHash("surface",key),historyMode);setSurfaceView(key);setRotation(next.rotation);setSurfaceVisibleRegions([]);setSurfaceVisibleLandmarks([]);setSurfaceVisibleDeepLandmarks(key==="medial"?defaultMedialDeepLandmarks:[]);setSurfaceVisibleBasalLandmarks([]);setSurfaceGhost(key==="cranialNerves"||key==="arteries");setSurfacePonsMedulla(key!=="medial");if(key==="arteries"){setSurfaceVessels(true);setSurfaceNerves(true);setSurfaceCerebellum(false);setSelectedNeurovascularStructure("ica")}else if(key==="cranialNerves"){setSurfaceVessels(false);setSurfaceNerves(true);setSurfaceCerebellum(false);setSelectedNeurovascularStructure("cn1")}else{setSurfaceVessels(false);setSurfaceNerves(key==="inferior");setSurfaceCerebellum(key!=="medial"&&key!=="inferior")}}
+  function chooseSurface(key:SurfaceViewKey,historyMode:"push"|"replace"|"none"="push"){setBrodmannActive(false);const next=surfaceViews[key];updateScreenHistory(workspaceHash("surface",key),historyMode);setSurfaceView(key);setRotation(next.rotation);setSurfaceVisibleRegions([]);setSurfaceVisibleLandmarks([]);setSurfaceVisibleDeepLandmarks(key==="medial"?defaultMedialDeepLandmarks:[]);setSurfaceVisibleBasalLandmarks([]);setSurfaceGhost(key==="cranialNerves"||key==="arteries");setSurfacePonsMedulla(key!=="medial");if(key==="arteries"){setSurfaceVessels(true);setSurfaceNerves(true);setSurfaceCerebellum(false);setSelectedNeurovascularStructure("ica")}else if(key==="cranialNerves"){setSurfaceVessels(false);setSurfaceNerves(true);setSurfaceCerebellum(false);setSelectedNeurovascularStructure("cn1")}else{setSurfaceVessels(false);setSurfaceNerves(key==="inferior");setSurfaceCerebellum(key!=="medial"&&key!=="inferior")}}
   function toggleInferiorHindbrain(){const next=!(surfacePonsMedulla&&surfaceNerves);setSurfacePonsMedulla(next);setSurfaceNerves(next)}
   function toggleFreeHindbrain(){setSurfacePonsMedulla(value=>!value)}
   function toggleSurfaceRegion(key:SurfaceRegionKey){setSurfaceVisibleRegions(previous=>previous.includes(key)?previous.filter(item=>item!==key):[...previous,key])}
@@ -1435,8 +1437,12 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
     </section>}
 
     {workspace==="surface"&&<section className="workArea learningArea" id="workspace" tabIndex={-1}>
-      <div className="workHead"><div><span className="eyebrow">SURFACE PRACTICAL</span><h1>脳表観察</h1></div><span className="sourceBadge">MNI高密度脳表＋教材レイヤー</span></div>
-      <div className="learningGrid">
+      <div className="workHead"><div><span className="eyebrow">SURFACE PRACTICAL</span><h1>脳表観察</h1></div><span className="sourceBadge">{brodmannActive?"PALS-B12 / fsaverage":"MNI高密度脳表＋教材レイヤー"}</span></div>
+      <div className="surfaceClassification" role="group" aria-label={englishEdition?"Surface classification":"脳表の分類"}>
+        <button type="button" aria-pressed={!brodmannActive} onClick={()=>setBrodmannActive(false)}>{englishEdition?"Gyri and structures":"脳回・構造で観察"}</button>
+        <button type="button" data-brodmann-open="true" aria-pressed={brodmannActive} onClick={()=>setBrodmannActive(true)}>{englishEdition?"Brodmann areas":"ブロードマン領野で観察"}</button>
+      </div>
+      {brodmannActive?<Suspense fallback={<p role="status">{englishEdition?"Loading Brodmann observation…":"ブロードマン観察を準備中…"}</p>}><BrodmannExplorer english={englishEdition}/></Suspense>:<div className="learningGrid">
         <section className="learningModelCard surfaceModelCard"><div className="panelHead"><div><b>{surfaceLesson.name}</b><small>{surfaceLesson.en}・ドラッグで回転</small></div><div className="panelActions">{surfaceView==="free"?<span>{freeSelections.length} 構造を選択中</span>:surfaceNeurovascular?<span>3D OVERLAY · PILOT</span>:surfaceView!=="medial"?<button className={surfaceCerebellum?"active":""} aria-pressed={surfaceCerebellum} onClick={()=>setSurfaceCerebellum(value=>!value)} disabled={webglUnavailable}>{surfaceCerebellum?"小脳を外す":"小脳を戻す"}</button>:null}<button onClick={resetSurfaceView} disabled={webglUnavailable}>向きを戻す</button></div></div>
           <div className={`learningModelStage modelStage ${webglUnavailable?"webglUnavailable":""}`} data-rotation-x={rotation.x} data-rotation-y={rotation.y} data-rotation-z={rotation.z??0} tabIndex={webglUnavailable?undefined:0} aria-label={webglUnavailable?undefined:"脳表3Dモデル。ドラッグまたは矢印キーで回転、Rキーで向きを戻す"} onKeyDown={webglUnavailable?undefined:handleModelKey} onPointerDown={webglUnavailable?undefined:beginRotation} onPointerMove={webglUnavailable?undefined:move} onPointerUp={webglUnavailable?undefined:()=>setDrag(null)} onPointerCancel={webglUnavailable?undefined:()=>setDrag(null)} onContextMenu={webglUnavailable?undefined:event=>event.preventDefault()}>
             <AtlasVolumeCanvas kind="surface" plane="sagittal" position={50} focus="thalamus" display="specimen" rotation={rotation} view={(surfaceNeurovascular||surfaceView==="free")&&surfaceGhost?"ghost":"inside"} contrast="bigbrain" showFocus={surfaceView==="free"} showCutPlane={false} hemisphere={renderedHemisphere} showCerebellum={surfaceCerebellum} showPonsMedulla={surfacePonsMedulla} showMidbrain={surfaceView!=="medial"} surfaceHighlights={surfaceNeurovascular?[]:papezStepperActive?papezStepperSurfaceHighlights:surfaceHighlightLayers} surfaceLandmarks={surfaceNeurovascular?[]:renderedSurfaceLandmarks} surfaceDeepLandmarks={surfaceNeurovascular?[]:papezStepperActive?[...papezStepperDeepKeys]:renderedSurfaceDeepLandmarks} neurovascularOverlay={surfaceNeurovascular||surfaceView==="inferior"||surfaceView==="free"?surfaceOverlay:"none"} showBrainstemNerves={surfaceView==="inferior"||surfaceView==="free"?surfacePonsMedulla:surfaceNerves} neurovascularHighlights={surfaceNeurovascular||surfaceView==="free"?neurovascularHighlightLayers:surfaceView==="inferior"?inferiorCanonicalNerveHighlights:[]} showBasalLandmarks={surfaceView==="inferior"||surfaceView==="arteries"||surfaceView==="cranialNerves"||surfaceView==="free"} basalLandmark={surfaceView==="cranialNerves"?"brainstem-only":surfaceView==="arteries"?"without-brainstem-patches":"all"} basalHighlights={surfaceView==="free"?renderedBasalLandmarks:(surfaceView==="inferior"||surfaceView==="cranialNerves")?surfaceVisibleBasalLandmarks:[]} basalOnlySelected={false} selectionMeshLayers={surfaceView==="free"?(basalStepperActive?freePathwayMeshLayers:papezStepperActive?papezStepperMeshLayers:freePathwayMeshLayers):[]} onSurfaceIdentify={surfaceView==="free"?identifyFreeSurface:undefined} onWebGLUnavailableChange={setWebglUnavailable}/>
@@ -1487,7 +1493,7 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
           </>}
           {surfaceNeurovascular&&<div className="accuracyNote warning"><b>模式3Dの範囲</b><p>{surfaceLesson.caution}</p><p className="transparencyPolicyNote">透過時も補助レイヤーはモデルの奥行きを保って描画します。通常は半透明、選択中の神経・血管は白色と高い不透明度で追跡しやすくします。これは教育用表示の方針で、実標本の奥行きや境界を保証するものではありません。</p></div>}
         </aside>
-      </div>
+      </div>}
     </section>}
 
     {workspace==="blocks"&&blockIntroOpen&&<section className="workArea blockIntroPage" id="workspace" tabIndex={-1}>
