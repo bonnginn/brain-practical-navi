@@ -311,15 +311,18 @@
       },
       {
         "file": "block-commissural-system-corpus-callosum.mesh",
-        "vertices": 13022,
-        "faces": 26012,
+        "vertices": 12856,
+        "faces": 25684,
         "shadeMin": 0.82,
         "shadeMax": 0.82,
         "part": "corpus-callosum",
         "nameJa": "脳梁",
         "sourceType": "image-guided-segmentation",
         "color": "#dbc270",
-        "material": "model"
+        "material": "model",
+        "meshSha256": "722c0a73c98838f20bf953702998cc6f5488c751469082ae42e8215cbbc42069",
+        "segmentationSourceSha256": "84f91400e7f6b9d059707772b01889f74112d62e853bcebfffddaf589b423ba3",
+        "repairReview": "AI-image-reviewed local callosal exclusion; derived block synchronized. Development only, not expert review."
       },
       {
         "file": "block-commissural-system-lateral-ventricles.mesh",

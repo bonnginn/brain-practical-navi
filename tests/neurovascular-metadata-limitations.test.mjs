@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
+import {atlasMeshRevisionQuery} from '../src/atlasMeshRevision.mjs';
 const read=p=>readFileSync(new URL('../'+p,import.meta.url),'utf8');
 test('metadata distinguishes schematic paths from reconstructed roots',()=>{
  const meta=JSON.parse(read('public/atlas/neurovascular-overlays.json'));
@@ -26,5 +27,6 @@ test('VII/VIII crop is disclosed as a display limit, not an anatomical endpoint'
    assert.equal(s.displayedRings,8);assert.equal(s.anatomicalEndpoint,false);
   }else assert.equal(s.displayedRings,undefined);
  }
- assert.ok(read('app/AtlasVolumeCanvas.tsx').includes('name==="overlay-nerves-pontine"?"?v=1244f483c765ef08"'));
+ assert.equal(atlasMeshRevisionQuery('overlay-nerves-pontine','unrelated-label-revision'),'?v=1244f483c765ef08');
+ assert.ok(read('app/AtlasVolumeCanvas.tsx').includes('atlasMeshRevisionQuery(name,SEGMENTATION_LABEL_REVISION)'));
 });

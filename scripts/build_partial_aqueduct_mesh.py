@@ -6,7 +6,7 @@ import json
 import numpy as np
 from build_section_ventricle_meshes import ROOT,ATLAS,SOURCE,reconstruct,DISPLAY_ORIGIN_ZYX
 
-LABEL_SHA='0662770388033cafa573337ab9349efd8b30888bc864566fe4d116de704a0b17'
+LABEL_SHA='84f91400e7f6b9d059707772b01889f74112d62e853bcebfffddaf589b423ba3'
 ADOPTION='segmentation-patches/review/posterior-ventricles158-adoption-2026-09-08.json'
 ADOPTION_SHA='f45703a468358528c46b80dfc83d7c1bfaaa3b29079e842d0c45fab82df7c2ec'
 NAME='section-current-aqueduct-partial'
@@ -31,16 +31,16 @@ def build(compressed,adoption):
 def main(apply=False):
     mesh,report=build(SOURCE.read_bytes(),(ROOT/ADOPTION).read_bytes())
     if apply:
-        # The lower-midbrain repair preserves the 259-cell aqueduct geometry.
+        # The callosal repair preserves the 259-cell aqueduct geometry.
         outputs={ATLAS/(NAME+'.mesh'):mesh,ATLAS/(NAME+'.json'):(json.dumps(report,indent=2)+'\n').encode()}
         prior={'.mesh':'22b992bfa93ec644aaf29d7644aebe12b50513b27c877941c70c65e641a4eeef',
-               '.json':'2d2294736e7485fcb875e7accbfe43c5aa418f379b1182f161ff667b442ff217'}
+               '.json':'3e8b46fdae1d57209bbf1bbc49b56e5875c011ea0295eb8ff1e948e62d890dc8'}
         retained={}
         for path,data in outputs.items():
             if path.exists() and path.read_bytes()!=data:
                 old=path.read_bytes()
                 if sha(old)!=prior[path.suffix]:raise ValueError('Existing partial asset differs')
-                fixture=ROOT/'tests/fixtures'/(NAME+'-pre-midbrain-interface14'+path.suffix)
+                fixture=ROOT/'tests/fixtures'/(NAME+'-pre-callosal-remaining304'+path.suffix)
                 if fixture.exists() and fixture.read_bytes()!=old:raise ValueError('Retained partial evidence differs')
                 retained[fixture]=old
         for path,data in retained.items():path.write_bytes(data)

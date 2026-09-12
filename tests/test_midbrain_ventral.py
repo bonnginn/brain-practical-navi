@@ -72,7 +72,12 @@ class MidbrainVentralTest(unittest.TestCase):
         load=lambda path:np.frombuffer(gzip.decompress(path.read_bytes()),np.uint8,offset=10).reshape((394,466,378),order='F')
         original=load(ROOT/'tests/fixtures/bigbrain-practical-segmentation-pre-midbrain-ventral14803.bin.gz')
         intermediate=replay(original,a['points'])
-        final=load(ROOT/'public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz')
+        final_path=ROOT/'tests/fixtures/bigbrain-practical-segmentation-pre-callosal-remaining304.bin.gz'
+        self.assertEqual(digest(final_path.read_bytes()),r['afterSha256'])
+        final=load(final_path)
+        current=load(ROOT/'public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz')
+        for ident in (27,33,39,40):
+            self.assertTrue(np.array_equal(final==ident,current==ident))
         self.assertEqual(r['points'],HELD);self.assertTrue(np.array_equal(hold(intermediate,HELD),final))
         self.assertTrue(np.array_equal(hold(final,HELD,True),intermediate))
         self.assertTrue(np.array_equal(original[original!=0],final[original!=0]))

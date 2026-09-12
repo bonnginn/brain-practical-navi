@@ -207,8 +207,9 @@ test("keeps official labels separate from provisional teaching overlays", async 
   assert.equal(metadata.labelCounts[39], 559);
   assert.equal(metadata.labelCounts[40], 729);
   assert.equal(metadata.reviewedPatchAudit.editCount, 1290);
-  assert.equal(metadata.ventricleLabelsRestrictedToEmptySpace, true);
-  assert.equal(metadata.ventricleTissueOverlap, 0);
+  assert.equal(metadata.ventricleLabelsRestrictedToEmptySpace, metadata.currentImageMeasurements.ventricularLabelsRestrictedToImageBackground);
+  assert.equal(metadata.ventricleTissueOverlap, metadata.currentImageMeasurements.ventricularNonBackgroundFraction);
+  assert.equal(metadata.currentImageMeasurements.rawVoxelSha256, metadata.rawVoxelSha256);
   assert.match(metadata.coordinatePolicy, /exact BigBrain ICBM2009sym 0\.5 mm output grid/);
   assert.match(metadata.teachingPolicy, /provisional teaching overlays/);
 });
@@ -1101,10 +1102,10 @@ test("reproduces the objective orthogonal mammillary audit and rejects a wrong v
   ], {encoding:"utf8", cwd:localPath("")});
   assert.equal(result.status, 0, result.stderr);
   const audit = JSON.parse(result.stdout);
-  const saved = JSON.parse(await readFile(new URL("segmentation-patches/review/mammillary-bodies-orthogonal-objective-audit-2026-09-08-midbrain-interface14.json", root), "utf8"));
+  const saved = JSON.parse(await readFile(new URL("segmentation-patches/review/mammillary-bodies-orthogonal-objective-audit-2026-09-12-callosal-remaining304.json", root), "utf8"));
   assert.deepEqual(audit, saved);
   assert.equal(audit.magic, "BBS1");
-assert.equal(audit.inputSha256, "0662770388033cafa573337ab9349efd8b30888bc864566fe4d116de704a0b17");
+assert.equal(audit.inputSha256, "84f91400e7f6b9d059707772b01889f74112d62e853bcebfffddaf589b423ba3");
   assert.deepEqual(audit.dims, [394, 466, 378]);
   assert.deepEqual(audit.voxelSizeMm, [0.5, 0.5, 0.5]);
   assert.equal(audit.validation.passed, true);

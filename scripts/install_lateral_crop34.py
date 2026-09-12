@@ -185,6 +185,12 @@ def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None, *, review_da
             raise ValueError('Unreviewed mixed cavity repair')
         if not np.array_equal(replay_depth(before,record['points']),after):raise ValueError('Mixed cavity replay differs')
         source_values=np.asarray([p['before'] for p in record['points']]);destination=26;affected={0,26,27}
+    elif record['transition']=='30->0':
+        from stage_callosal_remaining304 import replay as replay_callosal
+        if prefix!='callosal-remaining304' or record_sha!='777c2e4d4a6f5a0f2e1df1fb95d462586b8cdd84001ebf112ea0b8a6b1966ce7':
+            raise ValueError('Unreviewed callosal exclusion')
+        if not np.array_equal(replay_callosal(before,points),after):raise ValueError('Callosal replay differs')
+        source_values=30;destination=0;affected={0,30}
     elif record['transition']=='27->0':
         from stage_midbrain_interface14 import replay as replay_interface
         if prefix!='midbrain-interface14' or record_sha!='c19a98eceed7ef2e307409a7740553410143d630ea38aed69b5c385c4352c751':
@@ -238,14 +244,17 @@ def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None, *, review_da
         new_mesh=(impact_path.parent/name).read_bytes()
         if (not part['beforeMatches'] or part['reproducedBeforeSha256']!=part['beforeSha256']
                 or digest(old_mesh)!=part['beforeSha256'] or digest(new_mesh)!=part['afterSha256']
-                or entry['meshSha256'] not in (part['beforeSha256'],part['afterSha256'])
+                # Older block entries lack a metadata digest. Their actual bytes
+                # must still match the independently reproduced baseline above.
+                or entry.get('meshSha256') not in (None,part['beforeSha256'],part['afterSha256'])
                 or (ATLAS/name).read_bytes() not in (old_mesh,new_mesh)):
             raise ValueError('Block byte mismatch')
         retained_meshes.append((ROOT/'tests/fixtures'/(name[:-5]+'-pre-'+prefix+'.mesh'),old_mesh))
         mesh_writes.append((ATLAS/name,new_mesh))
         entry.update(vertices=part['vertices'],faces=part['faces'],meshSha256=part['afterSha256'],
             segmentationSourceSha256=record['afterSha256'],
-            repairReview=('AI-image-reviewed partial lower-midbrain tissue repair; derived block synchronized. Development only, not expert review.'
+            repairReview=('AI-image-reviewed local callosal exclusion; derived block synchronized. Development only, not expert review.'
+                if record['transition']=='30->0' else 'AI-image-reviewed partial lower-midbrain tissue repair; derived block synchronized. Development only, not expert review.'
                 if record['transition']=='0->27' else 'AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review.'))
     old_report,old_assets=build_assets(base); new_report,new_assets=build_assets(data)
     changed=[]

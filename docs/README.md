@@ -5,10 +5,13 @@
 ## まず読む資料
 
 - [再開メモ：完了したこと・次にやること](RESUME_SUMMARY.md)
+- [9月12日：脳梁飛び地・3D同期・実測metadataの修正（未公開）](SEPTEMBER12_SEGMENTATION_CHECKPOINT.md)
+- [9月8日までの段階別作業履歴](RESUME_SUMMARY_2026-09-08_STAGE_HISTORY.md)
 - [最新の公開内容](RELEASE_2026-09-07.md)
 - [開発ガイド・フォーム設定](DEVELOPMENT.md)
 - [分節に用いた参考文献](SEGMENTATION_REFERENCES.md)
 - [分節の残件](ANATOMY_REMAINING_WORK.md)
+- [外部アトラスから取り入れる改善候補（臨床系は対象外）](EXTERNAL_ATLAS_ADOPTION.md)
 - [第三脳室の小片修正（2026-09-08・未公開）](THIRD_VENTRICLE_REMNANTS_REPAIR.md)
 - [中脳水道の部分補修（2026-09-08・未公開）](AQUEDUCT_PARTIAL_REPAIR.md)
 - [第三脳室後方の組織除外・水道尾側の補完（未公開）](POSTERIOR_VENTRICLES_REPAIR.md)

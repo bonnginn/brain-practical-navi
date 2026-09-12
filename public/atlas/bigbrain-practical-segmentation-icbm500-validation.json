@@ -114,7 +114,7 @@
     "27": 264605,
     "28": 735945,
     "29": 725004,
-    "30": 146019,
+    "30": 145715,
     "31": 56826,
     "32": 53609,
     "33": 8482,
@@ -122,8 +122,7 @@
     "35": 71073,
     "39": 559,
     "40": 729,
-    "41": 259,
-    "0": 66611998
+    "41": 259
   },
   "atlasToManualDiceAudit": {
     "caudate": 0.8448,
@@ -134,8 +133,8 @@
     "accumbens": 0.6242,
     "amygdala": 0.7289
   },
-  "ventricleLabelsRestrictedToEmptySpace": true,
-  "ventricleTissueOverlap": 0,
+  "ventricleLabelsRestrictedToEmptySpace": false,
+  "ventricleTissueOverlap": 0.10863117788409499,
   "coordinatePolicy": "exact BigBrain ICBM2009sym 0.5 mm output grid; CerebrA resampling accepted only after overlap audit",
   "reviewedPatchAudit": {
     "path": "segmentation-patches/review/mammillary-bodies-horizontal-core-plus-clear-rim-candidate-2026-08-16.json",
@@ -454,7 +453,7 @@
     "workflowMetadataStatus": "strict"
   },
   "preClassificationCompressedSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
-  "rawVoxelSha256": "ccea376ca68aa638dd722c2279f3b624e6fafb16cd3e6f7ff73b47f77da0d24c",
+  "rawVoxelSha256": "125664fb0458ec348ad77b5f49cdc42fe66278f4223072e75252e76dd1dbc5b3",
   "brainstemThreeIslandsAudit": {
     "record": "segmentation-patches/review/brainstem-three-islands-adoption-2026-09-06.json",
     "recordSha256": "9c7b14f4272969261e3e2415d3f522b7e5d7db1eeca7cb0c8ae28b225458be66",
@@ -1245,6 +1244,105 @@
       "projectAdopted": true,
       "expertReviewed": false,
       "changedSectionMeshes": []
+    },
+    "callosal-remaining304": {
+      "record": "segmentation-patches/review/callosal-remaining304-adoption-2026-09-12.json",
+      "recordSha256": "757b3f67ac9aa474c0a0a815d0c8affa7d6e9cd072b80b28894d72282639c025",
+      "changedVoxelCount": 304,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": []
+    }
+  },
+  "historicalGenerationClaims": {
+    "scope": "Legacy values present before current-image measurement; not claims about the current label volume.",
+    "ventricleLabelsRestrictedToEmptySpace": true,
+    "ventricleTissueOverlap": 0
+  },
+  "currentImageMeasurements": {
+    "schemaVersion": 1,
+    "sourceLabelSha256": "84f91400e7f6b9d059707772b01889f74112d62e853bcebfffddaf589b423ba3",
+    "sourceImageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
+    "rawVoxelSha256": "125664fb0458ec348ad77b5f49cdc42fe66278f4223072e75252e76dd1dbc5b3",
+    "dimensionsXYZ": [
+      394,
+      466,
+      378
+    ],
+    "backgroundImageValue": 255,
+    "interpretation": "Image-value overlap only; non-background is not proof of tissue misclassification. Grid equality is not anatomical registration validation.",
+    "labelCounts": {
+      "1": 2887,
+      "2": 2888,
+      "3": 4239,
+      "4": 4524,
+      "5": 1369,
+      "6": 1457,
+      "7": 40703,
+      "8": 36877,
+      "9": 53160,
+      "10": 55336,
+      "11": 11442,
+      "12": 11364,
+      "13": 4391,
+      "14": 4853,
+      "15": 66476,
+      "16": 67298,
+      "17": 35259,
+      "18": 34251,
+      "19": 4189,
+      "20": 3920,
+      "21": 14647,
+      "22": 15077,
+      "23": 81455,
+      "24": 82197,
+      "25": 11853,
+      "26": 9008,
+      "27": 264605,
+      "28": 735945,
+      "29": 725004,
+      "30": 145715,
+      "31": 56826,
+      "32": 53609,
+      "33": 8482,
+      "34": 66084,
+      "35": 71073,
+      "39": 559,
+      "40": 729,
+      "41": 259
+    },
+    "ventricularLabelIds": [
+      23,
+      24,
+      25,
+      26,
+      41
+    ],
+    "ventricularVoxels": 184772,
+    "ventricularNonBackgroundVoxels": 20072,
+    "ventricularNonBackgroundFraction": 0.10863117788409499,
+    "ventricularLabelsRestrictedToImageBackground": false,
+    "perVentricularLabel": {
+      "23": {
+        "voxels": 81455,
+        "nonBackgroundVoxels": 9250
+      },
+      "24": {
+        "voxels": 82197,
+        "nonBackgroundVoxels": 10512
+      },
+      "25": {
+        "voxels": 11853,
+        "nonBackgroundVoxels": 0
+      },
+      "26": {
+        "voxels": 9008,
+        "nonBackgroundVoxels": 171
+      },
+      "41": {
+        "voxels": 259,
+        "nonBackgroundVoxels": 139
+      }
     }
   }
 }

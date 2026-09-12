@@ -9,6 +9,9 @@ keeping this asset build reproducible with NumPy alone.
 from __future__ import annotations
 
 import gzip
+import argparse
+import hashlib
+import json
 import struct
 from pathlib import Path
 
@@ -88,25 +91,50 @@ def voxel_surface(mask: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray,
     return vertices, normals, shade, faces
 
 
+def encode_mesh(mesh: tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]) -> bytes:
+    vertices, normals, shade, faces = mesh
+    return (b"BNM2" + struct.pack("<II", len(vertices), len(faces)) + vertices.tobytes()
+            + normals.tobytes() + shade.tobytes() + faces.tobytes())
+
+
 def write_mesh(name: str, mesh: tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]) -> None:
     vertices, normals, shade, faces = mesh
     path = ATLAS / f"{name}.mesh"
-    with path.open("wb") as handle:
-        handle.write(b"BNM2" + struct.pack("<II", len(vertices), len(faces)))
-        handle.write(vertices.tobytes())
-        handle.write(normals.tobytes())
-        handle.write(shade.tobytes())
-        handle.write(faces.tobytes())
+    path.write_bytes(encode_mesh(mesh))
     print(f"{name}: {len(vertices):,} vertices, {len(faces):,} face indices")
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument('--check', action='store_true', help='Read-only byte comparison (default)')
+    mode.add_argument('--output-dir', type=Path, help='Generate into a new staging directory, never public')
+    args = parser.parse_args()
+    if args.output_dir and (args.output_dir.exists() or args.output_dir.resolve() == ATLAS.resolve()):
+        raise ValueError('Use a new staging directory; preserve existing assets/evidence')
     seg = read_labels()[::GEOMETRY_STRIDE, ::GEOMETRY_STRIDE, ::GEOMETRY_STRIDE]
+    generated = {}
+    report = dict(sourceSha256=hashlib.sha256(SEGMENTATION.read_bytes()).hexdigest(),
+                  geometryStride=GEOMETRY_STRIDE, meshes={},
+                  limitation='Exact reconstruction of the existing 1 mm teaching surfaces; not anatomical validation. ID33 remains an excluded mixed scaffold.')
     for name, ids in STRUCTURES.items():
         mask = np.isin(seg, ids)
         if np.count_nonzero(mask) < 8:
             raise ValueError(f"{name} contains too few voxels")
-        write_mesh(name, voxel_surface(mask))
+        payload = encode_mesh(voxel_surface(mask))
+        generated[name] = payload
+        old = (ATLAS / f'{name}.mesh').read_bytes()
+        report['meshes'][name] = dict(labelIds=list(ids), sampledVoxels=int(mask.sum()),
+            oldSha256=hashlib.sha256(old).hexdigest(), newSha256=hashlib.sha256(payload).hexdigest(),
+            oldBytes=len(old), newBytes=len(payload), matches=old == payload)
+    if args.output_dir:
+        args.output_dir.mkdir(parents=True, exist_ok=False)
+        for name, payload in generated.items():
+            (args.output_dir / f'{name}.mesh').write_bytes(payload)
+        (args.output_dir / 'report.json').write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8')
+    print(json.dumps(report, indent=2))
+    if not args.output_dir and not all(m['matches'] for m in report['meshes'].values()):
+        raise SystemExit('Stale section structure meshes; stage and review before adopting')
 
 
 if __name__ == "__main__":

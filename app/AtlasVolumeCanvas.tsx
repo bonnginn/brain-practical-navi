@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { decodeCompactSurface } from "./brodmannMesh";
 import { SEGMENTATION_LABEL_REVISION } from "./segmentationLabelRevision";
+import { atlasMeshRevisionQuery } from "../src/atlasMeshRevision.mjs";
 import { createDownloadProgressTracker, formatDownloadBytes } from "../src/downloadProgress.mjs";
 import { formatSectionPosition, segmentationPlaneNames } from "./segmentationGeometry";
 
@@ -227,7 +228,7 @@ async function loadManualSeg(name:"icbm500"){
 }
 function loadMesh(name:string){
   const fileName=meshAssetFileName(name),id=`mesh:${fileName}`;
-if(!meshCache.has(name))meshCache.set(name,trackAtlasProcessing(id,async token=>{let buf=await fetchAtlasBuffer(`${ASSET_BASE}atlas/${fileName}${name==="overlay-arteries-anterior"?"?v=8e1d872281eb6439":name==="overlay-nerves-pontine"?"?v=1244f483c765ef08":(name.startsWith("block-")||name.startsWith("section-current-")||name==="section-accumbens")?`?v=${SEGMENTATION_LABEL_REVISION}`:""}`,id,name,token);const auditSource=quizVisibilityAuditEnabled()?{path:`public/atlas/${fileName}`,sha256:COMPRESSED_MESH_AUDIT_SHA256[fileName]??await sha256Hex(buf)}:undefined;if(hasGzipMagic(buf)){const stream=new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));buf=await new Response(stream).arrayBuffer()}
+if(!meshCache.has(name))meshCache.set(name,trackAtlasProcessing(id,async token=>{let buf=await fetchAtlasBuffer(`${ASSET_BASE}atlas/${fileName}${atlasMeshRevisionQuery(name,SEGMENTATION_LABEL_REVISION)}`,id,name,token);const auditSource=quizVisibilityAuditEnabled()?{path:`public/atlas/${fileName}`,sha256:COMPRESSED_MESH_AUDIT_SHA256[fileName]??await sha256Hex(buf)}:undefined;if(hasGzipMagic(buf)){const stream=new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));buf=await new Response(stream).arrayBuffer()}
     if(buf.byteLength>=4&&new DataView(buf).getUint32(0,false)===0x424e4d34){const mesh=decodeCompactSurface(buf);return auditSource?{...mesh,auditSource}:mesh}
     const v=new DataView(buf),magic=v.getUint32(0,false),nv=v.getUint32(4,true),declaredFaces=v.getUint32(8,true),hasShade=magic===0x424e4d32||magic===0x424e4d33;
     if(magic!==0x424e4d31&&magic!==0x424e4d32&&magic!==0x424e4d33)throw new Error(`${name} invalid mesh header`);

@@ -2,6 +2,10 @@
 
 ## Current checkpoint
 
+- 2026-09-12 bounded run finished verification around 15:25 JST, before the 15:27 deadline. This anatomy/segmentation goal is paused again at the saved checkpoint. Do not resume autonomous development without renewed user permission. See docs/RESUME_SUMMARY.md; no main merge or publication was performed or authorized in this run.
+
+- 2026-09-12 user-authorized bounded resumption: work from 12:27 JST until no later than 15:27 JST, including verification and handoff. The user rebooted the PC and explicitly asked to continue at 12:34 JST; this does not extend the deadline. Single agent; no main merge or publication. The older pause below describes the previous checkpoint and becomes effective again after this window unless the user gives new instructions.
+
 - Read docs/RESUME_SUMMARY.md first for the latest published baseline and next-update requests. This anatomy/segmentation goal is paused at the user's request on 2026-09-08 around 10:28 JST, before the earlier 11:00 JST deadline. The completed repair and verification checkpoint is saved; do not resume autonomous work on this goal without renewed user permission, including in response to an automatic goal continuation. No main merge or deployment is authorized. Separate user-owned tasks retain their own explicit scope and stop instructions.
 - Keep README concise and bilingual. Put development history and new review notes in docs/; use docs/README.md as the index. Existing machine-read audit documents and public licence-link targets remain at the root for compatibility. Historical evidence may name a document by basename; look in docs/ if it is no longer at the root. Do not rewrite hash-pinned evidence just to rename documentation.
 
@@ -12,13 +16,11 @@
 - Read the relevant handoff and audit documents for the current task, not every historical audit on every small edit. Historical results are not new verification.
 - Check README for user-facing changes; distinguish development changes from published features.
 
-## Model and effort policy (user preference, 2026-09-05)
+## Agent policy (user preference, 2026-09-08)
 
-- Do not keep the old fixed split of Sol for planning and Luna at high/max for implementation.
-- Where model/effort selection is actually available, try Astra with low effort for bounded routine implementation, test maintenance, document synchronization, and straightforward investigation. Use medium for cross-module design and integration; high for difficult diagnosis or anatomical evidence review. Escalate further only for a concrete unresolved problem.
-- This is a project working preference, not a change to the calling task's runtime settings. Never claim that the parent's model or effort was changed without an actual supported setting change.
-- The current tool inventory exposes `gpt-6-astra` with low effort; it does not expose a separate `Astra Light` model. Do not assume those names are equivalent or invent model identifiers. Check current availability when dispatching work.
-- Delegate only when authorized and when a bounded independent task can overlap useful local work. Avoid redundant reviewers, nested delegation, or copying the entire project history into every subtask. Report findings with evidence, not repeated progress boilerplate.
+- Use the current primary agent only. Do not spawn subagents, delegate implementation/review, or switch models/effort by subtask unless the user explicitly changes this preference. This supersedes the earlier Sol/Luna and Astra low/medium/high task-splitting policies.
+- The user prioritizes conserving credits. Avoid duplicated investigation and redundant checks; keep necessary verification proportional to the change. Do not claim an actual cost saving or runtime-setting change without evidence.
+- This preference update does not resume the paused development goal or cancel separately authorized user-owned tasks.
 - Use required skills for their applicable task only. Do not edit globally installed skills or repeat all skill content in this file.
 
 ## Anatomical changes
