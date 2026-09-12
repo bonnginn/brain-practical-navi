@@ -6,6 +6,7 @@
 
 - [再開メモ：完了したこと・次にやること](RESUME_SUMMARY.md)
 - [9月12日：脳梁飛び地・3D同期・実測metadataの修正（未公開）](SEPTEMBER12_SEGMENTATION_CHECKPOINT.md)
+- [9月12日追加：側脳室後方196点の補完・内側11点の除外（未公開）](LATERAL_POSTERIOR_MARGIN_REPAIR.md)
 - [9月8日までの段階別作業履歴](RESUME_SUMMARY_2026-09-08_STAGE_HISTORY.md)
 - [最新の公開内容](RELEASE_2026-09-07.md)
 - [開発ガイド・フォーム設定](DEVELOPMENT.md)

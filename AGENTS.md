@@ -2,6 +2,8 @@
 
 ## Current checkpoint
 
+- 2026-09-12 user authorized an additional approximately two hours at 15:30 JST: resume single-agent work until 17:30 JST (08:30 UTC), including verification and saving. No main merge or publication. Pause again at a coherent checkpoint by that deadline; earlier pause entries below are historical for this window.
+
 - 2026-09-12 bounded run finished verification around 15:25 JST, before the 15:27 deadline. This anatomy/segmentation goal is paused again at the saved checkpoint. Do not resume autonomous development without renewed user permission. See docs/RESUME_SUMMARY.md; no main merge or publication was performed or authorized in this run.
 
 - 2026-09-12 user-authorized bounded resumption: work from 12:27 JST until no later than 15:27 JST, including verification and handoff. The user rebooted the PC and explicitly asked to continue at 12:34 JST; this does not extend the deadline. Single agent; no main merge or publication. The older pause below describes the previous checkpoint and becomes effective again after this window unless the user gives new instructions.

@@ -11,6 +11,10 @@
 segmentation-patches/**/*.json -text
 segmentation-patches/review/*-2026-09-12-callosal-remaining304.json whitespace=cr-at-eol
 tests/fixtures/section-current-aqueduct-partial-pre-callosal-remaining304.json -text
+tests/fixtures/section-current-aqueduct-partial-pre-lateral-posterior196.json -text
+tests/fixtures/section-current-aqueduct-partial-pre-lateral-medial-islands11.json -text
+segmentation-patches/review/*-2026-09-12-lateral-posterior196.json whitespace=cr-at-eol
+segmentation-patches/review/*-2026-09-12-lateral-medial-islands11.json whitespace=cr-at-eol
 
 # Brodmann input lock and reproducible generated records are byte-pinned too.
 scripts/brodmann-source-lock.json -text whitespace=cr-at-eol

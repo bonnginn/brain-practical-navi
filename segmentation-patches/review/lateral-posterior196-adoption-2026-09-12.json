@@ -1,0 +1,3129 @@
+{
+  "beforeSha256": "84f91400e7f6b9d059707772b01889f74112d62e853bcebfffddaf589b423ba3",
+  "afterSha256": "4d12523a818aed809bde703dc12615c09c56304dd3d72e7f9c3f5771032b5c62",
+  "afterRawVoxelSha256": "1c1d72f69e2ee0f4636d16cfb8f72ec14a3a4e98fc7c23d9f30bcf92b4165afd",
+  "indicesSha256": "7dda60df84fc1a30ff5952fbbf51e53a6d34ac5140331a5fbc7f9457e6f5367f",
+  "points": [
+    {
+      "xyz": [
+        130,
+        164,
+        145
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        130,
+        164,
+        153
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        130,
+        165,
+        145
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        131,
+        159,
+        152
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        132,
+        150,
+        149
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        132,
+        152,
+        151
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        132,
+        152,
+        155
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        132,
+        153,
+        151
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        132,
+        154,
+        151
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        132,
+        154,
+        155
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        132,
+        155,
+        152
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        132,
+        156,
+        152
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        132,
+        157,
+        151
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        132,
+        160,
+        145
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        132,
+        161,
+        145
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        132,
+        163,
+        158
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        133,
+        148,
+        146
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        133,
+        151,
+        153
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        133,
+        152,
+        148
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        133,
+        152,
+        154
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        133,
+        153,
+        148
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        133,
+        156,
+        147
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        133,
+        158,
+        159
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        133,
+        163,
+        161
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        133,
+        164,
+        161
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        134,
+        152,
+        153
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        134,
+        163,
+        145
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        135,
+        156,
+        157
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        136,
+        153,
+        150
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        136,
+        154,
+        166
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        137,
+        158,
+        153
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        137,
+        164,
+        169
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        137,
+        172,
+        171
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        138,
+        161,
+        149
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        138,
+        161,
+        151
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        138,
+        169,
+        173
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        138,
+        170,
+        173
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        138,
+        174,
+        173
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        139,
+        179,
+        173
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        139,
+        183,
+        171
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        140,
+        164,
+        156
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        140,
+        185,
+        172
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        140,
+        189,
+        170
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        141,
+        164,
+        161
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        141,
+        165,
+        169
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        141,
+        183,
+        172
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        143,
+        183,
+        170
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        143,
+        189,
+        171
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        144,
+        165,
+        165
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        144,
+        183,
+        170
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        145,
+        165,
+        164
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        145,
+        170,
+        172
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        145,
+        197,
+        173
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        146,
+        170,
+        170
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        146,
+        179,
+        148
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        146,
+        184,
+        148
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        146,
+        193,
+        160
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        146,
+        196,
+        166
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        146,
+        199,
+        166
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        147,
+        170,
+        167
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        147,
+        174,
+        153
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        147,
+        179,
+        150
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        147,
+        183,
+        169
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        147,
+        194,
+        162
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        147,
+        198,
+        161
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        147,
+        199,
+        161
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        148,
+        172,
+        160
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        148,
+        174,
+        154
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        148,
+        175,
+        153
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        148,
+        183,
+        169
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        148,
+        183,
+        172
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        148,
+        190,
+        168
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        148,
+        190,
+        170
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        148,
+        194,
+        163
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        148,
+        196,
+        166
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        148,
+        198,
+        166
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        148,
+        199,
+        161
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        148,
+        199,
+        166
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        148,
+        200,
+        161
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        149,
+        173,
+        167
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        149,
+        183,
+        169
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        149,
+        183,
+        170
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        149,
+        183,
+        171
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        149,
+        183,
+        172
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        149,
+        185,
+        153
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        149,
+        194,
+        164
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        149,
+        196,
+        162
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        149,
+        198,
+        167
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        149,
+        199,
+        166
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        149,
+        200,
+        167
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        149,
+        201,
+        161
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        150,
+        171,
+        163
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        150,
+        183,
+        154
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        150,
+        183,
+        168
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        150,
+        183,
+        170
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        150,
+        183,
+        171
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        150,
+        183,
+        172
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        150,
+        191,
+        159
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        150,
+        191,
+        167
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        150,
+        200,
+        161
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        150,
+        201,
+        161
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        151,
+        187,
+        157
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        151,
+        190,
+        159
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        151,
+        191,
+        168
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        151,
+        198,
+        170
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        152,
+        183,
+        170
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        152,
+        184,
+        168
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        152,
+        188,
+        159
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        152,
+        191,
+        168
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        152,
+        195,
+        162
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        153,
+        177,
+        156
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        153,
+        182,
+        157
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        153,
+        191,
+        168
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        153,
+        198,
+        167
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        153,
+        198,
+        170
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        153,
+        198,
+        172
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        153,
+        198,
+        173
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        154,
+        178,
+        156
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        154,
+        189,
+        161
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        154,
+        198,
+        171
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        154,
+        198,
+        172
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        154,
+        198,
+        173
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        154,
+        202,
+        171
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        155,
+        179,
+        164
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        155,
+        180,
+        168
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        155,
+        181,
+        157
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        155,
+        191,
+        170
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        155,
+        191,
+        171
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        155,
+        195,
+        168
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        155,
+        196,
+        167
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        155,
+        197,
+        170
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        155,
+        198,
+        170
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        155,
+        198,
+        173
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        156,
+        179,
+        162
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        156,
+        183,
+        159
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        156,
+        187,
+        161
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        156,
+        194,
+        163
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        156,
+        200,
+        170
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        156,
+        203,
+        172
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        156,
+        204,
+        173
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        157,
+        179,
+        161
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        157,
+        190,
+        171
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        157,
+        197,
+        171
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        157,
+        198,
+        167
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        157,
+        199,
+        165
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        157,
+        199,
+        173
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        157,
+        204,
+        173
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        158,
+        184,
+        169
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        158,
+        201,
+        167
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        159,
+        183,
+        163
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        159,
+        184,
+        161
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        160,
+        186,
+        162
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        160,
+        186,
+        172
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        160,
+        189,
+        163
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        160,
+        195,
+        172
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        160,
+        201,
+        172
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        160,
+        203,
+        172
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        161,
+        187,
+        168
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        161,
+        202,
+        171
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        162,
+        195,
+        173
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        162,
+        199,
+        173
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        163,
+        190,
+        170
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        164,
+        190,
+        171
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        164,
+        192,
+        167
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        166,
+        192,
+        169
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        167,
+        193,
+        169
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        167,
+        194,
+        168
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        168,
+        195,
+        173
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        171,
+        204,
+        172
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        173,
+        200,
+        171
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        173,
+        201,
+        170
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        174,
+        200,
+        173
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        174,
+        205,
+        172
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        175,
+        201,
+        172
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        175,
+        201,
+        173
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        175,
+        203,
+        171
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        175,
+        205,
+        172
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        176,
+        202,
+        173
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        177,
+        204,
+        173
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        177,
+        208,
+        173
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        178,
+        206,
+        173
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        178,
+        207,
+        173
+      ],
+      "before": 0,
+      "after": 23
+    },
+    {
+      "xyz": [
+        227,
+        190,
+        171
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        227,
+        191,
+        171
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        229,
+        189,
+        173
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        229,
+        190,
+        173
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        238,
+        193,
+        168
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        244,
+        190,
+        172
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        244,
+        196,
+        166
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        252,
+        179,
+        171
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        252,
+        181,
+        160
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        256,
+        160,
+        163
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        256,
+        181,
+        151
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        256,
+        193,
+        151
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        258,
+        187,
+        142
+      ],
+      "before": 0,
+      "after": 24
+    },
+    {
+      "xyz": [
+        263,
+        188,
+        142
+      ],
+      "before": 0,
+      "after": 24
+    }
+  ],
+  "count": 196,
+  "transition": "mixed-lateral-cavity-fill",
+  "evidence": [
+    {
+      "path": "work/anatomy-review/lateral-middle-native300-september12-v1/report.json",
+      "sha256": "60e2845777b438bf11455f156c31078f217825aba7ebbac19354428accd0ea89",
+      "visuallyInspectedFigures": [
+        {
+          "path": "z-00.png",
+          "axis": "z",
+          "indices": [
+            227,
+            229,
+            230
+          ],
+          "sha256": "d96cd78d0beb2b34ee3bde32a81bce051bb248aafefadf014fbe4b7f6a180988"
+        },
+        {
+          "path": "z-01.png",
+          "axis": "z",
+          "indices": [
+            232,
+            234,
+            235
+          ],
+          "sha256": "810f28d1c277df6c8ae304fe8976886b80768434b2b3705abdaeb59919060cd1"
+        },
+        {
+          "path": "z-02.png",
+          "axis": "z",
+          "indices": [
+            237,
+            239,
+            240
+          ],
+          "sha256": "9cb4ccaf0535cce92d395d17532fb8994f42e82c748213310877090ff5e5149c"
+        },
+        {
+          "path": "z-03.png",
+          "axis": "z",
+          "indices": [
+            242,
+            244,
+            245
+          ],
+          "sha256": "73781d12fcfd1bd3b4b4575ec038c5bf0cc46ee37d73073510937514c5f44516"
+        },
+        {
+          "path": "z-04.png",
+          "axis": "z",
+          "indices": [
+            247,
+            249,
+            250
+          ],
+          "sha256": "0f417d9ad88b9f236551f64b7d325cdca29ccd075b74bd05b62cfafdcf1ab7da"
+        },
+        {
+          "path": "z-05.png",
+          "axis": "z",
+          "indices": [
+            252,
+            254,
+            255
+          ],
+          "sha256": "0fafdae03a57a833a7fb8c99c7776ac5e001e6b830d2512250f92e1ce42479d6"
+        },
+        {
+          "path": "z-06.png",
+          "axis": "z",
+          "indices": [
+            257,
+            259,
+            260
+          ],
+          "sha256": "5eea4a21ce6688ae19c6f5de04263707f7633d670feec9de06b3ec0addad5f6c"
+        },
+        {
+          "path": "z-07.png",
+          "axis": "z",
+          "indices": [
+            262,
+            264,
+            265
+          ],
+          "sha256": "c392ef25abf62b7fc9c5577c640fd327a0412fd165f8838e04504f530c2baddb"
+        },
+        {
+          "path": "z-08.png",
+          "axis": "z",
+          "indices": [
+            267,
+            269,
+            270
+          ],
+          "sha256": "01e1dd63fd6b4bf29acc8025961e47d66befd7e820d5fb41921ca0c5668e80aa"
+        },
+        {
+          "path": "z-09.png",
+          "axis": "z",
+          "indices": [
+            272,
+            274,
+            275
+          ],
+          "sha256": "6c7e9a713a0d06f51f8171d7aa39d57f7e79528c2420f13aaa4e00ce2fd45617"
+        },
+        {
+          "path": "z-10.png",
+          "axis": "z",
+          "indices": [
+            277,
+            279,
+            280
+          ],
+          "sha256": "5658f076e0a4563fe8f64447b56e96be8f3ad915c5457755f6c0c55ec6f153d3"
+        },
+        {
+          "path": "z-11.png",
+          "axis": "z",
+          "indices": [
+            282,
+            284,
+            285
+          ],
+          "sha256": "d74a160e01700c7dec49a33c460bd9d4516a9d97c2aa321d73639bb512c55e37"
+        },
+        {
+          "path": "z-12.png",
+          "axis": "z",
+          "indices": [
+            287,
+            289
+          ],
+          "sha256": "bfed6239b2ed2b97c871ddbb4d415062a050c0b3b5964f719b070f56f3eb8530"
+        },
+        {
+          "path": "x-00.png",
+          "axis": "x",
+          "indices": [
+            205,
+            235,
+            265
+          ],
+          "sha256": "5607a793edad6a570dbcc126f1a63ebf4b96c8719d2d535dca7dcbf555b3b1e5"
+        },
+        {
+          "path": "x-01.png",
+          "axis": "x",
+          "indices": [
+            295,
+            327,
+            357
+          ],
+          "sha256": "293af0f84ba496590b620e8ebe9383e36bf138b2e9eef8a2a472eeeefe25717d"
+        },
+        {
+          "path": "x-02.png",
+          "axis": "x",
+          "indices": [
+            387,
+            417,
+            449
+          ],
+          "sha256": "07f2e8bebc74cfd8c2c392b350da5516bef7e63aca0c87cb592075477ea82d2c"
+        },
+        {
+          "path": "y-00.png",
+          "axis": "y",
+          "indices": [
+            240,
+            274,
+            305
+          ],
+          "sha256": "abe71bb0f81cbd6f44c1151f93fb636e025401775527c55417e423f787408993"
+        },
+        {
+          "path": "y-01.png",
+          "axis": "y",
+          "indices": [
+            337,
+            412,
+            445
+          ],
+          "sha256": "2901e2506a0e37b7d929240acfd756b13c06cc1531e8f3370743760c86d282f3"
+        },
+        {
+          "path": "y-02.png",
+          "axis": "y",
+          "indices": [
+            480,
+            515,
+            549
+          ],
+          "sha256": "c0c90de7657b26f0384a1070ef1f217e837cc2a95e95afdbd4b25607316172f1"
+        }
+      ]
+    },
+    {
+      "path": "work/anatomy-review/lateral-posterior-native300-september12-v1/report.json",
+      "sha256": "5c9fd2f4f378cd3ae1d59dc5b00b41948b9926d8f6e8e1ff467c0b2cf4fe3fae",
+      "visuallyInspectedFigures": [
+        {
+          "path": "x-00.png",
+          "axis": "x",
+          "indices": [
+            205,
+            227,
+            250
+          ],
+          "sha256": "3d7f430f392624cb151c2eae8264522e1efa7824478038f11d233b3e9dc6ed78"
+        },
+        {
+          "path": "x-01.png",
+          "axis": "x",
+          "indices": [
+            272,
+            297,
+            380
+          ],
+          "sha256": "f2c8deeb508d48a4641d269f5b9983b57434002a4870b0b9f79c759b131c1c4b"
+        },
+        {
+          "path": "x-02.png",
+          "axis": "x",
+          "indices": [
+            402,
+            425,
+            449
+          ],
+          "sha256": "aac3fcf727928bf8a145267fe2f4ad237e47bb47838d28e8c765e11687070907"
+        },
+        {
+          "path": "y-00.png",
+          "axis": "y",
+          "indices": [
+            240,
+            255,
+            269
+          ],
+          "sha256": "6e3a1467346ba482941a6df20907fc03ef4d6c77917a8b0f74a5dd8d37c06d86"
+        },
+        {
+          "path": "y-01.png",
+          "axis": "y",
+          "indices": [
+            282,
+            295,
+            307
+          ],
+          "sha256": "9cbf4ba5041ed7b5f98565d93f6269791b926b8facd975dc9f40f9a7259441dd"
+        },
+        {
+          "path": "y-02.png",
+          "axis": "y",
+          "indices": [
+            320,
+            334,
+            347
+          ],
+          "sha256": "78ea68dbb3e8deb9ec9d8181adb57b87ececd9cd58fbc6b171c2a914782fe821"
+        }
+      ]
+    }
+  ],
+  "visuallyInspectedUniquePlanes": 71,
+  "continuity": {
+    "23": {
+      "newDetachedVoxels": 0,
+      "added": 182
+    },
+    "24": {
+      "newDetachedVoxels": 0,
+      "added": 14
+    }
+  },
+  "heldDisconnectedXYZ": [
+    [
+      132,
+      146,
+      147
+    ]
+  ],
+  "countsBefore": {
+    "0": 66612302,
+    "23": 81455,
+    "24": 82197
+  },
+  "countsAfter": {
+    "0": 66612106,
+    "23": 81637,
+    "24": 82211
+  },
+  "status": "AI-image-reviewed-project-adopted-development-only",
+  "adopted": true,
+  "expertReviewed": false,
+  "publicMutation": false,
+  "rationale": "Regional raw-image review of lateral ventricular posterior cavity margins at app Z136–173. The complete middle-level series (19 sheets: 38 horizontal and 9 per orthogonal axis) and six posterior-focused orthogonal sheets were visually inspected. Selected local gaps follow the existing posterior lumen perimeter without replacing the intervening tissue or the visible plexus-like structures. Encoded >=240 and registered300 finite-cell void support >=0.5 only locate candidates. One candidate at [132,146,147] loses connection after finite-support filtering and is held unchanged. Every adopted point connects to the existing same-side mask; side is inherited from seeds, not split at X. The separate 672 middle-region points near anterior/third-ventricle transitions and the lower-Z120 external-space leak are not part of this repair.",
+  "limitation": "AI-supported local educational repair, not expert review or complete ventricular segmentation. Registered300 image is transformed/resampled; no new native100 review. Targeted orthogonal planes are not exhaustive native-plane coverage. Work Y<230 separates the posterior review ROI and does not define an anatomical endpoint. Partial-volume margins remain unresolved. Integration verification recorded separately; not public deployment.",
+  "projectAdopted": true,
+  "published": false,
+  "meshImpact": {
+    "inputSha256": "84f91400e7f6b9d059707772b01889f74112d62e853bcebfffddaf589b423ba3",
+    "outputSha256": "4d12523a818aed809bde703dc12615c09c56304dd3d72e7f9c3f5771032b5c62",
+    "blockMaskImpact": [
+      {
+        "block": "lateral-ventricle",
+        "part": "tissue",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "ventricular-cavity",
+        "changedMaskVoxels": 2,
+        "added": 2,
+        "removed": 0,
+        "file": "block-lateral-ventricle-ventricular-cavity.mesh",
+        "beforeSha256": "a5a72ceb688e6a90668fc2c85234a26e01db36456476497603194e2e2b6729c0",
+        "afterSha256": "e298eb91f0503508c754351c3f4446d175e3dfb1bc40e69ce4664e1e14ba28d3",
+        "reproducedBeforeSha256": "a5a72ceb688e6a90668fc2c85234a26e01db36456476497603194e2e2b6729c0",
+        "beforeMatches": true,
+        "vertices": 9690,
+        "faces": 19264
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "caudate",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "thalamus",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "hippocampus",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "tissue",
+        "changedMaskVoxels": 13,
+        "added": 0,
+        "removed": 13,
+        "file": "block-diencephalon-tissue.mesh",
+        "beforeSha256": "ea098dda6d14557c413f94735484902a6a6809f9545388931ad6b5b4cb0a25f5",
+        "afterSha256": "eee98e5e2ec8938f6fcead8e5c869f4eb109c81ac64851ec363222e0a8a94aa6",
+        "reproducedBeforeSha256": "ea098dda6d14557c413f94735484902a6a6809f9545388931ad6b5b4cb0a25f5",
+        "beforeMatches": true,
+        "vertices": 30281,
+        "faces": 60418
+      },
+      {
+        "block": "diencephalon",
+        "part": "thalami",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "third-ventricle",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "hypothalamus",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "subthalamic-nuclei",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "mammillary-bodies",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "tissue",
+        "changedMaskVoxels": 2,
+        "added": 0,
+        "removed": 2,
+        "file": "block-radiations-tissue.mesh",
+        "beforeSha256": "be270dcb77b449b0bb911c6b9fcb7cd52bbe7ec5b348c08f9ab40d5c22f72f36",
+        "afterSha256": "0272e43b6971009c94f0041465c4cb0759d0741706f8a2ee075d671b75ea2fb3",
+        "reproducedBeforeSha256": "be270dcb77b449b0bb911c6b9fcb7cd52bbe7ec5b348c08f9ab40d5c22f72f36",
+        "beforeMatches": true,
+        "vertices": 76694,
+        "faces": 151180
+      },
+      {
+        "block": "radiations",
+        "part": "putamen",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "pallidum-external",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "pallidum-internal",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "internal-capsule",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "corona-radiata",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "optic-radiation",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "auditory-radiation",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "tissue",
+        "changedMaskVoxels": 36,
+        "added": 34,
+        "removed": 2,
+        "file": "block-commissural-system-tissue.mesh",
+        "beforeSha256": "4652e151558bee9db82479a3ce82288b12fafbb0434d00e9fd29652c2aaa5813",
+        "afterSha256": "518457ad2205d441069d5a49761a717200d9c63685f39b1ebeaa910b2b645926",
+        "reproducedBeforeSha256": "4652e151558bee9db82479a3ce82288b12fafbb0434d00e9fd29652c2aaa5813",
+        "beforeMatches": true,
+        "vertices": 19912,
+        "faces": 39620
+      },
+      {
+        "block": "commissural-system",
+        "part": "corpus-callosum",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "lateral-ventricles",
+        "changedMaskVoxels": 2,
+        "added": 2,
+        "removed": 0,
+        "file": "block-commissural-system-lateral-ventricles.mesh",
+        "beforeSha256": "dbf6532c99651fce206dcc5653c6d247739027b3b8a2fba96f2b286bd7f2f199",
+        "afterSha256": "1cb2f0608de5f178f0f8b8eb97a52e33b1f05ddc003a41691777b328f8b47957",
+        "reproducedBeforeSha256": "dbf6532c99651fce206dcc5653c6d247739027b3b8a2fba96f2b286bd7f2f199",
+        "beforeMatches": true,
+        "vertices": 11954,
+        "faces": 23868
+      },
+      {
+        "block": "commissural-system",
+        "part": "fornix",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "septum-pellucidum",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "tissue",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "ventricular-cavity",
+        "changedMaskVoxels": 2,
+        "added": 2,
+        "removed": 0,
+        "file": "block-choroid-plexus-ventricular-cavity.mesh",
+        "beforeSha256": "f8b2d3ae9d142277ef3ba986da66c08431428e241e6d4b9030345930dce6bf5d",
+        "afterSha256": "13d6061aaef8491d5712a48927b77d536506e68b9b929da2843fc4dcb54ae69d",
+        "reproducedBeforeSha256": "f8b2d3ae9d142277ef3ba986da66c08431428e241e6d4b9030345930dce6bf5d",
+        "beforeMatches": true,
+        "vertices": 9358,
+        "faces": 18600
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "choroid-plexus",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "hippocampus",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "tissue",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "hippocampus",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "amygdala",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "inferior-horn",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "tissue",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "red-nuclei",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "substantia-nigra",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "aqueduct",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "cerebral-peduncles",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "superior-colliculi",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "inferior-colliculi",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "lateral-geniculate-bodies",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "medial-geniculate-bodies",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "interpeduncular-fossa",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "pons-medulla",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "cerebellum",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "midbrain",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "fourth-ventricle",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "superior-cerebellar-peduncles",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "middle-cerebellar-peduncles",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "inferior-cerebellar-peduncles",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "facial-colliculi",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "vestibular-areas",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "hypoglossal-trigones",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "vagal-trigones",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "pyramids",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "olives",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      }
+    ],
+    "installed": false,
+    "anatomyValidatedByMaskComparison": false,
+    "installationBlocked": false
+  },
+  "sectionMeshImpact": {
+    "before": {
+      "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
+      "sourceSha256": "84f91400e7f6b9d059707772b01889f74112d62e853bcebfffddaf589b423ba3",
+      "rawVoxelSha256": "125664fb0458ec348ad77b5f49cdc42fe66278f4223072e75252e76dd1dbc5b3",
+      "dimensionsXYZ": [
+        394,
+        466,
+        378
+      ],
+      "samplingMm": 0.5,
+      "displayOriginZYX": [
+        -90.0,
+        -116.0,
+        -98.0
+      ],
+      "method": "marching cubes 0.5; no smoothing, resampling, filling or component removal",
+      "scope": "section-view BigBrain selection/context only; not expert validation",
+      "meshes": {
+        "section-current-lateral-ventricles": {
+          "voxels": 163652,
+          "components6": 67,
+          "componentSizes": [
+            82150,
+            81381,
+            12,
+            7,
+            7,
+            7,
+            4,
+            4,
+            4,
+            3,
+            3,
+            3,
+            3,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "boundsZYX": [
+            [
+              80,
+              145,
+              117
+            ],
+            [
+              202,
+              330,
+              276
+            ]
+          ],
+          "vertices": 80274,
+          "faces": 162076,
+          "sha256": "09502dbdb0e18920a6bbf1e91bb2757d7ed387b6beabbc43a8c3ee529da5f785",
+          "bytes": 4192596,
+          "labelIds": [
+            23,
+            24
+          ]
+        },
+        "section-current-third-ventricle": {
+          "voxels": 11853,
+          "components6": 24,
+          "componentSizes": [
+            11468,
+            104,
+            95,
+            93,
+            35,
+            10,
+            7,
+            7,
+            4,
+            4,
+            4,
+            4,
+            4,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "boundsZYX": [
+            [
+              107,
+              201,
+              187
+            ],
+            [
+              173,
+              274,
+              204
+            ]
+          ],
+          "vertices": 9165,
+          "faces": 18386,
+          "sha256": "31b7f16fbb3d01e95d2653c5fd319a9a6499cf79c522e67eba1d2bdf46343df2",
+          "bytes": 477264,
+          "labelIds": [
+            25
+          ]
+        },
+        "section-current-fourth-ventricle": {
+          "voxels": 9008,
+          "components6": 2,
+          "componentSizes": [
+            9006,
+            2
+          ],
+          "boundsZYX": [
+            [
+              59,
+              157,
+              179
+            ],
+            [
+              114,
+              196,
+              212
+            ]
+          ],
+          "vertices": 5141,
+          "faces": 10286,
+          "sha256": "a777a6a2df52a1de73b7d3d633a381ee420522c20c5287aba4f5581f3139484c",
+          "bytes": 267392,
+          "labelIds": [
+            26
+          ]
+        },
+        "section-current-ventricular-system": {
+          "voxels": 184772,
+          "components6": 89,
+          "componentSizes": [
+            93109,
+            82154,
+            9006,
+            104,
+            95,
+            93,
+            35,
+            12,
+            10,
+            7,
+            7,
+            7,
+            7,
+            7,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            3,
+            3,
+            3,
+            3,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "boundsZYX": [
+            [
+              59,
+              145,
+              117
+            ],
+            [
+              202,
+              330,
+              276
+            ]
+          ],
+          "vertices": 95042,
+          "faces": 191696,
+          "sha256": "6fe57a2c4432bf95ca8a03d9dd4d39f4935065d19b9d185225e5c0e53fcbaaad",
+          "bytes": 4961540,
+          "labelIds": [
+            23,
+            24,
+            25,
+            26,
+            41
+          ]
+        }
+      }
+    },
+    "after": {
+      "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
+      "sourceSha256": "4d12523a818aed809bde703dc12615c09c56304dd3d72e7f9c3f5771032b5c62",
+      "rawVoxelSha256": "1c1d72f69e2ee0f4636d16cfb8f72ec14a3a4e98fc7c23d9f30bcf92b4165afd",
+      "dimensionsXYZ": [
+        394,
+        466,
+        378
+      ],
+      "samplingMm": 0.5,
+      "displayOriginZYX": [
+        -90.0,
+        -116.0,
+        -98.0
+      ],
+      "method": "marching cubes 0.5; no smoothing, resampling, filling or component removal",
+      "scope": "section-view BigBrain selection/context only; not expert validation",
+      "meshes": {
+        "section-current-lateral-ventricles": {
+          "voxels": 163848,
+          "components6": 67,
+          "componentSizes": [
+            82164,
+            81556,
+            12,
+            8,
+            7,
+            7,
+            7,
+            4,
+            4,
+            4,
+            3,
+            3,
+            3,
+            3,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "boundsZYX": [
+            [
+              80,
+              145,
+              117
+            ],
+            [
+              202,
+              330,
+              276
+            ]
+          ],
+          "vertices": 80228,
+          "faces": 162004,
+          "sha256": "6e21b35a7f67b9c1b57643c82a471a311ef160748f4b461d74b8c7d3b8844f34",
+          "bytes": 4190444,
+          "labelIds": [
+            23,
+            24
+          ]
+        },
+        "section-current-third-ventricle": {
+          "voxels": 11853,
+          "components6": 24,
+          "componentSizes": [
+            11468,
+            104,
+            95,
+            93,
+            35,
+            10,
+            7,
+            7,
+            4,
+            4,
+            4,
+            4,
+            4,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "boundsZYX": [
+            [
+              107,
+              201,
+              187
+            ],
+            [
+              173,
+              274,
+              204
+            ]
+          ],
+          "vertices": 9165,
+          "faces": 18386,
+          "sha256": "31b7f16fbb3d01e95d2653c5fd319a9a6499cf79c522e67eba1d2bdf46343df2",
+          "bytes": 477264,
+          "labelIds": [
+            25
+          ]
+        },
+        "section-current-fourth-ventricle": {
+          "voxels": 9008,
+          "components6": 2,
+          "componentSizes": [
+            9006,
+            2
+          ],
+          "boundsZYX": [
+            [
+              59,
+              157,
+              179
+            ],
+            [
+              114,
+              196,
+              212
+            ]
+          ],
+          "vertices": 5141,
+          "faces": 10286,
+          "sha256": "a777a6a2df52a1de73b7d3d633a381ee420522c20c5287aba4f5581f3139484c",
+          "bytes": 267392,
+          "labelIds": [
+            26
+          ]
+        },
+        "section-current-ventricular-system": {
+          "voxels": 184968,
+          "components6": 89,
+          "componentSizes": [
+            93284,
+            82168,
+            9006,
+            104,
+            95,
+            93,
+            35,
+            12,
+            10,
+            8,
+            7,
+            7,
+            7,
+            7,
+            7,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            3,
+            3,
+            3,
+            3,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "boundsZYX": [
+            [
+              59,
+              145,
+              117
+            ],
+            [
+              202,
+              330,
+              276
+            ]
+          ],
+          "vertices": 94996,
+          "faces": 191624,
+          "sha256": "e3f7dd8457e6baf1e3806eb59eaaae24cdfe95e02348393c9289b62d3e83503c",
+          "bytes": 4959388,
+          "labelIds": [
+            23,
+            24,
+            25,
+            26,
+            41
+          ]
+        }
+      }
+    },
+    "changedFiles": [
+      "section-current-lateral-ventricles.mesh",
+      "section-current-ventricular-system.mesh"
+    ]
+  }
+}

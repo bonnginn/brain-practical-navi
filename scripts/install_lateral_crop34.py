@@ -143,6 +143,8 @@ def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None, *, review_da
             from stage_lateral_anterior1981 import replay as replay_bilateral
         elif prefix=='lateral-upper-nearblack1487' and record_sha=='c83a417c9a53bbae1f710da114c20317902cc7ad7cc0b41858fe7d924edd56c5':
             from stage_lateral_upper_nearblack1487 import replay as replay_bilateral
+        elif prefix=='lateral-posterior196' and record_sha=='30778fec523fbd25e1ee17b1610c0878aba1c5a4da82d950517ed36acc13031f':
+            from stage_lateral_posterior_september12 import replay as replay_bilateral
         else:
             raise ValueError('Unreviewed bilateral cavity fill')
         if not np.array_equal(replay_bilateral(before,record['points']),after):raise ValueError('Bilateral replay differs')

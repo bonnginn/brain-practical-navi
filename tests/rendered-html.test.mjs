@@ -1102,10 +1102,10 @@ test("reproduces the objective orthogonal mammillary audit and rejects a wrong v
   ], {encoding:"utf8", cwd:localPath("")});
   assert.equal(result.status, 0, result.stderr);
   const audit = JSON.parse(result.stdout);
-  const saved = JSON.parse(await readFile(new URL("segmentation-patches/review/mammillary-bodies-orthogonal-objective-audit-2026-09-12-callosal-remaining304.json", root), "utf8"));
+  const saved = JSON.parse(await readFile(new URL("segmentation-patches/review/mammillary-bodies-orthogonal-objective-audit-2026-09-12-lateral-medial-islands11.json", root), "utf8"));
   assert.deepEqual(audit, saved);
   assert.equal(audit.magic, "BBS1");
-assert.equal(audit.inputSha256, "84f91400e7f6b9d059707772b01889f74112d62e853bcebfffddaf589b423ba3");
+assert.equal(audit.inputSha256, "96fb242a78c66cc4ab9fd69e8bd6ed3cef5fca51b67f0338f063da98ae02381b");
   assert.deepEqual(audit.dims, [394, 466, 378]);
   assert.deepEqual(audit.voxelSizeMm, [0.5, 0.5, 0.5]);
   assert.equal(audit.validation.passed, true);
