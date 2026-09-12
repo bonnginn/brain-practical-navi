@@ -1,0 +1,384 @@
+{
+  "currentLabelSha256": "96fb242a78c66cc4ab9fd69e8bd6ed3cef5fca51b67f0338f063da98ae02381b",
+  "locatorPath": "work/anatomy-review/lateral-middle-native300-september12-v1/report.json",
+  "locatorSha256": "60e2845777b438bf11455f156c31078f217825aba7ebbac19354428accd0ea89",
+  "candidateCount": 672,
+  "adoptedCount": 0,
+  "projectAdopted": false,
+  "expertReviewed": false,
+  "published": false,
+  "status": "AI-sparse-image-review-held",
+  "evidence": [
+    {
+      "kind": "native300",
+      "path": "work/anatomy-review/lateral-midline672-september12-native300-v1/report.json",
+      "sha256": "f10436e4c1418bfeafc6eb9a75248aed669f36141d0c09e08bbf096980197017",
+      "visuallyInspectedFigures": [
+        {
+          "path": "point-0-x.png",
+          "axis": "x",
+          "indices": [
+            331,
+            332,
+            333
+          ],
+          "sha256": "050d11191852c1dd6e94cb263d67d0e6388c757f24b6b468b1c8a47fa924d9b3"
+        },
+        {
+          "path": "point-0-y.png",
+          "axis": "y",
+          "indices": [
+            436,
+            437,
+            438
+          ],
+          "sha256": "af4fd719c106fc9313da624e3c36915780b16aaf5457da9679e7165e33269840"
+        },
+        {
+          "path": "point-0-z.png",
+          "axis": "z",
+          "indices": [
+            248,
+            249,
+            250
+          ],
+          "sha256": "5bae40f890949cdc497b8346c10f24e61440c7944ed6cf1d23021c5e52260673"
+        },
+        {
+          "path": "point-1-x.png",
+          "axis": "x",
+          "indices": [
+            334,
+            335,
+            336
+          ],
+          "sha256": "99d9d8f327afb21dfd54823dabdc939420a5b8776680e076f16d2d78c0e3beec"
+        },
+        {
+          "path": "point-1-y.png",
+          "axis": "y",
+          "indices": [
+            439,
+            440,
+            441
+          ],
+          "sha256": "945ba1e7080908c0cb71043dceb8161296456321447b3dc7802e8958d92b628d"
+        },
+        {
+          "path": "point-1-z.png",
+          "axis": "z",
+          "indices": [
+            263,
+            264,
+            265
+          ],
+          "sha256": "0b38845be89425642fb1bec5c9756d2d66d7ba9119f0a94a1975d7dca54159e5"
+        },
+        {
+          "path": "point-2-x.png",
+          "axis": "x",
+          "indices": [
+            318,
+            319,
+            320
+          ],
+          "sha256": "a8c4d685f2ae9147204c2c762bbffa936a9ba5ab4bcb29891b3915c8e0b9da75"
+        },
+        {
+          "path": "point-2-y.png",
+          "axis": "y",
+          "indices": [
+            443,
+            444,
+            445
+          ],
+          "sha256": "059eefec9735268926f327ae1a8bdb36177e7cea29a98de46971fcc423b0873a"
+        },
+        {
+          "path": "point-2-z.png",
+          "axis": "z",
+          "indices": [
+            283,
+            284,
+            285
+          ],
+          "sha256": "6f428d94ff95ef1de90be05b5c00840c61e589a69d99919e07ea5b445deb7fc5"
+        }
+      ]
+    },
+    {
+      "kind": "native100",
+      "path": "work/anatomy-review/lateral-midline672-september12-native100-v1/report.json",
+      "sha256": "9429f097dce1de4850f15931f043f14bc451ef2a6f43f576792cd53a6475ad5d",
+      "visuallyInspectedFigures": [
+        {
+          "path": "reference-0-x.png",
+          "sha256": "642ad4e0433a3e8a010036ab8566ff976d7d721aff661eea70d6012960a3fae4",
+          "planes": [
+            {
+              "axis": "x",
+              "nativeIndex": 726,
+              "valuesSha256": "7c8bb16af13d5670da89e22cd54052a39bd3a113ebf3c3b2701bcd2a1c417012",
+              "labelProjectionSha256": "097e1d4d7519dc5cfb250a25707781a55bdd5894a650530a3d1832cb8bec35e8",
+              "candidateProjectionSha256": "0c78c1a478f8f49da365bb0baac9f10f423f8b5eb1f8db379746869a0b7f9872"
+            },
+            {
+              "axis": "x",
+              "nativeIndex": 727,
+              "valuesSha256": "dbc385182c2d62fc5b224708aea97b8dc45bd342b5230acd01e79a0eb9ec3f06",
+              "labelProjectionSha256": "2b41bdbe6d201ba050dd38983466baf1a62c83e20c134fce3fac620bb1e2c3b5",
+              "candidateProjectionSha256": "503e926241088bc9e97d3a903c172f038cd212879f07ff98b4386e7189285797"
+            },
+            {
+              "axis": "x",
+              "nativeIndex": 728,
+              "valuesSha256": "150f3c1b6d41a27d4cd404fc03678fdc0b953ca3d766704480c1c43923da388e",
+              "labelProjectionSha256": "3ca15f3fdf336dd5086f1d3479f74103b5d8e9655234a545d230721e895cf9f1",
+              "candidateProjectionSha256": "0faf20ddb063acc143542c93fe5caf215912c8388f7e92c59f387512ebb04c58"
+            }
+          ]
+        },
+        {
+          "path": "reference-0-y.png",
+          "sha256": "1feb4f7048234a3e38d43cf63847261977e5283d722fb4538f490ca0d62c6c53",
+          "planes": [
+            {
+              "axis": "y",
+              "nativeIndex": 879,
+              "valuesSha256": "79b2de6fbee79d7a950a2c4107a18a9688373ee60b69be4d96524b959818e219",
+              "labelProjectionSha256": "41af7ac0a41898cc0ae1b361f0327547359ada8882bfd505d21eec937948d24b",
+              "candidateProjectionSha256": "ca3924c176f9786e83b5692b6594d158d212185db71c366467346bb3984d1f32"
+            },
+            {
+              "axis": "y",
+              "nativeIndex": 880,
+              "valuesSha256": "61f052b8a365a5a2ef32c66810200b6f94026e9b7e5d11b94f693a9b17b6ee52",
+              "labelProjectionSha256": "2f160910307605093327ef0b25eaf6d6fe4cc6800e1a9a844771e014dcc6313b",
+              "candidateProjectionSha256": "c81af280b31357a49b865da8fdc71fb1d13f7cb48179dd474dfdc9177617a8d8"
+            },
+            {
+              "axis": "y",
+              "nativeIndex": 881,
+              "valuesSha256": "2e074f013fd362611bece5f080260fa597a9d5765ff0851f7a625d63d2a96c3a",
+              "labelProjectionSha256": "d8245bb8a2c333fb2f9aa4bde1c0f55069e1ad013fd31a5618599dbdd18dd91d",
+              "candidateProjectionSha256": "3d5eeed80302f946ac69227fd595b51984ffe4905d0b09ddccd947943fba5d43"
+            }
+          ]
+        },
+        {
+          "path": "reference-0-z.png",
+          "sha256": "87049b0740783283b4011af56cabe633a71eaeaa97eda5ef6c17df9628af0dad",
+          "planes": [
+            {
+              "axis": "z",
+              "nativeIndex": 556,
+              "valuesSha256": "92d800c2511c9db0bc8887f0222dea51b94282ad660ba1a541bd32b41b8ec671",
+              "labelProjectionSha256": "6e93f25637940fa1cd6141a8a7be0b20dfe06b06223158dc60bbddc808f65cec",
+              "candidateProjectionSha256": "eae023008c4d726344c486114e3bf32b37dcc4cc83346e0f78f4fa5539efcb4d"
+            },
+            {
+              "axis": "z",
+              "nativeIndex": 557,
+              "valuesSha256": "73ae0242731e14551debef73b3f204acc1dba3a0e2827562a0f7c62ee020b048",
+              "labelProjectionSha256": "a6a0358a736de3414cbf62ff0597e5bf0d87fb4ce3979b2f567e378450648075",
+              "candidateProjectionSha256": "b5aa56a314174c1056afbd87b522a82a8030f1ba900118edf54b1bc5e1234bdd"
+            },
+            {
+              "axis": "z",
+              "nativeIndex": 558,
+              "valuesSha256": "d0c15eaf37918ce990e114457f349d27960fd88c6160dc74ba141a2c78aec2ee",
+              "labelProjectionSha256": "b682c527f6d1a786f208e4d3d4db68ef91d5ca847b9ecf5da35264d54aefe827",
+              "candidateProjectionSha256": "5048d8ce49b0f5c1e8764887623e88c4f2ced05ade0c3d5fb26b4fae9910ea9d"
+            }
+          ]
+        },
+        {
+          "path": "reference-1-x.png",
+          "sha256": "a329d8bd761b4c2f63fc76559e484086051f6917f24b9cd7edbacfd51c03b06e",
+          "planes": [
+            {
+              "axis": "x",
+              "nativeIndex": 726,
+              "valuesSha256": "9a7fe41d6b83d6f7b338f275c53324fc4caacb337e2a8eef863f897dc22d6f10",
+              "labelProjectionSha256": "0c2d14aa8b7fde6ac05938c8d18a0c5f9e90cfcb48c93a06171d3c825ba0e561",
+              "candidateProjectionSha256": "e451e61ac75bf4faf95a98640cd37b8b418ae8009efba8c08c50dd6573bbac62"
+            },
+            {
+              "axis": "x",
+              "nativeIndex": 727,
+              "valuesSha256": "821bfbc8a8eadfd34895edd88512310247de0a39525995df346d04bc165e91c4",
+              "labelProjectionSha256": "7b9512525d99c1390cf47c4e75031e5b02be3c81bb7a1b007d7478d239e5ba7e",
+              "candidateProjectionSha256": "312d2d3ddb1edead9004423af61636e953d786109000a6d80ca81ebd79c47704"
+            },
+            {
+              "axis": "x",
+              "nativeIndex": 728,
+              "valuesSha256": "aeab12ef197d6e45cfc16480ccf4b4a42554bdbce31016b370e6ed6f0109136d",
+              "labelProjectionSha256": "ea28239125799c10697dc1233e0c59b46097c78c5f18c0f56ad963deedfcf039",
+              "candidateProjectionSha256": "c205d894b1da0ad0b6b96d7bf548f6ab6c1db60f5ba8a790a3e79b66ca811442"
+            }
+          ]
+        },
+        {
+          "path": "reference-1-y.png",
+          "sha256": "b87948f7fa25958b523fbab7e45d9ffc5cea92124843df28f0562f20d3ee515f",
+          "planes": [
+            {
+              "axis": "y",
+              "nativeIndex": 886,
+              "valuesSha256": "9a07efc349ba560f3963874cc2495a3a7061175432792b9b6a23d1f4113e5f7a",
+              "labelProjectionSha256": "88e26e4b65230e5b9cede70504942081a712b7f767dbd6cbb695dbe165ed6f47",
+              "candidateProjectionSha256": "f4836827c3a917f81bfb0b008ba03125c49e4827c1cb516dfe03d5db604bf658"
+            },
+            {
+              "axis": "y",
+              "nativeIndex": 887,
+              "valuesSha256": "f7f4ca06c7b89e92c5893c8337894b57faaee1670f9d6c29de7c4faabfd0f71d",
+              "labelProjectionSha256": "793b71fb22037622bfc3460d9e0234036ff30b2e45605fa40c6deef57b40a003",
+              "candidateProjectionSha256": "e37dd2be54c1a655af37793b98b8622595d74cadaa729fe4502a1b4a554a2fb3"
+            },
+            {
+              "axis": "y",
+              "nativeIndex": 888,
+              "valuesSha256": "c707ca964a8b8627ad72fe6505033f347c5dd8c88ed04092dc6e717e0ebd9fe6",
+              "labelProjectionSha256": "210907bac3cd7dcd0a3098093e68304d1c06da5eab9bb89420969a29fe543ef3",
+              "candidateProjectionSha256": "2ae8ddb506bce0cf363763cf3f3b21250f866942ce02417a1875d952fc9a7197"
+            }
+          ]
+        },
+        {
+          "path": "reference-1-z.png",
+          "sha256": "11d94982bdb87d622db843efb123a4ce1628049f5b1f46af5a8a4ef6201fdf63",
+          "planes": [
+            {
+              "axis": "z",
+              "nativeIndex": 590,
+              "valuesSha256": "80537be4b96f1fa08afc1eb22224ecd1acf6a7fbc9a9ae88b6e6ec3116e5e7b7",
+              "labelProjectionSha256": "382d2e5593e4008f6d66ea21fe45c40e03bd26ffd48d987416bdd45977f3b365",
+              "candidateProjectionSha256": "61172094184f9344601ec4ae6ee1a0bf74856b8df37d18decb3cb14cece57954"
+            },
+            {
+              "axis": "z",
+              "nativeIndex": 591,
+              "valuesSha256": "478cb5248459fe6e37adde3c7acb790a118f4bf5d61a5a065eab01ab3157ca0f",
+              "labelProjectionSha256": "a774da5b92a671fc0927df648d991ff9acfa30047ce218f3b9853b60a476f658",
+              "candidateProjectionSha256": "44b7bc0ab237a57904f721ba583b3d998e70cfb5ccf6992e95b7ea9678a88291"
+            },
+            {
+              "axis": "z",
+              "nativeIndex": 592,
+              "valuesSha256": "234a3d9858c6b2788720683936e7adb56abdb9ca705933b9a0071322d136f203",
+              "labelProjectionSha256": "ba64700648a320f08e64618e90f701389429cca86056b7f96cd842e0a95c4767",
+              "candidateProjectionSha256": "f11590b45ae8c43a7f7c56df05d3dc97a972a92b3ad5ae0857f4d2d89fc303bd"
+            }
+          ]
+        },
+        {
+          "path": "reference-2-x.png",
+          "sha256": "2558ced0e1fac0702dff2a7588f512ad9713a568eb349d8a0d5d02de2ccba0cf",
+          "planes": [
+            {
+              "axis": "x",
+              "nativeIndex": 658,
+              "valuesSha256": "98af18ffa376a3a98dea6eef1f7930957dc9f1425c21599b7131862aaebac4f6",
+              "labelProjectionSha256": "de7b72df88e68d6f145c96162a738197642e87e9389481ce6ba3612e43ebbf84",
+              "candidateProjectionSha256": "9666dd9b27514f4a1cacebee1c5f9c190e67ba423db3e8d7dbaeee5ca888159c"
+            },
+            {
+              "axis": "x",
+              "nativeIndex": 659,
+              "valuesSha256": "72d120da23e1079d6c04ee444120cdb8f94ee2f8f88461f09fe8a168629243f6",
+              "labelProjectionSha256": "16e7ea5d9680fdcd95e5eddad40ae022b4dabf2cabef909e91a744bb4852bd3a",
+              "candidateProjectionSha256": "386ff2cead20f014b6d012ff98a7a2b7cccd6d35f4a66a3bb3f36dfca082ee87"
+            },
+            {
+              "axis": "x",
+              "nativeIndex": 660,
+              "valuesSha256": "d745c84cc1c354a919a6159259ec2aeb72524104dd0ac8f461d61c782381d7b9",
+              "labelProjectionSha256": "9315fa1ee122baa7d3751c6fc87a28f66fb3cb83f85a2450f23623c565f9d6b4",
+              "candidateProjectionSha256": "28f7a1a3dcd30c39a9036407d3545915548ea9106b81b30b895ee6395d2f1588"
+            }
+          ]
+        },
+        {
+          "path": "reference-2-y.png",
+          "sha256": "60f391f0dc5d6129f5b1434240b03d2e4c0fd2d5b0dda460b0257e4d71292cac",
+          "planes": [
+            {
+              "axis": "y",
+              "nativeIndex": 900,
+              "valuesSha256": "0c812904392095ef3c2d2e9f679d69b18444808e2fc998c2e5b67921d8d0581b",
+              "labelProjectionSha256": "592a255bb4e8ca0035eb8f37578fdd7b894c6761b3cc984536a77262f92b3cdc",
+              "candidateProjectionSha256": "d582a967a13cc0c891712eaa8d4d5220048c7db71ed64139984f01ecff491753"
+            },
+            {
+              "axis": "y",
+              "nativeIndex": 901,
+              "valuesSha256": "292790869e96c5d97691b3477d77680acc9b7fcc65ff1bc896f263f14cc1c78f",
+              "labelProjectionSha256": "9dabd2be2d66e1de7bc136ef65af3cbfe313a4027a6976e4d459c93503397f38",
+              "candidateProjectionSha256": "22dbc8e38037696458f712372c47c293b1aeab8bbc11e2b7fbd432924f3d7f24"
+            },
+            {
+              "axis": "y",
+              "nativeIndex": 902,
+              "valuesSha256": "c381e685d364188ab05d6b4990442608b1d9b1aab7f8e108802538a2aabdb0e3",
+              "labelProjectionSha256": "cb0c8fefcdf824504aade2a03e46e33860fe7c546a6ef491037ba5f2e53458a4",
+              "candidateProjectionSha256": "ecbdcfcb35cb8eb1f194c1e6b5d2c111fe5b14fc9f22b2cccb3de7927f20f909"
+            }
+          ]
+        },
+        {
+          "path": "reference-2-z.png",
+          "sha256": "975100daef78ed23cce1a15a3ad8bf3d7f4c71c1a8380a501d3f857873c2f8a4",
+          "planes": [
+            {
+              "axis": "z",
+              "nativeIndex": 629,
+              "valuesSha256": "cd8eee8699cc267b77d7cb727e987098a0ed8de4e74e86d4472122e8e621194c",
+              "labelProjectionSha256": "3a36c728984ecc8f335c464ff69e6a9544c08a5bf4983d917fc0bef7ad9f678a",
+              "candidateProjectionSha256": "d6ef1e3ac662e0f94ab69f0668f964587de3a8166d9b6626d1901e46f08e791c"
+            },
+            {
+              "axis": "z",
+              "nativeIndex": 630,
+              "valuesSha256": "b14669709ca5c165b5b825f1b0df81cf7bd96432ee38037aa7a78234487ddff8",
+              "labelProjectionSha256": "1eeae64bd6c556b60ccba32383a2026404b1ccdec6e40705693eadafacd6a875",
+              "candidateProjectionSha256": "009ac707cd3e7123c057c461502df7c49e6dd14b65e4bfe3208d11e48e187012"
+            },
+            {
+              "axis": "z",
+              "nativeIndex": 631,
+              "valuesSha256": "298690f29abd4b7e71becf071f42f31f98a4f1bc2cce71e30d4a2ca0a3035774",
+              "labelProjectionSha256": "06175e219851e49c900397f9241bc8f1d4094deaf37e26b7b99dd5c05d8ac87e",
+              "candidateProjectionSha256": "fa2d5985fe153aaaf755f66083e691701b78a66c9c7ad577da9ed198c590d20c"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "referencesAppXYZ": [
+    [
+      199,
+      262,
+      149
+    ],
+    [
+      201,
+      264,
+      158
+    ],
+    [
+      191,
+      266,
+      170
+    ]
+  ],
+  "rationale": "The representative registered300 and native100 views show candidates near the lateral lumen rim as well as near choroidal tissue and the transition to the third ventricle. Some projected candidate boundaries intersect visible tissue. A seed-side inherited destination therefore does not establish the anatomical cavity assignment. Do not fill this mixed set as one bilateral lateral-ventricle batch or reassign it wholesale to the third ventricle.",
+  "nextStep": "Trace the fornix, choroidal tissue and foramen transition as one region before defining the cavity-partition convention. Separate actual tissue exclusions from pure lumen cells, then inspect contiguous candidate extent before any adoption.",
+  "literature": {
+    "doi": "10.3389/fnana.2022.894606",
+    "scope": "Methods sections on lateral/third ventricles and transverse cerebral fissure; background protocol comparison, not imported boundary labels."
+  },
+  "limitation": "18 sparse sheets (54 panels), not full 672-cell or full native-plane validation. Native100 references share three sagittal planes: 24 unique native100 plus 27 registered300 planes. Numerical roundtrip consistency is not anatomical registration accuracy. No current labels, meshes or quiz targets changed by this assessment."
+}

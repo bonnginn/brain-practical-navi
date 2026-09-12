@@ -2,9 +2,15 @@
 
 「利用条件・クレジット → 参考文献と本アプリでの用途」に主要8件を日英で公開済み（PR #27）。2026-09-08の開発版では第三脳室1件・中脳水道2件・中脳分節規約1件を追加、計12件（追加分は未公開）。データ由来と背景調査を区別し、本索引の全項目を掲載したとは扱わない。
 
+9月12日の開発版では下記Rushmore et al. (2022)の照合資料を日英で追加し、計13件。公開版は未変更。
+
 更新日: 2026-09-12。既存の出典・監査記録を用途別に整理した索引です。引用元による本アプリの承認や、専門家レビュー完了を意味しません。
 
 9月12日の[側脳室後方196点補完・内側11点除外](LATERAL_POSTERIOR_MARGIN_REPAIR.md)は、下記BigBrain登録300 µm画像を直接照合したAI補助修正。今回はnative100の追加照合をしていない。脈絡裂の位置関係の背景文献Nagata et al. (1988)はブラウザ内にも既掲載であり、新しく全文を精読したとの主張ではない。
+
+## 脳室間孔と第三脳室屋根の追加照合（2026-09-12）
+
+Rushmore RJ, et al. *Anatomically curated segmentation of human subcortical structures in high resolution magnetic resonance imaging: An open science approach*. Front Neuroanat. 2022;16:894606. [出版社の原論文](https://www.frontiersin.org/journals/neuroanatomy/articles/10.3389/fnana.2022.894606/full)、[DOI](https://doi.org/10.3389/fnana.2022.894606)。Methodsの側脳室・大脳横裂・第三脳室の節を参照した。このMRI規約は脳室間孔を側脳室に含める一方、脈絡叢も腔のROIへ含め、見えない屋根境界には運用上の区分を置く。本教材の腔・組織の区別へそのまま移植しない。候補672点の一括採用を避ける背景資料として使用。[局所画像と保留理由](LATERAL_POSTERIOR_MARGIN_REPAIR.md)。
 
 ## 中脳・中脳水道の照合資料（2026-09-08追記）
 

@@ -2,7 +2,7 @@
 
 ## Current checkpoint
 
-- 2026-09-12 user authorized an additional approximately two hours at 15:30 JST: resume single-agent work until 17:30 JST (08:30 UTC), including verification and saving. No main merge or publication. Pause again at a coherent checkpoint by that deadline; earlier pause entries below are historical for this window.
+- 2026-09-12 additional window reached a verified checkpoint around 16:35 JST, before its 17:30 JST upper limit, and is paused again to conserve credits. The 196-voxel lateral repair and 11-voxel island removal are saved; the additional 672-candidate review remains unadopted. Read docs/RESUME_SUMMARY.md. Do not resume autonomous development without renewed user permission. No main merge or publication occurred. Earlier timing entries below are historical.
 
 - 2026-09-12 bounded run finished verification around 15:25 JST, before the 15:27 deadline. This anatomy/segmentation goal is paused again at the saved checkpoint. Do not resume autonomous development without renewed user permission. See docs/RESUME_SUMMARY.md; no main merge or publication was performed or authorized in this run.
 

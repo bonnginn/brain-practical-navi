@@ -10,10 +10,12 @@ const source=await readFile(new URL('../app/SegmentationReferences.tsx',import.m
 const compiled=ts.transpileModule(source,{compilerOptions:{jsx:ts.JsxEmit.ReactJSX,module:ts.ModuleKind.CommonJS}}).outputText;
 const exported={};
 vm.runInNewContext(compiled,{exports:exported,require:createRequire(import.meta.url)});
-for(const english of [false,true])test(`browser references render source roles and twelve links (${english?'en':'ja'})`,async()=>{
+for(const english of [false,true])test(`browser references render source roles and thirteen links (${english?'en':'ja'})`,async()=>{
   const html=renderToStaticMarkup(exported.SegmentationReferences({english}));
-  assert.equal((html.match(/<a /g)||[]).length,12);
-  assert.equal((html.match(/target="_blank" rel="noreferrer"/g)||[]).length,12);
+  assert.equal((html.match(/<a /g)||[]).length,13);
+  assert.equal((html.match(/target="_blank" rel="noreferrer"/g)||[]).length,13);
+  assert.match(html,/10.3389\/fnana.2022.894606/);
+  assert.match(html,english?/have not been adopted wholesale/:/そのまま採用していません/);
   assert.match(html,/10.1016\/j.neuroimage.2015.02.065/);
   assert.match(html,/data-brainstem-representation="partial-tissue-repair"/);
   assert.match(html,english?/not a completed segmentation/:/全脳幹の完成分節でも/);
