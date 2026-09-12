@@ -426,7 +426,7 @@
   "・BigBrain公開組織画像 0.5 mm": " · BigBrain histological image, 0.5 mm",
   "・BigBrain公開組織画像 0.5 mm（表示用再標本化・同一格子で検証済み）・実習標本調": "· BigBrain public histological image, 0.5 mm (resampled for display; alignment checked on a shared grid) · specimen-style view",
   "・ドラッグで回転": " · Drag to rotate",
-  "・ドラッグ：回転／Shift・右：傾き": "Drag: rotate · Shift/right-drag: tilt",
+  "・ドラッグ：回転／Shift・右：傾き": " · Drag: rotate · Shift/right-drag: tilt",
   "・位置": " · Position ",
   "・同期断面": " · Synchronized section",
   "・差分": " · difference",

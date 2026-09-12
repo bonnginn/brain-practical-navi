@@ -1,0 +1,101 @@
+{
+  "checkedAt": "2026-09-12T08:13:55.782Z",
+  "sourceRepository": "https://github.com/UCL/NextBrain",
+  "commit": "6b215dd3cf4b9d39599b10804737bc283359eab7",
+  "paper": "https://doi.org/10.1038/s41586-025-09708-2",
+  "datasetDoi": "10.5522/04/24243835.v1",
+  "datasetListedLicence": {
+    "value": 2,
+    "name": "CC0",
+    "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "documents": [
+    {
+      "name": "labels.json",
+      "url": "https://raw.githubusercontent.com/UCL/NextBrain/6b215dd3cf4b9d39599b10804737bc283359eab7/ui/src/assets/WholeHemisphereFS.json",
+      "sha256": "e921b1ee2d802b3695cfadd3c394f3c4c03058cfd55530740626c3f975ed1567",
+      "bytes": 121147
+    },
+    {
+      "name": "mri-validation-lut.txt",
+      "url": "https://raw.githubusercontent.com/UCL/NextBrain/6b215dd3cf4b9d39599b10804737bc283359eab7/data/Edlow.200um.lut.txt",
+      "sha256": "3ccb76d286b7ddf3601a84efa9a0b7fdcfc319827709b98f5666585fd231d370",
+      "bytes": 5657
+    },
+    {
+      "name": "dataset.json",
+      "url": "https://api.figshare.com/v2/articles/24243835",
+      "sha256": "a6efa5b4979503fb80288f74327f7d453c7034059dbf994b3d60fc90dbee4265",
+      "bytes": 11478
+    }
+  ],
+  "selectedCatalogueEntries": [
+    {
+      "id": 68,
+      "labelName": "septum_pellucidum"
+    },
+    {
+      "id": 73,
+      "labelName": "anterior_limb_of_internal_capsule"
+    },
+    {
+      "id": 112,
+      "labelName": "column_of_the_fornix"
+    },
+    {
+      "id": 130,
+      "labelName": "anterior_commissure"
+    },
+    {
+      "id": 161,
+      "labelName": "optic_chiasm"
+    },
+    {
+      "id": 199,
+      "labelName": "fornix"
+    },
+    {
+      "id": 204,
+      "labelName": "genu_of_internal_capsule"
+    },
+    {
+      "id": 208,
+      "labelName": "optic_tract"
+    },
+    {
+      "id": 233,
+      "labelName": "body_of_the_fornix"
+    },
+    {
+      "id": 258,
+      "labelName": "posterior_limb_of_internal_capsule"
+    },
+    {
+      "id": 387,
+      "labelName": "meyer's_loop_of_optic_radiation_"
+    },
+    {
+      "id": 416,
+      "labelName": "optic_radiation_(geniculocalcarine_tract)"
+    },
+    {
+      "id": 461,
+      "labelName": "fimbria"
+    },
+    {
+      "id": 513,
+      "labelName": "hippocampal_commissure"
+    },
+    {
+      "id": 514,
+      "labelName": "crus_of_the_fornix"
+    }
+  ],
+  "scope": "Catalogue/metadata comparison only. The full histology catalogue and simplified MRI validation LUT are different products. IDs are source-local and are not a mapping to our labels. Catalogue membership does not prove per-case mask coverage.",
+  "downloadedVolumes": false,
+  "bigBrainCorrespondenceEstablished": false,
+  "labelsTransferred": false,
+  "expertReviewed": false,
+  "browserScope": "Case-1 initial histology/MRI explorer rendered. Fornix-specific images were not successfully selected; no fornix boundary review is claimed.",
+  "nextUse": "Compare traced body/crus/column boundaries in histology with the BigBrain source, not atlas transfer or a clinical MRI pipeline."
+}

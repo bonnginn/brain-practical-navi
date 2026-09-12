@@ -145,6 +145,8 @@ def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None, *, review_da
             from stage_lateral_upper_nearblack1487 import replay as replay_bilateral
         elif prefix=='lateral-posterior196' and record_sha=='30778fec523fbd25e1ee17b1610c0878aba1c5a4da82d950517ed36acc13031f':
             from stage_lateral_posterior_september12 import replay as replay_bilateral
+        elif prefix=='lateral-superomedial75' and record_sha=='37f5c397b5f99a4f32037a5bdfdc448d711d41bcbef7673756d6e69abf8e4114':
+            from stage_lateral_superomedial75 import replay as replay_bilateral
         else:
             raise ValueError('Unreviewed bilateral cavity fill')
         if not np.array_equal(replay_bilateral(before,record['points']),after):raise ValueError('Bilateral replay differs')
@@ -276,6 +278,7 @@ def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None, *, review_da
     if isinstance(record['limitation'],str):
         record['limitation']=record['limitation'].replace('Mesh synchronization and product adoption pending.','Integration verification recorded separately; not public deployment.')
         record['limitation']=record['limitation'].replace('Product adoption and mesh synchronization pending.','Integration verification recorded separately; not public deployment.')
+        record['limitation']=record['limitation'].replace('Mesh/adoption pending.','Integration verification recorded separately; not public deployment.')
     else:
         record['limitation'].append('Adoption record supersedes the work-stage status above; integration verification is recorded separately, not public deployment.')
     record_data=serialized(record)

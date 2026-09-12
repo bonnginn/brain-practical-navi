@@ -9,8 +9,8 @@
     "lateral-ventricle": [
       {
         "file": "block-lateral-ventricle-tissue.mesh",
-        "vertices": 35032,
-        "faces": 69300,
+        "vertices": 35034,
+        "faces": 69308,
         "shadeMin": 0.0,
         "shadeMax": 1.0,
         "part": "tissue",
@@ -19,15 +19,15 @@
         "color": "#c9a27d",
         "material": "specimen",
         "registrationSourceSha256": "7ebed144c2b200233ad1389d3288b2407edcb542fe46eaf8626ef872522f8c3f",
-        "meshSha256": "f54157a0e8c8886257823f5a4696b529ea15d644fce9fddaebd337529953a559",
+        "meshSha256": "90fb8e5ad7456e83d4ed4136a8916a033813ac6b5d63ff6b67b2ee53c97231b7",
         "registrationReview": "AI-assisted source-registration project adoption; not expert review. Existing meshing and cutaway rules retained.",
-        "segmentationSourceSha256": "96fb242a78c66cc4ab9fd69e8bd6ed3cef5fca51b67f0338f063da98ae02381b",
+        "segmentationSourceSha256": "48e1602b871b10bd7b31f99278aef8d0e44bcfb8930051fa9aa20ffd48802db2",
         "repairReview": "AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review."
       },
       {
         "file": "block-lateral-ventricle-ventricular-cavity.mesh",
-        "vertices": 9684,
-        "faces": 19256,
+        "vertices": 9690,
+        "faces": 19268,
         "shadeMin": 0.82,
         "shadeMax": 0.82,
         "part": "ventricular-cavity",
@@ -35,8 +35,8 @@
         "sourceType": "same-grid-segmentation",
         "color": "#45aebd",
         "material": "model",
-        "meshSha256": "e0ced6bc90aa13f63e993bcb4d08de0359858231869c309118c8e3e59ace084e",
-        "segmentationSourceSha256": "96fb242a78c66cc4ab9fd69e8bd6ed3cef5fca51b67f0338f063da98ae02381b",
+        "meshSha256": "7bc54bf38b6b21fd4132a743876c1fe1ff75ec5b8b53ab428620856a631d6653",
+        "segmentationSourceSha256": "48e1602b871b10bd7b31f99278aef8d0e44bcfb8930051fa9aa20ffd48802db2",
         "repairReview": "AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review."
       },
       {
@@ -181,8 +181,8 @@
     "radiations": [
       {
         "file": "block-radiations-tissue.mesh",
-        "vertices": 76694,
-        "faces": 151180,
+        "vertices": 76700,
+        "faces": 151192,
         "shadeMin": 0.0,
         "shadeMax": 1.0,
         "part": "tissue",
@@ -191,9 +191,9 @@
         "color": "#c9a27d",
         "material": "specimen",
         "registrationSourceSha256": "7ebed144c2b200233ad1389d3288b2407edcb542fe46eaf8626ef872522f8c3f",
-        "meshSha256": "0272e43b6971009c94f0041465c4cb0759d0741706f8a2ee075d671b75ea2fb3",
+        "meshSha256": "ff467e4a13a733bbb6171ba2a879da73d9ce99101b2b913839a7736b2ce4833b",
         "registrationReview": "AI-assisted source-registration project adoption; not expert review. Existing meshing and cutaway rules retained.",
-        "segmentationSourceSha256": "4d12523a818aed809bde703dc12615c09c56304dd3d72e7f9c3f5771032b5c62",
+        "segmentationSourceSha256": "48e1602b871b10bd7b31f99278aef8d0e44bcfb8930051fa9aa20ffd48802db2",
         "repairReview": "AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review."
       },
       {
@@ -326,8 +326,8 @@
       },
       {
         "file": "block-commissural-system-lateral-ventricles.mesh",
-        "vertices": 11954,
-        "faces": 23868,
+        "vertices": 11960,
+        "faces": 23880,
         "shadeMin": 0.82,
         "shadeMax": 0.82,
         "part": "lateral-ventricles",
@@ -335,8 +335,8 @@
         "sourceType": "same-grid-segmentation",
         "color": "#45aebd",
         "material": "model",
-        "meshSha256": "1cb2f0608de5f178f0f8b8eb97a52e33b1f05ddc003a41691777b328f8b47957",
-        "segmentationSourceSha256": "4d12523a818aed809bde703dc12615c09c56304dd3d72e7f9c3f5771032b5c62",
+        "meshSha256": "de3d783a2e59addf0e48462e7cb9291c42f02cdd16cc214b20c2083ac059910f",
+        "segmentationSourceSha256": "48e1602b871b10bd7b31f99278aef8d0e44bcfb8930051fa9aa20ffd48802db2",
         "repairReview": "AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review."
       },
       {
@@ -367,8 +367,8 @@
     "choroid-plexus": [
       {
         "file": "block-choroid-plexus-tissue.mesh",
-        "vertices": 19058,
-        "faces": 37888,
+        "vertices": 19068,
+        "faces": 37908,
         "shadeMin": 0.0233,
         "shadeMax": 1.0,
         "part": "tissue",
@@ -377,15 +377,15 @@
         "color": "#c9a27d",
         "material": "specimen",
         "registrationSourceSha256": "7ebed144c2b200233ad1389d3288b2407edcb542fe46eaf8626ef872522f8c3f",
-        "meshSha256": "4d400630f69f1aee0eef9f9d0f0946b67e38101c8d37f8f6b9978a888ee3063c",
+        "meshSha256": "8af6c050f993788a121fc3ed1ca31e56e17191b2d88f6e93423b5c177168ff06",
         "registrationReview": "AI-assisted source-registration project adoption; not expert review. Existing meshing and cutaway rules retained.",
-        "segmentationSourceSha256": "96fb242a78c66cc4ab9fd69e8bd6ed3cef5fca51b67f0338f063da98ae02381b",
+        "segmentationSourceSha256": "48e1602b871b10bd7b31f99278aef8d0e44bcfb8930051fa9aa20ffd48802db2",
         "repairReview": "AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review."
       },
       {
         "file": "block-choroid-plexus-ventricular-cavity.mesh",
-        "vertices": 9352,
-        "faces": 18592,
+        "vertices": 9358,
+        "faces": 18604,
         "shadeMin": 0.82,
         "shadeMax": 0.82,
         "part": "ventricular-cavity",
@@ -393,8 +393,8 @@
         "sourceType": "same-grid-segmentation",
         "color": "#45aebd",
         "material": "model",
-        "meshSha256": "2dae343529333f0a309c7b94ffa1e3f8396bd9d98489a3ef5876373399bde21e",
-        "segmentationSourceSha256": "96fb242a78c66cc4ab9fd69e8bd6ed3cef5fca51b67f0338f063da98ae02381b",
+        "meshSha256": "323dac3aa4a122cce40776a4fbb8102766f2150a0ccb3b3dc3f78aec92262e9d",
+        "segmentationSourceSha256": "48e1602b871b10bd7b31f99278aef8d0e44bcfb8930051fa9aa20ffd48802db2",
         "repairReview": "AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review."
       },
       {

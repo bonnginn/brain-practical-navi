@@ -13,6 +13,17 @@ from stage_lateral_upper729 import replay,digest
 
 
 class LateralUpperTest(unittest.TestCase):
+    def test_lateral_seed_cannot_assign_component_touching_another_cavity(self):
+        for other in (25,26,41):
+            image=np.zeros((12,12,3),np.uint8);labels=np.zeros_like(image)
+            image[2:7,2:7,1]=255;labels[2,2,1]=23;labels[6,6,1]=other
+            before=labels.copy();result,records=candidates(image,labels,1,1)
+            self.assertFalse(result.any())
+            self.assertEqual(records[0]['adjacentOtherCavityIds'],[other])
+            self.assertTrue(records[0]['requiresCavityIdentityReview'])
+            self.assertFalse(records[0]['eligible'])
+            self.assertTrue(np.array_equal(labels,before))
+
     def test_closed_seeded_cavity_not_tissue_other_labels_or_other_planes(self):
         image=np.zeros((12,12,4),np.uint8);labels=np.zeros_like(image)
         image[2:5,2:5,:]=255;labels[2,2,1]=23;labels[3,3,1]=7

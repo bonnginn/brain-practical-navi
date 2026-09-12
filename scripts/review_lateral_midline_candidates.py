@@ -64,7 +64,7 @@ def candidate_points(report, labels):
     return q
 
 
-def main(native100=False):
+def main(native100=False, series=None):
     payload = (ROOT/LOCATOR).read_bytes()
     if digest(payload) != LOCATOR_SHA:
         raise ValueError('Locator digest changed')
@@ -77,9 +77,10 @@ def main(native100=False):
         return render_context(labels, points, refs, label_sha=LABEL_SHA,
                               locator_path=LOCATOR, locator_sha=LOCATOR_SHA,
                               prefix='lateral-midline672-september12-native100-v1')
-    render(component_count=672, candidate_points=points, labels_sha=LABEL_SHA,
+    render(series,component_count=672, candidate_points=points, labels_sha=LABEL_SHA,
            prefix='lateral-midline672-september12', label_id=24, context_margin=22,
-           reference_points=refs, selection_title='UNADOPTED midline candidates; NOT side assignment')
+           reference_points=None if series else refs,
+           selection_title='UNADOPTED midline candidates; NOT side assignment')
 
 
 if __name__ == '__main__':
@@ -87,5 +88,6 @@ if __name__ == '__main__':
     group=parser.add_mutually_exclusive_group()
     group.add_argument('--native100', action='store_true')
     group.add_argument('--record-reviewed', action='store_true')
+    group.add_argument('--series',choices=['x','y','z'])
     args=parser.parse_args()
-    record_review() if args.record_reviewed else main(args.native100)
+    record_review() if args.record_reviewed else main(args.native100,args.series)

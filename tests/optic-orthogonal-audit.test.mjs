@@ -42,13 +42,13 @@ test("reproduces the objective orthogonal inventory for legacy optic label 33", 
   const result = runAudit();
   assert.equal(result.status, 0, result.stderr);
   const audit = JSON.parse(result.stdout);
-  const savedText = await readFile(new URL("segmentation-patches/review/optic-pathway-orthogonal-objective-audit-2026-09-12-lateral-medial-islands11.json", root), "utf8");
+  const savedText = await readFile(new URL("segmentation-patches/review/optic-objective-audit-2026-09-12-superomedial75.json", root), "utf8");
   // Python stdout follows the host newline convention; archived evidence keeps
   // its original bytes. Compare serialization apart from that OS-only detail.
   assert.equal(result.stdout.replace(/\r\n/g,"\n"), savedText.replace(/\r\n/g,"\n"));
   const saved = JSON.parse(savedText);
   assert.deepEqual(audit, saved);
-assert.equal(audit.inputSha256, "96fb242a78c66cc4ab9fd69e8bd6ed3cef5fca51b67f0338f063da98ae02381b");
+assert.equal(audit.inputSha256, "48e1602b871b10bd7b31f99278aef8d0e44bcfb8930051fa9aa20ffd48802db2");
   assert.deepEqual(audit.dims, [394, 466, 378]);
   assert.deepEqual(audit.voxelSizeMm, [0.5, 0.5, 0.5]);
   assert.equal(audit.auditedLabelId, 33);
@@ -113,7 +113,7 @@ test("validates BBS1 dimensions independently after digest verification", async 
 });
 
 test("pins the contributor review candidates to the committed ID 33 audit", async () => {
-  const audit = JSON.parse(await readFile(new URL("segmentation-patches/review/optic-pathway-orthogonal-objective-audit-2026-09-12-lateral-medial-islands11.json", root), "utf8"));
+  const audit = JSON.parse(await readFile(new URL("segmentation-patches/review/optic-objective-audit-2026-09-12-superomedial75.json", root), "utf8"));
   assert.deepEqual(OPTIC_REVIEW_AUDIT, {
     inputSha256: audit.inputSha256,
     dims: audit.dims,

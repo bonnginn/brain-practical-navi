@@ -18,6 +18,9 @@ test("block controls sit outside the draggable image and retain touch-sized butt
     assert.ok(block.indexOf(group) > block.indexOf('className="blockModelToolbar"'));
   }
   assert.match(css, /\.blockModelToolbar button\s*\{\s*min-height:\s*44px/);
+  assert.match(css, /\.blockModelCard\s*\{\s*grid-template-rows:\s*max-content minmax\(280px,1fr\) max-content;/);
+  assert.match(css, /grid-template-columns:minmax\(0,1fr\) clamp\(270px,34vw,310px\)/);
+  assert.doesNotMatch(css, /minmax\(270px,34vw,310px\)/);
   assert.match(css, /\.blockModelToolbar \.modelLegend\s*\{\s*position:\s*static/);
 });
 const localPath = (path) => fileURLToPath(new URL(path, root));
@@ -364,7 +367,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(canvasCss, /\.quizImageStage\s*\{[^}]*position:\s*relative/);
   assert.match(canvasCss, /\.quizImageStage\.modelStage\s*\{[^}]*height:\s*auto/);
   assert.match(canvasCss, /\.quizTargetTag\s*\{[^}]*position:\s*absolute/);
-  assert.match(canvasCss, /\.learningGrid,\.quizWorkspace,\.segWorkbench\{grid-template-columns:minmax\(0,1fr\) minmax\(270px,34vw,310px\)\}/);
+  assert.match(canvasCss, /\.learningGrid,\.quizWorkspace,\.segWorkbench\{grid-template-columns:minmax\(0,1fr\) clamp\(270px,34vw,310px\)\}/);
   assert.doesNotMatch(canvasCss, /@media\(max-width:900px\)[^\n]*\.learningGrid,\.quizWorkspace,\.segWorkbench\{grid-template-columns:1fr\}/);
   assert.match(page, /小脳を外す/);
   assert.match(page, /橋・延髄を外す/);
@@ -1102,10 +1105,10 @@ test("reproduces the objective orthogonal mammillary audit and rejects a wrong v
   ], {encoding:"utf8", cwd:localPath("")});
   assert.equal(result.status, 0, result.stderr);
   const audit = JSON.parse(result.stdout);
-  const saved = JSON.parse(await readFile(new URL("segmentation-patches/review/mammillary-bodies-orthogonal-objective-audit-2026-09-12-lateral-medial-islands11.json", root), "utf8"));
+  const saved = JSON.parse(await readFile(new URL("segmentation-patches/review/mammillary-objective-audit-2026-09-12-superomedial75.json", root), "utf8"));
   assert.deepEqual(audit, saved);
   assert.equal(audit.magic, "BBS1");
-assert.equal(audit.inputSha256, "96fb242a78c66cc4ab9fd69e8bd6ed3cef5fca51b67f0338f063da98ae02381b");
+assert.equal(audit.inputSha256, "48e1602b871b10bd7b31f99278aef8d0e44bcfb8930051fa9aa20ffd48802db2");
   assert.deepEqual(audit.dims, [394, 466, 378]);
   assert.deepEqual(audit.voxelSizeMm, [0.5, 0.5, 0.5]);
   assert.equal(audit.validation.passed, true);

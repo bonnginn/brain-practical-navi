@@ -19,7 +19,7 @@ test('lateral cisternal-side exclusion is exactly 80 reversible ID24-to-zero vox
  const meta=JSON.parse(await read('public/atlas/bigbrain-practical-segmentation-icbm500-validation.json'));
  const latest=JSON.parse(await read('segmentation-patches/review/lateral-cavity21-adoption-2026-09-07.json'));
  const currentRepair=await withRegionalBatches(JSON.parse(await read('segmentation-patches/review/lateral-crop34-adoption-2026-09-07.json')));assert.equal(currentRepair.beforeSha256,latest.afterSha256);
- assert.equal(latest.beforeSha256,r.afterSha256);assert.equal(meta.rawVoxelSha256,currentRepair.afterRawVoxelSha256);assert.equal(meta.lateralResidual80Audit.recordSha256,sha(bytes));assert.equal(meta.labelCounts['24'],82204);
+ assert.equal(latest.beforeSha256,r.afterSha256);assert.equal(meta.rawVoxelSha256,currentRepair.afterRawVoxelSha256);assert.equal(meta.lateralResidual80Audit.recordSha256,sha(bytes));assert.equal(meta.labelCounts['24'],82248);
  assert.equal(r.projectAdopted,true);assert.equal(r.expertReviewed,false);assert.equal(r.published,false);
  const manifest=JSON.parse(await read('public/atlas/specimen-blocks.json'));
  assert.equal(r.meshImpact.blockMaskImpact.length,55);assert.equal(new Set(r.meshImpact.blockMaskImpact.map(p=>p.block+'/'+p.part)).size,55);

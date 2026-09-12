@@ -27,10 +27,16 @@ def candidates(image, labels, zmin=174, zmax=202, *, minimum=255):
             seeds = sorted(int(v) for v in np.unique(lab[region]) if v in (23, 24))
             edge = bool(region[0].any() or region[-1].any() or region[:, 0].any() or region[:, -1].any())
             chosen = region & (lab == 0)
-            accept = not edge and len(seeds) == 1
+            # A closed intensity component can run from a lateral seed into the
+            # third ventricle. Side inheritance does not establish cavity identity.
+            # Reject direct contact conservatively; do not relabel as the other cavity.
+            boundary=ndimage.binary_dilation(region,ndimage.generate_binary_structure(2,1)) & ~region
+            foreign=sorted(int(v) for v in np.unique(lab[boundary]) if v in (25,26,41))
+            accept = not edge and len(seeds) == 1 and not foreign
             if accept: result[:, :, z][chosen] = seeds[0]
             records.append(dict(z=z,component=int(k),seeds=seeds,touchesImageEdge=edge,
-                existing=int((region & (lab != 0)).sum()),candidate=int(chosen.sum()),eligible=accept))
+                existing=int((region & (lab != 0)).sum()),candidate=int(chosen.sum()),eligible=accept,
+                adjacentOtherCavityIds=foreign,requiresCavityIdentityReview=bool(foreign)))
     return result, records
 
 
@@ -67,7 +73,7 @@ def main(zmin=174,zmax=202,minimum=255,label_sha=LABEL_SHA,prefix='lateral-upper
     report=dict(labelSha256=label_sha,imageSha256=EXPECTED_IMAGE_SHA256,points=points,count=len(points),
         counts={str(k):int((proposed==k).sum()) for k in [23,24]},components=records,figures=figures,
         adopted=False,visualReviewPending=True,mutation=False,
-        limitation='User-directed axial interval; existing single-label seed and closed 4-connected full-plane intensity component. Requires original-image and orthogonal review; processing artifacts and tissue must not be treated as lumen.')
+        limitation='User-directed axial interval; existing single-label seed and closed 4-connected full-plane intensity component. Components touching another ventricular ID in-plane are held, not reclassified. Absence of contact does not prove cavity identity. Requires original-image and orthogonal review; processing artifacts and tissue must not be treated as lumen.')
     if prefix!='lateral-upper-z174-202-v1':report.update(zRange=[zmin,zmax],minimumEncoded=minimum,anteriorWorkMinY=anterior_min_y)
     (out/'report.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
     print(json.dumps({k:v for k,v in report.items() if k not in ['points','figures','components']}))
