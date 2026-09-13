@@ -1,0 +1,280 @@
+{
+  "adopted": false,
+  "currentTeaching": {
+    "mesh": {
+      "color": "#e7d9a6",
+      "faces": 5112,
+      "file": "block-commissural-system-fornix.mesh",
+      "generation": {
+        "gridSpacingMm": 1.0,
+        "mirroredSideIsProjectAuthored": true,
+        "polylinePointsXYZmm": [
+          [
+            -3.0,
+            -29.0,
+            -7.0
+          ],
+          [
+            -3.0,
+            -10.0,
+            -5.0
+          ],
+          [
+            -3.0,
+            7.0,
+            -3.0
+          ],
+          [
+            -3.0,
+            20.0,
+            -7.0
+          ],
+          [
+            -3.0,
+            20.0,
+            -15.0
+          ],
+          [
+            -3.0,
+            10.0,
+            -23.0
+          ],
+          [
+            -3.0,
+            -6.0,
+            -28.0
+          ]
+        ],
+        "radiusMm": 1.55,
+        "script": "scripts/build_specimen_blocks.py",
+        "sides": [
+          -3.0,
+          3.0
+        ],
+        "storedVertexOrder": [
+          "z",
+          "y",
+          "x"
+        ]
+      },
+      "sourceType": "schematic-3d",
+      "storedVertexBoundsZYXmm": [
+        [
+          -29.5,
+          -1.5
+        ],
+        [
+          -30.499662399291992,
+          21.5
+        ],
+        [
+          -4.5,
+          4.5
+        ]
+      ],
+      "storedVertexOrder": [
+        "z",
+        "y",
+        "x"
+      ],
+      "vertices": 2560
+    },
+    "papezStepper": {
+      "key": "fornix",
+      "kind": "schematic-3d",
+      "note": "脳弓は模式3Dのみです。実標本の分節や断面ラベルは表示しません。",
+      "sectionLabelIds": [],
+      "source": "src/pathwayStepper.mjs",
+      "sourceType": "schematic-3d",
+      "targetKeys": [
+        "fornix"
+      ]
+    },
+    "sectionFornix": {
+      "independentSectionLabel": false,
+      "labelIds": [],
+      "learnerSurfaces": [
+        "surface",
+        "blocks"
+      ],
+      "meshFile": "block-commissural-system-fornix.mesh",
+      "meshSha256": "2f283799278be67a71843a3de868154a6b4f0ad0ef59a0b3490e3b2295b18d39",
+      "provenanceKey": "section-fornix",
+      "quizEligibility": "none",
+      "representations": [
+        "schematic-3d"
+      ]
+    },
+    "surfaceDeepFornix": {
+      "independentSectionLabel": false,
+      "labelIds": [],
+      "learnerSurfaces": [
+        "surface",
+        "blocks"
+      ],
+      "meshFile": "block-commissural-system-fornix.mesh",
+      "meshSha256": "2f283799278be67a71843a3de868154a6b4f0ad0ef59a0b3490e3b2295b18d39",
+      "provenanceKey": "surface-deep-fornix",
+      "quizEligibility": "none",
+      "representations": [
+        "schematic-3d"
+      ]
+    }
+  },
+  "date": "2026-09-14",
+  "expertReviewed": false,
+  "generatedBy": "scripts/audit_fornix_scope.py",
+  "inputs": {
+    "atlasVolumeCanvas": {
+      "bytes": 100330,
+      "path": "app/AtlasVolumeCanvas.tsx",
+      "sha256": "664e41e819950a853754ebf294789dc47ad1dd2042faee3c689890abfd476297"
+    },
+    "bendDraftReport": {
+      "bytes": 7988,
+      "path": "work/anatomy-review/fornix-bend-core-draft-v1/report.json",
+      "sha256": "b89f0852a00defefe16e569068820cba876ad00fd178a011031b7adb3f7bee4c"
+    },
+    "bodyDraftReport": {
+      "bytes": 77323,
+      "path": "work/anatomy-review/fornix-core-draft-body-extension-v2/report.json",
+      "sha256": "c4dc1bc17eaf9be89ae044803f3e38300eb02833294011450785f1150cb5d1ef"
+    },
+    "combinedReport": {
+      "bytes": 1207,
+      "path": "work/anatomy-review/fornix-combined-orthogonal-v1/report.json",
+      "sha256": "bd6d2da6707057f21a536024c1b1197e0f5d337b4d7a6938befb75186ea7fb60"
+    },
+    "fornixMesh": {
+      "bytes": 133036,
+      "path": "public/atlas/block-commissural-system-fornix.mesh",
+      "sha256": "2f283799278be67a71843a3de868154a6b4f0ad0ef59a0b3490e3b2295b18d39"
+    },
+    "gridReport": {
+      "bytes": 115707,
+      "path": "work/anatomy-review/fornix-draft-grid-body-extension-v1/report.json",
+      "sha256": "55fd791cacd74d9c427adf9b341647a650c7147dea87be04b78ddc1fc5e2d304"
+    },
+    "pathwayStepper": {
+      "bytes": 18581,
+      "path": "src/pathwayStepper.mjs",
+      "sha256": "fe3a930291476666879e2b370982095eb2a8cfd62131c96dfb15d80c27214e8a"
+    },
+    "scopeDecision": {
+      "bytes": 4965,
+      "path": "docs/FORNIX_SCOPE_DECISION_2026-09-14.md",
+      "sha256": "16396f2b2244c247ac9693d43f462e71fb9660bb2f636062c84be768c1b5103a"
+    },
+    "segmentationReview": {
+      "bytes": 29439,
+      "path": "docs/FORNIX_SEGMENTATION_REVIEW.md",
+      "sha256": "ecc3e6fa4cc67393989f75769064b777cca6c28613dceddb3454e96b8177f06f"
+    },
+    "specimenBlocks": {
+      "bytes": 33236,
+      "path": "public/atlas/specimen-blocks.json",
+      "sha256": "bfa3127cc901982b8dda3de2ba84d0fb69323976139ff6688151c4da75a37220"
+    },
+    "specimenBuilder": {
+      "bytes": 28998,
+      "path": "scripts/build_specimen_blocks.py",
+      "sha256": "3c57d8dc4ed8e284d921ad7a9470575173d7742067af4ab5dca2c2d6d90adffa"
+    },
+    "structureProvenance": {
+      "bytes": 55682,
+      "path": "public/atlas/structure-provenance.json",
+      "sha256": "b9ab66c65a0dfefde58fd84ed55fe123636a6330fd66961addddfda63d2cd581"
+    }
+  },
+  "limitation": "This is a provenance and scope inventory. Schematic geometry, image continuity, and geometric containment are not anatomical boundary validation and do not authorize label or mesh adoption.",
+  "mutation": false,
+  "nextEvidenceMinimum": [
+    "Declare one bounded body, crus, or column interval before drawing any candidate.",
+    "Review that interval in consecutive original registered300 planes and at both ends plus a midpoint in native100 data.",
+    "Record boundaries against septum/choroidal tissue/ventricular space/adjacent white matter separately on each side; do not mirror one side to the other."
+  ],
+  "notTracked": [
+    "fornix body anterior/posterior ends and full outer contour",
+    "full left and right crura and transition to fimbria",
+    "full left and right columns, anterior commissure relationship, and mammillary-side termination",
+    "boundary at which body, crus, and column terminology changes",
+    "separation from septum pellucidum, choroidal tissue, ventricular roof, and adjacent white matter"
+  ],
+  "quizEligibility": "none",
+  "schemaVersion": 1,
+  "sharedMeshMapping": {
+    "canvasSource": "app/AtlasVolumeCanvas.tsx",
+    "mappingToken": "item.key===\"fornix\"?\"block-commissural-system-fornix\"",
+    "meshFile": "block-commissural-system-fornix.mesh",
+    "meshSha256": "2f283799278be67a71843a3de868154a6b4f0ad0ef59a0b3490e3b2295b18d39",
+    "surfaceDeepLandmarkKey": "fornix",
+    "usedBy": [
+      "currentTeaching.surfaceDeepFornix",
+      "currentTeaching.sectionFornix"
+    ]
+  },
+  "unadoptedImageDrafts": {
+    "bend": {
+      "adopted": false,
+      "mutation": false,
+      "pointCount": 130,
+      "registered300XYZBounds": [
+        [
+          320,
+          331
+        ],
+        [
+          422,
+          434
+        ],
+        [
+          283,
+          289
+        ]
+      ],
+      "reportSha256": "b89f0852a00defefe16e569068820cba876ad00fd178a011031b7adb3f7bee4c",
+      "status": "inferior bend interior draft; connection to body and outer contour unresolved"
+    },
+    "body": {
+      "adopted": false,
+      "mutation": false,
+      "pointCount": 1098,
+      "registered300XYZBounds": [
+        [
+          316,
+          336
+        ],
+        [
+          404,
+          421
+        ],
+        [
+          291,
+          299
+        ]
+      ],
+      "reportSha256": "c4dc1bc17eaf9be89ae044803f3e38300eb02833294011450785f1150cb5d1ef",
+      "status": "interior local draft; outer contour and anterior/posterior ends unresolved"
+    },
+    "combined": {
+      "adopted": false,
+      "componentReports": [
+        "c4dc1bc17eaf9be89ae044803f3e38300eb02833294011450785f1150cb5d1ef",
+        "b89f0852a00defefe16e569068820cba876ad00fd178a011031b7adb3f7bee4c"
+      ],
+      "mutation": false,
+      "pointCount": 1228,
+      "reportSha256": "bd6d2da6707057f21a536024c1b1197e0f5d337b4d7a6938befb75186ea7fb60",
+      "status": "combined display only; not a continuous completed fornix segmentation"
+    },
+    "gridContainment": {
+      "adopted": false,
+      "existingLabelCenterConflicts": 0,
+      "fullyInsideCount": 75,
+      "mappedAppVoxelCount": 301,
+      "mutation": false,
+      "reportSha256": "55fd791cacd74d9c427adf9b341647a650c7147dea87be04b78ddc1fc5e2d304",
+      "status": "geometric containment audit only; no adoption"
+    }
+  }
+}
