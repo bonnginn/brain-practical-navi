@@ -11,15 +11,22 @@ from build_orthogonal_review_bundle import ROOT, DEFAULT_LABELS, MAGIC_LABELS, r
 from build_registered_manual_candidate import nearest_labels
 
 SHA='b45c0669122b628529f56e73af06fa1cb697b621da99d51c8b921b136ea52463'
+CONTEXT_PALETTE={23:[0,190,220],24:[40,140,255],25:[255,190,20],26:[175,100,255],41:[80,220,130]}
 
 
 def main(series=None, *, component_count=547, seed=(242,119,153), labels_sha=SHA,
          prefix='lateral-detached547', representative_y=135, candidate_points=None, label_id=24, context_margin=12,
          existing_points=None, existing_label_id=None, reference_points=None, selection_title=None,
-         candidate_before_labels=None):
+         candidate_before_labels=None, context_label_ids=None):
     if type(label_id) is not int or label_id not in (23,24,25,26,41):raise ValueError('Expected ventricular label')
     if type(context_margin) is not int or not 1<=context_margin<=120:raise ValueError('Invalid context margin')
     if selection_title is not None and (not isinstance(selection_title,str) or not selection_title.strip() or len(selection_title)>80):raise ValueError('Invalid selection title')
+    if context_label_ids is not None:
+        if (not isinstance(context_label_ids,(tuple,list)) or not context_label_ids
+                or len(set(context_label_ids)) != len(context_label_ids)
+                or any(type(label) is not int or label not in CONTEXT_PALETTE for label in context_label_ids)):
+            raise ValueError('Expected unique ventricular context label IDs')
+        context_label_ids=tuple(context_label_ids)
     before=None
     if candidate_before_labels is not None:
         before=np.asarray(candidate_before_labels)
@@ -29,7 +36,7 @@ def main(series=None, *, component_count=547, seed=(242,119,153), labels_sha=SHA
             raise ValueError('Explicit 0/27-to-41 review values required')
     out=ROOT/f'work/anatomy-review/{prefix}-native300-v1'
     if series:out=ROOT/f'work/anatomy-review/{prefix}-series-{series}-v1'
-    if out.exists():raise ValueError('Preserve evidence')
+    if out.exists() and (out/'report.json').exists():raise ValueError('Preserve evidence')
     _,_,labels=read_browser_volume(DEFAULT_LABELS,MAGIC_LABELS,labels_sha)
     if existing_points is not None:
         if candidate_points is not None or type(existing_label_id) is not int or existing_label_id not in (23,24,25,26,27,41):
@@ -81,7 +88,7 @@ def main(series=None, *, component_count=547, seed=(242,119,153), labels_sha=SHA
         last=int(np.ceil(((points[:,d].max()+.5)*spacing[d]+origin[d]-start[d])/step[d]))+1
         centers=list(range(first+1,last+2,3))
         refs=[points[0]]*len(centers)
-    out.mkdir();figures=[]
+    out.mkdir(exist_ok=True);figures=[]
     for number,p in enumerate(refs):
         center=np.rint((p*spacing+origin-start)/step).astype(int)
         if series:center['xyz'.index(series)]=centers[number]
@@ -93,16 +100,30 @@ def main(series=None, *, component_count=547, seed=(242,119,153), labels_sha=SHA
                 lab=_oriented_crop(projected,axis,int(index-low[dim]),crop)
                 chosen=_oriented_crop(component,axis,int(index-low[dim]),crop)
                 rgb=np.repeat(plane[:,:,None],3,axis=2)
-                rgb[_outline(lab==label_id)]=[0,170,210];rgb[_outline(chosen!=0)]=[255,70,100]
+                if context_label_ids is None:
+                    rgb[_outline(lab==label_id)]=[0,170,210]
+                else:
+                    for context_id in context_label_ids:
+                        rgb[_outline(lab==context_id)]=CONTEXT_PALETTE[context_id]
+                rgb[_outline(chosen!=0)]=[255,70,100]
                 h,w=plane.shape;scale=3
-                row=Image.new('RGB',(max(780,w*scale*2+12),h*scale+42),'#181818')
+                caption_height=42 if context_label_ids is None else 62
+                row=Image.new('RGB',(max(780,w*scale*2+12),h*scale+caption_height),'#181818')
                 draw=ImageDraw.Draw(row);draw.text((4,3),f'Original300 {axis}{index}; '+('continuous extent review' if series else f'app reference {p.tolist()}'),fill='white')
                 label=f'detached{component_count}' if candidate_points is None else f'UNADOPTED {component_count} candidates'
                 if selection_title is not None:label=selection_title
                 if existing_points is not None:label=f'EXISTING ID{existing_label_id} review {component_count}'
-                draw.text((4,21),f'Raw LEFT / red={label}, cyan=existing ID{label_id} RIGHT.',fill='white')
+                if context_label_ids is None:
+                    draw.text((4,21),f'Raw LEFT / red={label}, cyan=existing ID{label_id} RIGHT.',fill='white')
+                else:
+                    draw.text((4,21),f'Raw LEFT / red={label} RIGHT; current IDs use the color legend.',fill='white')
+                    cursor=4
+                    for context_id in context_label_ids:
+                        draw.rectangle((cursor,39,cursor+9,48),fill=tuple(CONTEXT_PALETTE[context_id]))
+                        draw.text((cursor+13,37),f'ID{context_id}',fill='white')
+                        cursor += 54
                 for col,picture in enumerate([np.repeat(plane[:,:,None],3,axis=2),rgb]):
-                    row.paste(Image.fromarray(picture).resize((w*scale,h*scale),Image.Resampling.NEAREST),(col*(w*scale+12),42))
+                    row.paste(Image.fromarray(picture).resize((w*scale,h*scale),Image.Resampling.NEAREST),(col*(w*scale+12),caption_height))
                 rows.append(row)
             sheet=Image.new('RGB',(rows[0].width,sum(r.height for r in rows)))
             y=0
@@ -115,6 +136,10 @@ def main(series=None, *, component_count=547, seed=(242,119,153), labels_sha=SHA
     if label_id!=24:report['labelId']=label_id
     if before is not None:report['candidateBeforeLabels']=before.tolist()
     if existing_points is not None:report['existingLabelId']=existing_label_id
+    if context_label_ids is not None:
+        report['contextLabelIds']=list(context_label_ids)
+        report['contextPalette']={str(label):{'rgb':CONTEXT_PALETTE[label],'legend':f'ID{label}'} for label in context_label_ids}
+        report['figureLegend']='Colored squares in each figure identify current labels; red identifies unadopted candidates.'
     (out/'report.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
     print(json.dumps(dict(count=len(points),references=report['referencePoints'],figures=len(figures))))
 
