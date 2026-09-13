@@ -32,6 +32,7 @@ ADOPTION = ROOT / "segmentation-patches/review/lateral-superomedial75-adoption-2
 OUTPUT = ROOT / "work/anatomy-review/lateral-midline597-regional-triage-v2"
 LOCATOR_SHA = "60e2845777b438bf11455f156c31078f217825aba7ebbac19354428accd0ea89"
 LABEL_SHA = "48e1602b871b10bd7b31f99278aef8d0e44bcfb8930051fa9aa20ffd48802db2"
+SOURCE_LABELS = ROOT / "tests/fixtures/bigbrain-practical-segmentation-pre-third-inferior-current16.bin.gz"
 ADOPTION_AFTER_SHA = LABEL_SHA
 CONTACT_IDS = (23, 24, 25, 26, 41)
 EXPECTED_TOTAL = 672
@@ -203,7 +204,7 @@ def build(*, render: bool = True, refresh_report: bool = False) -> Path:
         existing_report = json.loads((OUTPUT / "report.json").read_text(encoding="utf-8"))
     if OUTPUT.exists() and not OUTPUT.is_dir():
         raise ValueError(f"output path is not a directory: {OUTPUT}")
-    _, _, labels = read_browser_volume(DEFAULT_LABELS, MAGIC_LABELS, LABEL_SHA)
+    _, _, labels = read_browser_volume(SOURCE_LABELS, MAGIC_LABELS, LABEL_SHA)
     remaining, adopted, locator, adoption = _load_points(labels)
     components = _components(remaining, labels)
     OUTPUT.mkdir(parents=True, exist_ok=True)

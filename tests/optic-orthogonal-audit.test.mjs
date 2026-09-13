@@ -30,7 +30,7 @@ function resolvePython() {
 
 const python = resolvePython();
 const script = localPath("scripts/audit_optic_orthogonal.py");
-const input = localPath("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz");
+const input = localPath("tests/fixtures/bigbrain-practical-segmentation-pre-third-inferior-current16.bin.gz");
 const workbench = localPath("app/ManualSegmentationWorkbench.tsx");
 const canvasCss = localPath("app/canvas.css");
 

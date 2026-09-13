@@ -128,7 +128,7 @@ def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None, *, review_da
         raise ValueError('Unexpected volume format')
     before=np.frombuffer(before_raw,np.uint8,offset=10).reshape((394,466,378),order='F')
     after=np.frombuffer(after_raw,np.uint8,offset=10).reshape(before.shape,order='F')
-    exclusions=record['transition']=='mixed-ventricular-exclusions'
+    exclusions=record['transition'] in ('mixed-ventricular-exclusions','23->0','24->0','25->0','26->0','41->0')
     brainstem_reclassification=record['transition']=='27->26'
     mixed_cavity=record['transition']=='mixed-to-26'
     partial_aqueduct=record['transition']=='mixed-to-41'

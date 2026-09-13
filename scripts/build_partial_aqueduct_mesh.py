@@ -6,7 +6,7 @@ import json
 import numpy as np
 from build_section_ventricle_meshes import ROOT,ATLAS,SOURCE,reconstruct,DISPLAY_ORIGIN_ZYX
 
-LABEL_SHA='48e1602b871b10bd7b31f99278aef8d0e44bcfb8930051fa9aa20ffd48802db2'
+LABEL_SHA='785ce199e2c7226e5527a771e953d1b78cfed1067179aa04c63b9eba74577e0f'
 ADOPTION='segmentation-patches/review/posterior-ventricles158-adoption-2026-09-08.json'
 ADOPTION_SHA='f45703a468358528c46b80dfc83d7c1bfaaa3b29079e842d0c45fab82df7c2ec'
 NAME='section-current-aqueduct-partial'
@@ -31,16 +31,16 @@ def build(compressed,adoption):
 def main(apply=False):
     mesh,report=build(SOURCE.read_bytes(),(ROOT/ADOPTION).read_bytes())
     if apply:
-        # The superomedial lateral additions preserve the 259-cell aqueduct geometry.
+        # The third-ventricle inferior exclusion preserves the 259-cell aqueduct geometry.
         outputs={ATLAS/(NAME+'.mesh'):mesh,ATLAS/(NAME+'.json'):(json.dumps(report,indent=2)+'\n').encode()}
         prior={'.mesh':'22b992bfa93ec644aaf29d7644aebe12b50513b27c877941c70c65e641a4eeef',
-               '.json':'cb06d859914eb9a17f8f67c33fa10563c095e44337d233ebf47264397f03a9d0'}
+               '.json':'0a41cc5e785ef082c92ad65e359db4b0f4b25983447cf3fb321e0332f7dc9320'}
         retained={}
         for path,data in outputs.items():
             if path.exists() and path.read_bytes()!=data:
                 old=path.read_bytes()
                 if sha(old)!=prior[path.suffix]:raise ValueError('Existing partial asset differs')
-                fixture=ROOT/'tests/fixtures'/(NAME+'-pre-superomedial75'+path.suffix)
+                fixture=ROOT/'tests/fixtures'/(NAME+'-pre-third-inferior-current16'+path.suffix)
                 if fixture.exists() and fixture.read_bytes()!=old:raise ValueError('Retained partial evidence differs')
                 retained[fixture]=old
         for path,data in retained.items():path.write_bytes(data)

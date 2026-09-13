@@ -1101,11 +1101,13 @@ test("maps every orthogonal audit slice and display corner to the shared voxel g
 test("reproduces the objective orthogonal mammillary audit and rejects a wrong volume", async () => {
   const result = spawnSync(python.command, [...python.prefix,
     localPath("scripts/audit_mammillary_orthogonal.py"),
-    "--input", "public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz",
+    "--input", "tests/fixtures/bigbrain-practical-segmentation-pre-third-inferior-current16.bin.gz",
   ], {encoding:"utf8", cwd:localPath("")});
   assert.equal(result.status, 0, result.stderr);
   const audit = JSON.parse(result.stdout);
   const saved = JSON.parse(await readFile(new URL("segmentation-patches/review/mammillary-objective-audit-2026-09-12-superomedial75.json", root), "utf8"));
+  assert.equal(audit.input, "tests/fixtures/bigbrain-practical-segmentation-pre-third-inferior-current16.bin.gz");
+  audit.input = saved.input;
   assert.deepEqual(audit, saved);
   assert.equal(audit.magic, "BBS1");
 assert.equal(audit.inputSha256, "48e1602b871b10bd7b31f99278aef8d0e44bcfb8930051fa9aa20ffd48802db2");

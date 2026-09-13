@@ -18,7 +18,7 @@ class LateralMidline597Component04Native100(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.report = json.loads((review.OUTPUT / "report.json").read_text(encoding="utf-8"))
-        cls.labels = review.read_browser_volume(review.DEFAULT_LABELS, review.MAGIC_LABELS, review.LABEL_SHA)[2]
+        cls.labels = review.read_browser_volume(review.SOURCE_LABELS, review.MAGIC_LABELS, review.LABEL_SHA)[2]
         cls.v2 = json.loads(review.REGIONAL_REPORT.read_text(encoding="utf-8"))
         cls.component = next(item for item in cls.v2["components"] if item["componentId"] == "component-04")
 

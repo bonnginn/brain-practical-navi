@@ -19,6 +19,7 @@ from render_native100_candidate_context import render_context
 REGIONAL_REPORT = ROOT / "work/anatomy-review/lateral-midline597-regional-triage-v2/report.json"
 REGIONAL_REPORT_SHA = "617658cfc6bff53edddcfff73c7c740fd06b89164156258454301837ec9b3b77"
 LABEL_SHA = "48e1602b871b10bd7b31f99278aef8d0e44bcfb8930051fa9aa20ffd48802db2"
+SOURCE_LABELS = ROOT / "tests/fixtures/bigbrain-practical-segmentation-pre-third-inferior-current16.bin.gz"
 OUTPUT_PREFIX = "lateral-midline597-regional-triage-v2-component-04-native100-v1"
 OUTPUT = ROOT / "work/anatomy-review" / OUTPUT_PREFIX
 EXPECTED_POINTS = 20
@@ -53,7 +54,7 @@ def load_component() -> tuple[np.ndarray, list[list[int]], dict[str, object]]:
 def build() -> Path:
     if OUTPUT.exists():
         raise ValueError(f"preserve prior evidence: {OUTPUT}")
-    _, _, labels = read_browser_volume(DEFAULT_LABELS, MAGIC_LABELS, LABEL_SHA)
+    _, _, labels = read_browser_volume(SOURCE_LABELS, MAGIC_LABELS, LABEL_SHA)
     points, references, component = load_component()
     if np.any(labels[tuple(points.T)] != 0):
         raise ValueError("component-04 contains a currently labelled point")

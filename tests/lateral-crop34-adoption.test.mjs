@@ -38,7 +38,7 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
   const base=await read('tests/fixtures/bigbrain-practical-segmentation-pre-'+name+'.bin.gz');
   assert.equal(sha(base),r.beforeSha256);if(current)assert.deepEqual(gunzipSync(base),current);
   const expected=gunzipSync(base),seen=new Set(),label=r.transition==='mixed-to-26'?26:r.transition==='mixed-to-41'?41:Number(r.transition.split('->')[1]);
-  const exclusions=r.transition==='mixed-ventricular-exclusions';
+  const exclusions=r.transition==='mixed-ventricular-exclusions'||['23->0','24->0','25->0','26->0','41->0'].includes(r.transition);
   const brainstem=r.transition==='27->26';
   const interfaceHold=r.transition==='27->0';
   const callosalExclusion=r.transition==='30->0';
@@ -62,6 +62,9 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
   else if(label===27){assert.equal(name,'midbrain-ventral14803');assert.equal(r.transition,'0->27');assert.equal(r.count,14803);assert.ok(r.points.every(([x,y,z])=>x>=145&&x<248&&y>=215&&y<251&&z>=104&&z<116));}
   else if(callosalExclusion){assert.equal(name,'callosal-remaining304');assert.equal(r.count,304);assert.equal(r.indicesSha256,'b7156aa26def7b907a170de76de7922432e35eb3373e8ffa475887742b134eb6');}
   else if(!exclusions){assert.ok([23,24,25,26].includes(label));assert.equal(r.transition,'0->'+label);if(label===25){assert.equal(name,'third-central-fringe61');assert.equal(r.count,61);}if(label===26){const counts={'fourth-remaining-anterior173':173,'fourth-upper-posterior111':111};assert.ok(Object.hasOwn(counts,name));assert.equal(r.count,counts[name]);}}
+  else if(name==='third-inferior-current16'){
+   assert.equal(r.transition,'25->0');assert.equal(r.count,16);assert.ok(r.points.every(p=>p.before===25&&p.after===0));
+  }
   else if(name==='posterior-ventricular-islands2') {
    assert.equal(r.count,2);
    assert.deepEqual(r.points,[{xyz:[151,111,156],before:23,after:0},{xyz:[237,120,158],before:24,after:0}]);
@@ -111,6 +114,7 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
   expectedChanges['lateral-posterior196']=[['lateral-ventricle','ventricular-cavity',2,0],['diencephalon','tissue',0,13],['radiations','tissue',0,2],['commissural-system','tissue',34,2],['commissural-system','lateral-ventricles',2,0],['choroid-plexus','ventricular-cavity',2,0]];
   expectedChanges['lateral-medial-islands11']=[['lateral-ventricle','tissue',0,295],['lateral-ventricle','ventricular-cavity',0,1],['commissural-system','tissue',0,500],['choroid-plexus','tissue',0,114],['choroid-plexus','ventricular-cavity',0,1],['medial-temporal','inferior-horn',0,1]];
   expectedChanges['lateral-superomedial75']=[['lateral-ventricle','tissue',0,6],['lateral-ventricle','ventricular-cavity',8,0],['radiations','tissue',0,6],['commissural-system','lateral-ventricles',9,0],['choroid-plexus','tissue',3,6],['choroid-plexus','ventricular-cavity',8,0]];
+  expectedChanges['third-inferior-current16']=[['diencephalon','third-ventricle',0,2]];
   if(name==='left-medial-anterior1092'){assert.equal(r.count,1092);assert.equal(r.transition,'0->23');}
   assert.deepEqual(changed.map(p=>[p.block,p.part,p.added,p.removed]),expectedChanges[name]??[]);
   for(const p of changed){
@@ -124,5 +128,5 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
  }
  assert.ok(current);assert.deepEqual(gunzipSync(await read('public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz')),current);
  assert.equal(meta.rawVoxelSha256,sha(current.subarray(10)));
- assert.equal(meta.labelCounts['23'],81664);assert.equal(meta.labelCounts['24'],82248);assert.equal(meta.labelCounts['25'],11853);
+ assert.equal(meta.labelCounts['23'],81664);assert.equal(meta.labelCounts['24'],82248);assert.equal(meta.labelCounts['25'],11837);
 });

@@ -26,7 +26,7 @@ class LateralMidline597RegionalTriage(unittest.TestCase):
     def setUpClass(cls):
         cls.report = json.loads(triage.OUTPUT.joinpath("report.json").read_text(encoding="utf-8"))
         _, _, cls.labels = triage.read_browser_volume(
-            triage.DEFAULT_LABELS, triage.MAGIC_LABELS, triage.LABEL_SHA
+            triage.SOURCE_LABELS, triage.MAGIC_LABELS, triage.LABEL_SHA
         )
 
     def test_exact_set_difference_and_current_label_state(self):
