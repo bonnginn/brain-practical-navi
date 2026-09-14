@@ -831,6 +831,8 @@ export default function Home() {
   const modelStrategyReturnFocus=useRef<HTMLElement|null>(null);
   const circuitGuideRef=useRef<HTMLDivElement|null>(null);
   const circuitObservationRef=useRef<HTMLElement|null>(null);
+  const circuitModelRef=useRef<HTMLElement|null>(null);
+  const circuitReturnFocus=useRef<HTMLElement|null>(null);
   const [quizIndex,setQuizIndex]=useState(0);
   const [quizQueue,setQuizQueue]=useState<QuizQuestion[]>(()=>shuffledQuestions(allQuizQuestions).slice(0,10));
   const quizVisibilityAuditTarget=quizVisibilityAuditTargetOverride();
@@ -1273,16 +1275,27 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
     if(preset.freeKeys.some(item=>item.startsWith("neuro:")))setSurfacePonsMedulla(true)
   }
   function observeCircuitStage(index:number){
+    circuitReturnFocus.current=document.activeElement instanceof HTMLElement?document.activeElement:null;
+    const useModel=selectedPathway==="visual"||(selectedPathway==="papez"&&PAPEZ_STEPS[index]?.kind!=="section-label");
     if(selectedPathway==="papez")choosePapezStepperStep(index);
     else if(selectedPathway==="basal-ganglia")chooseBasalStepperStep(index);
     else {
       const visualTargets:(FreeObservationKey|null)[]=["neuro:cn2","neuro:opticChiasm","neuro:cn2","deep:thalami",null,"region:pericalcarine"];
       const key=visualTargets[index];
-      if(key)setFreeFocusedKey(key);
+      if(key)selectFreeObservation(key);
+      setSurfaceGhost(true);
     }
-    window.requestAnimationFrame(()=>circuitObservationRef.current?.scrollIntoView({behavior:"smooth",block:"start"}));
+    window.requestAnimationFrame(()=>{
+      const target=useModel?circuitModelRef.current:circuitObservationRef.current;
+      target?.focus({preventScroll:true});
+      target?.scrollIntoView({block:"start"});
+    });
   }
-  function returnToCircuitGuide(){circuitGuideRef.current?.scrollIntoView({behavior:"smooth",block:"start"})}
+  function returnToCircuitGuide(){
+    const target=circuitReturnFocus.current?.isConnected?circuitReturnFocus.current:circuitGuideRef.current;
+    target?.focus({preventScroll:true});
+    target?.scrollIntoView({block:"center"});
+  }
   function chooseBasalStepperStep(index:number){setBasalStepperPlaying(false);setBasalStepperIndex(Math.max(0,Math.min(BASAL_GANGLIA_STEPS.length-1,index)))}
   function toggleBasalStepperPlaying(){if(basalStepperPlaying){setBasalStepperPlaying(false);return}if(basalStepperIndex>=BASAL_GANGLIA_STEPS.length-1)return;setBasalStepperPlaying(true)}
   function choosePapezStepperStep(index:number){setPapezStepperPlaying(false);setPapezStepperIndex(Math.max(0,Math.min(PAPEZ_STEPS.length-1,index)))}
@@ -1471,7 +1484,7 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
         <button type="button" data-brodmann-open="true" aria-pressed={brodmannActive} onClick={()=>setBrodmannActive(true)}>{englishEdition?"Brodmann areas":"ブロードマン領野で観察"}</button>
       </div>
       {brodmannActive?<Suspense fallback={<p role="status">{englishEdition?"Loading Brodmann observation…":"ブロードマン観察を準備中…"}</p>}><BrodmannExplorer english={englishEdition}/></Suspense>:<div className="learningGrid">
-        <section ref={selectedPathway==="visual"?circuitObservationRef:null} className="learningModelCard surfaceModelCard"><div className="panelHead"><div><b>{surfaceLesson.name}</b><small>{surfaceLesson.en}・ドラッグで回転</small></div><div className="panelActions">{selectedPathway==="visual"&&<button className="circuitReturnButton" onClick={returnToCircuitGuide}>{englishEdition?"Back to explanation":"回路解説へ戻る"}</button>}{surfaceView==="free"?<span>{freeSelections.length} 構造を選択中</span>:surfaceNeurovascular?<span>3D OVERLAY · PILOT</span>:surfaceView!=="medial"?<button className={surfaceCerebellum?"active":""} aria-pressed={surfaceCerebellum} onClick={()=>setSurfaceCerebellum(value=>!value)} disabled={webglUnavailable}>{surfaceCerebellum?"小脳を外す":"小脳を戻す"}</button>:null}<button onClick={resetSurfaceView} disabled={webglUnavailable}>向きを戻す</button></div></div>
+        <section ref={circuitModelRef} tabIndex={-1} className="learningModelCard surfaceModelCard"><div className="panelHead"><div><b>{surfaceLesson.name}</b><small>{surfaceLesson.en}・ドラッグで回転</small></div><div className="panelActions">{surfaceView==="free"&&selectedPathway&&<button className="circuitReturnButton" onClick={returnToCircuitGuide}>{englishEdition?"Back to explanation":"回路解説へ戻る"}</button>}{surfaceView==="free"?<span>{freeSelections.length} 構造を選択中</span>:surfaceNeurovascular?<span>3D OVERLAY · PILOT</span>:surfaceView!=="medial"?<button className={surfaceCerebellum?"active":""} aria-pressed={surfaceCerebellum} onClick={()=>setSurfaceCerebellum(value=>!value)} disabled={webglUnavailable}>{surfaceCerebellum?"小脳を外す":"小脳を戻す"}</button>:null}<button onClick={resetSurfaceView} disabled={webglUnavailable}>向きを戻す</button></div></div>
           <div className={`learningModelStage modelStage ${webglUnavailable?"webglUnavailable":""}`} data-rotation-x={rotation.x} data-rotation-y={rotation.y} data-rotation-z={rotation.z??0} tabIndex={webglUnavailable?undefined:0} aria-label={webglUnavailable?undefined:"脳表3Dモデル。ドラッグまたは矢印キーで回転、Rキーで向きを戻す"} onKeyDown={webglUnavailable?undefined:handleModelKey} onPointerDown={webglUnavailable?undefined:beginRotation} onPointerMove={webglUnavailable?undefined:move} onPointerUp={webglUnavailable?undefined:()=>setDrag(null)} onPointerCancel={webglUnavailable?undefined:()=>setDrag(null)} onContextMenu={webglUnavailable?undefined:event=>event.preventDefault()}>
             <AtlasVolumeCanvas kind="surface" plane="sagittal" position={50} focus="thalamus" display="specimen" rotation={rotation} view={(surfaceNeurovascular||surfaceView==="free")&&surfaceGhost?"ghost":"inside"} contrast="bigbrain" showFocus={surfaceView==="free"} showCutPlane={false} hemisphere={renderedHemisphere} showCerebellum={surfaceCerebellum} showPonsMedulla={surfacePonsMedulla} showMidbrain={surfaceView!=="medial"} surfaceHighlights={surfaceNeurovascular?[]:papezStepperActive?papezStepperSurfaceHighlights:surfaceHighlightLayers} surfaceLandmarks={surfaceNeurovascular?[]:renderedSurfaceLandmarks} surfaceDeepLandmarks={surfaceNeurovascular?[]:papezStepperActive?[...papezStepperDeepKeys]:renderedSurfaceDeepLandmarks} neurovascularOverlay={surfaceNeurovascular||surfaceView==="inferior"||surfaceView==="free"?surfaceOverlay:"none"} showBrainstemNerves={surfaceView==="inferior"||surfaceView==="free"?surfacePonsMedulla:surfaceNerves} neurovascularHighlights={surfaceNeurovascular||surfaceView==="free"?neurovascularHighlightLayers:surfaceView==="inferior"?inferiorCanonicalNerveHighlights:[]} showBasalLandmarks={surfaceView==="inferior"||surfaceView==="arteries"||surfaceView==="cranialNerves"||surfaceView==="free"} basalLandmark={surfaceView==="cranialNerves"?"brainstem-only":surfaceView==="arteries"?"without-brainstem-patches":"all"} basalHighlights={surfaceView==="free"?renderedBasalLandmarks:(surfaceView==="inferior"||surfaceView==="cranialNerves")?surfaceVisibleBasalLandmarks:[]} basalOnlySelected={false} selectionMeshLayers={surfaceView==="free"?(basalStepperActive?freePathwayMeshLayers:papezStepperActive?papezStepperMeshLayers:freePathwayMeshLayers):[]} onSurfaceIdentify={surfaceView==="free"?identifyFreeSurface:undefined} onWebGLUnavailableChange={setWebglUnavailable}/>
             {!webglUnavailable&&<><OrientationCompass rotation={rotation}/>
@@ -1493,8 +1506,8 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
           {surfaceView==="free"?<div className="freeExplorer">
             <header><div><b>構造を探す</b><small>文字検索または分類別索引から追加</small></div><button onClick={clearFreeObservation} disabled={freeSelections.length===0&&selectedPathway===null}>すべて解除</button></header>
             <section className="pathwayPresets" aria-label={englishEdition?"Circuit observation presets":"経路観察プリセット"}><div><b>{englishEdition?"Circuit observation and explanation":"経路観察と回路解説"}</b><small>{englishEdition?"Separates conceptual information flow from specimen locations":"概念上の情報の流れと、標本での観察位置を区別"}</small></div><nav>{pathwayPresetKeys.map(key=><button key={key} className={selectedPathway===key?"active":""} aria-pressed={selectedPathway===key} onClick={()=>applyPathwayPreset(key)}>{englishEdition?key==="papez"?"Papez circuit":key==="visual"?"Visual pathway":"Basal ganglia circuits":pathwayPresets[key].name}</button>)}</nav>{activePathway&&selectedPathway&&<div className="pathwayObservationOrder"><b>{englishEdition?"Order for specimen observation":"標本での観察順"}</b><ol>{(englishEdition?pathwayObservationStepsEnglish[selectedPathway]:activePathway.steps).map(step=><li key={step}>{step}</li>)}</ol></div>}</section>
-            {selectedPathway&&<div ref={circuitGuideRef}><CircuitTeachingPanel key={selectedPathway} circuitKey={selectedPathway} english={englishEdition} onObserve={observeCircuitStage}/></div>}
-            {basalStepperActive&&<section ref={circuitObservationRef} className="pathwayStepper" aria-label="大脳基底核回路の位置関係ステッパー">
+            {selectedPathway&&<div ref={circuitGuideRef} tabIndex={-1}><CircuitTeachingPanel key={selectedPathway} circuitKey={selectedPathway} english={englishEdition} onObserve={observeCircuitStage}/></div>}
+            {basalStepperActive&&<section ref={circuitObservationRef} tabIndex={-1} className="pathwayStepper" aria-label="大脳基底核回路の位置関係ステッパー">
               <header><div><b>大脳基底核回路・位置関係ステッパー</b><small>回路を完全再現せず、既存構造の位置関係を順に確認する試作</small></div><span>{basalStepperIndex+1} / {BASAL_GANGLIA_STEPS.length}</span></header>
               <div className="pathwayStepperStageTitle"><span>STEP {String(basalStepperIndex+1).padStart(2,"0")}</span><b>{basalStepperStep.label}</b><small>{planeData[basalStepperStep.plane].ja}・位置 {basalStepperStep.position}（既存クイズ位置）</small></div>
               <div className="pathwayStepperSlice" aria-label={`${basalStepperStep.label}の同期断面`}><div className="pathwayStepperSliceHead"><b>{planeData[basalStepperStep.plane].ja}・同期断面</b><small>色付き画素を確認</small></div><div className="pathwayStepperSliceStage"><AtlasVolumeCanvas kind="slice" plane={basalStepperStep.plane} position={basalStepperStep.position} focus={structures[basalStepperStructureKeys[0]].meshFocus??"thalamus"} display="specimen" rotation={{x:-7,y:-18,z:0}} contrast="bigbrain" highlights={basalStepperSliceHighlights}/><div className="pathwayStepperSliceLegend">{basalStepperStructureKeys.map(key=><span key={key}><i style={{background:structures[key].color}}/>{structures[key].name}</span>)}</div></div></div>
@@ -1502,7 +1515,7 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
               <button className="circuitReturnButton" onClick={returnToCircuitGuide}>{englishEdition?"Back to circuit explanation":"回路解説へ戻る"}</button>
               <p className="pathwayStepperCaution">この試作は、既存の手動分節ラベルを3Dと断面で同期表示します。新しい境界、線、結合、興奮／抑制、投射方向は追加していません。手動の自由観察選択とは別に動作します。</p>
             </section>}
-            {papezStepperActive&&<section ref={circuitObservationRef} className="pathwayStepper papezPathwayStepper" aria-label="Papez回路の由来別位置関係ステッパー">
+            {papezStepperActive&&<section ref={circuitObservationRef} tabIndex={-1} className="pathwayStepper papezPathwayStepper" aria-label="Papez回路の由来別位置関係ステッパー">
               <header><div><b>Papez回路・由来別位置関係ステッパー</b><small>既存ラベルと既存3Dガイドを、由来を分けて順に確認する試作</small></div><span>{papezStepperIndex+1} / {PAPEZ_STEPS.length}</span></header>
               <div className="pathwayStepperStageTitle"><span>STEP {String(papezStepperIndex+1).padStart(2,"0")} · {papezStepKindLabels[papezStepperStep.kind]}</span><b>{papezStepperStep.label}</b><small>{papezStepSourceLabels[papezStepperStep.source]}・{papezStepperTargetNames.join(" ／ ")}</small></div>
               {papezStepperStep.kind==="section-label"&&<div className="pathwayStepperSlice" aria-label={`${papezStepperStep.label}の同期断面`}><div className="pathwayStepperSliceHead"><b>{planeData[papezStepperStep.plane!].ja}・同期断面</b><small>既存クイズ位置・色付き画素を確認</small></div><div className="pathwayStepperSliceStage"><AtlasVolumeCanvas kind="slice" plane={papezStepperStep.plane!} position={papezStepperStep.position!} focus={structures[papezStepperSectionKeys[0]].meshFocus??"thalamus"} display="specimen" rotation={{x:-7,y:-18,z:0}} contrast="bigbrain" highlights={papezStepperSliceHighlights}/><div className="pathwayStepperSliceLegend">{papezStepperSectionKeys.map(key=><span key={key}><i style={{background:structures[key].color}}/>{structures[key].name}</span>)}</div></div></div>}
