@@ -5,6 +5,7 @@
 ## まず読む資料
 
 - [再開メモ：完了したこと・次にやること](RESUME_SUMMARY.md)
+- [未完了作業のSol・Luna・Astra担当判断と実行指示](REMAINING_WORK_ASSIGNMENTS_2026-09-14.md)
 - [Sol・Luna成果の再確認と機能／回路教材の次の指示](FUNCTION_CIRCUIT_NEXT_INSTRUCTIONS_2026-09-14.md)
 - [機能・回路教材の実装・独立監査・補正記録](FUNCTION_CIRCUIT_IMPLEMENTATION_2026-09-14.md)
 - [9月14日：残る分節／模式モデルの統合チェックポイント（未公開）](SEPTEMBER14_ANATOMY_INTEGRATION_CHECKPOINT.md)
