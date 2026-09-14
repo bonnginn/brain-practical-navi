@@ -1,0 +1,523 @@
+{
+  "format": "brain-practical-current-schematic-roots-scope-inventory",
+  "version": 1,
+  "fixedInputs": {
+    "docs/NERVE_ORIGIN_IMAGE_REVIEW.md": {
+      "sha256": "3f099a21a2248c4d204634437eb3f49f9b11d8ba896cacc49c9f53e33c61a0ef",
+      "bytes": 27944
+    },
+    "scripts/build_neurovascular_overlays.py": {
+      "sha256": "8a0a09142c61badf051bf5ee41db6f31179a371a91cee2776f918717888943fd",
+      "bytes": 16468
+    },
+    "public/atlas/neurovascular-overlays.json": {
+      "sha256": "fa0143afd6725f073a853a31d9a1f32c83cb06b28a08a0b3b9512f26ba29ebc9",
+      "bytes": 9894
+    },
+    "public/atlas/structure-provenance.json": {
+      "sha256": "b9ab66c65a0dfefde58fd84ed55fe123636a6330fd66961addddfda63d2cd581",
+      "bytes": 55682
+    },
+    "src/quizAnatomyHold.mjs": {
+      "sha256": "e3ad0b68adaf1140f852ee6a2895a2d078e7e3f0069c7ca19c5bccd59b5bb088",
+      "bytes": 311
+    },
+    "public/atlas/overlay-nerves-pontine.mesh": {
+      "sha256": "1244f483c765ef084648a74bbad13cff78ea498d4edb9918e15812709e4fd823",
+      "bytes": 51852
+    },
+    "public/atlas/overlay-nerves-medullary.mesh": {
+      "sha256": "e4528cc306b535837d049385817c49aada20d25bf37a7a2caf7fa81d18ad157e",
+      "bytes": 69772
+    }
+  },
+  "generator": {
+    "path": "scripts/build_neurovascular_overlays.py",
+    "sha256": "8a0a09142c61badf051bf5ee41db6f31179a371a91cee2776f918717888943fd",
+    "declarations": {
+      "V 三叉神経": {
+        "generatorCall": "pair",
+        "mirroredSides": true,
+        "controlPointCount": 4,
+        "controlPoints": [
+          [
+            17,
+            -6,
+            -46
+          ],
+          [
+            23,
+            -2,
+            -45
+          ],
+          [
+            30,
+            2,
+            -43
+          ],
+          [
+            37,
+            7,
+            -39
+          ]
+        ],
+        "radius": 1.75
+      },
+      "IX 舌咽神経": {
+        "generatorCall": "pair",
+        "mirroredSides": true,
+        "controlPointCount": 4,
+        "controlPoints": [
+          [
+            13,
+            -26,
+            -62
+          ],
+          [
+            18,
+            -22,
+            -61
+          ],
+          [
+            23,
+            -17,
+            -58
+          ],
+          [
+            29,
+            -11,
+            -54
+          ]
+        ],
+        "radius": 0.66
+      },
+      "X 迷走神経": {
+        "generatorCall": "pair",
+        "mirroredSides": true,
+        "controlPointCount": 4,
+        "controlPoints": [
+          [
+            10.5,
+            -25,
+            -68
+          ],
+          [
+            16,
+            -22,
+            -67
+          ],
+          [
+            23,
+            -18,
+            -63
+          ],
+          [
+            30,
+            -13,
+            -58
+          ]
+        ],
+        "radius": 0.72
+      },
+      "XI 副神経": {
+        "generatorCall": "pair",
+        "mirroredSides": true,
+        "controlPointCount": 4,
+        "controlPoints": [
+          [
+            9,
+            -25,
+            -76
+          ],
+          [
+            14,
+            -24,
+            -74
+          ],
+          [
+            20,
+            -21,
+            -70
+          ],
+          [
+            27,
+            -17,
+            -64
+          ]
+        ],
+        "radius": 0.68
+      }
+    }
+  },
+  "overlayMetadata": {
+    "path": "public/atlas/neurovascular-overlays.json",
+    "sha256": "fa0143afd6725f073a853a31d9a1f32c83cb06b28a08a0b3b9512f26ba29ebc9",
+    "version": 3,
+    "coordinateSpace": "manually approximated MNI-oriented display space",
+    "status": "project-authored simplified teaching overlay; not validated morphometry"
+  },
+  "provenance": {
+    "key": "cranial-nerves-one-to-twelve",
+    "representations": [
+      "schematic-3d"
+    ],
+    "learnerSurfaces": [
+      "surface",
+      "quiz"
+    ],
+    "quizEligibility": "pilot",
+    "knownLimitations": [
+      "全12対を模式的な近位走行として示します。I・II以外の遠位走行、神経核、頭蓋孔、微細根糸は再現していません。名称同定pilotはI・III〜XIIの既存模式形状だけを扱い、起始・走行・接続を判定しません。"
+    ]
+  },
+  "quizHold": {
+    "path": "src/quizAnatomyHold.mjs",
+    "sha256": "e3ad0b68adaf1140f852ee6a2895a2d078e7e3f0069c7ca19c5bccd59b5bb088",
+    "heldTargets": [
+      "cn10",
+      "cn11",
+      "cn5",
+      "cn9"
+    ],
+    "targetStatus": {
+      "cn5": "held",
+      "cn9": "held",
+      "cn10": "held",
+      "cn11": "held"
+    }
+  },
+  "structures": {
+    "V": {
+      "quizTarget": "cn5",
+      "mesh": "pontine",
+      "displayShiftApplied": false,
+      "left": {
+        "side": "left",
+        "regionId": 30,
+        "name": "左V 三叉神経",
+        "vertexCount": 160,
+        "vertexIndexRange": [
+          0,
+          159
+        ],
+        "ringCount": 16,
+        "ringIndexRange": [
+          0,
+          15
+        ],
+        "sidesPerRing": 10,
+        "faceCount": 300,
+        "faceIndexRange": [
+          0,
+          299
+        ],
+        "storedVertexBoundsZYX": {
+          "min": [
+            -47.65169143676758,
+            -7.4471211433410645,
+            -38.200008392333984
+          ],
+          "max": [
+            -37.5045051574707,
+            8.41271686553955,
+            -16.01595687866211
+          ]
+        }
+      },
+      "right": {
+        "side": "right",
+        "regionId": 31,
+        "name": "右V 三叉神経",
+        "vertexCount": 160,
+        "vertexIndexRange": [
+          160,
+          319
+        ],
+        "ringCount": 16,
+        "ringIndexRange": [
+          0,
+          15
+        ],
+        "sidesPerRing": 10,
+        "faceCount": 300,
+        "faceIndexRange": [
+          300,
+          599
+        ],
+        "storedVertexBoundsZYX": {
+          "min": [
+            -47.65169143676758,
+            -7.4471211433410645,
+            16.01595687866211
+          ],
+          "max": [
+            -37.5045051574707,
+            8.41271686553955,
+            38.200008392333984
+          ]
+        }
+      }
+    },
+    "IX": {
+      "quizTarget": "cn9",
+      "mesh": "medullary",
+      "displayShiftApplied": false,
+      "left": {
+        "side": "left",
+        "regionId": 38,
+        "name": "左IX 舌咽神経",
+        "vertexCount": 160,
+        "vertexIndexRange": [
+          0,
+          159
+        ],
+        "ringCount": 16,
+        "ringIndexRange": [
+          0,
+          15
+        ],
+        "sidesPerRing": 10,
+        "faceCount": 300,
+        "faceIndexRange": [
+          0,
+          299
+        ],
+        "storedVertexBoundsZYX": {
+          "min": [
+            -62.623165130615234,
+            -26.521303176879883,
+            -29.495445251464844
+          ],
+          "max": [
+            -53.43321990966797,
+            -10.50455379486084,
+            -12.595224380493164
+          ]
+        }
+      },
+      "right": {
+        "side": "right",
+        "regionId": 39,
+        "name": "右IX 舌咽神経",
+        "vertexCount": 160,
+        "vertexIndexRange": [
+          160,
+          319
+        ],
+        "ringCount": 16,
+        "ringIndexRange": [
+          0,
+          15
+        ],
+        "sidesPerRing": 10,
+        "faceCount": 300,
+        "faceIndexRange": [
+          300,
+          599
+        ],
+        "storedVertexBoundsZYX": {
+          "min": [
+            -62.623165130615234,
+            -26.521303176879883,
+            12.595224380493164
+          ],
+          "max": [
+            -53.43321990966797,
+            -10.50455379486084,
+            29.495445251464844
+          ]
+        }
+      }
+    },
+    "X": {
+      "quizTarget": "cn10",
+      "mesh": "medullary",
+      "displayShiftApplied": false,
+      "left": {
+        "side": "left",
+        "regionId": 40,
+        "name": "左X 迷走神経",
+        "vertexCount": 160,
+        "vertexIndexRange": [
+          320,
+          479
+        ],
+        "ringCount": 16,
+        "ringIndexRange": [
+          0,
+          15
+        ],
+        "sidesPerRing": 10,
+        "faceCount": 300,
+        "faceIndexRange": [
+          600,
+          899
+        ],
+        "storedVertexBoundsZYX": {
+          "min": [
+            -68.6808853149414,
+            -25.63315200805664,
+            -30.517423629760742
+          ],
+          "max": [
+            -57.41028594970703,
+            -12.402823448181152,
+            -10.157188415527344
+          ]
+        }
+      },
+      "right": {
+        "side": "right",
+        "regionId": 41,
+        "name": "右X 迷走神経",
+        "vertexCount": 160,
+        "vertexIndexRange": [
+          480,
+          639
+        ],
+        "ringCount": 16,
+        "ringIndexRange": [
+          0,
+          15
+        ],
+        "sidesPerRing": 10,
+        "faceCount": 300,
+        "faceIndexRange": [
+          900,
+          1199
+        ],
+        "storedVertexBoundsZYX": {
+          "min": [
+            -68.6808853149414,
+            -25.63315200805664,
+            10.157188415527344
+          ],
+          "max": [
+            -57.41028594970703,
+            -12.402823448181152,
+            30.517423629760742
+          ]
+        }
+      }
+    },
+    "XI": {
+      "quizTarget": "cn11",
+      "mesh": "medullary",
+      "displayShiftApplied": false,
+      "left": {
+        "side": "left",
+        "regionId": 42,
+        "name": "左XI 副神経",
+        "vertexCount": 160,
+        "vertexIndexRange": [
+          640,
+          799
+        ],
+        "ringCount": 16,
+        "ringIndexRange": [
+          0,
+          15
+        ],
+        "sidesPerRing": 10,
+        "faceCount": 300,
+        "faceIndexRange": [
+          1200,
+          1499
+        ],
+        "storedVertexBoundsZYX": {
+          "min": [
+            -76.60905456542969,
+            -25.671810150146484,
+            -27.484521865844727
+          ],
+          "max": [
+            -63.48468017578125,
+            -16.40287971496582,
+            -8.752615928649902
+          ]
+        }
+      },
+      "right": {
+        "side": "right",
+        "regionId": 43,
+        "name": "右XI 副神経",
+        "vertexCount": 160,
+        "vertexIndexRange": [
+          800,
+          959
+        ],
+        "ringCount": 16,
+        "ringIndexRange": [
+          0,
+          15
+        ],
+        "sidesPerRing": 10,
+        "faceCount": 300,
+        "faceIndexRange": [
+          1500,
+          1799
+        ],
+        "storedVertexBoundsZYX": {
+          "min": [
+            -76.60905456542969,
+            -25.671810150146484,
+            8.752615928649902
+          ],
+          "max": [
+            -63.48468017578125,
+            -16.40287971496582,
+            27.484521865844727
+          ]
+        }
+      }
+    }
+  },
+  "historicalImageEvidence": [
+    {
+      "path": "work/anatomy-review/nerve-origin-sections-v1/report.json",
+      "sha256": "ffada8125389c3e1d5064f2ae011a5dbfd95ca19a28d934e934a8c52e130de75",
+      "bytes": 46931,
+      "mutation": false,
+      "expertReviewed": false,
+      "figureCount": 10
+    },
+    {
+      "path": "work/anatomy-review/medullary-proximal-v1/report.json",
+      "sha256": "2c3ea31189af209c896aefe1211ed45f6495a15f92dc7caee523b97c2300c291",
+      "bytes": 6991,
+      "mutation": false,
+      "expertReviewed": false,
+      "figureCount": 6
+    },
+    {
+      "path": "work/anatomy-review/medullary-native300-v1/report.json",
+      "sha256": "01521b9c5f88dbcf461dd1b3bf097c178c33b341cb459ab33edf71bc77fdc496",
+      "bytes": 3454,
+      "mutation": false,
+      "expertReviewed": false,
+      "figureCount": 5
+    },
+    {
+      "path": "work/anatomy-review/medullary-path-sections-v1/report.json",
+      "sha256": "c16392ed5ca51e9e9be6dbe53a0fd27515acf3ad473903ba251c8eaaec9b161c",
+      "bytes": 30441,
+      "mutation": false,
+      "expertReviewed": false,
+      "figureCount": 6
+    },
+    {
+      "path": "work/anatomy-review/temporal-nerve-path-sections-v1/report.json",
+      "sha256": "7b9f85a178b286166ec4303207f2941a4b8ef494e91b417682b02e95f278742e",
+      "bytes": 22228,
+      "mutation": false,
+      "expertReviewed": false,
+      "figureCount": 4
+    }
+  ],
+  "status": {
+    "mutation": false,
+    "adopted": false,
+    "expertReviewed": false
+  },
+  "limitation": "This is a read-only inventory of authored schematic paths and their current metadata. Mesh ring ranges describe generated geometry only; they do not establish anatomical root exits, rootlet counts, laterality beyond the mesh side labels, or a complete nerve course. Historical reports are retained as evidence references and are not rejudged here."
+}
