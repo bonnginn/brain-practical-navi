@@ -135,6 +135,12 @@
 .selectedStructureBar { min-height: 58px; max-height: min(31vh,260px); overflow-y: auto; border-top: 1px solid #cccdc8; background: #eeede8; scrollbar-width: thin; scrollbar-color: #aeb6b2 transparent; }
 .selectedStructureSummary { position: sticky; z-index: 2; top: 0; display: grid; grid-template-columns: 8px minmax(0,1fr) auto; align-items: center; gap: 12px; min-height: 58px; padding: 9px 18px; border-bottom: 1px solid #d3d4cf; background: #eeede8f5; }
 .selectedStructureSummary > span { width: 8px; height: 34px; border-radius: 5px; }
+.selectedStructureSummary > span.empty { background: #aeb5b1; }
+.selectedStructureSummaryText { min-width: 0; }
+.selectedStructureTarget { display: flex !important; align-items: baseline; gap: 7px; }
+.selectedStructureTarget span { color: #9a5545; font-size: 12px; font-weight: 800; letter-spacing: .04em; }
+.selectedStructureRole { margin: 5px 0 0; color: #465351; font-size: 14px; line-height: 1.45; }
+.selectedStructureRole strong { margin-right: 7px; color: #315f5b; font-size: 12px; }
 .selectedStructureBar small { display: block; color: #606b69; font-size: 14px; }
 .selectedStructureBar b { display: block; margin-top: 2px; font-size: 16px; }
 .selectedStructureList { display: grid; gap: 1px; background: #d4d5d0; }
@@ -267,6 +273,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 @media(max-width:1050px){.appShell{grid-template-columns:160px minmax(0,1fr)}.topbar{grid-column:1/3}.sliceStage{grid-template-columns:minmax(0,1fr) 230px}}
 @media(max-width:940px){.sliceStage{height:auto;grid-template-columns:minmax(0,1fr) 210px}.insetHead{flex-basis:38px;height:38px}.modelInset .blockControls{left:7px;right:7px;bottom:7px}.modelInset .blockControls button{font-size:15px;padding-block:6px}.modelInset .orientation{display:none}}
 @media(max-width:760px){html,body,#root{height:auto;overflow:auto}.appShell{display:block;height:auto;padding:60px 0 72px}.leftRail,.workArea{overflow:visible}.visualGrid{display:block}.slicePanel{display:block}.sliceStage{height:760px;grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) 340px}.sliceViewport{border-right:0;border-bottom:1px solid #455052}.slicePanel{margin-top:0}.slicePanel .panelHead{display:block}.sliceTools{margin-top:8px;gap:4px;flex-wrap:wrap;justify-content:flex-start}.contrastSwitch button,.displaySwitch button{padding:6px 7px;font-size:15px}.workArea{padding:20px 12px}.workHead h1{font-size:26px}.panelHead b{font-size:16px}.panelHead small{font-size:16px}.sliceTimeline{padding-inline:13px}.rangeWrap button span{font-size:15px}.miniSlices>button>b{font-size:15px}.miniSlices>button>small{font-size:15px}.modelInset{width:auto;margin:0}.insetHead{flex-basis:30px;height:30px}.insetHead small,.insetHead>span{display:none}.insetViews{grid-template-columns:1fr 1fr;grid-template-rows:1fr;padding-bottom:0}.modelInset .blockControls,.modelInset .orientation{display:none}.identifyHint{top:8px;padding:5px 7px}.identifyHint b{font-size:15px}.identifyHint span{display:none}.identifyMarker{min-width:132px}.selectedStructureBar{max-height:280px}.selectedStructureSummary{grid-template-columns:7px minmax(0,1fr) auto;padding-inline:11px}.selectedStructureList>button{grid-template-columns:7px minmax(0,1fr);padding-inline:11px}.selectedStructureList p{grid-column:2}.clearStructures,.structureGroupGrid{display:none}.zoomReadout{right:10px;bottom:10px}.inspectorBackdrop{top:60px}.inspector{top:60px;width:min(360px,94vw);padding:20px}}
+@media(max-width:520px){.selectedStructureSummary{grid-template-columns:7px minmax(0,1fr);align-items:start}.selectedStructureSummary>span{grid-row:1/3;margin-top:3px}.selectedBarActions{grid-column:2;flex-wrap:wrap}.selectedStructureRole{font-size:13px}.selectedStructureBar button{min-height:40px}}
 
 .topbar { gap: 12px; }
 .brand, .topActions { flex: 0 0 auto; }
@@ -695,6 +702,11 @@ html, body, #root { height: 100%; overflow: hidden; }
 .pathwayPresets article li { counter-increment: pathway; padding: 3px 6px; border: 1px solid #d6c7b8; background: #fff; font-size: 12px; }
 .pathwayPresets article li::before { content: counter(pathway) ". "; color: #9a5b35; font-weight: 700; }
 .pathwayPresets article > small { display: block; color: #83533a; font-size: 12px; line-height: 1.45; }
+.pathwayObservationOrder { margin: 0; padding: 8px 10px; border-left: 3px solid #d39b68; background: #fffaf3; font-size: 13px; line-height: 1.5; }
+.pathwayObservationOrder b { display: block; margin-bottom: 2px; color: #7c5536; font-size: 12px; }
+.pathwayObservationOrder ol { display: flex; flex-wrap: wrap; gap: 4px; margin: 0; padding: 0; list-style: none; counter-reset: specimen-order; }
+.pathwayObservationOrder li { counter-increment: specimen-order; padding: 3px 6px; border: 1px solid #d6c7b8; background: #fff; font-size: 12px; }
+.pathwayObservationOrder li::before { content: counter(specimen-order) ". "; color: #9a5b35; font-weight: 700; }
 .pathwayStepper { display: grid; gap: 9px; margin-top: 10px; padding: 10px; border: 1px solid #ae9b72; background: #fff8e9; }
 .pathwayStepper > header { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
 .pathwayStepper > header > div { display: grid; gap: 2px; }
@@ -1605,4 +1617,114 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
   .quizSliceNavigator { grid-template-columns: minmax(0,1fr) auto; gap: .5rem; }
   .quizSliceAxis { grid-column: 1 / -1; }
   .quizSliceNavigator > button { grid-column: 1 / -1; }
+}
+
+/* Preserve the established 1440 px typography while easing dense learner UI
+   down continuously on narrower viewports. Metadata stops at 12 px; primary
+   reading text remains at least 13 px. Control hit areas are sized separately. */
+:root {
+  --ui-font-12: 12px;
+  --ui-font-13: clamp(12px,calc(11.6286px + .09524vw),13px);
+  --ui-font-14: clamp(12px,calc(11.2571px + .19048vw),14px);
+  --ui-font-15: clamp(12.5px,calc(11.5714px + .2381vw),15px);
+  --ui-font-16: clamp(13px,calc(11.8857px + .28571vw),16px);
+  --ui-font-17: clamp(14px,calc(12.8857px + .28571vw),17px);
+  --ui-font-18: clamp(15px,calc(13.8857px + .28571vw),18px);
+  --ui-font-19: clamp(15px,calc(13.5143px + .38095vw),19px);
+  --ui-font-20: clamp(16px,calc(14.5143px + .38095vw),20px);
+  --ui-font-23: clamp(18px,calc(16.1429px + .47619vw),23px);
+  --ui-font-25: clamp(20px,calc(18.1429px + .47619vw),25px);
+  --ui-font-27: clamp(22px,calc(20.1429px + .47619vw),27px);
+}
+
+.brand { font-size: var(--ui-font-19); }
+.modeSwitch button,
+.workspaceSwitch button > span,
+.structureBtn,
+.sectionLayoutSwitch button,
+.selectedStructureRole,
+.selectedStructureBar small,
+.selectedStructureList p,
+.timelineHead > div,
+.timelineHead output,
+.timeline > p,
+.inspector > p,
+.inspector dl div,
+.surfaceRegionPicker > div > button span,
+.surfaceLandmarkPicker > div > button span,
+.specimenLayerPicker > div > button span,
+.specimenLayerPicker > div > button em,
+.quizSetup label > span,
+.quizSetup > div > span,
+.quizSetup select,
+.quizOptions button small,
+.quizOptions button > b { font-size: var(--ui-font-14); }
+
+.legalButton,
+.feedbackButton,
+.helpButton,
+.surfaceRegionPicker > header button,
+.surfaceLandmarkPicker > header button { font-size: var(--ui-font-13); }
+
+.planeBtn small,
+.clearStructures,
+.structureGroupGrid button,
+.labelToggle,
+.insetHead b,
+.insetHead small,
+.insetHeadActions > span,
+.modelInset .blockControls button,
+.timelineHead b,
+.blockControls button,
+.panelHead > span,
+.inspectIndex,
+.inspector em,
+.inspector h3,
+.identifyCard small,
+.continuity > span,
+.continuity small,
+.quiz,
+.surfaceRegionPicker > header b,
+.surfaceRegionPicker > header small,
+.surfaceLandmarkPicker > header b,
+.surfaceLandmarkPicker > header small,
+.specimenLayerPicker > header b,
+.specimenLayerPicker > header small,
+.specimenLayerPicker > header button,
+.specimenLayerPicker > footer,
+.learningGuide h3,
+.blockIntroCard button { font-size: var(--ui-font-15); }
+
+.planeBtn > span,
+.panelHead small,
+.contrastSwitch button,
+.displaySwitch button,
+.identifyHint b,
+.orientation,
+.dragTip,
+.sliceStage .scale,
+.rangeWrap button span,
+.miniSlices > button > b,
+.miniSlices > button > small,
+.selectedStructureBar b,
+.selectedStructureBar button,
+.panelActions button,
+.specimenLayerPicker > div > button > b,
+.specimenLayerPicker > p,
+.learningGuide > p,
+.learningGuide li span,
+.homeModeGrid b,
+.quizOptions button > span { font-size: var(--ui-font-16); }
+
+.planeBtn b,
+.panelHead b,
+.identifyCard b,
+.blockIntroCard p { font-size: var(--ui-font-17); }
+.homeModeGrid em { font-size: var(--ui-font-18); }
+.homeLearningChoices span { font-size: var(--ui-font-20); }
+.sectionTitle h2 { font-size: var(--ui-font-23); }
+.workHead h1 { font-size: var(--ui-font-25); }
+.inspector h2 { font-size: var(--ui-font-27); }
+@media(max-width:1600px) and (min-width:761px) {
+  html[lang="en"] .brand { font-size: var(--ui-font-14); }
 }

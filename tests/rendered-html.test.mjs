@@ -2369,7 +2369,7 @@ test("accepts legacy meshes whose header stores triangle index count", async () 
   assert.match(canvas, /face count does not match mesh length/);
 });
 
-test("free observation offers schematic pathway presets instead of textbook chapters", async () => {
+test("free observation separates circuit teaching from specimen observation", async () => {
   const [page, css] = await Promise.all([
     readFile(new URL("app/page.tsx", root), "utf8"),
     readFile(new URL("app/canvas.css", root), "utf8"),
@@ -2377,8 +2377,9 @@ test("free observation offers schematic pathway presets instead of textbook chap
   assert.match(page, /visual:\{name:"視覚路"/);
   assert.match(page, /papez:\{name:"Papez回路"/);
   assert.match(page, /"basal-ganglia":\{name:"大脳基底核回路"/);
-  assert.match(page, /経路観察（試作）/);
-  assert.match(page, /線維の全経路、核内結合、興奮性／抑制性、個体差は再現していません/);
+  assert.match(page, /経路観察と回路解説/);
+  assert.match(page, /標本での観察順/);
+  assert.match(page, /<CircuitTeachingPanel/);
   assert.match(page, /selectionMeshLayers=\{surfaceView==="free"\?\(basalStepperActive\?freePathwayMeshLayers:papezStepperActive\?papezStepperMeshLayers:freePathwayMeshLayers\):\[\]\}/);
   assert.match(page, /aria-label="Papez回路の由来別位置関係ステッパー"/);
   assert.match(page, /papezStepperStep\.kind!=="section-label"&&<div className="pathwayStepper3dOnlyNote"/);

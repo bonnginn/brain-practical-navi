@@ -4,6 +4,7 @@ import { KeyboardEvent as ReactKeyboardEvent, lazy, PointerEvent, SyntheticEvent
 import { AtlasVolumeCanvas, QUIZ_SECTION_ACCENT_HEX, type BlockContextSpecimen, type HighlightLayer, type IdentifiedPoint } from "./AtlasVolumeCanvas";
 import betaStatus from "./beta-status.json";
 import { SegmentationReferences } from "./SegmentationReferences";
+import { CircuitTeachingPanel } from "./CircuitTeachingPanel";
 import { BIGBRAIN_SECTION_DIMS, SectionSliceStepper } from "./SectionSliceStepper";
 import { formatSectionPosition, stepPlanePosition } from "./segmentationGeometry";
 import betaGoNoGoDisplay from "./beta-go-no-go-display.json";
@@ -385,11 +386,16 @@ const freeObservationByKey=new Map(freeObservationItems.map(item=>[item.key,item
 type PathwayPresetKey="visual"|"papez"|"basal-ganglia";
 type PathwayPreset={name:string;summary:string;steps:string[];freeKeys:FreeObservationKey[];sectionKeys:StructureKey[];extraLayers?:{files:string[];color:[number,number,number]}[]};
 const pathwayPresets:Record<PathwayPresetKey,PathwayPreset>={
-  visual:{name:"視覚路",summary:"視神経から視交叉・視索、視床後部、視放線、一次視覚野までの並びを追います。視交叉と左右視索の断面分節は再作業中です。",steps:["視神経（II）","視交叉・左右視索（画像由来分節待ち）","外側膝状体付近","視放線","鳥距溝周囲の視覚皮質"],freeKeys:["neuro:cn2","neuro:opticChiasm","deep:thalami","region:pericalcarine","region:cuneus","region:lingual"],sectionKeys:["thalamus"],extraLayers:[{files:["block-radiations-optic-radiation"],color:[125,159,208]}]},
   papez:{name:"Papez回路",summary:"内側側頭葉周囲の既存断面ラベル、脳弓の模式3D、アトラス対応領域を由来別に順に観察します。線維走行や結合を再現する表示ではありません。乳頭体はBigBrain水平連続切片から作成した画像誘導ラベルです。",steps:["海馬体","脳弓","乳頭体","視床（前部核は未分節）","帯状回","海馬傍回・嗅内野"],freeKeys:["deep:fornix","deep:thalami","region:cingulate","region:parahippocampal","region:entorhinal"],sectionKeys:["hippocampus","mammillaryBody","thalamus"]},
+  visual:{name:"視覚路",summary:"視神経から視交叉・視索、視床後部、視放線、一次視覚野までの並びを追います。視交叉と左右視索の断面分節は再作業中です。",steps:["視神経（II）","視交叉・左右視索（画像由来分節待ち）","外側膝状体付近","視放線","鳥距溝周囲の視覚皮質"],freeKeys:["neuro:cn2","neuro:opticChiasm","deep:thalami","region:pericalcarine","region:cuneus","region:lingual"],sectionKeys:["thalamus"],extraLayers:[{files:["block-radiations-optic-radiation"],color:[125,159,208]}]},
   "basal-ganglia":{name:"大脳基底核回路",summary:"既存の線条体、淡蒼球、視床下核、黒質、視床を3Dと断面で同じ色に同期し、相互の位置関係を順に確認します。投射や回路結合を再現する表示ではありません。",steps:["尾状核・被殻（線条体）","淡蒼球外節・内節","視床下核","黒質","視床"],freeKeys:["deep:thalami"],sectionKeys:["caudate","putamen","pallidumExternal","pallidumInternal","subthalamic","substantiaNigra","thalamus"]},
 };
 const pathwayPresetKeys=Object.keys(pathwayPresets) as PathwayPresetKey[];
+const pathwayObservationStepsEnglish:Record<PathwayPresetKey,string[]>={
+  papez:["Hippocampal formation","Fornix","Mammillary bodies","Thalamus (anterior nuclei unsegmented)","Cingulate gyrus","Parahippocampal and entorhinal cortex"],
+  visual:["Optic nerve (II)","Optic chiasm and tracts (specimen segmentation pending)","Lateral geniculate region","Optic radiation","Visual cortex around the calcarine sulcus"],
+  "basal-ganglia":["Caudate and putamen (striatum)","External and internal pallidum","Subthalamic nucleus","Substantia nigra","Thalamus"],
+};
 const papezStepKindLabels:Record<PapezStep["kind"],string>={"section-label":"断面ラベル","schematic-3d":"模式3D","atlas-3d":"アトラス3D"};
 const papezStepSourceLabels:Record<PapezStep["source"],string>={"existing-quiz-section-label":"既存クイズ断面ラベル","schematic-3d":"模式3D","atlas-3d":"CerebrA／Desikan系アトラス3D"};
 
@@ -865,6 +871,8 @@ export default function Home() {
   const structureAvailable=(key:StructureKey)=>contrast==="single"?false:contrast==="bigbrain"?(structures[key].bigbrainIds?.length??0)>0:structures[key].ids.length>0;
   const activeVisibleStructures=visibleStructures.filter(structureAvailable);
   const visibleSet=useMemo(()=>new Set(visibleStructures),[visibleStructures]);
+  const selectedSummaryKey:StructureKey|undefined=activeVisibleStructures.includes(selectedStructure)?selectedStructure:activeVisibleStructures[0];
+  const selectedSummary=selectedSummaryKey?structures[selectedSummaryKey]:null;
   const sectionSelectionMeshLayers=activeVisibleStructures.flatMap(key=>{const files=(contrast==="bigbrain"?bigbrainSectionMeshFiles[key]:undefined)??structureMeshFiles[key]??[];return files.length?[{files,color:structures[key].rgb}]:[]});
   const modelFocusVisible=labels&&sectionSelectionMeshLayers.length>0;
   const currentSourceNote=contrast==="single"?"固定脳MRIでは未検証ラベルを表示しません":!structureAvailable(selectedStructure)?"現在の画像ソースでは未分節・着色できません":contrast==="bigbrain"?(cavitySelection?"脳実質を避け、腔の範囲だけを塗りつぶし":current.labelSource==="manual"?"同一格子の手動ラベル":current.labelSource==="image-guided-reviewed"?"連続切片で確認した画像誘導ラベル":current.labelSource==="image-guided"?"画像誘導の試作ラベル":"位置照合済みアトラスの試作ラベル"):"アトラス領域を表示中";
@@ -1262,6 +1270,13 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
     setSurfaceGhost(true);
     if(preset.freeKeys.some(item=>item.startsWith("neuro:")))setSurfacePonsMedulla(true)
   }
+  function observeCircuitStage(index:number){
+    if(selectedPathway==="papez"){choosePapezStepperStep(index);return}
+    if(selectedPathway==="basal-ganglia"){chooseBasalStepperStep(index);return}
+    const visualTargets:(FreeObservationKey|null)[]=["neuro:cn2","neuro:opticChiasm","neuro:cn2","deep:thalami",null,"region:pericalcarine"];
+    const key=visualTargets[index];
+    if(key)setFreeFocusedKey(key);
+  }
   function chooseBasalStepperStep(index:number){setBasalStepperPlaying(false);setBasalStepperIndex(Math.max(0,Math.min(BASAL_GANGLIA_STEPS.length-1,index)))}
   function toggleBasalStepperPlaying(){if(basalStepperPlaying){setBasalStepperPlaying(false);return}if(basalStepperIndex>=BASAL_GANGLIA_STEPS.length-1)return;setBasalStepperPlaying(true)}
   function choosePapezStepperStep(index:number){setPapezStepperPlaying(false);setPapezStepperIndex(Math.max(0,Math.min(PAPEZ_STEPS.length-1,index)))}
@@ -1430,8 +1445,15 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
           {contrast==="bigbrain"&&<SectionSliceStepper position={position} plane={plane} english={englishEdition} onStep={stepSection}/>}
         </section>
         <div className="selectedStructureBar">
-          <div className="selectedStructureSummary"><span style={{background:current.color}}/><div><small>{`${activeVisibleStructures.length}構造を同時表示中`}</small><b>{activeVisibleStructures.length?"選択中の構造":"構造を選択してください"}</b></div><div className="selectedBarActions"><button className="detailToggle" onClick={()=>setDetailsOpen(true)} disabled={!visibleSet.has(selectedStructure)}>詳細解説</button><button onClick={()=>setLabels(!labels)} disabled={contrast==="single"}>{labels?"隠す":"表示"}</button></div></div>
-          {activeVisibleStructures.length>0&&<div className="selectedStructureList" aria-label="選択中の構造と解説">{activeVisibleStructures.map(key=>{const item=structures[key],source=item.labelSource?learnerLabelSourceDisplay[item.labelSource]:null;return <button key={key} className={selectedStructure===key?"current":""} onClick={()=>focusStructure(key)}><i style={{background:item.color}}/><span><b>{item.name}</b><small>{anatomyDisplayEnglish(item.latin)}</small>{source&&<small className={`provenanceBadge ${source.className}`}>{source.label}</small>}</span><p>{labels?(sectionDeveloperControls&&key===selectedStructure?currentSourceNote:item.note):"解答を隠しています"}<em>{labels&&item.relation}</em></p></button>})}</div>}
+          <div className="selectedStructureSummary">
+            <span className={selectedSummary?"":"empty"} style={selectedSummary?{background:selectedSummary.color}:undefined}/>
+            <div className="selectedStructureSummaryText">
+              <small>{`${activeVisibleStructures.length}構造を同時表示中`}</small>
+              {selectedSummary&&selectedSummaryKey?<><b className="selectedStructureTarget"><span>現在の対象</span>{selectedSummary.name}</b><p className="selectedStructureRole"><strong>主な役割</strong>{structureFunctions[selectedSummaryKey]}</p></>:<b>構造を選択してください</b>}
+            </div>
+            <div className="selectedBarActions"><button className="detailToggle" onClick={()=>{if(selectedSummaryKey)focusStructure(selectedSummaryKey);setDetailsOpen(true)}} disabled={!selectedSummary}>詳細解説</button><button onClick={()=>setLabels(!labels)} disabled={contrast==="single"}>{labels?"隠す":"表示"}</button></div>
+          </div>
+          {activeVisibleStructures.length>0&&<div className="selectedStructureList" aria-label="選択中の構造と解説">{activeVisibleStructures.map(key=>{const item=structures[key],source=item.labelSource?learnerLabelSourceDisplay[item.labelSource]:null;return <button key={key} className={selectedSummaryKey===key?"current":""} onClick={()=>focusStructure(key)}><i style={{background:item.color}}/><span><b>{item.name}</b><small>{anatomyDisplayEnglish(item.latin)}</small>{source&&<small className={`provenanceBadge ${source.className}`}>{source.label}</small>}</span><p>{labels?(sectionDeveloperControls&&key===selectedStructure?currentSourceNote:item.note):"解答を隠しています"}<em>{labels&&item.relation}</em></p></button>})}</div>}
         </div>
       </section></div>
     </section>}
@@ -1464,7 +1486,8 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
           {surfaceView==="inferior"&&<div className="basalLandmarkPicker surfaceRegionPicker"><header><div><b>同定する構造</b><small>脳底構造は常時表示し、選択した構造を着色</small></div><span className="pickerActions"><button onClick={()=>setSurfaceVisibleBasalLandmarks(basalLandmarkKeys)} disabled={surfaceVisibleBasalLandmarks.length===basalLandmarkKeys.length}>すべて選択</button><button onClick={()=>setSurfaceVisibleBasalLandmarks([])} disabled={surfaceVisibleBasalLandmarks.length===0}>すべて解除</button></span></header><div>{basalLandmarkKeys.map(key=>{const item=basalLandmarks[key],active=surfaceVisibleBasalLandmarks.includes(key);return <button key={key} className={active?"active":""} aria-pressed={active} title={item.note} onClick={()=>toggleBasalLandmark(key)}><i style={{background:item.color}}/><span>{item.name}<small>{anatomyDisplayEnglish(item.latin)}</small></span></button>})}</div><em>上丘・下丘は中脳背側の構造です。選択後にモデルを回転して確認します。橋・延髄のボタンでは、付随する脳神経も一緒に着脱します。</em></div>}
           {surfaceView==="free"?<div className="freeExplorer">
             <header><div><b>構造を探す</b><small>文字検索または分類別索引から追加</small></div><button onClick={clearFreeObservation} disabled={freeSelections.length===0&&selectedPathway===null}>すべて解除</button></header>
-            <section className="pathwayPresets" aria-label="経路観察プリセット"><div><b>経路観察（試作）</b><small>既存の構造を順に結び、位置関係だけを確認</small></div><nav>{pathwayPresetKeys.map(key=><button key={key} className={selectedPathway===key?"active":""} aria-pressed={selectedPathway===key} onClick={()=>applyPathwayPreset(key)}>{pathwayPresets[key].name}</button>)}</nav>{activePathway&&<article><p>{activePathway.summary}</p><ol>{pathwayPresets[selectedPathway!].steps.map(step=><li key={step}>{step}</li>)}</ol><small>模式・試作表示です。線維の全経路、核内結合、興奮性／抑制性、個体差は再現していません。</small></article>}</section>
+            <section className="pathwayPresets" aria-label={englishEdition?"Circuit observation presets":"経路観察プリセット"}><div><b>{englishEdition?"Circuit observation and explanation":"経路観察と回路解説"}</b><small>{englishEdition?"Separates conceptual information flow from specimen locations":"概念上の情報の流れと、標本での観察位置を区別"}</small></div><nav>{pathwayPresetKeys.map(key=><button key={key} className={selectedPathway===key?"active":""} aria-pressed={selectedPathway===key} onClick={()=>applyPathwayPreset(key)}>{englishEdition?key==="papez"?"Papez circuit":key==="visual"?"Visual pathway":"Basal ganglia circuits":pathwayPresets[key].name}</button>)}</nav>{activePathway&&selectedPathway&&<div className="pathwayObservationOrder"><b>{englishEdition?"Order for specimen observation":"標本での観察順"}</b><ol>{(englishEdition?pathwayObservationStepsEnglish[selectedPathway]:activePathway.steps).map(step=><li key={step}>{step}</li>)}</ol></div>}</section>
+            {selectedPathway&&<CircuitTeachingPanel key={selectedPathway} circuitKey={selectedPathway} english={englishEdition} onObserve={observeCircuitStage}/>}
             {basalStepperActive&&<section className="pathwayStepper" aria-label="大脳基底核回路の位置関係ステッパー">
               <header><div><b>大脳基底核回路・位置関係ステッパー</b><small>回路を完全再現せず、既存構造の位置関係を順に確認する試作</small></div><span>{basalStepperIndex+1} / {BASAL_GANGLIA_STEPS.length}</span></header>
               <div className="pathwayStepperStageTitle"><span>STEP {String(basalStepperIndex+1).padStart(2,"0")}</span><b>{basalStepperStep.label}</b><small>{planeData[basalStepperStep.plane].ja}・位置 {basalStepperStep.position}（既存クイズ位置）</small></div>

@@ -541,6 +541,7 @@
   "中脳被蓋にある円形の核です。黒質・中脳水道との位置関係を確認します。": "A rounded nucleus in the midbrain tegmentum. Examine its relationship to the substantia nigra and cerebral aqueduct.",
   "中脳被蓋内に左右一対で現れる円形の核です。": "A paired rounded nucleus in the midbrain tegmentum.",
   "主な役割": "Main role",
+  "現在の対象": "Current focus",
   "主要な溝・裂": "Major sulci and fissures",
   "主要な溝・裂の線状ガイド、放線群、脈絡叢、脳弓、乳頭体、中脳水道、小脳脚、嗅球・嗅索と、視床下部・透明中隔・大脳脚・丘・膝状体・前有孔質・菱形窩・錐体・オリーブの位置目安、視覚路・漏斗、主要脳底動脈、脳神経根は手作業で標準空間へ置いたCC BY-NC-SA 4.0教材データです。BigBrainから抽出した正解形状ではなく、学習画面に表示する形状は「模式補助」「位置目安」と明示します。海馬采・鉤はβ候補から除外し、現行3Dには収録していません。旧模式乳頭体2資産は配布されても学習画面の代用表示には使用しません。": "The linear guides for major sulci and fissures, radiations, choroid plexus, fornix, mammillary bodies, cerebral aqueduct, cerebellar peduncles, olfactory bulbs and tracts, and positional guides for the hypothalamus, septum pellucidum, cerebral peduncles, colliculi, geniculate bodies, anterior perforated substance, rhomboid fossa, pyramids, and olives—as well as the optic pathway, infundibulum, major basal arteries, and cranial-nerve roots—are CC BY-NC-SA 4.0 teaching data placed manually in standard space. They are not ground-truth shapes extracted from BigBrain and are explicitly labelled as schematic aids or positional guides. The fimbria and uncus were removed from the beta candidate and are not included in the current 3D view. Two former schematic mammillary-body assets may remain distributed but are not used as substitutes in learner views.",
   "主要な脳回・皮質領域": "Major brain and cortex areas",
