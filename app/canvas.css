@@ -730,6 +730,8 @@ html, body, #root { height: 100%; overflow: hidden; }
 .pathwayStepperControls button:hover { border-color: #80672e; background: #fff; }
 .pathwayStepperControls button:disabled { cursor: default; opacity: .42; }
 .pathwayStepperControls .stepperPlay { border-color: #6d8270; background: #e2eee4; color: #31553e; }
+.circuitReturnButton { min-height: 44px; padding: 8px 12px; border: 1px solid #657e78; background: #edf4f1; color: #294b43; font-size: 13px; font-weight: 800; }
+.pathwayStepper > .circuitReturnButton { width: 100%; margin-top: 8px; }
 .pathwayStepperCaution { margin: 0; color: #735b37; font-size: 12px; line-height: 1.55; }
 .papezPathwayStepper { border-color: #a889a2; background: #fff8fb; }
 .papezPathwayStepper .pathwayStepperStageTitle { border-left-color: #a6678e; }

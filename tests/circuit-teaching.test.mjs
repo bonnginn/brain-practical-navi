@@ -21,8 +21,12 @@ test("teaching data keeps information flow separate from specimen observation",(
   assert.equal(papez.nodes.find(node=>node.key==="mammillothalamic").observationIndex,null);
   assert.match(papez.nodes.find(node=>node.key==="anterior-thalamus").limitation.ja,/前部核そのものは未分節/);
   assert.match(CIRCUIT_TEACHING.visual.nodes.find(node=>node.key==="optic-chiasm").detail.ja,/鼻側網膜.*交叉.*耳側網膜.*同側/);
+  assert.equal(CIRCUIT_TEACHING.visual.paths.length,4);
+  assert.ok(CIRCUIT_TEACHING.visual.paths.some(path=>path.labels.some(label=>/左眼鼻側網膜/.test(label.ja))&&path.labels.some(label=>/右視索/.test(label.ja))));
+  assert.ok(CIRCUIT_TEACHING.visual.paths.some(path=>path.labels.some(label=>/右眼耳側網膜/.test(label.ja))&&path.labels.some(label=>/右視索/.test(label.ja))));
   assert.match(CIRCUIT_TEACHING["basal-ganglia"].displayLimit.ja,/興奮性.*抑制性/);
   assert.deepEqual(CIRCUIT_TEACHING["basal-ganglia"].paths.map(path=>path.signs),[["+","−","−","+"],["+","−","−","+","−","+"],["+","+","−","+"]]);
+  assert.deepEqual(CIRCUIT_TEACHING["basal-ganglia"].nodes.find(node=>node.key==="gpi-snr").observations.map(action=>action.index),[1,3]);
 });
 
 test("bilingual selector returns the requested edition",()=>{

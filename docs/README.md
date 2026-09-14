@@ -6,6 +6,7 @@
 
 - [再開メモ：完了したこと・次にやること](RESUME_SUMMARY.md)
 - [Sol・Luna成果の再確認と機能／回路教材の次の指示](FUNCTION_CIRCUIT_NEXT_INSTRUCTIONS_2026-09-14.md)
+- [機能・回路教材の実装・独立監査・補正記録](FUNCTION_CIRCUIT_IMPLEMENTATION_2026-09-14.md)
 - [9月14日：残る分節／模式モデルの統合チェックポイント（未公開）](SEPTEMBER14_ANATOMY_INTEGRATION_CHECKPOINT.md)
 - [分節ロードマップと9月14日の到達点](SEGMENTATION_NEXT_ROADMAP.md)
 - [9月12日夕方：側脳室75点・表示修正・比較資料（未公開）](SEPTEMBER12_EVENING_CHECKPOINT.md)
