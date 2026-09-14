@@ -1,0 +1,726 @@
+{
+  "format": "brain-practical-current-optic-scope-inventory",
+  "version": 1,
+  "fixedInputs": {
+    "docs/VISUAL_PATHWAY_SCOPE_DECISION_2026-09-14.md": {
+      "sha256": "34400376e189b181af7c7f125200c22a4cbe54267aa8ae7d7c0318fc06912fcf",
+      "bytes": 4278
+    },
+    "OPTIC_PATHWAY_AUDIT.md": {
+      "sha256": "86ccf7ca94551c013fa3a9c4c35db5e03efff2cc10dc4a518a82b21608469c98",
+      "bytes": 14409
+    },
+    "docs/OPTIC_CURRENT_CONTINUITY_REVIEW.md": {
+      "sha256": "039250a164d7356af7e17e8bef34a58b4ff9da2abf0b0196587fd81642698248",
+      "bytes": 16371
+    },
+    "public/atlas/structure-provenance.json": {
+      "sha256": "b9ab66c65a0dfefde58fd84ed55fe123636a6330fd66961addddfda63d2cd581",
+      "bytes": 55682
+    }
+  },
+  "currentVolume": {
+    "path": "public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz",
+    "sha256": "785ce199e2c7226e5527a771e953d1b78cfed1067179aa04c63b9eba74577e0f",
+    "magic": "BBS1",
+    "dims": [
+      394,
+      466,
+      378
+    ],
+    "label33": {
+      "labelId": 33,
+      "voxelCount": 8482,
+      "coordinateSetSha256": "e57e8c06b9bfc8ed43f6d93d3854abd53d58add7e87c42764ec51480027c4ccf",
+      "bboxXYZ": {
+        "min": [
+          163,
+          246,
+          86
+        ],
+        "max": [
+          228,
+          302,
+          122
+        ],
+        "size": [
+          66,
+          57,
+          37
+        ]
+      },
+      "connectedComponentCount6": 12,
+      "connectedComponents6": [
+        {
+          "voxelCount": 8099,
+          "seedVoxel": [
+            211,
+            291,
+            87
+          ],
+          "bbox": {
+            "min": [
+              163,
+              248,
+              87
+            ],
+            "max": [
+              228,
+              292,
+              122
+            ],
+            "size": [
+              66,
+              45,
+              36
+            ]
+          }
+        },
+        {
+          "voxelCount": 285,
+          "seedVoxel": [
+            178,
+            297,
+            86
+          ],
+          "bbox": {
+            "min": [
+              173,
+              290,
+              86
+            ],
+            "max": [
+              184,
+              302,
+              94
+            ],
+            "size": [
+              12,
+              13,
+              9
+            ]
+          }
+        },
+        {
+          "voxelCount": 55,
+          "seedVoxel": [
+            201,
+            247,
+            111
+          ],
+          "bbox": {
+            "min": [
+              194,
+              246,
+              111
+            ],
+            "max": [
+              202,
+              256,
+              114
+            ],
+            "size": [
+              9,
+              11,
+              4
+            ]
+          }
+        },
+        {
+          "voxelCount": 18,
+          "seedVoxel": [
+            190,
+            247,
+            112
+          ],
+          "bbox": {
+            "min": [
+              189,
+              247,
+              112
+            ],
+            "max": [
+              194,
+              249,
+              114
+            ],
+            "size": [
+              6,
+              3,
+              3
+            ]
+          }
+        },
+        {
+          "voxelCount": 5,
+          "seedVoxel": [
+            183,
+            290,
+            97
+          ],
+          "bbox": {
+            "min": [
+              183,
+              289,
+              97
+            ],
+            "max": [
+              185,
+              290,
+              98
+            ],
+            "size": [
+              3,
+              2,
+              2
+            ]
+          }
+        },
+        {
+          "voxelCount": 4,
+          "seedVoxel": [
+            183,
+            291,
+            89
+          ],
+          "bbox": {
+            "min": [
+              183,
+              291,
+              89
+            ],
+            "max": [
+              184,
+              292,
+              90
+            ],
+            "size": [
+              2,
+              2,
+              2
+            ]
+          }
+        },
+        {
+          "voxelCount": 4,
+          "seedVoxel": [
+            203,
+            249,
+            114
+          ],
+          "bbox": {
+            "min": [
+              203,
+              249,
+              114
+            ],
+            "max": [
+              204,
+              251,
+              114
+            ],
+            "size": [
+              2,
+              3,
+              1
+            ]
+          }
+        },
+        {
+          "voxelCount": 3,
+          "seedVoxel": [
+            204,
+            249,
+            111
+          ],
+          "bbox": {
+            "min": [
+              204,
+              249,
+              111
+            ],
+            "max": [
+              204,
+              250,
+              112
+            ],
+            "size": [
+              1,
+              2,
+              2
+            ]
+          }
+        },
+        {
+          "voxelCount": 3,
+          "seedVoxel": [
+            216,
+            297,
+            92
+          ],
+          "bbox": {
+            "min": [
+              215,
+              297,
+              92
+            ],
+            "max": [
+              216,
+              298,
+              92
+            ],
+            "size": [
+              2,
+              2,
+              1
+            ]
+          }
+        },
+        {
+          "voxelCount": 2,
+          "seedVoxel": [
+            179,
+            288,
+            98
+          ],
+          "bbox": {
+            "min": [
+              179,
+              288,
+              98
+            ],
+            "max": [
+              180,
+              288,
+              98
+            ],
+            "size": [
+              2,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "voxelCount": 2,
+          "seedVoxel": [
+            191,
+            246,
+            114
+          ],
+          "bbox": {
+            "min": [
+              191,
+              246,
+              114
+            ],
+            "max": [
+              192,
+              246,
+              114
+            ],
+            "size": [
+              2,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "voxelCount": 2,
+          "seedVoxel": [
+            200,
+            257,
+            109
+          ],
+          "bbox": {
+            "min": [
+              200,
+              257,
+              109
+            ],
+            "max": [
+              200,
+              258,
+              109
+            ],
+            "size": [
+              1,
+              2,
+              1
+            ]
+          }
+        }
+      ]
+    },
+    "labelCounts": {
+      "36": 0,
+      "37": 0,
+      "38": 0
+    }
+  },
+  "historicalReference": {
+    "kind": "old-audit-fixture",
+    "path": "tests/fixtures/bigbrain-practical-segmentation-pre-third-inferior-current16.bin.gz",
+    "sha256": "48e1602b871b10bd7b31f99278aef8d0e44bcfb8930051fa9aa20ffd48802db2",
+    "auditReportPath": "segmentation-patches/review/optic-objective-audit-2026-09-12-superomedial75.json",
+    "auditReportSha256": "9793f38893485671026dff7ba4a9e3cec6aa58df6525e5486514781e4a0b6e84",
+    "auditInputSha256": "48e1602b871b10bd7b31f99278aef8d0e44bcfb8930051fa9aa20ffd48802db2",
+    "label33": {
+      "labelId": 33,
+      "voxelCount": 8482,
+      "coordinateSetSha256": "e57e8c06b9bfc8ed43f6d93d3854abd53d58add7e87c42764ec51480027c4ccf",
+      "bboxXYZ": {
+        "min": [
+          163,
+          246,
+          86
+        ],
+        "max": [
+          228,
+          302,
+          122
+        ],
+        "size": [
+          66,
+          57,
+          37
+        ]
+      },
+      "connectedComponentCount6": 12,
+      "connectedComponents6": [
+        {
+          "voxelCount": 8099,
+          "seedVoxel": [
+            211,
+            291,
+            87
+          ],
+          "bbox": {
+            "min": [
+              163,
+              248,
+              87
+            ],
+            "max": [
+              228,
+              292,
+              122
+            ],
+            "size": [
+              66,
+              45,
+              36
+            ]
+          }
+        },
+        {
+          "voxelCount": 285,
+          "seedVoxel": [
+            178,
+            297,
+            86
+          ],
+          "bbox": {
+            "min": [
+              173,
+              290,
+              86
+            ],
+            "max": [
+              184,
+              302,
+              94
+            ],
+            "size": [
+              12,
+              13,
+              9
+            ]
+          }
+        },
+        {
+          "voxelCount": 55,
+          "seedVoxel": [
+            201,
+            247,
+            111
+          ],
+          "bbox": {
+            "min": [
+              194,
+              246,
+              111
+            ],
+            "max": [
+              202,
+              256,
+              114
+            ],
+            "size": [
+              9,
+              11,
+              4
+            ]
+          }
+        },
+        {
+          "voxelCount": 18,
+          "seedVoxel": [
+            190,
+            247,
+            112
+          ],
+          "bbox": {
+            "min": [
+              189,
+              247,
+              112
+            ],
+            "max": [
+              194,
+              249,
+              114
+            ],
+            "size": [
+              6,
+              3,
+              3
+            ]
+          }
+        },
+        {
+          "voxelCount": 5,
+          "seedVoxel": [
+            183,
+            290,
+            97
+          ],
+          "bbox": {
+            "min": [
+              183,
+              289,
+              97
+            ],
+            "max": [
+              185,
+              290,
+              98
+            ],
+            "size": [
+              3,
+              2,
+              2
+            ]
+          }
+        },
+        {
+          "voxelCount": 4,
+          "seedVoxel": [
+            183,
+            291,
+            89
+          ],
+          "bbox": {
+            "min": [
+              183,
+              291,
+              89
+            ],
+            "max": [
+              184,
+              292,
+              90
+            ],
+            "size": [
+              2,
+              2,
+              2
+            ]
+          }
+        },
+        {
+          "voxelCount": 4,
+          "seedVoxel": [
+            203,
+            249,
+            114
+          ],
+          "bbox": {
+            "min": [
+              203,
+              249,
+              114
+            ],
+            "max": [
+              204,
+              251,
+              114
+            ],
+            "size": [
+              2,
+              3,
+              1
+            ]
+          }
+        },
+        {
+          "voxelCount": 3,
+          "seedVoxel": [
+            204,
+            249,
+            111
+          ],
+          "bbox": {
+            "min": [
+              204,
+              249,
+              111
+            ],
+            "max": [
+              204,
+              250,
+              112
+            ],
+            "size": [
+              1,
+              2,
+              2
+            ]
+          }
+        },
+        {
+          "voxelCount": 3,
+          "seedVoxel": [
+            216,
+            297,
+            92
+          ],
+          "bbox": {
+            "min": [
+              215,
+              297,
+              92
+            ],
+            "max": [
+              216,
+              298,
+              92
+            ],
+            "size": [
+              2,
+              2,
+              1
+            ]
+          }
+        },
+        {
+          "voxelCount": 2,
+          "seedVoxel": [
+            179,
+            288,
+            98
+          ],
+          "bbox": {
+            "min": [
+              179,
+              288,
+              98
+            ],
+            "max": [
+              180,
+              288,
+              98
+            ],
+            "size": [
+              2,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "voxelCount": 2,
+          "seedVoxel": [
+            191,
+            246,
+            114
+          ],
+          "bbox": {
+            "min": [
+              191,
+              246,
+              114
+            ],
+            "max": [
+              192,
+              246,
+              114
+            ],
+            "size": [
+              2,
+              1,
+              1
+            ]
+          }
+        },
+        {
+          "voxelCount": 2,
+          "seedVoxel": [
+            200,
+            257,
+            109
+          ],
+          "bbox": {
+            "min": [
+              200,
+              257,
+              109
+            ],
+            "max": [
+              200,
+              258,
+              109
+            ],
+            "size": [
+              1,
+              2,
+              1
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "provenance": {
+    "path": "public/atlas/structure-provenance.json",
+    "sha256": "b9ab66c65a0dfefde58fd84ed55fe123636a6330fd66961addddfda63d2cd581",
+    "key": "visual-pathway-legacy-optic-label",
+    "legacyIds": [
+      33
+    ],
+    "representations": [
+      "schematic-3d",
+      "atlas-provisional"
+    ],
+    "quizEligibility": "none",
+    "excludedFromSectionAndQuizTargets": true,
+    "id36To38AwaitingSegmentation": true
+  },
+  "comparison": {
+    "coordinateEncoding": "sorted flat BBS1 indices; X is fastest, then Y, then Z",
+    "currentCoordinateSetSha256": "e57e8c06b9bfc8ed43f6d93d3854abd53d58add7e87c42764ec51480027c4ccf",
+    "historicalCoordinateSetSha256": "e57e8c06b9bfc8ed43f6d93d3854abd53d58add7e87c42764ec51480027c4ccf",
+    "coordinateSetEqual": true,
+    "currentOnlyCount": 0,
+    "historicalOnlyCount": 0
+  },
+  "status": {
+    "mutation": false,
+    "adopted": false,
+    "expertReviewed": false,
+    "id33ExcludedFromSectionAndQuiz": true,
+    "ids36To38Unsegmented": true
+  },
+  "limitation": "Read-only SHA and coordinate-set comparison. The historical fixture is compared as a separate input; the old audit is not re-applied to the current volume. Counts and connectivity do not assign optic anatomy or justify an ID33 split."
+}
