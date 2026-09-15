@@ -43,3 +43,22 @@ test('BigBrain section selection/context are distinct from legacy MNI and croppe
   assert.match(canvas, /atlasMeshRevisionQuery\(name,SEGMENTATION_LABEL_REVISION\)/);
   assert.match(canvas, /\[kind,specimenBlock,surfaceAtlas,view,contrast,/);
 });
+
+
+test('internal capsule section mesh retains both full labels instead of the right cropped block', () => {
+  const info = JSON.parse(read('public/atlas/section-current-internal-capsule.json'));
+  const source = read(`public/atlas/${info.source}`);
+  assert.equal(info.sourceSha256, sha(source));
+  assert.deepEqual(info.labelIds, [31,32]);
+  const counts = {31:0,32:0};
+  for (const id of gunzipSync(source).subarray(10)) if (id in counts) counts[id]++;
+  assert.deepEqual(info.labelVoxelCounts, counts);
+  assert.ok(counts[31] > 0 && counts[32] > 0);
+  const mesh = read('public/atlas/section-current-internal-capsule.mesh');
+  assert.equal(sha(mesh), info.sha256);
+  const nv = mesh.readUInt32LE(4);
+  const xs = Array.from({length:nv}, (_,i)=>mesh.readFloatLE(12+i*12+8));
+  assert.ok(Math.min(...xs)<-20 && Math.max(...xs)>20);
+  const page = read('app/page.tsx').toString().split('const bigbrainSectionMeshFiles:')[1].split('};')[0];
+  assert.match(page, /internalCapsule:\["section-current-internal-capsule"\]/);
+});

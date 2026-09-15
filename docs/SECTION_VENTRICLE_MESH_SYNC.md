@@ -185,3 +185,12 @@ v3は551/552で、残りは資産数110→115の固定期待だけだった。
 全面監査・残存飛び地の帰属判定・黒い領域の追加分節は未完了。
 第四脳室105 voxel候補も未採用。これは表示データ同期であり専門家確認ではない。
 公開サイト・mainは未変更。
+
+
+## 2026-09-15：内包の片側表示の修正
+
+断面画面の内包選択が、右ID32をさらに切り出した `block-radiations-internal-capsule` にフォールバックしていた。BigBrain断面専用の参照に `section-current-internal-capsule` を追加し、既存ID31/32の全範囲から0.5 mm marching cubesで再構成した。左56,826点・右53,609点。補間による左右複製、穴埋め、平滑化、小成分除去はしない。分節SHA `785ce199e2c7226e5527a771e953d1b78cfed1067179aa04c63b9eba74577e0f` は不変。右側ブロック標本とMNI用参照は従来どおり。
+
+再現：`work/segmentation-ci-check/Scripts/python.exe scripts/build_section_internal_capsule_mesh.py`（既定は配布バイト照合）。`--apply` は生成を反映。出典・方法・左右点数・mesh SHAは `public/atlas/section-current-internal-capsule.json`。既存試作ラベルの表示同期であり、解剖学的な全境界の確定を意味しない。
+
+検証：関連Node3/3、生成バイト再照合、型検査、ローカルbuild、出典manifest検査成功。実ブラウザの水平断・内包単独・3Dのみ・2方向で左右表示を確認。4346更新。公開更新なし。

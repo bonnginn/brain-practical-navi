@@ -436,6 +436,7 @@ const structureMeshFiles:Partial<Record<StructureKey,string[]>>={
 // Uncropped current labels are used only with their matching BigBrain sections.
 // Keep the MNI and block-specimen mappings separate.
 const bigbrainSectionMeshFiles:Partial<Record<StructureKey,string[]>>={
+  internalCapsule:["section-current-internal-capsule"],
   aqueductPartial:["section-current-aqueduct-partial"],
   ventricle:["section-current-lateral-ventricles"],
   thirdVentricle:["section-current-third-ventricle"],
