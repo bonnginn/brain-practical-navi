@@ -101,14 +101,14 @@ test("published validation metadata records the approved ventricle repair and th
   ]);
   const metadata = JSON.parse(validation);
   const digest = createHash("sha256").update(labels).digest("hex");
-assert.equal(digest, "3aa4127843d1ca59ee4fa2d542632748ec542958c76329b627b3968b6d53f45e");
+  assert.equal(digest, "785ce199e2c7226e5527a771e953d1b78cfed1067179aa04c63b9eba74577e0f");
   assert.equal(metadata.ventriclePatchAudit.editCount, 33);
   assert.deepEqual(metadata.ventriclePatchAudit.transitions, { "0->25": 4, "0->23": 14, "0->24": 15 });
   assert.deepEqual(metadata.ventriclePatchAudit.review.pullRequest, { number: 14, mergeCommit: null });
   assert.equal(metadata.preVentricleCompressedSha256, "6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56");
   assert.equal(metadata.preVentricleRawVoxelSha256, "088fafcdf6afcea74a7a60075bf3b8a481e1a7aa6379a7c58fb9b9c17f5e731d");
-  assert.equal(metadata.labelCounts["23"], 80373);
-  assert.equal(metadata.labelCounts["24"], 79082);
-  assert.equal(metadata.labelCounts["25"], 11977);
+  assert.equal(metadata.labelCounts["23"], 81664);
+  assert.equal(metadata.labelCounts["24"], 82248);
+  assert.equal(metadata.labelCounts["25"], 11837);
   assert.match(metadata.teachingPolicy, /not expert-reviewed or research ground truth/);
 });

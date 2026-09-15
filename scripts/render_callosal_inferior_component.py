@@ -19,7 +19,7 @@ LABEL_SHA = '8cc65edf36e1e3a420168bfb663d6440418dd67189808263d11c180c4b403d16'
 LABEL_PATH = ROOT/'tests/fixtures/bigbrain-practical-segmentation-pre-callosal-inferior-8cc6.bin.gz'
 
 
-def frame(raw, labels, target, axis, index, crop, scale):
+def frame(raw, labels, target, axis, index, crop, scale, caption='fixed inferior island'):
     image = _oriented_crop(raw, axis, index, crop)
     seg = _oriented_crop(labels, axis, index, crop)
     selected = _oriented_crop(target, axis, index, crop)
@@ -29,7 +29,7 @@ def frame(raw, labels, target, axis, index, crop, scale):
     height, width = image.shape
     result = Image.new('RGB', (width*scale*2+10, height*scale+40), '#151515')
     ImageDraw.Draw(result).multiline_text(
-        (4, 3), f'{axis.upper()}={index} | Raw / ID30 red; fixed inferior island green\n'
+        (4, 3), f'{axis.upper()}={index} | Raw / ID30 red; {caption} green\n'
         'Read-only evidence; not an anatomical identification or adopted repair',
         fill='white', spacing=3,
     )

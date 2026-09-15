@@ -18,7 +18,7 @@ test('lateral cavity repair is exactly 34 reversible zero-to-ID24 voxels',async(
  assert.deepEqual(expected,after);assert.equal(sha(after.subarray(10)),r.afterRawVoxelSha256);
  for(const i of seen)expected[i]=0;assert.deepEqual(expected,before);
  const meta=JSON.parse(await read('public/atlas/bigbrain-practical-segmentation-icbm500-validation.json'));
- assert.equal(meta.rawVoxelSha256,latest.afterRawVoxelSha256);assert.equal(meta.lateralCrop34Audit.recordSha256,sha(bytes));assert.equal(meta.labelCounts['24'],79082);
+ assert.equal(meta.rawVoxelSha256,latest.afterRawVoxelSha256);assert.equal(meta.lateralCrop34Audit.recordSha256,sha(bytes));assert.equal(meta.labelCounts['24'],82248);
  assert.equal(r.projectAdopted,true);assert.equal(r.expertReviewed,false);assert.equal(r.published,false);
  const manifest=JSON.parse(await read('public/atlas/specimen-blocks.json'));
  assert.equal(r.meshImpact.blockMaskImpact.length,55);assert.equal(new Set(r.meshImpact.blockMaskImpact.map(p=>p.block+'/'+p.part)).size,55);
@@ -37,22 +37,43 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
   assert.equal(sha(bytes),audit.recordSha256);
   const base=await read('tests/fixtures/bigbrain-practical-segmentation-pre-'+name+'.bin.gz');
   assert.equal(sha(base),r.beforeSha256);if(current)assert.deepEqual(gunzipSync(base),current);
-  const expected=gunzipSync(base),seen=new Set(),label=r.transition==='mixed-to-26'?26:Number(r.transition.split('->')[1]);
-  const exclusions=r.transition==='mixed-ventricular-exclusions';
+  const expected=gunzipSync(base),seen=new Set(),label=r.transition==='mixed-to-26'?26:r.transition==='mixed-to-41'?41:Number(r.transition.split('->')[1]);
+  const exclusions=r.transition==='mixed-ventricular-exclusions'||['23->0','24->0','25->0','26->0','41->0'].includes(r.transition);
   const brainstem=r.transition==='27->26';
-  const mixed=r.transition==='mixed-to-26';
-  const combined=r.transition==='mixed-ventricular-repair';
-  if(combined){assert.equal(name,'ventricular-mixed12');assert.equal(r.count,12);assert.equal(r.points.filter(p=>p.before===0&&p.after===26).length,8);assert.equal(r.points.filter(p=>p.before===25&&p.after===0).length,4);}
+  const interfaceHold=r.transition==='27->0';
+  const callosalExclusion=r.transition==='30->0';
+  const mixed=['mixed-to-26','mixed-to-41'].includes(r.transition);
+  const posterior=r.transition==='mixed-posterior-ventricular-repair';
+  const bilateral=r.transition==='mixed-lateral-cavity-fill';
+  const combined=r.transition==='mixed-ventricular-repair'||posterior||bilateral;
+  if(bilateral){
+   const ranges={'lateral-upper729':[729,209,520,174,202],'lateral-anterior1981':[1981,133,1848,136,173],'lateral-upper-nearblack1487':[1487,740,747,174,202],'lateral-posterior196':[196,182,14,136,173],'lateral-superomedial75':[75,31,44,166,173]};
+   assert.ok(Object.hasOwn(ranges,name));const [count,left,right,zmin,zmax]=ranges[name];
+   assert.equal(r.count,count);assert.equal(r.points.filter(p=>p.before===0&&p.after===23).length,left);assert.equal(r.points.filter(p=>p.before===0&&p.after===24).length,right);assert.ok(r.points.every(p=>p.xyz[2]>=zmin&&p.xyz[2]<=zmax));
+   if(name==='lateral-anterior1981')assert.ok(r.points.every(p=>p.xyz[1]>=270));
+   if(name==='lateral-posterior196'){assert.ok(r.points.every(p=>p.xyz[1]<230));assert.equal(r.indicesSha256,'7dda60df84fc1a30ff5952fbbf51e53a6d34ac5140331a5fbc7f9457e6f5367f');assert.deepEqual(r.heldDisconnectedXYZ,[[132,146,147]]);}
+  }
+  else if(posterior){assert.equal(name,'posterior-ventricles158');assert.equal(r.count,158);assert.equal(r.points.filter(p=>p.before===25&&p.after===0).length,94);assert.equal(r.points.filter(p=>p.before===0&&p.after===41).length,12);assert.equal(r.points.filter(p=>p.before===27&&p.after===41).length,52);}
+  else if(combined){assert.equal(name,'ventricular-mixed12');assert.equal(r.count,12);assert.equal(r.points.filter(p=>p.before===0&&p.after===26).length,8);assert.equal(r.points.filter(p=>p.before===25&&p.after===0).length,4);}
+  else if(mixed&&label===41){assert.equal(name,'aqueduct-core179');assert.equal(r.count,179);assert.equal(r.points.filter(p=>p.before===0).length,64);assert.equal(r.points.filter(p=>p.before===27).length,115);assert.ok(r.points.every(p=>p.after===41));}
   else if(mixed){assert.equal(name,'fourth-depth27');assert.equal(r.count,27);assert.equal(r.points.filter(p=>p.before===0).length,16);assert.equal(r.points.filter(p=>p.before===27).length,11);assert.ok(r.points.every(p=>p.after===26));}
   else if(brainstem){assert.equal(name,'fourth-brainstem48');assert.equal(r.count,48);assert.ok(r.points.every(p=>p.before===27&&p.after===26));}
-  else if(!exclusions){assert.ok([23,24,26].includes(label));assert.equal(r.transition,'0->'+label);if(label===26){const counts={'fourth-remaining-anterior173':173,'fourth-upper-posterior111':111};assert.ok(Object.hasOwn(counts,name));assert.equal(r.count,counts[name]);}}
+  else if(interfaceHold){assert.equal(name,'midbrain-interface14');assert.equal(r.count,14);assert.ok(r.points.every(([x,y,z])=>x>=187&&x<=205&&y>=247&&y<=250&&z===115));assert.equal(r.netVentralAdditions,14789);}
+  else if(label===27){assert.equal(name,'midbrain-ventral14803');assert.equal(r.transition,'0->27');assert.equal(r.count,14803);assert.ok(r.points.every(([x,y,z])=>x>=145&&x<248&&y>=215&&y<251&&z>=104&&z<116));}
+  else if(callosalExclusion){assert.equal(name,'callosal-remaining304');assert.equal(r.count,304);assert.equal(r.indicesSha256,'b7156aa26def7b907a170de76de7922432e35eb3373e8ffa475887742b134eb6');}
+  else if(!exclusions){assert.ok([23,24,25,26].includes(label));assert.equal(r.transition,'0->'+label);if(label===25){assert.equal(name,'third-central-fringe61');assert.equal(r.count,61);}if(label===26){const counts={'fourth-remaining-anterior173':173,'fourth-upper-posterior111':111};assert.ok(Object.hasOwn(counts,name));assert.equal(r.count,counts[name]);}}
+  else if(name==='third-inferior-current16'){
+   assert.equal(r.transition,'25->0');assert.equal(r.count,16);assert.ok(r.points.every(p=>p.before===25&&p.after===0));
+  }
   else if(name==='posterior-ventricular-islands2') {
    assert.equal(r.count,2);
    assert.deepEqual(r.points,[{xyz:[151,111,156],before:23,after:0},{xyz:[237,120,158],before:24,after:0}]);
   }
+  else if(name==='lateral-medial-islands11'){assert.equal(r.count,11);assert.equal(r.points.filter(p=>p.before===23).length,4);assert.equal(r.points.filter(p=>p.before===24).length,7);assert.ok(r.points.every(p=>p.after===0&&p.xyz[2]>=119&&p.xyz[2]<=120));assert.equal(r.visuallyInspectedUniquePlanes,45);}
+  else if(name==='third-remnants91'){assert.equal(r.count,91);assert.ok(r.points.every(p=>p.before===25&&p.after===0));}
   else {assert.equal(name,'ventricular-exclusions46');assert.equal(r.count,46);assert.equal(r.points.filter(p=>p.before===23).length,12);assert.equal(r.points.filter(p=>p.before===25).length,34);}
   assert.equal(r.points.length,r.count);
-  for(const entry of r.points){const p=exclusions||brainstem||mixed||combined?entry.xyz:entry;const [x,y,z]=p;assert.ok(p.length===3&&p.every(Number.isInteger)&&x>=0&&x<394&&y>=0&&y<466&&z>=0&&z<378);const i=10+x+394*(y+466*z);assert.ok(!seen.has(i));seen.add(i);assert.equal(expected[i],exclusions||brainstem||mixed||combined?entry.before:0);if(exclusions)assert.equal(entry.after,0);expected[i]=combined?entry.after:exclusions?0:label;}
+  for(const entry of r.points){const p=exclusions||brainstem||mixed||combined?entry.xyz:entry;const [x,y,z]=p;assert.ok(p.length===3&&p.every(Number.isInteger)&&x>=0&&x<394&&y>=0&&y<466&&z>=0&&z<378);const i=10+x+394*(y+466*z);assert.ok(!seen.has(i));seen.add(i);assert.equal(expected[i],exclusions||brainstem||mixed||combined?entry.before:interfaceHold?27:callosalExclusion?30:0);if(exclusions)assert.equal(entry.after,0);expected[i]=combined?entry.after:exclusions?0:label;}
   assert.equal(sha(expected.subarray(10)),r.afterRawVoxelSha256);current=expected;
   assert.equal(r.projectAdopted,true);assert.equal(r.expertReviewed,false);assert.equal(r.published,false);
   const manifest=JSON.parse(await read('public/atlas/specimen-blocks.json'));
@@ -81,6 +102,19 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
   expectedChanges['fourth-depth27']=[['diencephalon','tissue',0,2],['medial-temporal','tissue',0,1],['hindbrain','pons-medulla',0,3],['hindbrain','fourth-ventricle',6,0]];
   expectedChanges['fourth-upper-posterior111']=[['diencephalon','tissue',0,3],['medial-temporal','tissue',0,3],['hindbrain','fourth-ventricle',6,0]];
   expectedChanges['ventricular-mixed12']=[['diencephalon','tissue',0,1],['hindbrain','fourth-ventricle',3,0]];
+  expectedChanges['third-remnants91']=[['diencephalon','third-ventricle',0,10]];
+  expectedChanges['third-central-fringe61']=[['diencephalon','third-ventricle',2,0]];
+  expectedChanges['aqueduct-core179']=[['diencephalon','hypothalamus',0,3],['radiations','tissue',0,6],['midbrain-section','tissue',0,1],['hindbrain','midbrain',0,5]];
+  expectedChanges['posterior-ventricles158']=[['diencephalon','third-ventricle',0,14],['midbrain-section','tissue',0,2],['hindbrain','midbrain',0,2]];
+  expectedChanges['lateral-upper729']=[['lateral-ventricle','tissue',39,0],['lateral-ventricle','ventricular-cavity',56,0],['commissural-system','tissue',3,0],['commissural-system','lateral-ventricles',88,0],['choroid-plexus','tissue',53,0],['choroid-plexus','ventricular-cavity',56,0]];
+  expectedChanges['lateral-anterior1981']=[['lateral-ventricle','tissue',251,115],['lateral-ventricle','ventricular-cavity',297,0],['radiations','tissue',0,111],['commissural-system','tissue',3,9],['commissural-system','lateral-ventricles',318,0],['choroid-plexus','tissue',161,114],['choroid-plexus','ventricular-cavity',294,0],['medial-temporal','tissue',0,12],['medial-temporal','inferior-horn',37,0]];
+  expectedChanges['lateral-upper-nearblack1487']=[['lateral-ventricle','tissue',78,118],['lateral-ventricle','ventricular-cavity',99,0],['diencephalon','tissue',0,46],['radiations','tissue',0,98],['commissural-system','tissue',57,48],['commissural-system','lateral-ventricles',183,0],['choroid-plexus','tissue',89,117],['choroid-plexus','ventricular-cavity',99,0]];
+  expectedChanges['midbrain-ventral14803']=[['midbrain-section','tissue',814,0],['hindbrain','midbrain',1801,0]];
+  expectedChanges['callosal-remaining304']=[['commissural-system','corpus-callosum',0,44]];
+  expectedChanges['lateral-posterior196']=[['lateral-ventricle','ventricular-cavity',2,0],['diencephalon','tissue',0,13],['radiations','tissue',0,2],['commissural-system','tissue',34,2],['commissural-system','lateral-ventricles',2,0],['choroid-plexus','ventricular-cavity',2,0]];
+  expectedChanges['lateral-medial-islands11']=[['lateral-ventricle','tissue',0,295],['lateral-ventricle','ventricular-cavity',0,1],['commissural-system','tissue',0,500],['choroid-plexus','tissue',0,114],['choroid-plexus','ventricular-cavity',0,1],['medial-temporal','inferior-horn',0,1]];
+  expectedChanges['lateral-superomedial75']=[['lateral-ventricle','tissue',0,6],['lateral-ventricle','ventricular-cavity',8,0],['radiations','tissue',0,6],['commissural-system','lateral-ventricles',9,0],['choroid-plexus','tissue',3,6],['choroid-plexus','ventricular-cavity',8,0]];
+  expectedChanges['third-inferior-current16']=[['diencephalon','third-ventricle',0,2]];
   if(name==='left-medial-anterior1092'){assert.equal(r.count,1092);assert.equal(r.transition,'0->23');}
   assert.deepEqual(changed.map(p=>[p.block,p.part,p.added,p.removed]),expectedChanges[name]??[]);
   for(const p of changed){
@@ -94,5 +128,5 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
  }
  assert.ok(current);assert.deepEqual(gunzipSync(await read('public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz')),current);
  assert.equal(meta.rawVoxelSha256,sha(current.subarray(10)));
- assert.equal(meta.labelCounts['23'],80373);assert.equal(meta.labelCounts['24'],79082);assert.equal(meta.labelCounts['25'],11977);
+ assert.equal(meta.labelCounts['23'],81664);assert.equal(meta.labelCounts['24'],82248);assert.equal(meta.labelCounts['25'],11837);
 });

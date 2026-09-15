@@ -10,9 +10,10 @@ test('identification stores its own explanation rather than borrowing the curren
  assert.match(card,/identified\.note/);
  assert.doesNotMatch(card,/current\.note/);
 });
-test('partial aqueduct has an identifiable name but is not added as a normal structure target',()=>{
+test('partial aqueduct has an identifiable name and a partial-only observation target',()=>{
  assert.match(page,/bigBrainNameById\.set\(41,"中脳水道候補（部分）"\)/);
- assert.doesNotMatch(page,/bigbrainIds:\[[^\]]*\b41\b/);
+ assert.match(page,/aqueductPartial:\s*\{[^\n]*bigbrainIds:\[41\]/);
+ assert.doesNotMatch(page,/target:"aqueductPartial"/);
  assert.match(page,/bigbrain&&point\.id===41/);
  assert.equal(catalog['中脳水道候補（部分）'],'Cerebral aqueduct candidate (partial)');
 });

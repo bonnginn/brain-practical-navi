@@ -107,14 +107,14 @@
     "20": 3920,
     "21": 14647,
     "22": 15077,
-    "23": 80373,
-    "24": 79082,
-    "25": 11977,
+    "23": 81664,
+    "24": 82248,
+    "25": 11837,
     "26": 9008,
-    "27": 249983,
+    "27": 264605,
     "28": 735945,
     "29": 725004,
-    "30": 146019,
+    "30": 145715,
     "31": 56826,
     "32": 53609,
     "33": 8482,
@@ -122,8 +122,7 @@
     "35": 71073,
     "39": 559,
     "40": 729,
-    "41": 16,
-    "0": 66630936
+    "41": 259
   },
   "atlasToManualDiceAudit": {
     "caudate": 0.8448,
@@ -134,8 +133,8 @@
     "accumbens": 0.6242,
     "amygdala": 0.7289
   },
-  "ventricleLabelsRestrictedToEmptySpace": true,
-  "ventricleTissueOverlap": 0,
+  "ventricleLabelsRestrictedToEmptySpace": false,
+  "ventricleTissueOverlap": 0.10980131448090975,
   "coordinatePolicy": "exact BigBrain ICBM2009sym 0.5 mm output grid; CerebrA resampling accepted only after overlap audit",
   "reviewedPatchAudit": {
     "path": "segmentation-patches/review/mammillary-bodies-horizontal-core-plus-clear-rim-candidate-2026-08-16.json",
@@ -454,7 +453,7 @@
     "workflowMetadataStatus": "strict"
   },
   "preClassificationCompressedSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
-  "rawVoxelSha256": "212ce93d5ae46fca79f274d34cf6ed92cd6d92674af78ccbb84643c87a57d552",
+  "rawVoxelSha256": "97480cb8894ff12fb3e77e5ada08f209dd142bff2f8ba4a4182d3cd43ffd310b",
   "brainstemThreeIslandsAudit": {
     "record": "segmentation-patches/review/brainstem-three-islands-adoption-2026-09-06.json",
     "recordSha256": "9c7b14f4272969261e3e2415d3f522b7e5d7db1eeca7cb0c8ae28b225458be66",
@@ -1153,6 +1152,241 @@
         "section-current-fourth-ventricle.mesh",
         "section-current-ventricular-system.mesh"
       ]
+    },
+    "third-remnants91": {
+      "record": "segmentation-patches/review/third-remnants91-adoption-2026-09-08.json",
+      "recordSha256": "1a5b82f171a2461c879bf3d50fc2e2cebe74936bbca4c55ee6f55ae4b80ea212",
+      "changedVoxelCount": 91,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-third-ventricle.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "third-central-fringe61": {
+      "record": "segmentation-patches/review/third-central-fringe61-adoption-2026-09-08.json",
+      "recordSha256": "a568ec85d72f0acc6fa022f61f33f3812a58e165f1e5124c9f25623f3372317a",
+      "changedVoxelCount": 61,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-third-ventricle.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "aqueduct-core179": {
+      "record": "segmentation-patches/review/aqueduct-core179-adoption-2026-09-08.json",
+      "recordSha256": "4ba89544a86ec75b180e1901444c5c3bb34043a738b64b7a2cfc30c2830f9a78",
+      "changedVoxelCount": 179,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "posterior-ventricles158": {
+      "record": "segmentation-patches/review/posterior-ventricles158-adoption-2026-09-08.json",
+      "recordSha256": "f45703a468358528c46b80dfc83d7c1bfaaa3b29079e842d0c45fab82df7c2ec",
+      "changedVoxelCount": 158,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-third-ventricle.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "lateral-upper729": {
+      "record": "segmentation-patches/review/lateral-upper729-adoption-2026-09-08.json",
+      "recordSha256": "f0941060af13f01ca7d97d3c5a221b3df1ebdd4a7c80864844a54fba59c4b901",
+      "changedVoxelCount": 729,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-lateral-ventricles.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "lateral-anterior1981": {
+      "record": "segmentation-patches/review/lateral-anterior1981-adoption-2026-09-08.json",
+      "recordSha256": "34307863602af0fffc7bb37412f301dbad12dcfe37b09c036159f64e991facbe",
+      "changedVoxelCount": 1981,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-lateral-ventricles.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "lateral-upper-nearblack1487": {
+      "record": "segmentation-patches/review/lateral-upper-nearblack1487-adoption-2026-09-08.json",
+      "recordSha256": "8c5d8c1b0c52eb5cfecfa2067ee29419158fcb523377a99454af12a07131b88c",
+      "changedVoxelCount": 1487,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-lateral-ventricles.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "midbrain-ventral14803": {
+      "record": "segmentation-patches/review/midbrain-ventral14803-adoption-2026-09-08.json",
+      "recordSha256": "fbfb4963986a67627f8b5ba8ed6a6c900768bab5bd2f75e2720246d9eb73e95e",
+      "changedVoxelCount": 14803,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": []
+    },
+    "midbrain-interface14": {
+      "record": "segmentation-patches/review/midbrain-interface14-adoption-2026-09-08.json",
+      "recordSha256": "635600b0de7bb17a96c3c61a9ca30eb4b6ad302101907a45f8dd4f444e65361d",
+      "changedVoxelCount": 14,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": []
+    },
+    "callosal-remaining304": {
+      "record": "segmentation-patches/review/callosal-remaining304-adoption-2026-09-12.json",
+      "recordSha256": "757b3f67ac9aa474c0a0a815d0c8affa7d6e9cd072b80b28894d72282639c025",
+      "changedVoxelCount": 304,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": []
+    },
+    "lateral-posterior196": {
+      "record": "segmentation-patches/review/lateral-posterior196-adoption-2026-09-12.json",
+      "recordSha256": "eda8eebfc44b003597754669c073f4cdeb37f4f8dbee09cf18041bac63ee088a",
+      "changedVoxelCount": 196,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-lateral-ventricles.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "lateral-medial-islands11": {
+      "record": "segmentation-patches/review/lateral-medial-islands11-adoption-2026-09-12.json",
+      "recordSha256": "19932b5732456fe5fb02d8f33eaec760eb3b34a6f8a64ea6386072fabfd9a7fd",
+      "changedVoxelCount": 11,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-lateral-ventricles.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "lateral-superomedial75": {
+      "record": "segmentation-patches/review/lateral-superomedial75-adoption-2026-09-12.json",
+      "recordSha256": "74da0ec2ac0637de8a804eb4c820846682c5279bebb9838eb3eb1798d9aa8316",
+      "changedVoxelCount": 75,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-lateral-ventricles.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "third-inferior-current16": {
+      "record": "segmentation-patches/review/third-inferior-current16-adoption-2026-09-14.json",
+      "recordSha256": "bb3063466a39ebedb3c4f7d2250661c6d69bf3eed557d92a35d0065be4c9029d",
+      "changedVoxelCount": 16,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-third-ventricle.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    }
+  },
+  "historicalGenerationClaims": {
+    "scope": "Legacy values present before current-image measurement; not claims about the current label volume.",
+    "ventricleLabelsRestrictedToEmptySpace": true,
+    "ventricleTissueOverlap": 0
+  },
+  "currentImageMeasurements": {
+    "schemaVersion": 1,
+    "sourceLabelSha256": "785ce199e2c7226e5527a771e953d1b78cfed1067179aa04c63b9eba74577e0f",
+    "sourceImageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
+    "rawVoxelSha256": "97480cb8894ff12fb3e77e5ada08f209dd142bff2f8ba4a4182d3cd43ffd310b",
+    "dimensionsXYZ": [
+      394,
+      466,
+      378
+    ],
+    "backgroundImageValue": 255,
+    "interpretation": "Image-value overlap only; non-background is not proof of tissue misclassification. Grid equality is not anatomical registration validation.",
+    "labelCounts": {
+      "1": 2887,
+      "2": 2888,
+      "3": 4239,
+      "4": 4524,
+      "5": 1369,
+      "6": 1457,
+      "7": 40703,
+      "8": 36877,
+      "9": 53160,
+      "10": 55336,
+      "11": 11442,
+      "12": 11364,
+      "13": 4391,
+      "14": 4853,
+      "15": 66476,
+      "16": 67298,
+      "17": 35259,
+      "18": 34251,
+      "19": 4189,
+      "20": 3920,
+      "21": 14647,
+      "22": 15077,
+      "23": 81664,
+      "24": 82248,
+      "25": 11837,
+      "26": 9008,
+      "27": 264605,
+      "28": 735945,
+      "29": 725004,
+      "30": 145715,
+      "31": 56826,
+      "32": 53609,
+      "33": 8482,
+      "34": 66084,
+      "35": 71073,
+      "39": 559,
+      "40": 729,
+      "41": 259
+    },
+    "ventricularLabelIds": [
+      23,
+      24,
+      25,
+      26,
+      41
+    ],
+    "ventricularVoxels": 185016,
+    "ventricularNonBackgroundVoxels": 20315,
+    "ventricularNonBackgroundFraction": 0.10980131448090975,
+    "ventricularLabelsRestrictedToImageBackground": false,
+    "perVentricularLabel": {
+      "23": {
+        "voxels": 81664,
+        "nonBackgroundVoxels": 9442
+      },
+      "24": {
+        "voxels": 82248,
+        "nonBackgroundVoxels": 10563
+      },
+      "25": {
+        "voxels": 11837,
+        "nonBackgroundVoxels": 0
+      },
+      "26": {
+        "voxels": 9008,
+        "nonBackgroundVoxels": 171
+      },
+      "41": {
+        "voxels": 259,
+        "nonBackgroundVoxels": 139
+      }
     }
   }
 }

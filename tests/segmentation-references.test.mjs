@@ -10,12 +10,29 @@ const source=await readFile(new URL('../app/SegmentationReferences.tsx',import.m
 const compiled=ts.transpileModule(source,{compilerOptions:{jsx:ts.JsxEmit.ReactJSX,module:ts.ModuleKind.CommonJS}}).outputText;
 const exported={};
 vm.runInNewContext(compiled,{exports:exported,require:createRequire(import.meta.url)});
-for(const english of [false,true])test(`browser references render source roles and eight links (${english?'en':'ja'})`,async()=>{
+for(const english of [false,true])test(`browser references render source roles and twenty-three links (${english?'en':'ja'})`,async()=>{
   const html=renderToStaticMarkup(exported.SegmentationReferences({english}));
-  assert.equal((html.match(/<a /g)||[]).length,8);
-  assert.equal((html.match(/target="_blank" rel="noreferrer"/g)||[]).length,8);
+  assert.equal((html.match(/<a /g)||[]).length,23);
+  assert.equal((html.match(/target="_blank" rel="noreferrer"/g)||[]).length,23);
+  assert.match(html,/10.1038\/s41586-025-09708-2/);
+  assert.match(html,english?/other specimens/:/別標本/);
+  assert.match(html,/10.3389\/fnana.2022.894606/);
+  assert.match(html,english?/have not been adopted wholesale/:/そのまま採用していません/);
+  assert.match(html,/10.1016\/j.neuroimage.2015.02.065/);
+  assert.match(html,/data-brainstem-representation="partial-tissue-repair"/);
+  assert.match(html,english?/not a completed segmentation/:/全脳幹の完成分節でも/);
+  assert.match(html,/17876227/);assert.match(html,/NBK540988/);
+  assert.match(html,/data-aqueduct-representation="partial-versus-schematic"/);
+  assert.match(html,english?/not the schematic aqueduct/:/模式中脳水道とは別/);
+  assert.match(html,/s00276-024-03312-1/);
+  assert.match(html,english?/missing specimen walls/:/標本で失われた壁/);
   assert.match(html,/s41597-019-0217-0/);
   assert.match(html,/3394010/);
+  assert.match(html,/NBK553189/);
+  assert.match(html,/NBK538491/);
+  assert.match(html,/NBK10847/);
+  assert.match(html,/PMC3543080/);
+  assert.match(html,english?/partial crossing/:/部分交叉/);
   assert.match(html,english?/not adopted boundary data/:/採用境界データではありません/);
   assert.match(html,english?/expert review/:/専門家レビュー/);
   if(english)assert.doesNotMatch(html,/[ぁ-んァ-ヶ一-龠]/);

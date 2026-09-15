@@ -70,11 +70,10 @@ test("pilot uses lazy relevant overlays, white target highlights, and review lin
   assert.match(canvas, /loadOptional\(wantNerves,"overlay-nerves-medullary"\)/);
   assert.match(page, /neurovascularHighlights=\{neurovascularQuiz\?quizNeurovascularHighlight:\[\]\}/);
   assert.match(page, /quizNeurovascularHighlight=useMemo<HighlightLayer\[\]>\(\(\)=>neurovascularQuiz\?\[\{ids:neurovascularQuizTarget\.ids,color:\[255,255,255\]\}/);
-  assert.match(page, /白色で強調された構造は？/);
+  assert.match(page, /白色で強調された模式3Dの名称はどれですか？/);
   assert.match(page, /view=\{neurovascularQuiz\?"ghost":"inside"\}/);
   assert.match(page, /showCerebellum=\{neurovascularQuiz\?false:quizQuestion\.view!=="medial"\}/);
   assert.match(page, /keepBrainstemOpaqueInGhost=\{neurovascularQuiz&&quizQuestion\.detail==="cranialNerves"\}/);
-  assert.match(page, /脳幹は起始位置の目安として不透明表示/);
   assert.match(canvas, /keepBrainstemOpaqueInGhost&&view==="ghost"&&i>=3/);
   assert.match(page, /setSelectedNeurovascularStructure\(question\.target\)/);
   assert.match(page, /chooseSurface\(question\.view,"replace"\)/);

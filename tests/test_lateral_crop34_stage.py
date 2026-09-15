@@ -35,6 +35,17 @@ class StageTest(unittest.TestCase):
                 for ident in [True,25,'24']:
                     with self.assertRaisesRegex(ValueError,'Invalid lateral label'):
                         stage.save_left_region([[1,1,1]],'test',[],'bad','test','test',label_id=ident)
+                for ident,name in [(25,'thirdVentricle'),(26,'fourthVentricle')]:
+                    prefix=f'generic-{ident}'
+                    stage.save_ventricular_region([[1,1,1]],digest(source.read_bytes()),[],prefix,'test','test',label_id=ident)
+                    folder=root/f'work/anatomy-review/{prefix}-stage-v1'
+                    result=json.loads((folder/'repair.json').read_text())
+                    after=np.frombuffer(gzip.decompress((folder/'labels.bin.gz').read_bytes()),dtype=np.uint8,offset=10).reshape(before.shape,order='F')
+                    self.assertEqual(result['transition'],f'0->{ident}')
+                    self.assertEqual(result[f'{name}After'],1)
+                    self.assertEqual(after[1,1,1],ident)
+                    self.assertEqual(after[0,0,0],18)
+                    self.assertEqual(np.count_nonzero(after!=before),1)
                 with self.assertRaisesRegex(ValueError,'conflicting labels'):
                     stage.save_left_region([[0,0,0]],'test',[],'conflict','test','test',label_id=24)
             self.assertEqual(gzip.decompress(source.read_bytes()),raw)

@@ -1,0 +1,168 @@
+{
+  "status": "candidate-only; no nerve attribution or anatomical approval",
+  "name": "CN X",
+  "side": "right",
+  "coordinateContract": "generator/display anatomical XYZ mm; no DISPLAY_SHIFT for III-XII",
+  "doubleShiftWarning": "Do not add [0,18,-18] to these points; that shift is not used by pontine nerves.",
+  "controlPointsXYZMm": [
+    [
+      17.5,
+      4,
+      -68
+    ],
+    [
+      19,
+      5,
+      -68
+    ],
+    [
+      21,
+      6,
+      -68
+    ],
+    [
+      23,
+      7,
+      -68
+    ]
+  ],
+  "radiusMm": 0.5,
+  "subdivisionsPerSpan": 20,
+  "attachmentAllowanceMm": 3.0,
+  "labelDisplayAffine": [
+    [
+      0.5,
+      0.0,
+      0.0,
+      -98.0
+    ],
+    [
+      0.0,
+      0.5,
+      0.0,
+      -116.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.5,
+      -90.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "labelsSha256": "785ce199e2c7226e5527a771e953d1b78cfed1067179aa04c63b9eba74577e0f",
+  "postAttachmentCentreSamples": 30,
+  "allCentreSamples": 61,
+  "allNonzeroLabelSamples": 0,
+  "allCentreLabelHistogram": {
+    "0": 61
+  },
+  "postAttachmentNonzeroLabelSamples": 0,
+  "postAttachmentLabelHistogram": {
+    "0": 30
+  },
+  "postAttachmentAllCentresOutsideDisplayedLabels": true,
+  "metrics": {
+    "segment-pons-medulla.mesh": {
+      "minimumCenterlineDistanceMm": 11.575836902790225,
+      "minimumTubeEnvelopeClearanceMm": 11.075836902790225,
+      "atCenterlineXYZMm": [
+        17.5,
+        4.0,
+        -68.0
+      ],
+      "nearestSampleXYZMm": [
+        10.5,
+        -3.0,
+        -62.0
+      ],
+      "evaluatedAfterAttachmentAllowance": false
+    },
+    "segment-cerebellum.mesh": {
+      "minimumCenterlineDistanceMm": 12.884104056129,
+      "minimumTubeEnvelopeClearanceMm": 12.384104056129,
+      "atCenterlineXYZMm": [
+        17.5,
+        4.0,
+        -68.0
+      ],
+      "nearestSampleXYZMm": [
+        8.499992370605469,
+        -5.0,
+        -66.0
+      ],
+      "evaluatedAfterAttachmentAllowance": false
+    },
+    "block-hindbrain-olives.mesh": {
+      "minimumCenterlineDistanceMm": 2.643322295926833,
+      "minimumTubeEnvelopeClearanceMm": 2.143322295926833,
+      "atCenterlineXYZMm": [
+        20.07215625,
+        5.55,
+        -68.0
+      ],
+      "nearestSampleXYZMm": [
+        17.48668670654297,
+        5.0,
+        -68.0
+      ],
+      "evaluatedAfterAttachmentAllowance": true
+    },
+    "segment-brainstem.mesh": {
+      "minimumCenterlineDistanceMm": 11.575836902790225,
+      "minimumTubeEnvelopeClearanceMm": 11.075836902790225,
+      "atCenterlineXYZMm": [
+        17.5,
+        4.0,
+        -68.0
+      ],
+      "nearestSampleXYZMm": [
+        10.5,
+        -3.0,
+        -62.0
+      ],
+      "evaluatedAfterAttachmentAllowance": false
+    },
+    "pial-left.mesh": {
+      "minimumCenterlineDistanceMm": 39.33819915616744,
+      "minimumTubeEnvelopeClearanceMm": 38.83819915616744,
+      "atCenterlineXYZMm": [
+        17.5,
+        4.0,
+        -68.0
+      ],
+      "nearestSampleXYZMm": [
+        -12.198064804077148,
+        9.291001319885254,
+        -42.75075912475586
+      ],
+      "evaluatedAfterAttachmentAllowance": false
+    },
+    "pial-right.mesh": {
+      "minimumCenterlineDistanceMm": 10.155921898379717,
+      "minimumTubeEnvelopeClearanceMm": 9.655921898379717,
+      "atCenterlineXYZMm": [
+        23.0,
+        7.0,
+        -68.0
+      ],
+      "nearestSampleXYZMm": [
+        30.021501541137695,
+        11.70268726348877,
+        -62.36741638183594
+      ],
+      "evaluatedAfterAttachmentAllowance": false
+    }
+  },
+  "limitations": [
+    "Distances use mesh vertices and triangle centroids, not exact continuous triangle distance.",
+    "Negative envelope clearance means possible contact/overlap and requires visual review.",
+    "The first 3 mm are allowed to contact the pons because this is a schematic attachment zone.",
+    "The distal end is a display cutoff, not an anatomical endpoint."
+  ]
+}

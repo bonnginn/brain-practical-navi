@@ -1,0 +1,86 @@
+{
+  "baseline": "f1023d9",
+  "comparisons": {
+    "overlay-nerves-pontine.mesh": {
+      "baselineZipSha256": "1244f483c765ef084648a74bbad13cff78ea498d4edb9918e15812709e4fd823",
+      "currentSha256": "348dd0eeda9cc4c63cee1d8a23a2cba06ba20dc6f4743fe835e7523c10caaa82",
+      "selectedRegions": [
+        32,
+        33,
+        34,
+        35,
+        36,
+        37
+      ],
+      "allAttributesAndFaceConnectivityUnchanged": true
+    },
+    "overlay-nerves-medullary.mesh": {
+      "baselineZipSha256": "e4528cc306b535837d049385817c49aada20d25bf37a7a2caf7fa81d18ad157e",
+      "currentSha256": "20586505af22ab6487b563d74e6ed91204a3d52ce1b47eb6fb29b12b048fbc59",
+      "selectedRegions": [
+        44,
+        45
+      ],
+      "allAttributesAndFaceConnectivityUnchanged": true
+    },
+    "overlay-arteries-anterior.mesh": {
+      "baselineGitBlobSha256": "8e1d872281eb6439b5a68b513fcd2a2b8cf8ca991e4a5854c5e3f090e6c824ad",
+      "currentSha256": "8e1d872281eb6439b5a68b513fcd2a2b8cf8ca991e4a5854c5e3f090e6c824ad",
+      "shaUnchanged": true
+    },
+    "overlay-arteries-posterior.mesh": {
+      "baselineGitBlobSha256": "b4bb74af5491644ca8e8dc697a75ad2cd7d8b0bf9606f7fa202eb1f29f6aa46b",
+      "currentSha256": "b4bb74af5491644ca8e8dc697a75ad2cd7d8b0bf9606f7fa202eb1f29f6aa46b",
+      "shaUnchanged": true
+    },
+    "overlay-nerves-anterior.mesh": {
+      "baselineGitBlobSha256": "b30f480b37b596bdc0711bb3eda08bda09a0da3eee4923c8f5344097a4265df8",
+      "currentSha256": "b30f480b37b596bdc0711bb3eda08bda09a0da3eee4923c8f5344097a4265df8",
+      "shaUnchanged": true
+    }
+  },
+  "integrity": {
+    "overlay-nerves-pontine.mesh": {
+      "finite": true,
+      "facesInRange": true,
+      "regions": [
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37
+      ],
+      "targetCounts": {
+        "30": 160,
+        "31": 160
+      },
+      "leftRightPairs": true
+    },
+    "overlay-nerves-medullary.mesh": {
+      "finite": true,
+      "facesInRange": true,
+      "regions": [
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45
+      ],
+      "targetCounts": {
+        "38": 160,
+        "39": 160,
+        "40": 160,
+        "41": 160,
+        "42": 160,
+        "43": 160
+      },
+      "leftRightPairs": true
+    }
+  }
+}

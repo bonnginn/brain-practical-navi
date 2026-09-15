@@ -1,7 +1,7 @@
 {
   "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
-  "sourceSha256": "3aa4127843d1ca59ee4fa2d542632748ec542958c76329b627b3968b6d53f45e",
-  "rawVoxelSha256": "212ce93d5ae46fca79f274d34cf6ed92cd6d92674af78ccbb84643c87a57d552",
+  "sourceSha256": "785ce199e2c7226e5527a771e953d1b78cfed1067179aa04c63b9eba74577e0f",
+  "rawVoxelSha256": "97480cb8894ff12fb3e77e5ada08f209dd142bff2f8ba4a4182d3cd43ffd310b",
   "dimensionsXYZ": [
     394,
     466,
@@ -17,18 +17,17 @@
   "scope": "section-view BigBrain selection/context only; not expert validation",
   "meshes": {
     "section-current-lateral-ventricles": {
-      "voxels": 159455,
-      "components6": 70,
+      "voxels": 163912,
+      "components6": 65,
       "componentSizes": [
-        80298,
-        79033,
+        82208,
+        81587,
         12,
-        7,
+        8,
         7,
         7,
         4,
         4,
-        4,
         3,
         3,
         3,
@@ -43,10 +42,6 @@
         2,
         2,
         2,
-        1,
-        1,
-        1,
-        1,
         1,
         1,
         1,
@@ -103,36 +98,27 @@
           276
         ]
       ],
-      "vertices": 79868,
-      "faces": 161208,
-      "sha256": "2632d13fdc3ed6422a4cf6e3444b07e2723b091978468c8d13b142cffb91b831",
-      "bytes": 4170812,
+      "vertices": 80204,
+      "faces": 161964,
+      "sha256": "e83fbe6442c43e1075ba2b993ab55c224c070f9046666f8f0c3952fc359eaa25",
+      "bytes": 4189292,
       "labelIds": [
         23,
         24
       ]
     },
     "section-current-third-ventricle": {
-      "voxels": 11977,
-      "components6": 29,
+      "voxels": 11837,
+      "components6": 24,
       "componentSizes": [
-        11521,
+        11452,
         104,
         95,
         93,
         35,
-        16,
         10,
-        10,
-        8,
-        8,
-        8,
-        8,
         7,
         7,
-        6,
-        6,
-        5,
         4,
         4,
         4,
@@ -141,6 +127,10 @@
         2,
         2,
         2,
+        1,
+        1,
+        1,
+        1,
         1,
         1,
         1,
@@ -148,20 +138,20 @@
       ],
       "boundsZYX": [
         [
-          103,
-          191,
-          177
+          109,
+          201,
+          187
         ],
         [
-          174,
+          173,
           274,
-          214
+          204
         ]
       ],
-      "vertices": 9235,
-      "faces": 18454,
-      "sha256": "2f72ae1db3ce7896fd40b025fb44366f8e32fffd570df26f2f49b09565a60f9a",
-      "bytes": 480040,
+      "vertices": 9141,
+      "faces": 18338,
+      "sha256": "1093a7c1304e1faa0ab5ecbda2573257192a282c6443b24294a459fe677028f6",
+      "bytes": 476016,
       "labelIds": [
         25
       ]
@@ -194,34 +184,23 @@
       ]
     },
     "section-current-ventricular-system": {
-      "voxels": 180456,
-      "components6": 98,
+      "voxels": 185016,
+      "components6": 87,
       "componentSizes": [
-        91820,
-        79037,
+        93299,
+        82212,
         9006,
         104,
         95,
         93,
         35,
-        16,
-        16,
         12,
         10,
-        10,
-        8,
-        8,
-        8,
         8,
         7,
         7,
         7,
         7,
-        7,
-        6,
-        6,
-        5,
-        4,
         4,
         4,
         4,
@@ -308,10 +287,10 @@
           276
         ]
       ],
-      "vertices": 94255,
-      "faces": 189986,
-      "sha256": "cd284b79f6c52c41b32384fdcf6bf130d2943f17ffb94b7f58050e461eff7276",
-      "bytes": 4918984,
+      "vertices": 94948,
+      "faces": 191536,
+      "sha256": "2c8c917f67a06e996602584d76e09d42e461e4410221f2ea7c66dd66fbae21ba",
+      "bytes": 4956988,
       "labelIds": [
         23,
         24,

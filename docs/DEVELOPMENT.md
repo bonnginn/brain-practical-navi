@@ -1,6 +1,6 @@
 # 開発ガイド / Development guide
 
-開発再開時には [再開メモ](RESUME_SUMMARY.md) と [AGENTS.md](../AGENTS.md) を先に確認してください。現在の追加開発は停止中です。
+開発再開時には [再開メモ](RESUME_SUMMARY.md) と [AGENTS.md](../AGENTS.md) を先に確認し、現在の作業可否と期限に従ってください。
 
 ## 実行と検証
 

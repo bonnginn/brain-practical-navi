@@ -3,6 +3,10 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 const catalog=JSON.parse(fs.readFileSync(new URL("../app/english-catalog.json",import.meta.url),"utf8"));
 
+test("block rotation hint retains its separator after the English specimen heading",()=>{
+  assert.equal(catalog["・ドラッグ：回転／Shift・右：傾き"]," · Drag: rotate · Shift/right-drag: tilt");
+});
+
 test("block observation lists retain relations instead of only structure names",()=>{
   assert.equal(catalog["レンズ核内側の内包"],"Internal capsule medial to the lentiform nucleus");
   assert.match(catalog["第三脳室側壁に沿う視床と視床下部の上下関係"],/thalamus and hypothalamus.*lateral wall of the third ventricle/);

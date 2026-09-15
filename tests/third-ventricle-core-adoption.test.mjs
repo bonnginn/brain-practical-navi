@@ -19,7 +19,7 @@ test('third ventricle core is exactly 1587 reversible additions without other la
  assert.deepEqual(after,gunzipSync(current).subarray(10)); assert.equal(sha(after),r.outputRawSha256);
  const meta=JSON.parse(await read('public/atlas/bigbrain-practical-segmentation-icbm500-validation.json'));
  assert.equal(meta.fourthVentriclePairedAudit.changedVoxelCount,16);assert.equal(meta.thirdVentricleCoreAudit.recordSha256,sha(bytes));
- assert.equal(meta.labelCounts['25'],11977);assert.equal(after.reduce((n,v)=>n+(v===25),0),12007);
+ assert.equal(meta.labelCounts['25'],11837);assert.equal(after.reduce((n,v)=>n+(v===25),0),12007);
  assert.equal(r.projectAdopted,true);assert.equal(r.expertReviewed,false);
  for(const p of r.points){const [x,y,z]=p.xyz;after[x+nx*(y+ny*z)]=0;}assert.deepEqual(after,before);
 });
@@ -39,5 +39,7 @@ test('third ventricle mesh includes explained historical synchronization and no 
  assert.equal(r.historicalMeshBaseline.historicalReproducedSha256,p.beforeSha256);
  assert.deepEqual(r.historicalMeshBaseline.changes,[{zyx:[70,127,99],before:false,after:true}]);
  const meta=JSON.parse(await read('public/atlas/specimen-blocks.json')).specimens.diencephalon.find(p=>p.part==='third-ventricle');
- assert.equal(meta.meshSha256,successor.afterSha256);assert.equal(meta.vertices,2186);assert.equal(meta.faces,4304);
+ assert.equal(meta.meshSha256,successor.afterSha256);assert.equal(meta.vertices,successor.vertices);assert.equal(meta.faces,successor.faces);
+ const mesh=await read('public/atlas/'+p.file);
+ assert.equal(mesh.readUInt32LE(4),meta.vertices);assert.equal(mesh.readUInt32LE(8),meta.faces);
 });

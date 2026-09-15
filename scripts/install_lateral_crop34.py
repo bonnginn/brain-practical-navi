@@ -1,5 +1,6 @@
 """Preflight the reviewed ventricular omission repair and all development representations."""
 import argparse
+from datetime import date
 import gzip
 import json
 import numpy as np
@@ -115,8 +116,10 @@ def plan():
     return retained+writes+[(SOURCE, data), (meta_path, serialized(meta)), (manifest_path, serialized(manifest))]+[(ATLAS/n, b) for n, b in new_assets.items()]
 
 
-def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None):
+def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None, *, review_date='2026-09-07'):
     """Plan a regional fill; changed blocks additionally require a pinned impact report."""
+    if not isinstance(review_date,str) or date.fromisoformat(review_date).isoformat()!=review_date:
+        raise ValueError('Expected ISO review date')
     from stage_lateral_crop34 import load_batch_stage
     stage, record = load_batch_stage(prefix, record_sha)
     base=(stage/'before.bin.gz').read_bytes(); data=(stage/'labels.bin.gz').read_bytes()
@@ -125,17 +128,47 @@ def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None):
         raise ValueError('Unexpected volume format')
     before=np.frombuffer(before_raw,np.uint8,offset=10).reshape((394,466,378),order='F')
     after=np.frombuffer(after_raw,np.uint8,offset=10).reshape(before.shape,order='F')
-    exclusions=record['transition']=='mixed-ventricular-exclusions'
+    exclusions=record['transition'] in ('mixed-ventricular-exclusions','23->0','24->0','25->0','26->0','41->0')
     brainstem_reclassification=record['transition']=='27->26'
     mixed_cavity=record['transition']=='mixed-to-26'
+    partial_aqueduct=record['transition']=='mixed-to-41'
     mixed_repair=record['transition']=='mixed-ventricular-repair'
-    points=np.asarray([p['xyz'] for p in record['points']] if exclusions or brainstem_reclassification or mixed_cavity or mixed_repair else record['points']); count=record['count']
-    if mixed_repair:
+    posterior_repair=record['transition']=='mixed-posterior-ventricular-repair'
+    bilateral_fill=record['transition']=='mixed-lateral-cavity-fill'
+    points=np.asarray([p['xyz'] for p in record['points']] if exclusions or brainstem_reclassification or mixed_cavity or mixed_repair or partial_aqueduct or posterior_repair or bilateral_fill else record['points']); count=record['count']
+    if bilateral_fill:
+        if prefix=='lateral-upper729' and record_sha=='cd0d9bb10cff47e170197d4cb37a25b9faac26d65f0ebe2fc996c0033f43f3ec':
+            from stage_lateral_upper729 import replay as replay_bilateral
+        elif prefix=='lateral-anterior1981' and record_sha=='835ee20097df4be2b38a0b5d6c7f5faaae3236aa72881beb0ddbf907aea69ba2':
+            from stage_lateral_anterior1981 import replay as replay_bilateral
+        elif prefix=='lateral-upper-nearblack1487' and record_sha=='c83a417c9a53bbae1f710da114c20317902cc7ad7cc0b41858fe7d924edd56c5':
+            from stage_lateral_upper_nearblack1487 import replay as replay_bilateral
+        elif prefix=='lateral-posterior196' and record_sha=='30778fec523fbd25e1ee17b1610c0878aba1c5a4da82d950517ed36acc13031f':
+            from stage_lateral_posterior_september12 import replay as replay_bilateral
+        elif prefix=='lateral-superomedial75' and record_sha=='37f5c397b5f99a4f32037a5bdfdc448d711d41bcbef7673756d6e69abf8e4114':
+            from stage_lateral_superomedial75 import replay as replay_bilateral
+        else:
+            raise ValueError('Unreviewed bilateral cavity fill')
+        if not np.array_equal(replay_bilateral(before,record['points']),after):raise ValueError('Bilateral replay differs')
+        source_values=0;destination=np.asarray([p['after'] for p in record['points']]);affected={0,23,24}
+    elif posterior_repair:
+        from stage_posterior_ventricles158 import replay as replay_posterior
+        if prefix!='posterior-ventricles158' or record_sha!='3d2670bbd02c1880d254c024c64aa2915f99454d9a41040bc7dcb42bee774cf1':
+            raise ValueError('Unreviewed posterior ventricular repair')
+        if not np.array_equal(replay_posterior(before,record['points']),after):raise ValueError('Posterior replay differs')
+        source_values=np.asarray([p['before'] for p in record['points']]);destination=np.asarray([p['after'] for p in record['points']]);affected={0,25,27,41}
+    elif mixed_repair:
         from stage_ventricular_mixed12 import replay as replay_mixed
         if prefix!='ventricular-mixed12' or record_sha!='7d688ef29bac9d40de94bbd21e0f5a9857e9e5e2439badb83d38ffb9e933d708':
             raise ValueError('Unreviewed mixed ventricular repair')
         if not np.array_equal(replay_mixed(before,record['points']),after):raise ValueError('Mixed replay differs')
         source_values=np.asarray([p['before'] for p in record['points']]);destination=np.asarray([p['after'] for p in record['points']]);affected={0,25,26}
+    elif partial_aqueduct:
+        from stage_aqueduct_core179 import replay as replay_aqueduct
+        if prefix!='aqueduct-core179' or record_sha!='7fd5af19d6f0813b35c02cb98cf685616964d9866df4b08af1cb15288f493c70':
+            raise ValueError('Unreviewed partial aqueduct repair')
+        if not np.array_equal(replay_aqueduct(before,record['points']),after):raise ValueError('Aqueduct replay differs')
+        source_values=np.asarray([p['before'] for p in record['points']]);destination=41;affected={0,27,41}
     elif exclusions:
         entries=record['points']
         if any(type(p['before']) is not int or p['before'] not in (23,24,25,26,41) or type(p['after']) is not int or p['after']!=0 for p in entries):
@@ -156,9 +189,27 @@ def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None):
             raise ValueError('Unreviewed mixed cavity repair')
         if not np.array_equal(replay_depth(before,record['points']),after):raise ValueError('Mixed cavity replay differs')
         source_values=np.asarray([p['before'] for p in record['points']]);destination=26;affected={0,26,27}
+    elif record['transition']=='30->0':
+        from stage_callosal_remaining304 import replay as replay_callosal
+        if prefix!='callosal-remaining304' or record_sha!='777c2e4d4a6f5a0f2e1df1fb95d462586b8cdd84001ebf112ea0b8a6b1966ce7':
+            raise ValueError('Unreviewed callosal exclusion')
+        if not np.array_equal(replay_callosal(before,points),after):raise ValueError('Callosal replay differs')
+        source_values=30;destination=0;affected={0,30}
+    elif record['transition']=='27->0':
+        from stage_midbrain_interface14 import replay as replay_interface
+        if prefix!='midbrain-interface14' or record_sha!='c19a98eceed7ef2e307409a7740553410143d630ea38aed69b5c385c4352c751':
+            raise ValueError('Unreviewed midbrain interface hold')
+        if not np.array_equal(replay_interface(before,points),after):raise ValueError('Interface hold replay differs')
+        source_values=27;destination=0;affected={0,27}
+    elif record['transition']=='0->27':
+        from stage_midbrain_ventral14803 import replay as replay_ventral
+        if prefix!='midbrain-ventral14803' or record_sha!='8fff92c8ee7bc4e0d0c5de27caf54a40c3a8c77ea95c6e47815cd4d7a5fefb7d':
+            raise ValueError('Unreviewed brainstem tissue fill')
+        if not np.array_equal(replay_ventral(before,points),after):raise ValueError('Ventral repair replay differs')
+        source_values=0;destination=27;affected={0,27}
     else:
         transition=record['transition'].split('->')
-        if len(transition)!=2 or transition[0]!='0' or transition[1] not in ('23','24','26'):
+        if len(transition)!=2 or transition[0]!='0' or transition[1] not in ('23','24','25','26'):
             raise ValueError('Unsupported regional fill')
         destination=int(transition[1]);source_values=0;affected={0,destination}
     if (points.shape!=(count,3) or points.dtype.kind not in 'iu' or len(np.unique(points,axis=0))!=count
@@ -197,14 +248,18 @@ def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None):
         new_mesh=(impact_path.parent/name).read_bytes()
         if (not part['beforeMatches'] or part['reproducedBeforeSha256']!=part['beforeSha256']
                 or digest(old_mesh)!=part['beforeSha256'] or digest(new_mesh)!=part['afterSha256']
-                or entry['meshSha256'] not in (part['beforeSha256'],part['afterSha256'])
+                # Older block entries lack a metadata digest. Their actual bytes
+                # must still match the independently reproduced baseline above.
+                or entry.get('meshSha256') not in (None,part['beforeSha256'],part['afterSha256'])
                 or (ATLAS/name).read_bytes() not in (old_mesh,new_mesh)):
             raise ValueError('Block byte mismatch')
         retained_meshes.append((ROOT/'tests/fixtures'/(name[:-5]+'-pre-'+prefix+'.mesh'),old_mesh))
         mesh_writes.append((ATLAS/name,new_mesh))
         entry.update(vertices=part['vertices'],faces=part['faces'],meshSha256=part['afterSha256'],
             segmentationSourceSha256=record['afterSha256'],
-            repairReview='AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review.')
+            repairReview=('AI-image-reviewed local callosal exclusion; derived block synchronized. Development only, not expert review.'
+                if record['transition']=='30->0' else 'AI-image-reviewed partial lower-midbrain tissue repair; derived block synchronized. Development only, not expert review.'
+                if record['transition']=='0->27' else 'AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review.'))
     old_report,old_assets=build_assets(base); new_report,new_assets=build_assets(data)
     changed=[]
     for name,payload in new_assets.items():
@@ -216,13 +271,14 @@ def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None):
     expected_sections={name+'.mesh' for name,ids in GROUPS.items() if affected.intersection(ids)}
     if set(changed)!=expected_sections:
         raise ValueError('Unexpected section impact')
-    record_path=ROOT/f'segmentation-patches/review/{prefix}-adoption-2026-09-07.json'
+    record_path=ROOT/f'segmentation-patches/review/{prefix}-adoption-{review_date}.json'
     record.update(status='AI-image-reviewed-project-adopted-development-only',adopted=True,projectAdopted=True,
         expertReviewed=False,published=False,meshImpact=impact,
         sectionMeshImpact=dict(before=old_report,after=new_report,changedFiles=changed))
     if isinstance(record['limitation'],str):
         record['limitation']=record['limitation'].replace('Mesh synchronization and product adoption pending.','Integration verification recorded separately; not public deployment.')
         record['limitation']=record['limitation'].replace('Product adoption and mesh synchronization pending.','Integration verification recorded separately; not public deployment.')
+        record['limitation']=record['limitation'].replace('Mesh/adoption pending.','Integration verification recorded separately; not public deployment.')
     else:
         record['limitation'].append('Adoption record supersedes the work-stage status above; integration verification is recorded separately, not public deployment.')
     record_data=serialized(record)
@@ -247,10 +303,12 @@ if __name__ == '__main__':
     parser.add_argument('--stage-prefix')
     parser.add_argument('--record-sha')
     parser.add_argument('--mesh-report-sha')
+    parser.add_argument('--review-date',default='2026-09-07')
     args = parser.parse_args()
     if bool(args.stage_prefix)!=bool(args.record_sha):raise ValueError('Stage and SHA required together')
     if args.mesh_report_sha and not args.stage_prefix:raise ValueError('Mesh report requires a regional stage')
-    changes = plan_unchanged_blocks(args.stage_prefix,args.record_sha,args.mesh_report_sha) if args.stage_prefix else plan()
+    if args.review_date!='2026-09-07' and not args.stage_prefix:raise ValueError('Review date requires a regional stage')
+    changes = plan_unchanged_blocks(args.stage_prefix,args.record_sha,args.mesh_report_sha,review_date=args.review_date) if args.stage_prefix else plan()
     if args.apply:
         for path, data in changes:
             path.write_bytes(data)

@@ -3,12 +3,13 @@ import {readFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 const read=p=>readFile(new URL('../../'+p,import.meta.url));
 // Preserve historical start evidence while checking every regional successor link.
-export async function withRegionalBatches(record){
+export async function withRegionalBatches(record,{afterRevision=null}={}){
  const meta=JSON.parse(await read('public/atlas/bigbrain-practical-segmentation-icbm500-validation.json'));
- let result=record;
+ let result=record,active=afterRevision===null;
  for(const [name,audit] of Object.entries(meta.regionalBatchAudits??{})){
   const bytes=await read(audit.record),next=JSON.parse(bytes);
   assert.equal(createHash('sha256').update(bytes).digest('hex'),audit.recordSha256);
+  if(!active){if(next.afterSha256===afterRevision){assert.deepEqual(next,record);active=true;}continue;}
   assert.equal(next.beforeSha256,result.afterSha256);
   assert.deepEqual(next.sectionMeshImpact.before,result.sectionMeshImpact.after);
   for(const p of next.meshImpact.blockMaskImpact){
@@ -21,7 +22,7 @@ export async function withRegionalBatches(record){
   result={...result,afterSha256:next.afterSha256,afterRawVoxelSha256:next.afterRawVoxelSha256,
    sectionMeshImpact:{...result.sectionMeshImpact,after:next.sectionMeshImpact.after}};
  }
- return result;
+ assert.equal(active,true,'Unknown regional starting record');return result;
 }
 export async function regionalMeshSuccessor(file,previousSha,afterRevision=null){
  const meta=JSON.parse(await read('public/atlas/bigbrain-practical-segmentation-icbm500-validation.json'));

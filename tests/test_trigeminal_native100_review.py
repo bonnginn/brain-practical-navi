@@ -3,6 +3,7 @@ import copy
 import json
 import sys
 import unittest
+import zipfile
 from pathlib import Path
 import numpy as np
 ROOT=Path(__file__).resolve().parents[1]
@@ -40,9 +41,11 @@ class TrigeminalNativeTests(unittest.TestCase):
         self.assertEqual(calls,[('last',1e-6),('first',1e-6),('native',1e-6)])
         self.assertLessEqual(error.max(),1e-4)
 
-    def test_current_schematic_ring_provenance(self):
+    def test_historical_schematic_ring_provenance(self):
         profile=json.loads((ROOT/'work/anatomy-review/nerve-path-tissue-v1.json').read_text(encoding='utf-8'))
-        mesh=(ROOT/'public/atlas/overlay-nerves-pontine.mesh').read_bytes()
+        with zipfile.ZipFile(ROOT/'tests/fixtures/schematic-roots-pre-20260915.zip') as fixture:
+            mesh=fixture.read('public/atlas/overlay-nerves-pontine.mesh')
+        self.assertEqual(digest(mesh),'1244f483c765ef084648a74bbad13cff78ea498d4edb9918e15812709e4fd823')
         points=profile_points(profile,mesh)
         self.assertEqual([(p['modelId'],p['ring']) for p in points],[(30,0),(30,4),(31,0),(31,4)])
         bad=copy.deepcopy(profile)

@@ -17,7 +17,7 @@ test('lateral cavity repair is exactly 21 reversible zero-to-ID24 voxels',async(
  assert.deepEqual(expected,after);assert.equal(sha(after.subarray(10)),r.afterRawVoxelSha256);
  for(const i of seen)expected[i]=0;assert.deepEqual(expected,before);
  const meta=JSON.parse(await read('public/atlas/bigbrain-practical-segmentation-icbm500-validation.json'));
- const latest=await withRegionalBatches(JSON.parse(await read('segmentation-patches/review/lateral-crop34-adoption-2026-09-07.json')));assert.equal(latest.beforeSha256,r.afterSha256);assert.equal(meta.rawVoxelSha256,latest.afterRawVoxelSha256);assert.equal(meta.lateralCavity21Audit.recordSha256,sha(bytes));assert.equal(meta.labelCounts['24'],79082);
+ const latest=await withRegionalBatches(JSON.parse(await read('segmentation-patches/review/lateral-crop34-adoption-2026-09-07.json')));assert.equal(latest.beforeSha256,r.afterSha256);assert.equal(meta.rawVoxelSha256,latest.afterRawVoxelSha256);assert.equal(meta.lateralCavity21Audit.recordSha256,sha(bytes));assert.equal(meta.labelCounts['24'],82248);
  assert.equal(r.projectAdopted,true);assert.equal(r.expertReviewed,false);assert.equal(r.published,false);
  const manifest=JSON.parse(await read('public/atlas/specimen-blocks.json'));
  assert.equal(r.meshImpact.blockMaskImpact.length,55);assert.equal(new Set(r.meshImpact.blockMaskImpact.map(p=>p.block+'/'+p.part)).size,55);

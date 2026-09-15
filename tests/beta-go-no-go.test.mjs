@@ -30,12 +30,12 @@ test("beta Go/No-Go ledger is valid, exact, and source-counted", () => {
     "deployment-blocked": 3,
   });
   assert.deepEqual(result.sourceCounts, {
-    entryCount: 75,
-    expertPendingCount: 75,
+    entryCount: 76,
+    expertPendingCount: 76,
     quizTargetCount: 45,
-    mappingCount: 222,
-    resolvedMappingCount: 222,
-    staticMappingCount: 222,
+    mappingCount: 223,
+    resolvedMappingCount: 223,
+    staticMappingCount: 223,
   });
 });
 

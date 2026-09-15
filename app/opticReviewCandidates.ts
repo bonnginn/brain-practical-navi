@@ -10,7 +10,7 @@ export type OpticReviewCandidate = Readonly<{
 }>;
 
 export const OPTIC_REVIEW_AUDIT = {
-inputSha256: "3aa4127843d1ca59ee4fa2d542632748ec542958c76329b627b3968b6d53f45e",
+inputSha256: "48e1602b871b10bd7b31f99278aef8d0e44bcfb8930051fa9aa20ffd48802db2",
   dims: [394, 466, 378] as const,
   auditedLabelId: 33 as const,
 };

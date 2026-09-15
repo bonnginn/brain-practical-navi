@@ -24,7 +24,7 @@ test('inferior repair changes only its exact reviewed 2160 voxels without identi
  assert.equal(sha(installed),'098edfbf365016c6c53ccf7b7032258db72a4912378c457d348c01613a4a1694');
  assert.deepEqual(gunzipSync(installed).subarray(10),after);
  const metadata=JSON.parse(await readFile(new URL('public/atlas/bigbrain-practical-segmentation-icbm500-validation.json',root),'utf8'));
- assert.equal(metadata.labelCounts['30'],146019);assert.equal(metadata.callosalInferiorPatchAudit.editCount,2160);
+ assert.equal(metadata.labelCounts['30'],145715);assert.equal(metadata.callosalInferiorPatchAudit.editCount,2160);
  assert.equal(metadata.callosalInferiorPatchAudit.expertReviewed,false);
  assert.equal(metadata.callosalInferiorPatchAudit.completeCallosum,false);
  assert.equal(metadata.callosalInferiorPatchAudit.completeFornix,false);

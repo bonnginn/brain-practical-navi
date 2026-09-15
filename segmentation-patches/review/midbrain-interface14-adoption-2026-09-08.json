@@ -1,0 +1,1197 @@
+{
+  "beforeSha256": "409dac37154b25dd6bc9caa387c4aa5a7b774cb430794c082bdfc956e874f7b5",
+  "afterSha256": "0662770388033cafa573337ab9349efd8b30888bc864566fe4d116de704a0b17",
+  "afterRawVoxelSha256": "ccea376ca68aa638dd722c2279f3b624e6fafb16cd3e6f7ff73b47f77da0d24c",
+  "points": [
+    [
+      187,
+      249,
+      115
+    ],
+    [
+      187,
+      250,
+      115
+    ],
+    [
+      188,
+      248,
+      115
+    ],
+    [
+      189,
+      247,
+      115
+    ],
+    [
+      190,
+      247,
+      115
+    ],
+    [
+      191,
+      247,
+      115
+    ],
+    [
+      192,
+      247,
+      115
+    ],
+    [
+      193,
+      247,
+      115
+    ],
+    [
+      194,
+      248,
+      115
+    ],
+    [
+      202,
+      247,
+      115
+    ],
+    [
+      203,
+      247,
+      115
+    ],
+    [
+      204,
+      248,
+      115
+    ],
+    [
+      205,
+      249,
+      115
+    ],
+    [
+      205,
+      250,
+      115
+    ]
+  ],
+  "count": 14,
+  "transition": "27->0",
+  "evidence": [
+    {
+      "path": "work/anatomy-review/midbrain-ventral-connected-v1/report.json",
+      "sha256": "ab83eea4385e33decaa7eb42cb15476bc2b5d091f51077bde9759bc54baf1bff",
+      "visuallyInspectedFigures": [
+        {
+          "path": "x-01.png",
+          "sha256": "e28944d2fae74c47b9dcfe760f52a5fdbcd64e2a06049947119c847270928ce3",
+          "planes": [
+            {
+              "axis": "x",
+              "nativeIndex": 309,
+              "rawGraySha256": "9e7e8d5424c2ca6a2bbb1c26be1747a81f52539b2a7902937a5c6a57022a417f",
+              "candidateProjectionSha256": "def2236c0c8a9554d3f0fdcd5a2cc5ed98e57b8638ecc67256166a1117365e9a",
+              "retainedPixels": 462,
+              "rejectedPixels": 0
+            },
+            {
+              "axis": "x",
+              "nativeIndex": 327,
+              "rawGraySha256": "85999877fd3ce2f14661032815dbb3204cc2b4b687c0d55e69fe3f886a285a72",
+              "candidateProjectionSha256": "27a337aa88163f522cfcb4b59ac9a832f89caf5ebbe64fa3119b2a8ed4f36b94",
+              "retainedPixels": 38,
+              "rejectedPixels": 0
+            },
+            {
+              "axis": "x",
+              "nativeIndex": 345,
+              "rawGraySha256": "ed4c627fa7f81b6a5347380dad402acf1063216308db098854bf5ce3e2a30ac9",
+              "candidateProjectionSha256": "09943adcd39bedf214e4ebb7066ea73ff67f741f48c84669e72065d1b00e6fd9",
+              "retainedPixels": 503,
+              "rejectedPixels": 8
+            }
+          ]
+        },
+        {
+          "path": "y-01.png",
+          "sha256": "c97d28fd6a289386d5411e4cbb7cefa8e6c3b39a70ea80cab52bea6e73adfd62",
+          "planes": [
+            {
+              "axis": "y",
+              "nativeIndex": 417,
+              "rawGraySha256": "b302302838523e5837f33d6529a189d84544124e26a36dbac86db0d5ba9ceb6a",
+              "candidateProjectionSha256": "fbef9b1c8ce19eb4b7af9fb113fa459be6dc42678494fab4784ba9755d256c4d",
+              "retainedPixels": 267,
+              "rejectedPixels": 32
+            },
+            {
+              "axis": "y",
+              "nativeIndex": 434,
+              "rawGraySha256": "035dd6474881bcabe6aa9ac3cb0e04eee92deb836823f93cd2eb5e78105a807e",
+              "candidateProjectionSha256": "2fc548dbcc443e9234562d0bf97ebcb6f7e4fa55d7de74d2740c1f43066164e2",
+              "retainedPixels": 0,
+              "rejectedPixels": 0
+            }
+          ]
+        },
+        {
+          "path": "z-07.png",
+          "sha256": "d01ab2d7f1c67791f05631423553420ea092faebec4c27afec59e1225731c8d9",
+          "planes": [
+            {
+              "axis": "z",
+              "nativeIndex": 192,
+              "rawGraySha256": "d1b14231adf0ff7c8e496686412ac73cac67c81e5df4d791c1c9fe520b5b5b23",
+              "candidateProjectionSha256": "180c76c33202810febb8b0dce576c08274acbd90f185ff03838817fe0dd947c7",
+              "retainedPixels": 3796,
+              "rejectedPixels": 4
+            },
+            {
+              "axis": "z",
+              "nativeIndex": 193,
+              "rawGraySha256": "fa41122c8c698277c5dcf0a6a00b96150b6ff2ee990c7929db7e8390e7236243",
+              "candidateProjectionSha256": "e545e95196b4f8b41a6bb0f748692ebd4204f3d2c9d7578b5ae368fef0bb020b",
+              "retainedPixels": 0,
+              "rejectedPixels": 0
+            },
+            {
+              "axis": "z",
+              "nativeIndex": 194,
+              "rawGraySha256": "102b7a90bfa1d07356a37cbe319c9d56cd0499c12d811bd6e2dfab057a40f06d",
+              "candidateProjectionSha256": "e545e95196b4f8b41a6bb0f748692ebd4204f3d2c9d7578b5ae368fef0bb020b",
+              "retainedPixels": 0,
+              "rejectedPixels": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "netVentralAdditions": 14789,
+  "countsBefore": {
+    "0": 66611984,
+    "27": 264619
+  },
+  "countsAfter": {
+    "0": 66611998,
+    "27": 264605
+  },
+  "status": "AI-image-reviewed-project-adopted-development-only",
+  "adopted": true,
+  "expertReviewed": false,
+  "publicMutation": false,
+  "rationale": "Post-repair interface audit found 14 new cells at app Z115 contacting unchanged ID33/39/40. The inspected upper-plane and orthogonal images do not establish a new mammillary/hypothalamic/legacy-optic boundary. These cells alone return to their pre-repair background value; this is a conservative hold, not a claim that the tissue is absent. All 14789 remaining new ID27 cells stay 6-connected to the pre-repair brainstem. The existing reference nuclei and their original interface contacts are preserved.",
+  "limitation": "This hold is not a new anatomical boundary and does not repair or validate the old mixed ID33. All pre-existing nonzero labels are unchanged relative to the pre-ventral baseline. Higher midbrain attachments remain unresolved. Integration verification recorded separately; not public deployment.",
+  "projectAdopted": true,
+  "published": false,
+  "meshImpact": {
+    "inputSha256": "409dac37154b25dd6bc9caa387c4aa5a7b774cb430794c082bdfc956e874f7b5",
+    "outputSha256": "0662770388033cafa573337ab9349efd8b30888bc864566fe4d116de704a0b17",
+    "blockMaskImpact": [
+      {
+        "block": "lateral-ventricle",
+        "part": "tissue",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "ventricular-cavity",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "caudate",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "thalamus",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "hippocampus",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "tissue",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "thalami",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "third-ventricle",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "hypothalamus",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "subthalamic-nuclei",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "mammillary-bodies",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "tissue",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "putamen",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "pallidum-external",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "pallidum-internal",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "internal-capsule",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "corona-radiata",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "optic-radiation",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "auditory-radiation",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "tissue",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "corpus-callosum",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "lateral-ventricles",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "fornix",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "septum-pellucidum",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "tissue",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "ventricular-cavity",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "choroid-plexus",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "hippocampus",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "tissue",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "hippocampus",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "amygdala",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "inferior-horn",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "tissue",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "red-nuclei",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "substantia-nigra",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "aqueduct",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "cerebral-peduncles",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "superior-colliculi",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "inferior-colliculi",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "lateral-geniculate-bodies",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "medial-geniculate-bodies",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "interpeduncular-fossa",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "pons-medulla",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "cerebellum",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "midbrain",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "fourth-ventricle",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "superior-cerebellar-peduncles",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "middle-cerebellar-peduncles",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "inferior-cerebellar-peduncles",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "facial-colliculi",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "vestibular-areas",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "hypoglossal-trigones",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "vagal-trigones",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "pyramids",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "olives",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      }
+    ],
+    "installed": false,
+    "anatomyValidatedByMaskComparison": false,
+    "installationBlocked": false
+  },
+  "sectionMeshImpact": {
+    "before": {
+      "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
+      "sourceSha256": "409dac37154b25dd6bc9caa387c4aa5a7b774cb430794c082bdfc956e874f7b5",
+      "rawVoxelSha256": "8078b4aa51cfb4e03da0f06caa5a3f771aa7adf8a8f7c05f013bdb37b21e101f",
+      "dimensionsXYZ": [
+        394,
+        466,
+        378
+      ],
+      "samplingMm": 0.5,
+      "displayOriginZYX": [
+        -90.0,
+        -116.0,
+        -98.0
+      ],
+      "method": "marching cubes 0.5; no smoothing, resampling, filling or component removal",
+      "scope": "section-view BigBrain selection/context only; not expert validation",
+      "meshes": {
+        "section-current-lateral-ventricles": {
+          "voxels": 163652,
+          "components6": 67,
+          "componentSizes": [
+            82150,
+            81381,
+            12,
+            7,
+            7,
+            7,
+            4,
+            4,
+            4,
+            3,
+            3,
+            3,
+            3,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "boundsZYX": [
+            [
+              80,
+              145,
+              117
+            ],
+            [
+              202,
+              330,
+              276
+            ]
+          ],
+          "vertices": 80274,
+          "faces": 162076,
+          "sha256": "09502dbdb0e18920a6bbf1e91bb2757d7ed387b6beabbc43a8c3ee529da5f785",
+          "bytes": 4192596,
+          "labelIds": [
+            23,
+            24
+          ]
+        },
+        "section-current-third-ventricle": {
+          "voxels": 11853,
+          "components6": 24,
+          "componentSizes": [
+            11468,
+            104,
+            95,
+            93,
+            35,
+            10,
+            7,
+            7,
+            4,
+            4,
+            4,
+            4,
+            4,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "boundsZYX": [
+            [
+              107,
+              201,
+              187
+            ],
+            [
+              173,
+              274,
+              204
+            ]
+          ],
+          "vertices": 9165,
+          "faces": 18386,
+          "sha256": "31b7f16fbb3d01e95d2653c5fd319a9a6499cf79c522e67eba1d2bdf46343df2",
+          "bytes": 477264,
+          "labelIds": [
+            25
+          ]
+        },
+        "section-current-fourth-ventricle": {
+          "voxels": 9008,
+          "components6": 2,
+          "componentSizes": [
+            9006,
+            2
+          ],
+          "boundsZYX": [
+            [
+              59,
+              157,
+              179
+            ],
+            [
+              114,
+              196,
+              212
+            ]
+          ],
+          "vertices": 5141,
+          "faces": 10286,
+          "sha256": "a777a6a2df52a1de73b7d3d633a381ee420522c20c5287aba4f5581f3139484c",
+          "bytes": 267392,
+          "labelIds": [
+            26
+          ]
+        },
+        "section-current-ventricular-system": {
+          "voxels": 184772,
+          "components6": 89,
+          "componentSizes": [
+            93109,
+            82154,
+            9006,
+            104,
+            95,
+            93,
+            35,
+            12,
+            10,
+            7,
+            7,
+            7,
+            7,
+            7,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            3,
+            3,
+            3,
+            3,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "boundsZYX": [
+            [
+              59,
+              145,
+              117
+            ],
+            [
+              202,
+              330,
+              276
+            ]
+          ],
+          "vertices": 95042,
+          "faces": 191696,
+          "sha256": "6fe57a2c4432bf95ca8a03d9dd4d39f4935065d19b9d185225e5c0e53fcbaaad",
+          "bytes": 4961540,
+          "labelIds": [
+            23,
+            24,
+            25,
+            26,
+            41
+          ]
+        }
+      }
+    },
+    "after": {
+      "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
+      "sourceSha256": "0662770388033cafa573337ab9349efd8b30888bc864566fe4d116de704a0b17",
+      "rawVoxelSha256": "ccea376ca68aa638dd722c2279f3b624e6fafb16cd3e6f7ff73b47f77da0d24c",
+      "dimensionsXYZ": [
+        394,
+        466,
+        378
+      ],
+      "samplingMm": 0.5,
+      "displayOriginZYX": [
+        -90.0,
+        -116.0,
+        -98.0
+      ],
+      "method": "marching cubes 0.5; no smoothing, resampling, filling or component removal",
+      "scope": "section-view BigBrain selection/context only; not expert validation",
+      "meshes": {
+        "section-current-lateral-ventricles": {
+          "voxels": 163652,
+          "components6": 67,
+          "componentSizes": [
+            82150,
+            81381,
+            12,
+            7,
+            7,
+            7,
+            4,
+            4,
+            4,
+            3,
+            3,
+            3,
+            3,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "boundsZYX": [
+            [
+              80,
+              145,
+              117
+            ],
+            [
+              202,
+              330,
+              276
+            ]
+          ],
+          "vertices": 80274,
+          "faces": 162076,
+          "sha256": "09502dbdb0e18920a6bbf1e91bb2757d7ed387b6beabbc43a8c3ee529da5f785",
+          "bytes": 4192596,
+          "labelIds": [
+            23,
+            24
+          ]
+        },
+        "section-current-third-ventricle": {
+          "voxels": 11853,
+          "components6": 24,
+          "componentSizes": [
+            11468,
+            104,
+            95,
+            93,
+            35,
+            10,
+            7,
+            7,
+            4,
+            4,
+            4,
+            4,
+            4,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "boundsZYX": [
+            [
+              107,
+              201,
+              187
+            ],
+            [
+              173,
+              274,
+              204
+            ]
+          ],
+          "vertices": 9165,
+          "faces": 18386,
+          "sha256": "31b7f16fbb3d01e95d2653c5fd319a9a6499cf79c522e67eba1d2bdf46343df2",
+          "bytes": 477264,
+          "labelIds": [
+            25
+          ]
+        },
+        "section-current-fourth-ventricle": {
+          "voxels": 9008,
+          "components6": 2,
+          "componentSizes": [
+            9006,
+            2
+          ],
+          "boundsZYX": [
+            [
+              59,
+              157,
+              179
+            ],
+            [
+              114,
+              196,
+              212
+            ]
+          ],
+          "vertices": 5141,
+          "faces": 10286,
+          "sha256": "a777a6a2df52a1de73b7d3d633a381ee420522c20c5287aba4f5581f3139484c",
+          "bytes": 267392,
+          "labelIds": [
+            26
+          ]
+        },
+        "section-current-ventricular-system": {
+          "voxels": 184772,
+          "components6": 89,
+          "componentSizes": [
+            93109,
+            82154,
+            9006,
+            104,
+            95,
+            93,
+            35,
+            12,
+            10,
+            7,
+            7,
+            7,
+            7,
+            7,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            3,
+            3,
+            3,
+            3,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "boundsZYX": [
+            [
+              59,
+              145,
+              117
+            ],
+            [
+              202,
+              330,
+              276
+            ]
+          ],
+          "vertices": 95042,
+          "faces": 191696,
+          "sha256": "6fe57a2c4432bf95ca8a03d9dd4d39f4935065d19b9d185225e5c0e53fcbaaad",
+          "bytes": 4961540,
+          "labelIds": [
+            23,
+            24,
+            25,
+            26,
+            41
+          ]
+        }
+      }
+    },
+    "changedFiles": []
+  }
+}

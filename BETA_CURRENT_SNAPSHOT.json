@@ -25,17 +25,17 @@
     "WINDOWS_HANDOFF.md"
   ],
   "provenance": {
-    "registryEntryCount": 75,
-    "expertPendingCount": 75,
+    "registryEntryCount": 76,
+    "expertPendingCount": 76,
     "reviewFilterCounts": {
       "surface": 54,
-      "sections": 16,
+      "sections": 17,
       "blocks": 30,
       "quiz": 25
     },
     "learnerMappings": {
-      "total": 222,
-      "resolved": 222
+      "total": 223,
+      "resolved": 223
     }
   },
   "quiz": {

@@ -248,7 +248,7 @@ test("Papez UI uses one shared stepper control group and omits section Canvas fo
   assert.doesNotMatch(meshMapping, /mammillaryBody/);
   assert.match(css, /\.pathwayStepper3dOnlyNote/);
   assert.match(css, /\.papezPathwayStepper/);
-  assert.doesNotMatch(page, /PAPEZ_STEPS[\s\S]{0,300}opticChiasm/);
+  assert.equal(PAPEZ_STEPS.some(step => step.targetKeys.includes("opticChiasm")), false);
 });
 
 test("combined pathway audit retains basal result and passes Papez", () => {

@@ -1,8 +1,34 @@
 # 分節の参考文献・データ索引 / Segmentation references
 
-ローカル開発版では「利用条件・クレジット → 参考文献と本アプリでの用途」に主要8件を日英で表示する。データ由来と背景調査を区別し、本索引の全項目を掲載したとは扱わない。2026-09-07追加、未公開。
+「利用条件・クレジット → 参考文献と本アプリでの用途」に主要8件を日英で公開済み（PR #27）。2026-09-08の開発版では第三脳室1件・中脳水道2件・中脳分節規約1件を追加、計12件（追加分は未公開）。データ由来と背景調査を区別し、本索引の全項目を掲載したとは扱わない。
 
-更新日: 2026-09-07。既存の出典・監査記録を用途別に整理した索引です。引用元による本アプリの承認や、専門家レビュー完了を意味しません。開発版の記録であり、公開反映とは別です。
+9月12日の開発版では下記Rushmore et al. (2022)とNextBrainの調査資料を日英で追加し、計14件。公開版は未変更。
+
+## 別標本の組織アトラス NextBrain（2026-09-12）
+
+Casamitjana et al. (2025)、[原論文DOI](https://doi.org/10.1038/s41586-025-09708-2)、[公式ビューア](https://github-pages.ucl.ac.uk/NextBrain/)、[データ目録](https://doi.org/10.5522/04/24243835.v1)。論文の抄録・導入と公式ラベル一覧・目録を調査。全文・全caseの分節規約を精読したものではない。
+
+公式リポジトリの `6b215dd3cf4b9d39599b10804737bc283359eab7` にある組織ラベル一覧には脳弓の体部・脚・柱、内包の前脚・膝・後脚、視覚路の細分がある。別の簡略MRI検証LUTとはID体系が異なり、本教材のID・左右へ機械対応させない。データ本体は未取得、BigBrainへの対応・転写・採用なし。目録のCC0記載は個々の再利用ファイル条件を確認済みという意味ではない。[確認範囲と取得メタデータのSHA](../segmentation-patches/review/nextbrain-reference-inventory-2026-09-12.json)。
+
+今回の[側脳室75点補完](SEPTEMBER12_EVENING_CHECKPOINT.md)の直接根拠は同一BigBrainの登録300 µmとnative100 µm画像であり、NextBrainの境界ではない。
+
+更新日: 2026-09-12。既存の出典・監査記録を用途別に整理した索引です。引用元による本アプリの承認や、専門家レビュー完了を意味しません。
+
+9月12日の[側脳室後方196点補完・内側11点除外](LATERAL_POSTERIOR_MARGIN_REPAIR.md)は、下記BigBrain登録300 µm画像を直接照合したAI補助修正。今回はnative100の追加照合をしていない。脈絡裂の位置関係の背景文献Nagata et al. (1988)はブラウザ内にも既掲載であり、新しく全文を精読したとの主張ではない。
+
+## 脳室間孔と第三脳室屋根の追加照合（2026-09-12）
+
+Rushmore RJ, et al. *Anatomically curated segmentation of human subcortical structures in high resolution magnetic resonance imaging: An open science approach*. Front Neuroanat. 2022;16:894606. [出版社の原論文](https://www.frontiersin.org/journals/neuroanatomy/articles/10.3389/fnana.2022.894606/full)、[DOI](https://doi.org/10.3389/fnana.2022.894606)。Methodsの側脳室・大脳横裂・第三脳室の節を参照した。このMRI規約は脳室間孔を側脳室に含める一方、脈絡叢も腔のROIへ含め、見えない屋根境界には運用上の区分を置く。本教材の腔・組織の区別へそのまま移植しない。候補672点の一括採用を避ける背景資料として使用。[局所画像と保留理由](LATERAL_POSTERIOR_MARGIN_REPAIR.md)。
+
+## 中脳・中脳水道の照合資料（2026-09-08追記）
+
+中脳腹側の補修ではIglesias JE, et al. *Bayesian segmentation of brainstem structures in MRI*. NeuroImage. 2015;113:184–195. [DOI](https://doi.org/10.1016/j.neuroimage.2015.02.065) のAppendix Bを再読。MRIの分節規約の照合であり、BigBrainへ補助線・境界を転写した根拠ではない。実際の局所補修は登録300 µm原画像を直接照合した。[中脳腹側補修と保留範囲](MIDBRAIN_VENTRAL_PARTIAL_REPAIR.md)。
+
+中脳水道の背景資料はLongatti P, Fiorindi A, Perin A, Martinuzzi A. *Endoscopic anatomy of the cerebral aqueduct*. Neurosurgery. 2007;61(3 Suppl):1–5; discussion 5–6 ([読んだPubMed抄録](https://pubmed.ncbi.nlm.nih.gov/17876227/))。補助解説としてRubino JM, Hogg JP. *Neuroanatomy, Cerebral Aqueduct (Sylvian)*, updated July 24, 2023 ([NCBI Bookshelf](https://www.ncbi.nlm.nih.gov/books/NBK540988/))のStructure and Functionを参照。両者は形態・第三／第四脳室との移行を考える背景で、採用境界データではない。使用原画像・確認範囲・未採用の両端は [中脳水道部分補修](AQUEDUCT_PARTIAL_REPAIR.md) に記録。
+
+## 第三脳室下端の照合資料（2026-09-08追記）
+
+Campos da Silva A, Silva SM, Alves H, et al. *Stereotactic anatomy of the third ventricle*. Surg Radiol Anat. 2024;46:271–283. [DOI](https://doi.org/10.1007/s00276-024-03312-1)、[閲覧した全文PDF](https://d-nb.info/1330802381/34)。抄録と方法の解剖記述（pp.271–273）を参照し、第三脳室底・漏斗陥凹の位置関係を再確認した。元の生体形態を失った標本で、下方の空白全体を脳室と推定しないための背景資料。下端24 voxelを含む[91点の除外修正](THIRD_VENTRICLE_REMNANTS_REPAIR.md)の直接根拠は同一標本の登録300 µm連続XYZ画像であり、この論文の座標や図から境界を転写していない。開発版に採用、未公開・専門家未確認。
 
 ## 側脳室下角と内側の脳槽を区別するための照合資料（2026-09-07追記）
 

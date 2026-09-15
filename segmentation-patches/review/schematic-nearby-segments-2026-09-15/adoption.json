@@ -1,0 +1,45 @@
+{
+  "status": "project-adopted schematic; not specimen nerve segmentation or expert review",
+  "baselineCommit": "f1023d9",
+  "rollback": "git restore --source=f1023d9 -- scripts/build_neurovascular_overlays.py public/atlas/overlay-nerves-pontine.mesh public/atlas/overlay-nerves-medullary.mesh public/atlas/neurovascular-overlays.json",
+  "candidateReports": [
+    {
+      "file": "v-short-anterolateral-left.json",
+      "sha256": "eab5d68d401893761c74d7c98f96c09f6c6b932f3907c7ac142179e620fdbb71"
+    },
+    {
+      "file": "v-short-anterolateral-right.json",
+      "sha256": "7a9641aa75521398563a9a58a6fb2664ba68474576f18df0d02db1e9b657000d"
+    },
+    {
+      "file": "ix-left.json",
+      "sha256": "09e99c1157f12d1c88167bb33ab3c8f29c52a4f57dc31ebc2ba7f7cac830db96"
+    },
+    {
+      "file": "ix-right.json",
+      "sha256": "e5e23854a0fd66aa210cce11dfa6f5aad599f36b815a5a95f10fcf53c8e91cc7"
+    },
+    {
+      "file": "x-left.json",
+      "sha256": "04329e80f5d8199126fa39e203370391a63e82f9435ff083afcbb4df18abfab7"
+    },
+    {
+      "file": "x-right.json",
+      "sha256": "f411db50aa722b8208d1b6f10ca95fc71677180a83f8b22bba311d5ab2f0fc9c"
+    },
+    {
+      "file": "xi-medulla-adjacent-left.json",
+      "sha256": "de59d26bd43bb42e8f4eac42f1e2e3c45b741386a9104074359129c69e6ad83d"
+    },
+    {
+      "file": "xi-medulla-adjacent-right.json",
+      "sha256": "1a9e4760f89c5e0e342c012745aef6976dcba306d0e48b3ea423f1e3cfb15800"
+    }
+  ],
+  "meshes": {
+    "overlay-nerves-pontine.mesh": "348dd0eeda9cc4c63cee1d8a23a2cba06ba20dc6f4743fe835e7523c10caaa82",
+    "overlay-nerves-medullary.mesh": "20586505af22ab6487b563d74e6ed91204a3d52ce1b47eb6fb29b12b048fbc59"
+  },
+  "labelsUnchanged": "785ce199e2c7226e5527a771e953d1b78cfed1067179aa04c63b9eba74577e0f",
+  "quizDecision": "All eight remain held pending reliable recognition of these short schematic segments."
+}

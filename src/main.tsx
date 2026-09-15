@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import Home from "../app/page";
 import "../app/globals.css";
 import "../app/canvas.css";
+import "../app/brodmann.css";
 import { installPublicAnalytics } from "./analytics";
 import { registerPwaServiceWorker } from "./pwa";
 

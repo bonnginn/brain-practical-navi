@@ -9,8 +9,8 @@
     "lateral-ventricle": [
       {
         "file": "block-lateral-ventricle-tissue.mesh",
-        "vertices": 34928,
-        "faces": 69076,
+        "vertices": 35034,
+        "faces": 69308,
         "shadeMin": 0.0,
         "shadeMax": 1.0,
         "part": "tissue",
@@ -19,15 +19,15 @@
         "color": "#c9a27d",
         "material": "specimen",
         "registrationSourceSha256": "7ebed144c2b200233ad1389d3288b2407edcb542fe46eaf8626ef872522f8c3f",
-        "meshSha256": "4a293b0c67beea1e82af3729b35085f371aa29f56d21ea7cb83e22c9f45acfdd",
+        "meshSha256": "90fb8e5ad7456e83d4ed4136a8916a033813ac6b5d63ff6b67b2ee53c97231b7",
         "registrationReview": "AI-assisted source-registration project adoption; not expert review. Existing meshing and cutaway rules retained.",
-        "segmentationSourceSha256": "3c4b795d09819a7dc029ffe33fb80621fa6db81fbb7b0eb3507eaf432c29a887",
+        "segmentationSourceSha256": "48e1602b871b10bd7b31f99278aef8d0e44bcfb8930051fa9aa20ffd48802db2",
         "repairReview": "AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review."
       },
       {
         "file": "block-lateral-ventricle-ventricular-cavity.mesh",
-        "vertices": 9570,
-        "faces": 19020,
+        "vertices": 9690,
+        "faces": 19268,
         "shadeMin": 0.82,
         "shadeMax": 0.82,
         "part": "ventricular-cavity",
@@ -35,8 +35,8 @@
         "sourceType": "same-grid-segmentation",
         "color": "#45aebd",
         "material": "model",
-        "meshSha256": "e2ff57139a49d38019d7dc807d73cae9a4f16bcb1809f4706f615eb671e1ac0a",
-        "segmentationSourceSha256": "6a536977c03a313b7e112e21d31ef800363da2e7dca5edc060ed0df138109287",
+        "meshSha256": "7bc54bf38b6b21fd4132a743876c1fe1ff75ec5b8b53ab428620856a631d6653",
+        "segmentationSourceSha256": "48e1602b871b10bd7b31f99278aef8d0e44bcfb8930051fa9aa20ffd48802db2",
         "repairReview": "AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review."
       },
       {
@@ -88,8 +88,8 @@
     "diencephalon": [
       {
         "file": "block-diencephalon-tissue.mesh",
-        "vertices": 30310,
-        "faces": 60512,
+        "vertices": 30281,
+        "faces": 60418,
         "shadeMin": 0.0,
         "shadeMax": 1.0,
         "part": "tissue",
@@ -98,9 +98,9 @@
         "color": "#c9a27d",
         "material": "specimen",
         "registrationSourceSha256": "7ebed144c2b200233ad1389d3288b2407edcb542fe46eaf8626ef872522f8c3f",
-        "meshSha256": "5923809be80dea375729e597224f2eacfcb1ae8ca17e40cbcbd72a1799573fdf",
+        "meshSha256": "eee98e5e2ec8938f6fcead8e5c869f4eb109c81ac64851ec363222e0a8a94aa6",
         "registrationReview": "AI-assisted source-registration project adoption; not expert review. Existing meshing and cutaway rules retained.",
-        "segmentationSourceSha256": "3aa4127843d1ca59ee4fa2d542632748ec542958c76329b627b3968b6d53f45e",
+        "segmentationSourceSha256": "4d12523a818aed809bde703dc12615c09c56304dd3d72e7f9c3f5771032b5c62",
         "repairReview": "AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review."
       },
       {
@@ -120,8 +120,8 @@
       },
       {
         "file": "block-diencephalon-third-ventricle.mesh",
-        "vertices": 2186,
-        "faces": 4304,
+        "vertices": 2144,
+        "faces": 4240,
         "shadeMin": 0.82,
         "shadeMax": 0.82,
         "part": "third-ventricle",
@@ -129,14 +129,14 @@
         "sourceType": "same-grid-segmentation",
         "color": "#45aebd",
         "material": "model",
-        "meshSha256": "f838a4e30c405f06ac7c7598de52f5b0c0feca6614025bd0f61b8f581427bd7e",
-        "segmentationSourceSha256": "56dcff45e44fbcc40f59a4e6e06bf707e49dcdeee86f8b16bd169b81bc472c91",
+        "meshSha256": "01b1ddf80d3be59f66aa6fc04855e85874156be44e4377ee463f2a1093fc7d4e",
+        "segmentationSourceSha256": "785ce199e2c7226e5527a771e953d1b78cfed1067179aa04c63b9eba74577e0f",
         "repairReview": "AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review."
       },
       {
         "file": "block-diencephalon-hypothalamus.mesh",
-        "vertices": 3516,
-        "faces": 7028,
+        "vertices": 3518,
+        "faces": 7032,
         "shadeMin": 0.82,
         "shadeMax": 0.82,
         "part": "hypothalamus",
@@ -145,8 +145,10 @@
         "color": "#b97864",
         "material": "model",
         "registrationSourceSha256": "7ebed144c2b200233ad1389d3288b2407edcb542fe46eaf8626ef872522f8c3f",
-        "meshSha256": "f1b669d47b5a7597ea9c462784e52ad876d406bfdccde595f5a3707484a1b917",
-        "registrationReview": "AI-assisted source-registration project adoption; not expert review. Existing meshing and cutaway rules retained."
+        "meshSha256": "1f41ace8cf14d6921b88843c2359caadefbe174d18fdc76118efa455c5788eef",
+        "registrationReview": "AI-assisted source-registration project adoption; not expert review. Existing meshing and cutaway rules retained.",
+        "segmentationSourceSha256": "a21cb6ab8aa7080b6e26766c2f82834871d3e72c174b72d0b018733ee5ef278a",
+        "repairReview": "AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review."
       },
       {
         "file": "block-diencephalon-subthalamic-nuclei.mesh",
@@ -179,8 +181,8 @@
     "radiations": [
       {
         "file": "block-radiations-tissue.mesh",
-        "vertices": 76688,
-        "faces": 151164,
+        "vertices": 76700,
+        "faces": 151192,
         "shadeMin": 0.0,
         "shadeMax": 1.0,
         "part": "tissue",
@@ -189,9 +191,9 @@
         "color": "#c9a27d",
         "material": "specimen",
         "registrationSourceSha256": "7ebed144c2b200233ad1389d3288b2407edcb542fe46eaf8626ef872522f8c3f",
-        "meshSha256": "b91edd87544daac592dae199a19fd90deefafaf576cd9a7614f2b907d1237f98",
+        "meshSha256": "ff467e4a13a733bbb6171ba2a879da73d9ce99101b2b913839a7736b2ce4833b",
         "registrationReview": "AI-assisted source-registration project adoption; not expert review. Existing meshing and cutaway rules retained.",
-        "segmentationSourceSha256": "6a536977c03a313b7e112e21d31ef800363da2e7dca5edc060ed0df138109287",
+        "segmentationSourceSha256": "48e1602b871b10bd7b31f99278aef8d0e44bcfb8930051fa9aa20ffd48802db2",
         "repairReview": "AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review."
       },
       {
@@ -294,8 +296,8 @@
     "commissural-system": [
       {
         "file": "block-commissural-system-tissue.mesh",
-        "vertices": 19898,
-        "faces": 39572,
+        "vertices": 19354,
+        "faces": 38508,
         "shadeMin": 0.1581,
         "shadeMax": 1.0,
         "part": "tissue",
@@ -303,26 +305,29 @@
         "sourceType": "specimen-derived",
         "color": "#c9a27d",
         "material": "specimen",
-        "meshSha256": "84e85d1ff1aea884b55390b629be69d9912bbe32bbc5c1b61c80f39b421b7fc4",
-        "segmentationSourceSha256": "6a536977c03a313b7e112e21d31ef800363da2e7dca5edc060ed0df138109287",
+        "meshSha256": "efbe10e649421e1de18062a5b1869fe85f6c357e880347ba97c0b8ae46024b84",
+        "segmentationSourceSha256": "96fb242a78c66cc4ab9fd69e8bd6ed3cef5fca51b67f0338f063da98ae02381b",
         "repairReview": "AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review."
       },
       {
         "file": "block-commissural-system-corpus-callosum.mesh",
-        "vertices": 13022,
-        "faces": 26012,
+        "vertices": 12856,
+        "faces": 25684,
         "shadeMin": 0.82,
         "shadeMax": 0.82,
         "part": "corpus-callosum",
         "nameJa": "脳梁",
         "sourceType": "image-guided-segmentation",
         "color": "#dbc270",
-        "material": "model"
+        "material": "model",
+        "meshSha256": "722c0a73c98838f20bf953702998cc6f5488c751469082ae42e8215cbbc42069",
+        "segmentationSourceSha256": "84f91400e7f6b9d059707772b01889f74112d62e853bcebfffddaf589b423ba3",
+        "repairReview": "AI-image-reviewed local callosal exclusion; derived block synchronized. Development only, not expert review."
       },
       {
         "file": "block-commissural-system-lateral-ventricles.mesh",
-        "vertices": 11809,
-        "faces": 23610,
+        "vertices": 11960,
+        "faces": 23880,
         "shadeMin": 0.82,
         "shadeMax": 0.82,
         "part": "lateral-ventricles",
@@ -330,8 +335,8 @@
         "sourceType": "same-grid-segmentation",
         "color": "#45aebd",
         "material": "model",
-        "meshSha256": "bfa32e761c5f6d55f399dda97bdd5758819421a8bc862c87cf0261c4997aabec",
-        "segmentationSourceSha256": "3c4b795d09819a7dc029ffe33fb80621fa6db81fbb7b0eb3507eaf432c29a887",
+        "meshSha256": "de3d783a2e59addf0e48462e7cb9291c42f02cdd16cc214b20c2083ac059910f",
+        "segmentationSourceSha256": "48e1602b871b10bd7b31f99278aef8d0e44bcfb8930051fa9aa20ffd48802db2",
         "repairReview": "AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review."
       },
       {
@@ -362,8 +367,8 @@
     "choroid-plexus": [
       {
         "file": "block-choroid-plexus-tissue.mesh",
-        "vertices": 18990,
-        "faces": 37764,
+        "vertices": 19068,
+        "faces": 37908,
         "shadeMin": 0.0233,
         "shadeMax": 1.0,
         "part": "tissue",
@@ -372,15 +377,15 @@
         "color": "#c9a27d",
         "material": "specimen",
         "registrationSourceSha256": "7ebed144c2b200233ad1389d3288b2407edcb542fe46eaf8626ef872522f8c3f",
-        "meshSha256": "1c23c2276e648517c058b0e967a3add40fa142c6950f8655d2aca06fbe9810c8",
+        "meshSha256": "8af6c050f993788a121fc3ed1ca31e56e17191b2d88f6e93423b5c177168ff06",
         "registrationReview": "AI-assisted source-registration project adoption; not expert review. Existing meshing and cutaway rules retained.",
-        "segmentationSourceSha256": "3c4b795d09819a7dc029ffe33fb80621fa6db81fbb7b0eb3507eaf432c29a887",
+        "segmentationSourceSha256": "48e1602b871b10bd7b31f99278aef8d0e44bcfb8930051fa9aa20ffd48802db2",
         "repairReview": "AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review."
       },
       {
         "file": "block-choroid-plexus-ventricular-cavity.mesh",
-        "vertices": 9236,
-        "faces": 18352,
+        "vertices": 9358,
+        "faces": 18604,
         "shadeMin": 0.82,
         "shadeMax": 0.82,
         "part": "ventricular-cavity",
@@ -388,8 +393,8 @@
         "sourceType": "same-grid-segmentation",
         "color": "#45aebd",
         "material": "model",
-        "meshSha256": "48f5f0e50c261f4e07771efa1087be45493f6d323b95101ca03eae5d5472f5fc",
-        "segmentationSourceSha256": "6a536977c03a313b7e112e21d31ef800363da2e7dca5edc060ed0df138109287",
+        "meshSha256": "323dac3aa4a122cce40776a4fbb8102766f2150a0ccb3b3dc3f78aec92262e9d",
+        "segmentationSourceSha256": "48e1602b871b10bd7b31f99278aef8d0e44bcfb8930051fa9aa20ffd48802db2",
         "repairReview": "AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review."
       },
       {
@@ -423,8 +428,8 @@
     "medial-temporal": [
       {
         "file": "block-medial-temporal-tissue.mesh",
-        "vertices": 29502,
-        "faces": 58788,
+        "vertices": 29496,
+        "faces": 58776,
         "shadeMin": 0.0,
         "shadeMax": 1.0,
         "part": "tissue",
@@ -433,9 +438,9 @@
         "color": "#c9a27d",
         "material": "specimen",
         "registrationSourceSha256": "7ebed144c2b200233ad1389d3288b2407edcb542fe46eaf8626ef872522f8c3f",
-        "meshSha256": "2de65ee821ba4d5e15d4ed4d8c530a03ac934c6a2c54be15db872795d3ca768c",
+        "meshSha256": "722f5262b2e9cacac86c3211eb31c1a6347e61ed8d9ffbbd50c1279b664a42b4",
         "registrationReview": "AI-assisted source-registration project adoption; not expert review. Existing meshing and cutaway rules retained.",
-        "segmentationSourceSha256": "6626f8eb6da43ebd6f41e39e247c32338fb06588ee94b407549cd0a30f61aa08",
+        "segmentationSourceSha256": "46de00546e8e9b99dab2f9cd7d0f34546acfe0f0f209faea9e1e2a0d48ad5cb7",
         "repairReview": "AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review."
       },
       {
@@ -470,8 +475,8 @@
       },
       {
         "file": "block-medial-temporal-inferior-horn.mesh",
-        "vertices": 1629,
-        "faces": 3158,
+        "vertices": 1701,
+        "faces": 3306,
         "shadeMin": 0.82,
         "shadeMax": 0.82,
         "part": "inferior-horn",
@@ -479,16 +484,16 @@
         "sourceType": "same-grid-segmentation",
         "color": "#45aebd",
         "material": "model",
-        "meshSha256": "a9c12665c16a1f94e72bc2c69d4d3c82a7c6105e4c1d36ca39a9c370203af1c1",
-        "segmentationSourceSha256": "b5456693b562deda334a0e9f4c6be5f4cc21afdd7a6324e40938cf4d38b952ef",
+        "meshSha256": "d6256e2efd4fd7540ba2a6b49c75c0cfc34235937357492cfd01e2f7a849f829",
+        "segmentationSourceSha256": "96fb242a78c66cc4ab9fd69e8bd6ed3cef5fca51b67f0338f063da98ae02381b",
         "repairReview": "AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review."
       }
     ],
     "midbrain-section": [
       {
         "file": "block-midbrain-section-tissue.mesh",
-        "vertices": 2081,
-        "faces": 4150,
+        "vertices": 3065,
+        "faces": 6106,
         "shadeMin": 0.2512,
         "shadeMax": 1.0,
         "part": "tissue",
@@ -497,8 +502,10 @@
         "color": "#c9a27d",
         "material": "specimen",
         "registrationSourceSha256": "7ebed144c2b200233ad1389d3288b2407edcb542fe46eaf8626ef872522f8c3f",
-        "meshSha256": "3c97152029b7c12f19b5b5bab482e3f69e8a57612ae821e2d4edb5b9f57b673c",
-        "registrationReview": "AI-assisted source-registration project adoption; not expert review. Existing meshing and cutaway rules retained."
+        "meshSha256": "1cdbcdc3700967a553dcafa16410e4ef94605a34586b6b086d7ee6d9fad9d8cd",
+        "registrationReview": "AI-assisted source-registration project adoption; not expert review. Existing meshing and cutaway rules retained.",
+        "segmentationSourceSha256": "409dac37154b25dd6bc9caa387c4aa5a7b774cb430794c082bdfc956e874f7b5",
+        "repairReview": "AI-image-reviewed partial lower-midbrain tissue repair; derived block synchronized. Development only, not expert review."
       },
       {
         "file": "block-midbrain-section-red-nuclei.mesh",
@@ -649,8 +656,8 @@
       },
       {
         "file": "block-hindbrain-midbrain.mesh",
-        "vertices": 3987,
-        "faces": 7966,
+        "vertices": 5185,
+        "faces": 10354,
         "shadeMin": 0.1628,
         "shadeMax": 1.0,
         "part": "midbrain",
@@ -659,8 +666,10 @@
         "color": "#bd8e69",
         "material": "specimen",
         "registrationSourceSha256": "7ebed144c2b200233ad1389d3288b2407edcb542fe46eaf8626ef872522f8c3f",
-        "meshSha256": "244ca4ad49dd067587be7a12dde618a172dcceb8108d7e5db286e51667819a1b",
-        "registrationReview": "AI-assisted source-registration project adoption; not expert review. Existing meshing and cutaway rules retained."
+        "meshSha256": "f00f66c0747fa103473dd4927f77b385881eeef98e880d1951d7a9b63e5f09af",
+        "registrationReview": "AI-assisted source-registration project adoption; not expert review. Existing meshing and cutaway rules retained.",
+        "segmentationSourceSha256": "409dac37154b25dd6bc9caa387c4aa5a7b774cb430794c082bdfc956e874f7b5",
+        "repairReview": "AI-image-reviewed partial lower-midbrain tissue repair; derived block synchronized. Development only, not expert review."
       },
       {
         "file": "block-hindbrain-fourth-ventricle.mesh",

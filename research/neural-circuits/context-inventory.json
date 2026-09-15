@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 1,
+  "scope": "Whole-thalamus context only. No subnuclear localization or anatomical validation.",
+  "labelSource": "public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz",
+  "labelSha256": "63ac0815f7631e35029b9811485593e1bf0f2121cfe362366af74d1664f2dea8",
+  "dimensionsXYZ": [
+    394,
+    466,
+    378
+  ],
+  "coordinateSpace": "project:bigbrain-icbm500-scientific",
+  "displayTransform": "scientific XYZ -> [Z-18, Y+18, X] stored BNM2 ZYX",
+  "catalog": {
+    "targets": 26,
+    "localizationSlots": 51,
+    "localized": 0,
+    "studyPlans": 6
+  },
+  "context": [
+    {
+      "labelId": 15,
+      "hemisphere": "left",
+      "voxelCount": 66476,
+      "boundsXYZ": [
+        [
+          148,
+          197,
+          135
+        ],
+        [
+          194,
+          265,
+          182
+        ]
+      ],
+      "centroidVoxelXYZ": [
+        172.71291894819183,
+        230.61662855767494,
+        157.23789036644803
+      ],
+      "contextVoxelXYZ": [
+        173,
+        231,
+        157
+      ],
+      "contextWorldXYZ": [
+        -11.5,
+        -18.5,
+        6.5
+      ],
+      "contextMeshZYX": [
+        -11.5,
+        -0.5,
+        -11.5
+      ],
+      "sectionPositions": {
+        "sagittal": 44.02035623409669,
+        "coronal": 49.67741935483871,
+        "horizontal": 58.355437665782496
+      },
+      "purpose": "Navigate to existing whole-thalamus label only; never reuse for a nucleus."
+    },
+    {
+      "labelId": 16,
+      "hemisphere": "right",
+      "voxelCount": 67298,
+      "boundsXYZ": [
+        [
+          199,
+          198,
+          134
+        ],
+        [
+          245,
+          267,
+          182
+        ]
+      ],
+      "centroidVoxelXYZ": [
+        219.47601711789355,
+        230.76415346667062,
+        156.82262474367738
+      ],
+      "contextVoxelXYZ": [
+        219,
+        231,
+        157
+      ],
+      "contextWorldXYZ": [
+        11.5,
+        -18.5,
+        6.5
+      ],
+      "contextMeshZYX": [
+        -11.5,
+        -0.5,
+        11.5
+      ],
+      "sectionPositions": {
+        "sagittal": 55.72519083969466,
+        "coronal": 49.67741935483871,
+        "horizontal": 58.355437665782496
+      },
+      "purpose": "Navigate to existing whole-thalamus label only; never reuse for a nucleus."
+    }
+  ]
+}

@@ -3,7 +3,7 @@ export type SegmentationPlane="horizontal"|"coronal"|"sagittal";
 export const segmentationPlaneNames:Record<SegmentationPlane,{label:string;axis:"X"|"Y"|"Z";rangeStart:string;rangeEnd:string;increment:string;decrement:string;top:string;bottom:string;left:string;right:string}>={
   horizontal:{label:"水平断",axis:"Z",rangeStart:"上方",rangeEnd:"下方",increment:"上方",decrement:"下方",top:"A",bottom:"P",left:"L",right:"R"},
   coronal:{label:"冠状断",axis:"Y",rangeStart:"後方",rangeEnd:"前方",increment:"前方",decrement:"後方",top:"S",bottom:"I",left:"L",right:"R"},
-  sagittal:{label:"矢状断",axis:"X",rangeStart:"左",rangeEnd:"右",increment:"右",decrement:"左",top:"S",bottom:"I",left:"P",right:"A"},
+  sagittal:{label:"矢状断",axis:"X",rangeStart:"左",rangeEnd:"右",increment:"右",decrement:"左",top:"S",bottom:"I",left:"A",right:"P"},
 };
 
 /** Display order follows AtlasVolumeCanvas.sectionVoxel. */
@@ -21,9 +21,16 @@ export function planePositionForSlice(index:number,plane:SegmentationPlane,dims:
   const size=planeAxisSize(dims,plane),bounded=Math.max(0,Math.min(size-1,index));
   return (plane==="horizontal"?1-bounded/(size-1):bounded/(size-1))*100;
 }
+/** Move one voxel in slider order, preserving the horizontal axis reversal. */
+export function stepPlanePosition(position:number,plane:SegmentationPlane,dims:[number,number,number],direction:-1|1){
+  const delta=plane==="horizontal"?-direction:direction;
+  return planePositionForSlice(planeSliceIndex(position,plane,dims)+delta,plane,dims);
+}
+/** Display precision only: never feed this rounded label back into sampling. */
+export function formatSectionPosition(position:number){return String(Number(position.toFixed(2)));}
 export function planeVoxel(a:number,b:number,slice:number,plane:SegmentationPlane,dims:[number,number,number]):[number,number,number]{
   const[dx,dy,dz]=dims;
   if(plane==="horizontal")return[a,dy-1-b,slice];
-  if(plane==="sagittal")return[slice,a,dz-1-b];
+  if(plane==="sagittal")return[slice,dy-1-a,dz-1-b];
   return[a,slice,dz-1-b];
 }

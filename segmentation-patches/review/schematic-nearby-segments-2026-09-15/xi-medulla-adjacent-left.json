@@ -1,0 +1,168 @@
+{
+  "status": "candidate-only; no nerve attribution or anatomical approval",
+  "name": "CN XI medulla-adjacent ascending segment",
+  "side": "left",
+  "coordinateContract": "generator/display anatomical XYZ mm; no DISPLAY_SHIFT for III-XII",
+  "doubleShiftWarning": "Do not add [0,18,-18] to these points; that shift is not used by pontine nerves.",
+  "controlPointsXYZMm": [
+    [
+      -8.5,
+      -18.5,
+      -84
+    ],
+    [
+      -10.5,
+      -18.5,
+      -81
+    ],
+    [
+      -12,
+      -18.5,
+      -78
+    ],
+    [
+      -13,
+      -18.5,
+      -75
+    ]
+  ],
+  "radiusMm": 0.45,
+  "subdivisionsPerSpan": 20,
+  "attachmentAllowanceMm": 3.0,
+  "labelDisplayAffine": [
+    [
+      0.5,
+      0.0,
+      0.0,
+      -98.0
+    ],
+    [
+      0.0,
+      0.5,
+      0.0,
+      -116.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.5,
+      -90.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "labelsSha256": "785ce199e2c7226e5527a771e953d1b78cfed1067179aa04c63b9eba74577e0f",
+  "postAttachmentCentreSamples": 44,
+  "allCentreSamples": 61,
+  "allNonzeroLabelSamples": 0,
+  "allCentreLabelHistogram": {
+    "0": 61
+  },
+  "postAttachmentNonzeroLabelSamples": 0,
+  "postAttachmentLabelHistogram": {
+    "0": 44
+  },
+  "postAttachmentAllCentresOutsideDisplayedLabels": true,
+  "metrics": {
+    "segment-pons-medulla.mesh": {
+      "minimumCenterlineDistanceMm": 3.0802415996963557,
+      "minimumTubeEnvelopeClearanceMm": 2.6302415996963555,
+      "atCenterlineXYZMm": [
+        -12.36825,
+        -18.5,
+        -77.00549999999998
+      ],
+      "nearestSampleXYZMm": [
+        -9.5,
+        -19.0,
+        -76.0
+      ],
+      "evaluatedAfterAttachmentAllowance": false
+    },
+    "segment-cerebellum.mesh": {
+      "minimumCenterlineDistanceMm": 3.3166316914040057,
+      "minimumTubeEnvelopeClearanceMm": 2.8666316914040055,
+      "atCenterlineXYZMm": [
+        -13.0,
+        -18.5,
+        -75.0
+      ],
+      "nearestSampleXYZMm": [
+        -14.0,
+        -21.50000762939453,
+        -74.0
+      ],
+      "evaluatedAfterAttachmentAllowance": false
+    },
+    "block-hindbrain-olives.mesh": {
+      "minimumCenterlineDistanceMm": 20.342087252582136,
+      "minimumTubeEnvelopeClearanceMm": 19.892087252582137,
+      "atCenterlineXYZMm": [
+        -13.0,
+        -18.5,
+        -75.0
+      ],
+      "nearestSampleXYZMm": [
+        -11.0,
+        1.520002841949463,
+        -72.0
+      ],
+      "evaluatedAfterAttachmentAllowance": false
+    },
+    "segment-brainstem.mesh": {
+      "minimumCenterlineDistanceMm": 3.0802415996963557,
+      "minimumTubeEnvelopeClearanceMm": 2.6302415996963555,
+      "atCenterlineXYZMm": [
+        -12.36825,
+        -18.5,
+        -77.00549999999998
+      ],
+      "nearestSampleXYZMm": [
+        -9.5,
+        -19.0,
+        -76.0
+      ],
+      "evaluatedAfterAttachmentAllowance": false
+    },
+    "pial-left.mesh": {
+      "minimumCenterlineDistanceMm": 33.57794822413102,
+      "minimumTubeEnvelopeClearanceMm": 33.12794822413102,
+      "atCenterlineXYZMm": [
+        -13.0,
+        -18.5,
+        -75.0
+      ],
+      "nearestSampleXYZMm": [
+        -24.000545501708984,
+        0.538072407245636,
+        -49.62248229980469
+      ],
+      "evaluatedAfterAttachmentAllowance": false
+    },
+    "pial-right.mesh": {
+      "minimumCenterlineDistanceMm": 47.64350652694785,
+      "minimumTubeEnvelopeClearanceMm": 47.19350652694785,
+      "atCenterlineXYZMm": [
+        -13.0,
+        -18.5,
+        -75.0
+      ],
+      "nearestSampleXYZMm": [
+        19.786056518554688,
+        1.0703299045562744,
+        -46.504730224609375
+      ],
+      "evaluatedAfterAttachmentAllowance": false
+    }
+  },
+  "limitations": [
+    "Distances use mesh vertices and triangle centroids, not exact continuous triangle distance.",
+    "Negative envelope clearance means possible contact/overlap and requires visual review.",
+    "The first 3 mm are allowed to contact the pons because this is a schematic attachment zone.",
+    "The distal end is a display cutoff, not an anatomical endpoint."
+  ]
+}

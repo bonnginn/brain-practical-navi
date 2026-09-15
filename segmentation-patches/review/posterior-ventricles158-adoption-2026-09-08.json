@@ -1,0 +1,4088 @@
+{
+  "beforeSha256": "a21cb6ab8aa7080b6e26766c2f82834871d3e72c174b72d0b018733ee5ef278a",
+  "afterSha256": "63ac0815f7631e35029b9811485593e1bf0f2121cfe362366af74d1664f2dea8",
+  "afterRawVoxelSha256": "11d3bbee8617b73b8862e0100b703bb2c2df1632019e9fa7f71eaa54d912db02",
+  "points": [
+    {
+      "xyz": [
+        192,
+        205,
+        149
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        192,
+        206,
+        149
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        192,
+        208,
+        149
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        192,
+        210,
+        150
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        193,
+        201,
+        151
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        193,
+        201,
+        152
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        193,
+        201,
+        153
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        193,
+        202,
+        153
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        193,
+        207,
+        151
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        193,
+        208,
+        150
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        193,
+        208,
+        151
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        193,
+        209,
+        150
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        193,
+        209,
+        151
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        194,
+        201,
+        151
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        194,
+        201,
+        153
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        194,
+        202,
+        152
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        194,
+        203,
+        153
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        194,
+        207,
+        152
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        194,
+        208,
+        151
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        194,
+        208,
+        152
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        194,
+        209,
+        151
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        194,
+        210,
+        150
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        194,
+        210,
+        151
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        195,
+        201,
+        149
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        195,
+        202,
+        149
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        195,
+        202,
+        150
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        195,
+        203,
+        149
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        195,
+        205,
+        152
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        195,
+        205,
+        153
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        195,
+        206,
+        152
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        195,
+        206,
+        153
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        195,
+        207,
+        152
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        195,
+        208,
+        151
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        195,
+        209,
+        151
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        195,
+        210,
+        149
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        195,
+        210,
+        151
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        196,
+        202,
+        150
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        196,
+        204,
+        152
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        196,
+        205,
+        152
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        196,
+        207,
+        152
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        196,
+        208,
+        151
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        196,
+        209,
+        150
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        196,
+        209,
+        151
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        196,
+        209,
+        152
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        196,
+        210,
+        151
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        196,
+        210,
+        152
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        197,
+        201,
+        151
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        197,
+        201,
+        154
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        197,
+        202,
+        151
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        197,
+        202,
+        153
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        197,
+        202,
+        154
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        197,
+        203,
+        153
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        197,
+        204,
+        152
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        197,
+        205,
+        152
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        197,
+        205,
+        153
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        197,
+        206,
+        153
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        197,
+        207,
+        152
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        197,
+        208,
+        152
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        197,
+        209,
+        152
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        197,
+        210,
+        151
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        198,
+        201,
+        151
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        198,
+        201,
+        152
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        198,
+        201,
+        153
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        198,
+        202,
+        151
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        198,
+        202,
+        152
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        198,
+        202,
+        153
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        198,
+        202,
+        154
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        198,
+        203,
+        152
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        198,
+        203,
+        154
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        198,
+        204,
+        151
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        198,
+        204,
+        153
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        198,
+        204,
+        154
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        198,
+        205,
+        153
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        198,
+        206,
+        152
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        198,
+        206,
+        153
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        198,
+        207,
+        152
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        198,
+        208,
+        152
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        198,
+        209,
+        149
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        199,
+        203,
+        151
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        199,
+        203,
+        152
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        199,
+        204,
+        152
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        199,
+        205,
+        152
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        199,
+        205,
+        153
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        199,
+        206,
+        152
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        199,
+        206,
+        153
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        199,
+        207,
+        150
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        199,
+        208,
+        150
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        199,
+        209,
+        149
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        199,
+        209,
+        150
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        200,
+        203,
+        152
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        200,
+        204,
+        151
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        200,
+        204,
+        152
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        200,
+        208,
+        150
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        200,
+        209,
+        150
+      ],
+      "before": 25,
+      "after": 0
+    },
+    {
+      "xyz": [
+        192,
+        201,
+        115
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        192,
+        201,
+        116
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        193,
+        200,
+        116
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        193,
+        200,
+        117
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        193,
+        200,
+        118
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        193,
+        201,
+        115
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        193,
+        201,
+        116
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        193,
+        201,
+        117
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        193,
+        201,
+        118
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        194,
+        199,
+        117
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        194,
+        200,
+        115
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        194,
+        200,
+        116
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        194,
+        200,
+        117
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        194,
+        200,
+        118
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        194,
+        200,
+        119
+      ],
+      "before": 0,
+      "after": 41
+    },
+    {
+      "xyz": [
+        194,
+        201,
+        114
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        194,
+        201,
+        115
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        194,
+        201,
+        116
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        194,
+        201,
+        117
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        194,
+        201,
+        118
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        194,
+        201,
+        119
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        194,
+        201,
+        120
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        194,
+        202,
+        120
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        195,
+        199,
+        117
+      ],
+      "before": 0,
+      "after": 41
+    },
+    {
+      "xyz": [
+        195,
+        199,
+        118
+      ],
+      "before": 0,
+      "after": 41
+    },
+    {
+      "xyz": [
+        195,
+        200,
+        115
+      ],
+      "before": 0,
+      "after": 41
+    },
+    {
+      "xyz": [
+        195,
+        200,
+        122
+      ],
+      "before": 0,
+      "after": 41
+    },
+    {
+      "xyz": [
+        195,
+        201,
+        114
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        195,
+        201,
+        115
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        195,
+        201,
+        116
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        195,
+        201,
+        117
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        195,
+        201,
+        118
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        195,
+        201,
+        119
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        195,
+        201,
+        120
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        195,
+        201,
+        123
+      ],
+      "before": 0,
+      "after": 41
+    },
+    {
+      "xyz": [
+        195,
+        202,
+        115
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        195,
+        202,
+        116
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        195,
+        202,
+        117
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        195,
+        202,
+        118
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        195,
+        202,
+        119
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        195,
+        202,
+        120
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        195,
+        202,
+        121
+      ],
+      "before": 0,
+      "after": 41
+    },
+    {
+      "xyz": [
+        195,
+        203,
+        117
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        195,
+        203,
+        118
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        195,
+        203,
+        122
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        195,
+        203,
+        123
+      ],
+      "before": 0,
+      "after": 41
+    },
+    {
+      "xyz": [
+        196,
+        199,
+        117
+      ],
+      "before": 0,
+      "after": 41
+    },
+    {
+      "xyz": [
+        196,
+        199,
+        118
+      ],
+      "before": 0,
+      "after": 41
+    },
+    {
+      "xyz": [
+        196,
+        200,
+        120
+      ],
+      "before": 0,
+      "after": 41
+    },
+    {
+      "xyz": [
+        196,
+        200,
+        121
+      ],
+      "before": 0,
+      "after": 41
+    },
+    {
+      "xyz": [
+        196,
+        201,
+        114
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        196,
+        201,
+        115
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        196,
+        201,
+        116
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        196,
+        201,
+        117
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        196,
+        201,
+        118
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        196,
+        201,
+        119
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        196,
+        201,
+        120
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        197,
+        199,
+        118
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        197,
+        200,
+        116
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        197,
+        200,
+        117
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        197,
+        200,
+        118
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        197,
+        201,
+        114
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        198,
+        200,
+        116
+      ],
+      "before": 27,
+      "after": 41
+    },
+    {
+      "xyz": [
+        198,
+        200,
+        117
+      ],
+      "before": 27,
+      "after": 41
+    }
+  ],
+  "count": 158,
+  "transition": "mixed-posterior-ventricular-repair",
+  "evidence": [
+    {
+      "path": "work/anatomy-review/third-posterior-native100-candidate-2026-09-08-v1/report.json",
+      "sha256": "cfdfa5fd1ae10369813d8a7e139af4ef28cee88356abefd8a31491232d922f38",
+      "visuallyInspectedFigures": [
+        {
+          "path": "x-00.png",
+          "sha256": "df05440d8f8d27c73ff0068ba9df152031189718df63aba0fd19b57c35c36788",
+          "planes": [
+            {
+              "axis": "x",
+              "nativeIndex": 680,
+              "valuesSha256": "71841eb6b151c3ae5c451883b05a3f48b96702e5f13d1676d26ac60ab4df9659",
+              "labelProjectionSha256": "56bfac9932671934a5715f40bb94efb1a881ff07005dd1b8a1855861a98d21e2",
+              "candidateProjectionSha256": "5f35b23662b1ff047160f055f34aa51970979f6be9e07e22a16a8390f1da1c66"
+            },
+            {
+              "axis": "x",
+              "nativeIndex": 684,
+              "valuesSha256": "75e232ded0b7570402fd400c0070fa953cf5b08bbb31556a28c109f75b854bfe",
+              "labelProjectionSha256": "e61f61b9f12bdc42e282bd544686421460d8aa1059b7227a588e1c1ea3a1b9b4",
+              "candidateProjectionSha256": "907633121c9ff886f510678880b5508991bfac75a3429183d683109aafb84b5c"
+            },
+            {
+              "axis": "x",
+              "nativeIndex": 688,
+              "valuesSha256": "c51509c3a54817bbfdd5ae87dfa4bcdb5480d1ac15ffcbb0959a18816e0943f0",
+              "labelProjectionSha256": "6591615656339ddb3df1775d09b2bf2f6b650e051e361a0249039fbad06ff76a",
+              "candidateProjectionSha256": "c25801d6e3fe7f1b81c672a9e19c0eb9651b9d57ede0b70f1886d97127ef9d9f"
+            }
+          ]
+        },
+        {
+          "path": "x-01.png",
+          "sha256": "3764a0779c1f4bbc5bfab34c3a6fda65446aeb776a12c118f780545502012e20",
+          "planes": [
+            {
+              "axis": "x",
+              "nativeIndex": 692,
+              "valuesSha256": "4a878386188a27e1dd0d4d926e15eb781fb152971691868c06e6be8e98f96f6e",
+              "labelProjectionSha256": "bf1e6c025e4b52a90f02dbcdca485b24e86252cc23310b65163d0c99dc3957ae",
+              "candidateProjectionSha256": "afb98fccfcdbd068a3f9ade308eb7560c4ef674b1807c26da3bb499d4f79c900"
+            },
+            {
+              "axis": "x",
+              "nativeIndex": 696,
+              "valuesSha256": "3110c9336e6c2bcf4a3b089ded0094d986656a908f9e813ec4a92bc676b4e213",
+              "labelProjectionSha256": "dc738501b497303b9d6d4302fe5d7e2b36b2cac2de3d3ab01bf6587aa285cc53",
+              "candidateProjectionSha256": "67a6e13da3b164fb13c3941756f06e2c735d02aeea8f76b57867270a4b7adf2a"
+            },
+            {
+              "axis": "x",
+              "nativeIndex": 700,
+              "valuesSha256": "b17a208ce2a52629911df2472ff1ec1b4ba2ba2404635de6d2628cdf4b77f163",
+              "labelProjectionSha256": "03528fb3d9da1f85161dd6248cae3a4646393509432469c81694baa598a95eb1",
+              "candidateProjectionSha256": "db34f63a6d9cfb4045e117421a95f8579c7bf0c60289d5a63a8958c06b5122d8"
+            }
+          ]
+        },
+        {
+          "path": "x-02.png",
+          "sha256": "60b844597ba148c7062f687c031de76e77888ead27c6951a95a3d4d0ecf71734",
+          "planes": [
+            {
+              "axis": "x",
+              "nativeIndex": 704,
+              "valuesSha256": "d0a086ccce9695936543c6239d913383c54ca46349c5a4bd47cfcb8142b8e181",
+              "labelProjectionSha256": "d764e34ed5dbe9dd726da9996cc8bfb755329dab6ccf8ad575c301a02b2cdfff",
+              "candidateProjectionSha256": "a10b4f5daca8527cae3b727f6349076740d790f5b0cc14544b3c94181f1694de"
+            },
+            {
+              "axis": "x",
+              "nativeIndex": 708,
+              "valuesSha256": "70139746fb2ecee15d9947e7d119be5e0afa1b84981334096877736205d29b83",
+              "labelProjectionSha256": "559f73a39e46b0510e7559c72beafd5cc2952eee06ac12ba3b8606cddf8e79f4",
+              "candidateProjectionSha256": "c7fc7081a0c84905d7dabc6e8edf82517457f268872c59c404cb41e1bf954851"
+            },
+            {
+              "axis": "x",
+              "nativeIndex": 712,
+              "valuesSha256": "a6d181e2f55201fb8b25eb990ec872517cfa5acd50d15cda9d7d471acb6c1e17",
+              "labelProjectionSha256": "f7797f5840d6920ccd76ca84aa3dc3c94af322e315bce602f6d803373d9f6f42",
+              "candidateProjectionSha256": "c45579f8df9f67d7d7f3cb3537ac1788231d0f6bd78b605825555e0030004ca5"
+            }
+          ]
+        },
+        {
+          "path": "x-03.png",
+          "sha256": "448967076d2ac47f72bae04c5299e08a1e0cb1530e85e4053682c3348b1d1ded",
+          "planes": [
+            {
+              "axis": "x",
+              "nativeIndex": 716,
+              "valuesSha256": "daeff4247e090c9389d7e1ca27895bd7b85f57dcf3ece6f8b416530920b0e0ae",
+              "labelProjectionSha256": "47da486c1c9a5740a5385f203e446bad8fb9a0504f38352c421c4ddfb036ed68",
+              "candidateProjectionSha256": "b8773c994f197862e6f1dd267857c69806fd25817b0eafa42d97b6f30c75d882"
+            },
+            {
+              "axis": "x",
+              "nativeIndex": 720,
+              "valuesSha256": "d68dcb3584bbd6073c6e52b03b2584b9de9e5e6940444cd89c4f148811e29f1a",
+              "labelProjectionSha256": "e64c4be2e5d54b92017fd4ab81b574ed421331bde80af4b977e8bdb5670e5185",
+              "candidateProjectionSha256": "120774b7a9824087a749b589728f3491eea22818906d1a8d69e5100d3e9339f2"
+            },
+            {
+              "axis": "x",
+              "nativeIndex": 724,
+              "valuesSha256": "ba7a7b27a9a555f9dceb8e96a5370fb04c9d4a5f00f6bec55fbf5011ef050538",
+              "labelProjectionSha256": "bfa20c9d415005b188459b9446f7b3020722db8f3765c956bf4ba17231235ff4",
+              "candidateProjectionSha256": "120774b7a9824087a749b589728f3491eea22818906d1a8d69e5100d3e9339f2"
+            }
+          ]
+        },
+        {
+          "path": "y-00.png",
+          "sha256": "87f4ad9f0617207240f134c7fc7a0f787af45e73a294c56acff48aad603ed176",
+          "planes": [
+            {
+              "axis": "y",
+              "nativeIndex": 642,
+              "valuesSha256": "2a431660b80ed6348fc3f54592beaef4839a8b8e0a8e9e95db7eb9df8ff8dcd6",
+              "labelProjectionSha256": "fcf7149ee916b5624859b0c3e492d7beec11a9bc4afbe5c3e8a330453630b427",
+              "candidateProjectionSha256": "120774b7a9824087a749b589728f3491eea22818906d1a8d69e5100d3e9339f2"
+            },
+            {
+              "axis": "y",
+              "nativeIndex": 646,
+              "valuesSha256": "932ed3b191d70c8dfa37dbfb4e608ccb780e28db71a665842e977b23f09f1b1d",
+              "labelProjectionSha256": "1604dab02a26d8f5bf28bfc36f77e6cbbdadb1a6cb1c7d435d9cd6523e4389f5",
+              "candidateProjectionSha256": "120774b7a9824087a749b589728f3491eea22818906d1a8d69e5100d3e9339f2"
+            },
+            {
+              "axis": "y",
+              "nativeIndex": 650,
+              "valuesSha256": "a160491d7568e878b9553e0e55a59a7c80cc29da07a82b214f35e0a8dda8bf24",
+              "labelProjectionSha256": "97d7a5db0a98d2ac5f7436a03d68e89561775914abd687021a69b55c038386ee",
+              "candidateProjectionSha256": "b9fb41582c0bafc579520807881db648779490a6b0b53008f7f4412ed60d95d7"
+            }
+          ]
+        },
+        {
+          "path": "y-01.png",
+          "sha256": "24f96a1da5512536dde147efd57768347f4c6d5512a8c78e9789da755400ab36",
+          "planes": [
+            {
+              "axis": "y",
+              "nativeIndex": 654,
+              "valuesSha256": "dec1cb649781db0b9b6b912a1f88529c862fadefab41abef6ecad4bca13239da",
+              "labelProjectionSha256": "41e80c9609d1cf85974092ed45951fc851431bfae97bd61f0e0a4942e41499db",
+              "candidateProjectionSha256": "edb8492afcdfc12b4a4977d81633e688595171e41ee4b3f7a6544cf2d2272185"
+            },
+            {
+              "axis": "y",
+              "nativeIndex": 658,
+              "valuesSha256": "672bec214582ecbea670e8f4d9189de439ff1d99475290bedce940a67c79cb7b",
+              "labelProjectionSha256": "b5c45196a869dfbf4ea41d7a9e4678fc44c1bf5f38a7afce3cc83c0b41a1a60c",
+              "candidateProjectionSha256": "c20248a5d85f4563d05f7fd6be888ead1ba8003accc997e1ffdbb90611375b17"
+            },
+            {
+              "axis": "y",
+              "nativeIndex": 662,
+              "valuesSha256": "7686e8516bb61c50d10d3f94cbc8fd05162c9727b1177c5948d98c9dd9f76f92",
+              "labelProjectionSha256": "c9b02e7eb66fee92bf8ec9ee0eeb509788ab689d9d093450526c9455e035461e",
+              "candidateProjectionSha256": "9702c6d085f5c89dea87d1a34e9da608514d3244ce9d457a2ff2ce0e0ecff194"
+            }
+          ]
+        },
+        {
+          "path": "y-02.png",
+          "sha256": "787a795806f2e3e614bb75754096a2be6ef83b9009d13ef592196289a5389f3e",
+          "planes": [
+            {
+              "axis": "y",
+              "nativeIndex": 666,
+              "valuesSha256": "4240f01ebed817301cac704b98a512510cd9ef51ed00f05508ccd808179dc13c",
+              "labelProjectionSha256": "300a19600a9d8dd9aeb453af30a68d8fb5849ff9be8696fd5d4002b968847198",
+              "candidateProjectionSha256": "b3308b93ded99f1efb686be9706bab2a1d86c18c4f46c228755f236a6bd9f129"
+            },
+            {
+              "axis": "y",
+              "nativeIndex": 670,
+              "valuesSha256": "2ec058341958a206d2626162b3c92b10c7f8bee2d5bee57c14552ebd50ffa7ba",
+              "labelProjectionSha256": "435bd5a36703ff71fdd1134c8c8a42f0042ccc561de6d795955f33e7bd7ee6b3",
+              "candidateProjectionSha256": "dc61ab35b937cb558a604e4fb0c777280312d4293c2dc128832dedc4d48b7699"
+            },
+            {
+              "axis": "y",
+              "nativeIndex": 674,
+              "valuesSha256": "691fe9dda2bf02e2e86cf386d79cc45c3a71ae95e4abad568db7f10aa192e994",
+              "labelProjectionSha256": "1d465421507b16f22937e5e5f6fba6129cd968af81fd0da2e7055d3c2f0ba7cd",
+              "candidateProjectionSha256": "f2e4948c8c6c5e002eb6356f8ec793d93efd900df5854be57092c2f903a7aafb"
+            }
+          ]
+        },
+        {
+          "path": "y-03.png",
+          "sha256": "e69266e66892793523a6a52d184a74a3263ec1a13d5c021ef0398eb13e0433e5",
+          "planes": [
+            {
+              "axis": "y",
+              "nativeIndex": 678,
+              "valuesSha256": "de74e594dd0c30f8c5455595c1ad1174cb15826119ca9939c18402597cd0f738",
+              "labelProjectionSha256": "a151963774f3ea3cc1df5c4945d4064e73f026e7173b4dd0a010a5a8cc97fecc",
+              "candidateProjectionSha256": "120774b7a9824087a749b589728f3491eea22818906d1a8d69e5100d3e9339f2"
+            },
+            {
+              "axis": "y",
+              "nativeIndex": 682,
+              "valuesSha256": "c91c9ab30bd74982195c286df8776a2afaa282b28e11e97390dc8ef3a141d886",
+              "labelProjectionSha256": "98266d4ee6ddc7a938fffd474d47d7c66517ef9e5772d1c306c1991b059f7901",
+              "candidateProjectionSha256": "120774b7a9824087a749b589728f3491eea22818906d1a8d69e5100d3e9339f2"
+            },
+            {
+              "axis": "y",
+              "nativeIndex": 686,
+              "valuesSha256": "6bb07bddfb45eb37f9a46b700464b03a72d1b0d037b34b092e9e829a35b3c78a",
+              "labelProjectionSha256": "cd402b425718169504228cfc0fecd6c43eb7bd111c37f50ccd49f8961e29a375",
+              "candidateProjectionSha256": "120774b7a9824087a749b589728f3491eea22818906d1a8d69e5100d3e9339f2"
+            }
+          ]
+        },
+        {
+          "path": "y-04.png",
+          "sha256": "2d608260dcfe06cf468b4d7e9c7eabd87d4a1c492270ddf23ecc53504db4ad9b",
+          "planes": [
+            {
+              "axis": "y",
+              "nativeIndex": 690,
+              "valuesSha256": "ae45e3322c8d98dcc300f0d266d6de4269b42a9b9004c52d9ca2dcbb50cd790f",
+              "labelProjectionSha256": "922dbe83859bd39f6dba64716fbbb5bf9e952f8b3dff5075dac38e0b66c3ec38",
+              "candidateProjectionSha256": "120774b7a9824087a749b589728f3491eea22818906d1a8d69e5100d3e9339f2"
+            },
+            {
+              "axis": "y",
+              "nativeIndex": 694,
+              "valuesSha256": "5a82d9252610b094cce8087fdb31cb0360e2d64cc629ca99daa1c910b0e9590f",
+              "labelProjectionSha256": "9ec4e24e7453d6cd9a6373a7deb3c2f1b4120d547877092023e529b5c44b02ff",
+              "candidateProjectionSha256": "120774b7a9824087a749b589728f3491eea22818906d1a8d69e5100d3e9339f2"
+            }
+          ]
+        },
+        {
+          "path": "z-00.png",
+          "sha256": "c1792d028661d3f697e6906e990bcefb09566d41918b58e03b5c78dc0a1c09c2",
+          "planes": [
+            {
+              "axis": "z",
+              "nativeIndex": 568,
+              "valuesSha256": "62208f4c2f2312ae889b5d4f71dfc5bebd78c1df94f9e68c528df7a37bca9c0e",
+              "labelProjectionSha256": "ff0249609829e374fc7f4f4c3b84416ba70855728ce6b25f54721b6b64738aee",
+              "candidateProjectionSha256": "05868e1e96bc07541d29d920594aa2948d2b4a8d931b552af435986c43ac85a4"
+            },
+            {
+              "axis": "z",
+              "nativeIndex": 572,
+              "valuesSha256": "62f063527f4b9cd762fdef091538de08bbe6bd0548e9bfe241626e0fd1ceed85",
+              "labelProjectionSha256": "c4fa612fac88ba94ab621965dfe2817d394e8f30dc610f45a795813b7ef63d14",
+              "candidateProjectionSha256": "05868e1e96bc07541d29d920594aa2948d2b4a8d931b552af435986c43ac85a4"
+            },
+            {
+              "axis": "z",
+              "nativeIndex": 576,
+              "valuesSha256": "78f6386d7cd29f4f1d6b5e65e10ce84ce0897077d9f621620f493f571f001364",
+              "labelProjectionSha256": "8ec8e4d5ff249fbef857bf6b6c5a041cc312cae42551cdea6a406bc3f5dbd51d",
+              "candidateProjectionSha256": "05868e1e96bc07541d29d920594aa2948d2b4a8d931b552af435986c43ac85a4"
+            }
+          ]
+        },
+        {
+          "path": "z-01.png",
+          "sha256": "03b3fe3190f0614becc7eda70050638d734baeec050b7ce155388b81b4bda699",
+          "planes": [
+            {
+              "axis": "z",
+              "nativeIndex": 580,
+              "valuesSha256": "b62dafbb44eb5820dcd712ca731ac87ce25ef01fc8ea3bb9e80c638d209ef27b",
+              "labelProjectionSha256": "5a50d968a211175b13de449ab37131b56928db6228fa1b1f1181b66e60262094",
+              "candidateProjectionSha256": "05868e1e96bc07541d29d920594aa2948d2b4a8d931b552af435986c43ac85a4"
+            },
+            {
+              "axis": "z",
+              "nativeIndex": 584,
+              "valuesSha256": "13005a29667fd7b62b953b14ac32a0460a7bf52279a2caf14b3dc441305515d0",
+              "labelProjectionSha256": "826031e7babcbddbd74a2337056e4ebb3bf8264238d0c9a38538dfaab04a4de3",
+              "candidateProjectionSha256": "05868e1e96bc07541d29d920594aa2948d2b4a8d931b552af435986c43ac85a4"
+            },
+            {
+              "axis": "z",
+              "nativeIndex": 588,
+              "valuesSha256": "ef2670e59ef72a512c26f3124ece21c9e701e7eab14d82292cf65113d411cff7",
+              "labelProjectionSha256": "285625ffa64146f1ed7ab5a295402affc0f02ac6c51201893b0f78bccd7600bc",
+              "candidateProjectionSha256": "5da6ca9e3029edbcf210e48589eba43af3b2acd2e7377538325eefb1a576ba23"
+            }
+          ]
+        },
+        {
+          "path": "z-02.png",
+          "sha256": "60e4aac15cdaf2430d1b545ce655c06326276683a751de9333d506ebed432acb",
+          "planes": [
+            {
+              "axis": "z",
+              "nativeIndex": 592,
+              "valuesSha256": "c4513bb28708b3b8cf442d70e4f769fb5457b92473700f0241079c077205124a",
+              "labelProjectionSha256": "cfed6b0bec7f28ed7f31ff4e1758b326c4009f8c7814cccfb6be079e00174e4d",
+              "candidateProjectionSha256": "231e4a70f3c3f59add125955c5a5915a098e5741f48c61559e39827af4396329"
+            },
+            {
+              "axis": "z",
+              "nativeIndex": 596,
+              "valuesSha256": "7d1023ca102f7406410d615b7cc90581915b49b4b58bb4d168078f0bb4ba2ec2",
+              "labelProjectionSha256": "5d50519d83c5a75f0e99d8c8d620f7ce81bddd69a89d4e958896e174e2ac7674",
+              "candidateProjectionSha256": "b848c38525abec7d50b272a60a4941f524a67d20529c33296b9d14e2dfcda3c0"
+            },
+            {
+              "axis": "z",
+              "nativeIndex": 600,
+              "valuesSha256": "729e8f912947d4cd3ce2ae18c7779c6fec56ecb4f831548430bf602200c93d45",
+              "labelProjectionSha256": "b378a3526beb341c06f0e4cb1c04908177bfe7d4c86f5d401bc85c9996328896",
+              "candidateProjectionSha256": "08dd4d25fffbe58fec88c17e4fa5f83ab46dcbd70171f092cbe4e7c141d1a774"
+            }
+          ]
+        },
+        {
+          "path": "z-03.png",
+          "sha256": "4d5007d963f8d9780e39c196c04e9a720dc6480b6fa51e4098f897213618230e",
+          "planes": [
+            {
+              "axis": "z",
+              "nativeIndex": 604,
+              "valuesSha256": "854c7993da9a57bcad3c58f7daf223c6286c9b2dc20fae2eef6ece6908aa3e3e",
+              "labelProjectionSha256": "d7d381bc32f7ea0716ef423530c8cbef59f083a0069ddf24e7edc3544607de56",
+              "candidateProjectionSha256": "d38fd2b16da20f99b0a06d31838812abf62d88a478e9f14535fce34a53654396"
+            },
+            {
+              "axis": "z",
+              "nativeIndex": 608,
+              "valuesSha256": "e3f60f013207864a6605894c336e57c35ae4f8881dfeddedd8c3b670394f3a70",
+              "labelProjectionSha256": "539f246b970b6e0bbd4d644674393f76ad8eab1bbdbb2d7b8e1526d54e0dad27",
+              "candidateProjectionSha256": "ea5f846664652252b88615e6e1b2cd2fae7b33e1f032aa112df508eff8ade88c"
+            },
+            {
+              "axis": "z",
+              "nativeIndex": 612,
+              "valuesSha256": "fbbba6df4c6ec38799355af45a289eca2d4757c4e826d96b5440704a086ccf7c",
+              "labelProjectionSha256": "f26ccd5a52293f35a2000258836a3451fcde28774f95c2f3f9644ebab1529f03",
+              "candidateProjectionSha256": "05868e1e96bc07541d29d920594aa2948d2b4a8d931b552af435986c43ac85a4"
+            }
+          ]
+        },
+        {
+          "path": "z-04.png",
+          "sha256": "dd0eb40ffafe4db2900d8521b885ce2fe3014d6774c0cd5f909e5b9875b02dae",
+          "planes": [
+            {
+              "axis": "z",
+              "nativeIndex": 616,
+              "valuesSha256": "871c9c669838bbd9db0c381e06ef31010382a881d6465015dd861034129d7553",
+              "labelProjectionSha256": "80ff1d63ef17a2415fc0bae09abf433502248fc7c1bb406b65fe53f37c5572d3",
+              "candidateProjectionSha256": "05868e1e96bc07541d29d920594aa2948d2b4a8d931b552af435986c43ac85a4"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "work/anatomy-review/third-posterior-native100-overlap-2026-09-08-v1/report.json",
+      "sha256": "8d09fc289b1bbe1c66b9ad4deb57cc317f7ee48fafe5744abf93fdc17714f62a"
+    },
+    {
+      "path": "work/anatomy-review/aqueduct-enclosed-continuity-2026-09-08-majority-v1/candidate.json",
+      "sha256": "400c889260474100be776389bcb9819e3e442c5381fce40d406283708cc37f44"
+    },
+    {
+      "path": "work/anatomy-review/aqueduct273-2026-09-08-series-x-v1/report.json",
+      "sha256": "5bb26f58c852eb93a46c2a2025fcac643120ebd31410006a3d3bcc7f774dd871",
+      "visuallyInspectedFigures": [
+        {
+          "path": "point-0-x.png",
+          "axis": "x",
+          "indices": [
+            318,
+            319,
+            320
+          ],
+          "sha256": "85cb04e0734211f75f4a880d580f0c73e96429b04030a0580e109f89f84321dd"
+        },
+        {
+          "path": "point-1-x.png",
+          "axis": "x",
+          "indices": [
+            321,
+            322,
+            323
+          ],
+          "sha256": "2918de364fb97b95d7ba12b8df9a97f83f8d2d5cab636e19b7cb7f2d8685156e"
+        },
+        {
+          "path": "point-2-x.png",
+          "axis": "x",
+          "indices": [
+            324,
+            325,
+            326
+          ],
+          "sha256": "610a1186bd22ff389a321620aee759f0ac873774fea1e2ec266ea3fc251ab470"
+        },
+        {
+          "path": "point-3-x.png",
+          "axis": "x",
+          "indices": [
+            327,
+            328,
+            329
+          ],
+          "sha256": "f31d74906616439afd0a46cdb18ea399842ba8db9adfa72c187d9cce7d3fbdf6"
+        },
+        {
+          "path": "point-4-x.png",
+          "axis": "x",
+          "indices": [
+            330,
+            331,
+            332
+          ],
+          "sha256": "ab2c1314a1323e60e8c0d73c19bd62eac15125c6c9064c6d0b71f7c151e2d48a"
+        },
+        {
+          "path": "point-5-x.png",
+          "axis": "x",
+          "indices": [
+            333,
+            334,
+            335
+          ],
+          "sha256": "af5f0bdb898442e47a7779a4ef4f405ecfd71fcfa997be15ba8721e8d5f70646"
+        }
+      ]
+    },
+    {
+      "path": "work/anatomy-review/aqueduct273-2026-09-08-series-y-v1/report.json",
+      "sha256": "b4a558cccca3078570f90b8726837110ad1afb018eb9821a2f3995c4a610b06a",
+      "visuallyInspectedFigures": [
+        {
+          "path": "point-0-y.png",
+          "axis": "y",
+          "indices": [
+            330,
+            331,
+            332
+          ],
+          "sha256": "e7bc25189ed7a565da4323b3984e6c41b8c003e4a337eb62911b6d1ba0c11bca"
+        },
+        {
+          "path": "point-1-y.png",
+          "axis": "y",
+          "indices": [
+            333,
+            334,
+            335
+          ],
+          "sha256": "1ae12b87113989e2b6e4624bf888b3cc412b08dbe99f992dcf852b8861245757"
+        },
+        {
+          "path": "point-2-y.png",
+          "axis": "y",
+          "indices": [
+            336,
+            337,
+            338
+          ],
+          "sha256": "6160cf67cb08c551b6d88a2092f0b6666def371222f661c3880b5920ad467506"
+        },
+        {
+          "path": "point-3-y.png",
+          "axis": "y",
+          "indices": [
+            339,
+            340,
+            341
+          ],
+          "sha256": "1e625e7ead44eb64d0f3a70be05430fcff8195775903b1522777b575f32e8fa8"
+        },
+        {
+          "path": "point-4-y.png",
+          "axis": "y",
+          "indices": [
+            342,
+            343,
+            344
+          ],
+          "sha256": "151b508ef1d0498534d4706352b854a73e0472765ba986a7a3bd6bda8ae9c662"
+        },
+        {
+          "path": "point-5-y.png",
+          "axis": "y",
+          "indices": [
+            345,
+            346,
+            347
+          ],
+          "sha256": "6bb03cdb66932d709407209453a59ee306ddd64181711ccb2a809855eb2023d0"
+        },
+        {
+          "path": "point-6-y.png",
+          "axis": "y",
+          "indices": [
+            348,
+            349,
+            350
+          ],
+          "sha256": "4b2d22d42d0915b62a6649710e494f0aad77dbd94d7d985d3a04404629458215"
+        },
+        {
+          "path": "point-7-y.png",
+          "axis": "y",
+          "indices": [
+            351,
+            352,
+            353
+          ],
+          "sha256": "4fb71646d3403f19c91db2b665129c032f929433b4449782674622e843df595a"
+        },
+        {
+          "path": "point-8-y.png",
+          "axis": "y",
+          "indices": [
+            354,
+            355,
+            356
+          ],
+          "sha256": "4606b2c208618a95a6af0eb5987a0c32fbbd9c2d59ccdfd6e17f056b21273d97"
+        },
+        {
+          "path": "point-9-y.png",
+          "axis": "y",
+          "indices": [
+            357,
+            358,
+            359
+          ],
+          "sha256": "f5d6d4d272353f4fc5c01dbeded6648a9a1708d3fe66a39396a9071587540dc9"
+        },
+        {
+          "path": "point-10-y.png",
+          "axis": "y",
+          "indices": [
+            360,
+            361,
+            362
+          ],
+          "sha256": "a009ef71dc76bca3f52ef1613b76c608e6cff84b3c1d4c9b2bf4cdb1c52ef323"
+        },
+        {
+          "path": "point-11-y.png",
+          "axis": "y",
+          "indices": [
+            363,
+            364,
+            365
+          ],
+          "sha256": "8e32d7a37991ee4387e030dbe54238b82a0f4f808299ddf7cbee4b1ee3de6825"
+        },
+        {
+          "path": "point-12-y.png",
+          "axis": "y",
+          "indices": [
+            366,
+            367,
+            368
+          ],
+          "sha256": "cd2c6c2cb90fa1c6abdc497957f4b0a2e3e626b3b5133d3d36b6c6efae760d56"
+        }
+      ]
+    },
+    {
+      "path": "work/anatomy-review/aqueduct273-2026-09-08-series-z-v1/report.json",
+      "sha256": "66b007528e90de44bcd1f7063d77e6d0f3b231e0a7dc350b66e0c939d87007a7",
+      "visuallyInspectedFigures": [
+        {
+          "path": "point-0-z.png",
+          "axis": "z",
+          "indices": [
+            180,
+            181,
+            182
+          ],
+          "sha256": "1dca49c2513df26e5b1b177c6df46c95f7d58a2d94c81212accf5d8a884c7cdc"
+        },
+        {
+          "path": "point-1-z.png",
+          "axis": "z",
+          "indices": [
+            183,
+            184,
+            185
+          ],
+          "sha256": "bd97e64f2e12c7083f6ef98f8f5046b088149e842181592e9f4726e9a7f098b4"
+        },
+        {
+          "path": "point-2-z.png",
+          "axis": "z",
+          "indices": [
+            186,
+            187,
+            188
+          ],
+          "sha256": "cbc60c0d4884b91074e2b1b8db010f171cd85fbe71857e6e4b6b7333d81f8b0f"
+        },
+        {
+          "path": "point-3-z.png",
+          "axis": "z",
+          "indices": [
+            189,
+            190,
+            191
+          ],
+          "sha256": "a8c9de2993807af102a3294e11e1fe07a35e11f88f81e0ea4834d08d6a758ed2"
+        },
+        {
+          "path": "point-4-z.png",
+          "axis": "z",
+          "indices": [
+            192,
+            193,
+            194
+          ],
+          "sha256": "243368f8a370584a2e7885e3fd7a70a9f49858db42dd29e2b979b3bbc0316f20"
+        },
+        {
+          "path": "point-5-z.png",
+          "axis": "z",
+          "indices": [
+            195,
+            196,
+            197
+          ],
+          "sha256": "7e17bfef643f1cd430608d31dfa6ce70802345f340c4bb5a586c55664f9ff193"
+        },
+        {
+          "path": "point-6-z.png",
+          "axis": "z",
+          "indices": [
+            198,
+            199,
+            200
+          ],
+          "sha256": "0228a403df12a28281f73acb95c1752426068fc9d33af934c4bacca360a48488"
+        },
+        {
+          "path": "point-7-z.png",
+          "axis": "z",
+          "indices": [
+            201,
+            202,
+            203
+          ],
+          "sha256": "da4cc33e5c0c927c38d7436910207f3a6001f192c2bb679c848ad3a595bce283"
+        },
+        {
+          "path": "point-8-z.png",
+          "axis": "z",
+          "indices": [
+            204,
+            205,
+            206
+          ],
+          "sha256": "b85a21e5d9dfb2ce36c34d5b3ef89024c4bd4a177e4ef3e521c7887336ba6a54"
+        },
+        {
+          "path": "point-9-z.png",
+          "axis": "z",
+          "indices": [
+            207,
+            208,
+            209
+          ],
+          "sha256": "fcba1f39f0f14474abf6bd2ffc2f86862e670dd37e52257d4da209cc646220d5"
+        },
+        {
+          "path": "point-10-z.png",
+          "axis": "z",
+          "indices": [
+            210,
+            211,
+            212
+          ],
+          "sha256": "e972104213bdad79343a2f458ca8d49b27cd1dcc126c455647a23a4a327592fc"
+        },
+        {
+          "path": "point-11-z.png",
+          "axis": "z",
+          "indices": [
+            213,
+            214,
+            215
+          ],
+          "sha256": "7cff728c1d9ffd313e1f9bdf86c8d9fc65149645d529516b6e4d5f3da99ea91b"
+        },
+        {
+          "path": "point-12-z.png",
+          "axis": "z",
+          "indices": [
+            216,
+            217,
+            218
+          ],
+          "sha256": "f1ec1a346f6a127cccdc236f55e925188a55248fe0799809d2980b8393537b37"
+        },
+        {
+          "path": "point-13-z.png",
+          "axis": "z",
+          "indices": [
+            219,
+            220,
+            221
+          ],
+          "sha256": "12c2d8cae351be69d703583a5ae194a55000b1f54f52e1d3b815e0668cefb857"
+        },
+        {
+          "path": "point-14-z.png",
+          "axis": "z",
+          "indices": [
+            222,
+            223,
+            224
+          ],
+          "sha256": "3a09c44ec388c3389fbfa1b0fa4ba0f2d77b69be0444b0825d27c4a5580d81dc"
+        },
+        {
+          "path": "point-15-z.png",
+          "axis": "z",
+          "indices": [
+            225,
+            226,
+            227
+          ],
+          "sha256": "05b0932414bb73f5199feea9320c54cc8b173ee2b88ba209bb5de3dc83c8a9cf"
+        },
+        {
+          "path": "point-16-z.png",
+          "axis": "z",
+          "indices": [
+            228,
+            229,
+            230
+          ],
+          "sha256": "e68fcb1a3ea936bb3723774e6c12df445e5b78b412fd4782c312e9d7a3290a0f"
+        },
+        {
+          "path": "point-17-z.png",
+          "axis": "z",
+          "indices": [
+            231,
+            232,
+            233
+          ],
+          "sha256": "db0283780d62c4001c8a59cf635d98cde881a069a6d1760428700ea8912175a9"
+        }
+      ]
+    },
+    {
+      "path": "work/anatomy-review/aqueduct-native100-terminals-2026-09-08-v1/report.json",
+      "sha256": "6457e40fa5fc9e2ae39444056ac1438266cb80b33c9533c662ac1f36812958bb",
+      "visuallyInspectedFigures": [
+        {
+          "path": "reference-0-x.png",
+          "sha256": "bfb2e4180f83ad3f91cbe35e3a552f1dafa97e55a3858fd99b000aa877215d89",
+          "planes": [
+            {
+              "axis": "x",
+              "nativeIndex": 724,
+              "valuesSha256": "5b038732cbdb26bb0ec2648641d0fd22c8ba2ec6ebc0865d3edd0684cd814b32",
+              "graySha256": "6454d8b64bca301fbf4ca55defe33b71410c82672227c9342cd626f79fddd026",
+              "labelProjectionSha256": "657da805421a16bd824f87c1120261469b1145de8ca3aa6745e45d31be0b159e",
+              "remainingProjectionSha256": "f21d620ab013393661ed42d5493f0bdb89d55cb1faf8eedf60d368f31a9a05d6",
+              "shape": [
+                121,
+                121
+              ]
+            },
+            {
+              "axis": "x",
+              "nativeIndex": 725,
+              "valuesSha256": "de344a70815d415a0ea98ec921f577240ccb32b06fa2572ceb997764d2c7ab73",
+              "graySha256": "1d24efa276e3b1c81572eb823e24ddf844da38c49680f2b31646eddfd9f134d6",
+              "labelProjectionSha256": "b8847f946616a8016991c7305e122588e32623ebca1764edc3ef40a2ec51a5af",
+              "remainingProjectionSha256": "8552a51f43b79245cdc7f288b6fc8be865a1784d9be240c94ae4f60e535db71f",
+              "shape": [
+                121,
+                121
+              ]
+            },
+            {
+              "axis": "x",
+              "nativeIndex": 726,
+              "valuesSha256": "a82723e3251a09d064fab2efbe607f5225e4361e3e03f32a9d1bbb475a54b283",
+              "graySha256": "2245bcfc0dae60fb5b5b580e1f29c1097b58f934460fc600718875db966c5516",
+              "labelProjectionSha256": "c3f4640253b1a83fbd96ca9573c4af59bbcac6e02dcf1c40356150520b0fbe9d",
+              "remainingProjectionSha256": "f51771eff0cfa2f38fc0d143d68b3b56d6efaefb31ecfbd241ce2925000d8e08",
+              "shape": [
+                121,
+                121
+              ]
+            }
+          ]
+        },
+        {
+          "path": "reference-0-y.png",
+          "sha256": "13cd7e728b21e88a321e91acc0318e6dbfe97ba87288b9bebe13bc6eb8d6c452",
+          "planes": [
+            {
+              "axis": "y",
+              "nativeIndex": 622,
+              "valuesSha256": "bfb10884a793737654c79999f81bf8ab3ccd87259cb8ef2771ac18973677fa6e",
+              "graySha256": "fa62c201daca3c59cc18c2093b310bb2c59bd8d717356f8ff782072107276e0b",
+              "labelProjectionSha256": "e939cc8cd268d1ac59834d153d5266861bebc2820b25146d7caa54d937deb40d",
+              "remainingProjectionSha256": "0e1a6d2d2b76007257477bde2c199d227c647a45c895b88f81d191fc1760bf82",
+              "shape": [
+                121,
+                121
+              ]
+            },
+            {
+              "axis": "y",
+              "nativeIndex": 623,
+              "valuesSha256": "6eda7e55fd3525b0e6b7750c58bbb4c04ae79d267461372c58846fa021fe871d",
+              "graySha256": "0bad385feeadb670c602f60e7f84c29278e9592fcfc0bc53f63045b939ee24ef",
+              "labelProjectionSha256": "ec912fbd9775fd50bc9c6d993883bac58e641bfe821959bb759ed069d3d0a33e",
+              "remainingProjectionSha256": "1c6373d062430bcdb079fa9723d382c8231c45d459dbd7ee90514bce6d8d21c2",
+              "shape": [
+                121,
+                121
+              ]
+            },
+            {
+              "axis": "y",
+              "nativeIndex": 624,
+              "valuesSha256": "4f05164d2829857d3db1fcf66210d7f0e4aebd34749aea8f8c46cc643644b499",
+              "graySha256": "a8130af624b0d83702827936ab450acb572db2ce3b89e23fb0ecc25705c8c674",
+              "labelProjectionSha256": "239ea8b7185bac662d5b101e6c730c7698c4270cfa9cd2308c451b67d83d14b7",
+              "remainingProjectionSha256": "913bd50916177874c0fb9a5d693d0884aa145f431b15d938fca511d46c5f1eab",
+              "shape": [
+                121,
+                121
+              ]
+            }
+          ]
+        },
+        {
+          "path": "reference-0-z.png",
+          "sha256": "85a1a40dbf585a59f16a23686100c5503f2ef39ee78e5ef5f9a78dc6080e7d74",
+          "planes": [
+            {
+              "axis": "z",
+              "nativeIndex": 437,
+              "valuesSha256": "d893cff25bbf0944e6d699419faea47df6743c655ebf0ab4863f80a4d7d03464",
+              "graySha256": "8b09312b4fbdf220db1c486a2199a00c63672f79695b2d066413eda63324abe0",
+              "labelProjectionSha256": "e4083f988ef1b6abfdb252a755704f2b44882806a5f079fccbb0d3a767003f75",
+              "remainingProjectionSha256": "a2706636b3e46e59ef35c0acded4c70da28bf986b01ceddcb7f525b9e60ec42f",
+              "shape": [
+                121,
+                121
+              ]
+            },
+            {
+              "axis": "z",
+              "nativeIndex": 438,
+              "valuesSha256": "b2fd53926cad63f805db177b5e6b7b8e52590908d7c82ade3995e83addcf809e",
+              "graySha256": "82ee445bfdd3a8247b95d8db4ae1e478035bc9f6da9f7f3a30353d41b3eddbb1",
+              "labelProjectionSha256": "ee5f866e9ee05f01341f37be91668381017ce12d61f507ad89b7aadaf031d3b1",
+              "remainingProjectionSha256": "96a577079a71e869dfb0a22d0e6eefd1040bbaf4ec011569aad9c35a01d895ca",
+              "shape": [
+                121,
+                121
+              ]
+            },
+            {
+              "axis": "z",
+              "nativeIndex": 439,
+              "valuesSha256": "b8081e4caced56ae16659088b71b79d1e3f9941a217389121fc35f8d76055a3f",
+              "graySha256": "3179070547f015bf2107eff2a44e339483add91774205bb863fdb40e772a7e01",
+              "labelProjectionSha256": "8bb9803b6b59981c881528cb043b2151aca4cd2b19f667aab8854dff06d83c7b",
+              "remainingProjectionSha256": "57efdea48a2d98e0b461086ddcabf624f8943dcc612448cbf171e5a88824c09f",
+              "shape": [
+                121,
+                121
+              ]
+            }
+          ]
+        },
+        {
+          "path": "reference-1-x.png",
+          "sha256": "572b53cbf1f8dcc3ea024fb62f922772b458683f1e9030351bde540ac6f259f2",
+          "planes": [
+            {
+              "axis": "x",
+              "nativeIndex": 712,
+              "valuesSha256": "d7f95b7ba717caeed7b1cb59a325b6a6c0d6c4d10c3ddeede7848b4124f04c5a",
+              "graySha256": "466a50a683faf0ea38cd2dc1b84302c8d4fdb7c66692515aaed8262cd1a6a22c",
+              "labelProjectionSha256": "f1f0458c43a2aa3814ccf0a27550f8eeb1f4dd8f7432461e111db08ba4ff0b14",
+              "remainingProjectionSha256": "2768e8c5f8586cf907fe02db512bcc548df748eda50f1d4405f9e8815e23b909",
+              "shape": [
+                121,
+                121
+              ]
+            },
+            {
+              "axis": "x",
+              "nativeIndex": 713,
+              "valuesSha256": "c05f34f0433cd9c1b5ad1e338c9d937a6bf92d229dc35cb05a5b7feb6b36f859",
+              "graySha256": "b64113c3f45683dca95ae5c7631f44c9820f0eb7ae0d21bbecbde3d1c9df6a51",
+              "labelProjectionSha256": "ddba6e777fc341ed56f829433c3f2d8aa5bc7ea04f95a41bfa54abb16f8beb2f",
+              "remainingProjectionSha256": "a78524d76cda66e291e2327025468d908254ea88ddf5c8b521390609178a193d",
+              "shape": [
+                121,
+                121
+              ]
+            },
+            {
+              "axis": "x",
+              "nativeIndex": 714,
+              "valuesSha256": "3921c96b3126587efe5afb36ad48107280f414c2a233c3d67f4cd7bc5ac4421d",
+              "graySha256": "727c5dbdae6171f8d9cdfdb5cbbcf725b6b023adb25e4493a8dbc6d7bd70364a",
+              "labelProjectionSha256": "86322bc7b912721d128d4b860dc71cf4d4cb951260515299c110e4214fc395ae",
+              "remainingProjectionSha256": "3587e3c9c659593a56a4f48f7cfe1bacc9e170f84a614487da8c4147eb6b86ea",
+              "shape": [
+                121,
+                121
+              ]
+            }
+          ]
+        },
+        {
+          "path": "reference-1-y.png",
+          "sha256": "bbd5cd42082e03f66429bc79edbc038d3ba1a4f3f6291abb732fd429417323dc",
+          "planes": [
+            {
+              "axis": "y",
+              "nativeIndex": 667,
+              "valuesSha256": "d92674d7cbe6718aba9070befad528c21dea7db8cc51ccf9129353aee0c6f986",
+              "graySha256": "c2039efb201725dad32b6318b2ba7d9d047caed5a337280ab423056b8a745ab5",
+              "labelProjectionSha256": "1f8b8547cb0c73d49e451ced6c36158f232e29b8fd7c852228235c79e22df85c",
+              "remainingProjectionSha256": "7961d7fed6e0d289d23759ebb4c55591aa71d3ffcf0a96795c8007f57f8e9983",
+              "shape": [
+                121,
+                121
+              ]
+            },
+            {
+              "axis": "y",
+              "nativeIndex": 668,
+              "valuesSha256": "5b197196d77a2e878e0ca982dc8b86c6939ced39a6566b7132fb5e2412abacd3",
+              "graySha256": "63a3409318299ecb67bc81037a889ce5abbbef6517615ed116bda2023aefed07",
+              "labelProjectionSha256": "6dedbe8714976c7ea34e23ce0c0881a92dc69dc58b3d428a37f98f8cfeb86974",
+              "remainingProjectionSha256": "7961d7fed6e0d289d23759ebb4c55591aa71d3ffcf0a96795c8007f57f8e9983",
+              "shape": [
+                121,
+                121
+              ]
+            },
+            {
+              "axis": "y",
+              "nativeIndex": 669,
+              "valuesSha256": "44d55334541cf7054a5992b4456a732d7c4ba35e6e0c1a0d493aebd038e968d8",
+              "graySha256": "0cc9d7873590821fb29b181f8836a87fdb814badc2e94ff705bbd73b1fc1bef0",
+              "labelProjectionSha256": "e694d4c3435f1953ce01d484c7a3cd4f8dba45126b3dcaf4a9308e6cffc25b3f",
+              "remainingProjectionSha256": "7961d7fed6e0d289d23759ebb4c55591aa71d3ffcf0a96795c8007f57f8e9983",
+              "shape": [
+                121,
+                121
+              ]
+            }
+          ]
+        },
+        {
+          "path": "reference-1-z.png",
+          "sha256": "901e3ba986b51ae8a6ca61a6a9b5cac401a482bd78b14e1315e6f644aadb91fd",
+          "planes": [
+            {
+              "axis": "z",
+              "nativeIndex": 495,
+              "valuesSha256": "2ef9e3d101fabf6bc10ae90d930f6961158d917c3b355bfd82d9ccf420ec5515",
+              "graySha256": "3df0701b2cbc643de86085b58c204c6d204ecec6c33a83d535447486549a9422",
+              "labelProjectionSha256": "cd9c9702c87e86ae183a475df559bed8213c6b0993e4cbc52ca1df0e9ec09be4",
+              "remainingProjectionSha256": "7961d7fed6e0d289d23759ebb4c55591aa71d3ffcf0a96795c8007f57f8e9983",
+              "shape": [
+                121,
+                121
+              ]
+            },
+            {
+              "axis": "z",
+              "nativeIndex": 496,
+              "valuesSha256": "9301f4bb420daf21b99b4bbf6366022a8f22afc79a2cfd20217deb538eab7a5b",
+              "graySha256": "5e04bffbc53d5d20639931d88918eac3a1816dc54398fbdc5289753a69d56494",
+              "labelProjectionSha256": "a09650326a320b53a613fdf9a92fa1d157397c5e78e78cb3c9e1661964b9561f",
+              "remainingProjectionSha256": "7961d7fed6e0d289d23759ebb4c55591aa71d3ffcf0a96795c8007f57f8e9983",
+              "shape": [
+                121,
+                121
+              ]
+            },
+            {
+              "axis": "z",
+              "nativeIndex": 497,
+              "valuesSha256": "af4125b453621e3598661242bcefccc075934894997cc502350335b79893e69b",
+              "graySha256": "17a5647cefdf2b4a0ae1963da7d1dd3584d574e2c1f613b327a96ce36ea2b0bf",
+              "labelProjectionSha256": "ff65eda3b87dc3f43721946379b3dc7f187b6c8f06cb87e112775d430384c9b7",
+              "remainingProjectionSha256": "7961d7fed6e0d289d23759ebb4c55591aa71d3ffcf0a96795c8007f57f8e9983",
+              "shape": [
+                121,
+                121
+              ]
+            }
+          ]
+        },
+        {
+          "path": "reference-2-x.png",
+          "sha256": "831981115b352c81c5f1085a088fc5252d2953a0cc5e3d3ddcda807a4ccf1224",
+          "planes": [
+            {
+              "axis": "x",
+              "nativeIndex": 705,
+              "valuesSha256": "cf9abf20128736efaed72d4a748b15bd40859b20e39b12d35d32ccabeda62030",
+              "graySha256": "6b99a826b187585d020766076f8cb6c75503afdcfc712611965043c25c0477e9",
+              "labelProjectionSha256": "5593c2b5b4c03297fd6c881433283b2adaa0c208167b2bf9f7ccea6f4f3ebb7c",
+              "remainingProjectionSha256": "25fa8ea37d45c6575ae4de3ac3c76e3ed8824f9666c75941ed3b78f1bff27227",
+              "shape": [
+                121,
+                121
+              ]
+            },
+            {
+              "axis": "x",
+              "nativeIndex": 706,
+              "valuesSha256": "9076238251f7c746f1c983aa3855caff27821e04b26d73b1c5427340a41b9e15",
+              "graySha256": "cac36db6b6318c7c459c1447fd9ecf182441a6e64bd41ae8093aed9ddc2155f8",
+              "labelProjectionSha256": "ef986f63fbd7af0c0a4bd5350cb9e298796ee07d07f0d3b76e900a2de8687960",
+              "remainingProjectionSha256": "3edc00f983c2ae84e181e3f30c20cf46061fcaf1184c129cf6aedbadc9a637bc",
+              "shape": [
+                121,
+                121
+              ]
+            },
+            {
+              "axis": "x",
+              "nativeIndex": 707,
+              "valuesSha256": "2279b3c6090db9f38637d27815197d03280e51baae131be9883d163f5fe90f7a",
+              "graySha256": "2cb98263b832e94b079060e63a0ecf75d8ba3ecd5364913a7b8b78687aff4475",
+              "labelProjectionSha256": "a517fa4e4a14656de885a2babc51b264fae4119888fd11a3e5bd147e7a96d9d2",
+              "remainingProjectionSha256": "bdda74504b92e26d56473d9763f72c31fcab988400dc93ece48618ccd7639c2d",
+              "shape": [
+                121,
+                121
+              ]
+            }
+          ]
+        },
+        {
+          "path": "reference-2-y.png",
+          "sha256": "c2e157fadbc077beaf01417edb2d9dacad712db8ffb2f1dce634925078bba4c0",
+          "planes": [
+            {
+              "axis": "y",
+              "nativeIndex": 702,
+              "valuesSha256": "a32b4edd928130954e7f98262ec991991513867983c7014e66312659d67d58b5",
+              "graySha256": "0180eada2b794707e2082ceb57b28ae9b31db8091e353f3aefab43e4cb8e1d02",
+              "labelProjectionSha256": "20e31d3a89931dcd338db0eed6d60b53d0b13d79b06292b94b16526f05266b4b",
+              "remainingProjectionSha256": "fd8b0424e1086098f381212b91b42d4c962e3719931f20fb46862102c4156b0e",
+              "shape": [
+                121,
+                121
+              ]
+            },
+            {
+              "axis": "y",
+              "nativeIndex": 703,
+              "valuesSha256": "84cd7c08108a0989c39280e99aad7c124c3040ad1e87932c223908ecc01d9884",
+              "graySha256": "1d6f5b5cccc9936186e21adf44ff559d835da100ed04e7782f66ab9c1e311f1d",
+              "labelProjectionSha256": "9573bb2f622c50e2cabcbe93d580921e6785b7638cd89e6540151d7c004ab0c9",
+              "remainingProjectionSha256": "5b23d468ff1f7faca3371a2d2f48621c2f7ece02f6f8c7c456a28898d54eb757",
+              "shape": [
+                121,
+                121
+              ]
+            },
+            {
+              "axis": "y",
+              "nativeIndex": 704,
+              "valuesSha256": "a2bef5fdab87f0c2c736db374226e0ecc19d1090f60494b963cb260be04a7adb",
+              "graySha256": "d353264da1d7f6944ebc99efe51a7ba1557fe67dfd17e217fd88079bfc28c36c",
+              "labelProjectionSha256": "13c5561644ce7567c90f997d4cf5a7df00105268f75048c0af705ca5cb751261",
+              "remainingProjectionSha256": "306e708f50c446204f21fcc05bf9feb00470fb055690df3baa4582e615788e4c",
+              "shape": [
+                121,
+                121
+              ]
+            }
+          ]
+        },
+        {
+          "path": "reference-2-z.png",
+          "sha256": "79ec6290d25f02f369ac361315972d692a187db2a7496db7f81bd3575c869ba9",
+          "planes": [
+            {
+              "axis": "z",
+              "nativeIndex": 521,
+              "valuesSha256": "4c89aff42b0b788badb3d7e50f77b12093fbe088a44ba613c498b90972c6377c",
+              "graySha256": "0bb16406a27c0f370a8cd9bbec5ee10d332f62dbde168ff9032065f6865c73a1",
+              "labelProjectionSha256": "4d48a6cc2c2a3c7272d7aa850f70ff7041306be48ffcace1506e92db9fc06315",
+              "remainingProjectionSha256": "2ce53384ef48e81d9060003b220629a562610c05646708350671e9185da8504b",
+              "shape": [
+                121,
+                121
+              ]
+            },
+            {
+              "axis": "z",
+              "nativeIndex": 522,
+              "valuesSha256": "ce9bb5ceaaede842c75e3ab2d4449bfc82f384f9ed46408c91b0ce3a41d52608",
+              "graySha256": "fcd528c379eb8e8ee094f7aa3c96d51e9b7d3eda2e8d657027cca187b5d213c8",
+              "labelProjectionSha256": "b5133b6aa56a07124183ca0924d1dad97decae55418b5fab77861fbf1d98feff",
+              "remainingProjectionSha256": "37f380dd3d92359234860c0dc7f7c8e6552c03d4371ae6068d3c392809d7e715",
+              "shape": [
+                121,
+                121
+              ]
+            },
+            {
+              "axis": "z",
+              "nativeIndex": 523,
+              "valuesSha256": "ae21ec50e57e578adfee17a79848667cdff10d4b21399243fdaafc9f73b01a47",
+              "graySha256": "379fa2139b90142e84e6cfc777adc6142a1f8c38d11d0591c75d48d8de66b051",
+              "labelProjectionSha256": "daaf5440bece9fe69895b1b376c0dfa0b3acf06868b81823aeee9440b64413ab",
+              "remainingProjectionSha256": "411fe56eaaf0436ad042c96aad0f4305a27927bbed06e31c5fc00b3e96bbbc90",
+              "shape": [
+                121,
+                121
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "work/anatomy-review/aqueduct-native100-terminals-2026-09-08-v1-wide12mm/report.json",
+      "sha256": "e93588565b774082b1275fb4e9a85e5ab327237ee31f4d769f9a7a91b65e2279",
+      "visuallyInspectedFigures": [
+        {
+          "path": "reference-0-x.png",
+          "sha256": "d8b851467b4c764c929b61fc918439693b0ddad01b165bb06b0d705d66e11c26",
+          "planes": [
+            {
+              "axis": "x",
+              "nativeIndex": 724,
+              "valuesSha256": "3289f9d5c7b471ae70a63a0dad88123d1cd7f9d64bd453386bfa4bb8da22f371",
+              "graySha256": "c5ce250b6b5eab0f61a90f11a31200d7cd309090fabd6dceea4d54d6cbdf4a6c",
+              "labelProjectionSha256": "81302c531baa9a395c6aece4a7cd1ff5844f4c80922dd20c31be3cbbbdad851e",
+              "remainingProjectionSha256": "8ea2c22a4d6fd059ceeefb81303352c55a5db5668a14052f7241b128aeeb4bf6",
+              "shape": [
+                241,
+                241
+              ]
+            },
+            {
+              "axis": "x",
+              "nativeIndex": 725,
+              "valuesSha256": "d91191b7e26857d70fdebb6337f94dc77bcfc9f8407df5aeebe4df801c7e73be",
+              "graySha256": "508d2dbd840bf2f2b3af05dcfbfb63a0b83831f3cab5def87dacd91e57287946",
+              "labelProjectionSha256": "14223803e27a3dd5ed66a2a91dd2e191ea5de13473f239622c05d39f6aeee9f3",
+              "remainingProjectionSha256": "e46f572cbee88744daeb15213ac5151dffc5e4a404e78aad328d8a0b17da0253",
+              "shape": [
+                241,
+                241
+              ]
+            },
+            {
+              "axis": "x",
+              "nativeIndex": 726,
+              "valuesSha256": "ede5ca41abb9eb65895f93dc05ccb66b14705574a59e5822bd1161962c363ca1",
+              "graySha256": "a3ddf013bf727f74b7a6a5205ef00d733808ab047409fc548e81d002c88318b7",
+              "labelProjectionSha256": "8662eaa12f7cbc00cf9df0ba3f2afb87f6cc9073ec3c5de08380644c7315ce88",
+              "remainingProjectionSha256": "731dcf5b8ee1aa25d4e5fabf748cd34a0f398e848894bec06ed3d1141463836a",
+              "shape": [
+                241,
+                241
+              ]
+            }
+          ]
+        },
+        {
+          "path": "reference-0-y.png",
+          "sha256": "1ba8bebdf0ed58943bd1f08912d506ddb2bc9b5baee85d044beb682d011236d1",
+          "planes": [
+            {
+              "axis": "y",
+              "nativeIndex": 622,
+              "valuesSha256": "acd8077790f2f9a950ef61c038412811997f3c20e2da97a27370e98bd15a1b89",
+              "graySha256": "807ba95440e0d216083da817c6f64e8eb4ba5e3bcda80a7f1240ea8ca46b6d7c",
+              "labelProjectionSha256": "c374786de0430a67cef04591e83a752de7bbaf9f141e9231ad2d984f2532ff1d",
+              "remainingProjectionSha256": "d1cfdbeed95e65bbaa95cd5ccecc17b4a18d85f4786332fb7564d103be6eb3c9",
+              "shape": [
+                241,
+                241
+              ]
+            },
+            {
+              "axis": "y",
+              "nativeIndex": 623,
+              "valuesSha256": "31356c5d78223481ac8b05c138dd043e345cb6a8f53c6966893134cca4fa2a0c",
+              "graySha256": "97d5346516d858c9934a78ee71efa1bfa0114b8ff4dd7266a5131640daec3a60",
+              "labelProjectionSha256": "949b4d7ffd32447d4911d7cd23e841c3188dfa32842a9eab50e6ab0ea4875734",
+              "remainingProjectionSha256": "0b2077cd637fa758695b06973fc8916d69b4c3b05517455b213ab6f5a3ebf57b",
+              "shape": [
+                241,
+                241
+              ]
+            },
+            {
+              "axis": "y",
+              "nativeIndex": 624,
+              "valuesSha256": "28412f1f93c1a9a9ee8b7c36f800e93dcac062636c50eb187d9df1cc9309f065",
+              "graySha256": "627f224fbad04b588614d3e15ae45ec155b05c254b33d34fb72bbf1a58f47881",
+              "labelProjectionSha256": "dc265edd07674a417926e4c5d13ea8836a218bc67ec35ee3d130a17d080ec010",
+              "remainingProjectionSha256": "efb2f925e8be05c4324e69c89dfd62ab926fb8df08e14989d206bfec67c553e7",
+              "shape": [
+                241,
+                241
+              ]
+            }
+          ]
+        },
+        {
+          "path": "reference-0-z.png",
+          "sha256": "37f5f0abf32428f211b11f89988da6a24944d02bc107630211f6f9e1500b8fb1",
+          "planes": [
+            {
+              "axis": "z",
+              "nativeIndex": 437,
+              "valuesSha256": "d2a075d402332cebe3af500b6c7f65fb4a123842bde500fbe8fe2bfa0060da91",
+              "graySha256": "2b921e53d3dfefc8a4872af5f3decebf754e46cfa05cc22de27139e50d784aae",
+              "labelProjectionSha256": "29c288f4e8b37613b3c37af5b3b2bbb807827e84e7b7f54a73e11554d3c2c1bf",
+              "remainingProjectionSha256": "2cfb4c5594815e250f920e0b42c134b88fa7d166690e7920afc25729282f3f76",
+              "shape": [
+                241,
+                241
+              ]
+            },
+            {
+              "axis": "z",
+              "nativeIndex": 438,
+              "valuesSha256": "923214a5339776cf9a1e504b3fa5725cee38338796bf3925c0abf8e290b63b15",
+              "graySha256": "0b7522b58fbfaa7db781c640e62617db1b3f73b073f7faa85dee56d51c670b31",
+              "labelProjectionSha256": "fbf63301027ec2d1f0d857996a9ea9e0f54eb153b63f67893d615fad5d7a55d4",
+              "remainingProjectionSha256": "6873a20e86e5dec54e93d8f29a7e684b63e91d9835c4a9f3d9ad9d6462088033",
+              "shape": [
+                241,
+                241
+              ]
+            },
+            {
+              "axis": "z",
+              "nativeIndex": 439,
+              "valuesSha256": "c2adddbda590348dff3a29127b3ac78d84eac9e44d7bb09a6f949849feb54116",
+              "graySha256": "0b401bd423b340c4698ca3567a76278ff9c4b6466c9042f8da90064a2b66aecd",
+              "labelProjectionSha256": "7e37ee860ce2e01c3e427973e2660e885434e2719754449d7c74afee688681b4",
+              "remainingProjectionSha256": "29d07ae6bc3dfe1fd4c8b40cfd2dd1c30702ba311503fada9d3ac7cda1e38b7d",
+              "shape": [
+                241,
+                241
+              ]
+            }
+          ]
+        },
+        {
+          "path": "reference-1-x.png",
+          "sha256": "5f776ce38d93c8ad4cbf47317242641d4afaffbd74d371bb5ac76273c19fd8f6",
+          "planes": [
+            {
+              "axis": "x",
+              "nativeIndex": 712,
+              "valuesSha256": "963acd297b660f5560e0353adc6797b904c26e12651a003c435c85340a95c0a1",
+              "graySha256": "94a67e9d3b039f903247f37623bc326c3ecb7868612d901df12100b8bb748e6b",
+              "labelProjectionSha256": "c7ed552201e702f557cfcd4c070fdb3d95ae985445a0973c3e84492d8ed5eaa4",
+              "remainingProjectionSha256": "880a1d3ad4bd87046538e9f6a69d2ec7a03421bcdfe311cb21ba903ffeb0dfe1",
+              "shape": [
+                241,
+                241
+              ]
+            },
+            {
+              "axis": "x",
+              "nativeIndex": 713,
+              "valuesSha256": "acd6c51473da1f33ee063a14bf7c39f9168ba4358d533927ca1209f914ba9efa",
+              "graySha256": "b4e564a1f73876589dc2c90b160cc6651ba041c5760df37c0384fd17b706157d",
+              "labelProjectionSha256": "c6fca5896c91de08a58b21459209f90e88133ba0087a0f1f11745f57ffb7e225",
+              "remainingProjectionSha256": "abc7979cf71a7ec3d3bf38abd1ae1dd378345d36934aa37f3e6beacb069da89e",
+              "shape": [
+                241,
+                241
+              ]
+            },
+            {
+              "axis": "x",
+              "nativeIndex": 714,
+              "valuesSha256": "6a12e7f8166ebecb39e35fd10dcb7e0951cfb43aa114ff7e82fc017e6042dc44",
+              "graySha256": "1943037b98766e7d490403df3cec676b9beb1803f374c17862e27849343ef30f",
+              "labelProjectionSha256": "4e9aba1781de7adc9353cf3f7d4da678c7ef33e777df1826a871ce4d74f15db5",
+              "remainingProjectionSha256": "8ae867ecb15a5c215daa87ea4ca303aea3b9dac12ab0b94e8afce8710073353c",
+              "shape": [
+                241,
+                241
+              ]
+            }
+          ]
+        },
+        {
+          "path": "reference-1-y.png",
+          "sha256": "ecac64383d42f38fa9b8d3277ee28e02fb967fa03baaa993184f2507d49134ae",
+          "planes": [
+            {
+              "axis": "y",
+              "nativeIndex": 667,
+              "valuesSha256": "5bb9bc33c40caaeb4c194facc8c6e13dd4743710b2c99f6583a4f17085c761b3",
+              "graySha256": "e5083e0cee0a82fe0c33788914be17bb859a8358f7e1f3560193402eab6f8cd9",
+              "labelProjectionSha256": "e7b8498603e4b82b0f831ddeac8316fc91adcf0f614b4cec0c0b5767134658d0",
+              "remainingProjectionSha256": "ee35ee061669035e78af3fb5d657162e5bfe6f1f9ffce078114b91ab4e1a1270",
+              "shape": [
+                241,
+                241
+              ]
+            },
+            {
+              "axis": "y",
+              "nativeIndex": 668,
+              "valuesSha256": "0304e8a1df014e0d8975db0c5b59ae8e5eb896e19c0e514302f9da9dbd1bf2ad",
+              "graySha256": "9d027ee0ab2f2d02f7c315fe4ef9d9c44b0f969b9c2cb734574b485e01a67511",
+              "labelProjectionSha256": "1ba3b78d11d91e5ad6250fe09f5f4250ea06bfd31f4f5bfbb3b31e542c9f8e44",
+              "remainingProjectionSha256": "ee35ee061669035e78af3fb5d657162e5bfe6f1f9ffce078114b91ab4e1a1270",
+              "shape": [
+                241,
+                241
+              ]
+            },
+            {
+              "axis": "y",
+              "nativeIndex": 669,
+              "valuesSha256": "0fd5f477a62616d8deb087136a49845d54b2f97a907c1bd25e4440ece2e280a0",
+              "graySha256": "1f72fcc437725a1c6c58bb136f0f16df06055fb76f3bde3efefc616b5fa73944",
+              "labelProjectionSha256": "b25ac6cdd9d08cd540ae5d2c22f0d15ec4de948a06fbdc61ec70c37f5e10b948",
+              "remainingProjectionSha256": "ee35ee061669035e78af3fb5d657162e5bfe6f1f9ffce078114b91ab4e1a1270",
+              "shape": [
+                241,
+                241
+              ]
+            }
+          ]
+        },
+        {
+          "path": "reference-1-z.png",
+          "sha256": "1af4992b2ad6cfbc3150f04d304e4ae94c43356581427096b988aa0dafeaff57",
+          "planes": [
+            {
+              "axis": "z",
+              "nativeIndex": 495,
+              "valuesSha256": "de2fab0582b77c846b798afbb89ccdfe8fc1bef1b0424b5acc8e6c1f9a7a9d55",
+              "graySha256": "03a48a82fdcf7643c64b8191b12f2849a5b903d36f14239f988c326a941f3862",
+              "labelProjectionSha256": "19ec11da367d037534cf83cc6ee837b40051b7ae365c74fa3e80dd3d40c4789b",
+              "remainingProjectionSha256": "ee35ee061669035e78af3fb5d657162e5bfe6f1f9ffce078114b91ab4e1a1270",
+              "shape": [
+                241,
+                241
+              ]
+            },
+            {
+              "axis": "z",
+              "nativeIndex": 496,
+              "valuesSha256": "ebf789db75fc4bf8d9c6868d80db031152da2b7af0ca7b3a28f40c058976bd44",
+              "graySha256": "4316d337b7aafec68ac3ec158f512ea1d6fb403b7863eb3e7292683c32d1d11e",
+              "labelProjectionSha256": "5e75ac2d59a806b649e8487df5f12245c12b7d37ba9b5dbb351d012b4bdb0b1e",
+              "remainingProjectionSha256": "ee35ee061669035e78af3fb5d657162e5bfe6f1f9ffce078114b91ab4e1a1270",
+              "shape": [
+                241,
+                241
+              ]
+            },
+            {
+              "axis": "z",
+              "nativeIndex": 497,
+              "valuesSha256": "6dabc1c3eac10f55d8ef49091ed95e5e184125f1013b857307b474381dee8b42",
+              "graySha256": "aadce404b4e5db189f040eb795183c536f971ded3042cb2bead289ebdda1d2cd",
+              "labelProjectionSha256": "53a654442472b517b9969a777252f56ff56b9108e35559e559205921cf2f5b7f",
+              "remainingProjectionSha256": "ee35ee061669035e78af3fb5d657162e5bfe6f1f9ffce078114b91ab4e1a1270",
+              "shape": [
+                241,
+                241
+              ]
+            }
+          ]
+        },
+        {
+          "path": "reference-2-x.png",
+          "sha256": "2c27606b7c5aba972803b5b7e7f28d9d88d438eed8532f4b96ac7796a7d8f976",
+          "planes": [
+            {
+              "axis": "x",
+              "nativeIndex": 705,
+              "valuesSha256": "3e45f682303e8965c74eed76b77ee4d669161e50fc34cef7717a0d1a22e3d421",
+              "graySha256": "38bfe7fe394e512eb21a14efa31b9762cd3740be1f367408ae6c35c77050acaa",
+              "labelProjectionSha256": "e118260a271ed67d3cbe72c90721d9c42380dd87790d5696e68dc28f3a94f3d8",
+              "remainingProjectionSha256": "61100c2425fcaca7938f70ba9d45aba0532787b4c15f5b9b12cb872da7abec8a",
+              "shape": [
+                241,
+                241
+              ]
+            },
+            {
+              "axis": "x",
+              "nativeIndex": 706,
+              "valuesSha256": "87bb4e04e02f782fe2b51a0bb4eecc47dff717d447ce5e04db3d8da20cef51bc",
+              "graySha256": "7e93188a2956146d5fd58baf9d37b90356bd5ebc3cc51dc4f55454b7b6533c83",
+              "labelProjectionSha256": "b7b4144ec3a1230f1050ccc6dd51b8985365f83582b4fee39f92766671446b1a",
+              "remainingProjectionSha256": "edbc5ba3373151dc7e8d8fa119352a108382b571026efcb54aae5ca4bcb27d32",
+              "shape": [
+                241,
+                241
+              ]
+            },
+            {
+              "axis": "x",
+              "nativeIndex": 707,
+              "valuesSha256": "2c0d964beeb1ac6d5b54d29f37271b22549dde246532136355383208dfc276b6",
+              "graySha256": "7010f88c2c7eef9c7b0c863d0aeb2d5f7c4926829643e721564919d2ade2952b",
+              "labelProjectionSha256": "cf8ec958393c6e890dff91178a8a0ae440868d4b1c670b6ed2fa02a988f4bb9d",
+              "remainingProjectionSha256": "cefabc5a3fbc8ea75f0a4487c03313ad90b29ffb6518b6bca2c7336709273164",
+              "shape": [
+                241,
+                241
+              ]
+            }
+          ]
+        },
+        {
+          "path": "reference-2-y.png",
+          "sha256": "129e8792f41d084307b190af7cfb208ee6b20c8f2a3a2532ffcc31fc89b26db4",
+          "planes": [
+            {
+              "axis": "y",
+              "nativeIndex": 702,
+              "valuesSha256": "9607463a68b3f41626649f85294944a9de2d6bb4ff43f04ae5ad891f09518e33",
+              "graySha256": "b69cdefca0f99f04094c606941df7d0edfe60f3b314855ff56b014fd1ac722dc",
+              "labelProjectionSha256": "fcc2964b61b1048fe52e590960d347e3d5b9c4135cc9fcb73745629e30d53281",
+              "remainingProjectionSha256": "0b015f9dd99a763fb5724c286ea8ce8617482c703ead8051c63b5de21ad54b82",
+              "shape": [
+                241,
+                241
+              ]
+            },
+            {
+              "axis": "y",
+              "nativeIndex": 703,
+              "valuesSha256": "aa8a9808653816d76f75212c3b8b5e80321d20fd746a126c0cdfe53e8862b3a2",
+              "graySha256": "60aab1a0bc6216ab6153860b300ff3ae2a416475349761c89ff91699ef6ee318",
+              "labelProjectionSha256": "f258f68fca830865853ed61b683463189e0396bc5dafaaa786e2e097cc00e323",
+              "remainingProjectionSha256": "b8407da47e54461578dd0e2ba2cf14b32f811fc7b064781669cf51811a22c257",
+              "shape": [
+                241,
+                241
+              ]
+            },
+            {
+              "axis": "y",
+              "nativeIndex": 704,
+              "valuesSha256": "6c97ed3abd33c213b2ecb1428ad407f74d4146f3aee4d5318e59dbbd376a15b7",
+              "graySha256": "8081e56d600b95a6e64d4f3ab667b65b4dd539ea022524de3d3f96a21d9634bf",
+              "labelProjectionSha256": "6be15f3c7ad044ea3d1c942bfd28589bceb2d66e214a7dde0ed0ee42d23ba197",
+              "remainingProjectionSha256": "9bbc3dc9f5ee2f04d31fcfb8641808cd2942e095473d62c80537dc6b24b85324",
+              "shape": [
+                241,
+                241
+              ]
+            }
+          ]
+        },
+        {
+          "path": "reference-2-z.png",
+          "sha256": "9315ec35f472fd80efc701bb3161e286d926901a055db71923ad30f2726881bc",
+          "planes": [
+            {
+              "axis": "z",
+              "nativeIndex": 521,
+              "valuesSha256": "0c75c2df2199dc95578978e8c7215ec83c5073f6a0be1235fe88336309973594",
+              "graySha256": "d93cc672f70945f54aa4a6a5f8e87481a07a29e7309fee609e659c45a372cf9d",
+              "labelProjectionSha256": "1adf992702923289e32e8be366700dba73e77dfbc5271de284abfd6dc8ffd932",
+              "remainingProjectionSha256": "8adf83d068cd8277f2a85e116832eac486aa02c97e0f78d63b40897f27e947a6",
+              "shape": [
+                241,
+                241
+              ]
+            },
+            {
+              "axis": "z",
+              "nativeIndex": 522,
+              "valuesSha256": "d8e4f37990647c1d4db20b8182dbcbb5b68ed51633222452d5b6f82485d61a44",
+              "graySha256": "9304f9eb4382d08d60f43e95e61838bf5f3cbe3858b6c3ad869c11a7848d6b51",
+              "labelProjectionSha256": "0316acfe94d1df85fe39bf1e79498fde32f47abe6293b9deb8c6539b67948b2d",
+              "remainingProjectionSha256": "396a7f955681715a7640d1bf7cbcc4cb71f34444b3b39f741207f86e0f6ec042",
+              "shape": [
+                241,
+                241
+              ]
+            },
+            {
+              "axis": "z",
+              "nativeIndex": 523,
+              "valuesSha256": "03898eb4604c9414ea7039d6d9c9b6dedec6b8813e03251c51ae772e5f1fe17f",
+              "graySha256": "2a88a80c84d5bb6ff42859cb65c97e7bf4838b8b313788ef4a83754acbb2ae37",
+              "labelProjectionSha256": "2917d7ef898db70a5988bd9da9a8633026222ecfce2472065c699eaf98a1dfd5",
+              "remainingProjectionSha256": "365359e918af1305df3ae6f5e11e9cfaa9310e269245363bdc9447398bb411e7",
+              "shape": [
+                241,
+                241
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "priorBrainstemRepairs": [
+    {
+      "path": "segmentation-patches/review/brainstem-inferior-support-adoption-2026-09-06.json",
+      "sha256": "97a661402005bd8874aeb8ffa2062b20516fb892595a226b49d17c0f629179aa",
+      "overlapCount": 0
+    },
+    {
+      "path": "segmentation-patches/review/brainstem-island-adoption-2026-09-06.json",
+      "sha256": "2afc8d4bb428b9f808b6d09317ae98d8db4587ee61d6c6e008e20101465f9550",
+      "overlapCount": 0
+    },
+    {
+      "path": "segmentation-patches/review/brainstem-lateral-dorsal-adoption-2026-09-06.json",
+      "sha256": "a0909129446eeba7a7bae898b3a665e5e4f015f49a321288a100de4e56320621",
+      "overlapCount": 0
+    },
+    {
+      "path": "segmentation-patches/review/brainstem-paired-islands-adoption-2026-09-06.json",
+      "sha256": "22ed2f98719a9bec65af4d1fffa985085e732965c4f7817b48573b25684d2600",
+      "overlapCount": 0
+    },
+    {
+      "path": "segmentation-patches/review/brainstem-support-batch-adoption-2026-09-06.json",
+      "sha256": "fda267537a478ecda65b592ebeeb3fd75a6fe5551e8657cde8fd07ce657a5269",
+      "overlapCount": 0
+    },
+    {
+      "path": "segmentation-patches/review/brainstem-three-islands-adoption-2026-09-06.json",
+      "sha256": "9c7b14f4272969261e3e2415d3f522b7e5d7db1eeca7cb0c8ae28b225458be66",
+      "overlapCount": 0
+    }
+  ],
+  "countsBefore": {
+    "0": 66630902,
+    "25": 11947,
+    "27": 249868,
+    "41": 195
+  },
+  "countsAfter": {
+    "0": 66630984,
+    "25": 11853,
+    "27": 249816,
+    "41": 259
+  },
+  "sixNeighbourAqueductComponentsAfter": 1,
+  "subregions": [
+    {
+      "name": "third-posterior-tissue-exclusion",
+      "count": 94,
+      "bounds": [
+        [
+          192,
+          201,
+          149
+        ],
+        [
+          200,
+          210,
+          154
+        ]
+      ]
+    },
+    {
+      "name": "partial-aqueduct-caudal-extension",
+      "count": 64,
+      "bounds": [
+        [
+          192,
+          199,
+          114
+        ],
+        [
+          198,
+          203,
+          123
+        ]
+      ]
+    }
+  ],
+  "heldAqueductLocatorCount": 30,
+  "partialAqueductExtent": true,
+  "status": "AI-image-reviewed-project-adopted-development-only",
+  "adopted": true,
+  "expertReviewed": false,
+  "publicMutation": false,
+  "rationale": "Two independent image-reviewed subsets. Third: all 14 native100 sheets (39 planes) show selected ID25 cells within preserved posterior tissue, not ventricular lumen; exclude 94 conservative interior cells without assigning a pineal label. The 27-point low-intensity fraction was only a locator, not the anatomical decision. Aqueduct: source300 all 37 sheets/111 planes and native100 18 sheets/27 distinct planes show a closed lumen continuing caudally between tectum and tegmentum; add the reviewed 64-cell partial subset, retaining both terminal uncertainties.",
+  "limitation": "Not expert review or full segmentation. Native100 review samples are 0.4 mm apart in the posterior tissue series; not every native plane. Image registration is not exact anatomy. Third-ventricle tissue borders, internal pale spaces, posterior recesses and remaining uncertain cells retained; the gland is not newly segmented. Aqueduct app Z114–123 delimits a partial adoption, not anatomical ends. 30 original locator cells remain unadopted. Integration verification recorded separately; not public deployment.",
+  "projectAdopted": true,
+  "published": false,
+  "meshImpact": {
+    "inputSha256": "a21cb6ab8aa7080b6e26766c2f82834871d3e72c174b72d0b018733ee5ef278a",
+    "outputSha256": "63ac0815f7631e35029b9811485593e1bf0f2121cfe362366af74d1664f2dea8",
+    "blockMaskImpact": [
+      {
+        "block": "lateral-ventricle",
+        "part": "tissue",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "ventricular-cavity",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "caudate",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "thalamus",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "hippocampus",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "tissue",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "thalami",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "third-ventricle",
+        "changedMaskVoxels": 14,
+        "added": 0,
+        "removed": 14,
+        "file": "block-diencephalon-third-ventricle.mesh",
+        "beforeSha256": "bb976e6a0564272622aac1962b762f808054cfb627c2b496e354cbbff6dada4b",
+        "afterSha256": "34905fdc6138b8d6a070f3515ae643b770fac3d4e9d924fa3dd171c0af0fb3cb",
+        "reproducedBeforeSha256": "bb976e6a0564272622aac1962b762f808054cfb627c2b496e354cbbff6dada4b",
+        "beforeMatches": true,
+        "vertices": 2150,
+        "faces": 4252
+      },
+      {
+        "block": "diencephalon",
+        "part": "hypothalamus",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "subthalamic-nuclei",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "mammillary-bodies",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "tissue",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "putamen",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "pallidum-external",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "pallidum-internal",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "internal-capsule",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "corona-radiata",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "optic-radiation",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "auditory-radiation",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "tissue",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "corpus-callosum",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "lateral-ventricles",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "fornix",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "septum-pellucidum",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "tissue",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "ventricular-cavity",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "choroid-plexus",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "hippocampus",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "tissue",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "hippocampus",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "amygdala",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "inferior-horn",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "tissue",
+        "changedMaskVoxels": 2,
+        "added": 0,
+        "removed": 2,
+        "file": "block-midbrain-section-tissue.mesh",
+        "beforeSha256": "a9276115e005f5db68d82f4ff73c678213005ce6d5833ce1f3b92bf6b4f9da2d",
+        "afterSha256": "8fe82f43cbafeaf169b6945c5e8a4b397a0b9cbe9acec223cdd068bafd98c723",
+        "reproducedBeforeSha256": "a9276115e005f5db68d82f4ff73c678213005ce6d5833ce1f3b92bf6b4f9da2d",
+        "beforeMatches": true,
+        "vertices": 2087,
+        "faces": 4162
+      },
+      {
+        "block": "midbrain-section",
+        "part": "red-nuclei",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "substantia-nigra",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "aqueduct",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "cerebral-peduncles",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "superior-colliculi",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "inferior-colliculi",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "lateral-geniculate-bodies",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "medial-geniculate-bodies",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "interpeduncular-fossa",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "pons-medulla",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "cerebellum",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "midbrain",
+        "changedMaskVoxels": 2,
+        "added": 0,
+        "removed": 2,
+        "file": "block-hindbrain-midbrain.mesh",
+        "beforeSha256": "c925a688a4595a2b5fdf73f31aab5a21abd479f81b3bfbdfdb71012eac85a2b4",
+        "afterSha256": "b9083b1404758171d9970d6bf28b62d7e0b7ead37b4c2b0aa1520266fc5c1cbb",
+        "reproducedBeforeSha256": "c925a688a4595a2b5fdf73f31aab5a21abd479f81b3bfbdfdb71012eac85a2b4",
+        "beforeMatches": true,
+        "vertices": 3987,
+        "faces": 7962
+      },
+      {
+        "block": "hindbrain",
+        "part": "fourth-ventricle",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "superior-cerebellar-peduncles",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "middle-cerebellar-peduncles",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "inferior-cerebellar-peduncles",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "facial-colliculi",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "vestibular-areas",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "hypoglossal-trigones",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "vagal-trigones",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "pyramids",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "olives",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      }
+    ],
+    "installed": false,
+    "anatomyValidatedByMaskComparison": false,
+    "installationBlocked": false
+  },
+  "sectionMeshImpact": {
+    "before": {
+      "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
+      "sourceSha256": "a21cb6ab8aa7080b6e26766c2f82834871d3e72c174b72d0b018733ee5ef278a",
+      "rawVoxelSha256": "b3891d708763e760874ac3619c684c45bfcd87aacce1e07c422add285c6e276c",
+      "dimensionsXYZ": [
+        394,
+        466,
+        378
+      ],
+      "samplingMm": 0.5,
+      "displayOriginZYX": [
+        -90.0,
+        -116.0,
+        -98.0
+      ],
+      "method": "marching cubes 0.5; no smoothing, resampling, filling or component removal",
+      "scope": "section-view BigBrain selection/context only; not expert validation",
+      "meshes": {
+        "section-current-lateral-ventricles": {
+          "voxels": 159455,
+          "components6": 70,
+          "componentSizes": [
+            80298,
+            79033,
+            12,
+            7,
+            7,
+            7,
+            4,
+            4,
+            4,
+            3,
+            3,
+            3,
+            3,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "boundsZYX": [
+            [
+              80,
+              145,
+              117
+            ],
+            [
+              202,
+              330,
+              276
+            ]
+          ],
+          "vertices": 79868,
+          "faces": 161208,
+          "sha256": "2632d13fdc3ed6422a4cf6e3444b07e2723b091978468c8d13b142cffb91b831",
+          "bytes": 4170812,
+          "labelIds": [
+            23,
+            24
+          ]
+        },
+        "section-current-third-ventricle": {
+          "voxels": 11947,
+          "components6": 20,
+          "componentSizes": [
+            11566,
+            104,
+            95,
+            93,
+            35,
+            10,
+            7,
+            7,
+            4,
+            4,
+            4,
+            4,
+            4,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "boundsZYX": [
+            [
+              107,
+              201,
+              187
+            ],
+            [
+              173,
+              274,
+              204
+            ]
+          ],
+          "vertices": 8971,
+          "faces": 17962,
+          "sha256": "947414637efff8ccd47f5de8a472af53f445cbd7df00c789ce9c206f80a8ff46",
+          "bytes": 466744,
+          "labelIds": [
+            25
+          ]
+        },
+        "section-current-fourth-ventricle": {
+          "voxels": 9008,
+          "components6": 2,
+          "componentSizes": [
+            9006,
+            2
+          ],
+          "boundsZYX": [
+            [
+              59,
+              157,
+              179
+            ],
+            [
+              114,
+              196,
+              212
+            ]
+          ],
+          "vertices": 5141,
+          "faces": 10286,
+          "sha256": "a777a6a2df52a1de73b7d3d633a381ee420522c20c5287aba4f5581f3139484c",
+          "bytes": 267392,
+          "labelIds": [
+            26
+          ]
+        },
+        "section-current-ventricular-system": {
+          "voxels": 180605,
+          "components6": 88,
+          "componentSizes": [
+            92060,
+            79037,
+            9006,
+            104,
+            95,
+            93,
+            35,
+            12,
+            10,
+            7,
+            7,
+            7,
+            7,
+            7,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            3,
+            3,
+            3,
+            3,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "boundsZYX": [
+            [
+              59,
+              145,
+              117
+            ],
+            [
+              202,
+              330,
+              276
+            ]
+          ],
+          "vertices": 94322,
+          "faces": 190164,
+          "sha256": "c60f91577adee88ff53c11b0683d00c4b011ffd98e31c367fa3ee1578223ca3a",
+          "bytes": 4922996,
+          "labelIds": [
+            23,
+            24,
+            25,
+            26,
+            41
+          ]
+        }
+      }
+    },
+    "after": {
+      "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
+      "sourceSha256": "63ac0815f7631e35029b9811485593e1bf0f2121cfe362366af74d1664f2dea8",
+      "rawVoxelSha256": "11d3bbee8617b73b8862e0100b703bb2c2df1632019e9fa7f71eaa54d912db02",
+      "dimensionsXYZ": [
+        394,
+        466,
+        378
+      ],
+      "samplingMm": 0.5,
+      "displayOriginZYX": [
+        -90.0,
+        -116.0,
+        -98.0
+      ],
+      "method": "marching cubes 0.5; no smoothing, resampling, filling or component removal",
+      "scope": "section-view BigBrain selection/context only; not expert validation",
+      "meshes": {
+        "section-current-lateral-ventricles": {
+          "voxels": 159455,
+          "components6": 70,
+          "componentSizes": [
+            80298,
+            79033,
+            12,
+            7,
+            7,
+            7,
+            4,
+            4,
+            4,
+            3,
+            3,
+            3,
+            3,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "boundsZYX": [
+            [
+              80,
+              145,
+              117
+            ],
+            [
+              202,
+              330,
+              276
+            ]
+          ],
+          "vertices": 79868,
+          "faces": 161208,
+          "sha256": "2632d13fdc3ed6422a4cf6e3444b07e2723b091978468c8d13b142cffb91b831",
+          "bytes": 4170812,
+          "labelIds": [
+            23,
+            24
+          ]
+        },
+        "section-current-third-ventricle": {
+          "voxels": 11853,
+          "components6": 24,
+          "componentSizes": [
+            11468,
+            104,
+            95,
+            93,
+            35,
+            10,
+            7,
+            7,
+            4,
+            4,
+            4,
+            4,
+            4,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "boundsZYX": [
+            [
+              107,
+              201,
+              187
+            ],
+            [
+              173,
+              274,
+              204
+            ]
+          ],
+          "vertices": 9165,
+          "faces": 18386,
+          "sha256": "31b7f16fbb3d01e95d2653c5fd319a9a6499cf79c522e67eba1d2bdf46343df2",
+          "bytes": 477264,
+          "labelIds": [
+            25
+          ]
+        },
+        "section-current-fourth-ventricle": {
+          "voxels": 9008,
+          "components6": 2,
+          "componentSizes": [
+            9006,
+            2
+          ],
+          "boundsZYX": [
+            [
+              59,
+              157,
+              179
+            ],
+            [
+              114,
+              196,
+              212
+            ]
+          ],
+          "vertices": 5141,
+          "faces": 10286,
+          "sha256": "a777a6a2df52a1de73b7d3d633a381ee420522c20c5287aba4f5581f3139484c",
+          "bytes": 267392,
+          "labelIds": [
+            26
+          ]
+        },
+        "section-current-ventricular-system": {
+          "voxels": 180575,
+          "components6": 92,
+          "componentSizes": [
+            92026,
+            79037,
+            9006,
+            104,
+            95,
+            93,
+            35,
+            12,
+            10,
+            7,
+            7,
+            7,
+            7,
+            7,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            3,
+            3,
+            3,
+            3,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "boundsZYX": [
+            [
+              59,
+              145,
+              117
+            ],
+            [
+              202,
+              330,
+              276
+            ]
+          ],
+          "vertices": 94636,
+          "faces": 190828,
+          "sha256": "874874b6a392409b9d37530383e236689c9aea391f235b933b8fe4236707e00c",
+          "bytes": 4939756,
+          "labelIds": [
+            23,
+            24,
+            25,
+            26,
+            41
+          ]
+        }
+      }
+    },
+    "changedFiles": [
+      "section-current-third-ventricle.mesh",
+      "section-current-ventricular-system.mesh"
+    ]
+  }
+}

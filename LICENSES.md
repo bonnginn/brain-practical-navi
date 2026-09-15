@@ -1,6 +1,6 @@
 # ライセンスの適用範囲
 
-更新日: 2026-08-13
+更新日: 2026-09-08
 
 このリポジトリは、コード、自作教材文書、第三者データを分けて扱います。個々のファイルに別の表示がある場合は、その表示が優先します。
 
@@ -29,6 +29,8 @@ README、学習範囲、共同制作ガイド、解説文など、本プロジ�
 本プロジェクトが手作業の経路・形状から生成した放線冠・視放線・聴放線、脈絡叢、脳弓、乳頭体、中脳水道、視床下部・透明中隔・大脳脚の位置目安、視覚路・漏斗、脳底動脈、脳神経の模式3DメッシュはCC BY-NC-SA 4.0です。これらは第三者データの抽出物ではなく、正解ラベルでもありません。アプリ内と `public/atlas/specimen-blocks.json` ではBigBrain由来の組織・分節と明示的に区別します。旧海馬采・鉤メッシュは位置と連続性の根拠が不足するためβ候補の配布物から除外しました。神経血管の対象と免責は `public/atlas/PROCEDURAL-NEUROVASCULAR-NOTICE.txt` に記載します。
 
 詳しい来歴、改変内容、帰属表示は `DATA_AND_LICENSES.md` と `public/atlas/ATTRIBUTION.txt` を参照してください。
+
+開発版の `public/atlas/brodmann-*.mesh.gz` と `brodmann-surface.json` は、FreeSurfer配布のfsaverage脳表とPALS-B12 Brodmannラベルの派生物です。[PALS-B12 / Van Essenの帰属](https://surfer.nmr.mgh.harvard.edu/fswiki/PALS_B12)と[FreeSurfer Software License Agreement](https://surfer.nmr.mgh.harvard.edu/fswiki/FreeSurferSoftwareLicense)を保持します。配布には [BRODMANN-FREESURFER-NOTICE.txt](public/atlas/BRODMANN-FREESURFER-NOTICE.txt) のダウンロード契約全文・指定前文を同梱します。頂点ごとの領野番号・面接続を保持し、表示座標・法線・陰影を軽量化しています。第三者素材に本プロジェクトのAGPLまたは教材文書のCCライセンスを上書きしません。
 
 ## 4. 外部依存関係
 

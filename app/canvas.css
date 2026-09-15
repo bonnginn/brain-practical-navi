@@ -135,6 +135,12 @@
 .selectedStructureBar { min-height: 58px; max-height: min(31vh,260px); overflow-y: auto; border-top: 1px solid #cccdc8; background: #eeede8; scrollbar-width: thin; scrollbar-color: #aeb6b2 transparent; }
 .selectedStructureSummary { position: sticky; z-index: 2; top: 0; display: grid; grid-template-columns: 8px minmax(0,1fr) auto; align-items: center; gap: 12px; min-height: 58px; padding: 9px 18px; border-bottom: 1px solid #d3d4cf; background: #eeede8f5; }
 .selectedStructureSummary > span { width: 8px; height: 34px; border-radius: 5px; }
+.selectedStructureSummary > span.empty { background: #aeb5b1; }
+.selectedStructureSummaryText { min-width: 0; }
+.selectedStructureTarget { display: flex !important; align-items: baseline; gap: 7px; }
+.selectedStructureTarget span { color: #9a5545; font-size: 12px; font-weight: 800; letter-spacing: .04em; }
+.selectedStructureRole { margin: 5px 0 0; color: #465351; font-size: 14px; line-height: 1.45; }
+.selectedStructureRole strong { margin-right: 7px; color: #315f5b; font-size: 12px; }
 .selectedStructureBar small { display: block; color: #606b69; font-size: 14px; }
 .selectedStructureBar b { display: block; margin-top: 2px; font-size: 16px; }
 .selectedStructureList { display: grid; gap: 1px; background: #d4d5d0; }
@@ -226,6 +232,12 @@ html, body, #root { height: 100%; overflow: hidden; }
 .workspace-sections .selectedStructureBar { max-height: none; overflow: visible; }
 .workspace-sections .selectedStructureSummary { position: static; }
 .workspace-sections .rangeWrap { margin: 12px 0 4px; }
+.sectionSliceStepper { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.2fr) minmax(0,1fr); align-items:center; gap:6px; width:min(100%,330px); margin:10px auto 0; }
+.sectionSliceStepper button { min-width:0; min-height:44px; padding:6px; border:1px solid #aeb6b4; border-radius:3px; background:#edf0ed; color:#315f63; font-size:14px; }
+.sectionSliceStepper button:disabled { opacity:.45; }
+.sectionSliceStepper > span { min-width:0; text-align:center; font-variant-numeric:tabular-nums; }
+.sectionSliceStepper b,.sectionSliceStepper small { display:block; }
+.sectionSliceStepper small { font-size:12px; color:#53605f; }
 .sectionLayoutSwitch { display: flex; overflow: hidden; border: 1px solid #aeb6b4; border-radius: 3px; }
 .sectionLayoutSwitch button { min-height: 34px; padding: 5px 8px; border: 0; border-right: 1px solid #c6cbc7; background: #edf0ed; color: #53605f; font-size: 14px; font-weight: 700; white-space: nowrap; }
 .sectionLayoutSwitch button:last-child { border-right: 0; }
@@ -261,6 +273,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 @media(max-width:1050px){.appShell{grid-template-columns:160px minmax(0,1fr)}.topbar{grid-column:1/3}.sliceStage{grid-template-columns:minmax(0,1fr) 230px}}
 @media(max-width:940px){.sliceStage{height:auto;grid-template-columns:minmax(0,1fr) 210px}.insetHead{flex-basis:38px;height:38px}.modelInset .blockControls{left:7px;right:7px;bottom:7px}.modelInset .blockControls button{font-size:15px;padding-block:6px}.modelInset .orientation{display:none}}
 @media(max-width:760px){html,body,#root{height:auto;overflow:auto}.appShell{display:block;height:auto;padding:60px 0 72px}.leftRail,.workArea{overflow:visible}.visualGrid{display:block}.slicePanel{display:block}.sliceStage{height:760px;grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) 340px}.sliceViewport{border-right:0;border-bottom:1px solid #455052}.slicePanel{margin-top:0}.slicePanel .panelHead{display:block}.sliceTools{margin-top:8px;gap:4px;flex-wrap:wrap;justify-content:flex-start}.contrastSwitch button,.displaySwitch button{padding:6px 7px;font-size:15px}.workArea{padding:20px 12px}.workHead h1{font-size:26px}.panelHead b{font-size:16px}.panelHead small{font-size:16px}.sliceTimeline{padding-inline:13px}.rangeWrap button span{font-size:15px}.miniSlices>button>b{font-size:15px}.miniSlices>button>small{font-size:15px}.modelInset{width:auto;margin:0}.insetHead{flex-basis:30px;height:30px}.insetHead small,.insetHead>span{display:none}.insetViews{grid-template-columns:1fr 1fr;grid-template-rows:1fr;padding-bottom:0}.modelInset .blockControls,.modelInset .orientation{display:none}.identifyHint{top:8px;padding:5px 7px}.identifyHint b{font-size:15px}.identifyHint span{display:none}.identifyMarker{min-width:132px}.selectedStructureBar{max-height:280px}.selectedStructureSummary{grid-template-columns:7px minmax(0,1fr) auto;padding-inline:11px}.selectedStructureList>button{grid-template-columns:7px minmax(0,1fr);padding-inline:11px}.selectedStructureList p{grid-column:2}.clearStructures,.structureGroupGrid{display:none}.zoomReadout{right:10px;bottom:10px}.inspectorBackdrop{top:60px}.inspector{top:60px;width:min(360px,94vw);padding:20px}}
+@media(max-width:520px){.selectedStructureSummary{grid-template-columns:7px minmax(0,1fr);align-items:start}.selectedStructureSummary>span{grid-row:1/3;margin-top:3px}.selectedBarActions{grid-column:2;flex-wrap:wrap}.selectedStructureRole{font-size:13px}.selectedStructureBar button{min-height:40px}}
 
 .topbar { gap: 12px; }
 .brand, .topActions { flex: 0 0 auto; }
@@ -445,7 +458,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 .learningModelStage { height: auto; min-height: 0; cursor: grab; touch-action: none; user-select: none; background: radial-gradient(circle at 50% 44%,#515a5f 0,#343a3e 48%,#202528 100%); }
 .learningModelStage:active { cursor: grabbing; }
 /* Keep block controls outside the image, including in short/narrow views. */
-.blockModelCard { grid-template-rows: auto minmax(280px,1fr) auto; overflow-y: auto; }
+.blockModelCard { grid-template-rows: max-content minmax(280px,1fr) max-content; overflow-y: auto; }
 .blockModelToolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 10px; background: #202728; }
 .blockModelToolbar .specimenTissueControls,
 .blockModelToolbar .specimenViewControls,
@@ -689,6 +702,11 @@ html, body, #root { height: 100%; overflow: hidden; }
 .pathwayPresets article li { counter-increment: pathway; padding: 3px 6px; border: 1px solid #d6c7b8; background: #fff; font-size: 12px; }
 .pathwayPresets article li::before { content: counter(pathway) ". "; color: #9a5b35; font-weight: 700; }
 .pathwayPresets article > small { display: block; color: #83533a; font-size: 12px; line-height: 1.45; }
+.pathwayObservationOrder { margin: 0; padding: 8px 10px; border-left: 3px solid #d39b68; background: #fffaf3; font-size: 13px; line-height: 1.5; }
+.pathwayObservationOrder b { display: block; margin-bottom: 2px; color: #7c5536; font-size: 12px; }
+.pathwayObservationOrder ol { display: flex; flex-wrap: wrap; gap: 4px; margin: 0; padding: 0; list-style: none; counter-reset: specimen-order; }
+.pathwayObservationOrder li { counter-increment: specimen-order; padding: 3px 6px; border: 1px solid #d6c7b8; background: #fff; font-size: 12px; }
+.pathwayObservationOrder li::before { content: counter(specimen-order) ". "; color: #9a5b35; font-weight: 700; }
 .pathwayStepper { display: grid; gap: 9px; margin-top: 10px; padding: 10px; border: 1px solid #ae9b72; background: #fff8e9; }
 .pathwayStepper > header { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
 .pathwayStepper > header > div { display: grid; gap: 2px; }
@@ -712,6 +730,8 @@ html, body, #root { height: 100%; overflow: hidden; }
 .pathwayStepperControls button:hover { border-color: #80672e; background: #fff; }
 .pathwayStepperControls button:disabled { cursor: default; opacity: .42; }
 .pathwayStepperControls .stepperPlay { border-color: #6d8270; background: #e2eee4; color: #31553e; }
+.circuitReturnButton { min-height: 44px; padding: 8px 12px; border: 1px solid #657e78; background: #edf4f1; color: #294b43; font-size: 13px; font-weight: 800; }
+.pathwayStepper > .circuitReturnButton { width: 100%; margin-top: 8px; }
 .pathwayStepperCaution { margin: 0; color: #735b37; font-size: 12px; line-height: 1.55; }
 .papezPathwayStepper { border-color: #a889a2; background: #fff8fb; }
 .papezPathwayStepper .pathwayStepperStageTitle { border-left-color: #a6678e; }
@@ -997,7 +1017,7 @@ html[lang="en"] .specimenLayerPicker button span small { display: none; }
 @media(max-width:1400px){.topActions>span{display:none}}
 @media(max-width:1320px){.learningModelCard .panelHead>span,.learningModelCard .panelActions>span,.specimenTissueControls>span,.specimenRotationHint{display:none}.workspaceSwitch button{min-width:82px;padding-inline:8px}.neurovascularPicker>div{grid-template-columns:1fr}.neurovascularPicker button{min-width:0}.neurovascularPicker button small{max-width:none}}
 @media(max-width:1120px){.workspaceSwitch button{min-width:82px;padding-inline:8px}.workspaceSwitch button>span{font-size:16px}.learningGrid,.quizWorkspace,.segWorkbench{grid-template-columns:minmax(0,1fr) 350px}.topActions>span{display:none}.surfaceRegionPicker>div,.surfaceLandmarkPicker>div{grid-template-columns:1fr}.learningGuide{padding-inline:20px}}
-@media(max-width:900px){.workspaceSwitch button{min-width:68px}.workspaceSwitch button>i{display:none}.homeHero{grid-template-columns:minmax(300px,43%) minmax(0,1fr)}.homeIntro{padding:28px}.homeModeGrid{grid-template-columns:1fr 1fr}.homeModeGrid button{min-height:72px}.homeModeGrid small{display:none}.learningGrid,.quizWorkspace,.segWorkbench{grid-template-columns:minmax(0,1fr) minmax(270px,34vw,310px)}.learningGuide,.quizQuestionCard,.segControls{padding-inline:18px}.legalColumns{grid-template-columns:1fr}.legalColumns article+article{padding-left:0;border-left:0}}
+@media(max-width:900px){.workspaceSwitch button{min-width:68px}.workspaceSwitch button>i{display:none}.homeHero{grid-template-columns:minmax(300px,43%) minmax(0,1fr)}.homeIntro{padding:28px}.homeModeGrid{grid-template-columns:1fr 1fr}.homeModeGrid button{min-height:72px}.homeModeGrid small{display:none}.learningGrid,.quizWorkspace,.segWorkbench{grid-template-columns:minmax(0,1fr) clamp(270px,34vw,310px)}.learningGuide,.quizQuestionCard,.segControls{padding-inline:18px}.legalColumns{grid-template-columns:1fr}.legalColumns article+article{padding-left:0;border-left:0}}
 @media(max-height:820px) and (min-width:761px){.homeArea{gap:8px;padding:18px 22px}.homeNotice{padding:clamp(24px,4vw,44px)}.homeNoticePoints{margin-top:20px}.homeNoticePoints section{padding-block:11px}.homeNotice footer{margin-top:20px}.homeQuietNote{font-size:14px}.homeIntro{padding:clamp(22px,3vw,42px)}.homeBadges{margin-bottom:8px}.homeIntro h1{margin:8px 0 11px;font-size:clamp(34px,3.6vw,52px)}.homeLead{line-height:1.65}.homeAccuracyWarning{margin-top:9px;padding-block:7px;font-size:14px}.homeModeGrid button{min-height:76px;padding-block:10px}.homeFooter{min-height:30px}}
 @media(max-width:760px){.topbar{padding-inline:5px;gap:3px}.brand{min-width:auto}.brand>span:last-child{display:none}.workspaceSwitch{display:flex;min-width:0;overflow-x:auto;scrollbar-width:none}.workspaceSwitch::-webkit-scrollbar{display:none}.workspaceSwitch button{min-width:52px;padding:7px 3px}.workspaceSwitch button>span{font-size:15px}.topActions{gap:2px}.topActions>span{display:none}.legalButton{padding:7px 3px;font-size:15px;white-space:nowrap}.feedbackButton{display:block;width:38px;padding:7px 2px;font-size:0;white-space:nowrap}.feedbackButton::after{content:"協力";font-size:15px}.compactToggle{border:0;padding-left:0}.learningArea,.quizArea,.segmentationArea{min-height:800px}.learningGrid,.quizWorkspace,.segWorkbench{display:block}.learningModelCard,.quizImageCard,.segCanvasCard{height:520px}.learningGuide,.quizQuestionCard,.segControls{max-height:none;margin-top:10px}.neurovascularControls{left:8px;bottom:8px}.neurovascularControls button{padding:6px}.neurovascularLegend{left:8px;top:8px;right:auto;bottom:auto;grid-template-columns:repeat(3,auto);gap:5px 8px;padding:7px 8px;font-size:12px}.neurovascularLegend i{width:13px}.blockReleaseNote .sourceBadge{display:none}.feedbackOptions{grid-template-columns:1fr}.legalBackdrop{padding:8px}.legalDialog>footer{display:block}.legalDialog footer div{margin-top:8px;flex-wrap:wrap;min-width:0;max-width:100%;width:100%;box-sizing:border-box}.legalDialog footer div>a,.legalDialog footer div>button{min-width:0;max-width:100%;overflow-wrap:anywhere;white-space:normal}.legalDialog footer div>button{min-height:44px}.betaStatusDialog{width:calc(100vw - 16px);max-height:calc(100vh - 16px)}.betaGoNoGoLedger{margin:12px 8px 0}.betaGoNoGoCounts{grid-template-columns:repeat(2,minmax(0,1fr));padding-inline:8px}.betaGoNoGoGroups{grid-template-columns:1fr;max-height:56vh;padding-inline:8px}.betaGoNoGoGroup,.betaGoNoGoItem{min-width:0}.betaGoNoGoItem>header{align-items:flex-start;flex-direction:column;gap:5px}.betaGoNoGoDetails dl>div{grid-template-columns:1fr;gap:4px}.betaGoNoGoDetails dd{overflow-wrap:anywhere}.betaGoNoGoHeader{padding-inline:10px}.betaGoNoGoHeader small{font-size:11px}.betaGoNoGoDisclaimer{padding-inline:10px}}
 @media(max-width:760px){.pathwayStepperModelTag{left:10px;right:10px;top:10px;max-width:none;padding:8px 10px}.pathwayStepperModelTag b{font-size:16px}.pathwayStepperSliceStage{height:270px}.pathwayStepperControls{grid-template-columns:1fr 1fr}.pathwayStepperControls button{min-height:44px;font-size:14px}.pathwayStepperCaution{font-size:13px}.pathwayStepper > header{align-items:flex-start}.pathwayStepper > header small{font-size:13px}}
@@ -1600,3 +1620,141 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
   .quizSliceAxis { grid-column: 1 / -1; }
   .quizSliceNavigator > button { grid-column: 1 / -1; }
 }
+
+/* Preserve the established 1440 px typography while easing dense learner UI
+   down continuously on narrower viewports. Metadata stops at 12 px; primary
+   reading text remains at least 13 px. Control hit areas are sized separately. */
+:root {
+  --ui-font-12: 12px;
+  --ui-font-13: clamp(12px,calc(11.6286px + .09524vw),13px);
+  --ui-font-14: clamp(12px,calc(11.2571px + .19048vw),14px);
+  --ui-font-15: clamp(12.5px,calc(11.5714px + .2381vw),15px);
+  --ui-font-16: clamp(13px,calc(11.8857px + .28571vw),16px);
+  --ui-font-17: clamp(14px,calc(12.8857px + .28571vw),17px);
+  --ui-font-18: clamp(15px,calc(13.8857px + .28571vw),18px);
+  --ui-font-19: clamp(15px,calc(13.5143px + .38095vw),19px);
+  --ui-font-20: clamp(16px,calc(14.5143px + .38095vw),20px);
+  --ui-font-23: clamp(18px,calc(16.1429px + .47619vw),23px);
+  --ui-font-25: clamp(20px,calc(18.1429px + .47619vw),25px);
+  --ui-font-27: clamp(22px,calc(20.1429px + .47619vw),27px);
+}
+
+.brand { font-size: var(--ui-font-19); }
+.modeSwitch button,
+.workspaceSwitch button > span,
+.structureBtn,
+.sectionLayoutSwitch button,
+.selectedStructureRole,
+.selectedStructureBar small,
+.selectedStructureList p,
+.timelineHead > div,
+.timelineHead output,
+.timeline > p,
+.inspector > p,
+.inspector dl div,
+.surfaceRegionPicker > div > button span,
+.surfaceLandmarkPicker > div > button span,
+.specimenLayerPicker > div > button span,
+.specimenLayerPicker > div > button em,
+.quizSetup label > span,
+.quizSetup > div > span,
+.quizSetup select,
+.quizOptions button small,
+.quizOptions button > b { font-size: var(--ui-font-14); }
+
+.legalButton,
+.feedbackButton,
+.helpButton,
+.surfaceRegionPicker > header button,
+.surfaceLandmarkPicker > header button { font-size: var(--ui-font-13); }
+
+.planeBtn small,
+.clearStructures,
+.structureGroupGrid button,
+.labelToggle,
+.insetHead b,
+.insetHead small,
+.insetHeadActions > span,
+.modelInset .blockControls button,
+.timelineHead b,
+.blockControls button,
+.panelHead > span,
+.inspectIndex,
+.inspector em,
+.inspector h3,
+.identifyCard small,
+.continuity > span,
+.continuity small,
+.quiz,
+.surfaceRegionPicker > header b,
+.surfaceRegionPicker > header small,
+.surfaceLandmarkPicker > header b,
+.surfaceLandmarkPicker > header small,
+.specimenLayerPicker > header b,
+.specimenLayerPicker > header small,
+.specimenLayerPicker > header button,
+.specimenLayerPicker > footer,
+.learningGuide h3,
+.blockIntroCard button { font-size: var(--ui-font-15); }
+
+.planeBtn > span,
+.panelHead small,
+.contrastSwitch button,
+.displaySwitch button,
+.identifyHint b,
+.orientation,
+.dragTip,
+.sliceStage .scale,
+.rangeWrap button span,
+.miniSlices > button > b,
+.miniSlices > button > small,
+.selectedStructureBar b,
+.selectedStructureBar button,
+.panelActions button,
+.specimenLayerPicker > div > button > b,
+.specimenLayerPicker > p,
+.learningGuide > p,
+.learningGuide li span,
+.homeModeGrid b,
+.quizOptions button > span { font-size: var(--ui-font-16); }
+
+.planeBtn b,
+.panelHead b,
+.identifyCard b,
+.blockIntroCard p { font-size: var(--ui-font-17); }
+.homeModeGrid em { font-size: var(--ui-font-18); }
+.homeLearningChoices span { font-size: var(--ui-font-20); }
+.sectionTitle h2 { font-size: var(--ui-font-23); }
+.workHead h1 { font-size: var(--ui-font-25); }
+.inspector h2 { font-size: var(--ui-font-27); }
+@media(max-width:1600px) and (min-width:761px) {
+  html[lang="en"] .brand { font-size: var(--ui-font-14); }
+}
+
+/* Full-width 3D uses the available width for two independent views. */
+.sliceStage.layout-model .insetViews.views-2 { grid-template-columns: repeat(2,minmax(0,1fr)); grid-template-rows: minmax(0,1fr); }
+
+.modelStepSummary:empty { display:none; }
+.modelStepSummary .pathwayStepperModelTag { position:static; max-width:none; margin:0; padding:8px 12px; box-shadow:none; }
+.identifyMarker button { pointer-events:auto; border:0; background:#fff; color:#253d3d; border-radius:50%; min-width:32px; min-height:32px; cursor:pointer; }
+.surfaceLessonButton { margin:8px 0; padding:10px 16px; }
+
+.surfaceRegionLessonRow { display:flex; min-width:0; border:1px solid #bfc4bd; background:#f2f0eb; }
+.surfaceRegionLessonRow > button:first-child { flex:1; display:flex; align-items:center; gap:7px; min-width:0; padding:8px; text-align:left; border:0; background:transparent; }
+.surfaceRegionLessonRow > button.active { background:#e1e8e3; box-shadow:inset 0 0 0 1px #526e68; }
+.surfaceRegionLessonRow i { flex:none; width:7px; height:26px; border-radius:4px; }
+.surfaceRegionLessonRow span { min-width:0; overflow-wrap:anywhere; }
+.surfaceRegionLessonRow small { display:block; font-size:.8em; color:#68716f; }
+.surfaceRegionLessonRow .regionLessonOpen { flex:none; padding:8px; border:0; border-left:1px solid #bfc4bd; color:#285e58; background:#e8f1ee; }
+
+.regionLessonDialog > article { padding:0 clamp(16px,3vw,32px) 24px; }
+.regionLessonDialog > article p { line-height:1.85; }
+
+/* Keep cortical explanations beside the model; the model remains interactive. */
+.regionLessonDock { position:fixed; z-index:55; top:180px; right:24px; width:min(34vw,380px); pointer-events:none; }
+.regionLessonDock .regionLessonDialog { pointer-events:auto; width:100%; max-height:calc(100dvh - 200px); overflow:auto; box-sizing:border-box; box-shadow:0 8px 28px #142a2533; border:1px solid #9aaea7; }
+.regionLessonDock .regionLessonDialog > header { position:sticky; top:0; z-index:1; background:#f6f5f0; padding:12px 16px; }
+.regionLessonDock .regionLessonDialog h2 { font-size:1.15rem; }
+.regionLessonDock .regionLessonDialog > article { padding:0 16px 16px; }
+.regionLessonDock .regionLessonDialog h3 { font-size:1rem; }
+@media(max-width:760px){ .regionLessonDock { top:auto; bottom:8px; left:8px; right:8px; width:auto; } .regionLessonDock .regionLessonDialog { max-height:36dvh; } }
