@@ -413,7 +413,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /surfaceView!=="cranialNerves"&&surfaceView!=="arteries"&&surfaceView!=="medial"/);
   assert.match(page, /setSurfaceCerebellum\(key!=="medial"&&key!=="inferior"\)/);
   assert.match(page, /useState\(surfaceView!=="cranialNerves"&&surfaceView!=="arteries"&&surfaceView!=="medial"&&surfaceView!=="inferior"\)/);
-  assert.match(page, /medial:\["cingulate","paracentral","precuneus","cuneus","lingual"\]/);
+  assert.match(page, /medial:\["superiorFrontal","cingulate","paracentral","precuneus","cuneus","lingual"\]/);
   assert.doesNotMatch(page, /medial:\[[^\n]+"pericalcarine"/);
   assert.match(page, /key==="cuneus"\?\{ids:surfaceRegions\.pericalcarine\.ids,axis:0,min:-14\}/);
   assert.match(page, /key==="lingual"\?\{ids:surfaceRegions\.pericalcarine\.ids,axis:0,max:-14\}/);
@@ -549,7 +549,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /basalHighlights/);
   assert.match(page, /aria-label="下面の補助レイヤー"/);
   assert.match(page, /surfaceNeurovascular\|\|surfaceView==="inferior"\|\|surfaceView==="free"\?surfaceOverlay:"none"/);
-  assert.match(page, /showBasalLandmarks=\{surfaceView==="inferior"\|\|surfaceView==="arteries"\|\|surfaceView==="cranialNerves"\|\|surfaceView==="free"\}/);
+  assert.match(page, /showBasalLandmarks=\{surfaceView==="inferior"\|\|surfaceView==="cranialNerves"\|\|surfaceView==="free"\}/);
   assert.match(page, /basalOnlySelected=\{false\}/);
   assert.match(page, /const detachableBrainstemNerveKeys:NeurovascularStructureKey\[]=\["cn5","cn6","cn7","cn8","cn9","cn10","cn11","cn12"\]/);
   assert.match(page, /function toggleFreeHindbrain\(\)/);

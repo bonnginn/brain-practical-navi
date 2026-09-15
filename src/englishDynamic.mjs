@@ -3,6 +3,8 @@ export function englishDynamic(core, translations) {
   const counted=(n,noun)=>`${n} ${noun}${Number(n)===1?"":"s"}`;
   let m=core.match(/^(\d+)構造を同時表示中$/u);
   if(m)return `${counted(m[1],"structure")} displayed`;
+  const sliceInteraction=core.match(/^(coronal|horizontal|sagittal)断面 ([\d.]+)。クリックで構造を選択、ドラッグで移動、ホイールで拡大縮小$/u);
+  if(sliceInteraction)return `${sliceInteraction[1]} slice ${sliceInteraction[2]}. Click to identify, drag to pan, and use the wheel to zoom.`;
   const planes={"冠状断":"coronal","水平断":"horizontal","矢状断":"sagittal"};
   m=core.match(/^切断位置の全脳3Dモデル・(基準方向|直交方向)。ドラッグまたは矢印キーで回転、Rキーで向きを戻す$/u);
   if(m)return `Whole-brain 3D model showing the section plane, ${m[1]==="基準方向"?"reference":"orthogonal"} view. Drag or use the arrow keys to rotate; press R to reset the orientation.`;
@@ -10,8 +12,8 @@ export function englishDynamic(core, translations) {
   if(m)return `${planes[m[1]]} slice position`;
   m=core.match(/^復習問題の(前後|上下|左右)位置$/u);
   if(m)return `Quiz slice position (${{"前後":"anteroposterior","上下":"superoinferior","左右":"left–right"}[m[1]]})`;
-  m=core.match(/^(coronal|horizontal|sagittal)断面 ([\d.]+)。ホイールで拡大縮小、Shiftドラッグで移動$/u);
-  if(m)return `${m[1]} slice ${m[2]}. Use the wheel to zoom and Shift-drag to pan.`;
+  m=core.match(/^(coronal|horizontal|sagittal)断面 ([\d.]+)。ホイールで拡大縮小、(?:Shift)?ドラッグで移動$/u);
+  if(m)return `${m[1]} slice ${m[2]}. Use the wheel to zoom and ${core.includes("Shift")?"Shift-drag":"drag"} to pan.`;
   m=core.match(/^(MNI高密度皮質表面モデル|0.5 mm標本から構成した局所3D標本)(と収録済み標本の位置目安)?(と模式3D神経血管レイヤー)?。ホイールで拡大縮小(、画面ボタンでも操作可能)?(、クリックで構造を選択)?$/u);
   if(m){
     const model=m[1].startsWith("MNI")?"High-density MNI cortical surface model":"Local 3D specimen reconstructed from 0.5 mm tissue images";

@@ -243,11 +243,12 @@ export default function BrodmannExplorer({ english = false }: { english?: boolea
   const [unavailable, setUnavailable] = useState(false);
   const [resetKey, setResetKey] = useState(0);
   const [inflated, setInflated] = useState(false);
+  const [isolate, setIsolate] = useState(false);
   const [freeRotation, setFreeRotation] = useState(false);
   const drag = useRef<{ id: number; x: number; y: number; rotation: Rotation } | null>(null);
   const text = (ja: string, en: string) => english ? en : ja;
   const definition = views[view];
-  const highlights = useMemo<HighlightLayer[]>(() => (colorMode === 'all' ? atlas.areaNumbers : colorMode === 'selected' && selected ? [selected] : []).map(area => ({ ids: [area], color: brodmannColor(area) })), [colorMode, selected]);
+  const highlights = useMemo<HighlightLayer[]>(() => (isolate && selected ? [selected] : colorMode === 'all' ? atlas.areaNumbers : colorMode === 'selected' && selected ? [selected] : []).map(area => ({ ids: [area], color: brodmannColor(area) })), [colorMode, selected, isolate]);
   const selectView = (key: ViewKey) => { setView(key); setRotation({ ...views[key].rotation }); setFreeRotation(false); };
   const selectedNote = selected ? notes[selected] : null;
   const selectedName = selected ? areaNames[selected] : null;
@@ -275,11 +276,11 @@ export default function BrodmannExplorer({ english = false }: { english?: boolea
         }} onPointerUp={event => { drag.current = null; if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId); }} onPointerCancel={() => { drag.current = null; }}>
           <AtlasVolumeCanvas key={resetKey} kind="surface" surfaceAtlas={inflated ? 'brodmann-inflated' : 'brodmann'} plane="coronal" position={50} focus="thalamus" display="specimen" rotation={rotation}
             view="inside" contrast="bigbrain" showFocus={false} showCutPlane={false} showCerebellum={false} showPonsMedulla={false} showMidbrain={false}
-            hemisphere={definition.hemisphere} surfaceHighlights={highlights} onWebGLUnavailableChange={setUnavailable}
+            hemisphere={definition.hemisphere} surfaceOnlySelected={isolate && selected!==null} surfaceHighlights={highlights} onWebGLUnavailableChange={setUnavailable}
             surfaceAriaLabel={text('ブロードマン領野の標準脳表。観察方向ボタンと拡大・縮小で操作できます。', 'Brodmann reference surface. Use viewing-direction and zoom controls.')} />
           <div className="brodmannModelLabel" aria-live="polite"><b>{colorMode === 'selected' && selected ? `BA ${selected}` : colorMode === 'all' ? text('全領野', 'All areas') : text('着色なし', 'No colour')}</b><span>{freeRotation ? text('自由回転', 'Free rotation') : english ? definition.en : definition.ja}</span></div>
         </div>
-        <div className="brodmannTools">
+        <div className="brodmannTools"><button type="button" disabled={!selected} aria-pressed={isolate} onClick={()=>setIsolate(value=>!value)}>{isolate?text("周囲の脳表を戻す", "Restore surrounding cortex"):text("周囲を外して観察", "Hide surrounding cortex")}</button>
           <button type="button" aria-pressed={inflated} onClick={() => setInflated(value => !value)}>{inflated ? text('通常の脳表へ', 'Pial surface') : text('溝の奥を見る（膨張表示）', 'Open sulci (inflated)')}</button>
           <button type="button" onClick={() => { setRotation({ ...definition.rotation }); setFreeRotation(false); setResetKey(value => value + 1); }} disabled={unavailable}>{text('向き・拡大を戻す', 'Reset view and zoom')}</button>
           <span>{inflated ? text('膨張表示：頂点の対応を保持。左右の間隔・大きさは表示用です', 'Inflated: vertex correspondence preserved; spacing and scale are for display') : text('表示：fsaverage標準脳表・ドラッグで回転', 'Surface: fsaverage reference · drag to rotate')}</span>
@@ -288,9 +289,9 @@ export default function BrodmannExplorer({ english = false }: { english?: boolea
       <aside className="brodmannPanel">
         <h2>{text('ブロードマン領野', 'Brodmann areas')} <small>{atlas.areaNumbers.length}{text('領野', ' areas')}</small></h2>
         <div className="brodmannColorModes" role="group" aria-label={text('着色方法', 'Colour mode')}>
-          <button type="button" aria-pressed={colorMode === 'all'} onClick={() => setColorMode('all')}>{text('すべて着色', 'Colour all')}</button>
+          <button type="button" aria-pressed={colorMode === 'all'} onClick={() => {setIsolate(false);setColorMode('all')}}>{text('すべて着色', 'Colour all')}</button>
           <button type="button" aria-pressed={colorMode === 'selected'} disabled={!selected} onClick={() => setColorMode('selected')}>{text('選択領野だけ', 'Selected only')}</button>
-          <button type="button" aria-pressed={colorMode === 'none'} onClick={() => setColorMode('none')}>{text('着色なし', 'No colour')}</button>
+          <button type="button" aria-pressed={colorMode === 'none'} onClick={() => {setIsolate(false);setColorMode('none')}}>{text('着色なし', 'No colour')}</button>
         </div>
         <div className="brodmannAreaGrid" role="group" aria-label={text('領野番号を選択', 'Select an area number')}>
           {atlas.areaNumbers.map(area => <button type="button" key={area} data-brodmann-area={area} aria-pressed={selected === area} onClick={() => { setSelected(area); setColorMode('selected'); }}><i style={{ background: `rgb(${brodmannColor(area).join(',')})` }} />BA {area}</button>)}
@@ -305,7 +306,7 @@ export default function BrodmannExplorer({ english = false }: { english?: boolea
     <div className="brodmannSource">
       <b>{text('この地図の由来', 'About this map')}</b>
       <p>{text('PALS-B12の歴史的ブロードマン地図をfsaverageへ対応づけた表示です。Colin右半球に由来する地図を両側へ対応づけており、実際の左右差や個人ごとの細胞構築境界を実測したものではありません。灰色は領野未割当の部分です。', 'This historical PALS-B12 Brodmann map was transferred to fsaverage. A map originating from Colin’s right hemisphere was mapped to both sides; it does not measure individual cytoarchitectonic boundaries or actual hemispheric asymmetry. Grey regions are unassigned.')}</p>
-      <p>{text('収録された41領野を表示します。欠番を補完したり、既存の脳回ラベルを番号へ置き換えたりしていません。BigBrain断面との位置合わせ・専門家レビューは未実施です。', 'The 41 supplied areas are displayed without filling missing numbers or relabelling existing gyral parcels. Registration to BigBrain sections and expert review have not been performed.')}</p>
+      <p>{text('収録された41領野を表示します。島皮質の独立したBA区画はこの地図に収録されていません。欠番を補完したり、既存の脳回ラベルを番号へ置き換えたりしていません。BigBrain断面との位置合わせ・専門家レビューは未実施です。', 'The map does not include a separate insular BA parcel. The 41 supplied areas are displayed without filling missing numbers or relabelling existing gyral parcels. Registration to BigBrain sections and expert review have not been performed.')}</p>
       <nav aria-label={text('ブロードマン表示の参考文献', 'Brodmann display references')}>
         <a href="https://surfer.nmr.mgh.harvard.edu/fswiki/PALS_B12" target="_blank" rel="noreferrer">PALS-B12 / FreeSurfer</a>
         <a href="https://doi.org/10.1016/j.neuroimage.2005.06.058" target="_blank" rel="noreferrer">Van Essen (2005)</a>

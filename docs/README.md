@@ -4,6 +4,8 @@
 
 ## まず読む資料
 
+- [9月15日：UI/UX確認メモ](UI_UX_REVIEW_NOTES_2026-09-15.md)
+- [9月15日：UI/UX追加指摘の解剖トリアージ](UI_UX_ANATOMY_TRIAGE_2026-09-15.md)
 - [9月15日：模式神経・回路説明と保留範囲](SEPTEMBER15_SCHEMATIC_COMPLETION.md)
 - [再開メモ：完了したこと・次にやること](RESUME_SUMMARY.md)
 - [未完了作業のSol・Luna・Astra担当判断と実行指示](REMAINING_WORK_ASSIGNMENTS_2026-09-14.md)

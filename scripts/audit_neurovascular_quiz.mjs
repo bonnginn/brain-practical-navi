@@ -121,7 +121,6 @@ function assertSourceContract(source, errors) {
     "view={neurovascularQuiz?\"ghost\":\"inside\"}",
     "showCerebellum={neurovascularQuiz?false:quizQuestion.view!==\"medial\"}",
     "keepBrainstemOpaqueInGhost={neurovascularQuiz&&quizQuestion.detail===\"cranialNerves\"}",
-    "脳幹は起始位置の目安として不透明表示",
     "color:[255,255,255]",
     "function reviewQuizQuestion(question:QuizQuestion)",
   ];

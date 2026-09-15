@@ -20,6 +20,10 @@ def build():
     if not all(counts.values()):
         raise ValueError('Both internal-capsule labels are required')
     mesh, info = reconstruct(np.isin(labels, (31, 32)))
+    raw_mesh = mesh
+    mesh = gzip.compress(raw_mesh, mtime=0)
+    info.update(rawSha256=hashlib.sha256(raw_mesh).hexdigest(), rawBytes=len(raw_mesh),
+                sha256=hashlib.sha256(mesh).hexdigest(), bytes=len(mesh), compression='gzip')
     return mesh, dict(source=SOURCE.name, sourceSha256=hashlib.sha256(compressed).hexdigest(),
         labelIds=[31, 32], labelVoxelCounts=counts, sourceSamplingMm=.5,
         displayOriginZYX=DISPLAY_ORIGIN_ZYX.tolist(),

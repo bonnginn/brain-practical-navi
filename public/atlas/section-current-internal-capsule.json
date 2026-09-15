@@ -55,6 +55,9 @@
   ],
   "vertices": 49591,
   "faces": 99390,
-  "sha256": "ad8a6f1deef2e1aae1b1932dbe4738647f54764884327605d54df8b9fb197aa2",
-  "bytes": 2581240
+  "sha256": "edd00a0b93fae7a635f85290f634c916de9145c86284e9c763746d8458ab31ba",
+  "bytes": 624030,
+  "rawSha256": "ad8a6f1deef2e1aae1b1932dbe4738647f54764884327605d54df8b9fb197aa2",
+  "rawBytes": 2581240,
+  "compression": "gzip"
 }

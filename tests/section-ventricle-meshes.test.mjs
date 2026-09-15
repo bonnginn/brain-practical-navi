@@ -56,8 +56,10 @@ test('internal capsule section mesh retains both full labels instead of the righ
   assert.ok(counts[31] > 0 && counts[32] > 0);
   const mesh = read('public/atlas/section-current-internal-capsule.mesh');
   assert.equal(sha(mesh), info.sha256);
-  const nv = mesh.readUInt32LE(4);
-  const xs = Array.from({length:nv}, (_,i)=>mesh.readFloatLE(12+i*12+8));
+  const decoded = gunzipSync(mesh);
+  assert.equal(sha(decoded), info.rawSha256);
+  const nv = decoded.readUInt32LE(4);
+  const xs = Array.from({length:nv}, (_,i)=>decoded.readFloatLE(12+i*12+8));
   assert.ok(Math.min(...xs)<-20 && Math.max(...xs)>20);
   const page = read('app/page.tsx').toString().split('const bigbrainSectionMeshFiles:')[1].split('};')[0];
   assert.match(page, /internalCapsule:\["section-current-internal-capsule"\]/);
