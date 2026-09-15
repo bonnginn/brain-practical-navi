@@ -12,11 +12,11 @@ test('all image-dependent forms of the four misplaced nerves are held',()=>{
 });
 test('every held nerve also discloses its known placement defect in both surface-page languages',()=>{
  for(const target of ['cn5','cn9','cn10','cn11']){
-  const note=page.match(new RegExp(`${target}:\\{name:[^\\n]+note:"([^"]+)"`))?.[1];
+  const note=page.match(new RegExp(`${target}:\\{name:[^\\n]+displayAvailable:false,note:"([^"]+)"`))?.[1];
   assert.ok(note,target);
-  assert.ok(note.startsWith('配置を修正中です。'));
+  assert.ok(note.startsWith('現行形状の組織への貫入を確認しており、形状を調整中のため模式3Dは非表示です。'));
   assert.ok(note.includes('関連クイズは保留しています。'));
-  assert.match(catalog[note],/incorrectly enters.*do not use it to identify the correct nerve course/);
+  assert.match(catalog[note],/tissue penetration.*schematic 3D shape is hidden while it is being adjusted/i);
   assert.match(catalog[note],/Related quiz questions are withheld/);
  }
 });

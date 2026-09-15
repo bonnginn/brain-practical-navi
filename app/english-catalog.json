@@ -96,7 +96,7 @@
   "IIの視神経・視索をまとめた既存の模式表示です。個体境界や視交叉を分節した表示ではありません。": "This existing schematic combines the optic nerves and optic tracts of cranial nerve II. It does not segment subject-specific boundaries or the optic chiasm itself.",
   "IV 滑車神経": "IV · Trochlear nerve",
   "IX 舌咽神経": "IX · Glossopharyngeal nerve",
-  "I・IIは脳幹から出る神経根ではありません。III–X・XIIは脳幹近位部の模式で、根糸・感覚根と運動根などの細分を省略しています。XIの短い管は根列や脊髄根の上行経路を示していません。神経核・頭蓋孔・正確な径も未再現です。": "I and II do not emerge from the brainstem. III–X and XII are proximal brainstem schematics that omit rootlets and distinctions such as sensory and motor roots. The short XI tube does not show a series of rootlets or ascending spinal roots. Nuclei, skull foramina and accurate calibre are also not reproduced.",
+  "I・IIは脳幹から出る神経根ではありません。V・IX–XIは形状調整中のため非表示です。表示中のIII・IV・VI–VIII・XIIは脳幹近位部の模式で、根糸・感覚根と運動根などの細分を省略しています。神経核・頭蓋孔・正確な径も未再現です。": "I and II do not emerge from the brainstem. V and IX–XI are hidden while their shapes are being adjusted. The displayed III, IV, VI–VIII and XII are proximal brainstem schematics that omit rootlets and distinctions such as sensory and motor roots. Nuclei, skull foramina and accurate calibre are also not reproduced.",
   "JSONをPRへ添付": "Attach JSON to PR",
   "JSONを書き出しました（送信・採用ではありません）": "I wrote JSON.",
   "JSONを書き出す（未提出）": "JSON",
@@ -1919,5 +1919,14 @@
   "専門家待ち": "Awaiting expert review",
   "運営者確認待ち": "Awaiting administrator review",
   "中前頭回前部・中前頭回後部・鳥距溝周囲皮質・外側後頭皮質・眼窩前頭皮質の5領域は、CerebrA／Desikan-styleアトラスの区画名を教材上で対応づけた表示です。学習画面で併記する名称は英語へ統一しています。元のアトラス名称とLatin原語は検索互換・由来確認のため内部に保持しており、国際標準Terminologia Neuroanatomica（FIPAT／TNA）の確定用語だとは主張しません。": "The five regions labelled rostral middle frontal gyrus, caudal middle frontal gyrus, pericalcarine cortex, lateral occipital cortex, and orbitofrontal cortex are teaching mappings of CerebrA/Desikan-style atlas parcels. Accompanying names in the learner interface are standardised in English. Original atlas names and Latin source terms are retained internally for search compatibility and provenance; they are not presented as definitive Terminologia Neuroanatomica (FIPAT/TNA) terms.",
-  "（": " ("
+  "（": " (",
+  "形状調整中・3D非表示": "Shape being adjusted · 3D hidden",
+  "クリックして詳細を確認": "Select to read details",
+  "選択した構造": "Selected structures",
+  "個別に確認": "Inspect individually",
+  "表示可能な管・神経根は白色で強調": "Available vessels and nerve roots are highlighted in white",
+  "現行形状の組織への貫入を確認しており、形状を調整中のため模式3Dは非表示です。三叉神経は顔面の感覚と咀嚼筋の運動に関わります。関連クイズは保留しています。感覚根・運動根も描き分けていません。": "Tissue penetration has been identified in the current shape, so the schematic 3D shape is hidden while it is being adjusted. The trigeminal nerve conveys facial sensation and supplies the muscles of mastication. Related quiz questions are withheld. Sensory and motor roots are not shown separately.",
+  "現行形状の組織への貫入を確認しており、形状を調整中のため模式3Dは非表示です。舌咽神経は咽頭、舌後方、耳下腺などに関わる混合神経です。関連クイズは保留しています。複数の根糸と集合過程も未再現です。": "Tissue penetration has been identified in the current shape, so the schematic 3D shape is hidden while it is being adjusted. The glossopharyngeal nerve is a mixed nerve serving the pharynx, posterior tongue, parotid gland, and other structures. Related quiz questions are withheld. Multiple rootlets and their convergence are not reconstructed.",
+  "現行形状の組織への貫入を確認しており、形状を調整中のため模式3Dは非表示です。迷走神経は咽頭・喉頭と胸腹部臓器の運動、感覚、自律機能に広く関わります。関連クイズは保留しています。複数の根糸も未再現です。": "Tissue penetration has been identified in the current shape, so the schematic 3D shape is hidden while it is being adjusted. The vagus nerve has broad motor, sensory, and autonomic roles in the pharynx, larynx, and thoracic and abdominal organs. Related quiz questions are withheld. Multiple rootlets are not reconstructed.",
+  "現行形状の組織への貫入を確認しており、形状を調整中のため模式3Dは非表示です。副神経は主に胸鎖乳突筋と僧帽筋の運動に関わります。関連クイズは保留しています。根列や脊髄根の上行経路も未再現です。": "Tissue penetration has been identified in the current shape, so the schematic 3D shape is hidden while it is being adjusted. The accessory nerve supplies motor innervation principally to the sternocleidomastoid and trapezius. Related quiz questions are withheld. Rootlet rows and the ascending spinal root are not reconstructed."
 }

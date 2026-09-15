@@ -6,6 +6,7 @@ import { SEGMENTATION_LABEL_REVISION } from "./segmentationLabelRevision";
 import { atlasMeshRevisionQuery } from "../src/atlasMeshRevision.mjs";
 import { createDownloadProgressTracker, formatDownloadBytes } from "../src/downloadProgress.mjs";
 import { formatSectionPosition, segmentationPlaneNames } from "./segmentationGeometry";
+import { withoutHiddenCranialNerveRegions } from "../src/neurovascularDisplayPolicy";
 
 const ASSET_BASE=import.meta.env.BASE_URL;
 
@@ -457,7 +458,7 @@ export function AtlasVolumeCanvas({kind,plane,position,focus,display,rotation,vi
       ...["landmark-olfactory-pathway","landmark-optic-pathway","landmark-infundibulum","landmark-mammillary-bodies","landmark-anterior-perforated-substance","block-midbrain-section-cerebral-peduncles","block-hindbrain-pyramids","block-hindbrain-olives"].map(name=>loadOptional(showBasalLandmarks,name)),
       ...SURFACE_DEEP_LANDMARKS.map(item=>loadOptional(surfaceDeepLandmarks.includes(item.key)||(showBasalLandmarks&&item.key==="hypothalamus"),item.key==="corpus-callosum"?"block-commissural-system-corpus-callosum":item.key==="septum-pellucidum"?"block-commissural-system-septum-pellucidum":item.key==="fornix"?"block-commissural-system-fornix":item.key==="thalami"?"block-diencephalon-thalami":"block-diencephalon-hypothalamus")),
       ...SURFACE_LANDMARKS.map(item=>loadOptional(surfaceLandmarks.includes(item.key),`surface-landmark-${item.key}`)),
-    ]).then(([left,right,cerebellum,ponsMedulla,midbrain,deep,ventricles,...rest])=>{if(active)setMeshes({surface:[left,right,cerebellum,ponsMedulla,midbrain],segments:[left,right,cerebellum,ponsMedulla,midbrain,deep,ventricles],overlays:rest.slice(0,5),basal:rest.slice(5,13),deep:rest.slice(13,18),landmarks:rest.slice(18)})}).catch(e=>{if(active)setError(String(e))});
+    ]).then(([left,right,cerebellum,ponsMedulla,midbrain,deep,ventricles,...rest])=>{if(active)setMeshes({surface:[left,right,cerebellum,ponsMedulla,midbrain],segments:[left,right,cerebellum,ponsMedulla,midbrain,deep,ventricles],overlays:rest.slice(0,5).map((mesh,index)=>index>=2?withoutHiddenCranialNerveRegions(mesh):mesh),basal:rest.slice(5,13),deep:rest.slice(13,18),landmarks:rest.slice(18)})}).catch(e=>{if(active)setError(String(e))});
     return()=>{active=false};
   },[kind,specimenBlock,surfaceAtlas,view,contrast,neurovascularOverlay,showBasalLandmarks,surfaceLandmarkKey,surfaceDeepLandmarkKey,retryVersion]);
   useEffect(()=>{

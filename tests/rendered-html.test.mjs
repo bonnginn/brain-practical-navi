@@ -494,8 +494,8 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /3D OVERLAY · PILOT/);
   assert.match(page, /neurovascularOverlay/);
   assert.match(page, /neurovascularHighlights/);
-  assert.match(page, /個別に同定/);
-  assert.match(page, /選択した管・神経根を白色で強調/);
+  assert.match(page, /個別に確認/);
+  assert.match(page, /表示可能な管・神経根は白色で強調/);
   assert.match(page, /arteries:\{name:"脳底の主要動脈"[^\n]+rotation:\{x:110,y:2,z:180\}/);
   assert.match(page, /surfaceView==="cranialNerves"\?"brainstem-only":surfaceView==="arteries"\?"without-brainstem-patches":"all"/);
   assert.match(canvas, /hideBrainstemPatches=basalLandmark==="without-brainstem-patches"/);
@@ -2391,7 +2391,7 @@ test("free observation distinguishes the medial and basal hypothalamus entries",
   assert.match(page, /key===\"hypothalamus\"\?\"視床下部領域（内側面）\":surfaceDeepLandmarks\[key\]\.name/);
   assert.match(page, /key===\"hypothalamus\"\?\"視床下部領域（脳底面）\":basalLandmarks\[key\]\.name/);
   assert.match(page, /<option key=\{item\.key\} value=\{item\.key\}>\{item\.name\} — \{anatomyDisplayEnglish\(item\.latin\)\}<\/option>/);
-  assert.match(page, /aria-label=\{`\$\{item\.name\}の表示を解除`\}/);
+  assert.match(page, /\$\{item\.name\}の選択を解除/);
 });
 
 test("surface canvases expose an accessible WebGL fallback without retrying", async () => {
