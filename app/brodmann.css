@@ -49,3 +49,12 @@
 
 /* The orthographic renderer uses equal X/Y extents: keep its viewport square. */
 .brodmannCanvas canvas{position:absolute;inset:0;margin:auto;width:auto;height:100%;aspect-ratio:1;max-width:100%}
+
+/* Compact area controls without changing the model viewport. */
+.brodmannPanel{padding:.65rem}
+.brodmannPanel h2{margin:0 0 .45rem}
+.brodmannColorModes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;margin-bottom:.4rem}
+.brodmannColorModes button{min-height:32px;padding:4px 6px;font-size:.75rem;line-height:1.2}
+.brodmannAreaGrid{gap:4px;padding:2px}
+.brodmannAreaGrid button{min-height:34px;padding:4px 3px;font-size:.78rem;gap:4px;line-height:1.2}
+.brodmannAreaGrid i{width:.55rem;height:.55rem}

@@ -291,10 +291,11 @@ export default function BrodmannExplorer({ english = false }: { english?: boolea
         <h2>{text('ブロードマン領野', 'Brodmann areas')} <small>{atlas.areaNumbers.length}{text('領野', ' areas')}</small></h2>
         <div className="brodmannColorModes" role="group" aria-label={text('着色方法', 'Colour mode')}>
           <button type="button" aria-pressed={colorMode === 'all'} onClick={() => {setColorMode('all')}}>{text('すべて着色', 'Colour all')}</button>
-          <button type="button" aria-pressed={colorMode === 'selected'} disabled={!selectedAreas.length} onClick={() => setColorMode('selected')}>{text('選択した複数領野', 'Selected areas')}</button>
+          <button type="button" aria-pressed={colorMode === 'selected'} disabled={!selectedAreas.length} onClick={() => setColorMode('selected')}>{text('選択領野', 'Selected')}</button>
           <button type="button" aria-pressed={colorMode === 'none'} onClick={() => {setColorMode('none')}}>{text('着色なし', 'No colour')}</button>
+          <button type="button" onClick={()=>{setSelectedAreas([]);setSelected(null)}}>{text('選択解除','Clear selection')}</button>
         </div>
-        <button type="button" onClick={()=>{setSelectedAreas([]);setSelected(null)}}>{text('選択を解除','Clear selection')}</button>{hiddenAreas.length>0&&<p>{text('非表示：','Hidden: ')}{hiddenAreas.map(n=>`BA ${n}`).join(', ')} — {text('番号を再選択すると戻ります','Select the number again to restore')}</p>}<div className="brodmannAreaGrid" role="group" aria-label={text('領野番号を選択', 'Select an area number')}>
+        {hiddenAreas.length>0&&<p>{text('非表示：','Hidden: ')}{hiddenAreas.map(n=>`BA ${n}`).join(', ')} — {text('番号を再選択すると戻ります','Select the number again to restore')}</p>}<div className="brodmannAreaGrid" role="group" aria-label={text('領野番号を選択', 'Select an area number')}>
           {atlas.areaNumbers.map(area => <button type="button" key={area} data-brodmann-area={area} aria-pressed={selectedAreas.includes(area)} onClick={() => { setSelected(area); setSelectedAreas(previous=>previous.includes(area)?previous.filter(n=>n!==area):[...previous,area]); setHiddenAreas(previous=>previous.filter(n=>n!==area)); setColorMode('selected'); }}><i style={{ background: `rgb(${brodmannColor(area).join(',')})` }} />BA {area}</button>)}
         </div>
         <div className="brodmannDescription" aria-live="polite">
