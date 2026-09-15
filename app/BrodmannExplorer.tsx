@@ -24,16 +24,85 @@ export function brodmannColor(area: number): [number, number, number] {
   };
   return [channel(0), channel(8), channel(4)];
 }
+const areaNames: Record<number, { ja: string; en: string }> = {
+  "1": {
+    "ja": "一次体性感覚野（S1）",
+    "en": "Primary somatosensory cortex (S1)"
+  },
+  "2": {
+    "ja": "一次体性感覚野（S1）",
+    "en": "Primary somatosensory cortex (S1)"
+  },
+  "3": {
+    "ja": "一次体性感覚野（S1）",
+    "en": "Primary somatosensory cortex (S1)"
+  },
+  "4": {
+    "ja": "一次運動野（M1）",
+    "en": "Primary motor cortex (M1)"
+  },
+  "6": {
+    "ja": "運動前野・補足運動野",
+    "en": "Premotor and supplementary motor areas"
+  },
+  "8": {
+    "ja": "前頭眼野（FEF）の目安",
+    "en": "Frontal eye field (FEF), approximate"
+  },
+  "17": {
+    "ja": "一次視覚野（V1・線条野）",
+    "en": "Primary visual cortex (V1, striate cortex)"
+  },
+  "18": {
+    "ja": "二次視覚野（V2）",
+    "en": "Secondary visual cortex (V2)"
+  },
+  "22": {
+    "ja": "上側頭回・ウェルニッケ領域との関連",
+    "en": "Superior temporal gyrus / Wernicke region"
+  },
+  "39": {
+    "ja": "角回",
+    "en": "Angular gyrus"
+  },
+  "40": {
+    "ja": "縁上回",
+    "en": "Supramarginal gyrus"
+  },
+  "41": {
+    "ja": "一次聴覚野・横側頭回（ヘシュル回）",
+    "en": "Primary auditory cortex / Heschl’s gyrus"
+  },
+  "42": {
+    "ja": "聴覚連合野（二次聴覚野）の目安",
+    "en": "Auditory association cortex, approximate"
+  },
+  "44": {
+    "ja": "ブローカ領域・下前頭回弁蓋部",
+    "en": "Broca region / pars opercularis"
+  },
+  "45": {
+    "ja": "ブローカ領域・下前頭回三角部",
+    "en": "Broca region / pars triangularis"
+  }
+};
 const notes: Record<number, { ja: string; en: string }> = {
+  8: {"ja": "視線を目標へ向ける眼球運動に関わります。前頭眼野の機能的な境界とBA 8全体は一致しません。", "en": "Involved in directing gaze toward a target. Functional frontal eye field boundaries do not coincide with the whole of BA 8."},
+  22: {"ja": "言語優位半球の上側頭回後部は、古典的なウェルニッケ領域（感覚性言語野）に関連づけられます。BA 22全体がウェルニッケ領域ではなく、言語理解は広いネットワークで担われます。", "en": "The posterior superior temporal gyrus in the language-dominant hemisphere is associated with the classical Wernicke region. It is not the whole of BA 22; language comprehension involves a distributed network."},
+  39: {"ja": "下頭頂小葉の角回に概ね対応します。言語や複数の感覚情報を結びつける処理に関わります。", "en": "Approximately corresponds to the angular gyrus of the inferior parietal lobule; contributes to language and integration across sensory modalities."},
+  40: {"ja": "下頭頂小葉の縁上回に概ね対応します。言語の音韻処理や感覚情報の統合に関わります。", "en": "Approximately corresponds to the supramarginal gyrus of the inferior parietal lobule; contributes to phonological processing and sensory integration."},
+  41: {"ja": "外側溝の奥の横側頭回付近にあり、音の情報を受け取る一次聴覚野に関連します。膨張表示でも位置を確認できます。", "en": "Located around the transverse temporal gyri deep in the lateral sulcus and associated with primary auditory processing. Use the inflated view to inspect the area."},
+  42: {"ja": "一次聴覚野に隣接し、音の情報の処理に関わる領域です。機能的な聴覚皮質の区分はBA番号だけでは表しきれません。", "en": "Adjacent to primary auditory cortex and involved in processing sound. Functional auditory subdivisions cannot be fully represented by BA numbers."},
+
   1: { ja: '体性感覚に関わる領野の一つです。BA 2・3と見比べて位置関係を観察します。', en: 'One of the somatosensory areas. Compare its location with BA 2 and 3.' },
   2: { ja: '体性感覚に関わる領野の一つです。BA 1・3と見比べて位置関係を観察します。', en: 'One of the somatosensory areas. Compare its location with BA 1 and 3.' },
   3: { ja: '体性感覚に関わる領野です。この歴史的地図では3a・3bを分けていません。', en: 'A somatosensory area. This historical map does not separate 3a and 3b.' },
   4: { ja: '一次運動野に対応する領野です。この地図では4a・4pを分けていません。', en: 'Corresponds to primary motor cortex. This map does not separate 4a and 4p.' },
-  6: { ja: '運動前野に関連する領野です。外側面と内側面の両方を観察します。', en: 'Associated with premotor cortex. Explore both the lateral and medial surfaces.' },
+  6: { ja: '外側の運動前野と内側の補足運動野を含み、運動の準備や順序づけに関わります。', en: 'Includes lateral premotor and medial supplementary motor regions, involved in preparing and sequencing movement.' },
   17: { ja: '一次視覚野に対応する領野です。内側面からも観察します。', en: 'Corresponds to primary visual cortex. Explore it from the medial view as well.' },
   18: { ja: '二次視覚野に関連する領野です。BA 17との位置関係を観察します。', en: 'Associated with secondary visual cortex. Compare its location with BA 17.' },
-  44: { ja: 'BA 45とともにBroca領域に関連します。左右の同じ番号が機能的に同一であることを示す図ではありません。', en: 'Associated with Broca’s region together with BA 45. Matching area numbers do not establish identical functions in the two hemispheres.' },
-  45: { ja: 'BA 44とともにBroca領域に関連します。左右の同じ番号が機能的に同一であることを示す図ではありません。', en: 'Associated with Broca’s region together with BA 44. Matching area numbers do not establish identical functions in the two hemispheres.' },
+  44: { ja: '言語優位半球（多くは左）のBA 45とともにブローカ領域を構成し、発話や言語処理に関わります。主に下前頭回の弁蓋部に対応します。右側の同じ番号が同じ言語機能を担うという意味ではありません。', en: 'Together with BA 45 in the language-dominant hemisphere (usually left), forms the Broca region, involved in speech and language processing. Mainly corresponds to the pars opercularis. The right-sided number does not imply the same language function.' },
+  45: { ja: '言語優位半球（多くは左）のBA 44とともにブローカ領域を構成し、発話や言語処理に関わります。主に下前頭回の三角部に対応します。右側の同じ番号が同じ言語機能を担うという意味ではありません。', en: 'Together with BA 44 in the language-dominant hemisphere (usually left), forms the Broca region, involved in speech and language processing. Mainly corresponds to the pars triangularis. The right-sided number does not imply the same language function.' },
 };
 
 export default function BrodmannExplorer({ english = false }: { english?: boolean }) {
@@ -51,6 +120,7 @@ export default function BrodmannExplorer({ english = false }: { english?: boolea
   const highlights = useMemo<HighlightLayer[]>(() => (colorMode === 'all' ? atlas.areaNumbers : colorMode === 'selected' && selected ? [selected] : []).map(area => ({ ids: [area], color: brodmannColor(area) })), [colorMode, selected]);
   const selectView = (key: ViewKey) => { setView(key); setRotation({ ...views[key].rotation }); setFreeRotation(false); };
   const selectedNote = selected ? notes[selected] : null;
+  const selectedName = selected ? areaNames[selected] : null;
   return <div className="brodmannExplorer" data-brodmann-explorer="true">
     <p className="brodmannIntro">{text('ブロードマンの細胞構築による分類を、標準脳表で観察します。番号を選ぶと、その領野だけを強調します。', 'Explore Brodmann’s cytoarchitectonic classification on a reference surface. Select a number to highlight that area.')}</p>
     <div className="brodmannLayout">
@@ -96,9 +166,9 @@ export default function BrodmannExplorer({ english = false }: { english?: boolea
           {atlas.areaNumbers.map(area => <button type="button" key={area} data-brodmann-area={area} aria-pressed={selected === area} onClick={() => { setSelected(area); setColorMode('selected'); }}><i style={{ background: `rgb(${brodmannColor(area).join(',')})` }} />BA {area}</button>)}
         </div>
         <div className="brodmannDescription" aria-live="polite">
-          <h3>{selected ? `BA ${selected}` : text('領野を選んで観察', 'Choose an area to explore')}</h3>
+          <h3>{selected ? `BA ${selected}${selectedName ? ` · ${english ? selectedName.en : selectedName.ja}` : ''}` : text('領野を選んで観察', 'Choose an area to explore')}</h3>
           <p>{selectedNote ? (english ? selectedNote.en : selectedNote.ja) : text('外側面・内側面・上面・下面を切り替えて、領野の広がりを確認しましょう。見えないときは、観察する側や方向を変えてください。', 'Switch between lateral, medial, superior and inferior views to inspect the extent of an area. If it is hidden, change the side or direction.')}</p>
-          <p>{text('番号は細胞構築による区分です。一つの番号が一つの機能だけを担う、という意味ではありません。', 'The numbers describe cytoarchitectonic divisions, not a one-area–one-function scheme.')}</p>
+          <p>{text('番号は細胞構築による区分です。併記した名称は代表的な対応で、脳回・機能領域の境界と厳密には一致しません。', 'Numbers describe cytoarchitectonic divisions. The accompanying names are common associations, not exact matches to gyral or functional boundaries.')}</p>
         </div>
       </aside>
     </div>
@@ -110,6 +180,8 @@ export default function BrodmannExplorer({ english = false }: { english?: boolea
         <a href="https://surfer.nmr.mgh.harvard.edu/fswiki/PALS_B12" target="_blank" rel="noreferrer">PALS-B12 / FreeSurfer</a>
         <a href="https://doi.org/10.1016/j.neuroimage.2005.06.058" target="_blank" rel="noreferrer">Van Essen (2005)</a>
         <a href="https://freesurfer.net/fswiki/BrodmannAreaMaps" target="_blank" rel="noreferrer">{text('主な領野の説明', 'Selected area descriptions')}</a>
+        <a href="https://www.ncbi.nlm.nih.gov/books/NBK575742/" target="_blank" rel="noreferrer">{text('皮質の名称・機能の対応', 'Cortical names and functional associations')}</a>
+        <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4691684/" target="_blank" rel="noreferrer">{text('ウェルニッケ領域の範囲と現代的理解', 'Wernicke region: scope and modern interpretation')}</a>
         <a href={`${import.meta.env.BASE_URL}atlas/BRODMANN-FREESURFER-NOTICE.txt`} target="_blank" rel="noreferrer">{text('出典・利用条件・改変記録', 'Credits, licence and modifications')}</a>
       </nav>
     </div>
