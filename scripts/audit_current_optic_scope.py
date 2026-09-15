@@ -38,6 +38,15 @@ def digest(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
+def pinned_document_bytes(data: bytes, expected: str) -> bytes:
+    """Reconstruct the pinned text bytes across Git LF/CRLF checkout settings."""
+    lf = data.replace(b"\r\n", b"\n")
+    for candidate in (data, lf, lf.replace(b"\n", b"\r\n")):
+        if digest(candidate) == expected:
+            return candidate
+    raise ValueError("document content changed beyond LF/CRLF checkout conversion")
+
+
 def read_bbs1(path: Path, expected_sha: str) -> tuple[str, tuple[int, int, int], bytes]:
     compressed = path.read_bytes()
     actual = digest(compressed)
@@ -123,7 +132,7 @@ def build_report() -> dict[str, object]:
         raise ValueError("old objective audit input SHA changed")
     fixed_inputs: dict[str, dict[str, object]] = {}
     for relative, expected in DOC_INPUTS.items():
-        data = (ROOT / relative).read_bytes()
+        data = pinned_document_bytes((ROOT / relative).read_bytes(), expected)
         actual = digest(data)
         if actual != expected:
             raise ValueError(f"{relative} changed: {actual} != {expected}")

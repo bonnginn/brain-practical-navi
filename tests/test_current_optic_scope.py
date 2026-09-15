@@ -14,6 +14,14 @@ import audit_current_optic_scope as audit  # noqa: E402
 
 
 class CurrentOpticScopeTests(unittest.TestCase):
+    def test_pinned_document_newlines_and_content_tampering(self):
+        lf = b"first\nsecond\n"
+        crlf = lf.replace(b"\n", b"\r\n")
+        self.assertEqual(audit.pinned_document_bytes(lf, audit.digest(crlf)), crlf)
+        self.assertEqual(audit.pinned_document_bytes(crlf, audit.digest(lf)), lf)
+        with self.assertRaises(ValueError):
+            audit.pinned_document_bytes(b"changed\n", audit.digest(crlf))
+
     def test_current_volume_and_historical_coordinate_set(self):
         report = json.loads((ROOT / "segmentation-patches/review/current-optic-scope-inventory-2026-09-14.json").read_text(encoding="utf-8"))
         current = report["currentVolume"]

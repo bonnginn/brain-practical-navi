@@ -18,6 +18,8 @@ V2_REPORT_SHA = "e31d45493df393b473d19df08aff4978538bf64e949e91fdd2cf070f9f1a89f
 class Stage2VentricularTerminalsInventory(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+        if not (inventory.ROOT / "work/anatomy-review").exists():
+            raise unittest.SkipTest("Requires uncommitted native-image review evidence")
         cls.report_path = inventory.OUTPUT
         cls.report = json.loads(cls.report_path.read_text(encoding="utf-8"))
 
