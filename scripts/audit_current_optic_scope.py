@@ -38,12 +38,14 @@ def digest(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
-def pinned_document_bytes(data: bytes, expected: str) -> bytes:
+def pinned_document_bytes(data: bytes, expected: str, reference: bytes | None = None) -> bytes:
     """Reconstruct the pinned text bytes across Git LF/CRLF checkout settings."""
     lf = data.replace(b"\r\n", b"\n")
     for candidate in (data, lf, lf.replace(b"\n", b"\r\n")):
         if digest(candidate) == expected:
             return candidate
+    if reference is not None and digest(reference) == expected and reference.replace(b"\r\n", b"\n") == lf:
+        return reference
     raise ValueError("document content changed beyond LF/CRLF checkout conversion")
 
 
@@ -132,7 +134,8 @@ def build_report() -> dict[str, object]:
         raise ValueError("old objective audit input SHA changed")
     fixed_inputs: dict[str, dict[str, object]] = {}
     for relative, expected in DOC_INPUTS.items():
-        data = pinned_document_bytes((ROOT / relative).read_bytes(), expected)
+        reference = gzip.decompress((ROOT / "tests/fixtures/optic-pathway-audit-pinned.md.gz").read_bytes()) if relative == "OPTIC_PATHWAY_AUDIT.md" else None
+        data = pinned_document_bytes((ROOT / relative).read_bytes(), expected, reference)
         actual = digest(data)
         if actual != expected:
             raise ValueError(f"{relative} changed: {actual} != {expected}")

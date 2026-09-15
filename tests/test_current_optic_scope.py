@@ -22,6 +22,15 @@ class CurrentOpticScopeTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             audit.pinned_document_bytes(b"changed\n", audit.digest(crlf))
 
+    def test_historical_mixed_newlines_reconstruct_only_identical_content(self):
+        import gzip
+        reference = gzip.decompress((ROOT / "tests/fixtures/optic-pathway-audit-pinned.md.gz").read_bytes())
+        lf = reference.replace(b"\r\n", b"\n")
+        expected = audit.DOC_INPUTS["OPTIC_PATHWAY_AUDIT.md"]
+        self.assertEqual(audit.pinned_document_bytes(lf, expected, reference), reference)
+        with self.assertRaises(ValueError):
+            audit.pinned_document_bytes(lf + b"changed", expected, reference)
+
     def test_current_volume_and_historical_coordinate_set(self):
         report = json.loads((ROOT / "segmentation-patches/review/current-optic-scope-inventory-2026-09-14.json").read_text(encoding="utf-8"))
         current = report["currentVolume"]
