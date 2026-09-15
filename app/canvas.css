@@ -1738,3 +1738,14 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
 .modelStepSummary .pathwayStepperModelTag { position:static; max-width:none; margin:0; padding:8px 12px; box-shadow:none; }
 .identifyMarker button { pointer-events:auto; border:0; background:#fff; color:#253d3d; border-radius:50%; min-width:32px; min-height:32px; cursor:pointer; }
 .surfaceLessonButton { margin:8px 0; padding:10px 16px; }
+
+.surfaceRegionLessonRow { display:flex; min-width:0; border:1px solid #bfc4bd; background:#f2f0eb; }
+.surfaceRegionLessonRow > button:first-child { flex:1; display:flex; align-items:center; gap:7px; min-width:0; padding:8px; text-align:left; border:0; background:transparent; }
+.surfaceRegionLessonRow > button.active { background:#e1e8e3; box-shadow:inset 0 0 0 1px #526e68; }
+.surfaceRegionLessonRow i { flex:none; width:7px; height:26px; border-radius:4px; }
+.surfaceRegionLessonRow span { min-width:0; overflow-wrap:anywhere; }
+.surfaceRegionLessonRow small { display:block; font-size:.8em; color:#68716f; }
+.surfaceRegionLessonRow .regionLessonOpen { flex:none; padding:8px; border:0; border-left:1px solid #bfc4bd; color:#285e58; background:#e8f1ee; }
+
+.regionLessonDialog > article { padding:0 clamp(16px,3vw,32px) 24px; }
+.regionLessonDialog > article p { line-height:1.85; }
