@@ -18,7 +18,7 @@ test('lateral cavity repair is exactly 34 reversible zero-to-ID24 voxels',async(
  assert.deepEqual(expected,after);assert.equal(sha(after.subarray(10)),r.afterRawVoxelSha256);
  for(const i of seen)expected[i]=0;assert.deepEqual(expected,before);
  const meta=JSON.parse(await read('public/atlas/bigbrain-practical-segmentation-icbm500-validation.json'));
- assert.equal(meta.rawVoxelSha256,latest.afterRawVoxelSha256);assert.equal(meta.lateralCrop34Audit.recordSha256,sha(bytes));assert.equal(meta.labelCounts['24'],82248);
+ assert.equal(meta.rawVoxelSha256,latest.afterRawVoxelSha256);assert.equal(meta.lateralCrop34Audit.recordSha256,sha(bytes));assert.equal(meta.labelCounts['24'],82250);
  assert.equal(r.projectAdopted,true);assert.equal(r.expertReviewed,false);assert.equal(r.published,false);
  const manifest=JSON.parse(await read('public/atlas/specimen-blocks.json'));
  assert.equal(r.meshImpact.blockMaskImpact.length,55);assert.equal(new Set(r.meshImpact.blockMaskImpact.map(p=>p.block+'/'+p.part)).size,55);
@@ -46,7 +46,12 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
   const posterior=r.transition==='mixed-posterior-ventricular-repair';
   const bilateral=r.transition==='mixed-lateral-cavity-fill';
   const combined=r.transition==='mixed-ventricular-repair'||posterior||bilateral;
-  if(bilateral){
+  if(name==='lateral-roof8'){
+   assert.equal(r.transition,'mixed-ventricular-repair');assert.equal(r.count,8);
+   assert.deepEqual(r.points.map(p=>[p.before,p.after]),[[30,23],[30,23],[30,23],[30,23],[30,23],[30,23],[30,24],[30,24]]);
+   assert.equal(r.meshImpact.blockMaskImpact.length,55);assert.equal(r.meshImpact.blockMaskImpact.filter(p=>p.changedMaskVoxels).length,0);
+  }
+  else if(bilateral){
    const ranges={'lateral-upper729':[729,209,520,174,202],'lateral-anterior1981':[1981,133,1848,136,173],'lateral-upper-nearblack1487':[1487,740,747,174,202],'lateral-posterior196':[196,182,14,136,173],'lateral-superomedial75':[75,31,44,166,173]};
    assert.ok(Object.hasOwn(ranges,name));const [count,left,right,zmin,zmax]=ranges[name];
    assert.equal(r.count,count);assert.equal(r.points.filter(p=>p.before===0&&p.after===23).length,left);assert.equal(r.points.filter(p=>p.before===0&&p.after===24).length,right);assert.ok(r.points.every(p=>p.xyz[2]>=zmin&&p.xyz[2]<=zmax));
@@ -128,5 +133,5 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
  }
  assert.ok(current);assert.deepEqual(gunzipSync(await read('public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz')),current);
  assert.equal(meta.rawVoxelSha256,sha(current.subarray(10)));
- assert.equal(meta.labelCounts['23'],81664);assert.equal(meta.labelCounts['24'],82248);assert.equal(meta.labelCounts['25'],11837);
+ assert.equal(meta.labelCounts['23'],81670);assert.equal(meta.labelCounts['24'],82250);assert.equal(meta.labelCounts['25'],11837);
 });

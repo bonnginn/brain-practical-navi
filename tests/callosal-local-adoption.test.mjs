@@ -22,7 +22,7 @@ test('archived first callosal stage is exactly 1605 edits retained by the curren
  const metadata=JSON.parse(await readFile(new URL('public/atlas/bigbrain-practical-segmentation-icbm500-validation.json',root),'utf8'));
  const live=gunzipSync(await readFile(new URL('public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz',root)));
  for(const index of indices)assert.equal(live[index+10],0);
- assert.equal(metadata.labelCounts['30'],145715);assert.equal(metadata.rawVoxelSha256,sha(live.subarray(10)));
+ assert.equal(metadata.labelCounts['30'],145707);assert.equal(metadata.rawVoxelSha256,sha(live.subarray(10)));
  assert.equal(metadata.callosalLocalPatchAudit.completeCallosum,false);assert.equal(metadata.callosalLocalPatchAudit.expertReviewed,false);
  assert.ok(metadata.imageGuidedCandidateIds.includes(30));assert.ok(!metadata.imageGuidedReviewedIds.includes(30));
  const catalog=JSON.parse(await readFile(new URL('app/english-catalog.json',root),'utf8'));

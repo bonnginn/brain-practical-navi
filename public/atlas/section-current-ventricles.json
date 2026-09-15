@@ -1,7 +1,7 @@
 {
   "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
-  "sourceSha256": "785ce199e2c7226e5527a771e953d1b78cfed1067179aa04c63b9eba74577e0f",
-  "rawVoxelSha256": "97480cb8894ff12fb3e77e5ada08f209dd142bff2f8ba4a4182d3cd43ffd310b",
+  "sourceSha256": "d7fc87b5b18e1221c2979aeab9d6fefeefcfd4d353cfc78cab782930f32f8e29",
+  "rawVoxelSha256": "cecd4e3b50131849ee2813a64f608a02e259dd5d0fb6f790a89dd351bc56add4",
   "dimensionsXYZ": [
     394,
     466,
@@ -17,11 +17,11 @@
   "scope": "section-view BigBrain selection/context only; not expert validation",
   "meshes": {
     "section-current-lateral-ventricles": {
-      "voxels": 163912,
+      "voxels": 163920,
       "components6": 65,
       "componentSizes": [
-        82208,
-        81587,
+        82210,
+        81593,
         12,
         8,
         7,
@@ -100,7 +100,7 @@
       ],
       "vertices": 80204,
       "faces": 161964,
-      "sha256": "e83fbe6442c43e1075ba2b993ab55c224c070f9046666f8f0c3952fc359eaa25",
+      "sha256": "f329900f8c6d5197b8d807838fc7853bcfc4e0c7a08aab58805989b52cc3d728",
       "bytes": 4189292,
       "labelIds": [
         23,
@@ -184,11 +184,11 @@
       ]
     },
     "section-current-ventricular-system": {
-      "voxels": 185016,
+      "voxels": 185024,
       "components6": 87,
       "componentSizes": [
-        93299,
-        82212,
+        93305,
+        82214,
         9006,
         104,
         95,
@@ -289,7 +289,7 @@
       ],
       "vertices": 94948,
       "faces": 191536,
-      "sha256": "2c8c917f67a06e996602584d76e09d42e461e4410221f2ea7c66dd66fbae21ba",
+      "sha256": "048c509fabc6591d3053a604bfcbd061fafdb4fd79856a6ddae6b30d99dfce51",
       "bytes": 4956988,
       "labelIds": [
         23,

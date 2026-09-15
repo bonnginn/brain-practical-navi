@@ -4,6 +4,8 @@
 
 ## まず読む資料
 
+- [9月15日：分節再開・側脳室上縁8点の修正](LATERAL_ROOF_REPAIR_2026-09-15.md)
+
 - [9月15日：UI/UX確認メモ](UI_UX_REVIEW_NOTES_2026-09-15.md)
 - [9月15日：UI/UX追加指摘の解剖トリアージ](UI_UX_ANATOMY_TRIAGE_2026-09-15.md)
 - [9月15日：模式神経・回路説明と保留範囲](SEPTEMBER15_SCHEMATIC_COMPLETION.md)

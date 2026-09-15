@@ -17,6 +17,8 @@ segmentation-patches/review/*-2026-09-12-lateral-posterior196.json whitespace=cr
 segmentation-patches/review/*-2026-09-12-lateral-medial-islands11.json whitespace=cr-at-eol
 
 tests/fixtures/section-current-aqueduct-partial-pre-superomedial75.json -text
+tests/fixtures/section-current-aqueduct-partial-pre-lateral-roof8.json -text
+tests/fixtures/section-current-internal-capsule-pre-lateral-roof8.json -text
 segmentation-patches/review/*-2026-09-12-superomedial75.json whitespace=cr-at-eol
 
 # Brodmann input lock and reproducible generated records are byte-pinned too.

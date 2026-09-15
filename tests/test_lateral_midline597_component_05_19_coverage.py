@@ -45,7 +45,7 @@ class LateralMidline597ComponentCoverage(unittest.TestCase):
                 self.assertTrue((ROOT / Path(item["path"]).parent / figure["path"]).exists())
                 self.assertRegex(figure["sha256"], r"^[0-9a-f]{64}$")
         before = OUTPUT.read_bytes()
-        regenerated = audit.build_report()
+        regenerated = audit.build_report(replay_source=ROOT / "tests/fixtures/bigbrain-practical-segmentation-pre-lateral-roof8.bin.gz")
         regenerated_bytes = (json.dumps(regenerated, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
         self.assertEqual(regenerated_bytes, before)
         self.assertEqual(hashlib.sha256(before).hexdigest(), "170191caa5e6b1a9dbe2a503f967c6dcc797c8ad10eb3cfdfc55f275820bf044")

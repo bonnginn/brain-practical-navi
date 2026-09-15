@@ -8,7 +8,7 @@ import audit_capsule_after_registration as a
 class CapsuleReview(unittest.TestCase):
     def test_explicit_development_target_is_pinned_and_unchanged(self):
         target=ROOT/'public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz'
-        expected='785ce199e2c7226e5527a771e953d1b78cfed1067179aa04c63b9eba74577e0f'
+        expected='d7fc87b5b18e1221c2979aeab9d6fefeefcfd4d353cfc78cab782930f32f8e29'
         r=a.inspect(target,expected)
         self.assertEqual(r['inputSha256'],expected)
         self.assertEqual([(i['stillCapsule'],i['nowManual']) for i in r['items']],[(711,145),(684,76)])

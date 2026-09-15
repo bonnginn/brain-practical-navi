@@ -107,14 +107,14 @@
     "20": 3920,
     "21": 14647,
     "22": 15077,
-    "23": 81664,
-    "24": 82248,
+    "23": 81670,
+    "24": 82250,
     "25": 11837,
     "26": 9008,
     "27": 264605,
     "28": 735945,
     "29": 725004,
-    "30": 145715,
+    "30": 145707,
     "31": 56826,
     "32": 53609,
     "33": 8482,
@@ -134,7 +134,7 @@
     "amygdala": 0.7289
   },
   "ventricleLabelsRestrictedToEmptySpace": false,
-  "ventricleTissueOverlap": 0.10980131448090975,
+  "ventricleTissueOverlap": 0.10979656693185749,
   "coordinatePolicy": "exact BigBrain ICBM2009sym 0.5 mm output grid; CerebrA resampling accepted only after overlap audit",
   "reviewedPatchAudit": {
     "path": "segmentation-patches/review/mammillary-bodies-horizontal-core-plus-clear-rim-candidate-2026-08-16.json",
@@ -453,7 +453,7 @@
     "workflowMetadataStatus": "strict"
   },
   "preClassificationCompressedSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
-  "rawVoxelSha256": "97480cb8894ff12fb3e77e5ada08f209dd142bff2f8ba4a4182d3cd43ffd310b",
+  "rawVoxelSha256": "cecd4e3b50131849ee2813a64f608a02e259dd5d0fb6f790a89dd351bc56add4",
   "brainstemThreeIslandsAudit": {
     "record": "segmentation-patches/review/brainstem-three-islands-adoption-2026-09-06.json",
     "recordSha256": "9c7b14f4272969261e3e2415d3f522b7e5d7db1eeca7cb0c8ae28b225458be66",
@@ -1296,6 +1296,14 @@
         "section-current-third-ventricle.mesh",
         "section-current-ventricular-system.mesh"
       ]
+    },
+    "lateral-roof8": {
+      "record": "segmentation-patches/review/lateral-roof8-adoption-2026-09-15.json",
+      "recordSha256": "cbed33ec8a4d851aeda15bec1b7682f44b754ea139f5bc117d965817bd73e8a1",
+      "changedVoxelCount": 8,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedBlockPartMasks": []
     }
   },
   "historicalGenerationClaims": {
@@ -1305,9 +1313,9 @@
   },
   "currentImageMeasurements": {
     "schemaVersion": 1,
-    "sourceLabelSha256": "785ce199e2c7226e5527a771e953d1b78cfed1067179aa04c63b9eba74577e0f",
+    "sourceLabelSha256": "d7fc87b5b18e1221c2979aeab9d6fefeefcfd4d353cfc78cab782930f32f8e29",
     "sourceImageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
-    "rawVoxelSha256": "97480cb8894ff12fb3e77e5ada08f209dd142bff2f8ba4a4182d3cd43ffd310b",
+    "rawVoxelSha256": "cecd4e3b50131849ee2813a64f608a02e259dd5d0fb6f790a89dd351bc56add4",
     "dimensionsXYZ": [
       394,
       466,
@@ -1338,14 +1346,14 @@
       "20": 3920,
       "21": 14647,
       "22": 15077,
-      "23": 81664,
-      "24": 82248,
+      "23": 81670,
+      "24": 82250,
       "25": 11837,
       "26": 9008,
       "27": 264605,
       "28": 735945,
       "29": 725004,
-      "30": 145715,
+      "30": 145707,
       "31": 56826,
       "32": 53609,
       "33": 8482,
@@ -1362,17 +1370,17 @@
       26,
       41
     ],
-    "ventricularVoxels": 185016,
+    "ventricularVoxels": 185024,
     "ventricularNonBackgroundVoxels": 20315,
-    "ventricularNonBackgroundFraction": 0.10980131448090975,
+    "ventricularNonBackgroundFraction": 0.10979656693185749,
     "ventricularLabelsRestrictedToImageBackground": false,
     "perVentricularLabel": {
       "23": {
-        "voxels": 81664,
+        "voxels": 81670,
         "nonBackgroundVoxels": 9442
       },
       "24": {
-        "voxels": 82248,
+        "voxels": 82250,
         "nonBackgroundVoxels": 10563
       },
       "25": {
