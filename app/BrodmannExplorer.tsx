@@ -202,14 +202,14 @@ export const notes: Record<number, { ja: string; en: string }> = {
   23: {"ja": "脳梁後部の上方にある帯状皮質です。内側面でBA 31および脳梁膨大後部のBA 29・30との関係を見ます。", "en": "A cingulate region above the posterior corpus callosum. Use the medial view to compare it with BA 31 and retrosplenial BA 29 and 30."},
   24: {"ja": "脳梁の前部を取り囲む帯状皮質に位置します。BA 32との関係を内側面で観察します。現代の帯状皮質の機能区分とは一対一に対応しません。", "en": "Lies in cingulate cortex around the anterior corpus callosum. Compare it with BA 32 medially. Modern functional cingulate subdivisions do not map one-to-one onto this area."},
   25: {"ja": "脳梁膝の下方にある小さな領域です。内側面でBA 24・32より下方の位置を確認します。", "en": "A small region below the genu of the corpus callosum. Inspect its position inferior to BA 24 and 32 in the medial view."},
-  26: {"ja": "脳梁膨大部の近くにある狭い領域です。内側面や膨張表示を使い、BA 29・30との位置関係を観察します。", "en": "A narrow region near the splenium of the corpus callosum. Use medial and inflated views to compare its position with BA 29 and 30."},
+  26: {"ja": "脳梁膨大部の近くにある狭い領域です。内側面を使い、BA 29・30との位置関係を観察します。", "en": "A narrow region near the splenium of the corpus callosum. Use medial views to compare its position with BA 29 and 30."},
   27: {"ja": "海馬台に隣接する内側側頭葉の領域です。ここでは歴史的な前海馬台領域という名称を用います。内側面・下面でBA 28との関係を確認します。", "en": "A medial temporal region adjacent to the subiculum. The historical name presubicular area is used here. Compare it with BA 28 in medial and inferior views."},
   28: {"ja": "海馬傍回の前内側部にあり、大脳皮質と海馬形成を結ぶ記憶回路の重要な中継領域です。BA 35・36との位置関係も観察します。", "en": "Located in the anteromedial parahippocampal region, an important relay in memory circuits linking cortex and the hippocampal formation. Compare it with BA 35 and 36."},
   29: {"ja": "脳梁膨大部の後方にあり、BA 30とともに脳梁膨大後皮質を構成します。「顆粒性」は細胞層の特徴を示す名称です。", "en": "Located behind the splenium and forms retrosplenial cortex together with BA 30. Granular refers to a feature of its cellular layers."},
   30: {"ja": "BA 29に隣接する脳梁膨大後部の領域です。歴史的名称は無顆粒性ですが、現代の分類では異顆粒性と記載されることもあります。", "en": "A retrosplenial region adjacent to BA 29. Historically termed agranular, it is also described as dysgranular in modern classifications."},
   31: {"ja": "内側面でBA 23の背側に広がり、楔前部に隣接します。後部帯状皮質と楔前部全体を同一視しないよう見比べます。", "en": "Extends dorsal to BA 23 on the medial surface, adjoining the precuneus. Distinguish posterior cingulate cortex from the whole precuneus."},
   32: {"ja": "前部帯状皮質の背側から前方に位置します。内側面でBA 24や前頭前野とのつながりを観察します。", "en": "Located dorsally and rostrally in the anterior cingulate region. Use the medial view to inspect its relationship to BA 24 and prefrontal cortex."},
-  33: {"ja": "脳梁膝付近の狭い帯状皮質です。内側面や膨張表示でBA 24との関係を確認します。体性感覚野のBA 3とは別の番号です。", "en": "A narrow cingulate area near the callosal genu. Compare it with BA 24 in medial or inflated views. It is distinct from somatosensory BA 3."},
+  33: {"ja": "脳梁膝付近の狭い帯状皮質です。内側面でBA 24との関係を確認します。体性感覚野のBA 3とは別の番号です。", "en": "A narrow cingulate area near the callosal genu. Compare it with BA 24 in medial views. It is distinct from somatosensory BA 3."},
   35: {"ja": "内側側頭葉の側副溝・嗅溝付近に位置します。嗅内皮質（BA 28）に隣接します。広義の嗅周皮質にはBA 36を含める場合もあります。", "en": "Located around the collateral and rhinal sulci in the medial temporal lobe, adjoining entorhinal cortex (BA 28). Broader definitions of perirhinal cortex also include BA 36."},
   36: {"ja": "BA 35の外側に隣接する領域です。BA 35とまとめて嗅周皮質と呼ぶ場合がありますが、この地図では別の番号として表示します。", "en": "Adjoins BA 35 laterally. It is sometimes grouped with BA 35 as perirhinal cortex, but is displayed as a separate numbered area in this map."},
   37: {"ja": "側頭葉後部から後頭葉との移行部に位置します。下面で紡錘状回付近を観察します。BA 37全体が顔に反応する紡錘状回顔領域という意味ではありません。", "en": "Located at the posterior temporal–occipital transition. Inspect the fusiform region from below. The whole of BA 37 is not equivalent to the fusiform face area."},
@@ -221,7 +221,7 @@ export const notes: Record<number, { ja: string; en: string }> = {
   22: {"ja": "言語優位半球の上側頭回後部は、古典的なウェルニッケ領域（感覚性言語野）に関連づけられます。BA 22全体がウェルニッケ領域ではなく、言語理解は広いネットワークで担われます。", "en": "The posterior superior temporal gyrus in the language-dominant hemisphere is associated with the classical Wernicke region. It is not the whole of BA 22; language comprehension involves a distributed network."},
   39: {"ja": "下頭頂小葉の角回に概ね対応します。言語や複数の感覚情報を結びつける処理に関わります。", "en": "Approximately corresponds to the angular gyrus of the inferior parietal lobule; contributes to language and integration across sensory modalities."},
   40: {"ja": "下頭頂小葉の縁上回に概ね対応します。言語の音韻処理や感覚情報の統合に関わります。", "en": "Approximately corresponds to the supramarginal gyrus of the inferior parietal lobule; contributes to phonological processing and sensory integration."},
-  41: {"ja": "外側溝の奥の横側頭回付近にあり、音の情報を受け取る一次聴覚野に関連します。膨張表示でも位置を確認できます。", "en": "Located around the transverse temporal gyri deep in the lateral sulcus and associated with primary auditory processing. Use the inflated view to inspect the area."},
+  41: {"ja": "外側溝の奥の横側頭回付近にあり、音の情報を受け取る一次聴覚野に関連します。周囲の領野を隠すときは、位置関係も見比べてください。", "en": "Located around the transverse temporal gyri deep in the lateral sulcus and associated with primary auditory processing. Compare the surrounding anatomy when hiding other areas."},
   42: {"ja": "一次聴覚野に隣接し、音の情報の処理に関わる領域です。機能的な聴覚皮質の区分はBA番号だけでは表しきれません。", "en": "Adjacent to primary auditory cortex and involved in processing sound. Functional auditory subdivisions cannot be fully represented by BA numbers."},
 
   1: { ja: '体性感覚に関わる領野の一つです。BA 2・3と見比べて位置関係を観察します。', en: 'One of the somatosensory areas. Compare its location with BA 2 and 3.' },
@@ -239,21 +239,21 @@ export default function BrodmannExplorer({ english = false }: { english?: boolea
   const [view, setView] = useState<ViewKey>('left-lateral');
   const [rotation, setRotation] = useState<Rotation>({ ...views['left-lateral'].rotation });
   const [selected, setSelected] = useState<number | null>(null);
+  const [selectedAreas,setSelectedAreas]=useState<number[]>([]);
+  const [hiddenAreas,setHiddenAreas]=useState<number[]>([]);
   const [colorMode, setColorMode] = useState<'all' | 'selected' | 'none'>('all');
   const [unavailable, setUnavailable] = useState(false);
   const [resetKey, setResetKey] = useState(0);
-  const [inflated, setInflated] = useState(false);
-  const [isolate, setIsolate] = useState(false);
   const [freeRotation, setFreeRotation] = useState(false);
   const drag = useRef<{ id: number; x: number; y: number; rotation: Rotation } | null>(null);
   const text = (ja: string, en: string) => english ? en : ja;
   const definition = views[view];
-  const highlights = useMemo<HighlightLayer[]>(() => (isolate && selected ? [selected] : colorMode === 'all' ? atlas.areaNumbers : colorMode === 'selected' && selected ? [selected] : []).map(area => ({ ids: [area], color: brodmannColor(area) })), [colorMode, selected, isolate]);
+  const highlights = useMemo<HighlightLayer[]>(() => (colorMode === 'all' ? atlas.areaNumbers : colorMode === 'selected' ? selectedAreas : []).map(area => ({ ids: [area], color: brodmannColor(area) })), [colorMode, selectedAreas]);
   const selectView = (key: ViewKey) => { setView(key); setRotation({ ...views[key].rotation }); setFreeRotation(false); };
   const selectedNote = selected ? notes[selected] : null;
   const selectedName = selected ? areaNames[selected] : null;
   return <div className="brodmannExplorer" data-brodmann-explorer="true">
-    <p className="brodmannIntro">{text('ブロードマンの細胞構築による分類を、標準脳表で観察します。番号を選ぶと、その領野だけを強調します。', 'Explore Brodmann’s cytoarchitectonic classification on a reference surface. Select a number to highlight that area.')}</p>
+    <p className="brodmannIntro">{text('ブロードマンの細胞構築による分類を、標準脳表で観察します。番号を複数選んで、一緒に着色できます。覆っている領野は選択して隠せます。', 'Explore Brodmann’s cytoarchitectonic classification on a reference surface. Select multiple numbers to colour them together. Select overlying areas to hide them.')}</p>
     <div className="brodmannLayout">
       <section className="brodmannModel" aria-label={text('ブロードマン領野の3D観察', 'Brodmann area 3D observation')}>
         <div className="brodmannViews" role="group" aria-label={text('観察方向', 'Viewing direction')}>
@@ -274,27 +274,28 @@ export default function BrodmannExplorer({ english = false }: { english?: boolea
           setFreeRotation(true);
           setRotation({ x: start.rotation.x + (event.clientY - start.y) * .45, y: start.rotation.y + (event.clientX - start.x) * .45, z: start.rotation.z });
         }} onPointerUp={event => { drag.current = null; if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId); }} onPointerCancel={() => { drag.current = null; }}>
-          <AtlasVolumeCanvas key={resetKey} kind="surface" surfaceAtlas={inflated ? 'brodmann-inflated' : 'brodmann'} plane="coronal" position={50} focus="thalamus" display="specimen" rotation={rotation}
+          <AtlasVolumeCanvas key={resetKey} kind="surface" surfaceAtlas='brodmann' plane="coronal" position={50} focus="thalamus" display="specimen" rotation={rotation}
             view="inside" contrast="bigbrain" showFocus={false} showCutPlane={false} showCerebellum={false} showPonsMedulla={false} showMidbrain={false}
-            hemisphere={definition.hemisphere} surfaceOnlySelected={isolate && selected!==null} surfaceHighlights={highlights} onWebGLUnavailableChange={setUnavailable}
+            hemisphere={definition.hemisphere} surfaceHiddenIds={hiddenAreas} surfaceHighlights={highlights} onWebGLUnavailableChange={setUnavailable}
             surfaceAriaLabel={text('ブロードマン領野の標準脳表。観察方向ボタンと拡大・縮小で操作できます。', 'Brodmann reference surface. Use viewing-direction and zoom controls.')} />
-          <div className="brodmannModelLabel" aria-live="polite"><b>{colorMode === 'selected' && selected ? `BA ${selected}` : colorMode === 'all' ? text('全領野', 'All areas') : text('着色なし', 'No colour')}</b><span>{freeRotation ? text('自由回転', 'Free rotation') : english ? definition.en : definition.ja}</span></div>
+          <div className="brodmannModelLabel" aria-live="polite"><b>{colorMode === 'selected' && selectedAreas.length ? `BA ${selectedAreas.join(", ")}` : colorMode === 'all' ? text('全領野', 'All areas') : text('着色なし', 'No colour')}</b><span>{freeRotation ? text('自由回転', 'Free rotation') : english ? definition.en : definition.ja}</span></div>
         </div>
-        <div className="brodmannTools"><button type="button" disabled={!selected} aria-pressed={isolate} onClick={()=>setIsolate(value=>!value)}>{isolate?text("周囲の脳表を戻す", "Restore surrounding cortex"):text("周囲を外して観察", "Hide surrounding cortex")}</button>
-          <button type="button" aria-pressed={inflated} onClick={() => setInflated(value => !value)}>{inflated ? text('通常の脳表へ', 'Pial surface') : text('溝の奥を見る（膨張表示）', 'Open sulci (inflated)')}</button>
-          <button type="button" onClick={() => { setRotation({ ...definition.rotation }); setFreeRotation(false); setResetKey(value => value + 1); }} disabled={unavailable}>{text('向き・拡大を戻す', 'Reset view and zoom')}</button>
-          <span>{inflated ? text('膨張表示：頂点の対応を保持。左右の間隔・大きさは表示用です', 'Inflated: vertex correspondence preserved; spacing and scale are for display') : text('表示：fsaverage標準脳表・ドラッグで回転', 'Surface: fsaverage reference · drag to rotate')}</span>
+        <div className="brodmannTools">
+          <button type="button" disabled={!selectedAreas.length} onClick={()=>{setHiddenAreas(previous=>[...new Set([...previous,...selectedAreas])]);setSelectedAreas([]);setSelected(null)}}>{text('選択した領野を隠す','Hide selected areas')}</button>
+          <button type="button" disabled={!hiddenAreas.length} onClick={()=>setHiddenAreas([])}>{text('隠した領野をすべて戻す','Restore hidden areas')}</button>
+          <button type="button" onClick={() => { setRotation({ ...definition.rotation }); setFreeRotation(false); setResetKey(value => value + 1); }}>{text('向き・拡大を戻す', 'Reset view and zoom')}</button>
+          <span>{text('隠している領野（番号を再選択すると戻ります）：','Hidden areas (select a number again to restore): ')}{hiddenAreas.length?hiddenAreas.map(n=>`BA ${n}`).join(', '):text('なし','None')}</span>
         </div>
       </section>
       <aside className="brodmannPanel">
         <h2>{text('ブロードマン領野', 'Brodmann areas')} <small>{atlas.areaNumbers.length}{text('領野', ' areas')}</small></h2>
         <div className="brodmannColorModes" role="group" aria-label={text('着色方法', 'Colour mode')}>
-          <button type="button" aria-pressed={colorMode === 'all'} onClick={() => {setIsolate(false);setColorMode('all')}}>{text('すべて着色', 'Colour all')}</button>
-          <button type="button" aria-pressed={colorMode === 'selected'} disabled={!selected} onClick={() => setColorMode('selected')}>{text('選択領野だけ', 'Selected only')}</button>
-          <button type="button" aria-pressed={colorMode === 'none'} onClick={() => {setIsolate(false);setColorMode('none')}}>{text('着色なし', 'No colour')}</button>
+          <button type="button" aria-pressed={colorMode === 'all'} onClick={() => {setColorMode('all')}}>{text('すべて着色', 'Colour all')}</button>
+          <button type="button" aria-pressed={colorMode === 'selected'} disabled={!selectedAreas.length} onClick={() => setColorMode('selected')}>{text('選択した複数領野', 'Selected areas')}</button>
+          <button type="button" aria-pressed={colorMode === 'none'} onClick={() => {setColorMode('none')}}>{text('着色なし', 'No colour')}</button>
         </div>
-        <div className="brodmannAreaGrid" role="group" aria-label={text('領野番号を選択', 'Select an area number')}>
-          {atlas.areaNumbers.map(area => <button type="button" key={area} data-brodmann-area={area} aria-pressed={selected === area} onClick={() => { setSelected(area); setColorMode('selected'); }}><i style={{ background: `rgb(${brodmannColor(area).join(',')})` }} />BA {area}</button>)}
+        <button type="button" onClick={()=>{setSelectedAreas([]);setSelected(null)}}>{text('選択を解除','Clear selection')}</button>{hiddenAreas.length>0&&<p>{text('非表示：','Hidden: ')}{hiddenAreas.map(n=>`BA ${n}`).join(', ')} — {text('番号を再選択すると戻ります','Select the number again to restore')}</p>}<div className="brodmannAreaGrid" role="group" aria-label={text('領野番号を選択', 'Select an area number')}>
+          {atlas.areaNumbers.map(area => <button type="button" key={area} data-brodmann-area={area} aria-pressed={selectedAreas.includes(area)} onClick={() => { setSelected(area); setSelectedAreas(previous=>previous.includes(area)?previous.filter(n=>n!==area):[...previous,area]); setHiddenAreas(previous=>previous.filter(n=>n!==area)); setColorMode('selected'); }}><i style={{ background: `rgb(${brodmannColor(area).join(',')})` }} />BA {area}</button>)}
         </div>
         <div className="brodmannDescription" aria-live="polite">
           <h3>{selected ? `BA ${selected}${selectedName ? ` · ${english ? selectedName.en : selectedName.ja}` : ''}` : text('領野を選んで観察', 'Choose an area to explore')}</h3>

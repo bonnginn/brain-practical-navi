@@ -38,3 +38,13 @@ test('selected surface reuses cached variants and falls back to the full mesh wi
   assert.equal(selectedSurfaceMesh(mesh, layer([7])), selectedSurfaceMesh(mesh, layer([7])));
   assert.deepEqual([...selectedSurfaceMesh(mesh, layer([99])).faces], []);
 });
+
+ test('hiding an area removes its incident faces but preserves other and unassigned geometry',()=>{
+  const mesh=fixture();const {hiddenSurfaceMesh}=context.exports;
+  const result=hiddenSurfaceMesh(mesh,[3]);
+  assert.deepEqual([...result.faces],[1,2,3]);
+  assert.deepEqual([...mesh.faces],[0,1,2,1,2,3]);
+  assert.equal(hiddenSurfaceMesh(mesh,[]),mesh);
+  assert.equal(hiddenSurfaceMesh(mesh,[3]),result);
+  assert.deepEqual([...hiddenSurfaceMesh(mesh,[3,7]).faces],[]);
+ });

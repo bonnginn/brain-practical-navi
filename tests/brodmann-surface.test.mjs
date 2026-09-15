@@ -93,7 +93,7 @@ test('both languages expose all area choices, six views and explicit source limi
     assert.match(html, /data-specimen-focus="false"/);
     assert.match(html, /BRODMANN-FREESURFER-NOTICE/);
     if (english) { assert.doesNotMatch(html, /[ぁ-んァ-ヶ一-龠]/u); assert.match(html, /Registration to BigBrain/); }
-    else { assert.match(html, /専門家レビューは未実施/); assert.match(html, /膨張表示/); }
+    else { assert.match(html, /専門家レビューは未実施/); assert.match(html, /選択した領野を隠す/); assert.doesNotMatch(html, /溝の奥を見る/); }
   }
 });
 test('area colour is finite, deterministic and does not alias BA3 to BA33', () => {
