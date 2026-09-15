@@ -79,7 +79,7 @@ const source = read('app/BrodmannExplorer.tsx').toString().replaceAll('import.me
 const compiled = ts.transpileModule(source, { compilerOptions: { jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.CommonJS } }).outputText;
 const exports = {};
 vm.runInNewContext(compiled, { exports, require: name => name === './AtlasVolumeCanvas' ? {
-  AtlasVolumeCanvas: props => React.createElement('div', { 'data-renderer-atlas': props.surfaceAtlas, 'data-highlight-count': props.surfaceHighlights.length,
+  AtlasVolumeCanvas: props => React.createElement('div', { 'data-renderer-atlas': props.surfaceAtlas, 'data-highlight-count': props.surfaceHighlights.length, 'data-highlight-colors': JSON.stringify(props.surfaceHighlights.map(layer => layer.color)),
     'data-hemisphere': props.hemisphere, 'data-cut-plane': props.showCutPlane, 'data-specimen-focus': props.showFocus }),
 } : name === '../public/atlas/brodmann-surface.json' ? report : name.endsWith('.css') ? {} : require(name) });
 test('both languages expose all area choices, six views and explicit source limitations', () => {
@@ -97,7 +97,7 @@ test('both languages expose all area choices, six views and explicit source limi
   }
 });
 test('area colour is finite, deterministic and does not alias BA3 to BA33', () => {
-  for (const area of report.areaNumbers) assert.ok(exports.brodmannColor(area).every(value => Number.isFinite(value) && value >= 0 && value <= 1));
+  for (const area of report.areaNumbers) assert.ok(exports.brodmannColor(area).every(value => Number.isInteger(value) && value >= 80 && value <= 255));
   assert.notDeepEqual(exports.brodmannColor(3), exports.brodmannColor(33));
 });
 test('Brodmann mode has a separate lazy loader and pauses existing pathway steppers', () => {
@@ -107,4 +107,16 @@ test('Brodmann mode has a separate lazy loader and pauses existing pathway stepp
   assert.match(page, /selectedPathway==="papez"&&!brodmannActive/);
   assert.match(canvas, /surfaceAtlas!=="mni"/);
   assert.match(canvas, /loadMesh\(surfaceAtlas==="brodmann-inflated"\?"brodmann-left-inflated":"brodmann-left"\)/);
+});
+
+
+test('renderer receives the same RGB bytes as the area swatches', () => {
+  const html = renderToStaticMarkup(React.createElement(exports.default));
+  const colors = JSON.parse(html.match(/data-highlight-colors="([^"]+)"/)[1].replaceAll('&quot;', '"'));
+  assert.equal(colors.length, report.areaNumbers.length);
+  for (const [index, area] of report.areaNumbers.entries()) {
+    assert.deepEqual(colors[index], [...exports.brodmannColor(area)]);
+    assert.ok(Math.max(...colors[index].map(value => value / 255)) > 0.8);
+    assert.ok(html.includes(`background:rgb(${colors[index].join(',')})`));
+  }
 });

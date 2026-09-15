@@ -56,3 +56,8 @@ BNM4はgzip圧縮前に表示座標を0.01単位のint16、法線をint8、陰�
 ## 体系的な学習コースへの接続
 
 [神経解剖学コース全体の設計](../research/neuroanatomy-course/README.md)を優先し、[6段階のBrodmann観察原稿](../research/guided-tours/BRODMANN_PILOT.md)をその中の演習素材として利用する。コースの本文・演習・進捗管理は未実装。[視床・神経回路の下準備](../research/neural-circuits/README.md)とは座標系と出典を分け、核ごとの根拠・位置合わせが整ってから接続を検討する。
+
+
+## 2026-09-15 着色不具合の修正
+
+領野色を0–1で渡す一方、共通HighlightLayerは0–255として正規化していたため、着色領野が黒く見えていた。Brodmannの色関数と色見本をRGB byteへ統一した。描画propsと色見本の一致・正規化後の輝度を回帰試験で確認。対象Node9/9、型検査、build成功。実ブラウザで全領野・BA5単独、左右・膨張表示を確認し4346を更新。分節・mesh変更、公開更新なし。

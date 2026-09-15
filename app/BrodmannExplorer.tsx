@@ -15,12 +15,12 @@ const views: Record<ViewKey, { ja: string; en: string; hemisphere: 'left' | 'rig
   superior: { ja: '上面・両半球', en: 'Superior · both', hemisphere: 'both', rotation: { x: -90, y: 0, z: 0 } },
   inferior: { ja: '下面・両半球', en: 'Inferior · both', hemisphere: 'both', rotation: { x: 90, y: 0, z: 0 } },
 };
-// Display colours only; all spatial assignments come from the source GIFTI.
+// Display RGB bytes (0–255), matching HighlightLayer; spatial assignments come from the source GIFTI.
 export function brodmannColor(area: number): [number, number, number] {
   const hue = (area * 0.61803398875) % 1;
   const channel = (offset: number) => {
     const k = (offset + hue * 12) % 12;
-    return 0.61 - 0.26 * Math.max(-1, Math.min(k - 3, 9 - k, 1));
+    return Math.round(255 * (0.61 - 0.26 * Math.max(-1, Math.min(k - 3, 9 - k, 1))));
   };
   return [channel(0), channel(8), channel(4)];
 }
@@ -93,7 +93,7 @@ export default function BrodmannExplorer({ english = false }: { english?: boolea
           <button type="button" aria-pressed={colorMode === 'none'} onClick={() => setColorMode('none')}>{text('着色なし', 'No colour')}</button>
         </div>
         <div className="brodmannAreaGrid" role="group" aria-label={text('領野番号を選択', 'Select an area number')}>
-          {atlas.areaNumbers.map(area => <button type="button" key={area} data-brodmann-area={area} aria-pressed={selected === area} onClick={() => { setSelected(area); setColorMode('selected'); }}><i style={{ background: `rgb(${brodmannColor(area).map(v => Math.round(v * 255)).join(',')})` }} />BA {area}</button>)}
+          {atlas.areaNumbers.map(area => <button type="button" key={area} data-brodmann-area={area} aria-pressed={selected === area} onClick={() => { setSelected(area); setColorMode('selected'); }}><i style={{ background: `rgb(${brodmannColor(area).join(',')})` }} />BA {area}</button>)}
         </div>
         <div className="brodmannDescription" aria-live="polite">
           <h3>{selected ? `BA ${selected}` : text('領野を選んで観察', 'Choose an area to explore')}</h3>
