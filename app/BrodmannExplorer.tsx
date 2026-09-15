@@ -24,7 +24,7 @@ export function brodmannColor(area: number): [number, number, number] {
   };
   return [channel(0), channel(8), channel(4)];
 }
-const areaNames: Record<number, { ja: string; en: string }> = {
+export const areaNames: Record<number, { ja: string; en: string }> = {
   "1": {
     "ja": "一次体性感覚野（S1）",
     "en": "Primary somatosensory cortex (S1)"
@@ -41,13 +41,33 @@ const areaNames: Record<number, { ja: string; en: string }> = {
     "ja": "一次運動野（M1）",
     "en": "Primary motor cortex (M1)"
   },
+  "5": {
+    "ja": "上頭頂小葉・体性感覚連合野",
+    "en": "Superior parietal lobule / somatosensory association cortex"
+  },
   "6": {
     "ja": "運動前野・補足運動野",
     "en": "Premotor and supplementary motor areas"
   },
+  "7": {
+    "ja": "上頭頂小葉・楔前部",
+    "en": "Superior parietal lobule / precuneus"
+  },
   "8": {
     "ja": "前頭眼野（FEF）の目安",
     "en": "Frontal eye field (FEF), approximate"
+  },
+  "9": {
+    "ja": "前頭前野（背外側部など）",
+    "en": "Prefrontal cortex (including dorsolateral regions)"
+  },
+  "10": {
+    "ja": "前頭極",
+    "en": "Frontopolar cortex"
+  },
+  "11": {
+    "ja": "眼窩前頭皮質",
+    "en": "Orbitofrontal cortex"
   },
   "17": {
     "ja": "一次視覚野（V1・線条野）",
@@ -57,9 +77,81 @@ const areaNames: Record<number, { ja: string; en: string }> = {
     "ja": "二次視覚野（V2）",
     "en": "Secondary visual cortex (V2)"
   },
+  "19": {
+    "ja": "視覚連合野（線条外皮質）",
+    "en": "Visual association cortex (extrastriate cortex)"
+  },
+  "20": {
+    "ja": "下側頭回領域",
+    "en": "Inferior temporal cortex"
+  },
+  "21": {
+    "ja": "中側頭回領域",
+    "en": "Middle temporal cortex"
+  },
   "22": {
     "ja": "上側頭回・ウェルニッケ領域との関連",
     "en": "Superior temporal gyrus / Wernicke region"
+  },
+  "23": {
+    "ja": "後部帯状皮質（腹側部）",
+    "en": "Ventral posterior cingulate cortex"
+  },
+  "24": {
+    "ja": "前部帯状皮質（腹側部）",
+    "en": "Ventral anterior cingulate cortex"
+  },
+  "25": {
+    "ja": "膝下部帯状皮質",
+    "en": "Subgenual cingulate cortex"
+  },
+  "26": {
+    "ja": "脳梁膨大部周囲の皮質（膨大部外野）",
+    "en": "Ectosplenial area"
+  },
+  "27": {
+    "ja": "前海馬台領域",
+    "en": "Presubicular area"
+  },
+  "28": {
+    "ja": "嗅内皮質",
+    "en": "Entorhinal cortex"
+  },
+  "29": {
+    "ja": "脳梁膨大後皮質（顆粒性）",
+    "en": "Granular retrosplenial cortex"
+  },
+  "30": {
+    "ja": "脳梁膨大後皮質（無顆粒性領域）",
+    "en": "Agranular retrosplenial area"
+  },
+  "31": {
+    "ja": "後部帯状皮質（背側部）",
+    "en": "Dorsal posterior cingulate cortex"
+  },
+  "32": {
+    "ja": "前部帯状皮質（背側部）",
+    "en": "Dorsal anterior cingulate cortex"
+  },
+  "33": {
+    "ja": "脳梁膝前部の帯状皮質（膝前野）",
+    "en": "Pregenual cingulate area"
+  },
+  "35": {
+    "ja": "嗅周皮質",
+    "en": "Perirhinal cortex"
+  },
+  "36": {
+    "ja": "嗅外野（広義の嗅周皮質の一部）",
+    "en": "Ectorhinal area / broader perirhinal cortex"
+  },
+  "37": {
+    "ja": "後頭側頭領域・紡錘状回付近",
+    "en": "Occipitotemporal cortex / fusiform region"
+  },
+  "38": {
+    "ja": "側頭極",
+    "en": "Temporal pole"
   },
   "39": {
     "ja": "角回",
@@ -77,6 +169,10 @@ const areaNames: Record<number, { ja: string; en: string }> = {
     "ja": "聴覚連合野（二次聴覚野）の目安",
     "en": "Auditory association cortex, approximate"
   },
+  "43": {
+    "ja": "中心下領域（中心下回付近）",
+    "en": "Subcentral area"
+  },
   "44": {
     "ja": "ブローカ領域・下前頭回弁蓋部",
     "en": "Broca region / pars opercularis"
@@ -84,9 +180,43 @@ const areaNames: Record<number, { ja: string; en: string }> = {
   "45": {
     "ja": "ブローカ領域・下前頭回三角部",
     "en": "Broca region / pars triangularis"
+  },
+  "46": {
+    "ja": "背外側前頭前野（中前頭回付近）",
+    "en": "Dorsolateral prefrontal cortex / middle frontal region"
+  },
+  "47": {
+    "ja": "下前頭回眼窩部・眼窩前頭皮質",
+    "en": "Pars orbitalis / orbitofrontal cortex"
   }
 };
-const notes: Record<number, { ja: string; en: string }> = {
+export const notes: Record<number, { ja: string; en: string }> = {
+  5: {"ja": "中心後回の後方にあり、BA 1・2・3に続く頭頂葉の領域です。上面からBA 7との位置関係を観察します。", "en": "Lies behind the postcentral gyrus, beyond BA 1, 2 and 3. Compare it with BA 7 from the superior view."},
+  7: {"ja": "頭頂葉の上部から内側面の楔前部付近に広がります。外側面と内側面を切り替え、BA 5の後方を観察します。", "en": "Extends across the superior parietal region toward the medial precuneus. Switch between lateral and medial views to inspect the region behind BA 5."},
+  9: {"ja": "上・中前頭回付近の前頭前野に対応します。背外側前頭前野はBA 9だけでなくBA 46なども含む区分です。", "en": "Associated with prefrontal cortex around the superior and middle frontal gyri. Dorsolateral prefrontal cortex includes BA 46 as well as BA 9."},
+  10: {"ja": "前頭葉の最も前方に位置します。外側面と内側面で前頭極を囲む広がりを確認します。", "en": "Occupies the anterior end of the frontal lobe. Compare its extent around the frontal pole in lateral and medial views."},
+  11: {"ja": "眼窩の上にある前頭葉下面の領域です。下面表示でBA 10・47との位置関係を確認します。", "en": "Located on the inferior frontal surface above the orbits. Use the inferior view to compare its position with BA 10 and 47."},
+  19: {"ja": "後頭葉でBA 18の周囲に広がります。複数の視覚処理領域に関連し、BA 19全体を一つのV番号に置き換えることはできません。", "en": "Extends around BA 18 in the occipital lobe. It is associated with several visual processing regions, rather than a single V-number area."},
+  20: {"ja": "側頭葉の下部に位置します。下面と外側面を切り替え、上方のBA 21や後方のBA 37と見比べます。", "en": "Located in the inferior temporal region. Compare it with BA 21 above and BA 37 posteriorly using inferior and lateral views."},
+  21: {"ja": "側頭葉外側面の中側頭回に概ね対応します。上側頭回のBA 22と下側頭回のBA 20の間を観察します。", "en": "Approximately corresponds to the middle temporal gyrus. Inspect its position between superior temporal BA 22 and inferior temporal BA 20."},
+  23: {"ja": "脳梁後部の上方にある帯状皮質です。内側面でBA 31および脳梁膨大後部のBA 29・30との関係を見ます。", "en": "A cingulate region above the posterior corpus callosum. Use the medial view to compare it with BA 31 and retrosplenial BA 29 and 30."},
+  24: {"ja": "脳梁の前部を取り囲む帯状皮質に位置します。BA 32との関係を内側面で観察します。現代の帯状皮質の機能区分とは一対一に対応しません。", "en": "Lies in cingulate cortex around the anterior corpus callosum. Compare it with BA 32 medially. Modern functional cingulate subdivisions do not map one-to-one onto this area."},
+  25: {"ja": "脳梁膝の下方にある小さな領域です。内側面でBA 24・32より下方の位置を確認します。", "en": "A small region below the genu of the corpus callosum. Inspect its position inferior to BA 24 and 32 in the medial view."},
+  26: {"ja": "脳梁膨大部の近くにある狭い領域です。内側面や膨張表示を使い、BA 29・30との位置関係を観察します。", "en": "A narrow region near the splenium of the corpus callosum. Use medial and inflated views to compare its position with BA 29 and 30."},
+  27: {"ja": "海馬台に隣接する内側側頭葉の領域です。ここでは歴史的な前海馬台領域という名称を用います。内側面・下面でBA 28との関係を確認します。", "en": "A medial temporal region adjacent to the subiculum. The historical name presubicular area is used here. Compare it with BA 28 in medial and inferior views."},
+  28: {"ja": "海馬傍回の前内側部にあり、大脳皮質と海馬形成を結ぶ記憶回路の重要な中継領域です。BA 35・36との位置関係も観察します。", "en": "Located in the anteromedial parahippocampal region, an important relay in memory circuits linking cortex and the hippocampal formation. Compare it with BA 35 and 36."},
+  29: {"ja": "脳梁膨大部の後方にあり、BA 30とともに脳梁膨大後皮質を構成します。「顆粒性」は細胞層の特徴を示す名称です。", "en": "Located behind the splenium and forms retrosplenial cortex together with BA 30. Granular refers to a feature of its cellular layers."},
+  30: {"ja": "BA 29に隣接する脳梁膨大後部の領域です。歴史的名称は無顆粒性ですが、現代の分類では異顆粒性と記載されることもあります。", "en": "A retrosplenial region adjacent to BA 29. Historically termed agranular, it is also described as dysgranular in modern classifications."},
+  31: {"ja": "内側面でBA 23の背側に広がり、楔前部に隣接します。後部帯状皮質と楔前部全体を同一視しないよう見比べます。", "en": "Extends dorsal to BA 23 on the medial surface, adjoining the precuneus. Distinguish posterior cingulate cortex from the whole precuneus."},
+  32: {"ja": "前部帯状皮質の背側から前方に位置します。内側面でBA 24や前頭前野とのつながりを観察します。", "en": "Located dorsally and rostrally in the anterior cingulate region. Use the medial view to inspect its relationship to BA 24 and prefrontal cortex."},
+  33: {"ja": "脳梁膝付近の狭い帯状皮質です。内側面や膨張表示でBA 24との関係を確認します。体性感覚野のBA 3とは別の番号です。", "en": "A narrow cingulate area near the callosal genu. Compare it with BA 24 in medial or inflated views. It is distinct from somatosensory BA 3."},
+  35: {"ja": "内側側頭葉の側副溝・嗅溝付近に位置します。嗅内皮質（BA 28）に隣接します。広義の嗅周皮質にはBA 36を含める場合もあります。", "en": "Located around the collateral and rhinal sulci in the medial temporal lobe, adjoining entorhinal cortex (BA 28). Broader definitions of perirhinal cortex also include BA 36."},
+  36: {"ja": "BA 35の外側に隣接する領域です。BA 35とまとめて嗅周皮質と呼ぶ場合がありますが、この地図では別の番号として表示します。", "en": "Adjoins BA 35 laterally. It is sometimes grouped with BA 35 as perirhinal cortex, but is displayed as a separate numbered area in this map."},
+  37: {"ja": "側頭葉後部から後頭葉との移行部に位置します。下面で紡錘状回付近を観察します。BA 37全体が顔に反応する紡錘状回顔領域という意味ではありません。", "en": "Located at the posterior temporal–occipital transition. Inspect the fusiform region from below. The whole of BA 37 is not equivalent to the fusiform face area."},
+  38: {"ja": "側頭葉の最も前方に位置します。外側面と下面を切り替え、BA 20・21・22の前端との関係を見ます。", "en": "Occupies the anterior tip of the temporal lobe. Use lateral and inferior views to compare it with the anterior ends of BA 20, 21 and 22."},
+  43: {"ja": "中心溝下端の近く、前頭・頭頂弁蓋部に位置します。味覚領域と関連づけられますが、味覚皮質は島皮質などにも広がり、BA 43だけでは表せません。", "en": "Located near the lower end of the central sulcus in the frontoparietal operculum. Associated with gustation, but taste cortex also involves the insula and is not confined to BA 43."},
+  46: {"ja": "中前頭回付近にある前頭前野の領域です。BA 9などとともに背外側前頭前野に関連づけられます。", "en": "A prefrontal region around the middle frontal gyrus. Associated with dorsolateral prefrontal cortex together with BA 9 and other areas."},
+  47: {"ja": "下前頭回の眼窩部から前頭葉下面に位置します。外側面と下面で、三角部のBA 45や眼窩面のBA 11との関係を確認します。", "en": "Located around the pars orbitalis and inferior frontal surface. Compare it with triangular BA 45 and orbital BA 11 using lateral and inferior views."},
   8: {"ja": "視線を目標へ向ける眼球運動に関わります。前頭眼野の機能的な境界とBA 8全体は一致しません。", "en": "Involved in directing gaze toward a target. Functional frontal eye field boundaries do not coincide with the whole of BA 8."},
   22: {"ja": "言語優位半球の上側頭回後部は、古典的なウェルニッケ領域（感覚性言語野）に関連づけられます。BA 22全体がウェルニッケ領域ではなく、言語理解は広いネットワークで担われます。", "en": "The posterior superior temporal gyrus in the language-dominant hemisphere is associated with the classical Wernicke region. It is not the whole of BA 22; language comprehension involves a distributed network."},
   39: {"ja": "下頭頂小葉の角回に概ね対応します。言語や複数の感覚情報を結びつける処理に関わります。", "en": "Approximately corresponds to the angular gyrus of the inferior parietal lobule; contributes to language and integration across sensory modalities."},
@@ -181,6 +311,8 @@ export default function BrodmannExplorer({ english = false }: { english?: boolea
         <a href="https://doi.org/10.1016/j.neuroimage.2005.06.058" target="_blank" rel="noreferrer">Van Essen (2005)</a>
         <a href="https://freesurfer.net/fswiki/BrodmannAreaMaps" target="_blank" rel="noreferrer">{text('主な領野の説明', 'Selected area descriptions')}</a>
         <a href="https://www.ncbi.nlm.nih.gov/books/NBK575742/" target="_blank" rel="noreferrer">{text('皮質の名称・機能の対応', 'Cortical names and functional associations')}</a>
+        <a href="https://www2.imm.dtu.dk/~faan/bib/Nielsen2001BibNeuroinformatics/node11.html" target="_blank" rel="noreferrer">{text('歴史的な領野名称の対応表', 'Historical area nomenclature')}</a>
+        <a href="https://surfer.nmr.mgh.harvard.edu/fswiki/Perirhinal" target="_blank" rel="noreferrer">{text('BA 35・嗅周皮質の解剖', 'BA 35 / perirhinal anatomy')}</a>
         <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4691684/" target="_blank" rel="noreferrer">{text('ウェルニッケ領域の範囲と現代的理解', 'Wernicke region: scope and modern interpretation')}</a>
         <a href={`${import.meta.env.BASE_URL}atlas/BRODMANN-FREESURFER-NOTICE.txt`} target="_blank" rel="noreferrer">{text('出典・利用条件・改変記録', 'Credits, licence and modifications')}</a>
       </nav>

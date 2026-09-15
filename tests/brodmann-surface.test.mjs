@@ -120,3 +120,15 @@ test('renderer receives the same RGB bytes as the area swatches', () => {
     assert.ok(html.includes(`background:rgb(${colors[index].join(',')})`));
   }
 });
+
+
+test('every supplied area has a name and individual explanation in both languages', () => {
+  for (const entries of [exports.areaNames, exports.notes]) {
+    assert.deepEqual(Object.keys(entries).map(Number).sort((a, b) => a - b), report.areaNumbers);
+    for (const area of report.areaNumbers) {
+      assert.ok(entries[area].ja.trim().length > 0, `BA ${area}: Japanese content`);
+      assert.ok(entries[area].en.trim().length > 0, `BA ${area}: English content`);
+      assert.doesNotMatch(entries[area].en, /[ぁ-んァ-ヶ一-龠]/u);
+    }
+  }
+});
