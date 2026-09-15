@@ -4,7 +4,7 @@ import numpy as np
 ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT/'scripts'))
 from stage_upper_fourth_gap import BASE_SHA,CANDIDATE,digest,replay
 BEFORE=ROOT/'tests/fixtures/bigbrain-practical-segmentation-pre-upper-fourth-gap.bin.gz'
-AFTER=ROOT/'public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz'
+AFTER=ROOT/'tests/fixtures/bigbrain-practical-segmentation-pre-cerebellar-folia197.bin.gz'
 RECORD=ROOT/'segmentation-patches/review/upper-fourth-gap-adoption-2026-09-15.json'
 AFTER_SHA='055feec985e9b3a007e7856904cef0f36bbc7b00040061fdcba5d5d74820c491'
 
@@ -14,7 +14,7 @@ class UpperFourthGapStageTests(unittest.TestCase):
  def test_independent_section_geometry_is_unchanged_across_source_revision(self):
   for name in ('aqueduct-partial','internal-capsule'):
    before=json.loads((ROOT/f'tests/fixtures/section-current-{name}-pre-upper-fourth-gap.json').read_text())
-   current=json.loads((ROOT/f'public/atlas/section-current-{name}.json').read_text())
+   current=json.loads((ROOT/f'tests/fixtures/section-current-{name}-pre-cerebellar-folia197.json').read_text())
    self.assertEqual(before['sourceSha256'],BASE_SHA);self.assertEqual(current['sourceSha256'],AFTER_SHA)
    for key in set(before)|set(current):
     if key!='sourceSha256':self.assertEqual(before.get(key),current.get(key),key)

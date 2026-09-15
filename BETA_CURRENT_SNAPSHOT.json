@@ -25,17 +25,17 @@
     "WINDOWS_HANDOFF.md"
   ],
   "provenance": {
-    "registryEntryCount": 76,
-    "expertPendingCount": 76,
+    "registryEntryCount": 78,
+    "expertPendingCount": 78,
     "reviewFilterCounts": {
       "surface": 54,
-      "sections": 17,
+      "sections": 19,
       "blocks": 30,
       "quiz": 25
     },
     "learnerMappings": {
-      "total": 223,
-      "resolved": 223
+      "total": 225,
+      "resolved": 225
     }
   },
   "quiz": {
@@ -193,9 +193,15 @@
     "ids36To38": {
       "status": "unsegmented",
       "perId": {
-        "36": {"adopted": false},
-        "37": {"adopted": false},
-        "38": {"adopted": false}
+        "36": {
+          "adopted": false
+        },
+        "37": {
+          "adopted": false
+        },
+        "38": {
+          "adopted": false
+        }
       },
       "anyAdopted": false,
       "allAdopted": false,

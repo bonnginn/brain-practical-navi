@@ -136,7 +136,11 @@ def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None, *, review_da
     mixed_repair=record['transition']=='mixed-ventricular-repair'
     posterior_repair=record['transition']=='mixed-posterior-ventricular-repair'
     bilateral_fill=record['transition']=='mixed-lateral-cavity-fill'
-    points=np.asarray([p['xyz'] for p in record['points']] if exclusions or brainstem_reclassification or mixed_cavity or mixed_repair or partial_aqueduct or posterior_repair or bilateral_fill else record['points']); count=record['count']
+    cerebellar_repair=record['transition']=='mixed-cerebellar-folia-repair'
+    septal_partial=record['transition']=='0->43'
+    commissural_partial=record['transition']=='0->42'
+    new_partial=septal_partial or commissural_partial
+    points=np.asarray([p['xyz'] for p in record['points']] if exclusions or brainstem_reclassification or mixed_cavity or mixed_repair or partial_aqueduct or posterior_repair or bilateral_fill or cerebellar_repair or new_partial else record['points']); count=record['count']
     if bilateral_fill:
         if prefix=='lateral-upper729' and record_sha=='cd0d9bb10cff47e170197d4cb37a25b9faac26d65f0ebe2fc996c0033f43f3ec':
             from stage_lateral_upper729 import replay as replay_bilateral
@@ -193,6 +197,35 @@ def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None, *, review_da
             raise ValueError('Unreviewed mixed cavity repair')
         if not np.array_equal(replay_depth(before,record['points']),after):raise ValueError('Mixed cavity replay differs')
         source_values=np.asarray([p['before'] for p in record['points']]);destination=26;affected={0,26,27}
+    elif cerebellar_repair:
+        expected_record='8e93e2ded0be9333e4d2670c19bba39c76680b78c197302e40fdf4bf5a841ae7'
+        expected_impact='94d77607d0877c1925e2589ba1c2158b9a0a4029ca289a0c8d42c7bc364b732f'
+        if prefix!='cerebellar-folia197' or record_sha!=expected_record or mesh_report_sha!=expected_impact:
+            raise ValueError('Unreviewed cerebellar folia repair')
+        from stage_cerebellar_folia197 import replay as replay_cerebellar
+        entries=record['points']
+        transitions={(p.get('before'),p.get('after')) for p in entries}
+        counts={pair:sum((p.get('before'),p.get('after'))==pair for p in entries) for pair in transitions}
+        if count!=197 or transitions!={(0,28),(0,29),(27,28)} or counts!={(0,28):153,(0,29):38,(27,28):6}:
+            raise ValueError('Invalid fixed cerebellar transition set')
+        if not np.array_equal(replay_cerebellar(before,entries),after):raise ValueError('Cerebellar replay differs')
+        source_values=np.asarray([p['before'] for p in entries]);destination=np.asarray([p['after'] for p in entries]);affected={0,27,28,29}
+    elif septal_partial:
+        if (prefix!='septal-membrane282' or record_sha!='3dc0eda90e13160d41907143dadf5c5545cfea37d25c46d12eb45c6ede63139e'
+                or mesh_report_sha!='a052df6a7e683eee64ae8d32b35aa757e4119464370faa0358ee31ee4e6ecbea' or count!=282):
+            raise ValueError('Unreviewed partial septal membrane')
+        from stage_septal_membrane282 import replay as replay_septal
+        if np.any(before==43) or not np.array_equal(replay_septal(before,record['points']),after):
+            raise ValueError('Partial septal replay differs or ID43 is occupied')
+        source_values=0;destination=43;affected={0,43}
+    elif commissural_partial:
+        if (prefix!='anterior-commissure-core416' or record_sha!='d7070d39f5f3582740e72310ea5b3584ea0f8aff538b606b20482e50ae719672'
+                or mesh_report_sha!='118d9972225357b7e0592e474dbf606ba7a618cebb57a47b46b95c96507a6756' or count!=416):
+            raise ValueError('Unreviewed partial anterior commissure')
+        from stage_anterior_commissure_core416 import replay as replay_commissural
+        if np.any(before==42) or not np.array_equal(replay_commissural(before,record['points']),after):
+            raise ValueError('Partial commissural replay differs or ID42 is occupied')
+        source_values=0;destination=42;affected={0,42}
     elif record['transition']=='30->0':
         from stage_callosal_remaining304 import replay as replay_callosal
         if prefix!='callosal-remaining304' or record_sha!='777c2e4d4a6f5a0f2e1df1fb95d462586b8cdd84001ebf112ea0b8a6b1966ce7':
@@ -239,8 +272,13 @@ def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None, *, review_da
                    or r['changedMaskVoxels']!=r['added']+r['removed'] for r in rows)):
         raise ValueError('Invalid block impact')
     changed_parts=[r for r in rows if r['changedMaskVoxels']]
+    if new_partial and changed_parts:raise ValueError('New partial label must not change existing block masks')
     if changed_parts and not mesh_report_sha:
         raise ValueError('Block changes require a pinned impact report')
+    if cerebellar_repair:
+        if (len(changed_parts)!=1 or (changed_parts[0]['block'],changed_parts[0]['part'])!=('hindbrain','cerebellum')
+                or changed_parts[0]['changedMaskVoxels']!=22 or changed_parts[0]['added']!=22 or changed_parts[0]['removed']!=0):
+            raise ValueError('Unexpected cerebellar block impact')
     if SOURCE.read_bytes() not in (base,data):raise ValueError('Unrelated current labels')
     retained_meshes=[]; mesh_writes=[]
     for part in changed_parts:
@@ -261,7 +299,8 @@ def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None, *, review_da
         mesh_writes.append((ATLAS/name,new_mesh))
         entry.update(vertices=part['vertices'],faces=part['faces'],meshSha256=part['afterSha256'],
             segmentationSourceSha256=record['afterSha256'],
-            repairReview=('AI-image-reviewed local callosal exclusion; derived block synchronized. Development only, not expert review.'
+            repairReview=('AI-image-reviewed local cerebellar folia repair; derived block synchronized. Development only, not expert review.'
+                if cerebellar_repair else 'AI-image-reviewed local callosal exclusion; derived block synchronized. Development only, not expert review.'
                 if record['transition']=='30->0' else 'AI-image-reviewed partial lower-midbrain tissue repair; derived block synchronized. Development only, not expert review.'
                 if record['transition']=='0->27' else 'AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review.'))
     old_report,old_assets=build_assets(base); new_report,new_assets=build_assets(data)
@@ -276,8 +315,11 @@ def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None, *, review_da
     if set(changed)!=expected_sections:
         raise ValueError('Unexpected section impact')
     independent_retained=[]; independent_updates=[]
-    if prefix == 'upper-fourth-gap':
-        for name, ids in [('aqueduct-partial', (41,)), ('internal-capsule', (31, 32))]:
+    if prefix in ('upper-fourth-gap','cerebellar-folia197','septal-membrane282','anterior-commissure-core416'):
+        independent_groups=[('aqueduct-partial', (41,)), ('internal-capsule', (31, 32))]
+        if new_partial:independent_groups += [('cerebellum',(28,29)),('brainstem',(27,))]
+        if commissural_partial:independent_groups += [('septum-pellucidum-partial',(43,))]
+        for name, ids in independent_groups:
             if not np.array_equal(np.isin(before, ids), np.isin(after, ids)):
                 raise ValueError('Independent section mask changed: '+name)
             meta_path = ATLAS/('section-current-'+name+'.json')
@@ -316,6 +358,39 @@ def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None, *, review_da
             limitation=('Local project adoption, not expert-reviewed; does not close the remaining '
                         'aqueduct/fourth-ventricle gap; no public deployment.'),
         )
+    if prefix == 'cerebellar-folia197':
+        decision_info=record.get('decision',{})
+        decision=checked(ROOT/decision_info.get('path',''),decision_info.get('sha256'))
+        if (decision.get('approved') is not True or decision.get('expertReviewed') is not False
+                or decision.get('sourceLabelsSha256')!=record['beforeSha256']
+                or not isinstance(decision.get('reviewNote'),str)):
+            raise ValueError('Cerebellar review decision is incomplete')
+        record.update(installed=True,rationale=decision['reviewNote'],
+            limitation=('Local project adoption of 197 explicitly reviewed folial cells, not expert-reviewed or publicly deployed. '
+                        'Five disconnected candidates remain deferred; no joining fill or completion of cerebellar boundaries.'))
+    if new_partial:
+        decision_info=record['decision'];decision=checked(ROOT/decision_info['path'],decision_info['sha256'])
+        if decision.get('approved') is not True or decision.get('expertReviewed') is not False or decision.get('sourceLabelsSha256')!=record['beforeSha256']:
+            raise ValueError('Partial structure decision differs')
+        name='section-current-septum-pellucidum-partial' if septal_partial else 'section-current-anterior-commissure-partial'
+        ident=43 if septal_partial else 42
+        expected_mesh_sha='688cfc9feceee6d62612df273e598f73e8cbcee84c7ed53390b50668472a5e91' if septal_partial else 'b0772400be64709cf58c13c4b955940f01b51269c376a0a62a1bc83c8ef07292'
+        mesh_data=(ROOT/f'work/anatomy-review/{prefix}-meshes-v1/{name}.mesh').read_bytes()
+        if digest(mesh_data)!=expected_mesh_sha:
+            raise ValueError('Partial structure mesh differs')
+        from build_section_ventricle_meshes import reconstruct,DISPLAY_ORIGIN_ZYX
+        raw_mesh,mesh_evidence=reconstruct((after==ident).transpose(2,1,0))
+        if gzip.decompress(mesh_data)!=raw_mesh:raise ValueError('Partial structure mesh does not reconstruct current label')
+        mesh_meta={**mesh_evidence,'source':SOURCE.name,'sourceSha256':record['afterSha256'],'labelIds':[ident],
+            'labelVoxelCounts':{str(ident):count},'sourceSamplingMm':.5,'displayOriginZYX':DISPLAY_ORIGIN_ZYX.tolist(),
+            'method':'marching cubes 0.5; no resampling, smoothing, filling or component removal',
+            'rawSha256':digest(raw_mesh),'rawBytes':len(raw_mesh),'sha256':digest(mesh_data),'bytes':len(mesh_data),
+            'compression':'gzip','partialExtent':True,'expertReviewed':False,'installed':True,'scope':decision['limitation']}
+        for path,payload in [(ATLAS/(name+'.mesh'),mesh_data),(ATLAS/(name+'.json'),serialized(mesh_meta))]:
+            if path.exists() and path.read_bytes()!=payload:raise ValueError('Unrelated partial structure asset')
+            independent_updates.append((path,payload))
+        record.update(installed=True,rationale=decision['reviewNote'],limitation=decision['limitation'],
+            newSectionMesh=mesh_meta)
     if isinstance(record['limitation'],str):
         record['limitation']=record['limitation'].replace('Mesh synchronization and product adoption pending.','Integration verification recorded separately; not public deployment.')
         record['limitation']=record['limitation'].replace('Product adoption and mesh synchronization pending.','Integration verification recorded separately; not public deployment.')
@@ -328,6 +403,11 @@ def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None, *, review_da
     if meta['rawVoxelSha256'] not in (digest(before_raw[10:]),record['afterRawVoxelSha256']):raise ValueError('Metadata changed')
     meta['rawVoxelSha256']=record['afterRawVoxelSha256']
     for ident in affected:meta['labelCounts'][str(ident)]=int((after==ident).sum())
+    if new_partial:
+        ident=43 if septal_partial else 42
+        meta['labelNames'][str(ident)]='septum pellucidum (partial membrane)' if septal_partial else 'anterior commissure (partial core)'
+        for key in ('imageGuidedCandidateIds','projectReviewedPartialIds'):
+            meta[key]=sorted(set(meta.get(key,[]))|{ident})
     audits=meta.setdefault('regionalBatchAudits',{})
     audits[prefix]=dict(record=record_path.relative_to(ROOT).as_posix(),recordSha256=digest(record_data),
         changedVoxelCount=count,projectAdopted=True,expertReviewed=False,changedSectionMeshes=changed)

@@ -194,8 +194,8 @@ test("keeps official labels separate from provisional teaching overlays", async 
   assert.equal(metadata.redNucleusRegistrationAudit.changedVoxelCount, 2224);
   assert.equal(metadata.redNucleusRegistrationAudit.expertReviewed, false);
   assert.deepEqual(metadata.atlasDerivedIds, [23, 24, 25, 26, 27, 28, 29, 33, 34, 35]);
-  assert.deepEqual(metadata.imageGuidedCandidateIds, [30, 31, 32, 41]);
-  assert.deepEqual(metadata.projectReviewedPartialIds, [41]);
+  assert.deepEqual(metadata.imageGuidedCandidateIds, [30, 31, 32, 41, 42, 43]);
+  assert.deepEqual(metadata.projectReviewedPartialIds, [41, 42, 43]);
   assert.equal(metadata.labelCounts[26], 9166);
   assert.equal(metadata.labelCounts[41], 259);
   assert.deepEqual(metadata.imageGuidedReviewedIds, [39, 40]);
@@ -1373,9 +1373,12 @@ test("keeps the browser distribution below the beta asset budget", async () => {
   // Keep the existing distribution's 100 MiB ceiling; give this addition a separate 12 MiB ceiling.
   const brodmannNames = ["brodmann-left.mesh.gz", "brodmann-right.mesh.gz", "brodmann-left-inflated.mesh.gz", "brodmann-right-inflated.mesh.gz", "brodmann-surface.json", "BRODMANN-FREESURFER-NOTICE.txt"];
   const brodmannBytes = (await Promise.all(brodmannNames.map(name => stat(new URL(`public/atlas/${name}`, root))))).reduce((sum, file) => sum + file.size, 0);
-  assert.ok(publicBytes - brodmannBytes < 100 * 1024 * 1024, `existing public assets are ${((publicBytes - brodmannBytes) / 1024 / 1024).toFixed(1)} MiB`);
+  const currentSectionNames = ["section-current-cerebellum.mesh", "section-current-cerebellum.json", "section-current-brainstem.mesh", "section-current-brainstem.json", "section-current-septum-pellucidum-partial.mesh", "section-current-septum-pellucidum-partial.json", "section-current-anterior-commissure-partial.mesh", "section-current-anterior-commissure-partial.json"];
+  const currentSectionBytes = (await Promise.all(currentSectionNames.map(name => stat(new URL(`public/atlas/${name}`, root))))).reduce((sum, file) => sum + file.size, 0);
+  assert.ok(publicBytes - brodmannBytes - currentSectionBytes < 100 * 1024 * 1024, `existing public assets are ${((publicBytes - brodmannBytes - currentSectionBytes) / 1024 / 1024).toFixed(1)} MiB`);
   assert.ok(brodmannBytes < 12 * 1024 * 1024, `Brodmann assets are ${(brodmannBytes / 1024 / 1024).toFixed(1)} MiB`);
-  assert.ok(publicBytes < 112 * 1024 * 1024, `combined public assets are ${(publicBytes / 1024 / 1024).toFixed(1)} MiB`);
+  assert.ok(currentSectionBytes < 3 * 1024 * 1024, `new current section assets are ${(currentSectionBytes / 1024 / 1024).toFixed(1)} MiB`);
+  assert.ok(publicBytes < 115 * 1024 * 1024, `combined public assets are ${(publicBytes / 1024 / 1024).toFixed(1)} MiB`);
 
   for (const obsolete of [
     "mni-cerebra-1mm.bin",

@@ -60,7 +60,9 @@
     30,
     31,
     32,
-    41
+    41,
+    42,
+    43
   ],
   "imageGuidedReviewedIds": [
     39,
@@ -82,7 +84,9 @@
     "35": "right insula atlas candidate",
     "39": "left mammillary body (reviewed image-guided)",
     "40": "right mammillary body (reviewed image-guided)",
-    "41": "cerebral aqueduct candidate (partial; project-adopted reclassification)"
+    "41": "cerebral aqueduct candidate (partial; project-adopted reclassification)",
+    "42": "anterior commissure (partial core)",
+    "43": "septum pellucidum (partial membrane)"
   },
   "labelCounts": {
     "1": 2887,
@@ -111,9 +115,9 @@
     "24": 82250,
     "25": 11837,
     "26": 9166,
-    "27": 264504,
-    "28": 735945,
-    "29": 725004,
+    "27": 264498,
+    "28": 736104,
+    "29": 725042,
     "30": 145707,
     "31": 56826,
     "32": 53609,
@@ -122,7 +126,9 @@
     "35": 71073,
     "39": 559,
     "40": 729,
-    "41": 259
+    "41": 259,
+    "42": 416,
+    "43": 282
   },
   "atlasToManualDiceAudit": {
     "caudate": 0.8448,
@@ -424,7 +430,9 @@
   "preVentricleCompressedSha256": "6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56",
   "preVentricleRawVoxelSha256": "088fafcdf6afcea74a7a60075bf3b8a481e1a7aa6379a7c58fb9b9c17f5e731d",
   "projectReviewedPartialIds": [
-    41
+    41,
+    42,
+    43
   ],
   "ventricleClassificationPatchAudit": {
     "path": "segmentation-patches\\review\\ventricle-classification-project-review-2026-09-06.json",
@@ -453,7 +461,7 @@
     "workflowMetadataStatus": "strict"
   },
   "preClassificationCompressedSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
-  "rawVoxelSha256": "3572586f67279aa2b02c0c81628cd05f86a2ff65555a6b9ba796712108c3a2b7",
+  "rawVoxelSha256": "d36b55c86b94600b65d39347f21ef5041daeecea9ef53ec31ead1aed238dedf9",
   "brainstemThreeIslandsAudit": {
     "record": "segmentation-patches/review/brainstem-three-islands-adoption-2026-09-06.json",
     "recordSha256": "9c7b14f4272969261e3e2415d3f522b7e5d7db1eeca7cb0c8ae28b225458be66",
@@ -1315,6 +1323,30 @@
         "section-current-fourth-ventricle.mesh",
         "section-current-ventricular-system.mesh"
       ]
+    },
+    "cerebellar-folia197": {
+      "record": "segmentation-patches/review/cerebellar-folia197-adoption-2026-09-16.json",
+      "recordSha256": "d2bffbd7dbaf3f746c618819af27011174ecd30151fde5595b248eb03565f1df",
+      "changedVoxelCount": 197,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": []
+    },
+    "septal-membrane282": {
+      "record": "segmentation-patches/review/septal-membrane282-adoption-2026-09-16.json",
+      "recordSha256": "d83c178b621192d56853090573fdf229fc3a65e20a93e16591686aa6e42eab5d",
+      "changedVoxelCount": 282,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": []
+    },
+    "anterior-commissure-core416": {
+      "record": "segmentation-patches/review/anterior-commissure-core416-adoption-2026-09-16.json",
+      "recordSha256": "25bfba14e3d1384cadd420acb1e8a82161bec04a4b1f3a59ddeb730c36202944",
+      "changedVoxelCount": 416,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": []
     }
   },
   "historicalGenerationClaims": {
@@ -1324,9 +1356,9 @@
   },
   "currentImageMeasurements": {
     "schemaVersion": 1,
-    "sourceLabelSha256": "055feec985e9b3a007e7856904cef0f36bbc7b00040061fdcba5d5d74820c491",
+    "sourceLabelSha256": "065ebcef8e76dcbaab292750815d5135d92b1da1123a92b802d2efff2e41a912",
     "sourceImageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
-    "rawVoxelSha256": "3572586f67279aa2b02c0c81628cd05f86a2ff65555a6b9ba796712108c3a2b7",
+    "rawVoxelSha256": "d36b55c86b94600b65d39347f21ef5041daeecea9ef53ec31ead1aed238dedf9",
     "dimensionsXYZ": [
       394,
       466,
@@ -1361,9 +1393,9 @@
       "24": 82250,
       "25": 11837,
       "26": 9166,
-      "27": 264504,
-      "28": 735945,
-      "29": 725004,
+      "27": 264498,
+      "28": 736104,
+      "29": 725042,
       "30": 145707,
       "31": 56826,
       "32": 53609,
@@ -1372,7 +1404,9 @@
       "35": 71073,
       "39": 559,
       "40": 729,
-      "41": 259
+      "41": 259,
+      "42": 416,
+      "43": 282
     },
     "ventricularLabelIds": [
       23,

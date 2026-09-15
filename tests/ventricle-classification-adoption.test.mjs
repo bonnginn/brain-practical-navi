@@ -16,7 +16,7 @@ test('archived classification stage contains exactly 47 edits and current labels
  const actual=gunzipSync(await readFile(new URL('../public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz',import.meta.url)));
  assert.equal(metadata.rawVoxelSha256,createHash('sha256').update(actual.subarray(10)).digest('hex'));
  for(let i=10;i<next.length;i++)if(old[i]!==next[i])assert.equal(actual[i],next[i]);
- assert.deepEqual(metadata.projectReviewedPartialIds,[41]);
+ assert.deepEqual(metadata.projectReviewedPartialIds,[41,42,43]);
  assert.equal(metadata.labelCounts['26'],9166);assert.equal(metadata.labelCounts['41'],259);
  assert.equal(metadata.reviewedPatchAudits.length,6);
 });

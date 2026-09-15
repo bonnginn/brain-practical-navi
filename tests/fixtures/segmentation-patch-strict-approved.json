@@ -3,9 +3,17 @@
   "version": 1,
   "sourceImage": "/atlas/bigbrain-icbm500.bin.gz",
   "sourceLabels": "/atlas/bigbrain-practical-segmentation-icbm500.bin.gz",
-"sourceLabelsSha256": "055feec985e9b3a007e7856904cef0f36bbc7b00040061fdcba5d5d74820c491",
-  "dims": [394, 466, 378],
-  "voxelSizeMm": [0.5, 0.5, 0.5],
+  "sourceLabelsSha256": "065ebcef8e76dcbaab292750815d5135d92b1da1123a92b802d2efff2e41a912",
+  "dims": [
+    394,
+    466,
+    378
+  ],
+  "voxelSizeMm": [
+    0.5,
+    0.5,
+    0.5
+  ],
   "primaryPlane": "horizontal",
   "workflowMetadataVersion": 1,
   "createdAt": "2026-08-22T00:00:00.000Z",
@@ -14,21 +22,51 @@
   "targetSide": "midline",
   "evidence": "fixture",
   "confidence": "medium",
-  "targetStructures": [{"id": 1, "name": "左赤核"}],
-  "sliceRanges": [{"plane": "horizontal", "axis": "Z", "min": 0, "max": 0}],
+  "targetStructures": [
+    {
+      "id": 1,
+      "name": "左赤核"
+    }
+  ],
+  "sliceRanges": [
+    {
+      "plane": "horizontal",
+      "axis": "Z",
+      "min": 0,
+      "max": 0
+    }
+  ],
   "changeSummary": {
     "changedVoxelCount": 1,
     "unchangedVoxelCount": 0,
-    "transitions": [{"from": 0, "to": 1, "voxels": 1}]
+    "transitions": [
+      {
+        "from": 0,
+        "to": 1,
+        "voxels": 1
+      }
+    ]
   },
   "review": {
     "decision": "approved",
-    "reviewer": {"kind": "project-role", "id": "project-lead"},
+    "reviewer": {
+      "kind": "project-role",
+      "id": "project-lead"
+    },
     "decidedAt": "2026-08-22",
     "reason": "Fixture approval for validator testing.",
-    "pullRequest": {"number": 10, "mergeCommit": null}
+    "pullRequest": {
+      "number": 10,
+      "mergeCommit": null
+    }
   },
   "reviewStatus": "approved",
   "editCount": 1,
-  "runs": [{"start": 0, "length": 1, "label": 1}]
+  "runs": [
+    {
+      "start": 0,
+      "length": 1,
+      "label": 1
+    }
+  ]
 }

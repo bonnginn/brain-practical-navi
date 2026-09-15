@@ -15,7 +15,7 @@ test('lateral/dorsal stage independently replays exactly 466 points and preserve
  for(const [x,y,z] of r.points){assert.ok([x,y,z].every(Number.isInteger)&&x>=0&&x<nx&&y>=0&&y<ny&&z>=0&&z<nz);const i=x+nx*(y+ny*z);assert.equal(after[i],27);after[i]=0;}
  assert.equal(sha(before),r.inputRawSha256);assert.equal(sha(after),r.outputRawSha256);
  const installed=await read('tests/fixtures/bigbrain-practical-segmentation-pre-mammillary-tip-e7e6.bin.gz');assert.equal(sha(installed),r.outputCompressedSha256);assert.deepEqual(gunzipSync(installed).subarray(10),after);
- const meta=JSON.parse(await read('public/atlas/bigbrain-practical-segmentation-icbm500-validation.json'));assert.equal(meta.labelCounts['27'],264504);assert.equal(meta.brainstemLateralDorsalAudit.recordSha256,'a0909129446eeba7a7bae898b3a665e5e4f015f49a321288a100de4e56320621');
+ const meta=JSON.parse(await read('public/atlas/bigbrain-practical-segmentation-icbm500-validation.json'));assert.equal(meta.labelCounts['27'],264498);assert.equal(meta.brainstemLateralDorsalAudit.recordSha256,'a0909129446eeba7a7bae898b3a665e5e4f015f49a321288a100de4e56320621');
  for(const [x,y,z] of r.points)after[x+nx*(y+ny*z)]=27;
  assert.deepEqual(after,before);assert.equal(r.afterCount27,250042);assert.deepEqual(r.changedBlockPartMasks,[]);assert.equal(r.expertReviewed,false);
 });

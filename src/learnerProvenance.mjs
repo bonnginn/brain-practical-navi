@@ -121,6 +121,8 @@ const BLOCK_COMPOSITE_ENTRY_KEYS = new Set([
 
 const sectionEntryByKey = Object.freeze({
   aqueductPartial: "section-cerebral-aqueduct-partial",
+  anteriorCommissurePartial: "section-anterior-commissure-partial",
+  septumPellucidumPartial: "section-septum-pellucidum-partial",
   ventricle: "section-ventricular-system",
   thirdVentricle: "section-ventricular-system",
   fourthVentricle: "section-ventricular-system",

@@ -24,8 +24,8 @@ test("current beta snapshot is derived from the checked-in authoritative contrac
   const report = auditCurrentBetaSnapshot({snapshot});
   assert.equal(report.ok, true, report.errors.join("; "));
   assert.deepEqual(report.summary, {
-    registryEntryCount: 76,
-    mappingCount: 223,
+    registryEntryCount: 78,
+    mappingCount: 225,
     routeChecks: 162,
     pwaChecks: 20,
     pwaBlockerCount: 0,
@@ -34,8 +34,8 @@ test("current beta snapshot is derived from the checked-in authoritative contrac
 });
 
 test("snapshot records the current review, quiz, and route boundaries", () => {
-  assert.deepEqual(snapshot.provenance.reviewFilterCounts, {surface: 54, sections: 17, blocks: 30, quiz: 25});
-  assert.deepEqual(snapshot.provenance.learnerMappings, {total: 223, resolved: 223});
+  assert.deepEqual(snapshot.provenance.reviewFilterCounts, {surface: 54, sections: 19, blocks: 30, quiz: 25});
+  assert.deepEqual(snapshot.provenance.learnerMappings, {total: 225, resolved: 225});
   assert.deepEqual(snapshot.quiz, {existingQuestionCount: 23, neurovascularPilotCount: 22, conceptVariantCount: 55, uniqueVisualTargetCount: 45, totalQuestionCount: 100});
   assert.deepEqual(snapshot.routes, {canonicalRouteCount: 27, viewportCount: 3, phaseCount: 2, expectedChecks: 162});
 });

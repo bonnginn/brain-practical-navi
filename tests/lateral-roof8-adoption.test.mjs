@@ -54,8 +54,8 @@ test('lateral roof8 preserves other labels and synchronizes successor metadata a
     read('public/atlas/section-current-ventricles.json').then(JSON.parse),
   ]);
   const latest = await withRegionalBatches(record, { afterRevision: record.afterSha256 });
-  assert.equal(latest.afterSha256, '055feec985e9b3a007e7856904cef0f36bbc7b00040061fdcba5d5d74820c491');
-  assert.equal(latest.afterRawVoxelSha256, '3572586f67279aa2b02c0c81628cd05f86a2ff65555a6b9ba796712108c3a2b7');
+  assert.equal(latest.afterSha256, '065ebcef8e76dcbaab292750815d5135d92b1da1123a92b802d2efff2e41a912');
+  assert.equal(latest.afterRawVoxelSha256, 'd36b55c86b94600b65d39347f21ef5041daeecea9ef53ec31ead1aed238dedf9');
   assert.deepEqual(metadata.labelCounts, { ...metadata.labelCounts, '23': 81670, '24': 82250, '30': 145707 });
   assert.equal(metadata.rawVoxelSha256, latest.afterRawVoxelSha256);
   assert.equal(sections.sourceSha256, latest.afterSha256);

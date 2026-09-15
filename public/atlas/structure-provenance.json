@@ -266,7 +266,7 @@
       "projectReview": "pending",
       "quizEligibility": "pilot",
       "sourceRefs": ["combined-practical-segmentation", "specimen-block-assets"],
-      "knownLimitations": ["現在は脳幹として一括表示しており、橋と延髄を独立ラベルに分けていません。"],
+      "knownLimitations": ["現在は脳幹として一括表示しており、橋と延髄を独立ラベルに分けていません。BigBrain連続断面の3Dは現行ID27から再構成し、小脳葉との局所境界修正を反映しています。全体の境界確認は未完了です。"],
       "appKeys": ["brainstem"]
     },
     {
@@ -291,7 +291,7 @@
       "projectReview": "pending",
       "quizEligibility": "pilot",
       "sourceRefs": ["combined-practical-segmentation", "mni-cerebra-browser-assets", "specimen-block-assets"],
-      "knownLimitations": ["小脳半球の教育用候補で、葉・虫部の区分や小脳脚の連続性は発展項目です。"],
+      "knownLimitations": ["小脳半球の教育用候補で、葉・虫部の区分や小脳脚の連続性は発展項目です。BigBrain連続断面の3Dは現行ID28・29から再構成し、原画像で確認した197点の局所修正を反映しています。残る塗り落としや孤立成分は完成扱いしていません。"],
       "appKeys": ["cerebellum"]
     },
     {
@@ -436,6 +436,37 @@
      "sourceRefs": ["combined-practical-segmentation"],
      "knownLimitations": ["ID41は中央部と尾側の一部を補修した部分分節で、全長および第三・第四脳室との移行境界は未完成です。断面3Dは同じ259 voxelから再構成し、ブロック標本の模式中脳水道とは区別します。部分採用記録はdocs/AQUEDUCT_PARTIAL_REPAIR.mdおよびdocs/POSTERIOR_VENTRICLES_REPAIR.mdを参照。構造全体の専門家レビューは未完了で、通常クイズの正答対象には含めません。"],
      "appKeys": ["aqueductPartial"]
+    },
+    {
+     "key": "section-anterior-commissure-partial",
+     "lectureLabel": null,
+     "coverage": "app-section-only",
+     "appLabel": "前交連（部分）",
+     "representations": ["image-guided-reviewed"],
+     "learnerSurfaces": ["sections"],
+     "expertReview": "pending",
+     "projectReview": "reviewed-by-project",
+     "projectReviewEvidence": {"reviewerRole": "project lead", "date": "2026-09-16", "documentRef": "scripts/stage_anterior_commissure_core416.py"},
+     "quizEligibility": "none",
+     "sourceRefs": ["combined-practical-segmentation"],
+     "literatureRefs": ["https://pubmed.ncbi.nlm.nih.gov/3941867/"],
+     "knownLimitations": ["ID42は原画像で追跡した前交連内部の部分分節です。全外縁、側頭葉への終末、内包近傍への接続は未収録で、完全な連続路ではありません。BigBrain断面専用で、MNI・脳表モデルへ混用せず、通常クイズの正答対象には含めません。"],
+     "appKeys": ["anteriorCommissurePartial"]
+    },
+    {
+     "key": "section-septum-pellucidum-partial",
+     "lectureLabel": null,
+     "coverage": "app-section-only",
+     "appLabel": "透明中隔（部分）",
+     "representations": ["image-guided-reviewed"],
+     "learnerSurfaces": ["sections"],
+     "expertReview": "pending",
+     "projectReview": "reviewed-by-project",
+     "projectReviewEvidence": {"reviewerRole": "project lead", "date": "2026-09-16", "documentRef": "scripts/stage_septal_membrane282.py"},
+     "quizEligibility": "none",
+     "sourceRefs": ["combined-practical-segmentation"],
+     "knownLimitations": ["ID43は側脳室前角間の薄い隔壁の内部282 voxelだけを収録した部分分節です。膜全体、中隔核、脳弓を完成分節したものではなく、間隙と細い箇所は未収録です。BigBrain断面専用で、MNI・脳表・既存模式モデルへ混用せず、通常クイズの正答対象には含めません。"],
+     "appKeys": ["septumPellucidumPartial"]
     },
     {
      "key": "section-fornix",
