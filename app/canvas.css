@@ -1730,3 +1730,6 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
 @media(max-width:1600px) and (min-width:761px) {
   html[lang="en"] .brand { font-size: var(--ui-font-14); }
 }
+
+/* Full-width 3D uses the available width for two independent views. */
+.sliceStage.layout-model .insetViews.views-2 { grid-template-columns: repeat(2,minmax(0,1fr)); grid-template-rows: minmax(0,1fr); }
