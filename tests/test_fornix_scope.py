@@ -4,6 +4,8 @@ import sys
 import unittest
 from unittest.mock import patch
 from pathlib import Path
+import tempfile
+import zipfile
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -13,15 +15,30 @@ import audit_fornix_scope  # noqa: E402
 
 class FornixScopeInventoryTests(unittest.TestCase):
     def current_inventory(self):
-        # These two host documents also contain unrelated UI/nerve changes.
+        # These host sources also contain unrelated UI/nerve/mesh changes.
         # Run the current semantic checks, rather than claiming to replay the
         # unrecoverable historical Canvas bytes. Other fixed inputs stay pinned.
         current_hashes = {
             key: hashlib.sha256((ROOT / audit_fornix_scope.INPUTS[key]).read_bytes()).hexdigest()
-            for key in ("structureProvenance", "atlasVolumeCanvas")
+            for key in ("structureProvenance", "atlasVolumeCanvas", "specimenBuilder")
         }
-        with patch.dict(audit_fornix_scope.EXPECTED_SHA256, current_hashes):
-            return audit_fornix_scope.inventory()
+        fixture_path = ROOT / "tests/fixtures/block-cavities-pre-fine-20260915.zip"
+        with zipfile.ZipFile(fixture_path) as fixture:
+            pinned_bytes = fixture.read("specimen-blocks.json")
+        pinned = json.loads(pinned_bytes)
+        current = json.loads((ROOT / "public/atlas/specimen-blocks.json").read_text(encoding="utf-8"))
+        pinned_fornix = next(p for p in pinned["specimens"]["commissural-system"] if p["part"] == "fornix")
+        current_fornix = next(p for p in current["specimens"]["commissural-system"] if p["part"] == "fornix")
+        self.assertEqual(current_fornix, pinned_fornix)
+        with tempfile.TemporaryDirectory() as temp:
+            historical_manifest = Path(temp) / "specimen-blocks.json"
+            historical_manifest.write_bytes(pinned_bytes)
+            inputs = dict(audit_fornix_scope.INPUTS)
+            inputs["specimenBlocks"] = str(historical_manifest)
+            with patch.dict(audit_fornix_scope.EXPECTED_SHA256, current_hashes), \
+                    patch.object(audit_fornix_scope, "INPUTS", inputs):
+                result = audit_fornix_scope.inventory()
+        return result
 
     def test_inventory_is_fixed_and_separates_teaching_from_drafts(self):
         result = self.current_inventory()
@@ -55,7 +72,7 @@ class FornixScopeInventoryTests(unittest.TestCase):
             if key != "inputs":
                 self.assertEqual(result[key], historical[key], key)
         for name, expected in audit_fornix_scope.EXPECTED_SHA256.items():
-            if name not in ("structureProvenance", "atlasVolumeCanvas"):
+            if name not in ("structureProvenance", "atlasVolumeCanvas", "specimenBuilder"):
                 self.assertEqual(result["inputs"][name]["sha256"], expected, name)
         # Keep the complete current fornix provenance entries, not just counts.
         import zipfile

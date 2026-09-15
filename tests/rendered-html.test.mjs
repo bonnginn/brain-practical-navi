@@ -1646,7 +1646,8 @@ test("bundles structure-focused specimens and distinguishes derived from schemat
       assert.ok(part.faces > 200, `${block}/${part.part} faces`);
       assert.match(part.color, /^#[0-9a-f]{6}$/i);
       assert.ok(["specimen", "model"].includes(part.material));
-      const mesh = await readFile(new URL(`public/atlas/${part.file}`, root));
+    const meshBytes = await readFile(new URL(`public/atlas/${part.file}`, root));
+    const mesh = meshBytes[0] === 0x1f && meshBytes[1] === 0x8b ? gunzipSync(meshBytes) : meshBytes;
       assert.equal(mesh.subarray(0, 4).toString("ascii"), "BNM2");
       assert.equal(mesh.readUInt32LE(4), part.vertices);
       assert.equal(mesh.readUInt32LE(8), part.faces);

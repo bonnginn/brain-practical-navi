@@ -139,6 +139,11 @@ def main(fourth_paired=False, lateral_fringe=False, lateral_next=False, lateral_
     coarse = raw.transpose(2,1,0)[::2,::2,::2]
     before = blocks.specimen_definitions(coarse, old.transpose(2,1,0)[::2,::2,::2])
     after = blocks.specimen_definitions(coarse, new.transpose(2,1,0)[::2,::2,::2])
+    manifest=json.loads((ROOT/'public/atlas/specimen-blocks.json').read_text(encoding='utf-8'))
+    manifest_parts={(block,p['part']):p for block,parts in manifest['specimens'].items() for p in parts}
+    fine_keys={key for key in blocks.FINE_CAVITY_PARTS
+               if manifest_parts.get(key,{}).get('geometrySamplingMm')==blocks.SOURCE_SPACING_MM
+               and manifest_parts[key].get('occupancyPolicy')=='exact-label-no-fill-no-filter-no-smoothing'}
     if before.keys() != after.keys():
         raise ValueError('Block identities differ')
     impacts, outputs = [], []
@@ -148,17 +153,27 @@ def main(fourth_paired=False, lateral_fringe=False, lateral_next=False, lateral_
         for a, b in zip(parts, after[key]):
             if a.key != b.key:
                 raise ValueError('Part identity differs')
-            count = int(np.count_nonzero(a.mask != b.mask))
+            fine=(key,a.key) in fine_keys
+            if fine:
+                ids,region=blocks.FINE_CAVITY_PARTS[(key,a.key)]
+                old_mask=blocks.fine_cavity_mask(old.transpose(2,1,0),ids,region)
+                new_mask=blocks.fine_cavity_mask(new.transpose(2,1,0),ids,region)
+            else:
+                old_mask,new_mask=a.mask,b.mask
+            count = int(np.count_nonzero(old_mask != new_mask))
             record = dict(block=key, part=a.key, changedMaskVoxels=count)
             if stage_prefix:
-                record.update(added=int(np.count_nonzero(b.mask & ~a.mask)),removed=int(np.count_nonzero(a.mask & ~b.mask)))
+                record.update(added=int(np.count_nonzero(new_mask & ~old_mask)),removed=int(np.count_nonzero(old_mask & ~new_mask)))
             if count:
                 name = f'block-{key}-{a.key}.mesh'
                 installed = (ROOT/'public/atlas'/name).read_bytes()
-                previous = encode(blocks.mesh_from_mask(a.mask, coarse, a.material == 'specimen'))
-                mesh = blocks.mesh_from_mask(b.mask, coarse, b.material == 'specimen')
+                previous = encode(blocks.mesh_from_fine_cavity(old_mask) if fine else blocks.mesh_from_mask(old_mask, coarse, a.material == 'specimen'))
+                mesh = blocks.mesh_from_fine_cavity(new_mask) if fine else blocks.mesh_from_mask(new_mask, coarse, b.material == 'specimen')
                 data = encode(mesh)
-                record.update(file=name, beforeSha256=digest(installed), afterSha256=digest(data),
+                if fine:
+                    previous = blocks.deterministic_gzip(previous)
+                    data = blocks.deterministic_gzip(data)
+                record.update(file=name, beforeSha256=digest(installed), afterSha256=digest(data), geometrySamplingMm=(blocks.SOURCE_SPACING_MM if fine else blocks.GEOMETRY_SPACING_MM),
                               reproducedBeforeSha256=digest(previous), beforeMatches=(previous == installed),
                               vertices=len(mesh[0]), faces=len(mesh[3]))
                 # Preserve all three artifacts to diagnose pre-existing drift. Never install here.

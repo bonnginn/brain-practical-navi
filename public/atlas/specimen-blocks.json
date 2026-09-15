@@ -5,6 +5,7 @@
   "coordinateSpace": "shared centred ICBM500 display grid; x right, y anterior, z superior (mm)",
   "sourceVoxelMm": 0.5,
   "geometrySamplingMm": 1.0,
+  "geometrySamplingPolicy": "1 mm default; parts with geometrySamplingMm use the recorded per-part override",
   "specimens": {
     "lateral-ventricle": [
       {
@@ -26,18 +27,21 @@
       },
       {
         "file": "block-lateral-ventricle-ventricular-cavity.mesh",
-        "vertices": 9690,
-        "faces": 19268,
+        "vertices": 41657,
+        "faces": 84326,
         "shadeMin": 0.82,
         "shadeMax": 0.82,
+        "meshSha256": "38b9600671a9684ddcb25cc46c77c7448ff554183c9fc9f441707172f1bbf024",
+        "geometrySamplingMm": 0.5,
+        "sampledVoxels": 82250,
+        "occupancyPolicy": "exact-label-no-fill-no-filter-no-smoothing",
         "part": "ventricular-cavity",
         "nameJa": "側脳室腔",
         "sourceType": "same-grid-segmentation",
         "color": "#45aebd",
         "material": "model",
-        "meshSha256": "7bc54bf38b6b21fd4132a743876c1fe1ff75ec5b8b53ab428620856a631d6653",
-        "segmentationSourceSha256": "48e1602b871b10bd7b31f99278aef8d0e44bcfb8930051fa9aa20ffd48802db2",
-        "repairReview": "AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review."
+        "segmentationSourceSha256": "d7fc87b5b18e1221c2979aeab9d6fefeefcfd4d353cfc78cab782930f32f8e29",
+        "repairReview": "Exact current 0.5 mm label occupancy inside the existing block bounds; no fill, filtering, or smoothing."
       },
       {
         "file": "block-lateral-ventricle-caudate.mesh",
@@ -326,18 +330,21 @@
       },
       {
         "file": "block-commissural-system-lateral-ventricles.mesh",
-        "vertices": 11960,
-        "faces": 23880,
+        "vertices": 49537,
+        "faces": 99338,
         "shadeMin": 0.82,
         "shadeMax": 0.82,
+        "meshSha256": "dee056e6bc753b37f6c20e4408abf6b3cc8a8b676eedc8209f8dacc550feee96",
+        "geometrySamplingMm": 0.5,
+        "sampledVoxels": 116602,
+        "occupancyPolicy": "exact-label-no-fill-no-filter-no-smoothing",
         "part": "lateral-ventricles",
         "nameJa": "側脳室",
         "sourceType": "same-grid-segmentation",
         "color": "#45aebd",
         "material": "model",
-        "meshSha256": "de3d783a2e59addf0e48462e7cb9291c42f02cdd16cc214b20c2083ac059910f",
-        "segmentationSourceSha256": "48e1602b871b10bd7b31f99278aef8d0e44bcfb8930051fa9aa20ffd48802db2",
-        "repairReview": "AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review."
+        "segmentationSourceSha256": "d7fc87b5b18e1221c2979aeab9d6fefeefcfd4d353cfc78cab782930f32f8e29",
+        "repairReview": "Exact current 0.5 mm label occupancy inside the existing block bounds; no fill, filtering, or smoothing."
       },
       {
         "file": "block-commissural-system-fornix.mesh",
@@ -384,18 +391,21 @@
       },
       {
         "file": "block-choroid-plexus-ventricular-cavity.mesh",
-        "vertices": 9358,
-        "faces": 18604,
+        "vertices": 40148,
+        "faces": 81296,
         "shadeMin": 0.82,
         "shadeMax": 0.82,
+        "meshSha256": "162e293d011f11d7e7b9e99e5333abf840f402072fed28a1dce92d95b160ab70",
+        "geometrySamplingMm": 0.5,
+        "sampledVoxels": 79373,
+        "occupancyPolicy": "exact-label-no-fill-no-filter-no-smoothing",
         "part": "ventricular-cavity",
         "nameJa": "側脳室腔",
         "sourceType": "same-grid-segmentation",
         "color": "#45aebd",
         "material": "model",
-        "meshSha256": "323dac3aa4a122cce40776a4fbb8102766f2150a0ccb3b3dc3f78aec92262e9d",
-        "segmentationSourceSha256": "48e1602b871b10bd7b31f99278aef8d0e44bcfb8930051fa9aa20ffd48802db2",
-        "repairReview": "AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review."
+        "segmentationSourceSha256": "d7fc87b5b18e1221c2979aeab9d6fefeefcfd4d353cfc78cab782930f32f8e29",
+        "repairReview": "Exact current 0.5 mm label occupancy inside the existing block bounds; no fill, filtering, or smoothing."
       },
       {
         "file": "block-choroid-plexus-choroid-plexus.mesh",
@@ -475,18 +485,21 @@
       },
       {
         "file": "block-medial-temporal-inferior-horn.mesh",
-        "vertices": 1701,
-        "faces": 3306,
+        "vertices": 7306,
+        "faces": 14956,
         "shadeMin": 0.82,
         "shadeMax": 0.82,
+        "meshSha256": "06a08376b1375d30cdb181dcc50c243f6f9617a30f512b4fabb436429c4e908f",
+        "geometrySamplingMm": 0.5,
+        "sampledVoxels": 4950,
+        "occupancyPolicy": "exact-label-no-fill-no-filter-no-smoothing",
         "part": "inferior-horn",
         "nameJa": "側脳室下角",
         "sourceType": "same-grid-segmentation",
         "color": "#45aebd",
         "material": "model",
-        "meshSha256": "d6256e2efd4fd7540ba2a6b49c75c0cfc34235937357492cfd01e2f7a849f829",
-        "segmentationSourceSha256": "96fb242a78c66cc4ab9fd69e8bd6ed3cef5fca51b67f0338f063da98ae02381b",
-        "repairReview": "AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review."
+        "segmentationSourceSha256": "d7fc87b5b18e1221c2979aeab9d6fefeefcfd4d353cfc78cab782930f32f8e29",
+        "repairReview": "Exact current 0.5 mm label occupancy inside the existing block bounds; no fill, filtering, or smoothing."
       }
     ],
     "midbrain-section": [

@@ -174,3 +174,5 @@ Historical audit results describe their recorded checkpoint, not the current rel
 - [WINDOWS_HANDOFF.md](../WINDOWS_HANDOFF.md)
 
 </details>
+
+- [側脳室ブロックの表示精度と残る分節](VENTRICLE_BLOCK_FIDELITY_2026-09-15.md)

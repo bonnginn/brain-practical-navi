@@ -12,6 +12,9 @@ as such in the generated metadata.
 from __future__ import annotations
 
 import gzip
+import io
+import argparse
+import hashlib
 import json
 import struct
 from dataclasses import dataclass
@@ -31,6 +34,13 @@ ORIGIN_XYZ = np.array([-98.0, -116.0, -90.0], dtype=np.float32)
 SOURCE_SPACING_MM = 0.5
 GEOMETRY_STRIDE = 2
 GEOMETRY_SPACING_MM = SOURCE_SPACING_MM * GEOMETRY_STRIDE
+
+FINE_CAVITY_PARTS = {
+    ("lateral-ventricle", "ventricular-cavity"): (24, ((-3, 44), (-64, 52), (-52, 17))),
+    ("commissural-system", "lateral-ventricles"): ((23, 24), ((-19, 19), (-39, 60), (-24, 26))),
+    ("choroid-plexus", "ventricular-cavity"): (24, ((-3, 38), (-42, 43), (-49, 12))),
+    ("medial-temporal", "inferior-horn"): (24, ((3, 43), (-31, 35), (-54, -19))),
+}
 
 RIGHT_CAUDATE = 8
 RIGHT_PUTAMEN = 10
@@ -455,25 +465,70 @@ def mesh_from_mask(mask: np.ndarray, values: np.ndarray, specimen_material: bool
     return stored_vertices, normals.astype("<f4"), shade, faces.astype("<u4")
 
 
-def write_mesh(name: str, mesh: tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]) -> dict[str, int | str | float]:
+def fine_cavity_mask(seg_05: np.ndarray, label_ids: int | tuple[int, ...], region: tuple[tuple[float, float], ...]) -> np.ndarray:
+    """Return exact 0.5 mm label voxels inside an existing physical block bound."""
+    z = ORIGIN_XYZ[2] + np.arange(seg_05.shape[0], dtype=np.float32) * SOURCE_SPACING_MM
+    y = ORIGIN_XYZ[1] + np.arange(seg_05.shape[1], dtype=np.float32) * SOURCE_SPACING_MM
+    x = ORIGIN_XYZ[0] + np.arange(seg_05.shape[2], dtype=np.float32) * SOURCE_SPACING_MM
+    xb, yb, zb = region
+    inside = ((x[None, None, :] >= xb[0]) & (x[None, None, :] <= xb[1])
+              & (y[None, :, None] >= yb[0]) & (y[None, :, None] <= yb[1])
+              & (z[:, None, None] >= zb[0]) & (z[:, None, None] <= zb[1]))
+    return np.isin(seg_05, label_ids) & inside
+
+
+def mesh_from_fine_cavity(mask: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    """Mesh exact label occupancy without filling, component filtering or smoothing."""
+    if np.count_nonzero(mask) < 8:
+        raise ValueError("fine cavity contains too few voxels")
+    occupied = np.argwhere(mask)
+    lo = np.maximum(occupied.min(axis=0) - 2, 0)
+    hi = np.minimum(occupied.max(axis=0) + 3, mask.shape)
+    local = mask[tuple(slice(int(lo[i]), int(hi[i])) for i in range(3))]
+    vertices, faces, normals, _ = marching_cubes(local.astype(np.float32), level=0.5)
+    full_zyx = vertices + lo
+    world = np.column_stack((
+        ORIGIN_XYZ[2] + full_zyx[:, 0] * SOURCE_SPACING_MM,
+        ORIGIN_XYZ[1] + full_zyx[:, 1] * SOURCE_SPACING_MM,
+        ORIGIN_XYZ[0] + full_zyx[:, 2] * SOURCE_SPACING_MM,
+    )).astype("<f4")
+    return world, normals.astype("<f4"), np.full(len(vertices), .82, dtype="<f4"), faces.astype("<u4")
+
+
+def deterministic_gzip(payload: bytes) -> bytes:
+    buffer = io.BytesIO()
+    with gzip.GzipFile(fileobj=buffer, mode="wb", filename="", mtime=0) as stream:
+        stream.write(payload)
+    return buffer.getvalue()
+
+
+def write_mesh(name: str, mesh: tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray], output_dir: Path = ATLAS,
+               compress: bool = False) -> dict[str, int | str | float]:
     vertices, normals, shade, faces = mesh
-    path = ATLAS / f"{name}.mesh"
-    with path.open("wb") as handle:
-        handle.write(b"BNM2" + struct.pack("<II", len(vertices), len(faces)))
-        handle.write(vertices.tobytes())
-        handle.write(normals.tobytes())
-        handle.write(shade.tobytes())
-        handle.write(faces.tobytes())
+    path = output_dir / f"{name}.mesh"
+    payload=(b"BNM2" + struct.pack("<II", len(vertices), len(faces)) + vertices.tobytes()
+             + normals.tobytes() + shade.tobytes() + faces.tobytes())
+    stored = deterministic_gzip(payload) if compress else payload
+    path.write_bytes(stored)
     return {
         "file": path.name,
         "vertices": len(vertices),
         "faces": len(faces),
         "shadeMin": round(float(shade.min()), 4),
         "shadeMax": round(float(shade.max()), 4),
+        "meshSha256": hashlib.sha256(stored).hexdigest(),
     }
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output-dir", type=Path, help="Write a complete candidate set outside public/atlas")
+    args = parser.parse_args()
+    output_dir = args.output_dir.resolve() if args.output_dir else ATLAS
+    if output_dir != ATLAS.resolve():
+        if output_dir.exists():
+            raise ValueError("Preserve existing candidate output")
+        output_dir.mkdir(parents=True)
     raw_05, raw_dims = read_volume(BIGBRAIN, b"BBV1")
     seg_05, seg_dims = read_volume(SEGMENTATION, b"BBS1")
     if raw_dims != seg_dims:
@@ -482,13 +537,23 @@ def main() -> None:
     raw = raw_05[::GEOMETRY_STRIDE, ::GEOMETRY_STRIDE, ::GEOMETRY_STRIDE].copy()
     seg = seg_05[::GEOMETRY_STRIDE, ::GEOMETRY_STRIDE, ::GEOMETRY_STRIDE]
     specimens = specimen_definitions(raw, seg)
+    prior=json.loads((ATLAS/'specimen-blocks.json').read_text(encoding='utf-8'))
+    prior_parts={(block,p['part']):p for block,parts in prior['specimens'].items() for p in parts}
+    segmentation_sha=hashlib.sha256(SEGMENTATION.read_bytes()).hexdigest()
 
     results: dict[str, list[dict[str, int | str | float]]] = {}
     for specimen_key, parts in specimens.items():
         results[specimen_key] = []
         for part in parts:
             filename = f"block-{specimen_key}-{part.key}"
-            result = write_mesh(filename, mesh_from_mask(part.mask, raw, part.material == "specimen"))
+            fine = FINE_CAVITY_PARTS.get((specimen_key, part.key))
+            if fine:
+                fine_mask = fine_cavity_mask(seg_05, *fine)
+                result = write_mesh(filename, mesh_from_fine_cavity(fine_mask), output_dir, compress=True)
+                result.update(geometrySamplingMm=SOURCE_SPACING_MM, sampledVoxels=int(fine_mask.sum()),
+                              occupancyPolicy="exact-label-no-fill-no-filter-no-smoothing")
+            else:
+                result = write_mesh(filename, mesh_from_mask(part.mask, raw, part.material == "specimen"), output_dir)
             result.update({
                 "part": part.key,
                 "nameJa": part.name_ja,
@@ -496,6 +561,20 @@ def main() -> None:
                 "color": part.color,
                 "material": part.material,
             })
+            prior_part = prior_parts[(specimen_key, part.key)]
+            if not fine:
+                # The 51 unchanged parts retain their checked-in manifest
+                # records byte-for-byte.  Regeneration still writes and tests
+                # every mesh, but a cavity-only sampling change must not add
+                # unrelated metadata to historical parts.
+                result = dict(prior_part)
+            else:
+                for key, value in prior_part.items():
+                    if key not in result and key not in {'vertices', 'faces', 'shadeMin', 'shadeMax'}:
+                        result[key] = value
+            if fine:
+                result['segmentationSourceSha256']=segmentation_sha
+                result['repairReview']='Exact current 0.5 mm label occupancy inside the existing block bounds; no fill, filtering, or smoothing.'
             results[specimen_key].append(result)
             print(f"{filename}: {result['vertices']:,} vertices, {result['faces']:,} faces")
 
@@ -506,6 +585,7 @@ def main() -> None:
         "coordinateSpace": "shared centred ICBM500 display grid; x right, y anterior, z superior (mm)",
         "sourceVoxelMm": SOURCE_SPACING_MM,
         "geometrySamplingMm": GEOMETRY_SPACING_MM,
+        "geometrySamplingPolicy": "1 mm default; parts with geometrySamplingMm use the recorded per-part override",
         "specimens": results,
         "sourceTypeDefinitions": {
             "specimen-derived": "surface reconstructed directly from the 0.5 mm histological volume",
@@ -519,7 +599,7 @@ def main() -> None:
         },
         "status": "structure-focused teaching specimens; not validated morphometry or surgical anatomy",
     }
-    (ATLAS / "specimen-blocks.json").write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    (output_dir / "specimen-blocks.json").write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":
