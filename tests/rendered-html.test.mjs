@@ -563,7 +563,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.doesNotMatch(page, /selectAllFreeObservation/);
   assert.match(page, /clearFreeObservation/);
   assert.match(page, /freeHemisphere===side/);
-  assert.match(page, /onSurfaceIdentify=\{surfaceView==="free"\?identifyFreeSurface:undefined\}/);
+  assert.match(page, /onSurfaceIdentify=\{surfaceView==="free"\?identifyFreeSurface:surfaceNeurovascular\?undefined:identifySurfaceLesson\}/);
   assert.match(canvas, /function identifySurface/);
   assert.match(canvas, /source:"neurovascular"/);
   assert.match(page, /point\.source==="surface"/);
