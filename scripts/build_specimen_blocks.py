@@ -573,7 +573,13 @@ def main() -> None:
                     if key not in result and key not in {'vertices', 'faces', 'shadeMin', 'shadeMax'}:
                         result[key] = value
             if fine:
-                result['segmentationSourceSha256']=segmentation_sha
+                # Keep the geometry's actual source revision when a later
+                # full-volume label edit leaves these exact cavity bytes
+                # unchanged.  Advance it only when this part's mesh changes.
+                if result['meshSha256'] == prior_part.get('meshSha256'):
+                    result['segmentationSourceSha256'] = prior_part['segmentationSourceSha256']
+                else:
+                    result['segmentationSourceSha256'] = segmentation_sha
                 result['repairReview']='Exact current 0.5 mm label occupancy inside the existing block bounds; no fill, filtering, or smoothing.'
             results[specimen_key].append(result)
             print(f"{filename}: {result['vertices']:,} vertices, {result['faces']:,} faces")

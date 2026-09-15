@@ -4,6 +4,7 @@ from datetime import date
 import gzip
 import json
 import numpy as np
+from pathlib import Path
 from stage_lateral_crop34 import ROOT, SHA, replay, digest, reviewed_points
 from build_section_ventricle_meshes import build_assets, SOURCE, ATLAS
 
@@ -184,8 +185,11 @@ def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None, *, review_da
         if not np.array_equal(replay_brainstem(before,points),after):raise ValueError('Brainstem replay differs')
         source_values=27;destination=26;affected={26,27}
     elif mixed_cavity:
-        from stage_fourth_depth27 import replay as replay_depth
-        if prefix!='fourth-depth27' or record_sha!='c2f7d98fdb51559b3ff785b873d80e932d4ecfd796c9fa6e073650ec697632a7':
+        if prefix=='fourth-depth27' and record_sha=='c2f7d98fdb51559b3ff785b873d80e932d4ecfd796c9fa6e073650ec697632a7':
+            from stage_fourth_depth27 import replay as replay_depth
+        elif prefix=='upper-fourth-gap' and record_sha=='875497e350c6e8573ee4c785c644a7833b53c619113bcfbe0b235c21017394fa':
+            from stage_upper_fourth_gap import replay as replay_depth
+        else:
             raise ValueError('Unreviewed mixed cavity repair')
         if not np.array_equal(replay_depth(before,record['points']),after):raise ValueError('Mixed cavity replay differs')
         source_values=np.asarray([p['before'] for p in record['points']]);destination=26;affected={0,26,27}
@@ -271,10 +275,47 @@ def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None, *, review_da
     expected_sections={name+'.mesh' for name,ids in GROUPS.items() if affected.intersection(ids)}
     if set(changed)!=expected_sections:
         raise ValueError('Unexpected section impact')
+    independent_retained=[]; independent_updates=[]
+    if prefix == 'upper-fourth-gap':
+        for name, ids in [('aqueduct-partial', (41,)), ('internal-capsule', (31, 32))]:
+            if not np.array_equal(np.isin(before, ids), np.isin(after, ids)):
+                raise ValueError('Independent section mask changed: '+name)
+            meta_path = ATLAS/('section-current-'+name+'.json')
+            mesh_path = ATLAS/('section-current-'+name+'.mesh')
+            meta_data = meta_path.read_bytes(); meta = json.loads(meta_data)
+            if meta.get('sourceSha256') not in (record['beforeSha256'], record['afterSha256']) or digest(mesh_path.read_bytes()) != meta.get('sha256'):
+                raise ValueError('Independent section baseline changed: '+name)
+            fixture_path = ROOT/'tests/fixtures'/('section-current-'+name+'-pre-'+prefix+'.json')
+            retained_data = meta_data
+            if meta['sourceSha256'] == record['afterSha256']:
+                retained_data = fixture_path.read_bytes()
+                retained_meta = json.loads(retained_data)
+                if retained_meta.get('sourceSha256') != record['beforeSha256']:
+                    raise ValueError('Independent section fixture source changed: '+name)
+                for key in set(retained_meta) | set(meta):
+                    if key != 'sourceSha256' and retained_meta.get(key) != meta.get(key):
+                        raise ValueError('Independent section metadata changed: '+name)
+            meta['sourceSha256'] = record['afterSha256']
+            independent_retained.append((fixture_path, retained_data))
+            independent_updates.append((meta_path, serialized(meta)))
     record_path=ROOT/f'segmentation-patches/review/{prefix}-adoption-{review_date}.json'
     record.update(status='AI-image-reviewed-project-adopted-development-only',adopted=True,projectAdopted=True,
         expertReviewed=False,published=False,meshImpact=impact,
         sectionMeshImpact=dict(before=old_report,after=new_report,changedFiles=changed))
+    if prefix == 'upper-fourth-gap':
+        decision_info = record.get('decision', {})
+        decision_path = ROOT/decision_info.get('path', '')
+        decision = checked(decision_path, decision_info.get('sha256'))
+        if (decision.get('approved') is not True or decision.get('expertReviewed') is not False
+                or decision.get('reviewer') != 'primary AI project review; not expert review'
+                or not isinstance(decision.get('reviewNote'), str)):
+            raise ValueError('Upper-fourth review decision is incomplete')
+        record.update(
+            installed=True,
+            rationale=decision['reviewNote'],
+            limitation=('Local project adoption, not expert-reviewed; does not close the remaining '
+                        'aqueduct/fourth-ventricle gap; no public deployment.'),
+        )
     if isinstance(record['limitation'],str):
         record['limitation']=record['limitation'].replace('Mesh synchronization and product adoption pending.','Integration verification recorded separately; not public deployment.')
         record['limitation']=record['limitation'].replace('Product adoption and mesh synchronization pending.','Integration verification recorded separately; not public deployment.')
@@ -291,10 +332,17 @@ def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None, *, review_da
     audits[prefix]=dict(record=record_path.relative_to(ROOT).as_posix(),recordSha256=digest(record_data),
         changedVoxelCount=count,projectAdopted=True,expertReviewed=False,changedSectionMeshes=changed)
     retained=retained_meshes+[(ROOT/f'tests/fixtures/bigbrain-practical-segmentation-pre-{prefix}.bin.gz',base),(record_path,record_data)]
-    for path,payload in retained:
+    if prefix == 'upper-fourth-gap':
+        # Preserve every derived section asset whose bytes change.  This is
+        # assembled during preflight and written only by an explicit --apply.
+        retained += [
+            (ROOT/'tests/fixtures'/(Path(name).stem+'-pre-'+prefix+Path(name).suffix), old_assets[name])
+            for name in new_assets if old_assets[name] != new_assets[name]
+        ]
+    for path,payload in retained + independent_retained:
         if path.exists() and path.read_bytes()!=payload:raise ValueError('Retained evidence changed')
     if changed_parts:mesh_writes.append((ATLAS/'specimen-blocks.json',serialized(manifest)))
-    return retained+mesh_writes+[(SOURCE,data),(meta_path,serialized(meta))]+[(ATLAS/n,b) for n,b in new_assets.items()]
+    return retained+independent_retained+mesh_writes+[(SOURCE,data),(meta_path,serialized(meta))]+[(ATLAS/n,b) for n,b in new_assets.items()]+independent_updates
 
 
 if __name__ == '__main__':

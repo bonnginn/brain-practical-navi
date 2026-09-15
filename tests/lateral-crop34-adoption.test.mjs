@@ -46,7 +46,8 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
   const posterior=r.transition==='mixed-posterior-ventricular-repair';
   const bilateral=r.transition==='mixed-lateral-cavity-fill';
   const combined=r.transition==='mixed-ventricular-repair'||posterior||bilateral;
-  if(name==='lateral-roof8'){
+  if(name==='upper-fourth-gap'){assert.equal(r.count,158);assert.equal(r.transition,'mixed-to-26');assert.equal(r.points.filter(p=>p.before===0&&p.after===26).length,57);assert.equal(r.points.filter(p=>p.before===27&&p.after===26).length,101);}
+  else if(name==='lateral-roof8'){
    assert.equal(r.transition,'mixed-ventricular-repair');assert.equal(r.count,8);
    assert.deepEqual(r.points.map(p=>[p.before,p.after]),[[30,23],[30,23],[30,23],[30,23],[30,23],[30,23],[30,24],[30,24]]);
    assert.equal(r.meshImpact.blockMaskImpact.length,55);assert.equal(r.meshImpact.blockMaskImpact.filter(p=>p.changedMaskVoxels).length,0);
@@ -86,6 +87,7 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
   assert.deepEqual(r.meshImpact.blockMaskImpact.map(p=>p.block+'/'+p.part).sort(),ids);
   const changed=r.meshImpact.blockMaskImpact.filter(p=>p.changedMaskVoxels);
   const expectedChanges={'left-lower-majority':[['diencephalon','tissue',0,4]],'left-lower-posterior1396':[['diencephalon','tissue',0,58],['commissural-system','tissue',41,0]],'ventricular-exclusions46':[['diencephalon','third-ventricle',0,5]]};
+  expectedChanges['upper-fourth-gap']=[['diencephalon','tissue',0,23],['medial-temporal','tissue',0,2],['hindbrain','pons-medulla',0,9],['hindbrain','midbrain',0,1],['hindbrain','fourth-ventricle',24,0]];
   expectedChanges['right-inferior-gap421']=[['lateral-ventricle','tissue',350,59],['lateral-ventricle','ventricular-cavity',61,0],['diencephalon','tissue',0,6],['choroid-plexus','tissue',236,59],['choroid-plexus','ventricular-cavity',61,0],['medial-temporal','tissue',0,59],['medial-temporal','inferior-horn',61,0]];
   if(name==='right-inferior-gap421'){assert.equal(r.count,421);assert.equal(r.transition,'0->24');}
   expectedChanges['right-inferior-wide830']=[['lateral-ventricle','tissue',911,78],['lateral-ventricle','ventricular-cavity',88,0],['diencephalon','tissue',0,5],['choroid-plexus','tissue',727,78],['choroid-plexus','ventricular-cavity',88,0],['medial-temporal','tissue',0,78],['medial-temporal','inferior-horn',88,0]];

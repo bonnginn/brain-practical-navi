@@ -23,6 +23,9 @@ class AqueductTest(unittest.TestCase):
         record=(ROOT/ADOPTION).read_bytes();mesh,report=build(source,record)
         self.assertEqual(mesh,(ROOT/'public/atlas/section-current-aqueduct-partial.mesh').read_bytes())
         self.assertEqual(report,json.loads((ROOT/'public/atlas/section-current-aqueduct-partial.json').read_bytes()))
+        historical=json.loads((ROOT/'tests/fixtures/section-current-aqueduct-partial-pre-upper-fourth-gap.json').read_bytes())
+        self.assertEqual(historical['sourceSha256'],'d7fc87b5b18e1221c2979aeab9d6fefeefcfd4d353cfc78cab782930f32f8e29')
+        self.assertEqual(historical['sha256'],report['sha256'])
         self.assertEqual(report['voxels'],259);self.assertTrue(report['partialExtent']);self.assertFalse(report['expertReviewed'])
         self.assertEqual(len(GROUPS),4)
         for bad_source,bad_record in [(source+b'x',record),(source,record+b'x')]:

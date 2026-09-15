@@ -16,7 +16,7 @@ test('partial aqueduct is selectable only for BigBrain, labelled partial, and ab
  assert.doesNotMatch(questions,/aqueductPartial/);
  assert.doesNotMatch((await read('app/quiz-concept-bank.json')).toString(),/aqueductPartial/);
  const report=JSON.parse(await read('public/atlas/section-current-aqueduct-partial.json'));
- assert.equal(report.sourceSha256,'d7fc87b5b18e1221c2979aeab9d6fefeefcfd4d353cfc78cab782930f32f8e29');
+ assert.equal(report.sourceSha256,'055feec985e9b3a007e7856904cef0f36bbc7b00040061fdcba5d5d74820c491');
  assert.equal(report.voxels,259);assert.equal(report.partialExtent,true);assert.equal(report.expertReviewed,false);
  assert.equal(sha(await read('public/atlas/section-current-aqueduct-partial.mesh')),report.sha256);
  const catalog=JSON.parse(await read('app/english-catalog.json'));
@@ -50,7 +50,7 @@ test('partial aqueduct repair replays exactly 64 zero and 115 brainstem cells wi
  const meta=JSON.parse(await read('public/atlas/bigbrain-practical-segmentation-icbm500-validation.json'));
  assert.equal(meta.regionalBatchAudits['aqueduct-core179'].recordSha256,sha(bytes));
  const latest=await withRegionalBatches(r,{afterRevision:r.afterSha256});
- assert.equal(meta.labelCounts['41'],259);assert.equal(meta.labelCounts['27'],264605);assert.equal(meta.labelCounts['25'],11837);
+ assert.equal(meta.labelCounts['41'],259);assert.equal(meta.labelCounts['27'],264504);assert.equal(meta.labelCounts['25'],11837);
  assert.equal(meta.rawVoxelSha256,latest.afterRawVoxelSha256);
 });
 

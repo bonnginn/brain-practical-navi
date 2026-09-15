@@ -4,6 +4,8 @@
 
 ## まず読む資料
 
+- [9月15日：第四脳室上縁158点の補完と残る隙間](UPPER_FOURTH_REPAIR_2026-09-15.md)
+- [9月15日：側脳室ブロックの0.5 mm表示](VENTRICLE_BLOCK_FIDELITY_2026-09-15.md)
 - [9月15日：分節再開・側脳室上縁8点の修正](LATERAL_ROOF_REPAIR_2026-09-15.md)
 
 - [9月15日：UI/UX確認メモ](UI_UX_REVIEW_NOTES_2026-09-15.md)

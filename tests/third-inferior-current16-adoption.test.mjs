@@ -56,7 +56,7 @@ test("third-ventricle correction synchronizes current counts and affected meshes
   assert.equal(metadata.labelCounts["25"], 11837);
   assert.equal(metadata.labelCounts["23"], 81670);
   assert.equal(metadata.labelCounts["24"], 82250);
-  assert.equal(metadata.labelCounts["26"], 9008);
+  assert.equal(metadata.labelCounts["26"], 9166);
   assert.equal(metadata.labelCounts["41"], 259);
   const latest = await (await import('./helpers/residual-mesh-successor.mjs')).withRegionalBatches(record, { afterRevision: record.afterSha256 });
   assert.equal(metadata.rawVoxelSha256, latest.afterRawVoxelSha256);
@@ -64,11 +64,11 @@ test("third-ventricle correction synchronizes current counts and affected meshes
     "bb3063466a39ebedb3c4f7d2250661c6d69bf3eed557d92a35d0065be4c9029d");
   assert.equal(section.sourceSha256, latest.afterSha256);
   assert.equal(section.meshes["section-current-third-ventricle"].voxels, 11837);
-  assert.equal(section.meshes["section-current-ventricular-system"].voxels, 185024);
+  assert.equal(section.meshes["section-current-ventricular-system"].voxels, 185182);
   assert.equal(sha(await read("public/atlas/section-current-third-ventricle.mesh")),
     "1093a7c1304e1faa0ab5ecbda2573257192a282c6443b24294a459fe677028f6");
   assert.equal(sha(await read("public/atlas/section-current-ventricular-system.mesh")),
-    "048c509fabc6591d3053a604bfcbd061fafdb4fd79856a6ddae6b30d99dfce51");
+    latest.sectionMeshImpact.after.meshes["section-current-ventricular-system"].sha256);
 
   const changed = record.meshImpact.blockMaskImpact.filter((part) => part.changedMaskVoxels);
   assert.deepEqual(changed.map((part) => [part.block, part.part, part.added, part.removed]),
@@ -82,7 +82,7 @@ test("third-ventricle correction synchronizes current counts and affected meshes
 
 test("unchanged aqueduct geometry is pinned to the current source revision", async () => {
   const report = JSON.parse(await read("public/atlas/section-current-aqueduct-partial.json"));
-  assert.equal(report.sourceSha256, "d7fc87b5b18e1221c2979aeab9d6fefeefcfd4d353cfc78cab782930f32f8e29");
+  assert.equal(report.sourceSha256, "055feec985e9b3a007e7856904cef0f36bbc7b00040061fdcba5d5d74820c491");
   assert.equal(report.voxels, 259);
   assert.equal(sha(await read("public/atlas/section-current-aqueduct-partial.mesh")),
     "22b992bfa93ec644aaf29d7644aebe12b50513b27c877941c70c65e641a4eeef");

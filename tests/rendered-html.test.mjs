@@ -196,7 +196,7 @@ test("keeps official labels separate from provisional teaching overlays", async 
   assert.deepEqual(metadata.atlasDerivedIds, [23, 24, 25, 26, 27, 28, 29, 33, 34, 35]);
   assert.deepEqual(metadata.imageGuidedCandidateIds, [30, 31, 32, 41]);
   assert.deepEqual(metadata.projectReviewedPartialIds, [41]);
-  assert.equal(metadata.labelCounts[26], 9008);
+  assert.equal(metadata.labelCounts[26], 9166);
   assert.equal(metadata.labelCounts[41], 259);
   assert.deepEqual(metadata.imageGuidedReviewedIds, [39, 40]);
   for (const id of Array.from({ length: 35 }, (_, index) => index + 1)) {

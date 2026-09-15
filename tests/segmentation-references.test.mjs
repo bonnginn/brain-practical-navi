@@ -10,10 +10,10 @@ const source=await readFile(new URL('../app/SegmentationReferences.tsx',import.m
 const compiled=ts.transpileModule(source,{compilerOptions:{jsx:ts.JsxEmit.ReactJSX,module:ts.ModuleKind.CommonJS}}).outputText;
 const exported={};
 vm.runInNewContext(compiled,{exports:exported,require:createRequire(import.meta.url)});
-for(const english of [false,true])test(`browser references render source roles and twenty-three links (${english?'en':'ja'})`,async()=>{
+for(const english of [false,true])test(`browser references render source roles and twenty-four links (${english?'en':'ja'})`,async()=>{
   const html=renderToStaticMarkup(exported.SegmentationReferences({english}));
-  assert.equal((html.match(/<a /g)||[]).length,23);
-  assert.equal((html.match(/target="_blank" rel="noreferrer"/g)||[]).length,23);
+  assert.equal((html.match(/<a /g)||[]).length,24);
+  assert.equal((html.match(/target="_blank" rel="noreferrer"/g)||[]).length,24);
   assert.match(html,/10.1038\/s41586-025-09708-2/);
   assert.match(html,english?/other specimens/:/別標本/);
   assert.match(html,/10.3389\/fnana.2022.894606/);
@@ -32,6 +32,7 @@ for(const english of [false,true])test(`browser references render source roles a
   assert.match(html,/NBK538491/);
   assert.match(html,/NBK10847/);
   assert.match(html,/PMC3543080/);
+  assert.match(html,/PMC3424008/);
   assert.match(html,english?/partial crossing/:/部分交叉/);
   assert.match(html,english?/not adopted boundary data/:/採用境界データではありません/);
   assert.match(html,english?/expert review/:/専門家レビュー/);

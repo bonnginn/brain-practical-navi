@@ -18,7 +18,7 @@ test('lateral roof8 replays exact forward and reverse mixed cavity transition', 
   const [recordBytes, beforeCompressed, afterCompressed] = await Promise.all([
     read('segmentation-patches/review/lateral-roof8-adoption-2026-09-15.json'),
     read('tests/fixtures/bigbrain-practical-segmentation-pre-lateral-roof8.bin.gz'),
-    read('public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz'),
+    read('tests/fixtures/bigbrain-practical-segmentation-pre-upper-fourth-gap.bin.gz'),
   ]);
   const record = JSON.parse(recordBytes);
   assert.equal(sha(recordBytes), 'cbed33ec8a4d851aeda15bec1b7682f44b754ea139f5bc117d965817bd73e8a1');
@@ -54,13 +54,13 @@ test('lateral roof8 preserves other labels and synchronizes successor metadata a
     read('public/atlas/section-current-ventricles.json').then(JSON.parse),
   ]);
   const latest = await withRegionalBatches(record, { afterRevision: record.afterSha256 });
-  assert.equal(latest.afterSha256, 'd7fc87b5b18e1221c2979aeab9d6fefeefcfd4d353cfc78cab782930f32f8e29');
-  assert.equal(latest.afterRawVoxelSha256, 'cecd4e3b50131849ee2813a64f608a02e259dd5d0fb6f790a89dd351bc56add4');
+  assert.equal(latest.afterSha256, '055feec985e9b3a007e7856904cef0f36bbc7b00040061fdcba5d5d74820c491');
+  assert.equal(latest.afterRawVoxelSha256, '3572586f67279aa2b02c0c81628cd05f86a2ff65555a6b9ba796712108c3a2b7');
   assert.deepEqual(metadata.labelCounts, { ...metadata.labelCounts, '23': 81670, '24': 82250, '30': 145707 });
   assert.equal(metadata.rawVoxelSha256, latest.afterRawVoxelSha256);
   assert.equal(sections.sourceSha256, latest.afterSha256);
   assert.equal(sections.meshes['section-current-lateral-ventricles'].voxels, 163920);
-  assert.equal(sections.meshes['section-current-ventricular-system'].voxels, 185024);
+  assert.equal(sections.meshes['section-current-ventricular-system'].voxels, 185182);
   for (const name of ['section-current-lateral-ventricles', 'section-current-ventricular-system']) {
     const info = latest.sectionMeshImpact.after.meshes[name];
     assert.equal(sha(await read('public/atlas/' + name + '.mesh')), info.sha256);
