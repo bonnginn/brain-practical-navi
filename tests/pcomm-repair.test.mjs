@@ -27,8 +27,9 @@ test('nerve limitations are available in both languages and XI is not described 
  for(const key of ['cn5','cn7','cn8','cn9','cn10','cn11','cn12']){
   const note=page.match(new RegExp(key+':\\{name:[^\\n]+?note:"([^"]+)"'))?.[1];
   assert.ok(note,key);assert.ok(catalog[note]?.length>30,key+' English');
-  assert.match(note,/描き分け|省略|再現していません|未再現/);
+  assert.match(note,/描き分け|描かず|省略|再現していません|未再現|未収録/);
  }
  assert.doesNotMatch(page,/迷走神経より尾側の根列として並ぶ/);
+ assert.match(page,/cn11:\{name:[^\n]+延髄から出る根として示した形状ではありません/);
  assert.equal(catalog['舌咽・迷走・副神経'],'Glossopharyngeal, vagus and accessory nerves');
 });

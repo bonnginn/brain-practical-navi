@@ -4,6 +4,7 @@
 
 ## まず読む資料
 
+- [9月15日：模式神経・回路説明と保留範囲](SEPTEMBER15_SCHEMATIC_COMPLETION.md)
 - [再開メモ：完了したこと・次にやること](RESUME_SUMMARY.md)
 - [未完了作業のSol・Luna・Astra担当判断と実行指示](REMAINING_WORK_ASSIGNMENTS_2026-09-14.md)
 - [Sol・Luna成果の再確認と機能／回路教材の次の指示](FUNCTION_CIRCUIT_NEXT_INSTRUCTIONS_2026-09-14.md)

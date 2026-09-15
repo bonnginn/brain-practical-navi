@@ -2,6 +2,7 @@ import hashlib
 import json
 import sys
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 
@@ -11,8 +12,19 @@ import audit_fornix_scope  # noqa: E402
 
 
 class FornixScopeInventoryTests(unittest.TestCase):
+    def current_inventory(self):
+        # These two host documents also contain unrelated UI/nerve changes.
+        # Run the current semantic checks, rather than claiming to replay the
+        # unrecoverable historical Canvas bytes. Other fixed inputs stay pinned.
+        current_hashes = {
+            key: hashlib.sha256((ROOT / audit_fornix_scope.INPUTS[key]).read_bytes()).hexdigest()
+            for key in ("structureProvenance", "atlasVolumeCanvas")
+        }
+        with patch.dict(audit_fornix_scope.EXPECTED_SHA256, current_hashes):
+            return audit_fornix_scope.inventory()
+
     def test_inventory_is_fixed_and_separates_teaching_from_drafts(self):
-        result = audit_fornix_scope.inventory()
+        result = self.current_inventory()
         self.assertFalse(result["mutation"])
         self.assertFalse(result["adopted"])
         self.assertFalse(result["expertReviewed"])
@@ -34,18 +46,26 @@ class FornixScopeInventoryTests(unittest.TestCase):
         grid = result["unadoptedImageDrafts"]["gridContainment"]
         self.assertEqual((grid["mappedAppVoxelCount"], grid["fullyInsideCount"], grid["existingLabelCenterConflicts"]), (301, 75, 0))
 
-    def test_input_hashes_and_output_are_deterministic(self):
-        result = audit_fornix_scope.inventory()
+    def test_current_scope_matches_preserved_historical_report(self):
+        before = audit_fornix_scope.OUTPUT.read_bytes()
+        self.assertEqual(hashlib.sha256(before).hexdigest(), "7346d9662d620f7667fd2067eea6d657039114a06750507cb56caf022f2f47d6")
+        historical = json.loads(before)
+        result = self.current_inventory()
+        for key in result:
+            if key != "inputs":
+                self.assertEqual(result[key], historical[key], key)
         for name, expected in audit_fornix_scope.EXPECTED_SHA256.items():
-            self.assertEqual(result["inputs"][name]["sha256"], expected, name)
-        self.assertIn("atlasVolumeCanvas", result["inputs"])
-        self.assertIn("specimenBuilder", result["inputs"])
-        self.assertEqual(result["sharedMeshMapping"]["mappingToken"], 'item.key==="fornix"?"block-commissural-system-fornix"')
-        payload = (json.dumps(result, ensure_ascii=False, indent=2, sort_keys=True) + "\n").encode("utf-8")
-        audit_fornix_scope.main()
-        output = audit_fornix_scope.OUTPUT.read_bytes()
-        self.assertEqual(output, payload)
-        self.assertEqual(hashlib.sha256(output).hexdigest(), "7346d9662d620f7667fd2067eea6d657039114a06750507cb56caf022f2f47d6")
+            if name not in ("structureProvenance", "atlasVolumeCanvas"):
+                self.assertEqual(result["inputs"][name]["sha256"], expected, name)
+        # Keep the complete current fornix provenance entries, not just counts.
+        import zipfile
+        with zipfile.ZipFile(ROOT / "tests/fixtures/schematic-roots-pre-20260915.zip") as fixture:
+            old = json.loads(fixture.read("public/atlas/structure-provenance.json"))
+        current = json.loads((ROOT / "public/atlas/structure-provenance.json").read_text(encoding="utf-8"))
+        for key in ("surface-deep-fornix", "section-fornix"):
+            self.assertEqual(next(e for e in current["entries"] if e["key"] == key),
+                             next(e for e in old["entries"] if e["key"] == key))
+        self.assertEqual(audit_fornix_scope.OUTPUT.read_bytes(), before)
 
 
 if __name__ == "__main__":

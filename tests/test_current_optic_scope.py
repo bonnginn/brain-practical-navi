@@ -1,8 +1,11 @@
 import hashlib
 import json
 import sys
+import tempfile
 import unittest
+import zipfile
 from pathlib import Path
+from unittest.mock import patch
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -48,7 +51,17 @@ class CurrentOpticScopeTests(unittest.TestCase):
             "id33ExcludedFromSectionAndQuiz": True,
             "ids36To38Unsegmented": True,
         })
-        regenerated = audit.build_report()
+        with tempfile.TemporaryDirectory() as folder:
+            old_provenance = Path(folder) / "structure-provenance.json"
+            with zipfile.ZipFile(ROOT / "tests/fixtures/schematic-roots-pre-20260915.zip") as archive:
+                old_provenance.write_bytes(archive.read("public/atlas/structure-provenance.json"))
+            with patch.object(audit, "PROVENANCE", old_provenance):
+                regenerated = audit.build_report()
+        current_document = json.loads((ROOT / "public/atlas/structure-provenance.json").read_text(encoding="utf-8"))
+        current_entry = next(entry for entry in current_document["entries"] if entry.get("key") == audit.PROVENANCE_KEY)
+        with zipfile.ZipFile(ROOT / "tests/fixtures/schematic-roots-pre-20260915.zip") as archive:
+            historical_entry = next(entry for entry in json.loads(archive.read("public/atlas/structure-provenance.json"))["entries"] if entry.get("key") == audit.PROVENANCE_KEY)
+        self.assertEqual(current_entry, historical_entry)
         regenerated_bytes = (json.dumps(regenerated, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
         self.assertEqual(regenerated_bytes, before)
         self.assertEqual(hashlib.sha256(before).hexdigest(), "1c8161009e3593bfa41c435204079b52c2ec619d62f9c529f7d62b2d23ecacdc")

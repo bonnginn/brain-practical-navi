@@ -668,7 +668,7 @@
       "projectReview": "pending",
       "quizEligibility": "pilot",
       "sourceRefs": ["project-authored-teaching-overlays"],
-      "knownLimitations": ["全12対を模式的な近位走行として示します。I・II以外の遠位走行、神経核、頭蓋孔、微細根糸は再現していません。名称同定pilotはI・III〜XIIの既存模式形状だけを扱い、起始・走行・接続を判定しません。"],
+      "knownLimitations": ["脳神経の近位部を模式表示します。V・IX・Xは短い近位区間、XIは延髄外側の上行区間のみで、各端は表示上の打ち切りです。神経核、頭蓋孔、微細根糸は未再現です。V・IX–XIの名称同定・機能8問は短い部分形状での識別可能性を確認するまで保留します。"],
       "appKeys": ["cn1", "cn3", "cn4", "cn5", "cn6", "cn7", "cn8", "cn9", "cn10", "cn11", "cn12"]
     },
     {
@@ -693,7 +693,7 @@
       "projectReview": "pending",
       "quizEligibility": "none",
       "sourceRefs": ["project-authored-teaching-overlays"],
-      "knownLimitations": ["延髄尾側の近位根のみで、脊髄根列と頭蓋内走行は未再現です。"]
+      "knownLimitations": ["脊髄由来の副神経が延髄外側を上行する一部分のみを模式表示します。両端は表示上の打ち切りで、延髄から出る根ではありません。脊髄根糸、大後頭孔・頸静脈孔への全経路は未再現です。"]
     },
     {
      "key": "vascular-venous-system",

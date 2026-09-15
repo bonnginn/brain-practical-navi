@@ -16,6 +16,7 @@
 分節・模式表示には未完成の部分があり、専門家レビューは完了していません。教科書等と照合して使用してください。診断・治療・手術計画・定量研究には使用できません。特定の大学・部局の公式教材や承認済み事業ではありません。
 
 開発版では[ブロードマン分類による脳表観察](docs/BRODMANN_SURFACE_OBSERVATION.md)を追加しています（41領野、標準脳表と膨張表示。未公開）。
+機能の要約、3回路の解説、画面幅に応じた文字サイズと[模式神経の表示改善](docs/SEPTEMBER15_SCHEMATIC_COMPLETION.md)も開発版で利用できます。
 
 ## English
 
@@ -24,6 +25,7 @@
 This is a **public alpha**, not an expert-validated atlas. Of 100 authored questions, 92 are currently eligible; eight are withheld because of model-placement limitations. Available questions also depend on quiz settings. Segmentations and schematic models remain incomplete and must be checked against reliable teaching references. Do not use this app for clinical decisions, surgical planning or quantitative research. It is not an officially endorsed university resource.
 
 The unpublished development version adds [Brodmann surface observation](docs/BRODMANN_SURFACE_OBSERVATION.md): 41 areas on reference pial and inflated surfaces.
+It also includes function summaries, three circuit guides, responsive text sizes and [revised nerve schematics](docs/SEPTEMBER15_SCHEMATIC_COMPLETION.md).
 
 ## 出典・利用条件 / Sources and terms
 

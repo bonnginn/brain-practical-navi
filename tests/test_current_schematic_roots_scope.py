@@ -2,6 +2,9 @@ import hashlib
 import json
 import sys
 import unittest
+import tempfile
+import zipfile
+from unittest.mock import patch
 from pathlib import Path
 
 
@@ -49,12 +52,13 @@ class CurrentSchematicRootsScopeTests(unittest.TestCase):
         self.assertEqual(len(report["historicalImageEvidence"]), 5)
         self.assertTrue(all(item["expertReviewed"] is False for item in report["historicalImageEvidence"]))
         self.assertEqual(hashlib.sha256(before).hexdigest(), "3947032405d9822f126cf0213d89303b6eaf3afa48620e36f2e050a19f61b0e4")
-        if not audit.EVIDENCE_ROOT.exists():
-            self.skipTest("Requires uncommitted local image review evidence for regeneration")
-        missing = [relative for relative in audit.EVIDENCE if not (ROOT / relative).is_file()]
-        if missing:
-            self.fail("Local evidence directory exists but evidence is incomplete: " + ", ".join(missing))
-        regenerated = audit.build_report()
+        # This is the immutable September 14 checkpoint, not a constraint that
+        # current teaching geometry must forever retain its known defects.
+        with tempfile.TemporaryDirectory() as folder:
+            with zipfile.ZipFile(ROOT / "tests/fixtures/schematic-roots-pre-20260915.zip") as archive:
+                archive.extractall(folder)
+            with patch.object(audit, "ROOT", Path(folder)):
+                regenerated = audit.build_report()
         regenerated_bytes = (json.dumps(regenerated, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
         self.assertEqual(regenerated_bytes, before)
 

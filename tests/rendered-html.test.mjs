@@ -1553,9 +1553,9 @@ test("bundles simplified neurovascular overlays as separately disclosed teaching
   assert.match(metadata.cranialNerveRootCalibration, /current practical label 27 boundary.*not validated/i);
   assert.match(metadata.cranialNerveRootTopography.III, /interpeduncular fossa/i);
   assert.match(metadata.cranialNerveRootTopography.IV, /inferior colliculi/i);
-  assert.match(metadata.cranialNerveRootTopography["IX-XI"], /not rootlet rows.*XI spinal root and ascent omitted/i);
+  assert.match(metadata.cranialNerveRootTopography["IX-XI"], /IX rostral to X beside the olive, not rootlet rows.*XI shows part of the spinal-derived ascending course beside the lower medulla, not a medullary root/i);
   assert.match(metadata.cranialNerveRootTopography.XII, /between pyramid and olive/i);
-  assert.equal(metadata.anatomyReferences.length, 3);
+  assert.equal(metadata.anatomyReferences.length, 6);
   assert.match(metadata.status, /not validated morphometry/);
   assert.equal(metadata.groups.length, 5);
   assert.ok(metadata.omissions.includes("small perforators"));
@@ -1774,7 +1774,7 @@ test("keeps lecture coverage honest and separates pallidal segments", async () =
   }
 });
 
-test("anchors cranial nerve roots at the intended brainstem levels", async () => {
+test("anchors cranial nerve schematic segments at their intended brainstem levels", async () => {
   const files = [
     "overlay-nerves-anterior.mesh",
     "overlay-nerves-pontine.mesh",
@@ -1810,13 +1810,13 @@ test("anchors cranial nerve roots at the intended brainstem levels", async () =>
   near(25, [-9, 22, -42]);  // transverse body of the optic chiasm
   near(27, [4, -6, -30]);   // III, interpeduncular fossa
   near(29, [7, -20, -35]);  // IV, dorsal caudal midbrain
-  near(31, [17, -6, -46]);  // V, anterolateral pons
+  near(31, [16.5, -1, -47]); // V, short proximal segment at the anterolateral pons
   near(33, [3, 3, -58]);    // VI, medial pontomedullary sulcus
   near(35, [13, -1, -57]);  // VII
   near(37, [17, -6, -57]);  // VIII, lateral to VII
-  near(39, [13, -26, -62]); // IX, upper post-olivary sulcus
-  near(41, [10.5, -25, -68]); // X, post-olivary rootlets below IX
-  near(43, [9, -25, -76]);  // XI, caudal rootlets
+  near(39, [17.5, 4, -60]); // IX, short segment beside the olive, rostral to X
+  near(41, [17.5, 4, -68]); // X, short segment beside the olive below IX
+  near(43, [8.5, -18.5, -84]); // XI, caudal end of the partial ascending course, not a medullary root
   near(45, [7, -8, -66]);   // XII, pre-olivary sulcus
 });
 

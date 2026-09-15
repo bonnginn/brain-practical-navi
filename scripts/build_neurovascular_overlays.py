@@ -208,8 +208,9 @@ def main():
     anterior_nerves += pair("IV 滑車神経", [p(7, -20, -35), p(11, -18, -36), p(15, -13, -36), p(19, -7, -35), p(24, -1, -33)], .72)
 
     pontine_nerves = []
-    # V: broad root on the anterolateral pons.
-    pontine_nerves += pair("V 三叉神経", [p(17, -6, -46), p(23, -2, -45), p(30, 2, -43), p(37, 7, -39)], 1.75)
+    # V: short teaching segment at the anterolateral pons. The distal cutoff
+    # is not an anatomical endpoint; sensory and motor roots remain combined.
+    pontine_nerves += pair("V 三叉神経", [p(16.5, -1, -47), p(17.7, 0, -47.7), p(18.9, 1, -48.4), p(20, 2, -49)], .6)
     # VI–VIII: pontomedullary sulcus, ordered medial to lateral.
     pontine_nerves += pair("VI 外転神経", [p(3, 3, -58), p(6, 7, -58), p(10, 11, -57), p(14, 15, -54)], .72)
     pontine_nerves += pair("VII 顔面神経", [p(13, -1, -57), p(18, 3, -56), p(24, 7, -53), p(30, 11, -49)], .82)
@@ -221,10 +222,10 @@ def main():
 
     medullary_nerves = []
     # IX–XI: one schematic proximal path each, NOT serial rootlets.
-    # XI does not reproduce the spinal root or its ascending course.
-    medullary_nerves += pair("IX 舌咽神経", [p(13, -26, -62), p(18, -22, -61), p(23, -17, -58), p(29, -11, -54)], .66)
-    medullary_nerves += pair("X 迷走神経", [p(10.5, -25, -68), p(16, -22, -67), p(23, -18, -63), p(30, -13, -58)], .72)
-    medullary_nerves += pair("XI 副神経", [p(9, -25, -76), p(14, -24, -74), p(20, -21, -70), p(27, -17, -64)], .68)
+    # XI shows only part of the spinal-derived ascending course, with two cutoffs.
+    medullary_nerves += pair("IX 舌咽神経", [p(17.5, 4, -60), p(19, 5, -60), p(21, 6, -60), p(23, 7, -60)], .45)
+    medullary_nerves += pair("X 迷走神経", [p(17.5, 4, -68), p(19, 5, -68), p(21, 6, -68), p(23, 7, -68)], .5)
+    medullary_nerves += pair("XI 副神経", [p(8.5, -18.5, -84), p(10.5, -18.5, -81), p(12, -18.5, -78), p(13, -18.5, -75)], .45)
     # XII: pre-olivary sulcus, between pyramid and olive.
     medullary_nerves += pair("XII 舌下神経", [p(7, -8, -66), p(11, -5, -65), p(16, -2, -62), p(22, 2, -57)], .66)
 
@@ -246,6 +247,7 @@ def main():
     ]
     metadata = {
         "version": 3,
+        "september15SchematicPolicy": "V, IX and X show short literature-based proximal segments only. XI shows a short spinal-derived ascending segment beside the lower medulla, with two display cutoffs and no medullary root attachment. V lies at the anterolateral pons; IX is rostral to X beside the olive. Tube ends are display cutoffs, not anatomical endpoints. Finite mesh/label collision screening supports display placement, not specimen nerve identification or expert validation.",
         "pontineProximalDisplayPolicy": "VII/VIII retain original rings 0-7 only; unsupported distal extensions into temporal tissue are omitted. The cutoff is a display limit, not an observed nerve endpoint. Exact root exits, individual components and the course to the internal acoustic meatus remain unvalidated.",
         "posteriorCommunicatingJunctionPolicy": "Existing PComm shares ICA knot 2 (shifted) and PCA knot 1 (unshifted), connected by a straight schematic segment. Topological correction only; not individual vessel morphology or expert validation.",
         "coordinateSpace": "manually approximated MNI-oriented display space",
@@ -261,17 +263,20 @@ def main():
             "V": "anterolateral mid-pons; one tube per side, sensory and motor roots not separated",
             "VI": "medial pontomedullary sulcus",
             "VII-VIII": "pontomedullary sulcus/cerebellopontine angle, lateral to VI; VII medial to VIII",
-            "IX-XI": "simplified proximal paths in superior-to-inferior order, not rootlet rows; XI spinal root and ascent omitted",
+            "IX-XI": "IX rostral to X beside the olive, not rootlet rows; XI shows part of the spinal-derived ascending course beside the lower medulla, not a medullary root",
             "XII": "pre-olivary sulcus between pyramid and olive",
         },
         "anatomyReferences": [
+            "https://nba.uth.tmc.edu/neuroanatomy/l4/Lab04p21_index.html",
+            "https://medicine.uams.edu/neuroscience/education/medical-school-courses/human-structure-module/anatomy-tables/viscera-tables/visceral-structures-of-the-head-and-neck/",
+            "https://www.ncbi.nlm.nih.gov/books/NBK507722/",
             "https://www.ncbi.nlm.nih.gov/books/NBK608599/",
             "https://www.ncbi.nlm.nih.gov/books/NBK406/",
             "https://www.ncbi.nlm.nih.gov/books/NBK544297/",
         ],
         "status": "project-authored simplified teaching overlay; not validated morphometry",
         "scope": "major basal arteries and schematic proximal cranial-nerve paths, not an observed rootlet reconstruction",
-        "omissions": ["individual variation", "small perforators", "distal nerve course beyond the proximal olfactory bulb/tract and cranial-nerve roots", "skull foramina", "surgical accuracy", "individual cranial-nerve rootlets", "separate trigeminal sensory and motor roots", "separate facial motor and intermediate nerves", "separate vestibular and cochlear components", "accessory spinal root and ascending course"],
+        "omissions": ["individual variation", "small perforators", "distal nerve course beyond the proximal olfactory bulb/tract and cranial-nerve roots", "skull foramina", "surgical accuracy", "individual cranial-nerve rootlets", "separate trigeminal sensory and motor roots", "separate facial motor and intermediate nerves", "separate vestibular and cochlear components", "accessory spinal rootlets and complete ascending course to skull foramina"],
         "groups": results,
     }
     (OUT / "neurovascular-overlays.json").write_text(json.dumps(metadata, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

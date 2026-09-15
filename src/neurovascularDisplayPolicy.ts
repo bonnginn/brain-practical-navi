@@ -1,5 +1,5 @@
 export type RegionMesh={vertices:Float32Array;normals:Float32Array;shade:Float32Array;regions:Float32Array;faces:Uint32Array;auditSource?:{path:string;sha256:string}};
-export const HIDDEN_CRANIAL_NERVE_OVERLAY_REGIONS=new Set([30,31,38,39,40,41,42,43]);
+export const HIDDEN_CRANIAL_NERVE_OVERLAY_REGIONS=new Set<number>();
 const displayMeshCache=new WeakMap<RegionMesh,RegionMesh>();
 
 export function withoutHiddenCranialNerveRegions<T extends RegionMesh>(mesh:T):RegionMesh{

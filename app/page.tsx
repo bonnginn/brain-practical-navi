@@ -15,7 +15,7 @@ import { readSectionLink, sectionLinkHash, observationUrl } from "../src/section
 import { SEGMENTATION_LABEL_SHA256 } from "./segmentationLabelRevision";
 import { observationQuestionsForEntry } from "../src/anatomyReviewQueue.mjs";
 import { balancedQuizOrder } from "../src/quizOrder.mjs";
-import { isQuizAnatomyAvailable } from "../src/quizAnatomyHold.mjs";
+import { isQuizAnatomyAvailable, quizAnatomyHoldSummary } from "../src/quizAnatomyHold.mjs";
 import { quizAnswerComparison } from "../src/quizComparison.mjs";
 import anatomyReviewRegistry from "../public/atlas/structure-provenance.json";
 import { freeObservationReadings, matchesJapaneseSearch, normalizeJapaneseSearch } from "../src/japaneseSearch";
@@ -162,7 +162,7 @@ const surfaceViews:Record<SurfaceViewKey,{name:string;en:string;visual:"cortex"|
   inferior:{name:"下面",en:"INFERIOR SURFACE",visual:"cortex",rotation:{x:70,y:4},hemisphere:"both",intro:"嗅覚路・視覚路、視床下部底面と脳幹を前後方向に並べ、中脳から橋・延髄への連続も観察します。",structures:["嗅球・嗅索・嗅溝","視神経・視交叉・視索","視床下部・漏斗・乳頭体","大脳脚・中脳・上丘・下丘","橋・延髄","錐体・オリーブ","小脳半球"]},
   medial:{name:"左半球・内側面",en:"LEFT MEDIAL HEMISPHERE",visual:"cortex",rotation:{x:0,y:90,z:0},hemisphere:"left",intro:"右半球を外し、左半球の内側面を正中側から観察します。まず皮質と脳溝を確認し、深部構造は必要なものだけ追加します。",structures:["帯状回・脳梁周囲","中心傍小葉","楔前部・楔部","頭頂後頭溝","鳥距溝","必要時のみ脳梁・左視床・視床下部を追加"]},
   arteries:{name:"脳底の主要動脈",en:"BASAL CEREBRAL ARTERIES",visual:"arteries",rotation:{x:110,y:2,z:180},hemisphere:"both",intro:"高密度全脳モデルの下面へ主要動脈を重ね、内頸動脈系と椎骨脳底動脈系が脳底の動脈輪で連絡する標準的な配置を追います。",structures:["内頸動脈・中大脳動脈","前大脳動脈・前交通動脈","後交通動脈・後大脳動脈","椎骨動脈・脳底動脈","上小脳・前下小脳・後下小脳動脈","視交叉・脳幹との位置関係"],caution:"赤い管は主要幹の典型的な連絡を標準空間へ置いた模式3Dです。Willis動脈輪は欠損・低形成・胎児型などの個体差が多く、完全な輪が常に存在するわけではありません。穿通枝・正確な血管径・個人差は再現していません。"},
-  cranialNerves:{name:"脳神経・脳幹",en:"CRANIAL NERVES & BRAINSTEM",visual:"nerves",rotation:{x:-42,y:2,z:0},hemisphere:"both",intro:"脳底面に脳神経の近位部の模式を重ねます。I・IIと脳幹から現れる神経を区別し、各項目で表示範囲と省略を確認してください。副神経の脊髄根は未収録です。",structures:["嗅球・嗅索・視神経・視交叉","動眼神経・滑車神経","三叉神経","外転・顔面・内耳神経","舌咽・迷走・副神経","舌下神経と錐体・オリーブ"],caution:"I・IIは脳幹から出る神経根ではありません。V・IX–XIは形状調整中のため非表示です。表示中のIII・IV・VI–VIII・XIIは脳幹近位部の模式で、根糸・感覚根と運動根などの細分を省略しています。神経核・頭蓋孔・正確な径も未再現です。"},
+  cranialNerves:{name:"脳神経・脳幹",en:"CRANIAL NERVES & BRAINSTEM",visual:"nerves",rotation:{x:-42,y:2,z:0},hemisphere:"both",intro:"脳底面に脳神経の近位部の模式を重ねます。I・IIと脳幹から現れる神経を区別し、各項目で表示範囲と省略を確認してください。副神経は延髄外側に沿う上行区間の一部分だけを収録しています。",structures:["嗅球・嗅索・視神経・視交叉","動眼神経・滑車神経","三叉神経","外転・顔面・内耳神経","舌咽・迷走・副神経","舌下神経と錐体・オリーブ"],caution:"I・IIは脳幹から出る神経根ではありません。V・IX・Xは文献に基づく短い近位部、XIは延髄外側に沿う上行区間の一部分を模式表示し、各先端は表示上の打ち切りです。表示中の脳神経は根糸などの細分、神経核、頭蓋孔までの経路、正確な径を再現していません。"},
   free:{name:"自由観察",en:"FREE EXPLORATION",visual:"cortex",rotation:{x:-8,y:-28,z:0},hemisphere:"both",intro:"3Dを自由に回転し、表面をクリックするか構造名を検索して、複数の構造を同時に着色します。",structures:["主要な脳回・皮質領域","主要な溝・裂","内側の深部構造","脳底動脈","脳神経"]},
 };
 
@@ -360,13 +360,13 @@ const neurovascularStructures:Record<NeurovascularStructureKey,{name:string;lati
   opticChiasm:{name:"II 視交叉",latin:"Optic chiasm",kind:"nerves",ids:[25],note:"視交叉では視神経線維の一部が交叉します。模式形状は交叉・非交叉線維を描き分けていません。"},
   cn3:{name:"III 動眼神経",latin:"Oculomotor nerve",kind:"nerves",ids:[26,27],note:"中脳の脚間窩から腹側へ現れる神経です。現行の模式管には中脳組織内を通る部分があり、実際の脳内線維束を追跡したものではありません。脳外の近位経路・根糸・正確な出現境界も未確定です。出現位置の正解図としては扱わないでください。"},
   cn4:{name:"IV 滑車神経",latin:"Trochlear nerve",kind:"nerves",ids:[28,29],note:"中脳背側から出た後、外側を回って腹面へ現れる。"},
-  cn5:{name:"V 三叉神経",latin:"Trigeminal nerve",kind:"nerves",ids:[30,31],displayAvailable:false,note:"現行形状の組織への貫入を確認しており、形状を調整中のため模式3Dは非表示です。三叉神経は顔面の感覚と咀嚼筋の運動に関わります。関連クイズは保留しています。感覚根・運動根も描き分けていません。"},
+  cn5:{name:"V 三叉神経",latin:"Trigeminal nerve",kind:"nerves",ids:[30,31],note:"三叉神経は顔面の感覚と咀嚼筋の運動に関わります。橋の前外側にある短い近位部を文献に基づく模式として示します。先端は表示上の打ち切りで、感覚根・運動根や神経節までの走行は描き分けていません。関連クイズは表示確認中のため保留しています。"},
   cn6:{name:"VI 外転神経",latin:"Abducens nerve",kind:"nerves",ids:[32,33],note:"橋延髄境界の正中寄りから現れる。"},
   cn7:{name:"VII 顔面神経",latin:"Facial nerve",kind:"nerves",ids:[34,35],note:"顔面神経の近位部だけを示す模式です。先端は表示上の切り詰めで、神経の終端ではありません。正確な出現部と内耳道までの経路は未再現で、運動根と中間神経も描き分けていません。"},
   cn8:{name:"VIII 内耳神経",latin:"Vestibulocochlear nerve",kind:"nerves",ids:[36,37],note:"前庭蝸牛神経の近位部だけを示す模式です。先端は表示上の切り詰めで、神経の終端ではありません。正確な出現部と内耳道までの経路は未再現で、前庭・蝸牛成分も描き分けていません。"},
-  cn9:{name:"IX 舌咽神経",latin:"Glossopharyngeal nerve",kind:"nerves",ids:[38,39],displayAvailable:false,note:"現行形状の組織への貫入を確認しており、形状を調整中のため模式3Dは非表示です。舌咽神経は咽頭、舌後方、耳下腺などに関わる混合神経です。関連クイズは保留しています。複数の根糸と集合過程も未再現です。"},
-  cn10:{name:"X 迷走神経",latin:"Vagus nerve",kind:"nerves",ids:[40,41],displayAvailable:false,note:"現行形状の組織への貫入を確認しており、形状を調整中のため模式3Dは非表示です。迷走神経は咽頭・喉頭と胸腹部臓器の運動、感覚、自律機能に広く関わります。関連クイズは保留しています。複数の根糸も未再現です。"},
-  cn11:{name:"XI 副神経",latin:"Accessory nerve",kind:"nerves",ids:[42,43],displayAvailable:false,note:"現行形状の組織への貫入を確認しており、形状を調整中のため模式3Dは非表示です。副神経は主に胸鎖乳突筋と僧帽筋の運動に関わります。関連クイズは保留しています。根列や脊髄根の上行経路も未再現です。"},
+  cn9:{name:"IX 舌咽神経",latin:"Glossopharyngeal nerve",kind:"nerves",ids:[38,39],note:"舌咽神経は咽頭、舌後方、耳下腺などに関わる混合神経です。延髄のオリーブ外側にある短い近位部を文献に基づく模式として示します。複数の根糸や頸静脈孔までの経路は描かず、先端は表示上の打ち切りです。関連クイズは表示確認中のため保留しています。"},
+  cn10:{name:"X 迷走神経",latin:"Vagus nerve",kind:"nerves",ids:[40,41],note:"迷走神経は咽頭・喉頭と胸腹部臓器の運動、感覚、自律機能に広く関わります。延髄のオリーブ外側にある短い近位部を文献に基づく模式として示します。複数の根糸や頸静脈孔までの経路は描かず、先端は表示上の打ち切りです。関連クイズは表示確認中のため保留しています。"},
+  cn11:{name:"XI 副神経",latin:"Accessory nerve",kind:"nerves",ids:[42,43],note:"副神経は主に胸鎖乳突筋と僧帽筋の運動に関わります。延髄外側に沿って上行する短い一部分を文献に基づく模式として示し、両端は表示上の打ち切りです。脊髄根糸、大後頭孔・頸静脈孔までの全経路は未収録で、延髄から出る根として示した形状ではありません。関連クイズは表示確認中のため保留しています。"},
   cn12:{name:"XII 舌下神経",latin:"Hypoglossal nerve",kind:"nerves",ids:[44,45],note:"錐体とオリーブの間のオリーブ前溝から現れる舌下神経の模式です。複数の根糸は一本の管に省略しています。"},
 };
 const neurovascularStructureKeys=Object.keys(neurovascularStructures) as NeurovascularStructureKey[];
@@ -1398,7 +1398,7 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
           <label><span>次回の詳細（形式と組合せ）</span><select value={quizDetail} onChange={event=>setQuizDetail(event.target.value as QuizDetailFilter)}><option value="all">{`すべての詳細（${quizChoiceCount("detail","all")}問）`}</option>{quizDetailOptions.map(detail=><option key={detail} value={detail}>{`${quizDetailLabels[detail]}（${quizChoiceCount("detail",detail)}問）`}</option>)}</select><small className="quizFilterHint">名称同定に加えて、機能・位置関係・経路を問う試作問題を含みます。新しい解説問題は専門家未確認です。</small></label>
           <label><span>{englishEdition?"Next question type":"次回の問題タイプ"}</span><select value={quizKind} onChange={event=>setQuizKind(event.target.value as "all"|QuizQuestionKind)}><option value="all">{englishEdition?"All question types":"すべての問題タイプ"}</option>{(Object.keys(quizQuestionKindLabel) as QuizQuestionKind[]).map(kind=><option key={kind} value={kind}>{quizQuestionKindLabel[kind]}</option>)}</select></label>
           <div className="quizCandidateSummary" role="status" aria-live="polite"><b>次回 {quizCandidateCount}問候補</b>{" "}<span>標準 {quizStandardCandidateCount}・試作 {quizProvisionalCandidateCount}</span></div>
-          <p className="quizFilterHint" data-quiz-anatomy-hold="cn5,cn9,cn10,cn11">{englishEdition?"Eight questions using the V and IX–XI models are temporarily excluded while their placement is corrected. Their current paths must not be used to learn precise anatomy.":"V・IX〜XIの模型を使う8問は、配置の修正が済むまで出題から外しています。現在の経路を正確な位置の学習には使わないでください。"}</p>
+          <p className="quizFilterHint" data-quiz-anatomy-hold="cn5,cn9,cn10,cn11">{quizAnatomyHoldSummary(englishEdition)}</p>
           {quizCandidateCount===0&&<p className="quizCandidateEmptyNote" role="status" aria-live="polite">現在の条件の組合せに該当する問題がありません。トピック・形式・詳細・問題タイプ・「間違った問題のみ」・「試作問題を含む」を見直してください。</p>}
           <div><span>次回の問題数（候補に応じて）</span><div className="quizCountButtons" role="group" aria-label="次回の問題数（上限）">{([5,10,15,20] as const).map(count=>{const actual=Math.min(count,quizCandidateCount);const label=quizCandidateCount<count?`${count}問（実際${actual}問）`:`${count}問`;return <button key={count} className={quizCount===count?"active":""} onClick={()=>setQuizCount(count)} disabled={quizCandidateCount===0} aria-pressed={quizCount===count} aria-label={`${count}問を上限に${actual}問（候補${quizCandidateCount}）`}>{label}</button>})}</div></div>
           <label className="wrongOnlyToggle"><input data-quiz-wrong-only="true" type="checkbox" checked={quizWrongOnly} onChange={event=>setQuizWrongOnly(event.target.checked)}/><span>間違った問題のみ</span><b data-quiz-candidate-count={quizCandidateCount}>{wrongTargets.length}</b></label>
