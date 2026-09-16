@@ -1373,9 +1373,13 @@ test("keeps the browser distribution below the beta asset budget", async () => {
   // Keep the existing distribution's 100 MiB ceiling; give this addition a separate 12 MiB ceiling.
   const brodmannNames = ["brodmann-left.mesh.gz", "brodmann-right.mesh.gz", "brodmann-left-inflated.mesh.gz", "brodmann-right-inflated.mesh.gz", "brodmann-surface.json", "BRODMANN-FREESURFER-NOTICE.txt"];
   const brodmannBytes = (await Promise.all(brodmannNames.map(name => stat(new URL(`public/atlas/${name}`, root))))).reduce((sum, file) => sum + file.size, 0);
-  assert.ok(publicBytes - brodmannBytes < 100 * 1024 * 1024, `existing public assets are ${((publicBytes - brodmannBytes) / 1024 / 1024).toFixed(1)} MiB`);
+  const nucleiReport = JSON.parse(await readFile(new URL('public/atlas/section-current-nuclei.json', root), 'utf8'));
+  const nucleiNames = [...Object.keys(nucleiReport.meshes).map(name => `${name}.mesh`), 'section-current-nuclei.json'];
+  const nucleiBytes = (await Promise.all(nucleiNames.map(name => stat(new URL(`public/atlas/${name}`, root))))).reduce((sum, file) => sum + file.size, 0);
+  assert.ok(nucleiBytes < 6 * 1024 * 1024, 'uncropped current meshes exceed 6 MiB');
+  assert.ok(publicBytes - brodmannBytes - nucleiBytes < 100 * 1024 * 1024, `existing public assets are ${((publicBytes - brodmannBytes) / 1024 / 1024).toFixed(1)} MiB`);
   assert.ok(brodmannBytes < 12 * 1024 * 1024, `Brodmann assets are ${(brodmannBytes / 1024 / 1024).toFixed(1)} MiB`);
-  assert.ok(publicBytes < 112 * 1024 * 1024, `combined public assets are ${(publicBytes / 1024 / 1024).toFixed(1)} MiB`);
+  assert.ok(publicBytes < 118 * 1024 * 1024, `combined public assets are ${(publicBytes / 1024 / 1024).toFixed(1)} MiB`);
 
   for (const obsolete of [
     "mni-cerebra-1mm.bin",
