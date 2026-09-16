@@ -74,3 +74,14 @@ test("both image renderers draw orientation markers and sagittal inspection rema
   assert.match(editor,/isEditablePlane=plane==="horizontal"/);
   assert.match(editor,/planeVoxel\(/);
 });
+
+test("selected aqueduct lumen remains colored over bright background like the other ventricles",()=>{
+  const d=[1,1,1],color=[213,139,168];
+  for(const raw of [251,252,255])for(const label of [25,26,41])for(const display of ["specimen","diagram","outline"]){
+    const bb={dims:d,values:new Uint8Array([raw])},manual={dims:d,labels:new Uint8Array([label])};
+    scope.drawSlice(context,500,400,null,bb,manual,"sagittal",0,display,"bigbrain",tone,new Map([[label,color]]),1,{x:0,y:0});
+    assert.deepEqual(Array.from(pixels),[...color,display==="specimen"?220:245],`raw=${raw} label=${label} display=${display}`);
+    scope.drawSlice(context,500,400,null,bb,manual,"sagittal",0,display,"bigbrain",tone,new Map(),1,{x:0,y:0});
+    assert.equal(pixels[3],raw>=252?0:255,"unselected lumen preserves source display");
+  }
+});

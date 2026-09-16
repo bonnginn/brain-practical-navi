@@ -561,7 +561,7 @@ function drawSlice(c:CanvasRenderingContext2D,w:number,h:number,v:Volume|null,bb
   const values=isBB?bb!.values:contrast==="t2"?v!.t2:v!.t1,off=document.createElement("canvas");off.width=sw;off.height=sh;const oc=off.getContext("2d")!,im=oc.createImageData(sw,sh);
   const sample=(x:number,y:number)=>values[get(Math.max(0,Math.min(sw-1,x)),Math.max(0,Math.min(sh-1,y)))];
   for(let y=0;y<sh;y++)for(let x=0;x<sw;x++){
-    const si=get(x,y),q=(y*sw+x)*4,label=isBB?(manual?.labels[si]??0):v!.labels[si],highlightColor=labelColors.get(label),cavityLabel=isBB&&label>=23&&label<=26,raw=values[si];
+    const si=get(x,y),q=(y*sw+x)*4,label=isBB?(manual?.labels[si]??0):v!.labels[si],highlightColor=labelColors.get(label),cavityLabel=isBB&&((label>=23&&label<=26)||label===41),raw=values[si];
     const cross=(sample(x-1,y)+sample(x+1,y)+sample(x,y-1)+sample(x,y+1))*.25;
     const diagonal=(sample(x-1,y-1)+sample(x+1,y-1)+sample(x-1,y+1)+sample(x+1,y+1))*.25;
     const near=cross*.68+diagonal*.32,base=display==="specimen"?raw+(raw-near)*tone.sharpness:raw;
