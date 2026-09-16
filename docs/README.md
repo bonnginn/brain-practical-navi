@@ -4,6 +4,7 @@
 
 ## まず読む資料
 
+- [脳弓・視覚路の境界を決める資料と手順](FIBER_BOUNDARY_METHODS_2026-09-16.md)
 - [最新：脳室接続・脳弓体部・外側膝状体の統合と残件](SEPTEMBER16_CONNECTION_FIBER_CHECKPOINT.md)
 - [9月16日午前：中脳水道〜第四脳室の接続](AQUEDUCT_FOURTH_CONNECTION_2026-09-16.md)
 - [右脳室間孔の接続](RIGHT_FORAMEN_CONNECTION_2026-09-16.md)
