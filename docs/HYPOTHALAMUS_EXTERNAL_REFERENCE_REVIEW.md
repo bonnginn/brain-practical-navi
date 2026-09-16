@@ -2,6 +2,16 @@
 
 ## 2026-09-16追補：未使用の40 µm原画像を取得
 
+### 取得後の局所照合
+
+同じ物理位置で100 µm版へ三線形参照した11,832点の濃度相関は0.99021497。Y開始位置の差0.03 mmを補正した。これは解像度間の対応確認であり、appへの変換検証や線維束の解剖学的妥当性ではない。
+
+40 µm冠状Y255–270（16.57–17.17 mm）の16連続面と代表直交6面を全て目視し、さらにY全439面を含む切り出しの代表直交6面を確認した。最初の直交図は前後3.04 mmしか含まず、端部の判定には不足するため広げた。視交叉候補の位置にある中央横走組織の輪郭・裂隙は見えるが、上方の付着部や前後端を独立した視交叉の境界として確定できない。crop境界を構造境界へ置き換えない。
+
+別に正中上部のY350–365（20.37–20.97 mm）16連続面、代表直交6面も目視。左右へ分かれる組織と正中付着部の関係を確認できる一方、脳弓柱だけを周囲の中隔・視床下部組織から切り分ける確証には至らなかった。これは全脳弓脚・柱の40 µm全経路レビューではない。
+
+全景3面も確認済み。コードは `work/review_roi40_local.py`、`work/review_roi40_orthogonal.py`、`work/review_roi40_fornix.py`。図とSHA付きreportは `work/anatomy-review/hypothalamus-native40-local-v1/`、`hypothalamus-native40-orthogonal-v2/`、`hypothalamus-native40-fornix-context-v1/` に保存。いずれも候補ラベルを生成・採用していない。40 µmへ細かくしたことだけでは、既存の帰属不明境界を解決できなかった。同じ局所の再描画を成果として繰り返さず、束固有の注釈か境界規約の判断が次の条件となる。
+
 既存の100 µmレビューを繰り返す前に、同じ公式配布の `hypothalamus_full_40um.mnc` を取得した。635,270,156 bytes、SHA `18aec7b69b59ab5e3dc578885accbae2d86f86a7bbc6cba5dd2a07dbd4712f65`。`work/hypothalamus_full_40um.mnc` に保存。配布にあるという過去の記録と、今回実際に取得したことを区別する。
 
 MINCの格納順はYZX、shape439×976×1185、各軸step0.04 mm。XYZ開始座標は[-23.0666,6.37,-29.3777] mm。100 µm版のY開始6.34 mmとは0.03 mm異なるため、単純なindexの2.5倍対応は使用しない。uint16、valid range0–65535、面別min/maxは全て0/65535で恒等。調査コード `work/inspect_roi40.py`、結果 `work/anatomy-review/hypothalamus-native40-inventory-v1/report.json`。
