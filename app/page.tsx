@@ -441,6 +441,21 @@ const structureMeshFiles:Partial<Record<StructureKey,string[]>>={
 // Uncropped current labels are used only with their matching BigBrain sections.
 // Keep the MNI and block-specimen mappings separate.
 const bigbrainSectionMeshFiles:Partial<Record<StructureKey,string[]>>={
+  caudate:["section-current-caudate"],
+  putamen:["section-current-putamen"],
+  pallidumExternal:["section-current-pallidum-external"],
+  pallidumInternal:["section-current-pallidum-internal"],
+  pallidum:["section-current-pallidum-external","section-current-pallidum-internal"],
+  thalamus:["section-current-thalamus"],
+  hippocampus:["section-current-hippocampus"],
+  accumbens:["section-current-accumbens"],
+  amygdala:["section-current-amygdala"],
+  redNucleus:["section-current-red-nucleus"],
+  substantiaNigra:["section-current-substantia-nigra"],
+  subthalamic:["section-current-subthalamic"],
+  corpusCallosum:["section-current-corpus-callosum"],
+  mammillaryBody:["section-current-mammillary-bodies"],
+  insula:["section-current-insula"],
   cerebellum:["section-current-cerebellum"],
   brainstem:["section-current-brainstem"],
   internalCapsule:["section-current-internal-capsule"],

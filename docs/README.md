@@ -4,6 +4,8 @@
 
 ## まず読む資料
 
+- [断面併設3D：全26項目の左右表示確認と修正](SECTION_BILATERAL_MODELS_2026-09-16.md)
+
 - [脳弓・視覚路の境界を決める資料と手順](FIBER_BOUNDARY_METHODS_2026-09-16.md)
 - [最新：脳室接続・脳弓体部・外側膝状体の統合と残件](SEPTEMBER16_CONNECTION_FIBER_CHECKPOINT.md)
 - [9月16日午前：中脳水道〜第四脳室の接続](AQUEDUCT_FOURTH_CONNECTION_2026-09-16.md)

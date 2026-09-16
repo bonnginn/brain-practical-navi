@@ -1,0 +1,565 @@
+{
+  "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
+  "sourceSha256": "5211664518129297bbf78d1d536004e540e721615a88007ecf1459d18fb97a96",
+  "method": "0.5 mm marching cubes; no resampling, filling, smoothing or component removal",
+  "scope": "Display synchronization only; not anatomical validation",
+  "meshes": {
+    "section-current-caudate": {
+      "voxels": 77580,
+      "components6": 9,
+      "componentSizes": [
+        40698,
+        36874,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "boundsZYX": [
+        [
+          119,
+          221,
+          154
+        ],
+        [
+          196,
+          320,
+          237
+        ]
+      ],
+      "vertices": 26865,
+      "faces": 53782,
+      "sha256": "7106faf92a14687b56db4d9684b6226d84646ac673f2f6be9d203d16c85a9988",
+      "bytes": 340836,
+      "labelIds": [
+        7,
+        8
+      ],
+      "labelVoxelCounts": {
+        "7": 40703,
+        "8": 36877
+      },
+      "rawSha256": "bade8c753c9b3fb3b2225ae1997d17a0ed29087d7e711a6f558fdfe2b38c1ca9",
+      "compression": "gzip"
+    },
+    "section-current-putamen": {
+      "voxels": 108496,
+      "components6": 4,
+      "componentSizes": [
+        55335,
+        53159,
+        1,
+        1
+      ],
+      "boundsZYX": [
+        [
+          114,
+          223,
+          130
+        ],
+        [
+          174,
+          310,
+          263
+        ]
+      ],
+      "vertices": 29772,
+      "faces": 59564,
+      "sha256": "4037906ffeb2d296e233c08bbfcc46cc2030a4b0d6cfe4f74292ce81cbdc736b",
+      "bytes": 372819,
+      "labelIds": [
+        9,
+        10
+      ],
+      "labelVoxelCounts": {
+        "9": 53160,
+        "10": 55336
+      },
+      "rawSha256": "87541d45d78c2890b9b0a51ae77715a679cc5fc5db2bfaa8173bf02ead8d7513",
+      "compression": "gzip"
+    },
+    "section-current-pallidum-external": {
+      "voxels": 22806,
+      "components6": 3,
+      "componentSizes": [
+        11441,
+        11364,
+        1
+      ],
+      "boundsZYX": [
+        [
+          128,
+          233,
+          139
+        ],
+        [
+          158,
+          284,
+          256
+        ]
+      ],
+      "vertices": 11354,
+      "faces": 22724,
+      "sha256": "078d695eb8e42cee81e7546166c0cf41995642730b2715c00f86eb86cc4b20ec",
+      "bytes": 149120,
+      "labelIds": [
+        11,
+        12
+      ],
+      "labelVoxelCounts": {
+        "11": 11442,
+        "12": 11364
+      },
+      "rawSha256": "1f900bcc0bb03477771148bdb14adde8a4934152e016eccc439d1492c619becd",
+      "compression": "gzip"
+    },
+    "section-current-pallidum-internal": {
+      "voxels": 9244,
+      "components6": 4,
+      "componentSizes": [
+        4852,
+        4390,
+        1,
+        1
+      ],
+      "boundsZYX": [
+        [
+          128,
+          239,
+          146
+        ],
+        [
+          150,
+          271,
+          247
+        ]
+      ],
+      "vertices": 5655,
+      "faces": 11306,
+      "sha256": "2ff0fc06f21919767419fd6996c19540dd8619fce973d595d91ae4a080fd8776",
+      "bytes": 75819,
+      "labelIds": [
+        13,
+        14
+      ],
+      "labelVoxelCounts": {
+        "13": 4391,
+        "14": 4853
+      },
+      "rawSha256": "709a486b2dacc833c120bf56fe51cd90bbae26f6f7553eff2094f4cbd27eed57",
+      "compression": "gzip"
+    },
+    "section-current-thalamus": {
+      "voxels": 133773,
+      "components6": 2,
+      "componentSizes": [
+        67297,
+        66476
+      ],
+      "boundsZYX": [
+        [
+          134,
+          197,
+          148
+        ],
+        [
+          182,
+          267,
+          245
+        ]
+      ],
+      "vertices": 27684,
+      "faces": 55360,
+      "sha256": "88015be6c5b37803c6f5e60272976c986f342a79fd4bae37582e018008291729",
+      "bytes": 343226,
+      "labelIds": [
+        15,
+        16
+      ],
+      "labelVoxelCounts": {
+        "15": 66476,
+        "16": 67297
+      },
+      "rawSha256": "f81a6de6de220b552e562e2e9360058e39f38b05a775396ee3a5695c1824bd26",
+      "compression": "gzip"
+    },
+    "section-current-hippocampus": {
+      "voxels": 69510,
+      "components6": 4,
+      "componentSizes": [
+        35257,
+        34251,
+        1,
+        1
+      ],
+      "boundsZYX": [
+        [
+          83,
+          184,
+          123
+        ],
+        [
+          158,
+          258,
+          270
+        ]
+      ],
+      "vertices": 31764,
+      "faces": 63532,
+      "sha256": "acde90e8de5171d8a514a7ce8618475cdf3da6affebc977b24006a398f8936de",
+      "bytes": 398047,
+      "labelIds": [
+        17,
+        18
+      ],
+      "labelVoxelCounts": {
+        "17": 35259,
+        "18": 34251
+      },
+      "rawSha256": "1bc3b16a34de3df22de42467643bb9342fb5ea9f084f139a5e1f125481fad72e",
+      "compression": "gzip"
+    },
+    "section-current-accumbens": {
+      "voxels": 8109,
+      "components6": 2,
+      "componentSizes": [
+        4189,
+        3920
+      ],
+      "boundsZYX": [
+        [
+          114,
+          276,
+          165
+        ],
+        [
+          136,
+          296,
+          225
+        ]
+      ],
+      "vertices": 4343,
+      "faces": 8682,
+      "sha256": "ee0beb618aa76816b2d7ef5bb2a5e4a491cb6251cd10b835e6304efbb77bbde6",
+      "bytes": 58439,
+      "labelIds": [
+        19,
+        20
+      ],
+      "labelVoxelCounts": {
+        "19": 4189,
+        "20": 3920
+      },
+      "rawSha256": "7d6e62b917eddb7848717870cf3d7a04e3b9ea4a8401a19e684c1cdeeb78c1b6",
+      "compression": "gzip"
+    },
+    "section-current-amygdala": {
+      "voxels": 29724,
+      "components6": 2,
+      "componentSizes": [
+        15077,
+        14647
+      ],
+      "boundsZYX": [
+        [
+          83,
+          243,
+          128
+        ],
+        [
+          125,
+          271,
+          264
+        ]
+      ],
+      "vertices": 11021,
+      "faces": 22038,
+      "sha256": "62244eed43030b4c649763723c70741fde823f5209c593205f22a1058fce8909",
+      "bytes": 141028,
+      "labelIds": [
+        21,
+        22
+      ],
+      "labelVoxelCounts": {
+        "21": 14647,
+        "22": 15077
+      },
+      "rawSha256": "bb90f9bf984e00b550d6dbd90c65252082d2699535641b7ab58e6313e760f6b7",
+      "compression": "gzip"
+    },
+    "section-current-red-nucleus": {
+      "voxels": 5775,
+      "components6": 2,
+      "componentSizes": [
+        2888,
+        2887
+      ],
+      "boundsZYX": [
+        [
+          113,
+          220,
+          179
+        ],
+        [
+          134,
+          240,
+          213
+        ]
+      ],
+      "vertices": 3206,
+      "faces": 6404,
+      "sha256": "c5eddef79338b003a21662b20642c09b5d85b0e1ac8384e3507d673c390b3d10",
+      "bytes": 43505,
+      "labelIds": [
+        1,
+        2
+      ],
+      "labelVoxelCounts": {
+        "1": 2887,
+        "2": 2888
+      },
+      "rawSha256": "9ba740419a609ba7c07ba66bada69d281e4c511d964d98091114239fd9a9c79c",
+      "compression": "gzip"
+    },
+    "section-current-substantia-nigra": {
+      "voxels": 8763,
+      "components6": 2,
+      "componentSizes": [
+        4524,
+        4239
+      ],
+      "boundsZYX": [
+        [
+          104,
+          216,
+          165
+        ],
+        [
+          128,
+          250,
+          227
+        ]
+      ],
+      "vertices": 5954,
+      "faces": 11900,
+      "sha256": "076cf27dcc71620d55f5317db753929524a971b36816fe688bfa760ecaecbc72",
+      "bytes": 79035,
+      "labelIds": [
+        3,
+        4
+      ],
+      "labelVoxelCounts": {
+        "3": 4239,
+        "4": 4524
+      },
+      "rawSha256": "1725d693731ed2b69ce40b633d508fddc45b390ca3257022d236a6e96d1e1ffc",
+      "compression": "gzip"
+    },
+    "section-current-subthalamic": {
+      "voxels": 2826,
+      "components6": 2,
+      "componentSizes": [
+        1457,
+        1369
+      ],
+      "boundsZYX": [
+        [
+          120,
+          231,
+          164
+        ],
+        [
+          137,
+          252,
+          228
+        ]
+      ],
+      "vertices": 2543,
+      "faces": 5082,
+      "sha256": "0fda4468a1d4f0077b0b0f27d4f60c28b9ef37881be378ab82520d9bb5c9f546",
+      "bytes": 36035,
+      "labelIds": [
+        5,
+        6
+      ],
+      "labelVoxelCounts": {
+        "5": 1369,
+        "6": 1457
+      },
+      "rawSha256": "615e9425779880b9a5025523523a5a2122dd871823e9a22e3291271e0419d1f7",
+      "compression": "gzip"
+    },
+    "section-current-corpus-callosum": {
+      "voxels": 145707,
+      "components6": 43,
+      "componentSizes": [
+        145602,
+        13,
+        8,
+        7,
+        5,
+        4,
+        4,
+        4,
+        4,
+        3,
+        3,
+        3,
+        3,
+        3,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "boundsZYX": [
+        [
+          147,
+          167,
+          175
+        ],
+        [
+          222,
+          348,
+          216
+        ]
+      ],
+      "vertices": 52362,
+      "faces": 105020,
+      "sha256": "1f5bc94c2fe06f9530212636c49083919cdf079e89dbde2318e81fd36b09c76b",
+      "bytes": 605694,
+      "labelIds": [
+        30
+      ],
+      "labelVoxelCounts": {
+        "30": 145707
+      },
+      "rawSha256": "d3a455ef7317302f6243143c166c88c133dfb6198a48c93d8b311cf9c9f122df",
+      "compression": "gzip"
+    },
+    "section-current-mammillary-bodies": {
+      "voxels": 1288,
+      "components6": 1,
+      "componentSizes": [
+        1288
+      ],
+      "boundsZYX": [
+        [
+          108,
+          246,
+          187
+        ],
+        [
+          121,
+          258,
+          204
+        ]
+      ],
+      "vertices": 1332,
+      "faces": 2660,
+      "sha256": "5352069424e7e40ae08bb0595f9c28f644b6c330f650ff8835e23139e46cf162",
+      "bytes": 19472,
+      "labelIds": [
+        39,
+        40
+      ],
+      "labelVoxelCounts": {
+        "39": 559,
+        "40": 729
+      },
+      "rawSha256": "069fb57c753e1af865b3f840b30ac615460b1970d419a4fa343962b57e15156a",
+      "compression": "gzip"
+    },
+    "section-current-insula": {
+      "voxels": 137157,
+      "components6": 31,
+      "componentSizes": [
+        71031,
+        65994,
+        22,
+        17,
+        17,
+        11,
+        8,
+        8,
+        6,
+        5,
+        4,
+        4,
+        4,
+        4,
+        2,
+        2,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "boundsZYX": [
+        [
+          105,
+          209,
+          105
+        ],
+        [
+          186,
+          330,
+          288
+        ]
+      ],
+      "vertices": 67652,
+      "faces": 135744,
+      "sha256": "153b930aa20d9d60885e9366f51e6801db105a035f33f1ce0d0574d05d3fc2d1",
+      "bytes": 867549,
+      "labelIds": [
+        34,
+        35
+      ],
+      "labelVoxelCounts": {
+        "34": 66084,
+        "35": 71073
+      },
+      "rawSha256": "50e4f0d914ac4cc9ec6a832cdb92a61c18063dd5348215ed9bdb27815152ef15",
+      "compression": "gzip"
+    }
+  }
+}
