@@ -194,10 +194,11 @@ test("keeps official labels separate from provisional teaching overlays", async 
   assert.equal(metadata.redNucleusRegistrationAudit.changedVoxelCount, 2224);
   assert.equal(metadata.redNucleusRegistrationAudit.expertReviewed, false);
   assert.deepEqual(metadata.atlasDerivedIds, [23, 24, 25, 26, 27, 28, 29, 33, 34, 35]);
-  assert.deepEqual(metadata.imageGuidedCandidateIds, [30, 31, 32, 41, 42, 43]);
-  assert.deepEqual(metadata.projectReviewedPartialIds, [41, 42, 43]);
-  assert.equal(metadata.labelCounts[26], 9166);
-  assert.equal(metadata.labelCounts[41], 259);
+  assert.deepEqual(metadata.imageGuidedCandidateIds, [30, 31, 32, 41, 42, 43, 46]);
+  assert.deepEqual(metadata.projectReviewedPartialIds, [41, 42, 43, 46]);
+  assert.equal(metadata.labelCounts[26], 9202);
+  assert.equal(metadata.labelCounts[46], 987);
+  assert.equal(metadata.labelCounts[41], 267);
   assert.deepEqual(metadata.imageGuidedReviewedIds, [39, 40]);
   for (const id of Array.from({ length: 35 }, (_, index) => index + 1)) {
     assert.ok(metadata.labelCounts[id] > 0, `label ${id} must contain voxels`);
@@ -2386,7 +2387,7 @@ test("free observation separates circuit teaching from specimen observation", as
   assert.match(page, /<CircuitTeachingPanel/);
   assert.match(page, /selectionMeshLayers=\{surfaceView==="free"\?\(basalStepperActive\?freePathwayMeshLayers:papezStepperActive\?papezStepperMeshLayers:freePathwayMeshLayers\):\[\]\}/);
   assert.match(page, /aria-label="Papez回路の由来別位置関係ステッパー"/);
-  assert.match(page, /papezStepperStep\.kind!=="section-label"&&<div className="pathwayStepper3dOnlyNote"/);
+  assert.match(page, /!\["section-label","image-reviewed-partial-section"\]\.includes\(papezStepperStep\.kind\)&&<div className="pathwayStepper3dOnlyNote"/);
   assert.match(css, /\.pathwayPresets/);
 });
 

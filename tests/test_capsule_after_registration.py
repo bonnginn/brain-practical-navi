@@ -7,7 +7,7 @@ import audit_capsule_after_registration as a
 
 class CapsuleReview(unittest.TestCase):
     def test_explicit_development_target_is_pinned_and_unchanged(self):
-        target=ROOT/'public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz'
+        target=ROOT/'tests/fixtures/bigbrain-practical-segmentation-pre-aqueduct-fourth44.bin.gz'
         expected='065ebcef8e76dcbaab292750815d5135d92b1da1123a92b802d2efff2e41a912'
         r=a.inspect(target,expected)
         self.assertEqual(r['inputSha256'],expected)

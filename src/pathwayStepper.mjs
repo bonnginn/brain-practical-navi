@@ -9,16 +9,17 @@ const BASAL_GANGLIA_TARGETS = Object.freeze([
 ]);
 
 // Papez is intentionally represented as a provenance-aware observation
-// sequence, not as a reconstructed circuit.  The three section stages borrow
-// the already published BigBrain labels and quiz positions; the remaining
-// stages only reuse the existing 3D teaching overlays/atlas regions.
-export const PAPEZ_SECTION_TARGETS = Object.freeze(["hippocampus", "mammillaryBody", "thalamus"]);
-export const PAPEZ_SCHEMATIC_3D_TARGETS = Object.freeze(["fornix"]);
+// sequence, not as a reconstructed circuit. Section stages use existing
+// BigBrain labels, including the reviewed partial fornix body. Other stages
+// use atlas regions; the whole schematic fornix remains a separate asset.
+export const PAPEZ_SECTION_TARGETS = Object.freeze(["hippocampus", "fornixBodyPartial", "mammillaryBody", "thalamus"]);
+export const PAPEZ_SCHEMATIC_3D_TARGETS = Object.freeze([]);
 export const PAPEZ_ATLAS_3D_TARGETS = Object.freeze(["cingulate", "parahippocampal", "entorhinal"]);
-export const PAPEZ_STEP_KINDS = Object.freeze(["section-label", "schematic-3d", "atlas-3d"]);
-export const PAPEZ_STEP_SOURCES = Object.freeze(["existing-quiz-section-label", "schematic-3d", "atlas-3d"]);
+export const PAPEZ_STEP_KINDS = Object.freeze(["section-label", "image-reviewed-partial-section", "schematic-3d", "atlas-3d"]);
+export const PAPEZ_STEP_SOURCES = Object.freeze(["existing-quiz-section-label", "image-reviewed-partial-section", "schematic-3d", "atlas-3d"]);
 export const PAPEZ_SECTION_LABEL_IDS = Object.freeze({
   hippocampus: Object.freeze([17, 18]),
+  fornixBodyPartial: Object.freeze([46]),
   mammillaryBody: Object.freeze([39, 40]),
   thalamus: Object.freeze([15, 16]),
 });
@@ -38,13 +39,16 @@ export const PAPEZ_STEPS = Object.freeze([
     note: "3Dメッシュと同じ段階番号で、既存の海馬断面ラベルを確認します。",
   }),
   Object.freeze({
-    key: "fornix",
-    label: "脳弓",
-    kind: "schematic-3d",
-    source: "schematic-3d",
-    targetKeys: Object.freeze(["fornix"]),
-    provenance: "既存 surfaceDeepLandmarks の脳弓模式補助",
-    note: "脳弓は模式3Dのみです。実標本の分節や断面ラベルは表示しません。",
+    key: "fornixBodyPartial",
+    label: "脳弓体部（部分）",
+    kind: "image-reviewed-partial-section",
+    source: "image-reviewed-partial-section",
+    targetKeys: Object.freeze(["fornixBodyPartial"]),
+    plane: "coronal",
+    position: 53,
+    labelIds: Object.freeze([46]),
+    provenance: "同一BigBrain native原画像で確認した脳弓体部の部分ラベルID46（プロジェクト内採用・専門家未確認）",
+    note: "体部の約8 mmだけを断面と独立3Dで観察します。脚・柱・上方の透明中隔付着部は含みません。全脳弓の模式3Dは自由観察に別由来で残します。",
   }),
   Object.freeze({
     key: "mammillaryBody",
@@ -95,6 +99,7 @@ export const PAPEZ_STEPS = Object.freeze([
 
 export const PAPEZ_TARGET_ALLOWLIST = Object.freeze({
   "section-label": PAPEZ_SECTION_TARGETS,
+  "image-reviewed-partial-section": PAPEZ_SECTION_TARGETS,
   "schematic-3d": PAPEZ_SCHEMATIC_3D_TARGETS,
   "atlas-3d": PAPEZ_ATLAS_3D_TARGETS,
 });
@@ -322,7 +327,7 @@ export function auditPapezStepper({steps = PAPEZ_STEPS, quizQuestions = [], dims
     for (const target of step.targetKeys ?? []) {
       if (seen.has(target)) errors.push(`${prefix}: target ${target} appears in more than one stage`);
       seen.add(target);
-      if (step.kind === "section-label") {
+      if (step.kind === "section-label" || step.kind === "image-reviewed-partial-section") {
         const expectedIds = PAPEZ_SECTION_LABEL_IDS[target] ?? [];
         const configuredIds = labelIdsByTarget?.[target];
         if (!exactArray(configuredIds, expectedIds)) errors.push(`${prefix}: ${target} label IDs drift from the audited mapping`);
@@ -332,9 +337,10 @@ export function auditPapezStepper({steps = PAPEZ_STEPS, quizQuestions = [], dims
     const text = [step.key, step.label, step.provenance, step.note, ...(step.targetKeys ?? [])].join(" ");
     if (PAPEZ_FORBIDDEN_TEXT.test(text)) errors.push(`${prefix}: prohibited pathway/physiology claim`);
     if (Object.prototype.hasOwnProperty.call(step, "geometry") || Object.prototype.hasOwnProperty.call(step, "meshFile") || Object.prototype.hasOwnProperty.call(step, "voxelPatch")) errors.push(`${prefix}: new geometry/voxel fields are not allowed`);
-    if (step.kind === "section-label") {
+    if (step.kind === "section-label" || step.kind === "image-reviewed-partial-section") {
       if (!step.plane || !["coronal", "horizontal", "sagittal"].includes(step.plane) || !Number.isFinite(step.position)) errors.push(`${prefix}: section plane and position are required`);
-      if (!Array.isArray(step.quizRefs) || !step.quizRefs.length || !step.quizRefs.some(target => quizQuestions.some(question => question.target === target && question.plane === step.plane && question.position === step.position))) errors.push(`${prefix}: section position is not reused from an existing quiz question`);
+      if (step.source === "existing-quiz-section-label" && (!Array.isArray(step.quizRefs) || !step.quizRefs.length || !step.quizRefs.some(target => quizQuestions.some(question => question.target === target && question.plane === step.plane && question.position === step.position)))) errors.push(`${prefix}: section position is not reused from an existing quiz question`);
+      if (step.source === "image-reviewed-partial-section" && Object.prototype.hasOwnProperty.call(step, "quizRefs")) errors.push(`${prefix}: image-reviewed partial section must not claim quiz provenance`);
       if (!exactArray(step.labelIds, PAPEZ_SECTION_LABEL_IDS[step.targetKeys?.[0]] ?? [])) errors.push(`${prefix}: section label IDs are missing or drifted`);
       const pixelCounts = {};
       for (const target of step.targetKeys ?? []) {

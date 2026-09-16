@@ -16,12 +16,12 @@ test('partial aqueduct is selectable only for BigBrain, labelled partial, and ab
  assert.doesNotMatch(questions,/aqueductPartial/);
  assert.doesNotMatch((await read('app/quiz-concept-bank.json')).toString(),/aqueductPartial/);
  const report=JSON.parse(await read('public/atlas/section-current-aqueduct-partial.json'));
- assert.equal(report.sourceSha256,'065ebcef8e76dcbaab292750815d5135d92b1da1123a92b802d2efff2e41a912');
- assert.equal(report.voxels,259);assert.equal(report.partialExtent,true);assert.equal(report.expertReviewed,false);
+ assert.equal(report.sourceSha256,'5211664518129297bbf78d1d536004e540e721615a88007ecf1459d18fb97a96');
+ assert.equal(report.voxels,267);assert.equal(report.partialExtent,true);assert.equal(report.expertReviewed,false);
  assert.equal(sha(await read('public/atlas/section-current-aqueduct-partial.mesh')),report.sha256);
  const catalog=JSON.parse(await read('app/english-catalog.json'));
  assert.equal(catalog['中脳水道候補（部分）'],'Cerebral aqueduct candidate (partial)');
- assert.match(catalog['中脳蓋と被蓋の間。第三・第四脳室との移行部は未完成'],/remain incomplete/);
+ assert.match(catalog['中脳蓋と被蓋の間。断面ラベルの主腔は第三・第四脳室へ連続しますが、名称の切替境界は暫定です'],/connects to the third and fourth ventricles/);
 });
 
 test('partial aqueduct repair replays exactly 64 zero and 115 brainstem cells with no other changes',async()=>{
@@ -50,7 +50,7 @@ test('partial aqueduct repair replays exactly 64 zero and 115 brainstem cells wi
  const meta=JSON.parse(await read('public/atlas/bigbrain-practical-segmentation-icbm500-validation.json'));
  assert.equal(meta.regionalBatchAudits['aqueduct-core179'].recordSha256,sha(bytes));
  const latest=await withRegionalBatches(r,{afterRevision:r.afterSha256});
- assert.equal(meta.labelCounts['41'],259);assert.equal(meta.labelCounts['27'],264498);assert.equal(meta.labelCounts['25'],11837);
+ assert.equal(meta.labelCounts['41'],267);assert.equal(meta.labelCounts['27'],264456);assert.equal(meta.labelCounts['25'],11873);
  assert.equal(meta.rawVoxelSha256,latest.afterRawVoxelSha256);
 });
 

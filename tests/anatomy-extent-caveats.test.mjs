@@ -15,9 +15,9 @@ test('caudate scope distinguishes real tail anatomy from incomplete model covera
   assert.match(page,/尾部は下角の上方・天井側を走ります/);
 });
 test('fourth ventricle caveat describes the limited repair without claiming complete boundaries',()=>{
-  const notes=notesContaining('上方の微小片');
+  const notes=notesContaining('孤立した微小片や下方の出口');
   assert.equal(notes.length,2);
-  for(const note of notes)assert.match(catalog[note],/remain unresolved/);
+  for(const note of notes)assert.match(catalog[note],/remain.*review|still.*review/);
   assert.match(page,/fourthVentricle:.*bigbrainIds:\[26\]/);
   assert.doesNotMatch(page,/矢状断で中脳水道から中心管への連続を追います/);
 });

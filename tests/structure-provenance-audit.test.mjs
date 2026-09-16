@@ -14,7 +14,7 @@ test("structure provenance registry covers the lecture rows and app quiz targets
   assert.equal(result.ok, true, result.errors.join("\n"));
   assert.equal(result.summary.lectureRowCount, 51);
   assert.equal(result.summary.quizTargetCount, 45);
-  assert.equal(result.summary.entryCount, 78);
+  assert.equal(result.summary.entryCount, 80);
   const mammillary = baseRegistry.entries.find(entry => entry.key === "section-mammillary-bodies");
   assert.deepEqual(mammillary.learnerSurfaces, ["sections", "quiz"]);
   assert.deepEqual(mammillary.hiddenAssets, ["block-diencephalon-mammillary-bodies.mesh", "landmark-mammillary-bodies.mesh"]);

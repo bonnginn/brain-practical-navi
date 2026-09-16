@@ -62,7 +62,8 @@
     32,
     41,
     42,
-    43
+    43,
+    46
   ],
   "imageGuidedReviewedIds": [
     39,
@@ -86,7 +87,10 @@
     "40": "right mammillary body (reviewed image-guided)",
     "41": "cerebral aqueduct candidate (partial; project-adopted reclassification)",
     "42": "anterior commissure (partial core)",
-    "43": "septum pellucidum (partial membrane)"
+    "43": "septum pellucidum (partial membrane)",
+    "44": "left lateral geniculate nucleus (published BigBrain layer union)",
+    "45": "right lateral geniculate nucleus (published BigBrain layer union)",
+    "46": "fornix body (partial image-reviewed extent)"
   },
   "labelCounts": {
     "1": 2887,
@@ -104,7 +108,7 @@
     "13": 4391,
     "14": 4853,
     "15": 66476,
-    "16": 67298,
+    "16": 67297,
     "17": 35259,
     "18": 34251,
     "19": 4189,
@@ -113,9 +117,9 @@
     "22": 15077,
     "23": 81670,
     "24": 82250,
-    "25": 11837,
-    "26": 9166,
-    "27": 264498,
+    "25": 11873,
+    "26": 9202,
+    "27": 264456,
     "28": 736104,
     "29": 725042,
     "30": 145707,
@@ -126,9 +130,12 @@
     "35": 71073,
     "39": 559,
     "40": 729,
-    "41": 259,
+    "41": 267,
     "42": 416,
-    "43": 282
+    "43": 282,
+    "44": 1197,
+    "45": 1374,
+    "46": 987
   },
   "atlasToManualDiceAudit": {
     "caudate": 0.8448,
@@ -140,7 +147,7 @@
     "amygdala": 0.7289
   },
   "ventricleLabelsRestrictedToEmptySpace": false,
-  "ventricleTissueOverlap": 0.11050210063613095,
+  "ventricleTissueOverlap": 0.11072427157215187,
   "coordinatePolicy": "exact BigBrain ICBM2009sym 0.5 mm output grid; CerebrA resampling accepted only after overlap audit",
   "reviewedPatchAudit": {
     "path": "segmentation-patches/review/mammillary-bodies-horizontal-core-plus-clear-rim-candidate-2026-08-16.json",
@@ -432,7 +439,8 @@
   "projectReviewedPartialIds": [
     41,
     42,
-    43
+    43,
+    46
   ],
   "ventricleClassificationPatchAudit": {
     "path": "segmentation-patches\\review\\ventricle-classification-project-review-2026-09-06.json",
@@ -461,7 +469,7 @@
     "workflowMetadataStatus": "strict"
   },
   "preClassificationCompressedSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
-  "rawVoxelSha256": "d36b55c86b94600b65d39347f21ef5041daeecea9ef53ec31ead1aed238dedf9",
+  "rawVoxelSha256": "24bcc09ce7627bac5b4096a204d53678f0c26d410c6f5aae3f19e6c57579b8a6",
   "brainstemThreeIslandsAudit": {
     "record": "segmentation-patches/review/brainstem-three-islands-adoption-2026-09-06.json",
     "recordSha256": "9c7b14f4272969261e3e2415d3f522b7e5d7db1eeca7cb0c8ae28b225458be66",
@@ -1347,6 +1355,44 @@
       "projectAdopted": true,
       "expertReviewed": false,
       "changedSectionMeshes": []
+    },
+    "aqueduct-fourth44": {
+      "record": "segmentation-patches/review/aqueduct-fourth44-adoption-2026-09-16.json",
+      "recordSha256": "5387ecdc0ad9a52fca7dbe4c95cce3c5ae25621a95959a846da24ecf186034f4",
+      "changedVoxelCount": 44,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-fourth-ventricle.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "right-foramen36": {
+      "record": "segmentation-patches/review/right-foramen36-adoption-2026-09-16.json",
+      "recordSha256": "254b84303990c986e03c51d2ebc2849e8c1e605e92faaab3d16dd3e413569818",
+      "changedVoxelCount": 36,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-third-ventricle.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "lgn-layers2571": {
+      "record": "segmentation-patches/review/lgn-layers2571-adoption-2026-09-16.json",
+      "recordSha256": "391b759f9887b62e06d4d159b1e18eb81743ff5d28a6c959be964c22bdad8ce5",
+      "changedVoxelCount": 2571,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": []
+    },
+    "fornix-body987": {
+      "record": "segmentation-patches/review/fornix-body987-adoption-2026-09-16.json",
+      "recordSha256": "a3652adfbaaff6fec415cb4bf89f6257db7996ec8c4d856841f7b1f985d24b2a",
+      "changedVoxelCount": 987,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": []
     }
   },
   "historicalGenerationClaims": {
@@ -1356,9 +1402,9 @@
   },
   "currentImageMeasurements": {
     "schemaVersion": 1,
-    "sourceLabelSha256": "065ebcef8e76dcbaab292750815d5135d92b1da1123a92b802d2efff2e41a912",
+    "sourceLabelSha256": "5211664518129297bbf78d1d536004e540e721615a88007ecf1459d18fb97a96",
     "sourceImageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
-    "rawVoxelSha256": "d36b55c86b94600b65d39347f21ef5041daeecea9ef53ec31ead1aed238dedf9",
+    "rawVoxelSha256": "24bcc09ce7627bac5b4096a204d53678f0c26d410c6f5aae3f19e6c57579b8a6",
     "dimensionsXYZ": [
       394,
       466,
@@ -1382,7 +1428,7 @@
       "13": 4391,
       "14": 4853,
       "15": 66476,
-      "16": 67298,
+      "16": 67297,
       "17": 35259,
       "18": 34251,
       "19": 4189,
@@ -1391,9 +1437,9 @@
       "22": 15077,
       "23": 81670,
       "24": 82250,
-      "25": 11837,
-      "26": 9166,
-      "27": 264498,
+      "25": 11873,
+      "26": 9202,
+      "27": 264456,
       "28": 736104,
       "29": 725042,
       "30": 145707,
@@ -1404,9 +1450,12 @@
       "35": 71073,
       "39": 559,
       "40": 729,
-      "41": 259,
+      "41": 267,
       "42": 416,
-      "43": 282
+      "43": 282,
+      "44": 1197,
+      "45": 1374,
+      "46": 987
     },
     "ventricularLabelIds": [
       23,
@@ -1415,9 +1464,9 @@
       26,
       41
     ],
-    "ventricularVoxels": 185182,
-    "ventricularNonBackgroundVoxels": 20463,
-    "ventricularNonBackgroundFraction": 0.11050210063613095,
+    "ventricularVoxels": 185262,
+    "ventricularNonBackgroundVoxels": 20513,
+    "ventricularNonBackgroundFraction": 0.11072427157215187,
     "ventricularLabelsRestrictedToImageBackground": false,
     "perVentricularLabel": {
       "23": {
@@ -1429,17 +1478,21 @@
         "nonBackgroundVoxels": 10563
       },
       "25": {
-        "voxels": 11837,
-        "nonBackgroundVoxels": 0
+        "voxels": 11873,
+        "nonBackgroundVoxels": 6
       },
       "26": {
-        "voxels": 9166,
-        "nonBackgroundVoxels": 319
+        "voxels": 9202,
+        "nonBackgroundVoxels": 355
       },
       "41": {
-        "voxels": 259,
-        "nonBackgroundVoxels": 139
+        "voxels": 267,
+        "nonBackgroundVoxels": 147
       }
     }
-  }
+  },
+  "publishedCytoarchitectonicIds": [
+    44,
+    45
+  ]
 }

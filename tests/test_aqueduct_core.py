@@ -1,4 +1,5 @@
 import copy
+import hashlib
 import gzip
 import json
 from pathlib import Path
@@ -22,11 +23,14 @@ class AqueductTest(unittest.TestCase):
         source=(ROOT/'public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz').read_bytes()
         record=(ROOT/ADOPTION).read_bytes();mesh,report=build(source,record)
         self.assertEqual(mesh,(ROOT/'public/atlas/section-current-aqueduct-partial.mesh').read_bytes())
-        self.assertEqual(report,json.loads((ROOT/'public/atlas/section-current-aqueduct-partial.json').read_bytes()))
+        current_report=json.loads((ROOT/'public/atlas/section-current-aqueduct-partial.json').read_bytes())
+        comparable={k:v for k,v in report.items() if k not in ('adoption','adoptionSha256')}
+        self.assertEqual({k:current_report[k] for k in comparable},comparable)
         historical=json.loads((ROOT/'tests/fixtures/section-current-aqueduct-partial-pre-upper-fourth-gap.json').read_bytes())
         self.assertEqual(historical['sourceSha256'],'d7fc87b5b18e1221c2979aeab9d6fefeefcfd4d353cfc78cab782930f32f8e29')
-        self.assertEqual(historical['sha256'],report['sha256'])
-        self.assertEqual(report['voxels'],259);self.assertTrue(report['partialExtent']);self.assertFalse(report['expertReviewed'])
+        self.assertEqual(historical['sha256'],'22b992bfa93ec644aaf29d7644aebe12b50513b27c877941c70c65e641a4eeef')
+        self.assertEqual(report['sha256'],hashlib.sha256(mesh).hexdigest())
+        self.assertEqual(report['voxels'],267);self.assertTrue(report['partialExtent']);self.assertFalse(report['expertReviewed'])
         self.assertEqual(len(GROUPS),4)
         for bad_source,bad_record in [(source+b'x',record),(source,record+b'x')]:
             with self.assertRaises(ValueError):build(bad_source,bad_record)

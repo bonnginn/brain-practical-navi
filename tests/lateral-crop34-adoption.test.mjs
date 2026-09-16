@@ -32,7 +32,7 @@ test('lateral cavity repair is exactly 34 reversible zero-to-ID24 voxels',async(
 test('regional cavity batches replay exactly and preserve every unrelated voxel and block',async()=>{
  const meta=JSON.parse(await read('public/atlas/bigbrain-practical-segmentation-icbm500-validation.json'));
  let current;
- for(const [name,audit] of Object.entries(meta.regionalBatchAudits).filter(([name])=>!['cerebellar-folia197','septal-membrane282','anterior-commissure-core416'].includes(name))){
+ for(const [name,audit] of Object.entries(meta.regionalBatchAudits)){
   const bytes=await read(audit.record),r=JSON.parse(bytes);
   assert.equal(sha(bytes),audit.recordSha256);
   const base=await read('tests/fixtures/bigbrain-practical-segmentation-pre-'+name+'.bin.gz');
@@ -43,6 +43,9 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
   const interfaceHold=r.transition==='27->0';
   const callosalExclusion=r.transition==='30->0';
   const mixed=['mixed-to-26','mixed-to-41'].includes(r.transition);
+  const lgn=r.transition==='mixed-lgn-layers';
+  const fornix=r.transition==='mixed-fornix-body-partial';
+  const genericRecord=['cerebellar-folia197','septal-membrane282','anterior-commissure-core416','aqueduct-fourth44'].includes(name);
   const posterior=r.transition==='mixed-posterior-ventricular-repair';
   const bilateral=r.transition==='mixed-lateral-cavity-fill';
   const combined=r.transition==='mixed-ventricular-repair'||posterior||bilateral;
@@ -63,10 +66,14 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
   else if(combined){assert.equal(name,'ventricular-mixed12');assert.equal(r.count,12);assert.equal(r.points.filter(p=>p.before===0&&p.after===26).length,8);assert.equal(r.points.filter(p=>p.before===25&&p.after===0).length,4);}
   else if(mixed&&label===41){assert.equal(name,'aqueduct-core179');assert.equal(r.count,179);assert.equal(r.points.filter(p=>p.before===0).length,64);assert.equal(r.points.filter(p=>p.before===27).length,115);assert.ok(r.points.every(p=>p.after===41));}
   else if(mixed){assert.equal(name,'fourth-depth27');assert.equal(r.count,27);assert.equal(r.points.filter(p=>p.before===0).length,16);assert.equal(r.points.filter(p=>p.before===27).length,11);assert.ok(r.points.every(p=>p.after===26));}
+  else if(lgn){assert.equal(name,'lgn-layers2571');assert.equal(r.count,2571);assert.equal(r.points.filter(p=>p.before===0&&p.after===44).length,1197);assert.equal(r.points.filter(p=>p.before===0&&p.after===45).length,1373);assert.equal(r.points.filter(p=>p.before===16&&p.after===45).length,1);}
+  else if(fornix){assert.equal(name,'fornix-body987');assert.equal(r.count,987);assert.ok(r.points.every(p=>p.before===0&&p.after===46));assert.equal(r.points.filter(p=>p.side===1).length,464);assert.equal(r.points.filter(p=>p.side===2).length,523);}
+  else if(genericRecord){assert.equal(r.points.length,r.count);assert.ok(r.points.every(p=>Array.isArray(p.xyz)&&Number.isInteger(p.before)&&Number.isInteger(p.after)));}
   else if(brainstem){assert.equal(name,'fourth-brainstem48');assert.equal(r.count,48);assert.ok(r.points.every(p=>p.before===27&&p.after===26));}
   else if(interfaceHold){assert.equal(name,'midbrain-interface14');assert.equal(r.count,14);assert.ok(r.points.every(([x,y,z])=>x>=187&&x<=205&&y>=247&&y<=250&&z===115));assert.equal(r.netVentralAdditions,14789);}
   else if(label===27){assert.equal(name,'midbrain-ventral14803');assert.equal(r.transition,'0->27');assert.equal(r.count,14803);assert.ok(r.points.every(([x,y,z])=>x>=145&&x<248&&y>=215&&y<251&&z>=104&&z<116));}
   else if(callosalExclusion){assert.equal(name,'callosal-remaining304');assert.equal(r.count,304);assert.equal(r.indicesSha256,'b7156aa26def7b907a170de76de7922432e35eb3373e8ffa475887742b134eb6');}
+  else if(name==='right-foramen36'){assert.equal(r.transition,'0->25');assert.equal(r.count,36);assert.ok(r.points.every(p=>Array.isArray(p)&&p.length===3&&p.every(Number.isInteger)));}
   else if(!exclusions){assert.ok([23,24,25,26].includes(label));assert.equal(r.transition,'0->'+label);if(label===25){assert.equal(name,'third-central-fringe61');assert.equal(r.count,61);}if(label===26){const counts={'fourth-remaining-anterior173':173,'fourth-upper-posterior111':111};assert.ok(Object.hasOwn(counts,name));assert.equal(r.count,counts[name]);}}
   else if(name==='third-inferior-current16'){
    assert.equal(r.transition,'25->0');assert.equal(r.count,16);assert.ok(r.points.every(p=>p.before===25&&p.after===0));
@@ -79,7 +86,7 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
   else if(name==='third-remnants91'){assert.equal(r.count,91);assert.ok(r.points.every(p=>p.before===25&&p.after===0));}
   else {assert.equal(name,'ventricular-exclusions46');assert.equal(r.count,46);assert.equal(r.points.filter(p=>p.before===23).length,12);assert.equal(r.points.filter(p=>p.before===25).length,34);}
   assert.equal(r.points.length,r.count);
-  for(const entry of r.points){const p=exclusions||brainstem||mixed||combined?entry.xyz:entry;const [x,y,z]=p;assert.ok(p.length===3&&p.every(Number.isInteger)&&x>=0&&x<394&&y>=0&&y<466&&z>=0&&z<378);const i=10+x+394*(y+466*z);assert.ok(!seen.has(i));seen.add(i);assert.equal(expected[i],exclusions||brainstem||mixed||combined?entry.before:interfaceHold?27:callosalExclusion?30:0);if(exclusions)assert.equal(entry.after,0);expected[i]=combined?entry.after:exclusions?0:label;}
+  for(const entry of r.points){const p=exclusions||brainstem||mixed||combined||lgn||fornix||genericRecord?entry.xyz:entry;const [x,y,z]=p;assert.ok(p.length===3&&p.every(Number.isInteger)&&x>=0&&x<394&&y>=0&&y<466&&z>=0&&z<378);const i=10+x+394*(y+466*z);assert.ok(!seen.has(i));seen.add(i);assert.equal(expected[i],exclusions||brainstem||mixed||combined||lgn||fornix||genericRecord?entry.before:interfaceHold?27:callosalExclusion?30:0);if(exclusions)assert.equal(entry.after,0);expected[i]=combined||lgn||fornix||genericRecord?entry.after:exclusions?0:label;}
   assert.equal(sha(expected.subarray(10)),r.afterRawVoxelSha256);current=expected;
   assert.equal(r.projectAdopted,true);assert.equal(r.expertReviewed,false);assert.equal(r.published,false);
   const manifest=JSON.parse(await read('public/atlas/specimen-blocks.json'));
@@ -122,6 +129,11 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
   expectedChanges['lateral-medial-islands11']=[['lateral-ventricle','tissue',0,295],['lateral-ventricle','ventricular-cavity',0,1],['commissural-system','tissue',0,500],['choroid-plexus','tissue',0,114],['choroid-plexus','ventricular-cavity',0,1],['medial-temporal','inferior-horn',0,1]];
   expectedChanges['lateral-superomedial75']=[['lateral-ventricle','tissue',0,6],['lateral-ventricle','ventricular-cavity',8,0],['radiations','tissue',0,6],['commissural-system','lateral-ventricles',9,0],['choroid-plexus','tissue',3,6],['choroid-plexus','ventricular-cavity',8,0]];
   expectedChanges['third-inferior-current16']=[['diencephalon','third-ventricle',0,2]];
+  expectedChanges['cerebellar-folia197']=[['hindbrain','cerebellum',22,0]];
+  expectedChanges['septal-membrane282']=[];
+  expectedChanges['anterior-commissure-core416']=[];
+  expectedChanges['aqueduct-fourth44']=[['diencephalon','tissue',0,2],['midbrain-section','tissue',0,4],['hindbrain','midbrain',0,6],['hindbrain','fourth-ventricle',4,0]];
+  expectedChanges['right-foramen36']=[['lateral-ventricle','tissue',0,1],['diencephalon','third-ventricle',4,0],['radiations','tissue',0,1],['choroid-plexus','tissue',0,1]];
   if(name==='left-medial-anterior1092'){assert.equal(r.count,1092);assert.equal(r.transition,'0->23');}
   assert.deepEqual(changed.map(p=>[p.block,p.part,p.added,p.removed]),expectedChanges[name]??[]);
   for(const p of changed){
@@ -133,7 +145,7 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
    assert.equal(entry.meshSha256,latest.afterSha256);assert.equal(entry.segmentationSourceSha256,successor?.segmentationSourceSha256??r.afterSha256);
   }
  }
- assert.ok(current);assert.deepEqual(gunzipSync(await read('tests/fixtures/bigbrain-practical-segmentation-pre-cerebellar-folia197.bin.gz')),current);
- assert.equal(sha(current.subarray(10)),'3572586f67279aa2b02c0c81628cd05f86a2ff65555a6b9ba796712108c3a2b7');
- assert.equal(meta.labelCounts['23'],81670);assert.equal(meta.labelCounts['24'],82250);assert.equal(meta.labelCounts['25'],11837);
+ assert.ok(current);assert.deepEqual(gunzipSync(await read('public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz')),current);
+ assert.equal(sha(current.subarray(10)),meta.rawVoxelSha256);
+ assert.equal(meta.labelCounts['23'],81670);assert.equal(meta.labelCounts['24'],82250);assert.equal(meta.labelCounts['25'],11873);
 });

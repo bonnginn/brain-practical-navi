@@ -1,0 +1,52 @@
+{
+  "voxels": 282,
+  "components6": 8,
+  "componentSizes": [
+    181,
+    71,
+    12,
+    7,
+    5,
+    3,
+    2,
+    1
+  ],
+  "boundsZYX": [
+    [
+      151,
+      275,
+      195
+    ],
+    [
+      179,
+      300,
+      197
+    ]
+  ],
+  "vertices": 794,
+  "faces": 1572,
+  "sha256": "688cfc9feceee6d62612df273e598f73e8cbcee84c7ed53390b50668472a5e91",
+  "bytes": 9558,
+  "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
+  "sourceSha256": "3d4b134c721aa4d99857b0b9bdb5276f2475ef5277149d6b02dc060412a851ab",
+  "labelIds": [
+    43
+  ],
+  "labelVoxelCounts": {
+    "43": 282
+  },
+  "sourceSamplingMm": 0.5,
+  "displayOriginZYX": [
+    -90.0,
+    -116.0,
+    -98.0
+  ],
+  "method": "marching cubes 0.5; no resampling, smoothing, filling or component removal",
+  "rawSha256": "68fa46fecd26051762889faa5d9b6a15913393b575bb9314ee25d478fac7ab6f",
+  "rawBytes": 41108,
+  "compression": "gzip",
+  "partialExtent": true,
+  "expertReviewed": false,
+  "installed": true,
+  "scope": "Only surviving internal portions of the membrane on the 0.5 mm grid. Eight disconnected components (181,71,12,7,5,3,2,1) retained without joining or smoothing; gaps are not a complete map of anatomical fenestrations. Y301-305 callosal attachment candidates remain deferred. No expert validation or quiz eligibility."
+}

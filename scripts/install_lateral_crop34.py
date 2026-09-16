@@ -139,9 +139,45 @@ def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None, *, review_da
     cerebellar_repair=record['transition']=='mixed-cerebellar-folia-repair'
     septal_partial=record['transition']=='0->43'
     commissural_partial=record['transition']=='0->42'
+    aqueduct_fourth=record['transition']=='mixed-aqueduct-fourth-repair'
+    lgn_layers=record['transition']=='mixed-lgn-layers'
+    fornix_body=record['transition']=='mixed-fornix-body-partial'
+    right_foramen=prefix=='right-foramen36'
+    if right_foramen:
+        from stage_right_foramen36 import replay as replay_foramen
+        if record_sha!='1a9fbde53ff9a6f8a4cd133a878b82acdef808327479115ba33ae73ce22d8a23' or record['transition']!='0->25':
+            raise ValueError('Unreviewed right foramen core')
+        if not np.array_equal(replay_foramen(before,record['points']),after) or not np.array_equal(replay_foramen(after,record['points'],True),before):
+            raise ValueError('Right foramen replay differs')
     new_partial=septal_partial or commissural_partial
-    points=np.asarray([p['xyz'] for p in record['points']] if exclusions or brainstem_reclassification or mixed_cavity or mixed_repair or partial_aqueduct or posterior_repair or bilateral_fill or cerebellar_repair or new_partial else record['points']); count=record['count']
-    if bilateral_fill:
+    points=np.asarray([p['xyz'] for p in record['points']] if exclusions or brainstem_reclassification or mixed_cavity or mixed_repair or partial_aqueduct or posterior_repair or bilateral_fill or cerebellar_repair or new_partial or aqueduct_fourth or lgn_layers or fornix_body else record['points']); count=record['count']
+    if fornix_body:
+        from stage_fornix_body987 import replay as replay_fornix
+        if prefix!='fornix-body987' or record_sha!='d0a65f6f099c4dce798d4031737f7077d21627f605c08702a351efa4ae17dac8':raise ValueError('Unreviewed fornix body stage')
+        fornix_decision=checked(ROOT/record['decision']['path'],'a7eb117d385a9a03c66edd88f54db29d623dc34142d802253937d667fb227cac')
+        if not fornix_decision['approved'] or fornix_decision['expertReviewed'] or fornix_decision['sourceLabelSha256']!=record['beforeSha256']:raise ValueError('Fornix decision differs')
+        for fig in fornix_decision['reviewedFigures']:
+            if digest((ROOT/fig['path']).read_bytes())!=fig['sha256']:raise ValueError('Fornix reviewed figure differs')
+        if not np.array_equal(replay_fornix(before,record['points']),after) or not np.array_equal(replay_fornix(after,record['points'],True),before):raise ValueError('Fornix replay differs')
+        source_values=np.asarray([p['before'] for p in record['points']]);destination=np.asarray([p['after'] for p in record['points']]);affected={0,46}
+    elif lgn_layers:
+        from stage_lgn_layers2571 import replay as replay_lgn
+        if prefix!='lgn-layers2571' or record_sha!='13453800cc0fce33956606d3726a9a0e26f2a29e14f1565201f2568e9cd2b8f3':raise ValueError('Unreviewed LGN layer stage')
+        decision_path=ROOT/'work/visual-pathway-completion-20260916-v4/primary-lgn-decision.json'
+        lgn_decision=checked(decision_path,'04a3b8873b80d34fee37056cd9a62488e0cdcf9935b63f0b4d9129d9b5ecfb20')
+        if not lgn_decision['approved'] or lgn_decision['expertReviewed'] or lgn_decision['sourceLabelSha256']!=record['beforeSha256']:raise ValueError('LGN decision differs')
+        for fig in lgn_decision['reviewedFigures']:
+            if digest((ROOT/fig['path']).read_bytes())!=fig['sha256']:raise ValueError('LGN reviewed figure differs')
+        if not np.array_equal(replay_lgn(before,record['points']),after) or not np.array_equal(replay_lgn(after,record['points'],True),before):raise ValueError('LGN replay differs')
+        source_values=np.asarray([p['before'] for p in record['points']]);destination=np.asarray([p['after'] for p in record['points']]);affected={0,16,44,45}
+    elif aqueduct_fourth:
+        from stage_aqueduct_fourth44 import replay as replay_junction
+        if prefix!='aqueduct-fourth44' or record_sha!='5ba7a57c4f49781aa98a0a0aadcb90af53ad3ecbc39ad2cc2b42e9b2f5037e1f':
+            raise ValueError('Unreviewed aqueduct/fourth junction')
+        if not np.array_equal(replay_junction(before,record['points']),after) or not np.array_equal(replay_junction(after,record['points'],True),before):
+            raise ValueError('Junction replay differs')
+        source_values=np.asarray([p['before'] for p in record['points']]);destination=np.asarray([p['after'] for p in record['points']]);affected={0,26,27,41}
+    elif bilateral_fill:
         if prefix=='lateral-upper729' and record_sha=='cd0d9bb10cff47e170197d4cb37a25b9faac26d65f0ebe2fc996c0033f43f3ec':
             from stage_lateral_upper729 import replay as replay_bilateral
         elif prefix=='lateral-anterior1981' and record_sha=='835ee20097df4be2b38a0b5d6c7f5faaae3236aa72881beb0ddbf907aea69ba2':
@@ -315,6 +351,33 @@ def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None, *, review_da
     if set(changed)!=expected_sections:
         raise ValueError('Unexpected section impact')
     independent_retained=[]; independent_updates=[]
+    if aqueduct_fourth or right_foramen or lgn_layers or fornix_body:
+        from build_section_ventricle_meshes import reconstruct
+        from stage_aqueduct_fourth44 import encode
+        groups=[('aqueduct-partial',(41,)),('brainstem',(27,)),('internal-capsule',(31,32)),('cerebellum',(28,29)),('septum-pellucidum-partial',(43,)),('anterior-commissure-partial',(42,))]
+        if fornix_body:groups.append(('lateral-geniculate-bodies',(44,45)))
+        for name,ids in groups:
+            stem='section-current-'+name
+            meta_path=ATLAS/(stem+'.json');mesh_path=ATLAS/(stem+'.mesh')
+            old_meta_data=meta_path.read_bytes();old_meta=json.loads(old_meta_data);old_mesh=mesh_path.read_bytes()
+            if old_meta['sourceSha256']!=record['beforeSha256'] or digest(old_mesh)!=old_meta['sha256']:
+                raise ValueError('Independent section baseline differs: '+name)
+            independent_retained.append((ROOT/'tests/fixtures'/(stem+'-pre-'+prefix+'.json'),old_meta_data))
+            meta=dict(old_meta)
+            if not np.array_equal(np.isin(before,ids),np.isin(after,ids)):
+                raw_old,_=reconstruct(np.isin(before,ids).transpose(2,1,0))
+                compressed=old_mesh[:2]==b'\x1f\x8b'
+                if (gzip.decompress(old_mesh) if compressed else old_mesh)!=raw_old:raise ValueError('Independent baseline reconstruction differs')
+                raw_mesh,details=reconstruct(np.isin(after,ids).transpose(2,1,0));mesh=encode(raw_mesh) if compressed else raw_mesh
+                meta.update(details,sha256=digest(mesh),bytes=len(mesh))
+                if compressed:
+                    meta.update(rawSha256=digest(raw_mesh),storedSha256=digest(mesh),rawBytes=len(raw_mesh),storedBytes=len(mesh))
+                if 'labelVoxelCounts' in meta:meta['labelVoxelCounts']={str(k):int((after==k).sum()) for k in ids}
+                meta['reviewRecord']=f'segmentation-patches/review/{prefix}-adoption-{review_date}.json'
+                independent_retained.append((ROOT/'tests/fixtures'/(stem+'-pre-'+prefix+'.mesh'),old_mesh))
+                independent_updates.append((mesh_path,mesh))
+            meta['sourceSha256']=record['afterSha256']
+            independent_updates.append((meta_path,serialized(meta)))
     if prefix in ('upper-fourth-gap','cerebellar-folia197','septal-membrane282','anterior-commissure-core416'):
         independent_groups=[('aqueduct-partial', (41,)), ('internal-capsule', (31, 32))]
         if new_partial:independent_groups += [('cerebellum',(28,29)),('brainstem',(27,))]
@@ -344,6 +407,41 @@ def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None, *, review_da
     record.update(status='AI-image-reviewed-project-adopted-development-only',adopted=True,projectAdopted=True,
         expertReviewed=False,published=False,meshImpact=impact,
         sectionMeshImpact=dict(before=old_report,after=new_report,changedFiles=changed))
+    if aqueduct_fourth:
+        record.update(installed=True,independentSectionChanges=['section-current-aqueduct-partial.mesh','section-current-brainstem.mesh'])
+    if right_foramen:
+        record.update(installed=True,independentSectionChanges=[])
+    if fornix_body:
+        from build_section_ventricle_meshes import reconstruct,DISPLAY_ORIGIN_ZYX
+        from stage_aqueduct_fourth44 import encode
+        raw_mesh,mesh_details=reconstruct((after==46).transpose(2,1,0));mesh=encode(raw_mesh)
+        stem='section-current-fornix-body-partial'
+        mesh_meta=dict(**mesh_details,source=SOURCE.name,sourceSha256=record['afterSha256'],labelIds=[46],
+            labelVoxelCounts={'46':987},sourceSamplingMm=.5,displayOriginZYX=DISPLAY_ORIGIN_ZYX.tolist(),
+            method='native-image-reviewed partial body; marching cubes 0.5; no resampling, smoothing or filling',
+            rawSha256=digest(raw_mesh),rawBytes=len(raw_mesh),compression='gzip',expertReviewed=False,partialExtent=True,
+            scope=fornix_decision['limitation'],reviewRecord=record_path.relative_to(ROOT).as_posix())
+        mesh_meta.update(sha256=digest(mesh),bytes=len(mesh))
+        for path,payload in [(ATLAS/(stem+'.mesh'),mesh),(ATLAS/(stem+'.json'),serialized(mesh_meta))]:
+            if path.exists() and path.read_bytes()!=payload:raise ValueError('Unrelated fornix section asset')
+            independent_updates.append((path,payload))
+        record.update(installed=True,primaryReview=fornix_decision,newSectionMesh=mesh_meta)
+    if lgn_layers:
+        from build_section_ventricle_meshes import reconstruct,DISPLAY_ORIGIN_ZYX
+        from stage_aqueduct_fourth44 import encode
+        raw_mesh,mesh_details=reconstruct(np.isin(after,[44,45]).transpose(2,1,0));mesh=encode(raw_mesh)
+        stem='section-current-lateral-geniculate-bodies'
+        mesh_meta=dict(**mesh_details,source=SOURCE.name,sourceSha256=record['afterSha256'],labelIds=[44,45],
+            labelVoxelCounts={'44':1197,'45':1374},sourceSamplingMm=.5,displayOriginZYX=DISPLAY_ORIGIN_ZYX.tolist(),
+            method='published six-layer union; nearest-neighbour official registration; marching cubes 0.5; no filling or smoothing',
+            rawSha256=digest(raw_mesh),rawBytes=len(raw_mesh),compression='gzip',expertReviewed=False,
+            reviewRecord=record_path.relative_to(ROOT).as_posix(),sourceDataset=record['sourceDataset'])
+        mesh_meta.update(sha256=digest(mesh),bytes=len(mesh))
+        for path,payload in [(ATLAS/(stem+'.mesh'),mesh),(ATLAS/(stem+'.json'),serialized(mesh_meta))]:
+            if path.exists() and path.read_bytes()!=payload:raise ValueError('Unrelated LGN section asset')
+            independent_updates.append((path,payload))
+        record.update(installed=True,rationale=lgn_decision['rationale'],limitation=lgn_decision['limitation'],
+            primaryReview=lgn_decision,newSectionMesh=mesh_meta)
     if prefix == 'upper-fourth-gap':
         decision_info = record.get('decision', {})
         decision_path = ROOT/decision_info.get('path', '')
@@ -403,6 +501,13 @@ def plan_unchanged_blocks(prefix, record_sha, mesh_report_sha=None, *, review_da
     if meta['rawVoxelSha256'] not in (digest(before_raw[10:]),record['afterRawVoxelSha256']):raise ValueError('Metadata changed')
     meta['rawVoxelSha256']=record['afterRawVoxelSha256']
     for ident in affected:meta['labelCounts'][str(ident)]=int((after==ident).sum())
+    if lgn_layers:
+        meta['labelNames'].update({'44':'left lateral geniculate nucleus (published BigBrain layer union)','45':'right lateral geniculate nucleus (published BigBrain layer union)'})
+        meta['publishedCytoarchitectonicIds']=sorted(set(meta.get('publishedCytoarchitectonicIds',[]))|{44,45})
+    if fornix_body:
+        meta['labelNames']['46']='fornix body (partial image-reviewed extent)'
+        for key in ('imageGuidedCandidateIds','projectReviewedPartialIds'):
+            meta[key]=sorted(set(meta.get(key,[]))|{46})
     if new_partial:
         ident=43 if septal_partial else 42
         meta['labelNames'][str(ident)]='septum pellucidum (partial membrane)' if septal_partial else 'anterior commissure (partial core)'

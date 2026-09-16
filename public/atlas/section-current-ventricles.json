@@ -1,7 +1,7 @@
 {
   "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
-  "sourceSha256": "065ebcef8e76dcbaab292750815d5135d92b1da1123a92b802d2efff2e41a912",
-  "rawVoxelSha256": "d36b55c86b94600b65d39347f21ef5041daeecea9ef53ec31ead1aed238dedf9",
+  "sourceSha256": "5211664518129297bbf78d1d536004e540e721615a88007ecf1459d18fb97a96",
+  "rawVoxelSha256": "24bcc09ce7627bac5b4096a204d53678f0c26d410c6f5aae3f19e6c57579b8a6",
   "dimensionsXYZ": [
     394,
     466,
@@ -108,10 +108,10 @@
       ]
     },
     "section-current-third-ventricle": {
-      "voxels": 11837,
-      "components6": 24,
+      "voxels": 11873,
+      "components6": 22,
       "componentSizes": [
-        11452,
+        11492,
         104,
         95,
         93,
@@ -124,8 +124,6 @@
         4,
         4,
         4,
-        2,
-        2,
         2,
         1,
         1,
@@ -148,19 +146,19 @@
           204
         ]
       ],
-      "vertices": 9141,
-      "faces": 18338,
-      "sha256": "1093a7c1304e1faa0ab5ecbda2573257192a282c6443b24294a459fe677028f6",
-      "bytes": 476016,
+      "vertices": 9182,
+      "faces": 18428,
+      "sha256": "1281cf7aba8a01ebd095fe131f02169af5578cf7166b0d4448599861e98b6ee2",
+      "bytes": 478244,
       "labelIds": [
         25
       ]
     },
     "section-current-fourth-ventricle": {
-      "voxels": 9166,
+      "voxels": 9202,
       "components6": 2,
       "componentSizes": [
-        9164,
+        9200,
         2
       ],
       "boundsZYX": [
@@ -171,25 +169,23 @@
         ],
         [
           114,
-          199,
+          202,
           212
         ]
       ],
-      "vertices": 5310,
-      "faces": 10628,
-      "sha256": "33933f993bcc2f89c470038fb9c8f8c80a09fdbf83fa776d774bee9ab1d165a8",
-      "bytes": 276228,
+      "vertices": 5428,
+      "faces": 10872,
+      "sha256": "9e99c9e091be96367ed00e805e152f8f0940576822a2a5b654dcd7751f1d93cb",
+      "bytes": 282460,
       "labelIds": [
         26
       ]
     },
     "section-current-ventricular-system": {
-      "voxels": 185182,
-      "components6": 87,
+      "voxels": 185262,
+      "components6": 85,
       "componentSizes": [
-        93305,
-        82214,
-        9164,
+        184763,
         104,
         95,
         93,
@@ -287,10 +283,10 @@
           276
         ]
       ],
-      "vertices": 95117,
-      "faces": 191878,
-      "sha256": "c8e6d34b6a3bc601ce91e0d3056ca6a20a7136af36d8cda92eac585d9277f738",
-      "bytes": 4965824,
+      "vertices": 95262,
+      "faces": 192184,
+      "sha256": "636b9418e98c8a0959ab5d1d8ae6a4945800808d8e51a2dfceef8d9d9407b054",
+      "bytes": 4973556,
       "labelIds": [
         23,
         24,

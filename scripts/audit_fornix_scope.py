@@ -16,7 +16,8 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
-OUTPUT = ROOT / "segmentation-patches/review/fornix-scope-inventory-2026-09-14.json"
+HISTORICAL_OUTPUT = ROOT / "segmentation-patches/review/fornix-scope-inventory-2026-09-14.json"
+OUTPUT = ROOT / "segmentation-patches/review/fornix-scope-current-2026-09-16.json"
 
 INPUTS = {
     "scopeDecision": "docs/FORNIX_SCOPE_DECISION_2026-09-14.md",
@@ -42,7 +43,7 @@ EXPECTED_SHA256 = {
     "gridReport": "55fd791cacd74d9c427adf9b341647a650c7147dea87be04b78ddc1fc5e2d304",
     "specimenBlocks": "bfa3127cc901982b8dda3de2ba84d0fb69323976139ff6688151c4da75a37220",
     "structureProvenance": "b9ab66c65a0dfefde58fd84ed55fe123636a6330fd66961addddfda63d2cd581",
-    "pathwayStepper": "fe3a930291476666879e2b370982095eb2a8cfd62131c96dfb15d80c27214e8a",
+    "pathwayStepper": "83efe91f25f340f5148eb3ce263af40287472bca71386076cf6d3de4f889e138",
     "atlasVolumeCanvas": "664e41e819950a853754ebf294789dc47ad1dd2042faee3c689890abfd476297",
     "specimenBuilder": "3c57d8dc4ed8e284d921ad7a9470575173d7742067af4ab5dca2c2d6d90adffa",
     "fornixMesh": "2f283799278be67a71843a3de868154a6b4f0ad0ef59a0b3490e3b2295b18d39",
@@ -155,19 +156,28 @@ def inventory() -> dict[str, Any]:
         require("labelIds" not in entry, f"{key} gained an independent label ID")
     require("section-fornix" in provenance_entries, "section-fornix provenance entry missing")
 
-    # Keep this source audit deliberately textual: it avoids importing app JS
-    # while checking the exact six-stage Papez fornix declaration.
-    stage = re.search(r'Object\.freeze\(\{\s*key: "fornix".*?\n\s*\}\),', stepper, flags=re.S)
-    require(stage is not None, "Papez fornix stage missing")
+    partial_entry = provenance_entries["section-fornix-body-partial"]
+    require(partial_entry["representations"] == ["image-guided-reviewed"], "partial fornix representation drift")
+    require(partial_entry["learnerSurfaces"] == ["sections"], "partial fornix learner surface drift")
+    require(partial_entry["expertReview"] == "pending", "partial fornix expert state drift")
+    require(partial_entry["projectReview"] == "reviewed-by-project", "partial fornix project state drift")
+    require(partial_entry["quizEligibility"] == "none", "partial fornix quiz state drift")
+
+    # The 2026-09-14 inventory below remains historical evidence for the
+    # schematic teaching asset.  Audit the later ID46 stage separately so the
+    # adopted partial body is not retroactively written into that record.
+    stage = re.search(r'Object\.freeze\(\{\s*key: "fornixBodyPartial".*?\n\s*\}\),', stepper, flags=re.S)
+    require(stage is not None, "Papez partial-fornix stage missing")
     stage_text = stage.group(0)
     for token in (
-        'kind: "schematic-3d"',
-        'source: "schematic-3d"',
-        'targetKeys: Object.freeze(["fornix"])',
-        '脳弓は模式3Dのみです。実標本の分節や断面ラベルは表示しません。',
+        'kind: "image-reviewed-partial-section"',
+        'source: "image-reviewed-partial-section"',
+        'targetKeys: Object.freeze(["fornixBodyPartial"])',
+        'labelIds: Object.freeze([46])',
+        'プロジェクト内採用・専門家未確認',
     ):
-        require(token in stage_text, f"Papez fornix declaration drift: {token}")
-    require("labelIds:" not in stage_text and "plane:" not in stage_text, "Papez fornix became a section-label stage")
+        require(token in stage_text, f"Papez partial-fornix declaration drift: {token}")
+    require('plane: "coronal"' in stage_text and "position: 53" in stage_text, "partial fornix section location drift")
 
     mesh = raw["fornixMesh"]
     require(mesh[:4] == b"BNM2", "fornix mesh header drift")
@@ -240,6 +250,23 @@ def inventory() -> dict[str, Any]:
             "canvasSource": INPUTS["atlasVolumeCanvas"],
             "mappingToken": mapping_token,
             "usedBy": ["currentTeaching.surfaceDeepFornix", "currentTeaching.sectionFornix"],
+        },
+        "currentAdoptedPartial": {
+            "provenanceKey": "section-fornix-body-partial",
+            "appKey": "fornixBodyPartial",
+            "labelIds": [46],
+            "representations": ["image-guided-reviewed"],
+            "learnerSurfaces": ["sections"],
+            "projectReview": "reviewed-by-project",
+            "expertReview": "pending",
+            "quizEligibility": "none",
+            "papezStepper": {
+                "kind": "image-reviewed-partial-section",
+                "sourceType": "image-reviewed-partial-section",
+                "plane": "coronal",
+                "position": 53,
+            },
+            "scope": "Adopted partial body only; the historical schematic whole-fornix teaching asset remains separate.",
         },
         "unadoptedImageDrafts": {
             "body": {

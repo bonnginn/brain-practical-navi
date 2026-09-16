@@ -1,4 +1,6 @@
 MNI152NLin2009cSym and CerebA via TemplateFlow.
+Published same-specimen lateral geniculate layers: Schiffer C., Brandstetter A., Bolakhrif N., Mohlberg H., Amunts K. and Dickscheid T., "Ultrahigh resolution 3D cytoarchitectonic map of the LGB (lam 1-6, CGL, Metathalamus) created by a Deep-Learning assisted workflow", https://doi.org/10.25493/33Z0-BX . CC BY-NC-SA 4.0, https://creativecommons.org/licenses/by-nc-sa/4.0/ . Modifications: official BigBrain coordinate registration, nearest-neighbour resampling onto the 0.5 mm application grid, six-layer union per side (IDs44/45), compression and unsmoothed section mesh extraction. No endorsement or new expert review of this application's resampling is implied.
+Partial fornix body ID46 is a project image-reviewed BigBrain derivative, not a complete tract or the separate schematic fornix. Native-image contour tracing, conservative partial-volume exclusions, 0.5 mm resampling and unsmoothed section mesh extraction retain the BigBrain CC BY-NC-SA 4.0 terms.
 MNI152 high-density white surfaces via BigBrainWarp; pial-like surface derived by normal expansion.
 BigBrain manual subcortical segmentation from the MNI PD25/BigBrain co-registration dataset (Xiao et al.), CC BY 4.0.
 Derived display volume and volumetric meshes: 1 mm.

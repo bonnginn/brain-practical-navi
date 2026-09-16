@@ -6,9 +6,9 @@ import json
 import numpy as np
 from build_section_ventricle_meshes import ROOT,ATLAS,SOURCE,reconstruct,DISPLAY_ORIGIN_ZYX
 
-LABEL_SHA='065ebcef8e76dcbaab292750815d5135d92b1da1123a92b802d2efff2e41a912'
-ADOPTION='segmentation-patches/review/posterior-ventricles158-adoption-2026-09-08.json'
-ADOPTION_SHA='f45703a468358528c46b80dfc83d7c1bfaaa3b29079e842d0c45fab82df7c2ec'
+LABEL_SHA='5211664518129297bbf78d1d536004e540e721615a88007ecf1459d18fb97a96'
+ADOPTION='segmentation-patches/review/aqueduct-fourth44-adoption-2026-09-16.json'
+ADOPTION_SHA='5387ecdc0ad9a52fca7dbe4c95cce3c5ae25621a95959a846da24ecf186034f4'
 NAME='section-current-aqueduct-partial'
 sha=lambda data:hashlib.sha256(data).hexdigest()
 
@@ -19,8 +19,8 @@ def build(compressed,adoption):
     if raw[:10]!=b'BBS1'+np.array([394,466,378],dtype='<u2').tobytes():raise ValueError('Unexpected geometry')
     labels=np.frombuffer(raw,np.uint8,offset=10).reshape((378,466,394))
     mesh,info=reconstruct(labels==41)
-    if info['voxels']!=259 or info['components6']!=1:raise ValueError('Partial mask identity changed')
-    if sha(mesh)!='22b992bfa93ec644aaf29d7644aebe12b50513b27c877941c70c65e641a4eeef':
+    if info['voxels']!=267 or info['components6']!=1:raise ValueError('Partial mask identity changed')
+    if sha(mesh)!='13cc011f6507b9f3ad3ff830009c2c9150fbb3b52602c1f561e253c4a9765faa':
         raise ValueError('Unchanged aqueduct geometry differs after lower-midbrain repair')
     return mesh,dict(source=SOURCE.name,sourceSha256=LABEL_SHA,adoption=ADOPTION,adoptionSha256=ADOPTION_SHA,
         labelIds=[41],partialExtent=True,expertReviewed=False,sourceSamplingMm=.5,

@@ -28,3 +28,7 @@ scripts/brodmann-source-lock.json -text whitespace=cr-at-eol
 public/atlas/brodmann-surface.json -text
 public/atlas/BRODMANN-FREESURFER-NOTICE.txt -text
 tests/fixtures/section-current-ventricles-pre-upper-fourth-gap.json -text
+tests/fixtures/section-current-*-pre-aqueduct-fourth44.json -text
+tests/fixtures/section-current-*-pre-right-foramen36.json -text
+tests/fixtures/section-current-*-pre-lgn-layers2571.json -text
+tests/fixtures/section-current-*-pre-fornix-body987.json -text

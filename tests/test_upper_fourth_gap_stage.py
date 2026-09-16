@@ -18,7 +18,8 @@ class UpperFourthGapStageTests(unittest.TestCase):
    self.assertEqual(before['sourceSha256'],BASE_SHA);self.assertEqual(current['sourceSha256'],AFTER_SHA)
    for key in set(before)|set(current):
     if key!='sourceSha256':self.assertEqual(before.get(key),current.get(key),key)
-   self.assertEqual(digest((ROOT/f'public/atlas/section-current-{name}.mesh').read_bytes()),current['sha256'])
+   fixture=ROOT/f'tests/fixtures/section-current-{name}-pre-aqueduct-fourth44.mesh'
+   self.assertEqual(digest(fixture.read_bytes() if fixture.exists() else (ROOT/f'public/atlas/section-current-{name}.mesh').read_bytes()),current['sha256'])
  def test_exact_158_installed_replay_and_restore(self):
   record=json.loads(RECORD.read_text(encoding='utf-8'));br,before=load(BEFORE);ar,after=load(AFTER)
   self.assertEqual(digest(BEFORE.read_bytes()),BASE_SHA);self.assertEqual(digest(AFTER.read_bytes()),AFTER_SHA);self.assertEqual(br[:10],ar[:10])

@@ -1,0 +1,64 @@
+{
+  "voxels": 264498,
+  "components6": 7,
+  "componentSizes": [
+    264459,
+    14,
+    12,
+    8,
+    2,
+    2,
+    1
+  ],
+  "boundsZYX": [
+    [
+      3,
+      165,
+      158
+    ],
+    [
+      148,
+      256,
+      233
+    ]
+  ],
+  "vertices": 54182,
+  "faces": 108516,
+  "sha256": "b807ee9e4c9c3cb9beb55b7e7ee3192b0a9621f34363025c52a87ce5cc89c676",
+  "bytes": 650675,
+  "labelIds": [
+    27
+  ],
+  "sourceSha256": "065ebcef8e76dcbaab292750815d5135d92b1da1123a92b802d2efff2e41a912",
+  "rawSha256": "248024c1deaa77ef97331a4a06bc14e03c87121bb5e816d8082fa97d53dbdf1b",
+  "storedSha256": "b807ee9e4c9c3cb9beb55b7e7ee3192b0a9621f34363025c52a87ce5cc89c676",
+  "rawBytes": 2819300,
+  "storedBytes": 650675,
+  "meshBoundsZYXmm": [
+    [
+      -88.75,
+      -33.75,
+      -19.25
+    ],
+    [
+      -15.75,
+      12.25,
+      18.75
+    ]
+  ],
+  "storage": "deterministic gzip containing BNM2",
+  "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
+  "sourceSamplingMm": 0.5,
+  "displayOriginZYX": [
+    -90.0,
+    -116.0,
+    -98.0
+  ],
+  "method": "marching cubes 0.5; no resampling, smoothing, filling or component removal",
+  "scope": "Current BigBrain section labels only. Includes the project-reviewed local cerebellar folia repair; remaining boundaries are not expert-validated.",
+  "labelVoxelCounts": {
+    "27": 264498
+  },
+  "compression": "gzip",
+  "reviewRecord": "segmentation-patches/review/cerebellar-folia197-adoption-2026-09-16.json"
+}

@@ -54,13 +54,13 @@ test('lateral roof8 preserves other labels and synchronizes successor metadata a
     read('public/atlas/section-current-ventricles.json').then(JSON.parse),
   ]);
   const latest = await withRegionalBatches(record, { afterRevision: record.afterSha256 });
-  assert.equal(latest.afterSha256, '065ebcef8e76dcbaab292750815d5135d92b1da1123a92b802d2efff2e41a912');
-  assert.equal(latest.afterRawVoxelSha256, 'd36b55c86b94600b65d39347f21ef5041daeecea9ef53ec31ead1aed238dedf9');
+  assert.equal(latest.afterSha256, '5211664518129297bbf78d1d536004e540e721615a88007ecf1459d18fb97a96');
+  assert.equal(latest.afterRawVoxelSha256, '24bcc09ce7627bac5b4096a204d53678f0c26d410c6f5aae3f19e6c57579b8a6');
   assert.deepEqual(metadata.labelCounts, { ...metadata.labelCounts, '23': 81670, '24': 82250, '30': 145707 });
   assert.equal(metadata.rawVoxelSha256, latest.afterRawVoxelSha256);
   assert.equal(sections.sourceSha256, latest.afterSha256);
   assert.equal(sections.meshes['section-current-lateral-ventricles'].voxels, 163920);
-  assert.equal(sections.meshes['section-current-ventricular-system'].voxels, 185182);
+  assert.equal(sections.meshes['section-current-ventricular-system'].voxels, 185262);
   for (const name of ['section-current-lateral-ventricles', 'section-current-ventricular-system']) {
     const info = latest.sectionMeshImpact.after.meshes[name];
     assert.equal(sha(await read('public/atlas/' + name + '.mesh')), info.sha256);

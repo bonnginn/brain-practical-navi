@@ -1,5 +1,9 @@
 # データ、権利、出典
 
+2026-09-16開発版：外側膝状体ID44・45はSchiffer, Brandstetter, Bolakhrif, Mohlberg, Amunts, Dickscheidによる同一BigBrain標本の[公開LGB層分節](https://doi.org/10.25493/33Z0-BX)を使用する。CC BY-NC-SA 4.0。公式座標変換、0.5 mm最近傍再標本化、左右別6層の和集合、圧縮、無平滑mesh生成を行った。脳弓体部部分ID46はBigBrain原画像に基づくプロジェクト分節であり、同じBigBrainの非営利・継承条件を保持する。[LGN採用範囲](docs/LATERAL_GENICULATE_LAYERS_2026-09-16.md)・[脳弓体部の収録範囲](docs/FORNIX_BODY_PARTIAL_2026-09-16.md)。元データの注釈、本プロジェクトの画像照合、専門家による本教材の確認を区別する。
+
+English: Development IDs44/45 derive from the published same-specimen LGB layer map by Schiffer et al. (DOI 10.25493/33Z0-BX, CC BY-NC-SA 4.0), transformed through the official registration, nearest-neighbour resampled at 0.5 mm and unioned across six layers per side. ID46 is a project-reviewed partial fornix body derived from BigBrain images. Neither addition represents a complete visual pathway or fornix. Credits and modifications are bundled in `public/atlas/ATTRIBUTION.txt`.
+
 開発版の `section-current-*.mesh` は現在のBigBrain実習分節から全範囲を再構成した脳室表示です。原資料・分節の既存条件を継承し、新たな専門家確定データとは扱いません。[生成法・SHA・適用範囲](docs/SECTION_VENTRICLE_MESH_SYNC.md)
 
 分節の原画像・ラベル・位置合わせ資料と参考文献は [分節の出典索引](docs/SEGMENTATION_REFERENCES.md) から参照できます。

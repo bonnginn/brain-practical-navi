@@ -76,7 +76,7 @@ type BlockVisual = "model";
 type BlockLayer = {key:string;name:string;latin:string;color:string;source:"標本分節"|"試作分節"|"模式補助"|"位置目安";note:string};
 type BlockLesson = {name:string;en:string;visual:BlockVisual;plane:Plane;position:number;focus:Focus;view:"inside"|"ghost"|"extracted"|"segmented";rotation:Rotation;intro:string;observe:string[];caution:string;layers:BlockLayer[]};
 type NeurovascularStructureKey = "ica" | "aca" | "acomm" | "mca" | "pcomm" | "vertebral" | "basilar" | "pca" | "cerebellarArteries" | "cn1" | "cn2" | "opticChiasm" | "cn3" | "cn4" | "cn5" | "cn6" | "cn7" | "cn8" | "cn9" | "cn10" | "cn11" | "cn12";
-type StructureKey = Focus | "thirdVentricle" | "fourthVentricle" | "aqueductPartial" | "anteriorCommissurePartial" | "septumPellucidumPartial" | "corpusCallosum" | "internalCapsule" | "putamen" | "pallidumExternal" | "pallidumInternal" | "pallidum" | "amygdala" | "accumbens" | "redNucleus" | "substantiaNigra" | "subthalamic" | "brainstem" | "cerebellum" | "opticChiasm" | "mammillaryBody" | "insula";
+type StructureKey = Focus | "thirdVentricle" | "fourthVentricle" | "aqueductPartial" | "anteriorCommissurePartial" | "septumPellucidumPartial" | "lateralGeniculateBodies" | "fornixBodyPartial" | "corpusCallosum" | "internalCapsule" | "putamen" | "pallidumExternal" | "pallidumInternal" | "pallidum" | "amygdala" | "accumbens" | "redNucleus" | "substantiaNigra" | "subthalamic" | "brainstem" | "cerebellum" | "opticChiasm" | "mammillaryBody" | "insula";
 type LabelSource = "manual" | "atlas-provisional" | "image-guided" | "image-guided-reviewed";
 type StructureInfo = { name: string; latin: string; color: string; rgb: [number,number,number]; ids: number[]; bigbrainIds?: number[]; labelSource?: LabelSource; note: string; relation: string; meshFocus?: Focus };
 const labelSourceDisplay:Record<LabelSource,{label:string;detail:string;className:"source"|"provisional"}>={
@@ -318,7 +318,7 @@ const blockSpecimens:Record<BlockSpecimenKey,BlockLesson>={
     {key:"interpeduncular-fossa",name:"脚間窩",latin:"Fossa interpeduncularis",color:"#8f6d58",source:"位置目安",note:"左右大脳脚の間で動眼神経が現れる腹側のくぼみです。"},
   ]},
   hindbrain:{name:"脳幹・小脳の脱着",en:"BRAINSTEM & CEREBELLUM",visual:"model",plane:"horizontal",position:80,focus:"thalamus",view:"inside",rotation:{x:-4,y:8},intro:"単一標本から脳幹・小脳を切り離した標本です。橋・延髄と小脳を外して第四脳室と菱形窩を露出し、小脳脚や表面隆起の位置目安を重ねられます。中脳は上方との連続を保つため残します。",observe:["中脳・橋・延髄","第四脳室と菱形窩","小脳虫部・半球","上・中・下小脳脚の方向","顔面神経丘・前庭野・舌下／迷走神経三角","錐体・オリーブ"],caution:"橋・延髄、第四脳室、小脳は同一格子に基づきます。小脳脚は走行の模式3D、菱形窩の隆起と錐体・オリーブは表面上の位置目安で、神経核・線維束の正解分節ではありません。",layers:[
-    {key:"fourth-ventricle",name:"第四脳室",latin:"Ventriculus quartus",color:"#45aebd",source:"試作分節",note:"橋・延髄と小脳の間にある腔です。中脳水道候補の一部を別ラベルへ分け、橋の前方にあった誤分類の小片を除外しました。上方の微小片の帰属と腔の連続性は未確定のため、原画像と見比べてください。"},
+    {key:"fourth-ventricle",name:"第四脳室",latin:"Ventriculus quartus",color:"#45aebd",source:"試作分節",note:"橋・延髄と小脳の間にある腔です。連続断面では上端の塗り残しを原画像で確認して補い、中脳水道から続く主腔を表示します。孤立した微小片や下方の出口は確認が残っています。ブロック標本は粗い格子のため細い接続の再現に限界があります。"},
     {key:"superior-cerebellar-peduncles",name:"上小脳脚",latin:"Pedunculus cerebellaris superior",color:"#e8ba52",source:"模式補助",note:"小脳から中脳方向へ上行する結合の概略走行です。"},
     {key:"middle-cerebellar-peduncles",name:"中小脳脚",latin:"Pedunculus cerebellaris medius",color:"#db8747",source:"模式補助",note:"橋外側から小脳半球へ入る最も太い結合の概略走行です。"},
     {key:"inferior-cerebellar-peduncles",name:"下小脳脚",latin:"Pedunculus cerebellaris inferior",color:"#6dad7a",source:"模式補助",note:"延髄背外側から小脳へ向かう結合の概略走行です。"},
@@ -388,26 +388,28 @@ const freeObservationByKey=new Map(freeObservationItems.map(item=>[item.key,item
 type PathwayPresetKey="visual"|"papez"|"basal-ganglia";
 type PathwayPreset={name:string;summary:string;steps:string[];freeKeys:FreeObservationKey[];sectionKeys:StructureKey[];extraLayers?:{files:string[];color:[number,number,number]}[]};
 const pathwayPresets:Record<PathwayPresetKey,PathwayPreset>={
-  papez:{name:"Papez回路",summary:"内側側頭葉周囲の既存断面ラベル、脳弓の模式3D、アトラス対応領域を由来別に順に観察します。線維走行や結合を再現する表示ではありません。乳頭体はBigBrain水平連続切片から作成した画像誘導ラベルです。",steps:["海馬体","脳弓","乳頭体","視床（前部核は未分節）","帯状回","海馬傍回・嗅内野"],freeKeys:["deep:fornix","deep:thalami","region:cingulate","region:parahippocampal","region:entorhinal"],sectionKeys:["hippocampus","mammillaryBody","thalamus"]},
-  visual:{name:"視覚路",summary:"視神経から視交叉・視索、視床後部、視放線、一次視覚野までの並びを追います。視交叉と左右視索の断面分節は再作業中です。",steps:["視神経（II）","視交叉・左右視索（画像由来分節待ち）","外側膝状体付近","視放線","鳥距溝周囲の視覚皮質"],freeKeys:["neuro:cn2","neuro:opticChiasm","deep:thalami","region:pericalcarine","region:cuneus","region:lingual"],sectionKeys:["thalamus"],extraLayers:[{files:["block-radiations-optic-radiation"],color:[125,159,208]}]},
+  papez:{name:"Papez回路",summary:"内側側頭葉周囲の既存断面ラベル、脳弓の模式3D、アトラス対応領域を由来別に順に観察します。線維走行や結合を再現する表示ではありません。乳頭体はBigBrain水平連続切片から作成した画像誘導ラベルです。",steps:["海馬体","脳弓","乳頭体","視床（前部核は未分節）","帯状回","海馬傍回・嗅内野"],freeKeys:["deep:fornix","deep:thalami","region:cingulate","region:parahippocampal","region:entorhinal"],sectionKeys:["hippocampus","fornixBodyPartial","mammillaryBody","thalamus"]},
+  visual:{name:"視覚路",summary:"視神経から視交叉・視索、視床後部、視放線、一次視覚野までの並びを追います。視交叉と左右視索の断面分節は再作業中です。",steps:["視神経（II）","視交叉・左右視索（画像由来分節待ち）","外側膝状体（同一標本分節）","視放線（模式）","鳥距溝周囲の視覚皮質"],freeKeys:["neuro:cn2","neuro:opticChiasm","deep:thalami","region:pericalcarine","region:cuneus","region:lingual"],sectionKeys:["lateralGeniculateBodies","thalamus"],extraLayers:[{files:["block-radiations-optic-radiation"],color:[125,159,208]}]},
   "basal-ganglia":{name:"大脳基底核回路",summary:"既存の線条体、淡蒼球、視床下核、黒質、視床を3Dと断面で同じ色に同期し、相互の位置関係を順に確認します。投射や回路結合を再現する表示ではありません。",steps:["尾状核・被殻（線条体）","淡蒼球外節・内節","視床下核","黒質","視床"],freeKeys:["deep:thalami"],sectionKeys:["caudate","putamen","pallidumExternal","pallidumInternal","subthalamic","substantiaNigra","thalamus"]},
 };
 const pathwayPresetKeys=Object.keys(pathwayPresets) as PathwayPresetKey[];
 const pathwayObservationStepsEnglish:Record<PathwayPresetKey,string[]>={
   papez:["Hippocampal formation","Fornix","Mammillary bodies","Thalamus (anterior nuclei unsegmented)","Cingulate gyrus","Parahippocampal and entorhinal cortex"],
-  visual:["Optic nerve (II)","Optic chiasm and tracts (specimen segmentation pending)","Lateral geniculate region","Optic radiation","Visual cortex around the calcarine sulcus"],
+  visual:["Optic nerve (II)","Optic chiasm and tracts (specimen segmentation pending)","Lateral geniculate bodies (same-specimen labels)","Optic radiation (schematic)","Visual cortex around the calcarine sulcus"],
   "basal-ganglia":["Caudate and putamen (striatum)","External and internal pallidum","Subthalamic nucleus","Substantia nigra","Thalamus"],
 };
-const papezStepKindLabels:Record<PapezStep["kind"],string>={"section-label":"断面ラベル","schematic-3d":"模式3D","atlas-3d":"アトラス3D"};
-const papezStepSourceLabels:Record<PapezStep["source"],string>={"existing-quiz-section-label":"既存クイズ断面ラベル","schematic-3d":"模式3D","atlas-3d":"CerebrA／Desikan系アトラス3D"};
+const papezStepKindLabels:Record<PapezStep["kind"],string>={"section-label":"断面ラベル","image-reviewed-partial-section":"画像確認済み部分断面","schematic-3d":"模式3D","atlas-3d":"アトラス3D"};
+const papezStepSourceLabels:Record<PapezStep["source"],string>={"existing-quiz-section-label":"既存クイズ断面ラベル","image-reviewed-partial-section":"同一標本・画像確認済み部分断面","schematic-3d":"模式3D","atlas-3d":"CerebrA／Desikan系アトラス3D"};
 
 const structures: Record<StructureKey, StructureInfo> = {
-  aqueductPartial: {name:"中脳水道候補（部分）",latin:"Cerebral aqueduct (partial)",color:"#d58ba8",rgb:[213,139,168],ids:[],bigbrainIds:[41],labelSource:"image-guided",meshFocus:"ventricle",note:"中脳水道の一部分だけを示す候補です。全長や境界の確定を意味せず、通常クイズの正答対象には含めません。",relation:"中脳蓋と被蓋の間。第三・第四脳室との移行部は未完成"},
+  aqueductPartial: {name:"中脳水道候補（部分）",latin:"Cerebral aqueduct (partial)",color:"#d58ba8",rgb:[213,139,168],ids:[],bigbrainIds:[41],labelSource:"image-guided",meshFocus:"ventricle",note:"中脳水道の一部分だけを示す候補です。全長や境界の確定を意味せず、通常クイズの正答対象には含めません。",relation:"中脳蓋と被蓋の間。断面ラベルの主腔は第三・第四脳室へ連続しますが、名称の切替境界は暫定です"},
   anteriorCommissurePartial: {name:"前交連（部分）",latin:"Anterior commissure (partial)",color:"#c58ce0",rgb:[197,140,224],ids:[],bigbrainIds:[42],labelSource:"image-guided",note:"原画像で追跡した前交連内部の一部だけを示します。全外縁、側頭葉へ向かう終末、内包に近接する区間は未収録で、完全に連続した経路を示すものではありません。",relation:"正中を横切り左右へ伸びる交連線維の一部。側頭葉間を結ぶ主な走行の位置目安"},
   septumPellucidumPartial: {name:"透明中隔（部分）",latin:"Septum pellucidum (partial)",color:"#efad72",rgb:[239,173,114],ids:[],bigbrainIds:[43],labelSource:"image-guided",note:"原画像で追跡できた薄い隔壁の一部を示します。上下の付着部や細い箇所は未収録です。中隔核や脳弓とは分けて観察してください。",relation:"左右の側脳室前角の間、脳梁の下方、脳弓の上方"},
+  lateralGeniculateBodies: {name:"外側膝状体",latin:"Corpora geniculata lateralia",color:"#75b6d8",rgb:[117,182,216],ids:[],bigbrainIds:[44,45],labelSource:"image-guided-reviewed",note:"同一BigBrain標本で公開された左右6層分節の和集合を、公式変換で0.5 mm断面格子へ最近傍再標本化した範囲です。視索と視放線は未完成で、視覚路全体の連続分節ではありません。",relation:"視床後下方にある視覚中継核。視索が入る側と視放線が出る側の位置関係を断面で確認します"},
+  fornixBodyPartial: {name:"脳弓体部（部分）",latin:"Corpus fornicis (partial)",color:"#d7c58d",rgb:[215,197,141],ids:[],bigbrainIds:[46],labelSource:"image-guided-reviewed",note:"同一BigBrain標本のnative原画像で追跡できた約8 mmの体部内部だけを示します。脚・柱・上方の透明中隔付着部を含む全境界は未収録で、脳弓全体の連続分節ではありません。",relation:"側脳室体部の下内側、透明中隔の下方に位置する脳弓体部の一部"},
   ventricle: { name: "側脳室", latin: "Ventriculus lateralis", color: "#49a9b4", rgb:[73,169,180], ids:[92,41,56,5], bigbrainIds:[23,24], labelSource:"atlas-provisional", meshFocus:"ventricle", note: "前角・体部・後角・下角が連続する空間です。断面を動かして形の変化を追います。", relation: "脳梁の下方、尾状核・視床の内側" },
   thirdVentricle: { name:"第三脳室", latin:"Ventriculus tertius", color:"#58aeb8", rgb:[88,174,184], ids:[80,29], bigbrainIds:[25], labelSource:"atlas-provisional", meshFocus:"ventricle", note:"左右の視床・視床下部に囲まれる正中の細い腔です。上方は視床、下方（底側）は視床下部に接し、水平断・冠状断で側脳室との位置関係を確認します。", relation:"左右の視床・視床下部の間（上方：視床、下方：視床下部）" },
-  fourthVentricle: { name:"第四脳室", latin:"Ventriculus quartus", color:"#4997b0", rgb:[73,151,176], ids:[88,37], bigbrainIds:[26], labelSource:"atlas-provisional", meshFocus:"ventricle", note:"橋・延髄と小脳の間にある腔です。中脳水道候補の一部を別ラベルへ分け、橋の前方にあった誤分類の小片を除外しました。上方の微小片の帰属と腔の連続性は未確定のため、原画像と見比べてください。", relation:"脳幹の背側、小脳の腹側" },
+  fourthVentricle: { name:"第四脳室", latin:"Ventriculus quartus", color:"#4997b0", rgb:[73,151,176], ids:[88,37], bigbrainIds:[26], labelSource:"atlas-provisional", meshFocus:"ventricle", note:"橋・延髄と小脳の間にある腔です。連続断面では上端の塗り残しを原画像で確認して補い、中脳水道から続く主腔を表示します。孤立した微小片や下方の出口は確認が残っています。ブロック標本は粗い格子のため細い接続の再現に限界があります。", relation:"脳幹の背側、小脳の腹側" },
   corpusCallosum: { name:"脳梁", latin:"Corpus callosum", color:"#dbc270", rgb:[219,194,112], ids:[], bigbrainIds:[30], labelSource:"image-guided", note:"左右大脳半球を結ぶ交連線維です。矢状断で膝・幹・膨大を連続して確認します。局所的な誤収録は修正しましたが、帯状回・脳弓との分離など未修正部分があり、輪郭は確定境界ではありません。", relation:"側脳室の上方、帯状回の下方" },
   internalCapsule: { name:"内包", latin:"Capsula interna", color:"#e3d8b0", rgb:[227,216,176], ids:[], bigbrainIds:[31,32], labelSource:"image-guided", note:"尾状核・視床とレンズ核の間を走る白質路です。冠状断で前脚・膝・後脚の曲がりを追います。", relation:"尾状核・視床の外側、被殻・淡蒼球の内側" },
   caudate: { name: "尾状核", latin: "Nucleus caudatus", color: "#e19749", rgb:[225,151,73], ids:[100,49], bigbrainIds:[7,8], labelSource:"manual", meshFocus:"caudate", note: "側脳室に沿って弧状に走る核です。現在の分節は頭部・体部が中心で、下角へ回り込む尾部全長を収録していません。ラベルの終端を尾状核そのものの終端と誤認しないでください。", relation: "側脳室の外側、内包の内側" },
@@ -445,6 +447,8 @@ const bigbrainSectionMeshFiles:Partial<Record<StructureKey,string[]>>={
   aqueductPartial:["section-current-aqueduct-partial"],
   anteriorCommissurePartial:["section-current-anterior-commissure-partial"],
   septumPellucidumPartial:["section-current-septum-pellucidum-partial"],
+  lateralGeniculateBodies:["section-current-lateral-geniculate-bodies"],
+  fornixBodyPartial:["section-current-fornix-body-partial"],
   ventricle:["section-current-lateral-ventricles"],
   thirdVentricle:["section-current-third-ventricle"],
   fourthVentricle:["section-current-fourth-ventricle"],
@@ -453,8 +457,8 @@ const bigbrainSectionMeshFiles:Partial<Record<StructureKey,string[]>>={
 const structureGroups:{key:string;name:string;color:string;members:StructureKey[]}[]=[
   {key:"ventricles",name:"脳室系",color:"#49a9b4",members:["ventricle","thirdVentricle","fourthVentricle","aqueductPartial"]},
   {key:"basal",name:"大脳基底核",color:"#d9854f",members:["caudate","putamen","pallidumExternal","pallidumInternal","accumbens"]},
-  {key:"midline",name:"白質・視床",color:"#d2b765",members:["corpusCallosum","anteriorCommissurePartial","septumPellucidumPartial","internalCapsule","thalamus"]},
-  {key:"limbic",name:"辺縁系",color:"#c8798d",members:["hippocampus","amygdala","mammillaryBody"]},
+  {key:"midline",name:"白質・視床",color:"#d2b765",members:["corpusCallosum","anteriorCommissurePartial","septumPellucidumPartial","lateralGeniculateBodies","internalCapsule","thalamus"]},
+  {key:"limbic",name:"辺縁系",color:"#c8798d",members:["hippocampus","amygdala","fornixBodyPartial","mammillaryBody"]},
   {key:"midbrain",name:"中脳核・視床下域",color:"#b06e75",members:["redNucleus","substantiaNigra","subthalamic"]},
   {key:"posterior",name:"脳幹・小脳",color:"#7e9f6c",members:["brainstem","cerebellum"]},
 ];
@@ -463,6 +467,8 @@ const structureFunctions:Record<StructureKey,string>={
   aqueductPartial:"中脳水道は第三脳室と第四脳室を結ぶ髄液の通路です。ここに表示するのはその一部分で、通路全体の再現ではありません。",
   anteriorCommissurePartial:"前交連は左右の大脳半球を結ぶ交連線維です。ここでは正中を横切り、側頭葉間へ向かう主な走行の一部を位置関係の基準として示します。",
   septumPellucidumPartial:"左右の側脳室前角を隔てる薄い隔壁です。脳梁と脳弓の位置関係を観察する手がかりになります。",
+  lateralGeniculateBodies:"網膜からの情報を視索から受け、視放線を介して視覚皮質へ中継する視床後方の核です。",
+  fornixBodyPartial:"海馬系から乳頭体・中隔領域へ向かう脳弓のうち、左右が正中近くを前後に走る体部の一部です。",
   ventricle:"脳脊髄液を含む腔で、脳室系の連続性と周囲構造の位置を知る基準になります。",
   thirdVentricle:"左右の視床・視床下部に囲まれる間脳正中の髄液腔です。上方は視床、下方（底側）は視床下部で、各構造の位置関係を読む基準になります。",
   fourthVentricle:"後脳の髄液腔で、中脳水道からくも膜下腔へ至る髄液循環の通路です。",
@@ -925,15 +931,15 @@ export default function Home() {
   const basalStepperStructureKeys=basalStepperStep.targetKeys as readonly StructureKey[];
   const papezStepperActive=selectedPathway==="papez"&&!brodmannActive&&workspace==="surface"&&surfaceView==="free";
   const papezStepperStep=(PAPEZ_STEPS[papezStepperIndex]??PAPEZ_STEPS[0]) as PapezStep;
-  const papezStepperSectionKeys=(papezStepperStep.kind==="section-label"?papezStepperStep.targetKeys:[]) as readonly StructureKey[];
+  const papezStepperSectionKeys=(papezStepperStep.kind==="section-label"||papezStepperStep.kind==="image-reviewed-partial-section"?papezStepperStep.targetKeys:[]) as readonly StructureKey[];
   const papezStepperRegionKeys=(papezStepperStep.kind==="atlas-3d"?papezStepperStep.targetKeys:[]) as readonly SurfaceRegionKey[];
   const papezStepperDeepKeys=(papezStepperStep.kind==="schematic-3d"?papezStepperStep.targetKeys:[]) as readonly SurfaceDeepLandmarkKey[];
   const freePathwayMeshLayers=useMemo(()=>{
     if(!activePathway)return [];
     const keys=selectedPathway==="basal-ganglia"?basalStepperStructureKeys:activePathway.sectionKeys;
-    return [...keys.flatMap(key=>{const files=structureMeshFiles[key]??[];return files.length?[{files,color:structures[key].rgb}]:[]}),...(selectedPathway==="basal-ganglia"?[]:(activePathway.extraLayers??[]))];
+    return [...keys.flatMap(key=>{const files=bigbrainSectionMeshFiles[key]??structureMeshFiles[key]??[];return files.length?[{files,color:structures[key].rgb}]:[]}),...(selectedPathway==="basal-ganglia"?[]:(activePathway.extraLayers??[]))];
   },[activePathway,basalStepperStructureKeys,selectedPathway]);
-  const papezStepperMeshLayers=useMemo(()=>papezStepperStep.kind!=="section-label"?[]:papezStepperSectionKeys.flatMap(key=>{const files=structureMeshFiles[key]??[];return files.length?[{files,color:structures[key].rgb}]:[]}),[papezStepperSectionKeys,papezStepperStep.kind]);
+  const papezStepperMeshLayers=useMemo(()=>!["section-label","image-reviewed-partial-section"].includes(papezStepperStep.kind)?[]:papezStepperSectionKeys.flatMap(key=>{const files=bigbrainSectionMeshFiles[key]??structureMeshFiles[key]??[];return files.length?[{files,color:structures[key].rgb}]:[]}),[papezStepperSectionKeys,papezStepperStep.kind]);
   const papezStepperHasMesh=papezStepperMeshLayers.length>0;
   const basalStepperSliceHighlights=useMemo<HighlightLayer[]>(()=>basalStepperStructureKeys.map(key=>({ids:structures[key].bigbrainIds??[],color:structures[key].rgb})),[basalStepperStructureKeys]);
   const basalStepperTargetNames=useMemo(()=>basalStepperStructureKeys.map(key=>structures[key].name),[basalStepperStructureKeys]);
@@ -1294,10 +1300,12 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
   }
   function observeCircuitStage(index:number,moveFocus=true){
     circuitReturnFocus.current=document.activeElement instanceof HTMLElement?document.activeElement:null;
-    const useModel=selectedPathway==="visual"||(selectedPathway==="papez"&&PAPEZ_STEPS[index]?.kind!=="section-label");
+    const sectionPapez=["section-label","image-reviewed-partial-section"].includes(PAPEZ_STEPS[index]?.kind);
+    const useModel=(selectedPathway==="visual"&&index!==3)||(selectedPathway==="papez"&&!sectionPapez);
     if(selectedPathway==="papez")choosePapezStepperStep(index);
     else if(selectedPathway==="basal-ganglia")chooseBasalStepperStep(index);
     else {
+      if(selectedPathway==="visual"&&index===3){openWorkspace("sections");jump("coronal",47,"replace");setVisibleStructures(["lateralGeniculateBodies"]);focusStructure("lateralGeniculateBodies",true);setLabels(true);if(!moveFocus)return;window.requestAnimationFrame(()=>circuitObservationRef.current?.focus({preventScroll:true}));return}
       const visualTargets:(FreeObservationKey|null)[]=["neuro:cn2","neuro:opticChiasm","neuro:cn2","deep:thalami",null,"region:pericalcarine"];
       const key=visualTargets[index];
       if(key)selectFreeObservation(key);
@@ -1506,7 +1514,7 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
             {!webglUnavailable&&<><OrientationCompass rotation={rotation}/>
             {surfaceNeurovascular&&<div className="neurovascularLegend">{surfaceVessels&&<><span><i className="arterialAnterior"/>内頸動脈系</span><span><i className="arterialPosterior"/>椎骨脳底系</span></>}{surfaceNerves&&<><span><i className="nerveAnterior"/>I–IV</span><span><i className="nervePontine"/>V–VIII</span><span><i className="nerveMedullary"/>IX–XII</span></>}</div>}</>}
           </div>
-          <div className="modelStepSummary">{basalStepperActive&&<div className="pathwayStepperModelTag" aria-live="polite"><span>位置関係ステッパー・試作</span><b>{basalStepperStep.label}</b><small>{basalStepperTargetNames.join(" ／ ")}・3Dと断面を同じ色で表示</small></div>}{papezStepperActive&&<div className="pathwayStepperModelTag papezStepperModelTag" aria-live="polite"><span>PAPEZ・由来別ステッパー</span><b>{papezStepperStep.label}</b>{papezStepperSectionKeys.includes("thalamus")&&<small>{englishEdition?"Whole thalamus shown; anterior nuclei are not segmented separately.":"表示は視床全体です。前核群は独立分節されていません。"}</small>}<small>{papezStepperTargetNames.join(" ／ ")}・{papezStepSourceLabels[papezStepperStep.source]}・{papezStepperStep.kind==="section-label"?(papezStepperHasMesh?"3D／断面同期":"断面ラベルのみ"):"3Dのみ"}</small></div>}</div>
+          <div className="modelStepSummary">{basalStepperActive&&<div className="pathwayStepperModelTag" aria-live="polite"><span>位置関係ステッパー・試作</span><b>{basalStepperStep.label}</b><small>{basalStepperTargetNames.join(" ／ ")}・3Dと断面を同じ色で表示</small></div>}{papezStepperActive&&<div className="pathwayStepperModelTag papezStepperModelTag" aria-live="polite"><span>PAPEZ・由来別ステッパー</span><b>{papezStepperStep.label}</b>{papezStepperSectionKeys.includes("thalamus")&&<small>{englishEdition?"Whole thalamus shown; anterior nuclei are not segmented separately.":"表示は視床全体です。前核群は独立分節されていません。"}</small>}<small>{papezStepperTargetNames.join(" ／ ")}・{papezStepSourceLabels[papezStepperStep.source]}・{["section-label","image-reviewed-partial-section"].includes(papezStepperStep.kind)?(papezStepperHasMesh?"3D／断面同期":"断面ラベルのみ"):"3Dのみ"}</small></div>}</div>
           {!webglUnavailable&&(surfaceNeurovascular||surfaceView==="inferior"||surfaceView==="free")&&<div className="surfaceDisplayControls">
             {surfaceNeurovascular&&<div className="neurovascularControls specimenPartControls" aria-label="脳表・神経血管レイヤー"><button className={surfaceVessels?"active vessels":""} aria-pressed={surfaceVessels} onClick={()=>setSurfaceVessels(value=>!value)}><i/>血管</button><button className={surfaceNerves?"active nerves":""} aria-pressed={surfaceNerves} onClick={()=>setSurfaceNerves(value=>!value)}><i/>脳神経</button><button className={surfaceCerebellum?"active":""} aria-pressed={surfaceCerebellum} onClick={()=>setSurfaceCerebellum(value=>!value)}>{surfaceCerebellum?"小脳を外す":"小脳を戻す"}</button><button className={surfaceGhost?"active":""} aria-pressed={surfaceGhost} onClick={()=>setSurfaceGhost(value=>!value)}>{surfaceGhost?"脳表を戻す":"脳表を透過"}</button></div>}
             {surfaceView==="inferior"&&<div className="neurovascularControls specimenPartControls basalOverlayControls" aria-label="下面の補助レイヤー"><button className={surfaceVessels?"active vessels":""} aria-pressed={surfaceVessels} onClick={()=>setSurfaceVessels(value=>!value)}><i/>血管</button><button className={surfacePonsMedulla&&surfaceNerves?"active nerves":""} aria-pressed={surfacePonsMedulla&&surfaceNerves} onClick={toggleInferiorHindbrain}>橋・延髄</button></div>}
@@ -1532,12 +1540,12 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
             {papezStepperActive&&<section ref={circuitObservationRef} tabIndex={-1} className="pathwayStepper papezPathwayStepper" aria-label="Papez回路の由来別位置関係ステッパー">
               <header><div><b>Papez回路・由来別位置関係ステッパー</b><small>既存ラベルと既存3Dガイドを、由来を分けて順に確認する試作</small></div><span>{papezStepperIndex+1} / {PAPEZ_STEPS.length}</span></header>
               <div className="pathwayStepperStageTitle"><span>STEP {String(papezStepperIndex+1).padStart(2,"0")} · {papezStepKindLabels[papezStepperStep.kind]}</span><b>{papezStepperStep.label}</b>{papezStepperSectionKeys.includes("thalamus")&&<small>{englishEdition?"Whole thalamus shown; anterior nuclei are not segmented separately.":"表示は視床全体です。前核群は独立分節されていません。"}</small>}<small>{papezStepSourceLabels[papezStepperStep.source]}・{papezStepperTargetNames.join(" ／ ")}</small></div>
-              {papezStepperStep.kind==="section-label"&&<div className="pathwayStepperSlice" aria-label={`${papezStepperStep.label}の同期断面`}><div className="pathwayStepperSliceHead"><b>{planeData[papezStepperStep.plane!].ja}・同期断面</b><small>既存クイズ位置・色付き画素を確認</small></div><div className="pathwayStepperSliceStage"><AtlasVolumeCanvas kind="slice" plane={papezStepperStep.plane!} position={papezStepperStep.position!} focus={structures[papezStepperSectionKeys[0]].meshFocus??"thalamus"} display="specimen" rotation={{x:-7,y:-18,z:0}} contrast="bigbrain" highlights={papezStepperSliceHighlights}/><div className="pathwayStepperSliceLegend">{papezStepperSectionKeys.map(key=><span key={key}><i style={{background:structures[key].color}}/>{structures[key].name}</span>)}</div></div></div>}
-              {papezStepperStep.kind!=="section-label"&&<div className="pathwayStepper3dOnlyNote"><b>この段階は3Dのみ</b><p>{papezStepperStep.note}</p><small>断面Canvasは作成していません。未分節の実標本境界を示すものではありません。</small></div>}
+              {["section-label","image-reviewed-partial-section"].includes(papezStepperStep.kind)&&<div className="pathwayStepperSlice" aria-label={`${papezStepperStep.label}の同期断面`}><div className="pathwayStepperSliceHead"><b>{planeData[papezStepperStep.plane!].ja}・同期断面</b><small>色付き画素を確認</small></div><div className="pathwayStepperSliceStage"><AtlasVolumeCanvas kind="slice" plane={papezStepperStep.plane!} position={papezStepperStep.position!} focus={structures[papezStepperSectionKeys[0]].meshFocus??"thalamus"} display="specimen" rotation={{x:-7,y:-18,z:0}} contrast="bigbrain" highlights={papezStepperSliceHighlights}/><div className="pathwayStepperSliceLegend">{papezStepperSectionKeys.map(key=><span key={key}><i style={{background:structures[key].color}}/>{structures[key].name}</span>)}</div></div></div>}
+              {!["section-label","image-reviewed-partial-section"].includes(papezStepperStep.kind)&&<div className="pathwayStepper3dOnlyNote"><b>この段階は3Dのみ</b><p>{papezStepperStep.note}</p><small>断面Canvasは作成していません。未分節の実標本境界を示すものではありません。</small></div>}
               <div className="pathwayStepperProvenance"><b>由来</b><span>{papezStepperStep.provenance}</span>{papezStepperStep.key==="mammillaryBody"&&<em>専門家レビュー未完了</em>}{papezStepperStep.key==="thalamus"&&<em>前部核は未分節</em>}</div>
               <div className="pathwayStepperControls" role="group" aria-label="Papezステッパー操作"><button onClick={()=>choosePapezStepperStep(0)} disabled={papezStepperIndex===0}>最初へ戻る</button><button onClick={()=>choosePapezStepperStep(papezStepperIndex-1)} disabled={papezStepperIndex===0}>前の段階</button><button className="stepperPlay" onClick={togglePapezStepperPlaying} disabled={!papezStepperPlaying&&papezStepperIndex>=PAPEZ_STEPS.length-1}>{papezStepperPlaying?"一時停止":"再生"}</button><button onClick={()=>choosePapezStepperStep(papezStepperIndex+1)} disabled={papezStepperIndex>=PAPEZ_STEPS.length-1}>次の段階</button></div>
               <button className="circuitReturnButton" onClick={returnToCircuitGuide}>{englishEdition?"Back to circuit explanation":"回路解説へ戻る"}</button>
-              <p className="pathwayStepperCaution">この試作は既存の断面ラベル・模式補助・アトラス領域を由来別に表示します。新しいボクセル、メッシュ、線維束、結合、投射方向、興奮／抑制は追加していません。乳頭体ID39・40は専門家レビュー待ちです。</p>
+              <p className="pathwayStepperCaution">この試作は既存の断面ラベル、プロジェクト内で採用した脳弓体部の部分ラベル、模式補助、アトラス領域を由来別に表示します。ID46は体部の一部だけで、脚・柱を含む全脳弓ではありません。新たな結合、投射方向、興奮／抑制は示しません。ID39・40・46は専門家レビュー待ちです。</p>
             </section>}
             <label className="freeSearch"><span>検索</span><input type="search" value={freeSearch} placeholder="例：中心前回、視神経、artery" onChange={event=>setFreeSearch(event.target.value)} onKeyDown={event=>{if(event.key==="Enter"&&freeFilteredItems[0])selectFreeObservation(freeFilteredItems[0].key)}}/>{freeSearch&&<button aria-label="検索をクリア" onClick={()=>setFreeSearch("")}>×</button>}</label>
             {normalizedFreeSearch&&<div className="freeSearchResults" aria-label="検索結果"><div className="freeResultSummary"><b>{freeFilteredItems.length}件</b><span>クリックして詳細を確認</span></div>{freeFilteredItems.length?<div>{freeFilteredItems.map(item=>{const active=freeSelectedSet.has(item.key),atlasMarker=freeObservationAtlasNomenclatureLabel(item),displayAvailable=!item.key.startsWith("neuro:")||neurovascularDisplayAvailable(item.key.slice(6) as NeurovascularStructureKey);return <button key={item.key} className={active?"active":""} aria-pressed={active} onClick={()=>selectFreeObservation(item.key)}><i style={{background:item.color}}/><span><b>{item.name}</b><small>{anatomyDisplayEnglish(item.latin)}</small>{!displayAvailable&&<small>形状調整中・3D非表示</small>}{atlasMarker&&<small className="surfaceAtlasNomenclatureMarker">{atlasMarker}</small>}</span><em>{item.kind}</em><strong>{displayAvailable?(active?"✓":"＋"):(englishEdition?"Details":"説明")}</strong></button>})}</div>:<p>該当する構造はありません。</p>}</div>}

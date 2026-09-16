@@ -56,11 +56,12 @@ class CerebellarFolia197AdoptionTests(unittest.TestCase):
    self.assertEqual(old['sourceSha256'],BASE_SHA);self.assertEqual(current['sourceSha256'],AFTER_SHA)
    for key in set(old)|set(current):
     if key!='sourceSha256':self.assertEqual(old.get(key),current.get(key),key)
-   self.assertEqual(digest(ROOT/f'public/atlas/section-current-{name}.mesh'),current['sha256'])
+   fixture=ROOT/f'tests/fixtures/section-current-{name}-pre-aqueduct-fourth44.mesh'
+   self.assertEqual(digest(fixture if fixture.exists() else ROOT/f'public/atlas/section-current-{name}.mesh'),current['sha256'])
 
  def test_validation_records_current_counts_and_regional_successor(self):
   meta=json.loads((ROOT/'public/atlas/bigbrain-practical-segmentation-icbm500-validation.json').read_text(encoding='utf-8'))
-  self.assertEqual({k:meta['labelCounts'][k] for k in ('27','28','29')},{'27':264498,'28':736104,'29':725042})
+  self.assertEqual({k:meta['labelCounts'][k] for k in ('27','28','29')},{'27':264456,'28':736104,'29':725042})
   audit=meta['regionalBatchAudits']['cerebellar-folia197']
   self.assertEqual(audit['changedVoxelCount'],197);self.assertTrue(audit['projectAdopted']);self.assertFalse(audit['expertReviewed'])
   self.assertEqual(audit['record'],'segmentation-patches/review/cerebellar-folia197-adoption-2026-09-16.json')

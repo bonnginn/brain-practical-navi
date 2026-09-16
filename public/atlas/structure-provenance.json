@@ -1045,6 +1045,71 @@
       "sourceRefs": ["bigbrain-manual-labels", "specimen-block-assets"],
       "knownLimitations": ["講義監査行は外節・内節を個別に記録していますが、アプリの通常クイズ正答は淡蒼球全体です。外節（GPe）は内部の中継・調節部、内節（GPi）は主要出力部という機能差を教材文言で示し、外節・内節の境界を一問の正答として要求しません。"],
       "appKeys": ["pallidum"]
+    },
+    {
+      "key": "section-lateral-geniculate-bodies",
+      "lectureLabel": null,
+      "coverage": "app-section-only",
+      "appLabel": "外側膝状体",
+      "representations": [
+        "image-guided-reviewed"
+      ],
+      "learnerSurfaces": [
+        "sections"
+      ],
+      "expertReview": "pending",
+      "projectReview": "reviewed-by-project",
+      "projectReviewEvidence": {
+        "reviewerRole": "AI-assisted project review",
+        "date": "2026-09-16",
+        "documentRef": "docs/LATERAL_GENICULATE_LAYERS_2026-09-16.md"
+      },
+      "quizEligibility": "none",
+      "sourceRefs": [
+        "combined-practical-segmentation"
+      ],
+      "literatureRefs": [
+        "https://doi.org/10.1007/978-3-030-82427-3_2",
+        "https://doi.org/10.25493/33Z0-BX"
+      ],
+      "knownLimitations": [
+        "ID44・45は同一BigBrain標本の公開6層分節の和集合を公式フル変換で0.5 mm格子へ最近傍再標本化したものです。隙間補間はしていません。視索・視放線は未完成で、視覚路全体の連続分節ではありません。元データの専門家注釈と、本プロジェクトでのAI照合による採用（専門家未確認）を区別します。断面専用で、既存の模式膝状体へ混用しません。"
+      ],
+      "appKeys": [
+        "lateralGeniculateBodies"
+      ]
+    },
+    {
+      "key": "section-fornix-body-partial",
+      "lectureLabel": null,
+      "coverage": "app-section-only",
+      "appLabel": "脳弓体部（部分）",
+      "representations": [
+        "image-guided-reviewed"
+      ],
+      "learnerSurfaces": [
+        "sections"
+      ],
+      "expertReview": "pending",
+      "projectReview": "reviewed-by-project",
+      "quizEligibility": "none",
+      "sourceRefs": [
+        "combined-practical-segmentation"
+      ],
+      "literatureRefs": [
+        "https://doi.org/10.1038/s42003-022-03692-3"
+      ],
+      "knownLimitations": [
+        "ID46は同一BigBrain標本のnative原画像で追跡した約8 mmの脳弓体部部分です。脚、柱、上方の透明中隔付着部を含む全境界は未収録で、連続した全脳弓ではありません。原画像で不確かな空隙・partial-volume箇所を推測補間していません。断面専用の実分節で、既存の全脳弓模式3Dとは由来と範囲を分け、通常クイズの正答対象には含めません。"
+      ],
+      "appKeys": [
+        "fornixBodyPartial"
+      ],
+      "projectReviewEvidence": {
+        "reviewerRole": "AI-assisted project review",
+        "date": "2026-09-16",
+        "documentRef": "docs/FORNIX_BODY_PARTIAL_2026-09-16.md"
+      }
     }
   ],
   "quizTargets": [
