@@ -2,7 +2,23 @@
 
 利用方法は [トップのREADME](../README.md)、現在地・作業期限と次の作業は [短い再開メモ](RESUME_SUMMARY.md) を参照してください。
 
-## まず読む資料
+## 作業に応じた入口
+
+一覧の全件読込は不要です。現在の依頼に合う入口から参照してください。
+
+| 作業 | 入口 |
+| --- | --- |
+| 実行・UI・フォーム設定 | [開発ガイド](DEVELOPMENT.md) |
+| 分節・メッシュ・公開・検証 | [作業別ガイド](AGENT_TASK_GUIDE.md) |
+| 開発／公開の現在値・残件 | [再開メモ](RESUME_SUMMARY.md) |
+| 指示の構成と見直し根拠 | [9月18日指示監査](INSTRUCTION_AUDIT_2026-09-18.md) |
+
+## 個別記録・過去の作業枠
+
+以下は参照用索引です。各文書の「現在」「次」「停止」「担当」はその記録日・作業枠に属します。新しい再開メモと現在のユーザー指示を優先し、過去の承認を別の公開操作へ流用しません。ハッシュ固定の証拠はこの注釈のために書き換えません。
+
+- [整理前AGENTS.mdの保存履歴](AGENTS_HISTORY_2026-09-18.md)
+- [9月18日整理前の再開メモ保存履歴](RESUME_HISTORY_2026-09-18.md)
 
 - [断面併設3D：全26項目の左右表示確認と修正](SECTION_BILATERAL_MODELS_2026-09-16.md)
 
@@ -36,7 +52,7 @@
 - [9月12日：脳梁飛び地・3D同期・実測metadataの修正（未公開）](SEPTEMBER12_SEGMENTATION_CHECKPOINT.md)
 - [9月12日追加：側脳室後方196点の補完・内側11点の除外（未公開）](LATERAL_POSTERIOR_MARGIN_REPAIR.md)
 - [9月8日までの段階別作業履歴](RESUME_SUMMARY_2026-09-08_STAGE_HISTORY.md)
-- [最新の公開内容](RELEASE_2026-09-07.md)
+- [9月7日時点の公開記録](RELEASE_2026-09-07.md)
 - [開発ガイド・フォーム設定](DEVELOPMENT.md)
 - [分節に用いた参考文献](SEGMENTATION_REFERENCES.md)
 - [分節の残件](ANATOMY_REMAINING_WORK.md)
