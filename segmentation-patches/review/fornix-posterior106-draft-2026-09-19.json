@@ -1,0 +1,1629 @@
+{
+  "status": "UNAPPLIED interior candidates; not anatomical classification or expert review",
+  "sourceHypothesis": "work/fornix-crura-context-20260919/interior-draft-v1/contours.json",
+  "sourceLabelSha256": "5f5c9416526f10c7b7d8333157107bc421cc1fa2bee2777e378bade8387fae68",
+  "sampling": "27 points including centre, corners and face/edge midpoints; numerical containment in drawn envelope, not tissue proof",
+  "summary": {
+    "left": {
+      "centerCandidates": 310,
+      "containedCandidates": 78,
+      "maxRoundtripErrorMm": 2.7877197297243583e-06
+    },
+    "right": {
+      "centerCandidates": 368,
+      "containedCandidates": 28,
+      "maxRoundtripErrorMm": 2.849496610224378e-06
+    }
+  },
+  "rows": [
+    {
+      "side": "left",
+      "appXYZ": [
+        180,
+        218,
+        175
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        603.5003316249292,
+        708.0148538001205,
+        665.6734538623662
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        181,
+        217,
+        174
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        608.4494619290741,
+        705.2772733476974,
+        662.510306527252
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        181,
+        218,
+        175
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        608.0974578143334,
+        708.9649374962604,
+        665.626611226763
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        181,
+        220,
+        176
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        607.6515068269339,
+        716.4947054412929,
+        668.6019006502571
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        182,
+        218,
+        175
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        612.7341281061069,
+        709.9567091581449,
+        665.5470833572292
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        182,
+        219,
+        175
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        612.8479954461777,
+        713.667382112164,
+        665.2863386167186
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        182,
+        220,
+        176
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        612.4998567463866,
+        717.351167593867,
+        668.5291881322121
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        182,
+        221,
+        176
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        612.6602447734584,
+        721.172133203548,
+        668.2983383807154
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        183,
+        220,
+        176
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        617.3399749861165,
+        718.2171718195959,
+        668.4699203450602
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        183,
+        221,
+        176
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        617.5534507753636,
+        721.9836368481608,
+        668.283191578786
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        183,
+        224,
+        177
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        617.2393365564799,
+        733.7525565098629,
+        671.1628767269698
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        184,
+        220,
+        176
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        622.1271027345036,
+        719.1253216636702,
+        668.3884247544993
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        184,
+        221,
+        176
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        622.3778788747106,
+        722.8307273910317,
+        668.2586721498976
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        184,
+        221,
+        177
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        621.5861738363064,
+        722.7543968735841,
+        671.7312301000212
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        184,
+        222,
+        176
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        622.627912172093,
+        726.617018978834,
+        668.1187910877749
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        184,
+        222,
+        177
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        621.7234795787616,
+        726.5657342644395,
+        671.6005706489094
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        184,
+        223,
+        177
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        621.8715535964074,
+        730.4522780121374,
+        671.443312132027
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        184,
+        224,
+        177
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        622.003254874232,
+        734.4141550873784,
+        671.2379599554183
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        184,
+        225,
+        177
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        622.1373493626005,
+        738.4394948014094,
+        670.9657215467266
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        185,
+        222,
+        176
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        627.4385085451397,
+        727.4296192459209,
+        668.0971655252129
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        185,
+        222,
+        177
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        626.4717450671344,
+        727.3813139587259,
+        671.4934520212429
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        185,
+        223,
+        176
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        627.7130011138362,
+        731.2154533216341,
+        667.983229528034
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        185,
+        223,
+        177
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        626.6062593263644,
+        731.1900791510404,
+        671.406049943262
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        185,
+        224,
+        177
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        626.7165478908282,
+        735.0794800970149,
+        671.2612904107932
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        185,
+        225,
+        177
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        626.8373441676491,
+        739.0352988259184,
+        671.045361457151
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        185,
+        226,
+        177
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        626.9759136801488,
+        743.0377965274103,
+        670.7636759338062
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        185,
+        229,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        626.1956002620406,
+        755.1978862196331,
+        673.4447009502532
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        186,
+        223,
+        177
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        631.3018090881972,
+        731.9624482613331,
+        671.2870535650276
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        186,
+        224,
+        177
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        631.394493787289,
+        735.7719683096536,
+        671.216011295075
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        186,
+        224,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        630.0108083968817,
+        735.7058233090567,
+        674.7250184043864
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        186,
+        225,
+        177
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        631.5129346276692,
+        739.6523511624537,
+        671.0730244464244
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        186,
+        225,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        629.991873495782,
+        739.6076002277051,
+        674.6412210335978
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        186,
+        226,
+        177
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        631.6777469693908,
+        743.5898684059405,
+        670.8568178824792
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        186,
+        227,
+        177
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        631.9034109703945,
+        747.5775817990258,
+        670.5239229492164
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        186,
+        228,
+        177
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        632.2276780955385,
+        751.6072964934415,
+        670.1046925707886
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        186,
+        230,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        631.3158142359082,
+        759.6488898084264,
+        673.2493586647352
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        187,
+        225,
+        177
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        636.1005982157214,
+        740.322103306781,
+        671.028298542999
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        187,
+        225,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        634.4074853072703,
+        740.2964349341361,
+        674.5682867996535
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        187,
+        226,
+        177
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        636.3071410332091,
+        744.1840817518761,
+        670.8901863121607
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        187,
+        226,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        634.4680291516653,
+        744.1715359788109,
+        674.513610366501
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        187,
+        227,
+        177
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        636.6029556760278,
+        748.1057439390909,
+        670.6252634642173
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        187,
+        227,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        634.6389938542259,
+        748.0975395985454,
+        674.3532758918178
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        187,
+        228,
+        177
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        637.0243757652984,
+        752.0799316727887,
+        670.2597883131747
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        187,
+        228,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        634.9644960099185,
+        752.0621205369624,
+        674.1103178581661
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        187,
+        229,
+        177
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        637.560707681572,
+        756.0809546001661,
+        669.7866669479472
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        187,
+        229,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        635.443382969772,
+        756.0407540074389,
+        673.7664504087476
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        187,
+        230,
+        177
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        638.219393635917,
+        760.1060302387401,
+        669.3082515944784
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        187,
+        230,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        636.0654447082372,
+        760.0243254043371,
+        673.3965500420286
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        187,
+        231,
+        177
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        638.9727896946307,
+        764.1594220478396,
+        668.8268190912104
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        187,
+        231,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        636.8101694663856,
+        764.0234837877802,
+        673.0003181606634
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        187,
+        232,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        637.6636552944251,
+        768.0379325550066,
+        672.6309445604784
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        187,
+        233,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        638.6035547211176,
+        772.0649331198316,
+        672.3053903597893
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        188,
+        226,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        638.9034982927932,
+        744.8035637629619,
+        674.3685249736728
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        188,
+        227,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        639.1106951067428,
+        748.6494088798687,
+        674.276292821249
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        188,
+        228,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        639.5020266860431,
+        752.5389611289203,
+        674.0765217683444
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        188,
+        229,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        640.0807506153081,
+        756.4462412734383,
+        673.7508108279826
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        188,
+        230,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        640.831623403645,
+        760.3658737599409,
+        673.3885136531138
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        188,
+        231,
+        177
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        644.1190805962193,
+        764.4429889117768,
+        668.954134480468
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        188,
+        231,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        641.7218327706718,
+        764.3080128192646,
+        672.9941804030788
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        188,
+        232,
+        177
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        645.1443909423901,
+        768.4661082830704,
+        668.5763109883414
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        188,
+        232,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        642.7192312293537,
+        768.2759552217059,
+        672.6278714267273
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        188,
+        233,
+        177
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        646.2221813381888,
+        772.495611573911,
+        668.2818475284566
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        188,
+        233,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        643.7912933945764,
+        772.262168087765,
+        672.3063273696747
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        188,
+        234,
+        177
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        647.2797615010996,
+        776.5090878316846,
+        668.119554510559
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        188,
+        234,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        644.8365543528795,
+        776.2529042230406,
+        672.072277543129
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        189,
+        228,
+        179
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        642.0261161254524,
+        752.9317148180395,
+        677.554190730659
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        189,
+        229,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        644.7705543488396,
+        756.8181856407194,
+        673.4985163775784
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        189,
+        229,
+        179
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        642.4916386624626,
+        756.775916618915,
+        677.4099138622064
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        189,
+        230,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        645.6329690575725,
+        760.6738813563396,
+        673.1634821749475
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        189,
+        230,
+        179
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        643.1747719685594,
+        760.625880080114,
+        677.1834083091159
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        189,
+        231,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        646.6502456102965,
+        764.5550500735771,
+        672.7896144261321
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        189,
+        232,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        647.7722111853201,
+        768.466814966692,
+        672.4486865838552
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        189,
+        233,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        648.9508614225355,
+        772.4006808248143,
+        672.1518565764419
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        189,
+        234,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        650.0926876068858,
+        776.3525974909539,
+        671.923790029547
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        190,
+        232,
+        179
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        650.0306484636624,
+        768.4991572654621,
+        676.0180520856384
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        190,
+        233,
+        179
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        651.2648160933293,
+        772.3653477140673,
+        675.6884471050578
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        190,
+        234,
+        179
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        652.4422627048014,
+        776.2709120083573,
+        675.4050690060287
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        191,
+        234,
+        180
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        654.6962868004073,
+        776.2087464638895,
+        678.5946500875207
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "right",
+      "appXYZ": [
+        200,
+        233,
+        181
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        687.8882039103761,
+        772.2508022899101,
+        683.2558847885948
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "right",
+      "appXYZ": [
+        200,
+        234,
+        180
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        691.41823422744,
+        776.8915641420026,
+        680.8686249714881
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "right",
+      "appXYZ": [
+        200,
+        234,
+        181
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        688.6319491146148,
+        776.3754452891233,
+        683.3343976268577
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "right",
+      "appXYZ": [
+        201,
+        230,
+        180
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        692.1662102395899,
+        760.75805826894,
+        682.0332968542675
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "right",
+      "appXYZ": [
+        201,
+        231,
+        179
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        696.3677338305683,
+        765.4230920635731,
+        679.8714009836734
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "right",
+      "appXYZ": [
+        201,
+        231,
+        180
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        693.1038104032522,
+        764.7904599087362,
+        682.0853731491366
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "right",
+      "appXYZ": [
+        201,
+        232,
+        179
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        697.4447344072594,
+        769.6099169830362,
+        679.8111099630014
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "right",
+      "appXYZ": [
+        201,
+        232,
+        180
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        694.0149463441999,
+        768.9064066165082,
+        682.0988569425316
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "right",
+      "appXYZ": [
+        201,
+        233,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        702.5645286488455,
+        774.8205366587338,
+        677.2230390504475
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "right",
+      "appXYZ": [
+        201,
+        233,
+        179
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        698.447427152081,
+        773.8415464241325,
+        679.731322286118
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "right",
+      "appXYZ": [
+        201,
+        233,
+        180
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        694.9003559435081,
+        773.0822502551391,
+        682.0844579265201
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "right",
+      "appXYZ": [
+        202,
+        229,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        703.2862734935669,
+        758.1084337069531,
+        679.0647775948634
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "right",
+      "appXYZ": [
+        202,
+        230,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        704.8650573450245,
+        762.3960628195291,
+        678.9830752649831
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "right",
+      "appXYZ": [
+        202,
+        231,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        706.3525253954652,
+        766.7682967270415,
+        678.8352332199784
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "right",
+      "appXYZ": [
+        202,
+        232,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        707.6498419323158,
+        771.174164381416,
+        678.6495009465889
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "right",
+      "appXYZ": [
+        202,
+        233,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        708.7475847879072,
+        775.5689466161789,
+        678.4776868722497
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "right",
+      "appXYZ": [
+        203,
+        227,
+        177
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        710.5460630142212,
+        750.6567999040639,
+        677.721267824388
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "right",
+      "appXYZ": [
+        203,
+        229,
+        177
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        715.2926948354809,
+        759.557498706136,
+        677.6592199116996
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "right",
+      "appXYZ": [
+        203,
+        232,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        714.4958457228173,
+        771.9098870885223,
+        679.7907301219766
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "right",
+      "appXYZ": [
+        203,
+        233,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        715.6653605925255,
+        776.3879023082872,
+        679.6267952899894
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "right",
+      "appXYZ": [
+        204,
+        232,
+        178
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        721.6694328474484,
+        772.6821890699745,
+        680.9494092534434
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "right",
+      "appXYZ": [
+        206,
+        220,
+        176
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        723.3911059877706,
+        722.8191915186333,
+        673.7167195233807
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "right",
+      "appXYZ": [
+        206,
+        224,
+        176
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        729.7917293441142,
+        739.4276544149518,
+        676.4584715032149
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "right",
+      "appXYZ": [
+        208,
+        219,
+        175
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        739.2323856843258,
+        718.5828041053757,
+        671.538906861841
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "right",
+      "appXYZ": [
+        209,
+        218,
+        175
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        744.2109971551397,
+        713.8414797057314,
+        671.311031449587
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "right",
+      "appXYZ": [
+        209,
+        219,
+        175
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        745.8145818426406,
+        718.2690412915796,
+        671.7871824765433
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "right",
+      "appXYZ": [
+        210,
+        218,
+        175
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        750.6522134750834,
+        713.4391688188726,
+        671.4872914309879
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "right",
+      "appXYZ": [
+        211,
+        218,
+        175
+      ],
+      "currentLabel": 0,
+      "native100CenterXYZ": [
+        757.354010680951,
+        713.1665854956706,
+        671.5618797484319
+      ],
+      "containedSamples": 27
+    }
+  ],
+  "labelsWritten": false,
+  "adopted": false,
+  "projectAdopted": false,
+  "expertReviewed": false,
+  "reviewStatus": "anchor-contours-reviewed; sampled-footprints-reviewed; remaining-footprints-and-fissures-pending",
+  "evidence": {
+    "work/fornix-crura-context-20260919/interior-draft-v1/contours.json": "6b1a66b87cc1123d0d824605f196c61b09989fcc2c94e54d36d748ac21345af8",
+    "work/fornix-crura-context-20260919/coronal-v1/report.json": "7352874aea9039e175b6f5a54e3986735e2c46663d6c62b99c038fb2e1db1d29",
+    "work/fornix-crura-context-20260919/footprints-v1/report.json": "1e8441b4fc368251335035a5a51597176c0886f0976d6367d5622f364a36697b"
+  },
+  "visuallyInspectedFootprints": [
+    "y710.png",
+    "y725.png",
+    "y740.png",
+    "y755.png",
+    "y770.png",
+    "z670.png"
+  ],
+  "limitations": "27-point envelope containment is not tissue proof. Left anterior part includes fine fissures requiring review. Right is thin with sparse full-cell candidates; do not fill to enforce symmetry or connectivity. Medial and superior contour cuts are scope limits, not established boundaries."
+}
