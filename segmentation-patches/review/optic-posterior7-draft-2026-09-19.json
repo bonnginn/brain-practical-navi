@@ -1,0 +1,411 @@
+{
+  "status": "UNAPPLIED interior candidates; not anatomical classification or expert review",
+  "sourceHypothesis": "work/optic-tract-posterior-20260919/interior-hypothesis-v2.json",
+  "sourceLabelSha256": "32bb0113dd207ce2644136723c798061b4366bbd47cb800b0ae9884972eadf1c",
+  "sampling": "27 points including centre, corners and face/edge midpoints; numerical containment in drawn envelope, not tissue proof",
+  "summary": {
+    "left": {
+      "centerCandidates": 112,
+      "containedCandidates": 0,
+      "maxRoundtripErrorMm": 2.732031919805422e-06
+    },
+    "right": {
+      "centerCandidates": 52,
+      "containedCandidates": 7,
+      "maxRoundtripErrorMm": 2.915622316024269e-06
+    }
+  },
+  "rows": [
+    {
+      "side": "right",
+      "appXYZ": [
+        228,
+        251,
+        119
+      ],
+      "currentLabel": 0,
+      "native40CenterXYZ": [
+        953.5532280609491,
+        61.20787321467371,
+        463.18582806087124
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "right",
+      "appXYZ": [
+        229,
+        250,
+        119
+      ],
+      "currentLabel": 0,
+      "native40CenterXYZ": [
+        963.1515470348894,
+        51.626813358197516,
+        465.3394943865577
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "right",
+      "appXYZ": [
+        229,
+        250,
+        120
+      ],
+      "currentLabel": 0,
+      "native40CenterXYZ": [
+        959.7242556687215,
+        55.85681764301371,
+        474.03562212800364
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "right",
+      "appXYZ": [
+        229,
+        251,
+        119
+      ],
+      "currentLabel": 0,
+      "native40CenterXYZ": [
+        963.3119131062447,
+        62.932040445557,
+        465.56701485765745
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "right",
+      "appXYZ": [
+        230,
+        250,
+        120
+      ],
+      "currentLabel": 0,
+      "native40CenterXYZ": [
+        969.5096815238928,
+        57.23640471537063,
+        476.06475079863776
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "right",
+      "appXYZ": [
+        231,
+        250,
+        121
+      ],
+      "currentLabel": 0,
+      "native40CenterXYZ": [
+        977.1650953923535,
+        62.77649231061726,
+        486.25255361608095
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "right",
+      "appXYZ": [
+        232,
+        249,
+        121
+      ],
+      "currentLabel": 0,
+      "native40CenterXYZ": [
+        986.296169521508,
+        52.87689585951456,
+        487.2198636182128
+      ],
+      "containedSamples": 27
+    }
+  ],
+  "labelsWritten": false,
+  "anchorsNativeXZ": {
+    "left": {
+      "17": [
+        [
+          160,
+          475
+        ],
+        [
+          187,
+          459
+        ],
+        [
+          212,
+          438
+        ],
+        [
+          225,
+          423
+        ],
+        [
+          217,
+          426
+        ],
+        [
+          192,
+          439
+        ],
+        [
+          170,
+          460
+        ],
+        [
+          158,
+          469
+        ]
+      ],
+      "42": [
+        [
+          175,
+          470
+        ],
+        [
+          205,
+          449
+        ],
+        [
+          235,
+          420
+        ],
+        [
+          262,
+          395
+        ],
+        [
+          262,
+          390
+        ],
+        [
+          232,
+          400
+        ],
+        [
+          200,
+          425
+        ],
+        [
+          180,
+          450
+        ]
+      ],
+      "67": [
+        [
+          195,
+          470
+        ],
+        [
+          226,
+          445
+        ],
+        [
+          260,
+          410
+        ],
+        [
+          286,
+          380
+        ],
+        [
+          283,
+          375
+        ],
+        [
+          250,
+          390
+        ],
+        [
+          220,
+          425
+        ],
+        [
+          199,
+          450
+        ]
+      ],
+      "92": [
+        [
+          260,
+          398
+        ],
+        [
+          280,
+          386
+        ],
+        [
+          303,
+          369
+        ],
+        [
+          318,
+          357
+        ],
+        [
+          312,
+          356
+        ],
+        [
+          286,
+          366
+        ],
+        [
+          265,
+          384
+        ],
+        [
+          256,
+          394
+        ]
+      ],
+      "117": [
+        [
+          245,
+          435
+        ],
+        [
+          280,
+          414
+        ],
+        [
+          325,
+          380
+        ],
+        [
+          360,
+          345
+        ],
+        [
+          360,
+          330
+        ],
+        [
+          330,
+          340
+        ],
+        [
+          285,
+          375
+        ],
+        [
+          250,
+          415
+        ]
+      ]
+    },
+    "right": {
+      "42": [
+        [
+          950,
+          475
+        ],
+        [
+          975,
+          490
+        ],
+        [
+          990,
+          497
+        ],
+        [
+          1008,
+          493
+        ],
+        [
+          1005,
+          488
+        ],
+        [
+          984,
+          473
+        ],
+        [
+          965,
+          458
+        ],
+        [
+          950,
+          449
+        ]
+      ],
+      "67": [
+        [
+          935,
+          470
+        ],
+        [
+          955,
+          489
+        ],
+        [
+          980,
+          502
+        ],
+        [
+          1000,
+          494
+        ],
+        [
+          995,
+          483
+        ],
+        [
+          975,
+          465
+        ],
+        [
+          955,
+          443
+        ],
+        [
+          937,
+          427
+        ]
+      ],
+      "72": [
+        [
+          932.8,
+          469.8
+        ],
+        [
+          952.8,
+          489.20000000000005
+        ],
+        [
+          977.6,
+          501.20000000000005
+        ],
+        [
+          996.4,
+          492.80000000000007
+        ],
+        [
+          991.4,
+          481.40000000000003
+        ],
+        [
+          972.0,
+          462.8
+        ],
+        [
+          952.6,
+          440.80000000000007
+        ],
+        [
+          934.6,
+          425.8
+        ]
+      ]
+    }
+  },
+  "excludedScope": "Right Y73-116 not proposed: visible fissures cross v1 envelope; right Y17-41 attachment unresolved. No interpolation across these holds.",
+  "sourceNative": "work/hypothalamus_full_40um.mnc",
+  "sourceNativeSha256": "18aec7b69b59ab5e3dc578885accbae2d86f86a7bbc6cba5dd2a07dbd4712f65",
+  "sourceHypothesisSha256": "75c77fc844f1f0acd364ffa46e51c2dcf636cb7f996b2ead854d183585cd2ab6",
+  "adopted": false,
+  "orthogonalReviewComplete": false,
+  "limitations": "Seven right-side interior candidates only. Left zero fully-contained candidates is a property of this conservative envelope and current grid, not absence of the tract or proof that it cannot be represented. Right Y73-116 fissures need a separate outline; entire tract remains incomplete."
+}
