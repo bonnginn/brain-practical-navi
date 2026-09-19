@@ -141,7 +141,7 @@
     "43": 282,
     "44": 1197,
     "45": 1374,
-    "46": 1794,
+    "46": 1976,
     "36": 112,
     "37": 38,
     "38": 46
@@ -481,7 +481,7 @@
     "workflowMetadataStatus": "strict"
   },
   "preClassificationCompressedSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
-  "rawVoxelSha256": "7c5a12c4f3155d714f5b3ee4e0a972a4fdfc65be3c41a466bd77ee6eff19815a",
+  "rawVoxelSha256": "a1e4eac4e7e50ecdb24b51ac309d83371f6a17d3ca08bd5493c0a82bd360ce9e",
   "brainstemThreeIslandsAudit": {
     "record": "segmentation-patches/review/brainstem-three-islands-adoption-2026-09-06.json",
     "recordSha256": "9c7b14f4272969261e3e2415d3f522b7e5d7db1eeca7cb0c8ae28b225458be66",
@@ -1498,6 +1498,16 @@
       "changedSectionMeshes": [
         "section-current-fornix-body-partial.mesh"
       ]
+    },
+    "fornix-crural182": {
+      "record": "segmentation-patches/review/fornix-crural182-adoption-2026-09-19.json",
+      "recordSha256": "75dacc87c9be1707fe0d0d483248b8e6439a462020d3a50e5e785e91a91b3a5e",
+      "changedVoxelCount": 182,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-fornix-body-partial.mesh"
+      ]
     }
   },
   "historicalGenerationClaims": {
@@ -1507,9 +1517,9 @@
   },
   "currentImageMeasurements": {
     "schemaVersion": 1,
-    "sourceLabelSha256": "14d05f338778992533aec0d1d9af6616748c8e47e1bcdd96e62083666dea94d2",
+    "sourceLabelSha256": "85a91f74510543969650af99557bb77688e367804be9cc7048bcc6b6947c0747",
     "sourceImageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
-    "rawVoxelSha256": "7c5a12c4f3155d714f5b3ee4e0a972a4fdfc65be3c41a466bd77ee6eff19815a",
+    "rawVoxelSha256": "a1e4eac4e7e50ecdb24b51ac309d83371f6a17d3ca08bd5493c0a82bd360ce9e",
     "dimensionsXYZ": [
       394,
       466,
@@ -1560,7 +1570,7 @@
       "43": 282,
       "44": 1197,
       "45": 1374,
-      "46": 1794,
+      "46": 1976,
       "36": 112,
       "37": 38,
       "38": 46

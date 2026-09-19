@@ -1,15 +1,15 @@
 {
-  "voxels": 1794,
+  "voxels": 1976,
   "components6": 2,
   "componentSizes": [
-    977,
+    1159,
     817
   ],
   "boundsZYX": [
     [
       143,
-      220,
-      181
+      206,
+      173
     ],
     [
       184,
@@ -17,17 +17,17 @@
       207
     ]
   ],
-  "vertices": 3015,
-  "faces": 6090,
-  "sha256": "e749c6268af85c43c5f68d300054228e99405ead26f7ab9a012f17dd8bf1aeda",
-  "bytes": 41522,
+  "vertices": 3401,
+  "faces": 6878,
+  "sha256": "eb1889fcee3d20828ad59c3ade6437e22cc0f2f3ea2559044187c1b2be6a4da2",
+  "bytes": 46505,
   "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
-  "sourceSha256": "14d05f338778992533aec0d1d9af6616748c8e47e1bcdd96e62083666dea94d2",
+  "sourceSha256": "85a91f74510543969650af99557bb77688e367804be9cc7048bcc6b6947c0747",
   "labelIds": [
     46
   ],
   "labelVoxelCounts": {
-    "46": 1794
+    "46": 1976
   },
   "sourceSamplingMm": 0.5,
   "displayOriginZYX": [
@@ -36,11 +36,11 @@
     -98.0
   ],
   "method": "native-image-reviewed partial body and upper columns; marching cubes 0.5; no resampling, smoothing or filling",
-  "rawSha256": "2ac11a21f493e895bae3a1817b0e72b4bae01b61ea517e65d5f3c7ac70d46715",
-  "rawBytes": 157512,
+  "rawSha256": "ccd4febb70a9a4616d3b1aa6b6d87d8923498ebf07999a09125779f24b915246",
+  "rawBytes": 177776,
   "compression": "gzip",
   "expertReviewed": false,
   "partialExtent": true,
-  "scope": "Partial body, upper columns and posterior interiors approaching the crura. Full crura, fimbria, lower columns and mammillary continuity remain incomplete. Not expert-reviewed.",
-  "reviewRecord": "segmentation-patches/review/fornix-posterior85-adoption-2026-09-19.json"
+  "scope": "Partial body, upper columns and posterior interiors, extended along the left crural approach. Full crura, fimbria, lower columns and mammillary continuity remain incomplete. Not expert-reviewed.",
+  "reviewRecord": "segmentation-patches/review/fornix-crural182-adoption-2026-09-19.json"
 }
