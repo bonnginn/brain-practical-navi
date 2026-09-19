@@ -1,0 +1,195 @@
+{
+  "purpose": "Field-of-view and raw tissue comparison only; no anatomical boundary decision",
+  "labelsWritten": false,
+  "sourceHashes": {
+    "hypothalamus_full_40um.mnc": "18aec7b69b59ab5e3dc578885accbae2d86f86a7bbc6cba5dd2a07dbd4712f65",
+    "full16_100um_optbal.mnc": "61e6ebbeb0d6876051b9348a68bfe22b733fead04d112c35ff1a29819b67d351"
+  },
+  "scaling": "stored / 65535 * (image-max[Y] - image-min[Y]) + image-min[Y]",
+  "displayWindows": {
+    "native40": {
+      "range": [
+        0,
+        40000
+      ],
+      "inverted": true
+    },
+    "native100": {
+      "range": [
+        40000,
+        65535
+      ],
+      "inverted": false
+    }
+  },
+  "figures": [
+    {
+      "file": "coronal-y100-900.png",
+      "sha256": "aec186855daefaf2ab8566b7e4f0cfe2232870d155690d9216b1d25a0c6f168e",
+      "axis": "y",
+      "native100Index": 900,
+      "native40Index": 266,
+      "fineCropXZ": [
+        435,
+        660,
+        490,
+        950
+      ],
+      "coarseCropXZ": [
+        650,
+        740,
+        490,
+        674
+      ],
+      "yOffsetMm": -0.019999999999999574
+    },
+    {
+      "file": "coronal-y100-905.png",
+      "sha256": "7c66aa1f463eed2ba9e0f74a0d4c9b988538bdda43029cd740b68d560bd49b8d",
+      "axis": "y",
+      "native100Index": 905,
+      "native40Index": 279,
+      "fineCropXZ": [
+        435,
+        660,
+        490,
+        950
+      ],
+      "coarseCropXZ": [
+        650,
+        740,
+        490,
+        674
+      ],
+      "yOffsetMm": 0.0
+    },
+    {
+      "file": "coronal-y100-910.png",
+      "sha256": "83e1fbe7bfe59d9f0e8463bffbdc78c8940a9c305b2c95856a4b2c6ca5ed1586",
+      "axis": "y",
+      "native100Index": 910,
+      "native40Index": 292,
+      "fineCropXZ": [
+        435,
+        660,
+        490,
+        950
+      ],
+      "coarseCropXZ": [
+        650,
+        740,
+        490,
+        674
+      ],
+      "yOffsetMm": 0.019999999999999574
+    },
+    {
+      "file": "coronal-y100-920.png",
+      "sha256": "a06eec4c337c297466eabb18f0598ab1a2eebdbc90095081b6a5b63ce4c10b21",
+      "axis": "y",
+      "native100Index": 920,
+      "native40Index": 316,
+      "fineCropXZ": [
+        435,
+        660,
+        490,
+        950
+      ],
+      "coarseCropXZ": [
+        650,
+        740,
+        490,
+        674
+      ],
+      "yOffsetMm": -0.019999999999999574
+    },
+    {
+      "file": "coronal-y100-930.png",
+      "sha256": "2f32fddd3dfb4d127eec339af29544d69a9421408e2aa0305895123d95423e10",
+      "axis": "y",
+      "native100Index": 930,
+      "native40Index": 342,
+      "fineCropXZ": [
+        435,
+        660,
+        490,
+        950
+      ],
+      "coarseCropXZ": [
+        650,
+        740,
+        490,
+        674
+      ],
+      "yOffsetMm": 0.019999999999999574
+    },
+    {
+      "file": "coronal-y100-940.png",
+      "sha256": "9c2de08ff2e0921e48138b2dbd8b2f4c98396ea6a8c2e061b7a00a712d581d9a",
+      "axis": "y",
+      "native100Index": 940,
+      "native40Index": 366,
+      "fineCropXZ": [
+        435,
+        660,
+        490,
+        950
+      ],
+      "coarseCropXZ": [
+        650,
+        740,
+        490,
+        674
+      ],
+      "yOffsetMm": -0.019999999999999574
+    },
+    {
+      "file": "sagittal-x40-510.png",
+      "sha256": "b27a1a5c57c2e6fd2caac40e0f0d91e2bf8cb186ecf6c5cfc7c8eecf759f312a",
+      "axis": "x",
+      "native40Index": 510,
+      "cropYZ": [
+        180,
+        390,
+        260,
+        950
+      ]
+    },
+    {
+      "file": "sagittal-x40-535.png",
+      "sha256": "3ffe753bdec621d8dae71301e20f03ef0afe56cdf091c8c09cd5f4917669e945",
+      "axis": "x",
+      "native40Index": 535,
+      "cropYZ": [
+        180,
+        390,
+        260,
+        950
+      ]
+    },
+    {
+      "file": "sagittal-x40-560.png",
+      "sha256": "7abb9f05be1b69dac09f0ee563c8de4c530b23cd5fb029e4342f8264d79c7e89",
+      "axis": "x",
+      "native40Index": 560,
+      "cropYZ": [
+        180,
+        390,
+        260,
+        950
+      ]
+    },
+    {
+      "file": "sagittal-x40-585.png",
+      "sha256": "def032eca6178defd1fb58e1fff2ffdeb946cbf99825d6246661bd6805e21d99",
+      "axis": "x",
+      "native40Index": 585,
+      "cropYZ": [
+        180,
+        390,
+        260,
+        950
+      ]
+    }
+  ]
+}
