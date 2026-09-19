@@ -687,8 +687,8 @@
       },
       {
         "file": "block-hindbrain-fourth-ventricle.mesh",
-        "vertices": 1278,
-        "faces": 2548,
+        "vertices": 5418,
+        "faces": 10856,
         "shadeMin": 0.82,
         "shadeMax": 0.82,
         "part": "fourth-ventricle",
@@ -696,9 +696,12 @@
         "sourceType": "same-grid-segmentation",
         "color": "#45aebd",
         "material": "model",
-        "meshSha256": "af53de7d37f185242876f7389685a2a3540e5c65862b74df9ac3c5912f32917f",
-        "segmentationSourceSha256": "633e8b51db19e57b7d81c069e1093ddfe80a62eaab0fd3ea3e5bc970cfc6f450",
-        "repairReview": "AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review."
+        "meshSha256": "89fd89ac94887eb6f2216b7da2a010b773fd9c5748782992c0c520ea3e6b4912",
+        "segmentationSourceSha256": "15db8e50352584247bc6073a2a78f4c191c68afc26de0d63f2e44615873de4ba",
+        "repairReview": "Exact current 0.5 mm label occupancy inside the existing block bounds; no fill, filtering, or smoothing.",
+        "geometrySamplingMm": 0.5,
+        "sampledVoxels": 9200,
+        "occupancyPolicy": "exact-label-no-fill-no-filter-no-smoothing"
       },
       {
         "file": "block-hindbrain-superior-cerebellar-peduncles.mesh",

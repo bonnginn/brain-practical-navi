@@ -56,8 +56,9 @@ export async function regionalMeshSuccessor(file,previousSha,afterRevision=null)
 // The 2026-09-15 fine-cavity install changes only mesh representation. Keep it
 // after the historical regional chain so old adoption records remain immutable.
 export async function fineCavityRepresentationSuccessor(file,previousSha){
- const r=JSON.parse(await read('segmentation-patches/review/fine-cavity-mesh-representation-2026-09-15.json'));
- const next=r.meshes.find(p=>p.file===file);
+ const records=await Promise.all(['fine-cavity-mesh-representation-2026-09-15','fine-fourth-mesh-representation-2026-09-20'].map(async name=>JSON.parse(await read('segmentation-patches/review/'+name+'.json'))));
+ const r=records.find(r=>r.meshes.some(p=>p.file===file));
+ const next=r?.meshes.find(p=>p.file===file);
  if(!next)return null;
  assert.equal(next.beforeSha256,previousSha);
  assert.equal(createHash('sha256').update(await read(next.beforeFixture)).digest('hex'),previousSha);

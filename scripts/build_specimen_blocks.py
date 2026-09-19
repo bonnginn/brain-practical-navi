@@ -36,6 +36,7 @@ GEOMETRY_STRIDE = 2
 GEOMETRY_SPACING_MM = SOURCE_SPACING_MM * GEOMETRY_STRIDE
 
 FINE_CAVITY_PARTS = {
+    ("hindbrain", "fourth-ventricle"): (26, ((-39, 39), (-64, 16), (-82, -24))),
     ("lateral-ventricle", "ventricular-cavity"): (24, ((-3, 44), (-64, 52), (-52, 17))),
     ("commissural-system", "lateral-ventricles"): ((23, 24), ((-19, 19), (-39, 60), (-24, 26))),
     ("choroid-plexus", "ventricular-cavity"): (24, ((-3, 38), (-42, 43), (-49, 12))),
@@ -563,7 +564,7 @@ def main() -> None:
             })
             prior_part = prior_parts[(specimen_key, part.key)]
             if not fine:
-                # The 51 unchanged parts retain their checked-in manifest
+                # Parts outside the fine-cavity set retain their manifest
                 # records byte-for-byte.  Regeneration still writes and tests
                 # every mesh, but a cavity-only sampling change must not add
                 # unrelated metadata to historical parts.
