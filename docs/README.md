@@ -24,6 +24,8 @@
 - [脳弓体部の前方延長・統合](FORNIX_ANTERIOR_INTEGRATION_2026-09-19.md)
 - [脳弓前方：柱を追うための下方ランドマーク確認](FORNIX_ANTERIOR_CONTEXT_2026-09-19.md)
 - [脳弓体部・前方移行部：269点の追加](FORNIX_CONTINUATION_2026-09-19.md)
+- [脳弓前方下降部：108点の追加](FORNIX_DESCENT_INTEGRATION_2026-09-19.md)
+- [脳弓下降部：40 µm原画像の比較](FORNIX_DESCENT_NATIVE40_2026-09-19.md)
 - [9月18日整理前の再開メモ保存履歴](RESUME_HISTORY_2026-09-18.md)
 
 - [断面併設3D：全26項目の左右表示確認と修正](SECTION_BILATERAL_MODELS_2026-09-16.md)

@@ -1,6 +1,6 @@
 {
   "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
-  "sourceSha256": "a009c09fbcf2d13eb28de9a27830c6bcd0572d3b825cf9554b5879ca11efb707",
+  "sourceSha256": "cb0e727292c6d677e26063a506b07dee793a7b5058f6bf8fb820d0dfbc106c74",
   "method": "0.5 mm marching cubes; no resampling, filling, smoothing or component removal",
   "scope": "Display synchronization only; not anatomical validation",
   "meshes": {

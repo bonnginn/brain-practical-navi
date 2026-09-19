@@ -5,15 +5,15 @@ from scipy import ndimage
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
-from stage_fornix_continuation269 import replay
+from stage_fornix_descent108 import replay
 from stage_aqueduct_fourth44 import encode
 from build_section_ventricle_meshes import reconstruct
 
-BEFORE = ROOT / "tests/fixtures/bigbrain-practical-segmentation-pre-fornix-continuation269.bin.gz"
-CURRENT = ROOT / "tests/fixtures/bigbrain-practical-segmentation-pre-fornix-descent108.bin.gz"
-RECORD = ROOT / "segmentation-patches/review/fornix-continuation269-adoption-2026-09-19.json"
-MESH = ROOT / "tests/fixtures/section-current-fornix-body-partial-pre-fornix-descent108.mesh"
-META = ROOT / "tests/fixtures/section-current-fornix-body-partial-pre-fornix-descent108.json"
+BEFORE = ROOT / "tests/fixtures/bigbrain-practical-segmentation-pre-fornix-descent108.bin.gz"
+CURRENT = ROOT / "public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"
+RECORD = ROOT / "segmentation-patches/review/fornix-descent108-adoption-2026-09-19.json"
+MESH = ROOT / "public/atlas/section-current-fornix-body-partial.mesh"
+META = ROOT / "public/atlas/section-current-fornix-body-partial.json"
 
 
 def load(path):
@@ -22,22 +22,22 @@ def load(path):
     return raw, np.frombuffer(raw, dtype=np.uint8, offset=10).reshape(tuple(dims), order="F")
 
 
-class FornixContinuation269AdoptionTests(unittest.TestCase):
+class FornixDescent108AdoptionTests(unittest.TestCase):
     def test_exact_reversible_transition_and_non_target_invariance(self):
         record = json.loads(RECORD.read_text(encoding="utf-8"))
         _, before = load(BEFORE)
         _, current = load(CURRENT)
         self.assertEqual(hashlib.sha256(BEFORE.read_bytes()).hexdigest(), record["beforeSha256"])
         self.assertEqual(hashlib.sha256(CURRENT.read_bytes()).hexdigest(), record["afterSha256"])
-        self.assertEqual(record["afterSha256"], "a009c09fbcf2d13eb28de9a27830c6bcd0572d3b825cf9554b5879ca11efb707")
-        self.assertEqual(record["count"], 269)
-        self.assertEqual(record["transition"], "mixed-fornix-body-continuation-partial")
-        self.assertEqual((record["countsBefore"], record["countsAfter"]), ({"46": 1253}, {"46": 1522}))
-        self.assertEqual((sum(p["side"] == 1 for p in record["points"]), sum(p["side"] == 2 for p in record["points"])), (174, 95))
+        self.assertEqual(record["afterSha256"], "cb0e727292c6d677e26063a506b07dee793a7b5058f6bf8fb820d0dfbc106c74")
+        self.assertEqual(record["count"], 108)
+        self.assertEqual(record["transition"], "mixed-fornix-descent-interior-partial")
+        self.assertEqual((record["countsBefore"], record["countsAfter"]), ({"46": 1522}, {"46": 1630}))
+        self.assertEqual((sum(p["side"] == 1 for p in record["points"]), sum(p["side"] == 2 for p in record["points"])), (66, 42))
         after = replay(before, record["points"])
         np.testing.assert_array_equal(replay(after, record["points"], True), before)
         changed = before != after
-        self.assertEqual(int(changed.sum()), 269)
+        self.assertEqual(int(changed.sum()), 108)
         self.assertTrue(np.all(before[changed] == 0))
         self.assertTrue(np.all(after[changed] == 46))
         np.testing.assert_array_equal(before[~changed], after[~changed])
@@ -49,15 +49,15 @@ class FornixContinuation269AdoptionTests(unittest.TestCase):
         selected = labels == 46
         ids, count = ndimage.label(selected, ndimage.generate_binary_structure(3, 1))
         self.assertEqual(count, 2)
-        self.assertEqual(sorted(np.bincount(ids.ravel())[1:]), [725, 797])
+        self.assertEqual(sorted(np.bincount(ids.ravel())[1:]), [767, 863])
         payload, info = reconstruct(selected.transpose(2, 1, 0))
         mesh = encode(payload)
         self.assertEqual(mesh, MESH.read_bytes())
         meta = json.loads(META.read_text(encoding="utf-8"))
-        self.assertEqual(info["voxels"], 1522)
-        self.assertEqual(meta["voxels"], 1522)
+        self.assertEqual(info["voxels"], 1630)
+        self.assertEqual(meta["voxels"], 1630)
         self.assertEqual(meta["components6"], 2)
-        self.assertEqual(sorted(meta["componentSizes"]), [725, 797])
+        self.assertEqual(sorted(meta["componentSizes"]), [767, 863])
         self.assertEqual(meta["labelIds"], [46])
         self.assertEqual(meta["sha256"], hashlib.sha256(mesh).hexdigest())
         self.assertEqual(meta["method"], "native-image-reviewed partial body; marching cubes 0.5; no resampling, smoothing or filling")

@@ -1,0 +1,189 @@
+{
+  "status": "draft-unapplied-not-anatomically-approved",
+  "sourceNativeSha256": "61e6ebbeb0d6876051b9348a68bfe22b733fead04d112c35ff1a29819b67d351",
+  "cachePath": "work/fornix-anterior-next-20260919-v3-final/region.npz",
+  "cacheSha256": "a7132e53c36f4ff7d91099896c4cd72376710baea0d66be62f8697b7f204d751",
+  "decodedSha256": "502eded3aea88083cbc3ca62f43a4ab1bc9708fc80e57441e33e43ad5b9f1314",
+  "labelSha256": "a009c09fbcf2d13eb28de9a27830c6bcd0572d3b825cf9554b5879ca11efb707",
+  "scope": "Unapplied interior continuation native100 Y900-910; no full column or septal attachment boundary claim.",
+  "contoursNativeXZ": {
+    "left": {
+      "900": [
+        [
+          671,
+          634
+        ],
+        [
+          675,
+          642
+        ],
+        [
+          683,
+          644
+        ],
+        [
+          686,
+          633
+        ],
+        [
+          688,
+          619
+        ],
+        [
+          688,
+          604
+        ],
+        [
+          681,
+          603
+        ],
+        [
+          675,
+          612
+        ],
+        [
+          672,
+          623
+        ]
+      ],
+      "910": [
+        [
+          679,
+          623
+        ],
+        [
+          685,
+          627
+        ],
+        [
+          691,
+          623
+        ],
+        [
+          693,
+          613
+        ],
+        [
+          694,
+          600
+        ],
+        [
+          694,
+          585
+        ],
+        [
+          688,
+          583
+        ],
+        [
+          682,
+          589
+        ],
+        [
+          679,
+          603
+        ]
+      ]
+    },
+    "right": {
+      "900": [
+        [
+          694,
+          632
+        ],
+        [
+          699,
+          630
+        ],
+        [
+          704,
+          624
+        ],
+        [
+          707,
+          614
+        ],
+        [
+          708,
+          603
+        ],
+        [
+          703,
+          600
+        ],
+        [
+          697,
+          605
+        ],
+        [
+          695,
+          614
+        ],
+        [
+          694,
+          624
+        ]
+      ],
+      "910": [
+        [
+          700,
+          621
+        ],
+        [
+          705,
+          620
+        ],
+        [
+          710,
+          612
+        ],
+        [
+          713,
+          602
+        ],
+        [
+          714,
+          590
+        ],
+        [
+          711,
+          582
+        ],
+        [
+          705,
+          584
+        ],
+        [
+          700,
+          597
+        ],
+        [
+          699,
+          609
+        ]
+      ]
+    }
+  },
+  "orthogonalPlanesNative": {
+    "x": [
+      680,
+      685,
+      690,
+      695,
+      700,
+      705,
+      710
+    ],
+    "z": [
+      585,
+      595,
+      605,
+      615,
+      625
+    ]
+  },
+  "basis": "Draft only: carry the adopted Y900 body interior into Y910 inside the descending lobes observed in native40 coronal/horizontal/sagittal raw views. The upper boundary and anterior end are partial inclusion cuts. The whole attached anterior wall and lower fine connections are excluded. No anatomy approval until whole voxel projections and raw tissue sampling are reviewed.",
+  "mutation": false,
+  "adopted": false,
+  "expertReviewed": false
+}

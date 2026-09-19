@@ -135,7 +135,7 @@
     "43": 282,
     "44": 1197,
     "45": 1374,
-    "46": 1522
+    "46": 1630
   },
   "atlasToManualDiceAudit": {
     "caudate": 0.8448,
@@ -469,7 +469,7 @@
     "workflowMetadataStatus": "strict"
   },
   "preClassificationCompressedSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
-  "rawVoxelSha256": "a7af41415313ed4e72e4733ad7a353c0fa2a259306740a3c61f24ba54e2c00fd",
+  "rawVoxelSha256": "13d1680f704963b0897ca3fae294c0f89b69bd37bcada69997f368dd80115797",
   "brainstemThreeIslandsAudit": {
     "record": "segmentation-patches/review/brainstem-three-islands-adoption-2026-09-06.json",
     "recordSha256": "9c7b14f4272969261e3e2415d3f522b7e5d7db1eeca7cb0c8ae28b225458be66",
@@ -1413,6 +1413,16 @@
       "changedSectionMeshes": [
         "section-current-fornix-body-partial.mesh"
       ]
+    },
+    "fornix-descent108": {
+      "record": "segmentation-patches/review/fornix-descent108-adoption-2026-09-19.json",
+      "recordSha256": "94b0b7b0b55dc1c62b955c2750f9bb066b74881e8d8cbb14c12d66faffeaf98e",
+      "changedVoxelCount": 108,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-fornix-body-partial.mesh"
+      ]
     }
   },
   "historicalGenerationClaims": {
@@ -1422,9 +1432,9 @@
   },
   "currentImageMeasurements": {
     "schemaVersion": 1,
-    "sourceLabelSha256": "a009c09fbcf2d13eb28de9a27830c6bcd0572d3b825cf9554b5879ca11efb707",
+    "sourceLabelSha256": "cb0e727292c6d677e26063a506b07dee793a7b5058f6bf8fb820d0dfbc106c74",
     "sourceImageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
-    "rawVoxelSha256": "a7af41415313ed4e72e4733ad7a353c0fa2a259306740a3c61f24ba54e2c00fd",
+    "rawVoxelSha256": "13d1680f704963b0897ca3fae294c0f89b69bd37bcada69997f368dd80115797",
     "dimensionsXYZ": [
       394,
       466,
@@ -1475,7 +1485,7 @@
       "43": 282,
       "44": 1197,
       "45": 1374,
-      "46": 1522
+      "46": 1630
     },
     "ventricularLabelIds": [
       23,
