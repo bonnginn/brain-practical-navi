@@ -1,34 +1,32 @@
 {
-  "voxels": 112,
-  "components6": 3,
+  "voxels": 370,
+  "components6": 1,
   "componentSizes": [
-    108,
-    2,
-    2
+    370
   ],
   "boundsZYX": [
     [
-      100,
-      276,
-      187
+      98,
+      275,
+      186
     ],
     [
-      104,
-      281,
+      106,
+      282,
       206
     ]
   ],
-  "vertices": 337,
-  "faces": 694,
-  "sha256": "40e3929b0c975ed36f390df226b97f7463f87dc48c9e729c0f6c9dd1f74a21a7",
-  "bytes": 5196,
+  "vertices": 637,
+  "faces": 1298,
+  "sha256": "26c1aefbcc2136196decea95648e399c2611e87a05b2f1d35241933dce5657be",
+  "bytes": 9029,
   "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
-  "sourceSha256": "9c9385a2aa45eee270df2da65ef71c21b4dd2c18d1501b781cc3a3bb1d9cc00d",
+  "sourceSha256": "7e9461fc03540f692e00522d0d9306958424f4a49d19de8047f13e70aebc89aa",
   "labelIds": [
     36
   ],
   "labelVoxelCounts": {
-    "36": 112
+    "36": 370
   },
   "sourceSamplingMm": 0.5,
   "displayOriginZYX": [
@@ -37,11 +35,11 @@
     -98.0
   ],
   "method": "native-image-reviewed central interior; marching cubes 0.5; no smoothing, filling or component removal",
-  "rawSha256": "3d9262acb192898afd80395855bf93bc3a2fced463894cecd00b3a8f02d44f33",
-  "rawBytes": 17776,
+  "rawSha256": "379dbf1d82be13f5d873c437120e53d00bf5c2e81d6777132d5d2783abbe5856",
+  "rawBytes": 33424,
   "compression": "gzip",
   "expertReviewed": false,
   "partialExtent": true,
-  "scope": "Partial central optic chiasm interior only. Scope cuts and gaps are not anatomical outer boundaries. Optic nerves, optic tracts and optic radiation remain incomplete. Not expert-reviewed.",
-  "reviewRecord": "segmentation-patches/review/optic-central112-adoption-2026-09-19.json"
+  "scope": "Partial central optic chiasm interior with reviewed thickness on a 0.5 mm teaching grid. Edges include partial volume. Full outer boundaries, optic nerve/tract transitions and fibre crossing trajectories remain unrecorded. Not expert-reviewed.",
+  "reviewRecord": "segmentation-patches/review/optic-central258-adoption-2026-09-20.json"
 }

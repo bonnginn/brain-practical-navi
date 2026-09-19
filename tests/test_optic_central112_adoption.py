@@ -26,7 +26,7 @@ class OpticCentralAdoptionTests(unittest.TestCase):
         self.assertEqual(sum(p['before']==33 for p in record['points']),93)
         raw,info=reconstruct((after==36).transpose(2,1,0))
         self.assertEqual(info['componentSizes'],[108,2,2])
-        mesh=(ROOT/'public/atlas/section-current-optic-chiasm-partial.mesh').read_bytes()
+        mesh=(ROOT/'tests/fixtures/section-current-optic-chiasm-partial-pre-optic-central258.mesh').read_bytes()
         self.assertEqual(gzip.decompress(mesh),raw)
         meta=json.loads((ROOT/'tests/fixtures/section-current-optic-chiasm-partial-pre-optic-tract77.json').read_bytes())
         self.assertEqual(meta['sourceSha256'],record['afterSha256'])
