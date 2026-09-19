@@ -53,7 +53,7 @@ test("third-ventricle correction synchronizes current counts and affected meshes
     read("public/atlas/section-current-ventricles.json").then(JSON.parse),
     read("public/atlas/specimen-blocks.json").then(JSON.parse),
   ]);
-  assert.equal(metadata.labelCounts["25"], 11873);
+  assert.equal(metadata.labelCounts["25"], 11676);
   assert.equal(metadata.labelCounts["23"], 81670);
   assert.equal(metadata.labelCounts["24"], 82250);
   assert.equal(metadata.labelCounts["26"], 9200);
@@ -63,7 +63,7 @@ test("third-ventricle correction synchronizes current counts and affected meshes
   assert.equal(metadata.regionalBatchAudits["third-inferior-current16"].recordSha256,
     "bb3063466a39ebedb3c4f7d2250661c6d69bf3eed557d92a35d0065be4c9029d");
   assert.equal(section.sourceSha256, latest.afterSha256);
-  assert.equal(section.meshes["section-current-third-ventricle"].voxels, 11873);
+  assert.equal(section.meshes["section-current-third-ventricle"].voxels, 11676);
   assert.equal(section.meshes["section-current-ventricular-system"].voxels, 185260);
   assert.equal(sha(await read("public/atlas/section-current-third-ventricle.mesh")),
     "1281cf7aba8a01ebd095fe131f02169af5578cf7166b0d4448599861e98b6ee2");
@@ -82,7 +82,7 @@ test("third-ventricle correction synchronizes current counts and affected meshes
 
 test("unchanged aqueduct geometry is pinned to the current source revision", async () => {
   const report = JSON.parse(await read("public/atlas/section-current-aqueduct-partial.json"));
-  assert.equal(report.sourceSha256, "7f24c6e53b1819fcf676fcd9bb038064957bf9fc0f27e564419e4af972fcd6a3");
+  assert.equal(report.sourceSha256, "15db8e50352584247bc6073a2a78f4c191c68afc26de0d63f2e44615873de4ba");
   assert.equal(report.voxels, 267);
   assert.equal(sha(await read("public/atlas/section-current-aqueduct-partial.mesh")),
     "13cc011f6507b9f3ad3ff830009c2c9150fbb3b52602c1f561e253c4a9765faa");

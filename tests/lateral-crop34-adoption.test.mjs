@@ -50,7 +50,7 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
   const fornixDescent=r.transition==='mixed-fornix-descent-interior-partial';
   const fornixColumn=r.transition==='mixed-fornix-upper-column-interior-partial';
   const fornixLowerColumn=r.transition==='mixed-fornix-lower-column-interior-partial';
-  const genericRecord=['cerebellar-folia197','septal-membrane282','anterior-commissure-core416','aqueduct-fourth44','optic-central112','optic-tract77','optic-fourth9','fornix-posterior85', 'fornix-crural182', 'optic-left152', 'fornix-crura870', 'fornix-transition347', 'optic-central258', 'optic-tract243', 'optic-proximal995', 'optic-junction118', 'fornix-columns234', 'fornix-hippocampal1034', 'optic-right110', 'optic-lgn1267'].includes(name);
+  const genericRecord=['cerebellar-folia197','septal-membrane282','anterior-commissure-core416','aqueduct-fourth44','optic-central112','optic-tract77','optic-fourth9','fornix-posterior85', 'fornix-crural182', 'optic-left152', 'fornix-crura870', 'fornix-transition347', 'optic-central258', 'optic-tract243', 'optic-proximal995', 'optic-junction118', 'fornix-columns234', 'fornix-hippocampal1034', 'optic-right110', 'optic-lgn1267', 'third-posterior197'].includes(name);
   const posterior=r.transition==='mixed-posterior-ventricular-repair';
   const bilateral=r.transition==='mixed-lateral-cavity-fill';
   const combined=r.transition==='mixed-ventricular-repair'||posterior||bilateral;
@@ -139,6 +139,7 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
   expectedChanges['lateral-posterior196']=[['lateral-ventricle','ventricular-cavity',2,0],['diencephalon','tissue',0,13],['radiations','tissue',0,2],['commissural-system','tissue',34,2],['commissural-system','lateral-ventricles',2,0],['choroid-plexus','ventricular-cavity',2,0]];
   expectedChanges['lateral-medial-islands11']=[['lateral-ventricle','tissue',0,295],['lateral-ventricle','ventricular-cavity',0,1],['commissural-system','tissue',0,500],['choroid-plexus','tissue',0,114],['choroid-plexus','ventricular-cavity',0,1],['medial-temporal','inferior-horn',0,1]];
   expectedChanges['lateral-superomedial75']=[['lateral-ventricle','tissue',0,6],['lateral-ventricle','ventricular-cavity',8,0],['radiations','tissue',0,6],['commissural-system','lateral-ventricles',9,0],['choroid-plexus','tissue',3,6],['choroid-plexus','ventricular-cavity',8,0]];
+  expectedChanges['third-posterior197']=[['diencephalon','third-ventricle',0,28]];
   expectedChanges['third-inferior-current16']=[['diencephalon','third-ventricle',0,2]];
   expectedChanges['cerebellar-folia197']=[['hindbrain','cerebellum',22,0]];
   expectedChanges['septal-membrane282']=[];
@@ -158,5 +159,5 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
  }
  assert.ok(current);assert.deepEqual(gunzipSync(await read('public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz')),current);
  assert.equal(sha(current.subarray(10)),meta.rawVoxelSha256);
- assert.equal(meta.labelCounts['23'],81670);assert.equal(meta.labelCounts['24'],82250);assert.equal(meta.labelCounts['25'],11873);
+ assert.equal(meta.labelCounts['23'],81670);assert.equal(meta.labelCounts['24'],82250);assert.equal(meta.labelCounts['25'],11676);
 });

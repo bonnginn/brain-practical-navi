@@ -1,7 +1,7 @@
 {
   "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
-  "sourceSha256": "7f24c6e53b1819fcf676fcd9bb038064957bf9fc0f27e564419e4af972fcd6a3",
-  "rawVoxelSha256": "78453c7a8a0a776124074a72801bc0a0332f6593491a9a21aa9fa37409c45afc",
+  "sourceSha256": "15db8e50352584247bc6073a2a78f4c191c68afc26de0d63f2e44615873de4ba",
+  "rawVoxelSha256": "e3c78b2457a4ddfd3b8b2a095a49084db0f7927dd5ca14111472bfa64f4c7d0b",
   "dimensionsXYZ": [
     394,
     466,
@@ -108,13 +108,11 @@
       ]
     },
     "section-current-third-ventricle": {
-      "voxels": 11873,
-      "components6": 22,
+      "voxels": 11676,
+      "components6": 20,
       "componentSizes": [
         11492,
-        104,
         95,
-        93,
         35,
         10,
         7,
@@ -138,18 +136,18 @@
         [
           109,
           201,
-          187
+          189
         ],
         [
           173,
           274,
-          204
+          202
         ]
       ],
-      "vertices": 9182,
-      "faces": 18428,
-      "sha256": "1281cf7aba8a01ebd095fe131f02169af5578cf7166b0d4448599861e98b6ee2",
-      "bytes": 478244,
+      "vertices": 8812,
+      "faces": 17680,
+      "sha256": "afe8986c4b791e1d6e30a04a472051a19bc38b65ea75cf811a389699a0db38c5",
+      "bytes": 458908,
       "labelIds": [
         25
       ]
@@ -181,13 +179,11 @@
       ]
     },
     "section-current-ventricular-system": {
-      "voxels": 185260,
-      "components6": 84,
+      "voxels": 185063,
+      "components6": 82,
       "componentSizes": [
         184763,
-        104,
         95,
-        93,
         35,
         12,
         10,
@@ -281,10 +277,10 @@
           276
         ]
       ],
-      "vertices": 95252,
-      "faces": 192168,
-      "sha256": "74c7a264246d2e14b6a58bdf8c4df3555b462783e21ed9058ae4662e26ae4085",
-      "bytes": 4973084,
+      "vertices": 94882,
+      "faces": 191420,
+      "sha256": "05fdb5bb299e41beddc68e0c73526a3221df004033f5b592948a4c972a06c8e4",
+      "bytes": 4953748,
       "labelIds": [
         23,
         24,
