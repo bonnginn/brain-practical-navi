@@ -22,11 +22,11 @@ COLORS = {46: (40, 210, 170), 42: (235, 125, 30), 43: (240, 50, 180),
           25: (80, 160, 255), 39: (240, 210, 30), 40: (240, 210, 30)}
 
 
-def main(out, bridge=False, context=False, candidate=None):
+def main(out, bridge=False, context=False, candidate=None, label_sha=LABEL_SHA, label_path=None, views=None):
     if out.exists():
         raise ValueError('Preserve existing evidence; choose a new directory')
     source = checked(ROOT / 'work' / SOURCES[0][0], SOURCES[0][1])
-    label_path = checked(ROOT / 'public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz', LABEL_SHA)
+    label_path = checked(ROOT / (label_path or 'public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz'), label_sha)
     raw = gzip.decompress(label_path.read_bytes())
     assert raw[:4] == b'BBS1' and struct.unpack_from('<3H', raw, 4) == (394, 466, 378)
     labels = np.frombuffer(raw, np.uint8, offset=10).reshape((394, 466, 378), order='F')
@@ -34,7 +34,7 @@ def main(out, bridge=False, context=False, candidate=None):
     candidate_sha = None
     if candidate:
         payload = candidate.read_bytes(); draft = json.loads(payload)
-        if draft['labelSha256'] != LABEL_SHA:
+        if draft['labelSha256'] != label_sha:
             raise ValueError('Candidate baseline differs')
         labels = labels.copy(); seen = set()
         for row in draft['rows']:
@@ -52,7 +52,7 @@ def main(out, bridge=False, context=False, candidate=None):
     linear, native_grid = load_linear(), load_native_grid()
     grids = load_published_grids('catmull-rom')
     out.mkdir(parents=True)
-    report = dict(labelSha256=LABEL_SHA, sourceSha256=SOURCES[0][1], affineSha256=AFFINE_SHA,
+    report = dict(labelSha256=label_sha, labelPath=str(label_path.relative_to(ROOT).as_posix()), sourceSha256=SOURCES[0][1], affineSha256=AFFINE_SHA,
                   transformHashes=dict(linear=LIN_SHA, nativeGrid=GRID_SHA, nativeNonlinear=NL_SHA,
                                        improved=XFM_SHA, grids=GRID_SHAS),
                   meaning='Raw / current label outlines. Not inferred boundaries or new candidates.',
@@ -70,13 +70,22 @@ def main(out, bridge=False, context=False, candidate=None):
         assert g['image'].attrs['dimorder'] == b'yspace,zspace,xspace'
         for k, a in enumerate('xyz'):
             assert np.array_equal(dims[a+'space'].attrs['direction_cosines'], np.eye(3)[k])
-        views = [('y', y) for y in [246, 266, *range(279, 292), 301, 316, 341]]
-        views += [('z', z) for z in [550, 600, 650, 700, 750, 800, 850]]
-        views += [('x', x) for x in [510, 535, 560, 585]]
-        if bridge:
-            views = [('y', y) for y in range(267, 279)]
-        if context:
-            views = [('x', x) for x in [535, 560, 585, 620]]
+        requested_views = views
+        if requested_views is None:
+            views = [('y', y) for y in [246, 266, *range(279, 292), 301, 316, 341]]
+            views += [('z', z) for z in [550, 600, 650, 700, 750, 800, 850]]
+            views += [('x', x) for x in [510, 535, 560, 585]]
+            if bridge:
+                views = [('y', y) for y in range(267, 279)]
+            if context:
+                views = [('x', x) for x in [535, 560, 585, 620]]
+        else:
+            if any(type(axis) is not str or axis not in ('x', 'y', 'z') or type(index) is not int for axis, index in requested_views):
+                raise ValueError('views must contain (axis, integer index) pairs')
+            views = [(axis, index) for axis, index in requested_views]
+            limits = {'x': 1185, 'y': 439, 'z': 976}
+            if len(set(views)) != len(views) or any(index < 0 or index >= limits[axis] for axis, index in views):
+                raise ValueError('views contain duplicates or lie outside the Native40 source')
         for axis, index in views:
             if axis == 'y':
                 values = decode(g, index, slice(490, 950), slice(435, 660))[::-1]
