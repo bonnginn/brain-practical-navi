@@ -14,7 +14,7 @@ from build_section_ventricle_meshes import reconstruct
 class OpticCentralAdoptionTests(unittest.TestCase):
     def test_exact_transition_and_mesh(self):
         before_bytes=(ROOT/'tests/fixtures/bigbrain-practical-segmentation-pre-optic-central112.bin.gz').read_bytes()
-        after_bytes=(ROOT/'public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz').read_bytes()
+        after_bytes=(ROOT/'tests/fixtures/bigbrain-practical-segmentation-pre-optic-tract77.bin.gz').read_bytes()
         record=json.loads((ROOT/'segmentation-patches/review/optic-central112-adoption-2026-09-19.json').read_bytes())
         before,after=labels(before_bytes),labels(after_bytes)
         self.assertEqual(hashlib.sha256(before_bytes).hexdigest(),record['beforeSha256'])
@@ -28,7 +28,7 @@ class OpticCentralAdoptionTests(unittest.TestCase):
         self.assertEqual(info['componentSizes'],[108,2,2])
         mesh=(ROOT/'public/atlas/section-current-optic-chiasm-partial.mesh').read_bytes()
         self.assertEqual(gzip.decompress(mesh),raw)
-        meta=json.loads((ROOT/'public/atlas/section-current-optic-chiasm-partial.json').read_bytes())
+        meta=json.loads((ROOT/'tests/fixtures/section-current-optic-chiasm-partial-pre-optic-tract77.json').read_bytes())
         self.assertEqual(meta['sourceSha256'],record['afterSha256'])
         self.assertEqual(meta['labelIds'],[36])
         self.assertEqual(meta['sha256'],hashlib.sha256(mesh).hexdigest())

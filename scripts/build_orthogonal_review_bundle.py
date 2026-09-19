@@ -35,14 +35,14 @@ MAGIC_LABELS = b"BBS1"
 EXPECTED_DIMS = (394, 466, 378)
 EXPECTED_VOXEL_SIZE_MM = (0.5, 0.5, 0.5)
 EXPECTED_IMAGE_SHA256 = "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746"
-EXPECTED_LABELS_SHA256 = "d3eaa45d8e2e43416dfc931f4a720da203131f7e579a320c3f51c9f8069c7056"
-EXPECTED_COUNTS = {27: 264456, 33: 8389, 39: 559, 40: 729}
+EXPECTED_LABELS_SHA256 = "32bb0113dd207ce2644136723c798061b4366bbd47cb800b0ae9884972eadf1c"
+EXPECTED_COUNTS = {27: 264456, 33: 8323, 39: 559, 40: 729}
 REVIEW_LABEL_IDS = (33, 39, 40)
 CONTEXT_LABEL_IDS = (27,)
 OVERLAY_LABEL_IDS = (27, 33, 39, 40)
 MAMMILLARY_LABEL_IDS = (39, 40)
 # ID36 now exists as reviewed central tissue; this read-only bundle still emits no optic candidates.
-FORBIDDEN_PROPOSED_IDS = (37, 38)
+FORBIDDEN_PROPOSED_IDS: tuple[int, ...] = ()  # Reviewed partial labels 36-38 are now present.
 AXES = ("x", "y", "z")
 AXIS_NUMBER = {axis: index for index, axis in enumerate(AXES)}
 PLANE_NAMES = {"x": "sagittal", "y": "coronal", "z": "horizontal"}

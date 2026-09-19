@@ -1142,6 +1142,42 @@
         "date": "2026-09-19",
         "documentRef": "docs/OPTIC_CENTRAL112_INTEGRATION_2026-09-19.md"
       }
+    },
+    {
+      "key": "section-optic-tracts-partial",
+      "lectureLabel": null,
+      "coverage": "app-section-only",
+      "appLabel": "視索（部分）",
+      "representations": [
+        "image-guided-reviewed"
+      ],
+      "learnerSurfaces": [
+        "sections"
+      ],
+      "expertReview": "pending",
+      "projectReview": "reviewed-by-project",
+      "quizEligibility": "none",
+      "sourceRefs": [
+        "combined-practical-segmentation"
+      ],
+      "literatureRefs": [
+        "https://cancerdata.org/tutorial/eptn-neuro-atlas-video-optic-tract/"
+      ],
+      "knownLimitations": [
+        "同一BigBrain標本のnative原画像から追った左右の視索内部の短い区間を部分的に示します。全外縁、視交叉・外側膝状体への連続性、視放線は未収録で、AIによるプロジェクト採用・専門家未確認です。"
+      ],
+      "appKeys": [
+        "opticTractsPartial"
+      ],
+      "labelIds": [
+        37,
+        38
+      ],
+      "projectReviewEvidence": {
+        "reviewerRole": "AI-assisted project review",
+        "date": "2026-09-19",
+        "documentRef": "docs/OPTIC_TRACT77_INTEGRATION_2026-09-19.md"
+      }
     }
   ],
   "quizTargets": [

@@ -19,6 +19,8 @@
     "BETA_READINESS_DISPLAY_AUDIT.md",
     "OPTIC_PATHWAY_AUDIT.md",
     "segmentation-patches/review/optic-central112-adoption-2026-09-19.json",
+    "public/atlas/section-current-optic-chiasm-partial.json",
+    "public/atlas/section-current-optic-tracts-partial.json",
     "STRUCTURE_PROVENANCE.md",
     "BETA_OBSERVATION_NOTES.md",
     "PRESENTATION_AUDIT.md",
@@ -26,17 +28,17 @@
     "WINDOWS_HANDOFF.md"
   ],
   "provenance": {
-    "registryEntryCount": 81,
-    "expertPendingCount": 81,
+    "registryEntryCount": 82,
+    "expertPendingCount": 82,
     "reviewFilterCounts": {
       "surface": 54,
-      "sections": 22,
+      "sections": 23,
       "blocks": 30,
       "quiz": 25
     },
     "learnerMappings": {
-      "total": 228,
-      "resolved": 228
+      "total": 229,
+      "resolved": 229
     }
   },
   "quiz": {
@@ -198,14 +200,14 @@
           "adopted": true
         },
         "37": {
-          "adopted": false
+          "adopted": true
         },
         "38": {
-          "adopted": false
+          "adopted": true
         }
       },
       "anyAdopted": true,
-      "allAdopted": false,
+      "allAdopted": true,
       "expertReviewPending": true
     },
     "ids39To40": {
