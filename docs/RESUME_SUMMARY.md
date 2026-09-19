@@ -4,19 +4,19 @@
 
 ## 開発版と公開版
 
-- 開発ブランチ：`codex/september-resumed-anatomy`。9月19日に脳弓体部・前方移行部269点、下降部108点に続き、柱上部内部56点を追加。現在のラベルSHAは `2cdba3f15427af2fdb5b9bcdb9b1b9904f6fcc5199fc1bfa4b76b2bfbbe6e8da`。詳細は[柱上部56点の統合記録](FORNIX_COLUMN56_INTEGRATION_2026-09-19.md)。
+- 開発ブランチ：`codex/september-resumed-anatomy`。9月19日に脳弓体部・前方移行部269点、下降部108点に続き、柱上部内部56点と、その下方内部23点を追加。現在のラベルSHAは `c3ffa981882eb6faae62a9bd7ef35b420ae6e19155c27440b1e3789bf2e00c42`。詳細は[柱内部23点の統合記録](FORNIX_LOWER_COLUMN23_INTEGRATION_2026-09-19.md)。
 - 開発版：中脳水道の着色不具合を修正し、断面選択26項目を現行ラベルの全範囲3Dへ対応。前交連・透明中隔・脳弓体部は部分分節、外側膝状体は同一標本の公開層分節を採用。[統合と残件](SEPTEMBER16_CONNECTION_FIBER_CHECKPOINT.md)、[全構造3D](SECTION_BILATERAL_MODELS_2026-09-16.md)。
 - 公開版：PR #30、main `d9c213a22df7ae99a4279d34d0a77e62a5e88dba`。断面併設3Dの左右修正のみ公開。公開ラベルSHAは `785ce199e2c7226e5527a771e953d1b78cfed1067179aa04c63b9eba74577e0f` のまま。開発版の追加分節・中脳水道着色修正は未公開。
 - 公開用checkout：`../brain-practical-navi-publish-section`。開発と公開のメッシュ生成・目録には差分がある。次の統合時に現行ラベルと照合し、単純上書きしない。
-- ローカルプレビュー：`http://127.0.0.1:4346/`、出力 `work/september14-function-circuit-preview`。9月19日の脳弓柱上部56点補完（ID46計1,686点）を反映し、断面・2方向3D・日英説明とクリック同定を実ブラウザ確認済み。[統合検証](FORNIX_COLUMN56_INTEGRATION_2026-09-19.md)：Node628/628、Python438/438、型検査・両build成功。他タスクのポート・プロセスを停止しない。
+- ローカルプレビュー：`http://127.0.0.1:4346/`、出力 `work/september14-function-circuit-preview`。9月19日の脳弓柱内部23点補完（ID46計1,709点）を反映し、断面・2方向3D・日英説明とクリック同定を実ブラウザ確認済み。[今回の統合検証](FORNIX_LOWER_COLUMN23_INTEGRATION_2026-09-19.md)：型検査・両build・対象検査成功、全体試験Node628/628・Python440/440成功。他タスクのポート・プロセスを停止しない。
 - 前回の公開CI：Node618/618、Python397件中116skip、両build成功。これは9月16日の公開候補の結果で、以降の変更の保証ではない。
 
 ## 残件と次に読むもの
 
-- [脳弓柱上部56点の統合](FORNIX_COLUMN56_INTEGRATION_2026-09-19.md)：58候補の全100 µm断面を確認し、右側の隙間際2点を除いて56点（左31・右25）を追加。ID46は1,686点（左894・右792）。柱上部内部までの部分分節で、柱下部・脚・乳頭体への連続性は未完成。[柱下方24図の照合](FORNIX_LOWER_COLUMN_REVIEW_2026-09-19.md)でZ640〜620の内部とZ610〜590の付着変化を区別した。隣接4断面を補い、[内部23候補](FORNIX_LOWER_COLUMN_DRAFT_2026-09-19.md)を抽出、native100 35図・native40 20図を照合した。未適用のため、検証と主担当の採用・統合を続ける。前交連付近への一括延長はしない。旧58候補・除外2点の根拠は保存済み。
+- [脳弓柱内部23点の統合](FORNIX_LOWER_COLUMN23_INTEGRATION_2026-09-19.md)：native100 35図・native40 20図で照合した23点（左13・右10）を適用。ID46は1,709点（左907・右802）。体部・柱上部の内部までの部分分節で、前交連より下方・脚・乳頭体への連続性は未完成。次は[柱下方の照合](FORNIX_LOWER_COLUMN_REVIEW_2026-09-19.md)で区別したZ610〜590の付着形状変化を判断し、前交連付近へ一括延長しない。旧56点の除外2点は保留のまま。
 - [脳弓柱の広域原画像照合](FORNIX_COLUMN_SOURCE_REVIEW_2026-09-19.md)：前方Yの単純延長はせず、前交連との位置関係を追う。[比較ページ](http://127.0.0.1:4346/reviews/fornix-columns-20260919/index.html)はローカル専用で、通常buildで消えるため原本 `work/fornix-column-review-page-20260919` から復元可能。
-- [脳弓下降部108点追加](FORNIX_DESCENT_INTEGRATION_2026-09-19.md)は入力となった履歴。現行値は上記56点の記録を参照する。前回の5点・27点の保留は解除していない。
-- [40 µm比較](FORNIX_DESCENT_NATIVE40_2026-09-19.md)と[269点追加](FORNIX_CONTINUATION_2026-09-19.md)は今回の入力となった履歴。現行値は上記56点追加の記録を参照する。
+- [脳弓下降部108点追加](FORNIX_DESCENT_INTEGRATION_2026-09-19.md)は入力となった履歴。現行値は上記23点の記録を参照する。前回の5点・27点の保留は解除していない。
+- [40 µm比較](FORNIX_DESCENT_NATIVE40_2026-09-19.md)と[269点追加](FORNIX_CONTINUATION_2026-09-19.md)は今回の入力となった履歴。現行値は上記23点追加の記録を参照する。
 
 - 脳弓の脚・柱、視交叉・視索・視放線は未完成。[9月19日の視交叉目印レビュー](OPTIC_LANDMARK_REVIEW_2026-09-19.md)で、後方境界比較をnative40 Y220–245へ限定。27断面＋付着部5直交断を確認し、Y235/240/245の外縁と未確定部を図示。次は付着部の帰属を先に判断する。新ラベル・規約面は未採用。[境界を決める資料と手順](FIBER_BOUNDARY_METHODS_2026-09-16.md)を併用し、同じ全域調査には戻らない。
 - 脳室の名称移行境界・全外縁・孤立点は残件。右モンロー孔周辺の位置図・拡大比較は断面実習に追加済み（独立分節ではない）。[右脳室間孔の分節根拠](RIGHT_FORAMEN_CONNECTION_2026-09-16.md)、[中脳水道と第四脳室](AQUEDUCT_FOURTH_CONNECTION_2026-09-16.md)。

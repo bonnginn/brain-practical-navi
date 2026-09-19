@@ -35,3 +35,5 @@ tests/fixtures/section-current-*-pre-fornix-body987.json -text
 tests/fixtures/section-current-*-pre-fornix-descent108.json -text
 tests/fixtures/section-current-*-pre-fornix-column56.json -text
 segmentation-patches/review/fornix-descent-draft-2026-09-19.json whitespace=cr-at-eol
+
+tests/fixtures/section-current-*-pre-fornix-lower-column23.json -text

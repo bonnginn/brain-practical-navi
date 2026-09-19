@@ -1,13 +1,13 @@
 {
-  "voxels": 1686,
+  "voxels": 1709,
   "components6": 2,
   "componentSizes": [
-    894,
-    792
+    907,
+    802
   ],
   "boundsZYX": [
     [
-      147,
+      143,
       234,
       187
     ],
@@ -17,17 +17,17 @@
       207
     ]
   ],
-  "vertices": 2688,
-  "faces": 5428,
-  "sha256": "9df1385fb0370698500bd62625036d84c568fb1bf510a147af59a18abf765188",
-  "bytes": 37139,
+  "vertices": 2758,
+  "faces": 5568,
+  "sha256": "832ccee329adc574e3d48bc0ca14a0190a5f43d3ba4f0fc2717b403ff93e1c36",
+  "bytes": 37975,
   "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
-  "sourceSha256": "2cdba3f15427af2fdb5b9bcdb9b1b9904f6fcc5199fc1bfa4b76b2bfbbe6e8da",
+  "sourceSha256": "c3ffa981882eb6faae62a9bd7ef35b420ae6e19155c27440b1e3789bf2e00c42",
   "labelIds": [
     46
   ],
   "labelVoxelCounts": {
-    "46": 1686
+    "46": 1709
   },
   "sourceSamplingMm": 0.5,
   "displayOriginZYX": [
@@ -36,11 +36,11 @@
     -98.0
   ],
   "method": "native-image-reviewed partial body and upper columns; marching cubes 0.5; no resampling, smoothing or filling",
-  "rawSha256": "06009338ac251fcde8ae3a30a06001e46831a274cb412ba2e2a8e41b0aff7cfe",
-  "rawBytes": 140412,
+  "rawSha256": "d43bcb1494da2b890bc508fca884ef5c51a2042cadcb387723b2e00bc546d97b",
+  "rawBytes": 144052,
   "compression": "gzip",
   "expertReviewed": false,
   "partialExtent": true,
-  "scope": "Partial fornix body, anterior transition and upper-column interior, with native40 Z745-650 review. Scope cuts are not established anatomical boundaries. Lower columns, crura, fimbria and continuity to the mammillary body remain incomplete. Two medial cleft-edge voxels were excluded. Not expert-reviewed.",
-  "reviewRecord": "segmentation-patches/review/fornix-column56-adoption-2026-09-19.json"
+  "scope": "Partial body and upper-column interior extended through native40 Z650-610. Scope cuts are not anatomical boundaries. Lower columns near/below the anterior commissure, crura, fimbria and mammillary continuity remain incomplete. Not expert-reviewed.",
+  "reviewRecord": "segmentation-patches/review/fornix-lower-column23-adoption-2026-09-19.json"
 }

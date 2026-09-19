@@ -10,10 +10,10 @@ from stage_aqueduct_fourth44 import encode
 from build_section_ventricle_meshes import reconstruct
 
 BEFORE = ROOT / "tests/fixtures/bigbrain-practical-segmentation-pre-fornix-column56.bin.gz"
-CURRENT = ROOT / "public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"
+CURRENT = ROOT / "tests/fixtures/bigbrain-practical-segmentation-pre-fornix-lower-column23.bin.gz"
 RECORD = ROOT / "segmentation-patches/review/fornix-column56-adoption-2026-09-19.json"
-MESH = ROOT / "public/atlas/section-current-fornix-body-partial.mesh"
-META = ROOT / "public/atlas/section-current-fornix-body-partial.json"
+MESH = ROOT / "tests/fixtures/section-current-fornix-body-partial-pre-fornix-lower-column23.mesh"
+META = ROOT / "tests/fixtures/section-current-fornix-body-partial-pre-fornix-lower-column23.json"
 
 
 def load(path):

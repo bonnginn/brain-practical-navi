@@ -135,7 +135,7 @@
     "43": 282,
     "44": 1197,
     "45": 1374,
-    "46": 1686
+    "46": 1709
   },
   "atlasToManualDiceAudit": {
     "caudate": 0.8448,
@@ -469,7 +469,7 @@
     "workflowMetadataStatus": "strict"
   },
   "preClassificationCompressedSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
-  "rawVoxelSha256": "49d807486bac1a22c4d47d6988c8b88b1079bf6f0f5bb45992182823e398e335",
+  "rawVoxelSha256": "b7728a4892e726815654913a9e0ab220c7ce8942bb0f277b8da05665dc8eb4aa",
   "brainstemThreeIslandsAudit": {
     "record": "segmentation-patches/review/brainstem-three-islands-adoption-2026-09-06.json",
     "recordSha256": "9c7b14f4272969261e3e2415d3f522b7e5d7db1eeca7cb0c8ae28b225458be66",
@@ -1433,6 +1433,16 @@
       "changedSectionMeshes": [
         "section-current-fornix-body-partial.mesh"
       ]
+    },
+    "fornix-lower-column23": {
+      "record": "segmentation-patches/review/fornix-lower-column23-adoption-2026-09-19.json",
+      "recordSha256": "79bea540da941521be12e918aae7391e1f88c85f953dc456c8a043c3a6c92e37",
+      "changedVoxelCount": 23,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-fornix-body-partial.mesh"
+      ]
     }
   },
   "historicalGenerationClaims": {
@@ -1442,9 +1452,9 @@
   },
   "currentImageMeasurements": {
     "schemaVersion": 1,
-    "sourceLabelSha256": "2cdba3f15427af2fdb5b9bcdb9b1b9904f6fcc5199fc1bfa4b76b2bfbbe6e8da",
+    "sourceLabelSha256": "c3ffa981882eb6faae62a9bd7ef35b420ae6e19155c27440b1e3789bf2e00c42",
     "sourceImageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
-    "rawVoxelSha256": "49d807486bac1a22c4d47d6988c8b88b1079bf6f0f5bb45992182823e398e335",
+    "rawVoxelSha256": "b7728a4892e726815654913a9e0ab220c7ce8942bb0f277b8da05665dc8eb4aa",
     "dimensionsXYZ": [
       394,
       466,
@@ -1495,7 +1505,7 @@
       "43": 282,
       "44": 1197,
       "45": 1374,
-      "46": 1686
+      "46": 1709
     },
     "ventricularLabelIds": [
       23,

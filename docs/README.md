@@ -222,3 +222,5 @@ Historical audit results describe their recorded checkpoint, not the current rel
 </details>
 
 - [側脳室ブロックの表示精度と残る分節](VENTRICLE_BLOCK_FIDELITY_2026-09-15.md)
+
+- [脳弓柱の内部23点統合](FORNIX_LOWER_COLUMN23_INTEGRATION_2026-09-19.md)
