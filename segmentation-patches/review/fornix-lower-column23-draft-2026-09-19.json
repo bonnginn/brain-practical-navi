@@ -1,0 +1,519 @@
+{
+  "status": "image-reviewed-draft-stage-not-installed",
+  "adopted": false,
+  "installed": false,
+  "expertReviewed": false,
+  "published": false,
+  "labelSha256": "2cdba3f15427af2fdb5b9bcdb9b1b9904f6fcc5199fc1bfa4b76b2bfbbe6e8da",
+  "workStageSha256": "c3ffa981882eb6faae62a9bd7ef35b420ae6e19155c27440b1e3789bf2e00c42",
+  "count": 23,
+  "sideAdditions": {
+    "1": 13,
+    "2": 10
+  },
+  "points": [
+    {
+      "xyz": [
+        192,
+        270,
+        144
+      ],
+      "before": 0,
+      "after": 46,
+      "side": 1
+    },
+    {
+      "xyz": [
+        192,
+        271,
+        143
+      ],
+      "before": 0,
+      "after": 46,
+      "side": 1
+    },
+    {
+      "xyz": [
+        192,
+        271,
+        144
+      ],
+      "before": 0,
+      "after": 46,
+      "side": 1
+    },
+    {
+      "xyz": [
+        192,
+        271,
+        145
+      ],
+      "before": 0,
+      "after": 46,
+      "side": 1
+    },
+    {
+      "xyz": [
+        192,
+        271,
+        146
+      ],
+      "before": 0,
+      "after": 46,
+      "side": 1
+    },
+    {
+      "xyz": [
+        192,
+        272,
+        146
+      ],
+      "before": 0,
+      "after": 46,
+      "side": 1
+    },
+    {
+      "xyz": [
+        192,
+        272,
+        147
+      ],
+      "before": 0,
+      "after": 46,
+      "side": 1
+    },
+    {
+      "xyz": [
+        193,
+        270,
+        143
+      ],
+      "before": 0,
+      "after": 46,
+      "side": 1
+    },
+    {
+      "xyz": [
+        193,
+        270,
+        144
+      ],
+      "before": 0,
+      "after": 46,
+      "side": 1
+    },
+    {
+      "xyz": [
+        193,
+        271,
+        144
+      ],
+      "before": 0,
+      "after": 46,
+      "side": 1
+    },
+    {
+      "xyz": [
+        193,
+        271,
+        145
+      ],
+      "before": 0,
+      "after": 46,
+      "side": 1
+    },
+    {
+      "xyz": [
+        193,
+        271,
+        146
+      ],
+      "before": 0,
+      "after": 46,
+      "side": 1
+    },
+    {
+      "xyz": [
+        193,
+        271,
+        147
+      ],
+      "before": 0,
+      "after": 46,
+      "side": 1
+    },
+    {
+      "xyz": [
+        198,
+        271,
+        146
+      ],
+      "before": 0,
+      "after": 46,
+      "side": 2
+    },
+    {
+      "xyz": [
+        199,
+        269,
+        144
+      ],
+      "before": 0,
+      "after": 46,
+      "side": 2
+    },
+    {
+      "xyz": [
+        199,
+        269,
+        145
+      ],
+      "before": 0,
+      "after": 46,
+      "side": 2
+    },
+    {
+      "xyz": [
+        199,
+        270,
+        143
+      ],
+      "before": 0,
+      "after": 46,
+      "side": 2
+    },
+    {
+      "xyz": [
+        199,
+        270,
+        144
+      ],
+      "before": 0,
+      "after": 46,
+      "side": 2
+    },
+    {
+      "xyz": [
+        199,
+        270,
+        145
+      ],
+      "before": 0,
+      "after": 46,
+      "side": 2
+    },
+    {
+      "xyz": [
+        199,
+        270,
+        146
+      ],
+      "before": 0,
+      "after": 46,
+      "side": 2
+    },
+    {
+      "xyz": [
+        199,
+        270,
+        147
+      ],
+      "before": 0,
+      "after": 46,
+      "side": 2
+    },
+    {
+      "xyz": [
+        199,
+        271,
+        145
+      ],
+      "before": 0,
+      "after": 46,
+      "side": 2
+    },
+    {
+      "xyz": [
+        199,
+        271,
+        146
+      ],
+      "before": 0,
+      "after": 46,
+      "side": 2
+    }
+  ],
+  "evidence": [
+    {
+      "path": "work/fornix-lower-column-draft-20260919/spec-v1.json",
+      "sha256": "9eb20b2ff8d99f8e763722213f9229b6f85780a77bc66ae27b2e398d9b00bede"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/v1/candidate.json",
+      "sha256": "059149f3a7de4111e7eacaa4132f8726d04fbbc217f8af28d646ed4d8b4092cd"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/native40-v1/report.json",
+      "sha256": "7f506849748e0c2ad3093b62b6185ac6587dec40f02a0626910c9b268f03f050"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/sampling-v1/measurements.json",
+      "sha256": "ba020422154fb49802b07cb707e3f5116ecf9485758bc00261e8da67900cc41b"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/independent-raw-check.json",
+      "sha256": "b6a48d9bdd5963ddbddf204633abd6c3d646ff4f0d294c76b583ea1e6660c5b4"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/crop-coverage.json",
+      "sha256": "73b35fec828c09cbb50b5b1094a70b35c84035b6eaa40eb62138129f9588bd4e"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/stage_lower_column23_v3.py",
+      "sha256": "a68319a0e6ae5e10e05e953959d17737ff256ff31d270f34a72fbb4057424e4b"
+    },
+    {
+      "path": "work/anatomy-review/fornix-lower-column23-stage-v3/repair.json",
+      "sha256": "ca5432987478730325990cb6381f2d234c1f0e97efbe29da7544e4db79d94c3f"
+    },
+    {
+      "path": "work/anatomy-review/fornix-lower-column23-stage-v3/block-impact.json",
+      "sha256": "56aded81b411bc88d2bb0d22bfca04bc5404cbc3bbfdd797d1d0fd107910719d"
+    },
+    {
+      "path": "work/anatomy-review/fornix-lower-column23-stage-v3/mesh-report.json",
+      "sha256": "9d401e84b6d2e83c30226a3f27f788f4fefa2df8a59b8f20ed9fd320a1df283e"
+    },
+    {
+      "path": "work/fornix-lower-column-bridge-20260919/pixel-check.json",
+      "sha256": "aec82b220638b45b0123319e9852c2404cf901b17b8ab5883b4a0b29a93e1b0a"
+    }
+  ],
+  "reviewedFigures": [
+    {
+      "path": "work/fornix-lower-column-draft-20260919/v1/z535.png",
+      "sha256": "61204a96be6bbc3ddef6eeff5ab31462e8762b941281de84937b659f2980aa4b"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/v1/z536.png",
+      "sha256": "da77a7df2838a46016d869fb52742fc58618afa357579b949732b217ad79136b"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/v1/z537.png",
+      "sha256": "7138ff305833ad8be2a3159736e4cd03c6ffb382c8f7b24f681d0d23086e4484"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/v1/z538.png",
+      "sha256": "befa4efc39bbdd2af56e883c49bd8983c6883e6070641290a4848c1a82869220"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/v1/z539.png",
+      "sha256": "bf57d6ee79d544ad1762050b796d938bc70b66d04bdbf8df4b41c95615aa2768"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/v1/z540.png",
+      "sha256": "960fae83263e36d93855443e0b2211d4a042b1b953c39cf26e405ef23406530a"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/v1/z541.png",
+      "sha256": "8d02ed8da9ba2aad3779997c46457c3559dc6697db45eba4c3a2213b0c09e994"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/v1/z542.png",
+      "sha256": "ff667e936f448611c5998751a927f4d8cdcfb2b74252f34c230edfc9539aa568"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/v1/z543.png",
+      "sha256": "4b7b624671193de581039fd0371d51d1d3d9c8f46368a9fef277ba767c8340bc"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/v1/z544.png",
+      "sha256": "d6db3e81fda106a12bcaea608ce75609b837724bc21496f6751aa85ebf2a73ef"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/v1/z545.png",
+      "sha256": "09474f8c820a0189573ee1901bb2e4f05d55ac137b9ff24f655e11dc92331748"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/v1/z546.png",
+      "sha256": "698e4c31abc2acc615b362a1475bd187d5e7015906f94d4e004c33f8346ef137"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/v1/z547.png",
+      "sha256": "d0c956a1fb0a7066c86834dd32c08a7f468dfed69f4963d736221ef7b3453e06"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/v1/z548.png",
+      "sha256": "15e13625d5f3135ffee8ac448d20594d43765fa82382b0376a7f8c59c0d1b2da"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/v1/z549.png",
+      "sha256": "220b3af676d56fbdfa93928ca5d390a89c89749c7c7eda3dae3cecdd8387cef2"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/v1/z550.png",
+      "sha256": "67f2d475b4df004eec2f0616b31b212179249c0f5721f5008b1835470bdb993c"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/v1/z551.png",
+      "sha256": "21497bf05ca505d232923f01f5e47c734352fecb338330719eea125798aefdc1"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/v1/z552.png",
+      "sha256": "52cab58924c2be570679ef029a9903fed6682faef0faa96b59587b89a7a8bc7d"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/v1/z553.png",
+      "sha256": "fdbc1bd6aaf1de193ca6aaf5aa15c5d4fc1a585535a03da1cc8534f7eba96a02"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/v1/z554.png",
+      "sha256": "f30b4e2139edc5100249c714d923a8500a106b641d82eba980974fdfd0a07e13"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/v1/z555.png",
+      "sha256": "0e82baa0199a30162ce0f0e981c747f1fe2709a83b6e9e6d0eab510304674c58"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/v1/z556.png",
+      "sha256": "bc49534a96f7cf0f8801087a86d2dbc53bd839a8720bc22d6882d53181352ae0"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/v1/z557.png",
+      "sha256": "6ed5dd546bfc28c054a7f7f7a1ccbf9b42f2ea5b7f6a68e57ace78a35d166422"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/v1/x680.png",
+      "sha256": "d8fb0a6a03f2837193bf1f78a4d3dc11939caa221ca35d415dbc129cf6d380ce"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/v1/x685.png",
+      "sha256": "90a625fd64f622087a0f124c8ce2e86a841725d39f7c8c5b44b2a349eba43f60"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/v1/x690.png",
+      "sha256": "962344161636cbc5d5b3a821706b1583317faa5393e9f011863ed06da8be3db5"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/v1/x715.png",
+      "sha256": "49a9f71ef1073f2dcce50c2850960c85792442f77ad623b5b19e144b61ff92a1"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/v1/x720.png",
+      "sha256": "d1c5415f9a88466c220eb00b56c88e6ca00716232231cfec9aa9df74882cab56"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/v1/x725.png",
+      "sha256": "3875a34d5a07847961d12218cb685a29cf1531fcd98aacb2bd3fbd462a3b71aa"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/v1/x730.png",
+      "sha256": "ce4f949a9241fd317b187e30a8afb462ee4d9e09ef3b9161f72a92256c6d1988"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/v1/y900.png",
+      "sha256": "0604693a92d0431c397211c6f0db86f9edb215abb99a20330e3f67a815e35956"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/v1/y905.png",
+      "sha256": "7d9c3ae15701eb406cae5e57cc0fb1759aab0979e71037af1289ab2d68574842"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/v1/y910.png",
+      "sha256": "894cdbe95b0ede31dcd1eb14259ff100b6fc39599642082241827482b98ed86e"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/v1/y915.png",
+      "sha256": "f74ae7d3f8ea9925a71e05a5329cacfe6c4a16409f6361759ccdc8c20fba1c1f"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/v1/y920.png",
+      "sha256": "30e3f6f9b3206d7122c8e4bdd5402302e201ec3b6f044b3b76c973e39f4b7ef2"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/native40-v1/z600.png",
+      "sha256": "e60a131041bcf3c4e70af89b089619d0d1c56ed756cd59ab1b5d4a14f3b4185a"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/native40-v1/z605.png",
+      "sha256": "8de1227e0d7eaa8875373e54c330138fd61d6cb9d42dd387f889c22d996cf90d"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/native40-v1/z610.png",
+      "sha256": "94feaeada6ce4114623a627ca35a431c481d367287096b5d136c6dd250a16c13"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/native40-v1/z615.png",
+      "sha256": "4be3fc9788a86eaed040500a9a2f10fb5d80fc439defdf0ec1798b8814610737"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/native40-v1/z620.png",
+      "sha256": "dd9be1ee511353ed1ee97d8f7aa30bde89b6a583ec1aa110b93afbd4f371ef5f"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/native40-v1/z625.png",
+      "sha256": "77f8953bfe47dfc681803711790cde508a1704e30df10c75ffd122db19d4e933"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/native40-v1/z630.png",
+      "sha256": "17219f7a2bfd51ba81f55580d6c6dec9af05acdaa67b12bd44c44a38e5278457"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/native40-v1/z635.png",
+      "sha256": "6377dc0168620617c18b4b34d43e2f4d918557262d5f29ee70cf5917f7600761"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/native40-v1/z640.png",
+      "sha256": "cbc2f061a09339b412767bd252e1f09160fb518348bf737c891df0a31107ed9a"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/native40-v1/z645.png",
+      "sha256": "53d80158445974082b2707dd416d8455a646a99fb328ed53d037e5c3a35dc7c7"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/native40-v1/z650.png",
+      "sha256": "47b1fdd16c10774a92380ee7a9934bae39908527ebaddf3e9c62c0e30fc3050c"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/native40-v1/z655.png",
+      "sha256": "cfa367fcfdd9194ac1a0c40f799c344399a98710bb9dcec395f2c9b97324af76"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/native40-v1/z660.png",
+      "sha256": "c15877df573e91d5dc738895c254a1ebf8669259bca7432710b12a9f0f02b580"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/native40-v1/x510.png",
+      "sha256": "532a039bbacb55195fe84fdde43627ca652105f254cf129b68ea346d7410ff7a"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/native40-v1/x535.png",
+      "sha256": "1920cbad14207269619debe6447135fc1035ade4351831afaf5785a178e94181"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/native40-v1/x610.png",
+      "sha256": "02e169d5f4485a7d7a277f656e568c0dbe877d525c8fa5a298d4a96a98b32616"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/native40-v1/x635.png",
+      "sha256": "654dff654fab65ff97113498dd1ea78a4e62213cc55813fd653604830879e6ec"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/native40-v1/y270.png",
+      "sha256": "8b7a3060437a1508b4c9b2383aea7fb006b20df01a5d6e520587f1997056260e"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/native40-v1/y290.png",
+      "sha256": "81c41956acc76cc1c2e98aa0249c1cfbdf2ac18ac830413e9a11758dfb44598b"
+    },
+    {
+      "path": "work/fornix-lower-column-draft-20260919/native40-v1/y310.png",
+      "sha256": "bddcb892d86ff747c60cd16bee343eb8e711b90acc90e05c07ad6eb58bff6cfe"
+    }
+  ],
+  "invalidStages": [
+    "work/anatomy-review/fornix-lower-column23-stage-v1",
+    "work/anatomy-review/fornix-lower-column23-stage-v2"
+  ],
+  "reviewDocument": "docs/FORNIX_LOWER_COLUMN_DRAFT_2026-09-19.md"
+}
