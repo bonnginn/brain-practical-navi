@@ -1,33 +1,33 @@
 {
-  "voxels": 3193,
+  "voxels": 3427,
   "components6": 2,
   "componentSizes": [
-    1628,
-    1565
+    1733,
+    1694
   ],
   "boundsZYX": [
     [
-      143,
+      137,
       202,
       169
     ],
     [
       184,
-      272,
+      273,
       235
     ]
   ],
-  "vertices": 5536,
-  "faces": 11276,
-  "sha256": "0e3fa26c7750871a154ed982a33a57e1446b95bb86a9b858c4b60b8502463cd7",
-  "bytes": 74161,
+  "vertices": 5898,
+  "faces": 12000,
+  "sha256": "a822dd1a795e7fbaaef798f72b473e4c9122ddc3ae8df8b85f791d10595b9d1c",
+  "bytes": 78932,
   "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
-  "sourceSha256": "ef5cc35efec2d67663b9047c706649c60110f7e83c52a8066d6dfaa238335840",
+  "sourceSha256": "8602e9a7de226ac7e6aea3ba11f704b458850d4610ba9d8f22d9e531805c139e",
   "labelIds": [
     46
   ],
   "labelVoxelCounts": {
-    "46": 3193
+    "46": 3427
   },
   "sourceSamplingMm": 0.5,
   "displayOriginZYX": [
@@ -36,11 +36,11 @@
     -98.0
   ],
   "method": "native-image-reviewed partial body and upper columns; marching cubes 0.5; no resampling, smoothing or filling",
-  "rawSha256": "9f90b4b8004835bb9189665d61e1be7aef4984dd074b7376de76b78efec9d71a",
-  "rawBytes": 290332,
+  "rawSha256": "7b575cd15a73baac4f6151d3b506d310f627e2c254ffc1df114f74dd9a430005",
+  "rawBytes": 309156,
   "compression": "gzip",
   "expertReviewed": false,
   "partialExtent": true,
-  "scope": "Partial body, upper columns and bilateral posterior/crural interiors on a 0.5 mm teaching grid. Approximate cell edges include partial volume. Both posterior intervals now continue to the body/upper-column portions; full fimbria, lower columns and mammillary continuity remain incomplete. Not expert-reviewed.",
-  "reviewRecord": "segmentation-patches/review/fornix-transition347-adoption-2026-09-20.json"
+  "scope": "Partial body, crura and columns, with bilateral column interiors extended toward the anterior commissure through source-traced posterior projecting bands at native40 Z650..550. Approximate 0.5 mm boundaries include partial volume. Full fimbria, columns below this interval and mammillary continuity remain incomplete. Not expert-reviewed.",
+  "reviewRecord": "segmentation-patches/review/fornix-columns234-adoption-2026-09-20.json"
 }

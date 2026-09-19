@@ -407,7 +407,7 @@ const structures: Record<StructureKey, StructureInfo> = {
   anteriorCommissurePartial: {name:"前交連（部分）",latin:"Anterior commissure (partial)",color:"#c58ce0",rgb:[197,140,224],ids:[],bigbrainIds:[42],labelSource:"image-guided",note:"原画像で追跡した前交連内部の一部だけを示します。全外縁、側頭葉へ向かう終末、内包に近接する区間は未収録で、完全に連続した経路を示すものではありません。",relation:"正中を横切り左右へ伸びる交連線維の一部。側頭葉間を結ぶ主な走行の位置目安"},
   septumPellucidumPartial: {name:"透明中隔（部分）",latin:"Septum pellucidum (partial)",color:"#efad72",rgb:[239,173,114],ids:[],bigbrainIds:[43],labelSource:"image-guided",note:"原画像で追跡できた薄い隔壁の一部を示します。上下の付着部や細い箇所は未収録です。中隔核や脳弓とは分けて観察してください。",relation:"左右の側脳室前角の間、脳梁の下方、脳弓の上方"},
   lateralGeniculateBodies: {name:"外側膝状体",latin:"Corpora geniculata lateralia",color:"#75b6d8",rgb:[117,182,216],ids:[],bigbrainIds:[44,45],labelSource:"image-guided-reviewed",note:"同一BigBrain標本で公開された左右6層分節の和集合を、公式変換で0.5 mm断面格子へ最近傍再標本化した範囲です。視索と視放線は未完成で、視覚路全体の連続分節ではありません。",relation:"視床後下方にある視覚中継核。視索が入る側と視放線が出る側の位置関係を断面で確認します"},
-  fornixBodyPartial: {name:"脳弓体部・脚・柱上部（部分）",latin:"Fornix (partial)",color:"#d7c58d",rgb:[215,197,141],ids:[],bigbrainIds:[46],labelSource:"image-guided-reviewed",note:"同一BigBrain原画像から追った体部・柱上部と、左右の脚へ向かう内部の部分分節です。0.5 mm格子の概略境界として後方を拡充しています。左右とも後方区間から体部・柱上部側までのラベルが連続していますが、海馬采・脚の全長、柱下部・乳頭体までの接続、全外縁は未収録です。脳弓全体の完成や専門家確認を意味しません。",relation:"側脳室体部の下内側にある体部から、前交連へ向かって下降する柱上部までの一部"},
+  fornixBodyPartial: {name:"脳弓体部・脚・柱（部分）",latin:"Fornix (partial)",color:"#d7c58d",rgb:[215,197,141],ids:[],bigbrainIds:[46],labelSource:"image-guided-reviewed",note:"同一BigBrain原画像から追った体部・脚・柱の部分分節です。0.5 mm格子の概略境界で、左右の後方区間から体部・柱が連続し、柱を前交連付近まで下方へ拡充しています。海馬采・脚の全長、さらに下方の柱と乳頭体までの接続、全外縁は未収録です。脳弓全体の完成や専門家確認を意味しません。",relation:"側脳室体部の下内側にある体部から、前交連付近へ向かって下降する柱までの一部"},
   opticChiasmPartial: {name:"視交叉中央部（部分）",latin:"Optic chiasm central region (partial)",color:"#d4a85d",rgb:[212,168,93],ids:[],bigbrainIds:[36],labelSource:"image-guided-reviewed",note:"同一BigBrain標本の原画像から、視交叉中央部の厚みを概略的に収録した部分ラベルです。0.5 mm格子で中央内部の形を示し、細かな外縁には部分体積を含みます。左右視索への主なラベルは連続し、名称の切替面は教材上の規約です。全外縁、視神経との境界、交叉線維の走行、視放線までの連続性は収録していません。画像確認済みですが、専門家レビューは未完了です。",relation:"視床下部前方寄りの正中近くにある視交叉中央部の部分収録"},
   opticTractsPartial: {name:"視索（部分）",latin:"Optic tracts (partial)",color:"#b88fd0",rgb:[184,143,208],ids:[],bigbrainIds:[37,38],labelSource:"image-guided-reviewed",note:"同一BigBrain標本の原画像から追った左右の視索内部を部分的に示し、両側の厚み、視交叉方向への前方区間、左後方への広がりを収録しています。0.5 mm格子による概略境界で、細かな裂隙や外縁を完全には再現しません。視交叉中央部と左右視索の主なラベルは連続し、名称の切替面は教材上の規約です。外側膝状体への全連続性と視放線は未収録で、専門家レビューは未完了です。",relation:"視交叉後方から外側膝状体方向へ向かう左右の視索の部分収録"},
   ventricle: { name: "側脳室", latin: "Ventriculus lateralis", color: "#49a9b4", rgb:[73,169,180], ids:[92,41,56,5], bigbrainIds:[23,24], labelSource:"atlas-provisional", meshFocus:"ventricle", note: "前角・体部・後角・下角が連続する空間です。断面を動かして形の変化を追います。", relation: "脳梁の下方、尾状核・視床の内側" },
@@ -488,7 +488,7 @@ const structureFunctions:Record<StructureKey,string>={
   anteriorCommissurePartial:"前交連は左右の大脳半球を結ぶ交連線維です。ここでは正中を横切り、側頭葉間へ向かう主な走行の一部を位置関係の基準として示します。",
   septumPellucidumPartial:"左右の側脳室前角を隔てる薄い隔壁です。脳梁と脳弓の位置関係を観察する手がかりになります。",
   lateralGeniculateBodies:"網膜からの情報を視索から受け、視放線を介して視覚皮質へ中継する視床後方の核です。",
-  fornixBodyPartial:"海馬系から乳頭体・中隔領域へ向かう脳弓のうち、左右の脚へ向かう後方部分、正中近くの体部、前交連へ向かって下降する柱上部を部分的に示します。",
+  fornixBodyPartial:"海馬系から乳頭体・中隔領域へ向かう脳弓のうち、左右の脚へ向かう後方部分、正中近くの体部、前交連付近へ下降する柱を部分的に示します。",
   opticChiasmPartial:"視交叉では左右の視神経線維の一部が交叉し、両眼の視野情報を左右半球へ振り分けます。この部分モデルは交叉線維の走行を示しません。",
   opticTractsPartial:"視索は視交叉から外側膝状体などへ視覚情報を伝えます。このモデルは原画像で追った左右の内部を概略的に収録し、両側の厚みと視交叉方向への前方区間、左後方の区間を収録しています。視交叉中央部と左右視索を連続して観察できます。境界は概略であり、名称の切替面は教材上の規約です。外側膝状体への全連続性と視放線は収録していません。",
   ventricle:"脳脊髄液を含む腔で、脳室系の連続性と周囲構造の位置を知る基準になります。",
@@ -529,7 +529,7 @@ bigBrainNameById.set(42,"前交連（部分）");
 bigBrainNameById.set(43,"透明中隔（部分）");
 bigBrainNameById.set(44,"左外側膝状体");
 bigBrainNameById.set(45,"右外側膝状体");
-bigBrainNameById.set(46,"脳弓体部・脚・柱上部（部分）");
+bigBrainNameById.set(46,"脳弓体部・脚・柱（部分）");
 bigBrainNameById.set(36,"視交叉中央部（部分）");
 bigBrainNameById.set(37,"左視索（部分）");
 bigBrainNameById.set(38,"右視索（部分）");
