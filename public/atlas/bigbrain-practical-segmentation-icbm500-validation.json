@@ -143,8 +143,8 @@
     "45": 1374,
     "46": 4461,
     "36": 405,
-    "37": 813,
-    "38": 854
+    "37": 1494,
+    "38": 1440
   },
   "atlasToManualDiceAudit": {
     "caudate": 0.8448,
@@ -481,7 +481,7 @@
     "workflowMetadataStatus": "strict"
   },
   "preClassificationCompressedSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
-  "rawVoxelSha256": "6303a6723f3fbb4eec3e22bce5757e2d03e10953f5361831cb56fd00c560d01a",
+  "rawVoxelSha256": "78453c7a8a0a776124074a72801bc0a0332f6593491a9a21aa9fa37409c45afc",
   "brainstemThreeIslandsAudit": {
     "record": "segmentation-patches/review/brainstem-three-islands-adoption-2026-09-06.json",
     "recordSha256": "9c7b14f4272969261e3e2415d3f522b7e5d7db1eeca7cb0c8ae28b225458be66",
@@ -1613,6 +1613,16 @@
         "section-current-optic-tracts-partial.mesh",
         "section-optic-chiasm.mesh"
       ]
+    },
+    "optic-lgn1267": {
+      "record": "segmentation-patches/review/optic-lgn1267-adoption-2026-09-20.json",
+      "recordSha256": "568f896b0ef1b266b6d65521be37e1beb071f78d52c4b9e1607a615e528e3b29",
+      "changedVoxelCount": 1267,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-optic-tracts-partial.mesh"
+      ]
     }
   },
   "historicalGenerationClaims": {
@@ -1622,9 +1632,9 @@
   },
   "currentImageMeasurements": {
     "schemaVersion": 1,
-    "sourceLabelSha256": "709afea6d99ddda15670bd1c92f4a5c076b203a417f55f8dd1e47675c956c212",
+    "sourceLabelSha256": "7f24c6e53b1819fcf676fcd9bb038064957bf9fc0f27e564419e4af972fcd6a3",
     "sourceImageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
-    "rawVoxelSha256": "6303a6723f3fbb4eec3e22bce5757e2d03e10953f5361831cb56fd00c560d01a",
+    "rawVoxelSha256": "78453c7a8a0a776124074a72801bc0a0332f6593491a9a21aa9fa37409c45afc",
     "dimensionsXYZ": [
       394,
       466,
@@ -1677,8 +1687,8 @@
       "45": 1374,
       "46": 4461,
       "36": 405,
-      "37": 813,
-      "38": 854
+      "37": 1494,
+      "38": 1440
     },
     "ventricularLabelIds": [
       23,

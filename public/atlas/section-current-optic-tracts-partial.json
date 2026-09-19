@@ -1,36 +1,36 @@
 {
-  "voxels": 1667,
+  "voxels": 2934,
   "components6": 3,
   "componentSizes": [
-    854,
-    810,
+    1491,
+    1440,
     3
   ],
   "boundsZYX": [
     [
       101,
-      248,
-      156
+      224,
+      146
     ],
     [
-      125,
+      128,
       275,
-      233
+      245
     ]
   ],
-  "vertices": 2561,
-  "faces": 5150,
-  "sha256": "4275ce7c495611f3021453bb5d40cd2bd17459c86fa40107a8c74ced8e725677",
-  "bytes": 36057,
+  "vertices": 4262,
+  "faces": 8580,
+  "sha256": "ab33cd8332a565926718d0e04ff8c05ede706af1bff963296c5422f39695d3f3",
+  "bytes": 57705,
   "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
-  "sourceSha256": "709afea6d99ddda15670bd1c92f4a5c076b203a417f55f8dd1e47675c956c212",
+  "sourceSha256": "7f24c6e53b1819fcf676fcd9bb038064957bf9fc0f27e564419e4af972fcd6a3",
   "labelIds": [
     37,
     38
   ],
   "labelVoxelCounts": {
-    "37": 813,
-    "38": 854
+    "37": 1494,
+    "38": 1440
   },
   "sourceSamplingMm": 0.5,
   "displayOriginZYX": [
@@ -39,11 +39,11 @@
     -98.0
   ],
   "method": "native-image-reviewed short interior portions; marching cubes 0.5; no smoothing, filling or component removal",
-  "rawSha256": "ae911e3daeb2330a19a0cf89389625ca481153515bc7784dd04539f1fca6308c",
-  "rawBytes": 133520,
+  "rawSha256": "69626766a4aacea33580a00e5c751cfccd40c9357131c80ffd89968392537faf",
+  "rawBytes": 222308,
   "compression": "gzip",
   "expertReviewed": false,
   "partialExtent": true,
-  "scope": "Partial bilateral optic tracts, with right posterior continuation traced from the same specimen. The right tract and combined chiasm/tract labels are continuous. Approximate 0.5 mm boundaries include partial volume. LGN continuity and optic radiations remain incomplete. Not expert-reviewed.",
-  "reviewRecord": "segmentation-patches/review/optic-right110-adoption-2026-09-20.json"
+  "scope": "Source-traced bilateral optic tracts extended along visible surface bands to contact the same-specimen LGN labels. Deep margins and the terminal naming boundary are approximate teaching boundaries on a 0.5 mm grid. Individual fibre trajectories, complete tract cross-sections and optic radiations are not established. Not expert-reviewed.",
+  "reviewRecord": "segmentation-patches/review/optic-lgn1267-adoption-2026-09-20.json"
 }
