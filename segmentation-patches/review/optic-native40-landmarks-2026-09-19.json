@@ -1,0 +1,694 @@
+{
+  "date": "2026-09-19",
+  "status": "ai-reviewed-landmarks-only-no-segmentation-adoption",
+  "sourceSha256": "18aec7b69b59ab5e3dc578885accbae2d86f86a7bbc6cba5dd2a07dbd4712f65",
+  "beforeSha256": "5211664518129297bbf78d1d536004e540e721615a88007ecf1459d18fb97a96",
+  "afterSha256": "5211664518129297bbf78d1d536004e540e721615a88007ecf1459d18fb97a96",
+  "count": 0,
+  "points": [],
+  "proposedLabelIds": [],
+  "evidenceDirectory": "work/optic-landmark-review-20260919",
+  "reportSha256": "9a9adafce9c8b8d64d8257d6fe583efa5ff904b77ea6681ccea1102cd027f503",
+  "generator": "scripts/render_optic_native40_landmarks.py",
+  "generatorSha256": "a754b31d518d3ead32c327c665530c8b7267ba24e1f6dcc069dac925163697fd",
+  "reviewedNative40Planes": {
+    "coronal": [
+      80,
+      120,
+      160,
+      200,
+      210,
+      220,
+      225,
+      230,
+      235,
+      240,
+      245,
+      250,
+      280,
+      290,
+      300,
+      310,
+      320,
+      340
+    ],
+    "horizontal": [
+      180,
+      220,
+      260,
+      300,
+      340
+    ],
+    "sagittal": [
+      500,
+      575,
+      636,
+      700
+    ]
+  },
+  "native40PlaneCount": 27,
+  "native40FigureCount": 28,
+  "posteriorComparisonBand": {
+    "space": "native40 ROI zero-based index",
+    "axis": "y",
+    "inclusiveIndex": [
+      220,
+      245
+    ],
+    "nativeMm": [
+      15.17,
+      16.17
+    ],
+    "status": "comparison-range-not-an-adopted-cut-plane"
+  },
+  "anteriorNavigationLandmark": {
+    "extreme": "anterior",
+    "appXYZ": [
+      198,
+      274,
+      114
+    ],
+    "nativeMm": [
+      2.3708026612222155,
+      18.387646425545725,
+      -14.93838445756132
+    ],
+    "native40Index": [
+      635.9350665305553,
+      300.4411606386431,
+      360.982888560967
+    ]
+  },
+  "decision": "Do not use the existing third-ventricle label extreme or raw connectivity alone as optic naming boundaries. Compare posterior Y235/240/245 separately from observed tissue edges; do not fill central gaps.",
+  "limitations": [
+    "No optic mask or naming plane adopted.",
+    "Native40 planes are selected samples, not a complete continuous review.",
+    "Registration roundtrip error measures numerical consistency, not anatomical accuracy.",
+    "Existing label33 was used for ROI coverage inventory only, not for optic boundaries."
+  ],
+  "figures": [
+    {
+      "file": "whole-y300.png",
+      "caption": "Whole native40 ROI, Y300; red: comparison crop X330..849, Z110..649",
+      "sha256": "f581d06ab68a59e1f6a308e4757d9985f0af298997152558e7c42554ff19b8ca",
+      "axis": "y",
+      "index": 300
+    },
+    {
+      "file": "landmark-y280.png",
+      "caption": "Y280 = 17.57 mm | RAW / current 25 (magenta), 42 (orange)",
+      "sha256": "9466ad08fe32037fcebcc1a0fb81a7b745df5a81265441afa5a07ceb7c8376a1",
+      "axis": "y",
+      "index": 280,
+      "cropXZ": [
+        330,
+        849,
+        110,
+        649
+      ],
+      "currentThirdProjectedPixels": 7833
+    },
+    {
+      "file": "landmark-y290.png",
+      "caption": "Y290 = 17.97 mm | RAW / current 25 (magenta), 42 (orange)",
+      "sha256": "a5626cae3b5d05b50540202dbb9b7cd49213df3704bd3a153c3e9642ff6b8f45",
+      "axis": "y",
+      "index": 290,
+      "cropXZ": [
+        330,
+        849,
+        110,
+        649
+      ],
+      "currentThirdProjectedPixels": 4742
+    },
+    {
+      "file": "landmark-y300.png",
+      "caption": "Y300 = 18.37 mm | RAW / current 25 (magenta), 42 (orange)",
+      "sha256": "661848ce083416f501d735a704371c5751812ca07eca7e5f182ec811aff5190c",
+      "axis": "y",
+      "index": 300,
+      "cropXZ": [
+        330,
+        849,
+        110,
+        649
+      ],
+      "currentThirdProjectedPixels": 1513
+    },
+    {
+      "file": "landmark-y310.png",
+      "caption": "Y310 = 18.77 mm | RAW / current 25 (magenta), 42 (orange)",
+      "sha256": "2ef81cac91cf6bbedf031183689cd036f3b667a46d0f6624e4f4c037783f82f7",
+      "axis": "y",
+      "index": 310,
+      "cropXZ": [
+        330,
+        849,
+        110,
+        649
+      ],
+      "currentThirdProjectedPixels": 0
+    },
+    {
+      "file": "landmark-y320.png",
+      "caption": "Y320 = 19.17 mm | RAW / current 25 (magenta), 42 (orange)",
+      "sha256": "0aca03a7d1e8109f4a4b5deeba764ea3c3004f4c8a4796d8c007e9b3738e7e07",
+      "axis": "y",
+      "index": 320,
+      "cropXZ": [
+        330,
+        849,
+        110,
+        649
+      ],
+      "currentThirdProjectedPixels": 0
+    },
+    {
+      "file": "landmark-y340.png",
+      "caption": "Y340 = 19.97 mm | RAW / current 25 (magenta), 42 (orange)",
+      "sha256": "543a232e4778ab1ad09c54598131663c1622cdec56250a5be934e362119e3fa3",
+      "axis": "y",
+      "index": 340,
+      "cropXZ": [
+        330,
+        849,
+        110,
+        649
+      ],
+      "currentThirdProjectedPixels": 0
+    },
+    {
+      "file": "horizontal-z180.png",
+      "caption": "Z180; top anterior Y438, bottom posterior Y0; X250..949",
+      "sha256": "58103a7da15a07c86205c78a9c7693bee2a9d50e6da799d4fe6b7fa328b3d589",
+      "axis": "z",
+      "index": 180,
+      "cropXY": [
+        250,
+        949,
+        0,
+        438
+      ]
+    },
+    {
+      "file": "horizontal-z220.png",
+      "caption": "Z220; top anterior Y438, bottom posterior Y0; X250..949",
+      "sha256": "1f69599421971322294449d7ff77cfccc55366497ed8c946214d175bd7fbad2f",
+      "axis": "z",
+      "index": 220,
+      "cropXY": [
+        250,
+        949,
+        0,
+        438
+      ]
+    },
+    {
+      "file": "horizontal-z260.png",
+      "caption": "Z260; top anterior Y438, bottom posterior Y0; X250..949",
+      "sha256": "c973a9bc430df4115fbe006d69a8500cc3644c603ea88491dcb5fc32f12270a9",
+      "axis": "z",
+      "index": 260,
+      "cropXY": [
+        250,
+        949,
+        0,
+        438
+      ]
+    },
+    {
+      "file": "horizontal-z300.png",
+      "caption": "Z300; top anterior Y438, bottom posterior Y0; X250..949",
+      "sha256": "1f70611ffff27572fdfe4ad7f31bcca59fd5838bda050378f37b64cfd998113a",
+      "axis": "z",
+      "index": 300,
+      "cropXY": [
+        250,
+        949,
+        0,
+        438
+      ]
+    },
+    {
+      "file": "horizontal-z340.png",
+      "caption": "Z340; top anterior Y438, bottom posterior Y0; X250..949",
+      "sha256": "eb98a1447f4c65041b86f3a9919025a861e473f2e587518557f4f798b36a163b",
+      "axis": "z",
+      "index": 340,
+      "cropXY": [
+        250,
+        949,
+        0,
+        438
+      ]
+    },
+    {
+      "file": "sagittal-x500.png",
+      "caption": "X500; left posterior Y0, right anterior Y438; top Z649, bottom Z100",
+      "sha256": "65c0e523794d2431781537d36cf8a3f410144ed0e5e4320859bf70383d65409e",
+      "axis": "x",
+      "index": 500,
+      "cropYZ": [
+        0,
+        438,
+        100,
+        649
+      ]
+    },
+    {
+      "file": "sagittal-x575.png",
+      "caption": "X575; left posterior Y0, right anterior Y438; top Z649, bottom Z100",
+      "sha256": "934a219d90d728382ead1bbf55721ceface587fed1901cbe82454071d3349ad0",
+      "axis": "x",
+      "index": 575,
+      "cropYZ": [
+        0,
+        438,
+        100,
+        649
+      ]
+    },
+    {
+      "file": "sagittal-x636.png",
+      "caption": "X636; left posterior Y0, right anterior Y438; top Z649, bottom Z100",
+      "sha256": "791bf199ae4877b7d425fd48fa5715b7f02a3cbcb4ada3fdc7b4f892aad97a86",
+      "axis": "x",
+      "index": 636,
+      "cropYZ": [
+        0,
+        438,
+        100,
+        649
+      ]
+    },
+    {
+      "file": "sagittal-x700.png",
+      "caption": "X700; left posterior Y0, right anterior Y438; top Z649, bottom Z100",
+      "sha256": "1d52ce3cbb58349f3bea773a263b500b15422676f3016358fe4b58a7a76fba46",
+      "axis": "x",
+      "index": 700,
+      "cropYZ": [
+        0,
+        438,
+        100,
+        649
+      ]
+    },
+    {
+      "file": "posterior-y80.png",
+      "caption": "Y80 = 9.57 mm; X250..949; top Z649, bottom Z110",
+      "sha256": "7df868cd52a276f33d2eee37c286f9cfbe8da85820ef4326c78ee7d236afed0c",
+      "axis": "y",
+      "index": 80,
+      "cropXZ": [
+        250,
+        949,
+        110,
+        649
+      ]
+    },
+    {
+      "file": "posterior-y120.png",
+      "caption": "Y120 = 11.17 mm; X250..949; top Z649, bottom Z110",
+      "sha256": "6c4d820eb895d6a5fac69641746c17bff9e2bea35287ece21e8ab4e7e346d9ce",
+      "axis": "y",
+      "index": 120,
+      "cropXZ": [
+        250,
+        949,
+        110,
+        649
+      ]
+    },
+    {
+      "file": "posterior-y160.png",
+      "caption": "Y160 = 12.77 mm; X250..949; top Z649, bottom Z110",
+      "sha256": "b6ccb7532c7a1f3fabf78d1a4f62b494635f3cc1a74f5cfde505b321ff45bdd4",
+      "axis": "y",
+      "index": 160,
+      "cropXZ": [
+        250,
+        949,
+        110,
+        649
+      ]
+    },
+    {
+      "file": "posterior-y200.png",
+      "caption": "Y200 = 14.37 mm; X250..949; top Z649, bottom Z110",
+      "sha256": "ce23362d0d58454d21d2a42c4dc52f5802822927cf65ad2de36125c095dcf1a6",
+      "axis": "y",
+      "index": 200,
+      "cropXZ": [
+        250,
+        949,
+        110,
+        649
+      ]
+    },
+    {
+      "file": "posterior-y210.png",
+      "caption": "Y210 = 14.77 mm; X250..949; top Z649, bottom Z110",
+      "sha256": "20fbf68ac8621137cdcd98aca54050959378560ef97ab71b28793bf7fa35c016",
+      "axis": "y",
+      "index": 210,
+      "cropXZ": [
+        250,
+        949,
+        110,
+        649
+      ]
+    },
+    {
+      "file": "posterior-y220.png",
+      "caption": "Y220 = 15.17 mm; X250..949; top Z649, bottom Z110",
+      "sha256": "55a7751ef99f7d44204acee169b6dc745a676c64923a89e437fc60846795e04f",
+      "axis": "y",
+      "index": 220,
+      "cropXZ": [
+        250,
+        949,
+        110,
+        649
+      ]
+    },
+    {
+      "file": "posterior-y225.png",
+      "caption": "Y225 = 15.37 mm; X250..949; top Z649, bottom Z110",
+      "sha256": "929a2a9a95570c22b74475ab197cfec4bab3b00a5f35e3250a3aef3cc68a9a23",
+      "axis": "y",
+      "index": 225,
+      "cropXZ": [
+        250,
+        949,
+        110,
+        649
+      ]
+    },
+    {
+      "file": "posterior-y230.png",
+      "caption": "Y230 = 15.57 mm; X250..949; top Z649, bottom Z110",
+      "sha256": "73ba1c57698c70e1ce28f6c93fe7a1db96426d30074d76d2653059272c7633f1",
+      "axis": "y",
+      "index": 230,
+      "cropXZ": [
+        250,
+        949,
+        110,
+        649
+      ]
+    },
+    {
+      "file": "posterior-y235.png",
+      "caption": "Y235 = 15.77 mm; X250..949; top Z649, bottom Z110",
+      "sha256": "8c0cf912be563d86b9aa4351bd4d224c20c77e067687b84687d5d53c016d64d0",
+      "axis": "y",
+      "index": 235,
+      "cropXZ": [
+        250,
+        949,
+        110,
+        649
+      ]
+    },
+    {
+      "file": "posterior-y240.png",
+      "caption": "Y240 = 15.97 mm; X250..949; top Z649, bottom Z110",
+      "sha256": "ee4db6290f5dc2b8997aaf340493903f9e4936078dc13c572e521de1d7e4ec89",
+      "axis": "y",
+      "index": 240,
+      "cropXZ": [
+        250,
+        949,
+        110,
+        649
+      ]
+    },
+    {
+      "file": "posterior-y245.png",
+      "caption": "Y245 = 16.17 mm; X250..949; top Z649, bottom Z110",
+      "sha256": "eeb8ffccf0365e8a6dd9fafe54f077b159319a11fd2788aaaa20783b61c0d22e",
+      "axis": "y",
+      "index": 245,
+      "cropXZ": [
+        250,
+        949,
+        110,
+        649
+      ]
+    },
+    {
+      "file": "posterior-y250.png",
+      "caption": "Y250 = 16.37 mm; X250..949; top Z649, bottom Z110",
+      "sha256": "d16a5b8e4fd2d8876c6fec056df63db7d7f360030be431ae5267d76e2081baea",
+      "axis": "y",
+      "index": 250,
+      "cropXZ": [
+        250,
+        949,
+        110,
+        649
+      ]
+    }
+  ],
+  "appContext": {
+    "file": "app-whole-context.png",
+    "sha256": "d76ff8dcef99679d9ce99d53aa3ced450a18872adac493e119cfcc7852e9c402",
+    "imageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
+    "endpointAppXYZ": [
+      198,
+      274,
+      114
+    ],
+    "meaning": "Current label endpoint for navigation only; not an optic boundary"
+  },
+  "coordinateInventory": {
+    "25": {
+      "count": 11873,
+      "withinNative40ROI": 6351,
+      "outside": 5522,
+      "nativeMmMin": [
+        -5.353362387655296,
+        -7.930262565182692,
+        -18.29688774523642
+      ],
+      "nativeMmMax": [
+        3.7891645017519813,
+        18.387646425545725,
+        6.812452892065837
+      ],
+      "maxRoundtripErrorMm": 3.3296736532406612e-06,
+      "extremePointsForNavigationOnly": [
+        {
+          "extreme": "anterior",
+          "appXYZ": [
+            198,
+            274,
+            114
+          ],
+          "nativeMm": [
+            2.3708026612222155,
+            18.387646425545725,
+            -14.93838445756132
+          ],
+          "native40Index": [
+            635.9350665305553,
+            300.4411606386431,
+            360.982888560967
+          ]
+        },
+        {
+          "extreme": "posterior",
+          "appXYZ": [
+            195,
+            201,
+            150
+          ],
+          "nativeMm": [
+            -1.2482246607716263,
+            -7.930262565182692,
+            0.7217396175951681
+          ],
+          "native40Index": [
+            545.4593834807093,
+            -357.50656412956727,
+            752.4859904398793
+          ]
+        }
+      ]
+    },
+    "33": {
+      "count": 8482,
+      "withinNative40ROI": 8186,
+      "outside": 296,
+      "nativeMmMin": [
+        -14.139628788975987,
+        7.092997584556737,
+        -24.92374352219286
+      ],
+      "nativeMmMax": [
+        15.573408591463362,
+        29.068273241600455,
+        -10.149705103853101
+      ],
+      "maxRoundtripErrorMm": 2.7913842894911056e-06,
+      "extremePointsForNavigationOnly": [
+        {
+          "extreme": "anterior",
+          "appXYZ": [
+            176,
+            302,
+            88
+          ],
+          "nativeMm": [
+            -7.474970948313124,
+            29.068273241600455,
+            -24.507802258706256
+          ],
+          "native40Index": [
+            389.7907262921719,
+            567.4568310400114,
+            121.74744353234361
+          ]
+        },
+        {
+          "extreme": "posterior",
+          "appXYZ": [
+            192,
+            246,
+            114
+          ],
+          "nativeMm": [
+            -0.5162033588419084,
+            7.092997584556737,
+            -16.520798327961497
+          ],
+          "native40Index": [
+            563.7599160289523,
+            18.074939613918417,
+            321.42254180096256
+          ]
+        }
+      ]
+    },
+    "42": {
+      "count": 416,
+      "withinNative40ROI": 416,
+      "outside": 0,
+      "nativeMmMin": [
+        -15.851821795793581,
+        16.77387177670376,
+        -10.929092389390767
+      ],
+      "nativeMmMax": [
+        16.784454929120745,
+        20.352228695262788,
+        -6.749127040945038
+      ],
+      "maxRoundtripErrorMm": 2.285642513477626e-06,
+      "extremePointsForNavigationOnly": [
+        {
+          "extreme": "anterior",
+          "appXYZ": [
+            208,
+            275,
+            133
+          ],
+          "nativeMm": [
+            7.619201408178614,
+            20.352228695262788,
+            -8.025992933397145
+          ],
+          "native40Index": [
+            767.1450352044653,
+            349.55571738156965,
+            533.7926766650714
+          ]
+        },
+        {
+          "extreme": "posterior",
+          "appXYZ": [
+            160,
+            270,
+            128
+          ],
+          "nativeMm": [
+            -15.806105396001755,
+            16.77387177670376,
+            -10.821802347148457
+          ],
+          "native40Index": [
+            181.51236509995616,
+            260.09679441759397,
+            463.8974413212885
+          ]
+        }
+      ]
+    },
+    "46": {
+      "count": 987,
+      "withinNative40ROI": 827,
+      "outside": 160,
+      "nativeMmMin": [
+        -6.831784992659217,
+        5.035801075601614,
+        5.0934867486683615
+      ],
+      "nativeMmMax": [
+        2.8410179650677234,
+        13.022796422501536,
+        10.361240141160172
+      ],
+      "maxRoundtripErrorMm": 3.1468881704910245e-06,
+      "extremePointsForNavigationOnly": [
+        {
+          "extreme": "anterior",
+          "appXYZ": [
+            193,
+            254,
+            172
+          ],
+          "nativeMm": [
+            -3.4171038058533267,
+            13.022796422501536,
+            5.821471601261309
+          ],
+          "native40Index": [
+            491.2374048536669,
+            166.31991056253838,
+            879.9792900315327
+          ]
+        },
+        {
+          "extreme": "posterior",
+          "appXYZ": [
+            188,
+            235,
+            179
+          ],
+          "nativeMm": [
+            -6.331192894101033,
+            5.035801075601614,
+            8.817195761283164
+          ],
+          "native40Index": [
+            418.3851776474742,
+            -33.35497310995965,
+            954.8723940320791
+          ]
+        }
+      ]
+    }
+  },
+  "verification": {
+    "coordinateArrayComparisons": 4,
+    "identicalCoronalImageComparisons": 6,
+    "existingProjectionTransformTestsPassed": 6,
+    "labelShaUnchanged": true,
+    "finalReplayAllPngFilesIdentical": 29,
+    "finalReplayReportIdentical": true,
+    "finalReplayHtmlIdentical": true,
+    "existingEvidenceOverwriteRejected": true
+  }
+}

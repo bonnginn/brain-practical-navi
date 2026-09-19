@@ -19,6 +19,7 @@
 
 - [整理前AGENTS.mdの保存履歴](AGENTS_HISTORY_2026-09-18.md)
 - [モンロー孔：全体位置・原画像・現行ラベルの観察案内](MONRO_OBSERVATION_GUIDE_2026-09-19.md)
+- [視交叉・近位視索：native40の目印照合と次の境界比較](OPTIC_LANDMARK_REVIEW_2026-09-19.md)
 - [9月18日整理前の再開メモ保存履歴](RESUME_HISTORY_2026-09-18.md)
 
 - [断面併設3D：全26項目の左右表示確認と修正](SECTION_BILATERAL_MODELS_2026-09-16.md)
