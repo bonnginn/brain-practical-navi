@@ -45,6 +45,7 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
   const mixed=['mixed-to-26','mixed-to-41'].includes(r.transition);
   const lgn=r.transition==='mixed-lgn-layers';
   const fornix=r.transition==='mixed-fornix-body-partial';
+  const fornixAnterior=r.transition==='mixed-fornix-body-anterior-partial';
   const genericRecord=['cerebellar-folia197','septal-membrane282','anterior-commissure-core416','aqueduct-fourth44'].includes(name);
   const posterior=r.transition==='mixed-posterior-ventricular-repair';
   const bilateral=r.transition==='mixed-lateral-cavity-fill';
@@ -68,6 +69,7 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
   else if(mixed){assert.equal(name,'fourth-depth27');assert.equal(r.count,27);assert.equal(r.points.filter(p=>p.before===0).length,16);assert.equal(r.points.filter(p=>p.before===27).length,11);assert.ok(r.points.every(p=>p.after===26));}
   else if(lgn){assert.equal(name,'lgn-layers2571');assert.equal(r.count,2571);assert.equal(r.points.filter(p=>p.before===0&&p.after===44).length,1197);assert.equal(r.points.filter(p=>p.before===0&&p.after===45).length,1373);assert.equal(r.points.filter(p=>p.before===16&&p.after===45).length,1);}
   else if(fornix){assert.equal(name,'fornix-body987');assert.equal(r.count,987);assert.ok(r.points.every(p=>p.before===0&&p.after===46));assert.equal(r.points.filter(p=>p.side===1).length,464);assert.equal(r.points.filter(p=>p.side===2).length,523);}
+  else if(fornixAnterior){assert.equal(name,'fornix-anterior266');assert.equal(r.count,266);assert.ok(r.points.every(p=>p.before===0&&p.after===46));assert.equal(r.points.filter(p=>p.side===1).length,159);assert.equal(r.points.filter(p=>p.side===2).length,107);}
   else if(genericRecord){assert.equal(r.points.length,r.count);assert.ok(r.points.every(p=>Array.isArray(p.xyz)&&Number.isInteger(p.before)&&Number.isInteger(p.after)));}
   else if(brainstem){assert.equal(name,'fourth-brainstem48');assert.equal(r.count,48);assert.ok(r.points.every(p=>p.before===27&&p.after===26));}
   else if(interfaceHold){assert.equal(name,'midbrain-interface14');assert.equal(r.count,14);assert.ok(r.points.every(([x,y,z])=>x>=187&&x<=205&&y>=247&&y<=250&&z===115));assert.equal(r.netVentralAdditions,14789);}
@@ -86,7 +88,7 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
   else if(name==='third-remnants91'){assert.equal(r.count,91);assert.ok(r.points.every(p=>p.before===25&&p.after===0));}
   else {assert.equal(name,'ventricular-exclusions46');assert.equal(r.count,46);assert.equal(r.points.filter(p=>p.before===23).length,12);assert.equal(r.points.filter(p=>p.before===25).length,34);}
   assert.equal(r.points.length,r.count);
-  for(const entry of r.points){const p=exclusions||brainstem||mixed||combined||lgn||fornix||genericRecord?entry.xyz:entry;const [x,y,z]=p;assert.ok(p.length===3&&p.every(Number.isInteger)&&x>=0&&x<394&&y>=0&&y<466&&z>=0&&z<378);const i=10+x+394*(y+466*z);assert.ok(!seen.has(i));seen.add(i);assert.equal(expected[i],exclusions||brainstem||mixed||combined||lgn||fornix||genericRecord?entry.before:interfaceHold?27:callosalExclusion?30:0);if(exclusions)assert.equal(entry.after,0);expected[i]=combined||lgn||fornix||genericRecord?entry.after:exclusions?0:label;}
+  for(const entry of r.points){const p=exclusions||brainstem||mixed||combined||lgn||fornix||fornixAnterior||genericRecord?entry.xyz:entry;const [x,y,z]=p;assert.ok(p.length===3&&p.every(Number.isInteger)&&x>=0&&x<394&&y>=0&&y<466&&z>=0&&z<378);const i=10+x+394*(y+466*z);assert.ok(!seen.has(i));seen.add(i);assert.equal(expected[i],exclusions||brainstem||mixed||combined||lgn||fornix||fornixAnterior||genericRecord?entry.before:interfaceHold?27:callosalExclusion?30:0);if(exclusions)assert.equal(entry.after,0);expected[i]=combined||lgn||fornix||fornixAnterior||genericRecord?entry.after:exclusions?0:label;}
   assert.equal(sha(expected.subarray(10)),r.afterRawVoxelSha256);current=expected;
   assert.equal(r.projectAdopted,true);assert.equal(r.expertReviewed,false);assert.equal(r.published,false);
   const manifest=JSON.parse(await read('public/atlas/specimen-blocks.json'));

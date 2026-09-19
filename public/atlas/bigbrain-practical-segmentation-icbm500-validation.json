@@ -135,7 +135,7 @@
     "43": 282,
     "44": 1197,
     "45": 1374,
-    "46": 987
+    "46": 1253
   },
   "atlasToManualDiceAudit": {
     "caudate": 0.8448,
@@ -469,7 +469,7 @@
     "workflowMetadataStatus": "strict"
   },
   "preClassificationCompressedSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
-  "rawVoxelSha256": "24bcc09ce7627bac5b4096a204d53678f0c26d410c6f5aae3f19e6c57579b8a6",
+  "rawVoxelSha256": "2d883e7280ee42d630adbd2c589be78fc525ed549ee9a78909034dc89b497d14",
   "brainstemThreeIslandsAudit": {
     "record": "segmentation-patches/review/brainstem-three-islands-adoption-2026-09-06.json",
     "recordSha256": "9c7b14f4272969261e3e2415d3f522b7e5d7db1eeca7cb0c8ae28b225458be66",
@@ -1393,6 +1393,16 @@
       "projectAdopted": true,
       "expertReviewed": false,
       "changedSectionMeshes": []
+    },
+    "fornix-anterior266": {
+      "record": "segmentation-patches/review/fornix-anterior266-adoption-2026-09-19.json",
+      "recordSha256": "2dcf42b1a217b0c80514378d45d98f24e31e8e989d71fa63aa15d7eefd576695",
+      "changedVoxelCount": 266,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-fornix-body-partial.mesh"
+      ]
     }
   },
   "historicalGenerationClaims": {
@@ -1402,9 +1412,9 @@
   },
   "currentImageMeasurements": {
     "schemaVersion": 1,
-    "sourceLabelSha256": "5211664518129297bbf78d1d536004e540e721615a88007ecf1459d18fb97a96",
+    "sourceLabelSha256": "d815aaff6b98c95109cdd7c052a29871d49cc9cdf463bcb3db7e28a1497c2392",
     "sourceImageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
-    "rawVoxelSha256": "24bcc09ce7627bac5b4096a204d53678f0c26d410c6f5aae3f19e6c57579b8a6",
+    "rawVoxelSha256": "2d883e7280ee42d630adbd2c589be78fc525ed549ee9a78909034dc89b497d14",
     "dimensionsXYZ": [
       394,
       466,
@@ -1455,7 +1465,7 @@
       "43": 282,
       "44": 1197,
       "45": 1374,
-      "46": 987
+      "46": 1253
     },
     "ventricularLabelIds": [
       23,

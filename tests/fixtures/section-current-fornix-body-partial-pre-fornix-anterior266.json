@@ -1,0 +1,46 @@
+{
+  "voxels": 987,
+  "components6": 2,
+  "componentSizes": [
+    523,
+    464
+  ],
+  "boundsZYX": [
+    [
+      170,
+      234,
+      187
+    ],
+    [
+      184,
+      254,
+      207
+    ]
+  ],
+  "vertices": 1512,
+  "faces": 3048,
+  "sha256": "8ef3237f8eff330ca3bb6d8431f90c0994038922136b29ff5c7f862fb120f6fb",
+  "bytes": 21935,
+  "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
+  "sourceSha256": "5211664518129297bbf78d1d536004e540e721615a88007ecf1459d18fb97a96",
+  "labelIds": [
+    46
+  ],
+  "labelVoxelCounts": {
+    "46": 987
+  },
+  "sourceSamplingMm": 0.5,
+  "displayOriginZYX": [
+    -90.0,
+    -116.0,
+    -98.0
+  ],
+  "method": "native-image-reviewed partial body; marching cubes 0.5; no resampling, smoothing or filling",
+  "rawSha256": "3425e659212e034b3f22ca14fbc6ce8310690c739f8b140d0c5f16a1c65f2bfc",
+  "rawBytes": 78924,
+  "compression": "gzip",
+  "expertReviewed": false,
+  "partialExtent": true,
+  "scope": "Partial body only, native Y780-860 (about 8 mm). Superior attachment to septal tissue and anterior/posterior cuts are scope limits, not established anatomical boundaries. Crura, columns, fimbria and complete continuity to hippocampus/mammillary body are not represented. Small internal tissue clefts may remain at 0.5 mm sampling. Not expert-reviewed.",
+  "reviewRecord": "segmentation-patches/review/fornix-body987-adoption-2026-09-16.json"
+}
