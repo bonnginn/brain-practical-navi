@@ -1,9 +1,9 @@
 {
-  "voxels": 84,
+  "voxels": 236,
   "components6": 9,
   "componentSizes": [
+    188,
     37,
-    36,
     5,
     1,
     1,
@@ -15,27 +15,27 @@
   "boundsZYX": [
     [
       112,
-      249,
-      168
+      248,
+      156
     ],
     [
-      121,
+      125,
       263,
       232
     ]
   ],
-  "vertices": 287,
-  "faces": 574,
-  "sha256": "7244904dc4a6b4a95f0aab3e4890204739e6ab2e5f420c03756771e6e9614520",
-  "bytes": 4763,
+  "vertices": 662,
+  "faces": 1344,
+  "sha256": "5c98194f1a3994208419fddb9e04c1fcaadb4e8f78accec46e5bea8955ab4b6b",
+  "bytes": 10361,
   "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
-  "sourceSha256": "85a91f74510543969650af99557bb77688e367804be9cc7048bcc6b6947c0747",
+  "sourceSha256": "386651f9e209646c1e30bf8271a8ab14476d175c74784322b1522c145c65fa61",
   "labelIds": [
     37,
     38
   ],
   "labelVoxelCounts": {
-    "37": 38,
+    "37": 190,
     "38": 46
   },
   "sourceSamplingMm": 0.5,
@@ -45,11 +45,11 @@
     -98.0
   ],
   "method": "native-image-reviewed short interior portions; marching cubes 0.5; no smoothing, filling or component removal",
-  "rawSha256": "9154baf4ce0eb6076693500bc83d9eacbbfb01b16c6290979846305350a67923",
-  "rawBytes": 14936,
+  "rawSha256": "c3bbb4bdf4ae53ecfba8fb47dd90146fefb06f174f22df0cd2bfe6d8a00d53e3",
+  "rawBytes": 34676,
   "compression": "gzip",
   "expertReviewed": false,
   "partialExtent": true,
-  "scope": "Short interior portions of the bilateral optic tracts. Entire tract boundaries, continuity to chiasm/LGN and optic radiations are not included. Not expert-reviewed.",
-  "reviewRecord": "segmentation-patches/review/optic-fourth9-adoption-2026-09-19.json"
+  "scope": "Partial bilateral optic interiors with a thicker left posterior interval, sampled at reviewed tissue centres on a 0.5 mm grid. Cell edges include partial volume, not exact tissue boundaries. Chiasm/LGN continuity and optic radiations remain incomplete. Not expert-reviewed.",
+  "reviewRecord": "segmentation-patches/review/optic-left152-adoption-2026-09-19.json"
 }
