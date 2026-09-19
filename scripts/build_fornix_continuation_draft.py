@@ -21,7 +21,7 @@ SCALE = 4
 WINDOW = (40000, 65535)
 APP_ORIGIN = np.array([-98.0, -134.0, -72.0])
 APP_STEP = np.array([0.5, 0.5, 0.5])
-CURRENT_COLORS = {46: (0, 220, 235), 43: (255, 145, 20), 23: (55, 145, 255), 24: (55, 145, 255), 25: (240, 50, 205)}
+CURRENT_COLORS = {46: (0, 220, 235), 42: (255, 145, 20), 43: (240, 50, 180), 23: (55, 145, 255), 24: (55, 145, 255), 25: (240, 50, 205)}
 
 
 def sha(data):
@@ -47,6 +47,28 @@ def interpolated_polygon(contours, y):
     a, b = anchors[hi - 1], anchors[hi]
     t = (y - a) / (b - a)
     return contours[a] * (1 - t) + contours[b] * t
+
+
+def finite_number(value, label):
+    value = float(value)
+    if not np.isfinite(value):
+        raise ValueError(f"{label} must be finite")
+    return value
+
+
+def integer_number(value, label):
+    number = finite_number(value, label)
+    if not number.is_integer():
+        raise ValueError(f"{label} must be an integer without rounding")
+    return int(number)
+
+
+def contour_layout(contour_key):
+    if contour_key == "contoursNativeXZ":
+        return 1, (0, 2), "anchorsNativeY"
+    if contour_key == "contoursNativeXY":
+        return 2, (0, 1), "anchorsNativeZ"
+    raise ValueError("contour key must be contoursNativeXZ or contoursNativeXY")
 
 
 def native_to_app(native_xyz, start, step, linear, native_grid, grids, affine):
@@ -119,7 +141,7 @@ def render_three(raw, current, candidate, axis, index, low, high):
         draw.text((offset + pane_w // 2 - 8, image.height - 30), "XYZ"[rem[0]], fill="#bbb")
         draw.text((offset - 55, margin_top + pane_h // 2), "XYZ"[rem[1]], fill="#bbb")
     draw.text((4, 4), f"Native100 {axis.upper()}={index}: RAW / CURRENT / UNAPPLIED CANDIDATE", fill="white")
-    draw.text((4, 20), "46 cyan | 43 orange | 23/24 blue | 25 magenta | side1 yellow | side2 green", fill="#ddd")
+    draw.text((4, 20), "46 cyan | 42 orange | 43 pink | 23/24 blue | 25 magenta | side1 yellow | side2 green", fill="#ddd")
     return image
 
 
@@ -127,15 +149,19 @@ def main(spec_path, out):
     if out.exists():
         raise ValueError("Preserve existing evidence: output directory already exists")
     spec = json.loads(spec_path.read_text(encoding="utf-8"))
-    for key in ("cachePath", "cacheSha256", "decodedSha256", "labelSha256", "contoursNativeXZ"):
+    for key in ("cachePath", "cacheSha256", "decodedSha256", "labelSha256"):
         if key not in spec:
             raise ValueError(f"Spec missing {key}")
+    contour_keys = [key for key in ("contoursNativeXZ", "contoursNativeXY") if key in spec]
+    if len(contour_keys) != 1:
+        raise ValueError("Spec must contain exactly one of contoursNativeXZ or contoursNativeXY")
+    contour_key = contour_keys[0]
     cache_path = checked(ROOT / spec["cachePath"], spec["cacheSha256"])
     cache = np.load(cache_path)
     if sha(cache_path.read_bytes()) != spec["cacheSha256"] or sha(cache["decoded"].tobytes()) != spec["decodedSha256"]:
         raise ValueError("Native cache hash mismatch")
     low = np.asarray(cache["lowXYZ"], dtype=int)
-    if "lowXYZ" in spec and not np.array_equal(low, np.asarray(spec["lowXYZ"], dtype=int)):
+    if "lowXYZ" in spec and not np.array_equal(low, np.asarray([integer_number(v, "spec lowXYZ") for v in spec["lowXYZ"]], dtype=int)):
         raise ValueError("Spec lowXYZ does not match native cache")
     decoded = cache["decoded"]
     high = low + np.asarray(decoded.shape, dtype=int)
@@ -145,11 +171,27 @@ def main(spec_path, out):
     if not np.array_equal(APP_ORIGIN, affine[:3, 3]) or not np.array_equal(APP_STEP, np.diag(affine)[:3]):
         raise ValueError("App origin/step differs from the official affine")
     linear, native_grid, grids = load_linear(), load_native_grid(), load_published_grids("catmull-rom")
+    fixed_axis, contour_axes, anchor_report_key = contour_layout(contour_key)
     contours = {}
     anchors = None
     for side in ("left", "right"):
-        raw_side = spec["contoursNativeXZ"][side]
-        current = {int(y): np.asarray(points, dtype=float) for y, points in raw_side.items()}
+        if side not in spec[contour_key] or not isinstance(spec[contour_key][side], dict):
+            raise ValueError(f"{contour_key}.{side} must be an object")
+        raw_side = spec[contour_key][side]
+        current = {}
+        for anchor, points in raw_side.items():
+            anchor_value = integer_number(anchor, f"{contour_key}.{side} anchor")
+            if not low[fixed_axis] <= anchor_value < high[fixed_axis]:
+                raise ValueError(f"{contour_key}.{side} anchor is outside cached region")
+            points_array = np.asarray(points, dtype=float)
+            if points_array.ndim != 2 or points_array.shape[1] != 2 or len(points_array) < 3:
+                raise ValueError(f"{contour_key}.{side} anchor {anchor} must contain >=3 [plane,plane] vertices")
+            if not np.isfinite(points_array).all():
+                raise ValueError(f"{contour_key}.{side} anchor {anchor} contains non-finite coordinates")
+            for j, axis in enumerate(contour_axes):
+                if np.any(points_array[:, j] < low[axis]) or np.any(points_array[:, j] > high[axis] - 1):
+                    raise ValueError(f"{contour_key}.{side} anchor {anchor} coordinate is outside cached region")
+            current[anchor_value] = points_array
         if len(current) < 2 or len({len(p) for p in current.values()}) != 1:
             raise ValueError(f"{side} contours must have equal vertex counts at every anchor")
         contours[side] = current
@@ -157,7 +199,13 @@ def main(spec_path, out):
             anchors = sorted(current)
         elif sorted(current) != anchors:
             raise ValueError("Left and right contour anchors differ")
-    vertices = np.array([[x, y, z] for side in contours.values() for y, poly in side.items() for x, z in poly])
+    vertices = np.zeros((sum(len(poly) for side in contours.values() for poly in side.values()), 3), dtype=float)
+    vertex_index = 0
+    for side in contours.values():
+        for anchor, poly in side.items():
+            vertices[vertex_index:vertex_index + len(poly), fixed_axis] = anchor
+            vertices[vertex_index:vertex_index + len(poly), contour_axes] = poly
+            vertex_index += len(poly)
     app_vertices = native_to_app(np.column_stack((vertices[:, 0], vertices[:, 1], vertices[:, 2])), start, step, linear, native_grid, grids, affine)
     app_low = np.floor(app_vertices.min(0)).astype(int) - 2
     app_high = np.ceil(app_vertices.max(0)).astype(int) + 3
@@ -169,12 +217,12 @@ def main(spec_path, out):
     label_values = labels[tuple(app_xyz.T)]
     claims = {}
     for i, q in enumerate(native_q):
-        y = q[1]
-        if y < anchors[0] or y > anchors[-1]:
+        anchor_coordinate = q[fixed_axis]
+        if anchor_coordinate < anchors[0] or anchor_coordinate > anchors[-1]:
             continue
         for side_number, side in enumerate(("left", "right"), 1):
-            polygon = interpolated_polygon(contours[side], y)
-            if inside(q[[0, 2]], polygon):
+            polygon = interpolated_polygon(contours[side], anchor_coordinate)
+            if inside(q[list(contour_axes)], polygon):
                 claims.setdefault(tuple(app_xyz[i]), []).append((side_number, i))
     rows, existing46, excluded = [], [], []
     claim_counts = {}
@@ -197,8 +245,17 @@ def main(spec_path, out):
         candidate_mask[tuple(row["xyz"])] = row["side"]
     out.mkdir(parents=True)
     figures = []
-    plane_y = list(range(max(int(low[1]), anchors[0] - 3), min(int(high[1]) - 1, anchors[-1] + 3) + 1))
-    requested = dict(y=plane_y, x=list(spec.get("orthogonalPlanesNative", {}).get("x", [])), z=list(spec.get("orthogonalPlanesNative", {}).get("z", [])))
+    automatic_planes = list(range(max(int(low[fixed_axis]), anchors[0] - 3), min(int(high[fixed_axis]) - 1, anchors[-1] + 3) + 1))
+    orthogonal = spec.get("orthogonalPlanesNative", {})
+    axis_order = [fixed_axis] + [axis for axis in range(3) if axis != fixed_axis]
+    requested = {"xyz"[axis]: (automatic_planes if axis == fixed_axis else list(orthogonal.get("xyz"[axis], []))) for axis in axis_order}
+    for axis in range(3):
+        axis_name = "xyz"[axis]
+        for plane in requested["xyz"[axis]]:
+            plane_value = integer_number(plane, f"orthogonalPlanesNative {axis_name}")
+            if not low[axis] <= plane_value < high[axis]:
+                raise ValueError(f"Requested plane is outside cached region: {axis_name}={plane}")
+        requested[axis_name] = [integer_number(plane, f"orthogonalPlanesNative {axis_name}") for plane in requested[axis_name]]
     for axis, planes in requested.items():
         for index in planes:
             raw = plane_image(decoded, axis, index, low)
@@ -212,7 +269,7 @@ def main(spec_path, out):
             path = out / f"{axis}{index}.png"
             panel.save(path)
             figures.append(dict(file=path.name, axis=axis, index=index, sha256=sha(path.read_bytes())))
-    report = dict(specSha256=sha(spec_path.read_bytes()), cachePath=spec["cachePath"], cacheSha256=spec["cacheSha256"], decodedSha256=spec["decodedSha256"], labelSha256=spec["labelSha256"], lowXYZ=low.tolist(), highExclusiveXYZ=high.tolist(), nativeStartMm=start.tolist(), nativeStepMm=step.tolist(), appBoundsXYZ=[app_low.tolist(), app_high.tolist()], anchorsNativeY=anchors, planes=requested, rows=rows, existing46=existing46, excluded=excluded, beforeCounts=claim_counts, candidateCount=len(rows), maxRoundtripErrorMm=float(errors.max()), figures=figures, rawPixelChecks=len(figures), adopted=False, labelsWritten=False, anatomyInferred=False)
+    report = dict(specSha256=sha(spec_path.read_bytes()), cachePath=spec["cachePath"], cacheSha256=spec["cacheSha256"], decodedSha256=spec["decodedSha256"], labelSha256=spec["labelSha256"], contourMode=contour_key, lowXYZ=low.tolist(), highExclusiveXYZ=high.tolist(), nativeStartMm=start.tolist(), nativeStepMm=step.tolist(), appBoundsXYZ=[app_low.tolist(), app_high.tolist()], **{anchor_report_key: anchors}, planes=requested, rows=rows, existing46=existing46, excluded=excluded, beforeCounts=claim_counts, candidateCount=len(rows), maxRoundtripErrorMm=float(errors.max()), figures=figures, rawPixelChecks=len(figures), adopted=False, labelsWritten=False, anatomyInferred=False)
     (out / "candidate.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     (out / "report.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(dict(output=str(out), candidateCount=len(rows), existing46=len(existing46), excluded=len(excluded), figures=len(figures), maxRoundtripErrorMm=report["maxRoundtripErrorMm"])))
