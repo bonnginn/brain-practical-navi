@@ -1,0 +1,616 @@
+{
+  "status": "AI-source-review-only-no-adoption",
+  "labelSha256": "2cdba3f15427af2fdb5b9bcdb9b1b9904f6fcc5199fc1bfa4b76b2bfbbe6e8da",
+  "labelsWritten": false,
+  "expertReviewed": false,
+  "figuresReviewed": 24,
+  "evidence": [
+    {
+      "directory": "work/fornix-lower-column-20260919",
+      "reportSha256": "9cd727f93a7d8b7f9e1de46a95d9761da7cc7e816fd7c4f737ef9c1bfe845208",
+      "verificationSha256": "7e764aae96b0ed38d07ea0eb05ae6ca2b92d6e98196d0f978d60b030170bac2e",
+      "verification": {
+        "planes": 19,
+        "independentRawPixelsChecked": 1900,
+        "projectionSamplesChecked": 1900,
+        "labelSha256": "2cdba3f15427af2fdb5b9bcdb9b1b9904f6fcc5199fc1bfa4b76b2bfbbe6e8da",
+        "sourceSha256": "18aec7b69b59ab5e3dc578885accbae2d86f86a7bbc6cba5dd2a07dbd4712f65",
+        "labelsWritten": false
+      },
+      "figures": [
+        {
+          "file": "z640.png",
+          "sha256": "3c650f0ccac6e4154db769a22cc7c6c92965df8b2e42042b5e67027af961ccf0",
+          "axis": "z",
+          "index": 640,
+          "cropExclusive": {
+            "x": [
+              435,
+              660
+            ],
+            "y": [
+              180,
+              390
+            ]
+          },
+          "projectedPixels": {
+            "46": 0,
+            "42": 0,
+            "43": 0,
+            "25": 13956,
+            "39": 0,
+            "40": 0
+          }
+        },
+        {
+          "file": "z630.png",
+          "sha256": "78424cde6a40f2a1fd17739c6d42557335b03d4188ea64fbf2e5665fe0ef42ba",
+          "axis": "z",
+          "index": 630,
+          "cropExclusive": {
+            "x": [
+              435,
+              660
+            ],
+            "y": [
+              180,
+              390
+            ]
+          },
+          "projectedPixels": {
+            "46": 0,
+            "42": 0,
+            "43": 0,
+            "25": 13227,
+            "39": 0,
+            "40": 0
+          }
+        },
+        {
+          "file": "z620.png",
+          "sha256": "acd62eaac6d52553deb7ab00b5ee6a38780a890987ff545d629a1dea59cc320e",
+          "axis": "z",
+          "index": 620,
+          "cropExclusive": {
+            "x": [
+              435,
+              660
+            ],
+            "y": [
+              180,
+              390
+            ]
+          },
+          "projectedPixels": {
+            "46": 0,
+            "42": 0,
+            "43": 0,
+            "25": 12487,
+            "39": 0,
+            "40": 0
+          }
+        },
+        {
+          "file": "z610.png",
+          "sha256": "876726e9dc34e4c63c4c3bc286d8ccf4b1fd3d8ef462a7945eea126e5f718426",
+          "axis": "z",
+          "index": 610,
+          "cropExclusive": {
+            "x": [
+              435,
+              660
+            ],
+            "y": [
+              180,
+              390
+            ]
+          },
+          "projectedPixels": {
+            "46": 0,
+            "42": 0,
+            "43": 0,
+            "25": 11947,
+            "39": 0,
+            "40": 0
+          }
+        },
+        {
+          "file": "z600.png",
+          "sha256": "7e860487576328c3cad9ca26a2be5b05fe6b82ae8fd4e0fd01001f063b63eee8",
+          "axis": "z",
+          "index": 600,
+          "cropExclusive": {
+            "x": [
+              435,
+              660
+            ],
+            "y": [
+              180,
+              390
+            ]
+          },
+          "projectedPixels": {
+            "46": 0,
+            "42": 0,
+            "43": 0,
+            "25": 11186,
+            "39": 0,
+            "40": 0
+          }
+        },
+        {
+          "file": "z590.png",
+          "sha256": "8fdc3e2ccd91adb31a37a5d5e99910d3998b5090edc30cb6f08f1afd471b52f3",
+          "axis": "z",
+          "index": 590,
+          "cropExclusive": {
+            "x": [
+              435,
+              660
+            ],
+            "y": [
+              180,
+              390
+            ]
+          },
+          "projectedPixels": {
+            "46": 0,
+            "42": 0,
+            "43": 0,
+            "25": 10822,
+            "39": 0,
+            "40": 0
+          }
+        },
+        {
+          "file": "z580.png",
+          "sha256": "b56a0b5b35a32da73ad2885acb87e63f9ebb4f47a954e5d2820938b346f16722",
+          "axis": "z",
+          "index": 580,
+          "cropExclusive": {
+            "x": [
+              435,
+              660
+            ],
+            "y": [
+              180,
+              390
+            ]
+          },
+          "projectedPixels": {
+            "46": 0,
+            "42": 0,
+            "43": 0,
+            "25": 9961,
+            "39": 0,
+            "40": 0
+          }
+        },
+        {
+          "file": "z570.png",
+          "sha256": "af65215454850ec440df627fcf11cbaf3fe482a2c59d7b49c2ebffd616bb5009",
+          "axis": "z",
+          "index": 570,
+          "cropExclusive": {
+            "x": [
+              435,
+              660
+            ],
+            "y": [
+              180,
+              390
+            ]
+          },
+          "projectedPixels": {
+            "46": 0,
+            "42": 334,
+            "43": 0,
+            "25": 9170,
+            "39": 0,
+            "40": 0
+          }
+        },
+        {
+          "file": "z560.png",
+          "sha256": "d38a762835f26fcc6ff0eb7e04d34cd0e76a50a19e8860da92673fdaafb5bd18",
+          "axis": "z",
+          "index": 560,
+          "cropExclusive": {
+            "x": [
+              435,
+              660
+            ],
+            "y": [
+              180,
+              390
+            ]
+          },
+          "projectedPixels": {
+            "46": 0,
+            "42": 3060,
+            "43": 0,
+            "25": 7464,
+            "39": 0,
+            "40": 0
+          }
+        },
+        {
+          "file": "z550.png",
+          "sha256": "ea56dfeac28904b7534008846ac9c63639d0e4e22ba24a65115de4cbb3099912",
+          "axis": "z",
+          "index": 550,
+          "cropExclusive": {
+            "x": [
+              435,
+              660
+            ],
+            "y": [
+              180,
+              390
+            ]
+          },
+          "projectedPixels": {
+            "46": 0,
+            "42": 7682,
+            "43": 0,
+            "25": 7011,
+            "39": 0,
+            "40": 0
+          }
+        },
+        {
+          "file": "z540.png",
+          "sha256": "27a7f975c4084e4c38dcb54ad2abd32c0f5e8793bf2572549c16e5ecea208f36",
+          "axis": "z",
+          "index": 540,
+          "cropExclusive": {
+            "x": [
+              435,
+              660
+            ],
+            "y": [
+              180,
+              390
+            ]
+          },
+          "projectedPixels": {
+            "46": 0,
+            "42": 9942,
+            "43": 0,
+            "25": 8329,
+            "39": 0,
+            "40": 0
+          }
+        },
+        {
+          "file": "z530.png",
+          "sha256": "1fe1ff5e4ce2f164bacc1439cfac955389e49841cc4c6f685ff044529c5efdc6",
+          "axis": "z",
+          "index": 530,
+          "cropExclusive": {
+            "x": [
+              435,
+              660
+            ],
+            "y": [
+              180,
+              390
+            ]
+          },
+          "projectedPixels": {
+            "46": 0,
+            "42": 6945,
+            "43": 0,
+            "25": 8148,
+            "39": 0,
+            "40": 0
+          }
+        },
+        {
+          "file": "z520.png",
+          "sha256": "5e43f58c11b8c53f7328cd413c19472acf5568d005dc19bc4afb5695e552df8e",
+          "axis": "z",
+          "index": 520,
+          "cropExclusive": {
+            "x": [
+              435,
+              660
+            ],
+            "y": [
+              180,
+              390
+            ]
+          },
+          "projectedPixels": {
+            "46": 0,
+            "42": 1166,
+            "43": 0,
+            "25": 7786,
+            "39": 0,
+            "40": 0
+          }
+        },
+        {
+          "file": "z510.png",
+          "sha256": "53e60d30f9426b0e53253d1ea56ba73ee39682423ae1958430c19c3f219e0bfb",
+          "axis": "z",
+          "index": 510,
+          "cropExclusive": {
+            "x": [
+              435,
+              660
+            ],
+            "y": [
+              180,
+              390
+            ]
+          },
+          "projectedPixels": {
+            "46": 0,
+            "42": 0,
+            "43": 0,
+            "25": 7699,
+            "39": 0,
+            "40": 0
+          }
+        },
+        {
+          "file": "z500.png",
+          "sha256": "d7c0a49c5a4aec2202e027a7f2b3bd10a736c66c1f218a97242a590f29df1d43",
+          "axis": "z",
+          "index": 500,
+          "cropExclusive": {
+            "x": [
+              435,
+              660
+            ],
+            "y": [
+              180,
+              390
+            ]
+          },
+          "projectedPixels": {
+            "46": 0,
+            "42": 0,
+            "43": 0,
+            "25": 8139,
+            "39": 0,
+            "40": 0
+          }
+        },
+        {
+          "file": "x510.png",
+          "sha256": "b92fbbe42173050ee346f8be1f00c4111f92423fa37ddce898b7df7372b7eeb1",
+          "axis": "x",
+          "index": 510,
+          "cropExclusive": {
+            "y": [
+              180,
+              390
+            ],
+            "z": [
+              260,
+              950
+            ]
+          },
+          "projectedPixels": {
+            "46": 5881,
+            "42": 1114,
+            "43": 263,
+            "25": 7427,
+            "39": 0,
+            "40": 0
+          }
+        },
+        {
+          "file": "x535.png",
+          "sha256": "f305be53976606b9dea5caa67c1f2b80d40084effbf29dcb430bf1e002e13c93",
+          "axis": "x",
+          "index": 535,
+          "cropExclusive": {
+            "y": [
+              180,
+              390
+            ],
+            "z": [
+              260,
+              950
+            ]
+          },
+          "projectedPixels": {
+            "46": 3276,
+            "42": 1210,
+            "43": 171,
+            "25": 10723,
+            "39": 0,
+            "40": 0
+          }
+        },
+        {
+          "file": "x560.png",
+          "sha256": "e008c645f73621c9426ca036cf26bc6a0db4aac106d0b317cf2c8016553ddb64",
+          "axis": "x",
+          "index": 560,
+          "cropExclusive": {
+            "y": [
+              180,
+              390
+            ],
+            "z": [
+              260,
+              950
+            ]
+          },
+          "projectedPixels": {
+            "46": 6071,
+            "42": 1328,
+            "43": 0,
+            "25": 19777,
+            "39": 0,
+            "40": 0
+          }
+        },
+        {
+          "file": "x585.png",
+          "sha256": "2d507cbee991cfe003d4569df962b6b5f335811a72daf20346377e27202db5e1",
+          "axis": "x",
+          "index": 585,
+          "cropExclusive": {
+            "y": [
+              180,
+              390
+            ],
+            "z": [
+              260,
+              950
+            ]
+          },
+          "projectedPixels": {
+            "46": 2554,
+            "42": 1474,
+            "43": 0,
+            "25": 33263,
+            "39": 0,
+            "40": 0
+          }
+        }
+      ]
+    },
+    {
+      "directory": "work/fornix-lower-column-coronal-20260919",
+      "reportSha256": "91ce7a876ea83ff83b92aaa033567aeb90b66af9e442790dc0691fa1438dd157",
+      "verificationSha256": "d43382bfed26959c1225295dbc5bfc078b4817f1f94a3ad8acd724a91d4a2880",
+      "verification": {
+        "planes": 5,
+        "independentRawPixelsChecked": 500,
+        "projectionSamplesChecked": 500,
+        "labelSha256": "2cdba3f15427af2fdb5b9bcdb9b1b9904f6fcc5199fc1bfa4b76b2bfbbe6e8da",
+        "sourceSha256": "18aec7b69b59ab5e3dc578885accbae2d86f86a7bbc6cba5dd2a07dbd4712f65",
+        "labelsWritten": false
+      },
+      "figures": [
+        {
+          "file": "y270.png",
+          "sha256": "f5d8251500716adf3da026ad52ca394a11e882754349b9119a1810b4ff0addc1",
+          "axis": "y",
+          "index": 270,
+          "cropExclusive": {
+            "x": [
+              435,
+              660
+            ],
+            "z": [
+              490,
+              950
+            ]
+          },
+          "projectedPixels": {
+            "46": 5108,
+            "42": 2371,
+            "43": 0,
+            "25": 4765,
+            "39": 0,
+            "40": 0
+          }
+        },
+        {
+          "file": "y280.png",
+          "sha256": "79ea47798e091154a26b89f437e4e6546988f90d94070fc9b50d3e9cf4da75d5",
+          "axis": "y",
+          "index": 280,
+          "cropExclusive": {
+            "x": [
+              435,
+              660
+            ],
+            "z": [
+              490,
+              950
+            ]
+          },
+          "projectedPixels": {
+            "46": 5872,
+            "42": 5976,
+            "43": 0,
+            "25": 848,
+            "39": 0,
+            "40": 0
+          }
+        },
+        {
+          "file": "y290.png",
+          "sha256": "adfa31bbc6d4cd463d23322a7e65455906bec8f7cdb715c38ef1e1549c7feb56",
+          "axis": "y",
+          "index": 290,
+          "cropExclusive": {
+            "x": [
+              435,
+              660
+            ],
+            "z": [
+              490,
+              950
+            ]
+          },
+          "projectedPixels": {
+            "46": 6034,
+            "42": 5991,
+            "43": 0,
+            "25": 308,
+            "39": 0,
+            "40": 0
+          }
+        },
+        {
+          "file": "y300.png",
+          "sha256": "9dab5a6f4c216d5a99096ecd71b09b5f014f7f21874170d5e4e4ee7e420440d3",
+          "axis": "y",
+          "index": 300,
+          "cropExclusive": {
+            "x": [
+              435,
+              660
+            ],
+            "z": [
+              490,
+              950
+            ]
+          },
+          "projectedPixels": {
+            "46": 4499,
+            "42": 6166,
+            "43": 0,
+            "25": 0,
+            "39": 0,
+            "40": 0
+          }
+        },
+        {
+          "file": "y310.png",
+          "sha256": "5749e17e4adaa6034cd043fe2e9d1651c2abec6c52c8f558855c67a5ef3e8c5a",
+          "axis": "y",
+          "index": 310,
+          "cropExclusive": {
+            "x": [
+              435,
+              660
+            ],
+            "z": [
+              490,
+              950
+            ]
+          },
+          "projectedPixels": {
+            "46": 1136,
+            "42": 5788,
+            "43": 0,
+            "25": 0,
+            "39": 0,
+            "40": 0
+          }
+        }
+      ]
+    }
+  ],
+  "findingsDocument": "docs/FORNIX_LOWER_COLUMN_REVIEW_2026-09-19.md"
+}
