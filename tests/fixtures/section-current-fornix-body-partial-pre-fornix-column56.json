@@ -1,0 +1,46 @@
+{
+  "voxels": 1630,
+  "components6": 2,
+  "componentSizes": [
+    863,
+    767
+  ],
+  "boundsZYX": [
+    [
+      157,
+      234,
+      187
+    ],
+    [
+      184,
+      270,
+      207
+    ]
+  ],
+  "vertices": 2519,
+  "faces": 5086,
+  "sha256": "978c39de19fa136f29f53b23d40009b6ea678788c19854a40afe3add1861c16d",
+  "bytes": 34992,
+  "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
+  "sourceSha256": "cb0e727292c6d677e26063a506b07dee793a7b5058f6bf8fb820d0dfbc106c74",
+  "labelIds": [
+    46
+  ],
+  "labelVoxelCounts": {
+    "46": 1630
+  },
+  "sourceSamplingMm": 0.5,
+  "displayOriginZYX": [
+    -90.0,
+    -116.0,
+    -98.0
+  ],
+  "method": "native-image-reviewed partial body; marching cubes 0.5; no resampling, smoothing or filling",
+  "rawSha256": "282bd1d465f61034aa20a74aee40a228ebc1101c64c785620fb8759c49482fb4",
+  "rawBytes": 131576,
+  "compression": "gzip",
+  "expertReviewed": false,
+  "partialExtent": true,
+  "scope": "Partial fornix body and anterior transition, native Y780-910 (about 13 mm anterior-posterior extent). Superior septal attachment and anterior/posterior cuts remain scope limits, not established anatomical boundaries. Crura, columns, fimbria and continuity to hippocampus/mammillary body remain incomplete. Small internal clefts may remain unresolved at 0.5 mm sampling. Not expert-reviewed.",
+  "reviewRecord": "segmentation-patches/review/fornix-descent108-adoption-2026-09-19.json"
+}

@@ -25,6 +25,7 @@
 - [脳弓前方：柱を追うための下方ランドマーク確認](FORNIX_ANTERIOR_CONTEXT_2026-09-19.md)
 - [脳弓体部・前方移行部：269点の追加](FORNIX_CONTINUATION_2026-09-19.md)
 - [脳弓前方下降部：108点の追加](FORNIX_DESCENT_INTEGRATION_2026-09-19.md)
+- [脳弓柱上部内部56点：採否と統合](FORNIX_COLUMN56_INTEGRATION_2026-09-19.md)
 - [脳弓柱内部58点の未適用候補・確認済み断面と残る確認](FORNIX_COLUMN_INTERIOR_DRAFT_2026-09-19.md)
 - [脳弓柱：前交連・乳頭体との広域照合と次の内部候補範囲](FORNIX_COLUMN_SOURCE_REVIEW_2026-09-19.md)
 - [脳弓下降部：40 µm原画像の比較](FORNIX_DESCENT_NATIVE40_2026-09-19.md)

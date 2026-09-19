@@ -243,7 +243,7 @@ test("Papez UI uses one shared stepper control group and omits section Canvas fo
   assert.match(page, /!\["section-label","image-reviewed-partial-section"\]\.includes\(papezStepperStep\.kind\)&&<div className="pathwayStepper3dOnlyNote"/);
   assert.match(page, /前部核は未分節/);
   assert.match(page, /専門家レビュー未完了/);
-  assert.match(page, /ID46は体部の一部だけで、脚・柱を含む全脳弓ではありません/);
+  assert.match(page, /ID46は体部・柱上部の一部で、脚・柱下部を含む全脳弓ではありません/);
   assert.match(page, /ID39・40・46は専門家レビュー待ちです/);
   assert.match(page, /papezStepperActive\?papezStepperSurfaceHighlights/);
   assert.match(page, /papezStepperActive\?papezStepperMeshLayers/);

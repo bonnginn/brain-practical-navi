@@ -1,33 +1,33 @@
 {
-  "voxels": 1630,
+  "voxels": 1686,
   "components6": 2,
   "componentSizes": [
-    863,
-    767
+    894,
+    792
   ],
   "boundsZYX": [
     [
-      157,
+      147,
       234,
       187
     ],
     [
       184,
-      270,
+      272,
       207
     ]
   ],
-  "vertices": 2519,
-  "faces": 5086,
-  "sha256": "978c39de19fa136f29f53b23d40009b6ea678788c19854a40afe3add1861c16d",
-  "bytes": 34992,
+  "vertices": 2688,
+  "faces": 5428,
+  "sha256": "9df1385fb0370698500bd62625036d84c568fb1bf510a147af59a18abf765188",
+  "bytes": 37139,
   "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
-  "sourceSha256": "cb0e727292c6d677e26063a506b07dee793a7b5058f6bf8fb820d0dfbc106c74",
+  "sourceSha256": "2cdba3f15427af2fdb5b9bcdb9b1b9904f6fcc5199fc1bfa4b76b2bfbbe6e8da",
   "labelIds": [
     46
   ],
   "labelVoxelCounts": {
-    "46": 1630
+    "46": 1686
   },
   "sourceSamplingMm": 0.5,
   "displayOriginZYX": [
@@ -35,12 +35,12 @@
     -116.0,
     -98.0
   ],
-  "method": "native-image-reviewed partial body; marching cubes 0.5; no resampling, smoothing or filling",
-  "rawSha256": "282bd1d465f61034aa20a74aee40a228ebc1101c64c785620fb8759c49482fb4",
-  "rawBytes": 131576,
+  "method": "native-image-reviewed partial body and upper columns; marching cubes 0.5; no resampling, smoothing or filling",
+  "rawSha256": "06009338ac251fcde8ae3a30a06001e46831a274cb412ba2e2a8e41b0aff7cfe",
+  "rawBytes": 140412,
   "compression": "gzip",
   "expertReviewed": false,
   "partialExtent": true,
-  "scope": "Partial fornix body and anterior transition, native Y780-910 (about 13 mm anterior-posterior extent). Superior septal attachment and anterior/posterior cuts remain scope limits, not established anatomical boundaries. Crura, columns, fimbria and continuity to hippocampus/mammillary body remain incomplete. Small internal clefts may remain unresolved at 0.5 mm sampling. Not expert-reviewed.",
-  "reviewRecord": "segmentation-patches/review/fornix-descent108-adoption-2026-09-19.json"
+  "scope": "Partial fornix body, anterior transition and upper-column interior, with native40 Z745-650 review. Scope cuts are not established anatomical boundaries. Lower columns, crura, fimbria and continuity to the mammillary body remain incomplete. Two medial cleft-edge voxels were excluded. Not expert-reviewed.",
+  "reviewRecord": "segmentation-patches/review/fornix-column56-adoption-2026-09-19.json"
 }

@@ -1083,7 +1083,7 @@
       "key": "section-fornix-body-partial",
       "lectureLabel": null,
       "coverage": "app-section-only",
-      "appLabel": "脳弓体部（部分）",
+      "appLabel": "脳弓体部・柱上部（部分）",
       "representations": [
         "image-guided-reviewed"
       ],
@@ -1100,7 +1100,7 @@
         "https://doi.org/10.1038/s42003-022-03692-3"
       ],
       "knownLimitations": [
-        "ID46は同一BigBrain標本のnative原画像で追跡した前後約13 mmにわたる脳弓体部・前方移行部の内部です。脚、柱、上方の透明中隔付着部を含む全境界は未収録で、連続した全脳弓ではありません。原画像で不確かな空隙・partial-volume箇所を推測補間していません。断面専用の実分節で、既存の全脳弓模式3Dとは由来と範囲を分け、通常クイズの正答対象には含めません。"
+        "ID46は同一BigBrain標本のnative原画像で追跡した脳弓体部・前方移行部・柱上部の内部です。脚、柱下部、乳頭体への接続、上方の透明中隔付着部を含む全境界は未収録で、連続した全脳弓ではありません。原画像で不確かな空隙・partial-volume箇所を推測補間していません。断面専用の実分節で、既存の全脳弓模式3Dとは由来と範囲を分け、通常クイズの正答対象には含めません。"
       ],
       "appKeys": [
         "fornixBodyPartial"
