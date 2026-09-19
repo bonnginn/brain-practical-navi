@@ -32,3 +32,5 @@ tests/fixtures/section-current-*-pre-aqueduct-fourth44.json -text
 tests/fixtures/section-current-*-pre-right-foramen36.json -text
 tests/fixtures/section-current-*-pre-lgn-layers2571.json -text
 tests/fixtures/section-current-*-pre-fornix-body987.json -text
+tests/fixtures/section-current-*-pre-fornix-descent108.json -text
+segmentation-patches/review/fornix-descent-draft-2026-09-19.json whitespace=cr-at-eol
