@@ -22,6 +22,7 @@
 - [視交叉・近位視索：native40の目印照合と次の境界比較](OPTIC_LANDMARK_REVIEW_2026-09-19.md)
 - [脳弓体部の前方延長：266点の未適用候補](FORNIX_ANTERIOR_DRAFT_2026-09-19.md)
 - [脳弓体部の前方延長・統合](FORNIX_ANTERIOR_INTEGRATION_2026-09-19.md)
+- [脳弓前方：柱を追うための下方ランドマーク確認](FORNIX_ANTERIOR_CONTEXT_2026-09-19.md)
 - [9月18日整理前の再開メモ保存履歴](RESUME_HISTORY_2026-09-18.md)
 
 - [断面併設3D：全26項目の左右表示確認と修正](SECTION_BILATERAL_MODELS_2026-09-16.md)
