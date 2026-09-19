@@ -3,6 +3,15 @@ import {readFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {gunzipSync} from 'node:zlib';
 const read=p=>readFile(new URL('../../'+p,import.meta.url));
+// Older immutable fibre records name the input sourceSha256. Accept that field
+// without rewriting their pinned bytes, and reject contradictory dual fields.
+export function regionalBeforeSha(record){
+ if(record.beforeSha256!==undefined&&record.sourceSha256!==undefined)
+  assert.equal(record.beforeSha256,record.sourceSha256,'Conflicting regional input revisions');
+ const before=record.beforeSha256??record.sourceSha256;
+ assert.match(before??'',/^[a-f0-9]{64}$/,'Missing regional input revision');
+ return before;
+}
 // Preserve historical start evidence while checking every regional successor link.
 export async function withRegionalBatches(record,{afterRevision=null}={}){
  const meta=JSON.parse(await read('public/atlas/bigbrain-practical-segmentation-icbm500-validation.json'));
@@ -11,7 +20,7 @@ export async function withRegionalBatches(record,{afterRevision=null}={}){
   const bytes=await read(audit.record),next=JSON.parse(bytes);
   assert.equal(createHash('sha256').update(bytes).digest('hex'),audit.recordSha256);
   if(!active){if(next.afterSha256===afterRevision){assert.deepEqual(next,record);active=true;}continue;}
-  assert.equal(next.beforeSha256,result.afterSha256);
+  assert.equal(regionalBeforeSha(next),result.afterSha256);
   assert.deepEqual(next.sectionMeshImpact.before,result.sectionMeshImpact.after);
   for(const p of next.meshImpact.blockMaskImpact){
    assert.equal(p.changedMaskVoxels,p.added+p.removed);

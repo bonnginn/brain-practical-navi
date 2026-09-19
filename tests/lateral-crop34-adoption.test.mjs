@@ -1,5 +1,5 @@
 import test from 'node:test';
-import {withRegionalBatches,regionalMeshSuccessor} from './helpers/residual-mesh-successor.mjs';
+import {withRegionalBatches,regionalMeshSuccessor,regionalBeforeSha} from './helpers/residual-mesh-successor.mjs';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
@@ -36,7 +36,7 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
   const bytes=await read(audit.record),r=JSON.parse(bytes);
   assert.equal(sha(bytes),audit.recordSha256);
   const base=await read('tests/fixtures/bigbrain-practical-segmentation-pre-'+name+'.bin.gz');
-  assert.equal(sha(base),r.beforeSha256);if(current)assert.deepEqual(gunzipSync(base),current);
+  assert.equal(sha(base),regionalBeforeSha(r));if(current)assert.deepEqual(gunzipSync(base),current);
   const expected=gunzipSync(base),seen=new Set(),label=r.transition==='mixed-to-26'?26:r.transition==='mixed-to-41'?41:Number(r.transition.split('->')[1]);
   const exclusions=r.transition==='mixed-ventricular-exclusions'||['23->0','24->0','25->0','26->0','41->0'].includes(r.transition);
   const brainstem=r.transition==='27->26';
@@ -98,7 +98,8 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
   assert.equal(r.points.length,r.count);
   for(const entry of r.points){const p=exclusions||brainstem||mixed||combined||lgn||fornix||fornixAnterior||fornixContinuation||fornixDescent||fornixColumn||fornixLowerColumn||genericRecord?entry.xyz:entry;const [x,y,z]=p;assert.ok(p.length===3&&p.every(Number.isInteger)&&x>=0&&x<394&&y>=0&&y<466&&z>=0&&z<378);const i=10+x+394*(y+466*z);assert.ok(!seen.has(i));seen.add(i);assert.equal(expected[i],exclusions||brainstem||mixed||combined||lgn||fornix||fornixAnterior||fornixContinuation||fornixDescent||fornixColumn||fornixLowerColumn||genericRecord?entry.before:interfaceHold?27:callosalExclusion?30:0);if(exclusions)assert.equal(entry.after,0);expected[i]=combined||lgn||fornix||fornixAnterior||fornixContinuation||fornixDescent||fornixColumn||fornixLowerColumn||genericRecord?entry.after:exclusions?0:label;}
   assert.equal(sha(expected.subarray(10)),r.afterRawVoxelSha256);current=expected;
-  assert.equal(r.projectAdopted,true);assert.equal(r.expertReviewed,false);assert.equal(r.published,false);
+  assert.equal(r.projectAdopted,true);assert.equal(r.expertReviewed??audit.expertReviewed,false);assert.equal(r.published,false);
+  if(r.expertReviewed===undefined)assert.equal(r.status,'AI-image-reviewed-project-adopted-development-only');
   const manifest=JSON.parse(await read('public/atlas/specimen-blocks.json'));
   const ids=Object.entries(manifest.specimens).flatMap(([b,ps])=>ps.map(p=>b+'/'+p.part)).sort();
   assert.deepEqual(r.meshImpact.blockMaskImpact.map(p=>p.block+'/'+p.part).sort(),ids);
