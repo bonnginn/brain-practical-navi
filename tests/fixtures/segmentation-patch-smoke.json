@@ -3,7 +3,7 @@
   "version": 1,
   "sourceImage": "/atlas/bigbrain-icbm500.bin.gz",
   "sourceLabels": "/atlas/bigbrain-practical-segmentation-icbm500.bin.gz",
-  "sourceLabelsSha256": "7e9461fc03540f692e00522d0d9306958424f4a49d19de8047f13e70aebc89aa",
+  "sourceLabelsSha256": "97ff3494fbfc82774a96e3cf143bf28393b7ae1d3a18343b471b1a5df3f23d35",
   "dims": [
     394,
     466,

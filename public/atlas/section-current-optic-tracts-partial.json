@@ -1,42 +1,38 @@
 {
-  "voxels": 236,
-  "components6": 9,
+  "voxels": 479,
+  "components6": 5,
   "componentSizes": [
-    188,
-    37,
+    297,
+    175,
     5,
-    1,
-    1,
-    1,
-    1,
     1,
     1
   ],
   "boundsZYX": [
     [
-      112,
+      110,
       248,
       156
     ],
     [
       125,
-      263,
+      264,
       232
     ]
   ],
-  "vertices": 662,
-  "faces": 1344,
-  "sha256": "5c98194f1a3994208419fddb9e04c1fcaadb4e8f78accec46e5bea8955ab4b6b",
-  "bytes": 10361,
+  "vertices": 1011,
+  "faces": 2030,
+  "sha256": "b83a8c8619c7651af4051312fd5c28a421dc3efe76d0fce934e970c4a74f0dd4",
+  "bytes": 15123,
   "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
-  "sourceSha256": "7e9461fc03540f692e00522d0d9306958424f4a49d19de8047f13e70aebc89aa",
+  "sourceSha256": "97ff3494fbfc82774a96e3cf143bf28393b7ae1d3a18343b471b1a5df3f23d35",
   "labelIds": [
     37,
     38
   ],
   "labelVoxelCounts": {
-    "37": 190,
-    "38": 46
+    "37": 297,
+    "38": 182
   },
   "sourceSamplingMm": 0.5,
   "displayOriginZYX": [
@@ -45,11 +41,11 @@
     -98.0
   ],
   "method": "native-image-reviewed short interior portions; marching cubes 0.5; no smoothing, filling or component removal",
-  "rawSha256": "c3bbb4bdf4ae53ecfba8fb47dd90146fefb06f174f22df0cd2bfe6d8a00d53e3",
-  "rawBytes": 34676,
+  "rawSha256": "adaa832ffae24d6679274627c57bfcf6dde4951de27298e0d74a7b2515e16ccc",
+  "rawBytes": 52680,
   "compression": "gzip",
   "expertReviewed": false,
   "partialExtent": true,
-  "scope": "Partial bilateral optic interiors with a thicker left posterior interval, sampled at reviewed tissue centres on a 0.5 mm grid. Cell edges include partial volume, not exact tissue boundaries. Chiasm/LGN continuity and optic radiations remain incomplete. Not expert-reviewed.",
-  "reviewRecord": "segmentation-patches/review/optic-left152-adoption-2026-09-19.json"
+  "scope": "Partial bilateral optic interiors with reviewed thickness along both sides, sampled at tissue centres on a 0.5 mm teaching grid. Cell edges include partial volume, not exact tissue boundaries. Chiasm/LGN continuity and optic radiations remain incomplete. Not expert-reviewed.",
+  "reviewRecord": "segmentation-patches/review/optic-tract243-adoption-2026-09-20.json"
 }
