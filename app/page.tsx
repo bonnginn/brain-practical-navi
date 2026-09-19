@@ -407,7 +407,7 @@ const structures: Record<StructureKey, StructureInfo> = {
   anteriorCommissurePartial: {name:"前交連（部分）",latin:"Anterior commissure (partial)",color:"#c58ce0",rgb:[197,140,224],ids:[],bigbrainIds:[42],labelSource:"image-guided",note:"原画像で追跡した前交連内部の一部だけを示します。全外縁、側頭葉へ向かう終末、内包に近接する区間は未収録で、完全に連続した経路を示すものではありません。",relation:"正中を横切り左右へ伸びる交連線維の一部。側頭葉間を結ぶ主な走行の位置目安"},
   septumPellucidumPartial: {name:"透明中隔（部分）",latin:"Septum pellucidum (partial)",color:"#efad72",rgb:[239,173,114],ids:[],bigbrainIds:[43],labelSource:"image-guided",note:"原画像で追跡できた薄い隔壁の一部を示します。上下の付着部や細い箇所は未収録です。中隔核や脳弓とは分けて観察してください。",relation:"左右の側脳室前角の間、脳梁の下方、脳弓の上方"},
   lateralGeniculateBodies: {name:"外側膝状体",latin:"Corpora geniculata lateralia",color:"#75b6d8",rgb:[117,182,216],ids:[],bigbrainIds:[44,45],labelSource:"image-guided-reviewed",note:"同一BigBrain標本で公開された左右6層分節の和集合を、公式変換で0.5 mm断面格子へ最近傍再標本化した範囲です。視索と視放線は未完成で、視覚路全体の連続分節ではありません。",relation:"視床後下方にある視覚中継核。視索が入る側と視放線が出る側の位置関係を断面で確認します"},
-  fornixBodyPartial: {name:"脳弓体部・柱上部（部分）",latin:"Fornix (partial)",color:"#d7c58d",rgb:[215,197,141],ids:[],bigbrainIds:[46],labelSource:"image-guided-reviewed",note:"同一BigBrain標本のnative原画像で追跡した体部・前後の移行部と柱上部の内部を部分的に示します。後方は左の脚へ向かう内部を延長していますが、右の続き、脚・海馬采の全長、柱下部・乳頭体までの接続、上方の透明中隔付着部を含む全境界は未収録です。脳弓全体の連続分節ではありません。",relation:"側脳室体部の下内側にある体部から、前交連へ向かって下降する柱上部までの一部"},
+  fornixBodyPartial: {name:"脳弓体部・脚・柱上部（部分）",latin:"Fornix (partial)",color:"#d7c58d",rgb:[215,197,141],ids:[],bigbrainIds:[46],labelSource:"image-guided-reviewed",note:"同一BigBrain原画像から追った体部・柱上部と、左右の脚へ向かう内部の部分分節です。0.5 mm格子の概略境界として後方を拡充しています。右後方は体部側とまだ離れており、海馬采・脚の全長、柱下部・乳頭体までの接続、全外縁は未収録です。脳弓全体の完成や専門家確認を意味しません。",relation:"側脳室体部の下内側にある体部から、前交連へ向かって下降する柱上部までの一部"},
   opticChiasmPartial: {name:"視交叉中央部（部分）",latin:"Optic chiasm central region (partial)",color:"#d4a85d",rgb:[212,168,93],ids:[],bigbrainIds:[36],labelSource:"image-guided-reviewed",note:"同一BigBrain標本のnative原画像を確認して作成した、視交叉中央部の内部を部分的に示すラベルです。全外縁、視神経・視索との境界、交叉線維の走行、視放線までの連続性は収録していません。画像確認済みですが、専門家レビューは未完了です。",relation:"視床下部前方寄りの正中近くにある視交叉中央部の部分収録"},
   opticTractsPartial: {name:"視索（部分）",latin:"Optic tracts (partial)",color:"#b88fd0",rgb:[184,143,208],ids:[],bigbrainIds:[37,38],labelSource:"image-guided-reviewed",note:"同一BigBrain標本の原画像から追った左右の視索内部を部分的に示し、左側は後方へ向かう区間を拡充しています。0.5 mm格子による概略境界で、細かな裂隙や外縁を完全には再現しません。視交叉・外側膝状体への全連続性と視放線は未収録で、専門家レビューは未完了です。",relation:"視交叉後方から外側膝状体方向へ向かう左右の視索の部分収録"},
   ventricle: { name: "側脳室", latin: "Ventriculus lateralis", color: "#49a9b4", rgb:[73,169,180], ids:[92,41,56,5], bigbrainIds:[23,24], labelSource:"atlas-provisional", meshFocus:"ventricle", note: "前角・体部・後角・下角が連続する空間です。断面を動かして形の変化を追います。", relation: "脳梁の下方、尾状核・視床の内側" },
@@ -488,7 +488,7 @@ const structureFunctions:Record<StructureKey,string>={
   anteriorCommissurePartial:"前交連は左右の大脳半球を結ぶ交連線維です。ここでは正中を横切り、側頭葉間へ向かう主な走行の一部を位置関係の基準として示します。",
   septumPellucidumPartial:"左右の側脳室前角を隔てる薄い隔壁です。脳梁と脳弓の位置関係を観察する手がかりになります。",
   lateralGeniculateBodies:"網膜からの情報を視索から受け、視放線を介して視覚皮質へ中継する視床後方の核です。",
-  fornixBodyPartial:"海馬系から乳頭体・中隔領域へ向かう脳弓のうち、正中近くを前後に走る体部と、前交連へ向かって下降する柱上部の一部です。",
+  fornixBodyPartial:"海馬系から乳頭体・中隔領域へ向かう脳弓のうち、左右の脚へ向かう後方部分、正中近くの体部、前交連へ向かって下降する柱上部を部分的に示します。",
   opticChiasmPartial:"視交叉では左右の視神経線維の一部が交叉し、両眼の視野情報を左右半球へ振り分けます。この部分モデルは交叉線維の走行を示しません。",
   opticTractsPartial:"視索は視交叉から外側膝状体などへ視覚情報を伝えます。このモデルは原画像で追った左右の内部の部分収録で、左側の後方区間を拡充しています。境界は概略であり、視交叉・外側膝状体への全連続性と視放線は収録していません。",
   ventricle:"脳脊髄液を含む腔で、脳室系の連続性と周囲構造の位置を知る基準になります。",
@@ -529,7 +529,7 @@ bigBrainNameById.set(42,"前交連（部分）");
 bigBrainNameById.set(43,"透明中隔（部分）");
 bigBrainNameById.set(44,"左外側膝状体");
 bigBrainNameById.set(45,"右外側膝状体");
-bigBrainNameById.set(46,"脳弓体部・柱上部（部分）");
+bigBrainNameById.set(46,"脳弓体部・脚・柱上部（部分）");
 bigBrainNameById.set(36,"視交叉中央部（部分）");
 bigBrainNameById.set(37,"左視索（部分）");
 bigBrainNameById.set(38,"右視索（部分）");
@@ -1581,7 +1581,7 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
               <div className="pathwayStepperProvenance"><b>由来</b><span>{papezStepperStep.provenance}</span>{papezStepperStep.key==="mammillaryBody"&&<em>専門家レビュー未完了</em>}{papezStepperStep.key==="thalamus"&&<em>前部核は未分節</em>}</div>
               <div className="pathwayStepperControls" role="group" aria-label="Papezステッパー操作"><button onClick={()=>choosePapezStepperStep(0)} disabled={papezStepperIndex===0}>最初へ戻る</button><button onClick={()=>choosePapezStepperStep(papezStepperIndex-1)} disabled={papezStepperIndex===0}>前の段階</button><button className="stepperPlay" onClick={togglePapezStepperPlaying} disabled={!papezStepperPlaying&&papezStepperIndex>=PAPEZ_STEPS.length-1}>{papezStepperPlaying?"一時停止":"再生"}</button><button onClick={()=>choosePapezStepperStep(papezStepperIndex+1)} disabled={papezStepperIndex>=PAPEZ_STEPS.length-1}>次の段階</button></div>
               <button className="circuitReturnButton" onClick={returnToCircuitGuide}>{englishEdition?"Back to circuit explanation":"回路解説へ戻る"}</button>
-              <p className="pathwayStepperCaution">この試作は既存の断面ラベル、プロジェクト内で採用した脳弓体部・柱上部の部分ラベル、模式補助、アトラス領域を由来別に表示します。ID46は体部・柱上部の一部で、脚・柱下部を含む全脳弓ではありません。新たな結合、投射方向、興奮／抑制は示しません。ID39・40・46は専門家レビュー待ちです。</p>
+              <p className="pathwayStepperCaution">この試作は既存の断面ラベル、プロジェクト内で採用した脳弓の部分ラベル、模式補助、アトラス領域を由来別に表示します。ID46は体部・柱上部と左右の脚へ向かう内部の一部で、全脳弓の連続分節ではありません。新たな結合、投射方向、興奮／抑制は示しません。ID39・40・46は専門家レビュー待ちです。</p>
             </section>}
             <label className="freeSearch"><span>検索</span><input type="search" value={freeSearch} placeholder="例：中心前回、視神経、artery" onChange={event=>setFreeSearch(event.target.value)} onKeyDown={event=>{if(event.key==="Enter"&&freeFilteredItems[0])selectFreeObservation(freeFilteredItems[0].key)}}/>{freeSearch&&<button aria-label="検索をクリア" onClick={()=>setFreeSearch("")}>×</button>}</label>
             {normalizedFreeSearch&&<div className="freeSearchResults" aria-label="検索結果"><div className="freeResultSummary"><b>{freeFilteredItems.length}件</b><span>クリックして詳細を確認</span></div>{freeFilteredItems.length?<div>{freeFilteredItems.map(item=>{const active=freeSelectedSet.has(item.key),atlasMarker=freeObservationAtlasNomenclatureLabel(item),displayAvailable=!item.key.startsWith("neuro:")||neurovascularDisplayAvailable(item.key.slice(6) as NeurovascularStructureKey);return <button key={item.key} className={active?"active":""} aria-pressed={active} onClick={()=>selectFreeObservation(item.key)}><i style={{background:item.color}}/><span><b>{item.name}</b><small>{anatomyDisplayEnglish(item.latin)}</small>{!displayAvailable&&<small>形状調整中・3D非表示</small>}{atlasMarker&&<small className="surfaceAtlasNomenclatureMarker">{atlasMarker}</small>}</span><em>{item.kind}</em><strong>{displayAvailable?(active?"✓":"＋"):(englishEdition?"Details":"説明")}</strong></button>})}</div>:<p>該当する構造はありません。</p>}</div>}

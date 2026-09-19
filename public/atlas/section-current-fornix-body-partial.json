@@ -1,33 +1,34 @@
 {
-  "voxels": 1976,
-  "components6": 2,
+  "voxels": 2846,
+  "components6": 3,
   "componentSizes": [
-    1159,
-    817
+    1479,
+    817,
+    550
   ],
   "boundsZYX": [
     [
       143,
-      206,
-      173
+      202,
+      169
     ],
     [
       184,
       272,
-      207
+      235
     ]
   ],
-  "vertices": 3401,
-  "faces": 6878,
-  "sha256": "eb1889fcee3d20828ad59c3ade6437e22cc0f2f3ea2559044187c1b2be6a4da2",
-  "bytes": 46505,
+  "vertices": 4957,
+  "faces": 10062,
+  "sha256": "58344010917ef8bc984a4dfc3ab7eb52519278f04f81e3ec14ca567d133cacc3",
+  "bytes": 66525,
   "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
-  "sourceSha256": "386651f9e209646c1e30bf8271a8ab14476d175c74784322b1522c145c65fa61",
+  "sourceSha256": "e0c294dfd1dc5a706d44631ced417914ebb71cc9a571d762659fdd1f4f452558",
   "labelIds": [
     46
   ],
   "labelVoxelCounts": {
-    "46": 1976
+    "46": 2846
   },
   "sourceSamplingMm": 0.5,
   "displayOriginZYX": [
@@ -36,11 +37,11 @@
     -98.0
   ],
   "method": "native-image-reviewed partial body and upper columns; marching cubes 0.5; no resampling, smoothing or filling",
-  "rawSha256": "ccd4febb70a9a4616d3b1aa6b6d87d8923498ebf07999a09125779f24b915246",
-  "rawBytes": 177776,
+  "rawSha256": "f6f38aee1a951a4fcc2c041694c34f1274fa0a02e934306f0124ba38564b3eef",
+  "rawBytes": 259552,
   "compression": "gzip",
   "expertReviewed": false,
   "partialExtent": true,
-  "scope": "Partial body, upper columns and posterior interiors, extended along the left crural approach. Full crura, fimbria, lower columns and mammillary continuity remain incomplete. Not expert-reviewed.",
-  "reviewRecord": "segmentation-patches/review/fornix-crural182-adoption-2026-09-19.json"
+  "scope": "Partial body, upper columns and bilateral posterior/crural interiors on a 0.5 mm teaching grid. Approximate cell edges include partial volume. The right posterior interval remains separated from the right body/columns; full fimbria, lower columns and mammillary continuity remain incomplete. Not expert-reviewed.",
+  "reviewRecord": "segmentation-patches/review/fornix-crura870-adoption-2026-09-20.json"
 }

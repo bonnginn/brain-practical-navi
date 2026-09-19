@@ -1,7 +1,7 @@
 {
   "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
-  "sourceSha256": "386651f9e209646c1e30bf8271a8ab14476d175c74784322b1522c145c65fa61",
-  "rawVoxelSha256": "56fee535ace965238e6bed45c4ab28e09f83241fdcb4fb47b3edf15504addf2b",
+  "sourceSha256": "e0c294dfd1dc5a706d44631ced417914ebb71cc9a571d762659fdd1f4f452558",
+  "rawVoxelSha256": "41d24ed6000ac97cb66a867b51296dea5f2920aa3ecf4be4855809f4c2990779",
   "dimensionsXYZ": [
     394,
     466,
