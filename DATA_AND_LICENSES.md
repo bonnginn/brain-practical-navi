@@ -352,3 +352,7 @@ BigBrain元手動区画へ公式変位場を適用した高精度候補から、
 さらに正中表面4点（MIDLINE_SURFACE_REPAIR.md）、下端支持範囲外3,385点と外表面の隙間620点（BRAINSTEM_INFERIOR_SUPPORT_REVIEW.md）、側縁・背側466点（BRAINSTEM_LATERAL_DORSAL_REVIEW.md）を未ラベルへ修正した。現行版e7e61a70…は最後の記録を参照。献体の組織不存在や解剖学的な脳幹下端の確定を意味せず、専門家・原提供者の承認を示さない。元画像・ライセンスは変更していない。
 
 原画像を変更せず、三方向で画像確認した孤立40 voxel、続いて16 voxelと27 voxel（計83）を27→0へ変更した。AI支援プロジェクト採用であり、専門家・原提供者による承認ではない。元のライセンス・帰属を保持する。現行SHA82384fa6…、可逆差分・修正前fixture・再現方法は BRAINSTEM_ISLAND_REPAIR.md。
+
+2026-09-19開発版：視交叉中央部（部分）ID36は同一BigBrainの40／100 µm原画像から内部112点を選び、0.5 mm格子で無平滑・無補間の断面3Dを作成した派生データ。BigBrainのCC BY-NC-SA 4.0条件を継承する。全外縁・視神経・視索・視放線の完成を示さない。[統合記録](docs/OPTIC_CENTRAL112_INTEGRATION_2026-09-19.md)。
+
+English: Partial central optic chiasm ID36 is a project-reviewed derivative of the same BigBrain specimen, based on native 40/100 µm images. Its 112-voxel interior and unsmoothed section mesh retain BigBrain CC BY-NC-SA 4.0 terms; this is not a complete optic chiasm or visual pathway and is not expert-reviewed.

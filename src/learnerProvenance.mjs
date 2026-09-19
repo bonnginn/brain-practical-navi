@@ -125,6 +125,7 @@ const sectionEntryByKey = Object.freeze({
   septumPellucidumPartial: "section-septum-pellucidum-partial",
   lateralGeniculateBodies: "section-lateral-geniculate-bodies",
   fornixBodyPartial: "section-fornix-body-partial",
+  opticChiasmPartial: "section-optic-chiasm-central-partial",
   ventricle: "section-ventricular-system",
   thirdVentricle: "section-ventricular-system",
   fourthVentricle: "section-ventricular-system",

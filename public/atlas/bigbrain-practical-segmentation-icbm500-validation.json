@@ -60,6 +60,7 @@
     30,
     31,
     32,
+    36,
     41,
     42,
     43,
@@ -90,7 +91,8 @@
     "43": "septum pellucidum (partial membrane)",
     "44": "left lateral geniculate nucleus (published BigBrain layer union)",
     "45": "right lateral geniculate nucleus (published BigBrain layer union)",
-    "46": "fornix body (partial image-reviewed extent)"
+    "46": "fornix body (partial image-reviewed extent)",
+    "36": "optic chiasm central region (partial image-reviewed interior)"
   },
   "labelCounts": {
     "1": 2887,
@@ -125,7 +127,7 @@
     "30": 145707,
     "31": 56826,
     "32": 53609,
-    "33": 8482,
+    "33": 8389,
     "34": 66084,
     "35": 71073,
     "39": 559,
@@ -135,7 +137,8 @@
     "43": 282,
     "44": 1197,
     "45": 1374,
-    "46": 1709
+    "46": 1709,
+    "36": 112
   },
   "atlasToManualDiceAudit": {
     "caudate": 0.8448,
@@ -437,6 +440,7 @@
   "preVentricleCompressedSha256": "6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56",
   "preVentricleRawVoxelSha256": "088fafcdf6afcea74a7a60075bf3b8a481e1a7aa6379a7c58fb9b9c17f5e731d",
   "projectReviewedPartialIds": [
+    36,
     41,
     42,
     43,
@@ -469,7 +473,7 @@
     "workflowMetadataStatus": "strict"
   },
   "preClassificationCompressedSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
-  "rawVoxelSha256": "b7728a4892e726815654913a9e0ab220c7ce8942bb0f277b8da05665dc8eb4aa",
+  "rawVoxelSha256": "524077140cb6ab0ecdc4bdc83c655ee6f18dd59aaaf2a7481cfdc984faed9c21",
   "brainstemThreeIslandsAudit": {
     "record": "segmentation-patches/review/brainstem-three-islands-adoption-2026-09-06.json",
     "recordSha256": "9c7b14f4272969261e3e2415d3f522b7e5d7db1eeca7cb0c8ae28b225458be66",
@@ -1443,6 +1447,16 @@
       "changedSectionMeshes": [
         "section-current-fornix-body-partial.mesh"
       ]
+    },
+    "optic-central112": {
+      "record": "segmentation-patches/review/optic-central112-adoption-2026-09-19.json",
+      "recordSha256": "64c86a11f067c0784bce13dbb5591945a8900bd1c6d621605bbe285b2f61e90e",
+      "changedVoxelCount": 112,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-optic-chiasm-partial.mesh"
+      ]
     }
   },
   "historicalGenerationClaims": {
@@ -1452,9 +1466,9 @@
   },
   "currentImageMeasurements": {
     "schemaVersion": 1,
-    "sourceLabelSha256": "c3ffa981882eb6faae62a9bd7ef35b420ae6e19155c27440b1e3789bf2e00c42",
+    "sourceLabelSha256": "d3eaa45d8e2e43416dfc931f4a720da203131f7e579a320c3f51c9f8069c7056",
     "sourceImageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
-    "rawVoxelSha256": "b7728a4892e726815654913a9e0ab220c7ce8942bb0f277b8da05665dc8eb4aa",
+    "rawVoxelSha256": "524077140cb6ab0ecdc4bdc83c655ee6f18dd59aaaf2a7481cfdc984faed9c21",
     "dimensionsXYZ": [
       394,
       466,
@@ -1495,7 +1509,7 @@
       "30": 145707,
       "31": 56826,
       "32": 53609,
-      "33": 8482,
+      "33": 8389,
       "34": 66084,
       "35": 71073,
       "39": 559,
@@ -1505,7 +1519,8 @@
       "43": 282,
       "44": 1197,
       "45": 1374,
-      "46": 1709
+      "46": 1709,
+      "36": 112
     },
     "ventricularLabelIds": [
       23,

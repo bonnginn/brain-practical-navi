@@ -35,13 +35,14 @@ MAGIC_LABELS = b"BBS1"
 EXPECTED_DIMS = (394, 466, 378)
 EXPECTED_VOXEL_SIZE_MM = (0.5, 0.5, 0.5)
 EXPECTED_IMAGE_SHA256 = "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746"
-EXPECTED_LABELS_SHA256 = "c3ffa981882eb6faae62a9bd7ef35b420ae6e19155c27440b1e3789bf2e00c42"
-EXPECTED_COUNTS = {27: 264456, 33: 8482, 39: 559, 40: 729}
+EXPECTED_LABELS_SHA256 = "d3eaa45d8e2e43416dfc931f4a720da203131f7e579a320c3f51c9f8069c7056"
+EXPECTED_COUNTS = {27: 264456, 33: 8389, 39: 559, 40: 729}
 REVIEW_LABEL_IDS = (33, 39, 40)
 CONTEXT_LABEL_IDS = (27,)
 OVERLAY_LABEL_IDS = (27, 33, 39, 40)
 MAMMILLARY_LABEL_IDS = (39, 40)
-FORBIDDEN_PROPOSED_IDS = (36, 37, 38)
+# ID36 now exists as reviewed central tissue; this read-only bundle still emits no optic candidates.
+FORBIDDEN_PROPOSED_IDS = (37, 38)
 AXES = ("x", "y", "z")
 AXIS_NUMBER = {axis: index for index, axis in enumerate(AXES)}
 PLANE_NAMES = {"x": "sagittal", "y": "coronal", "z": "horizontal"}
@@ -373,7 +374,7 @@ def build_bundle(
         if counts[label_id] != expected:
             raise BundleError(f"ID {label_id} count {counts[label_id]} does not match {expected}")
     if any(int(label_id) in FORBIDDEN_PROPOSED_IDS for label_id in np.unique(labels)):
-        raise BundleError("forbidden proposed IDs 36-38 were found in the pinned label source")
+        raise BundleError("unadopted optic tract IDs 37-38 were found in the pinned label source")
     crop = _target_crop(labels)
     _require(crop == EXPECTED_CROP, "source crop does not match the pinned review crop")
     labels_by_id: dict[str, object] = {}

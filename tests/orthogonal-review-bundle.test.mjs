@@ -125,13 +125,13 @@ test("builds deterministic local evidence and passes independent validation", as
   assert.deepEqual(firstManifest.inputs.labels, {
     path: "public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz",
     magic: "BBS1",
-sha256: "c3ffa981882eb6faae62a9bd7ef35b420ae6e19155c27440b1e3789bf2e00c42",
+sha256: "d3eaa45d8e2e43416dfc931f4a720da203131f7e579a320c3f51c9f8069c7056",
     dims: [394, 466, 378],
     voxelSizeMm: [0.5, 0.5, 0.5],
   });
   assert.deepEqual(Object.fromEntries([27, 33, 39, 40].map(id => [id, firstManifest.labels[String(id)].voxelCount])), {
     27: 264456,
-    33: 8482,
+    33: 8389,
     39: 559,
     40: 729,
   });
@@ -166,7 +166,7 @@ test("rebuild is byte-deterministic and leaves the source labels unchanged", asy
   assert.deepEqual(await readFile(manifestPath), firstManifestBytes);
   assert.deepEqual(await readFile(join(bundle, "frames", firstManifest.frames[0].path)), firstFrameBytes);
   assert.deepEqual(await readFile(labels), beforeLabels);
-  assert.equal(createHash("sha256").update(await readFile(labels)).digest("hex"), "c3ffa981882eb6faae62a9bd7ef35b420ae6e19155c27440b1e3789bf2e00c42");
+  assert.equal(createHash("sha256").update(await readFile(labels)).digest("hex"), "d3eaa45d8e2e43416dfc931f4a720da203131f7e579a320c3f51c9f8069c7056");
 });
 
 test("rejects dimensions, axis, slice, and exact-key mutations with specific reasons", async () => {

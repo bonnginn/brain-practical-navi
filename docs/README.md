@@ -225,3 +225,5 @@ Historical audit results describe their recorded checkpoint, not the current rel
 
 - [脳弓柱の内部23点統合](FORNIX_LOWER_COLUMN23_INTEGRATION_2026-09-19.md)
 - [視交叉前方の内部案と格子の広がり（9月19日）](OPTIC_ANTERIOR_INTERIOR_2026-09-19.md)
+
+- [視交叉中央内部112点の統合](OPTIC_CENTRAL112_INTEGRATION_2026-09-19.md)

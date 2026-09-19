@@ -1110,6 +1110,38 @@
         "date": "2026-09-19",
         "documentRef": "docs/FORNIX_LOWER_COLUMN23_INTEGRATION_2026-09-19.md"
       }
+    },
+    {
+      "key": "section-optic-chiasm-central-partial",
+      "lectureLabel": null,
+      "coverage": "app-section-only",
+      "appLabel": "視交叉中央部（部分）",
+      "representations": [
+        "image-guided-reviewed"
+      ],
+      "learnerSurfaces": [
+        "sections"
+      ],
+      "expertReview": "pending",
+      "projectReview": "reviewed-by-project",
+      "quizEligibility": "none",
+      "sourceRefs": [
+        "combined-practical-segmentation"
+      ],
+      "literatureRefs": [
+        "https://cma.mgh.harvard.edu/wp-content/uploads/2023/04/HOA-Subcortical-Brain-Structure-Segmentation-Manual.pdf"
+      ],
+      "knownLimitations": [
+        "同一BigBrain標本のnative原画像を確認して作成した、視交叉中央部の内部を部分的に示すラベルです。全外縁、視神経・視索との境界、交叉線維の走行、視放線までの連続性は収録していません。画像確認済みですが、専門家レビューは未完了です。"
+      ],
+      "appKeys": [
+        "opticChiasmPartial"
+      ],
+      "projectReviewEvidence": {
+        "reviewerRole": "AI-assisted project review",
+        "date": "2026-09-19",
+        "documentRef": "docs/OPTIC_CENTRAL112_INTEGRATION_2026-09-19.md"
+      }
     }
   ],
   "quizTargets": [

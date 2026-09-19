@@ -93,6 +93,7 @@ const PROVENANCE_RELATIVE_PATH = "public/atlas/structure-provenance.json";
 const PAGE_RELATIVE_PATH = "app/page.tsx";
 const PWA_AUDIT_RELATIVE_PATH = "PWA_OFFLINE_AUDIT.md";
 const OPTIC_AUDIT_RELATIVE_PATH = "OPTIC_PATHWAY_AUDIT.md";
+const OPTIC_ADOPTION_RELATIVE_PATH = "segmentation-patches/review/optic-central112-adoption-2026-09-19.json";
 const PROVENANCE_NOTES_RELATIVE_PATH = "STRUCTURE_PROVENANCE.md";
 export const SNAPSHOT_MARKER_DOCUMENTS = Object.freeze([
   "BETA_OBSERVATION_NOTES.md",
@@ -119,6 +120,7 @@ const AUTHORITATIVE_SOURCES = Object.freeze([
   "PWA_INSTALL_AFFORDANCE_AUDIT.md",
   "BETA_READINESS_DISPLAY_AUDIT.md",
   OPTIC_AUDIT_RELATIVE_PATH,
+  OPTIC_ADOPTION_RELATIVE_PATH,
   PROVENANCE_NOTES_RELATIVE_PATH,
   ...SNAPSHOT_MARKER_DOCUMENTS.filter(document => document !== PROVENANCE_NOTES_RELATIVE_PATH),
 ]);
@@ -386,13 +388,16 @@ export function deriveUnverifiedBoundaries(rootDir = REPOSITORY_ROOT) {
 
 function deriveOpticFacts(rootDir, registry, standardQuestions) {
   const auditText = `${readText(rootDir, OPTIC_AUDIT_RELATIVE_PATH)}\n${readText(rootDir, PROVENANCE_NOTES_RELATIVE_PATH)}`;
+  const adoption = readJson(rootDir, OPTIC_ADOPTION_RELATIVE_PATH);
   const legacy = registry.entries.find(entry => entry?.legacyIds?.includes(33));
   const mammillary = registry.entries.find(entry => entry?.labelIds?.includes(39) && entry?.labelIds?.includes(40));
   const legacyEntryLearnerMappingCount = legacy
     ? LEARNER_PROVENANCE_MAPPINGS.filter(mapping => mapping.entryKeys?.includes(legacy.key)).length
     : -1;
   const perId = Object.fromEntries([36, 37, 38].map(id => [String(id), {
-    adopted: registry.entries.some(entry => entry?.labelIds?.includes(id)),
+    adopted: id === 36
+      ? adoption?.adopted === true && adoption?.expertReviewed === false && adoption?.points?.length === 112
+      : registry.entries.some(entry => entry?.labelIds?.includes(id)),
   }]));
   const anyAdopted = Object.values(perId).some(value => value.adopted);
   const allAdopted = Object.values(perId).every(value => value.adopted);

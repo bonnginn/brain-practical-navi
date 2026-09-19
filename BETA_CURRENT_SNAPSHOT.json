@@ -18,6 +18,7 @@
     "PWA_INSTALL_AFFORDANCE_AUDIT.md",
     "BETA_READINESS_DISPLAY_AUDIT.md",
     "OPTIC_PATHWAY_AUDIT.md",
+    "segmentation-patches/review/optic-central112-adoption-2026-09-19.json",
     "STRUCTURE_PROVENANCE.md",
     "BETA_OBSERVATION_NOTES.md",
     "PRESENTATION_AUDIT.md",
@@ -25,17 +26,17 @@
     "WINDOWS_HANDOFF.md"
   ],
   "provenance": {
-    "registryEntryCount": 80,
-    "expertPendingCount": 80,
+    "registryEntryCount": 81,
+    "expertPendingCount": 81,
     "reviewFilterCounts": {
       "surface": 54,
-      "sections": 21,
+      "sections": 22,
       "blocks": 30,
       "quiz": 25
     },
     "learnerMappings": {
-      "total": 227,
-      "resolved": 227
+      "total": 228,
+      "resolved": 228
     }
   },
   "quiz": {
@@ -191,10 +192,10 @@
       "legacyEntryLearnerMappingCount": 0
     },
     "ids36To38": {
-      "status": "unsegmented",
+      "status": "partially-adopted",
       "perId": {
         "36": {
-          "adopted": false
+          "adopted": true
         },
         "37": {
           "adopted": false
@@ -203,7 +204,7 @@
           "adopted": false
         }
       },
-      "anyAdopted": false,
+      "anyAdopted": true,
       "allAdopted": false,
       "expertReviewPending": true
     },

@@ -23,11 +23,11 @@ export const STATE_ENUM = Object.freeze([
   "deployment-blocked",
 ]);
 export const EXPECTED_SOURCE_COUNTS = Object.freeze({
-  entryCount: 80,
-  expertPendingCount: 80,
+  entryCount: 81,
+  expertPendingCount: 81,
   quizTargetCount: 45,
-  mappingCount: 227,
-  resolvedMappingCount: 227,
+  mappingCount: 228,
+  resolvedMappingCount: 228,
 });
 export const EXPECTED_CRITERION_STATES = Object.freeze({
   "criterion-01-essential-structure-labels": "expert-blocked",

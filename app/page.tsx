@@ -77,7 +77,7 @@ type BlockVisual = "model";
 type BlockLayer = {key:string;name:string;latin:string;color:string;source:"標本分節"|"試作分節"|"模式補助"|"位置目安";note:string};
 type BlockLesson = {name:string;en:string;visual:BlockVisual;plane:Plane;position:number;focus:Focus;view:"inside"|"ghost"|"extracted"|"segmented";rotation:Rotation;intro:string;observe:string[];caution:string;layers:BlockLayer[]};
 type NeurovascularStructureKey = "ica" | "aca" | "acomm" | "mca" | "pcomm" | "vertebral" | "basilar" | "pca" | "cerebellarArteries" | "cn1" | "cn2" | "opticChiasm" | "cn3" | "cn4" | "cn5" | "cn6" | "cn7" | "cn8" | "cn9" | "cn10" | "cn11" | "cn12";
-type StructureKey = Focus | "thirdVentricle" | "fourthVentricle" | "aqueductPartial" | "anteriorCommissurePartial" | "septumPellucidumPartial" | "lateralGeniculateBodies" | "fornixBodyPartial" | "corpusCallosum" | "internalCapsule" | "putamen" | "pallidumExternal" | "pallidumInternal" | "pallidum" | "amygdala" | "accumbens" | "redNucleus" | "substantiaNigra" | "subthalamic" | "brainstem" | "cerebellum" | "opticChiasm" | "mammillaryBody" | "insula";
+type StructureKey = Focus | "thirdVentricle" | "fourthVentricle" | "aqueductPartial" | "anteriorCommissurePartial" | "septumPellucidumPartial" | "lateralGeniculateBodies" | "fornixBodyPartial" | "opticChiasmPartial" | "corpusCallosum" | "internalCapsule" | "putamen" | "pallidumExternal" | "pallidumInternal" | "pallidum" | "amygdala" | "accumbens" | "redNucleus" | "substantiaNigra" | "subthalamic" | "brainstem" | "cerebellum" | "opticChiasm" | "mammillaryBody" | "insula";
 type LabelSource = "manual" | "atlas-provisional" | "image-guided" | "image-guided-reviewed";
 type StructureInfo = { name: string; latin: string; color: string; rgb: [number,number,number]; ids: number[]; bigbrainIds?: number[]; labelSource?: LabelSource; note: string; relation: string; meshFocus?: Focus };
 const labelSourceDisplay:Record<LabelSource,{label:string;detail:string;className:"source"|"provisional"}>={
@@ -408,6 +408,7 @@ const structures: Record<StructureKey, StructureInfo> = {
   septumPellucidumPartial: {name:"透明中隔（部分）",latin:"Septum pellucidum (partial)",color:"#efad72",rgb:[239,173,114],ids:[],bigbrainIds:[43],labelSource:"image-guided",note:"原画像で追跡できた薄い隔壁の一部を示します。上下の付着部や細い箇所は未収録です。中隔核や脳弓とは分けて観察してください。",relation:"左右の側脳室前角の間、脳梁の下方、脳弓の上方"},
   lateralGeniculateBodies: {name:"外側膝状体",latin:"Corpora geniculata lateralia",color:"#75b6d8",rgb:[117,182,216],ids:[],bigbrainIds:[44,45],labelSource:"image-guided-reviewed",note:"同一BigBrain標本で公開された左右6層分節の和集合を、公式変換で0.5 mm断面格子へ最近傍再標本化した範囲です。視索と視放線は未完成で、視覚路全体の連続分節ではありません。",relation:"視床後下方にある視覚中継核。視索が入る側と視放線が出る側の位置関係を断面で確認します"},
   fornixBodyPartial: {name:"脳弓体部・柱上部（部分）",latin:"Fornix (partial)",color:"#d7c58d",rgb:[215,197,141],ids:[],bigbrainIds:[46],labelSource:"image-guided-reviewed",note:"同一BigBrain標本のnative原画像で追跡した体部・前方移行部と柱上部の内部を部分的に示します。脚・柱下部・乳頭体までの接続・上方の透明中隔付着部を含む全境界は未収録で、脳弓全体の連続分節ではありません。",relation:"側脳室体部の下内側にある体部から、前交連へ向かって下降する柱上部までの一部"},
+  opticChiasmPartial: {name:"視交叉中央部（部分）",latin:"Optic chiasm central region (partial)",color:"#d4a85d",rgb:[212,168,93],ids:[],bigbrainIds:[36],labelSource:"image-guided-reviewed",note:"同一BigBrain標本のnative原画像を確認して作成した、視交叉中央部の内部を部分的に示すラベルです。全外縁、視神経・視索との境界、交叉線維の走行、視放線までの連続性は収録していません。画像確認済みですが、専門家レビューは未完了です。",relation:"視床下部前方寄りの正中近くにある視交叉中央部の部分収録"},
   ventricle: { name: "側脳室", latin: "Ventriculus lateralis", color: "#49a9b4", rgb:[73,169,180], ids:[92,41,56,5], bigbrainIds:[23,24], labelSource:"atlas-provisional", meshFocus:"ventricle", note: "前角・体部・後角・下角が連続する空間です。断面を動かして形の変化を追います。", relation: "脳梁の下方、尾状核・視床の内側" },
   thirdVentricle: { name:"第三脳室", latin:"Ventriculus tertius", color:"#58aeb8", rgb:[88,174,184], ids:[80,29], bigbrainIds:[25], labelSource:"atlas-provisional", meshFocus:"ventricle", note:"左右の視床・視床下部に囲まれる正中の細い腔です。上方は視床、下方（底側）は視床下部に接し、水平断・冠状断で側脳室との位置関係を確認します。", relation:"左右の視床・視床下部の間（上方：視床、下方：視床下部）" },
   fourthVentricle: { name:"第四脳室", latin:"Ventriculus quartus", color:"#4997b0", rgb:[73,151,176], ids:[88,37], bigbrainIds:[26], labelSource:"atlas-provisional", meshFocus:"ventricle", note:"橋・延髄と小脳の間にある腔です。連続断面では上端の塗り残しを原画像で確認して補い、中脳水道から続く主腔を表示します。孤立した微小片や下方の出口は確認が残っています。ブロック標本は粗い格子のため細い接続の再現に限界があります。", relation:"脳幹の背側、小脳の腹側" },
@@ -465,6 +466,7 @@ const bigbrainSectionMeshFiles:Partial<Record<StructureKey,string[]>>={
   septumPellucidumPartial:["section-current-septum-pellucidum-partial"],
   lateralGeniculateBodies:["section-current-lateral-geniculate-bodies"],
   fornixBodyPartial:["section-current-fornix-body-partial"],
+  opticChiasmPartial:["section-current-optic-chiasm-partial"],
   ventricle:["section-current-lateral-ventricles"],
   thirdVentricle:["section-current-third-ventricle"],
   fourthVentricle:["section-current-fourth-ventricle"],
@@ -473,7 +475,7 @@ const bigbrainSectionMeshFiles:Partial<Record<StructureKey,string[]>>={
 const structureGroups:{key:string;name:string;color:string;members:StructureKey[]}[]=[
   {key:"ventricles",name:"脳室系",color:"#49a9b4",members:["ventricle","thirdVentricle","fourthVentricle","aqueductPartial"]},
   {key:"basal",name:"大脳基底核",color:"#d9854f",members:["caudate","putamen","pallidumExternal","pallidumInternal","accumbens"]},
-  {key:"midline",name:"白質・視床",color:"#d2b765",members:["corpusCallosum","anteriorCommissurePartial","septumPellucidumPartial","lateralGeniculateBodies","internalCapsule","thalamus"]},
+  {key:"midline",name:"白質・視床",color:"#d2b765",members:["corpusCallosum","anteriorCommissurePartial","septumPellucidumPartial","lateralGeniculateBodies","internalCapsule","thalamus","opticChiasmPartial"]},
   {key:"limbic",name:"辺縁系",color:"#c8798d",members:["hippocampus","amygdala","fornixBodyPartial","mammillaryBody"]},
   {key:"midbrain",name:"中脳核・視床下域",color:"#b06e75",members:["redNucleus","substantiaNigra","subthalamic"]},
   {key:"posterior",name:"脳幹・小脳",color:"#7e9f6c",members:["brainstem","cerebellum"]},
@@ -485,6 +487,7 @@ const structureFunctions:Record<StructureKey,string>={
   septumPellucidumPartial:"左右の側脳室前角を隔てる薄い隔壁です。脳梁と脳弓の位置関係を観察する手がかりになります。",
   lateralGeniculateBodies:"網膜からの情報を視索から受け、視放線を介して視覚皮質へ中継する視床後方の核です。",
   fornixBodyPartial:"海馬系から乳頭体・中隔領域へ向かう脳弓のうち、正中近くを前後に走る体部と、前交連へ向かって下降する柱上部の一部です。",
+  opticChiasmPartial:"視交叉では左右の視神経線維の一部が交叉し、両眼の視野情報を左右半球へ振り分けます。この部分モデルは交叉線維の走行を示しません。",
   ventricle:"脳脊髄液を含む腔で、脳室系の連続性と周囲構造の位置を知る基準になります。",
   thirdVentricle:"左右の視床・視床下部に囲まれる間脳正中の髄液腔です。上方は視床、下方（底側）は視床下部で、各構造の位置関係を読む基準になります。",
   fourthVentricle:"後脳の髄液腔で、中脳水道からくも膜下腔へ至る髄液循環の通路です。",
@@ -524,6 +527,7 @@ bigBrainNameById.set(43,"透明中隔（部分）");
 bigBrainNameById.set(44,"左外側膝状体");
 bigBrainNameById.set(45,"右外側膝状体");
 bigBrainNameById.set(46,"脳弓体部・柱上部（部分）");
+bigBrainNameById.set(36,"視交叉中央部（部分）");
 
 const quizQuestions:QuizQuestion[]=[
   {target:"caudate",category:"basal",plane:"coronal",position:65,prompt:"側脳室前角の外側に沿う核はどれですか？",options:["caudate","putamen","pallidum","thalamus"]},

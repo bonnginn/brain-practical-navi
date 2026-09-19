@@ -24,8 +24,8 @@ test("current beta snapshot is derived from the checked-in authoritative contrac
   const report = auditCurrentBetaSnapshot({snapshot});
   assert.equal(report.ok, true, report.errors.join("; "));
   assert.deepEqual(report.summary, {
-    registryEntryCount: 80,
-    mappingCount: 227,
+    registryEntryCount: 81,
+    mappingCount: 228,
     routeChecks: 162,
     pwaChecks: 20,
     pwaBlockerCount: 0,
@@ -34,8 +34,8 @@ test("current beta snapshot is derived from the checked-in authoritative contrac
 });
 
 test("snapshot records the current review, quiz, and route boundaries", () => {
-  assert.deepEqual(snapshot.provenance.reviewFilterCounts, {surface: 54, sections: 21, blocks: 30, quiz: 25});
-  assert.deepEqual(snapshot.provenance.learnerMappings, {total: 227, resolved: 227});
+  assert.deepEqual(snapshot.provenance.reviewFilterCounts, {surface: 54, sections: 22, blocks: 30, quiz: 25});
+  assert.deepEqual(snapshot.provenance.learnerMappings, {total: 228, resolved: 228});
   assert.deepEqual(snapshot.quiz, {existingQuestionCount: 23, neurovascularPilotCount: 22, conceptVariantCount: 55, uniqueVisualTargetCount: 45, totalQuestionCount: 100});
   assert.deepEqual(snapshot.routes, {canonicalRouteCount: 27, viewportCount: 3, phaseCount: 2, expectedChecks: 162});
 });
@@ -219,9 +219,9 @@ test("snapshot keeps optic-pathway adoption boundaries explicit", () => {
     legacyEntryLearnerMappingCount: 0,
   });
   assert.deepEqual(snapshot.opticPathway.ids36To38, {
-    status: "unsegmented",
-    perId: {"36": {adopted: false}, "37": {adopted: false}, "38": {adopted: false}},
-    anyAdopted: false,
+    status: "partially-adopted",
+    perId: {"36": {adopted: true}, "37": {adopted: false}, "38": {adopted: false}},
+    anyAdopted: true,
     allAdopted: false,
     expertReviewPending: true,
   });

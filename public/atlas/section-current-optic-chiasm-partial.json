@@ -1,0 +1,47 @@
+{
+  "voxels": 112,
+  "components6": 3,
+  "componentSizes": [
+    108,
+    2,
+    2
+  ],
+  "boundsZYX": [
+    [
+      100,
+      276,
+      187
+    ],
+    [
+      104,
+      281,
+      206
+    ]
+  ],
+  "vertices": 337,
+  "faces": 694,
+  "sha256": "40e3929b0c975ed36f390df226b97f7463f87dc48c9e729c0f6c9dd1f74a21a7",
+  "bytes": 5196,
+  "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
+  "sourceSha256": "d3eaa45d8e2e43416dfc931f4a720da203131f7e579a320c3f51c9f8069c7056",
+  "labelIds": [
+    36
+  ],
+  "labelVoxelCounts": {
+    "36": 112
+  },
+  "sourceSamplingMm": 0.5,
+  "displayOriginZYX": [
+    -90.0,
+    -116.0,
+    -98.0
+  ],
+  "method": "native-image-reviewed central interior; marching cubes 0.5; no smoothing, filling or component removal",
+  "rawSha256": "3d9262acb192898afd80395855bf93bc3a2fced463894cecd00b3a8f02d44f33",
+  "rawBytes": 17776,
+  "compression": "gzip",
+  "expertReviewed": false,
+  "partialExtent": true,
+  "scope": "Partial central optic chiasm interior only. Scope cuts and gaps are not anatomical outer boundaries. Optic nerves, optic tracts and optic radiation remain incomplete. Not expert-reviewed.",
+  "reviewRecord": "segmentation-patches/review/optic-central112-adoption-2026-09-19.json"
+}
