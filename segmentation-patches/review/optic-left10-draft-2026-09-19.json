@@ -1,0 +1,184 @@
+{
+  "status": "AI-image-reviewed-interior-candidates-unapplied",
+  "sourceHypothesis": "interior-hypothesis-v3.json",
+  "sourceLabelSha256": "85a91f74510543969650af99557bb77688e367804be9cc7048bcc6b6947c0747",
+  "sampling": "27 points including centre, corners and face/edge midpoints; numerical containment in drawn envelope, not tissue proof",
+  "summary": {
+    "left": {
+      "centerCandidates": 156,
+      "containedCandidates": 10,
+      "maxRoundtripErrorMm": 2.732031919805422e-06
+    }
+  },
+  "rows": [
+    {
+      "side": "left",
+      "appXYZ": [
+        159,
+        250,
+        121
+      ],
+      "currentLabel": 0,
+      "native40CenterXYZ": [
+        188.25113720459336,
+        32.040651292161535,
+        450.9543983692513
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        160,
+        251,
+        121
+      ],
+      "currentLabel": 0,
+      "native40CenterXYZ": [
+        197.83517784220618,
+        44.799326514472,
+        449.9857674674489
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        161,
+        250,
+        120
+      ],
+      "currentLabel": 0,
+      "native40CenterXYZ": [
+        208.81370877906534,
+        32.64965753712394,
+        439.94734877053406
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        161,
+        251,
+        120
+      ],
+      "currentLabel": 0,
+      "native40CenterXYZ": [
+        207.77322215447765,
+        43.44682316298518,
+        439.80250389897503
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        162,
+        251,
+        119
+      ],
+      "currentLabel": 0,
+      "native40CenterXYZ": [
+        217.22950934625106,
+        41.42819524750643,
+        428.9951601474347
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        163,
+        252,
+        119
+      ],
+      "currentLabel": 0,
+      "native40CenterXYZ": [
+        228.34065448723123,
+        53.544086957347155,
+        427.0127964712823
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        164,
+        252,
+        118
+      ],
+      "currentLabel": 0,
+      "native40CenterXYZ": [
+        237.65418043433488,
+        50.77056962377393,
+        416.0318407923684
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        165,
+        252,
+        117
+      ],
+      "currentLabel": 33,
+      "native40CenterXYZ": [
+        246.343900608863,
+        47.69398954097104,
+        405.11030151106314
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        166,
+        254,
+        117
+      ],
+      "currentLabel": 33,
+      "native40CenterXYZ": [
+        258.7689716071446,
+        71.58806394003581,
+        401.4899403749133
+      ],
+      "containedSamples": 27
+    },
+    {
+      "side": "left",
+      "appXYZ": [
+        167,
+        254,
+        116
+      ],
+      "currentLabel": 33,
+      "native40CenterXYZ": [
+        268.05494753528995,
+        68.33143914651238,
+        390.07017286140854
+      ],
+      "containedSamples": 27
+    }
+  ],
+  "labelsWritten": false,
+  "adopted": false,
+  "projectAdopted": false,
+  "expertReviewed": false,
+  "published": false,
+  "proposedLabel": 37,
+  "proposedTransitions": {
+    "0->37": 7,
+    "33->37": 3
+  },
+  "imageReview": "12 native40 raw/contour figures and 10 orthogonal voxel-footprint figures inspected. Interior supported at displayed planes; full tract boundaries and LGN continuity unresolved.",
+  "representationHold": "Ten cells form nine separate six-neighbour components, none connected to existing left ID37. No isolated adoption or old-ID33 reclassification applied.",
+  "evidence": {
+    "work/optic-tract-posterior-20260919/interior-hypothesis-v3.json": "40af0da3c4fc3a46737facddaa0f1b4c37b38944242709ab9ce35ee7ca719f6a",
+    "work/optic-tract-posterior-20260919/left-thickness-v3/report.json": "d8d433fd3ad58f06948183178b08a2f2b74ed6bc68478e10f45c9c293d20d9c1",
+    "work/optic-tract-posterior-20260919/orthogonal-v3/report.json": "749fe1beaa8bc8c709bd2663767b1c7e98eca041616537a022d51ef25939badb",
+    "work/optic-tract-posterior-20260919/left-components-v3.json": "6d7496941dce5d68028a0c712d665410325b6a5bd004900f39e70242e2a4d60e",
+    "work/optic-lgn-gap-20260919/gap-v1/report.json": "220a57994612e2fc6661d0f4aacdbf22ec14cbd69418eeac9b9092f1012f7878"
+  }
+}
