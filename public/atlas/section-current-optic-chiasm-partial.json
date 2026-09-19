@@ -1,13 +1,14 @@
 {
-  "voxels": 370,
-  "components6": 1,
+  "voxels": 405,
+  "components6": 2,
   "componentSizes": [
-    370
+    400,
+    5
   ],
   "boundsZYX": [
     [
       98,
-      275,
+      274,
       186
     ],
     [
@@ -16,17 +17,17 @@
       206
     ]
   ],
-  "vertices": 637,
-  "faces": 1298,
-  "sha256": "26c1aefbcc2136196decea95648e399c2611e87a05b2f1d35241933dce5657be",
-  "bytes": 9029,
+  "vertices": 685,
+  "faces": 1386,
+  "sha256": "f74ecaef0e2fabe03c094bd81826a8995b6a18229d7cfeb578c0396b6c7fe880",
+  "bytes": 9649,
   "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
-  "sourceSha256": "601374e1bb8669831c882721e3f3edbef42a57230f23aab81496da32c4fde88c",
+  "sourceSha256": "ef5cc35efec2d67663b9047c706649c60110f7e83c52a8066d6dfaa238335840",
   "labelIds": [
     36
   ],
   "labelVoxelCounts": {
-    "36": 370
+    "36": 405
   },
   "sourceSamplingMm": 0.5,
   "displayOriginZYX": [
@@ -35,11 +36,11 @@
     -98.0
   ],
   "method": "native-image-reviewed central interior; marching cubes 0.5; no smoothing, filling or component removal",
-  "rawSha256": "379dbf1d82be13f5d873c437120e53d00bf5c2e81d6777132d5d2783abbe5856",
-  "rawBytes": 33424,
+  "rawSha256": "c5ac85bdee930e61e3e5022ee48a1364dfc5738a266e54867c1ef672d21f0206",
+  "rawBytes": 35824,
   "compression": "gzip",
   "expertReviewed": false,
   "partialExtent": true,
-  "scope": "Partial central optic chiasm interior with reviewed thickness on a 0.5 mm teaching grid. Edges include partial volume. Full outer boundaries, optic nerve/tract transitions and fibre crossing trajectories remain unrecorded. Not expert-reviewed.",
-  "reviewRecord": "segmentation-patches/review/optic-central258-adoption-2026-09-20.json"
+  "scope": "Source-traced partial chiasm and bilateral optic tracts meet across an operational teaching naming plane at native40 Y275. Approximate 0.5 mm tissue-centre sampling includes edge partial volume. The combined major component is continuous; individual fibers and full chiasm/tract boundaries, LGN continuity and optic radiations are not established. Not expert-reviewed.",
+  "reviewRecord": "segmentation-patches/review/optic-junction118-adoption-2026-09-20.json"
 }

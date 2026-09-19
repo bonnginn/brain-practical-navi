@@ -50,7 +50,7 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
   const fornixDescent=r.transition==='mixed-fornix-descent-interior-partial';
   const fornixColumn=r.transition==='mixed-fornix-upper-column-interior-partial';
   const fornixLowerColumn=r.transition==='mixed-fornix-lower-column-interior-partial';
-  const genericRecord=['cerebellar-folia197','septal-membrane282','anterior-commissure-core416','aqueduct-fourth44','optic-central112','optic-tract77','optic-fourth9','fornix-posterior85', 'fornix-crural182', 'optic-left152', 'fornix-crura870', 'fornix-transition347', 'optic-central258', 'optic-tract243', 'optic-proximal995'].includes(name);
+  const genericRecord=['cerebellar-folia197','septal-membrane282','anterior-commissure-core416','aqueduct-fourth44','optic-central112','optic-tract77','optic-fourth9','fornix-posterior85', 'fornix-crural182', 'optic-left152', 'fornix-crura870', 'fornix-transition347', 'optic-central258', 'optic-tract243', 'optic-proximal995', 'optic-junction118'].includes(name);
   const posterior=r.transition==='mixed-posterior-ventricular-repair';
   const bilateral=r.transition==='mixed-lateral-cavity-fill';
   const combined=r.transition==='mixed-ventricular-repair'||posterior||bilateral;

@@ -1,38 +1,39 @@
 {
-  "voxels": 1474,
-  "components6": 5,
+  "voxels": 1557,
+  "components6": 6,
   "componentSizes": [
-    766,
-    701,
+    810,
+    737,
     5,
+    3,
     1,
     1
   ],
   "boundsZYX": [
     [
-      102,
+      101,
       248,
       156
     ],
     [
       125,
-      274,
+      275,
       232
     ]
   ],
-  "vertices": 2279,
-  "faces": 4582,
-  "sha256": "ff75dd8999a7d2d9568c090f173672c6317f5dc4cadf315fa8afbb6d3956cb1f",
-  "bytes": 32292,
+  "vertices": 2373,
+  "faces": 4762,
+  "sha256": "cd0c1428e29265a095f8ee02d3da8ff463ff3f9494291c0a5a3a3fac52dd0ee7",
+  "bytes": 33436,
   "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
-  "sourceSha256": "601374e1bb8669831c882721e3f3edbef42a57230f23aab81496da32c4fde88c",
+  "sourceSha256": "ef5cc35efec2d67663b9047c706649c60110f7e83c52a8066d6dfaa238335840",
   "labelIds": [
     37,
     38
   ],
   "labelVoxelCounts": {
-    "37": 766,
-    "38": 708
+    "37": 813,
+    "38": 744
   },
   "sourceSamplingMm": 0.5,
   "displayOriginZYX": [
@@ -41,11 +42,11 @@
     -98.0
   ],
   "method": "native-image-reviewed short interior portions; marching cubes 0.5; no smoothing, filling or component removal",
-  "rawSha256": "5273e92533b9b907d83e35431d99eb35461851e74e0dacfd8f4ec4647db0429b",
-  "rawBytes": 118808,
+  "rawSha256": "76856c3457328ec127d4722695beb905f047c687805058ed4e8a44f5861aa132",
+  "rawBytes": 123600,
   "compression": "gzip",
   "expertReviewed": false,
   "partialExtent": true,
-  "scope": "Partial bilateral optic tracts extended proximally along source-traced ventral tissue bands at native40 Y167..265, sampled at tissue centres on a 0.5 mm teaching grid. Cell edges include partial volume, not exact tissue boundaries. Chiasm/LGN continuity and optic radiations remain incomplete. Not expert-reviewed.",
-  "reviewRecord": "segmentation-patches/review/optic-proximal995-adoption-2026-09-20.json"
+  "scope": "Source-traced partial chiasm and bilateral optic tracts meet across an operational teaching naming plane at native40 Y275. Approximate 0.5 mm tissue-centre sampling includes edge partial volume. The combined major component is continuous; individual fibers and full chiasm/tract boundaries, LGN continuity and optic radiations are not established. Not expert-reviewed.",
+  "reviewRecord": "segmentation-patches/review/optic-junction118-adoption-2026-09-20.json"
 }

@@ -131,7 +131,7 @@
     "30": 145707,
     "31": 56826,
     "32": 53609,
-    "33": 6906,
+    "33": 6790,
     "34": 66084,
     "35": 71073,
     "39": 559,
@@ -142,9 +142,9 @@
     "44": 1197,
     "45": 1374,
     "46": 3193,
-    "36": 370,
-    "37": 766,
-    "38": 708
+    "36": 405,
+    "37": 813,
+    "38": 744
   },
   "atlasToManualDiceAudit": {
     "caudate": 0.8448,
@@ -481,7 +481,7 @@
     "workflowMetadataStatus": "strict"
   },
   "preClassificationCompressedSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
-  "rawVoxelSha256": "f95f8514599a24bb378ea50d29e6cc90cfe8c173d3dcb3fbb51cf073bfe21532",
+  "rawVoxelSha256": "739546a75f379601c6c3b28ee8dd13320357d7cbc9edad90688ae14bd05a6849",
   "brainstemThreeIslandsAudit": {
     "record": "segmentation-patches/review/brainstem-three-islands-adoption-2026-09-06.json",
     "recordSha256": "9c7b14f4272969261e3e2415d3f522b7e5d7db1eeca7cb0c8ae28b225458be66",
@@ -1570,6 +1570,18 @@
         "section-current-optic-tracts-partial.mesh",
         "section-optic-chiasm.mesh"
       ]
+    },
+    "optic-junction118": {
+      "record": "segmentation-patches/review/optic-junction118-adoption-2026-09-20.json",
+      "recordSha256": "05fde626f44544b2293f64a17e794e62b0ce9bb94a70827a1b285b686ee5aa33",
+      "changedVoxelCount": 118,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-optic-tracts-partial.mesh",
+        "section-current-optic-chiasm-partial.mesh",
+        "section-optic-chiasm.mesh"
+      ]
     }
   },
   "historicalGenerationClaims": {
@@ -1579,9 +1591,9 @@
   },
   "currentImageMeasurements": {
     "schemaVersion": 1,
-    "sourceLabelSha256": "601374e1bb8669831c882721e3f3edbef42a57230f23aab81496da32c4fde88c",
+    "sourceLabelSha256": "ef5cc35efec2d67663b9047c706649c60110f7e83c52a8066d6dfaa238335840",
     "sourceImageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
-    "rawVoxelSha256": "f95f8514599a24bb378ea50d29e6cc90cfe8c173d3dcb3fbb51cf073bfe21532",
+    "rawVoxelSha256": "739546a75f379601c6c3b28ee8dd13320357d7cbc9edad90688ae14bd05a6849",
     "dimensionsXYZ": [
       394,
       466,
@@ -1622,7 +1634,7 @@
       "30": 145707,
       "31": 56826,
       "32": 53609,
-      "33": 6906,
+      "33": 6790,
       "34": 66084,
       "35": 71073,
       "39": 559,
@@ -1633,9 +1645,9 @@
       "44": 1197,
       "45": 1374,
       "46": 3193,
-      "36": 370,
-      "37": 766,
-      "38": 708
+      "36": 405,
+      "37": 813,
+      "38": 744
     },
     "ventricularLabelIds": [
       23,
