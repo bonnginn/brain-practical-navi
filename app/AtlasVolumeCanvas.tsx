@@ -227,6 +227,22 @@ async function loadManualSeg(name:"icbm500"){
   const id=`segmentation:${name}`;
   if(!manualSegCache.has(name))manualSegCache.set(name,trackAtlasProcessing(id,async token=>{let buf=await fetchAtlasBuffer(`${ASSET_BASE}atlas/bigbrain-practical-segmentation-${name}.bin.gz?v=${SEGMENTATION_LABEL_REVISION}`,id,"practical segmentation",token),v=new DataView(buf);if(v.getUint32(0,false)!==0x42425331&&v.getUint16(0,false)===0x1f8b){const stream=new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));buf=await new Response(stream).arrayBuffer();v=new DataView(buf)}if(v.getUint32(0,false)!==0x42425331)throw new Error("invalid practical segmentation header");const dims:[number,number,number]=[v.getUint16(4,true),v.getUint16(6,true),v.getUint16(8,true)],n=dims[0]*dims[1]*dims[2];return{dims,labels:new Uint8Array(buf,10,n)}}));return manualSegCache.get(name)!;
 }
+// Share the existing volume promises and retention policy with teaching figures.
+export function useBigBrainSectionGuideData(){
+  const [data,setData]=useState<{dims:[number,number,number];values:Uint8Array;labels:Uint8Array}|null>(null);
+  const [error,setError]=useState(false),[attempt,setAttempt]=useState(0);
+  useEffect(()=>{
+    let active=true;retainLargeVolumeCaches();setError(false);
+    Promise.all([loadBigBrain(),loadManualSeg("icbm500")]).then(([image,seg])=>{
+      if(image.dims.some((value,index)=>value!==seg.dims[index]))throw new Error("Section guide grid mismatch");
+      if(active)setData({...image,labels:seg.labels});
+    }).catch(()=>{if(active)setError(true)});
+    return()=>{active=false;releaseLargeVolumeCaches()};
+  },[attempt]);
+  const retry=()=>{bigBrainCache=null;manualSegCache.delete("icbm500");setAttempt(value=>value+1)};
+  return {data,error,retry};
+}
+
 function loadMesh(name:string){
   const fileName=meshAssetFileName(name),id=`mesh:${fileName}`;
 if(!meshCache.has(name))meshCache.set(name,trackAtlasProcessing(id,async token=>{let buf=await fetchAtlasBuffer(`${ASSET_BASE}atlas/${fileName}${atlasMeshRevisionQuery(name,SEGMENTATION_LABEL_REVISION)}`,id,name,token);const auditSource=quizVisibilityAuditEnabled()?{path:`public/atlas/${fileName}`,sha256:COMPRESSED_MESH_AUDIT_SHA256[fileName]??await sha256Hex(buf)}:undefined;if(hasGzipMagic(buf)){const stream=new Blob([buf]).stream().pipeThrough(new DecompressionStream("gzip"));buf=await new Response(stream).arrayBuffer()}

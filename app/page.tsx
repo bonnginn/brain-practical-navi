@@ -7,6 +7,7 @@ import betaStatus from "./beta-status.json";
 import { SegmentationReferences } from "./SegmentationReferences";
 import { CircuitTeachingPanel } from "./CircuitTeachingPanel";
 import { BIGBRAIN_SECTION_DIMS, SectionSliceStepper } from "./SectionSliceStepper";
+import { ForamenGuide } from "./ForamenGuide";
 import { formatSectionPosition, stepPlanePosition } from "./segmentationGeometry";
 import betaGoNoGoDisplay from "./beta-go-no-go-display.json";
 import quizConceptBank from "./quiz-concept-bank.json";
@@ -1252,6 +1253,13 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
     setPosition(nextPosition ?? sectionPositions.current[nextPlane]);
   }
 
+  function observeForamenSlice(y:number){
+    setPlaying(false);setLabels(true);setVisibleStructures(["ventricle","thirdVentricle"]);
+    setSelectedStructure("thirdVentricle");setSectionLayout(webglUnavailable?"slice":"both");setIdentified(null);
+    jump("coronal",y/(BIGBRAIN_SECTION_DIMS[1]-1)*100);
+    window.requestAnimationFrame(()=>sectionStageRef.current?.scrollIntoView({block:"start"}));
+  }
+
   function restoreSectionRoute(){
     const link=readSectionLink(window.location.hash,sectionAllowedKeys,SEGMENTATION_LABEL_SHA256);
     setSectionLinkStatus(link.status==="invalid"||link.status==="revision-mismatch"?link.status:"");
@@ -1481,6 +1489,7 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
     </section>}
 
     {workspace==="sections"&&<section className="workArea" id="workspace" tabIndex={-1}><h1 className="srOnly">断面実習</h1>
+      {contrast==="bigbrain"&&<ForamenGuide english={englishEdition} onObserve={observeForamenSlice}/>}
       {sectionLinkStatus&&<p role="status">{englishEdition?"This observation link is invalid or uses a different label revision. Its settings were not applied.":"観察リンクが不正、またはラベルの版が異なるため、リンクの設定は適用していません。"}</p>}
       {contrast==="bigbrain"&&<details className="sectionObservationLink"><summary>{englishEdition?"Link to this observation":"この観察のリンク"}</summary><p>{englishEdition?"Copy this link to reproduce the slice position, selected structures and panel layout. Rotation and zoom are not included. No personal data is included.":"断面位置・選択構造・表示配分を再現するリンクです。回転と拡大率は含みません。個人情報は含まれません。"}</p><input aria-label={englishEdition?"Observation URL":"観察URL"} readOnly onFocus={event=>event.currentTarget.select()} value={typeof window==="undefined"?"":observationUrl(window.location.href,sectionLinkHash(plane,{version:1,positions:{...sectionPositions.current,[plane]:position},visible:visibleStructures,selected:selectedStructure,layout:sectionLayout,views:sectionModelViews,share:sectionModelShare},sectionAllowedKeys,SEGMENTATION_LABEL_SHA256)??"")}/></details>}
       <div className="visualGrid"><section className="slicePanel">
