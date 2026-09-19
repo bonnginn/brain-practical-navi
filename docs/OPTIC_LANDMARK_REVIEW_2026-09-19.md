@@ -54,4 +54,17 @@ work/segmentation-ci-check/Scripts/python.exe scripts/render_optic_native40_land
 3. 前方はY290–310の終板／視床下部との関係を確認し、ラベル端を自動採用しない。中央の観察可能な内部だけを部分収載する案と、視交叉全体の完成を区別する。
 4. 候補を作れた場合だけ独立再トレースとapp格子内の部分体積確認へ進む。採用判断後に可逆差分、関連3D、日英表示を同期する。
 
+## 追加：3断面の外縁・付着部を分けて図示
+
+続行指示を受け、Y235/240/245を並べて比較した。下面の露出した組織外縁の一部を緑の開いた線、左右の未確定付着部を橙枠、中央の欠けを赤枠で示した。緑線は原画像上の目視位置案内で、画素精度の輪郭や視索への帰属を確定した線ではない。どの線・枠も閉じたmaskや新ラベルへ変換していない。
+
+付着部を通る新しいnative40矢状X520/535/710/725と水平Z320の5面を追加確認した。左右の腹側組織と上方組織の間に線状の濃淡・裂隙が見える部分はあるが、3断面間を同じ組織境界として一貫して閉じる根拠には不足する。Y245で中央の連続が広く見えることだけで、その面を視交叉の後端に採用する案は退けた。Y235/240も規約面として未採用である。
+
+次の判断は、まず橙枠の付着部を束側と視床下部側に分けられるかを決め、その後に名称移行面を選ぶ順とする。中央の欠けを補完して連結する案は作成していない。
+
+- 比較ページ：`http://127.0.0.1:4346/reviews/optic-transition-20260919/index.html`。全体位置図、3断面の原画像／検討図、追加直交断を併記。
+- 原本：`work/optic-transition-comparison-20260919/`。初回追加断面は `work/optic-transition-followup-20260919/` にも保持。
+- 手描き案内の座標と入力SHA：`segmentation-patches/review/optic-transition-guides-2026-09-19.json`。再生成：`scripts/render_optic_transition_comparison.py --out <新しい出力先>`。
+- 確認：3比較図の原画像側は元PNGと画素一致、追加5面は初回生成とファイル一致、9図のSHAとラベル不変を確認。Python構文検査と実ブラウザ表示を確認。アプリソース・ラベル・メッシュ・公開版の変更なし。
+
 比較規約は [CMA manual PDF p.68](https://cma.mgh.harvard.edu/wp-content/uploads/2023/04/HOA-Subcortical-Brain-Structure-Segmentation-Manual.pdf)（保存済み原本・図を再確認）と [EPTN/INCA optic tract](https://cancerdata.org/tutorial/eptn-neuro-atlas-video-optic-tract/)（本文確認、動画未通読）。既にブラウザの日英参考文献へ収録済み。MRI閾値・距離や別標本のmaskは転用していない。
