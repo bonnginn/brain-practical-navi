@@ -135,7 +135,7 @@
     "43": 282,
     "44": 1197,
     "45": 1374,
-    "46": 1253
+    "46": 1522
   },
   "atlasToManualDiceAudit": {
     "caudate": 0.8448,
@@ -469,7 +469,7 @@
     "workflowMetadataStatus": "strict"
   },
   "preClassificationCompressedSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
-  "rawVoxelSha256": "2d883e7280ee42d630adbd2c589be78fc525ed549ee9a78909034dc89b497d14",
+  "rawVoxelSha256": "a7af41415313ed4e72e4733ad7a353c0fa2a259306740a3c61f24ba54e2c00fd",
   "brainstemThreeIslandsAudit": {
     "record": "segmentation-patches/review/brainstem-three-islands-adoption-2026-09-06.json",
     "recordSha256": "9c7b14f4272969261e3e2415d3f522b7e5d7db1eeca7cb0c8ae28b225458be66",
@@ -1403,6 +1403,16 @@
       "changedSectionMeshes": [
         "section-current-fornix-body-partial.mesh"
       ]
+    },
+    "fornix-continuation269": {
+      "record": "segmentation-patches/review/fornix-continuation269-adoption-2026-09-19.json",
+      "recordSha256": "0ac79bc5b3f0b1442305cf1277093c3bfd1c3ab3470f4aa2f21386618a567116",
+      "changedVoxelCount": 269,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-fornix-body-partial.mesh"
+      ]
     }
   },
   "historicalGenerationClaims": {
@@ -1412,9 +1422,9 @@
   },
   "currentImageMeasurements": {
     "schemaVersion": 1,
-    "sourceLabelSha256": "d815aaff6b98c95109cdd7c052a29871d49cc9cdf463bcb3db7e28a1497c2392",
+    "sourceLabelSha256": "a009c09fbcf2d13eb28de9a27830c6bcd0572d3b825cf9554b5879ca11efb707",
     "sourceImageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
-    "rawVoxelSha256": "2d883e7280ee42d630adbd2c589be78fc525ed549ee9a78909034dc89b497d14",
+    "rawVoxelSha256": "a7af41415313ed4e72e4733ad7a353c0fa2a259306740a3c61f24ba54e2c00fd",
     "dimensionsXYZ": [
       394,
       466,
@@ -1465,7 +1475,7 @@
       "43": 282,
       "44": 1197,
       "45": 1374,
-      "46": 1253
+      "46": 1522
     },
     "ventricularLabelIds": [
       23,
