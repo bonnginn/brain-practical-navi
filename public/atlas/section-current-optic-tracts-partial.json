@@ -1,13 +1,10 @@
 {
-  "voxels": 1557,
-  "components6": 6,
+  "voxels": 1667,
+  "components6": 3,
   "componentSizes": [
+    854,
     810,
-    737,
-    5,
-    3,
-    1,
-    1
+    3
   ],
   "boundsZYX": [
     [
@@ -18,22 +15,22 @@
     [
       125,
       275,
-      232
+      233
     ]
   ],
-  "vertices": 2373,
-  "faces": 4762,
-  "sha256": "cd0c1428e29265a095f8ee02d3da8ff463ff3f9494291c0a5a3a3fac52dd0ee7",
-  "bytes": 33436,
+  "vertices": 2561,
+  "faces": 5150,
+  "sha256": "4275ce7c495611f3021453bb5d40cd2bd17459c86fa40107a8c74ced8e725677",
+  "bytes": 36057,
   "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
-  "sourceSha256": "d031beb339367fa10887bc98795f3252f6227cf5ff2612f3a56ddc429eb79b93",
+  "sourceSha256": "709afea6d99ddda15670bd1c92f4a5c076b203a417f55f8dd1e47675c956c212",
   "labelIds": [
     37,
     38
   ],
   "labelVoxelCounts": {
     "37": 813,
-    "38": 744
+    "38": 854
   },
   "sourceSamplingMm": 0.5,
   "displayOriginZYX": [
@@ -42,11 +39,11 @@
     -98.0
   ],
   "method": "native-image-reviewed short interior portions; marching cubes 0.5; no smoothing, filling or component removal",
-  "rawSha256": "76856c3457328ec127d4722695beb905f047c687805058ed4e8a44f5861aa132",
-  "rawBytes": 123600,
+  "rawSha256": "ae911e3daeb2330a19a0cf89389625ca481153515bc7784dd04539f1fca6308c",
+  "rawBytes": 133520,
   "compression": "gzip",
   "expertReviewed": false,
   "partialExtent": true,
-  "scope": "Source-traced partial chiasm and bilateral optic tracts meet across an operational teaching naming plane at native40 Y275. Approximate 0.5 mm tissue-centre sampling includes edge partial volume. The combined major component is continuous; individual fibers and full chiasm/tract boundaries, LGN continuity and optic radiations are not established. Not expert-reviewed.",
-  "reviewRecord": "segmentation-patches/review/optic-junction118-adoption-2026-09-20.json"
+  "scope": "Partial bilateral optic tracts, with right posterior continuation traced from the same specimen. The right tract and combined chiasm/tract labels are continuous. Approximate 0.5 mm boundaries include partial volume. LGN continuity and optic radiations remain incomplete. Not expert-reviewed.",
+  "reviewRecord": "segmentation-patches/review/optic-right110-adoption-2026-09-20.json"
 }

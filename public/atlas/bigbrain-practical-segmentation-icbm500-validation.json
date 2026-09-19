@@ -131,7 +131,7 @@
     "30": 145707,
     "31": 56826,
     "32": 53609,
-    "33": 6790,
+    "33": 6775,
     "34": 66084,
     "35": 71073,
     "39": 559,
@@ -144,7 +144,7 @@
     "46": 4461,
     "36": 405,
     "37": 813,
-    "38": 744
+    "38": 854
   },
   "atlasToManualDiceAudit": {
     "caudate": 0.8448,
@@ -481,7 +481,7 @@
     "workflowMetadataStatus": "strict"
   },
   "preClassificationCompressedSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
-  "rawVoxelSha256": "8eb9b3de021705d3750b4467ab448106c676a74e1d4fb862c265c63c75f75c21",
+  "rawVoxelSha256": "6303a6723f3fbb4eec3e22bce5757e2d03e10953f5361831cb56fd00c560d01a",
   "brainstemThreeIslandsAudit": {
     "record": "segmentation-patches/review/brainstem-three-islands-adoption-2026-09-06.json",
     "recordSha256": "9c7b14f4272969261e3e2415d3f522b7e5d7db1eeca7cb0c8ae28b225458be66",
@@ -1602,6 +1602,17 @@
       "changedSectionMeshes": [
         "section-current-fornix-body-partial.mesh"
       ]
+    },
+    "optic-right110": {
+      "record": "segmentation-patches/review/optic-right110-adoption-2026-09-20.json",
+      "recordSha256": "8b29c07800c7d500d532fbcff4399722d098169621f8fc934a431b71ab3eb529",
+      "changedVoxelCount": 110,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-optic-tracts-partial.mesh",
+        "section-optic-chiasm.mesh"
+      ]
     }
   },
   "historicalGenerationClaims": {
@@ -1611,9 +1622,9 @@
   },
   "currentImageMeasurements": {
     "schemaVersion": 1,
-    "sourceLabelSha256": "d031beb339367fa10887bc98795f3252f6227cf5ff2612f3a56ddc429eb79b93",
+    "sourceLabelSha256": "709afea6d99ddda15670bd1c92f4a5c076b203a417f55f8dd1e47675c956c212",
     "sourceImageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
-    "rawVoxelSha256": "8eb9b3de021705d3750b4467ab448106c676a74e1d4fb862c265c63c75f75c21",
+    "rawVoxelSha256": "6303a6723f3fbb4eec3e22bce5757e2d03e10953f5361831cb56fd00c560d01a",
     "dimensionsXYZ": [
       394,
       466,
@@ -1654,7 +1665,7 @@
       "30": 145707,
       "31": 56826,
       "32": 53609,
-      "33": 6790,
+      "33": 6775,
       "34": 66084,
       "35": 71073,
       "39": 559,
@@ -1667,7 +1678,7 @@
       "46": 4461,
       "36": 405,
       "37": 813,
-      "38": 744
+      "38": 854
     },
     "ventricularLabelIds": [
       23,
