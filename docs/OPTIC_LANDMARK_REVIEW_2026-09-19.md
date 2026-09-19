@@ -67,4 +67,12 @@ work/segmentation-ci-check/Scripts/python.exe scripts/render_optic_native40_land
 - 手描き案内の座標と入力SHA：`segmentation-patches/review/optic-transition-guides-2026-09-19.json`。再生成：`scripts/render_optic_transition_comparison.py --out <新しい出力先>`。
 - 確認：3比較図の原画像側は元PNGと画素一致、追加5面は初回生成とファイル一致、9図のSHAとラベル不変を確認。Python構文検査と実ブラウザ表示を確認。アプリソース・ラベル・メッシュ・公開版の変更なし。
 
+### 追加：アプリ断面への位置案内
+
+`http://127.0.0.1:4346/reviews/optic-navigation-20260919/index.html` に、左右の検討枠中心からアプリの冠状・矢状断へ移動する12リンクを追加した。原本は `work/optic-transition-navigation-20260919/`。名称・境界を確定したランドマークではなく、検討場所へのナビゲーションである。
+
+公式変換列と科学座標affineを使うと、Y235/240の左右の枠中心はapp `[189,270,110]`／`[205,270,110]`、Y245では `[189,271,110]`／`[205,271,110]` に丸められる。**Y235とY240が同じ0.5 mm冠状断になる**ため、高解像度の違いをアプリ表示だけで判断しない。リンクは断面位置・参考構造・表示配分を復元し、検討枠・カーソル・ズームを再現しないことをページに明記した。
+
+既存の `readSectionLink` で全12リンクの有効性と目標sliceを確認。6点の逆変換残差は最大 `1.232e-6 mm`（数値整合であり登録精度ではない）。元9図とラベルSHAの不変を確認し、リンクと注意書きがブラウザに表示されることを確認した。分節の追加採用なし。
+
 比較規約は [CMA manual PDF p.68](https://cma.mgh.harvard.edu/wp-content/uploads/2023/04/HOA-Subcortical-Brain-Structure-Segmentation-Manual.pdf)（保存済み原本・図を再確認）と [EPTN/INCA optic tract](https://cancerdata.org/tutorial/eptn-neuro-atlas-video-optic-tract/)（本文確認、動画未通読）。既にブラウザの日英参考文献へ収録済み。MRI閾値・距離や別標本のmaskは転用していない。
