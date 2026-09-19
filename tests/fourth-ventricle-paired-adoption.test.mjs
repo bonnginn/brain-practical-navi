@@ -18,7 +18,7 @@ test('fourth paired repair is exactly 16 reversible additions with current metad
  assert.deepEqual(after,gunzipSync(current).subarray(10));assert.equal(sha(after),r.outputRawSha256);
  const meta=JSON.parse(await read('public/atlas/bigbrain-practical-segmentation-icbm500-validation.json'));
  assert.equal(r.outputRawSha256,sha(after));assert.equal(meta.fourthVentriclePairedAudit.recordSha256,sha(bytes));
- assert.equal(meta.labelCounts['26'],9202);assert.equal(after.reduce((n,v)=>n+(v===26),0),8536);
+ assert.equal(meta.labelCounts['26'],9200);assert.equal(after.reduce((n,v)=>n+(v===26),0),8536);
  assert.equal(r.projectAdopted,true);assert.equal(r.expertReviewed,false);assert.equal(r.published,false);
  for(const p of r.points){const [x,y,z]=p.xyz;after[x+nx*(y+ny*z)]=0;}assert.deepEqual(after,before);
 });

@@ -1,9 +1,12 @@
 {
-  "voxels": 77,
-  "components6": 6,
+  "voxels": 84,
+  "components6": 9,
   "componentSizes": [
     37,
     36,
+    5,
+    1,
+    1,
     1,
     1,
     1,
@@ -12,28 +15,28 @@
   "boundsZYX": [
     [
       112,
-      257,
+      249,
       168
     ],
     [
       121,
       263,
-      228
+      232
     ]
   ],
-  "vertices": 253,
-  "faces": 510,
-  "sha256": "c2adc5d1c6481c57efe2e0293db3527cd2956a24d654839e4d78e1f8fcd46042",
-  "bytes": 4205,
+  "vertices": 287,
+  "faces": 574,
+  "sha256": "7244904dc4a6b4a95f0aab3e4890204739e6ab2e5f420c03756771e6e9614520",
+  "bytes": 4763,
   "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
-  "sourceSha256": "32bb0113dd207ce2644136723c798061b4366bbd47cb800b0ae9884972eadf1c",
+  "sourceSha256": "5f5c9416526f10c7b7d8333157107bc421cc1fa2bee2777e378bade8387fae68",
   "labelIds": [
     37,
     38
   ],
   "labelVoxelCounts": {
     "37": 38,
-    "38": 39
+    "38": 46
   },
   "sourceSamplingMm": 0.5,
   "displayOriginZYX": [
@@ -42,11 +45,11 @@
     -98.0
   ],
   "method": "native-image-reviewed short interior portions; marching cubes 0.5; no smoothing, filling or component removal",
-  "rawSha256": "f6d895dc44016a4a60ebdb25a58c9d66f46123ea4c9b491e31d3a9f51c45afd1",
-  "rawBytes": 13216,
+  "rawSha256": "9154baf4ce0eb6076693500bc83d9eacbbfb01b16c6290979846305350a67923",
+  "rawBytes": 14936,
   "compression": "gzip",
   "expertReviewed": false,
   "partialExtent": true,
   "scope": "Short interior portions of the bilateral optic tracts. Entire tract boundaries, continuity to chiasm/LGN and optic radiations are not included. Not expert-reviewed.",
-  "reviewRecord": "segmentation-patches/review/optic-tract77-adoption-2026-09-19.json"
+  "reviewRecord": "segmentation-patches/review/optic-fourth9-adoption-2026-09-19.json"
 }

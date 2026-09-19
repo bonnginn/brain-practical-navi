@@ -1,6 +1,6 @@
 {
   "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
-  "sourceSha256": "32bb0113dd207ce2644136723c798061b4366bbd47cb800b0ae9884972eadf1c",
+  "sourceSha256": "5f5c9416526f10c7b7d8333157107bc421cc1fa2bee2777e378bade8387fae68",
   "labelIds": [
     31,
     32

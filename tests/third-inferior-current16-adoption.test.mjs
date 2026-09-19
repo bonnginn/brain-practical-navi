@@ -56,7 +56,7 @@ test("third-ventricle correction synchronizes current counts and affected meshes
   assert.equal(metadata.labelCounts["25"], 11873);
   assert.equal(metadata.labelCounts["23"], 81670);
   assert.equal(metadata.labelCounts["24"], 82250);
-  assert.equal(metadata.labelCounts["26"], 9202);
+  assert.equal(metadata.labelCounts["26"], 9200);
   assert.equal(metadata.labelCounts["41"], 267);
   const latest = await (await import('./helpers/residual-mesh-successor.mjs')).withRegionalBatches(record, { afterRevision: record.afterSha256 });
   assert.equal(metadata.rawVoxelSha256, latest.afterRawVoxelSha256);
@@ -64,7 +64,7 @@ test("third-ventricle correction synchronizes current counts and affected meshes
     "bb3063466a39ebedb3c4f7d2250661c6d69bf3eed557d92a35d0065be4c9029d");
   assert.equal(section.sourceSha256, latest.afterSha256);
   assert.equal(section.meshes["section-current-third-ventricle"].voxels, 11873);
-  assert.equal(section.meshes["section-current-ventricular-system"].voxels, 185262);
+  assert.equal(section.meshes["section-current-ventricular-system"].voxels, 185260);
   assert.equal(sha(await read("public/atlas/section-current-third-ventricle.mesh")),
     "1281cf7aba8a01ebd095fe131f02169af5578cf7166b0d4448599861e98b6ee2");
   assert.equal(sha(await read("public/atlas/section-current-ventricular-system.mesh")),
@@ -82,7 +82,7 @@ test("third-ventricle correction synchronizes current counts and affected meshes
 
 test("unchanged aqueduct geometry is pinned to the current source revision", async () => {
   const report = JSON.parse(await read("public/atlas/section-current-aqueduct-partial.json"));
-  assert.equal(report.sourceSha256, "32bb0113dd207ce2644136723c798061b4366bbd47cb800b0ae9884972eadf1c");
+  assert.equal(report.sourceSha256, "5f5c9416526f10c7b7d8333157107bc421cc1fa2bee2777e378bade8387fae68");
   assert.equal(report.voxels, 267);
   assert.equal(sha(await read("public/atlas/section-current-aqueduct-partial.mesh")),
     "13cc011f6507b9f3ad3ff830009c2c9150fbb3b52602c1f561e253c4a9765faa");

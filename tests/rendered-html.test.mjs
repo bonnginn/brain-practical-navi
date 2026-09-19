@@ -196,7 +196,7 @@ test("keeps official labels separate from provisional teaching overlays", async 
   assert.deepEqual(metadata.atlasDerivedIds, [23, 24, 25, 26, 27, 28, 29, 33, 34, 35]);
   assert.deepEqual(metadata.imageGuidedCandidateIds, [30, 31, 32, 36, 41, 42, 43, 46]);
   assert.deepEqual(metadata.projectReviewedPartialIds, [36, 41, 42, 43, 46]);
-  assert.equal(metadata.labelCounts[26], 9202);
+  assert.equal(metadata.labelCounts[26], 9200);
   assert.equal(metadata.labelCounts[46], 1709);
   assert.equal(metadata.labelCounts[41], 267);
   assert.deepEqual(metadata.imageGuidedReviewedIds, [39, 40]);
