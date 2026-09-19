@@ -141,7 +141,7 @@
     "43": 282,
     "44": 1197,
     "45": 1374,
-    "46": 3427,
+    "46": 4461,
     "36": 405,
     "37": 813,
     "38": 744
@@ -481,7 +481,7 @@
     "workflowMetadataStatus": "strict"
   },
   "preClassificationCompressedSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
-  "rawVoxelSha256": "0293a8744fb175bb6781f412a509db6c83036b6235bb7f7f6d4f1f0b6c593cbf",
+  "rawVoxelSha256": "8eb9b3de021705d3750b4467ab448106c676a74e1d4fb862c265c63c75f75c21",
   "brainstemThreeIslandsAudit": {
     "record": "segmentation-patches/review/brainstem-three-islands-adoption-2026-09-06.json",
     "recordSha256": "9c7b14f4272969261e3e2415d3f522b7e5d7db1eeca7cb0c8ae28b225458be66",
@@ -1592,6 +1592,16 @@
       "changedSectionMeshes": [
         "section-current-fornix-body-partial.mesh"
       ]
+    },
+    "fornix-hippocampal1034": {
+      "record": "segmentation-patches/review/fornix-hippocampal1034-adoption-2026-09-20.json",
+      "recordSha256": "7165deff2ce89d9997f1591ecc15228bfeae8ac1e6e17e781d7bda99e7f8b15a",
+      "changedVoxelCount": 1034,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-fornix-body-partial.mesh"
+      ]
     }
   },
   "historicalGenerationClaims": {
@@ -1601,9 +1611,9 @@
   },
   "currentImageMeasurements": {
     "schemaVersion": 1,
-    "sourceLabelSha256": "8602e9a7de226ac7e6aea3ba11f704b458850d4610ba9d8f22d9e531805c139e",
+    "sourceLabelSha256": "d031beb339367fa10887bc98795f3252f6227cf5ff2612f3a56ddc429eb79b93",
     "sourceImageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
-    "rawVoxelSha256": "0293a8744fb175bb6781f412a509db6c83036b6235bb7f7f6d4f1f0b6c593cbf",
+    "rawVoxelSha256": "8eb9b3de021705d3750b4467ab448106c676a74e1d4fb862c265c63c75f75c21",
     "dimensionsXYZ": [
       394,
       466,
@@ -1654,7 +1664,7 @@
       "43": 282,
       "44": 1197,
       "45": 1374,
-      "46": 3427,
+      "46": 4461,
       "36": 405,
       "37": 813,
       "38": 744

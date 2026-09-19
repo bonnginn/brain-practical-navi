@@ -1,33 +1,33 @@
 {
-  "voxels": 3427,
+  "voxels": 4461,
   "components6": 2,
   "componentSizes": [
-    1733,
-    1694
+    2254,
+    2207
   ],
   "boundsZYX": [
     [
       137,
-      202,
-      169
+      191,
+      150
     ],
     [
       184,
       273,
-      235
+      236
     ]
   ],
-  "vertices": 5898,
-  "faces": 12000,
-  "sha256": "a822dd1a795e7fbaaef798f72b473e4c9122ddc3ae8df8b85f791d10595b9d1c",
-  "bytes": 78932,
+  "vertices": 7424,
+  "faces": 15088,
+  "sha256": "b17af5c7f9b1d2c03493e411f6dcddfeb8d38e8378394eeb70f07263d8da4db0",
+  "bytes": 97767,
   "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
-  "sourceSha256": "8602e9a7de226ac7e6aea3ba11f704b458850d4610ba9d8f22d9e531805c139e",
+  "sourceSha256": "d031beb339367fa10887bc98795f3252f6227cf5ff2612f3a56ddc429eb79b93",
   "labelIds": [
     46
   ],
   "labelVoxelCounts": {
-    "46": 3427
+    "46": 4461
   },
   "sourceSamplingMm": 0.5,
   "displayOriginZYX": [
@@ -36,11 +36,11 @@
     -98.0
   ],
   "method": "native-image-reviewed partial body and upper columns; marching cubes 0.5; no resampling, smoothing or filling",
-  "rawSha256": "7b575cd15a73baac4f6151d3b506d310f627e2c254ffc1df114f74dd9a430005",
-  "rawBytes": 309156,
+  "rawSha256": "b734431a585cbf2a8950663e6c7ad5d13822fd69ae1a42bd49d419904f8603d3",
+  "rawBytes": 388940,
   "compression": "gzip",
   "expertReviewed": false,
   "partialExtent": true,
-  "scope": "Partial body, crura and columns, with bilateral column interiors extended toward the anterior commissure through source-traced posterior projecting bands at native40 Z650..550. Approximate 0.5 mm boundaries include partial volume. Full fimbria, columns below this interval and mammillary continuity remain incomplete. Not expert-reviewed.",
-  "reviewRecord": "segmentation-patches/review/fornix-columns234-adoption-2026-09-20.json"
+  "scope": "Partial body, crura and columns, including source-traced posterior extensions toward hippocampal attachment at native100 Y600..660 left and Y620..660 right. Approximate 0.5 mm boundaries include partial volume. Full fimbria, columns below this interval and mammillary continuity remain incomplete. Not expert-reviewed.",
+  "reviewRecord": "segmentation-patches/review/fornix-hippocampal1034-adoption-2026-09-20.json"
 }
