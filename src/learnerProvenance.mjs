@@ -427,7 +427,7 @@ const blockSpecimenMappings = LEARNER_BLOCK_SPECIMEN_KEYS.map(specimen => {
 
 const pathwayMappings = [
   freezeMapping("free:pathway:visual", "free", [
-    "app-schematic-optic-nerve", "app-schematic-optic-chiasm", "surface-deep-thalamus", "section-thalamus", "section-lateral-geniculate-bodies", "section-radiations", "surface-parieto-occipital-calcarine-sulci", "app-surface-pericalcarine", "app-surface-lingual",
+    "app-schematic-optic-nerve", "section-optic-chiasm-central-partial", "section-optic-tracts-partial", "section-lateral-geniculate-bodies", "section-radiations", "surface-parieto-occipital-calcarine-sulci", "app-surface-pericalcarine", "app-surface-lingual",
   ], {
     composite: true,
     requiredSurfaces: ["surface", "sections", "blocks"],
