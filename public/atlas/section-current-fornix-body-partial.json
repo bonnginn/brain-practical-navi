@@ -1,8 +1,8 @@
 {
-  "voxels": 6056,
+  "voxels": 6497,
   "components6": 2,
   "componentSizes": [
-    3068,
+    3509,
     2988
   ],
   "boundsZYX": [
@@ -14,20 +14,20 @@
     [
       184,
       273,
-      256
+      258
     ]
   ],
-  "vertices": 10008,
-  "faces": 20304,
-  "sha256": "bc35a5a73ef474c595ecdad9a41fd5260c9a74957f6f63241d986e49cb91c52b",
-  "bytes": 129807,
+  "vertices": 11032,
+  "faces": 22436,
+  "sha256": "05da93f73e8e91042677c4211312000192d89cc5eb050bf20da4db2441b9a539",
+  "bytes": 142764,
   "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
-  "sourceSha256": "5a66d3e5d60f10a087e55d2a6f62c49699643bec6dc2814f61eaefe2bf83d8e2",
+  "sourceSha256": "236a8ab9a2e0f6ab77e2890e8317bcb163fcc3b0d5b8dfe09c05233e80af55b7",
   "labelIds": [
     46
   ],
   "labelVoxelCounts": {
-    "46": 6056
+    "46": 6497
   },
   "sourceSamplingMm": 0.5,
   "displayOriginZYX": [
@@ -36,11 +36,11 @@
     -98.0
   ],
   "method": "native-image-reviewed partial body and upper columns; marching cubes 0.5; no resampling, smoothing or filling",
-  "rawSha256": "f7d02b2cf6b055c12c92d1b367f42391db9cd0b57898311d563aaad859151996",
-  "rawBytes": 523884,
+  "rawSha256": "7d87c4e92b7d9e180c7094e50a80d761e59219ab443835f33b8bc6a538d7e6c0",
+  "rawBytes": 578140,
   "compression": "gzip",
   "expertReviewed": false,
   "partialExtent": true,
-  "scope": "Partial fornix body, bilateral crura and columns, with left (native100 Y600..720) and right (Y630..680) fimbria continuations. Approximate 0.5 mm boundaries include partial volume. The complete bilateral fimbria, inferior columns and mammillary continuity remain incomplete. Not expert-reviewed.",
-  "reviewRecord": "segmentation-patches/review/fimbria-left128-adoption-2026-09-20.json"
+  "scope": "Partial fornix body, bilateral crura and columns, with left (native100 Y600..720) and right (Y630..730) fimbria continuations. Approximate 0.5 mm boundaries include partial volume. The complete bilateral fimbria, inferior columns and mammillary continuity remain incomplete. Not expert-reviewed.",
+  "reviewRecord": "segmentation-patches/review/fimbria-right441-adoption-2026-09-20.json"
 }
