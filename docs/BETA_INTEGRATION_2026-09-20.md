@@ -24,3 +24,11 @@
 5. 今回修正した現行集計・参考文献検査。全体成功には数え直さず、対象再試験の成功として区別する。
 
 Python統合、Pages形式build、最終配布物検査、全回路と復習導線の完了確認はまだ残る。β完成／公開可能とはまだ判断していない。
+
+## 配布説明・寄稿差分検査の修正
+
+- ブロックの配布加工説明を生成コードと現在の部品一覧に照合し、右側脳室の上方・側頭部開放と側方開放案を追記した。マニフェスト、権利検査の固定契約、DATA_AND_LICENSESを同期。ライセンス、出典URL、notice義務は変更していない。権利・notice対象11件成功（`work/beta-rights-targeted.log`）。
+- 寄稿差分の固定fixtureはSHA `10f1704…` 用だった。SHAが完全一致する既存の `bigbrain-practical-segmentation-pre-fimbria-left128.bin.gz` を入力に使い、fixture本体やvalidatorを緩めず、承認状態・改変・競合の検査を復旧した。現行ラベルに対しては動的な多断面差分の受理と古い差分の拒否を別に検証。対象8件成功（`work/beta-patch-validator-targeted.log`）。
+- orthogonal-review-bundleはさらに、固定SHAとラベル33の固定点数自体が異なる時期の値で混在している。入力先を直すだけでは不十分だったため、その試験の変更は採用していない。過去の生成契約と入力を復元する必要がある（診断ログ `work/beta-orthogonal-targeted.log`）。現行分節をこの古い点数に戻してはならない。
+
+全件再試験や公開更新は行っていない。配布buildの検査は今回のマニフェスト更新後に改めて行う。

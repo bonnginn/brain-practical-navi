@@ -24,6 +24,8 @@ test("block controls sit outside the draggable image and retain touch-sized butt
   assert.match(css, /\.blockModelToolbar \.modelLegend\s*\{\s*position:\s*static/);
 });
 const localPath = (path) => fileURLToPath(new URL(path, root));
+// Fixed contributor fixtures retain their original label revision; live browser patches are tested separately.
+const patchFixtureLabels = "tests/fixtures/bigbrain-practical-segmentation-pre-fimbria-left128.bin.gz";
 
 function resolvePython() {
   const configured = process.env.PYTHON?.trim();
@@ -697,11 +699,11 @@ test("normalizes Japanese readings for free-observation partial search", async (
   assert.match(page, /item\.name,item\.latin,item\.kind,item\.source/);
 });
 
-test("validates browser segmentation patches against the bundled BBS1 grid", () => {
+test("validates fixed contributor patches against their pinned BBS1 input", () => {
   const result = spawnSync(python.command, [...python.prefix,
     localPath("scripts/apply_segmentation_patch.py"),
     localPath("tests/fixtures/segmentation-patch-smoke.json"),
-    "--input", localPath("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"),
+    "--input", localPath(patchFixtureLabels),
     "--check",
   ], {encoding:"utf8"});
   assert.equal(result.status, 0, result.stderr);
@@ -717,7 +719,7 @@ test("strict patch metadata is independently validated and only approved patches
   const tempRoot = await mkdtemp(join(tmpdir(), "brain-patch-metadata-"));
   const runCheck = (patchPath, extra=[]) => spawnSync(python.command, [...python.prefix,
     localPath("scripts/apply_segmentation_patch.py"), patchPath,
-    "--input", localPath("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"),
+    "--input", localPath(patchFixtureLabels),
     "--check", ...extra,
   ], {encoding:"utf8"});
   try {
@@ -763,20 +765,20 @@ test("strict patch metadata is independently validated and only approved patches
     const outputPath = join(tempRoot, "approved.bin.gz");
     const approvedResult = spawnSync(python.command, [...python.prefix,
       localPath("scripts/apply_segmentation_patch.py"), approvedPath,
-      "--input", localPath("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"),
+      "--input", localPath(patchFixtureLabels),
       "--output", outputPath,
     ], {encoding:"utf8"});
     assert.equal(approvedResult.status, 0, approvedResult.stderr);
     assert.deepEqual(readVolumeHeader(await readFile(outputPath), "BBS1").dims, [394,466,378]);
     const unreviewedOutput = spawnSync(python.command, [...python.prefix,
       localPath("scripts/apply_segmentation_patch.py"), strictPath,
-      "--input", localPath("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"),
+      "--input", localPath(patchFixtureLabels),
       "--output", join(tempRoot, "unreviewed.bin.gz"),
     ], {encoding:"utf8"});
     assert.notEqual(unreviewedOutput.status, 0);
     const legacyOutput = spawnSync(python.command, [...python.prefix,
       localPath("scripts/apply_segmentation_patch.py"), localPath("tests/fixtures/segmentation-patch-smoke.json"),
-      "--input", localPath("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"),
+      "--input", localPath(patchFixtureLabels),
       "--output", join(tempRoot, "legacy.bin.gz"),
     ], {encoding:"utf8"});
     assert.notEqual(legacyOutput.status, 0);
@@ -787,7 +789,7 @@ test("strict patch metadata is independently validated and only approved patches
 
 test("enforces the complete review decision matrix and rejects non-approved output", async () => {
   const tempRoot = await mkdtemp(join(tmpdir(), "brain-review-matrix-"));
-  const inputPath = localPath("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz");
+  const inputPath = localPath(patchFixtureLabels);
   const approvedFixture = JSON.parse(await readFile(new URL("tests/fixtures/segmentation-patch-strict-approved.json", root), "utf8"));
   const check = path => spawnSync(python.command, [...python.prefix,
     localPath("scripts/apply_segmentation_patch.py"), path, "--input", inputPath, "--check",
@@ -886,7 +888,7 @@ test("does not auto-approve an unrelated legacy approved patch", async () => {
     await writeFile(legacyPath, JSON.stringify(patch));
     const result = spawnSync(python.command, [...python.prefix,
       localPath("scripts/upgrade_segmentation_patch_metadata.py"), legacyPath,
-      "--input", localPath("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"),
+      "--input", localPath(patchFixtureLabels),
       "--output-dir", join(tempRoot, "out"),
     ], {encoding:"utf8"});
     assert.notEqual(result.status, 0);
@@ -951,7 +953,12 @@ test("pins segmentation patches to the exact bundled label revision", async () =
   assert.match(editor, /const LABEL_SHA256=SEGMENTATION_LABEL_SHA256/);
   assert.match(editor, /LABEL_FETCH_URL=`\$\{LABEL_URL\}\?v=\$\{SEGMENTATION_LABEL_REVISION\}`/);
   assert.match(canvas, /\?v=\$\{SEGMENTATION_LABEL_REVISION\}/);
-  assert.equal(JSON.parse(fixtureText).sourceLabelsSha256, digest);
+  const fixtureDigest=createHash("sha256").update(await readFile(localPath(patchFixtureLabels))).digest("hex");
+  assert.equal(JSON.parse(fixtureText).sourceLabelsSha256, fixtureDigest);
+  assert.notEqual(fixtureDigest,digest);
+  const stale=spawnSync(python.command,[...python.prefix,localPath("scripts/apply_segmentation_patch.py"),localPath("tests/fixtures/segmentation-patch-smoke.json"),"--input",localPath("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"),"--check"],{encoding:"utf8"});
+  assert.notEqual(stale.status,0);
+  assert.match(stale.stderr,/sourceLabelsSha256 does not match/);
 });
 
 test("builds a multi-slice multi-transition patch in the browser helper that Python accepts", async () => {
@@ -1261,7 +1268,7 @@ test("detects voxel-level conflicts between contributor segmentation patches", (
     localPath("scripts/check_segmentation_patch_conflicts.py"),
     localPath("tests/fixtures/segmentation-patch-smoke.json"),
     localPath("tests/fixtures/segmentation-patch-conflict.json"),
-    "--input", localPath("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"),
+    "--input", localPath(patchFixtureLabels),
   ], {encoding:"utf8"});
   assert.equal(result.status, 2, result.stderr);
   const audit = JSON.parse(result.stdout);
