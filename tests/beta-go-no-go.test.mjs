@@ -1,3 +1,4 @@
+import {LEARNER_PROVENANCE_MAPPINGS} from "../src/learnerProvenance.mjs";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import test from "node:test";
@@ -33,9 +34,9 @@ test("beta Go/No-Go ledger is valid, exact, and source-counted", () => {
     entryCount: 82,
     expertPendingCount: 82,
     quizTargetCount: 45,
-    mappingCount: 229,
-    resolvedMappingCount: 229,
-    staticMappingCount: 229,
+    mappingCount: LEARNER_PROVENANCE_MAPPINGS.length,
+    resolvedMappingCount: LEARNER_PROVENANCE_MAPPINGS.length,
+    staticMappingCount: LEARNER_PROVENANCE_MAPPINGS.length,
   });
 });
 

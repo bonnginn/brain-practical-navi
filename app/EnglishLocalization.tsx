@@ -6,6 +6,8 @@ import { englishDynamic } from "../src/englishDynamic.mjs";
 
 const catalog = catalogData as Record<string,string>;
 const reviewed:Record<string,string> = {
+  "脳弓・海馬采（部分）":"Fornix and fimbria (partial)",
+  "ID46は同一BigBrain標本の原画像を参照した脳弓の体部・脚・柱と両側海馬采の部分分節です。乳頭体に接する交連後下行部は教材用の概略範囲で、精密な終端、海馬采全長、全外縁、個々の投射は未確定です。断面・自由観察の3Dと、ブロック切断面に現れる範囲で表示します。旧来の模式脳弓とは由来を区別し、通常クイズの正答対象には含めません。":"ID46 is a partial image-guided segmentation of the fornix body, crura, columns and bilateral fimbria in the same BigBrain specimen. The postcommissural descent contacting the mammillary bodies is an approximate teaching extent. Precise terminations, full fimbrial extent, complete boundaries and individual projections remain unresolved. It appears in sections, free-observation 3D and exposed block cut surfaces. Its provenance differs from the older schematic fornix, and it is not a standard quiz answer target.",
   "画像確認済み部分断面":"Image-reviewed partial segmentation",
   "同一標本・画像確認済み部分断面":"Same specimen · image-reviewed partial segmentation",
   "脳実習ナビ":"Brain Practical Navigator",

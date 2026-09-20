@@ -4,6 +4,7 @@ import { documentPath } from "./document_path.mjs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
+import { LEARNER_PROVENANCE_MAPPINGS } from "../src/learnerProvenance.mjs";
 import { auditLearnerProvenance } from "./audit_learner_provenance.mjs";
 import { parseQuizGranularity } from "./audit_quiz_granularity.mjs";
 
@@ -26,8 +27,8 @@ export const EXPECTED_SOURCE_COUNTS = Object.freeze({
   entryCount: 82,
   expertPendingCount: 82,
   quizTargetCount: 45,
-  mappingCount: 229,
-  resolvedMappingCount: 229,
+  mappingCount: LEARNER_PROVENANCE_MAPPINGS.length,
+  resolvedMappingCount: LEARNER_PROVENANCE_MAPPINGS.length,
 });
 export const EXPECTED_CRITERION_STATES = Object.freeze({
   "criterion-01-essential-structure-labels": "expert-blocked",

@@ -1,3 +1,4 @@
+import {LEARNER_PROVENANCE_MAPPINGS} from "../src/learnerProvenance.mjs";
 import assert from "node:assert/strict";
 import {copyFile, mkdtemp, readFile, rm, writeFile} from "node:fs/promises";
 import os from "node:os";
@@ -25,7 +26,7 @@ test("current beta snapshot is derived from the checked-in authoritative contrac
   assert.equal(report.ok, true, report.errors.join("; "));
   assert.deepEqual(report.summary, {
     registryEntryCount: 82,
-    mappingCount: 229,
+    mappingCount: LEARNER_PROVENANCE_MAPPINGS.length,
     routeChecks: 162,
     pwaChecks: 20,
     pwaBlockerCount: 0,
@@ -34,8 +35,8 @@ test("current beta snapshot is derived from the checked-in authoritative contrac
 });
 
 test("snapshot records the current review, quiz, and route boundaries", () => {
-  assert.deepEqual(snapshot.provenance.reviewFilterCounts, {surface: 54, sections: 23, blocks: 30, quiz: 25});
-  assert.deepEqual(snapshot.provenance.learnerMappings, {total: 229, resolved: 229});
+  assert.deepEqual(snapshot.provenance.reviewFilterCounts, {surface: 55, sections: 23, blocks: 31, quiz: 25});
+  assert.deepEqual(snapshot.provenance.learnerMappings, {total: LEARNER_PROVENANCE_MAPPINGS.length, resolved: LEARNER_PROVENANCE_MAPPINGS.length});
   assert.deepEqual(snapshot.quiz, {existingQuestionCount: 23, neurovascularPilotCount: 22, conceptVariantCount: 55, uniqueVisualTargetCount: 45, totalQuestionCount: 100});
   assert.deepEqual(snapshot.routes, {canonicalRouteCount: 27, viewportCount: 3, phaseCount: 2, expectedChecks: 162});
 });

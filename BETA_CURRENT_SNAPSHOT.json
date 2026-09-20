@@ -31,14 +31,14 @@
     "registryEntryCount": 82,
     "expertPendingCount": 82,
     "reviewFilterCounts": {
-      "surface": 54,
+      "surface": 55,
       "sections": 23,
-      "blocks": 30,
+      "blocks": 31,
       "quiz": 25
     },
     "learnerMappings": {
-      "total": 229,
-      "resolved": 229
+      "total": 230,
+      "resolved": 230
     }
   },
   "quiz": {

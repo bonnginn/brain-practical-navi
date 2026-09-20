@@ -352,7 +352,7 @@ export const LEARNER_BLOCK_LAYERS_BY_SPECIMEN = Object.freeze({
   radiations: ["putamen", "pallidum-external", "pallidum-internal", "internal-capsule", "corona-radiata", "optic-radiation", "auditory-radiation"],
   "commissural-system": ["corpus-callosum", "lateral-ventricles", "fornix", "septum-pellucidum"],
   "choroid-plexus": ["ventricular-cavity", "choroid-plexus", "hippocampus"],
-  "medial-temporal": ["hippocampus", "amygdala", "inferior-horn"],
+  "medial-temporal": ["hippocampus", "amygdala", "inferior-horn", "fimbria"],
   "midbrain-section": ["red-nuclei", "substantia-nigra", "aqueduct", "cerebral-peduncles", "superior-colliculi", "inferior-colliculi", "lateral-geniculate-bodies", "medial-geniculate-bodies", "interpeduncular-fossa"],
   hindbrain: ["fourth-ventricle", "superior-cerebellar-peduncles", "middle-cerebellar-peduncles", "inferior-cerebellar-peduncles", "facial-colliculi", "vestibular-areas", "hypoglossal-trigones", "vagal-trigones", "pyramids", "olives"],
 });
@@ -377,6 +377,7 @@ const blockLayerEntryByKey = Object.freeze({
   "corpus-callosum": "section-corpus-callosum",
   "lateral-ventricles": "section-ventricular-system",
   fornix: "section-fornix",
+  fimbria: "section-fornix-body-partial",
   "septum-pellucidum": "section-septum-pellucidum",
   amygdala: "section-hippocampus-amygdala",
   "inferior-horn": "section-ventricular-system",

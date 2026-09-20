@@ -34,10 +34,10 @@ test("learner provenance audit resolves visible target inventories and reports o
   const report = auditLearnerProvenance({registry});
   assert.equal(report.ok, true, report.errors.join("; "));
   assert.equal(report.summary.entryCount, 82);
-  assert.equal(report.summary.mappingCount, 229);
-  assert.equal(report.summary.displayCount, 229);
-  assert.equal(report.summary.resolvedCount, 229);
-  assert.equal(report.summary.resolvedDisplayCount, 229);
+  assert.equal(report.summary.mappingCount, LEARNER_PROVENANCE_MAPPINGS.length);
+  assert.equal(report.summary.displayCount, LEARNER_PROVENANCE_MAPPINGS.length);
+  assert.equal(report.summary.resolvedCount, LEARNER_PROVENANCE_MAPPINGS.length);
+  assert.equal(report.summary.resolvedDisplayCount, LEARNER_PROVENANCE_MAPPINGS.length);
   assert.equal(report.summary.unresolvedCount, 0);
   assert.equal(report.summary.unresolvedDisplayCount, 0);
   assert.equal(report.summary.leafGapCount, 0);
@@ -140,7 +140,7 @@ test("aggregate unresolved displays do not inflate the distinct leaf-gap count",
   const report = auditLearnerProvenance({registry, mappings});
   assert.equal(report.ok, true, report.errors.join("; "));
   assert.equal(report.summary.unresolvedCount, 2);
-  assert.equal(report.summary.resolvedCount, 227);
+  assert.equal(report.summary.resolvedCount, mappings.length-2);
   assert.equal(report.summary.leafGapCount, 1);
   assert.equal(report.summary.unresolvedLeafGapCount, 1);
   assert.equal(report.summary.aggregateUnresolvedCount, 1);
