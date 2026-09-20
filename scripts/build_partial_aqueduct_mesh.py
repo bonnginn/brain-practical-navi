@@ -6,7 +6,7 @@ import json
 import numpy as np
 from build_section_ventricle_meshes import ROOT,ATLAS,SOURCE,reconstruct,DISPLAY_ORIGIN_ZYX
 
-LABEL_SHA='15db8e50352584247bc6073a2a78f4c191c68afc26de0d63f2e44615873de4ba'
+LABEL_SHA='bec6796274f48da8bac3802e1419cd3d7019c6a1d854faada48f83a39ef462b4'
 ADOPTION='segmentation-patches/review/aqueduct-fourth44-adoption-2026-09-16.json'
 ADOPTION_SHA='5387ecdc0ad9a52fca7dbe4c95cce3c5ae25621a95959a846da24ecf186034f4'
 NAME='section-current-aqueduct-partial'

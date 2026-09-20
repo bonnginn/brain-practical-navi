@@ -1,15 +1,15 @@
 {
-  "voxels": 4461,
+  "voxels": 5114,
   "components6": 2,
   "componentSizes": [
-    2254,
-    2207
+    2860,
+    2254
   ],
   "boundsZYX": [
     [
-      137,
+      121,
       191,
-      150
+      142
     ],
     [
       184,
@@ -17,17 +17,17 @@
       236
     ]
   ],
-  "vertices": 7424,
-  "faces": 15088,
-  "sha256": "b17af5c7f9b1d2c03493e411f6dcddfeb8d38e8378394eeb70f07263d8da4db0",
-  "bytes": 97767,
+  "vertices": 8594,
+  "faces": 17452,
+  "sha256": "8198964a639541dea729bbe098953b9c9fc033402912804bf0547e43f9393142",
+  "bytes": 112068,
   "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
-  "sourceSha256": "15db8e50352584247bc6073a2a78f4c191c68afc26de0d63f2e44615873de4ba",
+  "sourceSha256": "bec6796274f48da8bac3802e1419cd3d7019c6a1d854faada48f83a39ef462b4",
   "labelIds": [
     46
   ],
   "labelVoxelCounts": {
-    "46": 4461
+    "46": 5114
   },
   "sourceSamplingMm": 0.5,
   "displayOriginZYX": [
@@ -36,11 +36,11 @@
     -98.0
   ],
   "method": "native-image-reviewed partial body and upper columns; marching cubes 0.5; no resampling, smoothing or filling",
-  "rawSha256": "b734431a585cbf2a8950663e6c7ad5d13822fd69ae1a42bd49d419904f8603d3",
-  "rawBytes": 388940,
+  "rawSha256": "9c066e0768499411de93deae378c9be4c1c9f88d6e8991186fc0a6898ca99e70",
+  "rawBytes": 450068,
   "compression": "gzip",
   "expertReviewed": false,
   "partialExtent": true,
-  "scope": "Partial body, crura and columns, including source-traced posterior extensions toward hippocampal attachment at native100 Y600..660 left and Y620..660 right. Approximate 0.5 mm boundaries include partial volume. Full fimbria, columns below this interval and mammillary continuity remain incomplete. Not expert-reviewed.",
-  "reviewRecord": "segmentation-patches/review/fornix-hippocampal1034-adoption-2026-09-20.json"
+  "scope": "Partial fornix body, bilateral crura and columns, with a left fimbria continuation traced at native100 Y600..700. Approximate 0.5 mm boundaries include partial volume. Right fimbria, the complete left fimbria, inferior columns and mammillary continuity remain incomplete. Not expert-reviewed.",
+  "reviewRecord": "segmentation-patches/review/fimbria-left653-adoption-2026-09-20.json"
 }

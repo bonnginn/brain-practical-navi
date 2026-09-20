@@ -141,7 +141,7 @@
     "43": 282,
     "44": 1197,
     "45": 1374,
-    "46": 4461,
+    "46": 5114,
     "36": 405,
     "37": 1494,
     "38": 1440,
@@ -482,7 +482,7 @@
     "workflowMetadataStatus": "strict"
   },
   "preClassificationCompressedSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
-  "rawVoxelSha256": "e3c78b2457a4ddfd3b8b2a095a49084db0f7927dd5ca14111472bfa64f4c7d0b",
+  "rawVoxelSha256": "adef8e6961ac4a68eb35d8b6576e634be021d891b42e345ef84ab0183ae5ebc3",
   "brainstemThreeIslandsAudit": {
     "record": "segmentation-patches/review/brainstem-three-islands-adoption-2026-09-06.json",
     "recordSha256": "9c7b14f4272969261e3e2415d3f522b7e5d7db1eeca7cb0c8ae28b225458be66",
@@ -1635,6 +1635,16 @@
         "section-current-third-ventricle.mesh",
         "section-current-ventricular-system.mesh"
       ]
+    },
+    "fimbria-left653": {
+      "record": "segmentation-patches/review/fimbria-left653-adoption-2026-09-20.json",
+      "recordSha256": "c5992c4f6ab2497c8ace7480f6144aa18c040155e1cb788965c1b39b8e21402e",
+      "changedVoxelCount": 653,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-fornix-body-partial.mesh"
+      ]
     }
   },
   "historicalGenerationClaims": {
@@ -1644,9 +1654,9 @@
   },
   "currentImageMeasurements": {
     "schemaVersion": 1,
-    "sourceLabelSha256": "15db8e50352584247bc6073a2a78f4c191c68afc26de0d63f2e44615873de4ba",
+    "sourceLabelSha256": "bec6796274f48da8bac3802e1419cd3d7019c6a1d854faada48f83a39ef462b4",
     "sourceImageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
-    "rawVoxelSha256": "e3c78b2457a4ddfd3b8b2a095a49084db0f7927dd5ca14111472bfa64f4c7d0b",
+    "rawVoxelSha256": "adef8e6961ac4a68eb35d8b6576e634be021d891b42e345ef84ab0183ae5ebc3",
     "dimensionsXYZ": [
       394,
       466,
@@ -1697,7 +1707,7 @@
       "43": 282,
       "44": 1197,
       "45": 1374,
-      "46": 4461,
+      "46": 5114,
       "36": 405,
       "37": 1494,
       "38": 1440,
