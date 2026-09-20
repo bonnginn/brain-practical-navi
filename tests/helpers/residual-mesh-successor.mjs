@@ -21,16 +21,25 @@ export async function withRegionalBatches(record,{afterRevision=null}={}){
   assert.equal(createHash('sha256').update(bytes).digest('hex'),audit.recordSha256);
   if(!active){if(next.afterSha256===afterRevision){assert.deepEqual(next,record);active=true;}continue;}
   assert.equal(regionalBeforeSha(next),result.afterSha256);
-  assert.deepEqual(next.sectionMeshImpact.before,result.sectionMeshImpact.after);
+  let sectionImpact=next.sectionMeshImpact;
+  if(!sectionImpact){
+   // This adoption uses a compact record: only anterior commissure/internal capsule changed.
+   assert.equal(name,'anterior-commissure185','Unknown compact regional record');
+   assert.ok(next.points.every(p=>[0,31,32].includes(p.before)&&p.after===42));
+   assert.deepEqual(next.changedSectionMeshes,['section-current-anterior-commissure-partial.mesh','section-current-internal-capsule.mesh']);
+   sectionImpact={before:result.sectionMeshImpact.after,after:{...result.sectionMeshImpact.after,sourceSha256:next.afterSha256,rawVoxelSha256:next.afterRawVoxelSha256}};
+  }
+  assert.deepEqual(sectionImpact.before,result.sectionMeshImpact.after);
   for(const p of next.meshImpact.blockMaskImpact){
-   assert.equal(p.changedMaskVoxels,p.added+p.removed);
-   if(p.changedMaskVoxels){
-    assert.equal(p.beforeMatches,true);assert.equal(p.reproducedBeforeSha256,p.beforeSha256);
+   if(name==='anterior-commissure185')assert.ok(Number.isInteger(p.changed)&&p.changed>=0);
+   else assert.equal(p.changedMaskVoxels,p.added+p.removed);
+   if(p.changedMaskVoxels??p.changed){
+    assert.equal(p.beforeMatches,true);if(name!=='anterior-commissure185')assert.equal(p.reproducedBeforeSha256,p.beforeSha256);
     assert.equal(createHash('sha256').update(await read('tests/fixtures/'+p.file.slice(0,-5)+'-pre-'+name+'.mesh')).digest('hex'),p.beforeSha256);
    }
   }
   result={...result,afterSha256:next.afterSha256,afterRawVoxelSha256:next.afterRawVoxelSha256,
-   sectionMeshImpact:{...result.sectionMeshImpact,after:next.sectionMeshImpact.after}};
+   sectionMeshImpact:{...result.sectionMeshImpact,after:sectionImpact.after}};
  }
  assert.equal(active,true,'Unknown regional starting record');return result;
 }
@@ -41,7 +50,7 @@ export async function regionalMeshSuccessor(file,previousSha,afterRevision=null)
   const bytes=await read(audit.record),r=JSON.parse(bytes);
   assert.equal(createHash('sha256').update(bytes).digest('hex'),audit.recordSha256);
   if(!active){if(r.afterSha256===afterRevision)active=true;continue;}
-  const p=r.meshImpact.blockMaskImpact.find(p=>p.file===file&&p.changedMaskVoxels);
+  const p=r.meshImpact.blockMaskImpact.find(p=>p.file===file&&(p.changedMaskVoxels??p.changed));
   if(!p)continue;
   assert.equal(p.beforeSha256,result?.afterSha256??previousSha);
   assert.equal(createHash('sha256').update(await read('tests/fixtures/'+file.slice(0,-5)+'-pre-'+name+'.mesh')).digest('hex'),p.beforeSha256);

@@ -26,7 +26,8 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_IMAGE = ROOT / "public/atlas/bigbrain-icbm500.bin.gz"
-DEFAULT_LABELS = ROOT / "public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"
+# Reproduce the original review using its archived input; never retarget this contract to current labels.
+DEFAULT_LABELS = ROOT / "tests/fixtures/bigbrain-practical-segmentation-pre-ventricle-6744.bin.gz"
 REVIEW_ROOT = ROOT / "work/anatomy-review"
 DEFAULT_OUTPUT = REVIEW_ROOT / "orthogonal-review-bundle-v3"
 
@@ -35,14 +36,13 @@ MAGIC_LABELS = b"BBS1"
 EXPECTED_DIMS = (394, 466, 378)
 EXPECTED_VOXEL_SIZE_MM = (0.5, 0.5, 0.5)
 EXPECTED_IMAGE_SHA256 = "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746"
-EXPECTED_LABELS_SHA256 = "10f1704ae1b632bf6aac7f09ca7641d38e579a68712e7c1870fa173cedcc779f"
-EXPECTED_COUNTS = {27: 264456, 33: 8323, 39: 559, 40: 729}
+EXPECTED_LABELS_SHA256 = "6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56"
+EXPECTED_COUNTS = {27: 254786, 33: 8482, 39: 561, 40: 729}
 REVIEW_LABEL_IDS = (33, 39, 40)
 CONTEXT_LABEL_IDS = (27,)
 OVERLAY_LABEL_IDS = (27, 33, 39, 40)
 MAMMILLARY_LABEL_IDS = (39, 40)
-# ID36 now exists as reviewed central tissue; this read-only bundle still emits no optic candidates.
-FORBIDDEN_PROPOSED_IDS: tuple[int, ...] = ()  # Reviewed partial labels 36-38 are now present.
+FORBIDDEN_PROPOSED_IDS = (36, 37, 38)
 AXES = ("x", "y", "z")
 AXIS_NUMBER = {axis: index for index, axis in enumerate(AXES)}
 PLANE_NAMES = {"x": "sagittal", "y": "coronal", "z": "horizontal"}
@@ -53,7 +53,7 @@ OUTLINE_COLORS = {
     40: (226, 101, 174),
 }
 EXPECTED_IMAGE_PATH = "public/atlas/bigbrain-icbm500.bin.gz"
-EXPECTED_LABELS_PATH = "public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"
+EXPECTED_LABELS_PATH = "tests/fixtures/bigbrain-practical-segmentation-pre-ventricle-6744.bin.gz"
 EXPECTED_CROP = {
     "sourceLabelIds": [33, 39, 40],
     "overlayLabelIds": [27, 33, 39, 40],
@@ -374,7 +374,7 @@ def build_bundle(
         if counts[label_id] != expected:
             raise BundleError(f"ID {label_id} count {counts[label_id]} does not match {expected}")
     if any(int(label_id) in FORBIDDEN_PROPOSED_IDS for label_id in np.unique(labels)):
-        raise BundleError("unadopted optic tract IDs 37-38 were found in the pinned label source")
+        raise BundleError("forbidden proposed IDs 36-38 were found in the pinned label source")
     crop = _target_crop(labels)
     _require(crop == EXPECTED_CROP, "source crop does not match the pinned review crop")
     labels_by_id: dict[str, object] = {}
