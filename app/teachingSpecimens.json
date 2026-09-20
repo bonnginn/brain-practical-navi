@@ -969,6 +969,145 @@
       "surfaceFaces": 32056,
       "bodyVoxels": 38037,
       "colourMethod": "Partition of one shared external/cut surface"
+    },
+    "lateral-ventricle-open": {
+      "parts": [
+        {
+          "file": "teaching-block-lateral-ventricle-open-caudate.mesh",
+          "vertices": 276,
+          "faces": 448,
+          "shadeMin": 0.2837,
+          "shadeMax": 0.9814,
+          "meshSha256": "a1818e0fca56181acdab9b0cc8a8d3a3c1a3dcb8b2df73174005c4be888fe181",
+          "key": "caudate",
+          "role": "structure",
+          "source": "manual-segmentation",
+          "color": "#dc914b",
+          "geometrySamplingMm": 1,
+          "surfaceOnly": true,
+          "sourceLabelIds": [
+            8
+          ]
+        },
+        {
+          "file": "teaching-block-lateral-ventricle-open-thalamus.mesh",
+          "vertices": 1415,
+          "faces": 1462,
+          "shadeMin": 0.0279,
+          "shadeMax": 1.0,
+          "meshSha256": "2258bb50a037e7a021029f6ac784997678c1e821ab669c07fb8171e46ff766fd",
+          "key": "thalamus",
+          "role": "structure",
+          "source": "manual-segmentation",
+          "color": "#8d82c4",
+          "geometrySamplingMm": 1,
+          "surfaceOnly": true,
+          "sourceLabelIds": [
+            16
+          ]
+        },
+        {
+          "file": "teaching-block-lateral-ventricle-open-hippocampus.mesh",
+          "vertices": 1140,
+          "faces": 1334,
+          "shadeMin": 0.5209,
+          "shadeMax": 1.0,
+          "meshSha256": "2317f3ceb7c6dab9ee88c09d2f67879bbe783a03967af35fe72d9208db5adf5d",
+          "key": "hippocampus",
+          "role": "structure",
+          "source": "manual-segmentation",
+          "color": "#c8798d",
+          "geometrySamplingMm": 1,
+          "surfaceOnly": true,
+          "sourceLabelIds": [
+            18
+          ]
+        },
+        {
+          "file": "teaching-block-lateral-ventricle-open-tissue.mesh",
+          "vertices": 78305,
+          "faces": 153026,
+          "shadeMin": 0.0,
+          "shadeMax": 1.0,
+          "meshSha256": "c5234724e3ae73a07a6316423e5a26d09757fdb03e32e877e0201b0c8f02e44f",
+          "key": "tissue",
+          "role": "tissue",
+          "source": "specimen-derived",
+          "color": "#c9a27d",
+          "geometrySamplingMm": 1,
+          "surfaceOnly": true
+        }
+      ],
+      "boundsXYZmm": [
+        [
+          0,
+          80
+        ],
+        [
+          -65,
+          65
+        ],
+        [
+          -56,
+          30
+        ]
+      ],
+      "surfaceFaces": 156270,
+      "bodyVoxels": 250222,
+      "colourMethod": "Partition of one shared external/cut surface",
+      "preparation": "Right-sided block with superior and lateral openings; retained medial wall and floor",
+      "cuts": {
+        "roofY": [
+          -65,
+          -40,
+          -25,
+          -10,
+          10,
+          25,
+          45,
+          65
+        ],
+        "roofZ": [
+          -9,
+          -9,
+          3,
+          5,
+          5,
+          -3,
+          -14,
+          -14
+        ],
+        "temporalY": [
+          -35,
+          -25,
+          -15,
+          -5,
+          5,
+          15
+        ],
+        "temporalX": [
+          24,
+          23,
+          25,
+          25,
+          24,
+          23
+        ],
+        "temporalZ": [
+          -12,
+          -14,
+          -23,
+          -29,
+          -35,
+          -39
+        ],
+        "lateralOpening": "Remove tissue lateral to ID24 at each Y/Z; retain medial wall and floor"
+      },
+      "retainedLabelVoxels": {
+        "8": 648,
+        "16": 8358,
+        "18": 4077
+      }
     }
   }
 }

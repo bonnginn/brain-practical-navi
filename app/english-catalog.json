@@ -2077,5 +2077,15 @@
   "腔壁をつくる尾状核・視床の露出面": "Exposed caudate and thalamic surfaces at the ventricular wall",
   "側頭葉側の窓から下角と海馬を探す": "Find the inferior horn and hippocampus through the temporal opening",
   "脳室の形（鋳型）": "Ventricle shape (cast)",
-  "右側脳室の空間を鋳型として表示しています。組織の標本ではありません。回転して、前角・体部から後角・下角へ曲がる形を観察してください。": "This cast represents the space inside the right lateral ventricle, not tissue. Rotate it to follow the anterior horn and body into the posterior and inferior horns."
+  "右側脳室の空間を鋳型として表示しています。組織の標本ではありません。回転して、前角・体部から後角・下角へ曲がる形を観察してください。": "This cast represents the space inside the right lateral ventricle, not tissue. Rotate it to follow the anterior horn and body into the posterior and inferior horns.",
+  "側脳室の標本を選ぶ": "Choose a ventricular preparation",
+  "海馬観察ブロック": "Hippocampal preparation",
+  "上・外側開放ブロック": "Superior/lateral opening",
+  "側脳室の上・外側開放ブロック": "Lateral ventricle: superior and lateral opening",
+  "屋根と外側壁を開放した別の組織ブロックです。内側壁・床とその下の組織を残し、上と横から側脳室の空洞の形を見通します。": "A separate tissue block opens the roof and lateral wall. The medial wall, floor and underlying tissue remain, allowing inspection of the ventricular space from above and from the side.",
+  "上から前角・体部の空洞を追う": "Follow the anterior horn and body from above",
+  "横から後方への曲がりと下角を観察する": "View the posterior bend and inferior horn from the side",
+  "残った床・内側壁と周囲組織の厚みを確かめる": "Inspect the retained floor, medial wall and supporting tissue",
+  "外側壁の切除には尾状核の一部も含まれます。実習資料を参考に設計した仮想切除で、全壁が保存された標本ではありません。鋳型や透過表示は使っていません。": "Removing the lateral wall also removes part of the caudate. This virtual preparation adapts dissection references; it does not retain every wall. No cavity cast or transparency is used.",
+  "着色は、残った組織の露出面を確認するための表示です。脳室の空洞はそのまま残ります。": "Colour identifies exposed surfaces of the retained tissue. The ventricular space remains empty."
 }

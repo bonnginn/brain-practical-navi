@@ -45,12 +45,19 @@ def preparation(raw, seg):
                              temporalZ=temporal_z)
 
 
-def generate(out):
+def generate(out, open_side=False):
     rawfine, dims = b.read_volume(b.BIGBRAIN, b'BBV1')
     fine, sdims = b.read_volume(b.SEGMENTATION, b'BBS1')
     assert dims == sdims
     raw, seg = rawfine[::2, ::2, ::2], fine[::2, ::2, ::2]
     body, region, cuts = preparation(raw, seg)
+    key = 'lateral-ventricle-open' if open_side else 'lateral-ventricle'
+    if open_side:
+        # Lateral access through the existing cavity, leaving its medial wall
+        # and the tissue underneath. No cavity cast is part of this block.
+        side_opening = np.maximum.accumulate(seg == 24, axis=2)
+        body = b.largest_component(body & ~side_opening)
+        cuts['lateralOpening'] = 'Remove tissue lateral to ID24 at each Y/Z; retain medial wall and floor'
     mesh = b.mesh_from_mask(body, raw, True)
     ids = surface_ids(mesh, body, fine)
     parts = []
@@ -62,27 +69,28 @@ def generate(out):
         keep = np.isin(ids, labels) if labels else ~assigned
         assigned |= keep
         assert keep.any(), name
-        p = b.write_mesh('teaching-block-lateral-ventricle-'+name,
+        p = b.write_mesh('teaching-block-'+key+'-'+name,
                          subset_mesh(mesh, keep), out, compress=True)
         p.update(key=name, role='structure' if labels else 'tissue',
                  source='manual-segmentation' if labels else 'specimen-derived',
                  color=color, geometrySamplingMm=1, surfaceOnly=True)
         if labels: p['sourceLabelIds'] = labels
         parts.append(p)
-    cavity = b.fine_cavity_mask(fine, 24, region)
-    p = b.write_mesh('teaching-block-lateral-ventricle-ventricular-cavity',
-                     b.mesh_from_fine_cavity(cavity), out, compress=True)
-    p.update(key='ventricular-cavity', role='cavity', source='same-grid-segmentation',
-             color='#45aebe', geometrySamplingMm=.5)
-    parts.append(p)
+    if not open_side:
+        cavity = b.fine_cavity_mask(fine, 24, region)
+        p = b.write_mesh('teaching-block-lateral-ventricle-ventricular-cavity',
+                         b.mesh_from_fine_cavity(cavity), out, compress=True)
+        p.update(key='ventricular-cavity', role='cavity', source='same-grid-segmentation',
+                 color='#45aebe', geometrySamplingMm=.5)
+        parts.append(p)
     report = dict(parts=parts, boundsXYZmm=region, surfaceFaces=len(mesh[3]),
                   bodyVoxels=int(body.sum()),
                   colourMethod='Partition of one shared external/cut surface',
-                  preparation='Right hemisphere: broad roof ramps and lateral temporal opening',
+                  preparation=('Right-sided block with superior and lateral openings; retained medial wall and floor' if open_side else 'Right hemisphere: broad roof ramps and lateral temporal opening'),
                   cuts=cuts, retainedLabelVoxels={str(i):int((body & (seg==i)).sum())
                                                  for i in (8,16,18)})
     assert sum(p['faces'] for p in parts if p['role']!='cavity') == len(mesh[3])
-    (out/'lateral-ventricle.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+    (out/(key+'.json')).write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     np.savez_compressed(out/'preparation-mask.npz',body=body)
     print(json.dumps({k:v for k,v in report.items() if k!='parts'}),flush=True)
     print('source label SHA',hashlib.sha256(b.SEGMENTATION.read_bytes()).hexdigest(),flush=True)
@@ -91,6 +99,7 @@ def generate(out):
 if __name__ == '__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output-dir',type=Path,required=True)
+    parser.add_argument('--open-side',action='store_true')
     args=parser.parse_args()
     args.output_dir.mkdir(parents=True,exist_ok=False)
-    generate(args.output_dir)
+    generate(args.output_dir,args.open_side)

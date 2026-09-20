@@ -24,7 +24,7 @@ type SurfaceLandmark="central-sulcus"|"precentral-sulcus"|"lateral-sulcus"|"supe
 type SurfaceDeepLandmark="corpus-callosum"|"septum-pellucidum"|"fornix"|"thalami"|"hypothalamus";
 type SpecimenTissueMode="solid"|"ghost"|"hidden";
 type Rotation={x:number;y:number;z?:number};
-type SpecimenBlock="none"|"lateral-ventricle"|"diencephalon"|"radiations"|"commissural-system"|"choroid-plexus"|"medial-temporal"|"midbrain-section"|"hindbrain"|"model-strategy-current-ventricles"|"model-strategy-ventricle";
+type SpecimenBlock="lateral-ventricle-open"|"none"|"lateral-ventricle"|"diencephalon"|"radiations"|"commissural-system"|"choroid-plexus"|"medial-temporal"|"midbrain-section"|"hindbrain"|"model-strategy-current-ventricles"|"model-strategy-ventricle";
 type BlockContextSpecimen="none"|"lateral-ventricle"|"diencephalon"|"radiations"|"commissural-system"|"choroid-plexus"|"medial-temporal"|"midbrain-section"|"hindbrain";
 type SpecimenPartDefinition={key:string;asset?:string;layer?:string;attachment?:"pons-medulla";color:[number,number,number,number];material:1|4;role?:"tissue"|"structure"|"cavity"|"schematic"};
 type LoadedSpecimenPart={mesh:Mesh;definition:SpecimenPartDefinition};
@@ -83,6 +83,7 @@ const SURFACE_DEEP_LANDMARKS:{key:SurfaceDeepLandmark;color:[number,number,numbe
   {key:"hypothalamus",color:[.73,.47,.39,1]},
 ];
 const SPECIMEN_PARTS:Record<Exclude<SpecimenBlock,"none">,SpecimenPartDefinition[]>={
+  "lateral-ventricle-open":[],
   "lateral-ventricle":[
     {key:"tissue",color:[.79,.64,.49,1],material:4},
     {key:"ventricular-cavity",layer:"ventricular-cavity",color:[.27,.68,.74,1],material:1},
