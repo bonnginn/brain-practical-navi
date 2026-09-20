@@ -2069,5 +2069,11 @@
   "中脳水道と周囲組織": "Aqueduct and surrounding tissue",
   "小脳白質の分枝と皮質": "Branching cerebellar white matter and cortex",
   "脳幹と小脳の間の第四脳室": "Fourth ventricle between brainstem and cerebellum",
-  "中脳・橋・延髄へ続く組織": "Tissue continuing through midbrain, pons and medulla"
+  "中脳・橋・延髄へ続く組織": "Tissue continuing through midbrain, pons and medulla",
+  "側脳室と海馬の開放標本（試作）": "Opened lateral ventricle and hippocampus (prototype)",
+  "右半球の上側と側頭葉側を開いた仮想剖出標本です。上から側脳室を、回転して側方から下角と海馬を観察します。": "A virtual right-sided prosection opens the roof and temporal side. Inspect the lateral ventricle from above, then rotate to view the inferior horn and hippocampus.",
+  "実習書の剖出を参考にした独自の切除範囲です。組織の付着を残し、切除面に現れる部分だけを着色します。脈絡叢や線維の質感は再現していません。": "The virtual cuts are an app-specific adaptation of dissection references. Tissue attachments are retained, and only exposed surfaces are coloured. Choroid plexus and fibre texture are not reproduced.",
+  "上側から開いた側脳室と腔壁": "Lateral ventricle and walls exposed from above",
+  "腔壁をつくる尾状核・視床の露出面": "Exposed caudate and thalamic surfaces at the ventricular wall",
+  "側頭葉側の窓から下角と海馬を探す": "Find the inferior horn and hippocampus through the temporal opening"
 }

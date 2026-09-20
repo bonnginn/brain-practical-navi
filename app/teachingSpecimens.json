@@ -1,68 +1,68 @@
 {
   "sourceLabelSha256": "a0be53bb43f2316bd9100903d6e81ac65b23fe6830c3500cd18c4acba5883417",
   "sourceImageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
-  "preparation": "Broad planar tissue slabs. All labelled and unlabelled tissue shares one surface. Colour partitions exposed faces only; no label-shaped excavation or isolated internal shells.",
+  "preparation": "Shared opaque tissue surfaces with specimen-specific virtual cuts. Lateral ventricle: roof and temporal opening; other preparations: planar cuts. Colour annotates exposed surfaces only.",
   "specimens": {
     "lateral-ventricle": {
       "parts": [
         {
           "file": "teaching-block-lateral-ventricle-caudate.mesh",
-          "vertices": 723,
-          "faces": 910,
-          "shadeMin": 0.2558,
-          "shadeMax": 0.9488,
-          "meshSha256": "a3d2e583544352b26f364f2713ec58c2a4397af98251d55602844fcac0c83153",
+          "vertices": 1134,
+          "faces": 1663,
+          "shadeMin": 0.1535,
+          "shadeMax": 0.9442,
+          "meshSha256": "6dff70686adf82d327380281a514773adc8a5126cb8227d66c0c67280fda0ac2",
           "key": "caudate",
           "role": "structure",
           "source": "manual-segmentation",
           "color": "#dc914b",
           "geometrySamplingMm": 1,
+          "surfaceOnly": true,
           "sourceLabelIds": [
             8
-          ],
-          "surfaceOnly": true
+          ]
         },
         {
           "file": "teaching-block-lateral-ventricle-thalamus.mesh",
-          "vertices": 1180,
-          "faces": 1566,
-          "shadeMin": 0.0,
+          "vertices": 1211,
+          "faces": 1195,
+          "shadeMin": 0.0279,
           "shadeMax": 1.0,
-          "meshSha256": "8a41e703132f3916c07543dc9e47b7b51d1c9204d102529e9d5df2296dab6bd6",
+          "meshSha256": "7a90044b8e539783501cba1aa92d4798d78c1792ae7bb0caaf6d43f02ea60d70",
           "key": "thalamus",
           "role": "structure",
           "source": "manual-segmentation",
           "color": "#8d82c4",
           "geometrySamplingMm": 1,
+          "surfaceOnly": true,
           "sourceLabelIds": [
             16
-          ],
-          "surfaceOnly": true
+          ]
         },
         {
           "file": "teaching-block-lateral-ventricle-hippocampus.mesh",
-          "vertices": 236,
-          "faces": 288,
-          "shadeMin": 0.5256,
-          "shadeMax": 0.9628,
-          "meshSha256": "c223c5063a78f7d19f340d3e367487f2f60f916380a1ff7da4f9f77e9f5c1554",
+          "vertices": 1093,
+          "faces": 1236,
+          "shadeMin": 0.5209,
+          "shadeMax": 1.0,
+          "meshSha256": "9f1d6cf11c66c795f04c1fa908ec6ebc193483cda0555060cffcef7cb06d52f4",
           "key": "hippocampus",
           "role": "structure",
           "source": "manual-segmentation",
           "color": "#c8798d",
           "geometrySamplingMm": 1,
+          "surfaceOnly": true,
           "sourceLabelIds": [
             18
-          ],
-          "surfaceOnly": true
+          ]
         },
         {
           "file": "teaching-block-lateral-ventricle-tissue.mesh",
-          "vertices": 48269,
-          "faces": 94130,
+          "vertices": 83078,
+          "faces": 162100,
           "shadeMin": 0.0,
           "shadeMax": 1.0,
-          "meshSha256": "ca57bd84792a37ca2ce01ab9a480d29bd87c070b02e33ba0e3f6925ac5e4a3ce",
+          "meshSha256": "029fbebe87650fe7874e611910753e5cb029e0ca3f229d0811c6b8e39e63dd72",
           "key": "tissue",
           "role": "tissue",
           "source": "specimen-derived",
@@ -72,35 +72,87 @@
         },
         {
           "file": "teaching-block-lateral-ventricle-ventricular-cavity.mesh",
-          "vertices": 15561,
-          "faces": 31514,
+          "vertices": 41657,
+          "faces": 84326,
           "shadeMin": 0.82,
           "shadeMax": 0.82,
-          "meshSha256": "c18f7f0891e42f00607359c9a6fbaff3647e0d583e6a8d88d1b1e59fb25ed2c1",
+          "meshSha256": "38b9600671a9684ddcb25cc46c77c7448ff554183c9fc9f441707172f1bbf024",
           "key": "ventricular-cavity",
           "role": "cavity",
           "source": "same-grid-segmentation",
-          "color": "#45aebd",
+          "color": "#45aebe",
           "geometrySamplingMm": 0.5
         }
       ],
       "boundsXYZmm": [
         [
           0,
-          78
+          80
         ],
         [
-          -90,
+          -65,
           65
         ],
         [
-          -28,
-          -8
+          -56,
+          30
         ]
       ],
-      "surfaceFaces": 96894,
-      "bodyVoxels": 170079,
-      "colourMethod": "Partition of one shared external/cut surface"
+      "surfaceFaces": 166194,
+      "bodyVoxels": 283080,
+      "colourMethod": "Partition of one shared external/cut surface",
+      "preparation": "Right hemisphere: broad roof ramps and lateral temporal opening",
+      "cuts": {
+        "roofY": [
+          -65,
+          -40,
+          -25,
+          -10,
+          10,
+          25,
+          45,
+          65
+        ],
+        "roofZ": [
+          -9,
+          -9,
+          3,
+          5,
+          5,
+          -3,
+          -14,
+          -14
+        ],
+        "temporalY": [
+          -35,
+          -25,
+          -15,
+          -5,
+          5,
+          15
+        ],
+        "temporalX": [
+          24,
+          23,
+          25,
+          25,
+          24,
+          23
+        ],
+        "temporalZ": [
+          -12,
+          -14,
+          -23,
+          -29,
+          -35,
+          -39
+        ]
+      },
+      "retainedLabelVoxels": {
+        "8": 3137,
+        "16": 8382,
+        "18": 4094
+      }
     },
     "diencephalon": {
       "parts": [

@@ -1,13 +1,13 @@
 // Thick tissue preparations; colour annotates their shared surface.
 export const teachingSpecimenLessons:Record<string,{name?:string;intro:string;caution:string;observe:string[]}>= {
   "lateral-ventricle": {
-    "name": "側脳室の厚切り標本",
-    "intro": "右半球を水平に厚く切った標本です。側脳室の断面と周囲組織を一緒に残し、切断面に現れる構造を観察します。",
-    "caution": "前角から下角までの全形を一度に露出させた標本ではありません。奥にある構造は組織に隠れます。",
+    "name": "側脳室と海馬の開放標本（試作）",
+    "intro": "右半球の上側と側頭葉側を開いた仮想剖出標本です。上から側脳室を、回転して側方から下角と海馬を観察します。",
+    "caution": "実習書の剖出を参考にした独自の切除範囲です。組織の付着を残し、切除面に現れる部分だけを着色します。脈絡叢や線維の質感は再現していません。",
     "observe": [
-      "側脳室の切り口と腔壁",
-      "腔に接する尾状核と視床の切断面",
-      "厚みのある周囲白質"
+      "上側から開いた側脳室と腔壁",
+      "腔壁をつくる尾状核・視床の露出面",
+      "側頭葉側の窓から下角と海馬を探す"
     ]
   },
   "diencephalon": {
