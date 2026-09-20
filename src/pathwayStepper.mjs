@@ -62,7 +62,7 @@ export const PAPEZ_STEPS = Object.freeze([
     labelIds: Object.freeze([39, 40]),
     provenance: "既存クイズの乳頭体 target と公開教材ラベルID39・40を再利用",
     reviewStatus: "project-reviewed-expert-pending",
-    note: "3D原画像メッシュはなく、断面ではID39・40を表示します。専門家レビューは未完了です。",
+    note: "同一BigBrain標本のID39・40から生成した左右乳頭体の3Dと、対応する断面ラベルを表示します。専門家レビューは未完了です。",
   }),
   Object.freeze({
     key: "thalamus",

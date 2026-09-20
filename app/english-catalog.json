@@ -53,7 +53,7 @@
   "3Dモデル方針比較を閉じる": "Close 3D model policy comparison",
   "3D上のクリックでも追加できます": "Add to 3D clicks",
   "3D制作": "3D Production",
-  "3D原画像メッシュはなく、断面ではID39・40を表示します。専門家レビューは未完了です。": "No image-derived 3D mesh is available; the sectional view displays label IDs 39 and 40. Expert review is pending.",
+  "同一BigBrain標本のID39・40から生成した左右乳頭体の3Dと、対応する断面ラベルを表示します。専門家レビューは未完了です。": "Displays the paired mammillary-body 3D meshes generated from labels 39 and 40 in the same BigBrain specimen, together with the corresponding section labels. Expert review is pending.",
   "3D表示の拡大縮小": "3D display scale",
   "3D表示を利用できません": "No 3D display available",
   "3D／断面同期": "Synchronized 3D and sectional views",

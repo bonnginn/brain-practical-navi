@@ -387,6 +387,7 @@ const freeObservationItems:FreeObservationItem[]=[
 const freeObservationKinds:FreeObservationKind[]=["脳回・皮質","溝・裂","深部構造","脳底構造","血管","脳神経"];
 const freeObservationByKey=new Map(freeObservationItems.map(item=>[item.key,item]));
 type PathwayPresetKey="visual"|"papez"|"basal-ganglia";
+const visualSections:readonly ({key:StructureKey;position:number}|null)[]=[null,{key:"opticChiasmPartial",position:59},{key:"opticTractsPartial",position:53},{key:"lateralGeniculateBodies",position:47}];
 type PathwayPreset={name:string;summary:string;steps:string[];freeKeys:FreeObservationKey[];sectionKeys:StructureKey[];extraLayers?:{files:string[];color:[number,number,number]}[]};
 const pathwayPresets:Record<PathwayPresetKey,PathwayPreset>={
   papez:{name:"Papez回路",summary:"海馬、脳弓体部・脚・柱の部分分節、乳頭体、アトラス対応の皮質領域を由来別に観察します。海馬采全長と精密な終端境界は未収録です。乳頭体までの概略表示は、全回路の線維走行を再現するものではありません。",steps:["海馬体","脳弓","乳頭体","視床（前部核は未分節）","帯状回","海馬傍回・嗅内野"],freeKeys:["deep:fornix","deep:thalami","region:cingulate","region:parahippocampal","region:entorhinal"],sectionKeys:["hippocampus","fornixBodyPartial","mammillaryBody","thalamus"]},
@@ -854,6 +855,7 @@ export default function Home() {
   const [freeSelections,setFreeSelections]=useState<FreeObservationKey[]>([]);
   const [freeFocusedKey,setFreeFocusedKey]=useState<FreeObservationKey|null>(null);
   const [selectedPathway,setSelectedPathway]=useState<PathwayPresetKey|null>(null);
+  const [visualObservationIndex,setVisualObservationIndex]=useState<number|null>(null);
   const [basalStepperIndex,setBasalStepperIndex]=useState(0);
   const [basalStepperPlaying,setBasalStepperPlaying]=useState(false);
   const [papezStepperIndex,setPapezStepperIndex]=useState(0);
@@ -965,8 +967,11 @@ export default function Home() {
   const freePathwayMeshLayers=useMemo(()=>{
     if(!activePathway)return [];
     const keys=selectedPathway==="basal-ganglia"?basalStepperStructureKeys:activePathway.sectionKeys;
-    return [...keys.flatMap(key=>{const files=bigbrainSectionMeshFiles[key]??structureMeshFiles[key]??[];return files.length?[{files,color:structures[key].rgb}]:[]}),...(selectedPathway==="basal-ganglia"?[]:(activePathway.extraLayers??[]))];
-  },[activePathway,basalStepperStructureKeys,selectedPathway]);
+    const visualFocus=selectedPathway==="visual"&&visualObservationIndex!==null;
+    const focusedKey=visualObservationIndex===null?null:visualSections[visualObservationIndex]?.key;
+    const contextColor:[number,number,number]=[110,119,124];
+    return [...keys.flatMap(key=>{const files=bigbrainSectionMeshFiles[key]??structureMeshFiles[key]??[];return files.length?[{files,color:visualFocus&&key!==focusedKey?contextColor:structures[key].rgb}]:[]}),...(selectedPathway==="basal-ganglia"?[]:(activePathway.extraLayers??[]).map(layer=>({...layer,color:visualFocus&&visualObservationIndex!==4?contextColor:layer.color})))];
+  },[activePathway,basalStepperStructureKeys,selectedPathway,visualObservationIndex]);
   const papezStepperMeshLayers=useMemo(()=>!["section-label","image-reviewed-partial-section"].includes(papezStepperStep.kind)?[]:papezStepperSectionKeys.flatMap(key=>{const files=bigbrainSectionMeshFiles[key]??structureMeshFiles[key]??[];return files.length?[{files,color:structures[key].rgb}]:[]}),[papezStepperSectionKeys,papezStepperStep.kind]);
   const papezStepperHasMesh=papezStepperMeshLayers.length>0;
   const basalStepperSliceHighlights=useMemo<HighlightLayer[]>(()=>basalStepperStructureKeys.map(key=>({ids:structures[key].bigbrainIds??[],color:structures[key].rgb})),[basalStepperStructureKeys]);
@@ -1311,6 +1316,7 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
   function applyPathwayPreset(key:PathwayPresetKey){
     const preset=pathwayPresets[key];
     setSelectedPathway(key);
+    setVisualObservationIndex(null);
     setBasalStepperPlaying(false);
     setPapezStepperPlaying(false);
     if(key==="basal-ganglia"){
@@ -1340,8 +1346,12 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
     if(selectedPathway==="papez")choosePapezStepperStep(index);
     else if(selectedPathway==="basal-ganglia")chooseBasalStepperStep(index);
     else {
-      const visualSections:({key:StructureKey;position:number}|null)[]=[null,{key:"opticChiasmPartial",position:59},{key:"opticTractsPartial",position:53},{key:"lateralGeniculateBodies",position:47}];
+
       const sectionTarget=selectedPathway==="visual"?visualSections[index]:null;
+      if(selectedPathway==="visual")setVisualObservationIndex(index);
+      // Selecting an explanation previews the existing 3D group without leaving
+      // the guide. The explicit observation button opens the matching section.
+      if(sectionTarget&&!moveFocus){setSurfaceGhost(true);return}
       if(sectionTarget){openWorkspace("sections");jump("coronal",sectionTarget.position,"replace");setVisibleStructures([sectionTarget.key]);focusStructure(sectionTarget.key,true);setLabels(true);if(!moveFocus)return;window.requestAnimationFrame(()=>circuitObservationRef.current?.focus({preventScroll:true}));return}
       const visualTargets:(FreeObservationKey|null)[]=["neuro:cn2","neuro:opticChiasm","neuro:cn2","deep:thalami",null,"region:pericalcarine"];
       const key=visualTargets[index];

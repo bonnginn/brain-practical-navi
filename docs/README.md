@@ -230,3 +230,5 @@ Historical audit results describe their recorded checkpoint, not the current rel
 - [視交叉中央内部112点の統合](OPTIC_CENTRAL112_INTEGRATION_2026-09-19.md)
 
 - [第三脳室残存小片11点の統合](THIRD_RESIDUAL11_INTEGRATION_2026-09-20.md)：原画像で確認した壁外小片の除外、断面3D・ブロックの同期。
+
+- [脳弓・視覚路・脳室接続の改善・統合確認](ANATOMY_GOAL_INTEGRATION_2026-09-20.md)：現在の採用範囲、操作確認、未確証箇所と必要な証拠。
