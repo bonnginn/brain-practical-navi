@@ -18,6 +18,7 @@
 以下は参照用索引です。各文書の「現在」「次」「停止」「担当」はその記録日・作業枠に属します。新しい再開メモと現在のユーザー指示を優先し、過去の承認を別の公開操作へ流用しません。ハッシュ固定の証拠はこの注釈のために書き換えません。
 
 - [整理前AGENTS.mdの保存履歴](AGENTS_HISTORY_2026-09-18.md)
+- [BigBrain広域調査の確認：海馬・扁桃体、BraDiPho、小脳、内側膝状体](BIGBRAIN_SURVEY_VERIFICATION_2026-09-20.md)
 - [モンロー孔：全体位置・原画像・現行ラベルの観察案内](MONRO_OBSERVATION_GUIDE_2026-09-19.md)
 - [視交叉・近位視索：native40の目印照合と次の境界比較](OPTIC_LANDMARK_REVIEW_2026-09-19.md)
 - [脳弓体部の前方延長：266点の未適用候補](FORNIX_ANTERIOR_DRAFT_2026-09-19.md)
@@ -227,3 +228,5 @@ Historical audit results describe their recorded checkpoint, not the current rel
 - [視交叉前方の内部案と格子の広がり（9月19日）](OPTIC_ANTERIOR_INTERIOR_2026-09-19.md)
 
 - [視交叉中央内部112点の統合](OPTIC_CENTRAL112_INTEGRATION_2026-09-19.md)
+
+- [第三脳室残存小片11点の統合](THIRD_RESIDUAL11_INTEGRATION_2026-09-20.md)：原画像で確認した壁外小片の除外、断面3D・ブロックの同期。

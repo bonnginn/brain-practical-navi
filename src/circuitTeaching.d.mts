@@ -1,6 +1,6 @@
 export type BilingualText = Readonly<{ja:string;en:string}>;
 export type CircuitObservation = Readonly<{label:BilingualText;index:number}>;
-export type CircuitNode = Readonly<{key:string;label:BilingualText;detail:BilingualText;specimen:BilingualText;limitation:BilingualText;observationIndex:number|null;observations?:readonly CircuitObservation[]}>;
+export type CircuitNode = Readonly<{key:string;label:BilingualText;detail:BilingualText;specimen:BilingualText;limitation:BilingualText;observationIndex:number|null;observationKind?:"schematic";observations?:readonly CircuitObservation[]}>;
 export type CircuitPath = Readonly<{key:string;label:BilingualText;kind:string;nodes:readonly string[];signs?:readonly string[];labels?:readonly BilingualText[]}>;
 export type CircuitSource = Readonly<{label:string;url:string}>;
 export type CircuitTeaching = Readonly<{key:string;name:BilingualText;goal:BilingualText;role:BilingualText;paths:readonly CircuitPath[];nodes:readonly CircuitNode[];displayLimit:BilingualText;sources:readonly CircuitSource[]}>;

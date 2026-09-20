@@ -123,7 +123,7 @@
     "22": 15077,
     "23": 81670,
     "24": 82250,
-    "25": 11676,
+    "25": 11665,
     "26": 9200,
     "27": 264456,
     "28": 736104,
@@ -482,7 +482,7 @@
     "workflowMetadataStatus": "strict"
   },
   "preClassificationCompressedSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
-  "rawVoxelSha256": "2130618e100080068212f7d9cd9f3a6d19de1119569c19306fdca3e8c1f47251",
+  "rawVoxelSha256": "c29b144058c9a9dfc0acccd3d18430915e45f0db718bd915e586afd0a4cbc2ce",
   "brainstemThreeIslandsAudit": {
     "record": "segmentation-patches/review/brainstem-three-islands-adoption-2026-09-06.json",
     "recordSha256": "9c7b14f4272969261e3e2415d3f522b7e5d7db1eeca7cb0c8ae28b225458be66",
@@ -1685,6 +1685,17 @@
       "changedSectionMeshes": [
         "section-current-fornix-body-partial.mesh"
       ]
+    },
+    "third-residual11": {
+      "record": "segmentation-patches/review/third-residual11-adoption-2026-09-20.json",
+      "recordSha256": "aafb52a98ebc964af7d3ff0d7a71da0c2cd45bea909024b7587ccdc78b495a23",
+      "changedVoxelCount": 11,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-third-ventricle.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
     }
   },
   "historicalGenerationClaims": {
@@ -1694,9 +1705,9 @@
   },
   "currentImageMeasurements": {
     "schemaVersion": 1,
-    "sourceLabelSha256": "68b1c10d263f0f730334e3acbf633ef1659ab615b71dd27cdbfb312aa36d37d0",
+    "sourceLabelSha256": "a7f3320c7bbe64786726b4058c895cebe6da95200534bfc9d324caf1122a634a",
     "sourceImageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
-    "rawVoxelSha256": "2130618e100080068212f7d9cd9f3a6d19de1119569c19306fdca3e8c1f47251",
+    "rawVoxelSha256": "c29b144058c9a9dfc0acccd3d18430915e45f0db718bd915e586afd0a4cbc2ce",
     "dimensionsXYZ": [
       394,
       466,
@@ -1729,7 +1740,7 @@
       "22": 15077,
       "23": 81670,
       "24": 82250,
-      "25": 11676,
+      "25": 11665,
       "26": 9200,
       "27": 264456,
       "28": 736104,
