@@ -2156,7 +2156,7 @@ test("keeps ghost-surface teaching layers depth-tested and opacity-consistent", 
   assert.match(atlasCanvas, /function teachingColor\(color:number\[],opacity=TEACHING_OVERLAY_OPACITY\)/);
   assert.match(atlasCanvas, /function selectionColor\(color:\[number,number,number\],opacity=TEACHING_OVERLAY_SELECTED_OPACITY\)\{return \[color\[0\]\/255,color\[1\]\/255,color\[2\]\/255,opacity\]\}/);
   assert.match(atlasCanvas, /uniform float clipOn,clipAxis,clipValue,material,hemiMode,selectedOpacity/);
-  assert.match(atlasCanvas, /float outputAlpha=mix\(color\.a,selectedOpacity,clamp\(highlight\.a,0\.,1\.\)\)/);
+  assert.match(atlasCanvas, /float outputAlpha=mix\(color\.a,selectedOpacity,clamp\(abs\(highlight\.a\),0\.,1\.\)\)/);
   assert.match(atlasCanvas, /const ghostSurface=view==="ghost"&&blockMeshes===null/);
   assert.match(atlasCanvas, /else if\(!ghostSurface\)drawSurfaceShell\(\)/);
   assert.match(atlasCanvas, /if\(showFocus&&selectionLayers\.length\)\{if\(!ghostSurface\)gl\.clear\(gl\.DEPTH_BUFFER_BIT\)/);
