@@ -6,6 +6,8 @@ import { englishDynamic } from "../src/englishDynamic.mjs";
 
 const catalog = catalogData as Record<string,string>;
 const reviewed:Record<string,string> = {
+  "画像確認済み部分断面":"Image-reviewed partial segmentation",
+  "同一標本・画像確認済み部分断面":"Same specimen · image-reviewed partial segmentation",
   "脳実習ナビ":"Brain Practical Navigator",
   "脳解剖実習 学習補助アプリ":"Neuroanatomy Practical Learning Aid",
   "教育目的で教材を開く":"Open the learning material",
