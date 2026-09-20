@@ -66,7 +66,7 @@ function auditStaticAppContract(source, routeSource, errors) {
     /const blockInitialRotations:Record<BlockSpecimenKey,Rotation>/,
     /setBlockLayers\(next\.layers\.map\(layer=>layer\.key\)\)/,
     /setRotation\(\{\.\.\.blockInitialRotations\[key\]\}\)/,
-    /setBlockTissueMode\(next\.layers\.length\?"ghost":"solid"\)/,
+    /setBlockTissueMode\("solid"\);setBlockAnswerVisible\(false\);setBlockSchematicsVisible\(false\)/,
     /function chooseBlock\(key:BlockSpecimenKey/,
   ];
   for (const pattern of requiredStatePatterns) if (!pattern.test(source)) addFailure(errors, "selection-state-contract", `existing selection state contract missing: ${pattern}`);

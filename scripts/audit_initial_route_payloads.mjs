@@ -191,7 +191,7 @@ export function assetFamilyForPath(value) {
   const name = fileNameFromPath(value).toLowerCase();
   if (!isLargeAssetPath(value)) return "application";
   if (name.startsWith("block-") && SUPPORT_BLOCK_ASSETS.has(name)) return "teaching-overlays";
-  if (name.startsWith("block-")) return "blocks";
+  if (name.startsWith("block-") || name.startsWith("teaching-block-")) return "blocks";
   if (name.startsWith("pial-") || name.startsWith("segment-")) return "surface";
   if (name.startsWith("overlay-") || name.startsWith("landmark-") || name.startsWith("surface-landmark-")) return "teaching-overlays";
   if (name === "mni-cerebra-1mm.bin.gz" || name === "bigbrain-icbm500.bin.gz" || name === "bigbrain-fixed-mri-0444.bin.gz") return "volume";
@@ -253,7 +253,7 @@ function cloneAssetList(value) {
 function blockAssetNames(route, inventory) {
   const key = routeKeyOf(route);
   const specimen = key.replace(/^blocks-/, "");
-  const prefix = `block-${specimen}-`;
+  const prefix = `teaching-block-${specimen}-`;
   return inventory.files.filter(file => file.name.startsWith(prefix) && MESH_PATTERN.test(file.name)).map(file => file.name);
 }
 

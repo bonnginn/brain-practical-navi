@@ -66,7 +66,9 @@ test("mesh loader preserves pial names, adds separate Brodmann paths, and inflat
   assert.deepEqual(mapping, Object.fromEntries(['pial-left','pial-right','brodmann-left','brodmann-right','brodmann-left-inflated','brodmann-right-inflated'].map(name => [name, `${name}.mesh.gz`])));
   assert.match(source, /function meshAssetFileName\(name:string\)\{return COMPRESSED_MESH_ASSETS\[name\]\|\|`\$\{name\}\.mesh`\}/);
   assert.match(source, /const fileName=meshAssetFileName\(name\),id=`mesh:\$\{fileName\}`/);
-  assert.ok(source.includes('fetchAtlasBuffer(`${ASSET_BASE}atlas/${fileName}${atlasMeshRevisionQuery(name,SEGMENTATION_LABEL_REVISION)}`,id,name,token)'));
+  assert.ok(source.includes('fetchAtlasBuffer(`${ASSET_BASE}atlas/${fileName}'));
+  assert.ok(source.includes('atlasMeshRevisionQuery(name,SEGMENTATION_LABEL_REVISION)'));
+  assert.ok(source.includes('teachingMeshHashes.get(name)'));
   assert.match(source, /if\(hasGzipMagic\(buf\)\)\{const stream=new Blob\(\[buf\]\)\.stream\(\)\.pipeThrough\(new DecompressionStream\("gzip"\)\)/);
   assert.match(source, /magic!==0x424e4d31&&magic!==0x424e4d32&&magic!==0x424e4d33/);
   assert.doesNotMatch(source, /atlas\/\$\{name\}\.mesh`/);

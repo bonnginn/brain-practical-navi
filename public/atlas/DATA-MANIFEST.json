@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated": "2026-09-16",
+  "updated": "2026-09-20",
   "scope": "Every file distributed under public/atlas except this manifest itself must match exactly one group pattern.",
   "groups": [
     {
@@ -142,6 +142,23 @@
       "modifications": "Project-maintained distribution notices.",
       "displayObligation": "Ship these notices unchanged with every copy of the corresponding browser assets.",
       "bundledNotices": []
+    },
+    {
+      "id": "opaque-teaching-specimens",
+      "pattern": "^teaching-block-[^.]+\\.mesh$",
+      "source": "Per-part sources in app/teachingSpecimens.json: BigBrain tissue, adopted manual and image-guided labels, and separately optional project schematics",
+      "sourceUrl": "https://github.com/bonnginn/brain-practical-navi/blob/main/app/teachingSpecimens.json",
+      "license": "Per sourceType; the distributed specimen package retains CC BY-NC-SA 4.0 for BigBrain derivatives and project teaching parts, CC BY 4.0 attribution for Xiao labels, and MNI terms where applicable",
+      "licenseUrl": "https://github.com/bonnginn/brain-practical-navi/blob/main/DATA_AND_LICENSES.md",
+      "modifications": "Virtual exposure cuts applied to support tissue, 1 mm mesh extraction and light surface smoothing with source-image shading; thin adopted fornix/septum/fimbria and selected cavity parts reconstructed at 0.5 mm without smoothing; lossless gzip. Source labels are unchanged.",
+      "displayObligation": "Keep tissue, adopted structure, cavity cast and schematic roles distinct. Begin with opaque uncoloured specimen morphology; reveal answer colours and optional schematics explicitly. Retain all source notices and describe cuts as virtual teaching preparations, not expert-validated physical dissections.",
+      "bundledNotices": [
+        "ATTRIBUTION.txt",
+        "BIGBRAIN-DATA-LICENSE.txt",
+        "BIGBRAIN-MANUAL-LICENSE.txt",
+        "LICENSE.txt",
+        "PROCEDURAL-NEUROVASCULAR-NOTICE.txt"
+      ]
     }
   ]
 }

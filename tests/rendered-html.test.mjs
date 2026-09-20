@@ -18,7 +18,7 @@ test("block controls sit outside the draggable image and retain touch-sized butt
     assert.ok(block.indexOf(group) > block.indexOf('className="blockModelToolbar"'));
   }
   assert.match(css, /\.blockModelToolbar button\s*\{\s*min-height:\s*44px/);
-  assert.match(css, /\.blockModelCard\s*\{\s*grid-template-rows:\s*max-content minmax\(280px,1fr\) max-content;/);
+  assert.match(css, /\.blockModelCard\s*\{\s*grid-template-rows:\s*max-content minmax\(150px,1fr\) max-content;/);
   assert.match(css, /grid-template-columns:minmax\(0,1fr\) clamp\(270px,34vw,310px\)/);
   assert.doesNotMatch(css, /minmax\(270px,34vw,310px\)/);
   assert.match(css, /\.blockModelToolbar \.modelLegend\s*\{\s*position:\s*static/);
@@ -377,7 +377,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   for (const structure of ["上小脳脚", "中小脳脚", "下小脳脚", "顔面神経丘", "前庭野", "舌下神経三角", "迷走神経三角", "錐体", "オリーブ"]) assert.match(page, new RegExp(structure));
   assert.match(page, /標本組織/);
   assert.match(page, /選択だけ/);
-  assert.match(page, /setBlockTissueMode\(next\.layers\.length\?"ghost":"solid"\)/);
+  assert.match(page, /setBlockTissueMode\("solid"\);setBlockAnswerVisible\(false\);setBlockSchematicsVisible\(false\)/);
   assert.match(page, /setSurfaceGhost\(key==="cranialNerves"\|\|key==="arteries"\)/);
   assert.match(canvas, /specimenTissueMode/);
   assert.match(canvas, /gl\.depthMask\(false\)/);
@@ -1382,10 +1382,16 @@ test("keeps the browser distribution below the beta asset budget", async () => {
   const nucleiNames = [...Object.keys(nucleiReport.meshes).map(name => `${name}.mesh`), 'section-current-nuclei.json'];
   const nucleiBytes = (await Promise.all(nucleiNames.map(name => stat(new URL(`public/atlas/${name}`, root))))).reduce((sum, file) => sum + file.size, 0);
   assert.ok(nucleiBytes < 4 * 1024 * 1024, `full-label replacements are ${(nucleiBytes / 1024 / 1024).toFixed(1)} MiB`);
-  assert.ok(publicBytes - brodmannBytes - currentSectionBytes - nucleiBytes < 100 * 1024 * 1024, `legacy public asset budget exceeded`);
+  // Opaque teaching preparations are loaded per specimen; keep a separate
+  // 10 MiB ceiling while preserving the existing source/comparison assets.
+  const teaching = JSON.parse(await readFile(new URL('app/teachingSpecimens.json', root), 'utf8'));
+  const teachingNames = Object.values(teaching.specimens).flatMap(specimen => specimen.parts.map(part => part.file));
+  const teachingBytes = (await Promise.all(teachingNames.map(name => stat(new URL(`public/atlas/${name}`, root))))).reduce((sum, file) => sum + file.size, 0);
+  assert.ok(teachingBytes < 10 * 1024 * 1024, `opaque teaching preparations exceed 10 MiB`);
+  assert.ok(publicBytes - teachingBytes - brodmannBytes - currentSectionBytes - nucleiBytes < 100 * 1024 * 1024, `legacy public asset budget exceeded`);
   assert.ok(brodmannBytes < 12 * 1024 * 1024, `Brodmann assets are ${(brodmannBytes / 1024 / 1024).toFixed(1)} MiB`);
   assert.ok(currentSectionBytes < 3 * 1024 * 1024, `new current section assets are ${(currentSectionBytes / 1024 / 1024).toFixed(1)} MiB`);
-  assert.ok(publicBytes < 119 * 1024 * 1024, `combined public assets are ${(publicBytes / 1024 / 1024).toFixed(1)} MiB`);
+  assert.ok(publicBytes < 129 * 1024 * 1024, `combined public assets are ${(publicBytes / 1024 / 1024).toFixed(1)} MiB`);
 
   for (const obsolete of [
     "mni-cerebra-1mm.bin",
@@ -2169,8 +2175,9 @@ test("presents sulci as teaching guides rather than segmentation boundaries", as
 
 test("describes specimen fidelity limits without implying anatomical validation", async () => {
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
-  assert.doesNotMatch(page.split('"medial-temporal":{name:"海馬・扁桃体標本"')[1].split('"midbrain-section"')[0], /key:"(?:fimbria|uncus)"/);
-  assert.match(page, /海馬采・鉤は信頼できる境界データがなく3D未収録/);
+  const lessons = await readFile(new URL("app/teachingSpecimenLessons.ts", root), "utf8");
+  assert.match(lessons, /鉤の独立分節は含みません/);
+  assert.match(lessons, /海馬采は同一標本から追った部分分節/);
   assert.match(page, /const blockSpecimenDisclaimer="褐色組織は位置関係を読むための表示で[\s\S]*見た目の実在感を形状や境界の正確性の根拠にせず/);
   assert.match(page, /caution:`\$\{blockSpecimenDisclaimer\} \$\{blockSpecimens\[blockSpecimen\]\.caution\}`/);
 });

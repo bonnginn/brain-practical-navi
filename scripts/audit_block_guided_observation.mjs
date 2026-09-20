@@ -41,7 +41,7 @@ const EXPECTED_FOCUS_LAYER_KEYS = Object.freeze({
   "lateral-ventricle": Object.freeze(["ventricular-cavity", "caudate", "thalamus", "hippocampus"]),
   radiations: Object.freeze(["putamen", "pallidum-external", "pallidum-internal", "internal-capsule", "corona-radiata", "optic-radiation", "auditory-radiation"]),
   "choroid-plexus": Object.freeze(["ventricular-cavity", "choroid-plexus", "hippocampus"]),
-  "medial-temporal": Object.freeze(["hippocampus", "amygdala", "inferior-horn"]),
+  "medial-temporal": Object.freeze(["hippocampus", "amygdala", "inferior-horn", "fimbria"]),
 });
 const SAFE_ORDERING_COPY = "UI上の確認順です。解剖・摘出の順序や実習手順を示しません。";
 const PROHIBITED_GUIDE_TEXT = /(昇格|格上げ|promot(?:e|ed|es|ion)|dissection\s*(?:order|sequence)|anatomical\s*(?:dissection\s*)?(?:order|sequence))/i;
@@ -132,7 +132,7 @@ function requirePattern(source, errors, code, pattern, message) {
 function auditStaticUiContract(source, routeSource, errors) {
   requirePattern(source, errors, "guided-import", /blockGuidedObservation\.mjs/, "page must import the separated guided-observation contract");
   requirePattern(source, errors, "guided-eligibility", /const blockGuidedSpecimenKey=\(\[\.\.\.BLOCK_GUIDED_SPECIMEN_KEYS\] as string\[\]\)\.includes\(blockSpecimen\)\?blockSpecimen as BlockGuidedSpecimenKey:null;/, "page must derive guide eligibility from the fixed focus keys");
-  requirePattern(source, errors, "focus-only-ui", /\{blockGuidedSpecimenKey&&<section className=\{"blockGuidedObservation"/, "guided section must be rendered only when the current specimen is in focus4");
+  requirePattern(source, errors, "focus-only-ui", /\{blockAnswerVisible&&blockGuidedSpecimenKey&&<section className=\{"blockGuidedObservation"/, "guided section must be rendered only when the current specimen is in focus4");
   requirePattern(source, errors, "safe-ordering-copy", new RegExp(escapeRegExp(SAFE_ORDERING_COPY)), "guide must state that its order is UI confirmation order, not anatomical/dissection order");
   requirePattern(source, errors, "start-off", /data-block-guided-status=\{blockGuidedActive\?"active":"off"\}/, "guide must expose an explicit inactive/off state");
   for (const marker of ["data-block-guided-start", "data-block-guided-first", "data-block-guided-previous", "data-block-guided-next", "data-block-guided-stop"]) {
@@ -141,7 +141,7 @@ function auditStaticUiContract(source, routeSource, errors) {
   requirePattern(source, errors, "final-display-name", /blockGuidedStep\.final\?"全ての部品":blockGuidedStep\.name/, "final display must use the short all-parts label");
   requirePattern(source, errors, "final-display-note", /blockGuidedStep\.final\?"既存の全レイヤーを表示中":blockGuidedStep\.note/, "final display must not show the long concatenated final note");
   requirePattern(source, errors, "step-layer-application", /setBlockLayers\(next\.active\?\[\.\.\.guidedStepLayers\(next\)\]:\[\.\.\.next\.restoredLayers\]\)/, "current guided step layerKeys must drive blockLayers and finish must restore them");
-  requirePattern(source, errors, "manual-selection-save", /startBlockGuidedObservation\(\{specimenKey:blockGuidedSpecimenKey,layers:specimenLesson\.layers,currentLayers:blockLayers\}\)/, "guide start must save the current manual layer selection");
+  requirePattern(source, errors, "manual-selection-save", /startBlockGuidedObservation\(\{specimenKey:blockGuidedSpecimenKey,layers:blockTeachingLayers,currentLayers:blockLayers\}\)/, "guide start must save the current manual layer selection");
   requirePattern(source, errors, "cleanup-transition", /function chooseBlock\(key:BlockSpecimenKey[\s\S]*?\{stopBlockGuided\(\);/, "specimen switching must stop and restore the active guide");
   requirePattern(source, errors, "cleanup-workspace", /function openWorkspace\(key:WorkspaceMode\)\{if\(key!=="blocks"\)stopBlockGuided\(\);/, "leaving the block workspace must stop and restore the active guide");
   requirePattern(source, errors, "cleanup-unmount", /useEffect\(\(\)=>\(\)=>\{[\s\S]*?finishBlockGuidedObservation\(current\)[\s\S]*?\},\[workspace,blockSpecimen\]\);/, "workspace/specimen cleanup must finish the guide on transition and unmount");
