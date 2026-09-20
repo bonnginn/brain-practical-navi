@@ -1,3 +1,4 @@
+import {currentSegmentation} from './helpers/current-segmentation.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
@@ -33,7 +34,7 @@ test('central third-ventricle fill changes exactly 61 reviewed zero cells and re
  assert.equal(r.evidence.filter(e=>e.visuallyInspectedFigures).reduce((n,e)=>n+e.visuallyInspectedFigures.length,0),46);
  const meta=JSON.parse(await read('public/atlas/bigbrain-practical-segmentation-icbm500-validation.json'));
  assert.equal(meta.regionalBatchAudits['third-central-fringe61'].recordSha256,sha(bytes));
- assert.equal(meta.labelCounts['25'],11676);
+ assert.equal(meta.labelCounts['25'],currentSegmentation.counts[25]);
  const successor=JSON.parse(await read('segmentation-patches/review/aqueduct-core179-adoption-2026-09-08.json'));
  const latest=await withRegionalBatches(r,{afterRevision:r.afterSha256});
  assert.equal(successor.beforeSha256,r.afterSha256);assert.equal(meta.rawVoxelSha256,latest.afterRawVoxelSha256);

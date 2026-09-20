@@ -60,6 +60,15 @@ export async function regionalMeshSuccessor(file,previousSha,afterRevision=null)
  assert.equal(active,true,'Unknown regional starting revision');
  const representation=await fineCavityRepresentationSuccessor(file,result?.afterSha256??previousSha);
  if(representation)return {...representation,firstRecoveryPath:result?.firstRecoveryPath??representation.firstRecoveryPath};
+ if(result&&(result.vertices===undefined||result.faces===undefined)){
+  // Compact adoption records omit geometry counts. Read them from the mesh
+  // only after proving its bytes are the recorded successor.
+  const bytes=await read('public/atlas/'+file);
+  assert.equal(createHash('sha256').update(bytes).digest('hex'),result.afterSha256);
+  const geometry=bytes[0]===0x1f&&bytes[1]===0x8b?gunzipSync(bytes):bytes;
+  assert.equal(geometry.toString('ascii',0,4),'BNM2');
+  result={...result,vertices:geometry.readUInt32LE(4),faces:geometry.readUInt32LE(8)};
+ }
  return result;
 }
 // The 2026-09-15 fine-cavity install changes only mesh representation. Keep it

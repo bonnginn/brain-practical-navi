@@ -196,10 +196,10 @@ test("keeps official labels separate from provisional teaching overlays", async 
   assert.equal(metadata.redNucleusRegistrationAudit.changedVoxelCount, 2224);
   assert.equal(metadata.redNucleusRegistrationAudit.expertReviewed, false);
   assert.deepEqual(metadata.atlasDerivedIds, [23, 24, 25, 26, 27, 28, 29, 33, 34, 35]);
-  assert.deepEqual(metadata.imageGuidedCandidateIds, [30, 31, 32, 36, 41, 42, 43, 46]);
-  assert.deepEqual(metadata.projectReviewedPartialIds, [36, 41, 42, 43, 46]);
+  assert.deepEqual(metadata.imageGuidedCandidateIds, [30, 31, 32, 36, 37, 38, 41, 42, 43, 46]);
+  assert.deepEqual(metadata.projectReviewedPartialIds, [36, 37, 38, 41, 42, 43, 46]);
   assert.equal(metadata.labelCounts[26], 9200);
-  assert.equal(metadata.labelCounts[46], 4461);
+  assert.equal(metadata.labelCounts[46], labels.payload.subarray(10).reduce((sum,value)=>sum+(value===46),0));
   assert.equal(metadata.labelCounts[41], 267);
   assert.deepEqual(metadata.imageGuidedReviewedIds, [39, 40]);
   for (const id of Array.from({ length: 35 }, (_, index) => index + 1)) {
@@ -373,7 +373,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(canvasCss, /\.learningGrid,\.quizWorkspace,\.segWorkbench\{grid-template-columns:minmax\(0,1fr\) clamp\(270px,34vw,310px\)\}/);
   assert.doesNotMatch(canvasCss, /@media\(max-width:900px\)[^\n]*\.learningGrid,\.quizWorkspace,\.segWorkbench\{grid-template-columns:1fr\}/);
   assert.match(page, /小脳を外す/);
-  assert.match(page, /橋・延髄を外す/);
+  assert.match(page, /aria-pressed=\{surfacePonsMedulla\}[^>]*>橋・延髄/);
   assert.doesNotMatch(page, /中脳を外す/);
   assert.match(page, /0\.5 mm標本組織＋構造レイヤー/);
   for (const structure of ["上小脳脚", "中小脳脚", "下小脳脚", "顔面神経丘", "前庭野", "舌下神経三角", "迷走神経三角", "錐体", "オリーブ"]) assert.match(page, new RegExp(structure));
@@ -552,7 +552,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /basalHighlights/);
   assert.match(page, /aria-label="下面の補助レイヤー"/);
   assert.match(page, /surfaceNeurovascular\|\|surfaceView==="inferior"\|\|surfaceView==="free"\?surfaceOverlay:"none"/);
-  assert.match(page, /showBasalLandmarks=\{surfaceView==="inferior"\|\|surfaceView==="cranialNerves"\|\|surfaceView==="free"\}/);
+  assert.match(page, /showBasalLandmarks=\{!circuitPulse&&\(surfaceView==="inferior"\|\|surfaceView==="cranialNerves"\|\|surfaceView==="free"\)\}/);
   assert.match(page, /basalOnlySelected=\{false\}/);
   assert.match(page, /const detachableBrainstemNerveKeys:NeurovascularStructureKey\[]=\["cn5","cn6","cn7","cn8","cn9","cn10","cn11","cn12"\]/);
   assert.match(page, /function toggleFreeHindbrain\(\)/);
@@ -2104,7 +2104,8 @@ test("status dialog renders the JSON registry through a durable direct route", a
   assert.match(page, /\},\[helpOpen,feedbackOpen,legalOpen,statusOpen\]\);/);
   assert.match(page, /if\(!overlayOpen\)overlayReturnFocus\.current\?\.focus\(\)\},\[overlayOpen\]\);/);
   assert.match(page, /function openOverlay\(key:OverlayMode\)\{if\(!overlayOpen\)overlayReturnFocus\.current=document\.activeElement instanceof HTMLElement\?document\.activeElement:null;/);
-  assert.match(page, /海馬采・鉤はβ候補から除外し、現行3Dには収録していません/);
+  assert.match(page, /海馬采は[^<]*部分分節/);
+  assert.doesNotMatch(page, /海馬采・鉤はβ候補から除外し、現行3Dには収録していません/);
   assert.match(page, /旧模式乳頭体2資産は配布されても学習画面の代用表示には使用しません/);
   assert.match(page, /学習画面に表示する形状は「模式補助」「位置目安」と明示します/);
   assert.doesNotMatch(page, /画面上でも「模式補助」「位置目安」と表示します/);
@@ -2159,7 +2160,7 @@ test("keeps ghost-surface teaching layers depth-tested and opacity-consistent", 
   assert.match(atlasCanvas, /const ghostSurface=view==="ghost"&&blockMeshes===null/);
   assert.match(atlasCanvas, /else if\(!ghostSurface\)drawSurfaceShell\(\)/);
   assert.match(atlasCanvas, /if\(showFocus&&selectionLayers\.length\)\{if\(!ghostSurface\)gl\.clear\(gl\.DEPTH_BUFFER_BIT\)/);
-  assert.match(atlasCanvas, /selectionLayers\.forEach\(layer=>layer\.meshes\.forEach\(part=>draw\(part,selectionColor\(layer\.color\),1\)\)\)/);
+  assert.match(atlasCanvas, /selectionLayers\.forEach\(layer=>layer\.meshes\.forEach\(part=>draw\(part,selectionColor\(layer\.color\),1,gl\.TRIANGLES,\[\],layer\.pulse!==false\)\)\)/);
   assert.match(atlasCanvas, /if\(ghostSurface\)\{[\s\S]*?gl\.depthFunc\(gl\.LESS\)[\s\S]*?drawSurfaceShell\(\)/);
   assert.doesNotMatch(atlasCanvas, /if\(view==="ghost"\)gl\.clear\(gl\.DEPTH_BUFFER_BIT\)/);
   assert.match(atlasCanvas, /draw\(overlays\[0\],teachingColor\(\[\.86,\.18,\.14\]\)/);
@@ -2197,7 +2198,7 @@ test("labels provisional questions and includes them in the default quiz setup",
   assert.match(page, /quizIncludeProvisional,setQuizIncludeProvisional\]=useState\(true\)/);
   assert.match(page, /const quizFilters:QuizFilters=\{category:quizCategory,format:quizFormat,detail:quizDetail,kind:quizKind,includeProvisional:quizIncludeProvisional,wrongOnly:quizWrongOnly\}/);
   assert.match(page, /filterQuizCandidates\(quizQuestionsForFiltering,quizFilters,wrongTargets\)/);
-  assert.match(page, /function startQuiz\(\)\{let candidates=quizCandidates;/);
+  assert.match(page, /function startQuiz\(\)\{setQuizCircuit\(null\);let candidates=quizCandidates;/);
   assert.doesNotMatch(page, /quizIncludeProvisional\|\|!isProvisionalQuiz\(question\)/);
   assert.match(page, /試作問題を含む[\s\S]*専門家未確認・位置照合ラベル/);
   assert.match(page, /試作・専門家未確認/);

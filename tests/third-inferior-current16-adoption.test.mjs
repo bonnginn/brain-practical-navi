@@ -1,3 +1,4 @@
+import {currentSegmentation} from './helpers/current-segmentation.mjs';
 import test from "node:test";
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
@@ -53,7 +54,7 @@ test("third-ventricle correction synchronizes current counts and affected meshes
     read("public/atlas/section-current-ventricles.json").then(JSON.parse),
     read("public/atlas/specimen-blocks.json").then(JSON.parse),
   ]);
-  assert.equal(metadata.labelCounts["25"], 11676);
+  assert.equal(metadata.labelCounts["25"], currentSegmentation.counts[25]);
   assert.equal(metadata.labelCounts["23"], 81670);
   assert.equal(metadata.labelCounts["24"], 82250);
   assert.equal(metadata.labelCounts["26"], 9200);
@@ -63,10 +64,10 @@ test("third-ventricle correction synchronizes current counts and affected meshes
   assert.equal(metadata.regionalBatchAudits["third-inferior-current16"].recordSha256,
     "bb3063466a39ebedb3c4f7d2250661c6d69bf3eed557d92a35d0065be4c9029d");
   assert.equal(section.sourceSha256, latest.afterSha256);
-  assert.equal(section.meshes["section-current-third-ventricle"].voxels, 11676);
-  assert.equal(section.meshes["section-current-ventricular-system"].voxels, 185260);
+  assert.equal(section.meshes["section-current-third-ventricle"].voxels, currentSegmentation.counts[25]);
+  assert.equal(section.meshes["section-current-ventricular-system"].voxels, currentSegmentation.ventricularVoxels);
   assert.equal(sha(await read("public/atlas/section-current-third-ventricle.mesh")),
-    "1281cf7aba8a01ebd095fe131f02169af5578cf7166b0d4448599861e98b6ee2");
+    latest.sectionMeshImpact.after.meshes["section-current-third-ventricle"].sha256);
   assert.equal(sha(await read("public/atlas/section-current-ventricular-system.mesh")),
     latest.sectionMeshImpact.after.meshes["section-current-ventricular-system"].sha256);
 
@@ -74,7 +75,8 @@ test("third-ventricle correction synchronizes current counts and affected meshes
   assert.deepEqual(changed.map((part) => [part.block, part.part, part.added, part.removed]),
     [["diencephalon", "third-ventricle", 0, 2]]);
   const part = manifest.specimens.diencephalon.find((item) => item.part === "third-ventricle");
-  assert.equal(part.meshSha256, "cc0c38208dc6d9547c662b0fa8ab5839db354faba55bf8c39e10c81eb66f2526");
+  const successor=await (await import('./helpers/residual-mesh-successor.mjs')).regionalMeshSuccessor(part.file,changed[0].afterSha256,record.afterSha256);
+  assert.equal(part.meshSha256, successor?.afterSha256??changed[0].afterSha256);
   assert.equal(sha(await read("public/atlas/block-diencephalon-third-ventricle.mesh")), part.meshSha256);
   assert.equal(sha(await read("tests/fixtures/block-diencephalon-third-ventricle-pre-third-inferior-current16.mesh")),
     "34905fdc6138b8d6a070f3515ae643b770fac3d4e9d924fa3dd171c0af0fb3cb");
@@ -82,7 +84,7 @@ test("third-ventricle correction synchronizes current counts and affected meshes
 
 test("unchanged aqueduct geometry is pinned to the current source revision", async () => {
   const report = JSON.parse(await read("public/atlas/section-current-aqueduct-partial.json"));
-  assert.equal(report.sourceSha256, "10f1704ae1b632bf6aac7f09ca7641d38e579a68712e7c1870fa173cedcc779f");
+  assert.equal(report.sourceSha256, currentSegmentation.sha256);
   assert.equal(report.voxels, 267);
   assert.equal(sha(await read("public/atlas/section-current-aqueduct-partial.mesh")),
     "13cc011f6507b9f3ad3ff830009c2c9150fbb3b52602c1f561e253c4a9765faa");

@@ -1,3 +1,4 @@
+import {currentSegmentation} from './helpers/current-segmentation.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
@@ -31,7 +32,7 @@ test('third-ventricle regional exclusions replay exactly, leaving all unrelated 
  assert.match(r.limitation,/not expert review/);
  const meta=JSON.parse(await read('public/atlas/bigbrain-practical-segmentation-icbm500-validation.json'));
  assert.equal(meta.regionalBatchAudits['third-remnants91'].recordSha256,sha(bytes));
- assert.equal(meta.labelCounts['25'],11676);
+ assert.equal(meta.labelCounts['25'],currentSegmentation.counts[25]);
  const latest=gunzipSync(await read('public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz'));
  for(const i of seen)assert.equal(latest[i],0,'A previously excluded cell must not be filled again');
 });

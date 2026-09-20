@@ -132,7 +132,7 @@ function requirePattern(source, errors, code, pattern, message) {
 function auditStaticUiContract(source, routeSource, errors) {
   requirePattern(source, errors, "guided-import", /blockGuidedObservation\.mjs/, "page must import the separated guided-observation contract");
   requirePattern(source, errors, "guided-eligibility", /const blockGuidedSpecimenKey=\(\[\.\.\.BLOCK_GUIDED_SPECIMEN_KEYS\] as string\[\]\)\.includes\(blockSpecimen\)\?blockSpecimen as BlockGuidedSpecimenKey:null;/, "page must derive guide eligibility from the fixed focus keys");
-  requirePattern(source, errors, "focus-only-ui", /\{blockAnswerVisible&&blockGuidedSpecimenKey&&<section className=\{"blockGuidedObservation"/, "guided section must be rendered only when the current specimen is in focus4");
+  requirePattern(source, errors, "focus-only-ui", /\{blockAnswerVisible&&!blockCavityView&&!openSideBlock&&blockGuidedSpecimenKey&&<section className=\{"blockGuidedObservation"/, "guided section must be rendered only when the current specimen is in focus4");
   requirePattern(source, errors, "safe-ordering-copy", new RegExp(escapeRegExp(SAFE_ORDERING_COPY)), "guide must state that its order is UI confirmation order, not anatomical/dissection order");
   requirePattern(source, errors, "start-off", /data-block-guided-status=\{blockGuidedActive\?"active":"off"\}/, "guide must expose an explicit inactive/off state");
   for (const marker of ["data-block-guided-start", "data-block-guided-first", "data-block-guided-previous", "data-block-guided-next", "data-block-guided-stop"]) {
@@ -146,7 +146,7 @@ function auditStaticUiContract(source, routeSource, errors) {
   requirePattern(source, errors, "cleanup-workspace", /function openWorkspace\(key:WorkspaceMode\)\{if\(key!=="blocks"\)stopBlockGuided\(\);/, "leaving the block workspace must stop and restore the active guide");
   requirePattern(source, errors, "cleanup-unmount", /useEffect\(\(\)=>\(\)=>\{[\s\S]*?finishBlockGuidedObservation\(current\)[\s\S]*?\},\[workspace,blockSpecimen\]\);/, "workspace/specimen cleanup must finish the guide on transition and unmount");
 
-  const canvasPattern = /<AtlasVolumeCanvas kind="surface" plane=\{specimenLesson\.plane\} position=\{specimenLesson\.position\} focus=\{specimenLesson\.focus\} display="specimen" rotation=\{rotation\} view="inside" contrast="bigbrain"[\s\S]*?specimenBlock=\{blockSpecimen\} specimenLayers=\{blockLayers\} specimenTissueMode=\{blockTissueMode\}/;
+  const canvasPattern = /<AtlasVolumeCanvas kind="surface" plane=\{specimenLesson\.plane\} position=\{specimenLesson\.position\} focus=\{specimenLesson\.focus\} display="specimen" rotation=\{rotation\} view="inside" contrast="bigbrain"[\s\S]*?specimenBlock=\{renderedBlock\} specimenLayers=\{blockLayers\} specimenTissueMode=\{blockTissueMode\}/;
   requirePattern(source, errors, "canvas-contract", canvasPattern, "guided observation must preserve the existing specimen Canvas contract");
   requirePattern(source, errors, "manual-picker-contract", /function toggleBlockLayer\(key:string\)/, "existing manual layer controls must remain available outside the guide");
   requirePattern(source, errors, "context-contract", /blockContextVisible[\s\S]*?blockContextLauncher[\s\S]*?block-context-panel/, "existing block context route and panel contract must remain");
