@@ -14,7 +14,7 @@ test("block controls sit outside the draggable image and retain touch-sized butt
   const css = await readFile(new URL("app/canvas.css", root), "utf8");
   const block = page.slice(page.indexOf('className="learningModelCard blockModelCard"'), page.indexOf('className="learningModelCard blockModelCard"') + 6500);
   assert.match(block, /OrientationCompass rotation=\{rotation\}\/\>\}\s*<\/div>\s*\{!webglUnavailable&&<div className="blockModelToolbar">/);
-  for (const group of ["specimenTissueControls", "specimenViewControls", "specimenAttachmentControls"]) {
+  for (const group of ["specimenTissueControls", "specimenViewControls"]) {
     assert.ok(block.indexOf(group) > block.indexOf('className="blockModelToolbar"'));
   }
   assert.match(css, /\.blockModelToolbar button\s*\{\s*min-height:\s*44px/);
@@ -1384,8 +1384,8 @@ test("keeps the browser distribution below the beta asset budget", async () => {
   assert.ok(nucleiBytes < 4 * 1024 * 1024, `full-label replacements are ${(nucleiBytes / 1024 / 1024).toFixed(1)} MiB`);
   // Opaque teaching preparations are loaded per specimen; keep a separate
   // 10 MiB ceiling while preserving the existing source/comparison assets.
-  const teaching = JSON.parse(await readFile(new URL('app/teachingSpecimens.json', root), 'utf8'));
-  const teachingNames = Object.values(teaching.specimens).flatMap(specimen => specimen.parts.map(part => part.file));
+  // Retained earlier teaching parts belong to this same budget, even when not loaded.
+  const teachingNames = (await readdir(new URL('public/atlas/', root))).filter(name => /^teaching-block-.*\.mesh$/.test(name));
   const teachingBytes = (await Promise.all(teachingNames.map(name => stat(new URL(`public/atlas/${name}`, root))))).reduce((sum, file) => sum + file.size, 0);
   assert.ok(teachingBytes < 10 * 1024 * 1024, `opaque teaching preparations exceed 10 MiB`);
   assert.ok(publicBytes - teachingBytes - brodmannBytes - currentSectionBytes - nucleiBytes < 100 * 1024 * 1024, `legacy public asset budget exceeded`);

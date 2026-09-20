@@ -73,7 +73,7 @@ English: Development IDs44/45 derive from the published same-specimen LGB layer 
 - `public/atlas/bigbrain-icbm500.bin.gz`
 - `public/atlas/bigbrain-fixed-mri-0444.bin.gz`
 - `public/atlas/block-*.mesh`
-- `public/atlas/teaching-block-*.mesh`：同じ画像・採用済み分節から作った不透明な仮想剖出標本。組織の切除・表面の軽い平滑化・原画像由来の濃淡・gzip圧縮を含む。脳弓・透明中隔・海馬采など薄い部分は0.5 mm格子を維持。元の分節は変更しない。部品ごとの由来、組織／構造／腔鋳型／模式の区別、入力・出力SHAは `app/teachingSpecimens.json` に記録する。
+- `public/atlas/teaching-block-*.mesh`：同じ画像・採用済み分節から作った不透明な仮想剖出標本。現在の表示は周囲組織を残した平面切断ブロック。共通の1 mm組織表面に、0.5 mmの採用ラベルから着色区画を割り当てる。腔の補助鋳型は0.5 mm。表面の軽い平滑化・原画像由来の濃淡・gzip圧縮を含む。旧仮想剖出部品も履歴として保持。元の分節は変更しない。部品ごとの由来、組織／構造／腔鋳型／模式の区別、入力・出力SHAは `app/teachingSpecimens.json` に記録する。
 - `public/atlas/specimen-blocks.json`
 - BigBrain画像を基に計算された表示・試作ラベル
 

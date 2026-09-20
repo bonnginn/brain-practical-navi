@@ -29,13 +29,31 @@ test('opaque specimens use the current source and valid, individually identified
   }
 });
 
-test('thin commissural structures preserve the entire currently adopted partial labels',()=>{
-  const counts=new Uint32Array(256);
-  for(const id of gunzipSync(read('public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz')).subarray(10))counts[id]++;
+test('surface colour partitions a shared tissue slab without duplicating its faces',()=>{
+  for(const specimen of Object.values(data.specimens)){
+    const surface=specimen.parts.filter(p=>p.role==='tissue'||p.role==='structure');
+    assert.equal(surface.reduce((sum,p)=>sum+p.faces,0),specimen.surfaceFaces);
+    assert.ok(specimen.bodyVoxels>0);
+    assert.equal(specimen.boundsXYZmm.length,3);
+    const triangles=new Set();
+    for(const part of surface){
+      assert.equal(part.surfaceOnly,true);
+      const mesh=gunzipSync(read('public/atlas/'+part.file));
+      const nv=mesh.readUInt32LE(4),nf=mesh.readUInt32LE(8),offset=12+28*nv;
+      for(let i=0;i<nf;i++){
+        const vertices=[];
+        for(let j=0;j<3;j++){
+          const index=mesh.readUInt32LE(offset+12*i+4*j);
+          vertices.push(mesh.subarray(12+12*index,24+12*index).toString('hex'));
+        }
+        const triangle=vertices.sort().join(':');
+        assert.ok(!triangles.has(triangle),'shared surface faces must not overlap');triangles.add(triangle);
+      }
+    }
+  }
   for(const [key,id] of [['fornix',46],['septum-pellucidum',43]]){
     const part=data.specimens['commissural-system'].parts.find(p=>p.key===key);
-    assert.equal(part.role,'structure');assert.equal(part.geometrySamplingMm,.5);assert.equal(part.sampledVoxels,counts[id]);
+    assert.equal(part.role,'structure');assert.deepEqual(part.sourceLabelIds,[id]);
   }
-  assert.equal(data.specimens['medial-temporal'].parts.find(p=>p.key==='fimbria').role,'structure');
   assert.equal(data.specimens['choroid-plexus'].parts.find(p=>p.key==='choroid-plexus').role,'schematic');
 });

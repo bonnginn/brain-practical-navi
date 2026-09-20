@@ -12,7 +12,7 @@
  * so tests can inject measurements and never need to launch Chrome.
  */
 
-import { existsSync, readdirSync, statSync } from "node:fs";
+import { existsSync, readdirSync, statSync, readFileSync } from "node:fs";
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, isAbsolute, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -253,8 +253,8 @@ function cloneAssetList(value) {
 function blockAssetNames(route, inventory) {
   const key = routeKeyOf(route);
   const specimen = key.replace(/^blocks-/, "");
-  const prefix = `teaching-block-${specimen}-`;
-  return inventory.files.filter(file => file.name.startsWith(prefix) && MESH_PATTERN.test(file.name)).map(file => file.name);
+  const manifest=JSON.parse(readFileSync(new URL("../app/teachingSpecimens.json",import.meta.url),"utf8"));
+  return manifest.specimens[specimen].parts.map(part=>part.file);
 }
 
 function requiredAssetsForRoute(route, inventory) {

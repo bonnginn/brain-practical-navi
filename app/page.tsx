@@ -349,14 +349,14 @@ if(teachingAqueduct?.role==="cavity"){
 // Each specimen opens in a three-quarter or near-orthogonal view chosen to expose its teaching structures.
 const blockSpecimenDisclaimer="褐色組織は位置関係を読むための表示で、湿潤感・線維感・切断面など実標本の質感は再現していません。見た目の実在感を形状や境界の正確性の根拠にせず、実標本・検証済み資料と照合してください。";
 const blockInitialRotations:Record<BlockSpecimenKey,Rotation>={
-  "lateral-ventricle":{x:-14,y:64,z:4},
-  diencephalon:{x:-25,y:65,z:0},
+  "lateral-ventricle":{x:-76,y:-8,z:0},
+  diencephalon:{x:-10,y:12,z:0},
   radiations:{x:-70,y:-12,z:0},
   "commissural-system":{x:-7,y:88,z:0},
-  "choroid-plexus":{x:-14,y:62,z:4},
-  "medial-temporal":{x:-65,y:-20,z:5},
+  "choroid-plexus":{x:-7,y:88,z:0},
+  "medial-temporal":{x:-10,y:12,z:0},
   "midbrain-section":{x:-78,y:0,z:0},
-  hindbrain:{x:-10,y:12,z:0},
+  hindbrain:{x:-7,y:88,z:0},
 };
 
 const blockViewLabels:Record<BlockViewPreset,string>={initial:"初期",opposite:"反対側",superior:"上面",inferior:"下面"};
@@ -995,7 +995,7 @@ export default function Home() {
   const papezStepperTargetNames=useMemo(()=>papezStepperStep.targetKeys.map(key=>surfaceDeepLandmarks[key as SurfaceDeepLandmarkKey]?.name??surfaceRegions[key as SurfaceRegionKey]?.name??structures[key as StructureKey]?.name??key),[papezStepperStep]);
   const papezStepperSurfaceHighlights=useMemo<HighlightLayer[]>(()=>papezStepperRegionKeys.map(key=>({ids:surfaceRegions[key].ids,color:surfaceRegions[key].rgb})),[papezStepperRegionKeys]);
   const specimenLesson={...blockSpecimens[blockSpecimen],caution:`${blockSpecimenDisclaimer} ${blockSpecimens[blockSpecimen].caution}`};
-  const blockTeachingLayers=specimenLesson.layers.filter(layer=>blockSchematicsVisible||teachingSpecimens.specimens[blockSpecimen].parts.find(part=>part.key===layer.key)?.role!=="schematic");
+  const blockTeachingLayers=specimenLesson.layers.filter(layer=>{const part=teachingSpecimens.specimens[blockSpecimen].parts.find(part=>part.key===layer.key);return !!part&&(blockSchematicsVisible||part.role!=="schematic")});
   const blockGuidedSpecimenKey=([...BLOCK_GUIDED_SPECIMEN_KEYS] as string[]).includes(blockSpecimen)?blockSpecimen as BlockGuidedSpecimenKey:null;
   const blockGuidedActive=blockGuidedState.active&&blockGuidedSpecimenKey!==null;
   const blockGuidedStep=blockGuidedActive?blockGuidedState.steps[blockGuidedState.stageIndex]??null:null;
@@ -1639,7 +1639,7 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
             {!webglUnavailable&&<OrientationCompass rotation={rotation}/>}
           </div>
           {!webglUnavailable&&<div className="blockModelToolbar">
-            {blockSpecimen==="hindbrain"&&<div className="neurovascularControls specimenPartControls specimenAttachmentControls" aria-label="標本3Dレイヤー"><button className={blockCerebellum?"active":""} aria-pressed={blockCerebellum} onClick={()=>setBlockCerebellum(value=>!value)}>{blockCerebellum?"小脳を外す":"小脳を戻す"}</button><button className={blockPonsMedulla?"active":""} aria-pressed={blockPonsMedulla} onClick={()=>setBlockPonsMedulla(value=>!value)}>{blockPonsMedulla?"橋・延髄を外す":"橋・延髄を戻す"}</button></div>}
+
             <div className="specimenTissueControls" aria-label="標本の学習段階"><button className={!blockAnswerVisible?"active":""} aria-pressed={!blockAnswerVisible} onClick={()=>{stopBlockGuided();setBlockAnswerVisible(false)}}>1. 形を観察</button><button className={blockAnswerVisible?"active":""} aria-pressed={blockAnswerVisible} onClick={()=>setBlockAnswerVisible(true)}>2. 着色して確認</button></div>
             {blockAnswerVisible&&teachingSpecimens.specimens[blockSpecimen].parts.some(part=>part.role==="schematic")&&<button className="specimenSchematicToggle" aria-pressed={blockSchematicsVisible} onClick={()=>{stopBlockGuided();setBlockSchematicsVisible(value=>!value)}}>{blockSchematicsVisible?"模式補助を隠す":"模式補助も表示"}</button>}
             <div className="specimenViewControls" aria-label="標本の視点"><span>VIEW</span>{(["initial","opposite","superior","inferior"] as BlockViewPreset[]).map(preset=><button key={preset} className={blockViewPreset===preset?"active":""} aria-pressed={blockViewPreset===preset} onClick={()=>chooseBlockView(preset)}>{blockViewLabels[preset]}</button>)}</div>
