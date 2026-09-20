@@ -1,5 +1,17 @@
 # 視放線の広域ランドマーク照合 — 2026-09-20
 
+## 同一標本V1を皮質側の目印として取得
+
+新規native100矢状断X600/650/750/800と冠状断Y250/300の6原画像を確認した。`work/optic-radiation-landmarks-20260920/calcarine/`、生成元 `render-calcarine.py`、範囲とSHAは `calcarine/report.json`。皮質と白質の位置関係は見えるが、視放線を単独で囲む白質境界はこの画像だけでは同定できない。
+
+追加検索から[Schifferらの同一BigBrain標本hOc1/V1データ](https://doi.org/10.25493/DGEZ-Q93)を確認。EBRAINSのOverviewとGet dataを閲覧し、CC BY-NC-SA 4.0、深層学習支援、低品質断面の補間・平滑化を含むことを確認した。視放線自体の分節データではない。
+
+既存siibra設定の `maps/bigbrain-jba29-labelled.json` が指定する2022配布providerから、左右の `info`・`transform.json` と320um段階の全chunkを取得・復号した。`v1-provider/download-report.json` にURL参照元・chunk SHA・NIfTI SHA・変換行列を保持。左113,299、右115,818の非零サンプルはprovider格子の値であり、アプリ採用点数ではない。軸ごとの実解像度は338.67×320×338.67 µmで、等方320 µmと仮定していない。
+
+配布変換を使ったnative物理座標で6断面すべてに重ね、鳥距溝周囲の皮質に概略対応することを目視した（`calcarine/v1-*.png`）。粗い表示の端部のずれは残る。ICBM格子への投影やアプリへの採用はまだ行っていない。これは終点側の位置を同一標本で特定する前進であり、隣接白質全域が視放線である証拠ではない。
+
+次はこのV1の白質側と背側走行を対応させる。必要ならproviderの80um段階を対象範囲だけ取得する。既存のBA表面モデルや別標本座標をV1分節として流用しない。
+
 ## 追加資料：背側走行と皮質終端からの照合
 
 [Rizziらの公開著者版（2021、査読前）](https://www.researchsquare.com/article/rs-589114/v1)のMethods、Resultsの剖出部分、図2を実ブラウザで確認した。2022年の出版版は別版であり、その全文確認済みとは扱わない。公開著者版はCC BY 4.0。図は閲覧のみでアプリへ転載していない。
