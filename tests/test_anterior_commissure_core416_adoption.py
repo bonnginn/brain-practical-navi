@@ -41,7 +41,7 @@ class AnteriorCommissure416AdoptionTests(unittest.TestCase):
 
  def test_section_mesh_is_exact_deterministic_reconstruction(self):
   raw=gzip.decompress(AFTER.read_bytes());dims=np.frombuffer(raw,dtype='<u2',count=3,offset=4);labels=np.frombuffer(raw,np.uint8,offset=10).reshape(tuple(int(x) for x in dims[::-1]))
-  payload,evidence=reconstruct(labels==42);stored=fixed_gzip(payload);mesh=ROOT/'public/atlas/section-current-anterior-commissure-partial.mesh';meta=json.loads((ROOT/'tests/fixtures/section-current-anterior-commissure-partial-pre-aqueduct-fourth44.json').read_text())
+  payload,evidence=reconstruct(labels==42);stored=fixed_gzip(payload);mesh=ROOT/'tests/fixtures/section-current-anterior-commissure-partial-pre-anterior-commissure185.mesh';meta=json.loads((ROOT/'tests/fixtures/section-current-anterior-commissure-partial-pre-aqueduct-fourth44.json').read_text())
   self.assertEqual(stored,mesh.read_bytes());self.assertEqual(meta['sha256'],hashlib.sha256(stored).hexdigest());self.assertEqual(meta['rawSha256'],hashlib.sha256(payload).hexdigest())
   self.assertEqual((meta['voxels'],meta['components6'],meta['componentSizes']),(416,6,[317,88,8,1,1,1]));self.assertEqual(meta['sourceSha256'],AFTER_SHA);self.assertEqual(meta['labelIds'],[42]);self.assertEqual((evidence['vertices'],evidence['faces']),(meta['vertices'],meta['faces']))
 
@@ -54,6 +54,7 @@ class AnteriorCommissure416AdoptionTests(unittest.TestCase):
    for key in set(old)|set(current):
     if key!='sourceSha256':self.assertEqual(old.get(key),current.get(key),f'{name}:{key}')
    mesh_path=ROOT/f'tests/fixtures/section-current-{name}-pre-aqueduct-fourth44.mesh'
+   if name=='internal-capsule':mesh_path=ROOT/'tests/fixtures/section-current-internal-capsule-pre-anterior-commissure185.mesh'
    self.assertEqual(digest(mesh_path if mesh_path.exists() else ROOT/f'public/atlas/section-current-{name}.mesh'),current['sha256'])
 
  def test_validation_records_successor_and_current_id43_count(self):

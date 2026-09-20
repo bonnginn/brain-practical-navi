@@ -63,7 +63,7 @@ class FornixScopeInventoryTests(unittest.TestCase):
         partial = result["currentAdoptedPartial"]
         self.assertEqual(partial["labelIds"], [46])
         self.assertEqual(partial["representations"], ["image-guided-reviewed"])
-        self.assertEqual(partial["learnerSurfaces"], ["sections"])
+        self.assertEqual(partial["learnerSurfaces"], ["sections", "surface", "blocks"])
         self.assertEqual(partial["projectReview"], "reviewed-by-project")
         self.assertEqual(partial["expertReview"], "pending")
         self.assertEqual(partial["quizEligibility"], "none")

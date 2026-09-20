@@ -23,6 +23,22 @@ class RightForamen36AdoptionTests(unittest.TestCase):
   ids,_=ndimage.label(np.isin(after,(23,24,25,26,41)),ndimage.generate_binary_structure(3,1)); comps={k:int(np.argmax(np.bincount(ids[after==k]))) for k in (23,24,25,26,41)}
   self.assertEqual(len(set(comps.values())),1);self.assertTrue(r['connectivity']['after']['allFiveConnected'])
   current=load(ROOT/'public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz')
-  for ident in (23,24,25,26,41):np.testing.assert_array_equal(current==ident,after==ident)
+  # Later reviewed exclusions refine the third-ventricle outline. Preserve
+  # this adoption's original connection evidence and replay those exclusions
+  # before comparing it with the current cavity masks.
+  expected=after.copy()
+  for name,count in (('third-posterior197',197),('third-residual11',11)):
+   successor=json.loads((ROOT/f'segmentation-patches/review/{name}-adoption-2026-09-20.json').read_text())
+   self.assertEqual(successor['count'],count);self.assertEqual(len(successor['points']),count)
+   for point in successor['points']:
+    self.assertEqual((point['before'],point['after']),(25,0))
+    xyz=tuple(point['xyz']);self.assertEqual(expected[xyz],25);expected[xyz]=0
+  fourth=json.loads((ROOT/'segmentation-patches/review/optic-fourth9-adoption-2026-09-19.json').read_text())
+  exclusions=[p for p in fourth['points'] if p['before']==26]
+  self.assertEqual(len(exclusions),2)
+  for point in exclusions:
+   self.assertEqual(point['after'],0)
+   xyz=tuple(point['xyz']);self.assertEqual(expected[xyz],26);expected[xyz]=0
+  for ident in (23,24,25,26,41):np.testing.assert_array_equal(current==ident,expected==ident)
 
 if __name__=='__main__':unittest.main()

@@ -59,6 +59,7 @@ class SeptalMembrane282AdoptionTests(unittest.TestCase):
    for key in set(old)|set(after)|set(current):
     if key!='sourceSha256':self.assertEqual((old.get(key),after.get(key)),(after.get(key),current.get(key)),f'{name}:{key}')
    mesh_path=ROOT/f'tests/fixtures/section-current-{name}-pre-aqueduct-fourth44.mesh'
+   if name=='internal-capsule':mesh_path=ROOT/'tests/fixtures/section-current-internal-capsule-pre-anterior-commissure185.mesh'
    self.assertEqual(digest(mesh_path if mesh_path.exists() else ROOT/f'public/atlas/section-current-{name}.mesh'),current['sha256'])
 
  def test_validation_records_successor_and_current_id43_count(self):

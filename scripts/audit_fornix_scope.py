@@ -158,7 +158,7 @@ def inventory() -> dict[str, Any]:
 
     partial_entry = provenance_entries["section-fornix-body-partial"]
     require(partial_entry["representations"] == ["image-guided-reviewed"], "partial fornix representation drift")
-    require(partial_entry["learnerSurfaces"] == ["sections"], "partial fornix learner surface drift")
+    require(partial_entry["learnerSurfaces"] == ["sections", "surface", "blocks"], "partial fornix learner surface drift")
     require(partial_entry["expertReview"] == "pending", "partial fornix expert state drift")
     require(partial_entry["projectReview"] == "reviewed-by-project", "partial fornix project state drift")
     require(partial_entry["quizEligibility"] == "none", "partial fornix quiz state drift")
@@ -256,7 +256,7 @@ def inventory() -> dict[str, Any]:
             "appKey": "fornixBodyPartial",
             "labelIds": [46],
             "representations": ["image-guided-reviewed"],
-            "learnerSurfaces": ["sections"],
+            "learnerSurfaces": partial_entry["learnerSurfaces"],
             "projectReview": "reviewed-by-project",
             "expertReview": "pending",
             "quizEligibility": "none",

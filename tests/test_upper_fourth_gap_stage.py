@@ -19,6 +19,7 @@ class UpperFourthGapStageTests(unittest.TestCase):
    for key in set(before)|set(current):
     if key!='sourceSha256':self.assertEqual(before.get(key),current.get(key),key)
    fixture=ROOT/f'tests/fixtures/section-current-{name}-pre-aqueduct-fourth44.mesh'
+   if name=='internal-capsule':fixture=ROOT/'tests/fixtures/section-current-internal-capsule-pre-anterior-commissure185.mesh'
    self.assertEqual(digest(fixture.read_bytes() if fixture.exists() else (ROOT/f'public/atlas/section-current-{name}.mesh').read_bytes()),current['sha256'])
  def test_exact_158_installed_replay_and_restore(self):
   record=json.loads(RECORD.read_text(encoding='utf-8'));br,before=load(BEFORE);ar,after=load(AFTER)
