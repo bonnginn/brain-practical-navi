@@ -2163,8 +2163,8 @@ test("keeps ghost-surface teaching layers depth-tested and opacity-consistent", 
   assert.match(atlasCanvas, /selectionLayers\.forEach\(layer=>layer\.meshes\.forEach\(\(part,index\)=>draw\(part,selectionColor\(layer\.color\),1,gl\.TRIANGLES,\[\],layer\.pulse!==false,layer\.travel\?\.\[index\]\)\)\)/);
   assert.match(atlasCanvas, /if\(ghostSurface\)\{[\s\S]*?gl\.depthFunc\(gl\.LESS\)[\s\S]*?drawSurfaceShell\(\)/);
   assert.doesNotMatch(atlasCanvas, /if\(view==="ghost"\)gl\.clear\(gl\.DEPTH_BUFFER_BIT\)/);
-  assert.match(atlasCanvas, /draw\(overlays\[0\],teachingColor\(\[\.86,\.18,\.14\]\)/);
-  assert.match(atlasCanvas, /draw\(overlays\[2\],teachingColor\(\[\.96,\.83,\.42\]\)/);
+  assert.match(atlasCanvas, /draw\(overlays\[0\],teachingColor\(\[\.86,\.18,\.14\],contextOpacity\)/);
+  assert.match(atlasCanvas, /draw\(overlays\[2\],teachingColor\(\[\.96,\.83,\.42\],contextOpacity\)/);
   assert.match(page, /透過時も補助レイヤーはモデルの奥行きを保って描画します/);
   assert.match(page, /通常は半透明、選択中の神経・血管は白色と高い不透明度で追跡しやすくします/);
   assert.match(audit, /実ブラウザ確認: 最終ビルド/);
