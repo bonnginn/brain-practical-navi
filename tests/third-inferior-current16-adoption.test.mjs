@@ -82,7 +82,7 @@ test("third-ventricle correction synchronizes current counts and affected meshes
 
 test("unchanged aqueduct geometry is pinned to the current source revision", async () => {
   const report = JSON.parse(await read("public/atlas/section-current-aqueduct-partial.json"));
-  assert.equal(report.sourceSha256, "bec6796274f48da8bac3802e1419cd3d7019c6a1d854faada48f83a39ef462b4");
+  assert.equal(report.sourceSha256, "10f1704ae1b632bf6aac7f09ca7641d38e579a68712e7c1870fa173cedcc779f");
   assert.equal(report.voxels, 267);
   assert.equal(sha(await read("public/atlas/section-current-aqueduct-partial.mesh")),
     "13cc011f6507b9f3ad3ff830009c2c9150fbb3b52602c1f561e253c4a9765faa");

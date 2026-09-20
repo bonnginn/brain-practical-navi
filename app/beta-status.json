@@ -26,7 +26,7 @@
     {
       "id": "limitation-unrecorded-items",
       "heading": "未収録項目",
-      "body": "海馬采・鉤、XI脊髄根、閂・薄束・楔状束の詳細、表在・深部脳静脈と硬膜静脈洞などは、現行教材に独立表示・分節・クイズを収録していません。旧模式海馬采・鉤は未収録です。左海馬采の一部は連続断面の脳弓ラベルに収録しています。",
+      "body": "海馬采・鉤、XI脊髄根、閂・薄束・楔状束の詳細、表在・深部脳静脈と硬膜静脈洞などは、現行教材に独立表示・分節・クイズを収録していません。旧模式海馬采・鉤は未収録です。両側海馬采の一部は連続断面の脳弓ラベルに収録しています。",
       "evidenceRefs": ["public/atlas/structure-provenance.json", "LECTURE_COVERAGE_AUDIT.md", "MEDIAL_TEMPORAL_AUDIT.md"],
       "provenanceKeys": ["section-temporal-lobe", "hindbrain-gracile-cuneate-structures", "vascular-venous-system"]
     },
@@ -101,7 +101,7 @@
     {
       "id": "change-inaccurate-meshes-removed",
       "heading": "不正確な模式部品の除外",
-      "body": "海馬采・鉤の手置き形状はβ候補から除外しています。左海馬采の一部は原画像由来の脳弓ラベルとして連続断面に収録しています。旧模式乳頭体2資産も配布されますが、学習画面の代用表示には使用しません。",
+      "body": "海馬采・鉤の手置き形状はβ候補から除外しています。両側海馬采の一部は原画像由来の脳弓ラベルとして連続断面に収録しています。旧模式乳頭体2資産も配布されますが、学習画面の代用表示には使用しません。",
       "evidenceRefs": ["MEDIAL_TEMPORAL_AUDIT.md", "STRUCTURE_PROVENANCE.md", "app/page.tsx"]
     },
     {

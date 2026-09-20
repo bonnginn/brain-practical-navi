@@ -40,7 +40,7 @@ export const PAPEZ_STEPS = Object.freeze([
   }),
   Object.freeze({
     key: "fornixBodyPartial",
-    label: "脳弓・左海馬采（部分）",
+    label: "脳弓・海馬采（部分）",
     kind: "image-reviewed-partial-section",
     source: "image-reviewed-partial-section",
     targetKeys: Object.freeze(["fornixBodyPartial"]),
@@ -48,7 +48,7 @@ export const PAPEZ_STEPS = Object.freeze([
     position: 53,
     labelIds: Object.freeze([46]),
     provenance: "同一BigBrain native原画像で確認した脳弓体部・脚・柱の部分ラベルID46（プロジェクト内採用・専門家未確認）",
-    note: "同一標本から追った体部・脚・柱と左海馬采の部分分節を断面と3Dで観察します。左右の脚を海馬側へ、柱を前交連付近へ延長しています。海馬采全長と乳頭体への接続は未収録です。",
+    note: "同一標本から追った体部・脚・柱と両側海馬采の部分分節を断面と3Dで観察します。左右の脚を海馬側へ、柱を前交連付近へ延長しています。海馬采全長と乳頭体への接続は未収録です。",
   }),
   Object.freeze({
     key: "mammillaryBody",
