@@ -1,6 +1,6 @@
 "use client";
 
-import {circuitTravel} from "../src/circuitTravel.mjs";
+import {circuitTravel,corticalCircuitTravel} from "../src/circuitTravel.mjs";
 
 import { useEffect, useRef, useState } from "react";
 import { decodeCompactSurface } from "./brodmannMesh";
@@ -36,11 +36,17 @@ function mergeMeshes(meshes:Mesh[]):Mesh{
   for(const mesh of meshes){vertices.set(mesh.vertices,vertexOffset*3);normals.set(mesh.normals,vertexOffset*3);shade.set(mesh.shade,vertexOffset);regions.set(mesh.regions,vertexOffset);for(let index=0;index<mesh.faces.length;index++)faces[faceOffset+index]=mesh.faces[index]+vertexOffset;vertexOffset+=mesh.vertices.length/3;faceOffset+=mesh.faces.length}
   return{vertices,normals,shade,regions,faces};
 }
-export type HighlightLayer={ids:number[];color:[number,number,number];pulse?:boolean;mode?:"quiz";conditional?:{ids:number[];axis:0|1|2;min?:number;max?:number}};
+export type HighlightLayer={travel?:boolean;ids:number[];color:[number,number,number];pulse?:boolean;mode?:"quiz";conditional?:{ids:number[];axis:0|1|2;min?:number;max?:number}};
 export const QUIZ_SECTION_ACCENT_RGB:[number,number,number]=[238,88,82];
 export const QUIZ_SECTION_ACCENT_HEX="#ee5852";
 export type SelectionMeshLayer={files:string[];color:[number,number,number];pulse?:boolean;flowFrom?:string[];flowTo?:string[]};
 type CircuitSelectionLayer={meshes:Mesh[];color:[number,number,number];pulse?:boolean;travel?:Float32Array[]};
+const corticalTravelCache=new WeakMap<Mesh,Map<string,Float32Array>>();
+function surfaceTravel(mesh:Mesh,layers:HighlightLayer[]){
+ const ids=layers.filter(layer=>layer.travel&&layer.pulse!==false).flatMap(layer=>layer.ids);if(!ids.length)return undefined;
+ let cache=corticalTravelCache.get(mesh);if(!cache){cache=new Map();corticalTravelCache.set(mesh,cache)}
+ const key=ids.join(",");if(!cache.has(key))cache.set(key,corticalCircuitTravel(mesh,ids));return cache.get(key);
+}
 const travelCache=new Map<string,Promise<Float32Array[]>>();
 export type IdentifiedPoint={id:number;x:number;y:number;certainty:"atlas"|"manual"|"provisional"|"reviewed"};
 export type SurfaceIdentifiedPoint={source:"surface"|"neurovascular";id:number};
@@ -483,7 +489,7 @@ function sectionHighlightEvidence(segmentation:ManualSeg|null,plane:Plane,positi
   return {targetVoxelCount,projectedWidth:sw,projectedHeight:sh,selectedIds:[...ids]};
 }
 
-export function AtlasVolumeCanvas({dimContextOverlays=false,circuitPulse=false,kind,plane,position,focus,display,rotation,view="inside",contrast="t1",highlights=[],surfaceHighlights=[],surfaceLandmarks=[],surfaceDeepLandmarks=[],neurovascularHighlights=[],quizVisibilityExpectedHighlights=[],sectionHighlightMode=highlights.some(layer=>layer.mode==="quiz")?"quiz":"default",specimenLayers=[],specimenTissueMode="solid",specimenAnswer=false,specimenSchematics=false,selectionMeshLayers=[],onIdentify,onSurfaceIdentify,onViewChange,onWebGLUnavailableChange,showFocus=true,showCutPlane=true,showZoomControls=true,sharedZoom,onZoomChange,hemisphere="both",showCerebellum=true,showPonsMedulla=true,showMidbrain=true,keepBrainstemOpaqueInGhost=false,specimenBlock="none",blockContext="none",neurovascularOverlay="none",showBrainstemNerves=true,showBasalLandmarks=false,basalLandmark="all",basalHighlights=[],basalOnlySelected=false,surfaceOnlySelected=false,surfaceHiddenIds=[],surfaceAriaLabel,surfaceAtlas="mni"}:{dimContextOverlays?:boolean;circuitPulse?:boolean;kind:"surface"|"slice";plane:Plane;position:number;focus:Focus;display:Display;rotation:Rotation;view?:"inside"|"ghost"|"extracted"|"segmented";contrast?:"t1"|"t2"|"bigbrain"|"single";highlights?:HighlightLayer[];surfaceHighlights?:HighlightLayer[];surfaceLandmarks?:SurfaceLandmark[];surfaceDeepLandmarks?:SurfaceDeepLandmark[];neurovascularHighlights?:HighlightLayer[];quizVisibilityExpectedHighlights?:HighlightLayer[];sectionHighlightMode?:SectionHighlightMode;specimenLayers?:string[];specimenTissueMode?:SpecimenTissueMode;specimenAnswer?:boolean;specimenSchematics?:boolean;selectionMeshLayers?:SelectionMeshLayer[];onIdentify?:(point:IdentifiedPoint)=>void;onSurfaceIdentify?:(point:SurfaceIdentifiedPoint)=>void;onViewChange?:()=>void;onWebGLUnavailableChange?:(unavailable:boolean)=>void;showFocus?:boolean;showCutPlane?:boolean;showZoomControls?:boolean;sharedZoom?:number;onZoomChange?:React.Dispatch<React.SetStateAction<number>>;hemisphere?:"both"|"left"|"right";showCerebellum?:boolean;showPonsMedulla?:boolean;showMidbrain?:boolean;keepBrainstemOpaqueInGhost?:boolean;specimenBlock?:SpecimenBlock;blockContext?:BlockContextSpecimen;neurovascularOverlay?:NeurovascularOverlay;showBrainstemNerves?:boolean;showBasalLandmarks?:boolean;basalLandmark?:BasalLandmark;basalHighlights?:BasalLandmark[];basalOnlySelected?:boolean;surfaceOnlySelected?:boolean;surfaceHiddenIds?:number[];surfaceAriaLabel?:string;surfaceAtlas?:"mni"|"brodmann"|"brodmann-inflated"}){
+export function AtlasVolumeCanvas({circuitStageMs=2200,dimContextOverlays=false,circuitPulse=false,kind,plane,position,focus,display,rotation,view="inside",contrast="t1",highlights=[],surfaceHighlights=[],surfaceLandmarks=[],surfaceDeepLandmarks=[],neurovascularHighlights=[],quizVisibilityExpectedHighlights=[],sectionHighlightMode=highlights.some(layer=>layer.mode==="quiz")?"quiz":"default",specimenLayers=[],specimenTissueMode="solid",specimenAnswer=false,specimenSchematics=false,selectionMeshLayers=[],onIdentify,onSurfaceIdentify,onViewChange,onWebGLUnavailableChange,showFocus=true,showCutPlane=true,showZoomControls=true,sharedZoom,onZoomChange,hemisphere="both",showCerebellum=true,showPonsMedulla=true,showMidbrain=true,keepBrainstemOpaqueInGhost=false,specimenBlock="none",blockContext="none",neurovascularOverlay="none",showBrainstemNerves=true,showBasalLandmarks=false,basalLandmark="all",basalHighlights=[],basalOnlySelected=false,surfaceOnlySelected=false,surfaceHiddenIds=[],surfaceAriaLabel,surfaceAtlas="mni"}:{circuitStageMs?:number;dimContextOverlays?:boolean;circuitPulse?:boolean;kind:"surface"|"slice";plane:Plane;position:number;focus:Focus;display:Display;rotation:Rotation;view?:"inside"|"ghost"|"extracted"|"segmented";contrast?:"t1"|"t2"|"bigbrain"|"single";highlights?:HighlightLayer[];surfaceHighlights?:HighlightLayer[];surfaceLandmarks?:SurfaceLandmark[];surfaceDeepLandmarks?:SurfaceDeepLandmark[];neurovascularHighlights?:HighlightLayer[];quizVisibilityExpectedHighlights?:HighlightLayer[];sectionHighlightMode?:SectionHighlightMode;specimenLayers?:string[];specimenTissueMode?:SpecimenTissueMode;specimenAnswer?:boolean;specimenSchematics?:boolean;selectionMeshLayers?:SelectionMeshLayer[];onIdentify?:(point:IdentifiedPoint)=>void;onSurfaceIdentify?:(point:SurfaceIdentifiedPoint)=>void;onViewChange?:()=>void;onWebGLUnavailableChange?:(unavailable:boolean)=>void;showFocus?:boolean;showCutPlane?:boolean;showZoomControls?:boolean;sharedZoom?:number;onZoomChange?:React.Dispatch<React.SetStateAction<number>>;hemisphere?:"both"|"left"|"right";showCerebellum?:boolean;showPonsMedulla?:boolean;showMidbrain?:boolean;keepBrainstemOpaqueInGhost?:boolean;specimenBlock?:SpecimenBlock;blockContext?:BlockContextSpecimen;neurovascularOverlay?:NeurovascularOverlay;showBrainstemNerves?:boolean;showBasalLandmarks?:boolean;basalLandmark?:BasalLandmark;basalHighlights?:BasalLandmark[];basalOnlySelected?:boolean;surfaceOnlySelected?:boolean;surfaceHiddenIds?:number[];surfaceAriaLabel?:string;surfaceAtlas?:"mni"|"brodmann"|"brodmann-inflated"}){
   const [pulseFrame,setPulseFrame]=useState(0);
   const pulseStartedAt=useRef(0);
   const pulseStageKey=selectionMeshLayers.filter(layer=>layer.pulse!==false).flatMap(layer=>layer.files).join(",")+surfaceHighlights.filter(layer=>layer.pulse!==false).flatMap(layer=>layer.ids).join(",");
@@ -497,7 +503,7 @@ export function AtlasVolumeCanvas({dimContextOverlays=false,circuitPulse=false,k
     const timer=window.setInterval(()=>{if(!document.hidden&&!reducedMotion.current)setPulseFrame(performance.now())},80);
     return()=>{window.clearInterval(timer);preference.removeEventListener("change",update)};
   },[circuitPulse,pulseStageKey]);
-  const travelProgress=reducedMotion.current?-1:Math.max(0,Math.min(1,(pulseFrame-pulseStartedAt.current)/2200));
+  const travelProgress=reducedMotion.current?-1:Math.max(0,Math.min(1,(pulseFrame-pulseStartedAt.current)/circuitStageMs));
   const pulseStrength=circuitPulse?(reducedMotion.current ? .85 : .25+.7*(.5+.5*Math.sin(pulseFrame*Math.PI/900))):0;
   const ref=useRef<HTMLCanvasElement>(null),panDrag=useRef<{x:number;y:number;pan:{x:number;y:number};moved:boolean}|null>(null),surfaceClick=useRef<{x:number;y:number;moved:boolean}|null>(null),[data,setData]=useState<Volume|null>(null),[bigBrain,setBigBrain]=useState<BigBrain|null>(null),[fixedBrain,setFixedBrain]=useState<FixedBrain|null>(null),[manualSeg,setManualSeg]=useState<ManualSeg|null>(null),[meshes,setMeshes]=useState<{surface:Mesh[];segments:Mesh[];overlays:Mesh[];basal:Mesh[];deep:Mesh[];landmarks:Mesh[]}|null>(null),[selectionLayers,setSelectionLayers]=useState<CircuitSelectionLayer[]>([]),[blockMeshes,setBlockMeshes]=useState<LoadedSpecimenPart[]|null>(null),[blockContextMesh,setBlockContextMesh]=useState<Mesh|null>(null),[error,setError]=useState(""),[retryVersion,setRetryVersion]=useState(0),[sizeVersion,setSizeVersion]=useState(0),[webglUnavailable,setWebglUnavailable]=useState(false),[localZoom,setLocalZoom]=useState(1),[pan,setPan]=useState({x:0,y:0});
   const zoom=sharedZoom??localZoom;
@@ -702,7 +708,7 @@ function drawWebGL(canvas:HTMLCanvasElement,selectionLayers:CircuitSelectionLaye
   const drawSurfaceShell=()=>{
     const alpha=view==="ghost"?SURFACE_GHOST_OPACITY:view==="extracted"?.92:1;
     const shellColors=[[.78,.80,.79,alpha],[.84,.85,.83,alpha],[.62,.54,.42,alpha],[.57,.66,.69,alpha],[.66,.59,.54,alpha]];
-    visibleSurface.forEach(part=>{const i=surface.indexOf(part),color=keepBrainstemOpaqueInGhost&&view==="ghost"&&i>=3?[...shellColors[i].slice(0,3),1]:shellColors[i];draw(part,color,0,gl.TRIANGLES,i<2?surfaceHighlights:[])});
+    visibleSurface.forEach(part=>{const i=surface.indexOf(part),color=keepBrainstemOpaqueInGhost&&view==="ghost"&&i>=3?[...shellColors[i].slice(0,3),1]:shellColors[i];draw(part,color,0,gl.TRIANGLES,i<2?surfaceHighlights:[],false,i<2?surfaceTravel(part,surfaceHighlights):undefined)});
   };
   if(contextOverlay){
     // The tissue mesh is already in the shared specimen grid. Draw it without

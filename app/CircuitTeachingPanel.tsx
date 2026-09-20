@@ -3,6 +3,7 @@
 import {useEffect,useRef,useState} from "react";
 import {circuitTeaching,circuitText,type CircuitNode} from "../src/circuitTeaching.mjs";
 import "./circuit-teaching.css";
+import {circuitStageDuration} from "../src/circuitTravel.mjs";
 
 type Props={circuitKey:string;english:boolean;onObserve?:(index:number,nodeKey:string)=>void;onPreview?:(index:number,nodeKey:string)=>void;onPulseChange?:(active:boolean)=>void;onReview?:()=>void;reviewCount?:number};
 
@@ -25,7 +26,7 @@ export function CircuitTeachingPanel({circuitKey,english,onObserve,onPreview,onP
       setSelectedPosition({...selectedPosition,nodeIndex:next});
       const target=node?.observationIndex??node?.observations?.[0]?.index;
       if(target!==null&&target!==undefined)previewRef.current?.(target,node!.key);
-    },2200);
+    },circuitStageDuration(circuit.paths[selectedPosition.pathIndex]?.nodes[selectedPosition.nodeIndex]));
     return()=>{window.clearTimeout(timer);document.removeEventListener("visibilitychange",stop)};
   },[playing,circuit,selectedPosition,pathLength]);
   const currentNode=circuit?.nodes.find(node=>node.key===circuit.paths[selectedPosition.pathIndex]?.nodes[selectedPosition.nodeIndex]);
@@ -60,7 +61,7 @@ export function CircuitTeachingPanel({circuitKey,english,onObserve,onPreview,onP
       <button onClick={()=>selectStage(selectedPosition.pathIndex,selectedPosition.nodeIndex+1)} disabled={selectedPosition.nodeIndex>=pathLength-1}>{english?"Next":"次へ"}</button>
       <span>{t(selectedPath.label)} · {selectedPosition.nodeIndex+1}/{pathLength}</span>
     </nav>
-    <p className="circuitPlaybackNote">{english?"Circuit structures remain visible. A red front travels along the existing deep-structure meshes, then moves to the next stage. This is a schematic signal guided by mesh shape and neighbouring structures, not reconstructed fibres or measured speed. Cortical areas use whole-region emphasis. Stages without a specimen target do not pulse in 3D.":"回路全体を残し、深部構造では赤い光が形に沿って進んで次の段階へ移ります。既存形状と隣接構造を目安にした模式信号で、実測した神経線維・速度ではありません。皮質は領域全体を強調します。未収録の段階では3Dは明滅しません。"}</p>
+    <p className="circuitPlaybackNote">{english?"Circuit structures remain visible. A red front travels along the existing deep-structure meshes, then moves to the next stage. This is a schematic signal guided by mesh shape and neighbouring structures, not reconstructed fibres or measured speed. The cingulate ribbon also carries a schematic front; other cortical areas use whole-region emphasis. Stages without a specimen target do not pulse in 3D.":"回路全体を残し、深部構造では赤い光が形に沿って進んで次の段階へ移ります。既存形状と隣接構造を目安にした模式信号で、実測した神経線維・速度ではありません。帯状回にも模式的な伝播を表示し、その他の皮質は領域全体を強調します。未収録の段階では3Dは明滅しません。"}</p>
     <div className={`circuitDiagram${playing?" is-playing":""}`} aria-label={english?"Concept diagram":"概念図"}>
       {circuit.paths.map((path,pathIndex)=><div className={`circuitPath circuitPath-${path.kind}`} key={path.key}><b>{t(path.label)}</b><div>{path.nodes.map((nodeKey,index)=>{const node=nodeByKey.get(nodeKey);if(!node)return null;const sign=path.signs?.[index-1];return <span className="circuitNodePair" key={`${path.key}-${nodeKey}-${index}`}>{index>0&&<i className={playing&&selectedPosition.pathIndex===pathIndex&&index===selectedPosition.nodeIndex+1?"is-flowing":""} aria-label={sign==="+"?(english?"excitatory":"興奮性"):sign==="−"?(english?"inhibitory":"抑制性"):(english?"direction":"方向")}>{sign??"→"}</i>}<button type="button" className={selectedPosition.pathIndex===pathIndex&&selectedPosition.nodeIndex===index?"active":""} aria-pressed={selectedPosition.pathIndex===pathIndex&&selectedPosition.nodeIndex===index} onClick={()=>selectStage(pathIndex,index)}>{t(path.labels?.[index]??node.label)}</button></span>})}</div></div>)}
       <small>{circuitKey==="basal-ganglia"?(english?"+ excitatory · − inhibitory":"＋ 興奮性・− 抑制性"):(english?"Arrows show the simplified direction of information flow.":"矢印は簡略化した情報の流れを示します。")}</small>

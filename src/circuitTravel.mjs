@@ -48,3 +48,23 @@ export function circuitTravel(mesh, incoming=[], outgoing=[]) {
   }
   return result;
 }
+
+
+export function circuitStageDuration(nodeKey) { return nodeKey === 'mammillary' ? 1200 : 2200; }
+
+// Restrict the front to the labelled cortical ribbon. Anterior/posterior
+// endpoints express teaching order, not reconstructed cortical connections.
+export function corticalCircuitTravel(mesh, ids) {
+  const selected=new Set(ids), original=[], index=new Map(), faces=[];
+  for(let i=0;i<mesh.regions.length;i++)if(selected.has(Math.round(mesh.regions[i]))){index.set(i,original.length);original.push(i);}
+  const vertices=new Float32Array(original.flatMap(i=>Array.from(mesh.vertices.slice(i*3,i*3+3))));
+  for(let i=0;i<mesh.faces.length;i+=3){const tri=Array.from(mesh.faces.slice(i,i+3));if(tri.every(v=>index.has(v)))faces.push(...tri.map(v=>index.get(v)));}
+  const result=new Float32Array(mesh.regions.length);
+  if(!original.length)return result;
+  let front=0,back=0;
+  for(let i=1;i<original.length;i++){if(vertices[i*3+1]>vertices[front*3+1])front=i;if(vertices[i*3+1]<vertices[back*3+1])back=i;}
+  const marker=i=>({vertices:vertices.slice(i*3,i*3+3),faces:new Uint32Array()});
+  const field=circuitTravel({vertices,faces:new Uint32Array(faces)},[marker(front)],[marker(back)]);
+  original.forEach((v,i)=>{result[v]=field[i]});
+  return result;
+}
