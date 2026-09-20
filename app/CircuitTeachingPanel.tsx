@@ -4,9 +4,9 @@ import {useEffect,useRef,useState} from "react";
 import {circuitTeaching,circuitText,type CircuitNode} from "../src/circuitTeaching.mjs";
 import "./circuit-teaching.css";
 
-type Props={circuitKey:string;english:boolean;onObserve?:(index:number)=>void;onPreview?:(index:number)=>void;onPulseChange?:(active:boolean)=>void};
+type Props={circuitKey:string;english:boolean;onObserve?:(index:number)=>void;onPreview?:(index:number)=>void;onPulseChange?:(active:boolean)=>void;onReview?:()=>void;reviewCount?:number};
 
-export function CircuitTeachingPanel({circuitKey,english,onObserve,onPreview,onPulseChange}:Props){
+export function CircuitTeachingPanel({circuitKey,english,onObserve,onPreview,onPulseChange,onReview,reviewCount=0}:Props){
   const circuit=circuitTeaching(circuitKey);
   const [selectedPosition,setSelectedPosition]=useState({pathIndex:0,nodeIndex:0});
   const [playing,setPlaying]=useState(false);
@@ -67,6 +67,7 @@ export function CircuitTeachingPanel({circuitKey,english,onObserve,onPreview,onP
     </div>
     <article className="circuitStage" aria-live={playing?"off":"polite"}><p>{selected.observationKind==="schematic"?(english?"A schematic 3D model shows the approximate course; this is not specimen segmentation.":"走行の目安を模式3Dで表示しています。標本由来の分節ではありません。"):selected.observationIndex!==null||selected.observations?.length?(english?"The corresponding specimen view updates when you select a stage.":"段階を選ぶと、対応する標本表示も切り替わります。"):(english?"Explanation only: no separate specimen model is available for this stage.":"この段階は解説のみです。対応する独立モデルは未収録です。")}</p><div className="circuitStageHeading"><span>{english?"Selected stage":"選択中の段階"}</span><h4>{t(selectedLabel)}</h4>{onObserve&&(selected.observations?.length?<span className="circuitObservationActions">{selected.observations.map(action=><button type="button" key={action.index} onClick={()=>{setPlaying(false);onObserve(action.index)}}>{t(action.label)}</button>)}</span>:selected.observationIndex!==null&&<button type="button" onClick={()=>{setPlaying(false);onObserve(selected.observationIndex!)}}>{selected.observationKind==="schematic"?(english?"View schematic 3D":"模式3Dを見る"):(english?"Inspect in specimen":"標本で見る")}</button>)}</div><dl>{circuitKey==="visual"&&<div><dt>{english?"3D correspondence":"3Dとの対応"}</dt><dd>{english?"The selected row identifies a side in the concept diagram. Specimen observation selects the existing structure group; it does not isolate that eye, side, or retinal fibers.":"選択した行は概念図上の左右を示します。標本では既存の構造群を表示し、その眼・左右・網膜線維だけを選択分離するものではありません。"}</dd></div>}<div><dt>{english?"Role and connection":"役割とつながり"}</dt><dd>{t(selected.detail)}</dd></div><div><dt>{english?"Where to inspect":"標本で見る位置"}</dt><dd>{t(selected.specimen)}</dd></div><div><dt>{english?"Display limitation":"表示限界"}</dt><dd>{t(selected.limitation)}</dd></div></dl></article>
     <p className="circuitLimit"><b>{english?"How to read this diagram":"図の読み方"}</b>{t(circuit.displayLimit)}</p>
+    {onReview&&reviewCount>0&&<div className="circuitPlayback"><button onClick={()=>{setPlaying(false);onReview()}}>{english?`Review related structures (${reviewCount} questions)`:`関連する構造を復習（${reviewCount}問）`}</button><small>{english?"Uses existing questions about these structures; it does not test every circuit connection.":"収録済みの構造問題で復習します。回路の全接続を問うものではありません。"}</small></div>}
     <details className="circuitSources"><summary>{english?"Sources":"出典"}</summary><ul>{circuit.sources.map(source=><li key={source.url}><a href={source.url} target="_blank" rel="noreferrer">{source.label}</a></li>)}</ul></details>
   </section>;
 }

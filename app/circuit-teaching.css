@@ -15,3 +15,5 @@
 @container (max-width:420px){.circuitTeachingLead{grid-template-columns:1fr}.circuitStage dl>div{grid-template-columns:1fr;gap:2px}.circuitStageHeading{align-items:flex-start;flex-wrap:wrap}.circuitStageHeading h4{min-width:50%}}
 
 .surfaceModelCard .panelHead:has(.circuitReturnButton){flex-wrap:wrap;gap:6px}.surfaceModelCard .panelHead:has(.circuitReturnButton)>div:first-child{flex:1 1 180px;min-width:0}.surfaceModelCard .panelHead:has(.circuitReturnButton) .panelActions{flex-wrap:wrap;min-width:0}.surfaceModelCard .panelHead:has(.circuitReturnButton) .panelActions button{white-space:normal}
+
+.circuitQuizReturn{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:8px 12px;background:#eef3f0;border:1px solid #ccd5d0}.circuitQuizReturn button{min-height:44px;padding:6px 12px;border:1px solid #739086;background:white;color:#29463d;font:inherit}
