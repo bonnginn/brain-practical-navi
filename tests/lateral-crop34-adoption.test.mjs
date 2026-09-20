@@ -35,6 +35,12 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
  for(const [name,audit] of Object.entries(meta.regionalBatchAudits)){
   const bytes=await read(audit.record),r=JSON.parse(bytes);
   assert.equal(sha(bytes),audit.recordSha256);
+  // Recent fiber records store the count in the integration audit; preserve pinned records.
+  if(['fimbria-left128','fimbria-right441','fornix-postcommissural939'].includes(name)){
+   assert.equal(r.transition,'0->46');assert.ok(r.points.every(p=>p.before===0&&p.after===46));
+   assert.ok(Number.isInteger(audit.changedVoxelCount)&&audit.changedVoxelCount>0);
+   r.count=audit.changedVoxelCount;
+  }
   const base=await read('tests/fixtures/bigbrain-practical-segmentation-pre-'+name+'.bin.gz');
   assert.equal(sha(base),regionalBeforeSha(r));if(current)assert.deepEqual(gunzipSync(base),current);
   const expected=gunzipSync(base),seen=new Set(),label=r.transition==='mixed-to-26'?26:r.transition==='mixed-to-41'?41:Number(r.transition.split('->')[1]);
@@ -50,7 +56,7 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
   const fornixDescent=r.transition==='mixed-fornix-descent-interior-partial';
   const fornixColumn=r.transition==='mixed-fornix-upper-column-interior-partial';
   const fornixLowerColumn=r.transition==='mixed-fornix-lower-column-interior-partial';
-  const genericRecord=['cerebellar-folia197','septal-membrane282','anterior-commissure-core416','aqueduct-fourth44','optic-central112','optic-tract77','optic-fourth9','fornix-posterior85', 'fornix-crural182', 'optic-left152', 'fornix-crura870', 'fornix-transition347', 'optic-central258', 'optic-tract243', 'optic-proximal995', 'optic-junction118', 'fornix-columns234', 'fornix-hippocampal1034', 'optic-right110', 'optic-lgn1267', 'third-posterior197', 'fimbria-left653', 'fimbria-right814'].includes(name);
+  const genericRecord=['cerebellar-folia197','septal-membrane282','anterior-commissure-core416','aqueduct-fourth44','optic-central112','optic-tract77','optic-fourth9','fornix-posterior85', 'fornix-crural182', 'optic-left152', 'fornix-crura870', 'fornix-transition347', 'optic-central258', 'optic-tract243', 'optic-proximal995', 'optic-junction118', 'fornix-columns234', 'fornix-hippocampal1034', 'optic-right110', 'optic-lgn1267', 'third-posterior197', 'fimbria-left653', 'fimbria-right814', 'fimbria-left128', 'fimbria-right441', 'fornix-postcommissural939'].includes(name);
   const posterior=r.transition==='mixed-posterior-ventricular-repair';
   const bilateral=r.transition==='mixed-lateral-cavity-fill';
   const combined=r.transition==='mixed-ventricular-repair'||posterior||bilateral;

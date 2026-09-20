@@ -1,13 +1,13 @@
 {
-  "voxels": 6497,
+  "voxels": 7436,
   "components6": 2,
   "componentSizes": [
-    3509,
-    2988
+    4035,
+    3401
   ],
   "boundsZYX": [
     [
-      117,
+      114,
       191,
       141
     ],
@@ -17,17 +17,17 @@
       258
     ]
   ],
-  "vertices": 11032,
-  "faces": 22436,
-  "sha256": "05da93f73e8e91042677c4211312000192d89cc5eb050bf20da4db2441b9a539",
-  "bytes": 142764,
+  "vertices": 12318,
+  "faces": 25008,
+  "sha256": "d274e58c37cf3320fd3d191fb3a4113c036c9a78dbf38501d64c674d1caee6f7",
+  "bytes": 160687,
   "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
-  "sourceSha256": "236a8ab9a2e0f6ab77e2890e8317bcb163fcc3b0d5b8dfe09c05233e80af55b7",
+  "sourceSha256": "68b1c10d263f0f730334e3acbf633ef1659ab615b71dd27cdbfb312aa36d37d0",
   "labelIds": [
     46
   ],
   "labelVoxelCounts": {
-    "46": 6497
+    "46": 7436
   },
   "sourceSamplingMm": 0.5,
   "displayOriginZYX": [
@@ -36,11 +36,11 @@
     -98.0
   ],
   "method": "native-image-reviewed partial body and upper columns; marching cubes 0.5; no resampling, smoothing or filling",
-  "rawSha256": "7d87c4e92b7d9e180c7094e50a80d761e59219ab443835f33b8bc6a538d7e6c0",
-  "rawBytes": 578140,
+  "rawSha256": "228fec2b5822a0f579ad57067b574e532ce8b0b05c85ad57c4ae2441a18ffe2a",
+  "rawBytes": 645012,
   "compression": "gzip",
   "expertReviewed": false,
   "partialExtent": true,
-  "scope": "Partial fornix body, bilateral crura and columns, with left (native100 Y600..720) and right (Y630..730) fimbria continuations. Approximate 0.5 mm boundaries include partial volume. The complete bilateral fimbria, inferior columns and mammillary continuity remain incomplete. Not expert-reviewed.",
-  "reviewRecord": "segmentation-patches/review/fimbria-right441-adoption-2026-09-20.json"
+  "scope": "Partial fornix body, bilateral crura and columns, with left (native100 Y600..720) and right (Y630..730) fimbria continuations. Approximate 0.5 mm boundaries include partial volume. Includes a gross postcommissural descent (native40 Z550..350) toward the mammillary bodies. Full fimbria, precise terminal boundaries and axonal continuity remain unverified. Not expert-reviewed.",
+  "reviewRecord": "segmentation-patches/review/fornix-postcommissural939-adoption-2026-09-20.json"
 }
