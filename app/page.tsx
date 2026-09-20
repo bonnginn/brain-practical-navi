@@ -30,7 +30,7 @@ import type { BlockContextEvent } from "../src/blockContext.mjs";
 import { phoneCapabilityFromMedia, phoneUiOverride } from "../src/mobileUi.mjs";
 import { deriveAnatomyReviewQueue, filterAnatomyReviewQueue, isLegacyOpticEntry, isMammillaryEntry, observationHashForEntry, observationWorkspaceForEntry } from "../src/anatomyReviewQueue.mjs";
 import type { AnatomyReviewQueueItem, AnatomyReviewSurface } from "../src/anatomyReviewQueue.mjs";
-import { advanceBasalStepperIndex, advancePapezStepperIndex, BASAL_GANGLIA_STEPS, PAPEZ_STEPS, startBasalGangliaStepperTimer, startPapezStepperTimer } from "../src/pathwayStepper.mjs";
+import { BASAL_GANGLIA_STEPS, PAPEZ_STEPS } from "../src/pathwayStepper.mjs";
 import type { BasalGangliaStep, PapezStep } from "../src/pathwayStepper.mjs";
 import { BLOCK_PRIORITY_DISCLAIMER, BLOCK_PRIORITY_ENTRY_BY_KEY, BLOCK_PRIORITY_GROUPS, BLOCK_PRIORITY_GROUP_KEYS, BLOCK_SPECIMEN_KEYS } from "../src/blockPriority.mjs";
 import type { BlockPrioritySpecimenKey } from "../src/blockPriority.mjs";
@@ -872,9 +872,7 @@ export default function Home() {
   const [selectedPathway,setSelectedPathway]=useState<PathwayPresetKey|null>(null);
   const [visualObservationIndex,setVisualObservationIndex]=useState<number|null>(null);
   const [basalStepperIndex,setBasalStepperIndex]=useState(0);
-  const [basalStepperPlaying,setBasalStepperPlaying]=useState(false);
   const [papezStepperIndex,setPapezStepperIndex]=useState(0);
-  const [papezStepperPlaying,setPapezStepperPlaying]=useState(false);
   const [blockSpecimen,setBlockSpecimen]=useState<BlockSpecimenKey>(initialBlockSpecimen);
   const [blockLayers,setBlockLayers]=useState<string[]>(blockSpecimens[initialBlockSpecimen].layers.map(layer=>layer.key));
   const [blockLayerFocus,setBlockLayerFocus]=useState(blockSpecimens[initialBlockSpecimen].layers[0]?.key??"");
@@ -1053,18 +1051,6 @@ export default function Home() {
   if(quizVisibilityAuditHighlight===false){quizHighlight=[];quizSurfaceHighlight=[];quizNeurovascularHighlight=[]}
   useEffect(() => { if (!playing) return; const timer = window.setInterval(() => setPosition(p => p >= 95 ? 5 : p + 1), 90); return () => window.clearInterval(timer); }, [playing]);
   useEffect(()=>{if(quizVisibilityAuditTarget){setQuizQueue([quizVisibilityAuditTarget]);if(!isSurfaceQuiz(quizVisibilityAuditTarget)&&!isNeurovascularQuiz(quizVisibilityAuditTarget))setRotation({...homeRotation})}},[quizVisibilityAuditTarget?.target]);
-  useEffect(()=>startBasalGangliaStepperTimer({
-    active:basalStepperActive&&basalStepperPlaying,
-    onStep:()=>setBasalStepperIndex(current=>advanceBasalStepperIndex(current,BASAL_GANGLIA_STEPS.length)),
-  }),[basalStepperActive,basalStepperPlaying]);
-  useEffect(()=>{if(!basalStepperActive)setBasalStepperPlaying(false)},[basalStepperActive]);
-  useEffect(()=>{if(basalStepperPlaying&&basalStepperIndex>=BASAL_GANGLIA_STEPS.length-1)setBasalStepperPlaying(false)},[basalStepperIndex,basalStepperPlaying]);
-  useEffect(()=>startPapezStepperTimer({
-    active:papezStepperActive&&papezStepperPlaying,
-    onStep:()=>setPapezStepperIndex(current=>advancePapezStepperIndex(current,PAPEZ_STEPS.length)),
-  }),[papezStepperActive,papezStepperPlaying]);
-  useEffect(()=>{if(!papezStepperActive)setPapezStepperPlaying(false)},[papezStepperActive]);
-  useEffect(()=>{if(papezStepperPlaying&&papezStepperIndex>=PAPEZ_STEPS.length-1)setPapezStepperPlaying(false)},[papezStepperIndex,papezStepperPlaying]);
   useEffect(()=>setIdentified(null),[plane,position,contrast]);
   useEffect(()=>{setDetailsOpen(false);setPlaying(false)},[workspace]);
   useEffect(()=>()=>{
@@ -1338,14 +1324,12 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
   function toggleSurfaceDeepLandmark(key:SurfaceDeepLandmarkKey){setSurfaceVisibleDeepLandmarks(previous=>previous.includes(key)?previous.filter(item=>item!==key):[...previous,key])}
   function resetSurfaceView(){setRotation({...surfaceViews[surfaceView].rotation})}
   function toggleFreeObservation(key:FreeObservationKey){const selecting=!freeSelectedSet.has(key);setFreeSelections(previous=>selecting?[...previous,key]:previous.filter(item=>item!==key));setFreeFocusedKey(selecting?key:null);if(selecting&&key.startsWith("neuro:")){const neuroKey=key.slice(6) as NeurovascularStructureKey,item=neurovascularStructures[neuroKey];if(item.kind==="arteries")setSurfaceVessels(true);else if(detachableBrainstemNerveKeys.includes(neuroKey))setSurfacePonsMedulla(true)}if(selecting&&key.startsWith("deep:")&&freeHemisphere==="both")setFreeHemisphere("left")}
-  function clearFreeObservation(){setFreeSelections([]);setFreeFocusedKey(null);setSelectedPathway(null);setBasalStepperIndex(0);setBasalStepperPlaying(false);setPapezStepperIndex(0);setPapezStepperPlaying(false)}
+  function clearFreeObservation(){setFreeSelections([]);setFreeFocusedKey(null);setSelectedPathway(null);setBasalStepperIndex(0);setPapezStepperIndex(0)}
   function selectFreeObservation(key:FreeObservationKey){if(!freeSelectedSet.has(key))toggleFreeObservation(key);else setFreeFocusedKey(key)}
   function applyPathwayPreset(key:PathwayPresetKey){
     const preset=pathwayPresets[key];
     setSelectedPathway(key);
     setVisualObservationIndex(null);
-    setBasalStepperPlaying(false);
-    setPapezStepperPlaying(false);
     if(key==="basal-ganglia"){
       // The stepper is intentionally independent from manually selected free
       // observations. Selecting it never clears or silently adds free items.
@@ -1397,10 +1381,8 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
     target?.focus({preventScroll:true});
     target?.scrollIntoView({block:"center"});
   }
-  function chooseBasalStepperStep(index:number){setBasalStepperPlaying(false);setBasalStepperIndex(Math.max(0,Math.min(BASAL_GANGLIA_STEPS.length-1,index)))}
-  function toggleBasalStepperPlaying(){if(basalStepperPlaying){setBasalStepperPlaying(false);return}if(basalStepperIndex>=BASAL_GANGLIA_STEPS.length-1)return;setBasalStepperPlaying(true)}
-  function choosePapezStepperStep(index:number){setPapezStepperPlaying(false);setPapezStepperIndex(Math.max(0,Math.min(PAPEZ_STEPS.length-1,index)))}
-  function togglePapezStepperPlaying(){if(papezStepperPlaying){setPapezStepperPlaying(false);return}if(papezStepperIndex>=PAPEZ_STEPS.length-1)return;setPapezStepperPlaying(true)}
+  function chooseBasalStepperStep(index:number){setBasalStepperIndex(Math.max(0,Math.min(BASAL_GANGLIA_STEPS.length-1,index)))}
+  function choosePapezStepperStep(index:number){setPapezStepperIndex(Math.max(0,Math.min(PAPEZ_STEPS.length-1,index)))}
   function identifyFreeSurface(point:{source:"surface"|"neurovascular";id:number}){if(point.source==="surface"){const key=surfaceRegionKeys.find(regionKey=>surfaceRegions[regionKey].ids.includes(point.id));if(key)toggleFreeObservation(`region:${key}`);return}const key=neurovascularStructureKeys.find(structureKey=>neurovascularStructures[structureKey].ids.includes(point.id));if(key)toggleFreeObservation(`neuro:${key}`)}
   function blockPresetRotation(preset:BlockViewPreset):Rotation{const initial=openSideBlock?{x:-12,y:122,z:0}:blockCavityView?{x:-12,y:-58,z:0}:blockInitialRotations[blockSpecimen];if(preset==="opposite")return{...initial,y:wrapAngle(initial.y+180)};if(preset==="superior")return{x:-82,y:0,z:0};if(preset==="inferior")return{x:82,y:0,z:0};return{...initial}}
   function chooseBlockPresentation(mode:"form"|"answer"|"cast"){
@@ -1622,7 +1604,6 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
               <header><div><b>大脳基底核回路・位置関係ステッパー</b><small>回路を完全再現せず、既存構造の位置関係を順に確認する試作</small></div><span>{basalStepperIndex+1} / {BASAL_GANGLIA_STEPS.length}</span></header>
               <div className="pathwayStepperStageTitle"><span>STEP {String(basalStepperIndex+1).padStart(2,"0")}</span><b>{basalStepperStep.label}</b><small>{planeData[basalStepperStep.plane].ja}・位置 {basalStepperStep.position}（既存クイズ位置）</small></div>
               <div className="pathwayStepperSlice" aria-label={`${basalStepperStep.label}の同期断面`}><div className="pathwayStepperSliceHead"><b>{planeData[basalStepperStep.plane].ja}・同期断面</b><small>色付き画素を確認</small></div><div className="pathwayStepperSliceStage"><AtlasVolumeCanvas kind="slice" plane={basalStepperStep.plane} position={basalStepperStep.position} focus={structures[basalStepperStructureKeys[0]].meshFocus??"thalamus"} display="specimen" rotation={{x:-7,y:-18,z:0}} contrast="bigbrain" highlights={basalStepperSliceHighlights}/><div className="pathwayStepperSliceLegend">{basalStepperStructureKeys.map(key=><span key={key}><i style={{background:structures[key].color}}/>{structures[key].name}</span>)}</div></div></div>
-              <div className="pathwayStepperControls" role="group" aria-label="ステッパー操作"><button onClick={()=>chooseBasalStepperStep(0)} disabled={basalStepperIndex===0}>最初へ戻る</button><button onClick={()=>chooseBasalStepperStep(basalStepperIndex-1)} disabled={basalStepperIndex===0}>前の段階</button><button className="stepperPlay" onClick={toggleBasalStepperPlaying} disabled={!basalStepperPlaying&&basalStepperIndex>=BASAL_GANGLIA_STEPS.length-1}>{basalStepperPlaying?"一時停止":"再生"}</button><button onClick={()=>chooseBasalStepperStep(basalStepperIndex+1)} disabled={basalStepperIndex>=BASAL_GANGLIA_STEPS.length-1}>次の段階</button></div>
               <button className="circuitReturnButton" onClick={returnToCircuitGuide}>{englishEdition?"Back to circuit explanation":"回路解説へ戻る"}</button>
               <p className="pathwayStepperCaution">この試作は、既存の手動分節ラベルを3Dと断面で同期表示します。新しい境界、線、結合、興奮／抑制、投射方向は追加していません。手動の自由観察選択とは別に動作します。</p>
             </section>}
@@ -1632,7 +1613,6 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
               {["section-label","image-reviewed-partial-section"].includes(papezStepperStep.kind)&&<div className="pathwayStepperSlice" aria-label={`${papezStepperStep.label}の同期断面`}><div className="pathwayStepperSliceHead"><b>{planeData[papezStepperStep.plane!].ja}・同期断面</b><small>色付き画素を確認</small></div><div className="pathwayStepperSliceStage"><AtlasVolumeCanvas kind="slice" plane={papezStepperStep.plane!} position={papezStepperStep.position!} focus={structures[papezStepperSectionKeys[0]].meshFocus??"thalamus"} display="specimen" rotation={{x:-7,y:-18,z:0}} contrast="bigbrain" highlights={papezStepperSliceHighlights}/><div className="pathwayStepperSliceLegend">{papezStepperSectionKeys.map(key=><span key={key}><i style={{background:structures[key].color}}/>{structures[key].name}</span>)}</div></div></div>}
               {!["section-label","image-reviewed-partial-section"].includes(papezStepperStep.kind)&&<div className="pathwayStepper3dOnlyNote"><b>この段階は3Dのみ</b><p>{papezStepperStep.note}</p><small>断面Canvasは作成していません。未分節の実標本境界を示すものではありません。</small></div>}
               <div className="pathwayStepperProvenance"><b>由来</b><span>{papezStepperStep.provenance}</span>{papezStepperStep.key==="mammillaryBody"&&<em>専門家レビュー未完了</em>}{papezStepperStep.key==="thalamus"&&<em>前部核は未分節</em>}</div>
-              <div className="pathwayStepperControls" role="group" aria-label="Papezステッパー操作"><button onClick={()=>choosePapezStepperStep(0)} disabled={papezStepperIndex===0}>最初へ戻る</button><button onClick={()=>choosePapezStepperStep(papezStepperIndex-1)} disabled={papezStepperIndex===0}>前の段階</button><button className="stepperPlay" onClick={togglePapezStepperPlaying} disabled={!papezStepperPlaying&&papezStepperIndex>=PAPEZ_STEPS.length-1}>{papezStepperPlaying?"一時停止":"再生"}</button><button onClick={()=>choosePapezStepperStep(papezStepperIndex+1)} disabled={papezStepperIndex>=PAPEZ_STEPS.length-1}>次の段階</button></div>
               <button className="circuitReturnButton" onClick={returnToCircuitGuide}>{englishEdition?"Back to circuit explanation":"回路解説へ戻る"}</button>
               <p className="pathwayStepperCaution">この試作は既存の断面ラベル、プロジェクト内で採用した脳弓の部分ラベル、模式補助、アトラス領域を由来別に表示します。ID46は体部・脚・柱と両側海馬采を部分収録しています。交連後の下行部は乳頭体に接する概略表示です。海馬采全長と精密な終端境界は未収録で、全脳弓の完成分節ではありません。新たな結合、投射方向、興奮／抑制は示しません。ID39・40・46は専門家レビュー待ちです。</p>
             </section>}

@@ -86,6 +86,9 @@
     "33": "optic chiasm / tract atlas candidate (CerebrA Optic Chiasm)",
     "34": "left insula atlas candidate",
     "35": "right insula atlas candidate",
+    "36": "optic chiasm central region (partial image-reviewed interior)",
+    "37": "left optic tract (partial image-reviewed interior)",
+    "38": "right optic tract (partial image-reviewed interior)",
     "39": "left mammillary body (reviewed image-guided)",
     "40": "right mammillary body (reviewed image-guided)",
     "41": "cerebral aqueduct candidate (partial; project-adopted reclassification)",
@@ -93,10 +96,7 @@
     "43": "septum pellucidum (partial membrane)",
     "44": "left lateral geniculate nucleus (published BigBrain layer union)",
     "45": "right lateral geniculate nucleus (published BigBrain layer union)",
-    "46": "fornix body (partial image-reviewed extent)",
-    "36": "optic chiasm central region (partial image-reviewed interior)",
-    "37": "left optic tract (partial image-reviewed interior)",
-    "38": "right optic tract (partial image-reviewed interior)"
+    "46": "fornix body (partial image-reviewed extent)"
   },
   "labelCounts": {
     "1": 2887,
@@ -134,6 +134,9 @@
     "33": 6775,
     "34": 66084,
     "35": 71073,
+    "36": 405,
+    "37": 1494,
+    "38": 1440,
     "39": 559,
     "40": 729,
     "41": 267,
@@ -141,11 +144,7 @@
     "43": 282,
     "44": 1197,
     "45": 1374,
-    "46": 7436,
-    "36": 405,
-    "37": 1494,
-    "38": 1440,
-    "0": 66599519
+    "46": 7436
   },
   "atlasToManualDiceAudit": {
     "caudate": 0.8448,
@@ -157,7 +156,7 @@
     "amygdala": 0.7289
   },
   "ventricleLabelsRestrictedToEmptySpace": false,
-  "ventricleTissueOverlap": 0.11072427157215187,
+  "ventricleTissueOverlap": 0.11084992326481205,
   "coordinatePolicy": "exact BigBrain ICBM2009sym 0.5 mm output grid; CerebrA resampling accepted only after overlap audit",
   "reviewedPatchAudit": {
     "path": "segmentation-patches/review/mammillary-bodies-horizontal-core-plus-clear-rim-candidate-2026-08-16.json",
@@ -1762,6 +1761,9 @@
       "33": 6775,
       "34": 66084,
       "35": 71073,
+      "36": 405,
+      "37": 1494,
+      "38": 1440,
       "39": 559,
       "40": 729,
       "41": 267,
@@ -1769,11 +1771,7 @@
       "43": 282,
       "44": 1197,
       "45": 1374,
-      "46": 7436,
-      "36": 405,
-      "37": 1494,
-      "38": 1440,
-      "0": 66599519
+      "46": 7436
     },
     "ventricularLabelIds": [
       23,
@@ -1782,9 +1780,9 @@
       26,
       41
     ],
-    "ventricularVoxels": 185262,
+    "ventricularVoxels": 185052,
     "ventricularNonBackgroundVoxels": 20513,
-    "ventricularNonBackgroundFraction": 0.11072427157215187,
+    "ventricularNonBackgroundFraction": 0.11084992326481205,
     "ventricularLabelsRestrictedToImageBackground": false,
     "perVentricularLabel": {
       "23": {
@@ -1796,11 +1794,11 @@
         "nonBackgroundVoxels": 10563
       },
       "25": {
-        "voxels": 11873,
+        "voxels": 11665,
         "nonBackgroundVoxels": 6
       },
       "26": {
-        "voxels": 9202,
+        "voxels": 9200,
         "nonBackgroundVoxels": 355
       },
       "41": {

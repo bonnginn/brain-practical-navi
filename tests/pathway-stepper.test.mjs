@@ -46,18 +46,14 @@ test("free observation wires the stepper controls without introducing pathway ge
   const css = fs.readFileSync(path.join(root, "app/canvas.css"), "utf8");
   const stepper = fs.readFileSync(path.join(root, "src/pathwayStepper.mjs"), "utf8");
   assert.match(page, /aria-label="大脳基底核回路の位置関係ステッパー"/);
-  assert.match(page, /startBasalGangliaStepperTimer/);
+  assert.doesNotMatch(page, /startBasalGangliaStepperTimer/);
   assert.match(page, /workspace==="surface"&&surfaceView==="free"/);
   assert.match(page, /showFocus=\{surfaceView==="free"\}/);
-  assert.match(page, /if\(!basalStepperActive\)setBasalStepperPlaying\(false\)/);
-  assert.match(page, /最初へ戻る/);
-  assert.match(page, /一時停止/);
   assert.match(page, /3Dと断面を同じ色で表示/);
   assert.match(page, /既存の手動分節ラベルを3Dと断面で同期表示します/);
   assert.match(page, /新しい境界、線、結合、興奮／抑制、投射方向は追加していません/);
   assert.match(page, /selectionMeshLayers=\{surfaceView==="free"\?\(basalStepperActive\?freePathwayMeshLayers:papezStepperActive\?papezStepperMeshLayers:freePathwayMeshLayers\):\[\]\}/);
   assert.match(page, /freeSelections\.length===0&&selectedPathway===null/);
-  assert.match(css, /\.pathwayStepperControls button \{[^}]*min-height:\s*44px/);
   assert.match(css, /\.pathwayStepperSliceStage\{height:\s*270px\}/);
   assert.doesNotMatch(stepper, /opticChiasm|33/);
 });
@@ -232,11 +228,11 @@ test("Papez timer advances and cleans up without changing the basal timer contra
   assert.equal(advanceBasalStepperIndex(0, BASAL_GANGLIA_STEPS.length), 1);
 });
 
-test("Papez UI uses one shared stepper control group and omits section Canvas for 3D-only stages", () => {
+test("Papez observation follows circuit controls and omits section Canvas for 3D-only stages", () => {
   const page = fs.readFileSync(path.join(root, "app/page.tsx"), "utf8");
   const css = fs.readFileSync(path.join(root, "app/canvas.css"), "utf8");
   assert.match(page, /aria-label="Papez回路の由来別位置関係ステッパー"/);
-  assert.match(page, /startPapezStepperTimer/);
+  assert.doesNotMatch(page, /startPapezStepperTimer/);
   assert.match(page, /bigbrainSectionMeshFiles\[key\]\?\?structureMeshFiles\[key\]/);
   assert.match(page, /\["section-label","image-reviewed-partial-section"\]\.includes\(papezStepperStep\.kind\)&&<div className="pathwayStepperSlice"/);
   assert.match(page, /!\["section-label","image-reviewed-partial-section"\]\.includes\(papezStepperStep\.kind\)&&<div className="pathwayStepper3dOnlyNote"/);

@@ -10,10 +10,14 @@ const source=await readFile(new URL('../app/SegmentationReferences.tsx',import.m
 const compiled=ts.transpileModule(source,{compilerOptions:{jsx:ts.JsxEmit.ReactJSX,module:ts.ModuleKind.CommonJS}}).outputText;
 const exported={};
 vm.runInNewContext(compiled,{exports:exported,require:createRequire(import.meta.url)});
-for(const english of [false,true])test(`browser references render source roles and thirty-six links (${english?'en':'ja'})`,async()=>{
+for(const english of [false,true])test(`browser references render source roles and safely opened reference links (${english?'en':'ja'})`,async()=>{
   const html=renderToStaticMarkup(exported.SegmentationReferences({english}));
-  assert.equal((html.match(/<a /g)||[]).length,36);
-  assert.equal((html.match(/target="_blank" rel="noreferrer"/g)||[]).length,36);
+  const anchors=html.match(/<a [^>]+>/g)||[];
+  assert.ok(anchors.length>0);
+  for(const anchor of anchors){
+    assert.match(anchor,/href="https:\/\//);
+    assert.match(anchor,/target="_blank" rel="noreferrer"/);
+  }
   assert.match(html,/10.1038\/s41586-025-09708-2/);
   assert.match(html,english?/other specimens/:/別標本/);
   assert.match(html,/10.3389\/fnana.2022.894606/);

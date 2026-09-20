@@ -13,3 +13,5 @@
 @media(prefers-reduced-motion:reduce){.circuitNodePair i.is-flowing:after{animation:none;left:12px}}
 
 @container (max-width:420px){.circuitTeachingLead{grid-template-columns:1fr}.circuitStage dl>div{grid-template-columns:1fr;gap:2px}.circuitStageHeading{align-items:flex-start;flex-wrap:wrap}.circuitStageHeading h4{min-width:50%}}
+
+.surfaceModelCard .panelHead:has(.circuitReturnButton){flex-wrap:wrap;gap:6px}.surfaceModelCard .panelHead:has(.circuitReturnButton)>div:first-child{flex:1 1 180px;min-width:0}.surfaceModelCard .panelHead:has(.circuitReturnButton) .panelActions{flex-wrap:wrap;min-width:0}.surfaceModelCard .panelHead:has(.circuitReturnButton) .panelActions button{white-space:normal}
