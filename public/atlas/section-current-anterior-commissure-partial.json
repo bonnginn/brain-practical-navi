@@ -1,17 +1,12 @@
 {
-  "voxels": 416,
-  "components6": 6,
+  "voxels": 601,
+  "components6": 1,
   "componentSizes": [
-    317,
-    88,
-    8,
-    1,
-    1,
-    1
+    601
   ],
   "boundsZYX": [
     [
-      127,
+      126,
       270,
       160
     ],
@@ -21,17 +16,17 @@
       230
     ]
   ],
-  "vertices": 754,
-  "faces": 1500,
-  "sha256": "b0772400be64709cf58c13c4b955940f01b51269c376a0a62a1bc83c8ef07292",
-  "bytes": 10313,
+  "vertices": 1047,
+  "faces": 2094,
+  "sha256": "dba861ce44f422e379565922cefd513b0663d7d8829a250460856bbd27572814",
+  "bytes": 13917,
   "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
-  "sourceSha256": "a7f3320c7bbe64786726b4058c895cebe6da95200534bfc9d324caf1122a634a",
+  "sourceSha256": "a0be53bb43f2316bd9100903d6e81ac65b23fe6830c3500cd18c4acba5883417",
   "labelIds": [
     42
   ],
   "labelVoxelCounts": {
-    "42": 416
+    "42": 601
   },
   "sourceSamplingMm": 0.5,
   "displayOriginZYX": [
@@ -40,11 +35,11 @@
     -98.0
   ],
   "method": "marching cubes 0.5; no resampling, smoothing, filling or component removal",
-  "rawSha256": "f1fc0f7306f07e566cb724fa6f5dc6cffab5cdc0723ae7755f127e5e4ea944cf",
-  "rawBytes": 39124,
+  "rawSha256": "9e1aea8a8324cfa8d06cc58b1f411f105cda0fc1f41ab70df28c922960a807db",
+  "rawBytes": 54456,
   "compression": "gzip",
   "partialExtent": true,
   "expertReviewed": false,
   "installed": true,
-  "scope": "Partial internal core only, not the full tract contour or temporal terminations. Six disconnected components are retained without filling or smoothing; current internal-capsule overlap and thin lateral intervals remain unresolved. No expert validation or quiz eligibility."
+  "scope": "Continuous transverse teaching core traced in source images, including local correction of capsule overlap. Approximate 0.5-mm contour; complete outer boundary and temporal terminations remain unrecorded. Not expert validation or quiz eligibility."
 }

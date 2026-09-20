@@ -129,15 +129,15 @@
     "28": 736104,
     "29": 725042,
     "30": 145707,
-    "31": 56826,
-    "32": 53609,
+    "31": 56790,
+    "32": 53587,
     "33": 6775,
     "34": 66084,
     "35": 71073,
     "39": 559,
     "40": 729,
     "41": 267,
-    "42": 416,
+    "42": 601,
     "43": 282,
     "44": 1197,
     "45": 1374,
@@ -145,7 +145,7 @@
     "36": 405,
     "37": 1494,
     "38": 1440,
-    "0": 66602610
+    "0": 66599519
   },
   "atlasToManualDiceAudit": {
     "caudate": 0.8448,
@@ -482,7 +482,7 @@
     "workflowMetadataStatus": "strict"
   },
   "preClassificationCompressedSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
-  "rawVoxelSha256": "c29b144058c9a9dfc0acccd3d18430915e45f0db718bd915e586afd0a4cbc2ce",
+  "rawVoxelSha256": "1efcadfe71372fbb7dfd212f7fc2077fc9bb12076a340f3dc27704d4e54feec3",
   "brainstemThreeIslandsAudit": {
     "record": "segmentation-patches/review/brainstem-three-islands-adoption-2026-09-06.json",
     "recordSha256": "9c7b14f4272969261e3e2415d3f522b7e5d7db1eeca7cb0c8ae28b225458be66",
@@ -1696,6 +1696,17 @@
         "section-current-third-ventricle.mesh",
         "section-current-ventricular-system.mesh"
       ]
+    },
+    "anterior-commissure185": {
+      "record": "segmentation-patches/review/anterior-commissure185-adoption-2026-09-20.json",
+      "recordSha256": "7acca23602366232ff11f90597acdb94565f18202f6255506bf9e661b229f3f9",
+      "changedVoxelCount": 185,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-anterior-commissure-partial.mesh",
+        "section-current-internal-capsule.mesh"
+      ]
     }
   },
   "historicalGenerationClaims": {
@@ -1705,9 +1716,9 @@
   },
   "currentImageMeasurements": {
     "schemaVersion": 1,
-    "sourceLabelSha256": "a7f3320c7bbe64786726b4058c895cebe6da95200534bfc9d324caf1122a634a",
+    "sourceLabelSha256": "a0be53bb43f2316bd9100903d6e81ac65b23fe6830c3500cd18c4acba5883417",
     "sourceImageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
-    "rawVoxelSha256": "c29b144058c9a9dfc0acccd3d18430915e45f0db718bd915e586afd0a4cbc2ce",
+    "rawVoxelSha256": "1efcadfe71372fbb7dfd212f7fc2077fc9bb12076a340f3dc27704d4e54feec3",
     "dimensionsXYZ": [
       394,
       466,
@@ -1746,15 +1757,15 @@
       "28": 736104,
       "29": 725042,
       "30": 145707,
-      "31": 56826,
-      "32": 53609,
+      "31": 56790,
+      "32": 53587,
       "33": 6775,
       "34": 66084,
       "35": 71073,
       "39": 559,
       "40": 729,
       "41": 267,
-      "42": 416,
+      "42": 601,
       "43": 282,
       "44": 1197,
       "45": 1374,
@@ -1762,7 +1773,7 @@
       "36": 405,
       "37": 1494,
       "38": 1440,
-      "0": 66602610
+      "0": 66599519
     },
     "ventricularLabelIds": [
       23,

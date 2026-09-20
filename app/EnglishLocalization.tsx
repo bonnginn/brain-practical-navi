@@ -16,7 +16,7 @@ const reviewed:Record<string,string> = {
   "淡蒼球内節":"Internal globus pallidus (GPi)",
   "乳頭体":"Mammillary body",
   "前交連（部分）":"Anterior commissure (partial)",
-  "原画像で追跡した前交連内部の一部だけを示します。全外縁、側頭葉へ向かう終末、内包に近接する区間は未収録で、完全に連続した経路を示すものではありません。":"Shows only part of the interior of the anterior commissure traced in the source images. Its complete outer boundary, temporal terminations, and the segment near the internal capsule remain unrecorded; this is not a complete continuous pathway.",
+  "原画像で追跡した前交連の主要部を、左右へ横走する連続した束として示します。内包との重なりを局所修正した教材用の概略分節です。全外縁と側頭葉側の終末は未収録で、投射全体を示すものではありません。":"Shows the source-traced main core of the anterior commissure as a continuous transverse bundle. This approximate teaching segmentation includes local correction of overlap with the internal capsule. Its complete outer boundary and temporal terminations remain unrecorded; it does not show the full projection.",
   "正中を横切り左右へ伸びる交連線維の一部。側頭葉間を結ぶ主な走行の位置目安":"Part of the commissural fibres crossing the midline and extending bilaterally; a landmark for the main course connecting the temporal lobes",
   "前交連は左右の大脳半球を結ぶ交連線維です。ここでは正中を横切り、側頭葉間へ向かう主な走行の一部を位置関係の基準として示します。":"The anterior commissure is a commissural fibre bundle connecting the cerebral hemispheres. Here, part of its main course across the midline toward the temporal lobes is shown as a positional landmark.",
   "透明中隔（部分）":"Septum pellucidum (partial)",
