@@ -2075,5 +2075,7 @@
   "実習書の剖出を参考にした独自の切除範囲です。組織の付着を残し、切除面に現れる部分だけを着色します。脈絡叢や線維の質感は再現していません。": "The virtual cuts are an app-specific adaptation of dissection references. Tissue attachments are retained, and only exposed surfaces are coloured. Choroid plexus and fibre texture are not reproduced.",
   "上側から開いた側脳室と腔壁": "Lateral ventricle and walls exposed from above",
   "腔壁をつくる尾状核・視床の露出面": "Exposed caudate and thalamic surfaces at the ventricular wall",
-  "側頭葉側の窓から下角と海馬を探す": "Find the inferior horn and hippocampus through the temporal opening"
+  "側頭葉側の窓から下角と海馬を探す": "Find the inferior horn and hippocampus through the temporal opening",
+  "脳室の形（鋳型）": "Ventricle shape (cast)",
+  "右側脳室の空間を鋳型として表示しています。組織の標本ではありません。回転して、前角・体部から後角・下角へ曲がる形を観察してください。": "This cast represents the space inside the right lateral ventricle, not tissue. Rotate it to follow the anterior horn and body into the posterior and inferior horns."
 }
