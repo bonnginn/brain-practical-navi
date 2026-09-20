@@ -4,9 +4,9 @@ import {useEffect,useRef,useState} from "react";
 import {circuitTeaching,circuitText,type CircuitNode} from "../src/circuitTeaching.mjs";
 import "./circuit-teaching.css";
 
-type Props={circuitKey:string;english:boolean;onObserve?:(index:number)=>void;onPreview?:(index:number)=>void};
+type Props={circuitKey:string;english:boolean;onObserve?:(index:number)=>void;onPreview?:(index:number)=>void;onPulseChange?:(active:boolean)=>void};
 
-export function CircuitTeachingPanel({circuitKey,english,onObserve,onPreview}:Props){
+export function CircuitTeachingPanel({circuitKey,english,onObserve,onPreview,onPulseChange}:Props){
   const circuit=circuitTeaching(circuitKey);
   const [selectedPosition,setSelectedPosition]=useState({pathIndex:0,nodeIndex:0});
   const [playing,setPlaying]=useState(false);
@@ -28,6 +28,12 @@ export function CircuitTeachingPanel({circuitKey,english,onObserve,onPreview}:Pr
     },2200);
     return()=>{window.clearTimeout(timer);document.removeEventListener("visibilitychange",stop)};
   },[playing,circuit,selectedPosition,pathLength]);
+  const currentNode=circuit?.nodes.find(node=>node.key===circuit.paths[selectedPosition.pathIndex]?.nodes[selectedPosition.nodeIndex]);
+  useEffect(()=>{
+    const hasTarget=currentNode?.observationIndex!=null||!!currentNode?.observations?.length;
+    onPulseChange?.(playing&&hasTarget);
+    return()=>onPulseChange?.(false);
+  },[playing,currentNode,onPulseChange]);
   if(!circuit)return null;
   const nodeByKey=new Map(circuit.nodes.map(node=>[node.key,node]));
   const selectedPath=circuit.paths[selectedPosition.pathIndex]??circuit.paths[0];
@@ -54,7 +60,7 @@ export function CircuitTeachingPanel({circuitKey,english,onObserve,onPreview}:Pr
       <button onClick={()=>selectStage(selectedPosition.pathIndex,selectedPosition.nodeIndex+1)} disabled={selectedPosition.nodeIndex>=pathLength-1}>{english?"Next":"次へ"}</button>
       <span>{t(selectedPath.label)} · {selectedPosition.nodeIndex+1}/{pathLength}</span>
     </nav>
-    <p className="circuitPlaybackNote">{english?"The moving marker shows the teaching sequence, not measured signal speed or a traced fibre. Select a row to follow a different pathway.":"動く目印は学習上の順序を示し、信号の実測速度や線維そのものではありません。別の経路は、その行の構造を選んで切り替えます。"}</p>
+    <p className="circuitPlaybackNote">{english?"A red marker advances to the next stage while the corresponding 3D structure slowly pulses red. This does not represent actual speed or fibre trajectories. Stages without a specimen target do not pulse in 3D.":"赤い目印が次の段階へ進み、対応する3D構造がゆっくり赤く明滅します。実際の速度や線維走行を表すものではありません。未収録の段階では3Dは明滅しません。"}</p>
     <div className={`circuitDiagram${playing?" is-playing":""}`} aria-label={english?"Concept diagram":"概念図"}>
       {circuit.paths.map((path,pathIndex)=><div className={`circuitPath circuitPath-${path.kind}`} key={path.key}><b>{t(path.label)}</b><div>{path.nodes.map((nodeKey,index)=>{const node=nodeByKey.get(nodeKey);if(!node)return null;const sign=path.signs?.[index-1];return <span className="circuitNodePair" key={`${path.key}-${nodeKey}-${index}`}>{index>0&&<i className={playing&&selectedPosition.pathIndex===pathIndex&&index===selectedPosition.nodeIndex+1?"is-flowing":""} aria-label={sign==="+"?(english?"excitatory":"興奮性"):sign==="−"?(english?"inhibitory":"抑制性"):(english?"direction":"方向")}>{sign??"→"}</i>}<button type="button" className={selectedPosition.pathIndex===pathIndex&&selectedPosition.nodeIndex===index?"active":""} aria-pressed={selectedPosition.pathIndex===pathIndex&&selectedPosition.nodeIndex===index} onClick={()=>selectStage(pathIndex,index)}>{t(path.labels?.[index]??node.label)}</button></span>})}</div></div>)}
       <small>{circuitKey==="basal-ganglia"?(english?"+ excitatory · − inhibitory":"＋ 興奮性・− 抑制性"):(english?"Arrows show the simplified direction of information flow.":"矢印は簡略化した情報の流れを示します。")}</small>
