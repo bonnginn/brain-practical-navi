@@ -997,15 +997,22 @@ export default function Home() {
   const freePathwayMeshLayers=useMemo(()=>{
     if(!activePathway)return [];
     const keys=activePathway.sectionKeys;
+    const filesFor=(target:StructureKey|undefined)=>target?(bigbrainSectionMeshFiles[target]??structureMeshFiles[target]??[]):[];
+    const directions:Partial<Record<StructureKey,[StructureKey[],StructureKey[]]>>={
+      caudate:[[],["pallidumExternal","pallidumInternal"]],putamen:[[],["pallidumExternal","pallidumInternal"]],
+      pallidumExternal:[["caudate","putamen"],["subthalamic"]],pallidumInternal:[["caudate","putamen","subthalamic"],["thalamus"]],
+      subthalamic:[["pallidumExternal"],["pallidumInternal","substantiaNigra"]],substantiaNigra:[["subthalamic"],["thalamus"]],thalamus:[["pallidumInternal","substantiaNigra"],[]],
+      opticChiasmPartial:[[],["opticTractsPartial"]],opticTractsPartial:[["opticChiasmPartial"],["lateralGeniculateBodies"]],lateralGeniculateBodies:[["opticTractsPartial"],[]]
+    };
     const visualFocus=selectedPathway==="visual"&&visualObservationIndex!==null;
     const focusedKey=visualObservationIndex===null?null:visualSections[visualObservationIndex]?.key;
     const contextColor:[number,number,number]=[110,119,124];
-    return [...keys.flatMap(key=>{const files=bigbrainSectionMeshFiles[key]??structureMeshFiles[key]??[];return files.length?[{files,color:(selectedPathway==="basal-ganglia"?!basalStepperStructureKeys.includes(key):visualFocus&&key!==focusedKey)?contextColor:structures[key].rgb,pulse:selectedPathway==="basal-ganglia"?basalStepperStructureKeys.includes(key):!visualFocus||key===focusedKey}]:[]}),...(selectedPathway==="basal-ganglia"?[]:(activePathway.extraLayers??[]).map(layer=>({...layer,color:visualFocus&&visualObservationIndex!==4?contextColor:layer.color,pulse:!visualFocus||visualObservationIndex===4})))];
+    return [...keys.flatMap(key=>{const files=bigbrainSectionMeshFiles[key]??structureMeshFiles[key]??[];return files.length?[{files,color:(selectedPathway==="basal-ganglia"?!basalStepperStructureKeys.includes(key):visualFocus&&key!==focusedKey)?contextColor:structures[key].rgb,pulse:selectedPathway==="basal-ganglia"?basalStepperStructureKeys.includes(key):!visualFocus||key===focusedKey,flowFrom:(directions[key]?.[0]??[]).flatMap(filesFor),flowTo:key==="lateralGeniculateBodies"?["block-radiations-optic-radiation"]:(directions[key]?.[1]??[]).flatMap(filesFor)}]:[]}),...(selectedPathway==="basal-ganglia"?[]:(activePathway.extraLayers??[]).map(layer=>({...layer,color:visualFocus&&visualObservationIndex!==4?contextColor:layer.color,pulse:!visualFocus||visualObservationIndex===4,flowFrom:filesFor("lateralGeniculateBodies"),flowTo:[]})))];
   },[activePathway,basalStepperStructureKeys,selectedPathway,visualObservationIndex]);
-  const papezStepperMeshLayers=useMemo(()=>pathwayPresets.papez.sectionKeys.flatMap(key=>{
+  const papezStepperMeshLayers=useMemo(()=>pathwayPresets.papez.sectionKeys.flatMap((key,index,keys)=>{
     const files=bigbrainSectionMeshFiles[key]??structureMeshFiles[key]??[];
     const active=papezStepperSectionKeys.includes(key);
-    return files.length?[{files,color:active?structures[key].rgb:[110,119,124] as [number,number,number],pulse:active}]:[];
+    return files.length?[{files,color:active?structures[key].rgb:[110,119,124] as [number,number,number],pulse:active,flowFrom:index?bigbrainSectionMeshFiles[keys[index-1]]??structureMeshFiles[keys[index-1]]:[],flowTo:bigbrainSectionMeshFiles[keys[index+1]]??structureMeshFiles[keys[index+1]]??[]}]:[];
   }),[papezStepperSectionKeys]);
   const papezStepperHasMesh=papezStepperSectionKeys.some(key=>(bigbrainSectionMeshFiles[key]??structureMeshFiles[key]??[]).length>0);
   const basalStepperSliceHighlights=useMemo<HighlightLayer[]>(()=>basalStepperStructureKeys.map(key=>({ids:structures[key].bigbrainIds??[],color:structures[key].rgb})),[basalStepperStructureKeys]);

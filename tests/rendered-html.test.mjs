@@ -2160,7 +2160,7 @@ test("keeps ghost-surface teaching layers depth-tested and opacity-consistent", 
   assert.match(atlasCanvas, /const ghostSurface=view==="ghost"&&blockMeshes===null/);
   assert.match(atlasCanvas, /else if\(!ghostSurface\)drawSurfaceShell\(\)/);
   assert.match(atlasCanvas, /if\(showFocus&&selectionLayers\.length\)\{if\(!ghostSurface\)gl\.clear\(gl\.DEPTH_BUFFER_BIT\)/);
-  assert.match(atlasCanvas, /selectionLayers\.forEach\(layer=>layer\.meshes\.forEach\(part=>draw\(part,selectionColor\(layer\.color\),1,gl\.TRIANGLES,\[\],layer\.pulse!==false\)\)\)/);
+  assert.match(atlasCanvas, /selectionLayers\.forEach\(layer=>layer\.meshes\.forEach\(\(part,index\)=>draw\(part,selectionColor\(layer\.color\),1,gl\.TRIANGLES,\[\],layer\.pulse!==false,layer\.travel\?\.\[index\]\)\)\)/);
   assert.match(atlasCanvas, /if\(ghostSurface\)\{[\s\S]*?gl\.depthFunc\(gl\.LESS\)[\s\S]*?drawSurfaceShell\(\)/);
   assert.doesNotMatch(atlasCanvas, /if\(view==="ghost"\)gl\.clear\(gl\.DEPTH_BUFFER_BIT\)/);
   assert.match(atlasCanvas, /draw\(overlays\[0\],teachingColor\(\[\.86,\.18,\.14\]\)/);
