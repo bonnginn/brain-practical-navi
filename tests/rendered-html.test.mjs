@@ -552,8 +552,8 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /basalHighlights/);
   assert.match(page, /aria-label="下面の補助レイヤー"/);
   assert.match(page, /surfaceNeurovascular\|\|surfaceView==="inferior"\|\|surfaceView==="free"\?surfaceOverlay:"none"/);
-  assert.match(page, /showBasalLandmarks=\{!circuitPulse&&\(surfaceView==="inferior"\|\|surfaceView==="cranialNerves"\|\|surfaceView==="free"\)\}/);
-  assert.match(page, /basalOnlySelected=\{false\}/);
+  assert.match(page, /showBasalLandmarks=\{\(surfaceView==="inferior"\|\|surfaceView==="cranialNerves"\|\|surfaceView==="free"\)\}/);
+  assert.match(page, /basalOnlySelected=\{surfaceView==="free"&&surfaceGhost\}/);
   assert.match(page, /const detachableBrainstemNerveKeys:NeurovascularStructureKey\[]=\["cn5","cn6","cn7","cn8","cn9","cn10","cn11","cn12"\]/);
   assert.match(page, /function toggleFreeHindbrain\(\)/);
   assert.match(page, /aria-label="自由観察の表示レイヤー"[^\n]+>橋・延髄<\/button>/);

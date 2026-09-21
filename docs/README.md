@@ -8,6 +8,7 @@
 
 | 作業 | 入口 |
 | --- | --- |
+| β公開準備・現在の残件 | [β公開準備](BETA_RELEASE_PREPARATION_2026-09-22.md) |
 | 実行・UI・フォーム設定 | [開発ガイド](DEVELOPMENT.md) |
 | 分節・メッシュ・公開・検証 | [作業別ガイド](AGENT_TASK_GUIDE.md) |
 | 開発／公開の現在値・残件 | [再開メモ](RESUME_SUMMARY.md) |
