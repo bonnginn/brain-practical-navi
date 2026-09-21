@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-09-07",
+  "updated": "2026-09-22",
   "phase": "公開α掲載中／β候補・β公開判断前",
   "knownLimitations": [
     {
       "id": "limitation-optic-id33",
       "heading": "旧ID33と視交叉・視索",
-      "body": "旧BigBrain/CerebrA ID33は視交叉と視索を分離できないため、断面学習画面と通常クイズの正答対象から除外（誤答選択肢には残る）しています。視交叉・左右視索ID36–38は未分節で、曖昧な境界を推測していません。",
+      "body": "旧BigBrain/CerebrA ID33は視交叉と視索を分離できないため、断面学習画面と通常クイズの正答対象から除外（誤答選択肢には残る）しています。現行候補には視交叉・左右視索ID36–38の部分分節と左右外側膝状体を収録しています。視放線は模式表示で、全境界や専門家レビューは未完了です。",
       "evidenceRefs": ["public/atlas/structure-provenance.json", "LECTURE_COVERAGE_AUDIT.md", "OPTIC_PATHWAY_AUDIT.md"],
       "provenanceKeys": ["visual-pathway-legacy-optic-label"]
     },
@@ -26,14 +26,14 @@
     {
       "id": "limitation-unrecorded-items",
       "heading": "未収録項目",
-      "body": "海馬采・鉤、XI脊髄根、閂・薄束・楔状束の詳細、表在・深部脳静脈と硬膜静脈洞などは、現行教材に独立表示・分節・クイズを収録していません。旧模式海馬采・鉤は未収録です。両側海馬采の一部は連続断面の脳弓ラベルに収録しています。",
+      "body": "鉤、XI脊髄根、閂・薄束・楔状束の詳細、表在・深部脳静脈と硬膜静脈洞などは未収録です。旧模式海馬采・鉤は使用しません。両側海馬采の一部は脳弓ラベルとして断面・対応3D・関連ブロックに収録していますが、全外縁と前端の精密な境界は未確定です。",
       "evidenceRefs": ["public/atlas/structure-provenance.json", "LECTURE_COVERAGE_AUDIT.md", "MEDIAL_TEMPORAL_AUDIT.md"],
       "provenanceKeys": ["section-temporal-lobe", "hindbrain-gracile-cuneate-structures", "vascular-venous-system"]
     },
     {
       "id": "limitation-local-validation-scope",
       "heading": "ローカル検証の範囲",
-      "body": "Windows Chromeのローカル検証では、M2比較専用URLを含む162/162件が合格しました。これは公開URLや物理タッチ端末、別GPU・別ブラウザでの挙動を保証するものではなく、これらは未確認です。",
+      "body": "日英の回路操作、狭い画面、観察と関連復習の往復をローカルで確認しています。過去の全経路検査と最新変更の対象検査は実施時点が異なります。公開URL、物理タッチ端末、Safari等の別ブラウザ・別GPUの最新候補での挙動は未確認です。",
       "evidenceRefs": ["PERFORMANCE_AUDIT.md", "PRESENTATION_AUDIT.md", "BETA_STATUS_AUDIT.md"]
     },
     {
@@ -44,6 +44,16 @@
     }
   ],
   "changes": [
+    {
+      "id": "change-beta-circuit-flow",
+      "heading": "回路を順に観察して復習",
+      "body": "Papez・視覚路・大脳基底核の回路を、説明と3Dを対応させて順に再生できます。周囲構造を残し、深部構造と帯状回では赤い光が形に沿って進みます。これは模式信号で、実測線維や伝導速度ではありません。関連クイズから同じ回路へ戻れます。未収録の段階は解説で示します。",
+      "evidenceRefs": [
+        "docs/BETA_INTEGRATION_2026-09-20.md",
+        "app/CircuitTeachingPanel.tsx",
+        "src/circuitTravel.mjs"
+      ]
+    },
     {
       "id": "change-september-adopted-segmentation",
       "heading": "分節修正と断面・3Dの同期",

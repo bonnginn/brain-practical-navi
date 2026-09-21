@@ -15,7 +15,7 @@ test("beta status registry is valid and covers the fixed provenance references",
   assert.equal(STATUS_PHASE, "公開α掲載中／β候補・β公開判断前");
   assert.equal(baseStatus.phase, STATUS_PHASE);
   assert.equal(baseStatus.knownLimitations.length, 6);
-  assert.equal(baseStatus.changes.length, 21);
+  assert.equal(baseStatus.changes.length, 22);
   assert.ok(baseStatus.changes.some(item => item.id === "change-september-adopted-segmentation"));
   assert.ok(baseStatus.changes.some(item => item.id === "change-browser-segmentation-references"));
   assert.match(baseStatus.changes.find(item => item.id === "change-beta-readiness-display").body, /専門家確認待ち4/);
