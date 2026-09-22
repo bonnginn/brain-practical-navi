@@ -20,8 +20,9 @@ import { SegmentationReferences } from "./SegmentationReferences";
 import { CircuitTeachingPanel } from "./CircuitTeachingPanel";
 import { BIGBRAIN_SECTION_DIMS, SectionSliceStepper } from "./SectionSliceStepper";
 import { ForamenGuide } from "./ForamenGuide";
+import {ActiveSectionStudy} from "./ActiveSectionStudy";
 import {SectionStudyGuide} from "./SectionStudyGuide";
-import type {SectionStudyTheme} from "../src/sectionStudyThemes";
+import {sectionStudyThemes,type SectionStudyTheme} from "../src/sectionStudyThemes";
 import { formatSectionPosition, stepPlanePosition } from "./segmentationGeometry";
 import betaGoNoGoDisplay from "./beta-go-no-go-display.json";
 import quizConceptBank from "./quiz-concept-bank.json";
@@ -883,6 +884,8 @@ export default function Home() {
   const [selectedNeurovascularStructure,setSelectedNeurovascularStructure]=useState<NeurovascularStructureKey>(surfaceView==="cranialNerves"?"cn1":"ica");
   const [freeHemisphere,setFreeHemisphere]=useState<"both"|"left"|"right">("both");
   const [freeSearch,setFreeSearch]=useState("");
+  const [activeStudyTheme,setActiveStudyTheme]=useState<SectionStudyTheme|null>(null);
+  const [quizThemeOrigin,setQuizThemeOrigin]=useState<{theme:SectionStudyTheme;plane:Plane;position:number;visible:StructureKey[];target:StructureKey;labels:boolean;layout:"both"|"slice"|"model"}|null>(null);
   const [sectionSearch,setSectionSearch]=useState("");
   const [freeSelections,setFreeSelections]=useState<FreeObservationKey[]>([]);
   const [freeFocusedKey,setFreeFocusedKey]=useState<FreeObservationKey|null>(null);
@@ -956,6 +959,7 @@ export default function Home() {
   const anatomyReviewItems=useMemo(()=>filterAnatomyReviewQueue(anatomyReviewQueue,{surface:anatomyReviewSurfaceFilter,representation:anatomyReviewRepresentationFilter}),[anatomyReviewSurfaceFilter,anatomyReviewRepresentationFilter]);
   const sectionDeveloperControls=(import.meta.env.VITE_SECTION_DEVELOPER_CONTROLS as string|undefined)==="true";
   const current = structures[selectedStructure];
+  const themeReviewQuestions=activeStudyTheme?allQuizQuestions.filter(question=>!isSurfaceQuiz(question)&&!isNeurovascularQuiz(question)&&(activeStudyTheme.members as readonly string[]).includes(question.target)):[];
   const sectionRelatedQuestions=allQuizQuestions.filter(question=>!isSurfaceQuiz(question)&&!isNeurovascularQuiz(question)&&question.target===selectedStructure);
   const surfaceRelatedQuestions=surfaceLessonKey?allQuizQuestions.filter(question=>isSurfaceQuiz(question)&&question.target===surfaceLessonKey):[];
   const cavitySelection=selectedStructure==="ventricle"||selectedStructure==="thirdVentricle"||selectedStructure==="fourthVentricle";
@@ -1368,6 +1372,7 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
   }
 
   function observeStudyTheme(theme:SectionStudyTheme){
+    setActiveStudyTheme(theme);
     setSectionSearch("");setPlaying(false);setLabels(true);setVisibleStructures([...theme.members]);
     focusStructure(theme.target);setContrast("bigbrain");setIdentified(null);
     setSectionLayout(phoneMode||webglUnavailable?"slice":"both");
@@ -1376,6 +1381,7 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
   }
 
   function observeForamenSlice(y:number){
+    setActiveStudyTheme(null);
     setSectionSearch("");setPlaying(false);setLabels(true);setVisibleStructures(["ventricle","thirdVentricle"]);
     setSelectedStructure("thirdVentricle");setSectionLayout(webglUnavailable?"slice":"both");setIdentified(null);
     jump("coronal",y/(BIGBRAIN_SECTION_DIMS[1]-1)*100);
@@ -1538,9 +1544,7 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
     window.requestAnimationFrame(()=>document.getElementById("workspace")?.focus());
     if(entry==="quiz"){openWorkspace("quiz");return}
     if(entry==="sections"){
-      openWorkspace("sections");jump("coronal",55,"replace");setPlaying(false);
-      setContrast("bigbrain");setLabels(true);setVisibleStructures(["ventricle","thalamus"]);
-      focusStructure("thalamus");setIdentified(null);setSectionLayout(webglUnavailable?"slice":"both");
+      openWorkspace("sections");observeStudyTheme(sectionStudyThemes[0]);
       return;
     }
     openWorkspace("surface");chooseSurface(entry==="circuits"?"free":"lateral","replace");
@@ -1556,8 +1560,9 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
   function saveWrongTargets(next:string[]){setWrongTargets(next);try{localStorage.setItem(QUIZ_WRONG_CACHE_KEY,JSON.stringify(next))}catch{/* private browsing may block storage */}}
   function quizChoiceCount(dimension:"category"|"format"|"detail",value:string){return countQuizChoice(quizQuestionsForFiltering,quizFilters,wrongTargets,dimension,value)}
   function chooseQuizFormat(value:QuizFormatFilter){setQuizFormat(value);if(quizDetail!=="all"&&!detailOptionsForFormat(value).includes(quizDetail))setQuizDetail("all")}
-  function startQuiz(){setQuizStudyLabel(null);setQuizCircuit(null);let candidates=quizCandidates;setQuizQueue(shuffledQuestions(candidates).slice(0,quizActualCount));resetQuiz()}
+  function startQuiz(){setQuizThemeOrigin(null);setQuizStudyLabel(null);setQuizCircuit(null);let candidates=quizCandidates;setQuizQueue(shuffledQuestions(candidates).slice(0,quizActualCount));resetQuiz()}
   function startCircuitReview(){
+    setQuizThemeOrigin(null);
     if(!selectedPathway||!circuitReviewQuestions.length)return;
     setQuizStudyLabel(null);
     setQuizCircuit(selectedPathway);
@@ -1584,9 +1589,23 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
   function nextQuiz(){if(quizIndex>=quizQueue.length-1){setQuizChoice(null);setQuizFinished(true);focusQuizContent();return}setQuizChoice(null);setQuizIndex(index=>index+1);focusQuizContent()}
   function resetQuiz(){setQuizIndex(0);setQuizChoice(null);setQuizScore(0);setQuizMisses([]);setQuizFinished(false);focusQuizContent()}
   function startRelatedReview(questions:QuizQuestion[],title:string){
+    setQuizThemeOrigin(null);
     if(!questions.length)return;
     setQuizStudyLabel(title);setQuizCircuit(null);setQuizQueue(shuffledQuestions(questions));resetQuiz();openWorkspace("quiz");
     requestAnimationFrame(()=>document.getElementById("workspace")?.focus());
+  }
+  function startThemeReview(){
+    if(!activeStudyTheme||!themeReviewQuestions.length)return;
+    startRelatedReview(themeReviewQuestions,activeStudyTheme[englishEdition?"en":"ja"].name);
+    setQuizThemeOrigin({theme:activeStudyTheme,plane,position,visible:[...visibleStructures],target:selectedStructure,labels,layout:sectionLayout});
+  }
+  function returnFromThemeReview(){
+    if(!quizThemeOrigin)return;
+    const origin=quizThemeOrigin;
+    setQuizObservationTitle(origin.theme[englishEdition?"en":"ja"].name);setSectionLayout(webglUnavailable?"slice":origin.layout);
+    openWorkspace("sections");setActiveStudyTheme(origin.theme);setContrast("bigbrain");setPlaying(false);setLabels(origin.labels);
+    setVisibleStructures(origin.visible);focusStructure(origin.target);setIdentified(null);jump(origin.plane,origin.position,"replace");
+    requestAnimationFrame(()=>sectionStageRef.current?.scrollIntoView({block:"start"}));
   }
   function returnToQuiz(){
     openWorkspace("quiz");
@@ -1600,7 +1619,7 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
     requestAnimationFrame(()=>document.getElementById("workspace")?.focus());
     if(isNeurovascularQuiz(question)){openWorkspace("surface");chooseSurface(question.view,"replace");setSelectedNeurovascularStructure(question.target);setSurfaceVessels(question.view==="arteries");setSurfaceNerves(question.view==="cranialNerves");return}if(isSurfaceQuiz(question)){openWorkspace("surface");chooseSurface(question.view,"replace");setSurfaceVisibleRegions([question.target]);return}openWorkspace("sections");setContrast("bigbrain");setPlaying(false);setIdentified(null);setSectionLayout(phoneMode||webglUnavailable?"slice":"both");jump(question.plane,question.position,"replace");setVisibleStructures([question.target]);focusStructure(question.target,true);setLabels(true)}
   function retryQuiz(){setQuizQueue(previous=>shuffledQuestions(previous));resetQuiz()}
-  function restoreAllQuiz(){setQuizStudyLabel(null);setQuizCircuit(null);setQuizWrongOnly(false);setQuizKind("all");setQuizCategory("all");setQuizFormat("all");setQuizDetail("all");setQuizIncludeProvisional(true);setQuizQueue(shuffledQuestions(allQuizQuestions).slice(0,quizCount));resetQuiz()}
+  function restoreAllQuiz(){setQuizThemeOrigin(null);setQuizStudyLabel(null);setQuizCircuit(null);setQuizWrongOnly(false);setQuizKind("all");setQuizCategory("all");setQuizFormat("all");setQuizDetail("all");setQuizIncludeProvisional(true);setQuizQueue(shuffledQuestions(allQuizQuestions).slice(0,quizCount));resetQuiz()}
   function resetWrongHistory(){saveWrongTargets([]);if(quizWrongOnly){setQuizQueue([]);resetQuiz()}}
 
   return <main className={`appShell workspace-${workspace} ${(workspace==="home"||workspace==="entrance")?"homeShell":""} ${phoneMode?"phone-mode":""}`} data-locale={locale}>
@@ -1710,7 +1729,8 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
     </section>}
 
     {workspace==="sections"&&<section className="workArea" id="workspace" tabIndex={-1}><h1 className="srOnly">断面実習</h1>
-      {quizObservationTitle&&<QuizObservationReturn english={englishEdition} title={quizObservationTitle} finished={quizFinished} onReturn={returnToQuiz}/>}
+      {quizObservationTitle&&<QuizObservationReturn english={englishEdition} title={quizObservationTitle} finished={quizFinished} answered={Boolean(quizChoice)||quizFinished} onReturn={returnToQuiz}/>}
+      {contrast==="bigbrain"&&activeStudyTheme&&<ActiveSectionStudy theme={activeStudyTheme} english={englishEdition} questionCount={themeReviewQuestions.length} onRestart={()=>observeStudyTheme(activeStudyTheme)} onReview={startThemeReview} onClose={()=>setActiveStudyTheme(null)}/>}
       {contrast==="bigbrain"&&<SectionStudyGuide english={englishEdition} onObserve={observeStudyTheme}><ForamenGuide english={englishEdition} onObserve={observeForamenSlice}/></SectionStudyGuide>}
       {sectionLinkStatus&&<p role="status">{englishEdition?"This observation link is invalid or uses a different label revision. Its settings were not applied.":"観察リンクが不正、またはラベルの版が異なるため、リンクの設定は適用していません。"}</p>}
       {contrast==="bigbrain"&&<details className="sectionObservationLink"><summary>{englishEdition?"Link to this observation":"この観察のリンク"}</summary><p>{englishEdition?"Copy this link to reproduce the slice position, selected structures and panel layout. Rotation and zoom are not included. No personal data is included.":"断面位置・選択構造・表示配分を再現するリンクです。回転と拡大率は含みません。個人情報は含まれません。"}</p><input aria-label={englishEdition?"Observation URL":"観察URL"} readOnly onFocus={event=>event.currentTarget.select()} value={typeof window==="undefined"?"":observationUrl(window.location.href,sectionLinkHash(plane,{version:1,positions:{...sectionPositions.current,[plane]:position},visible:visibleStructures,selected:selectedStructure,layout:sectionLayout,views:sectionModelViews,share:sectionModelShare},sectionAllowedKeys,SEGMENTATION_LABEL_SHA256)??"")}/></details>}
@@ -1753,7 +1773,7 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
     </section>}
 
     {workspace==="surface"&&<section className="workArea learningArea" id="workspace" tabIndex={-1}>
-      {quizObservationTitle&&<QuizObservationReturn english={englishEdition} title={quizObservationTitle} finished={quizFinished} onReturn={returnToQuiz}/>}
+      {quizObservationTitle&&<QuizObservationReturn english={englishEdition} title={quizObservationTitle} finished={quizFinished} answered={Boolean(quizChoice)||quizFinished} onReturn={returnToQuiz}/>}
       <div className="workHead"><div><span className="eyebrow">SURFACE PRACTICAL</span><h1>脳表観察</h1></div></div>
       {brodmannActive?<Suspense fallback={<p role="status">{englishEdition?"Loading Brodmann observation…":"ブロードマン観察を準備中…"}</p>}><BrodmannExplorer english={englishEdition}/></Suspense>:<div className="learningGrid">
         <section ref={circuitModelRef} tabIndex={-1} className="learningModelCard surfaceModelCard"><div className="panelHead"><div><b>{surfaceLesson.name}</b><small>{englishEdition?"Drag to rotate":`${surfaceLesson.en}・ドラッグで回転`}</small></div><div className="panelActions">{surfaceView==="free"&&selectedPathway&&<button className="circuitReturnButton" onClick={returnToCircuitGuide}>{englishEdition?"Back to explanation":"回路解説へ戻る"}</button>}{surfaceView==="free"?<span>{freeSelections.length} 構造を選択中</span>:surfaceNeurovascular?<span>3D OVERLAY · PILOT</span>:surfaceView!=="medial"?<button className={surfaceCerebellum?"active":""} aria-pressed={surfaceCerebellum} onClick={()=>setSurfaceCerebellum(value=>!value)} disabled={webglUnavailable}>{surfaceCerebellum?"小脳を外す":"小脳を戻す"}</button>:null}<button onClick={resetSurfaceView} disabled={webglUnavailable}>向きを戻す</button></div></div>
@@ -1835,7 +1855,8 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
 
     {workspace==="quiz"&&<section className="workArea quizArea" id="workspace" tabIndex={-1}>
       <div className="workHead"><div><span className="eyebrow">ANATOMY REVIEW QUIZ</span><h1>復習クイズ</h1></div><span className="sourceBadge">名称・機能・位置関係を確認</span></div>
-      {quizStudyLabel&&<p className="quizStudyLabel" data-no-localize><strong>{quizStudyLabel}</strong> — {englishEdition?`Reviewing ${quizQueue.length} existing questions about this structure`:`この構造の収録済み${quizQueue.length}問で復習`}</p>}
+      {quizStudyLabel&&<p className="quizStudyLabel" data-no-localize><strong>{quizStudyLabel}</strong> — {englishEdition?`Reviewing ${quizQueue.length} related questions`:`関連する収録済み${quizQueue.length}問で復習`}</p>}
+      {quizThemeOrigin&&<div className="circuitQuizReturn" data-no-localize><span>{quizThemeOrigin.theme[englishEdition?"en":"ja"].name}</span><button onClick={returnFromThemeReview}>{englishEdition?"Back to my observation":"復習前の観察に戻る"}</button></div>}
       {quizCircuit&&<div className="circuitQuizReturn"><span>{englishEdition?"Reviewing structures from the circuit guide":"回路ガイドに関連する構造の復習"}</span><button onClick={returnFromCircuitReview}>{englishEdition?"Back to circuit guide":"回路ガイドへ戻る"}</button></div>}
       {quizFinished?<div className="quizEmptyState quizResultState" tabIndex={-1} role="status" aria-live="polite"><span>QUIZ COMPLETE</span><h2>{quizScore} / {quizQueue.length} 問正解</h2><p>{quizScore===quizQueue.length?"全問正解です。別の項目へ進むか、同じ問題を順番を変えて再確認できます。":"間違えた問題は端末内に保存しました。下で答えと解説を見直し、今回間違えた問題だけを再挑戦できます。"}</p><QuizSessionReview english={englishEdition} rows={quizMisses.map(({question,choice,number})=>({number,name:quizOptionName(question,question.target),prompt:question.prompt,selected:quizOptionName(question,choice),correct:quizOptionName(question,quizCorrectAnswer(question)),explanation:quizExplanationParagraphs(question),sources:quizReferences(question)}))} onObserve={index=>reviewQuizQuestion(quizMisses[index].question)} onRetry={()=>{setQuizQueue(shuffledQuestions(quizMisses.map(item=>item.question)));resetQuiz()}}/><div><button onClick={retryQuiz}>同じ問題を再挑戦</button><button onClick={startQuiz}>この条件で新しく出題</button></div></div>:quizEmpty?<div className="quizEmptyState" role="status"><span>REVIEW CACHE</span><h2>{quizWrongOnly&&wrongTargets.length===0?"間違い履歴がありません":"今回の出題はありません"}</h2><p>{quizWrongOnly&&wrongTargets.length===0?"間違い履歴がまだありません。左の「次回出題条件」で「間違った問題のみ」を解除するか、通常の条件で出題してください。":"現在の問題キューは空です。左の「次回出題条件」と候補数を確認し、「この条件で出題」を押してください。フィルタ変更は現在の問題ではなく次回の出題に反映されます。"}</p><button onClick={restoreAllQuiz}>通常の出題に戻る</button></div>:<div className="quizWorkspace">
         <section className="quizImageCard">{sectionDeveloperControls&&quizSource&&<small>{quizSource}</small>}<div className="panelHead"><div><b>問題 {quizIndex+1}</b><small>{quizModelQuestion?surfaceViews[quizSurfaceView].name:`${planeData[quizQuestion.plane].ja}・位置 ${formatSectionPosition(quizSlicePosition)}・BigBrain公開組織画像 0.5 mm`}</small></div><span>{quizModelQuestion&&!webglUnavailable?"ドラッグで回転・ホイールで拡大":quizModelQuestion?"3D表示を利用できません":"ホイールで拡大"}</span></div><div className={`quizImageStage ${quizModelQuestion?"modelStage":""} ${quizModelQuestion&&webglUnavailable?"webglUnavailable":""}`} tabIndex={quizModelQuestion&&!webglUnavailable?0:undefined} aria-label={quizModelQuestion&&!webglUnavailable?(neurovascularQuiz?"復習問題の模式3D神経血管モデル。ドラッグまたは矢印キーで回転、Rキーで向きを戻す":"復習問題の脳表3Dモデル。ドラッグまたは矢印キーで回転、Rキーで向きを戻す"):undefined} onKeyDown={quizModelQuestion&&!webglUnavailable?handleModelKey:undefined} onPointerDown={quizModelQuestion&&!webglUnavailable?beginRotation:undefined} onPointerMove={quizModelQuestion&&!webglUnavailable?move:undefined} onPointerUp={quizModelQuestion&&!webglUnavailable?()=>setDrag(null):undefined} onPointerCancel={quizModelQuestion&&!webglUnavailable?()=>setDrag(null):undefined} onContextMenu={quizModelQuestion&&!webglUnavailable?event=>event.preventDefault():undefined}>{quizModelQuestion?<><AtlasVolumeCanvas kind="surface" plane="sagittal" position={50} focus="thalamus" display="specimen" rotation={rotation} view={neurovascularQuiz?"ghost":"inside"} contrast="bigbrain" showFocus={false} showCutPlane={false} hemisphere={surfaceViews[quizQuestion.view].hemisphere} showCerebellum={neurovascularQuiz?false:quizQuestion.view!=="medial"} showPonsMedulla={quizQuestion.view!=="medial"} showMidbrain={quizQuestion.view!=="medial"} keepBrainstemOpaqueInGhost={neurovascularQuiz&&quizQuestion.detail==="cranialNerves"} surfaceHighlights={neurovascularQuiz?[]:quizSurfaceHighlight} neurovascularOverlay={neurovascularQuiz?(quizQuestion.detail==="arteries"?"vessels":"nerves"):"none"} neurovascularHighlights={neurovascularQuiz?quizNeurovascularHighlight:[]} quizVisibilityExpectedHighlights={quizVisibilityExpectedHighlights} showBrainstemNerves={neurovascularQuiz||quizSurfaceView==="cranialNerves"} onWebGLUnavailableChange={setWebglUnavailable}/>{!webglUnavailable&&<OrientationCompass rotation={rotation}/>}</>:<AtlasVolumeCanvas kind="slice" plane={quizQuestion.plane} position={quizSlicePosition} focus={sectionQuizTarget.meshFocus??"thalamus"} display="specimen" rotation={rotation} contrast="bigbrain" highlights={quizHighlight}/>}</div>{!quizModelQuestion&&<div className="quizSliceNavigator"><div className="quizSliceAxis"><span>{planeData[quizQuestion.plane].from}</span><b>{planeData[quizQuestion.plane].axis}</b><span>{planeData[quizQuestion.plane].to}</span></div><div className="quizSliceControl"><button aria-label="1断面戻る" onClick={()=>setQuizSlicePosition(value=>stepPlanePosition(value,quizQuestion.plane,BIGBRAIN_SECTION_DIMS,-1))} disabled={quizSlicePosition===0}>−</button><input aria-label={`復習問題の${planeData[quizQuestion.plane].axis}`} type="range" min="0" max="100" step="any" value={quizSlicePosition} onChange={event=>setQuizSlicePosition(Number(event.target.value))} onKeyDown={event=>{if(event.key==="ArrowLeft"||event.key==="ArrowRight"){event.preventDefault();const direction=event.key==="ArrowLeft"?-1:1;setQuizSlicePosition(value=>stepPlanePosition(value,quizQuestion.plane,BIGBRAIN_SECTION_DIMS,direction))}}}/><button aria-label="1断面進む" onClick={()=>setQuizSlicePosition(value=>stepPlanePosition(value,quizQuestion.plane,BIGBRAIN_SECTION_DIMS,1))} disabled={quizSlicePosition===100}>＋</button></div><output>{formatSectionPosition(quizSlicePosition)}</output><button onClick={()=>setQuizSlicePosition(quizQuestion.position)} disabled={quizSlicePosition===quizQuestion.position}>出題位置へ戻す</button></div>}</section>

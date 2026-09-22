@@ -16,3 +16,6 @@
 .sectionCompareAction{display:grid;gap:6px;margin:12px 0;padding:12px;border:1px solid #bccbc3;background:#f3f8f5}
 .sectionCompareAction button{min-height:44px;padding:8px;border:1px solid #789c8c;background:#fff;color:#29463d;font:inherit;font-size:var(--ui-font-13,13px)}
 .sectionCompareAction small{font-size:var(--ui-font-12,12px);line-height:1.6;overflow-wrap:anywhere}
+
+.activeSectionStudy{margin-bottom:8px;border:1px solid #aabfb3;border-left:4px solid #357866;background:#f4f8f4;padding:8px 12px;color:#293f37;font-size:var(--ui-font-13,13px);line-height:1.6}
+.activeSectionStudy summary{cursor:pointer;font-weight:700;overflow-wrap:anywhere}.activeSectionStudy summary>span{color:#546b5d;font-size:var(--ui-font-12,12px);margin-right:8px}.activeSectionStudy p{margin:8px 0}.activeSectionStudy ol{padding-left:22px}.activeStudyActions{display:flex;flex-wrap:wrap;gap:8px}.activeStudyActions button{min-height:44px;padding:8px 12px;font:inherit;color:inherit;background:#fff;border:1px solid #aabfb3}
