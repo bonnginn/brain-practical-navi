@@ -86,7 +86,7 @@ type StructureKey = Focus | "thirdVentricle" | "fourthVentricle" | "aqueductPart
 type LabelSource = "manual" | "atlas-provisional" | "image-guided" | "image-guided-reviewed";
 type StructureInfo = { name: string; latin: string; color: string; rgb: [number,number,number]; ids: number[]; bigbrainIds?: number[]; labelSource?: LabelSource; note: string; relation: string; meshFocus?: Focus };
 const labelSourceDisplay:Record<LabelSource,{label:string;detail:string;className:"source"|"provisional"}>={
-  manual:{label:"標本同一格子・手動分節",detail:"BigBrain画像と同じ格子で公開された手動ラベルです。構造範囲の最終的な解剖学監修は継続中です。",className:"source"},
+  manual:{label:"標本同一格子・手動分節",detail:"BigBrain画像と同じ格子で公開された手動ラベルを使用しています。本教材としての表示範囲は専門家監修済みではありません。",className:"source"},
   "atlas-provisional":{label:"アトラス照合・試作",detail:"別アトラスを位置照合した教育用候補です。手動正解分節ではありません。",className:"provisional"},
   "image-guided":{label:"画像誘導・試作",detail:"画像を参照して作成した未確定の教育用候補です。",className:"provisional"},
   "image-guided-reviewed":{label:"画像誘導・確認済み",detail:"BigBrain連続切片を参照して作成し、プロジェクト内で採用した教材用ラベルです。研究用の正解マスクではなく、直交断確認により改訂する場合があります。",className:"source"},
@@ -508,7 +508,7 @@ const structureFunctions:Record<StructureKey,string>={
   lateralGeniculateBodies:"網膜からの情報を視索から受け、視放線を介して視覚皮質へ中継する視床後方の核です。",
   fornixBodyPartial:"海馬系から乳頭体・中隔領域へ向かう脳弓のうち、海馬側へ延びる左右の脚、正中近くの体部、前交連後方から乳頭体側へ下降する柱を部分的に示します。",
   opticChiasmPartial:"視交叉では左右の視神経線維の一部が交叉し、両眼の視野情報を左右半球へ振り分けます。この部分モデルは交叉線維の走行を示しません。",
-  opticTractsPartial:"視索は視交叉から外側膝状体などへ視覚情報を伝えます。このモデルは原画像で追った左右の内部を概略的に収録し、両側の厚みと視交叉方向への前方区間、左右後方の区間を収録しています。視交叉中央部と左右視索を連続して観察できます。境界は概略であり、名称の切替面は教材上の規約です。表面側の帯を外側膝状体への接点までたどれます。深部側と終端の境界は教材用の目安で、個々の線維走行や視放線は収録していません。",
+  opticTractsPartial:"視索は視交叉から外側膝状体などへ視覚情報を伝えます。左右の視索を、視交叉の後方から視床の後下方へ向かう位置関係として観察します。表示は部分分節で、個々の線維や視放線は示していません。",
   ventricle:"脳脊髄液を含む腔で、脳室系の連続性と周囲構造の位置を知る基準になります。",
   thirdVentricle:"左右の視床・視床下部に囲まれる間脳正中の髄液腔です。上方は視床、下方（底側）は視床下部で、各構造の位置関係を読む基準になります。",
   fourthVentricle:"後脳の髄液腔で、中脳水道からくも膜下腔へ至る髄液循環の通路です。",
@@ -524,7 +524,7 @@ const structureFunctions:Record<StructureKey,string>={
   amygdala:"情動、脅威や報酬の評価、自律反応を伴う記憶形成に関わります。",
   accumbens:"報酬予測、動機づけ、行動を起こす価値判断に関わる腹側線条体です。",
   redNucleus:"小脳などから入力を受ける中脳核で、運動調節系の位置理解に重要です。",
-  substantiaNigra:"線条体へドパミンを送り、運動開始、学習、報酬処理を調節します。",
+  substantiaNigra:"緻密部（SNc）は線条体へドパミンを送り、運動や学習を調節します。網様部（SNr）は淡蒼球内節とともに基底核の主要な出力部をなします。この表示では両部を分けていません。",
   subthalamic:"間脳の視床下域にある視床下核（STN）です。視床下部や中脳そのものとは区別し、大脳基底核回路を興奮性に調節して競合する運動の抑制に関わります。",
   brainstem:"脳神経核、上下行路、覚醒・呼吸・循環など生命維持に関わる中枢を含みます。",
   cerebellum:"運動の正確さ、タイミング、平衡、姿勢、運動学習を調整します。",
@@ -1643,7 +1643,7 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
             </div>
             <div className="selectedBarActions"><button className="detailToggle" onClick={()=>{if(selectedSummaryKey)focusStructure(selectedSummaryKey);setDetailsOpen(true)}} disabled={!selectedSummary}>詳細解説</button><button onClick={()=>setLabels(!labels)} disabled={contrast==="single"}>{labels?"隠す":"表示"}</button></div>
           </div>
-          {activeVisibleStructures.length>0&&<div className="selectedStructureList" aria-label="選択中の構造と解説">{activeVisibleStructures.map(key=>{const item=structures[key],source=item.labelSource?learnerLabelSourceDisplay[item.labelSource]:null;return <button key={key} className={selectedSummaryKey===key?"current":""} onClick={()=>focusStructure(key)}><i style={{background:item.color}}/><span><b>{item.name}</b><small>{anatomyDisplayEnglish(item.latin)}</small>{source&&<small className={`provenanceBadge ${source.className}`}>{source.label}</small>}</span><p>{labels?(sectionDeveloperControls&&key===selectedStructure?currentSourceNote:item.note):"解答を隠しています"}<em>{labels&&item.relation}</em></p></button>})}</div>}
+          {activeVisibleStructures.length>0&&<div className="selectedStructureList" aria-label="選択中の構造と解説">{activeVisibleStructures.map(key=>{const item=structures[key],source=item.labelSource?learnerLabelSourceDisplay[item.labelSource]:null;return <button key={key} className={selectedSummaryKey===key?"current":""} onClick={()=>focusStructure(key)}><i style={{background:item.color}}/><span><b>{item.name}</b><small>{anatomyDisplayEnglish(item.latin)}</small>{source&&<small className={`provenanceBadge ${source.className}`}>{source.label}</small>}</span><p>{labels?item.relation:"解答を隠しています"}{labels&&sectionDeveloperControls&&key===selectedStructure&&<em>{currentSourceNote}</em>}</p></button>})}</div>}
         </div>
       </section></div>
     </section>}
@@ -1777,10 +1777,10 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
       <div className="inspectorTop"><div className="inspectIndex"><span>STRUCTURE GUIDE</span><b>{String(structureKeys.indexOf(selectedStructure)+1).padStart(2,"0")} / {structureKeys.length}</b></div><button className="inspectorClose" onClick={()=>setDetailsOpen(false)} aria-label="解説を閉じる">×</button></div>
       <div className="structureColor" style={{background:current.color}}/>
       <h2>{current.name}</h2><em>{anatomyDisplayEnglish(current.latin)}</em>
-      {current.labelSource&&<div className={`structureProvenance ${labelSourceDisplay[current.labelSource].className}`}><b>{labelSourceDisplay[current.labelSource].label}</b><span>{labelSourceDisplay[current.labelSource].detail}</span></div>}
       <div className="rule"/><h3>主な役割</h3><p>{structureFunctions[selectedStructure]}</p>
       <h3>この断面で見ること</h3><p>{current.note}</p>
       <dl><div><dt>位置関係</dt><dd>{current.relation}</dd></div><div><dt>現在の断面</dt><dd>{planeData[plane].ja}・位置 {position}</dd></div></dl>
+      {current.labelSource&&<div className={`structureProvenance ${labelSourceDisplay[current.labelSource].className}`}><b>{labelSourceDisplay[current.labelSource].label}</b><span>{labelSourceDisplay[current.labelSource].detail}</span></div>}
       <div className="identifyCard"><span>クリック同定</span>{contrast==="single"?<><b>画像参照モード</b><small>座標未確認のラベルは重ねません。照合済みの「BigBrain組織 0.5」を選択してください。</small></>:identified?<><b>{labels?`${identified.side}${identified.name}`:"解答非表示"}</b><small>{sectionDeveloperControls?(identified.certainty==="atlas"?"位置照合した試作ラベル":identified.certainty==="manual"?"画像と同一格子のBigBrain手動ラベル":identified.certainty==="reviewed"?"連続切片で確認した画像誘導ラベル":"位置照合または画像誘導による試作ラベル"):identified.note}</small></>:<><b>断面上をクリック</b><small>指した場所の構造名を表示します。ホイールで拡大縮小できます。</small></>}</div>
       <p className="sectionReviewReminder">連続性や境界は前後の断面と見比べて確認してください。この画面は構造の見えやすさや正確性を数値評価していません。</p>
       <button className="quiz" onClick={() => setLabels(!labels)} disabled={contrast==="single"}>{contrast==="single"?"固定脳MRIは画像参照のみ":labels ? "ラベルを隠して確認" : "答えを表示"}<b>→</b></button>

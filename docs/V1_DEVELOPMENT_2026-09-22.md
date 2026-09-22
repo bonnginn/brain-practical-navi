@@ -43,3 +43,11 @@
 - [MDN: skipWaiting](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerGlobalScope/skipWaiting)
 
 初回の公開βから新方式への移行では旧worker自体は書き換えられない。新workerが有効になるまでの待機を案内する方式であり、古いタブを強制終了しない。
+
+## 構造の説明を学習中心に整理
+
+黒質の主な役割を緻密部SNcと網様部SNrに分けて説明し、基底核回路の出力核との関係を補った。照合資料は [UTHealth Neuroscience Online — Basal Ganglia](https://nba.uth.tmc.edu/neuroscience/s3/chapter04.html)（James Knierim）。アプリの日英参考文献にも追加。表示ラベルは両部を区別していないことを併記し、分節の追加や専門家監修とは扱わない。
+
+視索の役割文を経路と観察位置の短い説明に整理。断面の選択一覧は位置関係を表示し、長い記録は詳細解説に残した。詳細解説は主な役割・観察点・位置関係を先に表示し、出典を後へ移動。「監修は継続中」という実施を裏付けない文を修正。小脳虫部・前帯状皮質・中前頭回などの英訳10件も補正した。
+
+型検査、説明・英訳の対象4件成功。通常buildと実ブラウザの日英表示で黒質・視索の一覧、詳細の説明順と部分表示の注意を確認。ログ `work/v1-teaching-targeted.log`、`work/v1-teaching-build.log`。分節変更なし。
