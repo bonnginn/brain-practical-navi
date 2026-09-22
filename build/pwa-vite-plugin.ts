@@ -118,7 +118,11 @@ async function networkFirst(request){
 
 async function cacheFirst(request,cacheName){
   const cache=await caches.open(cacheName);
-  const cached=await cache.match(request);
+  // Pre-cached build files are identical for every requester on this origin.
+  // A preview/CDN may add Vary: Origin; module and stylesheet requests then
+  // carry different headers from install's Request and must still find them.
+  const preCached=cacheName===SHELL_CACHE&&SHELL_FILES.some(path=>scopeUrl(path)===request.url);
+  const cached=await cache.match(request,{ignoreVary:preCached});
   if(cached)return cached;
   const response=await fetch(request);
   if(!validAsset(request.url||request,response))return Response.error();

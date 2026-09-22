@@ -107,3 +107,12 @@ Homeの4入口に、観察後に自分で確認する問いを各1つ追加し�
 操作ガイドを現行の断面ズーム・キーボード操作、部位解説、回路、クイズからの往復へ同期した。学習者向けの4区分を先に表示し、分節編集は共同制作者向けの展開欄へ分けた。英語が断片翻訳で途切れていたため、ガイド本文を日英の文として管理する `ViewerHelpContent` に切り出した。
 
 型検査・通常build成功。4364の実ブラウザで英語ガイドの本文とレイアウト、編集操作の展開、Escapeで閉じる操作を確認。ログ `work/v1-help-sync-build.log`。Vite開発サーバーの初回最適化は待機が続いたため停止し、ビルド済みプレビューで確認した。これは正式な実機試用の代わりにはしない。
+
+
+## Vary: Originがある配信環境での更新
+
+4347の統合プレビューを更新後に再読み込みすると、旧HTMLはcache `a5ec6d75256704b9` から返る一方、旧JS/CSSが取得失敗する問題を発見した。配信ヘッダーの `Vary: Origin` と、インストール時と実表示時の要求ヘッダー差によるcache照合漏れに対応した。版とURLが一致する事前保存済みのアプリコードに限り `ignoreVary` を使い、教材データや任意の要求へは広げない。参考：[MDN Cache.match](https://developer.mozilla.org/en-US/docs/Web/API/Cache/match)。先の独自fixtureにはこのヘッダーがなく、このケースを検出できていなかった。
+
+対象20件成功、型検査と通常/Pages build成功、両buildのPWA完全性・容量検査成功。通常shell 1,368,224 bytes、Pages 1,368,525 bytes。実ブラウザ4365の `Vary: Origin` 付きfixtureで、導入後の全assets要求に503を返しても、再読み込みと未訪問の英語版へ切替が成功。JS/CSSと英訳コードが同じcache `69836b7787e782b1` から返ることを通信で確認した。ログ `work/v1-pwa-vary-targeted.log`、`work/v1-vary-pwa-{normal,pages}.json`、fixture `work/v1-vary-server.mjs`。再現用フラグも保存し、fixtureサーバーは停止した。
+
+確認用プレビュー http://127.0.0.1:4347/?review=v1-readiness#workspace/home は最新ビルド。確認用タブを閉じ開き直し、同cacheからHTML・CSS・JSが成功応答するところまで確認した。利用者の元の4346タブ・保存履歴は消去していない。4346/4347のプレビューは継続稼働。今回の変更は全てローカルで、公開βへのpush・merge・配信は未実施。分節・メッシュは公開βから変更なし。

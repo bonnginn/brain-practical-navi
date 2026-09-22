@@ -11,15 +11,24 @@ const exports={};
 vm.runInNewContext(compiled,{exports,require:createRequire(import.meta.url)});
 
 function worker(options={}){
-  const cachesByName=new Map(),events={},requests=[];
+  const cachesByName=new Map(),storedHeaders=new Map(),events={},requests=[];
   const key=request=>typeof request==="string"?request:request.url;
   const cacheStorage={
     async open(name){
       if(!cachesByName.has(name))cachesByName.set(name,new Map());
       const map=cachesByName.get(name);
       return {
-        match:async request=>map.get(key(request))?.clone(),put:async(request,response)=>map.set(key(request),response.clone()),
-        addAll:async requestList=>{for(const request of requestList){requests.push(key(request));map.set(key(request),await options.respond(request))}},
+        match:async (request,matchOptions={})=>{
+          const response=map.get(key(request));
+          const vary=response?.headers.get('vary');
+          if(vary&&!matchOptions.ignoreVary){
+            const incoming=new Headers(request.headers),stored=storedHeaders.get(name+key(request))??new Headers();
+            if(vary.split(',').some(header=>incoming.get(header.trim())!==stored.get(header.trim())))return;
+          }
+          return response?.clone();
+        },
+        put:async(request,response)=>{map.set(key(request),response.clone());storedHeaders.set(name+key(request),new Headers(request.headers))},
+        addAll:async requestList=>{for(const request of requestList){requests.push(key(request));map.set(key(request),await options.respond(request));storedHeaders.set(name+key(request),new Headers(request.headers))}},
       };
     },
     async match(request){for(const map of cachesByName.values())if(map.has(key(request)))return map.get(key(request)).clone()},
@@ -34,9 +43,9 @@ function worker(options={}){
     cachesByName,
     install(){let result;events.install({waitUntil:promise=>{result=promise}});return result},
     seed:async(name,path,body)=>{await(await cacheStorage.open(`brain-practical-navi-${name}`)).put(`https://example.test/brain/${path}`,new Response(body))},
-    async fetch(path,mode="cors"){
+    async fetch(path,mode="cors",headers={}){
       let result;
-      events.fetch({request:{url:`https://example.test/brain/${path}`,method:"GET",mode,headers:new Headers()},respondWith:p=>{result=p}});
+      events.fetch({request:{url:`https://example.test/brain/${path}`,method:"GET",mode,headers:new Headers(headers)},respondWith:p=>{result=p}});
       return (await result).text();
     },
   };
@@ -69,15 +78,16 @@ test("separate review pages are not replaced by the app shell",async()=>{
   assert.equal(sw.requests.length,1);
 });
 
-function installFixture({badModule=false,oldHtml=false}={}){
+function installFixture({badModule=false,oldHtml=false,varyOrigin=false}={}){
   const shellFiles=["./","./assets/main-12345678.js","./assets/english-12345678.js","./assets/main-12345678.css"];
   return worker({shellFiles,entryFiles:[shellFiles[1]],respond:request=>{
     assert.equal(request.cache,"reload");
     const path=new URL(request.url).pathname;
     if(path.endsWith("/"))return new Response(`<script src="/brain/assets/${oldHtml?"old-12345678":"main-12345678"}.js"></script>`,{headers:{"content-type":"text/html"}});
-    if(path.endsWith(".css"))return new Response("body{}",{headers:{"content-type":"text/css"}});
+    const vary=varyOrigin?{vary:'Origin'}:{};
+    if(path.endsWith(".css"))return new Response("body{}",{headers:{"content-type":"text/css",...vary}});
     if(badModule&&path.includes("english"))return new Response("<html>fallback</html>",{headers:{"content-type":"text/html"}});
-    return new Response("export const ready=true",{headers:{"content-type":"text/javascript"}});
+    return new Response("export const ready=true",{headers:{"content-type":"text/javascript",...vary}});
   }});
 }
 
@@ -103,4 +113,12 @@ test("runtime asset requests do not cache a successful HTML fallback as JavaScri
   const sw=worker({respond:()=>new Response("<html>fallback</html>",{headers:{"content-type":"text/html"}})});
   assert.equal(await sw.fetch("assets/uncached-12345678.js"),"");
   assert.equal(sw.cachesByName.get("brain-practical-navi-shell-current").size,0);
+});
+
+test("pre-cached code survives Vary Origin differences without fetching removed old files",async()=>{
+  const sw=installFixture({varyOrigin:true});
+  await sw.install();
+  assert.match(await sw.fetch('assets/main-12345678.js','cors',{Origin:'https://example.test'}),/ready=true/);
+  assert.equal(await sw.fetch('assets/main-12345678.css','cors',{Origin:'https://example.test'}),'body{}');
+  assert.equal(sw.requests.length,4,'both files must come from the installed release');
 });
