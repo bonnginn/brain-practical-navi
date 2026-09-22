@@ -10,7 +10,7 @@ const ja:HelpSection[]=[
   ]},
   {title:"断面実習",rows:[
     ["断面位置","位置スライダーにフォーカスして矢印キーで断面を移動。Home／Endで両端へ移動します。"],
-    ["連続再生","▶で現在位置から順に進み、最後で停止します。BigBrainでは1枚ずつ進み、再生速度を選べます。位置や断面方向を変えるか、別タブへ移ると停止します。"],
+    ["連続再生","▶で現在位置から順に進み、最後で停止します。BigBrainでは1枚ずつ進み、再生速度を選べます。位置や断面方向を変えるか、解説・操作ガイドなどを開く、別タブへ移ると停止します。"],
     ["画像の拡大","ホイールまたは画面の−／＋。画像にフォーカスすれば−／＋キーも使えます。倍率表示、RまたはHomeで画像の位置と倍率を戻します。"],
     ["画像の移動","画像をドラッグ、または画像にフォーカスして矢印キーで移動します。"],
     ["併設3Dの拡大","3Dにフォーカスして−／＋キーで拡大縮小、0キーで100%へ戻します。2面表示では両方の倍率が揃います。"],
@@ -24,7 +24,7 @@ const ja:HelpSection[]=[
     ["自由観察","構造索引または検索から複数の対象を追加します。"],
   ]},
   {title:"回路・復習",rows:[
-    ["回路を追う","自由観察で回路を選び、段階を押すか赤い模式信号を再生します。「標本で見る」でモデルへ、「回路解説へ戻る」でガイドへ移動します。"],
+    ["回路を追う","自由観察で回路を選び、段階を押すか赤い模式信号を再生します。「標本で見る」でモデルへ、「回路解説へ戻る」でガイドへ移動します。操作ガイドや出典を開くと再生は一時停止します。"],
     ["回路の確認","回路の下の問いに自分で答えてから、解説を開きます。「このつながりを見直す」で対応する段階へ戻れます。"],
     ["復習","回答後は「観察画面で位置を確認」へ進めます。「回答・解説へ戻る」（完了後は「結果へ戻る」）で、回答と得点を保って復習に戻れます。"],
   ]},
@@ -40,7 +40,7 @@ const en:HelpSection[]=[
   ]},
   {title:"Serial sections",rows:[
     ["Slice position","Focus the position slider. Arrow keys move through sections; Home / End jump to either end."],
-    ["Playback","Play advances from the current position and stops at the end. BigBrain advances one slice at a time, with a choice of speeds. Changing the position or plane, or leaving the tab, pauses playback."],
+    ["Playback","Play advances from the current position and stops at the end. BigBrain advances one slice at a time, with a choice of speeds. Changing the position or plane, opening an explanation or help dialog, or leaving the tab pauses playback."],
     ["Image zoom","Use the wheel or the − / + buttons. With the image focused, use − / + keys. Press the percentage, R or Home to reset image position and zoom."],
     ["Pan the image","Drag the image, or focus it and use the arrow keys."],
     ["Companion 3D zoom","Focus either 3D view and use − / + to zoom, or 0 to restore 100%. Both views share the same zoom."],
@@ -54,7 +54,7 @@ const en:HelpSection[]=[
     ["Free observation","Add multiple structures from the structure index or search."],
   ]},
   {title:"Circuits and review",rows:[
-    ["Follow a circuit","In Free observation, choose a circuit, then select its stages or play the schematic red signal. Inspect in specimen moves to the model; Back to explanation returns to the guide."],
+    ["Follow a circuit","In Free observation, choose a circuit, then select its stages or play the schematic red signal. Inspect in specimen moves to the model; Back to explanation returns to the guide. Opening help or sources pauses playback."],
     ["Circuit recall","Answer the prompts below a circuit before opening their explanations. Revisit this connection takes you back to the relevant stage."],
     ["Review","After answering, open the observation view to check the location. Use Back to answer and explanation (or Back to results) to return without losing your answer or score."],
   ]},

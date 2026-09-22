@@ -7,9 +7,9 @@ import {CircuitRecall} from "./CircuitRecall";
 import {circuitStageDuration} from "../src/circuitTravel.mjs";
 
 export type CircuitPosition={pathIndex:number;nodeIndex:number};
-type Props={circuitKey:string;english:boolean;initialPosition?:CircuitPosition;onPositionChange?:(position:CircuitPosition)=>void;onObserve?:(index:number,nodeKey:string)=>void;onPreview?:(index:number,nodeKey:string)=>void;onPulseChange?:(active:boolean)=>void;onReview?:()=>void;reviewCount?:number};
+type Props={circuitKey:string;english:boolean;suspended?:boolean;initialPosition?:CircuitPosition;onPositionChange?:(position:CircuitPosition)=>void;onObserve?:(index:number,nodeKey:string)=>void;onPreview?:(index:number,nodeKey:string)=>void;onPulseChange?:(active:boolean)=>void;onReview?:()=>void;reviewCount?:number};
 
-export function CircuitTeachingPanel({circuitKey,english,initialPosition,onPositionChange,onObserve,onPreview,onPulseChange,onReview,reviewCount=0}:Props){
+export function CircuitTeachingPanel({circuitKey,english,suspended=false,initialPosition,onPositionChange,onObserve,onPreview,onPulseChange,onReview,reviewCount=0}:Props){
   const circuit=circuitTeaching(circuitKey);
   const [selectedPosition,setSelectedPosition]=useState(initialPosition??{pathIndex:0,nodeIndex:0});
   const positionChangeRef=useRef(onPositionChange);
@@ -22,6 +22,7 @@ export function CircuitTeachingPanel({circuitKey,english,initialPosition,onPosit
   const pathLength=circuit?.paths[selectedPosition.pathIndex]?.nodes.length??0;
   useEffect(()=>{
     if(!playing||!circuit)return;
+    if(suspended){setPlaying(false);return;}
     const stop=()=>{if(document.hidden)setPlaying(false)};
     document.addEventListener("visibilitychange",stop);
     const timer=window.setTimeout(()=>{
@@ -34,7 +35,7 @@ export function CircuitTeachingPanel({circuitKey,english,initialPosition,onPosit
       if(target!==null&&target!==undefined)previewRef.current?.(target,node!.key);
     },circuitStageDuration(circuit.paths[selectedPosition.pathIndex]?.nodes[selectedPosition.nodeIndex]));
     return()=>{window.clearTimeout(timer);document.removeEventListener("visibilitychange",stop)};
-  },[playing,circuit,selectedPosition,pathLength]);
+  },[playing,circuit,selectedPosition,pathLength,suspended]);
   const currentNode=circuit?.nodes.find(node=>node.key===circuit.paths[selectedPosition.pathIndex]?.nodes[selectedPosition.nodeIndex]);
   useEffect(()=>{
     const hasTarget=currentNode?.observationIndex!=null||!!currentNode?.observations?.length;

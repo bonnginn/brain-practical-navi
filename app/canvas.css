@@ -1598,6 +1598,10 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
 .sectionObservationLink summary { cursor: pointer; padding: .35rem; }
 .sectionObservationLink p { margin: .4rem 0; }
 .sectionObservationLink input { box-sizing: border-box; width: 100%; min-width: 0; padding: .5rem; font: inherit; }
+.observationLinkActions { display:flex; align-items:stretch; gap:8px; flex-wrap:wrap; }
+.observationLinkActions input { flex:1 1 240px; }
+.observationLinkActions button { min-height:44px; padding:8px 14px; border:1px solid #879e93; background:#f3f8f4; color:#29463d; font:inherit; cursor:pointer; }
+.sectionObservationLink [role="status"]:empty { display:none; }
 
 /* Quiz density follows usable panel width, not just the device category.
    Keep readable text; reflow the panels instead of shrinking the whole UI. */
