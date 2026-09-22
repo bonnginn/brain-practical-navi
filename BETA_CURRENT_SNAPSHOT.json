@@ -172,7 +172,7 @@
       "authority": "administrator / feedback-channel maintainer",
       "blockingAuthority": "administrator / feedback-channel maintainer",
       "boundary": "rights documents, external feedback operations, and publication-screen operations",
-      "unprovenScope": "最新フォームのログアウト環境での送信と、共同制作条件の管理者最終確認は未完了。9月22日の日英テスト送信・両保存先からの削除はログイン済み環境で確認した。"
+      "unprovenScope": "最新フォームのログアウト環境での送信は未確認。共同制作条件は2026-09-22に管理者承認済み。9月22日の日英テスト送信・両保存先からの削除はログイン済み環境で確認した。"
     },
     {
       "id": "physical-os-networking",

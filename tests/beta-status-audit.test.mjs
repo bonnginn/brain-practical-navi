@@ -12,7 +12,7 @@ const audit = status => auditBetaStatus({ status, rootDir: REPOSITORY_ROOT });
 test("beta status registry is valid and covers the fixed provenance references", () => {
   const result = audit(baseStatus);
   assert.equal(result.ok, true, result.errors.join("\n"));
-  assert.equal(STATUS_PHASE, "公開α掲載中／β候補・β公開判断前");
+  assert.equal(STATUS_PHASE, "公開β版／専門家監修は未実施");
   assert.equal(baseStatus.phase, STATUS_PHASE);
   assert.equal(baseStatus.knownLimitations.length, 6);
   assert.equal(baseStatus.changes.length, 22);
@@ -72,8 +72,8 @@ test("audit rejects a wrong schema phase and a missing required provenance key",
   assert.equal(audit(missingKey).ok, false);
 });
 
-test("audit rejects prohibited expert, publication, and university claims", () => {
-  for (const body of ["専門家確認なしの検証済み教材です。", "β公開済みです。", "三重大学公式教材として承認済みです。"]) {
+test("audit rejects prohibited expert and university claims", () => {
+  for (const body of ["専門家確認なしの検証済み教材です。", "三重大学公式教材として承認済みです。"]) {
     const mutated = clone(baseStatus);
     mutated.changes[0].body = body;
     const result = audit(mutated);
