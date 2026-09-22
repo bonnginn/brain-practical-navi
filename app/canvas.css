@@ -1808,3 +1808,9 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
 .structureComparison{border-left:3px solid #77978c;padding-left:10px}.sectionScopeDetails{margin:12px 0;border:1px solid #bfccc5;padding:10px;line-height:1.6;font-size:var(--ui-font-13,13px)}.sectionScopeDetails summary{cursor:pointer;font-weight:700}.sectionScopeDetails a{overflow-wrap:anywhere}
 
 .relatedCircuitLinks{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0;font-size:var(--ui-font-13,13px)}.relatedCircuitLinks>b{flex-basis:100%;font-size:inherit;color:#365e59}.relatedCircuitLinks button{min-height:44px;padding:8px 10px;border:1px solid #91aaa0;background:#edf4ef;color:#29463d;font:inherit;text-align:left}
+
+/* The public entrance is separate from the learning menu. */
+.workspace-entrance .topbar{justify-content:space-between}
+.workspace-entrance .phoneRailToggle{display:none}
+.sourcesContent{padding:20px;overflow-wrap:anywhere}
+.sourcesContent>button{padding:10px 14px;min-height:44px}

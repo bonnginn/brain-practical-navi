@@ -67,14 +67,16 @@ const readings = [
 
 export function SegmentationReferences({english}:{english:boolean}) {
   return <section className="legalReferences" data-segmentation-references="true">
-    <p data-cerebellar-representation="current-section-labels">{english?"The BigBrain cerebellum and brainstem shown in Sections are reconstructed from the current section labels. A local 197-voxel folial repair is included. Remaining gaps and isolated components have not been declared complete, and these section models are distinct from the MNI surface models.":"連続断面のBigBrain小脳・脳幹3Dは、断面と同じ現行ラベルから再構成しています。小脳葉の局所197点修正を反映していますが、残る塗り落としや孤立成分の確認は未完了です。MNIの脳表モデルとは区別しています。"}</p>
-    <p data-brainstem-representation="partial-tissue-repair">{english?"The BigBrain brainstem label used in Sections includes a partial image-guided repair toward the cerebral peduncles. Its upper extent remains unresolved. It is not a completed segmentation or the separate MNI surface scaffold.":"断面用のBigBrain脳幹ラベルは、大脳脚側の塗り落としを原画像に基づき一部補修しています。上方の範囲は未確定で、全脳幹の完成分節でも、別のMNI脳表モデルそのものでもありません。"}</p>
-    <p data-aqueduct-representation="partial-versus-schematic">{english?"The partial cerebral aqueduct in Sections is an image-guided BigBrain label (ID41), not the schematic aqueduct in the block specimen. Only part of the lumen is represented; its full extent and transition boundaries remain unconfirmed.":"断面画面の中脳水道候補（部分）はBigBrain画像誘導ラベルID41で、ブロック標本の模式中脳水道とは別です。腔の一部分だけを示し、全長と移行境界は未確定です。"}</p>
     <h3>{english?"References and use in this app":"参考文献と本アプリでの用途"}</h3>
     <p>{english?"Primary sources and selected review references. Citation does not imply author endorsement or completed expert review. Resolution and review coverage differ between repairs.":"主要な出典と照合資料です。引用元による承認や専門家レビュー完了を意味しません。使用解像度・確認範囲は修正ごとに異なります。"}</p>
-    <h4>{english?"Source images, labels and surfaces":"原画像・ラベル・表面データ"}</h4>
+    <h4>{english?"Data, anatomy and teaching references":"データ・解剖・実習の参考資料"}</h4>
     {sources.map(s=><p key={s.url}><a href={s.url} target="_blank" rel="noreferrer">{english&&s.nameEn?s.nameEn:s.name}</a><br/>{english?s.en:s.ja}</p>)}
     <h4>{english?"Context and investigation — not adopted boundary data":"照合・調査資料 — 採用境界データではありません"}</h4>
     {readings.map(s=><p key={s.url}><a href={s.url} target="_blank" rel="noreferrer">{s.name}</a><br/>{english?s.en:s.ja}</p>)}
+    <details><summary>{english?"Representation notes":"表示モデルに関する補足"}</summary>
+    <p data-cerebellar-representation="current-section-labels">{english?"The BigBrain cerebellum and brainstem shown in Sections are reconstructed from the current section labels. A local 197-voxel folial repair is included. Remaining gaps and isolated components have not been declared complete, and these section models are distinct from the MNI surface models.":"連続断面のBigBrain小脳・脳幹3Dは、断面と同じ現行ラベルから再構成しています。小脳葉の局所197点修正を反映していますが、残る塗り落としや孤立成分の確認は未完了です。MNIの脳表モデルとは区別しています。"}</p>
+    <p data-brainstem-representation="partial-tissue-repair">{english?"The BigBrain brainstem label used in Sections includes a partial image-guided repair toward the cerebral peduncles. Its upper extent remains unresolved. It is not a completed segmentation or the separate MNI surface scaffold.":"断面用のBigBrain脳幹ラベルは、大脳脚側の塗り落としを原画像に基づき一部補修しています。上方の範囲は未確定で、全脳幹の完成分節でも、別のMNI脳表モデルそのものでもありません。"}</p>
+    <p data-aqueduct-representation="partial-versus-schematic">{english?"The partial cerebral aqueduct in Sections is an image-guided BigBrain label (ID41), not the schematic aqueduct in the block specimen. Only part of the lumen is represented; its full extent and transition boundaries remain unconfirmed.":"断面画面の中脳水道候補（部分）はBigBrain画像誘導ラベルID41で、ブロック標本の模式中脳水道とは別です。腔の一部分だけを示し、全長と移行境界は未確定です。"}</p>
+    </details>
   </section>;
 }

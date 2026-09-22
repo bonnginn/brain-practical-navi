@@ -202,3 +202,12 @@ UTHealth Neuroanatomy Onlineの [内側面](https://nba.uth.tmc.edu/neuroanatomy
 [UTHealth小脳](https://nba.uth.tmc.edu/neuroanatomy/l5/Lab05p21_index.html)、[Texas Tech顔面神経](https://anatomy.ttuhscep.edu/modules/CN_module/cnVII.html)、[UAMS頭頸部神経](https://medicine.uams.edu/neuroscience/education/medical-school-courses/human-structure-module/anatomy-tables/nerve-tables/nerves-of-the-head-and-neck/)を照合。日英問題文・解説・ブラウザ参考文献を同期し、概念問題の解説と結果からも外部参考資料を開けるようにした。内部ファイル参照は外部リンクへ変換しない。
 
 概念問題の表示状態を「解説問題・試作」として、分節の試作ラベルと区別。試作問題フィルタの説明も、実際に含む概念問題・模式表示・ラベルに合わせた。古いインライン解説の書き方を固定していたscript/testの文字列条件1個を除去し、データの妥当性・保留条件は維持。対象11件成功、型検査・build成功。実ブラウザで小脳の新しい英語解説と参考リンクを確認。結果欄の小画面余白は18px/12px、上端揃え、横溢れなしまで最終確認済み。ログ `work/v1-quiz-content-targeted.log`、`work/v1-quiz-content-build.log`。
+
+
+## 教育用の入口と学習Home・出典を分離
+
+管理者の指摘により、機能メニューを置くHomeと最初の入口を分離。ルートなしと `#workspace/entrance` は教育目的・非臨床用途・βの制限を表示し、「教育目的で教材を開く」から学習Homeへ進む。既存の断面などの共有直リンクは維持する。これは法的同意を記録する認証ゲートではない。ロゴから入口、Homeナビから学習メニューへ戻れる。端末用リンクとQRを入口に同期。
+
+`#workspace/sources` を設け、入口・Home・上部メニューから出典・参考文献を直接開けるようにした。利用条件には各データのライセンス・加工内容・クレジット・倫理・個人情報の説明を保持し、双方にリンクを置く。参考資料一覧の先頭にあった分節の詳細補足は末尾の折り畳みに移した。日英対応。公開更新はしていない。
+
+型検査、通常/Pages build成功。英語版の対象9件成功。実ブラウザで入口→Home、出典→利用条件→Escape、英語表示、学習Homeへのフォーカス移動、狭い画面での横溢れなしを確認。PWA/権利表示は両buildで成功（日本語の入口見出しを最後に明確化した後はbuildのみ再実施）。ログは `work/v1-entrance-tests.log`、`work/v1-learning-{normal,pages}-build.log`、`work/v1-learning-{pwa,rights}-{normal,pages}.json`。分節・メッシュ変更なし。
