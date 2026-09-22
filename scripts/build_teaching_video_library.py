@@ -10,6 +10,7 @@ FILMS=[
  ('sections','work/observation-videos/sections','脳室を目印に冠状断を読む','1分12秒','断面を動かし、脳室と視床の位置関係を追う。','proof-03.jpg','#workspace/sections/coronal'),
  ('papez','work/papez-video','Papez回路をたどる','2分06秒','中継する灰白質と、つなぐ白質路を分けて学ぶ。','proof-01.jpg','#workspace/surface/free'),
  ('visual','work/visual-pathway-video','視野と眼を分けて、視覚路をたどる','1分58秒','鼻側網膜の交叉と耳側網膜の非交叉を追う。','proof-01.jpg','#workspace/surface/free'),
+ ('basal','work/basal-ganglia-video','大脳基底核回路：抑制を、順に読む','1分54秒','興奮性・抑制性の符号を残し、直接路と間接路を比べる。','proof-03.jpg','#workspace/surface/free'),
 ]
 
 def main():
@@ -27,11 +28,14 @@ def main():
         timeline=json.loads((src/'timeline.json').read_text(encoding='utf-8'))
         # Native controls can cover burned-in captions when paused. Keep a readable
         # copy outside the video, without announcing every playback update.
-        page=page.replace('</video>','</video><section class="currentFilmCaption" aria-label="現在の場面と字幕" aria-live="off"><strong></strong><p></p></section>',1)
-        page=page.replace('</style>','.currentFilmCaption{border-left:4px solid #83d0bd;background:#19363e;padding:12px 16px;margin:12px 0;line-height:1.7}.currentFilmCaption p{margin:6px 0 0}button[aria-current=true]{outline:2px solid #83d0bd;outline-offset:2px}</style>',1)
-        caption_script='''<script>(()=>{const video=document.querySelector('video'),box=document.querySelector('.currentFilmCaption'),scenes=TIMELINE;let previous=-1;function update(){let i=scenes.findIndex(s=>video.currentTime>=s.start&&video.currentTime<s.end);if(i<0)i=video.currentTime>=scenes[scenes.length-1].end?scenes.length-1:0;if(i===previous)return;previous=i;box.querySelector('strong').textContent=scenes[i].title;box.querySelector('p').textContent=scenes[i].caption;document.querySelectorAll('[data-time]').forEach(b=>{if(Number(b.dataset.time)===scenes[i].start)b.setAttribute('aria-current','true');else b.removeAttribute('aria-current')});}video.addEventListener('timeupdate',update);video.addEventListener('seeked',update);update();})();</script>'''
-        page=page.replace('</html>',caption_script.replace('TIMELINE',json.dumps(timeline,ensure_ascii=False).replace('<','\\u003c'))+'</html>',1)
-        observation='自由観察で「'+('Papez回路' if key=='papez' else '視覚路')+'」を選ぶ' if key in {'papez','visual'} else '教材で位置を確かめる'
+        controls='<div class="filmStudyControls"><div><button id="film-previous" type="button">前の章へ</button><button id="film-replay" type="button">この章を最初から</button><button id="film-next" type="button">次の章へ</button></div><label><input id="film-pause-at-chapter" type="checkbox">章の終わりで一時停止</label><label>再生速度 <select id="film-speed"><option value="0.75">0.75倍</option><option value="1" selected>1倍</option><option value="1.25">1.25倍</option></select></label><p id="film-playback-status" role="status"></p></div>'
+        page=page.replace('</video>','</video><section class="currentFilmCaption" aria-label="現在の場面と字幕" aria-live="off"><strong></strong><p></p></section>'+controls,1)
+        page=page.replace('</style>','.currentFilmCaption{border-left:4px solid #83d0bd;background:#19363e;padding:12px 16px;margin:12px 0;line-height:1.7}.currentFilmCaption p{margin:6px 0 0}button[aria-current=true]{outline:2px solid #83d0bd;outline-offset:2px}.filmStudyControls,.filmStudyControls>div{display:flex;gap:8px 18px;flex-wrap:wrap;align-items:center}.filmStudyControls>div{width:100%;gap:8px}.filmStudyControls label{display:flex;gap:8px;align-items:center;min-height:44px}.filmStudyControls input{width:20px;height:20px}.filmStudyControls select{font:inherit;padding:6px;background:#19363e;color:inherit;min-height:44px}button{min-height:44px}button:disabled{opacity:.45;cursor:default}.filmStudyControls p{width:100%;margin:0}.filmStudyControls p:empty{display:none}</style>',1)
+        payload=json.dumps(timeline,ensure_ascii=False).replace('<','\\u003c')
+        player=(ROOT/'scripts/teaching_video_player.js').read_text(encoding='utf-8')
+        page=page.replace('</html>','<script id="film-timeline" type="application/json">'+payload+'</script><script>'+player+'</script></html>',1)
+        circuit_names={'papez':'Papez回路','visual':'視覚路','basal':'大脳基底核回路'}
+        observation='自由観察で「'+circuit_names[key]+'」を選ぶ' if key in circuit_names else '教材で位置を確かめる'
         page=page.replace('</main>',f'<p><a href="https://bonnginn.github.io/brain-practical-navi/{route}" target="_blank" rel="noreferrer">{observation}（公開β） ↗</a></p></main>',1)
         (target/'index.html').write_text(page,encoding='utf-8')
         for archive in target.glob('*.zip'):
