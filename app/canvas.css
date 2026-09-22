@@ -96,7 +96,7 @@
 .contrastSwitch button, .displaySwitch button { padding: 7px 9px; font-size: 16px; }
 .sliceStage { height: clamp(610px, 68vh, 720px); display: grid; grid-template-columns: minmax(0,1fr) clamp(240px,22vw,320px); place-items: stretch; }
 .sliceViewport { position: relative; min-width: 0; height: 100%; overflow: hidden; border-right: 1px solid #455052; }
-.identifyHint { position: absolute; z-index: 7; top: 12px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 9px; padding: 7px 10px; border: 1px solid #77818488; background: #172126d9; color: #f3f2ec; pointer-events: none; white-space: nowrap; }
+.identifyHint { position: absolute; z-index: 7; top: 12px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 9px; padding: 7px 10px; border: 1px solid #77818488; background: #172126d9; color: #f3f2ec; pointer-events: none; white-space: normal; width: max-content; max-width: calc(100% - 24px); box-sizing: border-box; flex-wrap: wrap; justify-content: center; text-align: center; }
 .identifyHint b { font-size: 16px; }
 .identifyHint span { padding-left: 9px; border-left: 1px solid #7d8788; color: #b9c2bf; font: 15px monospace; }
 .identifyHint.unavailable { border-color: #b49b6b88; background: #2b2924e8; }

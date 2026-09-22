@@ -15,6 +15,8 @@ import { SegmentationReferences } from "./SegmentationReferences";
 import { CircuitTeachingPanel } from "./CircuitTeachingPanel";
 import { BIGBRAIN_SECTION_DIMS, SectionSliceStepper } from "./SectionSliceStepper";
 import { ForamenGuide } from "./ForamenGuide";
+import {SectionStudyGuide} from "./SectionStudyGuide";
+import type {SectionStudyTheme} from "../src/sectionStudyThemes";
 import { formatSectionPosition, stepPlanePosition } from "./segmentationGeometry";
 import betaGoNoGoDisplay from "./beta-go-no-go-display.json";
 import quizConceptBank from "./quiz-concept-bank.json";
@@ -430,11 +432,11 @@ const structures: Record<StructureKey, StructureInfo> = {
   fornixBodyPartial: {name:"脳弓・海馬采（部分）",latin:"Fornix (partial)",color:"#d7c58d",rgb:[215,197,141],ids:[],bigbrainIds:[46],labelSource:"image-guided-reviewed",note:"同一BigBrain原画像から追った体部・脚・柱と両側海馬采の部分分節です。0.5 mm格子の概略境界で、左右の脚を海馬側へ延長し、体部・柱まで連続して観察できます。前交連の後方から視床下部内を下る柱を、乳頭体に接する位置まで概略収録しています。両側で海馬表面の海馬采から脚への折り返しを追加しています。海馬采・脚の全長と全外縁は未収録です。乳頭体付近の終端境界は概略で、接触表示は個々の線維の連続性を証明しません。脳弓全体の完成や専門家確認を意味しません。",relation:"側脳室体部の下内側から前交連後方を通り、乳頭体側へ下降する柱までの一部"},
   opticChiasmPartial: {name:"視交叉中央部（部分）",latin:"Optic chiasm central region (partial)",color:"#d4a85d",rgb:[212,168,93],ids:[],bigbrainIds:[36],labelSource:"image-guided-reviewed",note:"同一BigBrain標本の原画像から、視交叉中央部の厚みを概略的に収録した部分ラベルです。0.5 mm格子で中央内部の形を示し、細かな外縁には部分体積を含みます。左右視索への主なラベルは連続し、名称の切替面は教材上の規約です。全外縁、視神経との境界、交叉線維の走行、視放線までの連続性は収録していません。画像確認済みですが、専門家レビューは未完了です。",relation:"視床下部前方寄りの正中近くにある視交叉中央部の部分収録"},
   opticTractsPartial: {name:"視索（部分）",latin:"Optic tracts (partial)",color:"#b88fd0",rgb:[184,143,208],ids:[],bigbrainIds:[37,38],labelSource:"image-guided-reviewed",note:"同一BigBrain標本の原画像から追った左右の視索内部を部分的に示し、両側の厚み、視交叉方向への前方区間、左右後方への広がりを収録しています。0.5 mm格子による概略境界で、細かな裂隙や外縁を完全には再現しません。視交叉中央部と左右視索の主なラベルは連続し、名称の切替面は教材上の規約です。表面側の帯を外側膝状体への接点まで概略的に収録しています。深部側と終端の境界は教材用の目安で、個々の線維走行や視放線は未収録です。専門家レビューは未完了です。",relation:"視交叉後方から外側膝状体方向へ向かう左右の視索の部分収録"},
-  ventricle: { name: "側脳室", latin: "Ventriculus lateralis", color: "#49a9b4", rgb:[73,169,180], ids:[92,41,56,5], bigbrainIds:[23,24], labelSource:"atlas-provisional", meshFocus:"ventricle", note: "前角・体部・後角・下角が連続する空間です。断面を動かして形の変化を追います。", relation: "脳梁の下方、尾状核・視床の内側" },
-  thirdVentricle: { name:"第三脳室", latin:"Ventriculus tertius", color:"#58aeb8", rgb:[88,174,184], ids:[80,29], bigbrainIds:[25], labelSource:"atlas-provisional", meshFocus:"ventricle", note:"左右の視床・視床下部に囲まれる正中の細い腔です。上方は視床、下方（底側）は視床下部に接し、水平断・冠状断で側脳室との位置関係を確認します。後方の外側の空隙とは区別して観察します。屋根と後方境界の一部は未確定です。", relation:"左右の視床・視床下部の間（上方：視床、下方：視床下部）" },
+  ventricle: { name: "側脳室", latin: "Ventriculus lateralis", color: "#49a9b4", rgb:[73,169,180], ids:[92,41,56,5], bigbrainIds:[23,24], labelSource:"atlas-provisional", meshFocus:"ventricle", note: "前角・体部・後角・下角が連続する空間です。断面を動かして形の変化を追います。", relation: "脳梁の下方。体部は視床の上方、尾状核体部の内側" },
+  thirdVentricle: { name:"第三脳室", latin:"Ventriculus tertius", color:"#58aeb8", rgb:[88,174,184], ids:[80,29], bigbrainIds:[25], labelSource:"atlas-provisional", meshFocus:"ventricle", note:"左右の視床・視床下部に囲まれる正中の細い腔です。側壁の上部は視床、下部は視床下部に接します。水平断・冠状断で側脳室との位置関係を確認し、後方の外側の空隙とは区別して観察します。屋根と後方境界の一部は未確定です。", relation:"左右の視床・視床下部の間（側壁上部：視床、側壁下部：視床下部）" },
   fourthVentricle: { name:"第四脳室", latin:"Ventriculus quartus", color:"#4997b0", rgb:[73,151,176], ids:[88,37], bigbrainIds:[26], labelSource:"atlas-provisional", meshFocus:"ventricle", note:"橋・延髄と小脳の間にある腔です。連続断面では上端の塗り残しを原画像で確認して補い、中脳水道から続く主腔を表示します。下方の出口と全外縁は確認が残っており、専門家レビューは未完了です。ブロック標本は粗い格子のため細い接続の再現に限界があります。", relation:"脳幹の背側、小脳の腹側" },
   corpusCallosum: { name:"脳梁", latin:"Corpus callosum", color:"#dbc270", rgb:[219,194,112], ids:[], bigbrainIds:[30], labelSource:"image-guided", note:"左右大脳半球を結ぶ交連線維です。矢状断で膝・幹・膨大を連続して確認します。局所的な誤収録は修正しましたが、帯状回・脳弓との分離など未修正部分があり、輪郭は確定境界ではありません。", relation:"側脳室の上方、帯状回の下方" },
-  internalCapsule: { name:"内包", latin:"Capsula interna", color:"#e3d8b0", rgb:[227,216,176], ids:[], bigbrainIds:[31,32], labelSource:"image-guided", note:"尾状核・視床とレンズ核の間を走る白質路です。冠状断で前脚・膝・後脚の曲がりを追います。", relation:"尾状核・視床の外側、被殻・淡蒼球の内側" },
+  internalCapsule: { name:"内包", latin:"Capsula interna", color:"#e3d8b0", rgb:[227,216,176], ids:[], bigbrainIds:[31,32], labelSource:"image-guided", note:"尾状核・視床とレンズ核の間を走る白質路です。水平断で前脚・膝・後脚の曲がりを、冠状断で周囲の核との内外の位置関係を確認します。", relation:"尾状核・視床の外側、被殻・淡蒼球の内側" },
   caudate: { name: "尾状核", latin: "Nucleus caudatus", color: "#e19749", rgb:[225,151,73], ids:[100,49], bigbrainIds:[7,8], labelSource:"manual", meshFocus:"caudate", note: "側脳室に沿って弧状に走る核です。現在の分節は頭部・体部が中心で、下角へ回り込む尾部全長を収録していません。ラベルの終端を尾状核そのものの終端と誤認しないでください。", relation: "側脳室の外側、内包の内側" },
   putamen: { name:"被殻", latin:"Putamen", color:"#d9854f", rgb:[217,133,79], ids:[72,21], bigbrainIds:[9,10], labelSource:"manual", note:"レンズ核の外側部です。淡蒼球との境界と、外側を走る外包を確認します。", relation:"淡蒼球の外側、島皮質の内側" },
   pallidumExternal: { name:"淡蒼球外節", latin:"Globus pallidus externus", color:"#d0ae5c", rgb:[208,174,92], ids:[], bigbrainIds:[11,12], labelSource:"manual", note:"淡蒼球の外側区画です。内節の主要出力へつながる大脳基底核内の中継・調節部として、内外の髄板を手がかりに確認します。", relation:"被殻の内側、淡蒼球内節の外側" },
@@ -512,7 +514,7 @@ const structureFunctions:Record<StructureKey,string>={
   opticChiasmPartial:"視交叉では左右の視神経線維の一部が交叉し、両眼の視野情報を左右半球へ振り分けます。この部分モデルは交叉線維の走行を示しません。",
   opticTractsPartial:"視索は視交叉から外側膝状体などへ視覚情報を伝えます。左右の視索を、視交叉の後方から視床の後下方へ向かう位置関係として観察します。表示は部分分節で、個々の線維や視放線は示していません。",
   ventricle:"脳脊髄液を含む腔で、脳室系の連続性と周囲構造の位置を知る基準になります。",
-  thirdVentricle:"左右の視床・視床下部に囲まれる間脳正中の髄液腔です。上方は視床、下方（底側）は視床下部で、各構造の位置関係を読む基準になります。",
+  thirdVentricle:"左右の視床・視床下部に囲まれる間脳正中の髄液腔です。側壁上部に視床、下部に視床下部が位置し、深部構造の位置関係を読む基準になります。",
   fourthVentricle:"後脳の髄液腔で、中脳水道からくも膜下腔へ至る髄液循環の通路です。",
   corpusCallosum:"左右大脳半球の皮質間を連絡し、両半球の情報統合を担う最大の交連線維です。",
   internalCapsule:"皮質と視床・脳幹・脊髄を結ぶ投射線維が密集し、運動・感覚経路が通ります。",
@@ -1345,6 +1347,14 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
     setPosition(nextPosition ?? sectionPositions.current[nextPlane]);
   }
 
+  function observeStudyTheme(theme:SectionStudyTheme){
+    setPlaying(false);setLabels(true);setVisibleStructures([...theme.members]);
+    focusStructure(theme.target);setContrast("bigbrain");setIdentified(null);
+    setSectionLayout(phoneMode||webglUnavailable?"slice":"both");
+    jump(theme.plane,theme.position);
+    window.requestAnimationFrame(()=>sectionStageRef.current?.scrollIntoView({block:"start"}));
+  }
+
   function observeForamenSlice(y:number){
     setPlaying(false);setLabels(true);setVisibleStructures(["ventricle","thirdVentricle"]);
     setSelectedStructure("thirdVentricle");setSectionLayout(webglUnavailable?"slice":"both");setIdentified(null);
@@ -1649,7 +1659,7 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
 
     {workspace==="sections"&&<section className="workArea" id="workspace" tabIndex={-1}><h1 className="srOnly">断面実習</h1>
       {quizObservationTitle&&<QuizObservationReturn english={englishEdition} title={quizObservationTitle} finished={quizFinished} onReturn={returnToQuiz}/>}
-      {contrast==="bigbrain"&&<ForamenGuide english={englishEdition} onObserve={observeForamenSlice}/>}
+      {contrast==="bigbrain"&&<SectionStudyGuide english={englishEdition} onObserve={observeStudyTheme}><ForamenGuide english={englishEdition} onObserve={observeForamenSlice}/></SectionStudyGuide>}
       {sectionLinkStatus&&<p role="status">{englishEdition?"This observation link is invalid or uses a different label revision. Its settings were not applied.":"観察リンクが不正、またはラベルの版が異なるため、リンクの設定は適用していません。"}</p>}
       {contrast==="bigbrain"&&<details className="sectionObservationLink"><summary>{englishEdition?"Link to this observation":"この観察のリンク"}</summary><p>{englishEdition?"Copy this link to reproduce the slice position, selected structures and panel layout. Rotation and zoom are not included. No personal data is included.":"断面位置・選択構造・表示配分を再現するリンクです。回転と拡大率は含みません。個人情報は含まれません。"}</p><input aria-label={englishEdition?"Observation URL":"観察URL"} readOnly onFocus={event=>event.currentTarget.select()} value={typeof window==="undefined"?"":observationUrl(window.location.href,sectionLinkHash(plane,{version:1,positions:{...sectionPositions.current,[plane]:position},visible:visibleStructures,selected:selectedStructure,layout:sectionLayout,views:sectionModelViews,share:sectionModelShare},sectionAllowedKeys,SEGMENTATION_LABEL_SHA256)??"")}/></details>}
       <div className="visualGrid"><section className="slicePanel">
@@ -1657,7 +1667,7 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
         <div ref={sectionStageRef} className={`sliceStage ${plane} ${sliceVariant(position)} layout-${sectionLayout}`} style={{"--section-model-share":`${sectionModelShare}%`} as CSSProperties}>
           {sectionLayout!=="model"&&<div className="sliceViewport">
             <AtlasVolumeCanvas kind="slice" plane={plane} position={position} focus={focus} display={display} rotation={rotation} contrast={contrast} highlights={highlightLayers} onIdentify={contrast==="single"?undefined:identify} onViewChange={()=>setIdentified(null)}/>
-            <div className={`identifyHint ${contrast==="single"?"unavailable":""}`}><b>{contrast==="single"?"ホイールで拡大縮小":"クリックで同定・ホイールで拡大"}</b><span>{englishEdition?"Drag to pan · click to identify":contrast==="bigbrain"?"0.5 mm格子・ドラッグで移動":contrast==="single"?"画像参照・ドラッグで移動":"アトラス対応・ドラッグで移動"}</span></div>
+            <div className={`identifyHint ${contrast==="single"?"unavailable":""}`} data-no-localize><b>{englishEdition?(contrast==="single"?"Drag: pan":"Click: identify · Drag: pan"):(contrast==="single"?"ドラッグ：移動":"クリック：同定・ドラッグ：移動")}</b><span>{englishEdition?"Wheel: zoom":"ホイール：拡大縮小"}</span></div>
             {identified&&<div className={`identifyMarker ${identified.id===0?"outside":""}`} style={{left:`clamp(88px, ${identified.x}px, calc(100% - 88px))`,top:`clamp(70px, ${identified.y}px, calc(100% - 18px))`}}><i/><b>{labels?`${identified.side}${identified.name}`:"？"}</b><button type="button" aria-label={englishEdition?"Close identification":"同定表示を閉じる"} onClick={()=>setIdentified(null)}>×</button>{sectionDeveloperControls&&<small>{identified.certainty==="atlas"?"ATLAS":identified.certainty==="manual"?"MANUAL":identified.certainty==="reviewed"?"REVIEWED":"PILOT"}</small>}</div>}
           </div>}
           {sectionLayout==="both"&&<button type="button" className="sectionResizeHandle" role="separator" aria-label="断面と3Dの境界。ドラッグで表示面積を変更" aria-orientation={compactSectionLayout?"horizontal":"vertical"} aria-valuemin={25} aria-valuemax={75} aria-valuenow={sectionModelShare} onPointerDown={beginSectionResize} onPointerMove={moveSectionResize} onPointerUp={endSectionResize} onPointerCancel={endSectionResize} onKeyDown={handleSectionResizeKey}><span/></button>}
