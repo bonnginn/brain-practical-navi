@@ -1787,3 +1787,10 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
 @media(max-width:600px){.homeNotice{padding:20px 16px}.homeNotice h1{font-size:clamp(28px,7.5vw,38px)}.homeNotice>header>span{font-size:11px;letter-spacing:.06em}.homeNotice>header p{font-size:15px;line-height:1.55}.homeLearningGuide{margin-top:20px}.homeLearningGuide>header h2{font-size:21px}}
 
 @media(max-width:760px){ .phone-mode .regionLessonDock { bottom:calc(var(--phone-dock-height,82px) + 8px); } }
+
+/* Keep the surface title readable when its control row needs its own line. */
+.surfaceModelCard > .panelHead{flex-wrap:wrap;gap:6px 12px;align-items:center}
+.surfaceModelCard > .panelHead > div:first-child{flex:1 1 180px;min-width:0}
+.surfaceModelCard > .panelHead .panelActions{flex:0 1 auto;flex-wrap:wrap;max-width:100%;gap:6px}
+.surfaceModelCard > .panelHead .panelActions button{max-width:100%;white-space:normal;min-height:36px}
+.phone-mode .surfaceModelCard > .panelHead .panelActions button{min-height:44px}

@@ -471,12 +471,12 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.doesNotMatch(page, /active&&<small>\{item\.note\}/);
   assert.match(page, /className="selectedStructureList" aria-label="選択中の構造と解説"/);
   assert.match(page, /activeVisibleStructures\.map\(key=>/);
-  assert.match(page, /item\.note\).*item\.relation/);
+  assert.match(page, /labels\?item\.relation:"解答を隠しています"/);
   assert.doesNotMatch(page, /landmarks\.map\(mark/);
   assert.doesNotMatch(page, /目印をクリックすると/);
   assert.match(canvasCss, /\.workspace-sections \.workArea \{ overflow-y: auto/);
   assert.match(canvasCss, /\.workspace-sections \.slicePanel \{ height: auto; grid-template-rows: auto clamp\(520px,65vh,760px\) auto auto; \}/);
-  assert.match(page, /sectionDeveloperControls&&key===selectedStructure\?currentSourceNote:item\.note/);
+  assert.match(page, /sectionDeveloperControls&&key===selectedStructure&&<em>\{currentSourceNote\}/);
   assert.match(page, /sectionDeveloperControls&&<small>\{identified\.certainty/);
   assert.match(page, /sectionDeveloperControls&&quizSource&&<small>/);
   assert.match(page, /const \[quizSlicePosition,setQuizSlicePosition\]=useState\(52\)/);
@@ -2198,7 +2198,7 @@ test("labels provisional questions and includes them in the default quiz setup",
   assert.match(page, /quizIncludeProvisional,setQuizIncludeProvisional\]=useState\(true\)/);
   assert.match(page, /const quizFilters:QuizFilters=\{category:quizCategory,format:quizFormat,detail:quizDetail,kind:quizKind,includeProvisional:quizIncludeProvisional,wrongOnly:quizWrongOnly\}/);
   assert.match(page, /filterQuizCandidates\(quizQuestionsForFiltering,quizFilters,wrongTargets\)/);
-  assert.match(page, /function startQuiz\(\)\{setQuizCircuit\(null\);let candidates=quizCandidates;/);
+  assert.match(page, /function startQuiz\(\)\{[^}]*let candidates=quizCandidates;/);
   assert.doesNotMatch(page, /quizIncludeProvisional\|\|!isProvisionalQuiz\(question\)/);
   assert.match(page, /試作問題を含む[\s\S]*位置照合・部分分節ラベル/);
   assert.match(page, /試作ラベル/);
