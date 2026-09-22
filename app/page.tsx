@@ -846,6 +846,7 @@ export default function Home() {
   const [rotation, setRotation] = useState<Rotation>(()=>workspace==="sections"?{x:-7,y:-18,z:0}:workspace==="surface"?surfaceViews[surfaceView].rotation:workspace==="blocks"?blockInitialRotations[initialBlockSpecimen]:{...homeRotation});
   const [webglUnavailable,setWebglUnavailable]=useState(false);
   const [playing, setPlaying] = useState(false);
+  const [sectionPlaybackDelay,setSectionPlaybackDelay]=useState(200);
   const [drag, setDrag] = useState<{ x: number; y: number; mode:"orbit"|"roll" } | null>(null);
   const [detailsOpen,setDetailsOpen]=useState(false);
   const sectionDetailsReturnFocus=useRef<HTMLButtonElement|null>(null);
@@ -1095,7 +1096,15 @@ export default function Home() {
   let quizNeurovascularHighlight=useMemo<HighlightLayer[]>(()=>neurovascularQuiz?[{ids:neurovascularQuizTarget.ids,color:[255,255,255]}]:[],[neurovascularQuiz,neurovascularQuizTarget]);
   const quizVisibilityExpectedHighlights=quizVisibilityAuditHighlight===null?[]:neurovascularQuiz?quizNeurovascularHighlight:quizSurfaceHighlight;
   if(quizVisibilityAuditHighlight===false){quizHighlight=[];quizSurfaceHighlight=[];quizNeurovascularHighlight=[]}
-  useEffect(() => { if (!playing) return; const timer = window.setInterval(() => setPosition(p => p >= 95 ? 5 : p + 1), 90); return () => window.clearInterval(timer); }, [playing]);
+  useEffect(() => {
+    if(!playing)return;
+    if(position>=100||document.hidden){setPlaying(false);return;}
+    const stopWhenHidden=()=>{if(document.hidden)setPlaying(false)};
+    document.addEventListener("visibilitychange",stopWhenHidden);
+    const timer=window.setTimeout(()=>setPosition(p=>contrast==="bigbrain"?stepPlanePosition(p,plane,BIGBRAIN_SECTION_DIMS,1):Math.min(100,p+1)),sectionPlaybackDelay);
+    return()=>{window.clearTimeout(timer);document.removeEventListener("visibilitychange",stopWhenHidden)};
+  },[playing,position,plane,contrast,sectionPlaybackDelay]);
+  useEffect(()=>setPlaying(false),[contrast]);
   useEffect(()=>{if(quizVisibilityAuditTarget){setQuizQueue([quizVisibilityAuditTarget]);if(!isSurfaceQuiz(quizVisibilityAuditTarget)&&!isNeurovascularQuiz(quizVisibilityAuditTarget))setRotation({...homeRotation})}},[quizVisibilityAuditTarget?.target]);
   useEffect(()=>setIdentified(null),[plane,position,contrast]);
   useEffect(()=>{setDetailsOpen(false);setPlaying(false);if(workspace!=="surface"&&workspace!=="sections")setQuizObservationTitle(null)},[workspace]);
@@ -1348,6 +1357,7 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
   }
 
   function jump(nextPlane: Plane, nextPosition?: number,historyMode:"push"|"replace"|"none"="push") {
+    setPlaying(false);
     updateScreenHistory(workspaceHash("sections",surfaceView,nextPlane,blockSpecimen),historyMode);
     setPlane(nextPlane);
     setPosition(nextPosition ?? sectionPositions.current[nextPlane]);
@@ -1693,7 +1703,8 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
           </aside>}
         </div>
         <section className="timeline sliceTimeline">
-          <div className="timelineHead"><button className={`playButton ${playing ? "active" : ""}`} onClick={() => setPlaying(!playing)} aria-label={playing ? "連続断面を停止" : "連続断面を再生"}>{playing ? "Ⅱ" : "▶"}</button><div><span>{planeData[plane].from}</span><b>{planeData[plane].axis}</b><span>{planeData[plane].to}</span></div><output>{positionLabel}</output></div>
+          <div className="timelineHead"><button className={`playButton ${playing ? "active" : ""}`} onClick={() => {if(!playing&&position>=100)setPosition(0);setPlaying(!playing)}} aria-pressed={playing} aria-label={playing ? "連続断面を停止" : "連続断面を再生"}>{playing ? "Ⅱ" : "▶"}</button><div><span>{planeData[plane].from}</span><b>{planeData[plane].axis}</b><span>{planeData[plane].to}</span></div><output>{positionLabel}</output></div>
+          <div className="sectionPlaybackOptions" data-no-localize><label>{englishEdition?"Playback speed":"再生速度"}<select aria-label={englishEdition?"Playback speed":"再生速度"} value={sectionPlaybackDelay} onChange={event=>setSectionPlaybackDelay(Number(event.target.value))}><option value={500}>{englishEdition?"Slow":"ゆっくり"}</option><option value={200}>{englishEdition?"Normal":"通常"}</option><option value={100}>{englishEdition?"Fast":"速い"}</option></select></label><small>{englishEdition?"Stops at the last slice":"最後の断面で停止"}</small></div>
           <div className="rangeWrap"><input aria-label={`${planeData[plane].ja}の${planeData[plane].axis}`} type="range" min="0" max="100" step={contrast==="bigbrain"?"any":1} value={position} onChange={e => {setPlaying(false);setPosition(Number(e.target.value))}} onKeyDown={e => {if(e.key==="ArrowLeft"||e.key==="ArrowRight"){setPlaying(false);if(contrast==="bigbrain"){e.preventDefault();stepSection(e.key==="ArrowLeft"?-1:1)}}}}/></div>
           {contrast==="bigbrain"&&<SectionSliceStepper position={position} plane={plane} english={englishEdition} onStep={stepSection}/>}
         </section>

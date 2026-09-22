@@ -164,3 +164,14 @@ UTHealth Neuroanatomy Onlineの [内側面](https://nba.uth.tmc.edu/neuroanatomy
 海馬メッシュだけ503となるfixtureで、視床へ切り替えた後も3Dのエラー表示が残る不具合を再現。選択メッシュのエラーを基盤画像・全脳メッシュのエラーから分離し、新しい選択の取得ではそのエラーだけを解除した。他の必要データの失敗は隠さない。4368の実ブラウザで海馬503→視床の表示へ復帰、海馬503→通信開放→再読み込み→左右海馬の表示、を確認。型検査・build成功。fixture `work/v1-selection-failure-server.mjs` と開放フラグを保存し、サーバーは停止した。
 
 `915d2fe`までの追加を一区切りとしてNode全体641件を一度実行し、639成功・2失敗。残った2件は検索対象の並びと旧インライン操作ガイドの文字列を固定していたもの。ブラウザで実動作を確認済みのため、その古い実装表現の固定だけを外し、該当2件を対象再実行して成功。全641件を再実行したとの意味ではない。後続の選択エラー分離は上記の実ブラウザと型・buildで確認した。Python全体は実行していない。ログ `work/v1-learning-integration-node.log`、`work/v1-learning-integration-retest.log`、`work/v1-selection-recovery-build.log`。
+
+
+## 連続断面の再生
+
+1%ずつ90msで進めて95%から5%へ戻っていた再生を、BigBrainでは既存の1枚送りへ変更。速度はゆっくり・通常・速いから選び、終端で停止する。手動位置変更、断面方向変更、画像ソース変更、非表示タブでは停止する。最後で再生を押した場合だけ先頭から開始する。日英操作ガイドへ追加。
+
+型検査・build成功。実ブラウザで冠状断Y464→Y465で停止、再開でY0、矢印キーでY1へ移動して停止、水平断への変更で停止を確認。新規IABタブを開いても元タブのdocument.hiddenがfalseのため、タブ非表示の実動作はこの環境では再現していない。非表示イベントの停止処理は実装済みだが実機ブラウザの確認と区別する。ログ `work/v1-section-playback-build.log`。全件試験は再実行しない。
+
+## 15時時点の配布形式確認
+
+`8f20c46`の通常・GitHub Pages形式buildは成功。PWAコード一式は通常1,400,869 bytes、Pages1,401,170 bytesで保存対象検査成功。両形式の権利・出典表示検査も成功。分節・メッシュの`public/atlas`は公開β `c87117d`との差分なし。ログ `work/v1-learning-{normal,pages}-build.log`、結果 `work/v1-learning-{pwa,rights}-{normal,pages}.json`。この後の連続再生変更まで含む再検査とは区別する。

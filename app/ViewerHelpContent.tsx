@@ -10,6 +10,7 @@ const ja:HelpSection[]=[
   ]},
   {title:"断面実習",rows:[
     ["断面位置","位置スライダーにフォーカスして矢印キーで断面を移動。Home／Endで両端へ移動します。"],
+    ["連続再生","▶で現在位置から順に進み、最後で停止します。BigBrainでは1枚ずつ進み、再生速度を選べます。位置や断面方向を変えるか、別タブへ移ると停止します。"],
     ["画像の拡大","ホイールまたは画面の−／＋。画像にフォーカスすれば−／＋キーも使えます。倍率表示、RまたはHomeで画像の位置と倍率を戻します。"],
     ["画像の移動","画像をドラッグ、または画像にフォーカスして矢印キーで移動します。"],
     ["構造の同定","画像を短くクリックすると構造を同定します。構造一覧は名称・かな・英語で検索して複数選択できます。検索の絞り込みで選択中の構造は消えません。"],
@@ -38,6 +39,7 @@ const en:HelpSection[]=[
   ]},
   {title:"Serial sections",rows:[
     ["Slice position","Focus the position slider. Arrow keys move through sections; Home / End jump to either end."],
+    ["Playback","Play advances from the current position and stops at the end. BigBrain advances one slice at a time, with a choice of speeds. Changing the position or plane, or leaving the tab, pauses playback."],
     ["Image zoom","Use the wheel or the − / + buttons. With the image focused, use − / + keys. Press the percentage, R or Home to reset image position and zoom."],
     ["Pan the image","Drag the image, or focus it and use the arrow keys."],
     ["Identify","Click briefly on the image to identify a structure. Search the list by Japanese, kana or English names and select multiple structures. Filtering does not remove your selections."],
