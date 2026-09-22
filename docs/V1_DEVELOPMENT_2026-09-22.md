@@ -175,3 +175,12 @@ UTHealth Neuroanatomy Onlineの [内側面](https://nba.uth.tmc.edu/neuroanatomy
 ## 15時時点の配布形式確認
 
 `8f20c46`の通常・GitHub Pages形式buildは成功。PWAコード一式は通常1,400,869 bytes、Pages1,401,170 bytesで保存対象検査成功。両形式の権利・出典表示検査も成功。分節・メッシュの`public/atlas`は公開β `c87117d`との差分なし。ログ `work/v1-learning-{normal,pages}-build.log`、結果 `work/v1-learning-{pwa,rights}-{normal,pages}.json`。この後の連続再生変更まで含む再検査とは区別する。
+
+
+## 全断面構造の観察案内と比較表示
+
+選択可能な28構造すべてに日英の観察の手がかりと見分け方を用意した（既存8＋追加20）。尾状核の頭部・体部、内包の前脚・後脚、淡蒼球内外節、海馬と扁桃体、赤核と黒質、小脳、島皮質などを、隣接構造と断面方向から説明する。分節範囲の旧注記は削除せず展開欄へ置き、未収録の薄い層をラベル済みとはしない。
+
+各解説の「周囲の構造も表示」は、現在の位置・選択・対象を保って既存の比較ラベルを追加し、画像へ戻る。小核の比較には覆い隠す脳幹全体を追加しない。BigBrainの断面のみで提供。28件の日英説明と全比較キーの存在を一回の整合確認で確認。型検査・build成功。実ブラウザでGPiから被殻・GPe・内包を追加し、7→10構造、位置67とGPi対象を保持、ダイアログを閉じてCanvasへフォーカスすることを確認。英語版と狭い画面でも操作成功、解説欄の横溢れなし。ログ `work/v1-observation-guides-build.log`。
+
+追加資料：UTHealth Neuroanatomy Onlineの[尾状核](https://nba.uth.tmc.edu/neuroanatomy/L10/Lab10p08_index.html)、[間脳・中脳境界](https://nba.uth.tmc.edu/neuroanatomy/L6/Lab06p11_index.html)、[外包・前障](https://nba.uth.tmc.edu/neuroanatomy/L10/Lab10p14_index.html)、[小脳・脳幹](https://nba.uth.tmc.edu/neuroanatomy/l5/Lab05p22_index.html)。既存の脳室・内包・辺縁系・基底核資料と併せて参照。各解説とブラウザの日英参考文献にも掲載。教材用の独自説明とし、画像の転載・分節追加は行っていない。

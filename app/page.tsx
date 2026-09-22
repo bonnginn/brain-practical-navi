@@ -1,7 +1,7 @@
 "use client";
 import {RelatedCircuitLinks} from "./RelatedCircuitLinks";
 import {sectionCircuitLinks,surfaceCircuitLinks} from "../src/learningConnections";
-import {sectionObservationGuides} from "../src/sectionObservationGuides";
+import {sectionObservationGuides,sectionComparisonStructures} from "../src/sectionObservationGuides";
 import { ViewerHelpContent } from "./ViewerHelpContent";
 import {HomeLearningGuide,type LearningEntry} from "./HomeLearningGuide";
 import {PwaUpdateNotice} from "./PwaUpdateNotice";
@@ -963,6 +963,7 @@ export default function Home() {
   const normalizedSectionSearch=normalizeJapaneseSearch(sectionSearch);
   const filteredStructureKeys=structureKeys.filter(key=>matchesJapaneseSearch(normalizedSectionSearch,[structures[key].name,structures[key].latin,anatomyDisplayEnglish(structures[key].latin),...(sectionStructureReadings[key]??[])]));
   const activeVisibleStructures=visibleStructures.filter(structureAvailable);
+  const sectionComparisonKeys=(sectionComparisonStructures[selectedStructure]??[]).filter((key):key is StructureKey=>key in structures&&key!=="opticChiasm").filter(structureAvailable);
   const visibleSet=useMemo(()=>new Set(visibleStructures),[visibleStructures]);
   const selectedSummaryKey:StructureKey|undefined=activeVisibleStructures.includes(selectedStructure)?selectedStructure:activeVisibleStructures[0];
   const selectedSummary=selectedSummaryKey?structures[selectedSummaryKey]:null;
@@ -1506,6 +1507,11 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
   function toggleBlockLayer(key:string){setBlockLayerFocus(key);setBlockLayers(previous=>previous.includes(key)?previous.filter(item=>item!==key):[...previous,key])}
   function chooseNeurovascularStructure(key:NeurovascularStructureKey){const item=neurovascularStructures[key];setSelectedNeurovascularStructure(key);if(item.kind==="arteries")setSurfaceVessels(true);else setSurfaceNerves(true)}
   function closeSectionDetails(){setDetailsOpen(false);requestAnimationFrame(()=>{if(sectionDetailsReturnFocus.current?.isConnected)sectionDetailsReturnFocus.current.focus()})}
+  function showSectionComparison(){
+    setVisibleStructures(previous=>[...new Set([...previous,selectedStructure,...sectionComparisonKeys])]);
+    setLabels(true);setPlaying(false);setSectionSearch("");setDetailsOpen(false);
+    requestAnimationFrame(()=>{const target=document.querySelector<HTMLElement>(".sliceViewport canvas")??document.querySelector<HTMLElement>(".insetStage");target?.focus({preventScroll:true});target?.scrollIntoView({block:"center"})});
+  }
   function closeOverlay(){setHelpOpen(false);setFeedbackOpen(false);setLegalOpen(false);setStatusOpen(false);const nextHash=workspaceHash(workspace,surfaceView,plane,blockSpecimen);if(window.location.hash!==nextHash)window.history.replaceState(null,"",nextHash)}
   function openOverlay(key:OverlayMode){if(!overlayOpen)overlayReturnFocus.current=document.activeElement instanceof HTMLElement?document.activeElement:null;window.history.pushState(null,"",`#workspace/${key}`);setHelpOpen(key==="help");setFeedbackOpen(key==="feedback");setLegalOpen(key==="legal");setStatusOpen(key==="status")}
   async function requestPwaInstall(){
@@ -1855,6 +1861,7 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
       <h2 id="section-structure-title">{current.name}</h2><em>{anatomyDisplayEnglish(current.latin)}</em>
       <div className="rule"/><h3>主な役割</h3><p>{structureFunctions[selectedStructure]}</p>
       <h3>{englishEdition?"Observation landmarks":"観察の手がかり"}</h3>{sectionObservationGuides[selectedStructure]?<div data-no-localize><p>{sectionObservationGuides[selectedStructure]!.observe[englishEdition?"en":"ja"]}</p><p className="structureComparison">{sectionObservationGuides[selectedStructure]!.compare[englishEdition?"en":"ja"]}</p></div>:<p>{current.note}</p>}
+      {contrast==="bigbrain"&&sectionComparisonKeys.length>0&&<div className="sectionCompareAction" data-no-localize><button type="button" onClick={showSectionComparison}>{englishEdition?"Show neighbouring structures":"周囲の構造も表示"}</button><small>{sectionComparisonKeys.map(key=>englishEdition?anatomyDisplayEnglish(structures[key].latin):structures[key].name).join(englishEdition?", ":"・")}</small><small>{englishEdition?"Keeps your current slice and selections.":"現在の断面位置と選択を保ち、周囲の構造を追加します。"}</small></div>}
       <dl><div><dt>位置関係</dt><dd>{current.relation}</dd></div><div><dt>現在の断面</dt><dd>{planeData[plane].ja}・位置 {position}</dd></div></dl>
       {sectionObservationGuides[selectedStructure]&&<details className="sectionScopeDetails"><summary>{englishEdition?"Label coverage and observation reference":"分節の収録範囲・観察の参考資料"}</summary><p>{current.note}</p><a href={sectionObservationGuides[selectedStructure]!.reference.url} target="_blank" rel="noreferrer">{sectionObservationGuides[selectedStructure]!.reference.title}</a></details>}
       {current.labelSource&&<div className={`structureProvenance ${labelSourceDisplay[current.labelSource].className}`}><b>{labelSourceDisplay[current.labelSource].label}</b><span>{labelSourceDisplay[current.labelSource].detail}</span></div>}

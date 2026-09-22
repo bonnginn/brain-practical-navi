@@ -13,3 +13,6 @@
 .sectionPlaybackOptions label{display:flex;align-items:center;gap:8px}
 .sectionPlaybackOptions select{max-width:100%;min-height:36px;padding:4px 8px;border:1px solid var(--line,#bcc6c3);border-radius:4px;background:var(--paper,#fff);color:inherit;font:inherit}
 .sectionPlaybackOptions small{color:var(--muted,#5b6965)}
+.sectionCompareAction{display:grid;gap:6px;margin:12px 0;padding:12px;border:1px solid #bccbc3;background:#f3f8f5}
+.sectionCompareAction button{min-height:44px;padding:8px;border:1px solid #789c8c;background:#fff;color:#29463d;font:inherit;font-size:var(--ui-font-13,13px)}
+.sectionCompareAction small{font-size:var(--ui-font-12,12px);line-height:1.6;overflow-wrap:anywhere}
