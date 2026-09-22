@@ -6,11 +6,15 @@ import "./circuit-teaching.css";
 import {CircuitRecall} from "./CircuitRecall";
 import {circuitStageDuration} from "../src/circuitTravel.mjs";
 
-type Props={circuitKey:string;english:boolean;onObserve?:(index:number,nodeKey:string)=>void;onPreview?:(index:number,nodeKey:string)=>void;onPulseChange?:(active:boolean)=>void;onReview?:()=>void;reviewCount?:number};
+export type CircuitPosition={pathIndex:number;nodeIndex:number};
+type Props={circuitKey:string;english:boolean;initialPosition?:CircuitPosition;onPositionChange?:(position:CircuitPosition)=>void;onObserve?:(index:number,nodeKey:string)=>void;onPreview?:(index:number,nodeKey:string)=>void;onPulseChange?:(active:boolean)=>void;onReview?:()=>void;reviewCount?:number};
 
-export function CircuitTeachingPanel({circuitKey,english,onObserve,onPreview,onPulseChange,onReview,reviewCount=0}:Props){
+export function CircuitTeachingPanel({circuitKey,english,initialPosition,onPositionChange,onObserve,onPreview,onPulseChange,onReview,reviewCount=0}:Props){
   const circuit=circuitTeaching(circuitKey);
-  const [selectedPosition,setSelectedPosition]=useState({pathIndex:0,nodeIndex:0});
+  const [selectedPosition,setSelectedPosition]=useState(initialPosition??{pathIndex:0,nodeIndex:0});
+  const positionChangeRef=useRef(onPositionChange);
+  positionChangeRef.current=onPositionChange;
+  useEffect(()=>{positionChangeRef.current?.(selectedPosition)},[selectedPosition]);
   const [playing,setPlaying]=useState(false);
   const stageRef=useRef<HTMLElement|null>(null);
   const previewRef=useRef(onPreview);

@@ -17,7 +17,8 @@ import { AtlasVolumeCanvas, QUIZ_SECTION_ACCENT_HEX, type BlockContextSpecimen, 
 import { surfaceRegionLessons, surfaceRegionLessonSources } from "../src/surfaceRegionLessons";
 import betaStatus from "./beta-status.json";
 import { SegmentationReferences } from "./SegmentationReferences";
-import { CircuitTeachingPanel } from "./CircuitTeachingPanel";
+import {circuitTeaching} from "../src/circuitTeaching.mjs";
+import { CircuitTeachingPanel, type CircuitPosition } from "./CircuitTeachingPanel";
 import { BIGBRAIN_SECTION_DIMS, SectionSliceStepper } from "./SectionSliceStepper";
 import { ForamenGuide } from "./ForamenGuide";
 import {ActiveSectionStudy} from "./ActiveSectionStudy";
@@ -894,6 +895,7 @@ export default function Home() {
   const [sectionSearch,setSectionSearch]=useState("");
   const [freeSelections,setFreeSelections]=useState<FreeObservationKey[]>([]);
   const [freeFocusedKey,setFreeFocusedKey]=useState<FreeObservationKey|null>(null);
+  const circuitPositionsRef=useRef<Partial<Record<PathwayPresetKey,CircuitPosition>>>({});
   const [circuitPulse,setCircuitPulse]=useState(false);
   const [circuitNodeKey,setCircuitNodeKey]=useState<string|null>(null);
   const [selectedPathway,setSelectedPathway]=useState<PathwayPresetKey|null>(null);
@@ -1443,12 +1445,18 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
   function selectFreeObservation(key:FreeObservationKey){if(!freeSelectedSet.has(key))toggleFreeObservation(key);else setFreeFocusedKey(key)}
   function applyPathwayPreset(key:PathwayPresetKey){
     const preset=pathwayPresets[key];
+    const saved=circuitPositionsRef.current[key];
+    const teaching=circuitTeaching(key);
+    const nodeKey=saved?teaching?.paths[saved.pathIndex]?.nodes[saved.nodeIndex]:undefined;
+    const node=teaching?.nodes.find(item=>item.key===nodeKey);
+    const target=node?.observationIndex??node?.observations?.[0]?.index;
+    setCircuitNodeKey(node?.key??null);
     setSelectedPathway(key);
-    setVisualObservationIndex(null);
+    setVisualObservationIndex(key==="visual"?(target??null):null);
     if(key==="basal-ganglia"){
       // The stepper is intentionally independent from manually selected free
       // observations. Selecting it never clears or silently adds free items.
-      setBasalStepperIndex(0);
+      setBasalStepperIndex(target??0);
       setSurfaceGhost(true);
       return;
     }
@@ -1456,7 +1464,7 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
       // Like the basal-ganglia stepper, Papez is independent from manual free
       // selections. Only the current stage is highlighted, and switching to a
       // different preset cannot leave all six Papez stages selected behind.
-      setPapezStepperIndex(0);
+      setPapezStepperIndex(target??0);
       setSurfaceGhost(true);
       return;
     }
@@ -1805,7 +1813,7 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
           {surfaceView==="free"?<div className="freeExplorer">
             <header><div><b>構造を探す</b><small>文字検索または分類別索引から追加</small></div><button onClick={clearFreeObservation} disabled={freeSelections.length===0&&selectedPathway===null}>すべて解除</button></header>
             <section className="pathwayPresets" aria-label={englishEdition?"Circuit observation presets":"経路観察プリセット"}><div><b>{englishEdition?"Circuit observation and explanation":"経路観察と回路解説"}</b><small>{englishEdition?"Separates conceptual information flow from specimen locations":"概念上の情報の流れと、標本での観察位置を区別"}</small></div><nav>{pathwayPresetKeys.map(key=><button key={key} className={selectedPathway===key?"active":""} aria-pressed={selectedPathway===key} onClick={()=>applyPathwayPreset(key)}>{englishEdition?key==="papez"?"Papez circuit":key==="visual"?"Visual pathway":"Basal ganglia circuits":pathwayPresets[key].name}</button>)}</nav>{activePathway&&selectedPathway&&<div className="pathwayObservationOrder"><b>{englishEdition?"Order for specimen observation":"標本での観察順"}</b><ol>{(englishEdition?pathwayObservationStepsEnglish[selectedPathway]:activePathway.steps).map(step=><li key={step}>{step}</li>)}</ol></div>}</section>
-            {selectedPathway&&<div ref={circuitGuideRef} tabIndex={-1}><CircuitTeachingPanel key={selectedPathway} circuitKey={selectedPathway} english={englishEdition} onReview={startCircuitReview} reviewCount={Math.min(5,circuitReviewQuestions.length)} onPulseChange={setCircuitPulse} onObserve={(index,nodeKey)=>observeCircuitStage(index,true,nodeKey)} onPreview={(index,nodeKey)=>observeCircuitStage(index,false,nodeKey)}/></div>}
+            {selectedPathway&&<div ref={circuitGuideRef} tabIndex={-1}><CircuitTeachingPanel key={selectedPathway} circuitKey={selectedPathway} english={englishEdition} initialPosition={circuitPositionsRef.current[selectedPathway]} onPositionChange={position=>{circuitPositionsRef.current[selectedPathway]=position}} onReview={startCircuitReview} reviewCount={Math.min(5,circuitReviewQuestions.length)} onPulseChange={setCircuitPulse} onObserve={(index,nodeKey)=>observeCircuitStage(index,true,nodeKey)} onPreview={(index,nodeKey)=>observeCircuitStage(index,false,nodeKey)}/></div>}
             {basalStepperActive&&<section ref={circuitObservationRef} tabIndex={-1} className="pathwayStepper" aria-label="大脳基底核回路の位置関係ステッパー">
               <header><div><b>大脳基底核回路・位置関係ステッパー</b><small>回路を完全再現せず、既存構造の位置関係を順に確認する試作</small></div><span>{basalStepperIndex+1} / {BASAL_GANGLIA_STEPS.length}</span></header>
               <div className="pathwayStepperStageTitle"><span>STEP {String(basalStepperIndex+1).padStart(2,"0")}</span><b>{basalStepperTargetNames.join(" ／ ")}</b><small>{planeData[basalStepperStep.plane].ja}・位置 {basalStepperStep.position}（既存クイズ位置）</small></div>
