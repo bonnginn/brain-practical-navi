@@ -4,6 +4,7 @@
 
 - [正式版1.0へのロードマップ](V1_ROADMAP.md)
 - [1.0開発記録：9月22日](V1_DEVELOPMENT_2026-09-22.md)
+- [教材動画6本・振り返り・制作記録](TEACHING_VIDEO_LIBRARY_2026-09-22.md)
 - [β公開完了記録](BETA_PUBLIC_RELEASE_2026-09-22.md)
 
 ## 作業に応じた入口

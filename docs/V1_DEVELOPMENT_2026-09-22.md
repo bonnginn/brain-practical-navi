@@ -290,3 +290,11 @@ UTHealth Neuroanatomy Onlineの [内側面](https://nba.uth.tmc.edu/neuroanatomy
 型検査・通常build成功。対象の参考文献・英語脳表の既存試験結果は `work/v1-reference-search-tests.log`。全件試験は反復せず、印刷用動画補助ページもアプリ本体に追加していない。
 
 対象試験では英語脳表5件が成功し、参考文献の旧テスト読込方式がCSS・検索helper・React hookに未対応で起動失敗した。既存の検証内容は保持してSSRの呼出しと依存読込を同期し、参考文献2件だけ再実行して成功。`work/v1-reference-search-retest.log`。
+
+## 追加継続枠の統合保存
+
+17:10 JSTの追加2時間指示により、上限を19:10 JSTとして継続。脳表のミニガイド、狭いヘッダー、参考文献検索と並行して、視覚路・大脳基底核・内包の動画を追加し、既存3本と合わせたローカル一覧を作成。各動画の章末停止・外側字幕・3問の振り返りを共通化。詳細は [動画一覧](TEACHING_VIDEO_LIBRARY_2026-09-22.md)。印刷用HTMLは表示確認までで、実際の印刷は未確認。
+
+最新アプリの型検査とPages buildをまとめて確認し、最新通常buildとPages buildのPWA/権利検査も成功。ログ `work/v1-extra-integration-typecheck.log`、`work/v1-extra-integration-pages-build.log`、`work/v1-extra-{pwa,rights}-{normal,pages}.json`。Node/Python全件試験は反復していない。分節・メッシュ・公開版・CONTRIBUTING.mdの既存変更は維持。
+
+自分の4346/4347/4372 previewを再起動。4373と合わせて同じ最新JSを配信することを確認。既存SWタブは更新待ちの場合があり、最新操作確認は4373で実施。動画一覧は4374、元動画4369/4370も維持している。1.0の公開や少人数試用・実機検証を完了したものではない。
