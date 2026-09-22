@@ -96,3 +96,14 @@ export function matchesJapaneseSearch(query: string, values: Array<string | unde
   if (!normalizedQuery) return true;
   return values.some(value => normalizeJapaneseSearch(value ?? "").includes(normalizedQuery));
 }
+
+// Names for the section label list; these are search aliases, not new labels.
+export const sectionStructureReadings: Record<string, string[]> = {
+  ventricle:["そくのうしつ"],thirdVentricle:["だいさんのうしつ"],fourthVentricle:["だいよんのうしつ"],aqueductPartial:["ちゅうのうすいどう"],
+  corpusCallosum:["のうりょう"],internalCapsule:["ないほう"],caudate:["びじょうかく"],putamen:["ひかく"],pallidum:["たんそうきゅう"],
+  pallidumExternal:["たんそうきゅうがいせつ","GPe"],pallidumInternal:["たんそうきゅうないせつ","GPi"],thalamus:["ししょう"],
+  hippocampus:["かいば"],amygdala:["へんとうたい"],accumbens:["そくざかく"],redNucleus:["せきかく"],substantiaNigra:["こくしつ"],subthalamic:["ししょうかかく","STN"],
+  brainstem:["のうかん"],cerebellum:["しょうのう"],mammillaryBody:["にゅうとうたい"],insula:["とうひしつ","とうよう"],
+  anteriorCommissurePartial:["ぜんこうれん"],septumPellucidumPartial:["とうめいちゅうかく"],lateralGeniculateBodies:["がいそくしつじょうたい","LGN"],
+  fornixBodyPartial:["のうきゅう","かいばさい"],opticChiasmPartial:["しこうさ"],opticTractsPartial:["しさく"],
+};

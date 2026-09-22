@@ -1796,3 +1796,11 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
 .phone-mode .surfaceModelCard > .panelHead .panelActions button{min-height:44px}
 
 .helpEditorDetails{margin:0 24px 20px;font-size:var(--ui-font-13,13px);line-height:1.6}.helpEditorDetails summary{cursor:pointer;padding:10px 0;font-weight:700}.helpEditorDetails p{margin:4px 0}
+
+.atlasSelectionLoading{position:absolute;z-index:8;left:8px;top:8px;max-width:calc(100% - 76px);box-sizing:border-box;padding:5px 8px;background:#172126e8;color:#f3f2ec;font-size:var(--ui-font-12,12px);line-height:1.4;pointer-events:none}
+
+.sectionStructureSearch{margin:8px 0 10px;font-size:var(--ui-font-12,12px)}
+.sectionStructureSearch label{display:block;margin-bottom:4px;font-weight:700;color:#365e59}.sectionStructureSearch>div{display:flex;gap:3px;min-width:0}
+.sectionStructureSearch input{min-width:0;width:100%;min-height:44px;border:1px solid #acbeb7;border-radius:4px;background:#fff;padding:6px;color:#263e38;font:inherit}
+.sectionStructureSearch button{flex-shrink:0;min-width:36px;min-height:44px;border:1px solid #acbeb7;background:#edf4ef;color:#263e38;font:inherit}
+.sectionStructureSearch small{display:block;margin-top:4px;line-height:1.5;color:#54645e}
