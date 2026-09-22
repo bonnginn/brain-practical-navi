@@ -12,4 +12,6 @@
 .quizSessionReview dd{margin:3px 0 0;font-size:var(--ui-font-13,13px);line-height:1.6}
 .quizSessionReview button{max-width:100%;min-height:44px;margin-top:8px;padding:10px 14px;border:1px solid #52786b;background:#f4faf7;color:#244d40;font:inherit;font-size:var(--ui-font-13,13px);white-space:normal}
 .quizResultState>div{flex-wrap:wrap;justify-content:center}
+.quizSources{margin:10px 0;font-size:var(--ui-font-12,12px);line-height:1.6}
+.quizSources summary{cursor:pointer;font-weight:700}.quizSources ul{padding-left:20px}.quizSources a{color:#216a63;overflow-wrap:anywhere}
 @media(max-width:600px){.quizEmptyState.quizResultState{padding:18px 12px}}

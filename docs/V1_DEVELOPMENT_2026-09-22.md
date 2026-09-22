@@ -193,3 +193,12 @@ UTHealth Neuroanatomy Onlineの [内側面](https://nba.uth.tmc.edu/neuroanatomy
 クイズの断面送りも、1%刻みではなく既存の0.5mmの1枚送りへ統一。値は丸めず保持し、表示だけ小数2桁までとした。
 
 型検査・build成功。既存の誤答履歴と1枚送りの対象10件成功。実ブラウザ英語版で側脳室の3問を2誤答・1正答とし、結果1/3、同じ構造の誤答2問が別々に残ること、位置関係問題の選択と解説、2問だけの再挑戦を確認。1問の回で観察→結果復帰も確認。水平断51→51.19の送り、各段階のフォーカスも確認。狭い幅で横溢れなし。ただし既存CSSに負けていた結果欄の上下配置・小画面余白は追加で詳細度を上げたため、次回通常プレビュー反映時に最終表示を確認する。ログ `work/v1-quiz-results-build.log`。全体試験は繰り返していない。
+
+
+## 機能・位置関係問題の説明を補足
+
+概念問題55件の問題文・選択肢・正答・解説を読んで、既存教材との整合を確認。小脳を運動開始と切り離す言い方を避け、調整・学習と運動計画への関与を説明した。顔面神経は涙腺・顎下腺・舌下腺を具体的に示し、耳下腺の副交感支配がIX由来であることを補足。舌下神経では口蓋舌筋の例外を追記した。正答キー・出題数・保留8問・表示形状は変更しない。全問の専門家監修や全出題画像の再評価を意味しない。
+
+[UTHealth小脳](https://nba.uth.tmc.edu/neuroanatomy/l5/Lab05p21_index.html)、[Texas Tech顔面神経](https://anatomy.ttuhscep.edu/modules/CN_module/cnVII.html)、[UAMS頭頸部神経](https://medicine.uams.edu/neuroscience/education/medical-school-courses/human-structure-module/anatomy-tables/nerve-tables/nerves-of-the-head-and-neck/)を照合。日英問題文・解説・ブラウザ参考文献を同期し、概念問題の解説と結果からも外部参考資料を開けるようにした。内部ファイル参照は外部リンクへ変換しない。
+
+概念問題の表示状態を「解説問題・試作」として、分節の試作ラベルと区別。試作問題フィルタの説明も、実際に含む概念問題・模式表示・ラベルに合わせた。古いインライン解説の書き方を固定していたscript/testの文字列条件1個を除去し、データの妥当性・保留条件は維持。対象11件成功、型検査・build成功。実ブラウザで小脳の新しい英語解説と参考リンクを確認。結果欄の小画面余白は18px/12px、上端揃え、横溢れなしまで最終確認済み。ログ `work/v1-quiz-content-targeted.log`、`work/v1-quiz-content-build.log`。

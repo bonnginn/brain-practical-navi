@@ -2135,5 +2135,9 @@
   "中脳水道は第三脳室と第四脳室を結ぶ細い髄液の通路で、中脳の正中を通ります。": "The cerebral aqueduct is a narrow cerebrospinal-fluid passage through the midline of the midbrain, connecting the third and fourth ventricles.",
   "海馬体と中隔領域・乳頭体などを結ぶ、記憶に関わる主要な白質路です。海馬体からの主要な出力経路であり、海馬体へ向かう入力線維も含みます。": "A major white-matter pathway in memory-related networks, linking the hippocampal formation with septal regions and mammillary bodies. It carries major hippocampal outputs and also includes fibres returning to the hippocampal formation.",
   "通常の出題に戻る": "Return to regular quiz settings",
-  "間違えた問題は端末内に保存しました。下で答えと解説を見直し、今回間違えた問題だけを再挑戦できます。": "Missed questions are saved on this device. Review your answers and explanations below, then retry just the questions you missed in this session."
+  "間違えた問題は端末内に保存しました。下で答えと解説を見直し、今回間違えた問題だけを再挑戦できます。": "Missed questions are saved on this device. Review your answers and explanations below, then retry just the questions you missed in this session.",
+  "小脳は運動の正確さやタイミングを調整し、運動学習にも関わります。大脳皮質などとの回路を通じて、運動の計画にも参加します。": "The cerebellum helps regulate movement accuracy and timing and contributes to motor learning. Through circuits with cerebral cortex and other regions, it also participates in motor planning.",
+  "顔面神経は表情筋運動、味覚、涙腺・顎下腺・舌下腺などへの副交感機能をもちます。耳下腺の分泌に関わる副交感線維は舌咽神経（IX）に由来します。": "The facial nerve supplies facial-expression muscles, taste and parasympathetic pathways to glands including the lacrimal, submandibular and sublingual glands. Parasympathetic fibres for parotid secretion originate with the glossopharyngeal nerve (IX).",
+  "舌下神経は口蓋舌筋を除く舌筋を支配します。口蓋舌筋は迷走神経系の支配です。舌下神経の根は、延髄の錐体とオリーブの間から現れます。": "The hypoglossal nerve supplies the tongue muscles except palatoglossus, which receives vagal innervation. Hypoglossal roots emerge from the medulla between the pyramid and olive.",
+  "表情筋運動、舌前方2/3の味覚、涙腺・顎下腺・舌下腺への副交感": "Facial-expression movement, taste from the anterior two-thirds of the tongue, and parasympathetic supply to lacrimal, submandibular and sublingual glands"
 }

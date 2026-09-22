@@ -1,5 +1,6 @@
 import "./quiz-session-review.css";
-type ReviewRow={number:number;name:string;prompt:string;selected:string;correct:string;explanation:string[]};
+import {QuizSources,type QuizReference} from "./QuizSources";
+type ReviewRow={number:number;name:string;prompt:string;selected:string;correct:string;explanation:string[];sources:QuizReference[]};
 
 export function QuizSessionReview({rows,english,onObserve,onRetry}:{rows:ReviewRow[];english:boolean;onObserve:(index:number)=>void;onRetry:()=>void}){
   if(!rows.length)return null;
@@ -10,7 +11,7 @@ export function QuizSessionReview({rows,english,onObserve,onRetry}:{rows:ReviewR
       <summary><span>{english?`Question ${row.number}`:`問題 ${row.number}`}</span><b>{row.name}</b></summary>
       <div className="quizSessionReviewBody"><p className="quizSessionPrompt">{row.prompt}</p>
         <dl><div><dt>{english?"Your answer":"あなたの選択"}</dt><dd>{row.selected}</dd></div><div><dt>{english?"Correct answer":"正答"}</dt><dd>{row.correct}</dd></div></dl>
-        {row.explanation.map((paragraph,index)=><p key={index}>{paragraph}</p>)}<button type="button" onClick={()=>onObserve(index)}>{english?"Check the location in the observation view":"観察画面で位置を確認"} →</button>
+        {row.explanation.map((paragraph,index)=><p key={index}>{paragraph}</p>)}<QuizSources sources={row.sources} english={english}/><button type="button" onClick={()=>onObserve(index)}>{english?"Check the location in the observation view":"観察画面で位置を確認"} →</button>
       </div>
     </details>)}
     <button type="button" className="quizRetryMissed" onClick={onRetry}>{english?(rows.length===1?"Retry this question":`Retry these ${rows.length} questions`):`今回間違えた${rows.length}問を再挑戦`}</button>

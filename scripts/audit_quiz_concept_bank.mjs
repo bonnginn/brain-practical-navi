@@ -36,7 +36,7 @@ export function validateQuizConceptBank(bank,source=""){
   }
   for(const [target,count] of Object.entries(expectedMultiplicity))if((counts[target]??0)!==count)errors.push(`${target}: expected ${count} concept questions, found ${counts[target]??0}`);
   if(source){
-    const snippets=["import quizConceptBank from \"./quiz-concept-bank.json\"","const conceptQuizQuestions:QuizQuestion[]=quizConceptData.questions.map","const allQuizQuestions:QuizQuestion[]=[...visualQuizQuestions,...conceptQuizQuestions]","function quizCorrectAnswer(question:QuizQuestion)","key===quizCorrectKey","quizQuestion.explanation??","data-quiz-kind={quizQuestionKind}"];
+    const snippets=["import quizConceptBank from \"./quiz-concept-bank.json\"","const conceptQuizQuestions:QuizQuestion[]=quizConceptData.questions.map","const allQuizQuestions:QuizQuestion[]=[...visualQuizQuestions,...conceptQuizQuestions]","function quizCorrectAnswer(question:QuizQuestion)","key===quizCorrectKey","data-quiz-kind={quizQuestionKind}"];
     for(const snippet of snippets)if(!source.includes(snippet))errors.push(`app source missing concept contract: ${snippet}`);
   }
   return {ok:errors.length===0,errors,summary:{baseQuestionCount:BASE_COUNT,conceptQuestionCount:questions.length,totalQuestionCount:BASE_COUNT+questions.length,uniqueVisualTargetCount:45,conceptVisualTargetCount:Object.keys(counts).length,reviewState:bank?.reviewState??null}};
