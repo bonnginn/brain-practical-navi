@@ -292,6 +292,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 .workspaceSwitch button.prototype > i { color: #c44737; font-weight: 900; }
 .workspaceSwitch button.prototype.active > i { color: #a63326; }
 .topActions { display: flex; align-items: center; gap: 10px; }
+.topActions > button, .topActions > .languageSwitch { flex: 0 0 auto; white-space: nowrap; }
 .topActions > span { padding: 5px 8px; border: 1px solid #d4b7ae; color: #9a574a; font-size: 16px; font-weight: 700; letter-spacing: .04em; }
 .legalButton, .feedbackButton, .helpButton { padding: 9px 12px; border: 1px solid #aeb5b1; background: #f7f6f2; font-size: 14px; font-weight: 700; }
 .feedbackButton { border-color: #6f9c96; background: #e3ece8; color: #214b48; }
@@ -1435,7 +1436,7 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
   .collaborationGrid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:760px){
-  .topActions{overflow-x:auto;scrollbar-width:none}
+  .topActions{grid-column:2/4;min-width:0;overflow-x:auto;scrollbar-width:none}
   .topActions>span{display:none}
   .feedbackButton,.collaborateButton,.helpButton,.legalButton,.languageSwitch{width:auto;padding-inline:6px;font-size:11px}
   .feedbackButton::after{content:none}
