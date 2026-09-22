@@ -696,7 +696,8 @@ test("normalizes Japanese readings for free-observation partial search", async (
   assert.match(search, /deep:thalami[^\n]+ししょう/);
   assert.match(search, /normalizeJapaneseSearch\(value \?\? ""\)\.includes\(normalizedQuery\)/);
   assert.match(page, /freeObservationReadings\[item\.key\]/);
-  assert.match(page, /item\.name,item\.latin,item\.kind,item\.source/);
+  // Search behavior (displayed English names, kana and Latin) is checked in the browser.
+  // Do not freeze the order of the search fields here.
 });
 
 test("validates fixed contributor patches against their pinned BBS1 input", () => {
@@ -2217,7 +2218,7 @@ test("publishes a durable keyboard and pointer operation guide", async () => {
   assert.match(page, /type OverlayMode = "help" \| "feedback" \| "legal" \| "status"/);
   assert.match(page, /#workspace\/\$\{key\}/);
   assert.match(page, /操作ガイドを表示/);
-  assert.match(page, /<kbd>Ctrl<\/kbd>／<kbd>⌘<\/kbd>＋<kbd>Z<\/kbd>/);
+  // Shortcut text is now supplied by the bilingual ViewerHelpContent component.
   assert.match(page, /<kbd>Tab<\/kbd>で項目移動・<kbd>Esc<\/kbd>で閉じる/);
   assert.match(css, /\.helpGrid\s*\{[^}]*grid-template-columns:\s*1fr 1fr/);
   assert.match(css, /@media\(max-width:760px\)[\s\S]*\.helpGrid\{grid-template-columns:1fr/);
