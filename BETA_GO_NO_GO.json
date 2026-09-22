@@ -11,11 +11,12 @@
     "deployment-blocked"
   ],
   "sourceCounts": {
-    "entryCount": 76,
-    "expertPendingCount": 76,
+    "entryCount": 82,
+    "expertPendingCount": 82,
     "quizTargetCount": 45,
-    "mappingCount": 223,
-    "resolvedMappingCount": 223
+    "mappingCount": 230,
+    "resolvedMappingCount": 230,
+    "staticMappingCount": 229
   },
   "criteria": [
     {
@@ -214,7 +215,7 @@
       "locallyProven": [
         "ローカルクイズ粒度監査で、既存23問を標準7件・試作16件に分類し、targetと全選択肢の由来を照合した。",
         "provisional選択肢を含む4問を試作へ隔離し、unknown由来を拒否する分類を確認した。",
-          "Chrome 152のローカルproduction previewで、断面17・脳表6・神経血管22 targetを3幅で着色・解除・再着色し、独立validatorが135/135件を確認した。追加4件のoverlay namespace・由来・試作区分と、脳神経問題の不透明な脳幹位置基準も確認した。",
+        "Chrome 152のローカルproduction previewで、断面17・脳表6・神経血管22 targetを3幅で着色・解除・再着色し、独立validatorが135/135件を確認した。追加4件のoverlay namespace・由来・試作区分と、脳神経問題の不透明な脳幹位置基準も確認した。",
         "未確認構造の標準採用は専門家未確認。"
       ],
       "unprovenScope": "専門家による標準採用判断と、未確認構造が正答・選択肢へ現れないことの全範囲確認は未完了。",
@@ -228,7 +229,7 @@
       ],
       "localArtifactRefs": [
         {
-            "path": "work/browser-audit/quiz-target-visibility-brainstem-context-v2-2026-08-28/report.json",
+          "path": "work/browser-audit/quiz-target-visibility-brainstem-context-v2-2026-08-28/report.json",
           "localOnly": true,
           "label": "local-only"
         }
@@ -304,10 +305,10 @@
       "locallyProven": [
         "ローカル画面と共同制作文書にGoogle Form・GitHub導線の定義を確認した。",
         "2026-08-24にログアウト状態で現行Google Formが開き、ログインは回答保存の任意導線、匿名分岐と公開GitHub Issuesへのリンクが表示されることを確認した。",
-        "生成スクリプトを版名非依存の教育用試作教材表記へ更新したが、既存外部フォームへの適用、回答送信・削除運用は管理者未確認である。",
+        "2026-09-22、日本語の既存外部フォームを版名非依存の表記へ更新し、回答者画面で反映を確認。日英それぞれ承認済みのテスト回答1件を送信し、Formsから個別削除、回答シートから該当行の内容を消去した。両フォーム0件、該当セル空白と保存完了を確認。ログイン済み環境での操作であり、匿名環境の送信確認ではない。",
         "2026-08-24に20質問・3ページ・匿名性・分岐の機械可読契約と、契約に列挙した設定・説明・質問・help text・選択肢・「その他」・分岐・運用シート見出しを一致照合するpreflightを追加した。既存フォーム経路は自動更新を行わないことをローカル検証した。外部フォームでは未実行である。"
       ],
-      "unprovenScope": "現行外部フォームはα版表記のまま。版名非依存表記の適用、ログアウト状態の全3ページ、テスト回答、Google Formsと回答シート双方からの削除、管理者による運用確認は未完了。",
+      "unprovenScope": "最新フォームのログアウト環境での送信は未確認。共同制作条件は2026-09-22に管理者承認済み。9月22日の日英テスト送信・両保存先からの削除はログイン済み環境で確認した。",
       "blockingAuthority": "administrator / feedback-channel maintainer",
       "committedEvidenceRefs": [
         "CONTRIBUTING.md",
@@ -322,7 +323,7 @@
         "app/page.tsx"
       ],
       "localArtifactRefs": [],
-      "nextAction": "管理者が既存Google Formへ版名非依存表記を適用する。"
+      "nextAction": "実機のログアウト環境でも回答経路を確認する。共同制作条件は承認済み。"
     },
     {
       "id": "criterion-11-expert-required-scope-review",

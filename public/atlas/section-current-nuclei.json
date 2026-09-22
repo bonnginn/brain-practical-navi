@@ -1,129 +1,9 @@
 {
   "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
-  "sourceSha256": "785ce199e2c7226e5527a771e953d1b78cfed1067179aa04c63b9eba74577e0f",
+  "sourceSha256": "a0be53bb43f2316bd9100903d6e81ac65b23fe6830c3500cd18c4acba5883417",
   "method": "0.5 mm marching cubes; no resampling, filling, smoothing or component removal",
   "scope": "Display synchronization only; not anatomical validation",
   "meshes": {
-    "section-current-brainstem": {
-      "voxels": 264605,
-      "components6": 7,
-      "componentSizes": [
-        264566,
-        14,
-        12,
-        8,
-        2,
-        2,
-        1
-      ],
-      "boundsZYX": [
-        [
-          3,
-          165,
-          158
-        ],
-        [
-          148,
-          256,
-          233
-        ]
-      ],
-      "vertices": 54087,
-      "faces": 108322,
-      "sha256": "7b9c8e4e54cbda96f7618d7d025fa9bbbb32a4c404b96cbdcc18f69507e9c39e",
-      "bytes": 648284,
-      "labelIds": [
-        27
-      ],
-      "labelVoxelCounts": {
-        "27": 264605
-      },
-      "rawSha256": "c896a2716ed2eb3dd5b3a1750936f02cb844578982fb932d3e6f00e7b4cfe415",
-      "compression": "gzip"
-    },
-    "section-current-cerebellum": {
-      "voxels": 1460949,
-      "components6": 51,
-      "componentSizes": [
-        1460427,
-        40,
-        40,
-        24,
-        24,
-        24,
-        24,
-        16,
-        16,
-        16,
-        16,
-        8,
-        8,
-        8,
-        8,
-        8,
-        8,
-        8,
-        8,
-        8,
-        8,
-        8,
-        8,
-        8,
-        8,
-        8,
-        8,
-        8,
-        8,
-        8,
-        8,
-        8,
-        8,
-        8,
-        8,
-        8,
-        8,
-        8,
-        8,
-        8,
-        8,
-        8,
-        8,
-        8,
-        6,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2
-      ],
-      "boundsZYX": [
-        [
-          7,
-          81,
-          79
-        ],
-        [
-          148,
-          224,
-          310
-        ]
-      ],
-      "vertices": 160450,
-      "faces": 321012,
-      "sha256": "2978246597c6def2d82288eaccd7038260da33861d402d44c3354f2b1e4ceaf8",
-      "bytes": 1949318,
-      "labelIds": [
-        28,
-        29
-      ],
-      "labelVoxelCounts": {
-        "28": 735945,
-        "29": 725004
-      },
-      "rawSha256": "04a0c3137ffb71fc73b544a836eb1d9fe0d2102ad9c700441d2b25cd6891e29a",
-      "compression": "gzip"
-    },
     "section-current-caudate": {
       "voxels": 77580,
       "components6": 9,
@@ -273,10 +153,10 @@
       "compression": "gzip"
     },
     "section-current-thalamus": {
-      "voxels": 133774,
+      "voxels": 133773,
       "components6": 2,
       "componentSizes": [
-        67298,
+        67297,
         66476
       ],
       "boundsZYX": [
@@ -291,19 +171,19 @@
           245
         ]
       ],
-      "vertices": 27686,
-      "faces": 55364,
-      "sha256": "2e6283dab144a1a2ada1186ee28ebe85b696ae5f2e1bd3aa72c4b43c284fcd43",
-      "bytes": 343254,
+      "vertices": 27684,
+      "faces": 55360,
+      "sha256": "88015be6c5b37803c6f5e60272976c986f342a79fd4bae37582e018008291729",
+      "bytes": 343226,
       "labelIds": [
         15,
         16
       ],
       "labelVoxelCounts": {
         "15": 66476,
-        "16": 67298
+        "16": 67297
       },
-      "rawSha256": "e3e3bdbf117def4d53bf934852e85334c4c6b21561f5d27a8e07a739d2ed9b0c",
+      "rawSha256": "f81a6de6de220b552e562e2e9360058e39f38b05a775396ee3a5695c1824bd26",
       "compression": "gzip"
     },
     "section-current-hippocampus": {
@@ -513,10 +393,10 @@
       "compression": "gzip"
     },
     "section-current-corpus-callosum": {
-      "voxels": 145715,
+      "voxels": 145707,
       "components6": 43,
       "componentSizes": [
-        145610,
+        145602,
         13,
         8,
         7,
@@ -574,15 +454,15 @@
       ],
       "vertices": 52362,
       "faces": 105020,
-      "sha256": "5e9abc7d523d10d825e77ea32678ab413633ecd74ab9a46c1a83ef05360bec43",
-      "bytes": 605294,
+      "sha256": "1f5bc94c2fe06f9530212636c49083919cdf079e89dbde2318e81fd36b09c76b",
+      "bytes": 605694,
       "labelIds": [
         30
       ],
       "labelVoxelCounts": {
-        "30": 145715
+        "30": 145707
       },
-      "rawSha256": "9489e32a6e87fa1a6f9a81e408a1c14c92f2b3c53e2c4a13240b28dfbd0017d2",
+      "rawSha256": "d3a455ef7317302f6243143c166c88c133dfb6198a48c93d8b311cf9c9f122df",
       "compression": "gzip"
     },
     "section-current-mammillary-bodies": {

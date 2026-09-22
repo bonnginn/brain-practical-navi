@@ -60,7 +60,13 @@
     30,
     31,
     32,
-    41
+    36,
+    37,
+    38,
+    41,
+    42,
+    43,
+    46
   ],
   "imageGuidedReviewedIds": [
     39,
@@ -80,9 +86,17 @@
     "33": "optic chiasm / tract atlas candidate (CerebrA Optic Chiasm)",
     "34": "left insula atlas candidate",
     "35": "right insula atlas candidate",
+    "36": "optic chiasm central region (partial image-reviewed interior)",
+    "37": "left optic tract (partial image-reviewed interior)",
+    "38": "right optic tract (partial image-reviewed interior)",
     "39": "left mammillary body (reviewed image-guided)",
     "40": "right mammillary body (reviewed image-guided)",
-    "41": "cerebral aqueduct candidate (partial; project-adopted reclassification)"
+    "41": "cerebral aqueduct candidate (partial; project-adopted reclassification)",
+    "42": "anterior commissure (partial core)",
+    "43": "septum pellucidum (partial membrane)",
+    "44": "left lateral geniculate nucleus (published BigBrain layer union)",
+    "45": "right lateral geniculate nucleus (published BigBrain layer union)",
+    "46": "fornix body (partial image-reviewed extent)"
   },
   "labelCounts": {
     "1": 2887,
@@ -100,29 +114,37 @@
     "13": 4391,
     "14": 4853,
     "15": 66476,
-    "16": 67298,
+    "16": 67297,
     "17": 35259,
     "18": 34251,
     "19": 4189,
     "20": 3920,
     "21": 14647,
     "22": 15077,
-    "23": 81664,
-    "24": 82248,
-    "25": 11837,
-    "26": 9008,
-    "27": 264605,
-    "28": 735945,
-    "29": 725004,
-    "30": 145715,
-    "31": 56826,
-    "32": 53609,
-    "33": 8482,
+    "23": 81670,
+    "24": 82250,
+    "25": 11665,
+    "26": 9200,
+    "27": 264456,
+    "28": 736104,
+    "29": 725042,
+    "30": 145707,
+    "31": 56790,
+    "32": 53587,
+    "33": 6775,
     "34": 66084,
     "35": 71073,
+    "36": 405,
+    "37": 1494,
+    "38": 1440,
     "39": 559,
     "40": 729,
-    "41": 259
+    "41": 267,
+    "42": 601,
+    "43": 282,
+    "44": 1197,
+    "45": 1374,
+    "46": 7436
   },
   "atlasToManualDiceAudit": {
     "caudate": 0.8448,
@@ -134,7 +156,7 @@
     "amygdala": 0.7289
   },
   "ventricleLabelsRestrictedToEmptySpace": false,
-  "ventricleTissueOverlap": 0.10980131448090975,
+  "ventricleTissueOverlap": 0.11084992326481205,
   "coordinatePolicy": "exact BigBrain ICBM2009sym 0.5 mm output grid; CerebrA resampling accepted only after overlap audit",
   "reviewedPatchAudit": {
     "path": "segmentation-patches/review/mammillary-bodies-horizontal-core-plus-clear-rim-candidate-2026-08-16.json",
@@ -424,7 +446,13 @@
   "preVentricleCompressedSha256": "6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56",
   "preVentricleRawVoxelSha256": "088fafcdf6afcea74a7a60075bf3b8a481e1a7aa6379a7c58fb9b9c17f5e731d",
   "projectReviewedPartialIds": [
-    41
+    36,
+    37,
+    38,
+    41,
+    42,
+    43,
+    46
   ],
   "ventricleClassificationPatchAudit": {
     "path": "segmentation-patches\\review\\ventricle-classification-project-review-2026-09-06.json",
@@ -453,7 +481,7 @@
     "workflowMetadataStatus": "strict"
   },
   "preClassificationCompressedSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
-  "rawVoxelSha256": "97480cb8894ff12fb3e77e5ada08f209dd142bff2f8ba4a4182d3cd43ffd310b",
+  "rawVoxelSha256": "1efcadfe71372fbb7dfd212f7fc2077fc9bb12076a340f3dc27704d4e54feec3",
   "brainstemThreeIslandsAudit": {
     "record": "segmentation-patches/review/brainstem-three-islands-adoption-2026-09-06.json",
     "recordSha256": "9c7b14f4272969261e3e2415d3f522b7e5d7db1eeca7cb0c8ae28b225458be66",
@@ -1296,6 +1324,388 @@
         "section-current-third-ventricle.mesh",
         "section-current-ventricular-system.mesh"
       ]
+    },
+    "lateral-roof8": {
+      "record": "segmentation-patches/review/lateral-roof8-adoption-2026-09-15.json",
+      "recordSha256": "cbed33ec8a4d851aeda15bec1b7682f44b754ea139f5bc117d965817bd73e8a1",
+      "changedVoxelCount": 8,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedBlockPartMasks": []
+    },
+    "upper-fourth-gap": {
+      "record": "segmentation-patches/review/upper-fourth-gap-adoption-2026-09-15.json",
+      "recordSha256": "85fb34ba79a4de50fcedac9b57288efd96beaf80969e8c3f7eb6eb6f41643bc4",
+      "changedVoxelCount": 158,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-fourth-ventricle.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "cerebellar-folia197": {
+      "record": "segmentation-patches/review/cerebellar-folia197-adoption-2026-09-16.json",
+      "recordSha256": "d2bffbd7dbaf3f746c618819af27011174ecd30151fde5595b248eb03565f1df",
+      "changedVoxelCount": 197,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": []
+    },
+    "septal-membrane282": {
+      "record": "segmentation-patches/review/septal-membrane282-adoption-2026-09-16.json",
+      "recordSha256": "d83c178b621192d56853090573fdf229fc3a65e20a93e16591686aa6e42eab5d",
+      "changedVoxelCount": 282,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": []
+    },
+    "anterior-commissure-core416": {
+      "record": "segmentation-patches/review/anterior-commissure-core416-adoption-2026-09-16.json",
+      "recordSha256": "25bfba14e3d1384cadd420acb1e8a82161bec04a4b1f3a59ddeb730c36202944",
+      "changedVoxelCount": 416,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": []
+    },
+    "aqueduct-fourth44": {
+      "record": "segmentation-patches/review/aqueduct-fourth44-adoption-2026-09-16.json",
+      "recordSha256": "5387ecdc0ad9a52fca7dbe4c95cce3c5ae25621a95959a846da24ecf186034f4",
+      "changedVoxelCount": 44,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-fourth-ventricle.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "right-foramen36": {
+      "record": "segmentation-patches/review/right-foramen36-adoption-2026-09-16.json",
+      "recordSha256": "254b84303990c986e03c51d2ebc2849e8c1e605e92faaab3d16dd3e413569818",
+      "changedVoxelCount": 36,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-third-ventricle.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "lgn-layers2571": {
+      "record": "segmentation-patches/review/lgn-layers2571-adoption-2026-09-16.json",
+      "recordSha256": "391b759f9887b62e06d4d159b1e18eb81743ff5d28a6c959be964c22bdad8ce5",
+      "changedVoxelCount": 2571,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": []
+    },
+    "fornix-body987": {
+      "record": "segmentation-patches/review/fornix-body987-adoption-2026-09-16.json",
+      "recordSha256": "a3652adfbaaff6fec415cb4bf89f6257db7996ec8c4d856841f7b1f985d24b2a",
+      "changedVoxelCount": 987,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": []
+    },
+    "fornix-anterior266": {
+      "record": "segmentation-patches/review/fornix-anterior266-adoption-2026-09-19.json",
+      "recordSha256": "2dcf42b1a217b0c80514378d45d98f24e31e8e989d71fa63aa15d7eefd576695",
+      "changedVoxelCount": 266,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-fornix-body-partial.mesh"
+      ]
+    },
+    "fornix-continuation269": {
+      "record": "segmentation-patches/review/fornix-continuation269-adoption-2026-09-19.json",
+      "recordSha256": "0ac79bc5b3f0b1442305cf1277093c3bfd1c3ab3470f4aa2f21386618a567116",
+      "changedVoxelCount": 269,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-fornix-body-partial.mesh"
+      ]
+    },
+    "fornix-descent108": {
+      "record": "segmentation-patches/review/fornix-descent108-adoption-2026-09-19.json",
+      "recordSha256": "94b0b7b0b55dc1c62b955c2750f9bb066b74881e8d8cbb14c12d66faffeaf98e",
+      "changedVoxelCount": 108,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-fornix-body-partial.mesh"
+      ]
+    },
+    "fornix-column56": {
+      "record": "segmentation-patches/review/fornix-column56-adoption-2026-09-19.json",
+      "recordSha256": "dcc56e4f2b79ec062312ec881c43f12587f96bf8698eff8ee7a9aa0b48d040d3",
+      "changedVoxelCount": 56,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-fornix-body-partial.mesh"
+      ]
+    },
+    "fornix-lower-column23": {
+      "record": "segmentation-patches/review/fornix-lower-column23-adoption-2026-09-19.json",
+      "recordSha256": "79bea540da941521be12e918aae7391e1f88c85f953dc456c8a043c3a6c92e37",
+      "changedVoxelCount": 23,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-fornix-body-partial.mesh"
+      ]
+    },
+    "optic-central112": {
+      "record": "segmentation-patches/review/optic-central112-adoption-2026-09-19.json",
+      "recordSha256": "64c86a11f067c0784bce13dbb5591945a8900bd1c6d621605bbe285b2f61e90e",
+      "changedVoxelCount": 112,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-optic-chiasm-partial.mesh"
+      ]
+    },
+    "optic-tract77": {
+      "record": "segmentation-patches/review/optic-tract77-adoption-2026-09-19.json",
+      "recordSha256": "904293f201be4040f71a0a0fdfaeccda1526b64ecdc6fd853d9cde91bf88a2c1",
+      "changedVoxelCount": 77,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-optic-tracts-partial.mesh",
+        "section-optic-chiasm.mesh"
+      ]
+    },
+    "optic-fourth9": {
+      "record": "segmentation-patches/review/optic-fourth9-adoption-2026-09-19.json",
+      "recordSha256": "d51e8b4eb2250e744c9db93f18f8ce05d70c370a214d52f5c2a000d01950ab9a",
+      "changedVoxelCount": 9,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-fourth-ventricle.mesh",
+        "section-current-ventricular-system.mesh",
+        "section-current-optic-tracts-partial.mesh"
+      ]
+    },
+    "fornix-posterior85": {
+      "record": "segmentation-patches/review/fornix-posterior85-adoption-2026-09-19.json",
+      "recordSha256": "ff9c3a0e448ffc4ebb8c8e447a0ab7e2698f7177d63ff07278d57db12c733763",
+      "changedVoxelCount": 85,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-fornix-body-partial.mesh"
+      ]
+    },
+    "fornix-crural182": {
+      "record": "segmentation-patches/review/fornix-crural182-adoption-2026-09-19.json",
+      "recordSha256": "75dacc87c9be1707fe0d0d483248b8e6439a462020d3a50e5e785e91a91b3a5e",
+      "changedVoxelCount": 182,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-fornix-body-partial.mesh"
+      ]
+    },
+    "optic-left152": {
+      "record": "segmentation-patches/review/optic-left152-adoption-2026-09-19.json",
+      "recordSha256": "90d2930ad59299a198da98592777776213659e8116c78260ffc77e00736fdae5",
+      "changedVoxelCount": 152,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-optic-tracts-partial.mesh"
+      ]
+    },
+    "fornix-crura870": {
+      "record": "segmentation-patches/review/fornix-crura870-adoption-2026-09-20.json",
+      "recordSha256": "864c710295de029029990417415d262c507803241e4952b0582c9dab7024c183",
+      "changedVoxelCount": 870,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-fornix-body-partial.mesh"
+      ]
+    },
+    "fornix-transition347": {
+      "record": "segmentation-patches/review/fornix-transition347-adoption-2026-09-20.json",
+      "recordSha256": "55d2ffe409846847a13a150a353e0fe71723a24d0d8bc33cfd51de14f4ace947",
+      "changedVoxelCount": 347,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-fornix-body-partial.mesh"
+      ]
+    },
+    "optic-central258": {
+      "record": "segmentation-patches/review/optic-central258-adoption-2026-09-20.json",
+      "recordSha256": "2a159c552306acc4e3e07e1367c0c39c9067b6e6ec8fc9b8af845522e9f04744",
+      "changedVoxelCount": 258,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-optic-chiasm-partial.mesh"
+      ]
+    },
+    "optic-tract243": {
+      "record": "segmentation-patches/review/optic-tract243-adoption-2026-09-20.json",
+      "recordSha256": "ad0e577afbd523def6e9d780a8cf7d8b332d59a45dbd3868eabd81f1875b7de2",
+      "changedVoxelCount": 243,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-optic-tracts-partial.mesh",
+        "section-optic-chiasm.mesh"
+      ]
+    },
+    "optic-proximal995": {
+      "record": "segmentation-patches/review/optic-proximal995-adoption-2026-09-20.json",
+      "recordSha256": "317ea9c65d514d16d4a263b7531afc15b9eb76a4db1eff72363f8b0c20a3d74e",
+      "changedVoxelCount": 995,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-optic-tracts-partial.mesh",
+        "section-optic-chiasm.mesh"
+      ]
+    },
+    "optic-junction118": {
+      "record": "segmentation-patches/review/optic-junction118-adoption-2026-09-20.json",
+      "recordSha256": "05fde626f44544b2293f64a17e794e62b0ce9bb94a70827a1b285b686ee5aa33",
+      "changedVoxelCount": 118,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-optic-tracts-partial.mesh",
+        "section-current-optic-chiasm-partial.mesh",
+        "section-optic-chiasm.mesh"
+      ]
+    },
+    "fornix-columns234": {
+      "record": "segmentation-patches/review/fornix-columns234-adoption-2026-09-20.json",
+      "recordSha256": "26c102101924743041445126e7684703e5914119970868c9c3180da5bbbceba6",
+      "changedVoxelCount": 234,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-fornix-body-partial.mesh"
+      ]
+    },
+    "fornix-hippocampal1034": {
+      "record": "segmentation-patches/review/fornix-hippocampal1034-adoption-2026-09-20.json",
+      "recordSha256": "7165deff2ce89d9997f1591ecc15228bfeae8ac1e6e17e781d7bda99e7f8b15a",
+      "changedVoxelCount": 1034,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-fornix-body-partial.mesh"
+      ]
+    },
+    "optic-right110": {
+      "record": "segmentation-patches/review/optic-right110-adoption-2026-09-20.json",
+      "recordSha256": "8b29c07800c7d500d532fbcff4399722d098169621f8fc934a431b71ab3eb529",
+      "changedVoxelCount": 110,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-optic-tracts-partial.mesh",
+        "section-optic-chiasm.mesh"
+      ]
+    },
+    "optic-lgn1267": {
+      "record": "segmentation-patches/review/optic-lgn1267-adoption-2026-09-20.json",
+      "recordSha256": "568f896b0ef1b266b6d65521be37e1beb071f78d52c4b9e1607a615e528e3b29",
+      "changedVoxelCount": 1267,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-optic-tracts-partial.mesh"
+      ]
+    },
+    "third-posterior197": {
+      "record": "segmentation-patches/review/third-posterior197-adoption-2026-09-20.json",
+      "recordSha256": "4ebe278222bbea1ccabbd4c65eb59ad10f8a0fcb6f4491c82f31484e8ea29b38",
+      "changedVoxelCount": 197,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-third-ventricle.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "fimbria-left653": {
+      "record": "segmentation-patches/review/fimbria-left653-adoption-2026-09-20.json",
+      "recordSha256": "c5992c4f6ab2497c8ace7480f6144aa18c040155e1cb788965c1b39b8e21402e",
+      "changedVoxelCount": 653,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-fornix-body-partial.mesh"
+      ]
+    },
+    "fimbria-right814": {
+      "record": "segmentation-patches/review/fimbria-right814-adoption-2026-09-20.json",
+      "recordSha256": "c3eedda5f954680486b3e3e7999dc20cd7980e3a2c16496c641f116bd82ffefd",
+      "changedVoxelCount": 814,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-fornix-body-partial.mesh"
+      ]
+    },
+    "fimbria-left128": {
+      "record": "segmentation-patches/review/fimbria-left128-adoption-2026-09-20.json",
+      "recordSha256": "b4d31860753688bb4c8d14fd767ded72bc928ed4b990b18063e549a0740a858b",
+      "changedVoxelCount": 128,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-fornix-body-partial.mesh"
+      ]
+    },
+    "fimbria-right441": {
+      "record": "segmentation-patches/review/fimbria-right441-adoption-2026-09-20.json",
+      "recordSha256": "956afd0c23e57bbf05e3da44be4d9e540d25251f637fd7b36aa492cc2b98b700",
+      "changedVoxelCount": 441,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-fornix-body-partial.mesh"
+      ]
+    },
+    "fornix-postcommissural939": {
+      "record": "segmentation-patches/review/fornix-postcommissural939-adoption-2026-09-20.json",
+      "recordSha256": "60906ec12470613536179eab545070ca4248cdaeebd0d61b2ac955d014d1d949",
+      "changedVoxelCount": 939,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-fornix-body-partial.mesh"
+      ]
+    },
+    "third-residual11": {
+      "record": "segmentation-patches/review/third-residual11-adoption-2026-09-20.json",
+      "recordSha256": "aafb52a98ebc964af7d3ff0d7a71da0c2cd45bea909024b7587ccdc78b495a23",
+      "changedVoxelCount": 11,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-third-ventricle.mesh",
+        "section-current-ventricular-system.mesh"
+      ]
+    },
+    "anterior-commissure185": {
+      "record": "segmentation-patches/review/anterior-commissure185-adoption-2026-09-20.json",
+      "recordSha256": "7acca23602366232ff11f90597acdb94565f18202f6255506bf9e661b229f3f9",
+      "changedVoxelCount": 185,
+      "projectAdopted": true,
+      "expertReviewed": false,
+      "changedSectionMeshes": [
+        "section-current-anterior-commissure-partial.mesh",
+        "section-current-internal-capsule.mesh"
+      ]
     }
   },
   "historicalGenerationClaims": {
@@ -1305,9 +1715,9 @@
   },
   "currentImageMeasurements": {
     "schemaVersion": 1,
-    "sourceLabelSha256": "785ce199e2c7226e5527a771e953d1b78cfed1067179aa04c63b9eba74577e0f",
+    "sourceLabelSha256": "a0be53bb43f2316bd9100903d6e81ac65b23fe6830c3500cd18c4acba5883417",
     "sourceImageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
-    "rawVoxelSha256": "97480cb8894ff12fb3e77e5ada08f209dd142bff2f8ba4a4182d3cd43ffd310b",
+    "rawVoxelSha256": "1efcadfe71372fbb7dfd212f7fc2077fc9bb12076a340f3dc27704d4e54feec3",
     "dimensionsXYZ": [
       394,
       466,
@@ -1331,29 +1741,37 @@
       "13": 4391,
       "14": 4853,
       "15": 66476,
-      "16": 67298,
+      "16": 67297,
       "17": 35259,
       "18": 34251,
       "19": 4189,
       "20": 3920,
       "21": 14647,
       "22": 15077,
-      "23": 81664,
-      "24": 82248,
-      "25": 11837,
-      "26": 9008,
-      "27": 264605,
-      "28": 735945,
-      "29": 725004,
-      "30": 145715,
-      "31": 56826,
-      "32": 53609,
-      "33": 8482,
+      "23": 81670,
+      "24": 82250,
+      "25": 11665,
+      "26": 9200,
+      "27": 264456,
+      "28": 736104,
+      "29": 725042,
+      "30": 145707,
+      "31": 56790,
+      "32": 53587,
+      "33": 6775,
       "34": 66084,
       "35": 71073,
+      "36": 405,
+      "37": 1494,
+      "38": 1440,
       "39": 559,
       "40": 729,
-      "41": 259
+      "41": 267,
+      "42": 601,
+      "43": 282,
+      "44": 1197,
+      "45": 1374,
+      "46": 7436
     },
     "ventricularLabelIds": [
       23,
@@ -1362,31 +1780,35 @@
       26,
       41
     ],
-    "ventricularVoxels": 185016,
-    "ventricularNonBackgroundVoxels": 20315,
-    "ventricularNonBackgroundFraction": 0.10980131448090975,
+    "ventricularVoxels": 185052,
+    "ventricularNonBackgroundVoxels": 20513,
+    "ventricularNonBackgroundFraction": 0.11084992326481205,
     "ventricularLabelsRestrictedToImageBackground": false,
     "perVentricularLabel": {
       "23": {
-        "voxels": 81664,
+        "voxels": 81670,
         "nonBackgroundVoxels": 9442
       },
       "24": {
-        "voxels": 82248,
+        "voxels": 82250,
         "nonBackgroundVoxels": 10563
       },
       "25": {
-        "voxels": 11837,
-        "nonBackgroundVoxels": 0
+        "voxels": 11665,
+        "nonBackgroundVoxels": 6
       },
       "26": {
-        "voxels": 9008,
-        "nonBackgroundVoxels": 171
+        "voxels": 9200,
+        "nonBackgroundVoxels": 355
       },
       "41": {
-        "voxels": 259,
-        "nonBackgroundVoxels": 139
+        "voxels": 267,
+        "nonBackgroundVoxels": 147
       }
     }
-  }
+  },
+  "publishedCytoarchitectonicIds": [
+    44,
+    45
+  ]
 }

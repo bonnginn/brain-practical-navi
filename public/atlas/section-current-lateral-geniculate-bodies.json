@@ -1,0 +1,64 @@
+{
+  "voxels": 2571,
+  "components6": 14,
+  "componentSizes": [
+    1368,
+    1189,
+    2,
+    2,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+  ],
+  "boundsZYX": [
+    [
+      123,
+      207,
+      136
+    ],
+    [
+      140,
+      228,
+      251
+    ]
+  ],
+  "vertices": 4453,
+  "faces": 9138,
+  "sha256": "42f6e75052ad8f376c126179df892e3d3b4af49f8b6fba01a84b7b3c56a2d48a",
+  "bytes": 64200,
+  "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
+  "sourceSha256": "a0be53bb43f2316bd9100903d6e81ac65b23fe6830c3500cd18c4acba5883417",
+  "labelIds": [
+    44,
+    45
+  ],
+  "labelVoxelCounts": {
+    "44": 1197,
+    "45": 1374
+  },
+  "sourceSamplingMm": 0.5,
+  "displayOriginZYX": [
+    -90.0,
+    -116.0,
+    -98.0
+  ],
+  "method": "published six-layer union; nearest-neighbour official registration; marching cubes 0.5; no filling or smoothing",
+  "rawSha256": "4887c36910d88c28240df4b9fe10e4c14c14f216c78a4124c4a4031c85ab2bba",
+  "rawBytes": 234352,
+  "compression": "gzip",
+  "expertReviewed": false,
+  "reviewRecord": "segmentation-patches/review/lgn-layers2571-adoption-2026-09-16.json",
+  "sourceDataset": {
+    "doi": "10.25493/33Z0-BX",
+    "license": "CC BY-NC-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "scope": "Same BigBrain specimen; six layers per side; deep-learning-supported published delineation, not a new manual expert review of this application"
+  }
+}

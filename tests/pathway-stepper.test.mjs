@@ -46,18 +46,14 @@ test("free observation wires the stepper controls without introducing pathway ge
   const css = fs.readFileSync(path.join(root, "app/canvas.css"), "utf8");
   const stepper = fs.readFileSync(path.join(root, "src/pathwayStepper.mjs"), "utf8");
   assert.match(page, /aria-label="大脳基底核回路の位置関係ステッパー"/);
-  assert.match(page, /startBasalGangliaStepperTimer/);
+  assert.doesNotMatch(page, /startBasalGangliaStepperTimer/);
   assert.match(page, /workspace==="surface"&&surfaceView==="free"/);
   assert.match(page, /showFocus=\{surfaceView==="free"\}/);
-  assert.match(page, /if\(!basalStepperActive\)setBasalStepperPlaying\(false\)/);
-  assert.match(page, /最初へ戻る/);
-  assert.match(page, /一時停止/);
   assert.match(page, /3Dと断面を同じ色で表示/);
   assert.match(page, /既存の手動分節ラベルを3Dと断面で同期表示します/);
   assert.match(page, /新しい境界、線、結合、興奮／抑制、投射方向は追加していません/);
   assert.match(page, /selectionMeshLayers=\{surfaceView==="free"\?\(basalStepperActive\?freePathwayMeshLayers:papezStepperActive\?papezStepperMeshLayers:freePathwayMeshLayers\):\[\]\}/);
   assert.match(page, /freeSelections\.length===0&&selectedPathway===null/);
-  assert.match(css, /\.pathwayStepperControls button \{[^}]*min-height:\s*44px/);
   assert.match(css, /\.pathwayStepperSliceStage\{height:\s*270px\}/);
   assert.doesNotMatch(stepper, /opticChiasm|33/);
 });
@@ -146,14 +142,15 @@ test("slice pixel helper uses the same reversed horizontal position convention a
 test("Papez stepper keeps the six stages in the audited provenance order", () => {
   assert.deepEqual(PAPEZ_STEPS.map(step => [step.key, step.kind, step.source, [...step.targetKeys]]), [
     ["hippocampus", "section-label", "existing-quiz-section-label", ["hippocampus"]],
-    ["fornix", "schematic-3d", "schematic-3d", ["fornix"]],
+    ["fornixBodyPartial", "image-reviewed-partial-section", "image-reviewed-partial-section", ["fornixBodyPartial"]],
     ["mammillaryBody", "section-label", "existing-quiz-section-label", ["mammillaryBody"]],
     ["thalamus", "section-label", "existing-quiz-section-label", ["thalamus"]],
     ["cingulate", "atlas-3d", "atlas-3d", ["cingulate"]],
     ["parahippocampal-entorhinal", "atlas-3d", "atlas-3d", ["parahippocampal", "entorhinal"]],
   ]);
-  assert.deepEqual(PAPEZ_STEPS.filter(step => step.kind === "section-label").map(step => [step.plane, step.position, step.labelIds]), [
+  assert.deepEqual(PAPEZ_STEPS.filter(step => step.kind === "section-label" || step.kind === "image-reviewed-partial-section").map(step => [step.plane, step.position, step.labelIds]), [
     ["coronal", 51, [17, 18]],
+    ["coronal", 53, [46]],
     ["horizontal", 69, [39, 40]],
     ["coronal", 49, [15, 16]],
   ]);
@@ -162,8 +159,12 @@ test("Papez stepper keeps the six stages in the audited provenance order", () =>
 });
 
 test("Papez section stages show existing pixels and 3D-only stages do not invent a section", () => {
+  const staged = segmentation();
+  const fornixSlice = 246;
+  assert.equal(Math.round(53 / 100 * (staged.dims[1] - 1)), fornixSlice);
+  assert.ok(staged.labels.includes(46), "the adopted partial body must exist in the real label volume");
   const result = auditPapezStepper({
-    ...segmentation(),
+    ...staged,
     quizQuestions: [
       {target: "hippocampus", plane: "coronal", position: 51},
       {target: "mammillaryBody", plane: "horizontal", position: 69},
@@ -173,11 +174,11 @@ test("Papez section stages show existing pixels and 3D-only stages do not invent
   assert.equal(result.ok, true, result.errors.join("\n"));
   assert.equal(result.summary.stepCount, 6);
   assert.equal(result.summary.targetCount, 7);
-  assert.deepEqual(result.summary.sectionPixelCounts, {hippocampus: 1398, mammillaryBody: 120, thalamus: 2729});
-  assert.deepEqual(result.summary.stages.filter(stage => !stage.sectionCanvas).map(stage => stage.key), ["fornix", "cingulate", "parahippocampal-entorhinal"]);
+  assert.deepEqual(result.summary.sectionPixelCounts, {hippocampus: 1398, fornixBodyPartial: 53, mammillaryBody: 120, thalamus: 2729});
+  assert.deepEqual(result.summary.stages.filter(stage => !stage.sectionCanvas).map(stage => stage.key), ["cingulate", "parahippocampal-entorhinal"]);
   assert.equal(advancePapezStepperIndex(0, PAPEZ_STEPS.length), 1);
   assert.equal(advancePapezStepperIndex(PAPEZ_STEPS.length - 1, PAPEZ_STEPS.length), PAPEZ_STEPS.length - 1);
-  assert.deepEqual(PAPEZ_SECTION_LABEL_IDS, {hippocampus: [17, 18], mammillaryBody: [39, 40], thalamus: [15, 16]});
+  assert.deepEqual(PAPEZ_SECTION_LABEL_IDS, {hippocampus: [17, 18], fornixBodyPartial: [46], mammillaryBody: [39, 40], thalamus: [15, 16]});
 });
 
 test("Papez audit rejects optic IDs, fabricated section fields, geometry, and tract claims", () => {
@@ -193,8 +194,8 @@ test("Papez audit rejects optic IDs, fabricated section fields, geometry, and tr
   optic[1].targetKeys = ["33"];
   assert.equal(auditPapezStepper({...base, steps: optic}).ok, false);
   const fabricatedSection = PAPEZ_STEPS.map(step => ({...step, targetKeys: [...step.targetKeys]}));
-  fabricatedSection[1].plane = "coronal";
-  fabricatedSection[1].position = 51;
+  fabricatedSection[4].plane = "coronal";
+  fabricatedSection[4].position = 51;
   assert.equal(auditPapezStepper({...base, steps: fabricatedSection}).ok, false);
   const geometry = PAPEZ_STEPS.map(step => ({...step, targetKeys: [...step.targetKeys]}));
   geometry[4].geometry = {vertices: []};
@@ -227,16 +228,17 @@ test("Papez timer advances and cleans up without changing the basal timer contra
   assert.equal(advanceBasalStepperIndex(0, BASAL_GANGLIA_STEPS.length), 1);
 });
 
-test("Papez UI uses one shared stepper control group and omits section Canvas for 3D-only stages", () => {
+test("Papez observation follows circuit controls and omits section Canvas for 3D-only stages", () => {
   const page = fs.readFileSync(path.join(root, "app/page.tsx"), "utf8");
   const css = fs.readFileSync(path.join(root, "app/canvas.css"), "utf8");
   assert.match(page, /aria-label="Papez回路の由来別位置関係ステッパー"/);
-  assert.match(page, /startPapezStepperTimer/);
-  assert.match(page, /papezStepperStep\.kind===\"section-label\"&&<div className="pathwayStepperSlice"/);
-  assert.match(page, /papezStepperStep\.kind!==\"section-label\"&&<div className="pathwayStepper3dOnlyNote"/);
+  assert.doesNotMatch(page, /startPapezStepperTimer/);
+  assert.match(page, /bigbrainSectionMeshFiles\[key\]\?\?structureMeshFiles\[key\]/);
+  assert.match(page, /\["section-label","image-reviewed-partial-section"\]\.includes\(papezStepperStep\.kind\)&&<div className="pathwayStepperSlice"/);
+  assert.match(page, /!\["section-label","image-reviewed-partial-section"\]\.includes\(papezStepperStep\.kind\)&&<div className="pathwayStepper3dOnlyNote"/);
   assert.match(page, /前部核は未分節/);
   assert.match(page, /専門家レビュー未完了/);
-  assert.match(page, /新しいボクセル、メッシュ、線維束、結合、投射方向、興奮／抑制は追加していません/);
+  assert.match(page, /専門家監修は未実施/);
   assert.match(page, /papezStepperActive\?papezStepperSurfaceHighlights/);
   assert.match(page, /papezStepperActive\?papezStepperMeshLayers/);
   assert.match(page, /papezStepperHasMesh\?"3D／断面同期":"断面ラベルのみ"/);

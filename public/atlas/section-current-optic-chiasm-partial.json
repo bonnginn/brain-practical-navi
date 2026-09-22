@@ -1,0 +1,46 @@
+{
+  "voxels": 405,
+  "components6": 2,
+  "componentSizes": [
+    400,
+    5
+  ],
+  "boundsZYX": [
+    [
+      98,
+      274,
+      186
+    ],
+    [
+      106,
+      282,
+      206
+    ]
+  ],
+  "vertices": 685,
+  "faces": 1386,
+  "sha256": "f74ecaef0e2fabe03c094bd81826a8995b6a18229d7cfeb578c0396b6c7fe880",
+  "bytes": 9649,
+  "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
+  "sourceSha256": "a0be53bb43f2316bd9100903d6e81ac65b23fe6830c3500cd18c4acba5883417",
+  "labelIds": [
+    36
+  ],
+  "labelVoxelCounts": {
+    "36": 405
+  },
+  "sourceSamplingMm": 0.5,
+  "displayOriginZYX": [
+    -90.0,
+    -116.0,
+    -98.0
+  ],
+  "method": "native-image-reviewed central interior; marching cubes 0.5; no smoothing, filling or component removal",
+  "rawSha256": "c5ac85bdee930e61e3e5022ee48a1364dfc5738a266e54867c1ef672d21f0206",
+  "rawBytes": 35824,
+  "compression": "gzip",
+  "expertReviewed": false,
+  "partialExtent": true,
+  "scope": "Source-traced partial chiasm and bilateral optic tracts meet across an operational teaching naming plane at native40 Y275. Approximate 0.5 mm tissue-centre sampling includes edge partial volume. The combined major component is continuous; individual fibers and full chiasm/tract boundaries, LGN continuity and optic radiations are not established. Not expert-reviewed.",
+  "reviewRecord": "segmentation-patches/review/optic-junction118-adoption-2026-09-20.json"
+}

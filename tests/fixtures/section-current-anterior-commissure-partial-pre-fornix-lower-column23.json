@@ -1,0 +1,50 @@
+{
+  "voxels": 416,
+  "components6": 6,
+  "componentSizes": [
+    317,
+    88,
+    8,
+    1,
+    1,
+    1
+  ],
+  "boundsZYX": [
+    [
+      127,
+      270,
+      160
+    ],
+    [
+      136,
+      275,
+      230
+    ]
+  ],
+  "vertices": 754,
+  "faces": 1500,
+  "sha256": "b0772400be64709cf58c13c4b955940f01b51269c376a0a62a1bc83c8ef07292",
+  "bytes": 10313,
+  "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
+  "sourceSha256": "2cdba3f15427af2fdb5b9bcdb9b1b9904f6fcc5199fc1bfa4b76b2bfbbe6e8da",
+  "labelIds": [
+    42
+  ],
+  "labelVoxelCounts": {
+    "42": 416
+  },
+  "sourceSamplingMm": 0.5,
+  "displayOriginZYX": [
+    -90.0,
+    -116.0,
+    -98.0
+  ],
+  "method": "marching cubes 0.5; no resampling, smoothing, filling or component removal",
+  "rawSha256": "f1fc0f7306f07e566cb724fa6f5dc6cffab5cdc0723ae7755f127e5e4ea944cf",
+  "rawBytes": 39124,
+  "compression": "gzip",
+  "partialExtent": true,
+  "expertReviewed": false,
+  "installed": true,
+  "scope": "Partial internal core only, not the full tract contour or temporal terminations. Six disconnected components are retained without filling or smoothing; current internal-capsule overlap and thin lateral intervals remain unresolved. No expert validation or quiz eligibility."
+}

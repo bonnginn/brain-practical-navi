@@ -1,0 +1,46 @@
+{
+  "voxels": 7436,
+  "components6": 2,
+  "componentSizes": [
+    4035,
+    3401
+  ],
+  "boundsZYX": [
+    [
+      114,
+      191,
+      141
+    ],
+    [
+      184,
+      273,
+      258
+    ]
+  ],
+  "vertices": 12318,
+  "faces": 25008,
+  "sha256": "d274e58c37cf3320fd3d191fb3a4113c036c9a78dbf38501d64c674d1caee6f7",
+  "bytes": 160687,
+  "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
+  "sourceSha256": "a0be53bb43f2316bd9100903d6e81ac65b23fe6830c3500cd18c4acba5883417",
+  "labelIds": [
+    46
+  ],
+  "labelVoxelCounts": {
+    "46": 7436
+  },
+  "sourceSamplingMm": 0.5,
+  "displayOriginZYX": [
+    -90.0,
+    -116.0,
+    -98.0
+  ],
+  "method": "native-image-reviewed partial body and upper columns; marching cubes 0.5; no resampling, smoothing or filling",
+  "rawSha256": "228fec2b5822a0f579ad57067b574e532ce8b0b05c85ad57c4ae2441a18ffe2a",
+  "rawBytes": 645012,
+  "compression": "gzip",
+  "expertReviewed": false,
+  "partialExtent": true,
+  "scope": "Partial fornix body, bilateral crura and columns, with left (native100 Y600..720) and right (Y630..730) fimbria continuations. Approximate 0.5 mm boundaries include partial volume. Includes a gross postcommissural descent (native40 Z550..350) toward the mammillary bodies. Full fimbria, precise terminal boundaries and axonal continuity remain unverified. Not expert-reviewed.",
+  "reviewRecord": "segmentation-patches/review/fornix-postcommissural939-adoption-2026-09-20.json"
+}

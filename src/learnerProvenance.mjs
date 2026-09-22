@@ -121,6 +121,12 @@ const BLOCK_COMPOSITE_ENTRY_KEYS = new Set([
 
 const sectionEntryByKey = Object.freeze({
   aqueductPartial: "section-cerebral-aqueduct-partial",
+  anteriorCommissurePartial: "section-anterior-commissure-partial",
+  septumPellucidumPartial: "section-septum-pellucidum-partial",
+  lateralGeniculateBodies: "section-lateral-geniculate-bodies",
+  fornixBodyPartial: "section-fornix-body-partial",
+  opticChiasmPartial: "section-optic-chiasm-central-partial",
+  opticTractsPartial: "section-optic-tracts-partial",
   ventricle: "section-ventricular-system",
   thirdVentricle: "section-ventricular-system",
   fourthVentricle: "section-ventricular-system",
@@ -346,7 +352,7 @@ export const LEARNER_BLOCK_LAYERS_BY_SPECIMEN = Object.freeze({
   radiations: ["putamen", "pallidum-external", "pallidum-internal", "internal-capsule", "corona-radiata", "optic-radiation", "auditory-radiation"],
   "commissural-system": ["corpus-callosum", "lateral-ventricles", "fornix", "septum-pellucidum"],
   "choroid-plexus": ["ventricular-cavity", "choroid-plexus", "hippocampus"],
-  "medial-temporal": ["hippocampus", "amygdala", "inferior-horn"],
+  "medial-temporal": ["hippocampus", "amygdala", "inferior-horn", "fimbria"],
   "midbrain-section": ["red-nuclei", "substantia-nigra", "aqueduct", "cerebral-peduncles", "superior-colliculi", "inferior-colliculi", "lateral-geniculate-bodies", "medial-geniculate-bodies", "interpeduncular-fossa"],
   hindbrain: ["fourth-ventricle", "superior-cerebellar-peduncles", "middle-cerebellar-peduncles", "inferior-cerebellar-peduncles", "facial-colliculi", "vestibular-areas", "hypoglossal-trigones", "vagal-trigones", "pyramids", "olives"],
 });
@@ -371,6 +377,7 @@ const blockLayerEntryByKey = Object.freeze({
   "corpus-callosum": "section-corpus-callosum",
   "lateral-ventricles": "section-ventricular-system",
   fornix: "section-fornix",
+  fimbria: "section-fornix-body-partial",
   "septum-pellucidum": "section-septum-pellucidum",
   amygdala: "section-hippocampus-amygdala",
   "inferior-horn": "section-ventricular-system",
@@ -421,13 +428,13 @@ const blockSpecimenMappings = LEARNER_BLOCK_SPECIMEN_KEYS.map(specimen => {
 
 const pathwayMappings = [
   freezeMapping("free:pathway:visual", "free", [
-    "app-schematic-optic-nerve", "app-schematic-optic-chiasm", "surface-deep-thalamus", "section-thalamus", "section-radiations", "surface-parieto-occipital-calcarine-sulci", "app-surface-pericalcarine", "app-surface-lingual",
+    "app-schematic-optic-nerve", "section-optic-chiasm-central-partial", "section-optic-tracts-partial", "section-lateral-geniculate-bodies", "section-radiations", "surface-parieto-occipital-calcarine-sulci", "app-surface-pericalcarine", "app-surface-lingual",
   ], {
     composite: true,
     requiredSurfaces: ["surface", "sections", "blocks"],
   }),
   freezeMapping("free:pathway:papez", "free", [
-    "surface-deep-fornix", "surface-deep-thalamus", "section-hippocampus-amygdala", "section-mammillary-bodies", "section-thalamus", "surface-cingulate", "app-surface-parahippocampal", "app-surface-entorhinal",
+    "surface-deep-fornix", "surface-deep-thalamus", "section-hippocampus-amygdala", "section-fornix-body-partial", "section-mammillary-bodies", "section-thalamus", "surface-cingulate", "app-surface-parahippocampal", "app-surface-entorhinal",
   ], {
     composite: true,
     requiredSurfaces: ["surface", "sections"],

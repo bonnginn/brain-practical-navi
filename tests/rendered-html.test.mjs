@@ -14,16 +14,18 @@ test("block controls sit outside the draggable image and retain touch-sized butt
   const css = await readFile(new URL("app/canvas.css", root), "utf8");
   const block = page.slice(page.indexOf('className="learningModelCard blockModelCard"'), page.indexOf('className="learningModelCard blockModelCard"') + 6500);
   assert.match(block, /OrientationCompass rotation=\{rotation\}\/\>\}\s*<\/div>\s*\{!webglUnavailable&&<div className="blockModelToolbar">/);
-  for (const group of ["specimenTissueControls", "specimenViewControls", "specimenAttachmentControls"]) {
+  for (const group of ["specimenTissueControls", "specimenViewControls"]) {
     assert.ok(block.indexOf(group) > block.indexOf('className="blockModelToolbar"'));
   }
   assert.match(css, /\.blockModelToolbar button\s*\{\s*min-height:\s*44px/);
-  assert.match(css, /\.blockModelCard\s*\{\s*grid-template-rows:\s*max-content minmax\(280px,1fr\) max-content;/);
+  assert.match(css, /\.blockModelCard\s*\{\s*grid-template-rows:\s*max-content minmax\(150px,1fr\) max-content;/);
   assert.match(css, /grid-template-columns:minmax\(0,1fr\) clamp\(270px,34vw,310px\)/);
   assert.doesNotMatch(css, /minmax\(270px,34vw,310px\)/);
   assert.match(css, /\.blockModelToolbar \.modelLegend\s*\{\s*position:\s*static/);
 });
 const localPath = (path) => fileURLToPath(new URL(path, root));
+// Fixed contributor fixtures retain their original label revision; live browser patches are tested separately.
+const patchFixtureLabels = "tests/fixtures/bigbrain-practical-segmentation-pre-fimbria-left128.bin.gz";
 
 function resolvePython() {
   const configured = process.env.PYTHON?.trim();
@@ -194,10 +196,11 @@ test("keeps official labels separate from provisional teaching overlays", async 
   assert.equal(metadata.redNucleusRegistrationAudit.changedVoxelCount, 2224);
   assert.equal(metadata.redNucleusRegistrationAudit.expertReviewed, false);
   assert.deepEqual(metadata.atlasDerivedIds, [23, 24, 25, 26, 27, 28, 29, 33, 34, 35]);
-  assert.deepEqual(metadata.imageGuidedCandidateIds, [30, 31, 32, 41]);
-  assert.deepEqual(metadata.projectReviewedPartialIds, [41]);
-  assert.equal(metadata.labelCounts[26], 9008);
-  assert.equal(metadata.labelCounts[41], 259);
+  assert.deepEqual(metadata.imageGuidedCandidateIds, [30, 31, 32, 36, 37, 38, 41, 42, 43, 46]);
+  assert.deepEqual(metadata.projectReviewedPartialIds, [36, 37, 38, 41, 42, 43, 46]);
+  assert.equal(metadata.labelCounts[26], 9200);
+  assert.equal(metadata.labelCounts[46], labels.payload.subarray(10).reduce((sum,value)=>sum+(value===46),0));
+  assert.equal(metadata.labelCounts[41], 267);
   assert.deepEqual(metadata.imageGuidedReviewedIds, [39, 40]);
   for (const id of Array.from({ length: 35 }, (_, index) => index + 1)) {
     assert.ok(metadata.labelCounts[id] > 0, `label ${id} must contain voxels`);
@@ -303,7 +306,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /workspaceSwitch button\.active/);
   assert.match(page, /leftRail \.planeBtn\.active/);
   assert.match(page, /scrollIntoView\(\{block:"nearest",inline:"center"\}\)/);
-  assert.match(page, /PUBLIC ALPHA · EDUCATIONAL USE ONLY/);
+  assert.match(page, /PUBLIC BETA · EDUCATIONAL USE ONLY/);
   assert.match(page, /className="homeNotice"/);
   assert.match(page, /教育目的以外での利用はお控えください/);
   assert.match(page, /教科書や検証済み資料と照合して利用してください/);
@@ -370,13 +373,13 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(canvasCss, /\.learningGrid,\.quizWorkspace,\.segWorkbench\{grid-template-columns:minmax\(0,1fr\) clamp\(270px,34vw,310px\)\}/);
   assert.doesNotMatch(canvasCss, /@media\(max-width:900px\)[^\n]*\.learningGrid,\.quizWorkspace,\.segWorkbench\{grid-template-columns:1fr\}/);
   assert.match(page, /小脳を外す/);
-  assert.match(page, /橋・延髄を外す/);
+  assert.match(page, /aria-pressed=\{surfacePonsMedulla\}[^>]*>橋・延髄/);
   assert.doesNotMatch(page, /中脳を外す/);
   assert.match(page, /0\.5 mm標本組織＋構造レイヤー/);
   for (const structure of ["上小脳脚", "中小脳脚", "下小脳脚", "顔面神経丘", "前庭野", "舌下神経三角", "迷走神経三角", "錐体", "オリーブ"]) assert.match(page, new RegExp(structure));
   assert.match(page, /標本組織/);
   assert.match(page, /選択だけ/);
-  assert.match(page, /setBlockTissueMode\(next\.layers\.length\?"ghost":"solid"\)/);
+  assert.match(page, /setBlockTissueMode\("solid"\);setBlockAnswerVisible\(false\);setBlockSchematicsVisible\(false\)/);
   assert.match(page, /setSurfaceGhost\(key==="cranialNerves"\|\|key==="arteries"\)/);
   assert.match(canvas, /specimenTissueMode/);
   assert.match(canvas, /gl\.depthMask\(false\)/);
@@ -549,8 +552,8 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /basalHighlights/);
   assert.match(page, /aria-label="下面の補助レイヤー"/);
   assert.match(page, /surfaceNeurovascular\|\|surfaceView==="inferior"\|\|surfaceView==="free"\?surfaceOverlay:"none"/);
-  assert.match(page, /showBasalLandmarks=\{surfaceView==="inferior"\|\|surfaceView==="cranialNerves"\|\|surfaceView==="free"\}/);
-  assert.match(page, /basalOnlySelected=\{false\}/);
+  assert.match(page, /showBasalLandmarks=\{\(surfaceView==="inferior"\|\|surfaceView==="cranialNerves"\|\|surfaceView==="free"\)\}/);
+  assert.match(page, /basalOnlySelected=\{surfaceView==="free"&&surfaceGhost\}/);
   assert.match(page, /const detachableBrainstemNerveKeys:NeurovascularStructureKey\[]=\["cn5","cn6","cn7","cn8","cn9","cn10","cn11","cn12"\]/);
   assert.match(page, /function toggleFreeHindbrain\(\)/);
   assert.match(page, /aria-label="自由観察の表示レイヤー"[^\n]+>橋・延髄<\/button>/);
@@ -610,7 +613,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(workflow, /`reviewStatus`[\s\S]*`unreviewed`/);
   assert.match(workflow, /apply_segmentation_patch\.py/);
   assert.match(workflow, /workflowMetadataVersion/);
-  assert.equal(JSON.parse(packageJson).version, "0.1.0-alpha.1");
+  assert.equal(JSON.parse(packageJson).version, "0.1.0-beta.1");
   assert.equal(JSON.parse(packageJson).license, "AGPL-3.0-or-later");
   assert.match(softwareLicense, /GNU AFFERO GENERAL PUBLIC LICENSE/);
   assert.match(softwareLicense, /13\. Remote Network Interaction/);
@@ -696,11 +699,11 @@ test("normalizes Japanese readings for free-observation partial search", async (
   assert.match(page, /item\.name,item\.latin,item\.kind,item\.source/);
 });
 
-test("validates browser segmentation patches against the bundled BBS1 grid", () => {
+test("validates fixed contributor patches against their pinned BBS1 input", () => {
   const result = spawnSync(python.command, [...python.prefix,
     localPath("scripts/apply_segmentation_patch.py"),
     localPath("tests/fixtures/segmentation-patch-smoke.json"),
-    "--input", localPath("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"),
+    "--input", localPath(patchFixtureLabels),
     "--check",
   ], {encoding:"utf8"});
   assert.equal(result.status, 0, result.stderr);
@@ -716,7 +719,7 @@ test("strict patch metadata is independently validated and only approved patches
   const tempRoot = await mkdtemp(join(tmpdir(), "brain-patch-metadata-"));
   const runCheck = (patchPath, extra=[]) => spawnSync(python.command, [...python.prefix,
     localPath("scripts/apply_segmentation_patch.py"), patchPath,
-    "--input", localPath("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"),
+    "--input", localPath(patchFixtureLabels),
     "--check", ...extra,
   ], {encoding:"utf8"});
   try {
@@ -762,20 +765,20 @@ test("strict patch metadata is independently validated and only approved patches
     const outputPath = join(tempRoot, "approved.bin.gz");
     const approvedResult = spawnSync(python.command, [...python.prefix,
       localPath("scripts/apply_segmentation_patch.py"), approvedPath,
-      "--input", localPath("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"),
+      "--input", localPath(patchFixtureLabels),
       "--output", outputPath,
     ], {encoding:"utf8"});
     assert.equal(approvedResult.status, 0, approvedResult.stderr);
     assert.deepEqual(readVolumeHeader(await readFile(outputPath), "BBS1").dims, [394,466,378]);
     const unreviewedOutput = spawnSync(python.command, [...python.prefix,
       localPath("scripts/apply_segmentation_patch.py"), strictPath,
-      "--input", localPath("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"),
+      "--input", localPath(patchFixtureLabels),
       "--output", join(tempRoot, "unreviewed.bin.gz"),
     ], {encoding:"utf8"});
     assert.notEqual(unreviewedOutput.status, 0);
     const legacyOutput = spawnSync(python.command, [...python.prefix,
       localPath("scripts/apply_segmentation_patch.py"), localPath("tests/fixtures/segmentation-patch-smoke.json"),
-      "--input", localPath("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"),
+      "--input", localPath(patchFixtureLabels),
       "--output", join(tempRoot, "legacy.bin.gz"),
     ], {encoding:"utf8"});
     assert.notEqual(legacyOutput.status, 0);
@@ -786,7 +789,7 @@ test("strict patch metadata is independently validated and only approved patches
 
 test("enforces the complete review decision matrix and rejects non-approved output", async () => {
   const tempRoot = await mkdtemp(join(tmpdir(), "brain-review-matrix-"));
-  const inputPath = localPath("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz");
+  const inputPath = localPath(patchFixtureLabels);
   const approvedFixture = JSON.parse(await readFile(new URL("tests/fixtures/segmentation-patch-strict-approved.json", root), "utf8"));
   const check = path => spawnSync(python.command, [...python.prefix,
     localPath("scripts/apply_segmentation_patch.py"), path, "--input", inputPath, "--check",
@@ -885,7 +888,7 @@ test("does not auto-approve an unrelated legacy approved patch", async () => {
     await writeFile(legacyPath, JSON.stringify(patch));
     const result = spawnSync(python.command, [...python.prefix,
       localPath("scripts/upgrade_segmentation_patch_metadata.py"), legacyPath,
-      "--input", localPath("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"),
+      "--input", localPath(patchFixtureLabels),
       "--output-dir", join(tempRoot, "out"),
     ], {encoding:"utf8"});
     assert.notEqual(result.status, 0);
@@ -950,7 +953,12 @@ test("pins segmentation patches to the exact bundled label revision", async () =
   assert.match(editor, /const LABEL_SHA256=SEGMENTATION_LABEL_SHA256/);
   assert.match(editor, /LABEL_FETCH_URL=`\$\{LABEL_URL\}\?v=\$\{SEGMENTATION_LABEL_REVISION\}`/);
   assert.match(canvas, /\?v=\$\{SEGMENTATION_LABEL_REVISION\}/);
-  assert.equal(JSON.parse(fixtureText).sourceLabelsSha256, digest);
+  const fixtureDigest=createHash("sha256").update(await readFile(localPath(patchFixtureLabels))).digest("hex");
+  assert.equal(JSON.parse(fixtureText).sourceLabelsSha256, fixtureDigest);
+  assert.notEqual(fixtureDigest,digest);
+  const stale=spawnSync(python.command,[...python.prefix,localPath("scripts/apply_segmentation_patch.py"),localPath("tests/fixtures/segmentation-patch-smoke.json"),"--input",localPath("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"),"--check"],{encoding:"utf8"});
+  assert.notEqual(stale.status,0);
+  assert.match(stale.stderr,/sourceLabelsSha256 does not match/);
 });
 
 test("builds a multi-slice multi-transition patch in the browser helper that Python accepts", async () => {
@@ -1260,7 +1268,7 @@ test("detects voxel-level conflicts between contributor segmentation patches", (
     localPath("scripts/check_segmentation_patch_conflicts.py"),
     localPath("tests/fixtures/segmentation-patch-smoke.json"),
     localPath("tests/fixtures/segmentation-patch-conflict.json"),
-    "--input", localPath("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"),
+    "--input", localPath(patchFixtureLabels),
   ], {encoding:"utf8"});
   assert.equal(result.status, 2, result.stderr);
   const audit = JSON.parse(result.stdout);
@@ -1373,13 +1381,24 @@ test("keeps the browser distribution below the beta asset budget", async () => {
   // Keep the existing distribution's 100 MiB ceiling; give this addition a separate 12 MiB ceiling.
   const brodmannNames = ["brodmann-left.mesh.gz", "brodmann-right.mesh.gz", "brodmann-left-inflated.mesh.gz", "brodmann-right-inflated.mesh.gz", "brodmann-surface.json", "BRODMANN-FREESURFER-NOTICE.txt"];
   const brodmannBytes = (await Promise.all(brodmannNames.map(name => stat(new URL(`public/atlas/${name}`, root))))).reduce((sum, file) => sum + file.size, 0);
+  const currentSectionNames = ["section-current-cerebellum.mesh", "section-current-cerebellum.json", "section-current-brainstem.mesh", "section-current-brainstem.json", "section-current-septum-pellucidum-partial.mesh", "section-current-septum-pellucidum-partial.json", "section-current-anterior-commissure-partial.mesh", "section-current-anterior-commissure-partial.json"];
+  const currentSectionBytes = (await Promise.all(currentSectionNames.map(name => stat(new URL(`public/atlas/${name}`, root))))).reduce((sum, file) => sum + file.size, 0);
+  // Fourteen lazily loaded full-label replacements remove cropped/one-sided section models.
+  // Track their gzip distribution separately with a 4 MiB ceiling; retain legacy budgets.
   const nucleiReport = JSON.parse(await readFile(new URL('public/atlas/section-current-nuclei.json', root), 'utf8'));
   const nucleiNames = [...Object.keys(nucleiReport.meshes).map(name => `${name}.mesh`), 'section-current-nuclei.json'];
   const nucleiBytes = (await Promise.all(nucleiNames.map(name => stat(new URL(`public/atlas/${name}`, root))))).reduce((sum, file) => sum + file.size, 0);
-  assert.ok(nucleiBytes < 6 * 1024 * 1024, 'uncropped current meshes exceed 6 MiB');
-  assert.ok(publicBytes - brodmannBytes - nucleiBytes < 100 * 1024 * 1024, `existing public assets are ${((publicBytes - brodmannBytes) / 1024 / 1024).toFixed(1)} MiB`);
+  assert.ok(nucleiBytes < 4 * 1024 * 1024, `full-label replacements are ${(nucleiBytes / 1024 / 1024).toFixed(1)} MiB`);
+  // Opaque teaching preparations are loaded per specimen; keep a separate
+  // 10 MiB ceiling while preserving the existing source/comparison assets.
+  // Retained earlier teaching parts belong to this same budget, even when not loaded.
+  const teachingNames = (await readdir(new URL('public/atlas/', root))).filter(name => /^teaching-block-.*\.mesh$/.test(name));
+  const teachingBytes = (await Promise.all(teachingNames.map(name => stat(new URL(`public/atlas/${name}`, root))))).reduce((sum, file) => sum + file.size, 0);
+  assert.ok(teachingBytes < 10 * 1024 * 1024, `opaque teaching preparations exceed 10 MiB`);
+  assert.ok(publicBytes - teachingBytes - brodmannBytes - currentSectionBytes - nucleiBytes < 100 * 1024 * 1024, `legacy public asset budget exceeded`);
   assert.ok(brodmannBytes < 12 * 1024 * 1024, `Brodmann assets are ${(brodmannBytes / 1024 / 1024).toFixed(1)} MiB`);
-  assert.ok(publicBytes < 118 * 1024 * 1024, `combined public assets are ${(publicBytes / 1024 / 1024).toFixed(1)} MiB`);
+  assert.ok(currentSectionBytes < 3 * 1024 * 1024, `new current section assets are ${(currentSectionBytes / 1024 / 1024).toFixed(1)} MiB`);
+  assert.ok(publicBytes < 129 * 1024 * 1024, `combined public assets are ${(publicBytes / 1024 / 1024).toFixed(1)} MiB`);
 
   for (const obsolete of [
     "mni-cerebra-1mm.bin",
@@ -1650,7 +1669,8 @@ test("bundles structure-focused specimens and distinguishes derived from schemat
       assert.ok(part.faces > 200, `${block}/${part.part} faces`);
       assert.match(part.color, /^#[0-9a-f]{6}$/i);
       assert.ok(["specimen", "model"].includes(part.material));
-      const mesh = await readFile(new URL(`public/atlas/${part.file}`, root));
+    const meshBytes = await readFile(new URL(`public/atlas/${part.file}`, root));
+    const mesh = meshBytes[0] === 0x1f && meshBytes[1] === 0x8b ? gunzipSync(meshBytes) : meshBytes;
       assert.equal(mesh.subarray(0, 4).toString("ascii"), "BNM2");
       assert.equal(mesh.readUInt32LE(4), part.vertices);
       assert.equal(mesh.readUInt32LE(8), part.faces);
@@ -2057,10 +2077,10 @@ test("status dialog renders the JSON registry through a durable direct route", a
     readFile(new URL("app/canvas.css", root), "utf8"),
   ]);
   const data = JSON.parse(status);
-  assert.equal(data.phase, "公開α掲載中／β候補・β公開判断前");
+  assert.equal(data.phase, "公開β版／専門家監修は未実施");
   assert.ok(data.knownLimitations.some(item => item.body.includes("ID33")));
   assert.ok(data.changes.some(item => item.body.includes("162/162")));
-  assert.ok(data.knownLimitations.some(item => item.body.includes("162/162")));
+  assert.ok(data.knownLimitations.some(item => item.id === "limitation-local-validation-scope" && item.body.includes("物理タッチ端末")));
   assert.doesNotMatch(status, /親作業での実施前|26経路版は[^。]*未実施/);
   assert.match(page, /import betaStatus from "\.\/beta-status\.json"/);
   assert.match(page, /const betaStatusData=betaStatus as BetaStatusData/);
@@ -2070,7 +2090,7 @@ test("status dialog renders the JSON registry through a durable direct route", a
   assert.match(page, /更新履歴・既知の制限/);
   assert.match(page, /betaStatusData\.knownLimitations\.map/);
   assert.match(page, /betaStatusData\.changes\.map/);
-  assert.match(page, /公開α版にはβ候補へ向けた進捗を掲載していますが、β版の公開や専門家による承認・最終確認を意味しません/);
+  assert.match(page, /専門家監修は未実施で、部分分節や模式表示を含みます/);
   assert.doesNotMatch(page, /公開判断前のローカル候補であり、専門家による最終確認や公開URLでの確認を意味しません/);
   assert.match(page, /data-status-id=\{item\.id\}/);
   assert.match(page, /className="betaStatusEvidence"/);
@@ -2084,7 +2104,8 @@ test("status dialog renders the JSON registry through a durable direct route", a
   assert.match(page, /\},\[helpOpen,feedbackOpen,legalOpen,statusOpen\]\);/);
   assert.match(page, /if\(!overlayOpen\)overlayReturnFocus\.current\?\.focus\(\)\},\[overlayOpen\]\);/);
   assert.match(page, /function openOverlay\(key:OverlayMode\)\{if\(!overlayOpen\)overlayReturnFocus\.current=document\.activeElement instanceof HTMLElement\?document\.activeElement:null;/);
-  assert.match(page, /海馬采・鉤はβ候補から除外し、現行3Dには収録していません/);
+  assert.match(page, /海馬采は[^<]*部分分節/);
+  assert.doesNotMatch(page, /海馬采・鉤はβ候補から除外し、現行3Dには収録していません/);
   assert.match(page, /旧模式乳頭体2資産は配布されても学習画面の代用表示には使用しません/);
   assert.match(page, /学習画面に表示する形状は「模式補助」「位置目安」と明示します/);
   assert.doesNotMatch(page, /画面上でも「模式補助」「位置目安」と表示します/);
@@ -2135,15 +2156,15 @@ test("keeps ghost-surface teaching layers depth-tested and opacity-consistent", 
   assert.match(atlasCanvas, /function teachingColor\(color:number\[],opacity=TEACHING_OVERLAY_OPACITY\)/);
   assert.match(atlasCanvas, /function selectionColor\(color:\[number,number,number\],opacity=TEACHING_OVERLAY_SELECTED_OPACITY\)\{return \[color\[0\]\/255,color\[1\]\/255,color\[2\]\/255,opacity\]\}/);
   assert.match(atlasCanvas, /uniform float clipOn,clipAxis,clipValue,material,hemiMode,selectedOpacity/);
-  assert.match(atlasCanvas, /float outputAlpha=mix\(color\.a,selectedOpacity,clamp\(highlight\.a,0\.,1\.\)\)/);
+  assert.match(atlasCanvas, /float outputAlpha=mix\(color\.a,selectedOpacity,clamp\(abs\(highlight\.a\),0\.,1\.\)\)/);
   assert.match(atlasCanvas, /const ghostSurface=view==="ghost"&&blockMeshes===null/);
   assert.match(atlasCanvas, /else if\(!ghostSurface\)drawSurfaceShell\(\)/);
   assert.match(atlasCanvas, /if\(showFocus&&selectionLayers\.length\)\{if\(!ghostSurface\)gl\.clear\(gl\.DEPTH_BUFFER_BIT\)/);
-  assert.match(atlasCanvas, /selectionLayers\.forEach\(layer=>layer\.meshes\.forEach\(part=>draw\(part,selectionColor\(layer\.color\),1\)\)\)/);
+  assert.match(atlasCanvas, /selectionLayers\.forEach\(layer=>layer\.meshes\.forEach\(\(part,index\)=>draw\(part,selectionColor\(layer\.color\),1,gl\.TRIANGLES,\[\],layer\.pulse!==false,layer\.travel\?\.\[index\]\)\)\)/);
   assert.match(atlasCanvas, /if\(ghostSurface\)\{[\s\S]*?gl\.depthFunc\(gl\.LESS\)[\s\S]*?drawSurfaceShell\(\)/);
   assert.doesNotMatch(atlasCanvas, /if\(view==="ghost"\)gl\.clear\(gl\.DEPTH_BUFFER_BIT\)/);
-  assert.match(atlasCanvas, /draw\(overlays\[0\],teachingColor\(\[\.86,\.18,\.14\]\)/);
-  assert.match(atlasCanvas, /draw\(overlays\[2\],teachingColor\(\[\.96,\.83,\.42\]\)/);
+  assert.match(atlasCanvas, /draw\(overlays\[0\],teachingColor\(\[\.86,\.18,\.14\],contextOpacity\)/);
+  assert.match(atlasCanvas, /draw\(overlays\[2\],teachingColor\(\[\.96,\.83,\.42\],contextOpacity\)/);
   assert.match(page, /透過時も補助レイヤーはモデルの奥行きを保って描画します/);
   assert.match(page, /通常は半透明、選択中の神経・血管は白色と高い不透明度で追跡しやすくします/);
   assert.match(audit, /実ブラウザ確認: 最終ビルド/);
@@ -2162,8 +2183,9 @@ test("presents sulci as teaching guides rather than segmentation boundaries", as
 
 test("describes specimen fidelity limits without implying anatomical validation", async () => {
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
-  assert.doesNotMatch(page.split('"medial-temporal":{name:"海馬・扁桃体標本"')[1].split('"midbrain-section"')[0], /key:"(?:fimbria|uncus)"/);
-  assert.match(page, /海馬采・鉤は信頼できる境界データがなく3D未収録/);
+  const lessons = await readFile(new URL("app/teachingSpecimenLessons.ts", root), "utf8");
+  assert.match(lessons, /鉤の独立分節は含みません/);
+  assert.match(lessons, /海馬采は同一標本から追った部分分節/);
   assert.match(page, /const blockSpecimenDisclaimer="褐色組織は位置関係を読むための表示で[\s\S]*見た目の実在感を形状や境界の正確性の根拠にせず/);
   assert.match(page, /caution:`\$\{blockSpecimenDisclaimer\} \$\{blockSpecimens\[blockSpecimen\]\.caution\}`/);
 });
@@ -2176,10 +2198,10 @@ test("labels provisional questions and includes them in the default quiz setup",
   assert.match(page, /quizIncludeProvisional,setQuizIncludeProvisional\]=useState\(true\)/);
   assert.match(page, /const quizFilters:QuizFilters=\{category:quizCategory,format:quizFormat,detail:quizDetail,kind:quizKind,includeProvisional:quizIncludeProvisional,wrongOnly:quizWrongOnly\}/);
   assert.match(page, /filterQuizCandidates\(quizQuestionsForFiltering,quizFilters,wrongTargets\)/);
-  assert.match(page, /function startQuiz\(\)\{let candidates=quizCandidates;/);
+  assert.match(page, /function startQuiz\(\)\{setQuizCircuit\(null\);let candidates=quizCandidates;/);
   assert.doesNotMatch(page, /quizIncludeProvisional\|\|!isProvisionalQuiz\(question\)/);
-  assert.match(page, /試作問題を含む[\s\S]*専門家未確認・位置照合ラベル/);
-  assert.match(page, /試作・専門家未確認/);
+  assert.match(page, /試作問題を含む[\s\S]*位置照合・部分分節ラベル/);
+  assert.match(page, /試作ラベル/);
   assert.match(page, /\{target:"mammillaryBody",category:"limbic",plane:"horizontal",position:69/);
   assert.match(page, /className="quizCountButtons" role="group" aria-label="次回の問題数（上限）"/);
   assert.match(page, /aria-pressed=\{quizCount===count\}/);
@@ -2386,7 +2408,7 @@ test("free observation separates circuit teaching from specimen observation", as
   assert.match(page, /<CircuitTeachingPanel/);
   assert.match(page, /selectionMeshLayers=\{surfaceView==="free"\?\(basalStepperActive\?freePathwayMeshLayers:papezStepperActive\?papezStepperMeshLayers:freePathwayMeshLayers\):\[\]\}/);
   assert.match(page, /aria-label="Papez回路の由来別位置関係ステッパー"/);
-  assert.match(page, /papezStepperStep\.kind!=="section-label"&&<div className="pathwayStepper3dOnlyNote"/);
+  assert.match(page, /!\["section-label","image-reviewed-partial-section"\]\.includes\(papezStepperStep\.kind\)&&<div className="pathwayStepper3dOnlyNote"/);
   assert.match(css, /\.pathwayPresets/);
 });
 

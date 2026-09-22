@@ -1,0 +1,264 @@
+{
+  "status": "draft-unapplied-not-anatomically-approved",
+  "sourceNativeSha256": "61e6ebbeb0d6876051b9348a68bfe22b733fead04d112c35ff1a29819b67d351",
+  "cachePath": "work/fornix-anterior-next-20260919-v3-final/region.npz",
+  "cacheSha256": "a7132e53c36f4ff7d91099896c4cd72376710baea0d66be62f8697b7f204d751",
+  "decodedSha256": "502eded3aea88083cbc3ca62f43a4ab1bc9708fc80e57441e33e43ad5b9f1314",
+  "labelSha256": "d815aaff6b98c95109cdd7c052a29871d49cc9cdf463bcb3db7e28a1497c2392",
+  "scope": "Native100 Y880-900 interior continuation from adopted fornix body; no complete column, septal attachment or mammillary continuity claim.",
+  "contoursNativeXZ": {
+    "left": {
+      "880": [
+        [
+          660,
+          649
+        ],
+        [
+          665,
+          655
+        ],
+        [
+          673,
+          660
+        ],
+        [
+          676,
+          650
+        ],
+        [
+          678,
+          636
+        ],
+        [
+          677,
+          621
+        ],
+        [
+          670,
+          623
+        ],
+        [
+          664,
+          631
+        ],
+        [
+          661,
+          639
+        ]
+      ],
+      "890": [
+        [
+          665,
+          642
+        ],
+        [
+          669,
+          650
+        ],
+        [
+          677,
+          651
+        ],
+        [
+          680,
+          640
+        ],
+        [
+          684,
+          626
+        ],
+        [
+          684,
+          610
+        ],
+        [
+          676,
+          609
+        ],
+        [
+          669,
+          619
+        ],
+        [
+          666,
+          632
+        ]
+      ],
+      "900": [
+        [
+          671,
+          634
+        ],
+        [
+          675,
+          642
+        ],
+        [
+          683,
+          644
+        ],
+        [
+          686,
+          633
+        ],
+        [
+          688,
+          619
+        ],
+        [
+          688,
+          604
+        ],
+        [
+          681,
+          603
+        ],
+        [
+          675,
+          612
+        ],
+        [
+          672,
+          623
+        ]
+      ]
+    },
+    "right": {
+      "880": [
+        [
+          688,
+          652
+        ],
+        [
+          696,
+          646
+        ],
+        [
+          706,
+          639
+        ],
+        [
+          716,
+          635
+        ],
+        [
+          716,
+          632
+        ],
+        [
+          709,
+          625
+        ],
+        [
+          702,
+          620
+        ],
+        [
+          695,
+          623
+        ],
+        [
+          692,
+          638
+        ]
+      ],
+      "890": [
+        [
+          689,
+          641
+        ],
+        [
+          694,
+          638
+        ],
+        [
+          699,
+          632
+        ],
+        [
+          704,
+          623
+        ],
+        [
+          706,
+          611
+        ],
+        [
+          702,
+          607
+        ],
+        [
+          696,
+          611
+        ],
+        [
+          693,
+          620
+        ],
+        [
+          691,
+          631
+        ]
+      ],
+      "900": [
+        [
+          694,
+          632
+        ],
+        [
+          699,
+          630
+        ],
+        [
+          704,
+          624
+        ],
+        [
+          707,
+          614
+        ],
+        [
+          708,
+          603
+        ],
+        [
+          703,
+          600
+        ],
+        [
+          697,
+          605
+        ],
+        [
+          695,
+          614
+        ],
+        [
+          694,
+          624
+        ]
+      ]
+    }
+  },
+  "orthogonalPlanesNative": {
+    "x": [
+      665,
+      675,
+      685,
+      695,
+      705,
+      715
+    ],
+    "z": [
+      605,
+      615,
+      625,
+      635,
+      645
+    ]
+  },
+  "basis": "Interior landmarks carried forward from adopted Y880 and traced on Y890/Y900; upper and end surfaces are partial inclusion cuts, not asserted anatomical borders. Interpolated planes and voxel footprints require review and subvoxel screening before adoption.",
+  "mutation": false,
+  "adopted": false,
+  "expertReviewed": false
+}

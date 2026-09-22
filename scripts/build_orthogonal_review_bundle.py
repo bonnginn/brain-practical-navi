@@ -26,7 +26,8 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_IMAGE = ROOT / "public/atlas/bigbrain-icbm500.bin.gz"
-DEFAULT_LABELS = ROOT / "public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"
+# Reproduce the original review using its archived input; never retarget this contract to current labels.
+DEFAULT_LABELS = ROOT / "tests/fixtures/bigbrain-practical-segmentation-pre-ventricle-6744.bin.gz"
 REVIEW_ROOT = ROOT / "work/anatomy-review"
 DEFAULT_OUTPUT = REVIEW_ROOT / "orthogonal-review-bundle-v3"
 
@@ -35,8 +36,8 @@ MAGIC_LABELS = b"BBS1"
 EXPECTED_DIMS = (394, 466, 378)
 EXPECTED_VOXEL_SIZE_MM = (0.5, 0.5, 0.5)
 EXPECTED_IMAGE_SHA256 = "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746"
-EXPECTED_LABELS_SHA256 = "785ce199e2c7226e5527a771e953d1b78cfed1067179aa04c63b9eba74577e0f"
-EXPECTED_COUNTS = {27: 264605, 33: 8482, 39: 559, 40: 729}
+EXPECTED_LABELS_SHA256 = "6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56"
+EXPECTED_COUNTS = {27: 254786, 33: 8482, 39: 561, 40: 729}
 REVIEW_LABEL_IDS = (33, 39, 40)
 CONTEXT_LABEL_IDS = (27,)
 OVERLAY_LABEL_IDS = (27, 33, 39, 40)
@@ -52,7 +53,7 @@ OUTLINE_COLORS = {
     40: (226, 101, 174),
 }
 EXPECTED_IMAGE_PATH = "public/atlas/bigbrain-icbm500.bin.gz"
-EXPECTED_LABELS_PATH = "public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz"
+EXPECTED_LABELS_PATH = "tests/fixtures/bigbrain-practical-segmentation-pre-ventricle-6744.bin.gz"
 EXPECTED_CROP = {
     "sourceLabelIds": [33, 39, 40],
     "overlayLabelIds": [27, 33, 39, 40],

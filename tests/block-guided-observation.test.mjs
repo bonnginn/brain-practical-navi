@@ -124,9 +124,9 @@ test("guide state saves manual layers, clamps navigation, and restores them on f
 test("focus-only UI wiring is additive and keeps the existing Canvas/manual contracts", () => {
   const css = readFileSync(join(repositoryRoot, "app", "canvas.css"), "utf8");
   assert.match(pageSource, /BLOCK_GUIDED_SPECIMEN_KEYS/);
-  assert.match(pageSource, /startBlockGuidedObservation\(\{specimenKey:blockGuidedSpecimenKey,layers:specimenLesson\.layers,currentLayers:blockLayers\}\)/);
+  assert.match(pageSource, /startBlockGuidedObservation\(\{specimenKey:blockGuidedSpecimenKey,layers:blockTeachingLayers,currentLayers:blockLayers\}\)/);
   assert.match(pageSource, /setBlockLayers\(next\.active\?\[\.\.\.guidedStepLayers\(next\)\]:\[\.\.\.next\.restoredLayers\]\)/);
-  assert.match(pageSource, /\{blockGuidedSpecimenKey&&<section className=\{"blockGuidedObservation"/);
+  assert.match(pageSource, /\{blockAnswerVisible&&!blockCavityView&&!openSideBlock&&blockGuidedSpecimenKey&&<section className=\{"blockGuidedObservation"/);
   assert.equal(BLOCK_PRIORITY_GROUPS.development.specimenKeys.some(key => BLOCK_GUIDED_SPECIMEN_KEYS.includes(key)), false, "development4 must not enter the guided UI eligibility set");
   for (const label of ["部品を順に確認", "前へ", "次へ", "最初へ", "ガイドを終了"]) assert.match(pageSource, new RegExp(label));
   assert.match(pageSource, /finishBlockGuidedObservation/);
@@ -146,7 +146,7 @@ test("independent guided-observation audit succeeds and CLI emits a passing JSON
     ["lateral-ventricle", 4, 5],
     ["radiations", 7, 8],
     ["choroid-plexus", 3, 4],
-    ["medial-temporal", 3, 4],
+    ["medial-temporal", 4, 5],
   ]);
   assert.equal(report.summary.browserVerification, "この静的監査コマンドは実ブラウザを実行しない");
 
@@ -156,7 +156,7 @@ test("independent guided-observation audit succeeds and CLI emits a passing JSON
 });
 
 test("independent audit rejects focus UI, layer-order, forbidden-text, and route mutations", () => {
-  const unguarded = pageSource.replace("{blockGuidedSpecimenKey&&<section", "<section");
+  const unguarded = pageSource.replace("{blockAnswerVisible&&!blockCavityView&&!openSideBlock&&blockGuidedSpecimenKey&&<section", "<section");
   const unguardedReport = auditBlockGuidedSource({source: unguarded, routeSource});
   assert.equal(unguardedReport.ok, false);
   assert.ok(unguardedReport.errors.some(error => error.code === "focus-only-ui"));

@@ -8,7 +8,7 @@ import numpy as np
 from build_section_ventricle_meshes import ATLAS, SOURCE, reconstruct
 
 GROUPS = {
-    'brainstem': [27], 'cerebellum': [28, 29], 'caudate': [7, 8], 'putamen': [9, 10],
+    'caudate': [7, 8], 'putamen': [9, 10],
     'pallidum-external': [11, 12], 'pallidum-internal': [13, 14],
     'thalamus': [15, 16], 'hippocampus': [17, 18],
     'accumbens': [19, 20], 'amygdala': [21, 22],

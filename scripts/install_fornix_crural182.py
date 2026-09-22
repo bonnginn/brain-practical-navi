@@ -1,0 +1,97 @@
+"""Integrate image-reviewed left crural approach without isolated fragments."""
+import argparse
+import gzip
+import hashlib
+import json
+from pathlib import Path
+import numpy as np
+from install_optic_central112 import labels
+from build_section_ventricle_meshes import build_assets, reconstruct
+
+ROOT=Path(__file__).resolve().parents[1]
+ATLAS=ROOT/'public/atlas'
+STAGE=ROOT/'work/fornix-crural182-stage-20260919'
+BASE='14d05f338778992533aec0d1d9af6616748c8e47e1bcdd96e62083666dea94d2'
+AFTER='85a91f74510543969650af99557bb77688e367804be9cc7048bcc6b6947c0747'
+PREFIX='fornix-crural182'
+RECORD=ROOT/f'segmentation-patches/review/{PREFIX}-adoption-2026-09-19.json'
+sha=lambda b:hashlib.sha256(b).hexdigest()
+encode=lambda v:(json.dumps(v,ensure_ascii=False,indent=2)+'\n').encode()
+
+def plan():
+    base=(STAGE/'before.bin.gz').read_bytes();data=(STAGE/'labels.bin.gz').read_bytes()
+    assert sha(base)==BASE and sha(data)==AFTER
+    assert (ATLAS/'bigbrain-practical-segmentation-icbm500.bin.gz').read_bytes()==base
+    r=json.loads((STAGE/'repair.json').read_bytes());assert len(r['points'])==182
+    before,after=labels(base),labels(data);forward=before.copy();reverse=after.copy();seen=set()
+    for p in r['points']:
+        k=tuple(p['xyz']);assert k not in seen and (p['before'],p['after']) in ((0,46),)
+        seen.add(k);assert before[k]==p['before'] and after[k]==p['after']
+        forward[k]=p['after'];reverse[k]=p['before']
+    assert np.array_equal(forward,after) and np.array_equal(reverse,before)
+    assert r['countsAfter']=={'46':1976}
+    impact=json.loads((STAGE/'block-impact.json').read_bytes())
+    assert impact['beforeSha256']==BASE and impact['afterSha256']==AFTER
+    assert len(impact['blockMaskImpact'])==55 and len(impact['fineMaskImpact'])==4
+    assert not any(x['changed'] for x in impact['blockMaskImpact']+impact['fineMaskImpact'])
+    for row in impact['blockMaskImpact']:row.update(changedMaskVoxels=0,added=0,removed=0)
+    writes=[]
+    def retain(p,b):
+        assert not p.exists() or p.read_bytes()==b,str(p)
+        writes.append((p,b))
+    retain(ROOT/f'tests/fixtures/bigbrain-practical-segmentation-pre-{PREFIX}.bin.gz',base)
+    oldreport,oldassets=build_assets(base);newreport,newassets=build_assets(data)
+    changed=[]
+    for name,b in oldassets.items():
+        if name.endswith('.mesh'):
+            assert (ATLAS/name).read_bytes()==b,name
+            if b!=newassets[name]:
+                changed.append(name);retain(ROOT/f'tests/fixtures/{name[:-5]}-pre-{PREFIX}.mesh',b)
+    assert not changed
+    writes.extend((ATLAS/n,b) for n,b in newassets.items())
+    for p in sorted(ATLAS.glob('section-current-*.json')):
+        if p.name=='section-current-ventricles.json':continue
+        meta=json.loads(p.read_bytes());assert meta['sourceSha256']==BASE,p.name
+        if p.name=='section-current-fornix-body-partial.json':
+            oldmesh,_=reconstruct((before==46).transpose(2,1,0))
+            assert gzip.decompress((ATLAS/'section-current-fornix-body-partial.mesh').read_bytes())==oldmesh
+            retain(ROOT/f'tests/fixtures/section-current-fornix-body-partial-pre-{PREFIX}.mesh',(ATLAS/'section-current-fornix-body-partial.mesh').read_bytes())
+            mesh,info=reconstruct((after==46).transpose(2,1,0));compressed=gzip.compress(mesh,compresslevel=9,mtime=0)
+            assert info['voxels']==1976 and info['componentSizes']==[1159,817]
+            meta.update(info,rawSha256=sha(mesh),rawBytes=len(mesh),sha256=sha(compressed),bytes=len(compressed),labelVoxelCounts={'46':1976},scope='Partial body, upper columns and posterior interiors, extended along the left crural approach. Full crura, fimbria, lower columns and mammillary continuity remain incomplete. Not expert-reviewed.',reviewRecord=RECORD.relative_to(ROOT).as_posix())
+            writes.append((ATLAS/'section-current-fornix-body-partial.mesh',compressed))
+        else:
+            groups=meta['meshes'] if 'meshes' in meta else {p.stem:meta}
+            for name,m in groups.items():
+                assert not set(m['labelIds']).intersection((46,)),name
+                assert sha((ATLAS/(name+'.mesh')).read_bytes())==m['sha256'],name
+        meta['sourceSha256']=AFTER
+        if 'rawVoxelSha256' in meta:meta['rawVoxelSha256']=r['afterRawVoxelSha256']
+        writes.append((p,encode(meta)))
+    evidence={p:sha((ROOT/p).read_bytes()) for p in r['evidence']}
+    assert evidence==r['evidence'], 'Staged image evidence changed'
+    r.update(status='AI-image-reviewed-project-adopted-development-only',adopted=True,installed=True,
+        projectAdopted=True,published=False,transition='0->46',evidence=evidence,
+        meshImpact=impact,sectionMeshImpact=dict(before=oldreport,after=newreport,changedFiles=changed),
+        independentSectionChanges=['section-current-fornix-body-partial.mesh'],
+        limitation='Fornix remains partial: left crural approach, posterior interiors, body and upper columns; complete crura, fimbria and mammillary continuity are not established. Not expert-reviewed.',
+        primaryReview=dict(reviewer='AI project image review',approved=True,
+            rationale='Native100 source images support the revised thickness of the left crural approach. Fifteen coronal contour views, twenty-five footprint views and nine attachment views were inspected. Three left and sixty right separate cells remain held; connectivity selected the display extent after anatomical review, not tissue identity. No interpolated gap filling was applied.'),
+        integrationVerification='docs/FORNIX_CRURAL182_INTEGRATION_2026-09-19.md')
+    record=encode(r);retain(RECORD,record)
+    p=ATLAS/'bigbrain-practical-segmentation-icbm500-validation.json';v=json.loads(p.read_bytes())
+    assert v['rawVoxelSha256']==sha(before.tobytes(order='F'))
+    v['rawVoxelSha256']=r['afterRawVoxelSha256'];v['labelCounts'].update(r['countsAfter'])
+    m=v['currentImageMeasurements'];assert m['sourceLabelSha256']==BASE
+    m.update(sourceLabelSha256=AFTER,rawVoxelSha256=r['afterRawVoxelSha256']);m['labelCounts'].update(r['countsAfter'])
+    v['regionalBatchAudits'][PREFIX]=dict(record=RECORD.relative_to(ROOT).as_posix(),recordSha256=sha(record),changedVoxelCount=182,
+        projectAdopted=True,expertReviewed=False,changedSectionMeshes=changed+r['independentSectionChanges'])
+    writes.extend([(p,encode(v)),(ATLAS/'bigbrain-practical-segmentation-icbm500.bin.gz',data)])
+    return writes
+
+if __name__=='__main__':
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--apply',action='store_true');args=parser.parse_args()
+    writes=plan()
+    if args.apply:
+        for p,b in writes:p.write_bytes(b)
+    print(json.dumps(dict(applied=args.apply,changedVoxels=182,files=len(writes),blockGeometryChanged=False)))

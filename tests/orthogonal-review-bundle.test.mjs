@@ -10,7 +10,8 @@ import { fileURLToPath } from "node:url";
 const root = fileURLToPath(new URL("../", import.meta.url));
 const pythonScript = join(root, "scripts", "build_orthogonal_review_bundle.py");
 const image = join(root, "public", "atlas", "bigbrain-icbm500.bin.gz");
-const labels = join(root, "public", "atlas", "bigbrain-practical-segmentation-icbm500.bin.gz");
+// The review bundle is historical evidence, not a current segmentation audit.
+const labels = join(root, "tests", "fixtures", "bigbrain-practical-segmentation-pre-ventricle-6744.bin.gz");
 
 function resolvePython() {
   const configured = process.env.PYTHON?.trim();
@@ -123,21 +124,21 @@ test("builds deterministic local evidence and passes independent validation", as
     voxelSizeMm: [0.5, 0.5, 0.5],
   });
   assert.deepEqual(firstManifest.inputs.labels, {
-    path: "public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz",
+    path: "tests/fixtures/bigbrain-practical-segmentation-pre-ventricle-6744.bin.gz",
     magic: "BBS1",
-sha256: "785ce199e2c7226e5527a771e953d1b78cfed1067179aa04c63b9eba74577e0f",
+    sha256: "6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56",
     dims: [394, 466, 378],
     voxelSizeMm: [0.5, 0.5, 0.5],
   });
   assert.deepEqual(Object.fromEntries([27, 33, 39, 40].map(id => [id, firstManifest.labels[String(id)].voxelCount])), {
-    27: 264605,
+    27: 254786,
     33: 8482,
-    39: 559,
+    39: 561,
     40: 729,
   });
   assert.deepEqual(firstManifest.labels["39"].sections.x.outsideEndpointSliceIndices, [186, 197]);
   assert.deepEqual(firstManifest.labels["39"].sections.y.outsideEndpointSliceIndices, [245, 257]);
-  assert.deepEqual(firstManifest.labels["39"].sections.z.outsideEndpointSliceIndices, [107, 122]);
+  assert.deepEqual(firstManifest.labels["39"].sections.z.outsideEndpointSliceIndices, [106, 122]);
   assert.deepEqual(firstManifest.labels["40"].sections.x.outsideEndpointSliceIndices, [196, 205]);
   assert.deepEqual(firstManifest.labels["40"].sections.y.outsideEndpointSliceIndices, [246, 259]);
   assert.deepEqual(firstManifest.labels["40"].sections.z.outsideEndpointSliceIndices, [107, 122]);
@@ -166,7 +167,7 @@ test("rebuild is byte-deterministic and leaves the source labels unchanged", asy
   assert.deepEqual(await readFile(manifestPath), firstManifestBytes);
   assert.deepEqual(await readFile(join(bundle, "frames", firstManifest.frames[0].path)), firstFrameBytes);
   assert.deepEqual(await readFile(labels), beforeLabels);
-  assert.equal(createHash("sha256").update(await readFile(labels)).digest("hex"), "785ce199e2c7226e5527a771e953d1b78cfed1067179aa04c63b9eba74577e0f");
+  assert.equal(createHash("sha256").update(await readFile(labels)).digest("hex"), "6744e7c0184436789f42c7107d05ead93cf36703bb36372df5f63b82a38f7b56");
 });
 
 test("rejects dimensions, axis, slice, and exact-key mutations with specific reasons", async () => {
@@ -182,7 +183,7 @@ test("rejects string, float, and boolean values in integer fields", async () => 
   await runManifestMutation("string-width", manifest => { manifest.frames[0].width = "65"; }, /frame.width: expected integer/);
   await runManifestMutation("float-slice", manifest => { manifest.frames[0].sliceIndex = 163.5; }, /frame.sliceIndex: expected integer/);
   await runManifestMutation("boolean-margin", manifest => { manifest.crop.marginVoxels = true; }, /crop.marginVoxels: expected integer/);
-  await runManifestMutation("string-count", manifest => { manifest.labels["39"].voxelCount = "559"; }, /label 39.voxelCount: expected integer/);
+  await runManifestMutation("string-count", manifest => { manifest.labels["39"].voxelCount = "561"; }, /label 39.voxelCount: expected integer/);
   await runManifestMutation("boolean-anchor-row", manifest => { manifest.geometry.fourCornerVoxelAnchors.x.corners[0].row = false; }, /geometry\.fourCornerVoxelAnchors\.x\.corners\[0\]\.row: expected integer/);
   await runManifestMutation("float-coverage-index", manifest => { manifest.coverage.axes.x[0] = 163.25; }, /coverage\.axes\.x\[0\]: expected integer/);
 });

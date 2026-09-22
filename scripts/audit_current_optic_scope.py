@@ -123,8 +123,9 @@ def summarize(labels: bytes, dims: tuple[int, int, int], label_id: int) -> dict[
     }
 
 
-def build_report() -> dict[str, object]:
-    current_sha, current_dims, current_labels = read_bbs1(CURRENT, EXPECTED_CURRENT_SHA)
+def build_report(*, replay_source: Path | None = None) -> dict[str, object]:
+    """Reproduce the pinned snapshot; an explicit fixture may supply its historical bytes."""
+    current_sha, current_dims, current_labels = read_bbs1(replay_source or CURRENT, EXPECTED_CURRENT_SHA)
     historical_sha, historical_dims, historical_labels = read_bbs1(HISTORICAL_FIXTURE, EXPECTED_HISTORICAL_SHA)
     old_audit_bytes = OLD_AUDIT.read_bytes()
     if digest(old_audit_bytes) != EXPECTED_OLD_AUDIT_SHA:

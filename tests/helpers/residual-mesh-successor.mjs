@@ -1,7 +1,17 @@
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
+import {gunzipSync} from 'node:zlib';
 const read=p=>readFile(new URL('../../'+p,import.meta.url));
+// Older immutable fibre records name the input sourceSha256. Accept that field
+// without rewriting their pinned bytes, and reject contradictory dual fields.
+export function regionalBeforeSha(record){
+ if(record.beforeSha256!==undefined&&record.sourceSha256!==undefined)
+  assert.equal(record.beforeSha256,record.sourceSha256,'Conflicting regional input revisions');
+ const before=record.beforeSha256??record.sourceSha256;
+ assert.match(before??'',/^[a-f0-9]{64}$/,'Missing regional input revision');
+ return before;
+}
 // Preserve historical start evidence while checking every regional successor link.
 export async function withRegionalBatches(record,{afterRevision=null}={}){
  const meta=JSON.parse(await read('public/atlas/bigbrain-practical-segmentation-icbm500-validation.json'));
@@ -10,17 +20,26 @@ export async function withRegionalBatches(record,{afterRevision=null}={}){
   const bytes=await read(audit.record),next=JSON.parse(bytes);
   assert.equal(createHash('sha256').update(bytes).digest('hex'),audit.recordSha256);
   if(!active){if(next.afterSha256===afterRevision){assert.deepEqual(next,record);active=true;}continue;}
-  assert.equal(next.beforeSha256,result.afterSha256);
-  assert.deepEqual(next.sectionMeshImpact.before,result.sectionMeshImpact.after);
+  assert.equal(regionalBeforeSha(next),result.afterSha256);
+  let sectionImpact=next.sectionMeshImpact;
+  if(!sectionImpact){
+   // This adoption uses a compact record: only anterior commissure/internal capsule changed.
+   assert.equal(name,'anterior-commissure185','Unknown compact regional record');
+   assert.ok(next.points.every(p=>[0,31,32].includes(p.before)&&p.after===42));
+   assert.deepEqual(next.changedSectionMeshes,['section-current-anterior-commissure-partial.mesh','section-current-internal-capsule.mesh']);
+   sectionImpact={before:result.sectionMeshImpact.after,after:{...result.sectionMeshImpact.after,sourceSha256:next.afterSha256,rawVoxelSha256:next.afterRawVoxelSha256}};
+  }
+  assert.deepEqual(sectionImpact.before,result.sectionMeshImpact.after);
   for(const p of next.meshImpact.blockMaskImpact){
-   assert.equal(p.changedMaskVoxels,p.added+p.removed);
-   if(p.changedMaskVoxels){
-    assert.equal(p.beforeMatches,true);assert.equal(p.reproducedBeforeSha256,p.beforeSha256);
+   if(name==='anterior-commissure185')assert.ok(Number.isInteger(p.changed)&&p.changed>=0);
+   else assert.equal(p.changedMaskVoxels,p.added+p.removed);
+   if(p.changedMaskVoxels??p.changed){
+    assert.equal(p.beforeMatches,true);if(name!=='anterior-commissure185')assert.equal(p.reproducedBeforeSha256,p.beforeSha256);
     assert.equal(createHash('sha256').update(await read('tests/fixtures/'+p.file.slice(0,-5)+'-pre-'+name+'.mesh')).digest('hex'),p.beforeSha256);
    }
   }
   result={...result,afterSha256:next.afterSha256,afterRawVoxelSha256:next.afterRawVoxelSha256,
-   sectionMeshImpact:{...result.sectionMeshImpact,after:next.sectionMeshImpact.after}};
+   sectionMeshImpact:{...result.sectionMeshImpact,after:sectionImpact.after}};
  }
  assert.equal(active,true,'Unknown regional starting record');return result;
 }
@@ -31,14 +50,42 @@ export async function regionalMeshSuccessor(file,previousSha,afterRevision=null)
   const bytes=await read(audit.record),r=JSON.parse(bytes);
   assert.equal(createHash('sha256').update(bytes).digest('hex'),audit.recordSha256);
   if(!active){if(r.afterSha256===afterRevision)active=true;continue;}
-  const p=r.meshImpact.blockMaskImpact.find(p=>p.file===file&&p.changedMaskVoxels);
+  const p=r.meshImpact.blockMaskImpact.find(p=>p.file===file&&(p.changedMaskVoxels??p.changed));
   if(!p)continue;
   assert.equal(p.beforeSha256,result?.afterSha256??previousSha);
   assert.equal(createHash('sha256').update(await read('tests/fixtures/'+file.slice(0,-5)+'-pre-'+name+'.mesh')).digest('hex'),p.beforeSha256);
-  result={...p,segmentationSourceSha256:r.afterSha256,
+ result={...p,segmentationSourceSha256:r.afterSha256,
    firstRecoveryPath:result?.firstRecoveryPath??'tests/fixtures/'+file.slice(0,-5)+'-pre-'+name+'.mesh'};
  }
- assert.equal(active,true,'Unknown regional starting revision');return result;
+ assert.equal(active,true,'Unknown regional starting revision');
+ const representation=await fineCavityRepresentationSuccessor(file,result?.afterSha256??previousSha);
+ if(representation)return {...representation,firstRecoveryPath:result?.firstRecoveryPath??representation.firstRecoveryPath};
+ if(result&&(result.vertices===undefined||result.faces===undefined)){
+  // Compact adoption records omit geometry counts. Read them from the mesh
+  // only after proving its bytes are the recorded successor.
+  const bytes=await read('public/atlas/'+file);
+  assert.equal(createHash('sha256').update(bytes).digest('hex'),result.afterSha256);
+  const geometry=bytes[0]===0x1f&&bytes[1]===0x8b?gunzipSync(bytes):bytes;
+  assert.equal(geometry.toString('ascii',0,4),'BNM2');
+  result={...result,vertices:geometry.readUInt32LE(4),faces:geometry.readUInt32LE(8)};
+ }
+ return result;
+}
+// The 2026-09-15 fine-cavity install changes only mesh representation. Keep it
+// after the historical regional chain so old adoption records remain immutable.
+export async function fineCavityRepresentationSuccessor(file,previousSha){
+ const records=await Promise.all(['fine-cavity-mesh-representation-2026-09-15','fine-fourth-mesh-representation-2026-09-20'].map(async name=>JSON.parse(await read('segmentation-patches/review/'+name+'.json'))));
+ const r=records.find(r=>r.meshes.some(p=>p.file===file));
+ const next=r?.meshes.find(p=>p.file===file);
+ if(!next)return null;
+ assert.equal(next.beforeSha256,previousSha);
+ assert.equal(createHash('sha256').update(await read(next.beforeFixture)).digest('hex'),previousSha);
+ const current=await read('public/atlas/'+file);
+ const geometry=current[0]===0x1f&&current[1]===0x8b?gunzipSync(current):current;
+ assert.equal(createHash('sha256').update(current).digest('hex'),next.afterSha256);
+ assert.equal(createHash('sha256').update(geometry).digest('hex'),next.uncompressedSha256);
+ return {...next,segmentationSourceSha256:r.segmentationSourceSha256,
+  firstRecoveryPath:next.beforeFixture};
 }
 export async function lateralCrop34Successor(file,previousSha){
  const r=JSON.parse(await read('segmentation-patches/review/lateral-crop34-adoption-2026-09-07.json'));

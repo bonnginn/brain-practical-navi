@@ -1,0 +1,28 @@
+{
+  "schema": "mesh-representation-successor/v1",
+  "id": "fine-fourth-mesh-representation-2026-09-20",
+  "date": "2026-09-20",
+  "status": "project-adopted-representation-only",
+  "projectAdopted": true,
+  "expertReviewed": false,
+  "changeType": "representation-only",
+  "labelRevision": "unchanged",
+  "segmentationSourceSha256": "15db8e50352584247bc6073a2a78f4c191c68afc26de0d63f2e44615873de4ba",
+  "meshes": [
+    {
+      "file": "block-hindbrain-fourth-ventricle.mesh",
+      "vertices": 5418,
+      "faces": 10856,
+      "shadeMin": 0.82,
+      "shadeMax": 0.82,
+      "meshSha256": "89fd89ac94887eb6f2216b7da2a010b773fd9c5748782992c0c520ea3e6b4912",
+      "beforeFixture": "tests/fixtures/block-hindbrain-fourth-ventricle-pre-fine-20260920.mesh",
+      "beforeSha256": "af53de7d37f185242876f7389685a2a3540e5c65862b74df9ac3c5912f32917f",
+      "afterSha256": "89fd89ac94887eb6f2216b7da2a010b773fd9c5748782992c0c520ea3e6b4912",
+      "uncompressedSha256": "018c8bad9f0553c39e788d115312ca403a65e349cb5d5a593d47779587077479"
+    }
+  ],
+  "rationale": "Preserve all existing fourth-ventricle labels in the hindbrain block at 0.5 mm. No new anatomy, no label or block-bound changes.",
+  "sampledVoxels": 9200,
+  "labelComponents": 1
+}

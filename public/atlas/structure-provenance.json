@@ -266,7 +266,7 @@
       "projectReview": "pending",
       "quizEligibility": "pilot",
       "sourceRefs": ["combined-practical-segmentation", "specimen-block-assets"],
-      "knownLimitations": ["現在は脳幹として一括表示しており、橋と延髄を独立ラベルに分けていません。"],
+      "knownLimitations": ["現在は脳幹として一括表示しており、橋と延髄を独立ラベルに分けていません。BigBrain連続断面の3Dは現行ID27から再構成し、小脳葉との局所境界修正を反映しています。全体の境界確認は未完了です。"],
       "appKeys": ["brainstem"]
     },
     {
@@ -291,7 +291,7 @@
       "projectReview": "pending",
       "quizEligibility": "pilot",
       "sourceRefs": ["combined-practical-segmentation", "mni-cerebra-browser-assets", "specimen-block-assets"],
-      "knownLimitations": ["小脳半球の教育用候補で、葉・虫部の区分や小脳脚の連続性は発展項目です。"],
+      "knownLimitations": ["小脳半球の教育用候補で、葉・虫部の区分や小脳脚の連続性は発展項目です。BigBrain連続断面の3Dは現行ID28・29から再構成し、原画像で確認した197点の局所修正を反映しています。残る塗り落としや孤立成分は完成扱いしていません。"],
       "appKeys": ["cerebellum"]
     },
     {
@@ -436,6 +436,37 @@
      "sourceRefs": ["combined-practical-segmentation"],
      "knownLimitations": ["ID41は中央部と尾側の一部を補修した部分分節で、全長および第三・第四脳室との移行境界は未完成です。断面3Dは同じ259 voxelから再構成し、ブロック標本の模式中脳水道とは区別します。部分採用記録はdocs/AQUEDUCT_PARTIAL_REPAIR.mdおよびdocs/POSTERIOR_VENTRICLES_REPAIR.mdを参照。構造全体の専門家レビューは未完了で、通常クイズの正答対象には含めません。"],
      "appKeys": ["aqueductPartial"]
+    },
+    {
+     "key": "section-anterior-commissure-partial",
+     "lectureLabel": null,
+     "coverage": "app-section-only",
+     "appLabel": "前交連（部分）",
+     "representations": ["image-guided-reviewed"],
+     "learnerSurfaces": ["sections"],
+     "expertReview": "pending",
+     "projectReview": "reviewed-by-project",
+     "projectReviewEvidence": {"reviewerRole": "project lead", "date": "2026-09-16", "documentRef": "scripts/stage_anterior_commissure_core416.py"},
+     "quizEligibility": "none",
+     "sourceRefs": ["combined-practical-segmentation"],
+     "literatureRefs": ["https://pubmed.ncbi.nlm.nih.gov/3941867/"],
+     "knownLimitations": ["ID42は原画像で追跡した前交連内部の部分分節です。全外縁、側頭葉への終末、内包近傍への接続は未収録で、完全な連続路ではありません。BigBrain断面専用で、MNI・脳表モデルへ混用せず、通常クイズの正答対象には含めません。"],
+     "appKeys": ["anteriorCommissurePartial"]
+    },
+    {
+     "key": "section-septum-pellucidum-partial",
+     "lectureLabel": null,
+     "coverage": "app-section-only",
+     "appLabel": "透明中隔（部分）",
+     "representations": ["image-guided-reviewed"],
+     "learnerSurfaces": ["sections"],
+     "expertReview": "pending",
+     "projectReview": "reviewed-by-project",
+     "projectReviewEvidence": {"reviewerRole": "project lead", "date": "2026-09-16", "documentRef": "scripts/stage_septal_membrane282.py"},
+     "quizEligibility": "none",
+     "sourceRefs": ["combined-practical-segmentation"],
+     "knownLimitations": ["ID43は側脳室前角間の薄い隔壁の内部282 voxelだけを収録した部分分節です。膜全体、中隔核、脳弓を完成分節したものではなく、間隙と細い箇所は未収録です。BigBrain断面専用で、MNI・脳表・既存模式モデルへ混用せず、通常クイズの正答対象には含めません。"],
+     "appKeys": ["septumPellucidumPartial"]
     },
     {
      "key": "section-fornix",
@@ -1014,6 +1045,141 @@
       "sourceRefs": ["bigbrain-manual-labels", "specimen-block-assets"],
       "knownLimitations": ["講義監査行は外節・内節を個別に記録していますが、アプリの通常クイズ正答は淡蒼球全体です。外節（GPe）は内部の中継・調節部、内節（GPi）は主要出力部という機能差を教材文言で示し、外節・内節の境界を一問の正答として要求しません。"],
       "appKeys": ["pallidum"]
+    },
+    {
+      "key": "section-lateral-geniculate-bodies",
+      "lectureLabel": null,
+      "coverage": "app-section-only",
+      "appLabel": "外側膝状体",
+      "representations": [
+        "image-guided-reviewed"
+      ],
+      "learnerSurfaces": [
+        "sections"
+      ],
+      "expertReview": "pending",
+      "projectReview": "reviewed-by-project",
+      "projectReviewEvidence": {
+        "reviewerRole": "AI-assisted project review",
+        "date": "2026-09-16",
+        "documentRef": "docs/LATERAL_GENICULATE_LAYERS_2026-09-16.md"
+      },
+      "quizEligibility": "none",
+      "sourceRefs": [
+        "combined-practical-segmentation"
+      ],
+      "literatureRefs": [
+        "https://doi.org/10.1007/978-3-030-82427-3_2",
+        "https://doi.org/10.25493/33Z0-BX"
+      ],
+      "knownLimitations": [
+        "ID44・45は同一BigBrain標本の公開6層分節の和集合を公式フル変換で0.5 mm格子へ最近傍再標本化したものです。隙間補間はしていません。視索・視放線は未完成で、視覚路全体の連続分節ではありません。元データの専門家注釈と、本プロジェクトでのAI照合による採用（専門家未確認）を区別します。断面専用で、既存の模式膝状体へ混用しません。"
+      ],
+      "appKeys": [
+        "lateralGeniculateBodies"
+      ]
+    },
+    {
+      "key": "section-fornix-body-partial",
+      "lectureLabel": null,
+      "coverage": "app-section-only",
+      "appLabel": "脳弓・海馬采（部分）",
+      "representations": [
+        "image-guided-reviewed"
+      ],
+      "learnerSurfaces": [
+        "sections",
+        "surface",
+        "blocks"
+      ],
+      "expertReview": "pending",
+      "projectReview": "reviewed-by-project",
+      "quizEligibility": "none",
+      "sourceRefs": [
+        "combined-practical-segmentation"
+      ],
+      "literatureRefs": [
+        "https://doi.org/10.1038/s42003-022-03692-3"
+      ],
+      "knownLimitations": [
+        "ID46は同一BigBrain標本の原画像を参照した脳弓の体部・脚・柱と両側海馬采の部分分節です。乳頭体に接する交連後下行部は教材用の概略範囲で、精密な終端、海馬采全長、全外縁、個々の投射は未確定です。断面・自由観察の3Dと、ブロック切断面に現れる範囲で表示します。旧来の模式脳弓とは由来を区別し、通常クイズの正答対象には含めません。"
+      ],
+      "appKeys": [
+        "fornixBodyPartial"
+      ],
+      "projectReviewEvidence": {
+        "reviewerRole": "AI-assisted project review",
+        "date": "2026-09-20",
+        "documentRef": "docs/FORNIX_POSTCOMMISSURAL939_INTEGRATION_2026-09-20.md"
+      }
+    },
+    {
+      "key": "section-optic-chiasm-central-partial",
+      "lectureLabel": null,
+      "coverage": "app-section-only",
+      "appLabel": "視交叉中央部（部分）",
+      "representations": [
+        "image-guided-reviewed"
+      ],
+      "learnerSurfaces": [
+        "sections"
+      ],
+      "expertReview": "pending",
+      "projectReview": "reviewed-by-project",
+      "quizEligibility": "none",
+      "sourceRefs": [
+        "combined-practical-segmentation"
+      ],
+      "literatureRefs": [
+        "https://cma.mgh.harvard.edu/wp-content/uploads/2023/04/HOA-Subcortical-Brain-Structure-Segmentation-Manual.pdf"
+      ],
+      "knownLimitations": [
+        "同一BigBrain標本のnative原画像を確認して作成した、視交叉中央部の内部を部分的に示すラベルです。全外縁、視神経・視索との境界、交叉線維の走行、視放線までの連続性は収録していません。画像確認済みですが、専門家レビューは未完了です。"
+      ],
+      "appKeys": [
+        "opticChiasmPartial"
+      ],
+      "projectReviewEvidence": {
+        "reviewerRole": "AI-assisted project review",
+        "date": "2026-09-19",
+        "documentRef": "docs/OPTIC_CENTRAL112_INTEGRATION_2026-09-19.md"
+      }
+    },
+    {
+      "key": "section-optic-tracts-partial",
+      "lectureLabel": null,
+      "coverage": "app-section-only",
+      "appLabel": "視索（部分）",
+      "representations": [
+        "image-guided-reviewed"
+      ],
+      "learnerSurfaces": [
+        "sections"
+      ],
+      "expertReview": "pending",
+      "projectReview": "reviewed-by-project",
+      "quizEligibility": "none",
+      "sourceRefs": [
+        "combined-practical-segmentation"
+      ],
+      "literatureRefs": [
+        "https://cancerdata.org/tutorial/eptn-neuro-atlas-video-optic-tract/"
+      ],
+      "knownLimitations": [
+        "同一BigBrain標本のnative原画像から追った左右の視索内部の短い区間を部分的に示します。全外縁、視交叉・外側膝状体への連続性、視放線は未収録で、AIによるプロジェクト採用・専門家未確認です。"
+      ],
+      "appKeys": [
+        "opticTractsPartial"
+      ],
+      "labelIds": [
+        37,
+        38
+      ],
+      "projectReviewEvidence": {
+        "reviewerRole": "AI-assisted project review",
+        "date": "2026-09-19",
+        "documentRef": "docs/OPTIC_TRACT77_INTEGRATION_2026-09-19.md"
+      }
     }
   ],
   "quizTargets": [

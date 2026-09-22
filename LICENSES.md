@@ -2,6 +2,8 @@
 
 更新日: 2026-09-08
 
+2026-09-16追加データ：外側膝状体ID44・45および対応meshは[Schiffer et al. のBigBrain LGB層分節](https://doi.org/10.25493/33Z0-BX)を再標本化した派生物で、[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)を保持する。BigBrain由来の部分脳弓ID46もBigBrainの同条件に従う。コードのライセンスで第三者データの条件を置き換えない。詳細な著者名と変換内容は配布物の `atlas/ATTRIBUTION.txt` に記載する。
+
 このリポジトリは、コード、自作教材文書、第三者データを分けて扱います。個々のファイルに別の表示がある場合は、その表示が優先します。
 
 ## 1. アプリケーションコード

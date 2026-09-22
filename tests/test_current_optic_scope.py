@@ -73,7 +73,7 @@ class CurrentOpticScopeTests(unittest.TestCase):
             with zipfile.ZipFile(ROOT / "tests/fixtures/schematic-roots-pre-20260915.zip") as archive:
                 old_provenance.write_bytes(archive.read("public/atlas/structure-provenance.json"))
             with patch.object(audit, "PROVENANCE", old_provenance):
-                regenerated = audit.build_report()
+                regenerated = audit.build_report(replay_source=ROOT / "tests/fixtures/bigbrain-practical-segmentation-pre-lateral-roof8.bin.gz")
         current_document = json.loads((ROOT / "public/atlas/structure-provenance.json").read_text(encoding="utf-8"))
         current_entry = next(entry for entry in current_document["entries"] if entry.get("key") == audit.PROVENANCE_KEY)
         with zipfile.ZipFile(ROOT / "tests/fixtures/schematic-roots-pre-20260915.zip") as archive:

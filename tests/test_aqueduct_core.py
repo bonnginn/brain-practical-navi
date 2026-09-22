@@ -1,4 +1,5 @@
 import copy
+import hashlib
 import gzip
 import json
 from pathlib import Path
@@ -19,11 +20,21 @@ class AqueductTest(unittest.TestCase):
     def test_partial_mesh_reproduces_only_id41_without_legacy_group_changes(self):
         from build_partial_aqueduct_mesh import build,ADOPTION
         from build_section_ventricle_meshes import GROUPS
-        source=(ROOT/'public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz').read_bytes()
+        source=(ROOT/'tests/fixtures/bigbrain-practical-segmentation-pre-fimbria-left128.bin.gz').read_bytes()
         record=(ROOT/ADOPTION).read_bytes();mesh,report=build(source,record)
         self.assertEqual(mesh,(ROOT/'public/atlas/section-current-aqueduct-partial.mesh').read_bytes())
-        self.assertEqual(report,json.loads((ROOT/'public/atlas/section-current-aqueduct-partial.json').read_bytes()))
-        self.assertEqual(report['voxels'],259);self.assertTrue(report['partialExtent']);self.assertFalse(report['expertReviewed'])
+        current_report=json.loads((ROOT/'public/atlas/section-current-aqueduct-partial.json').read_bytes())
+        comparable={k:v for k,v in report.items() if k not in ('adoption','adoptionSha256','sourceSha256')}
+        self.assertEqual({k:current_report[k] for k in comparable},comparable)
+        current=(ROOT/'public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz').read_bytes()
+        self.assertEqual(current_report['sourceSha256'],hashlib.sha256(current).hexdigest())
+        np.testing.assert_array_equal(np.frombuffer(gzip.decompress(source),np.uint8,offset=10)==41,
+                                      np.frombuffer(gzip.decompress(current),np.uint8,offset=10)==41)
+        historical=json.loads((ROOT/'tests/fixtures/section-current-aqueduct-partial-pre-upper-fourth-gap.json').read_bytes())
+        self.assertEqual(historical['sourceSha256'],'d7fc87b5b18e1221c2979aeab9d6fefeefcfd4d353cfc78cab782930f32f8e29')
+        self.assertEqual(historical['sha256'],'22b992bfa93ec644aaf29d7644aebe12b50513b27c877941c70c65e641a4eeef')
+        self.assertEqual(report['sha256'],hashlib.sha256(mesh).hexdigest())
+        self.assertEqual(report['voxels'],267);self.assertTrue(report['partialExtent']);self.assertFalse(report['expertReviewed'])
         self.assertEqual(len(GROUPS),4)
         for bad_source,bad_record in [(source+b'x',record),(source,record+b'x')]:
             with self.assertRaises(ValueError):build(bad_source,bad_record)

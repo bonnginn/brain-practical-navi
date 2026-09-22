@@ -11,7 +11,7 @@
 - 8種類のブロック標本と、名称・機能・位置関係を学ぶ復習クイズ
 - PC・タブレット・スマートフォン、日本語・英語に対応
 
-現在は**公開α版**です。クイズは全100問を作成済みですが、模型の配置に課題がある8問を保留し、現在の出題対象は92問です。設定により実際の出題範囲は変わります。
+現在は**公開β版**です。クイズは全100問を作成済みですが、模型の配置に課題がある8問を保留し、現在の出題対象は92問です。設定により実際の出題範囲は変わります。
 
 分節・模式表示には未完成の部分があり、専門家レビューは完了していません。教科書等と照合して使用してください。診断・治療・手術計画・定量研究には使用できません。特定の大学・部局の公式教材や承認済み事業ではありません。
 
@@ -22,7 +22,7 @@
 
 **English edition (project-reviewed preview)** — explore brain surfaces, three orthogonal section planes, eight specimen-block views, and quizzes on identification, function and anatomical relationships. The interface supports desktop, tablet and phone screens. The English edition does not recruit collaborators.
 
-This is a **public alpha**, not an expert-validated atlas. Of 100 authored questions, 92 are currently eligible; eight are withheld because of model-placement limitations. Available questions also depend on quiz settings. Segmentations and schematic models remain incomplete and must be checked against reliable teaching references. Do not use this app for clinical decisions, surgical planning or quantitative research. It is not an officially endorsed university resource.
+This is a **public beta**, not an expert-validated atlas. Of 100 authored questions, 92 are currently eligible; eight are withheld because of model-placement limitations. Available questions also depend on quiz settings. Segmentations and schematic models remain incomplete and must be checked against reliable teaching references. Do not use this app for clinical decisions, surgical planning or quantitative research. It is not an officially endorsed university resource.
 
 [Brodmann surface observation](docs/BRODMANN_SURFACE_OBSERVATION.md) supports multiple selection, colouring and selective hiding of 41 areas. Individual cortical regions also have location and function explanations.
 It also includes function summaries, three circuit guides, responsive text sizes and [revised nerve schematics](docs/SEPTEMBER15_SCHEMATIC_COMPLETION.md).

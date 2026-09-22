@@ -1,5 +1,9 @@
 # データ、権利、出典
 
+2026-09-16開発版：外側膝状体ID44・45はSchiffer, Brandstetter, Bolakhrif, Mohlberg, Amunts, Dickscheidによる同一BigBrain標本の[公開LGB層分節](https://doi.org/10.25493/33Z0-BX)を使用する。CC BY-NC-SA 4.0。公式座標変換、0.5 mm最近傍再標本化、左右別6層の和集合、圧縮、無平滑mesh生成を行った。脳弓体部部分ID46はBigBrain原画像に基づくプロジェクト分節であり、同じBigBrainの非営利・継承条件を保持する。[LGN採用範囲](docs/LATERAL_GENICULATE_LAYERS_2026-09-16.md)・[脳弓体部の収録範囲](docs/FORNIX_BODY_PARTIAL_2026-09-16.md)。元データの注釈、本プロジェクトの画像照合、専門家による本教材の確認を区別する。
+
+English: Development IDs44/45 derive from the published same-specimen LGB layer map by Schiffer et al. (DOI 10.25493/33Z0-BX, CC BY-NC-SA 4.0), transformed through the official registration, nearest-neighbour resampled at 0.5 mm and unioned across six layers per side. ID46 is a project-reviewed partial fornix body derived from BigBrain images. Neither addition represents a complete visual pathway or fornix. Credits and modifications are bundled in `public/atlas/ATTRIBUTION.txt`.
+
 開発版の `section-current-*.mesh` は現在のBigBrain実習分節から全範囲を再構成した脳室表示です。原資料・分節の既存条件を継承し、新たな専門家確定データとは扱いません。[生成法・SHA・適用範囲](docs/SECTION_VENTRICLE_MESH_SYNC.md)
 
 分節の原画像・ラベル・位置合わせ資料と参考文献は [分節の出典索引](docs/SEGMENTATION_REFERENCES.md) から参照できます。
@@ -69,6 +73,7 @@
 - `public/atlas/bigbrain-icbm500.bin.gz`
 - `public/atlas/bigbrain-fixed-mri-0444.bin.gz`
 - `public/atlas/block-*.mesh`
+- `public/atlas/teaching-block-*.mesh`：同じ画像・採用済み分節から作った不透明な仮想剖出標本。現在の表示は周囲組織を残した平面切断を基本とし、右側脳室は上方・側頭部の開放、および側方も開放した別案を含む。共通の1 mm組織表面に、0.5 mmの採用ラベルから着色区画を割り当てる。腔の補助鋳型は0.5 mm。表面の軽い平滑化・原画像由来の濃淡・gzip圧縮を含む。旧仮想剖出部品も履歴として保持。元の分節は変更しない。部品ごとの由来、組織／構造／腔鋳型／模式の区別、入力・出力SHAは `app/teachingSpecimens.json` に記録する。
 - `public/atlas/specimen-blocks.json`
 - BigBrain画像を基に計算された表示・試作ラベル
 
@@ -348,3 +353,7 @@ BigBrain元手動区画へ公式変位場を適用した高精度候補から、
 さらに正中表面4点（MIDLINE_SURFACE_REPAIR.md）、下端支持範囲外3,385点と外表面の隙間620点（BRAINSTEM_INFERIOR_SUPPORT_REVIEW.md）、側縁・背側466点（BRAINSTEM_LATERAL_DORSAL_REVIEW.md）を未ラベルへ修正した。現行版e7e61a70…は最後の記録を参照。献体の組織不存在や解剖学的な脳幹下端の確定を意味せず、専門家・原提供者の承認を示さない。元画像・ライセンスは変更していない。
 
 原画像を変更せず、三方向で画像確認した孤立40 voxel、続いて16 voxelと27 voxel（計83）を27→0へ変更した。AI支援プロジェクト採用であり、専門家・原提供者による承認ではない。元のライセンス・帰属を保持する。現行SHA82384fa6…、可逆差分・修正前fixture・再現方法は BRAINSTEM_ISLAND_REPAIR.md。
+
+2026-09-19開発版：視交叉中央部（部分）ID36は同一BigBrainの40／100 µm原画像から内部112点を選び、0.5 mm格子で無平滑・無補間の断面3Dを作成した派生データ。BigBrainのCC BY-NC-SA 4.0条件を継承する。全外縁・視神経・視索・視放線の完成を示さない。[統合記録](docs/OPTIC_CENTRAL112_INTEGRATION_2026-09-19.md)。
+
+English: Partial central optic chiasm ID36 is a project-reviewed derivative of the same BigBrain specimen, based on native 40/100 µm images. Its 112-voxel interior and unsmoothed section mesh retain BigBrain CC BY-NC-SA 4.0 terms; this is not a complete optic chiasm or visual pathway and is not expert-reviewed.

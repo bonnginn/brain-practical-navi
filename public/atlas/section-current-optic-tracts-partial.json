@@ -1,0 +1,49 @@
+{
+  "voxels": 2934,
+  "components6": 3,
+  "componentSizes": [
+    1491,
+    1440,
+    3
+  ],
+  "boundsZYX": [
+    [
+      101,
+      224,
+      146
+    ],
+    [
+      128,
+      275,
+      245
+    ]
+  ],
+  "vertices": 4262,
+  "faces": 8580,
+  "sha256": "ab33cd8332a565926718d0e04ff8c05ede706af1bff963296c5422f39695d3f3",
+  "bytes": 57705,
+  "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
+  "sourceSha256": "a0be53bb43f2316bd9100903d6e81ac65b23fe6830c3500cd18c4acba5883417",
+  "labelIds": [
+    37,
+    38
+  ],
+  "labelVoxelCounts": {
+    "37": 1494,
+    "38": 1440
+  },
+  "sourceSamplingMm": 0.5,
+  "displayOriginZYX": [
+    -90.0,
+    -116.0,
+    -98.0
+  ],
+  "method": "native-image-reviewed short interior portions; marching cubes 0.5; no smoothing, filling or component removal",
+  "rawSha256": "69626766a4aacea33580a00e5c751cfccd40c9357131c80ffd89968392537faf",
+  "rawBytes": 222308,
+  "compression": "gzip",
+  "expertReviewed": false,
+  "partialExtent": true,
+  "scope": "Source-traced bilateral optic tracts extended along visible surface bands to contact the same-specimen LGN labels. Deep margins and the terminal naming boundary are approximate teaching boundaries on a 0.5 mm grid. Individual fibre trajectories, complete tract cross-sections and optic radiations are not established. Not expert-reviewed.",
+  "reviewRecord": "segmentation-patches/review/optic-lgn1267-adoption-2026-09-20.json"
+}

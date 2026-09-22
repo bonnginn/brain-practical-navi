@@ -17,9 +17,25 @@ segmentation-patches/review/*-2026-09-12-lateral-posterior196.json whitespace=cr
 segmentation-patches/review/*-2026-09-12-lateral-medial-islands11.json whitespace=cr-at-eol
 
 tests/fixtures/section-current-aqueduct-partial-pre-superomedial75.json -text
+tests/fixtures/section-current-aqueduct-partial-pre-lateral-roof8.json -text
+tests/fixtures/section-current-internal-capsule-pre-lateral-roof8.json -text
+tests/fixtures/section-current-aqueduct-partial-pre-upper-fourth-gap.json -text
+tests/fixtures/section-current-internal-capsule-pre-upper-fourth-gap.json -text
 segmentation-patches/review/*-2026-09-12-superomedial75.json whitespace=cr-at-eol
 
 # Brodmann input lock and reproducible generated records are byte-pinned too.
 scripts/brodmann-source-lock.json -text whitespace=cr-at-eol
 public/atlas/brodmann-surface.json -text
 public/atlas/BRODMANN-FREESURFER-NOTICE.txt -text
+tests/fixtures/section-current-ventricles-pre-upper-fourth-gap.json -text
+tests/fixtures/section-current-*-pre-aqueduct-fourth44.json -text
+tests/fixtures/section-current-*-pre-right-foramen36.json -text
+tests/fixtures/section-current-*-pre-lgn-layers2571.json -text
+tests/fixtures/section-current-*-pre-fornix-body987.json -text
+tests/fixtures/section-current-*-pre-fornix-descent108.json -text
+tests/fixtures/section-current-*-pre-fornix-column56.json -text
+segmentation-patches/review/fornix-descent-draft-2026-09-19.json whitespace=cr-at-eol
+
+tests/fixtures/section-current-*-pre-fornix-lower-column23.json -text
+
+tests/fixtures/section-current-*-pre-optic-central112.json -text

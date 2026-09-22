@@ -1,3 +1,4 @@
+import {LEARNER_PROVENANCE_MAPPINGS} from "../src/learnerProvenance.mjs";
 import assert from "node:assert/strict";
 import {copyFile, mkdtemp, readFile, rm, writeFile} from "node:fs/promises";
 import os from "node:os";
@@ -24,8 +25,8 @@ test("current beta snapshot is derived from the checked-in authoritative contrac
   const report = auditCurrentBetaSnapshot({snapshot});
   assert.equal(report.ok, true, report.errors.join("; "));
   assert.deepEqual(report.summary, {
-    registryEntryCount: 76,
-    mappingCount: 223,
+    registryEntryCount: 82,
+    mappingCount: LEARNER_PROVENANCE_MAPPINGS.length,
     routeChecks: 162,
     pwaChecks: 20,
     pwaBlockerCount: 0,
@@ -34,8 +35,8 @@ test("current beta snapshot is derived from the checked-in authoritative contrac
 });
 
 test("snapshot records the current review, quiz, and route boundaries", () => {
-  assert.deepEqual(snapshot.provenance.reviewFilterCounts, {surface: 54, sections: 17, blocks: 30, quiz: 25});
-  assert.deepEqual(snapshot.provenance.learnerMappings, {total: 223, resolved: 223});
+  assert.deepEqual(snapshot.provenance.reviewFilterCounts, {surface: 55, sections: 23, blocks: 31, quiz: 25});
+  assert.deepEqual(snapshot.provenance.learnerMappings, {total: LEARNER_PROVENANCE_MAPPINGS.length, resolved: LEARNER_PROVENANCE_MAPPINGS.length});
   assert.deepEqual(snapshot.quiz, {existingQuestionCount: 23, neurovascularPilotCount: 22, conceptVariantCount: 55, uniqueVisualTargetCount: 45, totalQuestionCount: 100});
   assert.deepEqual(snapshot.routes, {canonicalRouteCount: 27, viewportCount: 3, phaseCount: 2, expectedChecks: 162});
 });
@@ -153,7 +154,7 @@ test("snapshot records the fixed unverified boundary set without implying comple
       authority: "administrator / feedback-channel maintainer",
       blockingAuthority: "administrator / feedback-channel maintainer",
       boundary: "rights documents, external feedback operations, and publication-screen operations",
-      unprovenScope: "現行外部フォームはα版表記のまま。版名非依存表記の適用、ログアウト状態の全3ページ、テスト回答、Google Formsと回答シート双方からの削除、管理者による運用確認は未完了。",
+      unprovenScope: "最新フォームのログアウト環境での送信は未確認。共同制作条件は2026-09-22に管理者承認済み。9月22日の日英テスト送信・両保存先からの削除はログイン済み環境で確認した。",
     },
     {
       id: "physical-os-networking",
@@ -219,10 +220,10 @@ test("snapshot keeps optic-pathway adoption boundaries explicit", () => {
     legacyEntryLearnerMappingCount: 0,
   });
   assert.deepEqual(snapshot.opticPathway.ids36To38, {
-    status: "unsegmented",
-    perId: {"36": {adopted: false}, "37": {adopted: false}, "38": {adopted: false}},
-    anyAdopted: false,
-    allAdopted: false,
+    status: "partially-adopted",
+    perId: {"36": {adopted: true}, "37": {adopted: true}, "38": {adopted: true}},
+    anyAdopted: true,
+    allAdopted: true,
     expertReviewPending: true,
   });
   assert.deepEqual(snapshot.opticPathway.ids39To40, {

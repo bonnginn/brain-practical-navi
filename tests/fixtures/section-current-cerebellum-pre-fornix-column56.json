@@ -1,0 +1,110 @@
+{
+  "voxels": 1461146,
+  "components6": 51,
+  "componentSizes": [
+    1460624,
+    40,
+    40,
+    24,
+    24,
+    24,
+    24,
+    16,
+    16,
+    16,
+    16,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    6,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2
+  ],
+  "boundsZYX": [
+    [
+      7,
+      81,
+      79
+    ],
+    [
+      148,
+      224,
+      310
+    ]
+  ],
+  "vertices": 160698,
+  "faces": 321540,
+  "sha256": "12ecfccb5abc1a3d8e45b77b47f06b287b32ecd18cb65bd0e8e9c033764f8393",
+  "bytes": 1953170,
+  "labelIds": [
+    28,
+    29
+  ],
+  "sourceSha256": "cb0e727292c6d677e26063a506b07dee793a7b5058f6bf8fb820d0dfbc106c74",
+  "rawSha256": "c1eeeb91a8e7ec19f76ad79db09947047246c42d0dbbed29aca4711919245654",
+  "storedSha256": "12ecfccb5abc1a3d8e45b77b47f06b287b32ecd18cb65bd0e8e9c033764f8393",
+  "rawBytes": 8358036,
+  "storedBytes": 1953170,
+  "meshBoundsZYXmm": [
+    [
+      -86.75,
+      -75.75,
+      -58.75
+    ],
+    [
+      -15.75,
+      -3.75,
+      57.25
+    ]
+  ],
+  "storage": "deterministic gzip containing BNM2",
+  "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
+  "sourceSamplingMm": 0.5,
+  "displayOriginZYX": [
+    -90.0,
+    -116.0,
+    -98.0
+  ],
+  "method": "marching cubes 0.5; no resampling, smoothing, filling or component removal",
+  "scope": "Current BigBrain section labels only. Includes the project-reviewed local cerebellar folia repair; remaining boundaries are not expert-validated.",
+  "labelVoxelCounts": {
+    "28": 736104,
+    "29": 725042
+  },
+  "compression": "gzip",
+  "reviewRecord": "segmentation-patches/review/cerebellar-folia197-adoption-2026-09-16.json"
+}

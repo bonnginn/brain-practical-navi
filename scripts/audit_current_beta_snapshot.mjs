@@ -93,6 +93,9 @@ const PROVENANCE_RELATIVE_PATH = "public/atlas/structure-provenance.json";
 const PAGE_RELATIVE_PATH = "app/page.tsx";
 const PWA_AUDIT_RELATIVE_PATH = "PWA_OFFLINE_AUDIT.md";
 const OPTIC_AUDIT_RELATIVE_PATH = "OPTIC_PATHWAY_AUDIT.md";
+const OPTIC_ADOPTION_RELATIVE_PATH = "segmentation-patches/review/optic-central112-adoption-2026-09-19.json";
+const OPTIC_CHIASM_ASSET_RELATIVE_PATH = "public/atlas/section-current-optic-chiasm-partial.json";
+const OPTIC_TRACTS_ASSET_RELATIVE_PATH = "public/atlas/section-current-optic-tracts-partial.json";
 const PROVENANCE_NOTES_RELATIVE_PATH = "STRUCTURE_PROVENANCE.md";
 export const SNAPSHOT_MARKER_DOCUMENTS = Object.freeze([
   "BETA_OBSERVATION_NOTES.md",
@@ -119,6 +122,9 @@ const AUTHORITATIVE_SOURCES = Object.freeze([
   "PWA_INSTALL_AFFORDANCE_AUDIT.md",
   "BETA_READINESS_DISPLAY_AUDIT.md",
   OPTIC_AUDIT_RELATIVE_PATH,
+  OPTIC_ADOPTION_RELATIVE_PATH,
+  OPTIC_CHIASM_ASSET_RELATIVE_PATH,
+  OPTIC_TRACTS_ASSET_RELATIVE_PATH,
   PROVENANCE_NOTES_RELATIVE_PATH,
   ...SNAPSHOT_MARKER_DOCUMENTS.filter(document => document !== PROVENANCE_NOTES_RELATIVE_PATH),
 ]);
@@ -386,16 +392,28 @@ export function deriveUnverifiedBoundaries(rootDir = REPOSITORY_ROOT) {
 
 function deriveOpticFacts(rootDir, registry, standardQuestions) {
   const auditText = `${readText(rootDir, OPTIC_AUDIT_RELATIVE_PATH)}\n${readText(rootDir, PROVENANCE_NOTES_RELATIVE_PATH)}`;
+  const adoption = readJson(rootDir, OPTIC_ADOPTION_RELATIVE_PATH);
+  const chiasmAsset = readJson(rootDir, OPTIC_CHIASM_ASSET_RELATIVE_PATH);
+  const tractsAsset = readJson(rootDir, OPTIC_TRACTS_ASSET_RELATIVE_PATH);
   const legacy = registry.entries.find(entry => entry?.legacyIds?.includes(33));
   const mammillary = registry.entries.find(entry => entry?.labelIds?.includes(39) && entry?.labelIds?.includes(40));
   const legacyEntryLearnerMappingCount = legacy
     ? LEARNER_PROVENANCE_MAPPINGS.filter(mapping => mapping.entryKeys?.includes(legacy.key)).length
     : -1;
-  const perId = Object.fromEntries([36, 37, 38].map(id => [String(id), {
-    adopted: registry.entries.some(entry => entry?.labelIds?.includes(id)),
-  }]));
+  const assetById = new Map([
+    ...((chiasmAsset?.labelIds ?? []).map(id => [id, chiasmAsset])),
+    ...((tractsAsset?.labelIds ?? []).map(id => [id, tractsAsset])),
+  ]);
+  const perId = Object.fromEntries([36, 37, 38].map(id => {
+    const asset = assetById.get(id);
+    return [String(id), {
+      adopted: Array.isArray(asset?.labelIds) && asset.labelIds.includes(id)
+        && asset.partialExtent === true && asset.expertReviewed === false,
+    }];
+  }));
   const anyAdopted = Object.values(perId).some(value => value.adopted);
   const allAdopted = Object.values(perId).every(value => value.adopted);
+  const anyPartialExtent = [chiasmAsset, tractsAsset].some(asset => asset?.partialExtent === true);
   const id36To38AreUnsegmented = !anyAdopted
     && /ID 36–38[\s\S]{0,220}(?:機械分割せず|機械分割しません|未完了|分節待ち|未分節)/.test(auditText)
     && /専門家確認待ち|専門家レビュー待ち/.test(auditText);
@@ -409,11 +427,12 @@ function deriveOpticFacts(rootDir, registry, standardQuestions) {
       legacyEntryLearnerMappingCount,
     },
     ids36To38: {
-      status: allAdopted ? "adopted" : anyAdopted ? "partially-adopted" : id36To38AreUnsegmented ? "unsegmented" : "unknown",
+      status: allAdopted && !anyPartialExtent ? "adopted" : anyAdopted ? "partially-adopted" : id36To38AreUnsegmented ? "unsegmented" : "unknown",
       perId,
       anyAdopted,
       allAdopted,
-      expertReviewPending: !allAdopted && /専門家確認待ち|専門家レビュー待ち/.test(auditText),
+      expertReviewPending: ["opticChiasmPartial", "opticTractsPartial"].some(key =>
+        registry.entries.some(entry => entry?.appKeys?.includes(key) && entry?.expertReview === "pending")),
     },
     ids39To40: {
       status: mammillary?.projectReview === "reviewed-by-project" ? "adopted-project-reviewed" : "unknown",

@@ -2,7 +2,57 @@
 
 利用方法は [トップのREADME](../README.md)、現在地・作業期限と次の作業は [短い再開メモ](RESUME_SUMMARY.md) を参照してください。
 
-## まず読む資料
+## 作業に応じた入口
+
+一覧の全件読込は不要です。現在の依頼に合う入口から参照してください。
+
+| 作業 | 入口 |
+| --- | --- |
+| β公開準備・現在の残件 | [β公開準備](BETA_RELEASE_PREPARATION_2026-09-22.md) |
+| 実行・UI・フォーム設定 | [開発ガイド](DEVELOPMENT.md) |
+| 分節・メッシュ・公開・検証 | [作業別ガイド](AGENT_TASK_GUIDE.md) |
+| 開発／公開の現在値・残件 | [再開メモ](RESUME_SUMMARY.md) |
+| 指示の構成と見直し根拠 | [9月18日指示監査](INSTRUCTION_AUDIT_2026-09-18.md) |
+
+## 個別記録・過去の作業枠
+
+以下は参照用索引です。各文書の「現在」「次」「停止」「担当」はその記録日・作業枠に属します。新しい再開メモと現在のユーザー指示を優先し、過去の承認を別の公開操作へ流用しません。ハッシュ固定の証拠はこの注釈のために書き換えません。
+
+- [整理前AGENTS.mdの保存履歴](AGENTS_HISTORY_2026-09-18.md)
+- [BigBrain広域調査の確認：海馬・扁桃体、BraDiPho、小脳、内側膝状体](BIGBRAIN_SURVEY_VERIFICATION_2026-09-20.md)
+- [モンロー孔：全体位置・原画像・現行ラベルの観察案内](MONRO_OBSERVATION_GUIDE_2026-09-19.md)
+- [視交叉・近位視索：native40の目印照合と次の境界比較](OPTIC_LANDMARK_REVIEW_2026-09-19.md)
+- [脳弓体部の前方延長：266点の未適用候補](FORNIX_ANTERIOR_DRAFT_2026-09-19.md)
+- [脳弓体部の前方延長・統合](FORNIX_ANTERIOR_INTEGRATION_2026-09-19.md)
+- [脳弓前方：柱を追うための下方ランドマーク確認](FORNIX_ANTERIOR_CONTEXT_2026-09-19.md)
+- [脳弓体部・前方移行部：269点の追加](FORNIX_CONTINUATION_2026-09-19.md)
+- [脳弓前方下降部：108点の追加](FORNIX_DESCENT_INTEGRATION_2026-09-19.md)
+- [脳弓柱上部内部56点：採否と統合](FORNIX_COLUMN56_INTEGRATION_2026-09-19.md)
+- [脳弓柱下方の原画像照合](FORNIX_LOWER_COLUMN_REVIEW_2026-09-19.md)：柱上部の下方と前交連付近の判断範囲を区別。
+- [脳弓柱下方の内部23候補](FORNIX_LOWER_COLUMN_DRAFT_2026-09-19.md)：原画像で照合した未適用候補と統合前の条件。
+- [脳弓柱内部58点の未適用候補・確認済み断面と残る確認](FORNIX_COLUMN_INTERIOR_DRAFT_2026-09-19.md)
+- [脳弓柱：前交連・乳頭体との広域照合と次の内部候補範囲](FORNIX_COLUMN_SOURCE_REVIEW_2026-09-19.md)
+- [脳弓下降部：40 µm原画像の比較](FORNIX_DESCENT_NATIVE40_2026-09-19.md)
+- [9月18日整理前の再開メモ保存履歴](RESUME_HISTORY_2026-09-18.md)
+
+- [断面併設3D：全26項目の左右表示確認と修正](SECTION_BILATERAL_MODELS_2026-09-16.md)
+
+- [脳弓・視覚路の境界を決める資料と手順](FIBER_BOUNDARY_METHODS_2026-09-16.md)
+- [最新：脳室接続・脳弓体部・外側膝状体の統合と残件](SEPTEMBER16_CONNECTION_FIBER_CHECKPOINT.md)
+- [9月16日午前：中脳水道〜第四脳室の接続](AQUEDUCT_FOURTH_CONNECTION_2026-09-16.md)
+- [右脳室間孔の接続](RIGHT_FORAMEN_CONNECTION_2026-09-16.md)
+- [脳弓体部の部分分節987点](FORNIX_BODY_PARTIAL_2026-09-16.md)
+- [公開外側膝状体層分節の採用と視覚路の残件](LATERAL_GENICULATE_LAYERS_2026-09-16.md)
+- [9月16日：今回の分節作業と到達点](SEPTEMBER16_SEGMENTATION_WINDOW.md)
+- [小脳葉197点の修正](CEREBELLAR_FOLIA197_REPAIR_2026-09-16.md)
+- [透明中隔の部分分節282点](SEPTAL_MEMBRANE282_REPAIR_2026-09-16.md)
+- [前交連の部分分節416点](ANTERIOR_COMMISSURE_CORE416_REPAIR_2026-09-16.md)
+- [脳弓体部の追加原画像確認と保留](FORNIX_BODY_NATIVE_REVIEW_2026-09-16.md)
+- [視覚路の確認範囲と残る課題](VISUAL_PATHWAY_REVIEW_2026-09-16.md)
+
+- [9月15日：第四脳室上縁158点の補完と残る隙間](UPPER_FOURTH_REPAIR_2026-09-15.md)
+- [9月15日：側脳室ブロックの0.5 mm表示](VENTRICLE_BLOCK_FIDELITY_2026-09-15.md)
+- [9月15日：分節再開・側脳室上縁8点の修正](LATERAL_ROOF_REPAIR_2026-09-15.md)
 
 - [公開版の断面併設3D・左右表示修正](SECTION_BILATERAL_PUBLIC_FIX_2026-09-16.md)
 
@@ -19,7 +69,7 @@
 - [9月12日：脳梁飛び地・3D同期・実測metadataの修正（未公開）](SEPTEMBER12_SEGMENTATION_CHECKPOINT.md)
 - [9月12日追加：側脳室後方196点の補完・内側11点の除外（未公開）](LATERAL_POSTERIOR_MARGIN_REPAIR.md)
 - [9月8日までの段階別作業履歴](RESUME_SUMMARY_2026-09-08_STAGE_HISTORY.md)
-- [最新の公開内容](RELEASE_2026-09-07.md)
+- [9月7日時点の公開記録](RELEASE_2026-09-07.md)
 - [開発ガイド・フォーム設定](DEVELOPMENT.md)
 - [分節に用いた参考文献](SEGMENTATION_REFERENCES.md)
 - [分節の残件](ANATOMY_REMAINING_WORK.md)
@@ -174,3 +224,62 @@ Historical audit results describe their recorded checkpoint, not the current rel
 - [WINDOWS_HANDOFF.md](../WINDOWS_HANDOFF.md)
 
 </details>
+
+- [側脳室ブロックの表示精度と残る分節](VENTRICLE_BLOCK_FIDELITY_2026-09-15.md)
+
+- [脳弓柱の内部23点統合](FORNIX_LOWER_COLUMN23_INTEGRATION_2026-09-19.md)
+- [視交叉前方の内部案と格子の広がり（9月19日）](OPTIC_ANTERIOR_INTERIOR_2026-09-19.md)
+
+- [視交叉中央内部112点の統合](OPTIC_CENTRAL112_INTEGRATION_2026-09-19.md)
+
+- [第三脳室残存小片11点の統合](THIRD_RESIDUAL11_INTEGRATION_2026-09-20.md)：原画像で確認した壁外小片の除外、断面3D・ブロックの同期。
+
+- [脳弓・視覚路・脳室接続の改善・統合確認](ANATOMY_GOAL_INTEGRATION_2026-09-20.md)：現在の採用範囲、操作確認、未確証箇所と必要な証拠。
+
+- [前交連の横走する主要部をつなぐ教材用修正](ANTERIOR_COMMISSURE_TEACHING_2026-09-20.md)
+- [β候補の統合確認（2026-09-20）](BETA_INTEGRATION_2026-09-20.md)
+- [採用済み線維分節と回路表示の同期](CURRENT_CIRCUIT_SYNC_2026-09-20.md)
+- [分節追加後の整合確認と残件](FIBER_INTEGRATION_CHECK_2026-09-20.md)
+- [左海馬采前方128点の統合 — 2026-09-20](FIMBRIA_LEFT128_INTEGRATION_2026-09-20.md)
+- [左海馬采653点の統合 — 2026-09-20](FIMBRIA_LEFT653_INTEGRATION_2026-09-20.md)
+- [文献による海馬采の再同定と具体的候補](FIMBRIA_LITERATURE_DECISION_2026-09-20.md)
+- [右海馬采前方441点の統合 — 2026-09-20](FIMBRIA_RIGHT441_INTEGRATION_2026-09-20.md)
+- [右海馬采814点の統合 — 2026-09-20](FIMBRIA_RIGHT814_INTEGRATION_2026-09-20.md)
+- [脳弓柱の前交連付近への拡充234点](FORNIX_COLUMNS234_INTEGRATION_2026-09-20.md)
+- [脳弓の左右後方・脚方向の概略分節870点](FORNIX_CRURA870_INTEGRATION_2026-09-20.md)
+- [脳弓体部後方から脚へ：次の追跡範囲](FORNIX_CRURA_CONTEXT_2026-09-19.md)
+- [左脳弓の脚へ向かう内部182点の追加](FORNIX_CRURAL182_INTEGRATION_2026-09-19.md)
+- [海馬側から脳弓脚への追跡：広域原画像の照合](FORNIX_FIMBRIA_CONTEXT_2026-09-19.md)
+- [海馬側へ向かう脳弓脚の延長1,034点](FORNIX_HIPPOCAMPAL1034_INTEGRATION_2026-09-20.md)
+- [脳弓から海馬表面への未収録区間 — 2026-09-20](FORNIX_HIPPOCAMPAL_TURN_2026-09-20.md)
+- [脳弓柱下方から乳頭体：概略収録を判断するための範囲確認](FORNIX_MAMMILLARY_GAP_2026-09-20.md)
+- [交連後脳弓下行部939点の統合 — 2026-09-20](FORNIX_POSTCOMMISSURAL939_INTEGRATION_2026-09-20.md)
+- [交連後脳弓：剖出・組織図による探索範囲の更新](FORNIX_POSTCOMMISSURAL_LANDMARKS_2026-09-20.md)
+- [脳弓後方内部85点の統合](FORNIX_POSTERIOR85_INTEGRATION_2026-09-19.md)
+- [脳弓の後方区間と体部側をつなぐ347点](FORNIX_TRANSITION347_INTEGRATION_2026-09-20.md)
+- [第四脳室ブロックの間引き解消](FOURTH_BLOCK_SAMPLING_2026-09-20.md)
+- [第四脳室の孤立2点：原画像での再判定](FOURTH_ISOLATED2_REVIEW_2026-09-19.md)
+- [HATA参考輪郭と海馬采前端の比較](HATA_FIMBRIA_COMPARISON_2026-09-20.md)
+- [不透明なブロック標本への変更 — 2026-09-20](OPAQUE_TEACHING_SPECIMENS_2026-09-20.md)
+- [視交叉中央部の厚み258点を追加](OPTIC_CENTRAL258_INTEGRATION_2026-09-20.md)
+- [右視索7点追加・第四脳室2点除外の統合](OPTIC_FOURTH9_INTEGRATION_2026-09-19.md)
+- [視交叉中央部と左右視索の接続](OPTIC_JUNCTION118_INTEGRATION_2026-09-20.md)
+- [左視索の概略内部152点の統合](OPTIC_LEFT152_INTEGRATION_2026-09-19.md)
+- [両側視索から外側膝状体への概略分節](OPTIC_LGN1267_INTEGRATION_2026-09-20.md)
+- [LGN側からの視索追跡：次のトレース区間](OPTIC_LGN_BACKTRACK_2026-09-19.md)
+- [視索からLGNまでの未収録区間と左内部の厚み](OPTIC_LGN_GAP_AND_LEFT_THICKNESS_2026-09-19.md)
+- [視交叉中央部から後方付着部への追跡](OPTIC_POSTERIOR_BRIDGE_2026-09-19.md)
+- [左右視索の視交叉側への延長995点](OPTIC_PROXIMAL995_INTEGRATION_2026-09-20.md)
+- [視放線の広域ランドマーク照合 — 2026-09-20](OPTIC_RADIATION_LANDMARKS_2026-09-20.md)
+- [右視索後方110点の統合](OPTIC_RIGHT110_INTEGRATION_2026-09-20.md)
+- [左右視索の厚み243点と旧補助3Dの同期](OPTIC_TRACT243_INTEGRATION_2026-09-20.md)
+- [視索内部77点の部分収録 — 2026-09-19](OPTIC_TRACT77_INTEGRATION_2026-09-19.md)
+- [腹側の左右組織帯：内部77点の未適用案](OPTIC_TRACT_INTERIOR_DRAFT_2026-09-19.md)
+- [視索の後方追跡：LGNまでの確認区間](OPTIC_TRACT_POSTERIOR_CONTINUATION_2026-09-19.md)
+- [周囲組織を残すブロック標本への修正 — 2026-09-20](REALISTIC_TISSUE_BLOCKS_2026-09-20.md)
+- [再開メモ — 2026-09-20](RESUME_HISTORY_2026-09-20.md)
+- [教材として一区切りまで進める方針 — 2026-09-20](TEACHING_COMPLETION_PLAN_2026-09-20.md)
+- [第三脳室後方の外側小片を除外 — 2026-09-20](THIRD_POSTERIOR197_INTEGRATION_2026-09-20.md)
+- [側脳室と海馬を残す剖出標本の資料 — 2026-09-20](VENTRICLE_PROSECTION_DESIGN_2026-09-20.md)
+- [側脳室・海馬の開放標本：右側試作](VENTRICLE_PROSECTION_TRIAL_2026-09-20.md)
+- [視覚路の模式表示案内と第三脳室の残存小片](VISUAL_SCHEMATIC_AND_RESIDUAL11_2026-09-20.md)

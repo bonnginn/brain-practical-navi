@@ -8,9 +8,9 @@ export type BasalGangliaStep = {
   readonly position: number;
   readonly quizRefs: readonly string[];
 };
-export type PapezStepKind = "section-label" | "schematic-3d" | "atlas-3d";
-export type PapezStepSource = "existing-quiz-section-label" | "schematic-3d" | "atlas-3d";
-export type PapezSectionTarget = "hippocampus" | "mammillaryBody" | "thalamus";
+export type PapezStepKind = "section-label" | "image-reviewed-partial-section" | "schematic-3d" | "atlas-3d";
+export type PapezStepSource = "existing-quiz-section-label" | "image-reviewed-partial-section" | "schematic-3d" | "atlas-3d";
+export type PapezSectionTarget = "hippocampus" | "fornixBodyPartial" | "mammillaryBody" | "thalamus";
 export type PapezSchematic3dTarget = "fornix";
 export type PapezAtlas3dTarget = "cingulate" | "parahippocampal" | "entorhinal";
 export type PapezStepTarget = PapezSectionTarget | PapezSchematic3dTarget | PapezAtlas3dTarget;

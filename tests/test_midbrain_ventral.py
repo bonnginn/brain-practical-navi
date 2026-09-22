@@ -75,9 +75,9 @@ class MidbrainVentralTest(unittest.TestCase):
         final_path=ROOT/'tests/fixtures/bigbrain-practical-segmentation-pre-callosal-remaining304.bin.gz'
         self.assertEqual(digest(final_path.read_bytes()),r['afterSha256'])
         final=load(final_path)
-        current=load(ROOT/'public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz')
+        historical_after=load(ROOT/'tests/fixtures/bigbrain-practical-segmentation-pre-upper-fourth-gap.bin.gz')
         for ident in (27,33,39,40):
-            self.assertTrue(np.array_equal(final==ident,current==ident))
+            self.assertTrue(np.array_equal(final==ident,historical_after==ident))
         self.assertEqual(r['points'],HELD);self.assertTrue(np.array_equal(hold(intermediate,HELD),final))
         self.assertTrue(np.array_equal(hold(final,HELD,True),intermediate))
         self.assertTrue(np.array_equal(original[original!=0],final[original!=0]))

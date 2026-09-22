@@ -1,0 +1,45 @@
+{
+  "voxels": 601,
+  "components6": 1,
+  "componentSizes": [
+    601
+  ],
+  "boundsZYX": [
+    [
+      126,
+      270,
+      160
+    ],
+    [
+      136,
+      275,
+      230
+    ]
+  ],
+  "vertices": 1047,
+  "faces": 2094,
+  "sha256": "dba861ce44f422e379565922cefd513b0663d7d8829a250460856bbd27572814",
+  "bytes": 13917,
+  "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
+  "sourceSha256": "a0be53bb43f2316bd9100903d6e81ac65b23fe6830c3500cd18c4acba5883417",
+  "labelIds": [
+    42
+  ],
+  "labelVoxelCounts": {
+    "42": 601
+  },
+  "sourceSamplingMm": 0.5,
+  "displayOriginZYX": [
+    -90.0,
+    -116.0,
+    -98.0
+  ],
+  "method": "marching cubes 0.5; no resampling, smoothing, filling or component removal",
+  "rawSha256": "9e1aea8a8324cfa8d06cc58b1f411f105cda0fc1f41ab70df28c922960a807db",
+  "rawBytes": 54456,
+  "compression": "gzip",
+  "partialExtent": true,
+  "expertReviewed": false,
+  "installed": true,
+  "scope": "Continuous transverse teaching core traced in source images, including local correction of capsule overlap. Approximate 0.5-mm contour; complete outer boundary and temporal terminations remain unrecorded. Not expert validation or quiz eligibility."
+}

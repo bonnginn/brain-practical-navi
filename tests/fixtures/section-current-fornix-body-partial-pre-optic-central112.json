@@ -1,0 +1,46 @@
+{
+  "voxels": 1709,
+  "components6": 2,
+  "componentSizes": [
+    907,
+    802
+  ],
+  "boundsZYX": [
+    [
+      143,
+      234,
+      187
+    ],
+    [
+      184,
+      272,
+      207
+    ]
+  ],
+  "vertices": 2758,
+  "faces": 5568,
+  "sha256": "832ccee329adc574e3d48bc0ca14a0190a5f43d3ba4f0fc2717b403ff93e1c36",
+  "bytes": 37975,
+  "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
+  "sourceSha256": "c3ffa981882eb6faae62a9bd7ef35b420ae6e19155c27440b1e3789bf2e00c42",
+  "labelIds": [
+    46
+  ],
+  "labelVoxelCounts": {
+    "46": 1709
+  },
+  "sourceSamplingMm": 0.5,
+  "displayOriginZYX": [
+    -90.0,
+    -116.0,
+    -98.0
+  ],
+  "method": "native-image-reviewed partial body and upper columns; marching cubes 0.5; no resampling, smoothing or filling",
+  "rawSha256": "d43bcb1494da2b890bc508fca884ef5c51a2042cadcb387723b2e00bc546d97b",
+  "rawBytes": 144052,
+  "compression": "gzip",
+  "expertReviewed": false,
+  "partialExtent": true,
+  "scope": "Partial body and upper-column interior extended through native40 Z650-610. Scope cuts are not anatomical boundaries. Lower columns near/below the anterior commissure, crura, fimbria and mammillary continuity remain incomplete. Not expert-reviewed.",
+  "reviewRecord": "segmentation-patches/review/fornix-lower-column23-adoption-2026-09-19.json"
+}

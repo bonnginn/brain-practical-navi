@@ -14,7 +14,7 @@ test('midbrain context mesh matches the recorded source-preserving repair and me
  assert.equal(impact.beforeSha256,'a9276115e005f5db68d82f4ff73c678213005ce6d5833ce1f3b92bf6b4f9da2d');
  assert.equal(impact.removed,2);assert.equal(impact.added,0);
  const successor=await regionalMeshSuccessor(impact.file,impact.afterSha256,record.afterSha256);
- assert.ok(successor);assert.equal(successor.added,814);assert.equal(successor.removed,0);
+ assert.ok(successor);assert.equal(successor.added,0);assert.equal(successor.removed,4);
  const previous=await readFile(new URL('../'+successor.firstRecoveryPath,import.meta.url));
  assert.equal(createHash('sha256').update(previous).digest('hex'),impact.afterSha256);
  assert.equal(previous.readUInt32LE(4),2087);assert.equal(previous.readUInt32LE(8),4162);
@@ -22,7 +22,7 @@ test('midbrain context mesh matches the recorded source-preserving repair and me
  assert.equal(data.subarray(0,4).toString(),'BNM2');
  const vertices=data.readUInt32LE(4),faces=data.readUInt32LE(8);
  const meta=JSON.parse(text).specimens['midbrain-section'].find(x=>x.part==='tissue');
- assert.equal(vertices,3065);assert.equal(faces,6106);
+ assert.equal(vertices,3079);assert.equal(faces,6134);
  assert.equal(meta.meshSha256,successor.afterSha256);assert.equal(meta.segmentationSourceSha256,successor.segmentationSourceSha256);
  assert.equal(meta.vertices,vertices);assert.equal(meta.faces,faces);
  assert.equal(data.length,12+vertices*28+faces*12);

@@ -18,6 +18,9 @@
     "PWA_INSTALL_AFFORDANCE_AUDIT.md",
     "BETA_READINESS_DISPLAY_AUDIT.md",
     "OPTIC_PATHWAY_AUDIT.md",
+    "segmentation-patches/review/optic-central112-adoption-2026-09-19.json",
+    "public/atlas/section-current-optic-chiasm-partial.json",
+    "public/atlas/section-current-optic-tracts-partial.json",
     "STRUCTURE_PROVENANCE.md",
     "BETA_OBSERVATION_NOTES.md",
     "PRESENTATION_AUDIT.md",
@@ -25,17 +28,17 @@
     "WINDOWS_HANDOFF.md"
   ],
   "provenance": {
-    "registryEntryCount": 76,
-    "expertPendingCount": 76,
+    "registryEntryCount": 82,
+    "expertPendingCount": 82,
     "reviewFilterCounts": {
-      "surface": 54,
-      "sections": 17,
-      "blocks": 30,
+      "surface": 55,
+      "sections": 23,
+      "blocks": 31,
       "quiz": 25
     },
     "learnerMappings": {
-      "total": 223,
-      "resolved": 223
+      "total": 230,
+      "resolved": 230
     }
   },
   "quiz": {
@@ -169,7 +172,7 @@
       "authority": "administrator / feedback-channel maintainer",
       "blockingAuthority": "administrator / feedback-channel maintainer",
       "boundary": "rights documents, external feedback operations, and publication-screen operations",
-      "unprovenScope": "現行外部フォームはα版表記のまま。版名非依存表記の適用、ログアウト状態の全3ページ、テスト回答、Google Formsと回答シート双方からの削除、管理者による運用確認は未完了。"
+      "unprovenScope": "最新フォームのログアウト環境での送信は未確認。共同制作条件は2026-09-22に管理者承認済み。9月22日の日英テスト送信・両保存先からの削除はログイン済み環境で確認した。"
     },
     {
       "id": "physical-os-networking",
@@ -191,14 +194,20 @@
       "legacyEntryLearnerMappingCount": 0
     },
     "ids36To38": {
-      "status": "unsegmented",
+      "status": "partially-adopted",
       "perId": {
-        "36": {"adopted": false},
-        "37": {"adopted": false},
-        "38": {"adopted": false}
+        "36": {
+          "adopted": true
+        },
+        "37": {
+          "adopted": true
+        },
+        "38": {
+          "adopted": true
+        }
       },
-      "anyAdopted": false,
-      "allAdopted": false,
+      "anyAdopted": true,
+      "allAdopted": true,
       "expertReviewPending": true
     },
     "ids39To40": {

@@ -1,0 +1,23 @@
+{
+  "schema": "mesh-representation-successor/v1",
+  "id": "fine-cavity-mesh-representation-2026-09-15",
+  "date": "2026-09-15",
+  "status": "project-adopted-representation-only",
+  "projectAdopted": true,
+  "expertReviewed": false,
+  "changeType": "representation-only",
+  "labelRevision": "unchanged",
+  "segmentationSourceSha256": "d7fc87b5b18e1221c2979aeab9d6fefeefcfd4d353cfc78cab782930f32f8e29",
+  "beforeFixtureArchive": {
+    "file": "tests/fixtures/block-cavities-pre-fine-20260915.zip",
+    "sha256": "ddf964a8b30c3fce6143e650ede102f1b276dbc2f991cc4a9fd48dfffc5a0cdf",
+    "manifestSha256": "bfa3127cc901982b8dda3de2ba84d0fb69323976139ff6688151c4da75a37220"
+  },
+  "meshes": [
+    {"file":"block-lateral-ventricle-ventricular-cavity.mesh","beforeFixture":"tests/fixtures/block-lateral-ventricle-ventricular-cavity-pre-fine-20260915.mesh","beforeSha256":"7bc54bf38b6b21fd4132a743876c1fe1ff75ec5b8b53ab428620856a631d6653","afterSha256":"38b9600671a9684ddcb25cc46c77c7448ff554183c9fc9f441707172f1bbf024","uncompressedSha256":"c347aecb42975987676083c92f3e28e163045af91410e5b3dc1b1c91c5464682","vertices":41657,"faces":84326},
+    {"file":"block-commissural-system-lateral-ventricles.mesh","beforeFixture":"tests/fixtures/block-commissural-system-lateral-ventricles-pre-fine-20260915.mesh","beforeSha256":"de3d783a2e59addf0e48462e7cb9291c42f02cdd16cc214b20c2083ac059910f","afterSha256":"dee056e6bc753b37f6c20e4408abf6b3cc8a8b676eedc8209f8dacc550feee96","uncompressedSha256":"24f08512df2f645e837a107bd2ff8efc6a5ba6fd8f81c9964620f7710e948302","vertices":49537,"faces":99338},
+    {"file":"block-choroid-plexus-ventricular-cavity.mesh","beforeFixture":"tests/fixtures/block-choroid-plexus-ventricular-cavity-pre-fine-20260915.mesh","beforeSha256":"323dac3aa4a122cce40776a4fbb8102766f2150a0ccb3b3dc3f78aec92262e9d","afterSha256":"162e293d011f11d7e7b9e99e5333abf840f402072fed28a1dce92d95b160ab70","uncompressedSha256":"a6977a52003d723ca11bcc6fdf2780f45c7652a2ed2d35f40be44fa398a7050e","vertices":40148,"faces":81296},
+    {"file":"block-medial-temporal-inferior-horn.mesh","beforeFixture":"tests/fixtures/block-medial-temporal-inferior-horn-pre-fine-20260915.mesh","beforeSha256":"d6256e2efd4fd7540ba2a6b49c75c0cfc34235937357492cfd01e2f7a849f829","afterSha256":"06a08376b1375d30cdb181dcc50c243f6f9617a30f512b4fabb436429c4e908f","uncompressedSha256":"9f57923f58cbbf81fff28e9669e4b44d5987f6efabef1d47496dca33d8198a45","vertices":7306,"faces":14956}
+  ],
+  "rationale": "The four label-derived cavity parts now use exact 0.5 mm occupancy in their existing block bounds. This restores observed label voxels lost by the prior 1 mm single-point sampling path without changing labels, bounds, smoothing policy for other parts, or historical segmentation adoption records. Development representation only; not expert review or research ground truth."
+}

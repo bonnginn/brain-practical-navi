@@ -1,0 +1,2046 @@
+{
+  "beforeSha256": "a7f3320c7bbe64786726b4058c895cebe6da95200534bfc9d324caf1122a634a",
+  "afterSha256": "a0be53bb43f2316bd9100903d6e81ac65b23fe6830c3500cd18c4acba5883417",
+  "beforeRawVoxelSha256": "c29b144058c9a9dfc0acccd3d18430915e45f0db718bd915e586afd0a4cbc2ce",
+  "afterRawVoxelSha256": "1efcadfe71372fbb7dfd212f7fc2077fc9bb12076a340f3dc27704d4e54feec3",
+  "count": 185,
+  "points": [
+    {
+      "xyz": [
+        161,
+        273,
+        130
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        164,
+        272,
+        129
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        165,
+        272,
+        129
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        166,
+        272,
+        129
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        168,
+        273,
+        129
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        168,
+        273,
+        131
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        169,
+        273,
+        131
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        169,
+        274,
+        131
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        170,
+        273,
+        131
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        170,
+        274,
+        131
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        171,
+        273,
+        131
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        171,
+        274,
+        131
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        172,
+        273,
+        131
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        172,
+        274,
+        131
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        172,
+        275,
+        131
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        173,
+        274,
+        131
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        173,
+        275,
+        131
+      ],
+      "before": 31,
+      "after": 42
+    },
+    {
+      "xyz": [
+        174,
+        273,
+        130
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        174,
+        275,
+        131
+      ],
+      "before": 31,
+      "after": 42
+    },
+    {
+      "xyz": [
+        175,
+        274,
+        132
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        175,
+        275,
+        131
+      ],
+      "before": 31,
+      "after": 42
+    },
+    {
+      "xyz": [
+        176,
+        273,
+        132
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        176,
+        274,
+        132
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        176,
+        275,
+        131
+      ],
+      "before": 31,
+      "after": 42
+    },
+    {
+      "xyz": [
+        176,
+        275,
+        132
+      ],
+      "before": 31,
+      "after": 42
+    },
+    {
+      "xyz": [
+        177,
+        273,
+        131
+      ],
+      "before": 31,
+      "after": 42
+    },
+    {
+      "xyz": [
+        177,
+        273,
+        132
+      ],
+      "before": 31,
+      "after": 42
+    },
+    {
+      "xyz": [
+        177,
+        274,
+        131
+      ],
+      "before": 31,
+      "after": 42
+    },
+    {
+      "xyz": [
+        177,
+        274,
+        132
+      ],
+      "before": 31,
+      "after": 42
+    },
+    {
+      "xyz": [
+        177,
+        275,
+        131
+      ],
+      "before": 31,
+      "after": 42
+    },
+    {
+      "xyz": [
+        177,
+        275,
+        132
+      ],
+      "before": 31,
+      "after": 42
+    },
+    {
+      "xyz": [
+        178,
+        273,
+        131
+      ],
+      "before": 31,
+      "after": 42
+    },
+    {
+      "xyz": [
+        178,
+        273,
+        132
+      ],
+      "before": 31,
+      "after": 42
+    },
+    {
+      "xyz": [
+        178,
+        274,
+        131
+      ],
+      "before": 31,
+      "after": 42
+    },
+    {
+      "xyz": [
+        178,
+        274,
+        132
+      ],
+      "before": 31,
+      "after": 42
+    },
+    {
+      "xyz": [
+        178,
+        275,
+        131
+      ],
+      "before": 31,
+      "after": 42
+    },
+    {
+      "xyz": [
+        178,
+        275,
+        132
+      ],
+      "before": 31,
+      "after": 42
+    },
+    {
+      "xyz": [
+        179,
+        273,
+        131
+      ],
+      "before": 31,
+      "after": 42
+    },
+    {
+      "xyz": [
+        179,
+        273,
+        132
+      ],
+      "before": 31,
+      "after": 42
+    },
+    {
+      "xyz": [
+        179,
+        274,
+        131
+      ],
+      "before": 31,
+      "after": 42
+    },
+    {
+      "xyz": [
+        179,
+        274,
+        132
+      ],
+      "before": 31,
+      "after": 42
+    },
+    {
+      "xyz": [
+        179,
+        275,
+        131
+      ],
+      "before": 31,
+      "after": 42
+    },
+    {
+      "xyz": [
+        179,
+        275,
+        132
+      ],
+      "before": 31,
+      "after": 42
+    },
+    {
+      "xyz": [
+        180,
+        273,
+        132
+      ],
+      "before": 31,
+      "after": 42
+    },
+    {
+      "xyz": [
+        180,
+        274,
+        131
+      ],
+      "before": 31,
+      "after": 42
+    },
+    {
+      "xyz": [
+        180,
+        274,
+        132
+      ],
+      "before": 31,
+      "after": 42
+    },
+    {
+      "xyz": [
+        180,
+        274,
+        133
+      ],
+      "before": 31,
+      "after": 42
+    },
+    {
+      "xyz": [
+        180,
+        275,
+        132
+      ],
+      "before": 31,
+      "after": 42
+    },
+    {
+      "xyz": [
+        181,
+        273,
+        133
+      ],
+      "before": 31,
+      "after": 42
+    },
+    {
+      "xyz": [
+        181,
+        274,
+        133
+      ],
+      "before": 31,
+      "after": 42
+    },
+    {
+      "xyz": [
+        181,
+        275,
+        132
+      ],
+      "before": 31,
+      "after": 42
+    },
+    {
+      "xyz": [
+        181,
+        275,
+        133
+      ],
+      "before": 31,
+      "after": 42
+    },
+    {
+      "xyz": [
+        182,
+        273,
+        133
+      ],
+      "before": 31,
+      "after": 42
+    },
+    {
+      "xyz": [
+        182,
+        274,
+        133
+      ],
+      "before": 31,
+      "after": 42
+    },
+    {
+      "xyz": [
+        182,
+        275,
+        132
+      ],
+      "before": 31,
+      "after": 42
+    },
+    {
+      "xyz": [
+        182,
+        275,
+        133
+      ],
+      "before": 31,
+      "after": 42
+    },
+    {
+      "xyz": [
+        183,
+        275,
+        132
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        183,
+        275,
+        133
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        184,
+        274,
+        132
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        184,
+        275,
+        132
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        184,
+        275,
+        133
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        185,
+        274,
+        132
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        185,
+        275,
+        133
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        186,
+        275,
+        133
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        187,
+        275,
+        133
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        188,
+        275,
+        133
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        189,
+        275,
+        134
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        190,
+        275,
+        134
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        208,
+        272,
+        132
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        209,
+        272,
+        132
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        209,
+        273,
+        133
+      ],
+      "before": 32,
+      "after": 42
+    },
+    {
+      "xyz": [
+        209,
+        274,
+        133
+      ],
+      "before": 32,
+      "after": 42
+    },
+    {
+      "xyz": [
+        210,
+        272,
+        132
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        210,
+        273,
+        133
+      ],
+      "before": 32,
+      "after": 42
+    },
+    {
+      "xyz": [
+        210,
+        274,
+        133
+      ],
+      "before": 32,
+      "after": 42
+    },
+    {
+      "xyz": [
+        211,
+        272,
+        132
+      ],
+      "before": 32,
+      "after": 42
+    },
+    {
+      "xyz": [
+        211,
+        273,
+        131
+      ],
+      "before": 32,
+      "after": 42
+    },
+    {
+      "xyz": [
+        211,
+        273,
+        132
+      ],
+      "before": 32,
+      "after": 42
+    },
+    {
+      "xyz": [
+        211,
+        274,
+        131
+      ],
+      "before": 32,
+      "after": 42
+    },
+    {
+      "xyz": [
+        211,
+        274,
+        132
+      ],
+      "before": 32,
+      "after": 42
+    },
+    {
+      "xyz": [
+        212,
+        272,
+        132
+      ],
+      "before": 32,
+      "after": 42
+    },
+    {
+      "xyz": [
+        212,
+        273,
+        131
+      ],
+      "before": 32,
+      "after": 42
+    },
+    {
+      "xyz": [
+        212,
+        273,
+        132
+      ],
+      "before": 32,
+      "after": 42
+    },
+    {
+      "xyz": [
+        212,
+        274,
+        131
+      ],
+      "before": 32,
+      "after": 42
+    },
+    {
+      "xyz": [
+        212,
+        274,
+        132
+      ],
+      "before": 32,
+      "after": 42
+    },
+    {
+      "xyz": [
+        213,
+        272,
+        131
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        213,
+        273,
+        131
+      ],
+      "before": 32,
+      "after": 42
+    },
+    {
+      "xyz": [
+        213,
+        273,
+        132
+      ],
+      "before": 32,
+      "after": 42
+    },
+    {
+      "xyz": [
+        213,
+        274,
+        131
+      ],
+      "before": 32,
+      "after": 42
+    },
+    {
+      "xyz": [
+        213,
+        274,
+        132
+      ],
+      "before": 32,
+      "after": 42
+    },
+    {
+      "xyz": [
+        214,
+        272,
+        131
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        214,
+        273,
+        130
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        214,
+        273,
+        131
+      ],
+      "before": 32,
+      "after": 42
+    },
+    {
+      "xyz": [
+        214,
+        273,
+        132
+      ],
+      "before": 32,
+      "after": 42
+    },
+    {
+      "xyz": [
+        214,
+        274,
+        130
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        214,
+        274,
+        131
+      ],
+      "before": 32,
+      "after": 42
+    },
+    {
+      "xyz": [
+        214,
+        274,
+        132
+      ],
+      "before": 32,
+      "after": 42
+    },
+    {
+      "xyz": [
+        215,
+        273,
+        130
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        215,
+        273,
+        131
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        215,
+        274,
+        130
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        216,
+        272,
+        130
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        216,
+        273,
+        130
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        216,
+        273,
+        131
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        216,
+        274,
+        131
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        217,
+        272,
+        130
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        217,
+        273,
+        129
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        217,
+        273,
+        130
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        217,
+        274,
+        129
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        217,
+        274,
+        130
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        218,
+        272,
+        129
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        218,
+        272,
+        130
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        218,
+        273,
+        129
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        218,
+        273,
+        130
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        218,
+        274,
+        129
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        218,
+        274,
+        130
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        219,
+        272,
+        128
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        219,
+        272,
+        129
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        219,
+        273,
+        128
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        219,
+        273,
+        129
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        219,
+        273,
+        130
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        219,
+        274,
+        129
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        220,
+        272,
+        128
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        220,
+        272,
+        129
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        220,
+        273,
+        128
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        220,
+        273,
+        129
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        221,
+        271,
+        128
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        221,
+        272,
+        128
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        221,
+        272,
+        129
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        221,
+        273,
+        128
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        221,
+        273,
+        129
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        222,
+        271,
+        128
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        222,
+        272,
+        127
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        222,
+        272,
+        128
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        222,
+        273,
+        128
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        223,
+        271,
+        127
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        223,
+        271,
+        128
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        223,
+        272,
+        127
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        223,
+        272,
+        128
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        223,
+        273,
+        127
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        223,
+        273,
+        128
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        224,
+        271,
+        127
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        224,
+        271,
+        128
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        224,
+        272,
+        127
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        224,
+        272,
+        128
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        224,
+        273,
+        127
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        225,
+        270,
+        127
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        225,
+        271,
+        126
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        225,
+        271,
+        127
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        225,
+        271,
+        128
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        225,
+        272,
+        126
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        225,
+        272,
+        127
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        225,
+        272,
+        128
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        225,
+        273,
+        127
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        226,
+        270,
+        127
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        226,
+        271,
+        126
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        226,
+        271,
+        127
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        226,
+        271,
+        128
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        226,
+        272,
+        126
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        226,
+        272,
+        127
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        226,
+        272,
+        128
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        227,
+        270,
+        127
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        227,
+        271,
+        126
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        227,
+        271,
+        127
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        227,
+        271,
+        128
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        227,
+        272,
+        126
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        227,
+        272,
+        127
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        227,
+        272,
+        128
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        228,
+        270,
+        127
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        228,
+        271,
+        126
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        228,
+        271,
+        127
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        228,
+        271,
+        128
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        228,
+        272,
+        126
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        228,
+        272,
+        127
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        228,
+        272,
+        128
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        229,
+        270,
+        127
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        229,
+        271,
+        126
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        229,
+        271,
+        127
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        229,
+        271,
+        128
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        229,
+        272,
+        126
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        229,
+        272,
+        127
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        229,
+        272,
+        128
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        230,
+        270,
+        127
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        230,
+        271,
+        126
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        230,
+        271,
+        127
+      ],
+      "before": 0,
+      "after": 42
+    },
+    {
+      "xyz": [
+        230,
+        272,
+        126
+      ],
+      "before": 0,
+      "after": 42
+    }
+  ],
+  "countsBefore": {
+    "0": 66599646,
+    "31": 56826,
+    "32": 53609,
+    "42": 416
+  },
+  "countsAfter": {
+    "0": 66599519,
+    "31": 56790,
+    "32": 53587,
+    "42": 601
+  },
+  "evidence": {
+    "work/anterior-commissure-teaching-20260920/registered-review-v3/x175.png": "3990d6caee02ee406c8c76579a6e470c0f9158604b5fac5559b34a345b37a3c6",
+    "work/anterior-commissure-teaching-20260920/registered-review-v3/x215.png": "20ad6b24d4e48949ab998c8a1ea4545d9bcfcd5050562abee320c2839b923e57",
+    "work/anterior-commissure-teaching-20260920/registered-review-v3/y271.png": "acc75e6ecea4b255bc0f91ec5945e06f95480e47232cf96a09d402d4f4fc983b",
+    "work/anterior-commissure-teaching-20260920/registered-review-v3/y273.png": "26a53d5526cdbdfcbc29e05c5968a16ad343871e7ecaefedea4ecbc48144ca09",
+    "work/anterior-commissure-teaching-20260920/registered-review-v3/y275.png": "987a33f3929c47c1c1a90c05fbfe2cff682726488d4258f31efc246ec6cfb332",
+    "work/anterior-commissure-teaching-20260920/registered-review-v3/z128.png": "6dd5bd9b55bb92ca0ca8f9ec60b3da591ad56c916b65ce9aa009f1f7683fc1bf",
+    "work/anterior-commissure-teaching-20260920/native-review/ref0-x.png": "3ad339f83c93ce05b921748a9286570ab3ebfc7391593e630d467e9a5abc85b3",
+    "work/anterior-commissure-teaching-20260920/native-review/ref0-y.png": "84f3ac165059450cff7485acfc996a64910c924d3a35f9de38cd0a97ef66a653",
+    "work/anterior-commissure-teaching-20260920/native-review/ref0-z.png": "b04d659b6f57519044a3369d28de42f4d9f99c647fc7f0f6fe1449d05aa86743",
+    "work/anterior-commissure-teaching-20260920/native-review/ref1-x.png": "11017cdb9ff3a7b179d6db9c1da935603e7202159a2f35413d4875817ea33eac",
+    "work/anterior-commissure-teaching-20260920/native-review/ref1-y.png": "9e8d0e9cdfeeb9acdf8f52e35a9c43695e803143343480d54797c1d700171f84",
+    "work/anterior-commissure-teaching-20260920/native-review/ref1-z.png": "d7c25e58552ea087fad854013bc655b2cd76b2dae2091d4e25659ec447d4cd9d",
+    "work/anterior-commissure-teaching-20260920/native-review/ref2-x.png": "becf07fcc573d9ce93a15492cdfeade0f72c3528a5faef201d61a79c788dd698",
+    "work/anterior-commissure-teaching-20260920/native-review/ref2-y.png": "217b88d7f414870779405282c8bcb860f25864f86dcffb6cf1de00d3efc0f560",
+    "work/anterior-commissure-teaching-20260920/native-review/ref2-z.png": "22438b539fb5162a5a615d7b8aa708f92a820d83381290289a6637686f87f08f",
+    "work/anterior-commissure-teaching-20260920/native-review-v3/ref2-y.png": "61b343d52283601b75dd7b639746162dc7da717bcd151509735cd1f0a15805b3",
+    "work/anterior-commissure-teaching-20260920/native-review-v3/ref2-z.png": "97992e2439e2ee35d5070e8d02a2a98f5a68bea2443d8b5faaf368ff9239a755",
+    "work/anterior-commissure-teaching-20260920/stage_review_v3.py": "00b872cb0f5fc13f3347f5bfe78c361b3bc953a378827453f6ff62ebfa316328",
+    "work/anterior-commissure-teaching-20260920/render_native_v3.py": "ef91cd0fe70dba60f3bd1de8d41258ddb50935b8ceb78d95553c4007a1c159aa",
+    "work/anterior-commissure-teaching-20260920/registered-review-v3/report.json": "82e88152801789b2ff5a1043ec027d8a32498f985f03756a31d6e467dea620d6",
+    "work/anterior-commissure-teaching-20260920/registered-review-v3/candidates.json": "b19488ada8a83a3df69ddcd9bceb44365bbfda3bbf983504cc1500fef0d72dec",
+    "work/anterior-commissure-teaching-20260920/native-review-v3/report.json": "a04846a57f0fb0da4b6e3a43e5d1289419de1062bbcea2f7d8c705b2ed620e0d"
+  },
+  "expertReviewed": false,
+  "partialExtent": true,
+  "rationale": "Source-guided approximate transverse anterior-commissure core. Local capsule overlaps follow the same bundle in registered300 and native100 orthogonal images. Reject draft1/2 right outer contour; use revised v3. No intensity gate, smoothing, connectivity-only fill, temporal termination or whole-tract claim. Native v1 left/midline review remains relevant to the narrower final contour; final right contour rechecked in native v3 coronal/axial adjacent planes. Small 0.5-mm partial-volume staircases are not claimed as exact boundaries.",
+  "references": [
+    {
+      "url": "https://pubs.rsna.org/doi/10.1148/radiology.158.2.3941867",
+      "access": "Abstract read; full paper not read in this pass"
+    }
+  ],
+  "status": "AI-image-reviewed-project-adopted-development-only",
+  "adopted": true,
+  "installed": true,
+  "projectAdopted": true,
+  "published": false,
+  "meshImpact": {
+    "beforeSha256": "a7f3320c7bbe64786726b4058c895cebe6da95200534bfc9d324caf1122a634a",
+    "afterSha256": "a0be53bb43f2316bd9100903d6e81ac65b23fe6830c3500cd18c4acba5883417",
+    "blockMaskImpact": [
+      {
+        "block": "lateral-ventricle",
+        "part": "tissue",
+        "changed": 0
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "ventricular-cavity",
+        "changed": 0
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "caudate",
+        "changed": 0
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "thalamus",
+        "changed": 0
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "hippocampus",
+        "changed": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "tissue",
+        "changed": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "thalami",
+        "changed": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "third-ventricle",
+        "changed": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "hypothalamus",
+        "changed": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "subthalamic-nuclei",
+        "changed": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "mammillary-bodies",
+        "changed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "tissue",
+        "changed": 3,
+        "file": "block-radiations-tissue.mesh",
+        "beforeSha256": "4bf79f3cc0fd1f0c6ce974a647806da0cb6db46fe5121d2ad509d67bad5495ac",
+        "afterSha256": "be97ba5bbe5d640a8166414314914cfeb74060aa0a08c0404ab6745e51e4be6d",
+        "beforeMatches": true
+      },
+      {
+        "block": "radiations",
+        "part": "putamen",
+        "changed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "pallidum-external",
+        "changed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "pallidum-internal",
+        "changed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "internal-capsule",
+        "changed": 3,
+        "file": "block-radiations-internal-capsule.mesh",
+        "beforeSha256": "2711b98e5a882d3ead75c26005b89af2217523933993b8c0ef4b9d4628e0aea9",
+        "afterSha256": "7afde0b7ae59d81059d53fd0095950bd79f6917e942d2bd39e4b22e4c91663e5",
+        "beforeMatches": true
+      },
+      {
+        "block": "radiations",
+        "part": "corona-radiata",
+        "changed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "optic-radiation",
+        "changed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "auditory-radiation",
+        "changed": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "tissue",
+        "changed": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "corpus-callosum",
+        "changed": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "lateral-ventricles",
+        "changed": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "fornix",
+        "changed": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "septum-pellucidum",
+        "changed": 0
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "tissue",
+        "changed": 0
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "ventricular-cavity",
+        "changed": 0
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "choroid-plexus",
+        "changed": 0
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "hippocampus",
+        "changed": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "tissue",
+        "changed": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "hippocampus",
+        "changed": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "amygdala",
+        "changed": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "inferior-horn",
+        "changed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "tissue",
+        "changed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "red-nuclei",
+        "changed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "substantia-nigra",
+        "changed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "aqueduct",
+        "changed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "cerebral-peduncles",
+        "changed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "superior-colliculi",
+        "changed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "inferior-colliculi",
+        "changed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "lateral-geniculate-bodies",
+        "changed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "medial-geniculate-bodies",
+        "changed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "interpeduncular-fossa",
+        "changed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "pons-medulla",
+        "changed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "cerebellum",
+        "changed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "midbrain",
+        "changed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "fourth-ventricle",
+        "changed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "superior-cerebellar-peduncles",
+        "changed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "middle-cerebellar-peduncles",
+        "changed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "inferior-cerebellar-peduncles",
+        "changed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "facial-colliculi",
+        "changed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "vestibular-areas",
+        "changed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "hypoglossal-trigones",
+        "changed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "vagal-trigones",
+        "changed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "pyramids",
+        "changed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "olives",
+        "changed": 0
+      }
+    ],
+    "fineMaskImpact": [
+      {
+        "block": "hindbrain",
+        "part": "fourth-ventricle",
+        "changed": 0
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "ventricular-cavity",
+        "changed": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "lateral-ventricles",
+        "changed": 0
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "ventricular-cavity",
+        "changed": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "inferior-horn",
+        "changed": 0
+      }
+    ],
+    "computedDirectlyFromBeforeAfter": true
+  },
+  "changedSectionMeshes": [
+    "section-current-anterior-commissure-partial.mesh",
+    "section-current-internal-capsule.mesh"
+  ],
+  "integrationVerification": "docs/ANTERIOR_COMMISSURE_TEACHING_2026-09-20.md"
+}

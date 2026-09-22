@@ -51,8 +51,8 @@ def fixed_bytes(path: Path, expected_sha: str) -> bytes:
     return data
 
 
-def read_bbs1() -> tuple[tuple[int, int, int], bytes]:
-    compressed = fixed_bytes(CURRENT_LABEL, CURRENT_LABEL_SHA)
+def read_bbs1(replay_source: Path | None = None) -> tuple[tuple[int, int, int], bytes]:
+    compressed = fixed_bytes(replay_source or CURRENT_LABEL, CURRENT_LABEL_SHA)
     payload = gzip.decompress(compressed)
     if payload[:4] != b"BBS1":
         raise ValueError("current label magic changed")
@@ -125,7 +125,8 @@ def validate_mapping(relative: str, report: dict[str, object]) -> dict[str, obje
     return {"path": relative, "checked": True, "referenceFigurePairs": len(report["figures"]), "mismatchCount": 0}
 
 
-def build_report() -> dict[str, object]:
+def build_report(*, replay_source: Path | None = None) -> dict[str, object]:
+    """Reproduce historical evidence without treating a newer public volume as its input."""
     doc_data = fixed_bytes(ROOT / DOC, DOC_SHA)
     locator = json.loads(fixed_bytes(LOCATOR, LOCATOR_SHA).decode("utf-8"))
     if locator.get("componentCount") != 19 or len(locator.get("components", [])) != 19:
@@ -136,7 +137,7 @@ def build_report() -> dict[str, object]:
     candidate_points = [point for component in target_components for point in component["points"]]
     if len(candidate_points) != 29 or len({tuple(point) for point in candidate_points}) != 29:
         raise ValueError("component-05-19 point count or uniqueness changed")
-    dims, labels = read_bbs1()
+    dims, labels = read_bbs1(replay_source)
     current_values = {str(value): sum(label_at(labels, point, dims) == value for point in candidate_points) for value in sorted({label_at(labels, point, dims) for point in candidate_points})}
     if current_values != {"0": 29}:
         raise ValueError(f"target point current labels changed: {current_values}")

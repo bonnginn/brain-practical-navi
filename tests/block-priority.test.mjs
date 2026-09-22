@@ -91,7 +91,7 @@ test("priority UI is additive and does not introduce specimen geometry or voxel 
   assert.equal(BLOCK_PRIORITY_GROUPS.development.label, "自由観察 4");
   assert.match(page, /blockPriorityBadge/);
   assert.match(page, /BLOCK_PRIORITY_DISCLAIMER/);
-  assert.match(page, /specimenBlock=\{blockSpecimen\}/);
+  assert.match(page, /specimenBlock=\{renderedBlock\}/);
   assert.match(page, /specimenLayers=\{blockLayers\}/);
   assert.match(page, /rotation=\{rotation\}/);
   assert.doesNotMatch(page, /priorityMesh|voxelPatch/);

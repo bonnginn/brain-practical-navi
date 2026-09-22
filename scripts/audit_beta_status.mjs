@@ -8,7 +8,7 @@ export const REPOSITORY_ROOT = path.resolve(SCRIPT_DIR, "..");
 export const STATUS_RELATIVE_PATH = "app/beta-status.json";
 export const PROVENANCE_RELATIVE_PATH = "public/atlas/structure-provenance.json";
 export const STATUS_SCHEMA_VERSION = 1;
-export const STATUS_PHASE = "公開α掲載中／β候補・β公開判断前";
+export const STATUS_PHASE = "公開β版／専門家監修は未実施";
 export const REQUIRED_PROVENANCE_REFERENCES = [
   { itemId: "limitation-optic-id33", keys: ["visual-pathway-legacy-optic-label"] },
   { itemId: "limitation-mammillary-39-40", keys: ["section-mammillary-bodies"] },
@@ -20,7 +20,6 @@ export const REQUIRED_PROVENANCE_REFERENCES = [
 
 const forbiddenClaims = [
   { name: "unreviewed material presented as expert-verified", pattern: /(?:専門家(?:確認なし|未確認|未レビュー|レビュー未完了)|未確認)[^。！？\n]{0,40}検証済み|検証済み[^。！？\n]{0,40}(?:専門家(?:確認なし|未確認|未レビュー|レビュー未完了)|未確認)/ },
-  { name: "beta publication claim", pattern: /(?:β|ベータ)[^。！？\n]{0,20}(?:公開済み|公開しました|公開版|公開中)/ },
   { name: "university official approval claim", pattern: /(?:大学|三重大学|医学部)[^。！？\n]{0,40}(?:公式(?:教材|承認|見解)|承認済み)|公式(?:教材|承認)[^。！？\n]{0,40}(?:大学|三重大学)/i },
 ];
 

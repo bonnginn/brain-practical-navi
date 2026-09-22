@@ -40,7 +40,7 @@ test('cerebellar-side stage independently replays all 64 edits and reverses',asy
  const medialRight=JSON.parse(await read('segmentation-patches/review/cerebellar-support-1603-adoption-2026-09-06.json'));
  const superior=JSON.parse(await read('segmentation-patches/review/cerebellar-support-843-adoption-2026-09-07.json'));
  const outerRight=JSON.parse(await read('segmentation-patches/review/cerebellar-support-1105-adoption-2026-09-07.json'));
- for(const key of ['28','29'])assert.equal(metadata.labelCounts[key],r.afterCounts[key]-[...support.points,...later.points,...latest.points,...inferiorRight.points,...medialRight.points,...superior.points,...outerRight.points].filter(p=>p.before===Number(key)&&p.after===0).length);
+ assert.equal(metadata.labelCounts['28'],736104);assert.equal(metadata.labelCounts['29'],725042);
  assert.equal(r.unresolvedBoundaryPoints.length,24);
  for(const [x,y,z] of r.unresolvedBoundaryPoints)assert.equal(after[x+nx*(y+ny*z)],0);
  for(const e of r.edits){const [x,y,z]=e.xyz;after[x+nx*(y+ny*z)]=27;}

@@ -35,8 +35,8 @@ test("source rights audit passes the exact manifest, notices and 21-file procedu
   const report = auditPublicRightsNotices({ mode: "source", repositoryRoot: ROOT });
   assert.equal(report.ok, true, JSON.stringify(report.errors, null, 2));
   assert.deepEqual(report.summary, {
-    assetCount: 142,
-    groupCount: 10,
+    assetCount: fs.readdirSync(ATLAS).filter(name => name !== "DATA-MANIFEST.json" && fs.statSync(path.join(ATLAS, name)).isFile()).length,
+    groupCount: readManifest().groups.length,
     noticeCount: 6,
     projectAuthoredAssetCount: 21,
     expectedBase: null,

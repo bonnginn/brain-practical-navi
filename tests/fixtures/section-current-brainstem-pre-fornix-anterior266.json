@@ -1,0 +1,64 @@
+{
+  "voxels": 264456,
+  "components6": 7,
+  "componentSizes": [
+    264417,
+    14,
+    12,
+    8,
+    2,
+    2,
+    1
+  ],
+  "boundsZYX": [
+    [
+      3,
+      165,
+      158
+    ],
+    [
+      148,
+      256,
+      233
+    ]
+  ],
+  "vertices": 54294,
+  "faces": 108744,
+  "sha256": "8510f16d0d4c301dad9083d7e4318b5d028437f748a7c3b8c67fcd527fa9110b",
+  "bytes": 652138,
+  "labelIds": [
+    27
+  ],
+  "sourceSha256": "5211664518129297bbf78d1d536004e540e721615a88007ecf1459d18fb97a96",
+  "rawSha256": "ee8ecf1db0f1d46847e40ed055b7b707945ad672e3ab09c7d544d39e506cf4cd",
+  "storedSha256": "8510f16d0d4c301dad9083d7e4318b5d028437f748a7c3b8c67fcd527fa9110b",
+  "rawBytes": 2825172,
+  "storedBytes": 652138,
+  "meshBoundsZYXmm": [
+    [
+      -88.75,
+      -33.75,
+      -19.25
+    ],
+    [
+      -15.75,
+      12.25,
+      18.75
+    ]
+  ],
+  "storage": "deterministic gzip containing BNM2",
+  "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
+  "sourceSamplingMm": 0.5,
+  "displayOriginZYX": [
+    -90.0,
+    -116.0,
+    -98.0
+  ],
+  "method": "marching cubes 0.5; no resampling, smoothing, filling or component removal",
+  "scope": "Current BigBrain section labels only. Includes the project-reviewed local cerebellar folia repair; remaining boundaries are not expert-validated.",
+  "labelVoxelCounts": {
+    "27": 264456
+  },
+  "compression": "gzip",
+  "reviewRecord": "segmentation-patches/review/aqueduct-fourth44-adoption-2026-09-16.json"
+}

@@ -458,15 +458,22 @@ html, body, #root { height: 100%; overflow: hidden; }
 .learningModelStage { height: auto; min-height: 0; cursor: grab; touch-action: none; user-select: none; background: radial-gradient(circle at 50% 44%,#515a5f 0,#343a3e 48%,#202528 100%); }
 .learningModelStage:active { cursor: grabbing; }
 /* Keep block controls outside the image, including in short/narrow views. */
-.blockModelCard { grid-template-rows: max-content minmax(280px,1fr) max-content; overflow-y: auto; }
-.blockModelToolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 10px; background: #202728; }
+.blockModelCard { grid-template-rows: max-content minmax(150px,1fr) max-content; overflow: hidden; }
+.blockModelToolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; padding: 6px; background: #202728; }
 .blockModelToolbar .specimenTissueControls,
 .blockModelToolbar .specimenViewControls,
 .blockModelToolbar .specimenAttachmentControls,
 .blockModelToolbar .modelLegend { position: static; margin: 0; max-width: 100%; box-sizing: border-box; box-shadow: none; }
 .blockModelToolbar .specimenViewControls,
 .blockModelToolbar .specimenTissueControls { flex-wrap: wrap; }
-.blockModelToolbar button { min-height: 44px; }
+.blockModelToolbar button { min-height: 34px; }
+.blockModelToolbar .specimenTissueControls { padding: 2px; box-shadow: none; }
+.blockModelToolbar .specimenViewControls { padding: 2px; }
+.blockModelToolbar .specimenViewControls > span { display: none; }
+.blockModelToolbar .specimenSchematicToggle { color: #e2eae6; background: #303e3d; border: 1px solid #829893; padding: 4px 8px; font-size: 13px; }
+.blockModelToolbar .modelLegend { display: none; }
+.learningGuide .specimenStudyHint { padding: 9px 11px; border-left: 3px solid #568c82; background: #edf3ef; color: #244e49; font-size: 14px; line-height: 1.6; }
+@media(max-width:1150px){.blockModelCard .panelHead { min-height: 38px; padding: 6px 10px; }.blockModelCard .panelHead small { display: none; }}
 .blockModelToolbar .modelLegend { flex: 1 1 100%; min-width: 0; padding: 5px 9px; overflow-wrap: anywhere; }
 .blockModelToolbar .modelLegend > span,
 .blockModelToolbar .modelLegend > b,
@@ -1577,6 +1584,9 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
   .phone-mode .rangeWrap button{min-width:44px;min-height:44px}
   .phone-mode .workspace-sections .slicePanel{overflow:visible}
 }
+/* The narrow layout scrolls the document. A non-scrolling workArea with
+   overscroll containment would swallow wheel input over its teaching content. */
+@media(max-width:760px){.workspace-sections .workArea{overflow:visible;overscroll-behavior:auto}.workspace-sections .sliceStage{scroll-margin-top:110px}}
 .sectionObservationLink { margin: .25rem 0 .5rem; font-size: .875rem; }
 .sectionObservationLink summary { cursor: pointer; padding: .35rem; }
 .sectionObservationLink p { margin: .4rem 0; }
@@ -1758,3 +1768,10 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
 .regionLessonDock .regionLessonDialog > article { padding:0 16px 16px; }
 .regionLessonDock .regionLessonDialog h3 { font-size:1rem; }
 @media(max-width:760px){ .regionLessonDock { top:auto; bottom:8px; left:8px; right:8px; width:auto; } .regionLessonDock .regionLessonDialog { max-height:36dvh; } }
+
+.blockModelToolbar .specimenAttachmentControls button { font-size: 13px; padding: 4px 7px; min-height: 32px; }
+
+@media (pointer: coarse) { .blockModelToolbar button { min-height: 44px; min-width: 44px; } }
+
+.blockPreparationChoice{display:flex;flex-wrap:wrap;gap:4px;padding:6px;border-bottom:1px solid #ccc}.blockPreparationChoice button{flex:1;padding:7px;font:inherit;border:1px solid #9aaba7;background:transparent;color:inherit}.blockPreparationChoice button[aria-pressed="true"]{background:#4f746b;color:white}
+.blockModelCard:has(.blockPreparationChoice)>.panelHead{display:none}.blockPreparationChoice{background:#f4f3ee;color:#243332}

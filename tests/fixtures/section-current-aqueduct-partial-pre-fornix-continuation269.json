@@ -1,0 +1,41 @@
+{
+  "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
+  "sourceSha256": "d815aaff6b98c95109cdd7c052a29871d49cc9cdf463bcb3db7e28a1497c2392",
+  "adoption": "segmentation-patches/review/posterior-ventricles158-adoption-2026-09-08.json",
+  "adoptionSha256": "f45703a468358528c46b80dfc83d7c1bfaaa3b29079e842d0c45fab82df7c2ec",
+  "labelIds": [
+    41
+  ],
+  "partialExtent": true,
+  "expertReviewed": false,
+  "sourceSamplingMm": 0.5,
+  "displayOriginZYX": [
+    -90.0,
+    -116.0,
+    -98.0
+  ],
+  "method": "marching cubes 0.5; no resampling, smoothing, filling or component removal",
+  "scope": "BigBrain section selection only. Partial image-derived mask, not the separate schematic block aqueduct.",
+  "voxels": 267,
+  "components6": 1,
+  "componentSizes": [
+    267
+  ],
+  "boundsZYX": [
+    [
+      114,
+      199,
+      192
+    ],
+    [
+      135,
+      218,
+      198
+    ]
+  ],
+  "vertices": 528,
+  "faces": 1052,
+  "sha256": "13cc011f6507b9f3ad3ff830009c2c9150fbb3b52602c1f561e253c4a9765faa",
+  "bytes": 27420,
+  "reviewRecord": "segmentation-patches/review/aqueduct-fourth44-adoption-2026-09-16.json"
+}

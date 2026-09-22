@@ -1,13 +1,13 @@
 {
   "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
-  "sourceSha256": "785ce199e2c7226e5527a771e953d1b78cfed1067179aa04c63b9eba74577e0f",
+  "sourceSha256": "a0be53bb43f2316bd9100903d6e81ac65b23fe6830c3500cd18c4acba5883417",
   "labelIds": [
     31,
     32
   ],
   "labelVoxelCounts": {
-    "31": 56826,
-    "32": 53609
+    "31": 56790,
+    "32": 53587
   },
   "sourceSamplingMm": 0.5,
   "displayOriginZYX": [
@@ -17,11 +17,11 @@
   ],
   "method": "marching cubes 0.5; no resampling, smoothing, filling or component removal",
   "scope": "Existing image-guided candidate labels, bilateral and uncropped; not expert validation",
-  "voxels": 110435,
+  "voxels": 110377,
   "components6": 20,
   "componentSizes": [
-    56811,
-    53574,
+    56775,
+    53552,
     7,
     7,
     5,
@@ -53,11 +53,11 @@
       258
     ]
   ],
-  "vertices": 49591,
-  "faces": 99390,
-  "sha256": "edd00a0b93fae7a635f85290f634c916de9145c86284e9c763746d8458ab31ba",
-  "bytes": 624030,
-  "rawSha256": "ad8a6f1deef2e1aae1b1932dbe4738647f54764884327605d54df8b9fb197aa2",
-  "rawBytes": 2581240,
+  "vertices": 49597,
+  "faces": 99402,
+  "sha256": "0df7596aa16996bdd112762e3a245d555a15b36b25886e3b8d3221848dae3f57",
+  "bytes": 624213,
+  "rawSha256": "dd41097591b0a803cb031bd7b10621e38d4382b39657a918057353943f38157c",
+  "rawBytes": 2581552,
   "compression": "gzip"
 }

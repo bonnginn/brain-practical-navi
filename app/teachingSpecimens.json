@@ -1,0 +1,1113 @@
+{
+  "sourceLabelSha256": "a0be53bb43f2316bd9100903d6e81ac65b23fe6830c3500cd18c4acba5883417",
+  "sourceImageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
+  "preparation": "Shared opaque tissue surfaces with specimen-specific virtual cuts. Lateral ventricle: roof and temporal opening; other preparations: planar cuts. Colour annotates exposed surfaces only.",
+  "specimens": {
+    "lateral-ventricle": {
+      "parts": [
+        {
+          "file": "teaching-block-lateral-ventricle-caudate.mesh",
+          "vertices": 1134,
+          "faces": 1663,
+          "shadeMin": 0.1535,
+          "shadeMax": 0.9442,
+          "meshSha256": "6dff70686adf82d327380281a514773adc8a5126cb8227d66c0c67280fda0ac2",
+          "key": "caudate",
+          "role": "structure",
+          "source": "manual-segmentation",
+          "color": "#dc914b",
+          "geometrySamplingMm": 1,
+          "surfaceOnly": true,
+          "sourceLabelIds": [
+            8
+          ]
+        },
+        {
+          "file": "teaching-block-lateral-ventricle-thalamus.mesh",
+          "vertices": 1211,
+          "faces": 1195,
+          "shadeMin": 0.0279,
+          "shadeMax": 1.0,
+          "meshSha256": "7a90044b8e539783501cba1aa92d4798d78c1792ae7bb0caaf6d43f02ea60d70",
+          "key": "thalamus",
+          "role": "structure",
+          "source": "manual-segmentation",
+          "color": "#8d82c4",
+          "geometrySamplingMm": 1,
+          "surfaceOnly": true,
+          "sourceLabelIds": [
+            16
+          ]
+        },
+        {
+          "file": "teaching-block-lateral-ventricle-hippocampus.mesh",
+          "vertices": 1093,
+          "faces": 1236,
+          "shadeMin": 0.5209,
+          "shadeMax": 1.0,
+          "meshSha256": "9f1d6cf11c66c795f04c1fa908ec6ebc193483cda0555060cffcef7cb06d52f4",
+          "key": "hippocampus",
+          "role": "structure",
+          "source": "manual-segmentation",
+          "color": "#c8798d",
+          "geometrySamplingMm": 1,
+          "surfaceOnly": true,
+          "sourceLabelIds": [
+            18
+          ]
+        },
+        {
+          "file": "teaching-block-lateral-ventricle-tissue.mesh",
+          "vertices": 83078,
+          "faces": 162100,
+          "shadeMin": 0.0,
+          "shadeMax": 1.0,
+          "meshSha256": "029fbebe87650fe7874e611910753e5cb029e0ca3f229d0811c6b8e39e63dd72",
+          "key": "tissue",
+          "role": "tissue",
+          "source": "specimen-derived",
+          "color": "#c9a27d",
+          "geometrySamplingMm": 1,
+          "surfaceOnly": true
+        },
+        {
+          "file": "teaching-block-lateral-ventricle-ventricular-cavity.mesh",
+          "vertices": 41657,
+          "faces": 84326,
+          "shadeMin": 0.82,
+          "shadeMax": 0.82,
+          "meshSha256": "38b9600671a9684ddcb25cc46c77c7448ff554183c9fc9f441707172f1bbf024",
+          "key": "ventricular-cavity",
+          "role": "cavity",
+          "source": "same-grid-segmentation",
+          "color": "#45aebe",
+          "geometrySamplingMm": 0.5
+        }
+      ],
+      "boundsXYZmm": [
+        [
+          0,
+          80
+        ],
+        [
+          -65,
+          65
+        ],
+        [
+          -56,
+          30
+        ]
+      ],
+      "surfaceFaces": 166194,
+      "bodyVoxels": 283080,
+      "colourMethod": "Partition of one shared external/cut surface",
+      "preparation": "Right hemisphere: broad roof ramps and lateral temporal opening",
+      "cuts": {
+        "roofY": [
+          -65,
+          -40,
+          -25,
+          -10,
+          10,
+          25,
+          45,
+          65
+        ],
+        "roofZ": [
+          -9,
+          -9,
+          3,
+          5,
+          5,
+          -3,
+          -14,
+          -14
+        ],
+        "temporalY": [
+          -35,
+          -25,
+          -15,
+          -5,
+          5,
+          15
+        ],
+        "temporalX": [
+          24,
+          23,
+          25,
+          25,
+          24,
+          23
+        ],
+        "temporalZ": [
+          -12,
+          -14,
+          -23,
+          -29,
+          -35,
+          -39
+        ]
+      },
+      "retainedLabelVoxels": {
+        "8": 3137,
+        "16": 8382,
+        "18": 4094
+      }
+    },
+    "diencephalon": {
+      "parts": [
+        {
+          "file": "teaching-block-diencephalon-thalami.mesh",
+          "vertices": 1291,
+          "faces": 1942,
+          "shadeMin": 0.0,
+          "shadeMax": 1.0,
+          "meshSha256": "dd001d398c09e51b670f49b0e18cfbe0743500acd757844e4dd4ccdbc583cb97",
+          "key": "thalami",
+          "role": "structure",
+          "source": "manual-segmentation",
+          "color": "#8d82c4",
+          "geometrySamplingMm": 1,
+          "sourceLabelIds": [
+            15,
+            16
+          ],
+          "surfaceOnly": true
+        },
+        {
+          "file": "teaching-block-diencephalon-subthalamic-nuclei.mesh",
+          "vertices": 76,
+          "faces": 98,
+          "shadeMin": 0.0977,
+          "shadeMax": 0.8233,
+          "meshSha256": "f50fc3d0a504242374a3f5a86bcf73630e4b88ccfffb65421ee8cf814731224d",
+          "key": "subthalamic-nuclei",
+          "role": "structure",
+          "source": "manual-segmentation",
+          "color": "#e0ad45",
+          "geometrySamplingMm": 1,
+          "sourceLabelIds": [
+            5,
+            6
+          ],
+          "surfaceOnly": true
+        },
+        {
+          "file": "teaching-block-diencephalon-tissue.mesh",
+          "vertices": 17678,
+          "faces": 34732,
+          "shadeMin": 0.0,
+          "shadeMax": 1.0,
+          "meshSha256": "fb9a2357bde5adbc27214abb0bb74c10a3283306bb7c0343aaab974278e91d5b",
+          "key": "tissue",
+          "role": "tissue",
+          "source": "specimen-derived",
+          "color": "#c9a27d",
+          "geometrySamplingMm": 1,
+          "surfaceOnly": true
+        },
+        {
+          "file": "teaching-block-diencephalon-third-ventricle.mesh",
+          "vertices": 3173,
+          "faces": 6346,
+          "shadeMin": 0.82,
+          "shadeMax": 0.82,
+          "meshSha256": "43d423a0fb4b09974aec8357a2617fec3b239d06acfd6670a4ac26072fc8a62c",
+          "key": "third-ventricle",
+          "role": "cavity",
+          "source": "same-grid-segmentation",
+          "color": "#45aebd",
+          "geometrySamplingMm": 0.5
+        },
+        {
+          "file": "teaching-block-diencephalon-hypothalamus.mesh",
+          "vertices": 3518,
+          "faces": 7032,
+          "shadeMin": 0.82,
+          "shadeMax": 0.82,
+          "meshSha256": "f9674824b8745c978859ceb3e9ffd107ee6f5f2473c1a470011d0251af48ad72",
+          "key": "hypothalamus",
+          "role": "schematic",
+          "source": "regional-approximation",
+          "color": "#b97864",
+          "geometrySamplingMm": 1
+        },
+        {
+          "file": "teaching-block-diencephalon-mammillary-bodies.mesh",
+          "vertices": 524,
+          "faces": 1040,
+          "shadeMin": 0.82,
+          "shadeMax": 0.82,
+          "meshSha256": "c8f48416cc3836a6ce17d91ff1647d3d4e8e25aa3705980dd985f8cb1b20b384",
+          "key": "mammillary-bodies",
+          "role": "schematic",
+          "source": "schematic-3d",
+          "color": "#a8795f",
+          "geometrySamplingMm": 1
+        }
+      ],
+      "boundsXYZmm": [
+        [
+          -38,
+          38
+        ],
+        [
+          5,
+          15
+        ],
+        [
+          -45,
+          22
+        ]
+      ],
+      "surfaceFaces": 36772,
+      "bodyVoxels": 51302,
+      "colourMethod": "Partition of one shared external/cut surface"
+    },
+    "radiations": {
+      "parts": [
+        {
+          "file": "teaching-block-radiations-putamen.mesh",
+          "vertices": 480,
+          "faces": 794,
+          "shadeMin": 0.0884,
+          "shadeMax": 0.8279,
+          "meshSha256": "14e6e60abbc3c71cf95d6d6d589c849353b9fef42edf8570f64ea5385810f125",
+          "key": "putamen",
+          "role": "structure",
+          "source": "manual-segmentation",
+          "color": "#d9854f",
+          "geometrySamplingMm": 1,
+          "sourceLabelIds": [
+            10
+          ],
+          "surfaceOnly": true
+        },
+        {
+          "file": "teaching-block-radiations-pallidum-external.mesh",
+          "vertices": 197,
+          "faces": 304,
+          "shadeMin": 0.307,
+          "shadeMax": 0.7674,
+          "meshSha256": "b0272dd45e829d417261bd4b37731daa9ffda6482aae95ee633badb341aed7d9",
+          "key": "pallidum-external",
+          "role": "structure",
+          "source": "manual-segmentation",
+          "color": "#d0ae5c",
+          "geometrySamplingMm": 1,
+          "sourceLabelIds": [
+            12
+          ],
+          "surfaceOnly": true
+        },
+        {
+          "file": "teaching-block-radiations-pallidum-internal.mesh",
+          "vertices": 100,
+          "faces": 142,
+          "shadeMin": 0.4605,
+          "shadeMax": 0.893,
+          "meshSha256": "fd595ac6deae5d75745d8b3f7629bd6031d9023c173e08f6d49998c27b3710df",
+          "key": "pallidum-internal",
+          "role": "structure",
+          "source": "manual-segmentation",
+          "color": "#b88d42",
+          "geometrySamplingMm": 1,
+          "sourceLabelIds": [
+            14
+          ],
+          "surfaceOnly": true
+        },
+        {
+          "file": "teaching-block-radiations-internal-capsule.mesh",
+          "vertices": 356,
+          "faces": 512,
+          "shadeMin": 0.3535,
+          "shadeMax": 0.9209,
+          "meshSha256": "4a0a8a19ff8dfd6916da0b464e66bed287e1cfffa3a22adc0a8be382ce54aaa3",
+          "key": "internal-capsule",
+          "role": "structure",
+          "source": "image-guided-segmentation",
+          "color": "#e4d27a",
+          "geometrySamplingMm": 1,
+          "sourceLabelIds": [
+            32
+          ],
+          "surfaceOnly": true
+        },
+        {
+          "file": "teaching-block-radiations-tissue.mesh",
+          "vertices": 31491,
+          "faces": 62164,
+          "shadeMin": 0.0,
+          "shadeMax": 1.0,
+          "meshSha256": "7bda548aea576b2f435479901774e9cc46b7c917640187745fac97655f962ee5",
+          "key": "tissue",
+          "role": "tissue",
+          "source": "specimen-derived",
+          "color": "#c9a27d",
+          "geometrySamplingMm": 1,
+          "surfaceOnly": true
+        }
+      ],
+      "boundsXYZmm": [
+        [
+          0,
+          78
+        ],
+        [
+          -80,
+          65
+        ],
+        [
+          -30,
+          -20
+        ]
+      ],
+      "surfaceFaces": 63916,
+      "bodyVoxels": 87773,
+      "colourMethod": "Partition of one shared external/cut surface"
+    },
+    "commissural-system": {
+      "parts": [
+        {
+          "file": "teaching-block-commissural-system-corpus-callosum.mesh",
+          "vertices": 3117,
+          "faces": 4346,
+          "shadeMin": 0.4884,
+          "shadeMax": 1.0,
+          "meshSha256": "3f31831911e8f941f242f8042e9d3ace46a238171586258ca5f8fa9b052f4377",
+          "key": "corpus-callosum",
+          "role": "structure",
+          "source": "image-guided-segmentation",
+          "color": "#dbc270",
+          "geometrySamplingMm": 1,
+          "sourceLabelIds": [
+            30
+          ],
+          "surfaceOnly": true
+        },
+        {
+          "file": "teaching-block-commissural-system-fornix.mesh",
+          "vertices": 214,
+          "faces": 163,
+          "shadeMin": 0.6791,
+          "shadeMax": 0.986,
+          "meshSha256": "fecaed1a086b3c0b0a590f8d1f1e0ebfd6cd558794ab4cc95d1c0dfe8da0501b",
+          "key": "fornix",
+          "role": "structure",
+          "source": "image-guided-segmentation",
+          "color": "#e7d9a6",
+          "geometrySamplingMm": 1,
+          "sourceLabelIds": [
+            46
+          ],
+          "surfaceOnly": true
+        },
+        {
+          "file": "teaching-block-commissural-system-septum-pellucidum.mesh",
+          "vertices": 29,
+          "faces": 15,
+          "shadeMin": 0.7628,
+          "shadeMax": 0.8977,
+          "meshSha256": "5700b6c08a07930a39b07e27bd2c4e8b22122dec4b837c336f1831f12069dd4d",
+          "key": "septum-pellucidum",
+          "role": "structure",
+          "source": "image-guided-segmentation",
+          "color": "#a9c5bd",
+          "geometrySamplingMm": 1,
+          "sourceLabelIds": [
+            43
+          ],
+          "surfaceOnly": true
+        },
+        {
+          "file": "teaching-block-commissural-system-tissue.mesh",
+          "vertices": 45841,
+          "faces": 89602,
+          "shadeMin": 0.0,
+          "shadeMax": 1.0,
+          "meshSha256": "c2baf8c7d039b46ac126ebc4fec745c5d3d7fa86eb2f574e4a3b4fac5959581f",
+          "key": "tissue",
+          "role": "tissue",
+          "source": "specimen-derived",
+          "color": "#c9a27d",
+          "geometrySamplingMm": 1,
+          "surfaceOnly": true
+        },
+        {
+          "file": "teaching-block-commissural-system-lateral-ventricles.mesh",
+          "vertices": 10801,
+          "faces": 21622,
+          "shadeMin": 0.82,
+          "shadeMax": 0.82,
+          "meshSha256": "74df7db42bbee14b001e9c26e09e1857a020d579d63dd2de2242124d8b53cf00",
+          "key": "lateral-ventricles",
+          "role": "cavity",
+          "source": "same-grid-segmentation",
+          "color": "#45aebd",
+          "geometrySamplingMm": 0.5
+        }
+      ],
+      "boundsXYZmm": [
+        [
+          0,
+          8
+        ],
+        [
+          -85,
+          70
+        ],
+        [
+          -40,
+          50
+        ]
+      ],
+      "surfaceFaces": 94126,
+      "bodyVoxels": 85780,
+      "colourMethod": "Partition of one shared external/cut surface"
+    },
+    "choroid-plexus": {
+      "parts": [
+        {
+          "file": "teaching-block-choroid-plexus-hippocampus.mesh",
+          "vertices": 699,
+          "faces": 925,
+          "shadeMin": 0.4558,
+          "shadeMax": 1.0,
+          "meshSha256": "5127b25b450a22a712b71663b9fdd26d423a97c0d0aebb5287ff4c14c4221e6b",
+          "key": "hippocampus",
+          "role": "structure",
+          "source": "manual-segmentation",
+          "color": "#c8798d",
+          "geometrySamplingMm": 1,
+          "sourceLabelIds": [
+            18
+          ],
+          "surfaceOnly": true
+        },
+        {
+          "file": "teaching-block-choroid-plexus-tissue.mesh",
+          "vertices": 25679,
+          "faces": 50623,
+          "shadeMin": 0.0,
+          "shadeMax": 1.0,
+          "meshSha256": "caa72aab6223314bb72b79de200dea6b1797fd037d9e4f5d976b4c1d88094ef7",
+          "key": "tissue",
+          "role": "tissue",
+          "source": "specimen-derived",
+          "color": "#c9a27d",
+          "geometrySamplingMm": 1,
+          "surfaceOnly": true
+        },
+        {
+          "file": "teaching-block-choroid-plexus-ventricular-cavity.mesh",
+          "vertices": 11779,
+          "faces": 23994,
+          "shadeMin": 0.82,
+          "shadeMax": 0.82,
+          "meshSha256": "a41ddb56a9e884a92238253101e737a33030601e572e245cb5afd9a42df279f2",
+          "key": "ventricular-cavity",
+          "role": "cavity",
+          "source": "same-grid-segmentation",
+          "color": "#45aebd",
+          "geometrySamplingMm": 0.5
+        },
+        {
+          "file": "teaching-block-choroid-plexus-choroid-plexus.mesh",
+          "vertices": 1578,
+          "faces": 3092,
+          "shadeMin": 0.82,
+          "shadeMax": 0.82,
+          "meshSha256": "79baa2c5eb98febbf6f833e3b0a9dc207b881e6457f1d2c788230492a399e1e2",
+          "key": "choroid-plexus",
+          "role": "schematic",
+          "source": "schematic-3d",
+          "color": "#b34c62",
+          "geometrySamplingMm": 1
+        }
+      ],
+      "boundsXYZmm": [
+        [
+          18,
+          28
+        ],
+        [
+          -65,
+          40
+        ],
+        [
+          -54,
+          18
+        ]
+      ],
+      "surfaceFaces": 51548,
+      "bodyVoxels": 78296,
+      "colourMethod": "Partition of one shared external/cut surface"
+    },
+    "medial-temporal": {
+      "parts": [
+        {
+          "file": "teaching-block-medial-temporal-hippocampus.mesh",
+          "vertices": 549,
+          "faces": 675,
+          "shadeMin": 0.4837,
+          "shadeMax": 0.9953,
+          "meshSha256": "01095083a56989fff7a50967fe634432017a53c6794939a9dc6b58a8bf54e8e4",
+          "key": "hippocampus",
+          "role": "structure",
+          "source": "manual-segmentation",
+          "color": "#c8798d",
+          "geometrySamplingMm": 1,
+          "sourceLabelIds": [
+            18
+          ],
+          "surfaceOnly": true
+        },
+        {
+          "file": "teaching-block-medial-temporal-amygdala.mesh",
+          "vertices": 435,
+          "faces": 611,
+          "shadeMin": 0.5302,
+          "shadeMax": 0.9442,
+          "meshSha256": "a921b0768a1ee7d8f33c4f8423fa4e83a541056254ea6dd86e8800b47e283b55",
+          "key": "amygdala",
+          "role": "structure",
+          "source": "manual-segmentation",
+          "color": "#9c6cae",
+          "geometrySamplingMm": 1,
+          "sourceLabelIds": [
+            22
+          ],
+          "surfaceOnly": true
+        },
+        {
+          "file": "teaching-block-medial-temporal-fimbria.mesh",
+          "vertices": 42,
+          "faces": 37,
+          "shadeMin": 0.6512,
+          "shadeMax": 0.9767,
+          "meshSha256": "0f3903a0b08ae1f83b88d3116fb83328f8dbe372f7ef98a8f6b35e35e583c719",
+          "key": "fimbria",
+          "role": "structure",
+          "source": "image-guided-segmentation",
+          "color": "#e7d9a6",
+          "geometrySamplingMm": 1,
+          "sourceLabelIds": [
+            46
+          ],
+          "surfaceOnly": true
+        },
+        {
+          "file": "teaching-block-medial-temporal-tissue.mesh",
+          "vertices": 11876,
+          "faces": 23051,
+          "shadeMin": 0.0,
+          "shadeMax": 1.0,
+          "meshSha256": "94972f75f9834cf65c0db5c7e7bab4477742d14bd16e426344958e8f7610384f",
+          "key": "tissue",
+          "role": "tissue",
+          "source": "specimen-derived",
+          "color": "#c9a27d",
+          "geometrySamplingMm": 1,
+          "surfaceOnly": true
+        },
+        {
+          "file": "teaching-block-medial-temporal-inferior-horn.mesh",
+          "vertices": 3262,
+          "faces": 6660,
+          "shadeMin": 0.82,
+          "shadeMax": 0.82,
+          "meshSha256": "e1b69a7fbff29a201d978a5fda53243be22e628ee9dd7b94b4713ede42eb88d3",
+          "key": "inferior-horn",
+          "role": "cavity",
+          "source": "same-grid-segmentation",
+          "color": "#45aebd",
+          "geometrySamplingMm": 0.5
+        }
+      ],
+      "boundsXYZmm": [
+        [
+          0,
+          58
+        ],
+        [
+          4,
+          16
+        ],
+        [
+          -60,
+          -8
+        ]
+      ],
+      "surfaceFaces": 24374,
+      "bodyVoxels": 33010,
+      "colourMethod": "Partition of one shared external/cut surface"
+    },
+    "midbrain-section": {
+      "parts": [
+        {
+          "file": "teaching-block-midbrain-section-red-nuclei.mesh",
+          "vertices": 133,
+          "faces": 196,
+          "shadeMin": 0.0,
+          "shadeMax": 0.8512,
+          "meshSha256": "a0f168cc6eb0990515024445b45ae8c0adfc9222a82a5e241aa0a6c736e8d092",
+          "key": "red-nuclei",
+          "role": "structure",
+          "source": "manual-segmentation",
+          "color": "#d24f49",
+          "geometrySamplingMm": 1,
+          "sourceLabelIds": [
+            1,
+            2
+          ],
+          "surfaceOnly": true
+        },
+        {
+          "file": "teaching-block-midbrain-section-substantia-nigra.mesh",
+          "vertices": 117,
+          "faces": 139,
+          "shadeMin": 0.0,
+          "shadeMax": 0.7814,
+          "meshSha256": "b7477eefa7757aa75513d4109c9c61b189bbb8b6058a1f988de5109d8443abcf",
+          "key": "substantia-nigra",
+          "role": "structure",
+          "source": "manual-segmentation",
+          "color": "#716387",
+          "geometrySamplingMm": 1,
+          "sourceLabelIds": [
+            3,
+            4
+          ],
+          "surfaceOnly": true
+        },
+        {
+          "file": "teaching-block-midbrain-section-tissue.mesh",
+          "vertices": 12508,
+          "faces": 24771,
+          "shadeMin": 0.0,
+          "shadeMax": 1.0,
+          "meshSha256": "ae97bfbf95e60f30cc2b7e2ba6d3188b1dc6e763a55b4b2e42961477415f2675",
+          "key": "tissue",
+          "role": "tissue",
+          "source": "specimen-derived",
+          "color": "#c9a27d",
+          "geometrySamplingMm": 1,
+          "surfaceOnly": true
+        },
+        {
+          "file": "teaching-block-midbrain-section-aqueduct.mesh",
+          "vertices": 284,
+          "faces": 564,
+          "shadeMin": 0.82,
+          "shadeMax": 0.82,
+          "meshSha256": "5a7b31e8263d65751904cf86d8a43447cbdfc045c81aabf5ad29f67ee49d2955",
+          "key": "aqueduct",
+          "role": "cavity",
+          "source": "same-grid-segmentation",
+          "color": "#45aebd",
+          "geometrySamplingMm": 0.5
+        },
+        {
+          "file": "teaching-block-midbrain-section-cerebral-peduncles.mesh",
+          "vertices": 2916,
+          "faces": 5780,
+          "shadeMin": 0.82,
+          "shadeMax": 0.82,
+          "meshSha256": "b247fc9f8c71293c6dbbe1214849702c4602e2c259f82380514936f950efdb89",
+          "key": "cerebral-peduncles",
+          "role": "schematic",
+          "source": "regional-approximation",
+          "color": "#d29a55",
+          "geometrySamplingMm": 1
+        },
+        {
+          "file": "teaching-block-midbrain-section-superior-colliculi.mesh",
+          "vertices": 560,
+          "faces": 1112,
+          "shadeMin": 0.82,
+          "shadeMax": 0.82,
+          "meshSha256": "38ef10f54ed76c6757445e3b38b8f90fa32f4811c098159bdb7066f39defd7a5",
+          "key": "superior-colliculi",
+          "role": "schematic",
+          "source": "regional-approximation",
+          "color": "#bd6f56",
+          "geometrySamplingMm": 1
+        },
+        {
+          "file": "teaching-block-midbrain-section-inferior-colliculi.mesh",
+          "vertices": 476,
+          "faces": 944,
+          "shadeMin": 0.82,
+          "shadeMax": 0.82,
+          "meshSha256": "1bd88fe0b8e0ba4f66e9f06e7d655578fc8c3dd46d18295002c49db5f5f17993",
+          "key": "inferior-colliculi",
+          "role": "schematic",
+          "source": "regional-approximation",
+          "color": "#a85d4e",
+          "geometrySamplingMm": 1
+        },
+        {
+          "file": "teaching-block-midbrain-section-lateral-geniculate-bodies.mesh",
+          "vertices": 684,
+          "faces": 1360,
+          "shadeMin": 0.82,
+          "shadeMax": 0.82,
+          "meshSha256": "9fb9be8ea76d53158f159a05fbeb3d94d6a6d7b18442631b1ae8eae8e1ca07b7",
+          "key": "lateral-geniculate-bodies",
+          "role": "schematic",
+          "source": "regional-approximation",
+          "color": "#648fc2",
+          "geometrySamplingMm": 1
+        },
+        {
+          "file": "teaching-block-midbrain-section-medial-geniculate-bodies.mesh",
+          "vertices": 484,
+          "faces": 960,
+          "shadeMin": 0.82,
+          "shadeMax": 0.82,
+          "meshSha256": "7981c82ee1ff001113fbf65a887867bcaef613592a94562429fb977874decdc5",
+          "key": "medial-geniculate-bodies",
+          "role": "schematic",
+          "source": "regional-approximation",
+          "color": "#69a78a",
+          "geometrySamplingMm": 1
+        },
+        {
+          "file": "teaching-block-midbrain-section-interpeduncular-fossa.mesh",
+          "vertices": 214,
+          "faces": 424,
+          "shadeMin": 0.82,
+          "shadeMax": 0.82,
+          "meshSha256": "627dde1fa63cc3b89ec231c17d5a7c58acbd89f4a039fa5d687c99e1b5d07226",
+          "key": "interpeduncular-fossa",
+          "role": "schematic",
+          "source": "regional-approximation",
+          "color": "#8f6d58",
+          "geometrySamplingMm": 1
+        }
+      ],
+      "boundsXYZmm": [
+        [
+          -24,
+          24
+        ],
+        [
+          -32,
+          20
+        ],
+        [
+          -36,
+          -26
+        ]
+      ],
+      "surfaceFaces": 25106,
+      "bodyVoxels": 24493,
+      "colourMethod": "Partition of one shared external/cut surface"
+    },
+    "hindbrain": {
+      "parts": [
+        {
+          "file": "teaching-block-hindbrain-tissue.mesh",
+          "vertices": 16156,
+          "faces": 32056,
+          "shadeMin": 0.0,
+          "shadeMax": 1.0,
+          "meshSha256": "8583e87ec5c65ce6ad6089de2eac3af44d4615daa93a8369273afc9f1c0eea4c",
+          "key": "tissue",
+          "role": "tissue",
+          "source": "specimen-derived",
+          "color": "#c9a27d",
+          "geometrySamplingMm": 1,
+          "surfaceOnly": true
+        },
+        {
+          "file": "teaching-block-hindbrain-fourth-ventricle.mesh",
+          "vertices": 3179,
+          "faces": 6362,
+          "shadeMin": 0.82,
+          "shadeMax": 0.82,
+          "meshSha256": "d188052d0e5ab85f7ecac156858d73496b9e435174092384c92b87b816ef13cf",
+          "key": "fourth-ventricle",
+          "role": "cavity",
+          "source": "same-grid-segmentation",
+          "color": "#45aebd",
+          "geometrySamplingMm": 0.5
+        },
+        {
+          "file": "teaching-block-hindbrain-superior-cerebellar-peduncles.mesh",
+          "vertices": 1376,
+          "faces": 2744,
+          "shadeMin": 0.82,
+          "shadeMax": 0.82,
+          "meshSha256": "ae02c398fa2421b12fb08e41e3c2bf909f7bac170ef086aa5f7a78fd91c4c114",
+          "key": "superior-cerebellar-peduncles",
+          "role": "schematic",
+          "source": "schematic-3d",
+          "color": "#e8ba52",
+          "geometrySamplingMm": 1
+        },
+        {
+          "file": "teaching-block-hindbrain-middle-cerebellar-peduncles.mesh",
+          "vertices": 2256,
+          "faces": 4504,
+          "shadeMin": 0.82,
+          "shadeMax": 0.82,
+          "meshSha256": "6343e6d56b3925242c51f8d4239d0e03f26833393b18d5f603974378012cbad0",
+          "key": "middle-cerebellar-peduncles",
+          "role": "schematic",
+          "source": "schematic-3d",
+          "color": "#db8747",
+          "geometrySamplingMm": 1
+        },
+        {
+          "file": "teaching-block-hindbrain-inferior-cerebellar-peduncles.mesh",
+          "vertices": 1524,
+          "faces": 3040,
+          "shadeMin": 0.82,
+          "shadeMax": 0.82,
+          "meshSha256": "0ba9ed5336ef56f5d75f328dc2138e77db606a2f3c2f6b76f63217d03a81aa94",
+          "key": "inferior-cerebellar-peduncles",
+          "role": "schematic",
+          "source": "schematic-3d",
+          "color": "#6dad7a",
+          "geometrySamplingMm": 1
+        },
+        {
+          "file": "teaching-block-hindbrain-facial-colliculi.mesh",
+          "vertices": 300,
+          "faces": 592,
+          "shadeMin": 0.82,
+          "shadeMax": 0.82,
+          "meshSha256": "d9ec73ff5132004f0825933f4f958672fb9edac329c57bb8a64f53e48863a707",
+          "key": "facial-colliculi",
+          "role": "schematic",
+          "source": "regional-approximation",
+          "color": "#d46e7f",
+          "geometrySamplingMm": 1
+        },
+        {
+          "file": "teaching-block-hindbrain-vestibular-areas.mesh",
+          "vertices": 652,
+          "faces": 1296,
+          "shadeMin": 0.82,
+          "shadeMax": 0.82,
+          "meshSha256": "306a53a838629771740af3519d5518fa0ca2eeaa052d30cd8064cd04beafa0cf",
+          "key": "vestibular-areas",
+          "role": "schematic",
+          "source": "regional-approximation",
+          "color": "#579ec0",
+          "geometrySamplingMm": 1
+        },
+        {
+          "file": "teaching-block-hindbrain-hypoglossal-trigones.mesh",
+          "vertices": 268,
+          "faces": 528,
+          "shadeMin": 0.82,
+          "shadeMax": 0.82,
+          "meshSha256": "1c9798cf1c3cd8a6d1a11c13854457f8f95acb70a8e0d08b10cb893145bd267b",
+          "key": "hypoglossal-trigones",
+          "role": "schematic",
+          "source": "regional-approximation",
+          "color": "#a386bf",
+          "geometrySamplingMm": 1
+        },
+        {
+          "file": "teaching-block-hindbrain-vagal-trigones.mesh",
+          "vertices": 268,
+          "faces": 528,
+          "shadeMin": 0.82,
+          "shadeMax": 0.82,
+          "meshSha256": "455386f54829a96835ea1f9479024fae47090a7f97127d653f79b3a3643c9a75",
+          "key": "vagal-trigones",
+          "role": "schematic",
+          "source": "regional-approximation",
+          "color": "#7b6aa6",
+          "geometrySamplingMm": 1
+        },
+        {
+          "file": "teaching-block-hindbrain-pyramids.mesh",
+          "vertices": 1416,
+          "faces": 2824,
+          "shadeMin": 0.82,
+          "shadeMax": 0.82,
+          "meshSha256": "6ae3e9dc7d77323d74f5d4ae6e7f3078e08916efa831318294313a6d91ae218d",
+          "key": "pyramids",
+          "role": "schematic",
+          "source": "regional-approximation",
+          "color": "#d1a863",
+          "geometrySamplingMm": 1
+        },
+        {
+          "file": "teaching-block-hindbrain-olives.mesh",
+          "vertices": 2060,
+          "faces": 4112,
+          "shadeMin": 0.82,
+          "shadeMax": 0.82,
+          "meshSha256": "17a013ee537f6bb9a5016342d30a5cac8a441a81e09d3ca03f7bfb9f84f6bcc2",
+          "key": "olives",
+          "role": "schematic",
+          "source": "regional-approximation",
+          "color": "#bd6e5c",
+          "geometrySamplingMm": 1
+        }
+      ],
+      "boundsXYZmm": [
+        [
+          0,
+          10
+        ],
+        [
+          -70,
+          20
+        ],
+        [
+          -84,
+          -24
+        ]
+      ],
+      "surfaceFaces": 32056,
+      "bodyVoxels": 38037,
+      "colourMethod": "Partition of one shared external/cut surface"
+    },
+    "lateral-ventricle-open": {
+      "parts": [
+        {
+          "file": "teaching-block-lateral-ventricle-open-caudate.mesh",
+          "vertices": 276,
+          "faces": 448,
+          "shadeMin": 0.2837,
+          "shadeMax": 0.9814,
+          "meshSha256": "a1818e0fca56181acdab9b0cc8a8d3a3c1a3dcb8b2df73174005c4be888fe181",
+          "key": "caudate",
+          "role": "structure",
+          "source": "manual-segmentation",
+          "color": "#dc914b",
+          "geometrySamplingMm": 1,
+          "surfaceOnly": true,
+          "sourceLabelIds": [
+            8
+          ]
+        },
+        {
+          "file": "teaching-block-lateral-ventricle-open-thalamus.mesh",
+          "vertices": 1415,
+          "faces": 1462,
+          "shadeMin": 0.0279,
+          "shadeMax": 1.0,
+          "meshSha256": "2258bb50a037e7a021029f6ac784997678c1e821ab669c07fb8171e46ff766fd",
+          "key": "thalamus",
+          "role": "structure",
+          "source": "manual-segmentation",
+          "color": "#8d82c4",
+          "geometrySamplingMm": 1,
+          "surfaceOnly": true,
+          "sourceLabelIds": [
+            16
+          ]
+        },
+        {
+          "file": "teaching-block-lateral-ventricle-open-hippocampus.mesh",
+          "vertices": 1140,
+          "faces": 1334,
+          "shadeMin": 0.5209,
+          "shadeMax": 1.0,
+          "meshSha256": "2317f3ceb7c6dab9ee88c09d2f67879bbe783a03967af35fe72d9208db5adf5d",
+          "key": "hippocampus",
+          "role": "structure",
+          "source": "manual-segmentation",
+          "color": "#c8798d",
+          "geometrySamplingMm": 1,
+          "surfaceOnly": true,
+          "sourceLabelIds": [
+            18
+          ]
+        },
+        {
+          "file": "teaching-block-lateral-ventricle-open-tissue.mesh",
+          "vertices": 78305,
+          "faces": 153026,
+          "shadeMin": 0.0,
+          "shadeMax": 1.0,
+          "meshSha256": "c5234724e3ae73a07a6316423e5a26d09757fdb03e32e877e0201b0c8f02e44f",
+          "key": "tissue",
+          "role": "tissue",
+          "source": "specimen-derived",
+          "color": "#c9a27d",
+          "geometrySamplingMm": 1,
+          "surfaceOnly": true
+        }
+      ],
+      "boundsXYZmm": [
+        [
+          0,
+          80
+        ],
+        [
+          -65,
+          65
+        ],
+        [
+          -56,
+          30
+        ]
+      ],
+      "surfaceFaces": 156270,
+      "bodyVoxels": 250222,
+      "colourMethod": "Partition of one shared external/cut surface",
+      "preparation": "Right-sided block with superior and lateral openings; retained medial wall and floor",
+      "cuts": {
+        "roofY": [
+          -65,
+          -40,
+          -25,
+          -10,
+          10,
+          25,
+          45,
+          65
+        ],
+        "roofZ": [
+          -9,
+          -9,
+          3,
+          5,
+          5,
+          -3,
+          -14,
+          -14
+        ],
+        "temporalY": [
+          -35,
+          -25,
+          -15,
+          -5,
+          5,
+          15
+        ],
+        "temporalX": [
+          24,
+          23,
+          25,
+          25,
+          24,
+          23
+        ],
+        "temporalZ": [
+          -12,
+          -14,
+          -23,
+          -29,
+          -35,
+          -39
+        ],
+        "lateralOpening": "Remove tissue lateral to ID24 at each Y/Z; retain medial wall and floor"
+      },
+      "retainedLabelVoxels": {
+        "8": 648,
+        "16": 8358,
+        "18": 4077
+      }
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
+  "sourceSha256": "a009c09fbcf2d13eb28de9a27830c6bcd0572d3b825cf9554b5879ca11efb707",
+  "labelIds": [
+    31,
+    32
+  ],
+  "labelVoxelCounts": {
+    "31": 56826,
+    "32": 53609
+  },
+  "sourceSamplingMm": 0.5,
+  "displayOriginZYX": [
+    -90.0,
+    -116.0,
+    -98.0
+  ],
+  "method": "marching cubes 0.5; no resampling, smoothing, filling or component removal",
+  "scope": "Existing image-guided candidate labels, bilateral and uncropped; not expert validation",
+  "voxels": 110435,
+  "components6": 20,
+  "componentSizes": [
+    56811,
+    53574,
+    7,
+    7,
+    5,
+    5,
+    5,
+    4,
+    3,
+    3,
+    2,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+  ],
+  "boundsZYX": [
+    [
+      125,
+      211,
+      133
+    ],
+    [
+      184,
+      322,
+      258
+    ]
+  ],
+  "vertices": 49591,
+  "faces": 99390,
+  "sha256": "edd00a0b93fae7a635f85290f634c916de9145c86284e9c763746d8458ab31ba",
+  "bytes": 624030,
+  "rawSha256": "ad8a6f1deef2e1aae1b1932dbe4738647f54764884327605d54df8b9fb197aa2",
+  "rawBytes": 2581240,
+  "compression": "gzip"
+}

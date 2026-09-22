@@ -1,3 +1,4 @@
+import {currentSegmentation} from './helpers/current-segmentation.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
@@ -19,7 +20,7 @@ test('third ventricle core is exactly 1587 reversible additions without other la
  assert.deepEqual(after,gunzipSync(current).subarray(10)); assert.equal(sha(after),r.outputRawSha256);
  const meta=JSON.parse(await read('public/atlas/bigbrain-practical-segmentation-icbm500-validation.json'));
  assert.equal(meta.fourthVentriclePairedAudit.changedVoxelCount,16);assert.equal(meta.thirdVentricleCoreAudit.recordSha256,sha(bytes));
- assert.equal(meta.labelCounts['25'],11837);assert.equal(after.reduce((n,v)=>n+(v===25),0),12007);
+ assert.equal(meta.labelCounts['25'],currentSegmentation.counts[25]);assert.equal(after.reduce((n,v)=>n+(v===25),0),12007);
  assert.equal(r.projectAdopted,true);assert.equal(r.expertReviewed,false);
  for(const p of r.points){const [x,y,z]=p.xyz;after[x+nx*(y+ny*z)]=0;}assert.deepEqual(after,before);
 });

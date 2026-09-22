@@ -16,8 +16,9 @@ test('archived classification stage contains exactly 47 edits and current labels
  const actual=gunzipSync(await readFile(new URL('../public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz',import.meta.url)));
  assert.equal(metadata.rawVoxelSha256,createHash('sha256').update(actual.subarray(10)).digest('hex'));
  for(let i=10;i<next.length;i++)if(old[i]!==next[i])assert.equal(actual[i],next[i]);
- assert.deepEqual(metadata.projectReviewedPartialIds,[41]);
- assert.equal(metadata.labelCounts['26'],9008);assert.equal(metadata.labelCounts['41'],259);
+ for(const id of [36,41,42,43,46])assert.ok(metadata.projectReviewedPartialIds.includes(id));
+ assert.equal(new Set(metadata.projectReviewedPartialIds).size,metadata.projectReviewedPartialIds.length);
+ assert.equal(metadata.labelCounts['26'],9200);assert.equal(metadata.labelCounts['41'],267);
  assert.equal(metadata.reviewedPatchAudits.length,6);
 });
 
@@ -31,6 +32,8 @@ test('archived fourth ventricle classification mesh is retained and current meta
  assert.equal(createHash('sha256').update(mesh).digest('hex'),successor?.afterSha256??previous);
  const metadata=JSON.parse(await readFile(new URL('../public/atlas/specimen-blocks.json',import.meta.url),'utf8'));
  const part=metadata.specimens.hindbrain.find(x=>x.file===file);
- assert.equal(part.vertices,mesh.readUInt32LE(4));assert.equal(part.faces,mesh.readUInt32LE(8));
+ const geometry=mesh[0]===0x1f&&mesh[1]===0x8b?gunzipSync(mesh):mesh;
+ assert.equal(geometry.toString('ascii',0,4),'BNM2');
+ assert.equal(part.vertices,geometry.readUInt32LE(4));assert.equal(part.faces,geometry.readUInt32LE(8));
 });
 import {regionalMeshSuccessor} from './helpers/residual-mesh-successor.mjs';

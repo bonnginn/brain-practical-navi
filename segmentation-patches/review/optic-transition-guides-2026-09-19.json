@@ -1,0 +1,283 @@
+{
+  "date": "2026-09-19",
+  "status": "manual-visual-guides-only-not-segmentation",
+  "sourceSha256": "18aec7b69b59ab5e3dc578885accbae2d86f86a7bbc6cba5dd2a07dbd4712f65",
+  "labelSha256": "5211664518129297bbf78d1d536004e540e721615a88007ecf1459d18fb97a96",
+  "coordinates": "Input PNG pixels; native x=column+250, z=694-row; title occupies rows 0..44",
+  "meaning": "Green open polylines indicate visibly exposed ventral tissue edges approximately; orange rectangles identify unresolved attachment regions, not boundaries; red rectangle identifies central gaps. No closed mask, optic identity assertion, or naming plane adoption.",
+  "planes": [
+    {
+      "nativeY": 235,
+      "input": "work/optic-landmark-review-20260919/posterior-y235.png",
+      "inputSha256": "8c0cf912be563d86b9aa4351bd4d224c20c77e067687b84687d5d53c016d64d0",
+      "exposedEdgeGuidesPngXY": [
+        [
+          [
+            176,
+            408
+          ],
+          [
+            177,
+            418
+          ],
+          [
+            182,
+            426
+          ],
+          [
+            194,
+            433
+          ],
+          [
+            211,
+            437
+          ],
+          [
+            239,
+            438
+          ],
+          [
+            264,
+            436
+          ]
+        ],
+        [
+          [
+            556,
+            402
+          ],
+          [
+            555,
+            413
+          ],
+          [
+            547,
+            423
+          ],
+          [
+            536,
+            428
+          ],
+          [
+            522,
+            430
+          ],
+          [
+            506,
+            428
+          ],
+          [
+            487,
+            423
+          ]
+        ]
+      ],
+      "unresolvedAttachmentBoxesPngXY": [
+        [
+          255,
+          330,
+          310,
+          440
+        ],
+        [
+          448,
+          315,
+          500,
+          435
+        ]
+      ],
+      "centralGapBoxPngXY": [
+        326,
+        380,
+        432,
+        472
+      ]
+    },
+    {
+      "nativeY": 240,
+      "input": "work/optic-landmark-review-20260919/posterior-y240.png",
+      "inputSha256": "ee4db6290f5dc2b8997aaf340493903f9e4936078dc13c572e521de1d7e4ec89",
+      "exposedEdgeGuidesPngXY": [
+        [
+          [
+            185,
+            415
+          ],
+          [
+            185,
+            425
+          ],
+          [
+            191,
+            434
+          ],
+          [
+            204,
+            440
+          ],
+          [
+            224,
+            443
+          ],
+          [
+            251,
+            443
+          ],
+          [
+            272,
+            442
+          ]
+        ],
+        [
+          [
+            553,
+            399
+          ],
+          [
+            552,
+            413
+          ],
+          [
+            545,
+            426
+          ],
+          [
+            534,
+            432
+          ],
+          [
+            518,
+            433
+          ],
+          [
+            497,
+            429
+          ],
+          [
+            479,
+            424
+          ]
+        ]
+      ],
+      "unresolvedAttachmentBoxesPngXY": [
+        [
+          255,
+          330,
+          310,
+          440
+        ],
+        [
+          448,
+          315,
+          500,
+          435
+        ]
+      ],
+      "centralGapBoxPngXY": [
+        326,
+        380,
+        432,
+        472
+      ]
+    },
+    {
+      "nativeY": 245,
+      "input": "work/optic-landmark-review-20260919/posterior-y245.png",
+      "inputSha256": "eeb8ffccf0365e8a6dd9fafe54f077b159319a11fd2788aaaa20783b61c0d22e",
+      "exposedEdgeGuidesPngXY": [
+        [
+          [
+            188,
+            415
+          ],
+          [
+            188,
+            427
+          ],
+          [
+            195,
+            436
+          ],
+          [
+            209,
+            442
+          ],
+          [
+            232,
+            446
+          ],
+          [
+            254,
+            447
+          ],
+          [
+            279,
+            446
+          ]
+        ],
+        [
+          [
+            549,
+            402
+          ],
+          [
+            550,
+            416
+          ],
+          [
+            546,
+            428
+          ],
+          [
+            536,
+            438
+          ],
+          [
+            522,
+            440
+          ],
+          [
+            505,
+            437
+          ],
+          [
+            485,
+            433
+          ]
+        ]
+      ],
+      "unresolvedAttachmentBoxesPngXY": [
+        [
+          255,
+          330,
+          310,
+          440
+        ],
+        [
+          448,
+          315,
+          500,
+          435
+        ]
+      ],
+      "centralGapBoxPngXY": [
+        326,
+        380,
+        432,
+        472
+      ]
+    }
+  ],
+  "additionalRawPlanes": {
+    "sagittalX": [
+      520,
+      535,
+      710,
+      725
+    ],
+    "horizontalZ": [
+      320
+    ]
+  },
+  "decision": "None of Y235/240/245 is adopted as a naming plane. Free ventral surfaces are visible, but the tissue-specific dorsal interface and central gaps are unresolved. Compare attachment interfaces before selecting a plane."
+}

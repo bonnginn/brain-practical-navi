@@ -3,13 +3,27 @@
   "version": 1,
   "sourceImage": "/atlas/bigbrain-icbm500.bin.gz",
   "sourceLabels": "/atlas/bigbrain-practical-segmentation-icbm500.bin.gz",
-"sourceLabelsSha256": "785ce199e2c7226e5527a771e953d1b78cfed1067179aa04c63b9eba74577e0f",
-  "dims": [394, 466, 378],
-  "voxelSizeMm": [0.5, 0.5, 0.5],
+  "sourceLabelsSha256": "10f1704ae1b632bf6aac7f09ca7641d38e579a68712e7c1870fa173cedcc779f",
+  "dims": [
+    394,
+    466,
+    378
+  ],
+  "voxelSizeMm": [
+    0.5,
+    0.5,
+    0.5
+  ],
   "primaryPlane": "horizontal",
   "createdAt": "2026-08-13T00:00:00.000Z",
   "authorNote": "intentional conflict test",
   "authorGitHub": "",
   "editCount": 1,
-  "runs": [{"start": 0, "length": 1, "label": 1}]
+  "runs": [
+    {
+      "start": 0,
+      "length": 1,
+      "label": 1
+    }
+  ]
 }

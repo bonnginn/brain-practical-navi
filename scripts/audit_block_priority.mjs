@@ -66,16 +66,16 @@ function auditStaticAppContract(source, routeSource, errors) {
     /const blockInitialRotations:Record<BlockSpecimenKey,Rotation>/,
     /setBlockLayers\(next\.layers\.map\(layer=>layer\.key\)\)/,
     /setRotation\(\{\.\.\.blockInitialRotations\[key\]\}\)/,
-    /setBlockTissueMode\(next\.layers\.length\?"ghost":"solid"\)/,
+    /setBlockTissueMode\("solid"\);setBlockAnswerVisible\(false\);setBlockSchematicsVisible\(false\)/,
     /function chooseBlock\(key:BlockSpecimenKey/,
   ];
   for (const pattern of requiredStatePatterns) if (!pattern.test(source)) addFailure(errors, "selection-state-contract", `existing selection state contract missing: ${pattern}`);
 
-  const canvasPattern = /<AtlasVolumeCanvas kind="surface" plane=\{specimenLesson\.plane\} position=\{specimenLesson\.position\} focus=\{specimenLesson\.focus\} display="specimen" rotation=\{rotation\} view="inside" contrast="bigbrain"[\s\S]*?specimenBlock=\{blockSpecimen\} specimenLayers=\{blockLayers\} specimenTissueMode=\{blockTissueMode\}/;
+  const canvasPattern = /<AtlasVolumeCanvas kind="surface" plane=\{specimenLesson\.plane\} position=\{specimenLesson\.position\} focus=\{specimenLesson\.focus\} display="specimen" rotation=\{rotation\} view="inside" contrast="bigbrain"[\s\S]*?specimenBlock=\{renderedBlock\} specimenLayers=\{blockLayers\} specimenTissueMode=\{blockTissueMode\}/;
   if (!canvasPattern.test(source)) addFailure(errors, "canvas-contract", "block Canvas must retain the existing plane/position/focus/camera/layer/mesh contract");
   if (!/layers:\[/.test(source) || !/color:"#[0-9a-fA-F]{6}"/.test(source)) addFailure(errors, "layer-contract", "existing block layer color/mesh contract is missing");
   if (!/plane:"(?:coronal|horizontal|sagittal)",position:\d+/.test(source)) addFailure(errors, "section-contract", "existing representative section contract is missing");
-  if (!/specimenBlock=\{blockSpecimen\}/.test(source)) addFailure(errors, "mesh-contract", "existing specimen mesh selection must remain data-driven");
+  if (!/specimenBlock=\{renderedBlock\}/.test(source)) addFailure(errors, "mesh-contract", "existing specimen mesh selection must remain data-driven");
   if (/(?<!blockPriority)["'](?:voxelPatch|newMesh|priorityMesh)["']?\s*:/.test(source)) addFailure(errors, "geometry-mutation", "priority routing must not introduce voxel or mesh fields");
   for (const key of BLOCK_SPECIMEN_KEYS) {
     const idPattern = new RegExp(String.raw`id:\s*["']blocks-${key}["']`);
