@@ -2080,7 +2080,7 @@ test("status dialog renders the JSON registry through a durable direct route", a
   assert.equal(data.phase, "公開β版／専門家監修は未実施");
   assert.ok(data.knownLimitations.some(item => item.body.includes("ID33")));
   assert.ok(data.changes.some(item => item.body.includes("162/162")));
-  assert.ok(data.knownLimitations.some(item => item.body.includes("162/162")));
+  assert.ok(data.knownLimitations.some(item => item.id === "limitation-local-validation-scope" && item.body.includes("物理タッチ端末")));
   assert.doesNotMatch(status, /親作業での実施前|26経路版は[^。]*未実施/);
   assert.match(page, /import betaStatus from "\.\/beta-status\.json"/);
   assert.match(page, /const betaStatusData=betaStatus as BetaStatusData/);
