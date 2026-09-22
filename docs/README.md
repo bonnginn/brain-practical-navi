@@ -54,6 +54,8 @@
 - [9月15日：側脳室ブロックの0.5 mm表示](VENTRICLE_BLOCK_FIDELITY_2026-09-15.md)
 - [9月15日：分節再開・側脳室上縁8点の修正](LATERAL_ROOF_REPAIR_2026-09-15.md)
 
+- [公開版の断面併設3D・左右表示修正](SECTION_BILATERAL_PUBLIC_FIX_2026-09-16.md)
+
 - [9月15日：UI/UX確認メモ](UI_UX_REVIEW_NOTES_2026-09-15.md)
 - [9月15日：UI/UX追加指摘の解剖トリアージ](UI_UX_ANATOMY_TRIAGE_2026-09-15.md)
 - [9月15日：模式神経・回路説明と保留範囲](SEPTEMBER15_SCHEMATIC_COMPLETION.md)
