@@ -1,0 +1,6 @@
+.referenceSearch{margin:20px 0;padding:14px;background:var(--paper,#f5f4ee);border:1px solid var(--line,#b8c7c7);border-radius:8px}
+.referenceSearch>label{display:block;font-weight:700;margin-bottom:8px}
+.referenceSearch>div{display:flex;gap:8px}
+.referenceSearch input{flex:1;min-width:0;width:100%;min-height:44px;padding:8px 10px;font:inherit;background:var(--panel,#fff);color:inherit;border:1px solid var(--line,#b8c7c7);border-radius:4px}
+.referenceSearch button{flex:0 0 auto;min-height:44px;padding:8px 12px;font:inherit;border:1px solid var(--line,#b8c7c7);border-radius:4px;background:var(--panel,#fff);color:inherit;cursor:pointer}
+.referenceSearch p{margin:8px 0 0;font-size:.85em}

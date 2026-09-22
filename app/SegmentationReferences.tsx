@@ -1,3 +1,7 @@
+import {useId,useRef,useState} from 'react';
+import {normalizeJapaneseSearch} from '../src/japaneseSearch';
+import './reference-search.css';
+
 const sources = [
   {name:"UTHealth Neuroanatomy Online — Medial structures",url:"https://nba.uth.tmc.edu/neuroanatomy/L1/Lab01p22_index.html",ja:"透明中隔と脳梁など、内側面の位置関係を学ぶための参考。解説を照合し、画像は転載していません。",en:"Reference for learning medial relationships, including the septum pellucidum and corpus callosum. Used to check explanations; images are not reproduced."},
   {name:"UTHealth Neuroanatomy Online — Limbic system: sectional review",url:"https://nba.uth.tmc.edu/neuroanatomy/L11/Lab11p09_index.html",ja:"前交連・脳弓・乳頭体を連続断面で見分ける説明の参考。別標本の境界を転写する用途ではありません。",en:"Reference for distinguishing the anterior commissure, fornix and mammillary bodies across sections. Not used to transfer boundaries from another specimen."},
@@ -66,13 +70,30 @@ const readings = [
 ];
 
 export function SegmentationReferences({english}:{english:boolean}) {
-  return <section className="legalReferences" data-segmentation-references="true">
+  const [query,setQuery]=useState('');
+  const searchId=useId();
+  const input=useRef<HTMLInputElement>(null);
+  const terms=query.normalize('NFKC').split(/\s+/).map(normalizeJapaneseSearch).filter(Boolean);
+  const matches=(source:{name:string;nameEn?:string;url:string;ja:string;en:string})=>{
+    const text=normalizeJapaneseSearch([source.name,source.nameEn,source.url,source.ja,source.en].join(' '));
+    return terms.every(term=>text.includes(term));
+  };
+  const matchedSources=sources.filter(matches),matchedReadings=readings.filter(matches);
+  const count=matchedSources.length+matchedReadings.length;
+  return <section className="legalReferences" data-segmentation-references="true" data-no-localize>
     <h3>{english?"References and use in this app":"参考文献と本アプリでの用途"}</h3>
     <p>{english?"Primary sources and selected review references. Citation does not imply author endorsement or completed expert review. Resolution and review coverage differ between repairs.":"主要な出典と照合資料です。引用元による承認や専門家レビュー完了を意味しません。使用解像度・確認範囲は修正ごとに異なります。"}</p>
-    <h4>{english?"Data, anatomy and teaching references":"データ・解剖・実習の参考資料"}</h4>
-    {sources.map(s=><p key={s.url}><a href={s.url} target="_blank" rel="noreferrer">{english&&s.nameEn?s.nameEn:s.name}</a><br/>{english?s.en:s.ja}</p>)}
-    <h4>{english?"Context and investigation — not adopted boundary data":"照合・調査資料 — 採用境界データではありません"}</h4>
-    {readings.map(s=><p key={s.url}><a href={s.url} target="_blank" rel="noreferrer">{s.name}</a><br/>{english?s.en:s.ja}</p>)}
+    <div className="referenceSearch"><label htmlFor={searchId}>{english?'Find a reference':'参考文献を探す'}</label><div><input ref={input} id={searchId} type="search" value={query} placeholder={english?'Structure, author or title':'構造名・著者名・資料名（例：脳弓、BigBrain）'} onChange={event=>setQuery(event.target.value)} onKeyDown={event=>{
+      if(event.nativeEvent.isComposing||event.nativeEvent.keyCode===229)return;
+      if(event.key==='Escape'&&query){event.preventDefault();event.stopPropagation();setQuery('')}
+    }}/>{query&&<button type="button" onClick={()=>{setQuery('');input.current?.focus()}}>{english?'Clear':'クリア'}</button>}</div>
+      <p role="status">{english?`${count} of ${sources.length+readings.length} references`:`${sources.length+readings.length}件中${count}件`}</p>
+    </div>
+    {count===0&&<p>{english?'No matching references. Try a shorter structure name, an author, or clear the search.':'一致する資料がありません。短い構造名や著者名で探すか、検索をクリアしてください。'}</p>}
+    {matchedSources.length>0&&<><h4>{english?"Data, anatomy and teaching references":"データ・解剖・実習の参考資料"}</h4>
+    {matchedSources.map(s=><p key={s.url}><a href={s.url} target="_blank" rel="noreferrer">{english&&s.nameEn?s.nameEn:s.name}</a><br/>{english?s.en:s.ja}</p>)}</>}
+    {matchedReadings.length>0&&<><h4>{english?"Context and investigation — not adopted boundary data":"照合・調査資料 — 採用境界データではありません"}</h4>
+    {matchedReadings.map((s,index)=><p key={`${s.url}:${index}`}><a href={s.url} target="_blank" rel="noreferrer">{s.name}</a><br/>{english?s.en:s.ja}</p>)}</>}
     <details><summary>{english?"Representation notes":"表示モデルに関する補足"}</summary>
     <p data-cerebellar-representation="current-section-labels">{english?"The BigBrain cerebellum and brainstem shown in Sections are reconstructed from the current section labels. A local 197-voxel folial repair is included. Remaining gaps and isolated components have not been declared complete, and these section models are distinct from the MNI surface models.":"連続断面のBigBrain小脳・脳幹3Dは、断面と同じ現行ラベルから再構成しています。小脳葉の局所197点修正を反映していますが、残る塗り落としや孤立成分の確認は未完了です。MNIの脳表モデルとは区別しています。"}</p>
     <p data-brainstem-representation="partial-tissue-repair">{english?"The BigBrain brainstem label used in Sections includes a partial image-guided repair toward the cerebral peduncles. Its upper extent remains unresolved. It is not a completed segmentation or the separate MNI surface scaffold.":"断面用のBigBrain脳幹ラベルは、大脳脚側の塗り落としを原画像に基づき一部補修しています。上方の範囲は未確定で、全脳幹の完成分節でも、別のMNI脳表モデルそのものでもありません。"}</p>
