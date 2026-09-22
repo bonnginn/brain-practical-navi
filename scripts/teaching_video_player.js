@@ -65,5 +65,17 @@
   document.querySelectorAll('[data-time]').forEach(button => button.addEventListener('click', () => {
     stoppedAtBoundary = false; status.textContent = ''; previous = -1;
   }, {capture: true}));
+  document.querySelectorAll('[data-review-time]').forEach(button => button.addEventListener('click', () => {
+    video.pause();
+    stoppedAtBoundary = false; boundarySeek = false; previous = -1;
+    video.currentTime = Number(button.dataset.reviewTime);
+    update();
+    video.scrollIntoView({block: 'start'});
+    video.focus({preventScroll: true});
+    status.textContent = '確認する場面で停止しています。必要なら再生して続けてください。';
+  }));
+  document.querySelectorAll('.filmReviewCard details').forEach(answer => answer.addEventListener('toggle', () => {
+    if (answer.open) video.pause();
+  }));
   update();
 })();
