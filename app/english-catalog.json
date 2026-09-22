@@ -2134,5 +2134,6 @@
   "選択した構造を読み込み中…": "Loading selected structures…",
   "中脳水道は第三脳室と第四脳室を結ぶ細い髄液の通路で、中脳の正中を通ります。": "The cerebral aqueduct is a narrow cerebrospinal-fluid passage through the midline of the midbrain, connecting the third and fourth ventricles.",
   "海馬体と中隔領域・乳頭体などを結ぶ、記憶に関わる主要な白質路です。海馬体からの主要な出力経路であり、海馬体へ向かう入力線維も含みます。": "A major white-matter pathway in memory-related networks, linking the hippocampal formation with septal regions and mammillary bodies. It carries major hippocampal outputs and also includes fibres returning to the hippocampal formation.",
-  "通常の出題に戻る": "Return to regular quiz settings"
+  "通常の出題に戻る": "Return to regular quiz settings",
+  "間違えた問題は端末内に保存しました。下で答えと解説を見直し、今回間違えた問題だけを再挑戦できます。": "Missed questions are saved on this device. Review your answers and explanations below, then retry just the questions you missed in this session."
 }
