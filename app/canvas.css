@@ -1794,3 +1794,5 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
 .surfaceModelCard > .panelHead .panelActions{flex:0 1 auto;flex-wrap:wrap;max-width:100%;gap:6px}
 .surfaceModelCard > .panelHead .panelActions button{max-width:100%;white-space:normal;min-height:36px}
 .phone-mode .surfaceModelCard > .panelHead .panelActions button{min-height:44px}
+
+.helpEditorDetails{margin:0 24px 20px;font-size:var(--ui-font-13,13px);line-height:1.6}.helpEditorDetails summary{cursor:pointer;padding:10px 0;font-weight:700}.helpEditorDetails p{margin:4px 0}
