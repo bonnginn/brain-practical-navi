@@ -306,7 +306,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /workspaceSwitch button\.active/);
   assert.match(page, /leftRail \.planeBtn\.active/);
   assert.match(page, /scrollIntoView\(\{block:"nearest",inline:"center"\}\)/);
-  assert.match(page, /PUBLIC ALPHA · EDUCATIONAL USE ONLY/);
+  assert.match(page, /PUBLIC BETA · EDUCATIONAL USE ONLY/);
   assert.match(page, /className="homeNotice"/);
   assert.match(page, /教育目的以外での利用はお控えください/);
   assert.match(page, /教科書や検証済み資料と照合して利用してください/);

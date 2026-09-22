@@ -1548,7 +1548,7 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
 
     {workspace==="home"&&<section className="homeArea homeNoticeArea" id="workspace" tabIndex={-1}>
       <article className="homeNotice">
-        <header><span>PUBLIC ALPHA · EDUCATIONAL USE ONLY</span><h1>脳実習ナビ</h1><p><strong>本アプリは、神経解剖学の教育・自主学習目的で提供しています。</strong>教育目的以外での利用はお控えください。</p></header>
+        <header><span>PUBLIC BETA · EDUCATIONAL USE ONLY</span><h1>脳実習ナビ</h1><p><strong>本アプリは、神経解剖学の教育・自主学習目的で提供しています。</strong>教育目的以外での利用はお控えください。</p></header>
         <footer><button className="homeEnter" onClick={()=>openWorkspace("surface")}>教育目的で教材を開く</button><button onClick={()=>openOverlay("legal")}>利用条件・データ・クレジット</button><button onClick={()=>openOverlay("status")}>更新履歴・既知の制限</button><button onClick={()=>openOverlay("feedback")}>匿名の意見・誤り報告</button></footer>
         <div className="homeNoticePoints">
           <section><b>教育目的での利用</b><p>脳表、断面、3Dモデルを行き来しながら、構造の見え方と位置関係を確認する学習教材です。</p></section>
