@@ -1709,7 +1709,7 @@
     },
     "cerebellar-margins90": {
       "record": "segmentation-patches/review/cerebellar-margins90-adoption-2026-09-22.json",
-      "recordSha256": "b77927f67c647d8a20fa633ec53469326c39bbad717bb9a85944f67501ca934f",
+      "recordSha256": "440daab55167f691b8d7f9e52d2b32721672105b7ce11da2beaaa48e658bf6fa",
       "changedVoxelCount": 90,
       "projectAdopted": true,
       "expertReviewed": false
