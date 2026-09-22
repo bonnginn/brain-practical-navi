@@ -518,7 +518,7 @@ export function AtlasVolumeCanvas({circuitStageMs=2200,dimContextOverlays=false,
   useEffect(()=>atlasDownloadProgress.subscribe(setDownloadProgress),[]);
   useEffect(()=>{if(kind!=="slice")return;retainLargeVolumeCaches();return releaseLargeVolumeCaches},[kind]);
   useEffect(()=>{if(kind!=="surface")return;retainSurfaceMeshCaches();return releaseSurfaceMeshCaches},[kind]);
-  useEffect(()=>{if(kind==="slice"&&(contrast==="t1"||contrast==="t2")){setError("");loadVolume().then(setData).catch(e=>setError(String(e)))}},[kind,contrast,retryVersion]);
+  useEffect(()=>{if(kind!=="slice"||!((contrast==="t1"||contrast==="t2")))return;let active=true;setError("");loadVolume().then(value=>{if(active)setData(value)}).catch(e=>{if(active)setError(String(e))});return()=>{active=false}},[kind,contrast,retryVersion]);
   useEffect(()=>{
     if(kind!=="surface")return;
     if(specimenBlock!=="none"){setMeshes({surface:[],segments:[],overlays:[],basal:[],deep:[],landmarks:[]});return}
@@ -569,9 +569,9 @@ export function AtlasVolumeCanvas({circuitStageMs=2200,dimContextOverlays=false,
     }
     return {meshes,color:layer.color,pulse:layer.pulse,travel};
   })).then(layers=>{if(active)setSelectionLayers(layers)}).catch(e=>{if(active){setSelectionLayers([]);setError(String(e))}});return()=>{active=false}},[kind,selectionLayerKey,retryVersion]);
-  useEffect(()=>{if(kind==="slice"&&contrast==="bigbrain"){setError("");loadBigBrain().then(setBigBrain).catch(e=>setError(String(e)))}},[kind,contrast,retryVersion]);
-  useEffect(()=>{if(kind==="slice"&&contrast==="single"){setError("");loadFixedBrain().then(setFixedBrain).catch(e=>setError(String(e)))}},[kind,contrast,retryVersion]);
-  useEffect(()=>{if(kind==="slice"&&contrast==="bigbrain")loadManualSeg("icbm500").then(setManualSeg).catch(e=>setError(String(e)));else setManualSeg(null)},[kind,contrast,retryVersion]);
+  useEffect(()=>{if(kind!=="slice"||!(contrast==="bigbrain"))return;let active=true;setError("");loadBigBrain().then(value=>{if(active)setBigBrain(value)}).catch(e=>{if(active)setError(String(e))});return()=>{active=false}},[kind,contrast,retryVersion]);
+  useEffect(()=>{if(kind!=="slice"||!(contrast==="single"))return;let active=true;setError("");loadFixedBrain().then(value=>{if(active)setFixedBrain(value)}).catch(e=>{if(active)setError(String(e))});return()=>{active=false}},[kind,contrast,retryVersion]);
+  useEffect(()=>{if(kind!=="slice"||contrast!=="bigbrain"){setManualSeg(null);return}let active=true;loadManualSeg("icbm500").then(value=>{if(active)setManualSeg(value)}).catch(e=>{if(active)setError(String(e))});return()=>{active=false}},[kind,contrast,retryVersion]);
   useEffect(()=>{
     if(!error)return;
     const retry=()=>{

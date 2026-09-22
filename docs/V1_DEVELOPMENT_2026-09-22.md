@@ -30,6 +30,12 @@
 - その後の英訳・モバイル対象29件成功。型検査、通常/Pages形式build、両buildの権利・出典検査成功。分節・メッシュ・Python変更なしのためPython全件は再実行しない。
 - ログ：`work/v1-integration-node.log`、`work/v1-ui-targeted.log`、`work/v1-language-mobile-targeted.log`、`work/v1-home-build.log`、`work/v1-pages-build.log`、`work/v1-rights-{normal,pages}.json`。
 
+## 読み込み中の切り替え
+
+断面の非同期読み込み4経路（MRI、組織像、固定脳MRI、ラベル）で、画面切り替え後に届いた結果・失敗を画面状態へ反映しないようにした。共有データの取得自体は中断せず、他の表示からの利用を妨げない。
+
+独立した実コンポーネントfixture `work/v1-load-race.html` を4359で配信し、組織像の通信を7秒後に503とする条件で、読み込み開始→脳表へ切り替え→旧通信の失敗後も3Dを保ちエラーなし、を実ブラウザ確認。配信を正常に戻し断面へ切り替えると組織像が描画されることも確認。503のエラー案内→通信復帰→「再読み込み」→断面再描画も確認。型検査成功。fixtureと遅延サーバーはwork内に保存し、公開には含めない。
+
 ## 参考：更新処理
 
 - [MDN: ServiceWorkerRegistration.waiting](https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/waiting)
