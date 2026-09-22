@@ -146,6 +146,10 @@ function workspaceFromHash(hash:string):WorkspaceMode{
   return workspaceModeKeys.includes(candidate as WorkspaceMode)?candidate as WorkspaceMode:"entrance";
 }
 function overlayFromHash(hash:string):OverlayMode|null{const candidate=hash.replace(/^#/,"").replace(/^workspace\/?/,"").split("/")[0];return candidate==="sources"||candidate==="help"||candidate==="feedback"||candidate==="legal"||candidate==="status"?candidate:null}
+function overlayOriginFromHistory():string|null{
+  const origin=window.history.state?.learningOrigin;
+  return typeof origin==="string"&&origin.startsWith("#workspace/")&&!overlayFromHash(origin)?origin:null;
+}
 function surfaceViewFromHash(hash:string):SurfaceViewKey{const candidate=hash.replace(/^#/,"").replace(/^workspace\/?/,"").split("/")[1];if(candidate==="nerves")return "cranialNerves";return surfaceViewKeys.includes(candidate as SurfaceViewKey)?candidate as SurfaceViewKey:"lateral"}
 function planeFromHash(hash:string):Plane{const candidate=hash.replace(/^#/,"").replace(/^workspace\/?/,"").split("/")[1];return planeKeys.includes(candidate as Plane)?candidate as Plane:"coronal"}
 function blockSpecimenFromHash(hash:string):BlockSpecimenKey{const candidate=hash.replace(/^#/,"").replace(/^workspace\/?/,"").split("/")[1];return blockSpecimenKeys.includes(candidate as BlockSpecimenKey)?candidate as BlockSpecimenKey:"lateral-ventricle"}
@@ -865,6 +869,7 @@ export default function Home() {
   const [phoneSettingsOpen,setPhoneSettingsOpen]=useState(false);
   const [anatomyReviewSurfaceFilter,setAnatomyReviewSurfaceFilter]=useState<AnatomyReviewSurface>("all");
   const [anatomyReviewRepresentationFilter,setAnatomyReviewRepresentationFilter]=useState("all");
+  const overlayOriginRef=useRef<string|null>(null);
   const overlayReturnFocus=useRef<HTMLElement|null>(null);
   const pwaInstallAffordanceRef=useRef<ReturnType<typeof createPwaInstallAffordance>|null>(null);
   const phoneSettingsDialogRef=useRef<HTMLDialogElement|null>(null);
@@ -1209,7 +1214,10 @@ export default function Home() {
     else if((!phoneMode||!phoneSettingsOpen)&&dialog.open)dialog.close();
     return()=>dialog.removeEventListener("close",handleClose);
   },[phoneMode,phoneSettingsOpen]);
-useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.hash);setHelpOpen(overlay==="help");setFeedbackOpen(overlay==="feedback");setLegalOpen(overlay==="legal");setSourcesOpen(overlay==="sources");setStatusOpen(overlay==="status");setPhoneSettingsOpen(false);const requestedWorkspace=workspaceFromHash(window.location.hash);const nextWorkspace=publicWorkspaceForLocale(requestedWorkspace,locale) as WorkspaceMode;if(englishEdition&&nextWorkspace==="home"&&(requestedWorkspace==="collaborate"||requestedWorkspace==="segment"))window.history.replaceState(null,"",workspaceHash("home"));setModelStrategyComparisonOpen(nextWorkspace==="collaborate"&&modelStrategyFromHash(window.location.hash));transitionBlockContextState({type:"restore-route",workspace:nextWorkspace,specimen:blockSpecimenFromHash(window.location.hash)});setBlockContextDrag(null);setWorkspace(nextWorkspace);if(nextWorkspace==="surface"){chooseSurface(surfaceViewFromHash(window.location.hash),"none");setBrodmannActive(window.location.hash.endsWith("/brodmann"));}else if(nextWorkspace==="sections")restoreSectionRoute();else if(nextWorkspace==="blocks")chooseBlock(blockSpecimenFromHash(window.location.hash),"none")};restore();window.addEventListener("hashchange",restore);window.addEventListener("popstate",restore);return()=>{window.removeEventListener("hashchange",restore);window.removeEventListener("popstate",restore)}},[]);
+useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.hash);setHelpOpen(overlay==="help");setFeedbackOpen(overlay==="feedback");setLegalOpen(overlay==="legal");setSourcesOpen(overlay==="sources");setStatusOpen(overlay==="status");setPhoneSettingsOpen(false);const origin=overlay?overlayOriginFromHistory():null;const route=origin??window.location.hash;
+if(overlayOriginRef.current&&overlayOriginRef.current===route)return;
+overlayOriginRef.current=origin;
+const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWorkspaceForLocale(requestedWorkspace,locale) as WorkspaceMode;if(englishEdition&&nextWorkspace==="home"&&(requestedWorkspace==="collaborate"||requestedWorkspace==="segment"))window.history.replaceState(null,"",workspaceHash("home"));setModelStrategyComparisonOpen(nextWorkspace==="collaborate"&&modelStrategyFromHash(route));transitionBlockContextState({type:"restore-route",workspace:nextWorkspace,specimen:blockSpecimenFromHash(route)});setBlockContextDrag(null);setWorkspace(nextWorkspace);if(nextWorkspace==="surface"){chooseSurface(surfaceViewFromHash(route),"none");setBrodmannActive(route.endsWith("/brodmann"));}else if(nextWorkspace==="sections")restoreSectionRoute(route);else if(nextWorkspace==="blocks")chooseBlock(blockSpecimenFromHash(route),"none")};restore();window.addEventListener("hashchange",restore);window.addEventListener("popstate",restore);return()=>{window.removeEventListener("hashchange",restore);window.removeEventListener("popstate",restore)}},[]);
   useEffect(()=>{
     if(!phoneMode||!phoneSettingsOpen)return;
     const dialog=phoneSettingsDialogRef.current;
@@ -1360,6 +1368,7 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
   }
 
   function updateScreenHistory(nextHash:string,mode:"push"|"replace"|"none"="push"){
+    if(mode!=="none")overlayOriginRef.current=null;
     if(mode==="none"||window.location.hash===nextHash)return;
     window.history[mode==="push"?"pushState":"replaceState"](null,"",nextHash);
   }
@@ -1388,10 +1397,10 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
     window.requestAnimationFrame(()=>sectionStageRef.current?.scrollIntoView({block:"start"}));
   }
 
-  function restoreSectionRoute(){
-    const link=readSectionLink(window.location.hash,sectionAllowedKeys,SEGMENTATION_LABEL_SHA256);
+  function restoreSectionRoute(route=window.location.hash){
+    const link=readSectionLink(route,sectionAllowedKeys,SEGMENTATION_LABEL_SHA256);
     setSectionLinkStatus(link.status==="invalid"||link.status==="revision-mismatch"?link.status:"");
-    if(link.status!=="valid"){jump(planeFromHash(window.location.hash),undefined,"none");return;}
+    if(link.status!=="valid"){jump(planeFromHash(route),undefined,"none");return;}
     const s=link.state;
     setContrast("bigbrain");setPlane(link.plane);setPosition(s.positions[link.plane]);
     sectionPositions.current[link.plane]=s.positions[link.plane];
@@ -1521,8 +1530,8 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
     setLabels(true);setPlaying(false);setSectionSearch("");setDetailsOpen(false);
     requestAnimationFrame(()=>{const target=document.querySelector<HTMLElement>(".sliceViewport canvas")??document.querySelector<HTMLElement>(".insetStage");target?.focus({preventScroll:true});target?.scrollIntoView({block:"center"})});
   }
-  function closeOverlay(){setHelpOpen(false);setFeedbackOpen(false);setLegalOpen(false);setSourcesOpen(false);setStatusOpen(false);const nextHash=workspaceHash(workspace,surfaceView,plane,blockSpecimen);if(window.location.hash!==nextHash)window.history.replaceState(null,"",nextHash)}
-  function openOverlay(key:OverlayMode){if(!overlayOpen)overlayReturnFocus.current=document.activeElement instanceof HTMLElement?document.activeElement:null;window.history.pushState(null,"",`#workspace/${key}`);setHelpOpen(key==="help");setFeedbackOpen(key==="feedback");setLegalOpen(key==="legal");setSourcesOpen(key==="sources");setStatusOpen(key==="status")}
+  function closeOverlay(){setHelpOpen(false);setFeedbackOpen(false);setLegalOpen(false);setSourcesOpen(false);setStatusOpen(false);const nextHash=overlayOriginFromHistory()??workspaceHash(workspace,surfaceView,plane,blockSpecimen);if(window.location.hash!==nextHash)window.history.replaceState(null,"",nextHash)}
+  function openOverlay(key:OverlayMode){if(!overlayOpen)overlayReturnFocus.current=document.activeElement instanceof HTMLElement?document.activeElement:null;const origin=overlayOpen?(overlayOriginFromHistory()??workspaceHash(workspace,surfaceView,plane,blockSpecimen)):(window.location.hash||"#workspace/entrance");overlayOriginRef.current=origin;window.history.pushState({learningOrigin:origin},"",`#workspace/${key}`);setHelpOpen(key==="help");setFeedbackOpen(key==="feedback");setLegalOpen(key==="legal");setSourcesOpen(key==="sources");setStatusOpen(key==="status")}
   async function requestPwaInstall(){
     const affordance=pwaInstallAffordanceRef.current;
     if(!affordance||!pwaInstallState.canInstall)return;
@@ -1539,7 +1548,7 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
   }
   function openPhoneSettings(origin?:HTMLElement){if(!phoneMode||workspace==="home"||workspace==="collaborate"||workspace==="segment")return;phoneSettingsReturnFocus.current=origin??(document.activeElement instanceof HTMLElement?document.activeElement:null);setPhoneSettingsOpen(true)}
   function closePhoneSettings(){setPhoneSettingsOpen(false)}
-  function openWorkspace(key:WorkspaceMode){if(key!=="blocks")stopBlockGuided();if(englishEdition&&(key==="collaborate"||key==="segment"))key="home";setPhoneSettingsOpen(false);setHelpOpen(false);setFeedbackOpen(false);setLegalOpen(false);setSourcesOpen(false);setStatusOpen(false);setModelStrategyComparisonOpen(false);const nextHash=key==="surface"&&brodmannActive?"#workspace/surface/brodmann":workspaceHash(key,surfaceView,plane,blockSpecimen);if(window.location.hash!==nextHash)window.history.pushState(null,"",nextHash);transitionBlockContextState({type:key==="blocks"?"enter-workspace":"leave-workspace",workspace:key});setBlockContextDrag(null);setWorkspace(key);window.requestAnimationFrame(()=>document.getElementById("workspace")?.focus());if(key==="home")setRotation({...homeRotation});if(key==="sections")setRotation({x:-7,y:-18,z:0});if(key==="surface")setRotation(surfaceViews[surfaceView].rotation);if(key==="blocks"){setBlockIntroOpen(true);setRotation({...blockInitialRotations[blockSpecimen]});setBlockViewPreset("initial")}}
+  function openWorkspace(key:WorkspaceMode){overlayOriginRef.current=null;if(key!=="blocks")stopBlockGuided();if(englishEdition&&(key==="collaborate"||key==="segment"))key="home";setPhoneSettingsOpen(false);setHelpOpen(false);setFeedbackOpen(false);setLegalOpen(false);setSourcesOpen(false);setStatusOpen(false);setModelStrategyComparisonOpen(false);const nextHash=key==="surface"&&brodmannActive?"#workspace/surface/brodmann":workspaceHash(key,surfaceView,plane,blockSpecimen);if(window.location.hash!==nextHash)window.history.pushState(null,"",nextHash);transitionBlockContextState({type:key==="blocks"?"enter-workspace":"leave-workspace",workspace:key});setBlockContextDrag(null);setWorkspace(key);window.requestAnimationFrame(()=>document.getElementById("workspace")?.focus());if(key==="home")setRotation({...homeRotation});if(key==="sections")setRotation({x:-7,y:-18,z:0});if(key==="surface")setRotation(surfaceViews[surfaceView].rotation);if(key==="blocks"){setBlockIntroOpen(true);setRotation({...blockInitialRotations[blockSpecimen]});setBlockViewPreset("initial")}}
   function openLearningEntry(entry:LearningEntry){
     window.requestAnimationFrame(()=>document.getElementById("workspace")?.focus());
     if(entry==="quiz"){openWorkspace("quiz");return}
