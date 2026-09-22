@@ -154,7 +154,7 @@ test("snapshot records the fixed unverified boundary set without implying comple
       authority: "administrator / feedback-channel maintainer",
       blockingAuthority: "administrator / feedback-channel maintainer",
       boundary: "rights documents, external feedback operations, and publication-screen operations",
-      unprovenScope: "現行外部フォームはα版表記のまま。版名非依存表記の適用、ログアウト状態の全3ページ、テスト回答、Google Formsと回答シート双方からの削除、管理者による運用確認は未完了。",
+      unprovenScope: "最新フォームのログアウト環境での送信は未確認。共同制作条件は2026-09-22に管理者承認済み。9月22日の日英テスト送信・両保存先からの削除はログイン済み環境で確認した。",
     },
     {
       id: "physical-os-networking",
