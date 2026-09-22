@@ -3,6 +3,8 @@ export function englishDynamic(core, translations) {
   const counted=(n,noun)=>`${n} ${noun}${Number(n)===1?"":"s"}`;
   let m=core.match(/^(\d+)構造を同時表示中$/u);
   if(m)return `${counted(m[1],"structure")} displayed`;
+  const accessibleSlice=core.match(/^(coronal|horizontal|sagittal)断面 ([\d.]+)。クリックで構造を選択、ドラッグまたは矢印キーで移動、ホイールまたはプラス・マイナスで拡大縮小$/u);
+  if(accessibleSlice)return `${accessibleSlice[1]} slice ${accessibleSlice[2]}. Click to identify; drag or use arrow keys to pan. Use the wheel or plus/minus keys to zoom. Press Home or R to reset.`;
   const sliceInteraction=core.match(/^(coronal|horizontal|sagittal)断面 ([\d.]+)。クリックで構造を選択、ドラッグで移動、ホイールで拡大縮小$/u);
   if(sliceInteraction)return `${sliceInteraction[1]} slice ${sliceInteraction[2]}. Click to identify, drag to pan, and use the wheel to zoom.`;
   const planes={"冠状断":"coronal","水平断":"horizontal","矢状断":"sagittal"};

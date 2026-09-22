@@ -19,6 +19,11 @@
 .webglUnavailable:active { cursor: default; }
 .zoomReadout { position: absolute; z-index: 9; right: 14px; bottom: 14px; min-width: 82px; padding: 7px 9px; border: 1px solid #7b8585; background: #172126d9; color: #f4f2eb; font: 700 16px monospace; box-shadow: 0 4px 12px #0005; }
 .zoomReadout small { margin-left: 5px; color: #b9c1bf; font: 15px sans-serif; }
+.sliceZoomControls { position:absolute; z-index:9; right:10px; bottom:10px; display:flex; border:1px solid #7b8585; background:#172126e8; box-shadow:0 2px 8px #0003; }
+.sliceZoomControls button { min-width:44px; min-height:44px; padding:5px 8px; border:0; border-right:1px solid #65716e; color:#f4f2eb; background:transparent; font:700 15px monospace; cursor:pointer; }
+.sliceZoomControls button:last-child { border-right:0; }
+.sliceZoomControls button:disabled { opacity:.4; cursor:default; }
+.sliceZoomControls button:focus-visible,.atlasCanvas:focus-visible { outline:3px solid #eeb05e; outline-offset:-3px; }
 .atlasLoading { position: absolute; z-index: 7; left: 50%; top: 50%; transform: translate(-50%,-50%); display: grid; gap: 6px; justify-items: center; width: max-content; max-width: calc(100% - 24px); padding: 10px 14px; background: #f5f3ed; border: 1px solid #c7c4bc; color: #596264; font-size: 14px; white-space: normal; text-align: center; overflow-wrap: anywhere; }
 .atlasLoadingValue { font-size: 12px; font-variant-numeric: tabular-nums; }
 .atlasLoading progress { width: min(210px,64vw); height: 6px; accent-color: #4d777d; }
@@ -26,6 +31,8 @@
 .atlasLoading.error { display: grid; justify-items: center; gap: 8px; white-space: normal; text-align: center; }
 .atlasLoading.error button { min-width: 112px; padding: 7px 12px; border: 1px solid #a2473c; background: #fff; color: #8f392f; font-size: 14px; font-weight: 700; cursor: pointer; }
 .atlasLoading.error button:hover { background: #fff0ed; }
+.atlasLoading.error p { max-width: 310px; margin: 0; color: #5e514c; font-size: 13px; line-height: 1.5; }
+.atlasLoading.error button { min-height: 44px; }
 .atlasOverlay .hemi, .atlasOverlay .cerebellum, .atlasOverlay .stem, .atlasOverlay .ventricleShape { display: none; }
 .atlasOverlay { pointer-events: none; }
 .atlasCredit { margin-top: 20px; padding-top: 14px; border-top: 1px solid #c5c7c1; font-size: 15px; line-height: 1.7; color: #747e7d; }
@@ -1535,7 +1542,7 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
 /* JS resolves automatic capability and explicit ui=phone/desktop once.
    Scope all phone chrome to that state, including on a mouse-driven preview. */
 @media screen{
-  .phone-mode{padding-top:60px!important;padding-bottom:calc(82px + env(safe-area-inset-bottom))}
+  .phone-mode{padding-top:60px!important;padding-bottom:calc(var(--phone-dock-height,82px) + 12px)}
   .phone-mode .topbar{height:60px;display:flex;grid-template-columns:none;grid-template-rows:none;align-items:center;padding-inline:6px}
   .phone-mode .brand{grid-column:auto;grid-row:auto}
   .phone-mode .topActions{grid-column:auto;grid-row:auto;margin-left:auto;overflow-x:auto}
@@ -1775,3 +1782,8 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
 
 .blockPreparationChoice{display:flex;flex-wrap:wrap;gap:4px;padding:6px;border-bottom:1px solid #ccc}.blockPreparationChoice button{flex:1;padding:7px;font:inherit;border:1px solid #9aaba7;background:transparent;color:inherit}.blockPreparationChoice button[aria-pressed="true"]{background:#4f746b;color:white}
 .blockModelCard:has(.blockPreparationChoice)>.panelHead{display:none}.blockPreparationChoice{background:#f4f3ee;color:#243332}
+
+/* Keep the learning entry visible on narrow screens, including browser zoom. */
+@media(max-width:600px){.homeNotice{padding:20px 16px}.homeNotice h1{font-size:clamp(28px,7.5vw,38px)}.homeNotice>header>span{font-size:11px;letter-spacing:.06em}.homeNotice>header p{font-size:15px;line-height:1.55}.homeLearningGuide{margin-top:20px}.homeLearningGuide>header h2{font-size:21px}}
+
+@media(max-width:760px){ .phone-mode .regionLessonDock { bottom:calc(var(--phone-dock-height,82px) + 8px); } }

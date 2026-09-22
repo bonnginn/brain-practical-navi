@@ -1,4 +1,6 @@
 "use client";
+import {HomeLearningGuide,type LearningEntry} from "./HomeLearningGuide";
+import {PwaUpdateNotice} from "./PwaUpdateNotice";
 import {circuitStageDuration} from "../src/circuitTravel.mjs";
 
 import teachingSpecimens from "./teachingSpecimens.json";
@@ -815,6 +817,7 @@ export default function Home() {
   const [workspace, setWorkspace] = useState<WorkspaceMode>(()=>typeof window==="undefined"?"home":workspaceFromHash(window.location.hash));
   const [brodmannActive,setBrodmannActive]=useState(false);
   const [surfaceLessonKey,setSurfaceLessonKey]=useState<SurfaceRegionKey|null>(null);
+  const surfaceLessonReturnFocus=useRef<HTMLElement|null>(null);
   const [surfaceView,setSurfaceView]=useState<SurfaceViewKey>(()=>typeof window==="undefined"?"lateral":surfaceViewFromHash(window.location.hash));
   const [plane, setPlane] = useState<Plane>(initialPlane);
   const [position, setPosition] = useState(sectionPositions.current[initialPlane]);
@@ -852,6 +855,7 @@ export default function Home() {
   const overlayReturnFocus=useRef<HTMLElement|null>(null);
   const pwaInstallAffordanceRef=useRef<ReturnType<typeof createPwaInstallAffordance>|null>(null);
   const phoneSettingsDialogRef=useRef<HTMLDialogElement|null>(null);
+  const phoneDockRef=useRef<HTMLElement|null>(null);
   const phoneSettingsReturnFocus=useRef<HTMLElement|null>(null);
   const sectionStageRef=useRef<HTMLDivElement|null>(null);
   const overlayOpen=helpOpen||feedbackOpen||legalOpen||statusOpen;
@@ -1107,6 +1111,13 @@ export default function Home() {
   },[]);
   useEffect(()=>{if(!phoneMode)setPhoneSettingsOpen(false)},[phoneMode]);
   useEffect(()=>{
+    const dock=phoneDockRef.current,shell=dock?.closest<HTMLElement>(".appShell");
+    if(!phoneMode||!dock||!shell)return;
+    const measure=()=>shell.style.setProperty("--phone-dock-height",`${dock.getBoundingClientRect().height}px`);
+    measure();const observer=new ResizeObserver(measure);observer.observe(dock);
+    return()=>{observer.disconnect();shell.style.removeProperty("--phone-dock-height")};
+  },[phoneMode]);
+  useEffect(()=>{
     if(workspace!=="sections"||contrast!=="bigbrain")return;
     sectionPositions.current[plane]=position;
     const state={version:1,positions:sectionPositions.current,visible:visibleStructures.filter(key=>key!=="opticChiasm"),selected:selectedStructure,layout:sectionLayout,views:sectionModelViews,share:sectionModelShare};
@@ -1120,6 +1131,7 @@ export default function Home() {
     window.addEventListener("pagehide",flush);
     return()=>{window.removeEventListener("pagehide",flush);flush()};
   },[]);
+  useEffect(()=>{setSurfaceLessonKey(null)},[workspace,surfaceView,brodmannActive]);
   useEffect(()=>{const update=()=>setOffline(!navigator.onLine);window.addEventListener("online",update);window.addEventListener("offline",update);return()=>{window.removeEventListener("online",update);window.removeEventListener("offline",update)}},[]);
   useEffect(()=>{
     const affordance=createPwaInstallAffordance({windowLike:window as unknown as NonNullable<PwaInstallAffordanceOptions["windowLike"]>,onChange:setPwaInstallState});
@@ -1133,11 +1145,11 @@ export default function Home() {
     return()=>window.clearTimeout(timer);
   },[pwaInstallFeedback]);
   useEffect(()=>{
-    const close=(event:KeyboardEvent)=>{if(event.key==="Escape"){if(phoneSettingsOpen){setPhoneSettingsOpen(false);return}if(modelStrategyComparisonOpen){closeModelStrategyComparison();return}closeOverlay();setDetailsOpen(false)}};
+    const close=(event:KeyboardEvent)=>{if(event.key==="Escape"){if(phoneSettingsOpen){setPhoneSettingsOpen(false);return}if(modelStrategyComparisonOpen){closeModelStrategyComparison();return}if(overlayOpen){closeOverlay();return}if(surfaceLessonKey){closeSurfaceRegionLesson();return}setDetailsOpen(false)}};
     window.addEventListener("keydown",close);
     return()=>window.removeEventListener("keydown",close);
-  },[workspace,surfaceView,plane,blockSpecimen,phoneSettingsOpen,modelStrategyComparisonOpen]);
-  useEffect(()=>{if(!overlayOpen)return;const previousOverflow=document.body.style.overflow;document.body.style.overflow="hidden";const frame=window.requestAnimationFrame(()=>document.querySelector<HTMLButtonElement>('.legalDialog header button')?.focus());const trap=(event:KeyboardEvent)=>{if(event.key!=="Tab")return;const dialog=document.querySelector<HTMLElement>('.legalDialog');if(!dialog)return;const focusable=[...dialog.querySelectorAll<HTMLElement>('button:not(:disabled),a[href],input:not(:disabled),select:not(:disabled),textarea:not(:disabled),[tabindex]:not([tabindex="-1"])')].filter(element=>element.getClientRects().length>0);if(!focusable.length)return;const first=focusable[0],last=focusable.at(-1)!;if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus()}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus()}};window.addEventListener("keydown",trap);return()=>{window.cancelAnimationFrame(frame);window.removeEventListener("keydown",trap);document.body.style.overflow=previousOverflow}},[helpOpen,feedbackOpen,legalOpen,statusOpen]);
+  },[workspace,surfaceView,plane,blockSpecimen,phoneSettingsOpen,modelStrategyComparisonOpen,overlayOpen,surfaceLessonKey]);
+  useEffect(()=>{if(!overlayOpen)return;const previousOverflow=document.body.style.overflow;document.body.style.overflow="hidden";const frame=window.requestAnimationFrame(()=>document.querySelector<HTMLButtonElement>('.legalDialog[aria-modal="true"] header button')?.focus());const trap=(event:KeyboardEvent)=>{if(event.key!=="Tab")return;const dialog=document.querySelector<HTMLElement>('.legalDialog[aria-modal="true"]');if(!dialog)return;const focusable=[...dialog.querySelectorAll<HTMLElement>('button:not(:disabled),a[href],input:not(:disabled),select:not(:disabled),textarea:not(:disabled),[tabindex]:not([tabindex="-1"])')].filter(element=>element.getClientRects().length>0);if(!focusable.length)return;const first=focusable[0],last=focusable.at(-1)!;if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus()}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus()}};window.addEventListener("keydown",trap);return()=>{window.cancelAnimationFrame(frame);window.removeEventListener("keydown",trap);document.body.style.overflow=previousOverflow}},[helpOpen,feedbackOpen,legalOpen,statusOpen]);
   useEffect(()=>{if(!overlayOpen)overlayReturnFocus.current?.focus()},[overlayOpen]);
   useEffect(()=>{if(!modelStrategyComparisonOpen)return;const frame=window.requestAnimationFrame(()=>modelStrategyPanelRef.current?.scrollIntoView({block:"start"}));return()=>window.cancelAnimationFrame(frame)},[modelStrategyComparisonOpen]);
   useEffect(()=>{
@@ -1343,7 +1355,15 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
   function chooseSurface(key:SurfaceViewKey,historyMode:"push"|"replace"|"none"="push"){setBrodmannActive(false);const next=surfaceViews[key];updateScreenHistory(workspaceHash("surface",key),historyMode);setSurfaceView(key);setRotation(next.rotation);setSurfaceVisibleRegions([]);setSurfaceVisibleLandmarks([]);setSurfaceVisibleDeepLandmarks(key==="medial"?defaultMedialDeepLandmarks:[]);setSurfaceVisibleBasalLandmarks([]);setSurfaceGhost(key==="cranialNerves"||key==="arteries");setSurfacePonsMedulla(key!=="medial");if(key==="arteries"){setSurfaceVessels(true);setSurfaceNerves(true);setSurfaceCerebellum(false);setSelectedNeurovascularStructure("ica")}else if(key==="cranialNerves"){setSurfaceVessels(false);setSurfaceNerves(true);setSurfaceCerebellum(false);setSelectedNeurovascularStructure("cn1")}else{setSurfaceVessels(false);setSurfaceNerves(key==="inferior");setSurfaceCerebellum(key!=="medial"&&key!=="inferior")}}
   function toggleInferiorHindbrain(){const next=!(surfacePonsMedulla&&surfaceNerves);setSurfacePonsMedulla(next);setSurfaceNerves(next)}
   function toggleFreeHindbrain(){setSurfacePonsMedulla(value=>!value)}
-  function openSurfaceRegionLesson(key:SurfaceRegionKey){setSurfaceLessonKey(key);setSurfaceVisibleRegions(previous=>previous.includes(key)?previous:[...previous,key])}
+  function openSurfaceRegionLesson(key:SurfaceRegionKey){
+    const active=document.activeElement;
+    if(active instanceof HTMLElement&&!active.closest(".regionLessonDock"))surfaceLessonReturnFocus.current=active;
+    setSurfaceLessonKey(key);setSurfaceVisibleRegions(previous=>previous.includes(key)?previous:[...previous,key]);
+  }
+  function closeSurfaceRegionLesson(){
+    setSurfaceLessonKey(null);
+    window.requestAnimationFrame(()=>{const target=surfaceLessonReturnFocus.current;if(target?.isConnected&&target!==document.body)target.focus();else circuitModelRef.current?.focus()});
+  }
   function identifySurfaceLesson(point:{source:"surface"|"neurovascular";id:number}){if(point.source!=="surface")return;const key=surfaceRegionKeys.find(k=>surfaceRegions[k].ids.includes(point.id));if(key)openSurfaceRegionLesson(key)}
   function toggleSurfaceRegion(key:SurfaceRegionKey){setSurfaceVisibleRegions(previous=>previous.includes(key)?previous.filter(item=>item!==key):[...previous,key])}
   function toggleSurfaceLandmark(key:SurfaceLandmarkKey){setSurfaceVisibleLandmarks(previous=>previous.includes(key)?previous.filter(item=>item!==key):[...previous,key])}
@@ -1455,6 +1475,18 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
   function openPhoneSettings(origin?:HTMLElement){if(!phoneMode||workspace==="home"||workspace==="collaborate"||workspace==="segment")return;phoneSettingsReturnFocus.current=origin??(document.activeElement instanceof HTMLElement?document.activeElement:null);setPhoneSettingsOpen(true)}
   function closePhoneSettings(){setPhoneSettingsOpen(false)}
   function openWorkspace(key:WorkspaceMode){if(key!=="blocks")stopBlockGuided();if(englishEdition&&(key==="collaborate"||key==="segment"))key="home";setPhoneSettingsOpen(false);setHelpOpen(false);setFeedbackOpen(false);setLegalOpen(false);setStatusOpen(false);setModelStrategyComparisonOpen(false);const nextHash=key==="surface"&&brodmannActive?"#workspace/surface/brodmann":workspaceHash(key,surfaceView,plane,blockSpecimen);if(window.location.hash!==nextHash)window.history.pushState(null,"",nextHash);transitionBlockContextState({type:key==="blocks"?"enter-workspace":"leave-workspace",workspace:key});setBlockContextDrag(null);setWorkspace(key);if(key==="home")setRotation({...homeRotation});if(key==="sections")setRotation({x:-7,y:-18,z:0});if(key==="surface")setRotation(surfaceViews[surfaceView].rotation);if(key==="blocks"){setBlockIntroOpen(true);setRotation({...blockInitialRotations[blockSpecimen]});setBlockViewPreset("initial")}}
+  function openLearningEntry(entry:LearningEntry){
+    window.requestAnimationFrame(()=>document.getElementById("workspace")?.focus());
+    if(entry==="quiz"){openWorkspace("quiz");return}
+    if(entry==="sections"){
+      openWorkspace("sections");jump("coronal",55,"replace");setPlaying(false);
+      setContrast("bigbrain");setLabels(true);setVisibleStructures(["ventricle","thalamus"]);
+      focusStructure("thalamus");setIdentified(null);setSectionLayout(webglUnavailable?"slice":"both");
+      return;
+    }
+    openWorkspace("surface");chooseSurface(entry==="circuits"?"free":"lateral","replace");
+    if(entry==="circuits"){setCircuitNodeKey(null);applyPathwayPreset("papez")}
+  }
   function openModelStrategyComparison(origin?:HTMLElement){modelStrategyReturnFocus.current=origin??(document.activeElement instanceof HTMLElement?document.activeElement:null);setModelStrategyComparisonOpen(true);updateScreenHistory(MODEL_STRATEGY_ROUTE,"push")}
   function closeModelStrategyComparison(){setModelStrategyComparisonOpen(false);updateScreenHistory(workspaceHash("collaborate",surfaceView,plane,blockSpecimen),"replace");window.requestAnimationFrame(()=>modelStrategyReturnFocus.current?.focus())}
   function saveWrongTargets(next:string[]){setWrongTargets(next);try{localStorage.setItem(QUIZ_WRONG_CACHE_KEY,JSON.stringify(next))}catch{/* private browsing may block storage */}}
@@ -1490,7 +1522,7 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
       <div className="topActions">{offline&&<span className="offlineStatus" role="status">オフライン</span>}<span title="スマートフォンでも閲覧・クイズ・基本操作を利用できます">PC・横向きタブレット推奨</span><a className="languageSwitch" href={languageUrl} lang={englishEdition?"ja":"en"} data-no-localize>{englishEdition?"日本語":"English"}</a><button className="phoneRailToggle" onClick={event=>openPhoneSettings(event.currentTarget)} aria-controls="phone-settings-panel" aria-label="現在の教材の設定を表示">設定</button><button className="helpButton" onClick={()=>openOverlay("help")} aria-label="操作ガイドを表示">操作ガイド</button><button className="feedbackButton" onClick={()=>openOverlay("feedback")} aria-label="匿名の意見・誤り報告を表示">意見・誤り報告</button>{!englishEdition&&<button className="collaborateButton" onClick={()=>openWorkspace("collaborate")} aria-label="共同制作ページを表示">共同制作</button>}<button className="legalButton" onClick={()=>openOverlay("legal")} aria-label="利用条件・クレジットを表示">利用条件</button></div>
     </header>
 
-    {phoneMode&&<nav className="phoneDock" aria-label="学習者向け教材"><div>{workspaceModes.map(item=><button key={item.key} data-workspace-key={item.key} className={workspace===item.key?"active":""} aria-current={workspace===item.key?"page":undefined} onClick={()=>openWorkspace(item.key)}><span>{item.label}</span><small>{item.sub}</small></button>)}</div></nav>}
+    {phoneMode&&<nav ref={phoneDockRef} className="phoneDock" aria-label="学習者向け教材"><div>{workspaceModes.map(item=><button key={item.key} data-workspace-key={item.key} className={workspace===item.key?"active":""} aria-current={workspace===item.key?"page":undefined} onClick={()=>openWorkspace(item.key)}><span>{item.label}</span><small>{item.sub}</small></button>)}</div></nav>}
 
     <dialog ref={phoneSettingsDialogRef} id="phone-settings-panel" className="phoneSettingsSheet" role={phoneMode?"dialog":"presentation"} aria-labelledby={phoneMode?"phone-settings-title":undefined} onCancel={event=>{event.preventDefault();closePhoneSettings()}} onMouseDown={event=>{if(event.target===event.currentTarget)closePhoneSettings()}}>
       <div className="phoneSettingsBackdrop" aria-hidden="true" onClick={closePhoneSettings}/>
@@ -1548,7 +1580,9 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
 
     {workspace==="home"&&<section className="homeArea homeNoticeArea" id="workspace" tabIndex={-1}>
       <article className="homeNotice">
-        <header><span>PUBLIC BETA · EDUCATIONAL USE ONLY</span><h1>脳実習ナビ</h1><p><strong>本アプリは、神経解剖学の教育・自主学習目的で提供しています。</strong>教育目的以外での利用はお控えください。</p></header>
+        <header><span>PUBLIC BETA · EDUCATIONAL USE ONLY</span><h1>脳実習ナビ</h1><p><strong>脳の形を観察し、位置関係と働きを結びつける。</strong>{" "}脳表・連続断面・3Dを見比べながら学ぶ、神経解剖学の教材です。</p></header>
+        <PwaUpdateNotice english={englishEdition}/>
+        <HomeLearningGuide english={englishEdition} onOpen={openLearningEntry}/>
         <footer><button className="homeEnter" onClick={()=>openWorkspace("surface")}>教育目的で教材を開く</button><button onClick={()=>openOverlay("legal")}>利用条件・データ・クレジット</button><button onClick={()=>openOverlay("status")}>更新履歴・既知の制限</button><button onClick={()=>openOverlay("feedback")}>匿名の意見・誤り報告</button></footer>
         <div className="homeNoticePoints">
           <section><b>教育目的での利用</b><p>脳表、断面、3Dモデルを行き来しながら、構造の見え方と位置関係を確認する学習教材です。</p></section>
@@ -1754,8 +1788,8 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
     </aside>}
 
     {statusOpen&&<div className="legalBackdrop betaStatusBackdrop" role="presentation" onMouseDown={event=>{if(event.target===event.currentTarget)closeOverlay()}}><section className="legalDialog betaStatusDialog" role="dialog" aria-modal="true" aria-labelledby="status-title"><header><div><span>BETA STATUS</span><h2 id="status-title">更新履歴・既知の制限</h2></div><button onClick={closeOverlay} aria-label="更新履歴と既知の制限を閉じる">×</button></header><div className="betaStatusIntro"><div><b>{betaStatusData.phase}</b><span>更新 {betaStatusData.updated}</span></div><p>脳の構造・機能・位置関係を学ぶ公開β版です。専門家監修は未実施で、部分分節や模式表示を含みます。</p></div><details><summary>開発・確認記録</summary><p>以下は開発時の確認台帳です。専門家確認と実機確認の未完了項目は残していますが、専門家監修は今回のβ公開の条件から外しています。</p><BetaGoNoGoPanel data={betaGoNoGoData}/></details><div className="betaStatusColumns"><section className="betaStatusColumn"><h3>既知の制限</h3><div className="betaStatusTimeline">{betaStatusData.knownLimitations.map(item=><article className="betaStatusCard" data-status-id={item.id} key={item.id}><span className="betaStatusKind">LIMITATION</span><h4>{item.heading}</h4><p>{item.body}</p><details className="betaStatusEvidence"><summary>根拠参照</summary><ul>{item.evidenceRefs.map(ref=><li key={ref}><code>{ref}</code></li>)}</ul></details></article>)}</div></section><section className="betaStatusColumn"><h3>更新履歴</h3><div className="betaStatusTimeline">{betaStatusData.changes.map(item=><article className="betaStatusCard" data-status-id={item.id} key={item.id}><span className="betaStatusKind">CHANGE</span><h4>{item.heading}</h4><p>{item.body}</p><details className="betaStatusEvidence"><summary>根拠参照</summary><ul>{item.evidenceRefs.map(ref=><li key={ref}><code>{ref}</code></li>)}</ul></details></article>)}</div></section></div><footer><span>根拠参照は掲載時点のローカル資料です。</span><button onClick={closeOverlay}>観察へ戻る</button></footer></section></div>}
-   {surfaceLessonKey&&<div className="regionLessonDock" onClick={e=>{if(e.target===e.currentTarget)setSurfaceLessonKey(null)}}><section className="legalDialog regionLessonDialog" role="dialog" aria-modal="false" aria-labelledby="region-lesson-title" tabIndex={-1} onKeyDown={e=>{if(e.key==="Escape")setSurfaceLessonKey(null)}}><header><h2 id="region-lesson-title">{englishEdition?anatomyDisplayEnglish(surfaceRegions[surfaceLessonKey].latin):surfaceRegions[surfaceLessonKey].name}</h2><button autoFocus onClick={()=>setSurfaceLessonKey(null)} aria-label={englishEdition?"Close":"閉じる"}>×</button></header><article><h3>{englishEdition?"Location and landmarks":"位置・見分け方"}</h3><p>{surfaceRegions[surfaceLessonKey].note}</p><h3>{englishEdition?"Function and connections":"主な機能・関連する働き"}</h3><p>{surfaceRegionLessons[surfaceLessonKey]?.[englishEdition?"en":"ja"]}</p><p className="accuracyNote">{englishEdition?"Colour shows an atlas parcel. Functional boundaries do not necessarily coincide with it.":"着色はアトラス上の区画です。機能の境界が着色範囲と一致するとは限りません。"}</p><details><summary>{englishEdition?"References":"参考文献"}</summary>{surfaceRegionLessonSources.map(source=><p key={source.url}><a href={source.url} target="_blank" rel="noreferrer">{source.title}</a></p>)}</details></article></section></div>}
-   {helpOpen&&<div className="legalBackdrop" role="presentation" onMouseDown={event=>{if(event.target===event.currentTarget)closeOverlay()}}><section className="legalDialog helpDialog" role="dialog" aria-modal="true" aria-labelledby="help-title"><header><div><span>VIEWER CONTROLS</span><h2 id="help-title">操作ガイド</h2></div><button onClick={closeOverlay} aria-label="操作ガイドを閉じる">×</button></header><p className="helpIntro">マウス、トラックパッド、タッチ、キーボードで同じ教材を観察できます。操作に迷ったときは、この画面を閉じずに一覧を確認できます。</p><div className="helpGrid"><article><h3>3Dモデル</h3><dl><div><dt>回転</dt><dd>ドラッグ。キーボードでは<kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd></dd></div><div><dt>軸回転</dt><dd><kbd>Shift</kbd>＋ドラッグ、または右ドラッグ</dd></div><div><dt>拡大・縮小</dt><dd>ホイール／トラックパッド、画面上の<kbd>−</kbd><kbd>＋</kbd></dd></div><div><dt>向きを戻す</dt><dd><kbd>R</kbd>、ダブルクリック、または「向きを戻す」</dd></div></dl></article><article><h3>断面実習</h3><dl><div><dt>断面位置</dt><dd>スライダー、<kbd>←</kbd><kbd>→</kbd><kbd>Home</kbd><kbd>End</kbd></dd></div><div><dt>画像の拡大</dt><dd>ホイール。表示中の倍率を押すと100%へ戻る</dd></div><div><dt>画像の移動</dt><dd>{englishEdition?"Drag the image. A short click identifies a structure.":"画像をドラッグ。短いクリックで構造を同定します。"}</dd></div><div><dt>構造の同定</dt><dd>断面をクリック。左欄では複数構造を同時選択できる</dd></div></dl></article><article><h3>脳表・局所標本</h3><dl><div><dt>着色</dt><dd>構造名を押して追加・解除。脳表では「全選択」「すべて解除」も利用可能</dd></div><div><dt>透過・単独表示</dt><dd>透過、選択だけ、組織表示、脱着の各ボタンを使う</dd></div><div><dt>自由観察</dt><dd>構造索引または検索から複数の対象を追加する</dd></div></dl></article><article><h3>クイズ・編集ツール</h3><dl><div><dt>復習</dt><dd>解答後の「観察画面で位置を確認」で、出題位置と対象を保って教材へ戻る</dd></div><div><dt>塗る</dt><dd>編集Canvasを左ドラッグ。右・中・<kbd>Alt</kbd>ドラッグで移動</dd></div><div><dt>元に戻す</dt><dd><kbd>Ctrl</kbd>／<kbd>⌘</kbd>＋<kbd>Z</kbd>。やり直しは<kbd>Shift</kbd>も同時に押す</dd></div></dl></article></div><footer><span><kbd>Tab</kbd>で項目移動・<kbd>Esc</kbd>で閉じる</span><button onClick={closeOverlay}>観察へ戻る</button></footer></section></div>}
+   {surfaceLessonKey&&<div className="regionLessonDock" onClick={e=>{if(e.target===e.currentTarget)closeSurfaceRegionLesson()}}><section className="legalDialog regionLessonDialog" role="dialog" aria-modal="false" aria-labelledby="region-lesson-title" tabIndex={-1} ><header><h2 id="region-lesson-title">{englishEdition?anatomyDisplayEnglish(surfaceRegions[surfaceLessonKey].latin):surfaceRegions[surfaceLessonKey].name}</h2><button autoFocus onClick={closeSurfaceRegionLesson} aria-label={englishEdition?"Close":"閉じる"}>×</button></header><article><h3>{englishEdition?"Location and landmarks":"位置・見分け方"}</h3><p>{surfaceRegions[surfaceLessonKey].note}</p><h3>{englishEdition?"Function and connections":"主な機能・関連する働き"}</h3><p>{surfaceRegionLessons[surfaceLessonKey]?.[englishEdition?"en":"ja"]}</p><p className="accuracyNote">{englishEdition?"Colour shows an atlas parcel. Functional boundaries do not necessarily coincide with it.":"着色はアトラス上の区画です。機能の境界が着色範囲と一致するとは限りません。"}</p><details><summary>{englishEdition?"References":"参考文献"}</summary>{surfaceRegionLessonSources.map(source=><p key={source.url}><a href={source.url} target="_blank" rel="noreferrer">{source.title}</a></p>)}</details></article></section></div>}
+   {helpOpen&&<div className="legalBackdrop" role="presentation" onMouseDown={event=>{if(event.target===event.currentTarget)closeOverlay()}}><section className="legalDialog helpDialog" role="dialog" aria-modal="true" aria-labelledby="help-title"><header><div><span>VIEWER CONTROLS</span><h2 id="help-title">操作ガイド</h2></div><button onClick={closeOverlay} aria-label="操作ガイドを閉じる">×</button></header><p className="helpIntro">マウス、トラックパッド、タッチ、キーボードで同じ教材を観察できます。操作に迷ったときは、この画面を閉じずに一覧を確認できます。</p><div className="helpGrid"><article><h3>3Dモデル</h3><dl><div><dt>回転</dt><dd>ドラッグ。キーボードでは<kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd></dd></div><div><dt>軸回転</dt><dd><kbd>Shift</kbd>＋ドラッグ、または右ドラッグ</dd></div><div><dt>拡大・縮小</dt><dd>ホイール／トラックパッド、画面上の<kbd>−</kbd><kbd>＋</kbd></dd></div><div><dt>向きを戻す</dt><dd><kbd>R</kbd>、または「向きを戻す」</dd></div></dl></article><article><h3>断面実習</h3><dl><div><dt>断面位置</dt><dd>スライダー、<kbd>←</kbd><kbd>→</kbd><kbd>Home</kbd><kbd>End</kbd></dd></div><div><dt>画像の拡大</dt><dd>ホイール。表示中の倍率を押すと100%へ戻る</dd></div><div><dt>画像の移動</dt><dd>{englishEdition?"Drag the image, or focus it and use the arrow keys. A short click identifies a structure.":"画像をドラッグ、または画像にフォーカスして矢印キー。短いクリックで構造を同定します。"}</dd></div><div><dt>構造の同定</dt><dd>断面をクリック。左欄では複数構造を同時選択できる</dd></div></dl></article><article><h3>脳表・局所標本</h3><dl><div><dt>着色</dt><dd>構造名を押して追加・解除。脳表では「全選択」「すべて解除」も利用可能</dd></div><div><dt>透過・単独表示</dt><dd>透過、選択だけ、組織表示、脱着の各ボタンを使う</dd></div><div><dt>自由観察</dt><dd>構造索引または検索から複数の対象を追加する</dd></div></dl></article><article><h3>クイズ・編集ツール</h3><dl><div><dt>復習</dt><dd>解答後の「観察画面で位置を確認」で、出題位置と対象を保って教材へ戻る</dd></div><div><dt>塗る</dt><dd>編集Canvasを左ドラッグ。右・中・<kbd>Alt</kbd>ドラッグで移動</dd></div><div><dt>元に戻す</dt><dd><kbd>Ctrl</kbd>／<kbd>⌘</kbd>＋<kbd>Z</kbd>。やり直しは<kbd>Shift</kbd>も同時に押す</dd></div></dl></article></div><footer><span><kbd>Tab</kbd>で項目移動・<kbd>Esc</kbd>で閉じる</span><button onClick={closeOverlay}>観察へ戻る</button></footer></section></div>}
 
     {feedbackOpen&&<div className="legalBackdrop" role="presentation" onMouseDown={event=>{if(event.target===event.currentTarget)closeOverlay()}}><section className="legalDialog feedbackDialog compactFeedbackDialog" role="dialog" aria-modal="true" aria-labelledby="feedback-title"><header><div><span>PRIVATE FEEDBACK</span><h2 id="feedback-title">匿名の意見・誤り報告</h2></div><button onClick={closeOverlay} aria-label="意見・誤り報告を閉じる">×</button></header><p className="feedbackIntro">構造名、表示位置、操作性、クイズなどの気づきを非公開で送れます。氏名・所属・連絡先は任意です。患者・学生・献体者を特定できる情報、標本写真、第三者の個人情報は送らないでください。</p><div className="feedbackOptions singleFeedbackOption"><article><h3>Google Formで報告</h3><p>{englishEdition?"教材の誤りや操作上の問題を、匿名で非公開送信できます。":"単発の報告は匿名で送信できます。公開相談、具体的な変更提案、継続的な参加は、独立した共同制作ページで入口を選べます。"}</p>{feedbackFormUrl?<a href={feedbackFormUrl} target="_blank" rel="noreferrer">Google Formを開く →</a>:<button disabled>フォームURL設定待ち</button>}</article></div>{!englishEdition&&<footer className="feedbackDialogFooter"><span>継続的な参加や公開相談はこちら</span><button onClick={()=>{closeOverlay();openWorkspace("collaborate")}}>共同制作ページを開く →</button></footer>}</section></div>}
 

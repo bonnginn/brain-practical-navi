@@ -258,7 +258,7 @@ test("presents the practical flow clearly and keeps interface text readable", as
 
   const homeNotice = page.slice(page.indexOf('className="homeNotice"'), page.indexOf('{workspace==="sections"&&<section'));
   assert.match(homeNotice, /教育目的で教材を開く/);
-  assert.match(homeNotice, /教育目的以外での利用はお控えください/);
+  assert.match(homeNotice, /教育目的での利用/);
   assert.doesNotMatch(homeNotice, /home-surface-preview\.png/);
   assert.doesNotMatch(homeNotice, /AtlasVolumeCanvas/);
   assert.doesNotMatch(page, /homeMetrics|日本語で|<i>0[1-4]<\/i>/);
@@ -308,13 +308,13 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /scrollIntoView\(\{block:"nearest",inline:"center"\}\)/);
   assert.match(page, /PUBLIC BETA · EDUCATIONAL USE ONLY/);
   assert.match(page, /className="homeNotice"/);
-  assert.match(page, /教育目的以外での利用はお控えください/);
+  assert.match(page, /教育目的での利用/);
   assert.match(page, /教科書や検証済み資料と照合して利用してください/);
   assert.doesNotMatch(page, /脳実習を、|切る前から立体で。|className="homeModelStage"/);
   const homeStart = page.indexOf('{workspace==="home"&&<section');
   const homeWorkspace = page.slice(homeStart, page.indexOf('{workspace==="sections"&&<section', homeStart));
   assert.doesNotMatch(homeWorkspace, /稲葉弘哲|稲葉 弘哲|運営上の位置づけ|個人運営・非公式|三重大学/);
-  assert.match(homeWorkspace, /神経解剖学の教育・自主学習目的/);
+  assert.match(homeWorkspace, /神経解剖学の教材です/);
   assert.match(homeWorkspace, /診断、治療、手術計画、定量研究のためには使用できません/);
   assert.match(page, /特定の教育機関・部局の公式教材、公式見解、内容の承認を示すものではありません/);
   assert.match(page, /className="projectIndependence"/);
@@ -2061,7 +2061,7 @@ test("help, feedback, and credit dialogs have durable shareable URLs", async () 
   assert.match(page, /onClick=\{\(\)=>openOverlay\("help"\)\}/);
   assert.match(page, /onClick=\{\(\)=>openOverlay\("status"\)\}/);
   assert.match(page, /document\.body\.style\.overflow="hidden"/);
-  assert.match(page, /document\.querySelector<HTMLButtonElement>\('\.legalDialog header button'\)\?\.focus\(\)/);
+  assert.match(page, /document\.querySelector<HTMLButtonElement>\('\.legalDialog\[aria-modal="true"\] header button'\)\?\.focus\(\)/);
   assert.match(page, /overlayReturnFocus\.current\?\.focus\(\)/);
   assert.match(page, /event\.shiftKey&&document\.activeElement===first/);
   assert.match(page, /!event\.shiftKey&&document\.activeElement===last/);
@@ -2099,7 +2099,7 @@ test("status dialog renders the JSON registry through a durable direct route", a
   assert.match(css, /\.homeArea\s*\{[^}]*grid-template-rows:\s*auto auto[^}]*align-content:\s*start[^}]*overflow-y:\s*auto/);
   assert.match(css, /\.homeNotice\s*\{[^}]*align-self:\s*start/);
   assert.match(page, /TemplateFlow<\/a><button onClick=\{\(\)=>openOverlay\("status"\)\}>更新履歴・既知の制限/);
-  assert.match(page, /document\.querySelector<HTMLButtonElement>\('\.legalDialog header button'\)\?\.focus\(\)/);
+  assert.match(page, /document\.querySelector<HTMLButtonElement>\('\.legalDialog\[aria-modal="true"\] header button'\)\?\.focus\(\)/);
   assert.match(page, /overlayReturnFocus\.current\?\.focus\(\)/);
   assert.match(page, /\},\[helpOpen,feedbackOpen,legalOpen,statusOpen\]\);/);
   assert.match(page, /if\(!overlayOpen\)overlayReturnFocus\.current\?\.focus\(\)\},\[overlayOpen\]\);/);
@@ -2429,7 +2429,7 @@ test("surface canvases expose an accessible WebGL fallback without retrying", as
   assert.match(canvas, /if\(!gl\)return false/);
   assert.match(canvas, /mockUnavailable=\(import\.meta\.env\.DEV\|\|localHost\)&&new URLSearchParams\(location\.search\)\.has\("mock-webgl-unavailable"\)/);
   assert.match(canvas, /className="atlasWebglFallback" role="alert" aria-live="assertive"/);
-  assert.match(canvas, /この環境では3Dを表示できません。WebGL対応ブラウザ、PCまたは横向きタブレットでお試しください。/);
+  assert.match(canvas, /ブラウザの3D描画が利用できません。断面の観察は続けられます。/);
   assert.doesNotMatch(canvas, /WebGL context unavailable for atlas canvas/);
   assert.match(page, /disabled=\{webglUnavailable\}>断面＋3D<\/button>/);
   assert.match(page, /disabled=\{webglUnavailable\}>3Dのみ<\/button>/);

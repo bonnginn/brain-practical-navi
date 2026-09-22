@@ -88,16 +88,26 @@ async function networkFirst(request){
     await putSafely(SHELL_CACHE,request,response);
     return response;
   }catch(_error){
-    return (await caches.match(request))||(await caches.match(scopeUrl("./")))||Response.error();
+    const cache=await caches.open(SHELL_CACHE);
+    return (await cache.match(request))||(await cache.match(scopeUrl("./")))||Response.error();
   }
 }
 
 async function cacheFirst(request,cacheName){
-  const cached=await caches.match(request);
+  const cache=await caches.open(cacheName);
+  const cached=await cache.match(request);
   if(cached)return cached;
   const response=await fetch(request);
   await putSafely(cacheName,request,response);
   return response;
+}
+
+// Keep the app shell paired with this worker's data cache until all of its
+// clients close. Serving a newer network shell with older cached labels mixes
+// releases. Query strings and hash routes are interpreted by the app itself.
+async function releaseNavigation(request){
+  const cache=await caches.open(SHELL_CACHE);
+  return (await cache.match(scopeUrl("./")))||networkFirst(request);
 }
 
 self.addEventListener("fetch",event=>{
@@ -106,7 +116,10 @@ self.addEventListener("fetch",event=>{
   const url=new URL(request.url);
   const scope=new URL(self.registration.scope);
   if(url.origin!==scope.origin||!url.pathname.startsWith(scope.pathname)||url.pathname.includes("/cdn-cgi/"))return;
-  if(request.mode==="navigate"){event.respondWith(networkFirst(request));return}
+  if(request.mode==="navigate"){
+    const appEntry=url.pathname===scope.pathname||url.pathname===scope.pathname+"index.html";
+    event.respondWith(appEntry?releaseNavigation(request):networkFirst(request));return;
+  }
   if(url.pathname.endsWith("/manifest.webmanifest")){event.respondWith(networkFirst(request));return}
   if(HASHED_BUNDLE.test(url.pathname)){event.respondWith(cacheFirst(request,SHELL_CACHE));return}
   if(STATIC_ASSET.test(url.pathname)){event.respondWith(cacheFirst(request,DATA_CACHE))}
