@@ -71,3 +71,9 @@
 初期HTMLに読み込み案内を置き、React内の読み込み失敗は回復画面で受ける。再読み込みによる進行中クイズの終了を説明し、保存済みデータの消去を促さない。
 
 型検査・PWA対象10件・新buildのPWA検査成功。実ブラウザ4360で、旧版shell・JS・CSSが同じcacheから取得されること→新版配信→旧版の英語JSを同じcacheから取得→未訪問ブロードマンも表示→更新待機案内→同originのタブを閉じ開き直すと新entryに切替、を確認。4361ではBrodmannモジュールに503を返し、英語の回復画面が表示された。初期のインストール試行では待機が続いたため成功扱いせず、cache.addAllと検査を使う最終処理で再確認した。fixture `work/v1-release-server.mjs`、build `work/v1-{complete-shell,recovery}-preview`。通信証拠は旧cache `e67a76c76fdf7975`、旧entry `index-0UHX0vL9.js`→新entry `index-ZwnSHJGV.js`。
+
+## 学習の区切りと断面解説の操作
+
+Homeの4入口に、観察後に自分で確認する問いを各1つ追加した。断面の詳細解説は名前付きdialogとして扱い、開くと閉じるボタンへフォーカス、Tab/Shift+Tabは解説内を移動、Escapeや閉じるボタンで元の詳細ボタンへ戻る。閉じるボタンは44pxに拡大。
+
+型検査・通常build成功。実ブラウザで詳細を開く→Shift+Tabで末尾ボタン→Tabで先頭→Escapeで詳細ボタンへ復帰、を確認。英語Homeの4つの確認文はCSS幅326pxでも横溢れなし、入口ボタンは約46px。実機タッチ確認とは区別する。

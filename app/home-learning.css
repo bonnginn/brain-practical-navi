@@ -12,3 +12,6 @@
 .homeLearningGuide button:hover { background: #dcece2; }
 .homeLearningGuide button:focus-visible { outline: 3px solid #be6939; outline-offset: 3px; }
 @media(max-width:600px) { .homeLearningGuide ol { grid-template-columns: minmax(0,1fr); gap: 10px; } .homeLearningGuide li { padding: 15px; } }
+
+.homeLearningGuide .learningEntryCheck{padding-top:10px;border-top:1px solid #dce4de;color:#36564a}
+.learningEntryCheck strong{display:block;margin-bottom:3px;font-size:13px}

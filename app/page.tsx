@@ -842,6 +842,7 @@ export default function Home() {
   const [playing, setPlaying] = useState(false);
   const [drag, setDrag] = useState<{ x: number; y: number; mode:"orbit"|"roll" } | null>(null);
   const [detailsOpen,setDetailsOpen]=useState(false);
+  const sectionDetailsReturnFocus=useRef<HTMLButtonElement|null>(null);
   const [helpOpen,setHelpOpen]=useState(()=>typeof window!=="undefined"&&overlayFromHash(window.location.hash)==="help");
   const [legalOpen,setLegalOpen]=useState(()=>typeof window!=="undefined"&&overlayFromHash(window.location.hash)==="legal");
   const [feedbackOpen,setFeedbackOpen]=useState(()=>typeof window!=="undefined"&&overlayFromHash(window.location.hash)==="feedback");
@@ -1147,12 +1148,28 @@ export default function Home() {
     return()=>window.clearTimeout(timer);
   },[pwaInstallFeedback]);
   useEffect(()=>{
-    const close=(event:KeyboardEvent)=>{if(event.key==="Escape"){if(phoneSettingsOpen){setPhoneSettingsOpen(false);return}if(modelStrategyComparisonOpen){closeModelStrategyComparison();return}if(overlayOpen){closeOverlay();return}if(surfaceLessonKey){closeSurfaceRegionLesson();return}setDetailsOpen(false)}};
+    const close=(event:KeyboardEvent)=>{if(event.key==="Escape"){if(phoneSettingsOpen){setPhoneSettingsOpen(false);return}if(modelStrategyComparisonOpen){closeModelStrategyComparison();return}if(overlayOpen){closeOverlay();return}if(surfaceLessonKey){closeSurfaceRegionLesson();return}if(detailsOpen)closeSectionDetails()}};
     window.addEventListener("keydown",close);
     return()=>window.removeEventListener("keydown",close);
-  },[workspace,surfaceView,plane,blockSpecimen,phoneSettingsOpen,modelStrategyComparisonOpen,overlayOpen,surfaceLessonKey]);
+  },[workspace,surfaceView,plane,blockSpecimen,phoneSettingsOpen,modelStrategyComparisonOpen,overlayOpen,surfaceLessonKey,detailsOpen]);
   useEffect(()=>{if(!overlayOpen)return;const previousOverflow=document.body.style.overflow;document.body.style.overflow="hidden";const frame=window.requestAnimationFrame(()=>document.querySelector<HTMLButtonElement>('.legalDialog[aria-modal="true"] header button')?.focus());const trap=(event:KeyboardEvent)=>{if(event.key!=="Tab")return;const dialog=document.querySelector<HTMLElement>('.legalDialog[aria-modal="true"]');if(!dialog)return;const focusable=[...dialog.querySelectorAll<HTMLElement>('button:not(:disabled),a[href],input:not(:disabled),select:not(:disabled),textarea:not(:disabled),[tabindex]:not([tabindex="-1"])')].filter(element=>element.getClientRects().length>0);if(!focusable.length)return;const first=focusable[0],last=focusable.at(-1)!;if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus()}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus()}};window.addEventListener("keydown",trap);return()=>{window.cancelAnimationFrame(frame);window.removeEventListener("keydown",trap);document.body.style.overflow=previousOverflow}},[helpOpen,feedbackOpen,legalOpen,statusOpen]);
   useEffect(()=>{if(!overlayOpen)overlayReturnFocus.current?.focus()},[overlayOpen]);
+  useEffect(()=>{
+    if(!detailsOpen||overlayOpen||workspace!=="sections")return;
+    const dialog=document.querySelector<HTMLElement>(".inspector.open");
+    const frame=requestAnimationFrame(()=>dialog?.querySelector<HTMLButtonElement>(".inspectorClose")?.focus());
+    const trap=(event:KeyboardEvent)=>{
+      if(event.key!=="Tab"||!dialog)return;
+      const buttons=[...dialog.querySelectorAll<HTMLButtonElement>("button:not(:disabled)")].filter(button=>button.getClientRects().length>0);
+      const first=buttons[0],last=buttons.at(-1);
+      if(!first||!last)return;
+      if(!dialog.contains(document.activeElement)){event.preventDefault();first.focus()}
+      else if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus()}
+      else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus()}
+    };
+    window.addEventListener("keydown",trap);
+    return()=>{cancelAnimationFrame(frame);window.removeEventListener("keydown",trap)};
+  },[detailsOpen,overlayOpen,workspace]);
   useEffect(()=>{if(!modelStrategyComparisonOpen)return;const frame=window.requestAnimationFrame(()=>modelStrategyPanelRef.current?.scrollIntoView({block:"start"}));return()=>window.cancelAnimationFrame(frame)},[modelStrategyComparisonOpen]);
   useEffect(()=>{
     const dialog=phoneSettingsDialogRef.current;
@@ -1458,6 +1475,7 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
   function chooseBlock(key:BlockSpecimenKey,historyMode:"push"|"replace"|"none"="push"){stopBlockGuided();setVentricleOpenSide(false);const next=blockSpecimens[key];updateScreenHistory(workspaceHash("blocks",surfaceView,plane,key),historyMode);transitionBlockContextState({type:"select-specimen",specimen:key});setBlockContextDrag(null);setBlockContextWebglUnavailable(false);setBlockContextRotation({...blockInitialRotations[key]});setBlockIntroOpen(false);setBlockSpecimen(key);setBlockLayers(next.layers.map(layer=>layer.key));setBlockLayerFocus(next.layers[0]?.key??"");setBlockTissueMode("solid");setBlockAnswerVisible(false);setBlockSchematicsVisible(false);setRotation({...blockInitialRotations[key]});setBlockViewPreset("initial");setBlockPonsMedulla(true);setBlockCerebellum(true)}
   function toggleBlockLayer(key:string){setBlockLayerFocus(key);setBlockLayers(previous=>previous.includes(key)?previous.filter(item=>item!==key):[...previous,key])}
   function chooseNeurovascularStructure(key:NeurovascularStructureKey){const item=neurovascularStructures[key];setSelectedNeurovascularStructure(key);if(item.kind==="arteries")setSurfaceVessels(true);else setSurfaceNerves(true)}
+  function closeSectionDetails(){setDetailsOpen(false);requestAnimationFrame(()=>{if(sectionDetailsReturnFocus.current?.isConnected)sectionDetailsReturnFocus.current.focus()})}
   function closeOverlay(){setHelpOpen(false);setFeedbackOpen(false);setLegalOpen(false);setStatusOpen(false);const nextHash=workspaceHash(workspace,surfaceView,plane,blockSpecimen);if(window.location.hash!==nextHash)window.history.replaceState(null,"",nextHash)}
   function openOverlay(key:OverlayMode){if(!overlayOpen)overlayReturnFocus.current=document.activeElement instanceof HTMLElement?document.activeElement:null;window.history.pushState(null,"",`#workspace/${key}`);setHelpOpen(key==="help");setFeedbackOpen(key==="feedback");setLegalOpen(key==="legal");setStatusOpen(key==="status")}
   async function requestPwaInstall(){
@@ -1654,7 +1672,7 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
               <small>{`${activeVisibleStructures.length}構造を同時表示中`}</small>
               {selectedSummary&&selectedSummaryKey?<><b className="selectedStructureTarget"><span>現在の対象</span>{selectedSummary.name}</b><p className="selectedStructureRole"><strong>主な役割</strong>{structureFunctions[selectedSummaryKey]}</p></>:<b>構造を選択してください</b>}
             </div>
-            <div className="selectedBarActions"><button className="detailToggle" onClick={()=>{if(selectedSummaryKey)focusStructure(selectedSummaryKey);setDetailsOpen(true)}} disabled={!selectedSummary}>詳細解説</button><button onClick={()=>setLabels(!labels)} disabled={contrast==="single"}>{labels?"隠す":"表示"}</button></div>
+            <div className="selectedBarActions"><button className="detailToggle" onClick={event=>{sectionDetailsReturnFocus.current=event.currentTarget;if(selectedSummaryKey)focusStructure(selectedSummaryKey);setDetailsOpen(true)}} disabled={!selectedSummary}>詳細解説</button><button onClick={()=>setLabels(!labels)} disabled={contrast==="single"}>{labels?"隠す":"表示"}</button></div>
           </div>
           {activeVisibleStructures.length>0&&<div className="selectedStructureList" aria-label="選択中の構造と解説">{activeVisibleStructures.map(key=>{const item=structures[key],source=item.labelSource?learnerLabelSourceDisplay[item.labelSource]:null;return <button key={key} className={selectedSummaryKey===key?"current":""} onClick={()=>focusStructure(key)}><i style={{background:item.color}}/><span><b>{item.name}</b><small>{anatomyDisplayEnglish(item.latin)}</small>{source&&<small className={`provenanceBadge ${source.className}`}>{source.label}</small>}</span><p>{labels?item.relation:"解答を隠しています"}{labels&&sectionDeveloperControls&&key===selectedStructure&&<em>{currentSourceNote}</em>}</p></button>})}</div>}
         </div>
@@ -1786,11 +1804,11 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
       {phoneMode?<div className="phoneSegmentGuard"><span className="eyebrow">PHONE VIEW</span><h2>編集ツールはPCで利用</h2><p>セグメンテーション編集は、画像とCanvasを安全に扱えるPC向け機能です。スマートフォンでは編集Canvasを読み込まず、教材の閲覧と共同制作の案内だけを表示します。</p><div><button onClick={()=>openWorkspace("collaborate")}>共同制作の入口へ</button><button onClick={()=>openWorkspace("surface")}>学習画面へ戻る</button></div></div>:<><div className="segmentationReviewNotice"><b>端末内の差分編集です</b><p>ここでの編集は公式データを直接変更しません。差分JSONへ根拠を記録し、Pull Requestと解剖学的レビューを経て、採用された変更だけが公開版へ統合されます。</p><button onClick={()=>openWorkspace("collaborate")}>共同制作の入口へ戻る</button></div><Suspense fallback={<div className="atlasLoading" role="status">編集ツールを読み込み中…</div>}><ManualSegmentationWorkbench/></Suspense></>}
     </section>}
 
-    {workspace==="sections"&&detailsOpen&&<button className="inspectorBackdrop" aria-label="解説を閉じる" onClick={()=>setDetailsOpen(false)}/>}
-    {workspace==="sections"&&detailsOpen&&<aside className="inspector open">
-      <div className="inspectorTop"><div className="inspectIndex"><span>STRUCTURE GUIDE</span><b>{String(structureKeys.indexOf(selectedStructure)+1).padStart(2,"0")} / {structureKeys.length}</b></div><button className="inspectorClose" onClick={()=>setDetailsOpen(false)} aria-label="解説を閉じる">×</button></div>
+    {workspace==="sections"&&detailsOpen&&<button className="inspectorBackdrop" aria-label="解説を閉じる" tabIndex={-1} onClick={closeSectionDetails}/>}
+    {workspace==="sections"&&detailsOpen&&<aside className="inspector open" role="dialog" aria-modal="true" aria-labelledby="section-structure-title">
+      <div className="inspectorTop"><div className="inspectIndex"><span>STRUCTURE GUIDE</span><b>{String(structureKeys.indexOf(selectedStructure)+1).padStart(2,"0")} / {structureKeys.length}</b></div><button className="inspectorClose" onClick={closeSectionDetails} aria-label="解説を閉じる">×</button></div>
       <div className="structureColor" style={{background:current.color}}/>
-      <h2>{current.name}</h2><em>{anatomyDisplayEnglish(current.latin)}</em>
+      <h2 id="section-structure-title">{current.name}</h2><em>{anatomyDisplayEnglish(current.latin)}</em>
       <div className="rule"/><h3>主な役割</h3><p>{structureFunctions[selectedStructure]}</p>
       <h3>この断面で見ること</h3><p>{current.note}</p>
       <dl><div><dt>位置関係</dt><dd>{current.relation}</dd></div><div><dt>現在の断面</dt><dd>{planeData[plane].ja}・位置 {position}</dd></div></dl>

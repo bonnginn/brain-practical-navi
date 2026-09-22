@@ -9,11 +9,18 @@ const entries: {key:LearningEntry; ja:[string,string,string]; en:[string,string,
   {key:"quiz",ja:["説明できるか確かめる","名称だけでなく、機能・位置関係も復習します。回答後は解説と観察画面で確認できます。","復習クイズを開く"],en:["Check your understanding","Review names, functions and anatomical relationships. After answering, check the explanation and inspect the structure.","Open review quiz"]},
 ];
 
+const checks:Record<LearningEntry,{ja:string;en:string}>={
+  surface:{ja:"中心溝と、その前後の脳回を指し示せますか？",en:"Can you point out the central sulcus and the gyri immediately in front of and behind it?"},
+  sections:{ja:"脳室と視床の位置関係を、断面と3Dの両方で説明できますか？",en:"Can you explain the relationship between the ventricles and thalamus in both sections and 3D?"},
+  circuits:{ja:"海馬から乳頭体まで、通る構造を順にたどれますか？",en:"Can you follow the structures connecting the hippocampus to the mammillary body in order?"},
+  quiz:{ja:"確認した構造の位置と役割を、自分の言葉で言い直せますか？",en:"Can you describe the location and role of the structure you reviewed in your own words?"},
+};
+
 export function HomeLearningGuide({english,onOpen}:{english:boolean;onOpen:(entry:LearningEntry)=>void}){
   return <section className="homeLearningGuide" data-no-localize aria-labelledby="learning-start-title">
     <header><h2 id="learning-start-title">{english?"A path through the material":"はじめての学び方"}</h2><p>{english?"Follow these four steps, or start with the view you need. You can return Home at any time.":"4つの順序で進めても、必要な教材から始めてもかまいません。いつでもHomeに戻れます。"}</p></header>
     <ol>{entries.map((entry,index)=>{const [title,description,action]=entry[english?"en":"ja"];return <li key={entry.key}>
-      <span className="learningEntryNumber" aria-hidden="true">0{index+1}</span><h3>{title}</h3><p>{description}</p><button type="button" onClick={()=>onOpen(entry.key)}>{action}<span aria-hidden="true"> →</span></button>
+      <span className="learningEntryNumber" aria-hidden="true">0{index+1}</span><h3>{title}</h3><p>{description}</p><p className="learningEntryCheck"><strong>{english?"Check yourself":"確認してみよう"}</strong>{checks[entry.key][english?"en":"ja"]}</p><button type="button" onClick={()=>onOpen(entry.key)}>{action}<span aria-hidden="true"> →</span></button>
     </li>})}</ol>
   </section>;
 }
