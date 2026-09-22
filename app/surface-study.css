@@ -1,0 +1,8 @@
+.surfaceStudyGuide{border:1px solid #b6c9be;background:#f4f8f5;margin:12px 0;color:#29483d;font-size:var(--ui-font-13,13px);line-height:1.6}
+.surfaceStudyGuide>summary{cursor:pointer;padding:10px 12px;font-weight:700;overflow-wrap:anywhere}
+.surfaceStudyBody{padding:0 12px 12px}.surfaceStudyGuide .surfaceStudyBody ol{list-style:decimal;margin:0 0 10px;padding-left:22px;border:0}.surfaceStudyGuide .surfaceStudyBody li{display:list-item;min-height:0;border:0}.surfaceStudyBody li+li{margin-top:6px}
+.surfaceStudyActions,.surfaceStudyLessons{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.surfaceStudyActions button,.surfaceStudyLessons button{min-height:44px;padding:7px 10px;font:inherit;color:inherit;border:1px solid #9bb6a7;background:#fff;overflow-wrap:anywhere;max-width:100%}
+.surfaceStudyActions button[aria-pressed=true]{background:#22685b;border-color:#22685b;color:#fff}
+.surfaceStudyScope{font-size:var(--ui-font-12,12px);color:#586b61;margin:8px 0!important}
+.surfaceStudyLessons{padding-top:8px;border-top:1px solid #d1ddd5}.surfaceStudyLessons>span{width:100%;font-weight:700}

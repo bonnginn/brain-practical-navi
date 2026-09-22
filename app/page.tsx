@@ -5,6 +5,8 @@ import {QuizSources} from "./QuizSources";
 import {QuizSessionReview} from "./QuizSessionReview";
 import {sectionObservationGuides,sectionComparisonStructures} from "../src/sectionObservationGuides";
 import { ViewerHelpContent } from "./ViewerHelpContent";
+import {SurfaceObservationGuide} from "./SurfaceObservationGuide";
+import {surfaceObservationGuides,type SurfaceStudyView,type SurfaceStudyMode} from "../src/surfaceObservationGuides";
 import {HomeLearningGuide,type LearningEntry} from "./HomeLearningGuide";
 import {PwaUpdateNotice} from "./PwaUpdateNotice";
 import {QuizObservationReturn} from "./QuizObservationReturn";
@@ -832,6 +834,7 @@ export default function Home() {
   const initialBlockSpecimen=typeof window==="undefined"?"lateral-ventricle":blockSpecimenFromHash(window.location.hash);
   const [workspace, setWorkspace] = useState<WorkspaceMode>(()=>typeof window==="undefined"?"home":workspaceFromHash(window.location.hash));
   const [brodmannActive,setBrodmannActive]=useState(false);
+  const [surfaceStudyOpen,setSurfaceStudyOpen]=useState(false);
   const [surfaceLessonKey,setSurfaceLessonKey]=useState<SurfaceRegionKey|null>(null);
   const surfaceLessonReturnFocus=useRef<HTMLElement|null>(null);
   const [surfaceView,setSurfaceView]=useState<SurfaceViewKey>(()=>typeof window==="undefined"?"lateral":surfaceViewFromHash(window.location.hash));
@@ -991,6 +994,13 @@ export default function Home() {
     return activeVisibleStructures.map(key=>({ids:contrast==="bigbrain"?(structures[key].bigbrainIds??[]):structures[key].ids,color:structures[key].rgb}));
   },[contrast,labels,visibleStructures]);
   const surfaceLesson=surfaceViews[surfaceView];
+  const surfaceStudyView=surfaceView in surfaceObservationGuides?surfaceView as SurfaceStudyView:null;
+  const surfaceStudyGuide=surfaceStudyView?surfaceObservationGuides[surfaceStudyView]:null;
+  const sameKeys=(actual:readonly string[],expected:readonly string[])=>actual.length===expected.length&&expected.every(key=>actual.includes(key));
+  const surfaceStudyMode:SurfaceStudyMode|null=!surfaceStudyGuide||surfaceVisibleDeepLandmarks.length||surfaceVisibleBasalLandmarks.length?null:
+    sameKeys(surfaceVisibleRegions,[])&&sameKeys(surfaceVisibleLandmarks,[])?"uncolored":
+    sameKeys(surfaceVisibleRegions,[])&&sameKeys(surfaceVisibleLandmarks,surfaceStudyGuide.landmarks)?"landmarks":
+    sameKeys(surfaceVisibleRegions,surfaceStudyGuide.regions)&&sameKeys(surfaceVisibleLandmarks,surfaceStudyGuide.landmarks)?"compare":null;
   const surfaceNeurovascularKind=surfaceLesson.visual==="arteries"?"arteries":surfaceLesson.visual==="nerves"?"nerves":null;
   const surfaceNeurovascular=surfaceNeurovascularKind!==null;
   const freeSelectedSet=useMemo(()=>new Set(freeSelections),[freeSelections]);
@@ -1429,7 +1439,15 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
     if(match)focusStructure(match,true);
   }
 
-  function chooseSurface(key:SurfaceViewKey,historyMode:"push"|"replace"|"none"="push"){setBrodmannActive(false);const next=surfaceViews[key];updateScreenHistory(workspaceHash("surface",key),historyMode);setSurfaceView(key);setRotation(next.rotation);setSurfaceVisibleRegions([]);setSurfaceVisibleLandmarks([]);setSurfaceVisibleDeepLandmarks(key==="medial"?defaultMedialDeepLandmarks:[]);setSurfaceVisibleBasalLandmarks([]);setSurfaceGhost(key==="cranialNerves"||key==="arteries");setSurfacePonsMedulla(key!=="medial");if(key==="arteries"){setSurfaceVessels(true);setSurfaceNerves(true);setSurfaceCerebellum(false);setSelectedNeurovascularStructure("ica")}else if(key==="cranialNerves"){setSurfaceVessels(false);setSurfaceNerves(true);setSurfaceCerebellum(false);setSelectedNeurovascularStructure("cn1")}else{setSurfaceVessels(false);setSurfaceNerves(key==="inferior");setSurfaceCerebellum(key!=="medial"&&key!=="inferior")}}
+  function chooseSurface(key:SurfaceViewKey,historyMode:"push"|"replace"|"none"="push"){setSurfaceStudyOpen(false);setBrodmannActive(false);const next=surfaceViews[key];updateScreenHistory(workspaceHash("surface",key),historyMode);setSurfaceView(key);setRotation(next.rotation);setSurfaceVisibleRegions([]);setSurfaceVisibleLandmarks([]);setSurfaceVisibleDeepLandmarks(key==="medial"?defaultMedialDeepLandmarks:[]);setSurfaceVisibleBasalLandmarks([]);setSurfaceGhost(key==="cranialNerves"||key==="arteries");setSurfacePonsMedulla(key!=="medial");if(key==="arteries"){setSurfaceVessels(true);setSurfaceNerves(true);setSurfaceCerebellum(false);setSelectedNeurovascularStructure("ica")}else if(key==="cranialNerves"){setSurfaceVessels(false);setSurfaceNerves(true);setSurfaceCerebellum(false);setSelectedNeurovascularStructure("cn1")}else{setSurfaceVessels(false);setSurfaceNerves(key==="inferior");setSurfaceCerebellum(key!=="medial"&&key!=="inferior")}}
+  function observeSurfaceStudy(mode:SurfaceStudyMode){
+    if(!surfaceStudyGuide)return;
+    setSurfaceLessonKey(null);
+    setSurfaceVisibleRegions(mode==="compare"?[...surfaceStudyGuide.regions]:[]);
+    setSurfaceVisibleLandmarks(mode==="uncolored"?[]:[...surfaceStudyGuide.landmarks]);
+    setSurfaceVisibleDeepLandmarks([]);setSurfaceVisibleBasalLandmarks([]);
+    requestAnimationFrame(()=>{const target=document.querySelector<HTMLElement>(".surfaceModelCard .modelStage");target?.focus({preventScroll:true});target?.scrollIntoView({block:"nearest"})});
+  }
   function toggleInferiorHindbrain(){const next=!(surfacePonsMedulla&&surfaceNerves);setSurfacePonsMedulla(next);setSurfaceNerves(next)}
   function toggleFreeHindbrain(){setSurfacePonsMedulla(value=>!value)}
   function openSurfaceRegionLesson(key:SurfaceRegionKey){
@@ -1572,7 +1590,7 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
       return;
     }
     openWorkspace("surface");chooseSurface(entry==="circuits"?"free":"lateral","replace");
-    if(entry==="circuits"){setCircuitNodeKey(null);applyPathwayPreset("papez")}
+    if(entry==="circuits"){setCircuitNodeKey(null);applyPathwayPreset("papez")}else setSurfaceStudyOpen(true);
   }
   function openRelatedCircuit(key:PathwayPresetKey){
     setDetailsOpen(false);setSurfaceLessonKey(null);setCircuitNodeKey(null);
@@ -1815,6 +1833,7 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
         </section>
         <aside className="learningGuide" key={surfaceView}>
           <span className="guideIndex">{surfaceView==="free"?"FREE EXPLORATION":`観察 0${(Object.keys(surfaceViews) as SurfaceViewKey[]).indexOf(surfaceView)+1}`}</span><h2>{surfaceLesson.name}</h2><p>{surfaceLesson.intro}</p>
+          {surfaceStudyView&&surfaceStudyGuide&&<SurfaceObservationGuide view={surfaceStudyView} english={englishEdition} open={surfaceStudyOpen} onOpenChange={setSurfaceStudyOpen} active={surfaceStudyMode} onObserve={observeSurfaceStudy} lessons={surfaceStudyGuide.regions.map(key=>({key,name:englishEdition?anatomyDisplayEnglish(surfaceRegions[key].latin):surfaceRegions[key].name}))} onLesson={key=>openSurfaceRegionLesson(key as SurfaceRegionKey)}/>}
           {surfaceView!=="arteries"&&surfaceView!=="cranialNerves"&&<details className="accuracyNote surfaceNomenclatureNote" data-surface-nomenclature-note="cerebra-desikan-five"><summary>脳表ラベルの注意</summary><p>{surfaceAtlasNomenclatureNote}</p></details>}
           {surfaceView==="inferior"&&<div className="basalLandmarkPicker surfaceRegionPicker"><header><div><b>同定する構造</b><small>脳底構造は常時表示し、選択した構造を着色</small></div><span className="pickerActions"><button onClick={()=>setSurfaceVisibleBasalLandmarks(basalLandmarkKeys)} disabled={surfaceVisibleBasalLandmarks.length===basalLandmarkKeys.length}>すべて選択</button><button onClick={()=>setSurfaceVisibleBasalLandmarks([])} disabled={surfaceVisibleBasalLandmarks.length===0}>すべて解除</button></span></header><div>{basalLandmarkKeys.map(key=>{const item=basalLandmarks[key],active=surfaceVisibleBasalLandmarks.includes(key);return <button key={key} className={active?"active":""} aria-pressed={active} title={item.note} onClick={()=>toggleBasalLandmark(key)}><i style={{background:item.color}}/><span>{item.name}{!englishEdition&&<small>{anatomyDisplayEnglish(item.latin)}</small>}</span></button>})}</div><em>上丘・下丘は中脳背側の構造です。選択後にモデルを回転して確認します。橋・延髄のボタンでは、付随する脳神経も一緒に着脱します。</em></div>}
           {surfaceView==="free"?<div className="freeExplorer">
