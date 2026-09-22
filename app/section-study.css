@@ -7,3 +7,5 @@
 .sectionStudyThemes p{margin:6px 0}.sectionStudyThemes ol{padding-left:20px;margin:4px 0}.sectionStudyThemes li+li{margin-top:5px}
 .sectionStudyCheck{border-left:3px solid #7d9f8d;padding-left:8px}.sectionStudyCheck b{display:block;font-size:var(--ui-font-12,12px)}
 .sectionStudyThemes button{margin-top:auto;min-height:44px;padding:8px 12px;background:#edf4ef;border:1px solid #7c9c8d;color:#29463d;font:inherit;font-size:var(--ui-font-13,13px)}
+
+.sectionOrientationGuide{margin:0 0 12px;border-top:1px solid #c9d4ce;border-bottom:1px solid #c9d4ce;padding:8px 0;font-size:var(--ui-font-13,13px);line-height:1.6}.sectionOrientationGuide summary{cursor:pointer;font-weight:700}.sectionOrientationGuide p{margin:8px 0}.sectionOrientationGuide table{width:100%;border-collapse:collapse;table-layout:fixed}.sectionOrientationGuide th,.sectionOrientationGuide td{padding:5px;border:1px solid #c9d4ce;overflow-wrap:anywhere}.sectionOrientationGuide td{text-align:center}

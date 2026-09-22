@@ -143,3 +143,10 @@ Homeの4入口に、観察後に自分で確認する問いを各1つ追加し�
 UTHealth Neuroanatomy Onlineの [内側面](https://nba.uth.tmc.edu/neuroanatomy/L1/Lab01p22_index.html)、[辺縁系の連続断面](https://nba.uth.tmc.edu/neuroanatomy/L11/Lab11p09_index.html)、[脳室](https://nba.uth.tmc.edu/neuroanatomy/L4/Lab04p01_index.html)、[視覚路](https://nba.uth.tmc.edu/neuroscience/s2/chapter15.html) を参照。文は本教材用に記述し、図の転載や別標本の分節転写は行っていない。参考リンクは各解説と日英参考文献に掲載。
 
 型検査・build成功。通常buildのPWAコード一式1,396,963 bytes、保存対象の完全性と1.5MB上限を確認。実ブラウザの英語脳弓解説で教育的説明→位置関係→展開する収録範囲の順を確認。ログ `work/v1-observation-notes-build.log`、`work/v1-learning-extension-pwa.json`。
+
+
+## 検索の配置・方位と空の復習案内
+
+断面検索を構造グループより前へ移し、検索中は一括選択群を畳んで候補を直下に表示。観察テーマへ進む際は検索条件を解除する。狭いスマートフォン用配置（実ブラウザのUI指定、実機タッチではない）で、かな検索→赤核追加→検索解除→入力フォーカス復帰→設定を閉じて観察、を確認。CSS幅284pxで横溢れなし。
+
+観察ガイドにL/R・A/P・S/Iの意味と3断面の表示方向を追加。向きは描画と同じ定義から表示する。英語クイズの問題がない状態の案内・復帰ボタンの誤訳を修正し、「標準問題へ戻る」は実際の挙動に合わせて「通常の出題に戻る」に変更。出題・採点・誤答記録の仕組み自体は変更していない。概念問題55件には問題文・選択肢・解説の完全一致英訳があることを確認（解剖学的全問レビューとは区別）。型検査・build成功、ログ `work/v1-learner-finish-build.log`。

@@ -6,6 +6,7 @@ const ja:HelpSection[]=[
     ["軸回転","Shift＋ドラッグ、または右ドラッグで傾けます。"],
     ["拡大・縮小","ホイール／トラックパッド、または画面の−／＋を使います。"],
     ["向きを戻す","Rキー、または「向きを戻す」を押します。"],
+    ["方位記号","L/Rは標本の左/右、A/Pは前/後、S/Iは上/下です。回転しても標本の方位を基準に読みます。"],
   ]},
   {title:"断面実習",rows:[
     ["断面位置","位置スライダーにフォーカスして矢印キーで断面を移動。Home／Endで両端へ移動します。"],
@@ -33,6 +34,7 @@ const en:HelpSection[]=[
     ["Tilt","Hold Shift while dragging, or drag with the right mouse button."],
     ["Zoom","Use the wheel / trackpad or the on-screen − / + buttons."],
     ["Reset orientation","Press R or choose Reset orientation."],
+    ["Orientation letters","L/R mean specimen left/right, A/P anterior/posterior and S/I superior/inferior. Read these relative to the brain as it rotates."],
   ]},
   {title:"Serial sections",rows:[
     ["Slice position","Focus the position slider. Arrow keys move through sections; Home / End jump to either end."],
