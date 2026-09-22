@@ -613,7 +613,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(workflow, /`reviewStatus`[\s\S]*`unreviewed`/);
   assert.match(workflow, /apply_segmentation_patch\.py/);
   assert.match(workflow, /workflowMetadataVersion/);
-  assert.equal(JSON.parse(packageJson).version, "0.1.0-alpha.1");
+  assert.equal(JSON.parse(packageJson).version, "0.1.0-beta.1");
   assert.equal(JSON.parse(packageJson).license, "AGPL-3.0-or-later");
   assert.match(softwareLicense, /GNU AFFERO GENERAL PUBLIC LICENSE/);
   assert.match(softwareLicense, /13\. Remote Network Interaction/);
@@ -2077,7 +2077,7 @@ test("status dialog renders the JSON registry through a durable direct route", a
     readFile(new URL("app/canvas.css", root), "utf8"),
   ]);
   const data = JSON.parse(status);
-  assert.equal(data.phase, "公開α掲載中／β候補・β公開判断前");
+  assert.equal(data.phase, "公開β版／専門家監修は未実施");
   assert.ok(data.knownLimitations.some(item => item.body.includes("ID33")));
   assert.ok(data.changes.some(item => item.body.includes("162/162")));
   assert.ok(data.knownLimitations.some(item => item.body.includes("162/162")));
@@ -2090,7 +2090,7 @@ test("status dialog renders the JSON registry through a durable direct route", a
   assert.match(page, /更新履歴・既知の制限/);
   assert.match(page, /betaStatusData\.knownLimitations\.map/);
   assert.match(page, /betaStatusData\.changes\.map/);
-  assert.match(page, /公開α版にはβ候補へ向けた進捗を掲載していますが、β版の公開や専門家による承認・最終確認を意味しません/);
+  assert.match(page, /専門家監修は未実施で、部分分節や模式表示を含みます/);
   assert.doesNotMatch(page, /公開判断前のローカル候補であり、専門家による最終確認や公開URLでの確認を意味しません/);
   assert.match(page, /data-status-id=\{item\.id\}/);
   assert.match(page, /className="betaStatusEvidence"/);
@@ -2200,8 +2200,8 @@ test("labels provisional questions and includes them in the default quiz setup",
   assert.match(page, /filterQuizCandidates\(quizQuestionsForFiltering,quizFilters,wrongTargets\)/);
   assert.match(page, /function startQuiz\(\)\{setQuizCircuit\(null\);let candidates=quizCandidates;/);
   assert.doesNotMatch(page, /quizIncludeProvisional\|\|!isProvisionalQuiz\(question\)/);
-  assert.match(page, /試作問題を含む[\s\S]*専門家未確認・位置照合ラベル/);
-  assert.match(page, /試作・専門家未確認/);
+  assert.match(page, /試作問題を含む[\s\S]*位置照合・部分分節ラベル/);
+  assert.match(page, /試作ラベル/);
   assert.match(page, /\{target:"mammillaryBody",category:"limbic",plane:"horizontal",position:69/);
   assert.match(page, /className="quizCountButtons" role="group" aria-label="次回の問題数（上限）"/);
   assert.match(page, /aria-pressed=\{quizCount===count\}/);

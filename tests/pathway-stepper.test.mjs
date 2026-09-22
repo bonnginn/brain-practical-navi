@@ -238,7 +238,7 @@ test("Papez observation follows circuit controls and omits section Canvas for 3D
   assert.match(page, /!\["section-label","image-reviewed-partial-section"\]\.includes\(papezStepperStep\.kind\)&&<div className="pathwayStepper3dOnlyNote"/);
   assert.match(page, /前部核は未分節/);
   assert.match(page, /専門家レビュー未完了/);
-  assert.match(page, /ID39・40・46は専門家レビュー待ちです/);
+  assert.match(page, /専門家監修は未実施/);
   assert.match(page, /papezStepperActive\?papezStepperSurfaceHighlights/);
   assert.match(page, /papezStepperActive\?papezStepperMeshLayers/);
   assert.match(page, /papezStepperHasMesh\?"3D／断面同期":"断面ラベルのみ"/);
