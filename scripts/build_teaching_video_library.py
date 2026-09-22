@@ -9,6 +9,7 @@ OUT=ROOT/'work/teaching-video-library'
 FILMS=[
  ('surface','work/observation-videos/surface','中心溝の前と後','1分12秒','中心溝を目印に、中心前回と中心後回を見比べる。','proof-01.jpg','#workspace/surface/lateral'),
  ('sections','work/observation-videos/sections','脳室を目印に冠状断を読む','1分12秒','断面を動かし、脳室と視床の位置関係を追う。','proof-03.jpg','#workspace/sections/coronal'),
+ ('capsule','work/internal-capsule-video','内包を、周囲の核から見つける','1分46秒','水平断と冠状断で、尾状核・レンズ核・視床との位置関係を読む。','proof-02.jpg','#workspace/sections/horizontal'),
  ('papez','work/papez-video','Papez回路をたどる','2分06秒','中継する灰白質と、つなぐ白質路を分けて学ぶ。','proof-01.jpg','#workspace/surface/free'),
  ('visual','work/visual-pathway-video','視野と眼を分けて、視覚路をたどる','1分58秒','鼻側網膜の交叉と耳側網膜の非交叉を追う。','proof-01.jpg','#workspace/surface/free'),
  ('basal','work/basal-ganglia-video','大脳基底核回路：抑制を、順に読む','1分54秒','興奮性・抑制性の符号を残し、直接路と間接路を比べる。','proof-03.jpg','#workspace/surface/free'),
