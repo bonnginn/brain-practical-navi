@@ -134,3 +134,12 @@ Homeの4入口に、観察後に自分で確認する問いを各1つ追加し�
 断面の選択変更時に、新しい3Dの読込が終わるまで古い選択メッシュが残る問題を修正。現在の選択と読込済みキーが一致するものだけ描画し、待機中は全脳と切断面を残して短い状態表示を出す。取消済みの読込結果は採用しない。型検査・build成功。4367の実ブラウザで海馬メッシュだけを保留し、旧尾状核が残らないこと、保留中に視床テーマへ移動して海馬の応答を開放しても視床表示を上書きしないことを確認。fixture `work/v1-selection-server.mjs`、開放フラグ、buildログ `work/v1-selection-state-build.log` を保存。
 
 断面の構造一覧にも検索を追加。漢字・かな・英語・ラテン語・GPe/GPi/STN/LGNから候補を絞り、検索前の選択は維持する。実ブラウザで「へんとうたい」→既存の3構造へ扁桃体追加、「LGN」→外側膝状体、Escape→全28候補へ復帰を確認した。検索解除ボタンは入力欄へフォーカスを戻す。ログ `work/v1-section-search-build.log`。
+
+
+## 部分分節の解説を観察中心へ
+
+中脳水道・前交連・透明中隔・脳弓・乳頭体・視交叉・視索・外側膝状体の詳細解説に、位置の目印と見分け方を日英で追加。長い分節経緯は「分節の収録範囲・観察の参考資料」に移し、内容は残した。脳弓の主な役割は、表示範囲の列挙から海馬系の入出力・記憶との関係へ変更。操作ガイドも検索・観察テーマ・回路の確認項目へ同期した。
+
+UTHealth Neuroanatomy Onlineの [内側面](https://nba.uth.tmc.edu/neuroanatomy/L1/Lab01p22_index.html)、[辺縁系の連続断面](https://nba.uth.tmc.edu/neuroanatomy/L11/Lab11p09_index.html)、[脳室](https://nba.uth.tmc.edu/neuroanatomy/L4/Lab04p01_index.html)、[視覚路](https://nba.uth.tmc.edu/neuroscience/s2/chapter15.html) を参照。文は本教材用に記述し、図の転載や別標本の分節転写は行っていない。参考リンクは各解説と日英参考文献に掲載。
+
+型検査・build成功。通常buildのPWAコード一式1,396,963 bytes、保存対象の完全性と1.5MB上限を確認。実ブラウザの英語脳弓解説で教育的説明→位置関係→展開する収録範囲の順を確認。ログ `work/v1-observation-notes-build.log`、`work/v1-learning-extension-pwa.json`。

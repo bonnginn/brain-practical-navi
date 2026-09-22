@@ -1,4 +1,5 @@
 "use client";
+import {sectionObservationGuides} from "../src/sectionObservationGuides";
 import { ViewerHelpContent } from "./ViewerHelpContent";
 import {HomeLearningGuide,type LearningEntry} from "./HomeLearningGuide";
 import {PwaUpdateNotice} from "./PwaUpdateNotice";
@@ -506,11 +507,11 @@ const structureGroups:{key:string;name:string;color:string;members:StructureKey[
 ];
 
 const structureFunctions:Record<StructureKey,string>={
-  aqueductPartial:"中脳水道は第三脳室と第四脳室を結ぶ髄液の通路です。ここに表示するのはその一部分で、通路全体の再現ではありません。",
+  aqueductPartial:"中脳水道は第三脳室と第四脳室を結ぶ細い髄液の通路で、中脳の正中を通ります。",
   anteriorCommissurePartial:"前交連は左右の大脳半球を結ぶ交連線維です。ここでは正中を横切り、側頭葉間へ向かう主な走行の一部を位置関係の基準として示します。",
   septumPellucidumPartial:"左右の側脳室前角を隔てる薄い隔壁です。脳梁と脳弓の位置関係を観察する手がかりになります。",
   lateralGeniculateBodies:"網膜からの情報を視索から受け、視放線を介して視覚皮質へ中継する視床後方の核です。",
-  fornixBodyPartial:"海馬系から乳頭体・中隔領域へ向かう脳弓のうち、海馬側へ延びる左右の脚、正中近くの体部、前交連後方から乳頭体側へ下降する柱を部分的に示します。",
+  fornixBodyPartial:"海馬体と中隔領域・乳頭体などを結ぶ、記憶に関わる主要な白質路です。海馬体からの主要な出力経路であり、海馬体へ向かう入力線維も含みます。",
   opticChiasmPartial:"視交叉では左右の視神経線維の一部が交叉し、両眼の視野情報を左右半球へ振り分けます。この部分モデルは交叉線維の走行を示しません。",
   opticTractsPartial:"視索は視交叉から外側膝状体などへ視覚情報を伝えます。左右の視索を、視交叉の後方から視床の後下方へ向かう位置関係として観察します。表示は部分分節で、個々の線維や視放線は示していません。",
   ventricle:"脳脊髄液を含む腔で、脳室系の連続性と周囲構造の位置を知る基準になります。",
@@ -1351,7 +1352,7 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
   }
 
   function observeStudyTheme(theme:SectionStudyTheme){
-    setPlaying(false);setLabels(true);setVisibleStructures([...theme.members]);
+    setSectionSearch("");setPlaying(false);setLabels(true);setVisibleStructures([...theme.members]);
     focusStructure(theme.target);setContrast("bigbrain");setIdentified(null);
     setSectionLayout(phoneMode||webglUnavailable?"slice":"both");
     jump(theme.plane,theme.position);
@@ -1359,7 +1360,7 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
   }
 
   function observeForamenSlice(y:number){
-    setPlaying(false);setLabels(true);setVisibleStructures(["ventricle","thirdVentricle"]);
+    setSectionSearch("");setPlaying(false);setLabels(true);setVisibleStructures(["ventricle","thirdVentricle"]);
     setSelectedStructure("thirdVentricle");setSectionLayout(webglUnavailable?"slice":"both");setIdentified(null);
     jump("coronal",y/(BIGBRAIN_SECTION_DIMS[1]-1)*100);
     window.requestAnimationFrame(()=>sectionStageRef.current?.scrollIntoView({block:"start"}));
@@ -1835,8 +1836,9 @@ useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.
       <div className="structureColor" style={{background:current.color}}/>
       <h2 id="section-structure-title">{current.name}</h2><em>{anatomyDisplayEnglish(current.latin)}</em>
       <div className="rule"/><h3>主な役割</h3><p>{structureFunctions[selectedStructure]}</p>
-      <h3>この断面で見ること</h3><p>{current.note}</p>
+      <h3>{englishEdition?"Observation landmarks":"観察の手がかり"}</h3>{sectionObservationGuides[selectedStructure]?<div data-no-localize><p>{sectionObservationGuides[selectedStructure]!.observe[englishEdition?"en":"ja"]}</p><p className="structureComparison">{sectionObservationGuides[selectedStructure]!.compare[englishEdition?"en":"ja"]}</p></div>:<p>{current.note}</p>}
       <dl><div><dt>位置関係</dt><dd>{current.relation}</dd></div><div><dt>現在の断面</dt><dd>{planeData[plane].ja}・位置 {position}</dd></div></dl>
+      {sectionObservationGuides[selectedStructure]&&<details className="sectionScopeDetails"><summary>{englishEdition?"Label coverage and observation reference":"分節の収録範囲・観察の参考資料"}</summary><p>{current.note}</p><a href={sectionObservationGuides[selectedStructure]!.reference.url} target="_blank" rel="noreferrer">{sectionObservationGuides[selectedStructure]!.reference.title}</a></details>}
       {current.labelSource&&<div className={`structureProvenance ${labelSourceDisplay[current.labelSource].className}`}><b>{labelSourceDisplay[current.labelSource].label}</b><span>{labelSourceDisplay[current.labelSource].detail}</span></div>}
       <div className="identifyCard"><span>クリック同定</span>{contrast==="single"?<><b>画像参照モード</b><small>座標未確認のラベルは重ねません。照合済みの「BigBrain組織 0.5」を選択してください。</small></>:identified?<><b>{labels?`${identified.side}${identified.name}`:"解答非表示"}</b><small>{sectionDeveloperControls?(identified.certainty==="atlas"?"位置照合した試作ラベル":identified.certainty==="manual"?"画像と同一格子のBigBrain手動ラベル":identified.certainty==="reviewed"?"連続切片で確認した画像誘導ラベル":"位置照合または画像誘導による試作ラベル"):identified.note}</small></>:<><b>断面上をクリック</b><small>指した場所の構造名を表示します。ホイールで拡大縮小できます。</small></>}</div>
       <p className="sectionReviewReminder">連続性や境界は前後の断面と見比べて確認してください。この画面は構造の見えやすさや正確性を数値評価していません。</p>

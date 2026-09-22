@@ -1804,3 +1804,5 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
 .sectionStructureSearch input{min-width:0;width:100%;min-height:44px;border:1px solid #acbeb7;border-radius:4px;background:#fff;padding:6px;color:#263e38;font:inherit}
 .sectionStructureSearch button{flex-shrink:0;min-width:36px;min-height:44px;border:1px solid #acbeb7;background:#edf4ef;color:#263e38;font:inherit}
 .sectionStructureSearch small{display:block;margin-top:4px;line-height:1.5;color:#54645e}
+
+.structureComparison{border-left:3px solid #77978c;padding-left:10px}.sectionScopeDetails{margin:12px 0;border:1px solid #bfccc5;padding:10px;line-height:1.6;font-size:var(--ui-font-13,13px)}.sectionScopeDetails summary{cursor:pointer;font-weight:700}.sectionScopeDetails a{overflow-wrap:anywhere}
