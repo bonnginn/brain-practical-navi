@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {quizAnswerComparison} from '../src/quizComparison.mjs';
+import {quizAnswerComparison,quizFeedbackParagraphs} from '../src/quizComparison.mjs';
 const registry={a:{name:'A',note:'A note',relation:'A relation'},b:{name:'B',note:'B note',relation:'B relation'}};
 const question={target:'a',options:['a','b']};
 test('comparison and feedback use reviewed English labels',()=>{
@@ -28,4 +28,21 @@ test('concept answers use correctAnswer, not the visual target, and never infer 
 test('missing option names and prototype properties fail closed',()=>{
   assert.equal(quizAnswerComparison(question,'b',{}),null);
   assert.equal(quizAnswerComparison({target:'a',options:['a','toString']},'toString',registry),null);
+});
+
+const bank=JSON.parse(readFileSync(new URL('../app/quiz-concept-bank.json',import.meta.url),'utf8'));
+const teaching=Object.fromEntries(bank.questions.filter(q=>/^cn\d+-function$/.test(q.id)).map(q=>[q.target,{name:q.target,note:q.explanation}]));
+test('wrong nerve comparison explains each nerve rather than model construction',()=>{
+  const result=quizAnswerComparison({target:'cn4',options:['cn4','cn6']},'cn6',teaching);
+  assert.match(result.expected.note,/上斜筋/);
+  assert.match(result.selected.note,/外側直筋/);
+  assert.doesNotMatch(result.selected.note,/模式|未再現|分節/);
+});
+test('function distractor gets its explicitly mapped nerve explanation; correct answer does not',()=>{
+  const seed=bank.questions.find(q=>q.id==='cn4-function');
+  const q={...seed,options:seed.options.map(o=>o.key)};
+  const mapping={'cn4-lateral-rectus':'cn6'};
+  assert.deepEqual(quizFeedbackParagraphs(q,'cn4-lateral-rectus',teaching,mapping),[seed.explanation,teaching.cn6.note]);
+  assert.deepEqual(quizFeedbackParagraphs(q,q.correctAnswer,teaching,mapping),[seed.explanation]);
+  assert.deepEqual(quizFeedbackParagraphs(q,'unknown',teaching,{'unknown':'cn6'}),[seed.explanation]);
 });

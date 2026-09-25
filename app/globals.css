@@ -282,3 +282,10 @@ button{cursor:pointer}
 .appRecovery{max-width:44rem;margin:8vh auto;padding:24px;line-height:1.75;color:#243c36;background:#f8f7f3}
 .appRecovery h1{font-size:1.6rem}
 .appRecovery button{min-height:44px;padding:10px 22px;font:inherit;border:1px solid #416b60;border-radius:6px;background:#fff;color:#254d43;cursor:pointer}
+
+/* Contextual links stay outside the 3D canvas. */
+.externalSpecimenVideo{margin:12px 0;padding:10px 12px;border:1px solid #b5c5bd;border-radius:8px;background:#f7faf7;font-size:var(--ui-font-13,13px);line-height:1.6;overflow-wrap:anywhere}
+.externalSpecimenVideo summary{cursor:pointer;font-weight:600}
+.externalSpecimenVideo p{margin:8px 0}
+.externalSpecimenVideo a{color:#216a63;text-decoration:underline}
+.externalSpecimenVideo small{display:block;margin-top:4px}
