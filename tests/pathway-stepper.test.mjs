@@ -243,7 +243,7 @@ test("Papez observation follows circuit controls and omits section Canvas for 3D
   assert.match(page, /papezStepperActive\?papezStepperMeshLayers/);
   assert.match(page, /papezStepperHasMesh\?"3D／断面同期":"断面ラベルのみ"/);
   assert.match(page, /"existing-quiz-section-label":"既存クイズ断面ラベル"/);
-  assert.match(page, /if\(key==="papez"\)\{[\s\S]*?setPapezStepperIndex\(0\);[\s\S]*?setSurfaceGhost\(true\);[\s\S]*?return;/);
+  assert.match(page, /if\(key==="papez"\)\{[\s\S]*?setPapezStepperIndex\(target\?\?0\);[\s\S]*?setSurfaceGhost\(true\);[\s\S]*?return;/);
   const papezBranch=page.match(/if\(key==="papez"\)\{(?<body>[\s\S]*?)\n\s*return;/)?.groups?.body??"";
   assert.doesNotMatch(papezBranch, /setFreeSelections|setFreeFocusedKey/);
   const meshMapping=page.match(/const structureMeshFiles:[\s\S]*?=\{(?<body>[\s\S]*?)\n\};/)?.groups?.body??"";

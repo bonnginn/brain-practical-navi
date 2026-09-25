@@ -250,3 +250,8 @@ PWAのキャッシュ境界、更新方針、未確認項目は [PWA_OFFLINE_AUD
 # English learner edition (2026-08-29)
 
 An English learner edition is available through `?lang=en` with the same five learning destinations. Contributor recruitment and segmentation editing are excluded from English mode. Translation is a deterministic project-reviewed draft with selected anatomy overrides; expert and native-language review remain pending. See `ENGLISH_EDITION_AUDIT.md`.
+
+
+## 2026-09-22 β公開完了
+
+PR #31をmainへ統合（c87117d）、Pages配信成功。Node634/634、Python439件・117skip・失敗なし。専門家監修はβ条件から除外したまま、未監修の事実を保持。公開後の詳細は [公開記録](docs/BETA_PUBLIC_RELEASE_2026-09-22.md) を参照。

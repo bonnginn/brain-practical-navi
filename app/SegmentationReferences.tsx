@@ -1,4 +1,10 @@
+import {useId,useRef,useState} from 'react';
+import {normalizeJapaneseSearch} from '../src/japaneseSearch';
+import './reference-search.css';
+
 const sources = [
+  {name:"UTHealth Neuroanatomy Online — Medial structures",url:"https://nba.uth.tmc.edu/neuroanatomy/L1/Lab01p22_index.html",ja:"透明中隔と脳梁など、内側面の位置関係を学ぶための参考。解説を照合し、画像は転載していません。",en:"Reference for learning medial relationships, including the septum pellucidum and corpus callosum. Used to check explanations; images are not reproduced."},
+  {name:"UTHealth Neuroanatomy Online — Limbic system: sectional review",url:"https://nba.uth.tmc.edu/neuroanatomy/L11/Lab11p09_index.html",ja:"前交連・脳弓・乳頭体を連続断面で見分ける説明の参考。別標本の境界を転写する用途ではありません。",en:"Reference for distinguishing the anterior commissure, fornix and mammillary bodies across sections. Not used to transfer boundaries from another specimen."},
   {name:"千田隆夫・小村一也 — プラクティカル解剖実習 脳（2012）, pp.71–77",nameEn:"Practical Anatomy Dissection: Brain (Japanese textbook, 2012), pp.71–77",url:"https://ndlsearch.ndl.go.jp/books/R100000002-I024104001",ja:"側脳室を段階的に開き、下角と海馬を観察する剖出の参考。ユーザー提供の書籍ビューアーで図を確認。仮想標本の切除範囲は本教材で設計し、書籍画像は転載していません。",en:"Dissection reference for opening the lateral ventricle and viewing the inferior horn and hippocampus. Figures were consulted in the user-provided book viewer. Virtual cuts are designed for this app; no book images are reproduced."},
   {name:"Texas Tech — Neuroanatomy 2 lab manual",url:"https://anatomy.ttuhscep.edu/schemes/neuro2.html",ja:"正中・水平・冠状の切断面で内部構造を観察する実習方針の参考。ブロックの具体的な座標は本教材で設定し、文献の標本や手技を正確に再現したものではありません。",en:"Reference for learning internal structures on midline, horizontal and coronal sections. Block coordinates are defined for this teaching app; they do not reproduce the source specimens or procedures exactly."},
   {name:"Allen Human Brain Reference Atlas — coronal plate 67",url:"https://atlas.brain-map.org/atlas?atlas=138322605&plate=112363222&structure=266441621",ja:"別標本の冠状断67で注釈図とNissl画像を確認。タペタム・矢状層内外層・視放線の位置を比較する資料です。視放線の位置注釈を独立した輪郭マスクとは扱わず、BigBrainへ転写していません。",en:"Annotated and Nissl views of coronal plate 67 reviewed in a different specimen, for tapetum, sagittal-stratum layers and optic-radiation position. A positional annotation is not treated as an independent tract mask or transferred to BigBrain."},
@@ -10,6 +16,13 @@ const sources = [
   {name:"Schiffer et al. — BigBrain lateral geniculate body six-layer dataset",url:"https://doi.org/10.25493/33Z0-BX",ja:"同一BigBrain標本の専門家参照と深層学習支援による左右6層分節です。公式フル変換で0.5 mm格子へ最近傍再標本化し、層の和集合だけを使用しています。CC BY-NC-SA 4.0。プロジェクトでの採用はAI照合で、専門家レビュー済みとは扱いません。",en:"Expert-reference and deep-learning-assisted six-layer segmentations of both lateral geniculate bodies in the same BigBrain specimen. The union of layers was resampled by nearest neighbour onto the 0.5 mm grid through the official full transform. CC BY-NC-SA 4.0. Project adoption was AI-assisted and is not treated as expert review."},
 ];
 const readings = [
+  {name:"UTHealth Neuroanatomy Online — Cerebellum",url:"https://nba.uth.tmc.edu/neuroanatomy/l5/Lab05p21_index.html",ja:"運動の調整・学習だけでなく、運動計画への関与を含めた小脳の復習解説に使用。",en:"Used to explain cerebellar contributions to motor planning as well as coordination and learning in the review quiz."},
+  {name:"Texas Tech — Cranial nerves: facial nerve",url:"https://anatomy.ttuhscep.edu/modules/CN_module/cnVII.html",ja:"顔面神経の機能問題で、涙腺・顎下腺・舌下腺への副交感支配を明確にするために参照。画像は転載していません。",en:"Used to specify facial parasympathetic supply to lacrimal, submandibular and sublingual glands. No images are reproduced."},
+  {name:"UAMS — Nerves of the head and neck",url:"https://medicine.uams.edu/neuroscience/education/medical-school-courses/human-structure-module/anatomy-tables/nerve-tables/nerves-of-the-head-and-neck/",ja:"耳下腺の副交感支配と、舌筋のうち口蓋舌筋の支配が異なることを復習解説と照合。神経モデルの末梢分枝は追加していません。",en:"Used to check parotid parasympathetic supply and the different innervation of palatoglossus. Peripheral branches have not been added to the nerve models."},
+  {name:"UTHealth Neuroanatomy Online — Head and body of the caudate nucleus",url:"https://nba.uth.tmc.edu/neuroanatomy/L10/Lab10p08_index.html",ja:"尾状核の頭部から体部への弯曲を断面で追う観察案内の参考。",en:"Reference for following the caudate head and curved body across sections."},
+  {name:"UTHealth Neuroanatomy Online — Diencephalon/midbrain junction",url:"https://nba.uth.tmc.edu/neuroanatomy/L6/Lab06p11_index.html",ja:"赤核と周囲構造の位置関係を読む観察案内の参考。線維束の追加分節には使用していません。",en:"Reference for observing the red nucleus and its neighbours; not used to add tract segmentation."},
+  {name:"UTHealth Neuroanatomy Online — External capsule and claustrum",url:"https://nba.uth.tmc.edu/neuroanatomy/L10/Lab10p14_index.html",ja:"被殻から島皮質までの層の並びを説明する参考。前障・外包・最外包の独立分節は追加していません。",en:"Reference for the layers between putamen and insula. Separate claustrum, external-capsule and extreme-capsule labels have not been added."},
+  {name:"UTHealth Neuroanatomy Online — Cerebellum and brainstem",url:"https://nba.uth.tmc.edu/neuroanatomy/l5/Lab05p22_index.html",ja:"小脳虫部・半球と脳幹の位置関係を読む観察案内の参考。",en:"Reference for observing the vermis, cerebellar hemispheres and their relationship to the brainstem."},
   {name:"Schiffer et al. — BigBrain hOc1 / V1 cytoarchitectonic map",url:"https://doi.org/10.25493/DGEZ-Q93",ja:"同一標本の左右V1配布マップを粗い解像度で取得し、6原断面と位置を照合。視放線の皮質側の目印として調査中で、アプリの分節には未採用です。深層学習支援・補間・平滑化を含みます。CC BY-NC-SA 4.0。",en:"Coarse bilateral V1 maps from the same specimen were retrieved and compared with six source sections as cortical endpoint landmarks. Not adopted into the app segmentation. Includes deep-learning assistance, interpolation and smoothing. CC BY-NC-SA 4.0."},
   {name:"Rizzi et al. (2021 preprint) — Dorsal loop of the optic radiation",url:"https://www.researchsquare.com/article/rs-589114/v1",ja:"査読前著者版の方法・剖出結果・図2を確認。背側走行と鳥距溝、タペタムとの関係を比較する資料です。別標本の厚みやアトラスVOIは転写していません。2022年出版版の全文を確認したものではありません。",en:"Methods, dissection results and Figure 2 reviewed in the unreviewed preprint, for dorsal course and calcarine/tapetal relationships. Other-specimen thickness and atlas VOIs are not transferred. This is not a full-text review of the 2022 published version."},
   {name:"Li et al. (2026) — Medial-to-lateral fiber dissection",url:"https://doi.org/10.1007/s00701-026-06829-z",ja:"脳弓の本文と剖出図2Aを確認。前交連後方の下行と乳頭視床路の区別を照合に使用。別標本の形状は転写していません。",en:"Fornix text and dissection Figure 2A reviewed for the postcommissural descent and distinction from the mammillothalamic tract. Other-specimen geometry is not transferred."},
@@ -44,24 +57,47 @@ const readings = [
   {name:"Oculomotor fascicular anatomy — PubMed 23242853",url:"https://pubmed.ncbi.nlm.nih.gov/23242853/",ja:"赤核の外形と内部線維を区別する参考。局所の白い帯の線維名を確定する根拠ではありません。",en:"Context for distinguishing the red-nucleus outline from internal fibres; not identification of a specific pale band."},
   {name:"Sitek et al. (2019) — Subcortical auditory system",url:"https://doi.org/10.7554/eLife.48932",ja:"聴覚路核アトラスの比較調査。教材との空間対応が未解決で、分節へ未採用です。",en:"Comparison with an auditory-nucleus atlas. Spatial correspondence remains unresolved; not adopted into the teaching segmentation."},
   {name:"Jones et al. (2020) — BigBrain Workshop",url:"https://bigbrainproject.org/docs/4th-bb-workshop/20-06-26-BigBrainWorkshop-Jones.pdf",ja:"脳弓周辺の調査資料。脳弓の完成分節を取得・採用したものではありません。",en:"Background investigation around the fornix; not an acquired or adopted complete fornix segmentation."},
+  {name:"UTHealth Neuroanatomy Online — Ventricles",url:"https://nba.uth.tmc.edu/neuroanatomy/L4/Lab04p01_index.html",ja:"側脳室体部の床と視床、第三脳室側壁と視床・視床下部の位置関係の説明に使用。表示境界を確定する資料とは区別しています。",en:"Used for the thalamic floor of the lateral ventricular body and the thalamic/hypothalamic walls of the third ventricle. This is anatomical context, not validation of displayed boundaries."},
+  {name:"UTHealth Neuroanatomy Online — Internal Capsule",url:"https://nba.uth.tmc.edu/neuroanatomy/L10/Lab10p01_index.html",ja:"内包の前脚・膝・後脚を水平断で、周囲核との位置関係を冠状断で確認する観察案内に使用。",en:"Used to guide inspection of the anterior limb, genu and posterior limb in horizontal sections, and neighbouring nuclei in coronal sections."},
   {name:"UTHealth Neuroanatomy Online — Limbic system",url:"https://nba.uth.tmc.edu/neuroanatomy/L11/Lab11p06_index.html",ja:"Papez回路の構成と歴史的位置づけを回路解説に使用。概念上の結合を標本由来形状として扱っていません。",en:"Used for the components and historical context of the Papez circuit. Conceptual connections are not treated as specimen-derived geometry."},
   {name:"StatPearls — Neuroanatomy, Limbic System",url:"https://www.ncbi.nlm.nih.gov/books/NBK538491/",ja:"Papez回路を含む辺縁系の構成と機能の照合に使用。回路概念をBigBrainの分節境界へ転写していません。",en:"Used to cross-check limbic-system organization and function, including the Papez circuit. Circuit concepts were not transferred to BigBrain segmentation boundaries."},
   {name:"Gupta et al. — Neuroanatomy, Visual Pathway (StatPearls)",url:"https://www.ncbi.nlm.nih.gov/books/NBK553189/",ja:"網膜から一次視覚野までの主経路、視交叉での部分交叉、外側膝状体と視放線の解説に使用。模式線維を実標本の分節とは区別しています。",en:"Used for the main retina-to-V1 route, partial crossing at the chiasm, lateral geniculate relay and optic radiation. Schematic fibers remain distinct from specimen segmentation."},
+  {name:"UTHealth Neuroscience Online — Visual Processing: Cortical Pathways",url:"https://nba.uth.tmc.edu/neuroscience/s2/chapter15.html",ja:"視野と網膜の左右、視索の両眼性入力、外側膝状体から視放線への中継を回路の確認問題と照合。分節や個別線維を追加したものではありません。",en:"Used for self-review of visual-field and retinal sides, input from both eyes to each optic tract, and the LGN-to-optic-radiation relay. No segmentation or individual fibre geometry was added."},
+  {name:"UTHealth Neuroscience Online — Basal Ganglia (James Knierim)",url:"https://nba.uth.tmc.edu/neuroscience/s3/chapter04.html",ja:"黒質緻密部のドパミン投射と、網様部・淡蒼球内節の出力機能の区別を照合。表示ラベル内の細区分を新たに分節したものではありません。",en:"Used to distinguish dopaminergic projections from pars compacta and the output roles of pars reticulata and GPi. This does not add segmentation of these subdivisions."},
   {name:"Purves et al. — Circuits within the Basal Ganglia System",url:"https://www.ncbi.nlm.nih.gov/books/NBK10847/",ja:"直接路・間接路、脱抑制、視床下核から出力核への興奮性結合の解説に使用。概念図の線は分節・トラクト形状ではありません。",en:"Used for direct and indirect pathways, disinhibition and excitatory STN output to basal-ganglia output nuclei. Diagram lines are not segmented tract geometry."},
   {name:"Lanciego et al. (2012) — Functional neuroanatomy of the basal ganglia",url:"https://pmc.ncbi.nlm.nih.gov/articles/PMC3543080/",ja:"基底核の並列回路とハイパー直接路を含む回路構成の照合に使用。",en:"Used to cross-check basal-ganglia circuit organization, including parallel and hyperdirect pathways."},
   {name:"The Superior Transvelar Approach to the Fourth Ventricle and Brainstem",url:"https://pmc.ncbi.nlm.nih.gov/articles/PMC3424008/",ja:"第四脳室上部と上髄帆・上小脳脚の位置関係の比較資料。BigBrainの個々の分節境界は原画像で確認し、別標本の境界を転写していません。",en:"Comparison for the superior fourth ventricle and the relationships of the superior medullary velum and superior cerebellar peduncles. Individual BigBrain segmentation boundaries were checked against the source images; boundaries from another specimen were not transferred."},
 ];
 
 export function SegmentationReferences({english}:{english:boolean}) {
-  return <section className="legalReferences" data-segmentation-references="true">
+  const [query,setQuery]=useState('');
+  const searchId=useId();
+  const input=useRef<HTMLInputElement>(null);
+  const terms=query.normalize('NFKC').split(/\s+/).map(normalizeJapaneseSearch).filter(Boolean);
+  const matches=(source:{name:string;nameEn?:string;url:string;ja:string;en:string})=>{
+    const text=normalizeJapaneseSearch([source.name,source.nameEn,source.url,source.ja,source.en].join(' '));
+    return terms.every(term=>text.includes(term));
+  };
+  const matchedSources=sources.filter(matches),matchedReadings=readings.filter(matches);
+  const count=matchedSources.length+matchedReadings.length;
+  return <section className="legalReferences" data-segmentation-references="true" data-no-localize>
+    <h3>{english?"References and use in this app":"参考文献と本アプリでの用途"}</h3>
+    <p>{english?"Primary sources and selected review references. Citation does not imply author endorsement or completed expert review. Resolution and review coverage differ between repairs.":"主要な出典と照合資料です。引用元による承認や専門家レビュー完了を意味しません。使用解像度・確認範囲は修正ごとに異なります。"}</p>
+    <div className="referenceSearch"><label htmlFor={searchId}>{english?'Find a reference':'参考文献を探す'}</label><div><input ref={input} id={searchId} type="search" value={query} placeholder={english?'Structure, author or title':'構造名・著者名・資料名（例：脳弓、BigBrain）'} onChange={event=>setQuery(event.target.value)} onKeyDown={event=>{
+      if(event.nativeEvent.isComposing||event.nativeEvent.keyCode===229)return;
+      if(event.key==='Escape'&&query){event.preventDefault();event.stopPropagation();setQuery('')}
+    }}/>{query&&<button type="button" onClick={()=>{setQuery('');input.current?.focus()}}>{english?'Clear':'クリア'}</button>}</div>
+      <p role="status">{english?`${count} of ${sources.length+readings.length} references`:`${sources.length+readings.length}件中${count}件`}</p>
+    </div>
+    {count===0&&<p>{english?'No matching references. Try a shorter structure name, an author, or clear the search.':'一致する資料がありません。短い構造名や著者名で探すか、検索をクリアしてください。'}</p>}
+    {matchedSources.length>0&&<><h4>{english?"Data, anatomy and teaching references":"データ・解剖・実習の参考資料"}</h4>
+    {matchedSources.map(s=><p key={s.url}><a href={s.url} target="_blank" rel="noreferrer">{english&&s.nameEn?s.nameEn:s.name}</a><br/>{english?s.en:s.ja}</p>)}</>}
+    {matchedReadings.length>0&&<><h4>{english?"Context and investigation — not adopted boundary data":"照合・調査資料 — 採用境界データではありません"}</h4>
+    {matchedReadings.map((s,index)=><p key={`${s.url}:${index}`}><a href={s.url} target="_blank" rel="noreferrer">{s.name}</a><br/>{english?s.en:s.ja}</p>)}</>}
+    <details><summary>{english?"Representation notes":"表示モデルに関する補足"}</summary>
     <p data-cerebellar-representation="current-section-labels">{english?"The BigBrain cerebellum and brainstem shown in Sections are reconstructed from the current section labels. A local 197-voxel folial repair is included. Remaining gaps and isolated components have not been declared complete, and these section models are distinct from the MNI surface models.":"連続断面のBigBrain小脳・脳幹3Dは、断面と同じ現行ラベルから再構成しています。小脳葉の局所197点修正を反映していますが、残る塗り落としや孤立成分の確認は未完了です。MNIの脳表モデルとは区別しています。"}</p>
     <p data-brainstem-representation="partial-tissue-repair">{english?"The BigBrain brainstem label used in Sections includes a partial image-guided repair toward the cerebral peduncles. Its upper extent remains unresolved. It is not a completed segmentation or the separate MNI surface scaffold.":"断面用のBigBrain脳幹ラベルは、大脳脚側の塗り落としを原画像に基づき一部補修しています。上方の範囲は未確定で、全脳幹の完成分節でも、別のMNI脳表モデルそのものでもありません。"}</p>
     <p data-aqueduct-representation="partial-versus-schematic">{english?"The partial cerebral aqueduct in Sections is an image-guided BigBrain label (ID41), not the schematic aqueduct in the block specimen. Only part of the lumen is represented; its full extent and transition boundaries remain unconfirmed.":"断面画面の中脳水道候補（部分）はBigBrain画像誘導ラベルID41で、ブロック標本の模式中脳水道とは別です。腔の一部分だけを示し、全長と移行境界は未確定です。"}</p>
-    <h3>{english?"References and use in this app":"参考文献と本アプリでの用途"}</h3>
-    <p>{english?"Primary sources and selected review references. Citation does not imply author endorsement or completed expert review. Resolution and review coverage differ between repairs.":"主要な出典と照合資料です。引用元による承認や専門家レビュー完了を意味しません。使用解像度・確認範囲は修正ごとに異なります。"}</p>
-    <h4>{english?"Source images, labels and surfaces":"原画像・ラベル・表面データ"}</h4>
-    {sources.map(s=><p key={s.url}><a href={s.url} target="_blank" rel="noreferrer">{english&&s.nameEn?s.nameEn:s.name}</a><br/>{english?s.en:s.ja}</p>)}
-    <h4>{english?"Context and investigation — not adopted boundary data":"照合・調査資料 — 採用境界データではありません"}</h4>
-    {readings.map(s=><p key={s.url}><a href={s.url} target="_blank" rel="noreferrer">{s.name}</a><br/>{english?s.en:s.ja}</p>)}
+    </details>
   </section>;
 }

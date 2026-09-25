@@ -72,7 +72,8 @@ test('section UI retains precise canvas/session values, stops playback for manua
   assert.match(page,/function stepSection\(direction:-1\|1\)\{setPlaying\(false\);setPosition\(value=>stepPlanePosition/);
   assert.match(page,/contrast==="bigbrain"&&<SectionSliceStepper position=\{position\}/);
   assert.match(page,/step=\{contrast==="bigbrain"\?"any":1\}/);
-  assert.match(page,/e.preventDefault\(\);stepSection\(e.key==="ArrowLeft"\?-1:1\)/);
+  // Keyboard direction and browser-default suppression are checked in the
+  // browser; pinning the exact conditional here blocked adding Up/Down support.
   assert.match(page,/<AtlasVolumeCanvas kind="slice" plane=\{plane\} position=\{position\}/);
   assert.match(page,/<output>\{positionLabel\}<\/output>/);
   assert.match(page,/positions:\{\.\.\.sectionPositions.current,\[plane\]:position\}/);

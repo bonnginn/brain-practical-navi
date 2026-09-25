@@ -19,6 +19,11 @@
 .webglUnavailable:active { cursor: default; }
 .zoomReadout { position: absolute; z-index: 9; right: 14px; bottom: 14px; min-width: 82px; padding: 7px 9px; border: 1px solid #7b8585; background: #172126d9; color: #f4f2eb; font: 700 16px monospace; box-shadow: 0 4px 12px #0005; }
 .zoomReadout small { margin-left: 5px; color: #b9c1bf; font: 15px sans-serif; }
+.sliceZoomControls { position:absolute; z-index:9; right:10px; bottom:10px; display:flex; border:1px solid #7b8585; background:#172126e8; box-shadow:0 2px 8px #0003; }
+.sliceZoomControls button { min-width:44px; min-height:44px; padding:5px 8px; border:0; border-right:1px solid #65716e; color:#f4f2eb; background:transparent; font:700 15px monospace; cursor:pointer; }
+.sliceZoomControls button:last-child { border-right:0; }
+.sliceZoomControls button:disabled { opacity:.4; cursor:default; }
+.sliceZoomControls button:focus-visible,.atlasCanvas:focus-visible { outline:3px solid #eeb05e; outline-offset:-3px; }
 .atlasLoading { position: absolute; z-index: 7; left: 50%; top: 50%; transform: translate(-50%,-50%); display: grid; gap: 6px; justify-items: center; width: max-content; max-width: calc(100% - 24px); padding: 10px 14px; background: #f5f3ed; border: 1px solid #c7c4bc; color: #596264; font-size: 14px; white-space: normal; text-align: center; overflow-wrap: anywhere; }
 .atlasLoadingValue { font-size: 12px; font-variant-numeric: tabular-nums; }
 .atlasLoading progress { width: min(210px,64vw); height: 6px; accent-color: #4d777d; }
@@ -26,6 +31,8 @@
 .atlasLoading.error { display: grid; justify-items: center; gap: 8px; white-space: normal; text-align: center; }
 .atlasLoading.error button { min-width: 112px; padding: 7px 12px; border: 1px solid #a2473c; background: #fff; color: #8f392f; font-size: 14px; font-weight: 700; cursor: pointer; }
 .atlasLoading.error button:hover { background: #fff0ed; }
+.atlasLoading.error p { max-width: 310px; margin: 0; color: #5e514c; font-size: 13px; line-height: 1.5; }
+.atlasLoading.error button { min-height: 44px; }
 .atlasOverlay .hemi, .atlasOverlay .cerebellum, .atlasOverlay .stem, .atlasOverlay .ventricleShape { display: none; }
 .atlasOverlay { pointer-events: none; }
 .atlasCredit { margin-top: 20px; padding-top: 14px; border-top: 1px solid #c5c7c1; font-size: 15px; line-height: 1.7; color: #747e7d; }
@@ -89,7 +96,7 @@
 .contrastSwitch button, .displaySwitch button { padding: 7px 9px; font-size: 16px; }
 .sliceStage { height: clamp(610px, 68vh, 720px); display: grid; grid-template-columns: minmax(0,1fr) clamp(240px,22vw,320px); place-items: stretch; }
 .sliceViewport { position: relative; min-width: 0; height: 100%; overflow: hidden; border-right: 1px solid #455052; }
-.identifyHint { position: absolute; z-index: 7; top: 12px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 9px; padding: 7px 10px; border: 1px solid #77818488; background: #172126d9; color: #f3f2ec; pointer-events: none; white-space: nowrap; }
+.identifyHint { position: absolute; z-index: 7; top: 12px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 9px; padding: 7px 10px; border: 1px solid #77818488; background: #172126d9; color: #f3f2ec; pointer-events: none; white-space: normal; width: max-content; max-width: calc(100% - 24px); box-sizing: border-box; flex-wrap: wrap; justify-content: center; text-align: center; }
 .identifyHint b { font-size: 16px; }
 .identifyHint span { padding-left: 9px; border-left: 1px solid #7d8788; color: #b9c2bf; font: 15px monospace; }
 .identifyHint.unavailable { border-color: #b49b6b88; background: #2b2924e8; }
@@ -267,7 +274,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 @keyframes inspectorIn { from { transform: translateX(24px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 .inspectorTop { display: grid; grid-template-columns: 1fr auto; align-items: start; gap: 14px; }
 .inspectorTop .inspectIndex { display: grid; gap: 4px; }
-.inspectorClose { width: 34px; height: 34px; border: 1px solid #b8bcb6; background: #f5f3ed; font-size: 18px; line-height: 1; }
+.inspectorClose { width: 44px; height: 44px; border: 1px solid #b8bcb6; background: #f5f3ed; font-size: 18px; line-height: 1; }
 .inspector h3 + p { margin-top: 7px; }
 @media(max-width:1250px){.appShell{grid-template-columns:190px minmax(0,1fr)}.topbar{grid-column:1/3}.structureBtn{padding-inline:15px}.sliceStage{grid-template-columns:minmax(0,1fr) 260px}}
 @media(max-width:1050px){.appShell{grid-template-columns:160px minmax(0,1fr)}.topbar{grid-column:1/3}.sliceStage{grid-template-columns:minmax(0,1fr) 230px}}
@@ -285,6 +292,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 .workspaceSwitch button.prototype > i { color: #c44737; font-weight: 900; }
 .workspaceSwitch button.prototype.active > i { color: #a63326; }
 .topActions { display: flex; align-items: center; gap: 10px; }
+.topActions > button, .topActions > .languageSwitch { flex: 0 0 auto; white-space: nowrap; }
 .topActions > span { padding: 5px 8px; border: 1px solid #d4b7ae; color: #9a574a; font-size: 16px; font-weight: 700; letter-spacing: .04em; }
 .legalButton, .feedbackButton, .helpButton { padding: 9px 12px; border: 1px solid #aeb5b1; background: #f7f6f2; font-size: 14px; font-weight: 700; }
 .feedbackButton { border-color: #6f9c96; background: #e3ece8; color: #214b48; }
@@ -1428,7 +1436,7 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
   .collaborationGrid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:760px){
-  .topActions{overflow-x:auto;scrollbar-width:none}
+  .topActions{grid-column:2/4;min-width:0;overflow-x:auto;scrollbar-width:none}
   .topActions>span{display:none}
   .feedbackButton,.collaborateButton,.helpButton,.legalButton,.languageSwitch{width:auto;padding-inline:6px;font-size:11px}
   .feedbackButton::after{content:none}
@@ -1535,7 +1543,7 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
 /* JS resolves automatic capability and explicit ui=phone/desktop once.
    Scope all phone chrome to that state, including on a mouse-driven preview. */
 @media screen{
-  .phone-mode{padding-top:60px!important;padding-bottom:calc(82px + env(safe-area-inset-bottom))}
+  .phone-mode{padding-top:60px!important;padding-bottom:calc(var(--phone-dock-height,82px) + 12px)}
   .phone-mode .topbar{height:60px;display:flex;grid-template-columns:none;grid-template-rows:none;align-items:center;padding-inline:6px}
   .phone-mode .brand{grid-column:auto;grid-row:auto}
   .phone-mode .topActions{grid-column:auto;grid-row:auto;margin-left:auto;overflow-x:auto}
@@ -1591,6 +1599,10 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
 .sectionObservationLink summary { cursor: pointer; padding: .35rem; }
 .sectionObservationLink p { margin: .4rem 0; }
 .sectionObservationLink input { box-sizing: border-box; width: 100%; min-width: 0; padding: .5rem; font: inherit; }
+.observationLinkActions { display:flex; align-items:stretch; gap:8px; flex-wrap:wrap; }
+.observationLinkActions input { flex:1 1 240px; }
+.observationLinkActions button { min-height:44px; padding:8px 14px; border:1px solid #879e93; background:#f3f8f4; color:#29463d; font:inherit; cursor:pointer; }
+.sectionObservationLink [role="status"]:empty { display:none; }
 
 /* Quiz density follows usable panel width, not just the device category.
    Keep readable text; reflow the panels instead of shrinking the whole UI. */
@@ -1775,3 +1787,35 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
 
 .blockPreparationChoice{display:flex;flex-wrap:wrap;gap:4px;padding:6px;border-bottom:1px solid #ccc}.blockPreparationChoice button{flex:1;padding:7px;font:inherit;border:1px solid #9aaba7;background:transparent;color:inherit}.blockPreparationChoice button[aria-pressed="true"]{background:#4f746b;color:white}
 .blockModelCard:has(.blockPreparationChoice)>.panelHead{display:none}.blockPreparationChoice{background:#f4f3ee;color:#243332}
+
+/* Keep the learning entry visible on narrow screens, including browser zoom. */
+@media(max-width:600px){.homeNotice{padding:20px 16px}.homeNotice h1{font-size:clamp(28px,7.5vw,38px)}.homeNotice>header>span{font-size:11px;letter-spacing:.06em}.homeNotice>header p{font-size:15px;line-height:1.55}.homeLearningGuide{margin-top:20px}.homeLearningGuide>header h2{font-size:21px}}
+
+@media(max-width:760px){ .phone-mode .regionLessonDock { bottom:calc(var(--phone-dock-height,82px) + 8px); } }
+
+/* Keep the surface title readable when its control row needs its own line. */
+.surfaceModelCard > .panelHead{flex-wrap:wrap;gap:6px 12px;align-items:center}
+.surfaceModelCard > .panelHead > div:first-child{flex:1 1 180px;min-width:0}
+.surfaceModelCard > .panelHead .panelActions{flex:0 1 auto;flex-wrap:wrap;max-width:100%;gap:6px}
+.surfaceModelCard > .panelHead .panelActions button{max-width:100%;white-space:normal;min-height:36px}
+.phone-mode .surfaceModelCard > .panelHead .panelActions button{min-height:44px}
+
+.helpEditorDetails{margin:0 24px 20px;font-size:var(--ui-font-13,13px);line-height:1.6}.helpEditorDetails summary{cursor:pointer;padding:10px 0;font-weight:700}.helpEditorDetails p{margin:4px 0}
+
+.atlasSelectionLoading{position:absolute;z-index:8;left:8px;top:8px;max-width:calc(100% - 76px);box-sizing:border-box;padding:5px 8px;background:#172126e8;color:#f3f2ec;font-size:var(--ui-font-12,12px);line-height:1.4;pointer-events:none}
+
+.sectionStructureSearch{margin:8px 0 10px;font-size:var(--ui-font-12,12px)}
+.sectionStructureSearch label{display:block;margin-bottom:4px;font-weight:700;color:#365e59}.sectionStructureSearch>div{display:flex;gap:3px;min-width:0}
+.sectionStructureSearch input{min-width:0;width:100%;min-height:44px;border:1px solid #acbeb7;border-radius:4px;background:#fff;padding:6px;color:#263e38;font:inherit}
+.sectionStructureSearch button{flex-shrink:0;min-width:36px;min-height:44px;border:1px solid #acbeb7;background:#edf4ef;color:#263e38;font:inherit}
+.sectionStructureSearch small{display:block;margin-top:4px;line-height:1.5;color:#54645e}
+
+.structureComparison{border-left:3px solid #77978c;padding-left:10px}.sectionScopeDetails{margin:12px 0;border:1px solid #bfccc5;padding:10px;line-height:1.6;font-size:var(--ui-font-13,13px)}.sectionScopeDetails summary{cursor:pointer;font-weight:700}.sectionScopeDetails a{overflow-wrap:anywhere}
+
+.relatedCircuitLinks{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0;font-size:var(--ui-font-13,13px)}.relatedCircuitLinks>b{flex-basis:100%;font-size:inherit;color:#365e59}.relatedCircuitLinks button{min-height:44px;padding:8px 10px;border:1px solid #91aaa0;background:#edf4ef;color:#29463d;font:inherit;text-align:left}
+
+/* The public entrance is separate from the learning menu. */
+.workspace-entrance .topbar{justify-content:space-between}
+.workspace-entrance .phoneRailToggle{display:none}
+.sourcesContent{padding:20px;overflow-wrap:anywhere}
+.sourcesContent>button{padding:10px 14px;min-height:44px}

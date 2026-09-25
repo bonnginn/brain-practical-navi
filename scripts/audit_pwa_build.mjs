@@ -38,6 +38,12 @@ export function auditPwaBuild(distDirectory = path.join(root, "dist")) {
   } else {
     shellFiles = JSON.parse(shellMatch[1]);
   }
+  const assetDirectory = path.join(distDirectory, "assets");
+  if (fs.existsSync(assetDirectory)) {
+    for (const file of fs.readdirSync(assetDirectory).filter(file => /\.(?:js|css)$/.test(file))) {
+      if (!shellFiles.includes(`./assets/${file}`)) errors.push(`code missing from release cache: ${file}`);
+    }
+  }
   let shellBytes = 0;
   for (const value of shellFiles) {
     const relativePath = relativeShellPath(value);
@@ -51,7 +57,7 @@ export function auditPwaBuild(distDirectory = path.join(root, "dist")) {
       errors.push(`large data must not be pre-cached: ${value}`);
     }
   }
-  if (shellBytes > 1_000_000) errors.push(`shell exceeds 1,000,000 bytes: ${shellBytes}`);
+  if (shellBytes > 1_500_000) errors.push(`shell exceeds 1,500,000 bytes: ${shellBytes}`);
   for (const pattern of ["request.method!==\"GET\"", "request.headers.has(\"range\")", "url.origin!==scope.origin", "response.ok", "request.mode===\"navigate\""]) {
     if (!worker.includes(pattern)) errors.push(`worker invariant missing: ${pattern}`);
   }

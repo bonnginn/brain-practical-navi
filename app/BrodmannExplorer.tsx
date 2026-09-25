@@ -252,6 +252,13 @@ export default function BrodmannExplorer({ english = false }: { english?: boolea
   const selectView = (key: ViewKey) => { setView(key); setRotation({ ...views[key].rotation }); setFreeRotation(false); };
   const selectedNote = selected ? notes[selected] : null;
   const selectedName = selected ? areaNames[selected] : null;
+  const toggleArea = (area: number) => {
+    const next = selectedAreas.includes(area) ? selectedAreas.filter(n => n !== area) : [...selectedAreas, area];
+    setSelectedAreas(next);
+    setSelected(next.includes(area) ? area : next.at(-1) ?? null);
+    setHiddenAreas(previous => previous.filter(n => n !== area));
+    setColorMode('selected');
+  };
   return <div className="brodmannExplorer" data-brodmann-explorer="true">
     <p className="brodmannIntro">{text('ブロードマンの細胞構築による分類を、標準脳表で観察します。番号を複数選んで、一緒に着色できます。覆っている領野は選択して隠せます。', 'Explore Brodmann’s cytoarchitectonic classification on a reference surface. Select multiple numbers to colour them together. Select overlying areas to hide them.')}</p>
     <div className="brodmannLayout">
@@ -296,7 +303,11 @@ export default function BrodmannExplorer({ english = false }: { english?: boolea
           <button type="button" onClick={()=>{setSelectedAreas([]);setSelected(null)}}>{text('選択解除','Clear selection')}</button>
         </div>
         {hiddenAreas.length>0&&<p>{text('非表示：','Hidden: ')}{hiddenAreas.map(n=>`BA ${n}`).join(', ')} — {text('番号を再選択すると戻ります','Select the number again to restore')}</p>}<div className="brodmannAreaGrid" role="group" aria-label={text('領野番号を選択', 'Select an area number')}>
-          {atlas.areaNumbers.map(area => <button type="button" key={area} data-brodmann-area={area} aria-pressed={selectedAreas.includes(area)} onClick={() => { setSelected(area); setSelectedAreas(previous=>previous.includes(area)?previous.filter(n=>n!==area):[...previous,area]); setHiddenAreas(previous=>previous.filter(n=>n!==area)); setColorMode('selected'); }}><i style={{ background: `rgb(${brodmannColor(area).join(',')})` }} />BA {area}</button>)}
+          {atlas.areaNumbers.map(area => {
+            const name = areaNames[area];
+            const label = `BA ${area}${name ? ` · ${english ? name.en : name.ja}` : ''}`;
+            return <button type="button" key={area} data-brodmann-area={area} aria-label={label} title={label} aria-pressed={selectedAreas.includes(area)} onClick={() => toggleArea(area)}><i aria-hidden="true" style={{ background: `rgb(${brodmannColor(area).join(',')})` }} />BA {area}</button>;
+          })}
         </div>
         <div className="brodmannDescription" aria-live="polite">
           <h3>{selected ? `BA ${selected}${selectedName ? ` · ${english ? selectedName.en : selectedName.ja}` : ''}` : text('領野を選んで観察', 'Choose an area to explore')}</h3>

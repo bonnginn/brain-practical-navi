@@ -17,5 +17,5 @@ export function localizedPublicUrl(baseUrl, ui, locale) {
   const url = new URL(baseUrl);
   url.searchParams.set("ui", ui);
   if (locale === "en") url.searchParams.set("lang", "en");
-  return `${url.toString()}#workspace/home`;
+  return `${url.toString()}#workspace/entrance`;
 }

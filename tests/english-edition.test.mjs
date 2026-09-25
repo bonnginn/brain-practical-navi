@@ -28,8 +28,8 @@ test("English edition excludes contributor-only workspaces",()=>{
 });
 
 test("English QR destinations retain locale and UI mode",()=>{
-  assert.equal(localizedPublicUrl("https://example.test/app/","desktop","en"),"https://example.test/app/?ui=desktop&lang=en#workspace/home");
-  assert.equal(localizedPublicUrl("https://example.test/app/","phone","ja"),"https://example.test/app/?ui=phone#workspace/home");
+  assert.equal(localizedPublicUrl("https://example.test/app/","desktop","en"),"https://example.test/app/?ui=desktop&lang=en#workspace/entrance");
+  assert.equal(localizedPublicUrl("https://example.test/app/","phone","ja"),"https://example.test/app/?ui=phone#workspace/entrance");
 });
 
 test("English catalog contains reviewed anatomy and no Japanese output",()=>{

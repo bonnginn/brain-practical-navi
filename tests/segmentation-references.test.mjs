@@ -5,13 +5,18 @@ import {createRequire} from 'node:module';
 import vm from 'node:vm';
 import ts from 'typescript';
 import {renderToStaticMarkup} from 'react-dom/server';
+import {createElement} from 'react';
 
 const source=await readFile(new URL('../app/SegmentationReferences.tsx',import.meta.url),'utf8');
 const compiled=ts.transpileModule(source,{compilerOptions:{jsx:ts.JsxEmit.ReactJSX,module:ts.ModuleKind.CommonJS}}).outputText;
 const exported={};
-vm.runInNewContext(compiled,{exports:exported,require:createRequire(import.meta.url)});
+const nativeRequire=createRequire(import.meta.url);
+const searchSource=await readFile(new URL('../src/japaneseSearch.ts',import.meta.url),'utf8');
+const searchExports={};
+vm.runInNewContext(ts.transpileModule(searchSource,{compilerOptions:{module:ts.ModuleKind.CommonJS}}).outputText,{exports:searchExports,require:nativeRequire});
+vm.runInNewContext(compiled,{exports:exported,require:name=>name==='../src/japaneseSearch'?searchExports:name.endsWith('.css')?{}:nativeRequire(name)});
 for(const english of [false,true])test(`browser references render source roles and safely opened reference links (${english?'en':'ja'})`,async()=>{
-  const html=renderToStaticMarkup(exported.SegmentationReferences({english}));
+  const html=renderToStaticMarkup(createElement(exported.SegmentationReferences,{english}));
   const anchors=html.match(/<a [^>]+>/g)||[];
   assert.ok(anchors.length>0);
   for(const anchor of anchors){

@@ -36,7 +36,7 @@ test("脳室・尾状核・交連標本の説明を根拠に沿って表示す�
   assert.match(page, /淡蒼球内節の外側に位置する、内部の中継・調節部/);
   assert.match(page, /淡蒼球から視床などへ向かう主要な出力部/);
   assert.match(page, /左右の視床・視床下部に囲まれる正中の細い腔/);
-  assert.match(page, /上方：視床、下方：視床下部/);
+  assert.match(page, /側壁上部：視床、側壁下部：視床下部/);
   assert.match(page, /en:"CORPUS CALLOSUM AND FORNIX"/);
 });
 

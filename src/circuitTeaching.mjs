@@ -47,6 +47,7 @@ export const CIRCUIT_TEACHING = Object.freeze({
     ]),
     displayLimit:bilingual("左右の視野について、両眼の鼻側／耳側網膜線維を4行に分けた模式図です。行と文字で交叉・非交叉を示し、色だけには依存しません。側枝・層構造・正確な線維数や太さは表しません。", "The four rows distinguish nasal and temporal retinal fibers from both eyes for the left and right visual fields. Crossing and uncrossed routes are stated in text rather than encoded by color alone. Collaterals, laminae, exact fiber counts and thickness are omitted."),
     sources:Object.freeze([
+      Object.freeze({label:"UTHealth Neuroscience Online — Visual Processing: Cortical Pathways", url:"https://nba.uth.tmc.edu/neuroscience/s2/chapter15.html"}),
       Object.freeze({label:"NCBI Bookshelf — Neuroanatomy, Visual Pathway", url:"https://www.ncbi.nlm.nih.gov/books/NBK553189/"}),
     ]),
   }),
@@ -70,6 +71,7 @@ export const CIRCUIT_TEACHING = Object.freeze({
     ]),
     displayLimit:bilingual("＋は興奮性、−は抑制性結合を示します。これは主要な古典回路の簡略図で、各核の並列チャネル、局所回路、ドパミン作用の細部を省略しています。", "+ indicates excitation and − inhibition. This simplified canonical diagram omits parallel channels, local circuits and details of dopaminergic modulation."),
     sources:Object.freeze([
+      Object.freeze({label:"UTHealth Neuroscience Online — Basal Ganglia", url:"https://nba.uth.tmc.edu/neuroscience/s3/chapter04.html"}),
       Object.freeze({label:"NCBI Bookshelf — Circuits within the Basal Ganglia System", url:"https://www.ncbi.nlm.nih.gov/books/NBK10847/"}),
       Object.freeze({label:"Lanciego et al. (2012) — Functional neuroanatomy of the basal ganglia", url:"https://pmc.ncbi.nlm.nih.gov/articles/PMC3543080/"}),
     ]),

@@ -32,7 +32,6 @@ test("concept questions use independent answer keys, labels, explanations, and p
   assert.match(page,/function quizCorrectAnswer\(question:QuizQuestion\)/);
   assert.match(page,/const correct=key===quizCorrectKey/);
   assert.match(page,/quizQuestion\.optionLabels\?\.\[key\]/);
-  assert.match(page,/quizQuestion\.explanation\?\?/);
   assert.match(page,/if\(isConceptQuiz\(question\)\)return true/);
 });
 

@@ -12,3 +12,15 @@ export function quizAnswerComparison(question,choice,registry){
   const expected=entry(correct),selected=entry(choice);
   return expected&&selected?{expected,selected}:null;
 }
+
+/** The registry supplied here contains teaching text, not rendering/provenance notes. */
+export function quizFeedbackParagraphs(question,choice,registry,optionTargets={}){
+  const target=registry[question.target];
+  const paragraphs=question.explanation?[question.explanation]:[target?.note,target?.relation].filter(Boolean);
+  if(choice&&choice!==(question.correctAnswer??question.target)&&question.options.includes(choice)){
+    const key=Object.hasOwn(optionTargets,choice)?optionTargets[choice]:null;
+    const selected=key&&Object.hasOwn(registry,key)?registry[key]:null;
+    if(selected?.note)paragraphs.push(selected.note);
+  }
+  return [...new Set(paragraphs)];
+}

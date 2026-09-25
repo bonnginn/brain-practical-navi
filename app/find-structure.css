@@ -1,0 +1,19 @@
+.findModeSwitch,.findActions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.findModeSwitch button,.findActions button,.findExercise>label select,.findTask>.quizImageCard>button{font:inherit;font-size:var(--ui-font-14,14px);min-height:44px;padding:8px 12px;border:1px solid #91aaa5;background:#fff;color:#244d40;border-radius:6px}
+.findModeSwitch button[aria-pressed=true]{background:#dcece8;border:2px solid #24776d}
+.findExercise>label{display:flex;align-items:center;gap:12px;margin:12px 0}
+.findExercise>label select{max-width:100%;min-width:0}
+.findTask .quizImageStage{min-height:300px}
+.findTaskGuide h3{font-size:var(--ui-font-15,15px);margin:14px 0 6px}
+.findTaskGuide p{font-size:var(--ui-font-14,14px);line-height:1.7}
+.findActions button:disabled{opacity:.45}
+.findTask .quizSliceNavigator label{display:block;width:100%}
+.findTask .quizSliceNavigator input{width:100%}
+@media(max-width:760px){.findExercise>label{align-items:stretch;flex-direction:column}.findTask{grid-template-columns:1fr}.findTask .quizImageStage{min-height:280px}}
+
+.findExercise{display:flex;flex-direction:column;flex:1;min-height:0}.findExercise .findTask{min-height:350px}.findExercise .findTaskGuide{overflow:auto}
+
+.appShell.workspace-quiz.findPractice{grid-template-columns:minmax(0,1fr)}.findPractice>.leftRail{display:none}.appShell.findPractice .quizArea{grid-column:1 / -1}.findPractice .workHead{margin-bottom:0}.findPractice .findModeSwitch{margin:4px 0}.findPractice .findExercise>label{margin:6px 0}.findExercise .quizImageCard{grid-template-rows:auto minmax(220px,1fr) auto auto}.findExercise .quizImageStage{min-height:220px}
+
+.reviewEntrance{padding:20px 0}.reviewEntrance>div{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.reviewEntrance button{display:flex;flex-direction:column;gap:14px;text-align:left;padding:28px;border:1px solid #91aaa5;border-radius:12px;background:#f5faf7;color:#244d40;font:inherit;line-height:1.7}.reviewEntrance b{font-size:1.35rem}.reviewEntrance button:hover{background:#e1f0e9}.findSliceEnds{display:flex;justify-content:space-between;gap:12px}.findPlaneGuide{padding:10px;border-left:3px solid #77978e;background:#f5f6f2}.findPlaneGuide p{margin:5px 0}.findModeSwitch strong{align-self:center}.findTask .panelHead small{display:block}
+@media(max-width:640px){.reviewEntrance>div{grid-template-columns:1fr}}

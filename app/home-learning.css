@@ -1,0 +1,17 @@
+.homeLearningGuide { margin-top: 24px; }
+.pwaUpdateNotice { margin-top: 18px; padding: 12px 15px; border-left: 4px solid #39715f; background: #edf5e9; color: #294d40; }
+.pwaUpdateNotice p { margin: 6px 0 0; font-size: 14px; line-height: 1.6; }
+.homeLearningGuide > header h2 { margin: 0 0 6px; font-size: 23px; color: #244d47; }
+.homeLearningGuide > header p { margin: 0; color: #54645f; font-size: 15px; line-height: 1.65; }
+.homeLearningGuide ol { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; list-style: none; padding: 0; margin: 18px 0 0; }
+.homeLearningGuide li { display: flex; flex-direction: column; min-width: 0; padding: 18px; border: 1px solid #bbc9c2; border-radius: 10px; background: #fafbf7; }
+.learningEntryNumber { color: #6c8980; font: 700 13px/1.3 monospace; letter-spacing: .08em; }
+.homeLearningGuide h3 { margin: 8px 0; font-size: 19px; line-height: 1.4; color: #234b45; }
+.homeLearningGuide li p { margin: 0 0 18px; font-size: 15px; line-height: 1.65; color: #4b5b56; }
+.homeLearningGuide button { width: 100%; margin-top: auto; min-height: 44px; padding: 10px; border: 1px solid #476e61; border-radius: 6px; background: #edf4ee; color: #254e43; font: inherit; font-size: 15px; font-weight: 700; cursor: pointer; }
+.homeLearningGuide button:hover { background: #dcece2; }
+.homeLearningGuide button:focus-visible { outline: 3px solid #be6939; outline-offset: 3px; }
+@media(max-width:600px) { .homeLearningGuide ol { grid-template-columns: minmax(0,1fr); gap: 10px; } .homeLearningGuide li { padding: 15px; } }
+
+.homeLearningGuide .learningEntryCheck{padding-top:10px;border-top:1px solid #dce4de;color:#36564a}
+.learningEntryCheck strong{display:block;margin-bottom:3px;font-size:13px}

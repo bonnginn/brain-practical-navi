@@ -18,7 +18,16 @@
     <title>脳実習ナビ — 脳解剖実習 学習補助アプリ</title>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <main style="max-width:42rem;margin:10vh auto;padding:1.5rem;font:1rem/1.7 system-ui,sans-serif;color:#243c36">
+        <p role="status">教材を読み込んでいます… / Loading the material…</p>
+        <details><summary>表示されないとき / If loading does not finish</summary>
+          <p>通信を確認して再読み込みしてください。更新直後は、この教材のタブとアプリをすべて閉じてから開き直してください。サイトデータの消去は不要です。</p>
+          <p lang="en">Check your connection and reload. After an update, close all tabs and app windows for this material, then reopen it. There is no need to clear site data.</p>
+        </details>
+        <noscript><p>表示にはJavaScriptが必要です。 / JavaScript is required to display this material.</p></noscript>
+      </main>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

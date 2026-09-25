@@ -126,7 +126,7 @@ function auditExistingPwaContracts(manifestSource, serviceWorkerSource, pwaBuild
 
   requirePattern(pwaBuildSource, errors, "cache-shell", /const shellFiles = \["\.\/", "\.\/favicon\.svg", "\.\/manifest\.webmanifest", \.\.\.generatedShellFiles\];/, "existing shell cache set must remain bounded and unchanged");
   requirePattern(pwaBuildSource, errors, "cache-revision", /hashPublicDirectory\(revisionHash, publicDirectory\)/, "public assets must remain part of the release revision hash");
-  requirePattern(pwaBuildSource, errors, "cache-install", /await cache\.addAll\(SHELL_FILES\.map\(scopeUrl\)\)/, "shell cache installation contract must remain unchanged");
+  requirePattern(pwaBuildSource, errors, "cache-install", /await cache\.addAll\(SHELL_FILES\.map\(path=>new Request\(scopeUrl\(path\),\{cache:"reload"\}\)\)\)/, "shell installation must revalidate all release files");
   requirePattern(pwaBuildSource, errors, "cache-activate", /names\.filter\(name\s*=>\s*name\.startsWith\(CACHE_PREFIX\)&&name!==SHELL_CACHE&&name!==DATA_CACHE\)\.map\(name\s*=>\s*caches\.delete\(name\)\)/, "old cache cleanup/update policy must remain unchanged");
   requirePattern(pwaBuildSource, errors, "cache-request-policy", /request\.method!=="GET"|request\.headers\.has\("range"\)|url\.origin!==scope\.origin|url\.pathname\.includes\("\/cdn-cgi\/"\)/, "existing request/cache boundary must remain in the service worker");
   requirePattern(pwaBuildSource, errors, "cache-runtime", /cacheFirst\(request,SHELL_CACHE\)[\s\S]*?cacheFirst\(request,DATA_CACHE\)/, "existing shell/data runtime cache split must remain unchanged");
