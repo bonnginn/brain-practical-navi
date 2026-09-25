@@ -292,7 +292,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
     readFile(new URL("GOVERNANCE.md", root), "utf8"),
   ]);
 
-  for (const label of ["Home", "断面実習", "脳表観察", "ブロック標本", "脳底動脈", "脳神経・脳幹", "復習クイズ", "セグメンテーション編集", "利用条件・クレジット", "共同制作"]) {
+  for (const label of ["Home", "断面実習", "脳表観察", "ブロック標本", "脳底動脈", "脳神経・脳幹", "四択クイズ", "セグメンテーション編集", "利用条件・クレジット", "共同制作"]) {
     assert.match(page, new RegExp(label));
   }
   assert.match(page, /useState<WorkspaceMode>\(\(\)=>typeof window==="undefined"\?"home":workspaceFromHash\(window.location.hash\)\)/);
@@ -311,7 +311,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /教育目的での利用/);
   assert.match(page, /教科書や検証済み資料と照合して利用してください/);
   assert.doesNotMatch(page, /脳実習を、|切る前から立体で。|className="homeModelStage"/);
-  const homeStart = page.indexOf('{workspace==="home"&&<section');
+  const homeStart = page.indexOf('{workspace==="entrance"&&<section');
   const homeWorkspace = page.slice(homeStart, page.indexOf('{workspace==="sections"&&<section', homeStart));
   assert.doesNotMatch(homeWorkspace, /稲葉弘哲|稲葉 弘哲|運営上の位置づけ|個人運営・非公式|三重大学/);
   assert.match(homeWorkspace, /神経解剖学の教材です/);
@@ -675,12 +675,12 @@ test("keeps student navigation separate and records only screen-level history", 
   const modeList = page.slice(page.indexOf("const workspaceModes"), page.indexOf("const workspaceModeKeys"));
   for (const key of ["home", "surface", "sections", "blocks", "quiz"]) assert.match(modeList, new RegExp(`key:\"${key}\"`));
   assert.doesNotMatch(modeList, /key:"segment"|key:"collaborate"/);
-  assert.match(page, /workspaceModeKeys:WorkspaceMode\[\]=\[\.\.\.workspaceModes\.map\(item=>item\.key\),"collaborate","segment"\]/);
+  assert.match(page, /workspaceModeKeys:WorkspaceMode\[\]=\[\.\.\.workspaceModes\.map\(item=>item\.key\),"entrance","collaborate","segment"\]/);
   assert.match(page, /function updateScreenHistory\(nextHash:string,mode:"push"\|"replace"\|"none"="push"\)/);
   assert.match(page, /function jump\(nextPlane: Plane, nextPosition\?: number,historyMode:"push"\|"replace"\|"none"="push"\)/);
-  assert.match(page, /chooseSurface\(surfaceViewFromHash\(window\.location\.hash\),"none"\)/);
-  assert.match(page, /jump\(planeFromHash\(window\.location\.hash\),undefined,"none"\)/);
-  assert.match(page, /chooseBlock\(blockSpecimenFromHash\(window\.location\.hash\),"none"\)/);
+  assert.match(page, /chooseSurface\(surfaceViewFromHash\(route\),"none"\)/);
+  assert.match(page, /jump\(planeFromHash\(route\),undefined,"none"\)/);
+  assert.match(page, /chooseBlock\(blockSpecimenFromHash\(route\),"none"\)/);
   assert.doesNotMatch(page, /setPosition\([^)]*\)[^\n]*pushState/);
   assert.doesNotMatch(page, /setRotation\([^\n]*pushState/);
 });
@@ -2050,13 +2050,13 @@ test("medial surface quiz keeps the same isolated-hemisphere anatomy as study mo
 
 test("help, feedback, and credit dialogs have durable shareable URLs", async () => {
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
-  assert.match(page, /type OverlayMode = "help" \| "feedback" \| "legal" \| "status"/);
+  assert.match(page, /type OverlayMode = "sources" \| "help" \| "feedback" \| "legal" \| "status"/);
   assert.match(page, /function overlayFromHash\(hash:string\):OverlayMode\|null/);
   assert.match(page, /overlayFromHash\(window\.location\.hash\)==="help"/);
   assert.match(page, /overlayFromHash\(window\.location\.hash\)==="feedback"/);
   assert.match(page, /overlayFromHash\(window\.location\.hash\)==="legal"/);
   assert.match(page, /overlayFromHash\(window\.location\.hash\)==="status"/);
-  assert.match(page, /window\.history\.pushState\(null,"",`#workspace\/\$\{key\}`\)/);
+  assert.match(page, /window\.history\.pushState\(\{learningOrigin:origin\},"",`#workspace\/\$\{key\}`\)/);
   assert.match(page, /onClick=\{\(\)=>openOverlay\("feedback"\)\}/);
   assert.match(page, /onClick=\{\(\)=>openOverlay\("legal"\)\}/);
   assert.match(page, /onClick=\{\(\)=>openOverlay\("help"\)\}/);
@@ -2102,7 +2102,7 @@ test("status dialog renders the JSON registry through a durable direct route", a
   assert.match(page, /TemplateFlow<\/a><button onClick=\{\(\)=>openOverlay\("status"\)\}>更新履歴・既知の制限/);
   assert.match(page, /document\.querySelector<HTMLButtonElement>\('\.legalDialog\[aria-modal="true"\] header button'\)\?\.focus\(\)/);
   assert.match(page, /overlayReturnFocus\.current\?\.focus\(\)/);
-  assert.match(page, /\},\[helpOpen,feedbackOpen,legalOpen,statusOpen\]\);/);
+  assert.match(page, /\},\[helpOpen,feedbackOpen,legalOpen,statusOpen,sourcesOpen\]\);/);
   assert.match(page, /if\(!overlayOpen\)overlayReturnFocus\.current\?\.focus\(\)\},\[overlayOpen\]\);/);
   assert.match(page, /function openOverlay\(key:OverlayMode\)\{if\(!overlayOpen\)overlayReturnFocus\.current=document\.activeElement instanceof HTMLElement\?document\.activeElement:null;/);
   assert.match(page, /海馬采は[^<]*部分分節/);
@@ -2201,12 +2201,12 @@ test("labels provisional questions and includes them in the default quiz setup",
   assert.match(page, /filterQuizCandidates\(quizQuestionsForFiltering,quizFilters,wrongTargets\)/);
   assert.match(page, /function startQuiz\(\)\{[^}]*let candidates=quizCandidates;/);
   assert.doesNotMatch(page, /quizIncludeProvisional\|\|!isProvisionalQuiz\(question\)/);
-  assert.match(page, /試作問題を含む[\s\S]*位置照合・部分分節ラベル/);
+  assert.match(page, /試作問題を含む[\s\S]*解説問題・模式表示・試作ラベル/);
   assert.match(page, /試作ラベル/);
   assert.match(page, /\{target:"mammillaryBody",category:"limbic",plane:"horizontal",position:69/);
   assert.match(page, /className="quizCountButtons" role="group" aria-label="次回の問題数（上限）"/);
   assert.match(page, /aria-pressed=\{quizCount===count\}/);
-  assert.match(page, /この条件で出題（\{quizActualCount\}問）/);
+  assert.match(page, /この条件で出題（\$\{quizActualCount\}問）/);
   assert.doesNotMatch(page, /\(quizEmpty\|\|quizCandidateCount===0\)\?/);
 });
 
@@ -2215,7 +2215,7 @@ test("publishes a durable keyboard and pointer operation guide", async () => {
     readFile(new URL("app/page.tsx", root), "utf8"),
     readFile(new URL("app/canvas.css", root), "utf8"),
   ]);
-  assert.match(page, /type OverlayMode = "help" \| "feedback" \| "legal" \| "status"/);
+  assert.match(page, /type OverlayMode = "sources" \| "help" \| "feedback" \| "legal" \| "status"/);
   assert.match(page, /#workspace\/\$\{key\}/);
   assert.match(page, /操作ガイドを表示/);
   // Shortcut text is now supplied by the bilingual ViewerHelpContent component.
@@ -2231,7 +2231,7 @@ test("complex workspaces expose visible keyboard focus and a main-content shortc
     readFile(new URL("app/ManualSegmentationWorkbench.tsx", root), "utf8"),
   ]);
   assert.match(page, /className="skipLink" onClick=\{\(\)=>document\.getElementById\("workspace"\)\?\.focus\(\)\}/);
-  assert.equal((page.match(/id="workspace" tabIndex=\{-1\}/g) ?? []).length, 8);
+  assert.equal((page.match(/id="workspace" tabIndex=\{-1\}/g) ?? []).length, 9);
   assert.match(page, /workspace==="blocks"&&blockIntroOpen/);
   assert.match(page, /workspace==="blocks"&&!blockIntroOpen/);
   assert.ok((page.match(/aria-current=\{/g) ?? []).length >= 4);
@@ -2443,13 +2443,13 @@ test("quiz mistakes link back to the exact study view", async () => {
     readFile(new URL("app/page.tsx", root), "utf8"),
     readFile(new URL("app/canvas.css", root), "utf8"),
   ]);
-  assert.match(page, /const \[quizMisses,setQuizMisses\]=useState<QuizTargetKey\[]>\(\[\]\)/);
+  assert.match(page, /const \[quizMisses,setQuizMisses\]=useState<\{question:QuizQuestion;choice:string;number:number\}\[]>\(\[\]\)/);
   assert.match(page, /function reviewQuizQuestion\(question:QuizQuestion\)/);
   assert.match(page, /jump\(question\.plane,question\.position,"replace"\);setVisibleStructures\(\[question\.target\]\)/);
-  assert.match(page, /className="quizReviewTargets" aria-label="今回間違えた構造"/);
+  assert.match(page, /onObserve=\{index=>reviewQuizQuestion\(quizMisses\[index\]\.question\)\}/);
   assert.match(page, /観察画面で位置を確認/);
   assert.doesNotMatch(page, /観察画面で復習/);
-  assert.match(page, /learnerLabelSourceDisplay\[sectionQuizTarget\.labelSource\]\.label/);
+  assert.match(page, /<QuizSources sources=\{quizReferences\(quizQuestion\)\}/);
   assert.match(css, /\.quizReviewTargets/);
 });
 
@@ -2459,9 +2459,9 @@ test("section quiz slices can be stepped without dragging the range control", as
     readFile(new URL("app/canvas.css", root), "utf8"),
   ]);
   assert.match(page, /aria-label="1断面戻る"/);
-  assert.match(page, /Math\.max\(0,value-1\)/);
+  assert.match(page, /stepPlanePosition\(value,quizQuestion\.plane,BIGBRAIN_SECTION_DIMS,-1\)/);
   assert.match(page, /aria-label="1断面進む"/);
-  assert.match(page, /Math\.min\(100,value\+1\)/);
+  assert.match(page, /stepPlanePosition\(value,quizQuestion\.plane,BIGBRAIN_SECTION_DIMS,1\)/);
   assert.match(css, /\.quizSliceControl\s*\{[^}]*grid-template-columns:\s*32px minmax\(0,1fr\) 32px/);
 });
 test("keeps the internal capsule distinct from adjacent basal nuclei", async () => {

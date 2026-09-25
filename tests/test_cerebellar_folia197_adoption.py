@@ -47,7 +47,7 @@ class CerebellarFolia197AdoptionTests(unittest.TestCase):
   record=json.loads(RECORD.read_text(encoding='utf-8'));impact=record['meshImpact']
   changed=[r for r in impact['blockMaskImpact'] if r['changedMaskVoxels']]
   self.assertEqual([(r['block'],r['part'],r['changedMaskVoxels'],r['added'],r['removed']) for r in changed],[('hindbrain','cerebellum',22,22,0)])
-  part=changed[0];before_mesh=ROOT/'tests/fixtures/block-hindbrain-cerebellum-pre-cerebellar-folia197.mesh';after_mesh=ROOT/'public/atlas/block-hindbrain-cerebellum.mesh'
+  part=changed[0];before_mesh=ROOT/'tests/fixtures/block-hindbrain-cerebellum-pre-cerebellar-folia197.mesh';after_mesh=ROOT/'tests/fixtures/block-hindbrain-cerebellum-pre-cerebellar-margins90.mesh'
   self.assertEqual(digest(before_mesh),part['beforeSha256']);self.assertEqual(digest(after_mesh),part['afterSha256']);self.assertTrue(part['beforeMatches'])
   self.assertEqual(record['sectionMeshImpact']['changedFiles'],[])
   for name in ('aqueduct-partial','internal-capsule'):
@@ -60,9 +60,8 @@ class CerebellarFolia197AdoptionTests(unittest.TestCase):
    if name=='internal-capsule':fixture=ROOT/'tests/fixtures/section-current-internal-capsule-pre-anterior-commissure185.mesh'
    self.assertEqual(digest(fixture if fixture.exists() else ROOT/f'public/atlas/section-current-{name}.mesh'),current['sha256'])
 
- def test_validation_records_current_counts_and_regional_successor(self):
+ def test_validation_preserves_historical_regional_record(self):
   meta=json.loads((ROOT/'public/atlas/bigbrain-practical-segmentation-icbm500-validation.json').read_text(encoding='utf-8'))
-  self.assertEqual({k:meta['labelCounts'][k] for k in ('27','28','29')},{'27':264456,'28':736104,'29':725042})
   audit=meta['regionalBatchAudits']['cerebellar-folia197']
   self.assertEqual(audit['changedVoxelCount'],197);self.assertTrue(audit['projectAdopted']);self.assertFalse(audit['expertReviewed'])
   self.assertEqual(audit['record'],'segmentation-patches/review/cerebellar-folia197-adoption-2026-09-16.json')
