@@ -14,3 +14,6 @@
 .findExercise{display:flex;flex-direction:column;flex:1;min-height:0}.findExercise .findTask{min-height:350px}.findExercise .findTaskGuide{overflow:auto}
 
 .appShell.workspace-quiz.findPractice{grid-template-columns:minmax(0,1fr)}.findPractice>.leftRail{display:none}.appShell.findPractice .quizArea{grid-column:1 / -1}.findPractice .workHead{margin-bottom:0}.findPractice .findModeSwitch{margin:4px 0}.findPractice .findExercise>label{margin:6px 0}.findExercise .quizImageCard{grid-template-rows:auto minmax(220px,1fr) auto auto}.findExercise .quizImageStage{min-height:220px}
+
+.reviewEntrance{padding:20px 0}.reviewEntrance>div{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.reviewEntrance button{display:flex;flex-direction:column;gap:14px;text-align:left;padding:28px;border:1px solid #91aaa5;border-radius:12px;background:#f5faf7;color:#244d40;font:inherit;line-height:1.7}.reviewEntrance b{font-size:1.35rem}.reviewEntrance button:hover{background:#e1f0e9}.findSliceEnds{display:flex;justify-content:space-between;gap:12px}.findPlaneGuide{padding:10px;border-left:3px solid #77978e;background:#f5f6f2}.findPlaneGuide p{margin:5px 0}.findModeSwitch strong{align-self:center}.findTask .panelHead small{display:block}
+@media(max-width:640px){.reviewEntrance>div{grid-template-columns:1fr}}
