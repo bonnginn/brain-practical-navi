@@ -31,15 +31,18 @@ export function pwa(): Plugin {
       indexHtmlPath = resolve(config.root, "index.html");
     },
     generateBundle(_options, bundle: OutputBundle) {
-      const generatedShellOutputs = Object.values(bundle)
+      const generatedOutputs = Object.values(bundle)
         .filter(output =>
           isOutputChunk(output)
           || (!isOutputChunk(output) && /\.css$/i.test(output.fileName)),
         );
+      // Aggregate results require the network. Load their lazy UI on demand so
+      // the offline anatomy shell stays within its established size budget.
+      const generatedShellOutputs = generatedOutputs.filter(output => !/^assets\/Quiz(?:OptionResults|Statistics)-/.test(output.fileName));
       const generatedShellFiles = generatedShellOutputs.map(output => `./${output.fileName}`).sort();
       const shellFiles = ["./", "./favicon.svg", "./manifest.webmanifest", ...generatedShellFiles];
       const revisionHash = createHash("sha256").update(JSON.stringify(shellFiles)).update(readFileSync(indexHtmlPath));
-      for (const output of generatedShellOutputs.sort((left, right) => left.fileName.localeCompare(right.fileName))) {
+      for (const output of generatedOutputs.sort((left, right) => left.fileName.localeCompare(right.fileName))) {
         revisionHash.update(output.fileName);
         revisionHash.update(isOutputChunk(output) ? output.code : output.source);
       }

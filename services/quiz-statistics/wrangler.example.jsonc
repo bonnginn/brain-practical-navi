@@ -1,0 +1,8 @@
+{
+  "name": "brain-practical-quiz-statistics",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-09-27",
+  "observability": {"enabled": false},
+  "vars": {"ALLOWED_ORIGIN": "https://bonnginn.github.io"},
+  "d1_databases": [{"binding":"DB","database_name":"brain-practical-quiz-statistics","database_id":"REPLACE_WITH_DATABASE_ID"}]
+}

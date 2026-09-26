@@ -366,7 +366,6 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(canvasCss, /\.quizWorkspace\s*\{[^}]*display:\s*grid/);
   assert.match(canvasCss, /\.quizImageStage\s*\{[^}]*position:\s*relative/);
   assert.match(canvasCss, /\.quizImageStage\.modelStage\s*\{[^}]*height:\s*auto/);
-  assert.match(canvasCss, /\.quizTargetTag\s*\{[^}]*position:\s*absolute/);
   assert.match(canvasCss, /\.learningGrid,\.quizWorkspace,\.segWorkbench\{grid-template-columns:minmax\(0,1fr\) clamp\(270px,34vw,310px\)\}/);
   assert.doesNotMatch(canvasCss, /@media\(max-width:900px\)[^\n]*\.learningGrid,\.quizWorkspace,\.segWorkbench\{grid-template-columns:1fr\}/);
   assert.match(page, /小脳を外す/);
@@ -2447,7 +2446,6 @@ test("quiz mistakes link back to the exact study view", async () => {
   assert.match(page, /観察画面で位置を確認/);
   assert.doesNotMatch(page, /観察画面で復習/);
   assert.match(page, /<QuizSources sources=\{quizReferences\(quizQuestion\)\}/);
-  assert.match(css, /\.quizReviewTargets/);
 });
 
 test("section quiz slices can be stepped without dragging the range control", async () => {

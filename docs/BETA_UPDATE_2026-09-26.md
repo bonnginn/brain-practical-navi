@@ -35,3 +35,18 @@
 ## 継続する制限
 
 専門家監修、物理端末・異なるGPUでの表示確認、実習スケッチに基づくブロック再設計は今回の完了範囲に含めない。新規の実物標本動画制作・転載は行わない。技術検証の成功を解剖学的監修済みとは扱わない。
+
+## UI再構成の追加公開（PR #33）
+
+管理者の「ok korede koushin shimashou」に基づき、確認済みのUI改善を追加公開した。
+
+- 公開コミット: `be6679dccf354d5e6e6bc5de3e6ac4ee6df9253c`。PR: https://github.com/bonnginn/brain-practical-navi/pull/33
+- Home・共通ナビ・観察画面の省スペース化、3D初期倍率、構造同定の見出しと答え合わせ案内、断面方向切替の画像側への移動を反映。指定された入口文言は保持。分節・メッシュ資産は変更なし。未コミットCONTRIBUTING.mdは除外。
+- 統合前CI: https://github.com/bonnginn/brain-practical-navi/actions/runs/36216599807 。Node643/643、Python439件（117 skip）、型検査・通常/Pages build・配布検査成功。skipは原画像確認成功ではない。
+- 初回CIでPWA初回保存容量が1,504,672bytesとなり上限超過。未使用の旧Homeスタイルを除去して1,498,255bytesへ削減。続くCIで旧スタイルを要求していた2つのソース検査が失敗し、その不要なassertのみ削除。対象79/79を経て上記全体CI成功。
+- Pages配信成功: https://github.com/bonnginn/brain-practical-navi/actions/runs/36216961037
+- 公開ブラウザで冠状断→矢状断、断面と3D・スライダー表示、復習入口→構造同定→着色答え合わせを確認。配信JS `index-DAsuDnrQ.js`、CSS `index-DH57IKAp.css`。証拠画像 `work/ux-release-public.png`。
+- 初回は旧PWAキャッシュが表示されたが、確認用タブを閉じて開き直すと新資産へ更新した。作業用タブは終了時に閉じた。
+- 統合後main CIは自動再実行中。公開判断は成功済み統合前CIと配信・公開画面確認に基づく。
+
+この結果追記は公開後のローカル保存。

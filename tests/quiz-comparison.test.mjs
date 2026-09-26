@@ -46,3 +46,11 @@ test('function distractor gets its explicitly mapped nerve explanation; correct 
   assert.deepEqual(quizFeedbackParagraphs(q,q.correctAnswer,teaching,mapping),[seed.explanation]);
   assert.deepEqual(quizFeedbackParagraphs(q,'unknown',teaching,{'unknown':'cn6'}),[seed.explanation]);
 });
+
+test('explicitly mapped function answers show the relevant nerve in the comparison',()=>{
+  const seed=bank.questions.find(q=>q.id==='cn4-function');
+  const q={...seed,questionKind:'function-choice',options:seed.options.map(o=>o.key),optionLabels:Object.fromEntries(seed.options.map(o=>[o.key,o.label]))};
+  const result=quizAnswerComparison(q,'cn4-lateral-rectus',teaching,{'cn4-lateral-rectus':'cn6','cn4-superior-oblique':'cn4'});
+  assert.match(result.selected.note,/外側直筋/);
+  assert.match(result.expected.note,/上斜筋/);
+});
