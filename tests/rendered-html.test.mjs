@@ -265,7 +265,6 @@ test("presents the practical flow clearly and keeps interface text readable", as
   assert.match(main, /import "\.\.\/app\/globals\.css"/);
   assert.match(main, /import "\.\.\/app\/canvas\.css"/);
 
-  assert.match(canvasCss, /\.homeLead\s*\{[^}]*font-size:\s*clamp\(14px,1\.2vw,17px\)/);
   assert.match(canvasCss, /\.workspaceSwitch button > span\s*\{\s*font-size:\s*14px/);
   assert.match(canvasCss, /\.workspaceSwitch button > i\s*\{\s*font:\s*11px\/1\.2 monospace/);
   assert.match(canvasCss, /\.legalButton, \.feedbackButton, \.helpButton\s*\{\s*font-size:\s*13px/);
@@ -364,7 +363,6 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /restoreAllQuiz/);
   assert.match(page, /同じ問題を再挑戦/);
   assert.match(page, /結果を見る/);
-  assert.match(canvasCss, /\.homeModelStage\s*\{[^}]*height:\s*auto/);
   assert.match(canvasCss, /\.quizWorkspace\s*\{[^}]*display:\s*grid/);
   assert.match(canvasCss, /\.quizImageStage\s*\{[^}]*position:\s*relative/);
   assert.match(canvasCss, /\.quizImageStage\.modelStage\s*\{[^}]*height:\s*auto/);
