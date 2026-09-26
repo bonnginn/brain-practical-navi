@@ -3,6 +3,7 @@
 利用方法は [トップのREADME](../README.md)、現在地・作業期限と次の作業は [短い再開メモ](RESUME_SUMMARY.md) を参照してください。
 
 - [正式版1.0へのロードマップ](V1_ROADMAP.md)
+- [観察画面のUI/UX見直し：断面とスライダーの初期表示](UX_OBSERVATION_REVIEW_2026-09-26.md)
 - [1.0開発記録：9月22日](V1_DEVELOPMENT_2026-09-22.md)
 - [教材動画6本・振り返り・制作記録](TEACHING_VIDEO_LIBRARY_2026-09-22.md)
 - [β公開完了記録](BETA_PUBLIC_RELEASE_2026-09-22.md)

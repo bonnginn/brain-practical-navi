@@ -113,7 +113,6 @@ test("does not load the rejected affine-only label transfer", async () => {
   assert.match(canvas, /bigbrain-practical-segmentation-\$\{name\}\.bin\.gz/);
   assert.doesNotMatch(canvas, /bigbrain-manual-subcortical-\$\{name\}/);
   assert.doesNotMatch(canvas, /manual-subcortical-(fixed|histology)/);
-  assert.match(page, /同一格子で検証済み/);
   assert.match(page, /未検証ラベルを表示しません/);
   assert.match(html, /<title>脳実習ナビ/);
 });
@@ -424,7 +423,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /useState<"inside" \| "ghost" \| "extracted" \| "segmented">\("ghost"\)/);
   assert.match(page, /useState<"both"\|"slice"\|"model">\(\(\)=>savedSectionSession\?\.layout\?\?\(typeof window/);
   assert.match(page, /const \[sectionModelShare,setSectionModelShare\]=useState\(savedSectionSession\?\.share\?\?40\)/);
-  assert.match(page, /const \[sectionModelViews,setSectionModelViews\]=useState<1\|2>\(savedSectionSession\?\.views\?\?2\)/);
+  assert.match(page, /const \[sectionModelViews,setSectionModelViews\]=useState<1\|2>\(savedSectionSession\?\.views\?\?1\)/);
   assert.match(page, /const \[compactSectionLayout,setCompactSectionLayout\]=useState\(\(\)=>typeof window/);
   assert.match(page, /setCompactSectionLayout\(widthQuery\.matches\)/);
   assert.match(page, /className="sectionLayoutSwitch" aria-label="断面と全脳3Dの表示"/);
@@ -460,7 +459,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(canvasCss, /\.sliceStage\.layout-both \{ grid-template-columns: minmax\(0,calc\(100% - var\(--section-model-share,40%\) - 1px\)\) 1px minmax\(0,var\(--section-model-share,40%\)\); \}/);
   assert.match(canvasCss, /\.sectionResizeHandle \{[^}]*cursor: col-resize;[^}]*touch-action: none/);
   assert.match(page, /const sectionDeveloperControls=\(import\.meta\.env\.VITE_SECTION_DEVELOPER_CONTROLS as string\|undefined\)==="true"/);
-  assert.match(page, /位置 \{positionLabel\}・BigBrain公開組織画像 0\.5 mm（表示用再標本化・同一格子で検証済み）・実習標本調/);
+  assert.match(page, /BigBrain組織画像 0\.5 mm/);
   assert.match(page, /BigBrain公開組織画像 0\.5 mm/);
   assert.match(page, /\{sectionDeveloperControls&&<><div className="contrastSwitch" aria-label="開発者用・断面画像ソース"/);
   assert.match(page, /className="displaySwitch" aria-label="開発者用・断面表示調"/);

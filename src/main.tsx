@@ -5,6 +5,7 @@ import {AppRecoveryBoundary} from "../app/AppRecoveryBoundary";
 import "../app/globals.css";
 import "../app/canvas.css";
 import "../app/brodmann.css";
+import "../app/observation-layout.css";
 import { installPublicAnalytics } from "./analytics";
 import { registerPwaServiceWorker } from "./pwa";
 
