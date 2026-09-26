@@ -26,3 +26,11 @@
 - 証拠画像 `work/ux-redesign-home.png`、ログ `work/ux-redesign-build.log` / `work/ux-redesign-tests.log`。
 
 確認版：http://127.0.0.1:4380/#workspace/home （`work/ux-redesign-preview`）。公開更新は未実施。全件Node・Python・Pages buildはUI確認では繰り返していない。既存CONTRIBUTING.mdの変更は対象外。
+
+## 追加：構造同定の見出し
+
+ユーザー指示により「復習／入口に戻る／構造同定／探す構造」を同じ行にまとめ、画像上の重複する見出し段を削減。狭い画面では選択欄を折り返す。対象変更・ヒント・答え合わせ・次の構造への移動（searchへ戻る）を実ブラウザで確認。型検査・通常build・content-accuracy-review試験を確認。
+
+また部位ごとのアトラス区画バッジと索引の同注記を削除。名称・教材データ・来歴台帳は変更せず、共通の脳表ラベルの注意に説明を保持する。
+
+最新確認版 http://127.0.0.1:4381/#workspace/quiz 、証拠 `work/ux-find-header.png`。公開未反映。

@@ -50,7 +50,7 @@ test("脳表5領域のアトラス由来注記は利用者向けにも表示す�
   assert.match(page, /Latin原語は検索互換・由来確認のため内部に保持/);
 });
 
-test("脳表アトラス区画マーカーは指定5項目だけに限定し、台帳と対応する", () => {
+test("脳表アトラス区画の5項目は台帳と対応し、由来の説明を保持する", () => {
   const expected = ["rostralMiddleFrontal", "caudalMiddleFrontal", "pericalcarine", "orbitofrontal", "lateralOccipital"];
   assert.deepEqual([...SURFACE_ATLAS_NOMENCLATURE_KEYS], expected);
   assert.equal(surfaceAtlasNomenclatureLabel("superiorFrontal"), null);
@@ -71,11 +71,7 @@ test("脳表アトラス区画マーカーは指定5項目だけに限定し、�
   }
   assert.equal(surfaceAtlasNomenclatureCompactLabel("pericalcarine"), SURFACE_ATLAS_NOMENCLATURE_COMPACT_LABEL);
   assert.equal(surfaceAtlasNomenclatureCompactLabel("superiorFrontal"), null);
-  assert.match(page, /surfaceAtlasNomenclatureLabel\(key\)/);
-  assert.match(page, /freeObservationAtlasNomenclatureLabel/);
-  assert.match(page, /surfaceAtlasNomenclatureCompactLabel/);
   assert.doesNotMatch(page, /［アトラス区画］/);
-  assert.match(page, /surfaceAtlasNomenclatureMarker/);
 });
 
 test("来歴台帳の該当項目にも分類・機能・命名の注意を残す", () => {
