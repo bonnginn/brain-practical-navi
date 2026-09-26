@@ -9,27 +9,30 @@ export async function questionMetric(question) {
   return {question: id, revision: Array.from(new Uint8Array(digest), b => b.toString(16).padStart(2, '0')).join('')};
 }
 
-const consentKey = 'brain-quiz-statistics-opt-in-v1';
-export function statisticsConsent(storage, endpoint) {
-  try { return Boolean(statisticsEndpoint(endpoint)) && storage.getItem(consentKey) === statisticsEndpoint(endpoint); } catch { return false; }
-}
-export function setStatisticsConsent(storage, enabled, endpoint) {
-  try { storage.setItem(consentKey, enabled ? (statisticsEndpoint(endpoint) ?? 'no') : 'no'); return true; } catch { return false; }
-}
 export function statisticsEndpoint(value) {
   try { const url = new URL(value); return url.protocol === 'https:' && !url.username && !url.password && !url.search && !url.hash ? url.href : null; } catch { return null; }
 }
 
 // No queue, replay, cookies, referrer, retries, or identifiers. Failure never blocks learning.
-export async function sendQuizStatistic(question, correct, endpoint, storage, fetcher = fetch) {
+export async function sendQuizStatistic(question, choice, endpoint, fetcher = fetch) {
   try {
     const url = statisticsEndpoint(endpoint);
-    if (!url || !statisticsConsent(storage, url) || typeof correct !== 'boolean') return false;
+    if (!url || !question.options.includes(choice)) return false;
     const metric = await questionMetric(question);
-    if (!statisticsConsent(storage, url)) return false;
     const response = await fetcher(url, {method:'POST', credentials:'omit', referrerPolicy:'no-referrer',
-      headers:{'Content-Type':'application/json'}, body:JSON.stringify({...metric, correct}),
+      headers:{'Content-Type':'application/json'}, body:JSON.stringify({...metric, choice}),
       signal:AbortSignal.timeout(4000)});
     return response.ok;
   } catch { return false; }
+}
+
+export async function readQuizStatistics(endpoint, fetcher = fetch) {
+  try {
+    const url = statisticsEndpoint(endpoint);
+    if (!url || !url.endsWith('/answer')) return null;
+    const response = await fetcher(new URL('results', url).href, {method:'GET', credentials:'omit', referrerPolicy:'no-referrer', signal:AbortSignal.timeout(4000)});
+    if (!response.ok) return null;
+    const data = await response.json();
+    return Array.isArray(data) ? data : null;
+  } catch { return null; }
 }

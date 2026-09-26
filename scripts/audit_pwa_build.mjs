@@ -41,7 +41,8 @@ export function auditPwaBuild(distDirectory = path.join(root, "dist")) {
   const assetDirectory = path.join(distDirectory, "assets");
   if (fs.existsSync(assetDirectory)) {
     for (const file of fs.readdirSync(assetDirectory).filter(file => /\.(?:js|css)$/.test(file))) {
-      if (!shellFiles.includes(`./assets/${file}`)) errors.push(`code missing from release cache: ${file}`);
+      const networkOnlyStatistics = /^Quiz(?:OptionResults|Statistics)-/.test(file);
+      if (!networkOnlyStatistics && !shellFiles.includes(`./assets/${file}`)) errors.push(`code missing from release cache: ${file}`);
     }
   }
   let shellBytes = 0;
