@@ -84,7 +84,7 @@ test("pilot uses lazy relevant overlays, white target highlights, and review lin
 });
 
 test("pilot controls preserve 44px touch targets and narrow-flow behavior", () => {
-  assert.match(css, /\.quizSetup select \{[^}]*min-height: 44px/);
+  assert.match(css, /@media\(pointer:coarse\)\{\.workspace-quiz \.quizSetup select[^}]*min-height:44px/);
   assert.match(css, /\.quizOptions button \{[^}]*min-height: 58px/);
   assert.match(css, /\.neurovascularPicker button \{[^}]*min-height: 44px/);
   assert.match(css, /@media\(max-width:760px\)[\s\S]*\.quizCountButtons button\{min-height:44px\}/);
