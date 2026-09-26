@@ -421,39 +421,11 @@ html, body, #root { height: 100%; overflow: hidden; }
 .homeNotice footer .homeEnter { min-height: 56px; padding: 14px 22px; border-color: #315f58; background: #315f58; color: #fff; font-size: 18px; }
 .homeNotice footer .homeEnter:hover { background: #214b45; color: #fff; }
 .homeQuietNote { width: min(760px,100%); margin: 0 auto; color: #68736f; font-size: 15px; line-height: 1.55; text-align: center; }
-.homeHero { width: 100%; min-width: 0; min-height: 0; display: grid; grid-template-columns: minmax(340px,42%) minmax(0,1fr); overflow: hidden; border: 1px solid #c3c7c1; background: #eeede7; box-shadow: 0 14px 38px rgba(22,31,31,.1); }
-.homeIntro { position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: center; min-width: 0; padding: clamp(28px,4vw,64px); border-right: 1px solid #c9cbc5; background: linear-gradient(135deg,#f4f2ec 0,#e8e6df 100%); }
-.homeBadges { display: flex; align-items: center; gap: 8px; margin-bottom: 13px; }
-.homeBadges span, .homeBadges b { padding: 5px 7px; border: 1px solid #c5aaa2; color: #9a574a; font-size: 15px; letter-spacing: .1em; }
-.homeBadges b { border-color: #9cb1ab; color: #476862; }
 .homeEyebrow { margin: 0; color: #1d6e69; font: 700 15px monospace; letter-spacing: .18em; }
-.homeIntro h1 { margin: 13px 0 17px; color: #1d2628; font: 400 clamp(37px,4vw,64px)/1.07 Georgia,"Yu Mincho",serif; letter-spacing: -.045em; }
-.homeIntro h1 em { color: #c9604e; font-style: normal; }
-.homeLead { max-width: 600px; margin: 0; color: #34413f; font-size: clamp(14px,1.2vw,17px); line-height: 1.8; }
-.homeAccuracyWarning { display: grid; grid-template-columns: auto minmax(0,1fr); align-items: center; gap: 9px; max-width: 610px; margin: 14px 0 0; padding: 10px 12px; border: 1px solid #c97869; border-left: 5px solid #c44737; background: #f5e5e0; color: #713a32; font-size: 15px; line-height: 1.55; }
-.homeAccuracyWarning b { color: #a43529; white-space: nowrap; }
-.homeAccuracyWarning span { font-weight: 700; }
-.homeModelStage { position: relative; width: 100%; height: auto; min-width: 0; min-height: 340px; overflow: hidden; cursor: grab; touch-action: none; background: radial-gradient(circle at 50% 43%,#596267 0,#353c40 49%,#1b2023 100%); }
-.homeModelStage:active { cursor: grabbing; }
-.homeModelStage .orientation { top: 22px; right: 22px; color: #ccd3d2; }
-.homeModelStage .orientation i { background: #7e898a; }
 .homeModelLabel { position: absolute; z-index: 8; left: 22px; bottom: 22px; display: grid; gap: 3px; padding: 11px 14px; border-left: 5px solid #d1d8d6; background: rgba(19,25,27,.78); color: #eff1ee; pointer-events: none; }
 .homeModelLabel span { color: #9faaaa; font: 15px monospace; letter-spacing: .15em; }
 .homeModelLabel b { font-size: 14px; }
 .homeModelLabel small { color: #b3bcba; font-size: 15px; }
-.homeModeGrid { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
-.homeModeGrid button { min-width: 0; display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 11px; min-height: 92px; padding: 14px 15px; border: 1px solid #c1c5bf; background: #f3f1eb; color: #303b39; text-align: left; }
-.homeModeGrid button:hover { border-color: #557c76; background: #e3eae5; transform: translateY(-1px); }
-.homeModeGrid span { min-width: 0; }
-.homeModeGrid b { display: block; font-size: 16px; }
-.homeModeGrid small { display: block; margin-top: 5px; color: #77817f; font-size: 15px; line-height: 1.5; }
-.homeModeGrid em { color: #64807a; font-size: 18px; font-style: normal; }
-.homeFooter { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 38px; color: #737d7a; }
-.homeFooter p { margin: 0; font-size: 15px; line-height: 1.55; }
-.homeFooter p b { margin-right: 8px; color: #a45c4f; }
-.homeFooter div { display: flex; flex: 0 0 auto; gap: 5px; }
-.homeFooter button, .homeFooter a { padding: 6px 8px; border: 1px solid #b8bdb7; background: transparent; color: #586461; font-size: 15px; font-weight: 700; text-decoration: none; }
-.homeFooter button:hover, .homeFooter a:hover { border-color: #1d6e69; color: #1d6e69; }
 
 .learningArea, .quizArea { min-height: 0; }
 .learningArea .workHead, .quizArea .workHead { align-items: center; }
@@ -1032,21 +1004,19 @@ html[lang="en"] .specimenLayerPicker button span small { display: none; }
 @media(max-width:1400px){.topActions>span{display:none}}
 @media(max-width:1320px){.learningModelCard .panelHead>span,.learningModelCard .panelActions>span,.specimenTissueControls>span,.specimenRotationHint{display:none}.workspaceSwitch button{min-width:82px;padding-inline:8px}.neurovascularPicker>div{grid-template-columns:1fr}.neurovascularPicker button{min-width:0}.neurovascularPicker button small{max-width:none}}
 @media(max-width:1120px){.workspaceSwitch button{min-width:82px;padding-inline:8px}.workspaceSwitch button>span{font-size:16px}.learningGrid,.quizWorkspace,.segWorkbench{grid-template-columns:minmax(0,1fr) 350px}.topActions>span{display:none}.surfaceRegionPicker>div,.surfaceLandmarkPicker>div{grid-template-columns:1fr}.learningGuide{padding-inline:20px}}
-@media(max-width:900px){.workspaceSwitch button{min-width:68px}.workspaceSwitch button>i{display:none}.homeHero{grid-template-columns:minmax(300px,43%) minmax(0,1fr)}.homeIntro{padding:28px}.homeModeGrid{grid-template-columns:1fr 1fr}.homeModeGrid button{min-height:72px}.homeModeGrid small{display:none}.learningGrid,.quizWorkspace,.segWorkbench{grid-template-columns:minmax(0,1fr) clamp(270px,34vw,310px)}.learningGuide,.quizQuestionCard,.segControls{padding-inline:18px}.legalColumns{grid-template-columns:1fr}.legalColumns article+article{padding-left:0;border-left:0}}
-@media(max-height:820px) and (min-width:761px){.homeArea{gap:8px;padding:18px 22px}.homeNotice{padding:clamp(24px,4vw,44px)}.homeNoticePoints{margin-top:20px}.homeNoticePoints section{padding-block:11px}.homeNotice footer{margin-top:20px}.homeQuietNote{font-size:14px}.homeIntro{padding:clamp(22px,3vw,42px)}.homeBadges{margin-bottom:8px}.homeIntro h1{margin:8px 0 11px;font-size:clamp(34px,3.6vw,52px)}.homeLead{line-height:1.65}.homeAccuracyWarning{margin-top:9px;padding-block:7px;font-size:14px}.homeModeGrid button{min-height:76px;padding-block:10px}.homeFooter{min-height:30px}}
+@media(max-width:900px){.workspaceSwitch button{min-width:68px}.workspaceSwitch button>i{display:none}.learningGrid,.quizWorkspace,.segWorkbench{grid-template-columns:minmax(0,1fr) clamp(270px,34vw,310px)}.learningGuide,.quizQuestionCard,.segControls{padding-inline:18px}.legalColumns{grid-template-columns:1fr}.legalColumns article+article{padding-left:0;border-left:0}}
+@media(max-height:820px) and (min-width:761px){.homeArea{gap:8px;padding:18px 22px}.homeNotice{padding:clamp(24px,4vw,44px)}.homeNoticePoints{margin-top:20px}.homeNoticePoints section{padding-block:11px}.homeNotice footer{margin-top:20px}.homeQuietNote{font-size:14px}}
 @media(max-width:760px){.topbar{padding-inline:5px;gap:3px}.brand{min-width:auto}.brand>span:last-child{display:none}.workspaceSwitch{display:flex;min-width:0;overflow-x:auto;scrollbar-width:none}.workspaceSwitch::-webkit-scrollbar{display:none}.workspaceSwitch button{min-width:52px;padding:7px 3px}.workspaceSwitch button>span{font-size:15px}.topActions{gap:2px}.topActions>span{display:none}.legalButton{padding:7px 3px;font-size:15px;white-space:nowrap}.feedbackButton{display:block;width:38px;padding:7px 2px;font-size:0;white-space:nowrap}.feedbackButton::after{content:"協力";font-size:15px}.compactToggle{border:0;padding-left:0}.learningArea,.quizArea,.segmentationArea{min-height:800px}.learningGrid,.quizWorkspace,.segWorkbench{display:block}.learningModelCard,.quizImageCard,.segCanvasCard{height:520px}.learningGuide,.quizQuestionCard,.segControls{max-height:none;margin-top:10px}.neurovascularControls{left:8px;bottom:8px}.neurovascularControls button{padding:6px}.neurovascularLegend{left:8px;top:8px;right:auto;bottom:auto;grid-template-columns:repeat(3,auto);gap:5px 8px;padding:7px 8px;font-size:12px}.neurovascularLegend i{width:13px}.blockReleaseNote .sourceBadge{display:none}.feedbackOptions{grid-template-columns:1fr}.legalBackdrop{padding:8px}.legalDialog>footer{display:block}.legalDialog footer div{margin-top:8px;flex-wrap:wrap;min-width:0;max-width:100%;width:100%;box-sizing:border-box}.legalDialog footer div>a,.legalDialog footer div>button{min-width:0;max-width:100%;overflow-wrap:anywhere;white-space:normal}.legalDialog footer div>button{min-height:44px}.betaStatusDialog{width:calc(100vw - 16px);max-height:calc(100vh - 16px)}.betaGoNoGoLedger{margin:12px 8px 0}.betaGoNoGoCounts{grid-template-columns:repeat(2,minmax(0,1fr));padding-inline:8px}.betaGoNoGoGroups{grid-template-columns:1fr;max-height:56vh;padding-inline:8px}.betaGoNoGoGroup,.betaGoNoGoItem{min-width:0}.betaGoNoGoItem>header{align-items:flex-start;flex-direction:column;gap:5px}.betaGoNoGoDetails dl>div{grid-template-columns:1fr;gap:4px}.betaGoNoGoDetails dd{overflow-wrap:anywhere}.betaGoNoGoHeader{padding-inline:10px}.betaGoNoGoHeader small{font-size:11px}.betaGoNoGoDisclaimer{padding-inline:10px}}
 @media(max-width:760px){.pathwayStepperModelTag{left:10px;right:10px;top:10px;max-width:none;padding:8px 10px}.pathwayStepperModelTag b{font-size:16px}.pathwayStepperSliceStage{height:270px}.pathwayStepperControls{grid-template-columns:1fr 1fr}.pathwayStepperControls button{min-height:44px;font-size:14px}.pathwayStepperCaution{font-size:13px}.pathwayStepper > header{align-items:flex-start}.pathwayStepper > header small{font-size:13px}}
 @media(max-width:760px){.quizCandidateSummary{grid-template-columns:1fr;gap:2px}.quizCandidateEmptyNote{margin-top:-4px;padding:7px;font-size:11px;line-height:1.6}.quizCountButtons{grid-template-columns:repeat(2,1fr)}.quizCountButtons button{min-height:44px}.quizSliceNavigator{grid-template-columns:minmax(0,1fr) 38px auto;gap:7px;padding-inline:9px}.quizSliceAxis{display:none}.quizSliceNavigator button{padding-inline:6px;min-height:44px}.quizSliceControl{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;gap:5px}.quizSliceControl button{width:44px;min-height:44px;padding:0}}
 @media(max-width:760px){.sectionLayoutSwitch{width:100%}.sectionLayoutSwitch button{flex:1;padding-inline:4px;font-size:12px}.sliceStage.layout-both{grid-template-columns:1fr;grid-template-rows:minmax(0,calc(100% - var(--section-model-share,40%) - 1px)) 1px minmax(0,var(--section-model-share,40%))}.sectionResizeHandle{width:100%;min-width:0;height:1px;min-height:1px;cursor:row-resize}.sectionResizeHandle::before{inset:-7px 0}.sliceStage.layout-slice,.sliceStage.layout-model{grid-template-rows:minmax(0,1fr)}.insetHead{padding-inline:8px}.insetHeadActions{gap:4px}.sectionModelViewSwitch button{min-width:44px;min-height:36px;padding-inline:5px}.insetHeadActions>span{display:none}}
 @media(max-width:760px){.specimenViewControls{right:8px;bottom:8px}.specimenViewControls>span{display:none}.specimenViewControls button{padding-inline:6px}.specimenRotationHint{display:none}}
 @media(max-width:760px){.learningGrid.blockContext-active{display:flex;flex-direction:column;overflow:visible}.learningGrid.blockContext-active .learningModelCard{order:1}.learningGrid.blockContext-active .blockContextPanel{order:2}.learningGrid.blockContext-active .learningGuide{order:3}.blockContextPanel{margin-top:10px;padding:12px}.blockContextHead h2{font-size:22px}.blockContextHead p{font-size:14px}.blockContextStage{height:360px;min-height:320px;margin-top:10px}.blockContextLauncher{grid-template-columns:1fr;gap:7px}.blockContextLauncher button{width:100%}.blockContextSwitch{display:grid;grid-template-columns:1fr 1fr}.blockContextSwitch button{min-height:44px;padding-inline:5px;font-size:13px}.blockContextReset{right:9px;bottom:9px}.blockContextCanvasLegend{left:9px;bottom:9px;max-width:calc(100% - 18px);padding:7px 9px}.blockContextCanvasLegend span,.blockContextCanvasLegend small{font-size:12px}.blockContextNotice{margin-top:10px;padding:9px 10px}.blockContextNotice p{font-size:13px;line-height:1.6}.blockContextClose{width:44px;min-height:44px}}
-@media(max-width:760px){.homeArea{display:block;overflow:visible;padding:16px 12px}.homeNotice{padding:30px 22px}.homeNoticePoints section{grid-template-columns:1fr;gap:5px}.accessQrGrid{grid-template-columns:1fr}.accessQrGrid a{grid-template-columns:88px minmax(0,1fr);min-height:108px}.accessQrGrid img{width:88px;height:88px}.homeNotice footer{display:grid;grid-template-columns:1fr}.homeNotice footer button{width:100%}.homeQuietNote{margin-top:14px;padding:0 7px}.homeHero{display:block}.homeIntro{padding:30px 22px;border-right:0;border-bottom:1px solid #c9cbc5}.homeIntro h1{font-size:40px}.homeAccuracyWarning{grid-template-columns:1fr;gap:3px}.homeModelStage{height:380px}.homeModeGrid{grid-template-columns:1fr;margin-top:10px}.homeModeGrid button{min-height:78px}.homeModeGrid small{display:block}.homeFooter{display:block;padding:13px 2px}.homeFooter div{margin-top:9px}}
+@media(max-width:760px){.homeArea{display:block;overflow:visible;padding:16px 12px}.homeNotice{padding:30px 22px}.homeNoticePoints section{grid-template-columns:1fr;gap:5px}.accessQrGrid{grid-template-columns:1fr}.accessQrGrid a{grid-template-columns:88px minmax(0,1fr);min-height:108px}.accessQrGrid img{width:88px;height:88px}.homeNotice footer{display:grid;grid-template-columns:1fr}.homeNotice footer button{width:100%}.homeQuietNote{margin-top:14px;padding:0 7px}}
 @media(max-width:380px){.learningModelCard .panelHead{min-width:0;flex-wrap:wrap;align-content:center;gap:5px}.learningModelCard .panelHead>div:first-child{min-width:0;flex:1 1 120px}.learningModelCard .panelActions{min-width:0;flex:1 1 auto;gap:4px;justify-content:flex-end}.learningModelCard .panelActions button{padding-inline:6px;font-size:14px}}
 
 /* Readability pass: keep secondary text visibly separate from both paper and 3D backgrounds. */
 :root { --muted: #43504e; --line: #aeb4af; }
-.homeModeGrid em { color: #3f625c; }
-.homeFooter p b { color: #884438; }
 .surfaceRegionPicker > header button,
 .surfaceLandmarkPicker > header button,
 .specimenLayerPicker > header button { color: #4f5a58; }
@@ -1056,8 +1026,6 @@ html[lang="en"] .specimenLayerPicker button span small { display: none; }
 .workspaceSwitch button > i,
 .railMemo,
 .quizRailScore > span,
-.homeModeGrid small,
-.homeFooter,
 .panelHead small,
 .selectedStructureBar small,
 .selectedStructureBar p,
@@ -1116,8 +1084,6 @@ html[lang="en"] .specimenLayerPicker button span small { display: none; }
 .segLoading,
 .segOrientation,
 .segCanvasCard > footer label { color: #e0e6e4; }
-
-.homeModeGrid button,
 .quizSetup,
 .learningGuide,
 .quizQuestionCard,
@@ -1219,31 +1185,8 @@ html[lang="en"] .specimenLayerPicker button span small { display: none; }
   .blockGuidedStep nav { display: flex; gap: 5px; }
   .blockGuidedStep nav button { flex: 1 1 calc(50% - 5px); min-width: 0; }
   .blockGuidedStep nav [data-block-guided-stop] { flex-basis: 100%; margin-left: 0; }
-}
-
-/* Student landing and collaboration are deliberately separate: the landing
+}/* Student landing and collaboration are deliberately separate: the landing
    stays light and choice-oriented, while contribution details live here. */
-.homeLearningLanding { width: min(1120px, 100%); padding: clamp(26px, 4vw, 54px); }
-.homeLearningLanding > header { max-width: 900px; }
-.homeLearningLanding > header h1 { margin: 7px 0 12px; font-size: clamp(38px, 5vw, 66px); line-height: 1; }
-.homeLearningLanding > header p { margin: 0; color: #44514f; font-size: clamp(16px, 1.6vw, 20px); line-height: 1.75; }
-.homeLandingBody { display: grid; grid-template-columns: minmax(280px, .9fr) minmax(420px, 1.1fr); gap: 24px; margin-top: 28px; }
-.homePreviewPoster { position: relative; min-height: 300px; margin: 0; overflow: hidden; border: 1px solid #aeb5b0; background: #202a29; }
-.homePreviewPoster img { display: block; width: 100%; height: 100%; min-height: 300px; object-fit: cover; }
-.homePreviewPoster figcaption { position: absolute; right: 12px; bottom: 12px; left: 12px; display: grid; gap: 2px; padding: 10px 12px; background: rgba(27,36,35,.9); color: #fff; }
-.homePreviewPoster figcaption span { color: #b9d7d1; font: 11px monospace; letter-spacing: .08em; }
-.homePreviewPoster figcaption b { font-size: 13px; }
-.homeLearningChoices { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.homeLearningChoices button { display: grid; align-content: start; gap: 6px; min-height: 145px; padding: 18px; border: 1px solid #b4bbb6; background: #f5f3ed; color: #25312f; text-align: left; }
-.homeLearningChoices button:hover { border-color: #1d6e69; background: #eef5f2; }
-.homeLearningChoices span { font-size: 20px; font-weight: 800; }
-.homeLearningChoices small { color: #4d5957; font-size: 14px; line-height: 1.55; }
-.homeLearningChoices b { align-self: end; margin-top: auto; color: #17645e; font-size: 13px; }
-.homeDeviceNote { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 14px; margin-top: 18px; padding: 12px 15px; border-left: 3px solid #1d6e69; background: #edf2ef; }
-.homeDeviceNote b { white-space: nowrap; }
-.homeDeviceNote p { margin: 0; color: #485452; font-size: 14px; line-height: 1.55; }
-.homeLearningLanding > footer { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
-.homeLearningLanding > footer button { padding: 7px 10px; border: 0; background: transparent; color: #365d58; font-size: 13px; text-decoration: underline; text-underline-offset: 3px; }
 
 .collaborateButton { padding: 7px 9px; border: 1px solid #90a9a4; background: #edf4f2; color: #24534e; font-size: 13px; font-weight: 700; white-space: nowrap; }
 .languageSwitch{display:inline-flex;align-items:center;justify-content:center;min-height:32px;padding:6px 9px;border:1px solid #829a95;background:#fff;color:#24534e;font-size:13px;font-weight:800;text-decoration:none;white-space:nowrap}
@@ -1430,9 +1373,6 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
 .segOpticReviewButtons button small { color: #62736e; font-size: 11px; }
 
 @media(max-width:1000px){
-  .homeLandingBody{grid-template-columns:1fr}
-  .homePreviewPoster{min-height:260px}
-  .homePreviewPoster img{height:260px;min-height:260px}
   .collaborationGrid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:760px){
@@ -1440,14 +1380,6 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
   .topActions>span{display:none}
   .feedbackButton,.collaborateButton,.helpButton,.legalButton,.languageSwitch{width:auto;padding-inline:6px;font-size:11px}
   .feedbackButton::after{content:none}
-  .homeLearningLanding{padding:25px 18px}
-  .homeLearningLanding>header h1{font-size:40px}
-  .homeLandingBody{margin-top:20px}
-  .homePreviewPoster,.homePreviewPoster img{min-height:210px;height:210px}
-  .homeLearningChoices{grid-template-columns:1fr}
-  .homeLearningChoices button{min-height:110px}
-  .homeDeviceNote{grid-template-columns:1fr;gap:4px}
-  .homeLearningLanding>footer{display:grid;grid-template-columns:1fr}
   .workspace-collaborate .collaborationArea{grid-column:1}
   .collaborationArea{padding:18px 12px 32px}
   .collaborationGrid{grid-template-columns:1fr}
@@ -1737,15 +1669,12 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
 .specimenLayerPicker > p,
 .learningGuide > p,
 .learningGuide li span,
-.homeModeGrid b,
 .quizOptions button > span { font-size: var(--ui-font-16); }
 
 .planeBtn b,
 .panelHead b,
 .identifyCard b,
 .blockIntroCard p { font-size: var(--ui-font-17); }
-.homeModeGrid em { font-size: var(--ui-font-18); }
-.homeLearningChoices span { font-size: var(--ui-font-20); }
 .sectionTitle h2 { font-size: var(--ui-font-23); }
 .workHead h1 { font-size: var(--ui-font-25); }
 .inspector h2 { font-size: var(--ui-font-27); }
