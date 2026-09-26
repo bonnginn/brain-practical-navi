@@ -1226,6 +1226,7 @@
   "構造グループの一括表示": "Show all structures in a group",
   "構造ラベル": "Structure label",
   "構造同定": "Structure identification",
+  "四択・構造同定": "Quiz / identify",
   "構造名、表示位置、操作性、クイズなどの気づきを非公開で送れます。氏名・所属・連絡先は任意です。患者・学生・献体者を特定できる情報、標本写真、第三者の個人情報は送らないでください。": "You can send undisclosed notices such as structure name, display position, operability, and quizzes. Name, affiliation and contact information are optional. Do not send information, specimen photos, or third party personal information that can identify the patient, student or body donor.",
   "構造名を押して追加・解除。脳表では「全選択」「すべて解除」も利用可能": "Press a structure name to add or remove it. On brain-surface views, Select all and Deselect all are also available.",
   "構造索引": "Structure",

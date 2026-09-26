@@ -1,4 +1,12 @@
 .findModeSwitch,.findActions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.findReviewHeader{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 10px;flex-shrink:0}
+.findReviewHeader h1{font:600 22px/1.3 sans-serif;margin:0}
+.findReviewHeader>button{background:transparent;border:0;text-decoration:underline;text-underline-offset:3px;color:#44645b;font-size:13px;padding:8px 0}
+.findReviewHeader>strong{font-size:15px}
+.findReviewHeader label{display:flex;align-items:center;gap:8px;min-width:0;flex:1}
+.findReviewHeader label>span{font-size:12px;color:#60716b;white-space:nowrap}
+.findReviewHeader select{min-width:0;width:min(100%,320px);min-height:38px;padding:6px 10px;border:1px solid #91aaa5;border-radius:6px;background:#fff;color:#244d40;font:inherit;font-size:15px}
+@media(max-width:760px){.findReviewHeader{gap:6px 10px}.findReviewHeader label{flex-basis:100%}.findReviewHeader select{min-height:44px;flex:1;width:auto}.findReviewHeader>button{min-height:44px}}
 .findModeSwitch button,.findActions button,.findExercise>label select,.findTask>.quizImageCard>button{font:inherit;font-size:var(--ui-font-14,14px);min-height:44px;padding:8px 12px;border:1px solid #91aaa5;background:#fff;color:#244d40;border-radius:6px}
 .findModeSwitch button[aria-pressed=true]{background:#dcece8;border:2px solid #24776d}
 .findExercise>label{display:flex;align-items:center;gap:12px;margin:12px 0}
@@ -7,6 +15,8 @@
 .findTaskGuide h3{font-size:var(--ui-font-15,15px);margin:14px 0 6px}
 .findTaskGuide p{font-size:var(--ui-font-14,14px);line-height:1.7}
 .findActions button:disabled{opacity:.45}
+.findActions .findRevealAnswer{background:#285e55;color:#fff;border-color:#285e55;font-weight:700}
+.findTaskGuide .findClickNote{font-size:12px;color:#60716b;margin-top:6px}
 .findTask .quizSliceNavigator label{display:block;width:100%}
 .findTask .quizSliceNavigator input{width:100%}
 @media(max-width:760px){.findExercise>label{align-items:stretch;flex-direction:column}.findTask{grid-template-columns:1fr}.findTask .quizImageStage{min-height:280px}}

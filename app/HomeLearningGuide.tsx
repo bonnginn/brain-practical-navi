@@ -18,9 +18,9 @@ const checks:Record<LearningEntry,{ja:string;en:string}>={
 
 export function HomeLearningGuide({english,onOpen}:{english:boolean;onOpen:(entry:LearningEntry)=>void}){
   return <section className="homeLearningGuide" data-no-localize aria-labelledby="learning-start-title">
-    <header><h2 id="learning-start-title">{english?"A path through the material":"はじめての学び方"}</h2><p>{english?"Follow these four steps, or start with the view you need. You can return Home at any time.":"4つの順序で進めても、必要な教材から始めてもかまいません。いつでもHomeに戻れます。"}</p></header>
-    <ol>{entries.map((entry,index)=>{const [title,description,action]=entry[english?"en":"ja"];return <li key={entry.key}>
-      <span className="learningEntryNumber" aria-hidden="true">0{index+1}</span><h3>{title}</h3><p>{description}</p><p className="learningEntryCheck"><strong>{english?"Check yourself":"確認してみよう"}</strong>{checks[entry.key][english?"en":"ja"]}</p><button type="button" onClick={()=>onOpen(entry.key)}>{action}<span aria-hidden="true"> →</span></button>
+    <header><h2 id="learning-start-title">{english?"Choose a view":"教材を選ぶ"}</h2></header>
+    <ol>{entries.map(entry=>{const [title,description,action]=entry[english?"en":"ja"];return <li key={entry.key}>
+      <button type="button" onClick={()=>onOpen(entry.key)}>{entry.key==="quiz"?(english?"Open review":"復習を開く"):action}<span aria-hidden="true"> →</span></button><details><summary>{english?"What to look for":"観察のポイント"}</summary><h3>{title}</h3><p>{description}</p><p className="learningEntryCheck"><strong>{english?"Check yourself":"確認してみよう"}</strong>{checks[entry.key][english?"en":"ja"]}</p></details>
     </li>})}</ol>
   </section>;
 }

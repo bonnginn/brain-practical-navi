@@ -20,6 +20,18 @@
 - QRは画像をZXingで復号して公開入口への行先を確認。[記録](QR_ACCESS_AUDIT.md)。
 - 公開結果・CI・配信確認は完了後に本記録へ追記する。
 
+## 公開結果
+
+- 公開コミット: `de10605a9560d2245f970525090690737993e7c4`。
+- [PR #32](https://github.com/bonnginn/brain-practical-navi/pull/32)をmainへ統合。
+- [統合前CI](https://github.com/bonnginn/brain-practical-navi/actions/runs/36156422584): Node643/643、Python439件（117 skip）、型検査・通常/Pages build・両形式権利監査成功。ローカル限定資料がないskipは画像確認成功ではない。
+- [Pages配信](https://github.com/bonnginn/brain-practical-navi/actions/runs/36157343138)成功。
+- [公開サイト](https://bonnginn.github.io/brain-practical-navi/)で入口→Home→復習入口、構造同定の冠状断画像と着色答え合わせ、四択への切替、英語版の入口を確認。
+- 公開分節SHAは本候補と一致。確認記録: `work/beta-update-public-assets.json`。確認用のタブは閉じ、利用者のタブは保持した。
+- 統合後main CIは自動で再実行中。統合前CIと配信の成功を確認して公開した。
+
+この公開結果追記と再開メモは公開後のローカル保存。上記公開コミットには含まれない。
+
 ## 継続する制限
 
 専門家監修、物理端末・異なるGPUでの表示確認、実習スケッチに基づくブロック再設計は今回の完了範囲に含めない。新規の実物標本動画制作・転載は行わない。技術検証の成功を解剖学的監修済みとは扱わない。

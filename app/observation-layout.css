@@ -1,0 +1,46 @@
+/* Observation first: keep the image and its position control together. */
+.sectionUtilities{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:start;margin-bottom:6px;flex-shrink:0}
+.sectionUtilities:has(details[open]){grid-template-columns:1fr}
+.workspace-sections .sectionUtilities details{margin:0;min-width:0}
+.workspace-sections .sectionUtilities summary{padding:7px 10px;font-size:12px}
+.workspace-sections .slicePanel{display:grid;grid-template-rows:auto var(--section-fit-height,clamp(170px,42dvh,650px)) auto auto}
+.workspace-sections .sliceStage{height:var(--section-fit-height,clamp(170px,42dvh,650px));min-height:0;flex-shrink:0}
+.workspace-sections .sliceTimeline{margin-top:0;padding:6px 12px;display:grid;grid-template-columns:minmax(0,1fr) minmax(200px,1fr);gap:4px 12px}
+.sliceTimeline .timelineHead,.sliceTimeline .rangeWrap{grid-column:1/-1}
+.workspace-sections .sliceTimeline .rangeWrap{margin:4px 0;min-height:24px;display:flex;align-items:center}
+.sliceTimeline .sectionPlaybackOptions{grid-row:3;margin:0;font-size:12px}
+.sliceTimeline .sectionPlaybackOptions small{display:none}
+.sliceTimeline .sectionSliceStepper{grid-row:3;margin:0;justify-self:end}
+.sliceTimeline .sectionSliceStepper small{display:none}
+.sliceTimeline .sectionSliceStepper button{min-height:36px}
+.sliceTimeline .timelineHead output{font-size:12px}
+.workspace-sections .slicePanel>.panelHead{flex-wrap:wrap;gap:4px 12px;min-height:52px}
+.workspace-sections .slicePanel>.panelHead>div:first-child{min-width:0;flex:1 1 180px}
+.workspace-sections .sliceTools{gap:6px}
+.workspace-sections .sectionStudyGuide{margin-bottom:4px}
+.workspace-sections .sectionObservationLink{margin:0 0 4px}
+.workspace-sections .sectionObservationLink>summary{padding:4px 0}
+
+/* Give the specimen more room than the description at intermediate widths. */
+@media(min-width:761px){
+  .learningGrid{grid-template-columns:minmax(0,1fr) clamp(270px,27vw,380px)}
+  .learningArea .workHead{margin-bottom:8px}
+  .learningArea .workHead .eyebrow{display:none}
+  .learningArea .workHead h1{margin:0;font-size:21px}
+  .learningGuide{padding:16px}
+  .learningGuide h2{font-size:clamp(20px,2vw,28px);line-height:1.35}
+  .surfaceModelCard:has(.surfaceDisplayControls){grid-template-rows:max-content minmax(170px,1fr) max-content}
+  .surfaceModelCard>.panelHead>div:first-child{flex-basis:130px}
+}
+@media(min-width:761px) and (max-width:1150px){
+  .leftRail .planeBtn small{display:none}
+  .leftRail .planeBtn{min-height:44px;padding:10px 12px;grid-template-columns:25px minmax(0,1fr)}
+  .leftRail .eyebrow{font-size:11px;letter-spacing:.08em}
+  .learningGuide>header>span{font-size:11px}
+}
+@media(max-width:760px){
+  .phone-mode .workspace-sections .sliceStage,.phone-mode .sliceStage{min-height:0}
+  .workspace-sections .sliceTimeline{grid-template-columns:1fr;gap:3px}
+  .sliceTimeline .sectionPlaybackOptions{grid-row:4}
+  .sliceTimeline .sectionSliceStepper{grid-row:3;justify-self:center}
+}

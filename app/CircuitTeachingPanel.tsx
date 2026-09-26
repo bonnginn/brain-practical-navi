@@ -61,7 +61,7 @@ export function CircuitTeachingPanel({circuitKey,english,suspended=false,initial
   }
   return <section className="circuitTeaching" aria-label={english?`${t(circuit.name)} learning guide`:`${t(circuit.name)}の学習ガイド`}>
     <header><span>{english?"CIRCUIT GUIDE":"回路ガイド"}</span><h3>{t(circuit.name)}</h3></header>
-    <div className="circuitTeachingLead"><div><b>{english?"Learning goal":"学習目標"}</b><p>{t(circuit.goal)}</p></div><div><b>{english?"Main role":"主な役割"}</b><p>{t(circuit.role)}</p></div></div>
+    <details className="circuitOverview"><summary>{english?"Learning goal and role":"学習目標と役割"}</summary><div className="circuitTeachingLead"><div><b>{english?"Learning goal":"学習目標"}</b><p>{t(circuit.goal)}</p></div><div><b>{english?"Main role":"主な役割"}</b><p>{t(circuit.role)}</p></div></div></details>
     <nav className="circuitPlayback" aria-label={english?"Follow the pathway":"経路を順に追う"}>
       <button onClick={()=>selectStage(selectedPosition.pathIndex,selectedPosition.nodeIndex-1)} disabled={selectedPosition.nodeIndex===0}>{english?"Previous":"前へ"}</button>
       <button aria-pressed={playing} onClick={play}>{playing?(english?"Pause":"一時停止"):(english?"Play flow":"流れを再生")}</button>

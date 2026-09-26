@@ -62,7 +62,7 @@ const en:HelpSection[]=[
 
 export function ViewerHelpContent({english}:{english:boolean}){
   return <div data-no-localize>
-    <p className="helpIntro">{english?"Start with the learning guide on Home. For keyboard controls, first focus the image, model or slider you want to operate.":"初めての方はHomeの「はじめての学び方」から進められます。キー操作では、操作したい画像・モデル・スライダーに先にフォーカスしてください。"}</p>
+    <p className="helpIntro">{english?"Start with the learning guide on Home. For keyboard controls, first focus the image, model or slider you want to operate.":"初めての方はHomeの「教材を選ぶ」から進められます。キー操作では、操作したい画像・モデル・スライダーに先にフォーカスしてください。"}</p>
     <div className="helpGrid">{(english?en:ja).map(section=><article key={section.title}><h3>{section.title}</h3><dl>{section.rows.map(([label,description])=><div key={label}><dt>{label}</dt><dd>{description}</dd></div>)}</dl></article>)}</div>
     <details className="helpEditorDetails"><summary>{english?"Segmentation editor shortcuts (contributors)":"分節編集ツールの操作（共同制作者向け）"}</summary><p>{english?"Paint by dragging in the editor. Pan with right / middle drag or Alt + drag. Undo with Ctrl / ⌘ + Z; add Shift to redo.":"編集Canvasを左ドラッグで塗ります。右・中・Altドラッグで移動。Ctrl／⌘＋Zで元に戻し、Shiftも押すとやり直します。"}</p></details>
   </div>;

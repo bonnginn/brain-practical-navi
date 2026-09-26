@@ -5,12 +5,12 @@ import {stepPlanePosition,planeSliceIndex,segmentationPlaneNames} from './segmen
 import './find-structure.css';
 
 export type FindTask={key:string;name:string;englishName:string;kind:'section'|'surface'|'neurovascular';plane:'coronal'|'horizontal'|'sagittal';position:number;rotation:{x:number;y:number;z?:number};hemisphere:'both'|'left'|'right';medial:boolean;overlay:'none'|'vessels'|'nerves';focus:'ventricle'|'caudate'|'hippocampus'|'thalamus';highlight:HighlightLayer;hint:string;explanation:string};
-export function FindStructureExercise({tasks,english}:{tasks:FindTask[];english:boolean}){
+export function FindStructureExercise({tasks,english,onBack}:{tasks:FindTask[];english:boolean;onBack:()=>void}){
   const [key,setKey]=useState(tasks[0]?.key);
   const task=tasks.find(task=>task.key===key)??tasks[0];
   if(!task)return <p>{english?'No observation tasks available.':'観察課題がありません。'}</p>;
   return <div className="findExercise">
-    <label>{english?'Structure to find':'探す構造'}<select aria-label={english?"Structure to find":"探す構造"} value={task.key} onChange={event=>setKey(event.target.value)}>{(['section','surface','neurovascular'] as const).map(kind=><optgroup key={kind} label={english?{section:'Sections',surface:'Brain surface',neurovascular:'Nerves and vessels'}[kind]:{section:'断面',surface:'脳表',neurovascular:'神経・血管'}[kind]}>{tasks.filter(task=>task.kind===kind).map(task=><option key={task.key} value={task.key}>{english?task.englishName:task.name}</option>)}</optgroup>)}</select></label>
+    <header className="findReviewHeader" data-no-localize><h1>{english?"Review":"復習"}</h1><button type="button" onClick={onBack}>{english?"← Practice menu":"← 復習の入口"}</button><strong>{english?"Structure identification":"構造同定"}</strong><label><span>{english?'Structure to find':'探す構造'}</span><select aria-label={english?"Structure to find":"探す構造"} value={task.key} onChange={event=>setKey(event.target.value)}>{(['section','surface','neurovascular'] as const).map(kind=><optgroup key={kind} label={english?{section:'Sections',surface:'Brain surface',neurovascular:'Nerves and vessels'}[kind]:{section:'断面',surface:'脳表',neurovascular:'神経・血管'}[kind]}>{tasks.filter(task=>task.kind===kind).map(task=><option key={task.key} value={task.key}>{english?task.englishName:task.name}</option>)}</optgroup>)}</select></label></header>
     <FindTaskView key={task.key} task={task} english={english} onNext={()=>setKey(tasks[(tasks.indexOf(task)+1)%tasks.length].key)}/>
   </div>;
 }
@@ -36,12 +36,14 @@ function FindTaskView({task,english,onNext}:{task:FindTask;english:boolean;onNex
     </section>
     <aside className="quizQuestionCard findTaskGuide">
       <h2>{english?`Find ${task.englishName}`:`${task.name}を探してください`}</h2>
-      <p>{english?'Point out the structure before revealing its colour. Rotate the model or move through nearby sections. This is self-check practice; clicking the image does not score your answer.':'着色を見る前に、どこにあるか指し示してみましょう。回転や隣接断面も使えます。画像のクリックによる採点は行いません。'}</p>
-      {!model&&<div className="findPlaneGuide" data-no-localize><b>{planeTitle}</b><p>{english?{coronal:'A front–back series: screen left/right = specimen L/R, top/bottom = superior/inferior.',horizontal:'A top–bottom series: screen left/right = specimen L/R, top/bottom = anterior/posterior.',sagittal:'A left–right series: screen left/right = anterior/posterior, top/bottom = superior/inferior.'}[task.plane]:{coronal:'前後に切り進める断面です。画面の左右は標本のL/R、上が上方、下が下方です。',horizontal:'上下に切り進める断面です。画面の左右は標本のL/R、上が前方、下が後方です。',sagittal:'左右に切り進める断面です。画面の左が前方、右が後方、上が上方です。'}[task.plane]}</p><p>{english?'The same structure changes shape and may disappear as the cut moves. Compare neighbouring slices; return to the starting view if it is no longer visible.':'同じ構造でも切る位置により形や大きさが変わり、断面に現れなくなることがあります。隣接断面と見比べ、見失ったら開始位置に戻してください。'}</p></div>}
+      <p className="findInstruction" data-no-localize>{english?<>First, locate the structure yourself. Once you have decided, press <strong>“Reveal colour to check”</strong> and compare it with the location you chose.</>:<>まず、自分で構造の場所を同定してください。場所を決めたら、<strong>「着色して答え合わせ」</strong>を押し、自分が考えた場所と見比べましょう。</>}</p>
+      <p className="findClickNote" data-no-localize>{english?'Clicking the image does not reveal the answer or score your choice.':'画像をクリックしても、正解の表示や採点は行いません。'}</p>
       <div className="findActions">
-        <button disabled={stage!=='search'} onClick={()=>setStage('hint')}>{english?'1. Show a hint':'1. ヒントを見る'}</button>
-        <button disabled={revealed||(model&&unavailable)} onClick={()=>setStage('answer')}>{english?'2. Reveal the answer':'2. 着色して答え合わせ'}</button>
+        <button disabled={stage!=='search'} onClick={()=>setStage('hint')}>{english?'Need a hint?':'迷ったらヒント'}</button>
+        <button className="findRevealAnswer" disabled={revealed||(model&&unavailable)} onClick={()=>setStage('answer')}>{english?'Reveal colour to check':'着色して答え合わせ'}</button>
       </div>
+      {!model&&<div className="findPlaneGuide" data-no-localize><b>{planeTitle}</b><p>{english?{coronal:'A front–back series: screen left/right = specimen L/R, top/bottom = superior/inferior.',horizontal:'A top–bottom series: screen left/right = specimen L/R, top/bottom = anterior/posterior.',sagittal:'A left–right series: screen left/right = anterior/posterior, top/bottom = superior/inferior.'}[task.plane]:{coronal:'前後に切り進める断面です。画面の左右は標本のL/R、上が上方、下が下方です。',horizontal:'上下に切り進める断面です。画面の左右は標本のL/R、上が前方、下が後方です。',sagittal:'左右に切り進める断面です。画面の左が前方、右が後方、上が上方です。'}[task.plane]}</p><p>{english?'The same structure changes shape and may disappear as the cut moves. Compare neighbouring slices; return to the starting view if it is no longer visible.':'同じ構造でも切る位置により形や大きさが変わり、断面に現れなくなることがあります。隣接断面と見比べ、見失ったら開始位置に戻してください。'}</p></div>}
+
       <div aria-live="polite">{stage!=='search'&&<section><h3>{english?'Location hint':'位置のヒント'}</h3><p>{task.hint}</p></section>}{revealed&&<section><h3>{english?'Check the structure and its role':'位置と働きを確認'}</h3><p>{task.explanation}</p><p>{english?'Compare the highlighted area with the location you chose.':'自分が示した場所と、着色された範囲を見比べてください。'}</p></section>}</div>
       {model&&unavailable&&<p>{english?'3D is unavailable. Choose a section task to continue.':'3Dを表示できません。断面の課題を選んで続けられます。'}</p>}
       <div className="findActions"><button disabled={stage==='search'} onClick={()=>setStage('search')}>{english?'Try again without colour':'色を消してもう一度'}</button><button onClick={onNext}>{english?'Next structure':'次の構造へ'}</button></div>
