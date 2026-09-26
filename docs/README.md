@@ -3,6 +3,8 @@
 利用方法は [トップのREADME](../README.md)、現在地・作業期限と次の作業は [短い再開メモ](RESUME_SUMMARY.md) を参照してください。
 
 - [正式版1.0へのロードマップ](V1_ROADMAP.md)
+- [四択の任意参加集計・Cloudflare設定手順](QUIZ_STATISTICS.md)
+- [1.0候補：匿名集計と復習の仕上げ](V1_CANDIDATE_2026-09-27.md)
 - [学習ワークスペース再構成：教材選択・観察・必要時の解説](UX_WORKSPACE_REDESIGN_2026-09-26.md)
 - [観察画面のUI/UX見直し：断面とスライダーの初期表示](UX_OBSERVATION_REVIEW_2026-09-26.md)
 - [1.0開発記録：9月22日](V1_DEVELOPMENT_2026-09-22.md)

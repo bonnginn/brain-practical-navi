@@ -17,8 +17,6 @@
 .atlasWebglFallback p { max-width: 570px; margin: 0; color: #d0d7d4; font-size: clamp(14px,1.5vw,17px); line-height: 1.7; }
 .webglUnavailable { cursor: default; }
 .webglUnavailable:active { cursor: default; }
-.zoomReadout { position: absolute; z-index: 9; right: 14px; bottom: 14px; min-width: 82px; padding: 7px 9px; border: 1px solid #7b8585; background: #172126d9; color: #f4f2eb; font: 700 16px monospace; box-shadow: 0 4px 12px #0005; }
-.zoomReadout small { margin-left: 5px; color: #b9c1bf; font: 15px sans-serif; }
 .sliceZoomControls { position:absolute; z-index:9; right:10px; bottom:10px; display:flex; border:1px solid #7b8585; background:#172126e8; box-shadow:0 2px 8px #0003; }
 .sliceZoomControls button { min-width:44px; min-height:44px; padding:5px 8px; border:0; border-right:1px solid #65716e; color:#f4f2eb; background:transparent; font:700 15px monospace; cursor:pointer; }
 .sliceZoomControls button:last-child { border-right:0; }
@@ -279,7 +277,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 @media(max-width:1250px){.appShell{grid-template-columns:190px minmax(0,1fr)}.topbar{grid-column:1/3}.structureBtn{padding-inline:15px}.sliceStage{grid-template-columns:minmax(0,1fr) 260px}}
 @media(max-width:1050px){.appShell{grid-template-columns:160px minmax(0,1fr)}.topbar{grid-column:1/3}.sliceStage{grid-template-columns:minmax(0,1fr) 230px}}
 @media(max-width:940px){.sliceStage{height:auto;grid-template-columns:minmax(0,1fr) 210px}.insetHead{flex-basis:38px;height:38px}.modelInset .blockControls{left:7px;right:7px;bottom:7px}.modelInset .blockControls button{font-size:15px;padding-block:6px}.modelInset .orientation{display:none}}
-@media(max-width:760px){html,body,#root{height:auto;overflow:auto}.appShell{display:block;height:auto;padding:60px 0 72px}.leftRail,.workArea{overflow:visible}.visualGrid{display:block}.slicePanel{display:block}.sliceStage{height:760px;grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) 340px}.sliceViewport{border-right:0;border-bottom:1px solid #455052}.slicePanel{margin-top:0}.slicePanel .panelHead{display:block}.sliceTools{margin-top:8px;gap:4px;flex-wrap:wrap;justify-content:flex-start}.contrastSwitch button,.displaySwitch button{padding:6px 7px;font-size:15px}.workArea{padding:20px 12px}.workHead h1{font-size:26px}.panelHead b{font-size:16px}.panelHead small{font-size:16px}.sliceTimeline{padding-inline:13px}.rangeWrap button span{font-size:15px}.miniSlices>button>b{font-size:15px}.miniSlices>button>small{font-size:15px}.modelInset{width:auto;margin:0}.insetHead{flex-basis:30px;height:30px}.insetHead small,.insetHead>span{display:none}.insetViews{grid-template-columns:1fr 1fr;grid-template-rows:1fr;padding-bottom:0}.modelInset .blockControls,.modelInset .orientation{display:none}.identifyHint{top:8px;padding:5px 7px}.identifyHint b{font-size:15px}.identifyHint span{display:none}.identifyMarker{min-width:132px}.selectedStructureBar{max-height:280px}.selectedStructureSummary{grid-template-columns:7px minmax(0,1fr) auto;padding-inline:11px}.selectedStructureList>button{grid-template-columns:7px minmax(0,1fr);padding-inline:11px}.selectedStructureList p{grid-column:2}.clearStructures,.structureGroupGrid{display:none}.zoomReadout{right:10px;bottom:10px}.inspectorBackdrop{top:60px}.inspector{top:60px;width:min(360px,94vw);padding:20px}}
+@media(max-width:760px){html,body,#root{height:auto;overflow:auto}.appShell{display:block;height:auto;padding:60px 0 72px}.leftRail,.workArea{overflow:visible}.visualGrid{display:block}.slicePanel{display:block}.sliceStage{height:760px;grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) 340px}.sliceViewport{border-right:0;border-bottom:1px solid #455052}.slicePanel{margin-top:0}.slicePanel .panelHead{display:block}.sliceTools{margin-top:8px;gap:4px;flex-wrap:wrap;justify-content:flex-start}.contrastSwitch button,.displaySwitch button{padding:6px 7px;font-size:15px}.workArea{padding:20px 12px}.workHead h1{font-size:26px}.panelHead b{font-size:16px}.panelHead small{font-size:16px}.sliceTimeline{padding-inline:13px}.rangeWrap button span{font-size:15px}.miniSlices>button>b{font-size:15px}.miniSlices>button>small{font-size:15px}.modelInset{width:auto;margin:0}.insetHead{flex-basis:30px;height:30px}.insetHead small,.insetHead>span{display:none}.insetViews{grid-template-columns:1fr 1fr;grid-template-rows:1fr;padding-bottom:0}.modelInset .blockControls,.modelInset .orientation{display:none}.identifyHint{top:8px;padding:5px 7px}.identifyHint b{font-size:15px}.identifyHint span{display:none}.identifyMarker{min-width:132px}.selectedStructureBar{max-height:280px}.selectedStructureSummary{grid-template-columns:7px minmax(0,1fr) auto;padding-inline:11px}.selectedStructureList>button{grid-template-columns:7px minmax(0,1fr);padding-inline:11px}.selectedStructureList p{grid-column:2}.clearStructures,.structureGroupGrid{display:none}.inspectorBackdrop{top:60px}.inspector{top:60px;width:min(360px,94vw);padding:20px}}
 @media(max-width:520px){.selectedStructureSummary{grid-template-columns:7px minmax(0,1fr);align-items:start}.selectedStructureSummary>span{grid-row:1/3;margin-top:3px}.selectedBarActions{grid-column:2;flex-wrap:wrap}.selectedStructureRole{font-size:13px}.selectedStructureBar button{min-height:40px}}
 
 .topbar { gap: 12px; }
@@ -421,11 +419,6 @@ html, body, #root { height: 100%; overflow: hidden; }
 .homeNotice footer .homeEnter { min-height: 56px; padding: 14px 22px; border-color: #315f58; background: #315f58; color: #fff; font-size: 18px; }
 .homeNotice footer .homeEnter:hover { background: #214b45; color: #fff; }
 .homeQuietNote { width: min(760px,100%); margin: 0 auto; color: #68736f; font-size: 15px; line-height: 1.55; text-align: center; }
-.homeEyebrow { margin: 0; color: #1d6e69; font: 700 15px monospace; letter-spacing: .18em; }
-.homeModelLabel { position: absolute; z-index: 8; left: 22px; bottom: 22px; display: grid; gap: 3px; padding: 11px 14px; border-left: 5px solid #d1d8d6; background: rgba(19,25,27,.78); color: #eff1ee; pointer-events: none; }
-.homeModelLabel span { color: #9faaaa; font: 15px monospace; letter-spacing: .15em; }
-.homeModelLabel b { font-size: 14px; }
-.homeModelLabel small { color: #b3bcba; font-size: 15px; }
 
 .learningArea, .quizArea { min-height: 0; }
 .learningArea .workHead, .quizArea .workHead { align-items: center; }
@@ -605,7 +598,6 @@ html, body, #root { height: 100%; overflow: hidden; }
 .surfaceRegionPicker > div > button i { width: 7px; height: 26px; border-radius: 4px; }
 .surfaceRegionPicker > div > button span { min-width: 0; overflow-wrap: anywhere; font-size: 14px; font-weight: 700; line-height: 1.25; }
 .surfaceRegionPicker > div > button small { display: block; margin-top: 3px; color: #737d7a; font: 13px/1.25 Georgia,serif; overflow-wrap: anywhere; }
-.surfaceAtlasNomenclatureMarker { display: block; margin-top: 3px; color: #58756d; font: 11px/1.3 sans-serif; overflow-wrap: anywhere; }
 .surfaceLandmarkPicker { margin-top: 14px; padding-top: 13px; border-top: 1px solid #c3c7c1; }
 .surfaceLandmarkPicker > header { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
 .surfaceLandmarkPicker > header div { display: grid; gap: 2px; }
@@ -632,11 +624,6 @@ html, body, #root { height: 100%; overflow: hidden; }
 .freeObservationControls button.vessels.active { border-color: #ef8178; background: #7f302b; color: #fff; }
 .freeObservationControls button.nerves.active { border-color: #f1d783; background: #776329; color: #fff; }
 .freeHemisphereSwitch { padding-bottom: 5px; border-bottom: 1px solid #4f595b; }
-.freeSelectionOverlay { position: absolute; z-index: 11; left: 18px; bottom: 18px; display: grid; gap: 2px; min-width: 230px; max-width: min(420px,calc(100% - 36px)); padding: 10px 13px; border-left: 5px solid #81b6ac; background: rgba(18,24,26,.88); color: #f1f3ef; box-shadow: 0 8px 26px #0005; pointer-events: none; }
-.freeSelectionOverlay small { color: #a7b3b0; font-size: 14px; }
-.freeSelectionOverlay b { font-size: 18px; }
-.freeSelectionOverlay span { overflow: hidden; color: #bbc5c2; font: 14px Georgia,serif; text-overflow: ellipsis; white-space: nowrap; }
-.freeSelectionOverlay .surfaceAtlasNomenclatureMarker { overflow-wrap: anywhere; color: #b8d2c9; font: 11px/1.3 sans-serif; white-space: normal; }
 .pathwayStepperModelTag { position: absolute; z-index: 11; right: 18px; top: 18px; display: grid; gap: 3px; max-width: min(330px,calc(100% - 36px)); padding: 10px 13px; border-right: 4px solid #e0ad45; background: rgba(18,24,26,.9); color: #f1f3ef; box-shadow: 0 8px 26px #0005; pointer-events: none; }
 .pathwayStepperModelTag span { color: #e8c784; font: 700 11px/1.3 monospace; letter-spacing: .08em; }
 .pathwayStepperModelTag b { font-size: 17px; }
@@ -663,7 +650,6 @@ html, body, #root { height: 100%; overflow: hidden; }
 .freeSearchResults button b,.freeSearchResults button small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .freeSearchResults button b { font-size: 14px; }
 .freeSearchResults button small { color: #7d8784; font: 12px Georgia,serif; }
-.freeSearchResults button .surfaceAtlasNomenclatureMarker { display: block; max-width: 100%; overflow: visible; color: #58756d; font: 11px/1.3 sans-serif; overflow-wrap: anywhere; text-overflow: clip; white-space: normal; }
 .freeSearchResults button em { color: #707b78; font-size: 12px; font-style: normal; white-space: nowrap; }
 .freeSearchResults button strong { color: #52746c; font-size: 16px; }
 .freeSearchResults > p { margin: 10px 2px 2px; color: #737c79; font-size: 14px; }
@@ -712,19 +698,12 @@ html, body, #root { height: 100%; overflow: hidden; }
 .pathwayStepperSliceLegend { position: absolute; z-index: 8; left: 8px; right: 8px; bottom: 8px; display: flex; flex-wrap: wrap; gap: 4px 8px; padding: 6px 7px; background: #101718d9; color: #e8ece8; pointer-events: none; }
 .pathwayStepperSliceLegend span { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; }
 .pathwayStepperSliceLegend i { width: 7px; height: 16px; border-radius: 3px; }
-.pathwayStepperControls { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 5px; }
-.pathwayStepperControls button { min-height: 44px; padding: 7px 5px; border: 1px solid #a89466; background: #fffdf7; color: #514831; font-size: 13px; font-weight: 800; }
-.pathwayStepperControls button:hover { border-color: #80672e; background: #fff; }
-.pathwayStepperControls button:disabled { cursor: default; opacity: .42; }
-.pathwayStepperControls .stepperPlay { border-color: #6d8270; background: #e2eee4; color: #31553e; }
 .circuitReturnButton { min-height: 44px; padding: 8px 12px; border: 1px solid #657e78; background: #edf4f1; color: #294b43; font-size: 13px; font-weight: 800; }
 .pathwayStepper > .circuitReturnButton { width: 100%; margin-top: 8px; }
 .pathwayStepperCaution { margin: 0; color: #735b37; font-size: 12px; line-height: 1.55; }
 .papezPathwayStepper { border-color: #a889a2; background: #fff8fb; }
 .papezPathwayStepper .pathwayStepperStageTitle { border-left-color: #a6678e; }
 .papezPathwayStepper .pathwayStepperStageTitle > span { color: #85516f; }
-.papezPathwayStepper .pathwayStepperControls button { border-color: #b08da7; color: #503d4c; }
-.papezPathwayStepper .pathwayStepperControls .stepperPlay { border-color: #718775; background: #e5efe6; color: #31553e; }
 .pathwayStepper3dOnlyNote { display: grid; gap: 4px; padding: 12px; border: 1px dashed #b18b9f; background: #fffdfd; color: #574553; line-height: 1.55; }
 .pathwayStepper3dOnlyNote b { color: #784c68; font-size: 14px; }
 .pathwayStepper3dOnlyNote p { margin: 0; font-size: 13px; }
@@ -754,11 +733,6 @@ html, body, #root { height: 100%; overflow: hidden; }
 .quizWorkspace { flex: 1 1 auto; min-height: 0; display: grid; grid-template-columns: minmax(0,1fr) clamp(340px,30vw,430px); gap: 12px; }
 .quizImageStage { position: relative; min-width: 0; min-height: 0; overflow: hidden; background: radial-gradient(circle at 50% 44%,#4b5559 0,#30373a 48%,#171c1e 100%); }
 .quizImageStage.modelStage { height: auto; }
-.quizTargetTag { position: absolute; z-index: 9; left: 18px; bottom: 18px; display: grid; grid-template-columns: 8px auto; align-items: center; gap: 9px; min-width: 210px; padding: 10px 13px; border: 1px solid rgba(220,228,227,.3); background: rgba(20,26,28,.88); color: #f2f3ef; box-shadow: 0 8px 24px rgba(0,0,0,.32); pointer-events: none; }
-.quizWorkspace:has(.quizQuestionCard[data-quiz-format="neurovascular"]) .quizTargetTag { left: auto; right: 18px; top: 18px; bottom: auto; width: max-content; max-width: calc(100% - 36px); }
-.quizTargetTag > i { align-self: stretch; width: 8px; min-height: 34px; border-radius: 5px; box-shadow: 0 0 12px currentColor; }
-.quizTargetTag b { display: block; font-size: 15px; }
-.quizTargetTag small { display: block; margin-top: 2px; color: #acb7b5; font-size: 15px; font-weight: 400; }
 html[lang="en"] .quizOptions button span small,
 html[lang="en"] .surfaceRegionPicker button span small,
 html[lang="en"] .neurovascularPicker button span small,
@@ -792,11 +766,6 @@ html[lang="en"] .specimenLayerPicker button span small { display: none; }
 .quizFeedback > div { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 9px; }
 .quizFeedback button { width: 100%; padding: 9px; border: 0; background: #172126; color: white; font-size: 14px; font-weight: 700; }
 .quizFeedback button.reviewTarget { border: 1px solid #54766e; background: #fff; color: #365e55; }
-.quizReviewTargets { display: grid !important; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); gap: 7px; width: min(760px,100%); margin: 14px auto 18px; }
-.quizReviewTargets button { display: grid; gap: 3px; padding: 11px; border: 1px solid #aeb9b4; background: #fff; color: #35443f; text-align: left; }
-.quizReviewTargets button b { font-size: 15px; }
-.quizReviewTargets button small { color: #68736f; font-size: 12px; }
-.quizReviewTargets button span { margin-top: 4px; color: #1d6e69; font-size: 12px; font-weight: 700; }
 .quizScoreLine { display: flex; align-items: baseline; justify-content: flex-end; gap: 7px; margin-top: 18px; color: #7d8583; }
 .quizScoreLine > span { margin-right: auto; font-size: 15px; }
 .quizScoreLine b { color: #e36e57; font: 26px monospace; }
@@ -1007,7 +976,7 @@ html[lang="en"] .specimenLayerPicker button span small { display: none; }
 @media(max-width:900px){.workspaceSwitch button{min-width:68px}.workspaceSwitch button>i{display:none}.learningGrid,.quizWorkspace,.segWorkbench{grid-template-columns:minmax(0,1fr) clamp(270px,34vw,310px)}.learningGuide,.quizQuestionCard,.segControls{padding-inline:18px}.legalColumns{grid-template-columns:1fr}.legalColumns article+article{padding-left:0;border-left:0}}
 @media(max-height:820px) and (min-width:761px){.homeArea{gap:8px;padding:18px 22px}.homeNotice{padding:clamp(24px,4vw,44px)}.homeNoticePoints{margin-top:20px}.homeNoticePoints section{padding-block:11px}.homeNotice footer{margin-top:20px}.homeQuietNote{font-size:14px}}
 @media(max-width:760px){.topbar{padding-inline:5px;gap:3px}.brand{min-width:auto}.brand>span:last-child{display:none}.workspaceSwitch{display:flex;min-width:0;overflow-x:auto;scrollbar-width:none}.workspaceSwitch::-webkit-scrollbar{display:none}.workspaceSwitch button{min-width:52px;padding:7px 3px}.workspaceSwitch button>span{font-size:15px}.topActions{gap:2px}.topActions>span{display:none}.legalButton{padding:7px 3px;font-size:15px;white-space:nowrap}.feedbackButton{display:block;width:38px;padding:7px 2px;font-size:0;white-space:nowrap}.feedbackButton::after{content:"協力";font-size:15px}.compactToggle{border:0;padding-left:0}.learningArea,.quizArea,.segmentationArea{min-height:800px}.learningGrid,.quizWorkspace,.segWorkbench{display:block}.learningModelCard,.quizImageCard,.segCanvasCard{height:520px}.learningGuide,.quizQuestionCard,.segControls{max-height:none;margin-top:10px}.neurovascularControls{left:8px;bottom:8px}.neurovascularControls button{padding:6px}.neurovascularLegend{left:8px;top:8px;right:auto;bottom:auto;grid-template-columns:repeat(3,auto);gap:5px 8px;padding:7px 8px;font-size:12px}.neurovascularLegend i{width:13px}.blockReleaseNote .sourceBadge{display:none}.feedbackOptions{grid-template-columns:1fr}.legalBackdrop{padding:8px}.legalDialog>footer{display:block}.legalDialog footer div{margin-top:8px;flex-wrap:wrap;min-width:0;max-width:100%;width:100%;box-sizing:border-box}.legalDialog footer div>a,.legalDialog footer div>button{min-width:0;max-width:100%;overflow-wrap:anywhere;white-space:normal}.legalDialog footer div>button{min-height:44px}.betaStatusDialog{width:calc(100vw - 16px);max-height:calc(100vh - 16px)}.betaGoNoGoLedger{margin:12px 8px 0}.betaGoNoGoCounts{grid-template-columns:repeat(2,minmax(0,1fr));padding-inline:8px}.betaGoNoGoGroups{grid-template-columns:1fr;max-height:56vh;padding-inline:8px}.betaGoNoGoGroup,.betaGoNoGoItem{min-width:0}.betaGoNoGoItem>header{align-items:flex-start;flex-direction:column;gap:5px}.betaGoNoGoDetails dl>div{grid-template-columns:1fr;gap:4px}.betaGoNoGoDetails dd{overflow-wrap:anywhere}.betaGoNoGoHeader{padding-inline:10px}.betaGoNoGoHeader small{font-size:11px}.betaGoNoGoDisclaimer{padding-inline:10px}}
-@media(max-width:760px){.pathwayStepperModelTag{left:10px;right:10px;top:10px;max-width:none;padding:8px 10px}.pathwayStepperModelTag b{font-size:16px}.pathwayStepperSliceStage{height:270px}.pathwayStepperControls{grid-template-columns:1fr 1fr}.pathwayStepperControls button{min-height:44px;font-size:14px}.pathwayStepperCaution{font-size:13px}.pathwayStepper > header{align-items:flex-start}.pathwayStepper > header small{font-size:13px}}
+@media(max-width:760px){.pathwayStepperModelTag{left:10px;right:10px;top:10px;max-width:none;padding:8px 10px}.pathwayStepperModelTag b{font-size:16px}.pathwayStepperSliceStage{height:270px}.pathwayStepperCaution{font-size:13px}.pathwayStepper > header{align-items:flex-start}.pathwayStepper > header small{font-size:13px}}
 @media(max-width:760px){.quizCandidateSummary{grid-template-columns:1fr;gap:2px}.quizCandidateEmptyNote{margin-top:-4px;padding:7px;font-size:11px;line-height:1.6}.quizCountButtons{grid-template-columns:repeat(2,1fr)}.quizCountButtons button{min-height:44px}.quizSliceNavigator{grid-template-columns:minmax(0,1fr) 38px auto;gap:7px;padding-inline:9px}.quizSliceAxis{display:none}.quizSliceNavigator button{padding-inline:6px;min-height:44px}.quizSliceControl{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;gap:5px}.quizSliceControl button{width:44px;min-height:44px;padding:0}}
 @media(max-width:760px){.sectionLayoutSwitch{width:100%}.sectionLayoutSwitch button{flex:1;padding-inline:4px;font-size:12px}.sliceStage.layout-both{grid-template-columns:1fr;grid-template-rows:minmax(0,calc(100% - var(--section-model-share,40%) - 1px)) 1px minmax(0,var(--section-model-share,40%))}.sectionResizeHandle{width:100%;min-width:0;height:1px;min-height:1px;cursor:row-resize}.sectionResizeHandle::before{inset:-7px 0}.sliceStage.layout-slice,.sliceStage.layout-model{grid-template-rows:minmax(0,1fr)}.insetHead{padding-inline:8px}.insetHeadActions{gap:4px}.sectionModelViewSwitch button{min-width:44px;min-height:36px;padding-inline:5px}.insetHeadActions>span{display:none}}
 @media(max-width:760px){.specimenViewControls{right:8px;bottom:8px}.specimenViewControls>span{display:none}.specimenViewControls button{padding-inline:6px}.specimenRotationHint{display:none}}
@@ -1063,9 +1032,6 @@ html[lang="en"] .specimenLayerPicker button span small { display: none; }
 .segTransitions > small,
 .segStatus,
 .atlasCredit { color: #3d4947 !important; }
-
-.homeModelLabel span,
-.homeModelLabel small,
 .modelLegend > span,
 .modelLegend small,
 .identifyHint span,
@@ -1078,7 +1044,6 @@ html[lang="en"] .specimenLayerPicker button span small { display: none; }
 .neurovascularLegend,
 .specimenTissueControls > span,
 .specimenTissueControls button,
-.quizTargetTag small,
 .segCanvasCard > header small,
 .segCanvasCard > header > span,
 .segLoading,
@@ -1559,8 +1524,6 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
 .quizImageCard { container: quiz-image / inline-size; min-width: 0; }
 .quizImageCard .panelHead > div { min-width: 0; }
 .quizImageCard .panelHead small { white-space: normal; overflow-wrap: anywhere; }
-.quizTargetTag { min-width: 0; max-width: calc(100% - 36px); grid-template-columns: 8px minmax(0,1fr); box-sizing: border-box; }
-.quizTargetTag b, .quizTargetTag small { overflow-wrap: anywhere; }
 @container quiz-image (max-width: 32rem) {
   .quizSliceNavigator { grid-template-columns: minmax(0,1fr) auto; gap: .5rem; }
   .quizSliceAxis { grid-column: 1 / -1; }
@@ -1688,7 +1651,6 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
 .modelStepSummary:empty { display:none; }
 .modelStepSummary .pathwayStepperModelTag { position:static; max-width:none; margin:0; padding:8px 12px; box-shadow:none; }
 .identifyMarker button { pointer-events:auto; border:0; background:#fff; color:#253d3d; border-radius:50%; min-width:32px; min-height:32px; cursor:pointer; }
-.surfaceLessonButton { margin:8px 0; padding:10px 16px; }
 
 .surfaceRegionLessonRow { display:flex; min-width:0; border:1px solid #bfc4bd; background:#f2f0eb; }
 .surfaceRegionLessonRow > button:first-child { flex:1; display:flex; align-items:center; gap:7px; min-width:0; padding:8px; text-align:left; border:0; background:transparent; }
