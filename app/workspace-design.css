@@ -33,6 +33,12 @@
 .freeExplorer .freeEmptySelection p{margin:4px 0;font-size:13px}
 .blockPriorityDetails{margin:8px 10px;color:#5b6b65;font-size:12px}
 .blockPriorityDetails summary{cursor:pointer}
+.sectionPlaneTabs{display:flex;gap:3px;margin-bottom:4px}
+.sectionPlaneTabs button{border:1px solid transparent;border-radius:5px;background:transparent;color:#4a635b;font:inherit;font-size:14px;padding:6px 10px;min-height:34px;white-space:nowrap}
+.sectionPlaneTabs button[aria-pressed=true]{background:#285e55;color:#fff}
+.sectionPlaneTabs button:focus-visible{outline:3px solid #d99556;outline-offset:1px}
+.workspace-sections .sectionUtilities{margin-top:12px;grid-template-columns:minmax(0,1fr) auto}
+@media(max-width:760px){.sectionPlaneTabs button{min-height:44px;padding:7px 10px}.workspace-sections .sectionUtilities{grid-template-columns:1fr}}
 .blockPriorityGroup>header small{display:none}
 .blockPriorityGroup .blockPriorityReason{display:none}
 .circuitOverview{font-size:13px;margin:8px 0}
