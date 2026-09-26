@@ -348,21 +348,21 @@ html, body, #root { height: 100%; overflow: hidden; }
 .quizRailDots i { height: 5px; background: #c5c8c3; }
 .quizRailDots i.done { background: #1d6e69; }
 .quizRailDots i.current { background: #e36e57; }
-.quizSetup { display: grid; gap: 10px; min-width: 0; margin: 14px 12px 0; padding: 12px; border: 1px solid #c7cac4; background: #efeee9; }
+.quizSetup { display: grid; gap: 6px; min-width: 0; margin: 8px 8px 0; padding: 9px; border: 1px solid #c7cac4; background: #efeee9; }
 .quizSetup > *, .quizSetup label > * { min-width: 0; }
 .quizSetup label, .quizSetup > div { display: grid; gap: 5px; }
 .quizSetup > .quizSetupHeading { display: grid; gap: 2px; padding-bottom: 2px; border-bottom: 1px solid #d3d4cf; }
 .quizSetupHeading b { color: #172126; font-size: 15px; }
 .quizSetupHeading small { color: #6d7674; font-size: 12px; line-height: 1.45; }
-.quizSetup label > span, .quizSetup > div > span { color: #6d7674; font-size: 16px; font-weight: 700; }
-.quizSetup select { min-width: 0; width: 100%; min-height: 44px; padding: 7px; border: 1px solid #b9bdb7; background: #faf8f3; font-size: 14px; }
+.quizSetup label > span, .quizSetup > div > span { color: #6d7674; font-size: 12px; line-height: 1.3; font-weight: 700; }
+.quizSetup select { min-width: 0; width: 100%; min-height: 35px; padding: 4px 6px; border: 1px solid #b9bdb7; background: #faf8f3; font-size: 12px; }
 .quizSetup .quizFilterHint { color: #6d7674; font-size: 12px; line-height: 1.5; }
 .quizCandidateSummary { grid-template-columns: minmax(0,auto) minmax(0,1fr); align-items: baseline; gap: 4px 8px; padding: 8px 9px; border: 1px solid #c8cec8; background: #f8f7f2; }
 .quizCandidateSummary b { color: #1d6e69; font-size: 16px; }
 .quizCandidateSummary span { min-width: 0; color: #65716e; font-size: 12px; overflow-wrap: anywhere; }
 .quizCandidateEmptyNote { margin: -3px 0 0; padding: 7px 8px; border: 1px solid #d4a676; background: #fff2e4; color: #6f482d; font-size: 12px; line-height: 1.55; overflow-wrap: anywhere; }
 .quizCountButtons { display: grid; grid-template-columns: repeat(4,1fr); }
-.quizCountButtons button { min-width: 0; padding: 6px 3px; border: 1px solid #b9bdb7; background: #faf8f3; font-size: 13px; line-height: 1.35; overflow-wrap: anywhere; }
+.quizCountButtons button { min-width: 0; min-height: 35px; padding: 4px 2px; border: 1px solid #b9bdb7; background: #faf8f3; font-size: 12px; line-height: 1.35; overflow-wrap: anywhere; }
 .quizCountButtons button + button { margin-left: -1px; }
 .quizCountButtons button.active { border-color: #1d6e69; background: #1d6e69; color: #fff; }
 .quizCountButtons button:disabled, .quizStart:disabled { cursor: not-allowed; opacity: .48; }
@@ -1516,9 +1516,7 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
 .quizOptions button > span { min-width: 0; font-size: 1rem; overflow-wrap: anywhere; }
 .quizOptions button small { font-size: .875rem; }
 .quizOptions button > b { font-size: .875rem; overflow-wrap: anywhere; }
-.quizSetup label > span, .quizSetup > div > span { font-size: .875rem; line-height: 1.5; }
 .quizSetup .quizCandidateSummary { grid-template-columns: minmax(0,1fr); }
-.quizCountButtons button { min-height: 44px; }
 .quizImageCard .panelHead { flex-wrap: wrap; gap: .375rem; }
 .quizImageCard .panelHead small { font-size: .875rem; }
 .quizImageCard { container: quiz-image / inline-size; min-width: 0; }
@@ -1573,9 +1571,6 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
 .surfaceLandmarkPicker > div > button span,
 .specimenLayerPicker > div > button span,
 .specimenLayerPicker > div > button em,
-.quizSetup label > span,
-.quizSetup > div > span,
-.quizSetup select,
 .quizOptions button small,
 .quizOptions button > b { font-size: var(--ui-font-14); }
 
@@ -1710,3 +1705,20 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
 .workspace-entrance .phoneRailToggle{display:none}
 .sourcesContent{padding:20px;overflow-wrap:anywhere}
 .sourcesContent>button{padding:10px 14px;min-height:44px}
+
+/* The quiz rail is for changing the next set; keep the current question in view. */
+.quizScopeNote summary{cursor:pointer;font-size:12px}
+.quizAdvancedFilters{border-top:1px solid #d3d4cf;padding-top:5px}
+.quizAdvancedFilters summary{cursor:pointer;font-size:12px;font-weight:700;color:#315f59}
+.quizAdvancedFilters summary small{margin-left:6px;color:#9b483a}
+.quizAdvancedFilters>div{display:grid;gap:7px;margin-top:7px}
+@media(min-width:761px){
+  .appShell.workspace-quiz:not(.phone-mode) .leftRail{padding-top:7px}
+  .workspace-quiz:not(.phone-mode) .leftRail>.eyebrow{margin:0 10px 4px;font-size:10px}
+  .workspace-quiz:not(.phone-mode) .quizRailScore{grid-template-columns:auto auto 1fr;align-items:baseline;gap:4px;margin:0 8px 6px;padding:7px 9px}
+  .workspace-quiz:not(.phone-mode) .quizRailScore strong{font-size:28px}
+  .workspace-quiz:not(.phone-mode) .quizRailScore>span{font-size:12px}
+  .workspace-quiz:not(.phone-mode) .quizRailScore small{grid-column:auto;margin:0;text-align:right;font-size:12px;white-space:nowrap}
+  .workspace-quiz:not(.phone-mode) .provisionalQuizToggle{padding:5px}
+}
+@media(pointer:coarse){.workspace-quiz .quizSetup select,.workspace-quiz .quizCountButtons button,.workspace-quiz .quizStart{min-height:44px}}
