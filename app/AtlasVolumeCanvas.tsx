@@ -508,7 +508,7 @@ export function AtlasVolumeCanvas({circuitStageMs=2200,dimContextOverlays=false,
   const ref=useRef<HTMLCanvasElement>(null),panDrag=useRef<{x:number;y:number;pan:{x:number;y:number};moved:boolean}|null>(null),surfaceClick=useRef<{x:number;y:number;moved:boolean}|null>(null),[data,setData]=useState<Volume|null>(null),[bigBrain,setBigBrain]=useState<BigBrain|null>(null),[fixedBrain,setFixedBrain]=useState<FixedBrain|null>(null),[manualSeg,setManualSeg]=useState<ManualSeg|null>(null),[meshes,setMeshes]=useState<{surface:Mesh[];segments:Mesh[];overlays:Mesh[];basal:Mesh[];deep:Mesh[];landmarks:Mesh[]}|null>(null),[selectionLayers,setSelectionLayers]=useState<CircuitSelectionLayer[]>([]),[blockMeshes,setBlockMeshes]=useState<LoadedSpecimenPart[]|null>(null),[blockContextMesh,setBlockContextMesh]=useState<Mesh|null>(null),[error,setError]=useState(""),[retryVersion,setRetryVersion]=useState(0),[sizeVersion,setSizeVersion]=useState(0),[webglUnavailable,setWebglUnavailable]=useState(false),[localZoom,setLocalZoom]=useState(1),[pan,setPan]=useState({x:0,y:0});
   const zoom=sharedZoom??localZoom;
   // 100% is the comfortable default framing, with room to rotate the model.
-  const modelZoom=zoom*.84;
+  const modelZoom=zoom*(specimenBlock==="none"?.84:1);
   const setZoom=onZoomChange??setLocalZoom;
   const [downloadProgress,setDownloadProgress]=useState(()=>atlasDownloadProgress.snapshot());
   const surfaceLandmarkKey=surfaceLandmarks.join(","),surfaceDeepLandmarkKey=surfaceDeepLandmarks.join(",");

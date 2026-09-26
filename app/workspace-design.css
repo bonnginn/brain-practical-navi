@@ -1,0 +1,125 @@
+/* Learning workspace: navigation, observation, then on-demand explanation.
+   The educational entrance deliberately retains its original presentation. */
+.appShell:not(.workspace-entrance){--ui-font-14:14px;--ui-font-15:14px;--ui-font-16:15px;--ui-font-18:16px;--ui-font-20:18px}
+.appShell:not(.workspace-entrance) .headerMoreMenu{display:block}
+.appShell:not(.workspace-entrance) .topActions>.topActionSecondary{display:none}
+.compactLearningHome{width:min(1080px,100%);padding:24px;box-shadow:none;border:0;background:transparent}
+.compactLearningHome>header>span{display:none}
+.compactLearningHome>header h1{font:700 26px/1.3 sans-serif;margin:0 0 6px;letter-spacing:0}
+.compactLearningHome>header p{font-size:14px;line-height:1.5}
+.compactLearningHome .homeLearningGuide{margin-top:18px}
+.compactLearningHome .homeLearningGuide>header h2{font-size:14px;margin:0;color:#536b65}
+.compactLearningHome .homeLearningGuide ol{margin-top:8px;gap:12px}
+.compactLearningHome .homeLearningGuide li{padding:0;background:#fff;border:1px solid #cbd7d1;border-radius:10px;overflow:hidden}
+.compactLearningHome .homeLearningGuide li>button{margin:0;padding:18px;text-align:left;border:0;border-radius:0;background:#edf4f1;font-size:18px;min-height:62px}
+.compactLearningHome .homeLearningGuide li>button:hover{background:#dcece5}
+.compactLearningHome .homeLearningGuide details{padding:10px 18px;font-size:13px}
+.compactLearningHome .homeLearningGuide summary{cursor:pointer;color:#4b665d;font-size:13px}
+.compactLearningHome .homeLearningGuide details p{font-size:14px;margin:8px 0;line-height:1.6}
+.compactLearningHome .homeLearningGuide h3{font-size:16px}
+.compactLearningHome>footer{margin-top:16px;gap:6px}
+.compactLearningHome>footer button{border:0;padding:7px 9px;font-size:13px;text-decoration:underline;text-underline-offset:3px}
+.compactLearningHome .pwaUpdateNotice{margin-top:12px;padding:8px 12px;font-size:13px}
+.compactLearningHome .pwaUpdateNotice p{font-size:12px;line-height:1.5}
+.inspectorTabs{display:flex;gap:4px;border-bottom:1px solid #c5d2cc;margin-bottom:12px;padding-bottom:6px}
+.inspectorTabs button{flex:1;min-height:38px;border:0;border-radius:5px;background:transparent;color:#456057;font-size:14px;font-weight:700}
+.inspectorTabs button[aria-pressed=true]{background:#285e55;color:white}
+.freeExplorer>section[hidden]{display:none}
+.freeExplorer>section>header{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:13px}
+.freeExplorer>section>header small{display:none}
+.freeExplorer>section>header button{font-size:12px;padding:5px;border:1px solid #bccbc4;background:transparent}
+.freeExplorer>section>header b{display:none}
+.freeExplorer .freeEmptySelection{padding:8px;font-size:13px}
+.freeExplorer .freeEmptySelection p{margin:4px 0;font-size:13px}
+.blockPriorityDetails{margin:8px 10px;color:#5b6b65;font-size:12px}
+.blockPriorityDetails summary{cursor:pointer}
+.blockPriorityGroup>header small{display:none}
+.blockPriorityGroup .blockPriorityReason{display:none}
+.circuitOverview{font-size:13px;margin:8px 0}
+.circuitOverview summary,.pathwayObservationOrder summary{cursor:pointer;font-size:13px}
+.pathwayPresets>div{display:none}
+.pathwayPresets{margin:0 0 10px;padding:8px}
+.pathwayPresets nav{gap:4px}
+.pathwayPresets nav button{font-size:12px;padding:7px 5px}
+.circuitTeaching{padding:10px;margin-top:8px}
+.circuitTeaching>header>span{display:none}
+.circuitTeaching>header h3{margin:0;font-size:16px}
+.circuitTeaching .circuitPlaybackNote{font-size:12px;line-height:1.5}
+.circuitTeaching .circuitPlayback{position:sticky;top:-14px;z-index:2;background:#fafbf8;padding-block:6px}
+.learningGuide:has(.freeExplorer){display:flex;flex-direction:column}
+.learningGuide:has(.freeExplorer)>.surfaceNomenclatureNote{order:2}
+.learningGuide:has(.freeExplorer)>.freeExplorer{margin-top:0;border-top:0;padding-top:0}
+.learningGuide:has(.freeExplorer)>h2{flex-shrink:0}
+.pathwayPresets>select{width:100%;min-height:36px;border:1px solid #9bad9f;background:#fff;color:#234e43;font:inherit;font-size:14px;padding:6px}
+.appShell:not(.workspace-entrance) .learningGuide:has(.freeExplorer)>h2{display:none}
+.appShell:not(.workspace-entrance) .learningGuide:has(.freeExplorer)>.freeExplorer{margin:0;padding:0;border:0}
+.appShell:not(.workspace-entrance) .learningGuide .circuitTeaching>header h3{margin:0}
+@media(min-width:761px){
+  .appShell:not(.workspace-entrance):not(.phone-mode){grid-template-rows:64px minmax(0,1fr);grid-template-columns:158px minmax(0,1fr);height:100dvh;min-height:0}
+  .appShell.homeShell:not(.workspace-entrance):not(.phone-mode){grid-template-columns:1fr}
+  .appShell.workspace-quiz:not(.findPractice):not(.phone-mode){grid-template-columns:clamp(250px,20vw,290px) minmax(0,1fr)}
+  .appShell:not(.workspace-entrance):not(.phone-mode) .topbar{height:64px;display:flex;gap:12px;padding:0 16px;grid-column:1/-1;grid-row:1;background:#fff;border-bottom:1px solid #d6dfda}
+  .appShell:not(.workspace-entrance) .brand{font-size:14px;letter-spacing:0;gap:7px;flex-shrink:0}
+  .appShell:not(.workspace-entrance) .brand small{display:none}
+  .appShell:not(.workspace-entrance) .brandMark{width:30px;height:30px}
+  .appShell:not(.workspace-entrance) .workspaceSwitch{display:flex;flex:1;grid-area:auto;width:auto;justify-content:center;background:transparent;padding:0;gap:2px}
+  .appShell:not(.workspace-entrance) .workspaceSwitch button{min-width:0;padding:8px 12px;border-radius:6px;font-size:14px;white-space:nowrap}
+  .appShell:not(.workspace-entrance) .workspaceSwitch button>span{font-size:14px}
+  .appShell:not(.workspace-entrance) .workspaceSwitch i{display:none}
+  .appShell:not(.workspace-entrance) .workspaceSwitch button.active{background:#e4efea;color:#174c42;box-shadow:none}
+  .appShell:not(.workspace-entrance) .topActions{grid-area:auto;gap:6px;flex-shrink:0}
+  .appShell:not(.workspace-entrance) .topActions>span{display:none}
+  .appShell:not(.workspace-entrance) .topActions>button,.appShell:not(.workspace-entrance) .languageSwitch,.appShell:not(.workspace-entrance) .headerMoreTrigger{font-size:12px;min-height:36px;padding:7px 8px;border-radius:4px}
+  .appShell:not(.workspace-entrance) .leftRail{padding-top:14px;background:#edf1ed}
+  .appShell:not(.workspace-entrance) .leftRail>.eyebrow{font-size:10px;letter-spacing:.08em;margin-bottom:8px}
+  .appShell:not(.workspace-entrance) .lessonRailBtn{padding:10px 12px;min-height:44px;grid-template-columns:23px 1fr}
+  .appShell:not(.workspace-entrance) .lessonRailBtn b{font-size:13px;line-height:1.5}
+  .appShell:not(.workspace-entrance) .lessonRailBtn small{display:none}
+  .appShell:not(.workspace-entrance) .workArea{padding:12px 16px;min-height:0}
+  .appShell:not(.workspace-entrance) .learningGrid{gap:12px;grid-template-columns:minmax(0,1fr) clamp(260px,27vw,350px)}
+  .appShell:not(.workspace-entrance) .learningGuide{padding:14px;background:#fafbf8;border-color:#d2dcd5;border-radius:6px}
+  .appShell:not(.workspace-entrance) .learningGuide>.guideIndex{display:none}
+  .appShell:not(.workspace-entrance) .learningGuide h2{font:700 18px/1.4 sans-serif;margin:0 0 8px}
+  .appShell:not(.workspace-entrance) .learningGuide>p{font-size:13px;line-height:1.6}
+  .appShell:not(.workspace-entrance) .learningGuide h3{margin-top:14px;font-size:14px}
+  .appShell:not(.workspace-entrance) .learningGuide .accuracyNote{margin-top:12px;padding:8px;font-size:12px}
+  .appShell:not(.workspace-entrance) .surfaceRegionPicker{margin-top:12px;padding-top:10px}
+  .appShell:not(.workspace-entrance) .surfaceRegionPicker header small{font-size:12px}
+  .appShell:not(.workspace-entrance) .surfaceRegionLessonRow button{font-size:13px}
+  .appShell:not(.workspace-entrance) .surfaceRegionLessonRow small{font-size:11px}
+  .appShell:not(.workspace-entrance) .freeExplorer{margin-top:12px;padding-top:8px}
+  .appShell:not(.workspace-entrance) .freeStructureIndex{margin-top:8px}
+  .appShell:not(.workspace-entrance) .freeSelectedHeader{margin-top:10px}
+  .appShell:not(.workspace-entrance) .freeSelectedHeader span{display:none}
+  .surfaceModelCard:has(.surfaceDisplayControls){grid-template-rows:auto minmax(140px,1fr) auto auto;overflow:hidden}
+  .surfaceModelCard>.panelHead{padding:8px 10px;min-height:54px}
+  .surfaceModelCard>.panelHead small{font-size:11px;line-height:1.4}
+  .surfaceModelCard>.panelHead .panelActions button{font-size:12px;padding:6px;min-height:32px}
+  .modelStepSummary .pathwayStepperModelTag{padding:5px 10px}
+  .modelStepSummary .pathwayStepperModelTag>span,.modelStepSummary .pathwayStepperModelTag>small:last-child{display:none}
+  .modelStepSummary .pathwayStepperModelTag>b{font-size:14px}
+  .surfaceDisplayControls{padding:5px 8px}
+  .surfaceDisplayControls button{min-height:32px;font-size:12px;padding:5px 7px}
+  .appShell:not(.workspace-entrance) .homeArea{padding:12px;grid-column:1/-1}
+  .compactLearningHome{padding:14px 24px}
+}
+@media(max-width:760px){
+  .compactLearningHome{padding:12px!important}
+  .compactLearningHome>header h1{font-size:23px}
+  .compactLearningHome .homeLearningGuide ol{grid-template-columns:1fr;gap:8px}
+  .compactLearningHome .homeLearningGuide li>button{min-height:48px;padding:12px 14px;font-size:16px}
+  .compactLearningHome .homeLearningGuide details{padding:8px 14px}
+  .compactLearningHome>footer{display:flex;flex-wrap:wrap}
+  .compactLearningHome>footer button{width:auto;font-size:12px}
+}
+@media(min-width:761px) and (max-width:1050px){
+  .appShell[data-locale=en]:not(.workspace-entrance):not(.phone-mode){grid-template-rows:96px minmax(0,1fr)}
+  .appShell[data-locale=en]:not(.workspace-entrance):not(.phone-mode) .topbar{height:96px;flex-wrap:wrap;gap:0 8px;padding-block:5px}
+  .appShell[data-locale=en]:not(.workspace-entrance) .workspaceSwitch{order:3;flex-basis:100%}
+  .appShell[data-locale=en]:not(.workspace-entrance) .brandMark{font-size:10px!important;letter-spacing:0}
+}
+@media(min-width:761px) and (max-width:900px){
+  .appShell:not(.workspace-entrance):not(.phone-mode){grid-template-rows:96px minmax(0,1fr)}
+  .appShell:not(.workspace-entrance):not(.phone-mode) .topbar{height:96px;flex-wrap:wrap;gap:0 8px;padding-block:5px}
+  .appShell:not(.workspace-entrance) .workspaceSwitch{order:3;flex-basis:100%}
+}
