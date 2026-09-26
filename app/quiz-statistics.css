@@ -1,3 +1,4 @@
-.quizStatistics{margin:8px 0;font-size:13px;line-height:1.6;text-align:left;overflow-wrap:anywhere}
+.quizStatistics{font-size:12px;line-height:1.5;text-align:left;overflow-wrap:anywhere;color:#536765}
+.quizStatistics>p{margin:0 0 3px}
 .quizStatistics summary{cursor:pointer;color:#315f59}
-.quizStatistics p{font-size:inherit;margin:8px 0}
+.quizStatistics details p{font-size:inherit;margin:7px 0 0;max-width:70ch}
