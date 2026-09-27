@@ -1962,7 +1962,7 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
         <aside className="quizQuestionCard" tabIndex={-1} data-quiz-target={quizQuestion.target} data-quiz-kind={quizQuestionKind} data-quiz-format={neurovascularQuiz?"neurovascular":surfaceQuiz?"surface":"section"} data-quiz-plane={quizModelQuestion?undefined:quizQuestion.plane} data-quiz-position={quizModelQuestion?undefined:quizQuestion.position} data-quiz-view={quizModelQuestion?quizQuestion.view:undefined} data-quiz-detail={quizQuestion.detail} data-quiz-queue-length={quizQueue.length} data-quiz-queue-index={quizIndex} data-quiz-inventory-audit={quizVisibilityAuditHighlight!==null?"quizVisibilityAudit":"off"} data-quiz-inventory-sha256={quizVisibilityAuditHighlight!==null?QUIZ_VISIBILITY_INVENTORY_SHA256:undefined}>
           <span className="guideIndex">QUESTION {String(quizIndex+1).padStart(2,"0")} / {quizQueue.length}</span>
           <span className="quizQuestionKind">{quizQuestionKindLabel[quizQuestionKind]}</span>
-          {neurovascularQuiz?<span className="provisionalQuizFlag">模式3D</span>:isProvisionalQuiz(quizQuestion)&&<span className="provisionalQuizFlag" data-no-localize>{isConceptQuiz(quizQuestion)?(englishEdition?"Concept question · provisional":"解説問題・試作"):(englishEdition?"Prototype labels":"試作ラベル")}</span>}
+          {neurovascularQuiz?<span className="provisionalQuizFlag">模式3D</span>:!isConceptQuiz(quizQuestion)&&isProvisionalQuiz(quizQuestion)&&<span className="provisionalQuizFlag" data-no-localize>{englishEdition?"Prototype labels":"試作ラベル"}</span>}
           <h2>{quizQuestion.prompt}</h2>
           <div className="quizOptions">{quizQuestion.options.map((key,i)=>{
             const correct=key===quizCorrectKey,chosen=quizChoice===key;
