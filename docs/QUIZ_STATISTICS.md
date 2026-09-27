@@ -3,6 +3,7 @@
 2026-09-27。Cloudflare Worker/D1と選択肢別集計は公開βで運用中。以後の問題文・選択肢・解説の改訂はローカルで進めており、公開版とは問題版が異なる。
 
 現在のローカル問題集から92問の許可リストを再生成した。`node scripts/build_quiz_statistics_catalog.mjs --check` は問題集との不一致を検出し、Node試験にも組み込んだ。公開βの旧許可リストから、改訂された20問の旧問題版だけを `legacy-catalog.json` に保存した。Workerの次期候補は現行92問と旧20版を別版として受け付け、古いPWAキャッシュの回答を切替中に失わない。集計画面は現在の問題版だけを表示する。`node scripts/build_quiz_statistics_worker.mjs` の出力をCloudflareの受信Workerへ先に反映し、新旧版の実受信を確認してからアプリを公開する。今回、Cloudflareや公開版は更新していない。
+公開βのコミット `02da48a` の92問題版と現行ローカル版を照合し、変更された20問の旧版すべてが `legacy-catalog.json` にあることを確認した（欠落0）。これは次期Worker候補の静的な互換確認であり、Cloudflareでの実受信試験や公開更新ではない。
 
 ## 教材上の表示
 
