@@ -1940,7 +1940,7 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
     {workspace==="quiz"&&<section className="workArea quizArea" id="workspace" tabIndex={-1}>
       {reviewMenu&&!quizStatsOpen&&<div className="workHead"><div><span className="eyebrow">ANATOMY REVIEW QUIZ</span><h1 data-no-localize>{englishEdition?"Review":"復習"}</h1></div><span className="sourceBadge">名称・機能・位置関係を確認</span></div>}
 
-      {(!reviewMenu||quizStatsOpen)&&<div className="findModeSwitch" data-no-localize><button onClick={()=>{setQuizStatsOpen(false);setReviewMenu(true)}}>{englishEdition?"← Choose a practice method":"← 復習の入口に戻る"}</button><strong>{quizStatsOpen?(englishEdition?"Question results":"問題別集計"):findMode?(englishEdition?"Structure identification":"構造同定"):(englishEdition?"Multiple-choice quiz":"四択クイズ")}</strong></div>}
+      {(!reviewMenu&&!findMode||quizStatsOpen)&&<div className="findModeSwitch" data-no-localize><button onClick={()=>{setQuizStatsOpen(false);setReviewMenu(true)}}>{englishEdition?"← Choose a practice method":"← 復習の入口に戻る"}</button><strong>{quizStatsOpen?(englishEdition?"Question results":"問題別集計"):(englishEdition?"Multiple-choice quiz":"四択クイズ")}</strong></div>}
 
       {!reviewMenu&&!findMode&&quizStudyLabel&&<p className="quizStudyLabel" data-no-localize><strong>{quizStudyLabel}</strong> — {englishEdition?`Reviewing ${quizQueue.length} related questions`:`関連する収録済み${quizQueue.length}問で復習`}</p>}
       {quizThemeOrigin&&<div className="circuitQuizReturn" data-no-localize><span>{quizThemeOrigin.theme[englishEdition?"en":"ja"].name}</span><button onClick={returnFromThemeReview}>{englishEdition?"Back to my observation":"復習前の観察に戻る"}</button></div>}
