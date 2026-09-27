@@ -39,7 +39,7 @@
 }
 
 @media(min-width:761px){
-.brodmannLayout{height:calc(100dvh - 235px);min-height:260px}
+.brodmannLayout{height:calc(100dvh - 200px);min-height:260px}
 .brodmannModel,.brodmannPanel{height:100%;max-height:none}
 .brodmannCanvas{min-height:100px;height:auto}
 .brodmannTools{flex:0 0 auto;gap:.25rem}
