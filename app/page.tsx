@@ -44,6 +44,7 @@ import { observationQuestionsForEntry } from "../src/anatomyReviewQueue.mjs";
 import { balancedQuizOrder } from "../src/quizOrder.mjs";
 import { isQuizAnatomyAvailable, quizAnatomyHoldSummary } from "../src/quizAnatomyHold.mjs";
 import { quizAnswerComparison, quizFeedbackParagraphs } from "../src/quizComparison.mjs";
+import { quizChoiceGuidance } from "../src/quizChoiceGuidance.mjs";
 import {sendQuizStatistic} from "../src/quizStatistics.mjs";
 import anatomyReviewRegistry from "../public/atlas/structure-provenance.json";
 import { freeObservationReadings, sectionStructureReadings, matchesJapaneseSearch, normalizeJapaneseSearch } from "../src/japaneseSearch";
@@ -1147,6 +1148,7 @@ export default function Home() {
   const surfaceQuizTarget=surfaceQuiz?surfaceRegions[quizQuestion.target]:surfaceRegions.precentral;
   const neurovascularQuizTarget=neurovascularQuiz?neurovascularStructures[quizQuestion.target]:neurovascularStructures.ica;
   const quizComparison=quizAnswerComparison(quizQuestion,quizChoice,quizTeachingRegistry(quizQuestion),quizOptionTeachingTargets);
+  const quizSelectedGuidance=quizChoiceGuidance(quizQuestion,quizChoice,englishEdition);
   // Neurovascular overlays are rendered in white. The prompt may ask for a
   // name, function, relation, or pathway while retaining the same visual target.
   const quizTarget=neurovascularQuiz?{...neurovascularQuizTarget,color:"#ffffff"}:surfaceQuiz?surfaceQuizTarget:{...sectionQuizTarget,color:QUIZ_SECTION_ACCENT_HEX};
@@ -1661,7 +1663,7 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
   }
   function quizReviewParagraphs(question:QuizQuestion,choice:string){
     const comparison=quizAnswerComparison(question,choice,quizTeachingRegistry(question),quizOptionTeachingTargets);
-    return [...new Set([...quizExplanationParagraphs(question,choice),comparison?.selected.note,comparison?.selected.relation].filter((text):text is string=>Boolean(text)))];
+    return [...new Set([...quizExplanationParagraphs(question,choice),quizChoiceGuidance(question,choice,englishEdition),comparison?.selected.note,comparison?.selected.relation].filter((text):text is string=>Boolean(text)))];
   }
   const answeredMetricRef=useRef<QuizQuestion|null>(null);
   function answerQuiz(key:string){if(quizChoice||quizEmpty||answeredMetricRef.current===quizQuestion||!quizQuestion.options.includes(key))return;answeredMetricRef.current=quizQuestion;setQuizChoice(key);const correct=key===quizCorrectAnswer(quizQuestion);if(correct)setQuizScore(score=>score+1);else setQuizMisses(previous=>[...previous,{question:quizQuestion,choice:key,number:quizIndex+1}]);saveWrongTargets(recordQuizAnswer(wrongTargets,quizQuestion,correct));focusQuizContent();void sendQuizStatistic(quizQuestion,key,import.meta.env.VITE_QUIZ_STATISTICS_URL??'').finally(()=>setQuizStatsRefresh(value=>value+1))}
@@ -1956,7 +1958,7 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
             const option=quizQuestion.optionLabels?.[key]?{name:quizQuestion.optionLabels[key],latin:""}:registryOption;
             return <button key={key} data-quiz-option={key} className={quizChoice?(correct?"correct":chosen?"wrong":"muted"):""} onClick={()=>answerQuiz(key)} disabled={!!quizChoice}><i>{String.fromCharCode(65+i)}</i><span>{option.name}{!englishEdition&&<small>{anatomyDisplayEnglish(option.latin)}</small>}</span>{quizChoice&&correct&&<b>正解</b>}{quizChoice&&chosen&&!correct&&<b>選択</b>}</button>
           })}</div>
-{quizChoice&&<div className={`quizFeedback ${quizChoice===quizCorrectKey?"correct":"wrong"}`} tabIndex={-1} role="status" aria-live="polite"><b>{quizChoice===quizCorrectKey?"正解です":"解説と観察画面で確認"}</b>{(quizQuestion.explanation?[quizQuestion.explanation]:!quizComparison?.expected.note?quizExplanationParagraphs(quizQuestion,quizChoice):[]).map((paragraph,index)=><p key={index}>{paragraph}</p>)}<QuizSources sources={quizReferences(quizQuestion)} english={englishEdition}/><Suspense fallback={null}><QuizOptionResults questions={allQuizQuestions} currentQuestion={quizQuestion} english={englishEdition} refresh={quizStatsRefresh} labelFor={(question,key)=>quizOptionName(question as QuizQuestion,key)}/></Suspense>{quizComparison&&<section className="quizAnswerComparison" aria-label="正答と選択した答えの比較"><dl>{([["正答",quizComparison.expected],["あなたの選択",quizComparison.selected]] as const).map(([label,item])=><div key={label}><dt>{label}</dt><dd><strong>{item.name}</strong>{item.relation&&<p>{item.relation}</p>}{item.note&&<p>{item.note}</p>}</dd></div>)}</dl></section>}<div><button className="reviewTarget" onClick={()=>reviewQuizQuestion(quizQuestion)}>観察画面で位置を確認</button><button className="quizNextPrimary" onClick={nextQuiz}>{quizIndex===quizQueue.length-1?"結果を見る":"次の問題へ"} →</button></div></div>}
+{quizChoice&&<div className={`quizFeedback ${quizChoice===quizCorrectKey?"correct":"wrong"}`} tabIndex={-1} role="status" aria-live="polite"><b>{quizChoice===quizCorrectKey?"正解です":"解説と観察画面で確認"}</b>{(quizQuestion.explanation?[quizQuestion.explanation]:!quizComparison?.expected.note?quizExplanationParagraphs(quizQuestion,quizChoice):[]).map((paragraph,index)=><p key={index}>{paragraph}</p>)}{quizSelectedGuidance&&<p data-no-localize>{quizSelectedGuidance}</p>}<QuizSources sources={quizReferences(quizQuestion)} english={englishEdition}/><Suspense fallback={null}><QuizOptionResults questions={allQuizQuestions} currentQuestion={quizQuestion} english={englishEdition} refresh={quizStatsRefresh} labelFor={(question,key)=>quizOptionName(question as QuizQuestion,key)}/></Suspense>{quizComparison&&<section className="quizAnswerComparison" aria-label="正答と選択した答えの比較"><dl>{([["正答",quizComparison.expected],["あなたの選択",quizComparison.selected]] as const).map(([label,item])=><div key={label}><dt>{label}</dt><dd><strong>{item.name}</strong>{item.relation&&<p>{item.relation}</p>}{item.note&&<p>{item.note}</p>}</dd></div>)}</dl></section>}<div><button className="reviewTarget" onClick={()=>reviewQuizQuestion(quizQuestion)}>観察画面で位置を確認</button><button className="quizNextPrimary" onClick={nextQuiz}>{quizIndex===quizQueue.length-1?"結果を見る":"次の問題へ"} →</button></div></div>}
           <div className="quizScoreLine"><span>現在の正答</span><b>{quizScore}</b><small>/ {quizChoice?quizIndex+1:quizIndex}</small></div>
         </aside>
       </div>}
