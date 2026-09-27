@@ -590,6 +590,12 @@ html, body, #root { height: 100%; overflow: hidden; }
 .surfaceRegionPicker > header small { color: #7c8583; font-size: 15px; }
 .surfaceRegionPicker > header button { padding: 5px 7px; border: 1px solid #b7bdb7; background: transparent; color: #68716f; font-size: 13px; white-space: nowrap; }
 .surfaceRegionPicker > header button:disabled { opacity: .35; }
+@media (max-width: 1120px) {
+  .surfaceRegionPicker > header { flex-wrap: wrap; }
+  .surfaceRegionPicker > header > div,
+  .surfaceRegionPicker > header .pickerActions { flex: 1 1 100%; }
+  .surfaceRegionPicker > header .pickerActions button { flex: 1 1 0; }
+}
 .pickerActions { display: flex; gap: 4px; }
 .surfaceRegionPicker > div { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
 .surfaceRegionPicker > div > button { display: grid; grid-template-columns: 7px minmax(0,1fr); align-items: center; gap: 7px; min-height: 58px; padding: 7px 8px; border: 1px solid #bfc4bd; background: #f2f0eb; text-align: left; }
