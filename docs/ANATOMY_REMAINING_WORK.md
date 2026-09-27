@@ -482,6 +482,8 @@ report `work/anatomy-review/left-lower-cavity-exploration-v1/report.json` SHA `a
 |後付け神経・血管|後交通動脈の模式接続と未選択大脳脚補助部品によるCN III遮蔽は修正済み。全20始点60面＋III/IV広域12面を目視。VII/VIIIの側頭葉への遠位侵入部分は除去し、元の近位部分だけ保持（表示切り詰めであり根出口の確定ではない）。Vの側頭葉、IX/X/XIの小脳組織への侵入は未修正で関連8問保留/出題92。IIIは実際の脳内束との混同を避け真の出現部を特定する必要がある。根糸・XI脊髄根は未収載。NERVE_ORIGIN_IMAGE_REVIEW.md・NEUROVASCULAR_TOPOLOGY_REPAIR.md参照。|
 |溝の色付け|試した2方式は連続性・自然さを満たさず不採用。新モデルを完成した扱いにしない。ALL_STRUCTURE_ANATOMY_REVIEW.md参照。|
 
+2026-09-27の現行脳室ラベル（圧縮SHA `71eebaf135377bf8da9b121e6a7a510de8066c3ca9172cf02d32b55baa140a0a`）の読み取り専用確認：ID23の2点（seed XYZ 152,233,118）とID24の7点（250,239,119）を、BigBrain 0.5 mm原画像と重ね、各3方向の隣接3面、計18面で見た。左2点は明るい腔縁、右7点は下角近傍の明るい帯と灰色の組織の境界付近にある。画像上の小片が腔内だけか、組織を含むかをこの解像度だけでは確定できないため、連結性のみを根拠とする削除・橋渡しはしない。図と点座標は `work/anatomy-review/current-small-islands-71ee-v1/report.json`、原画像／現行重ね合わせの6図に保持。ラベル・メッシュ・公開版は変更なし。教材上の明白な誤表示がない限り、この微小境界より主要な説明・操作の修正を優先する。
+
 ## CN IIIの再表示確認
 
 **後続修正**：未選択の大脳脚位置目安が遮蔽する問題を切り分け、選択時だけ描画するよう変更した。PEDUNCLE_VISIBILITY_REPAIR.md参照。以下は修正前の所見。画像work/cn3-current-*.pngは後続実行で修正後へ更新されており、修正前の固定証拠として引用しない。
