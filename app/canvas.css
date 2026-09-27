@@ -72,6 +72,10 @@
 .structureGroupGrid button { min-width: 0; display: grid; grid-template-columns: 7px minmax(0,1fr) auto; align-items: center; gap: 5px; padding: 6px 7px; border: 1px solid #c4c7c1; background: #f3f2ed; color: #677170; text-align: left; font-size: 15px; }
 .structureGroupGrid button i { width: 7px; height: 7px; border-radius: 50%; }
 .structureGroupGrid button span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+@media(min-width:761px) and (max-width:1050px){
+  html[lang="en"] .workspace-sections .structureGroupGrid button span{overflow:visible;text-overflow:clip;white-space:normal;overflow-wrap:break-word;font-size:12px;line-height:1.2}
+  html[lang="en"] .workspace-sections .structureGroupGrid button small{font-size:11px}
+}
 .structureGroupGrid button small { color: #969c9a; font: 14px monospace; }
 .structureGroupGrid button.active { border-color: #4c7775; background: #dfe9e5; color: #203c3b; font-weight: 700; }
 .structureGroupGrid button.partial { border-color: #9fb5af; background: #eef3f0; }
@@ -590,6 +594,12 @@ html, body, #root { height: 100%; overflow: hidden; }
 .surfaceRegionPicker > header small { color: #7c8583; font-size: 15px; }
 .surfaceRegionPicker > header button { padding: 5px 7px; border: 1px solid #b7bdb7; background: transparent; color: #68716f; font-size: 13px; white-space: nowrap; }
 .surfaceRegionPicker > header button:disabled { opacity: .35; }
+@media (max-width: 1120px) {
+  .surfaceRegionPicker > header { flex-wrap: wrap; }
+  .surfaceRegionPicker > header > div,
+  .surfaceRegionPicker > header .pickerActions { flex: 1 1 100%; }
+  .surfaceRegionPicker > header .pickerActions button { flex: 1 1 0; }
+}
 .pickerActions { display: flex; gap: 4px; }
 .surfaceRegionPicker > div { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
 .surfaceRegionPicker > div > button { display: grid; grid-template-columns: 7px minmax(0,1fr); align-items: center; gap: 7px; min-height: 58px; padding: 7px 8px; border: 1px solid #bfc4bd; background: #f2f0eb; text-align: left; }
@@ -658,6 +668,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 .freeStructureIndex b { color: #40524e; font-size: 14px; }
 .freeStructureIndex small { color: #7b8582; font-size: 12px; }
 .freeStructureIndex select { min-width: 0; width: 100%; padding: 7px 8px; border: 1px solid #aab4ae; background: #fff; color: #2f3d3a; font-size: 14px; }
+@media(min-width:761px) and (max-width:900px){.freeStructureIndex{grid-template-columns:minmax(0,1fr);gap:5px;padding:7px}}
 .freeSelectedHeader { display: flex; align-items: end; justify-content: space-between; gap: 8px; margin: 14px 0 7px; padding-top: 12px; border-top: 1px solid #c7cbc5; }
 .freeSelectedHeader > div { display: grid; }
 .freeSelectedHeader b { color: #32413e; font-size: 15px; }
@@ -721,9 +732,6 @@ html, body, #root { height: 100%; overflow: hidden; }
 .freeSelectedCards p { margin: 4px 0 0; color: #626d69; font-size: 13px; line-height: 1.45; }
 .freeSelectedCards article > button { align-self: start; width: 28px; height: 28px; border: 1px solid #bdc3bd; background: #fff; color: #68736f; font-size: 18px; }
 .freeSelectedCards article > button:hover { border-color: #8a645d; color: #8a3f35; }
-.freeEmptySelection { padding: 18px 12px; border: 1px dashed #adb6b0; background: #f5f3ee; text-align: center; }
-.freeEmptySelection b { color: #485652; font-size: 15px; }
-.freeEmptySelection p { margin: 4px 0 0; color: #78817f; font-size: 13px; line-height: 1.5; }
 .accuracyNote { margin-top: 22px; padding: 14px 15px; border-left: 4px solid #1d6e69; background: #f1f0eb; }
 .accuracyNote.warning { border-left-color: #e36e57; }
 .accuracyNote b { font-size: 14px; }
@@ -764,6 +772,7 @@ html[lang="en"] .specimenLayerPicker button span small { display: none; }
 .quizFeedback > b { font-size: 15px; }
 .quizFeedback p { margin: 6px 0 10px; color: #606a68; font-size: 14px; line-height: 1.65; }
 .quizFeedback > div { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 9px; }
+.quizFeedbackActions { padding-bottom: 12px; margin-bottom: 12px; border-bottom: 1px solid #cbd3cd; }
 .quizFeedback button { width: 100%; padding: 9px; border: 0; background: #172126; color: white; font-size: 14px; font-weight: 700; }
 .quizFeedback button.reviewTarget { border: 1px solid #54766e; background: #fff; color: #365e55; }
 .quizScoreLine { display: flex; align-items: baseline; justify-content: flex-end; gap: 7px; margin-top: 18px; color: #7d8583; }
@@ -1070,6 +1079,15 @@ html[lang="en"] .specimenLayerPicker button span small { display: none; }
 
 @media(max-width:1120px){.workspaceSwitch button>span{font-size:12px}}
 @media(max-width:760px){.workspaceSwitch button>span{font-size:10px}.legalButton,.helpButton{font-size:10px}.feedbackButton::after{font-size:10px}.workHead{display:block}.workHead h1{font-size:24px;line-height:1.25}.sourceBadge{display:inline-block;margin-top:10px}}
+
+/* A narrow mouse-driven window keeps desktop controls, but the learner's
+   current question must precede the settings for the next quiz run. */
+@media(max-width:760px){
+  .appShell.workspace-quiz:not(.phone-mode){display:flex;flex-direction:column}
+  .appShell.workspace-quiz:not(.phone-mode)>.workArea.quizArea{order:0}
+  .appShell.workspace-quiz:not(.phone-mode)>.phoneSettingsSheet>.leftRail{order:1}
+  .appShell.workspace-quiz:not(.phone-mode) .quizImageCard{height:clamp(300px,48svh,360px)}
+}
 
 /* On narrow screens, preserve readable destinations instead of squeezing all
    six workspaces and the utility actions into a single 390 px row. */

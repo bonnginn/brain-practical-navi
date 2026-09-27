@@ -1,6 +1,5 @@
 .findModeSwitch,.findActions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
 .findReviewHeader{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 10px;flex-shrink:0}
-.findReviewHeader h1{font:600 22px/1.3 sans-serif;margin:0}
 .findReviewHeader>button{background:transparent;border:0;text-decoration:underline;text-underline-offset:3px;color:#44645b;font-size:13px;padding:8px 0}
 .findReviewHeader>strong{font-size:15px}
 .findReviewHeader label{display:flex;align-items:center;gap:8px;min-width:0;flex:1}
@@ -17,13 +16,16 @@
 .findActions button:disabled{opacity:.45}
 .findActions .findRevealAnswer{background:#285e55;color:#fff;border-color:#285e55;font-weight:700}
 .findTaskGuide .findClickNote{font-size:12px;color:#60716b;margin-top:6px}
-.findTask .quizSliceNavigator label{display:block;width:100%}
-.findTask .quizSliceNavigator input{width:100%}
-@media(max-width:760px){.findExercise>label{align-items:stretch;flex-direction:column}.findTask{grid-template-columns:1fr}.findTask .quizImageStage{min-height:280px}}
+.findTask .quizSliceNavigator{display:flex;flex-direction:column;align-items:stretch;gap:2px;min-height:0;padding:6px 12px 4px}
+.findTask .quizSliceNavigator label{display:block;width:100%;line-height:0}
+.findTask .quizSliceNavigator input{display:block;width:100%;margin:0}
+@media(max-width:760px){.findExercise>label{align-items:stretch;flex-direction:column}.findTask{grid-template-columns:1fr}.appShell.workspace-quiz.findPractice .findExercise .quizImageCard{height:max-content;align-self:start;grid-template-rows:auto minmax(220px,1fr) auto auto}.findTask .quizSliceNavigator{min-height:52px}}
 
-.findExercise{display:flex;flex-direction:column;flex:1;min-height:0}.findExercise .findTask{min-height:350px}.findExercise .findTaskGuide{overflow:auto}
+.findExercise{display:flex;flex-direction:column;flex:1;min-height:0}.findExercise .findTask{min-height:350px}.findExercise .findTaskGuide{display:flex;flex-direction:column;min-height:0;overflow:hidden}.findTaskGuideBody{flex:1;min-height:0;overflow:auto}
 
 .appShell.workspace-quiz.findPractice{grid-template-columns:minmax(0,1fr)}.findPractice>.leftRail{display:none}.appShell.findPractice .quizArea{grid-column:1 / -1}.findPractice .workHead{margin-bottom:0}.findPractice .findModeSwitch{margin:4px 0}.findPractice .findExercise>label{margin:6px 0}.findExercise .quizImageCard{grid-template-rows:auto minmax(220px,1fr) auto auto}.findExercise .quizImageStage{min-height:220px}
 
 .reviewEntrance{padding:4px 0}.reviewEntranceOptions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.reviewEntranceOptions button{display:flex;flex-direction:column;gap:7px;text-align:left;padding:18px 20px;border:1px solid #91aaa5;border-radius:10px;background:#f5faf7;color:#244d40;font:inherit;line-height:1.5}.reviewEntranceOptions b{font-size:1.15rem}.reviewEntranceOptions button:hover{background:#e1f0e9}.reviewEntranceMeta{display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap;margin-top:12px;padding:10px 12px;border-top:1px solid #d5dfda}.reviewEntrance .reviewStatsLink{flex:none;min-height:32px;padding:5px 8px;border:1px solid #b9c9c3;border-radius:5px;background:#fff;color:#315f59;font:inherit;font-size:12px;cursor:pointer}.reviewEntrance .reviewStatsLink:hover{background:#e1f0e9}.reviewEntranceMeta .quizStatistics{flex:1;min-width:220px}.quizArea .findModeSwitch{align-items:center;margin:0 0 8px}.quizArea .findModeSwitch button{min-height:36px;padding:5px 10px}.quizArea .findModeSwitch strong{align-self:center}.quizArea .workHead{margin-bottom:10px}.findSliceEnds{display:flex;justify-content:space-between;gap:12px}.findPlaneGuide{padding:10px;border-left:3px solid #77978e;background:#f5f6f2}.findPlaneGuide p{margin:5px 0}.findTask .panelHead small{display:block}
 @media(max-width:640px){.reviewEntranceOptions{grid-template-columns:1fr}.reviewEntranceMeta{display:block}.reviewEntranceMeta .quizStatistics{margin-top:8px}}
+.findPlaneGuide summary{cursor:pointer;font-weight:600}
+.findTaskGuide>.findActions:last-child{flex:none;margin:0;padding:8px 0 0;border-top:1px solid #d5dfda;background:inherit}

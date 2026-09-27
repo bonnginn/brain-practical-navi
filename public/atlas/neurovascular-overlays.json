@@ -170,27 +170,27 @@
       "structures": [
         {
           "id": 21,
-          "name": "左I 嗅球・嗅索",
+          "name": "左嗅球・嗅索",
           "displayShiftApplied": true
         },
         {
           "id": 22,
-          "name": "右I 嗅球・嗅索",
+          "name": "右嗅球・嗅索",
           "displayShiftApplied": true
         },
         {
           "id": 23,
-          "name": "左II 視神経・視索",
+          "name": "左視神経（II）・視索",
           "displayShiftApplied": true
         },
         {
           "id": 24,
-          "name": "右II 視神経・視索",
+          "name": "右視神経（II）・視索",
           "displayShiftApplied": true
         },
         {
           "id": 25,
-          "name": "II 視交叉",
+          "name": "視交叉",
           "displayShiftApplied": true
         },
         {

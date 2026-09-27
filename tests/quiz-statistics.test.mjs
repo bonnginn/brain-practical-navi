@@ -1,13 +1,20 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
+import {execFileSync} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
 import {questionMetric,readQuizStatistics,sendQuizStatistic} from '../src/quizStatistics.mjs';
 import {receiveAnswer} from '../services/quiz-statistics/worker.mjs';
 
 const q={target:'caudate',prompt:'Find it',options:['caudate','putamen','pallidum','thalamus'],plane:'coronal',position:65};
 const row=JSON.parse(readFileSync(new URL('../services/quiz-statistics/catalog.json',import.meta.url),'utf8'))[0];
+const legacyRows=JSON.parse(readFileSync(new URL('../services/quiz-statistics/legacy-catalog.json',import.meta.url),'utf8'));
 const origin='https://bonnginn.github.io';
 function request(path,method='GET',body,from=origin){return new Request(`https://stats.example.org${path}`,{method,headers:{Origin:from,...(body?{'Content-Type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{})})}
+
+test('Worker allowlist matches the current learner quiz revisions',()=>{
+  assert.match(execFileSync(process.execPath,[fileURLToPath(new URL('../scripts/build_quiz_statistics_catalog.mjs',import.meta.url)),'--check'],{encoding:'utf8'}),/matches \d+ current questions/);
+});
 
 test('revision is stable under option shuffle but changes with teaching content or plane',async()=>{
   const metric=await questionMetric(q);
@@ -49,6 +56,55 @@ test('receiver counts choices, returns all question totals, and rejects extra fi
   assert.equal(totals.find(item=>item.choice===row.options[0]).answers,2);
   assert.equal(totals.find(item=>item.choice===row.options[1]).answers,1);
   assert.equal((await receiveAnswer(request('/results','GET',undefined,'https://elsewhere.example'),env)).status,403);
+});
+
+test('cached beta question revisions remain valid without mixing their new options',async()=>{
+  const legacy=legacyRows.find(item=>item.question==='caudate-role-choice');
+  const current=JSON.parse(readFileSync(new URL('../services/quiz-statistics/catalog.json',import.meta.url),'utf8')).find(item=>item.question===legacy.question);
+  const oldChoice=legacy.options.find(choice=>!current.options.includes(choice));
+  assert.ok(oldChoice);
+  assert.notEqual(legacy.revision,current.revision);
+  let writes=0;
+  const env={ALLOWED_ORIGIN:origin,DB:{prepare:()=>({bind:()=>({run:async()=>{writes++}})})}};
+  assert.equal((await receiveAnswer(request('/answer','POST',{question:legacy.question,revision:legacy.revision,choice:oldChoice}),env)).status,204);
+  assert.equal((await receiveAnswer(request('/answer','POST',{question:current.question,revision:current.revision,choice:oldChoice}),env)).status,400);
+  assert.equal(writes,1);
+});
+
+test('cached identification questions keep their original answer sets during rollout',async()=>{
+  const currentRows=JSON.parse(readFileSync(new URL('../services/quiz-statistics/catalog.json',import.meta.url),'utf8'));
+  let writes=0;
+  const env={ALLOWED_ORIGIN:origin,DB:{prepare:()=>({bind:()=>({run:async()=>{writes++}})})}};
+  for(const question of ['identify-accumbens','identify-subthalamic','identify-mammillaryBody']){
+    const old=legacyRows.find(item=>item.question===question);
+    const current=currentRows.find(item=>item.question===question);
+    assert.ok(old&&current);
+    const oldOnly=old.options.find(choice=>!current.options.includes(choice));
+    const newOnly=current.options.find(choice=>!old.options.includes(choice));
+    assert.ok(oldOnly&&newOnly);
+    assert.notEqual(old.revision,current.revision);
+    assert.equal((await receiveAnswer(request('/answer','POST',{question,revision:old.revision,choice:oldOnly}),env)).status,204);
+    assert.equal((await receiveAnswer(request('/answer','POST',{question,revision:old.revision,choice:newOnly}),env)).status,400);
+    assert.equal((await receiveAnswer(request('/answer','POST',{question,revision:current.revision,choice:oldOnly}),env)).status,400);
+  }
+  assert.equal(writes,3);
+});
+
+test('cached cranial-nerve answers remain accepted after teaching revisions',async()=>{
+  const currentRows=JSON.parse(readFileSync(new URL('../services/quiz-statistics/catalog.json',import.meta.url),'utf8'));
+  let writes=0;
+  const env={ALLOWED_ORIGIN:origin,DB:{prepare:()=>({bind:()=>({run:async()=>{writes++}})})}};
+  for(const question of ['cn1-function','cn2-function','cn3-function','cn4-function','cn6-function']){
+    const old=legacyRows.find(item=>item.question===question);
+    const current=currentRows.find(item=>item.question===question);
+    assert.ok(old&&current,`${question}: both revisions exist`);
+    assert.notEqual(old.revision,current.revision);
+    assert.equal((await receiveAnswer(request('/answer','POST',{question,revision:old.revision,choice:old.options[0]}),env)).status,204);
+    assert.equal((await receiveAnswer(request('/answer','POST',{question,revision:current.revision,choice:current.options[0]}),env)).status,204);
+    const currentOnly=current.options.find(choice=>!old.options.includes(choice));
+    if(currentOnly)assert.equal((await receiveAnswer(request('/answer','POST',{question,revision:old.revision,choice:currentOnly}),env)).status,400);
+  }
+  assert.equal(writes,10);
 });
 
 test('read uses public totals without credentials and handles receiver failure',async()=>{

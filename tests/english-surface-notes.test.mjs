@@ -5,6 +5,10 @@ import fs from "node:fs";
 const catalog=JSON.parse(fs.readFileSync(new URL("../app/english-catalog.json",import.meta.url),"utf8"));
 
 test("release credits retain the no-warranty meaning and readable English",()=>{
+  const licenseSummary=catalog["BigBrain由来データのCC BY-NC-SA 4.0に従います。アプリコードはAGPL-3.0-or-later、自作教材文書はCC BY-NC-SA 4.0です。"];
+  assert.match(licenseSummary,/BigBrain-derived data.*CC BY-NC-SA 4\.0/);
+  assert.match(licenseSummary,/app code.*AGPL-3\.0-or-later/);
+  assert.match(licenseSummary,/original teaching documents.*CC BY-NC-SA 4\.0/);
   assert.match(catalog["で提供し、無保証です。変更したWeb版は利用者へ対応ソースを取得する機会を提供する必要があります。"],/without warranty/);
   assert.doesNotMatch(JSON.stringify(catalog),/anical orientation|andd materials|Guaranteed The modified/);
   const status=JSON.parse(fs.readFileSync(new URL("../app/beta-status.json",import.meta.url),"utf8"));

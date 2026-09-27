@@ -1,0 +1,182 @@
+[
+  {
+    "question": "caudate-role-choice",
+    "revision": "da91cb66357e61cd4d3f0fed4aae1891dc166346db9b035883adbeafe8c3f2bf",
+    "prompt": "色で示された尾状核の説明として最も適切なのはどれですか？",
+    "options": [
+      "caudate-loop",
+      "caudate-csf",
+      "caudate-commissure",
+      "caudate-endocrine"
+    ]
+  },
+  {
+    "question": "putamen-relation-choice",
+    "revision": "6eff7201fbfd1100408dc0a05b4aca5d9bbac328859b4458adeaed2dc3a85450",
+    "prompt": "色で示された被殻とともにレンズ核を構成する構造はどれですか？",
+    "options": [
+      "putamen-with-pallidum",
+      "putamen-with-caudate",
+      "putamen-with-thalamus",
+      "putamen-with-amygdala"
+    ]
+  },
+  {
+    "question": "pallidum-segment-choice",
+    "revision": "e68ccf22b7bfb7df4426f976108a973450d15256c497fc0d053157deac324a8f",
+    "prompt": "色で示された淡蒼球の内節（GPi）と外節（GPe）の整理として正しいものはどれですか？",
+    "options": [
+      "pallidum-correct",
+      "pallidum-reversed",
+      "pallidum-sensory",
+      "pallidum-commissure"
+    ]
+  },
+  {
+    "question": "accumbens-relation-choice",
+    "revision": "d437f447a26fb3c956fb50c696229c35e204c82ee65dc34ba449983685b811b8",
+    "prompt": "色で示された側坐核の位置関係として最も適切なのはどれですか？",
+    "options": [
+      "accumbens-ventral",
+      "accumbens-dorsal",
+      "accumbens-ventricle",
+      "accumbens-midbrain"
+    ]
+  },
+  {
+    "question": "amygdala-relation-choice",
+    "revision": "ac29503ce48d85001254d2976732122fb70118af97dd3cae82ecb4bcb8dfc071",
+    "prompt": "色で示された扁桃体と海馬頭の位置関係として適切なのはどれですか？",
+    "options": [
+      "amygdala-anterosuperior",
+      "amygdala-posterior",
+      "amygdala-ventricle",
+      "amygdala-midline"
+    ]
+  },
+  {
+    "question": "red-nucleus-relation-choice",
+    "revision": "9156613f08b88ba6360b153aaf6a7530bb759db211968460e6ea420f5e85f866",
+    "prompt": "色で示された赤核の位置関係として最も適切なのはどれですか？",
+    "options": [
+      "red-relation",
+      "red-lateral-ventricle",
+      "red-cortex",
+      "red-medulla"
+    ]
+  },
+  {
+    "question": "ventricle-relation-choice",
+    "revision": "30d4ad6c5990635fe8af8ab3aa62ab4db3ec62c67fe6ad77097930a86a92011f",
+    "prompt": "色で示された側脳室と尾状核の関係として最も適切なのはどれですか？",
+    "options": [
+      "ventricle-caudate",
+      "ventricle-caudate-uniform",
+      "ventricle-caudate-none",
+      "ventricle-caudate-cerebellum"
+    ]
+  },
+  {
+    "question": "callosum-classification-choice",
+    "revision": "0b3f5d8fa5034fca7d019632a6f1e4153c32d2f6319640ed80024d726e4ee03a",
+    "prompt": "色で示された脳梁と脳弓の線維分類として正しい整理はどれですか？",
+    "options": [
+      "callosum-fornix",
+      "callosum-both-commissure",
+      "callosum-both-csf",
+      "callosum-both-nuclei"
+    ]
+  },
+  {
+    "question": "precentral-function",
+    "revision": "f94570045a0d6a067652b0d1ff23f18dfb54ec79b3123cc7e7eb696f440df05c",
+    "prompt": "色で示された中心前回の主要な機能はどれですか？",
+    "options": [
+      "precentral-motor",
+      "precentral-auditory",
+      "precentral-visual",
+      "precentral-csf"
+    ]
+  },
+  {
+    "question": "superior-temporal-function",
+    "revision": "45864cf689d18ea3adbb85fd3816cfc5e713cbd7ff87662ee7f019f729efb6ff",
+    "prompt": "色で示された上側頭回に関連する機能として最も適切なのはどれですか？",
+    "options": [
+      "stg-auditory",
+      "stg-motor",
+      "stg-endocrine",
+      "stg-csf"
+    ]
+  },
+  {
+    "question": "fusiform-function",
+    "revision": "e7b92a8974723ac5529b9770ff62eac9ee3c1ea792c3a6dd653112549dad3599",
+    "prompt": "色で示された紡錘状回に関連する機能として最も適切なのはどれですか？",
+    "options": [
+      "fusiform-visual",
+      "fusiform-breathing",
+      "fusiform-pupil",
+      "fusiform-csf"
+    ]
+  },
+  {
+    "question": "optic-chiasm-function",
+    "revision": "409d35181967c39de82b4d385dbe397d3afb82ecc1b40bfd805d784d3effd11c",
+    "prompt": "白色で示された視交叉で起こることとして正しいものはどれですか？",
+    "options": [
+      "chiasm-partial",
+      "chiasm-all",
+      "chiasm-none",
+      "chiasm-auditory"
+    ]
+  },
+  {
+    "question": "identify-accumbens",
+    "revision": "579678a4a8a55415c65db47b766807aada6b52d2bf835a8237f04154e4d8e114",
+    "prompt": "尾状核頭と被殻が腹側で連続する領域はどれですか？",
+    "options": ["accumbens", "caudate", "pallidum", "opticChiasm"]
+  },
+  {
+    "question": "identify-subthalamic",
+    "revision": "d521d346e38724399f5ad8bc1457b3986e2b8b988c720dd3aa53a0ea6281d928",
+    "prompt": "間脳の視床下域にあり、視床の腹側・黒質の背側にある小さな核はどれですか？",
+    "options": ["subthalamic", "redNucleus", "accumbens", "amygdala"]
+  },
+  {
+    "question": "identify-mammillaryBody",
+    "revision": "1a8ccd4e73d1aeeeec9bb98e4a46ab560ebd513be96b8136e6195e1627486d80",
+    "prompt": "漏斗の後方、脚間窩の前方に左右一対で見える小隆起はどれですか？",
+    "options": ["mammillaryBody", "redNucleus", "thalamus", "opticChiasm"]
+  },
+  {
+    "question": "cn3-function",
+    "revision": "e9f4eb8f61209f0ef6542f62f6eb6862f39b83c4e8fe3c9304c6a0f89042579e",
+    "prompt": "白色で示された動眼神経（III）の機能として最も適切なのはどれですか？",
+    "options": ["cn3-eye", "cn3-smell", "cn3-hearing", "cn3-tongue"]
+  },
+  {
+    "question": "cn4-function",
+    "revision": "671a71ac208112607296a8362697fe08317cb6704256958e40db4512a8b818de",
+    "prompt": "白色で示された滑車神経（IV）が支配する外眼筋はどれですか？",
+    "options": ["cn4-superior-oblique", "cn4-lateral-rectus", "cn4-masseter", "cn4-tongue"]
+  },
+  {
+    "question": "cn6-function",
+    "revision": "6bc706ef7a8ce97f2dfc3367a2fd1795299075a45f07eb7f81903bafac8f7393",
+    "prompt": "白色で示された外転神経（VI）が支配する筋と運動はどれですか？",
+    "options": ["cn6-lateral-rectus", "cn6-superior-oblique", "cn6-facial", "cn6-mastication"]
+  },
+  {
+    "question": "cn1-function",
+    "revision": "8dc86bd65c63c725c915386cf07817dc053419b1d8dd7173d695951d83fe228c",
+    "prompt": "白色で示された嗅神経（I）の主な機能はどれですか？",
+    "options": ["cn1-smell", "cn1-vision", "cn1-hearing", "cn1-tongue"]
+  },
+  {
+    "question": "cn2-function",
+    "revision": "29eb4388e3d9670f2ca5f26424b242c2862103d8af774941eef18cbccad1e528",
+    "prompt": "白色で示された視神経（II）が伝える情報はどれですか？",
+    "options": ["cn2-vision", "cn2-smell", "cn2-face", "cn2-taste"]
+  }
+]

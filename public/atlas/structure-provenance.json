@@ -140,7 +140,7 @@
       "projectReview": "pending",
       "quizEligibility": "none",
       "sourceRefs": ["project-authored-teaching-overlays"],
-      "knownLimitations": ["脳神経Iの模式的な前脳側走行であり、個体の嗅索を抽出した形状ではありません。"]
+      "knownLimitations": ["嗅神経（I）が嗅球へ入った先の嗅索を示す模式的な前脳側走行で、細い嗅神経根糸や個体の嗅索を抽出した形状ではありません。"]
     },
     {
      "key": "surface-olfactory-bulb",
@@ -1009,7 +1009,7 @@
      "key": "app-schematic-optic-chiasm",
       "lectureLabel": null,
       "coverage": "app-surface-only",
-      "appLabel": "II 視交叉",
+      "appLabel": "視交叉",
       "representations": ["schematic-3d"],
      "learnerSurfaces": ["surface", "quiz"],
       "expertReview": "pending",
@@ -1023,14 +1023,14 @@
       "key": "app-schematic-optic-nerve",
       "lectureLabel": null,
       "coverage": "app-surface-only",
-      "appLabel": "II 視神経・視索",
+      "appLabel": "視神経（II）・視索",
       "representations": ["schematic-3d"],
       "learnerSurfaces": ["surface", "quiz"],
       "expertReview": "pending",
       "projectReview": "pending",
       "quizEligibility": "pilot",
       "sourceRefs": ["project-authored-teaching-overlays"],
-      "knownLimitations": ["視神経・視索をまとめた模式3Dであり、個体境界・全走行・視交叉の分節を示すものではありません。クイズはこの合成模式レイヤーの名称だけを扱います。"],
+      "knownLimitations": ["視神経（II）と視交叉後の視索をまとめた模式3Dです。視索は第II脳神経そのものと区別します。個体境界・全走行・視交叉の分節ではありません。クイズはこの合成模式レイヤーの名称だけを扱います。"],
       "appKeys": ["cn2"]
     },
     {

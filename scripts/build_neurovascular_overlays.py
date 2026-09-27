@@ -185,7 +185,7 @@ def main():
     # The olfactory bulb and tract lie in the olfactory sulcus between the
     # gyrus rectus and orbital gyri. Keep the tract narrow and follow the local
     # inferior pial trough instead of suspending it over the orbital surface.
-    olfactory_paths = pair("I 嗅球・嗅索", [p(14, 62, -23), p(14, 50, -27), p(14, 38, -29), p(13, 27, -28)], 1.15)
+    olfactory_paths = pair("嗅球・嗅索", [p(14, 62, -23), p(14, 50, -27), p(14, 38, -29), p(13, 27, -28)], 1.15)
     for path in olfactory_paths:
         path["bulb_radius"] = 3.8
         path["display_shift"] = DISPLAY_SHIFT.tolist()
@@ -193,12 +193,12 @@ def main():
     # Continue each optic nerve through the chiasmal junction into the optic
     # tract. The paired curves form the gross X-shaped pathway in inferior
     # view; the short transverse bridge below gives the chiasm a visible body.
-    optic_paths = pair("II 視神経・視索", [p(23, 25, -24), p(18, 18, -25), p(12, 11, -25), p(7, 6, -24),
+    optic_paths = pair("視神経（II）・視索", [p(23, 25, -24), p(18, 18, -25), p(12, 11, -25), p(7, 6, -24),
                                              p(3, 4, -24), p(7, 2, -23), p(11, 0, -22), p(15, -6, -21), p(17, -11, -20)], 1.95)
     for path in optic_paths:
         path["display_shift"] = DISPLAY_SHIFT.tolist()
     anterior_nerves += optic_paths
-    anterior_nerves.append({"name": "II 視交叉", "points": [p(-9, 4, -24), p(0, 4, -24), p(9, 4, -24)], "radius": 2.55,
+    anterior_nerves.append({"name": "視交叉", "points": [p(-9, 4, -24), p(0, 4, -24), p(9, 4, -24)], "radius": 2.55,
                             "display_shift": DISPLAY_SHIFT.tolist()})
     # III–XII are schematic proximal paths in ICBM500-oriented space.
     # Their first knots are intended origins, not current-label measurements.

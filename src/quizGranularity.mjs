@@ -14,7 +14,7 @@ export const QUIZ_GRANULARITY_BY_TARGET = Object.freeze({
   accumbens: {format: "section", detail: "coronal", origin: "provisional"},
   hippocampus: {format: "section", detail: "coronal", origin: "provisional"},
   amygdala: {format: "section", detail: "coronal", origin: "standard"},
-  mammillaryBody: {format: "section", detail: "horizontal", origin: "provisional"},
+  mammillaryBody: {format: "section", detail: "horizontal", origin: "standard"},
   redNucleus: {format: "section", detail: "horizontal", origin: "standard"},
   substantiaNigra: {format: "section", detail: "horizontal", origin: "standard"},
   subthalamic: {format: "section", detail: "horizontal", origin: "standard"},

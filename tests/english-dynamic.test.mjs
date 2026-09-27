@@ -39,6 +39,12 @@ test('all surface-label combinations are complete, correctly spaced instructions
 });
 
 test('slice templates retain direction and position and unknown anatomy is not guessed',()=>{
+  for(const selectable of [false,true]){
+    const instruction=`coronal断面 65。${selectable?'クリックで構造を選択、':''}ドラッグまたは矢印キーで移動、ホイールまたはプラス・マイナスで拡大縮小`;
+    const translated=englishDynamic(instruction,{});
+    assert.equal(translated?.includes('Click to identify'),selectable);
+    assert.match(translated,/coronal slice 65.*Drag or use arrow keys to pan/);
+  }
   assert.equal(englishDynamic('coronal断面 53。ホイールで拡大縮小、Shiftドラッグで移動',{}),'coronal slice 53. Use the wheel to zoom and Shift-drag to pan.');
   assert.equal(englishDynamic('復習問題の前後位置',{}),'Quiz slice position (anteroposterior)');
   assert.equal(englishDynamic('位置：未知の構造',{}),null);

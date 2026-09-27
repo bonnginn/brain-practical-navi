@@ -319,7 +319,8 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /提供者は死後組織の研究・教育目的の一般利用に書面同意/);
   assert.match(page, /Heinrich Heine University Düsseldorf医学部倫理委員会の承認（#4863）/);
   assert.match(page, /https:\/\/bigbrainproject\.org\/about\.html/);
-  assert.match(page, /試作中・解剖学的正確性は未保証/);
+  assert.match(page, /className="blockReleaseNote"><span className="sourceBadge">試作<\/span>/);
+  assert.match(page, /形状・範囲・接続関係の完全性や解剖学的正確性は保証しません/);
   assert.match(page, /ブロック標本（試作中）/);
   assert.match(page, /key:"blocks",label:"ブロック標本",sub:"試作品"/);
   assert.match(page, /blockIntroOpen&&<section className="workArea blockIntroPage"/);
@@ -1765,10 +1766,11 @@ test("covers every cranial nerve without hiding schematic limitations", async ()
   assert.deepEqual(nerves.map(item => item.id), Array.from({ length: 25 }, (_, index) => index + 21));
   const normalized = nerves.map(item => item.name.replace(/^[左右]/, ""));
   const expectedCounts = new Map([
-    ["I", 2], ["II", 3], ["III", 2], ["IV", 2], ["V", 2], ["VI", 2],
+    ["III", 2], ["IV", 2], ["V", 2], ["VI", 2],
     ["VII", 2], ["VIII", 2], ["IX", 2], ["X", 2], ["XI", 2], ["XII", 2],
   ]);
-  assert.equal(nerves.filter(item => item.name.includes("I 嗅球・嗅索")).length, 2);
+  assert.deepEqual(nerves.filter(item => [21,22,23,24,25].includes(item.id)).map(item => item.name),
+    ["左嗅球・嗅索","右嗅球・嗅索","左視神経（II）・視索","右視神経（II）・視索","視交叉"]);
   for (const [roman, expected] of expectedCounts) {
     assert.equal(normalized.filter(name => name.startsWith(`${roman} `)).length, expected, `cranial nerve ${roman}`);
   }

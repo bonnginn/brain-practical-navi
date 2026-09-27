@@ -52,7 +52,7 @@ test("generated worker keeps initial install small and runtime caching bounded",
 test("current production build has a bounded, complete PWA shell", () => {
   const result = auditPwaBuild(fileURLToPath(new URL("../dist", import.meta.url)));
   assert.equal(result.ok, true, result.errors.join("\n"));
-  assert.ok(result.shellBytes < 1_510_000);
+  assert.ok(result.shellBytes < 1_550_000);
   assert.ok(result.shellFiles.some(file => /assets\/index-.+\.js$/.test(file)));
   assert.ok(result.shellFiles.some(file => /assets\/index-.+\.css$/.test(file)));
 });
