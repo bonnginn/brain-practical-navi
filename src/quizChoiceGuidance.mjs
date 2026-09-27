@@ -101,6 +101,21 @@ const guidance={
     "ica-venous":["硬膜静脈洞は脳から戻る静脈血の排出路です。内頸動脈は脳へ血液を送る動脈です。","Dural venous sinuses drain venous blood from the brain. The internal carotid is an artery that supplies blood to it."],
     "ica-csf":["脳室は脳脊髄液の腔です。内頸動脈は脳底を走り、前方循環へ血液を送ります。","Ventricles are CSF-filled cavities. The internal carotid runs at the brain base and supplies the anterior circulation."],
   },
+  "cn3-function":{
+    "cn3-lateral-rectus":["外側直筋は外転神経（VI）の支配です。動眼神経（III）は内側直筋など多くの外眼筋と、上眼瞼挙上・縮瞳・調節に関わります。","The abducens nerve (VI) supplies the lateral rectus. Oculomotor (III) supplies most other extraocular muscles, lifts the upper eyelid, and carries fibres for pupillary constriction and accommodation."],
+    "cn3-superior-oblique":["上斜筋は滑車神経（IV）の支配です。動眼神経（III）は下斜筋や内側直筋などを支配します。","The trochlear nerve (IV) supplies the superior oblique. Oculomotor (III) supplies the inferior oblique, medial rectus, and other muscles."],
+    "cn3-facial":["表情筋は顔面神経（VII）の支配です。動眼神経（III）は主に眼球運動、上眼瞼挙上、縮瞳・調節に関わります。","The facial nerve (VII) supplies muscles of facial expression. Oculomotor (III) primarily controls eye movements, upper-lid elevation, pupillary constriction, and accommodation."],
+  },
+  "cn4-function":{
+    "cn4-lateral-rectus":["外側直筋は外転神経（VI）の支配です。滑車神経（IV）が支配するのは上斜筋です。","The abducens nerve (VI) supplies the lateral rectus. The trochlear nerve (IV) supplies the superior oblique."],
+    "cn4-inferior-oblique":["下斜筋は動眼神経（III）の支配です。滑車神経（IV）が支配するのは上斜筋です。","The oculomotor nerve (III) supplies the inferior oblique. The trochlear nerve (IV) supplies the superior oblique."],
+    "cn4-superior-rectus":["上直筋は動眼神経（III）の支配です。滑車神経（IV）が支配するのは上斜筋です。","The oculomotor nerve (III) supplies the superior rectus. The trochlear nerve (IV) supplies the superior oblique."],
+  },
+  "cn6-function":{
+    "cn6-superior-oblique":["上斜筋は滑車神経（IV）の支配です。外転神経（VI）は外側直筋を支配します。","The trochlear nerve (IV) supplies the superior oblique. The abducens nerve (VI) supplies the lateral rectus."],
+    "cn6-medial-rectus":["内側直筋は動眼神経（III）の支配で、眼球の内転に関わります。外転神経（VI）は外側直筋による外転です。","The oculomotor nerve (III) supplies the medial rectus for adduction. The abducens nerve (VI) supplies the lateral rectus for abduction."],
+    "cn6-inferior-oblique":["下斜筋は動眼神経（III）の支配です。外転神経（VI）が支配するのは外側直筋です。","The oculomotor nerve (III) supplies the inferior oblique. The abducens nerve (VI) supplies the lateral rectus."],
+  },
 };
 
 export function quizChoiceGuidance(question,choice,english=false){

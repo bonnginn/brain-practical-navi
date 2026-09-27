@@ -90,6 +90,21 @@ test('cached identification questions keep their original answer sets during rol
   assert.equal(writes,3);
 });
 
+test('cached cranial-nerve answers remain accepted after teaching revisions',async()=>{
+  const currentRows=JSON.parse(readFileSync(new URL('../services/quiz-statistics/catalog.json',import.meta.url),'utf8'));
+  let writes=0;
+  const env={ALLOWED_ORIGIN:origin,DB:{prepare:()=>({bind:()=>({run:async()=>{writes++}})})}};
+  for(const question of ['cn1-function','cn2-function','cn3-function','cn4-function','cn6-function']){
+    const old=legacyRows.find(item=>item.question===question);
+    const current=currentRows.find(item=>item.question===question);
+    assert.ok(old&&current,`${question}: both revisions exist`);
+    assert.notEqual(old.revision,current.revision);
+    assert.equal((await receiveAnswer(request('/answer','POST',{question,revision:old.revision,choice:old.options[0]}),env)).status,204);
+    assert.equal((await receiveAnswer(request('/answer','POST',{question,revision:current.revision,choice:current.options[0]}),env)).status,204);
+  }
+  assert.equal(writes,10);
+});
+
 test('read uses public totals without credentials and handles receiver failure',async()=>{
   const fetcher=async(url,options)=>{assert.equal(url,'https://example.org/results');assert.equal(options.credentials,'omit');return {ok:true,json:async()=>[{question:'q',revision:'r',choice:'a',answers:2}]}};
   assert.equal((await readQuizStatistics('https://example.org/answer',fetcher))[0].answers,2);

@@ -3,6 +3,7 @@ import {normalizeJapaneseSearch} from '../src/japaneseSearch';
 import './reference-search.css';
 
 const sources = [
+  {name:"UTHealth Neuroanatomy Online — Extraocular Muscles",url:"https://nba.uth.tmc.edu/neuroanatomy/L8/Lab08p17_index.html",ja:"III・IV・VIがそれぞれ支配する外眼筋を見分ける四択の参考。模式脳神経の形状や個々の筋を表示する資料ではありません。",en:"Reference for distinguishing the extraocular muscles supplied by III, IV and VI in review questions. It does not validate the schematic nerve shapes or display the individual muscles."},
   {name:"NIH MeSH — Olfactory Nerve",url:"https://www.ncbi.nlm.nih.gov/mesh/68009832",ja:"嗅神経（I）の線維と嗅球を区別する用語の参考。模式3Dは嗅球・嗅索を示し、細い神経根糸は含みません。",en:"Terminology reference distinguishing olfactory nerve (I) fibres from the olfactory bulb. The schematic shows the bulb and tract, not fine nerve filaments."},
   {name:"NIH MeSH — Optic Nerve",url:"https://www.ncbi.nlm.nih.gov/mesh/68009900",ja:"視神経（II）と視交叉後の視索を分けて説明するための用語の参考。",en:"Terminology reference for distinguishing the optic nerve (II) from the tract beyond the chiasm."},
   {name:"NIH MeSH — Optic Tract",url:"https://www.ncbi.nlm.nih.gov/mesh/68065866",ja:"視索を視交叉から外側膝状体などへ向かう経路として扱うための用語の参考。",en:"Terminology reference for the optic tract running from the chiasm toward the lateral geniculate bodies and other targets."},

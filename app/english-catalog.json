@@ -1,4 +1,12 @@
 {
+  "外側直筋による眼球外転のみ": "Only eye abduction by the lateral rectus",
+  "上斜筋による眼球運動のみ": "Only eye movement by the superior oblique",
+  "外眼筋ではなく表情筋の運動": "Facial expression rather than extraocular movement",
+  "下斜筋": "Inferior oblique muscle",
+  "上直筋": "Superior rectus muscle",
+  "内側直筋による眼球内転": "Eye adduction by the medial rectus",
+  "下斜筋による眼球運動": "Eye movement by the inferior oblique",
+  "上斜筋による眼球運動": "Eye movement by the superior oblique",
   "学習メニュー": "Learning menu",
   "触覚・固有感覚の一次処理を担う": "Performs primary processing of touch and proprioception",
   "随意運動の実行": "Execution of voluntary movement",

@@ -148,5 +148,35 @@
     "revision": "1a8ccd4e73d1aeeeec9bb98e4a46ab560ebd513be96b8136e6195e1627486d80",
     "prompt": "漏斗の後方、脚間窩の前方に左右一対で見える小隆起はどれですか？",
     "options": ["mammillaryBody", "redNucleus", "thalamus", "opticChiasm"]
+  },
+  {
+    "question": "cn3-function",
+    "revision": "e9f4eb8f61209f0ef6542f62f6eb6862f39b83c4e8fe3c9304c6a0f89042579e",
+    "prompt": "白色で示された動眼神経（III）の機能として最も適切なのはどれですか？",
+    "options": ["cn3-eye", "cn3-smell", "cn3-hearing", "cn3-tongue"]
+  },
+  {
+    "question": "cn4-function",
+    "revision": "671a71ac208112607296a8362697fe08317cb6704256958e40db4512a8b818de",
+    "prompt": "白色で示された滑車神経（IV）が支配する外眼筋はどれですか？",
+    "options": ["cn4-superior-oblique", "cn4-lateral-rectus", "cn4-masseter", "cn4-tongue"]
+  },
+  {
+    "question": "cn6-function",
+    "revision": "6bc706ef7a8ce97f2dfc3367a2fd1795299075a45f07eb7f81903bafac8f7393",
+    "prompt": "白色で示された外転神経（VI）が支配する筋と運動はどれですか？",
+    "options": ["cn6-lateral-rectus", "cn6-superior-oblique", "cn6-facial", "cn6-mastication"]
+  },
+  {
+    "question": "cn1-function",
+    "revision": "8dc86bd65c63c725c915386cf07817dc053419b1d8dd7173d695951d83fe228c",
+    "prompt": "白色で示された嗅神経（I）の主な機能はどれですか？",
+    "options": ["cn1-smell", "cn1-vision", "cn1-hearing", "cn1-tongue"]
+  },
+  {
+    "question": "cn2-function",
+    "revision": "29eb4388e3d9670f2ca5f26424b242c2862103d8af774941eef18cbccad1e528",
+    "prompt": "白色で示された視神経（II）が伝える情報はどれですか？",
+    "options": ["cn2-vision", "cn2-smell", "cn2-face", "cn2-taste"]
   }
 ]

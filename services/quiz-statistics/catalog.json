@@ -925,35 +925,35 @@
   },
   {
     "question": "cn3-function",
-    "revision": "e9f4eb8f61209f0ef6542f62f6eb6862f39b83c4e8fe3c9304c6a0f89042579e",
+    "revision": "5687ef7188e020f973b5afc0e9808aaf934632aa3481d8ead8d16911bbe115a4",
     "prompt": "白色で示された動眼神経（III）の機能として最も適切なのはどれですか？",
     "options": [
       "cn3-eye",
-      "cn3-smell",
-      "cn3-hearing",
-      "cn3-tongue"
+      "cn3-lateral-rectus",
+      "cn3-superior-oblique",
+      "cn3-facial"
     ]
   },
   {
     "question": "cn4-function",
-    "revision": "671a71ac208112607296a8362697fe08317cb6704256958e40db4512a8b818de",
+    "revision": "3cb5340aaa1d8dd4acad26be3e4238d6fdcdc1376038b28af7a04d97ef481c6b",
     "prompt": "白色で示された滑車神経（IV）が支配する外眼筋はどれですか？",
     "options": [
       "cn4-superior-oblique",
       "cn4-lateral-rectus",
-      "cn4-masseter",
-      "cn4-tongue"
+      "cn4-inferior-oblique",
+      "cn4-superior-rectus"
     ]
   },
   {
     "question": "cn6-function",
-    "revision": "6bc706ef7a8ce97f2dfc3367a2fd1795299075a45f07eb7f81903bafac8f7393",
+    "revision": "e723b32efb24ba64e1c9aca1a4500e83d0426f7f74f1c89d2953313c48afbe67",
     "prompt": "白色で示された外転神経（VI）が支配する筋と運動はどれですか？",
     "options": [
       "cn6-lateral-rectus",
       "cn6-superior-oblique",
-      "cn6-facial",
-      "cn6-mastication"
+      "cn6-medial-rectus",
+      "cn6-inferior-oblique"
     ]
   },
   {
