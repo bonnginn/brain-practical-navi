@@ -4,7 +4,7 @@ import {readFileSync} from 'node:fs';
 import {quizChoiceGuidance} from '../src/quizChoiceGuidance.mjs';
 
 const bank=JSON.parse(readFileSync(new URL('../app/quiz-concept-bank.json',import.meta.url),'utf8'));
-const ids=['putamen-relation-choice','hippocampus-pathway-choice','mammillary-pathway-choice','thalamus-relation-choice','capsule-relation-choice','callosum-classification-choice','optic-chiasm-function'];
+const ids=['putamen-relation-choice','hippocampus-pathway-choice','mammillary-pathway-choice','thalamus-relation-choice','capsule-relation-choice','callosum-classification-choice','optic-chiasm-function','ventricle-relation-choice','amygdala-relation-choice'];
 
 test('each selected distractor in the priority questions explains the relevant contrast in both languages',()=>{
   for(const id of ids){

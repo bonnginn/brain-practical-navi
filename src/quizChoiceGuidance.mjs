@@ -36,6 +36,16 @@ const guidance={
     "chiasm-none":["鼻側網膜からの線維は視交叉で対側へ渡ります。耳側網膜からの線維は同側へ進みます。","Fibres from nasal retina cross at the optic chiasm; fibres from temporal retina remain ipsilateral."],
     "chiasm-reversed":["交叉するのは耳側ではなく鼻側網膜の線維です。左右の視索はそれぞれ反対側の視野情報を両眼から受け取ります。","Nasal, not temporal, retinal fibres cross. Each optic tract carries information from the opposite visual field of both eyes."],
   },
+  "ventricle-relation-choice":{
+    "ventricle-caudate-medial-floor":["前角の内側壁は主に透明中隔です。下角の床には海馬が隆起し、尾状核尾部は天井側を走ります。","The septum pellucidum forms most of the anterior horn's medial wall. The hippocampus raises the floor of the inferior horn, while the caudate tail follows its roof."],
+    "ventricle-caudate-roof-floor":["側脳室体部の屋根は脳梁の下面です。視床が床の一部をつくり、尾状核体部は外側に沿います。","The corpus callosum forms the roof of the ventricular body. The thalamus contributes to its floor, while the caudate body follows its lateral side."],
+    "ventricle-caudate-swapped":["尾状核の大きな頭部は前角に接し、細い尾部は後方から下角の天井側へ回り込みます。","The large caudate head adjoins the anterior horn; its slender tail curves posteriorly and then follows the roof of the inferior horn."],
+  },
+  "amygdala-relation-choice":{
+    "amygdala-posterior":["前方から後方へ冠状断を追うと、扁桃体が先に現れ、その後に海馬頭が見えてきます。","On moving posteriorly through coronal sections, the amygdala appears before the hippocampal head."],
+    "amygdala-ventricle":["側脳室下角の床を内側から隆起させるのは海馬です。扁桃体は海馬頭の前上方に位置します。","The hippocampus raises the medial part of the inferior horn's floor. The amygdala lies anterior and superior to the hippocampal head."],
+    "amygdala-midline":["扁桃体は内側側頭葉の核群、海馬は海馬体の一部で、隣接しますが同一の皮質回ではありません。","The amygdala is a nuclear complex in the medial temporal lobe, while the hippocampus belongs to the hippocampal formation. They are adjacent but distinct."],
+  },
 };
 
 export function quizChoiceGuidance(question,choice,english=false){
