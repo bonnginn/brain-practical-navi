@@ -36,10 +36,9 @@ export function pwa(): Plugin {
           isOutputChunk(output)
           || (!isOutputChunk(output) && /\.css$/i.test(output.fileName)),
         );
-      // Aggregate results require the network. Load their lazy UI on demand so
-      // the offline anatomy shell stays within its established size budget.
-      const generatedShellOutputs = generatedOutputs.filter(output => !/^assets\/Quiz(?:OptionResults|Statistics)-/.test(output.fileName));
-      const generatedShellFiles = generatedShellOutputs.map(output => `./${output.fileName}`).sort();
+      // Keep lazy UI code with the active release. Its data still requires the
+      // network, but old tabs must not request chunks removed by a new deploy.
+      const generatedShellFiles = generatedOutputs.map(output => `./${output.fileName}`).sort();
       const shellFiles = ["./", "./favicon.svg", "./manifest.webmanifest", ...generatedShellFiles];
       const revisionHash = createHash("sha256").update(JSON.stringify(shellFiles)).update(readFileSync(indexHtmlPath));
       for (const output of generatedOutputs.sort((left, right) => left.fileName.localeCompare(right.fileName))) {
