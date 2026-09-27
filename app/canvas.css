@@ -72,6 +72,10 @@
 .structureGroupGrid button { min-width: 0; display: grid; grid-template-columns: 7px minmax(0,1fr) auto; align-items: center; gap: 5px; padding: 6px 7px; border: 1px solid #c4c7c1; background: #f3f2ed; color: #677170; text-align: left; font-size: 15px; }
 .structureGroupGrid button i { width: 7px; height: 7px; border-radius: 50%; }
 .structureGroupGrid button span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+@media(min-width:761px) and (max-width:1050px){
+  html[lang="en"] .workspace-sections .structureGroupGrid button span{overflow:visible;text-overflow:clip;white-space:normal;overflow-wrap:break-word;font-size:12px;line-height:1.2}
+  html[lang="en"] .workspace-sections .structureGroupGrid button small{font-size:11px}
+}
 .structureGroupGrid button small { color: #969c9a; font: 14px monospace; }
 .structureGroupGrid button.active { border-color: #4c7775; background: #dfe9e5; color: #203c3b; font-weight: 700; }
 .structureGroupGrid button.partial { border-color: #9fb5af; background: #eef3f0; }
