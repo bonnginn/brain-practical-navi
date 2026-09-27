@@ -25,8 +25,8 @@ test("quiz granularity audit classifies all 23 unchanged targets", () => {
     uniqueTargetCount: 23,
     sectionCount: 17,
     surfaceCount: 6,
-    standardCount: 7,
-    provisionalCount: 16,
+    standardCount: 8,
+    provisionalCount: 15,
     formatCounts: { section: 17, surface: 6 },
   });
   assert.equal(questions.some(question => question.target === "opticChiasm"), false);
@@ -53,8 +53,9 @@ test("topic, origin, and wrong-only filters affect the same candidate count", ()
   assert.equal(countQuizChoice(questions, sectionSagittal, [], "format", "surface"), 6);
   assert.deepEqual(filtersForQuizChoice(sectionSagittal, "format", "surface"), { ...baseFilters, format: "surface", detail: "all" });
   const standardOnly = filterQuizCandidates(questions, { ...baseFilters, includeProvisional: false }, []);
-  assert.equal(standardOnly.length, 7);
-  assert.equal(standardOnly.some(question => ["pallidum", "accumbens", "hippocampus", "mammillaryBody"].includes(question.target)), false);
+  assert.equal(standardOnly.length, 8);
+  assert.equal(standardOnly.some(question => ["pallidum", "accumbens", "hippocampus"].includes(question.target)), false);
+  assert.equal(standardOnly.some(question => question.target === "mammillaryBody"), true);
   assert.equal(filterQuizCandidates(questions, { ...baseFilters, wrongOnly: true }, ["mammillaryBody"]).length, 1);
   assert.equal(filterQuizCandidates(questions, { ...baseFilters, wrongOnly: true }, ["not-a-target"]).length, 0);
 });

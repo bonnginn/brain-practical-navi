@@ -595,7 +595,7 @@ const quizQuestions:QuizQuestion[]=[
   {target:"accumbens",category:"basal",plane:"coronal",position:62,prompt:"尾状核頭と被殻が腹側で連続する領域はどれですか？",options:["accumbens","caudate","pallidum","septumPellucidumPartial"]},
   {target:"hippocampus",category:"limbic",plane:"coronal",position:51,prompt:"側脳室下角の床に沿う構造はどれですか？",options:["hippocampus","amygdala","accumbens","insula"]},
   {target:"amygdala",category:"limbic",plane:"coronal",position:56,prompt:"海馬頭の前上方にある核群はどれですか？",options:["amygdala","hippocampus","putamen","thalamus"]},
-  {target:"mammillaryBody",category:"limbic",plane:"horizontal",position:69,prompt:"漏斗の後方、脚間窩の前方に左右一対で見える小隆起はどれですか？",options:["mammillaryBody","redNucleus","thalamus","opticChiasm"]},
+  {target:"mammillaryBody",category:"limbic",plane:"horizontal",position:69,prompt:"漏斗の後方、脚間窩の前方に左右一対で見える小隆起はどれですか？",options:["mammillaryBody","redNucleus","thalamus","opticChiasmPartial"]},
   {target:"redNucleus",category:"midbrain",plane:"horizontal",position:67,prompt:"中脳水道の腹外側、黒質の背内側に見える核はどれですか？",options:["redNucleus","substantiaNigra","subthalamic","thalamus"]},
   {target:"substantiaNigra",category:"midbrain",plane:"horizontal",position:69,prompt:"大脳脚の背側に沿う帯状の核はどれですか？",options:["substantiaNigra","redNucleus","pallidum","putamen"]},
   {target:"subthalamic",category:"midbrain",plane:"horizontal",position:66,prompt:"間脳の視床下域にあり、視床の腹側・黒質の背側にある小さな核はどれですか？",options:["subthalamic","redNucleus","substantiaNigra","thalamus"]},

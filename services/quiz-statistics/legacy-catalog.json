@@ -142,5 +142,11 @@
     "revision": "d521d346e38724399f5ad8bc1457b3986e2b8b988c720dd3aa53a0ea6281d928",
     "prompt": "間脳の視床下域にあり、視床の腹側・黒質の背側にある小さな核はどれですか？",
     "options": ["subthalamic", "redNucleus", "accumbens", "amygdala"]
+  },
+  {
+    "question": "identify-mammillaryBody",
+    "revision": "1a8ccd4e73d1aeeeec9bb98e4a46ab560ebd513be96b8136e6195e1627486d80",
+    "prompt": "漏斗の後方、脚間窩の前方に左右一対で見える小隆起はどれですか？",
+    "options": ["mammillaryBody", "redNucleus", "thalamus", "opticChiasm"]
   }
 ]

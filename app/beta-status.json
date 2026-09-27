@@ -6,7 +6,7 @@
     {
       "id": "limitation-optic-id33",
       "heading": "旧ID33と視交叉・視索",
-      "body": "旧BigBrain/CerebrA ID33は視交叉と視索を分離できないため、断面学習画面と通常クイズの正答対象から除外（誤答選択肢には残る）しています。現行候補には視交叉・左右視索ID36–38の部分分節と左右外側膝状体を収録しています。視放線は模式表示で、全境界や専門家レビューは未完了です。",
+      "body": "旧BigBrain/CerebrA ID33は視交叉と視索を分離できないため、断面学習画面と通常の断面クイズから除外しています。現行候補には視交叉・左右視索ID36–38の部分分節と左右外側膝状体を収録しています。視放線は模式表示で、全境界や専門家レビューは未完了です。",
       "evidenceRefs": ["public/atlas/structure-provenance.json", "LECTURE_COVERAGE_AUDIT.md", "OPTIC_PATHWAY_AUDIT.md"],
       "provenanceKeys": ["visual-pathway-legacy-optic-label"]
     },

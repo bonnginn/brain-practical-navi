@@ -75,7 +75,7 @@ test('cached identification questions keep their original answer sets during rol
   const currentRows=JSON.parse(readFileSync(new URL('../services/quiz-statistics/catalog.json',import.meta.url),'utf8'));
   let writes=0;
   const env={ALLOWED_ORIGIN:origin,DB:{prepare:()=>({bind:()=>({run:async()=>{writes++}})})}};
-  for(const question of ['identify-accumbens','identify-subthalamic']){
+  for(const question of ['identify-accumbens','identify-subthalamic','identify-mammillaryBody']){
     const old=legacyRows.find(item=>item.question===question);
     const current=currentRows.find(item=>item.question===question);
     assert.ok(old&&current);
@@ -87,7 +87,7 @@ test('cached identification questions keep their original answer sets during rol
     assert.equal((await receiveAnswer(request('/answer','POST',{question,revision:old.revision,choice:newOnly}),env)).status,400);
     assert.equal((await receiveAnswer(request('/answer','POST',{question,revision:current.revision,choice:oldOnly}),env)).status,400);
   }
-  assert.equal(writes,2);
+  assert.equal(writes,3);
 });
 
 test('read uses public totals without credentials and handles receiver failure',async()=>{
