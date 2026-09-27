@@ -16,6 +16,13 @@ export const quizNerveLocations:Record<string,string>={
   "cn12": "延髄の錐体とオリーブの間から出ます。"
 };
 export const quizOptionTeachingTargets:Record<string,string>={
+  "caudate-loop": "caudate",
+  "caudate-thalamic-relay": "thalamus",
+  "caudate-callosal": "corpusCallosum",
+  "caudate-hippocampal-memory": "hippocampus",
+  "insula-callosum": "corpusCallosum",
+  "insula-cerebellum": "cerebellum",
+  "insula-thalamus": "thalamus",
   "cn1-smell": "cn1",
   "cn2-smell": "cn1",
   "cn3-smell": "cn1",
