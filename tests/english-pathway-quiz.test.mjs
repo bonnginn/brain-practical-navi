@@ -24,8 +24,8 @@ test('pathway labels preserve structures and unsegmented nuclei',()=>{
   assert.match(catalog['海馬傍回・嗅内野はアトラス対応3Dのみです。画像分節や断面Canvasは表示しません。'],/No image-derived segmentation or sectional canvas/);
 });
 test('reviewed quiz explanations retain omitted anatomical information',()=>{
-  assert.match(catalog['脳弓には海馬交連を含みますが、全体は主として海馬からの投射線維です。'],/hippocampal commissure/);
-  assert.match(catalog['上側頭回は聴覚関連皮質を含み、聴覚情報の処理と関係します。'],/superior temporal gyrus/);
+  assert.match(catalog[bank.questions.find(q=>q.id==='callosum-classification-choice').explanation],/hippocampal commissure/);
+  assert.match(catalog[bank.questions.find(q=>q.id==='superior-temporal-function').explanation],/transverse temporal gyri/);
   assert.match(catalog['舌咽神経は咽頭、舌後方、耳下腺などに関わる混合神経です。'],/parotid gland/);
   assert.match(catalog['側脳室前角の外側壁をつくる'],/lateral wall of the anterior horn/);
 });

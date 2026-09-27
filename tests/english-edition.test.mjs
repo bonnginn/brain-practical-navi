@@ -39,6 +39,16 @@ test("English catalog contains reviewed anatomy and no Japanese output",()=>{
   assert.match(catalog["視床下核"]??"",/Subthalamic nucleus/i);
 });
 
+test("anatomical search readings do not translate to unrelated UI or anatomy terms",()=>{
+  const catalog=JSON.parse(fs.readFileSync(new URL("../app/english-catalog.json",import.meta.url),"utf8"));
+  assert.equal(catalog["のうきゅう"],"fornix");
+  assert.equal(catalog["けつぶ"],"cuneus");
+  assert.equal(catalog["かすいたいけい"],"hypophysial stalk");
+  for(const [reading,translation] of Object.entries(catalog)){
+    if(/^[ぁ-ゔー]+$/u.test(reading))assert.doesNotMatch(translation,/^(Close|Cancer|Japanese|How to get cancer)$/u,reading);
+  }
+});
+
 test("quiz controls use complete English and distinguish function from features",()=>{
   const catalog=JSON.parse(fs.readFileSync(new URL("../app/english-catalog.json",import.meta.url),"utf8"));
   for(const [key,value] of Object.entries({"機能":"Function","位置関係":"Spatial relationships","経路":"Pathway","1断面戻る":"Previous slice","1断面進む":"Next slice","この色の構造は？":"Which structure is highlighted?"}))assert.equal(catalog[key],value);
