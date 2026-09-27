@@ -46,6 +46,16 @@ const guidance={
     "amygdala-ventricle":["側脳室下角の床を内側から隆起させるのは海馬です。扁桃体は海馬頭の前上方に位置します。","The hippocampus raises the medial part of the inferior horn's floor. The amygdala lies anterior and superior to the hippocampal head."],
     "amygdala-midline":["扁桃体は内側側頭葉の核群、海馬は海馬体の一部で、隣接しますが同一の皮質回ではありません。","The amygdala is a nuclear complex in the medial temporal lobe, while the hippocampus belongs to the hippocampal formation. They are adjacent but distinct."],
   },
+  "accumbens-relation-choice":{
+    "accumbens-dorsal":["尾状核頭部は側脳室前角に沿う背側線条体です。側坐核はその腹側で被殻へ続く領域にあります。","The caudate head follows the anterior horn as part of dorsal striatum. The accumbens lies ventral to it where the tissue continues toward the putamen."],
+    "accumbens-pallidum":["腹側淡蒼球は側坐核から入力を受ける別の領域です。前交連付近で近接しても、側坐核そのものではありません。","The ventral pallidum receives input from the accumbens but is a distinct region. Their proximity near the anterior commissure does not make them the same nucleus."],
+    "accumbens-septal":["中隔核は透明中隔の基部付近にある別の核群です。名前に「中隔」を含む側坐核も、中隔核と同一ではありません。","The septal nuclei are a separate group near the base of the septum pellucidum. Despite its historical name, the nucleus accumbens is not one of them."],
+  },
+  "red-nucleus-relation-choice":{
+    "red-periaqueductal":["中脳中心灰白質は中脳水道を直接囲みます。赤核はその腹外側の被蓋内にある左右一対の核です。","The periaqueductal gray directly surrounds the aqueduct. The paired red nuclei lie farther ventrolaterally in the tegmentum."],
+    "red-nigra":["黒質は大脳脚の背側に沿う帯状構造です。赤核はそれより背内側の被蓋内に見えます。","The substantia nigra forms a band along the dorsal side of the cerebral peduncle. The red nucleus lies dorsomedial to it in the tegmentum."],
+    "red-tectum":["上丘・下丘は中脳水道の背側にある中脳蓋の隆起です。赤核は水道より腹側の被蓋内にあります。","The superior and inferior colliculi are tectal elevations dorsal to the aqueduct. The red nucleus is in the tegmentum ventral to it."],
+  },
 };
 
 export function quizChoiceGuidance(question,choice,english=false){
