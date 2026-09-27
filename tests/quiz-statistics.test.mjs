@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
+import {execFileSync} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
 import {questionMetric,readQuizStatistics,sendQuizStatistic} from '../src/quizStatistics.mjs';
 import {receiveAnswer} from '../services/quiz-statistics/worker.mjs';
 
@@ -8,6 +10,10 @@ const q={target:'caudate',prompt:'Find it',options:['caudate','putamen','pallidu
 const row=JSON.parse(readFileSync(new URL('../services/quiz-statistics/catalog.json',import.meta.url),'utf8'))[0];
 const origin='https://bonnginn.github.io';
 function request(path,method='GET',body,from=origin){return new Request(`https://stats.example.org${path}`,{method,headers:{Origin:from,...(body?{'Content-Type':'application/json'}:{})},...(body?{body:JSON.stringify(body)}:{})})}
+
+test('Worker allowlist matches the current learner quiz revisions',()=>{
+  assert.match(execFileSync(process.execPath,[fileURLToPath(new URL('../scripts/build_quiz_statistics_catalog.mjs',import.meta.url)),'--check'],{encoding:'utf8'}),/matches \d+ current questions/);
+});
 
 test('revision is stable under option shuffle but changes with teaching content or plane',async()=>{
   const metric=await questionMetric(q);

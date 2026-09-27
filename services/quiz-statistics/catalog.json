@@ -463,13 +463,13 @@
   },
   {
     "question": "caudate-role-choice",
-    "revision": "da91cb66357e61cd4d3f0fed4aae1891dc166346db9b035883adbeafe8c3f2bf",
+    "revision": "31fd0a691fae49fb831c78ecf96afc0b688d8e1937b5ad8d92148b7162142b7d",
     "prompt": "色で示された尾状核の説明として最も適切なのはどれですか？",
     "options": [
       "caudate-loop",
-      "caudate-csf",
-      "caudate-commissure",
-      "caudate-endocrine"
+      "caudate-thalamic-relay",
+      "caudate-callosal",
+      "caudate-hippocampal-memory"
     ]
   },
   {
@@ -485,7 +485,7 @@
   },
   {
     "question": "putamen-relation-choice",
-    "revision": "6eff7201fbfd1100408dc0a05b4aca5d9bbac328859b4458adeaed2dc3a85450",
+    "revision": "3e5e4ca949567fecea371e9b94a80760e8d45b3e0cf1c4ec9b0e64b20735241d",
     "prompt": "色で示された被殻とともにレンズ核を構成する構造はどれですか？",
     "options": [
       "putamen-with-pallidum",
@@ -507,13 +507,13 @@
   },
   {
     "question": "pallidum-segment-choice",
-    "revision": "e68ccf22b7bfb7df4426f976108a973450d15256c497fc0d053157deac324a8f",
+    "revision": "a2a334f27273ee6af09928f801675f3a45c000fb49e607bae3bfe784591872fc",
     "prompt": "色で示された淡蒼球の内節（GPi）と外節（GPe）の整理として正しいものはどれですか？",
     "options": [
       "pallidum-correct",
-      "pallidum-reversed",
-      "pallidum-sensory",
-      "pallidum-commissure"
+      "pallidum-reversed-output",
+      "pallidum-reversed-location",
+      "pallidum-striatal-input"
     ]
   },
   {
@@ -529,13 +529,13 @@
   },
   {
     "question": "accumbens-relation-choice",
-    "revision": "d437f447a26fb3c956fb50c696229c35e204c82ee65dc34ba449983685b811b8",
+    "revision": "9002fea7c066c145c92b29a20c9495dc64d4c9826b0ba4ed5840f5f080751979",
     "prompt": "色で示された側坐核の位置関係として最も適切なのはどれですか？",
     "options": [
       "accumbens-ventral",
       "accumbens-dorsal",
-      "accumbens-ventricle",
-      "accumbens-midbrain"
+      "accumbens-pallidum",
+      "accumbens-septal"
     ]
   },
   {
@@ -573,7 +573,7 @@
   },
   {
     "question": "amygdala-relation-choice",
-    "revision": "ac29503ce48d85001254d2976732122fb70118af97dd3cae82ecb4bcb8dfc071",
+    "revision": "9017e98e1c548dc1826f48f6e40267941f742d5c18a1ef1e704d525597c89725",
     "prompt": "色で示された扁桃体と海馬頭の位置関係として適切なのはどれですか？",
     "options": [
       "amygdala-anterosuperior",
@@ -617,13 +617,13 @@
   },
   {
     "question": "red-nucleus-relation-choice",
-    "revision": "9156613f08b88ba6360b153aaf6a7530bb759db211968460e6ea420f5e85f866",
+    "revision": "b3a43cb419b47247fbb7157e44128eac24c83ed2ceb672d5aee80c050af296a8",
     "prompt": "色で示された赤核の位置関係として最も適切なのはどれですか？",
     "options": [
       "red-relation",
-      "red-lateral-ventricle",
-      "red-cortex",
-      "red-medulla"
+      "red-periaqueductal",
+      "red-nigra",
+      "red-tectum"
     ]
   },
   {
@@ -683,13 +683,13 @@
   },
   {
     "question": "ventricle-relation-choice",
-    "revision": "30d4ad6c5990635fe8af8ab3aa62ab4db3ec62c67fe6ad77097930a86a92011f",
+    "revision": "dae20072245804085e93e6f5c329aec620089c7c509c008027f849a435663e82",
     "prompt": "色で示された側脳室と尾状核の関係として最も適切なのはどれですか？",
     "options": [
       "ventricle-caudate",
-      "ventricle-caudate-uniform",
-      "ventricle-caudate-none",
-      "ventricle-caudate-cerebellum"
+      "ventricle-caudate-medial-floor",
+      "ventricle-caudate-roof-floor",
+      "ventricle-caudate-swapped"
     ]
   },
   {
@@ -727,13 +727,13 @@
   },
   {
     "question": "callosum-classification-choice",
-    "revision": "0b3f5d8fa5034fca7d019632a6f1e4153c32d2f6319640ed80024d726e4ee03a",
+    "revision": "c741fcd14b7aa522c059a5242e0ac068ef387bec6c97ac6453fa550b41fef3fb",
     "prompt": "色で示された脳梁と脳弓の線維分類として正しい整理はどれですか？",
     "options": [
       "callosum-fornix",
       "callosum-both-commissure",
-      "callosum-both-csf",
-      "callosum-both-nuclei"
+      "callosum-reversed-fibres",
+      "callosum-reversed-classes"
     ]
   },
   {
@@ -826,24 +826,24 @@
   },
   {
     "question": "precentral-function",
-    "revision": "f94570045a0d6a067652b0d1ff23f18dfb54ec79b3123cc7e7eb696f440df05c",
+    "revision": "b22ea2f6efb674cb226b9cdc3842226d5f6c9357f3b4843785a5df2f0b894069",
     "prompt": "色で示された中心前回の主要な機能はどれですか？",
     "options": [
       "precentral-motor",
       "precentral-auditory",
       "precentral-visual",
-      "precentral-csf"
+      "precentral-somatosensory"
     ]
   },
   {
     "question": "superior-temporal-function",
-    "revision": "45864cf689d18ea3adbb85fd3816cfc5e713cbd7ff87662ee7f019f729efb6ff",
+    "revision": "42d25571bf2ca26c2df74eaf3547a1c91926c92a3f86f205330048f7cd6dac76",
     "prompt": "色で示された上側頭回に関連する機能として最も適切なのはどれですか？",
     "options": [
       "stg-auditory",
       "stg-motor",
-      "stg-endocrine",
-      "stg-csf"
+      "stg-somatosensory",
+      "stg-visual"
     ]
   },
   {
@@ -881,13 +881,13 @@
   },
   {
     "question": "fusiform-function",
-    "revision": "e7b92a8974723ac5529b9770ff62eac9ee3c1ea792c3a6dd653112549dad3599",
+    "revision": "3226986b6ce3e9555a8f9162c89f76e38c52fd1fe3feeace8157820a48d32143",
     "prompt": "色で示された紡錘状回に関連する機能として最も適切なのはどれですか？",
     "options": [
       "fusiform-visual",
-      "fusiform-breathing",
-      "fusiform-pupil",
-      "fusiform-csf"
+      "fusiform-primary-visual",
+      "fusiform-auditory",
+      "fusiform-somatosensory"
     ]
   },
   {
@@ -914,13 +914,13 @@
   },
   {
     "question": "optic-chiasm-function",
-    "revision": "409d35181967c39de82b4d385dbe397d3afb82ecc1b40bfd805d784d3effd11c",
+    "revision": "1c6d70fd0ecc9ae60cc68b4f5da95c501405eedc9d6c9e1ec720dff53a6f129f",
     "prompt": "白色で示された視交叉で起こることとして正しいものはどれですか？",
     "options": [
       "chiasm-partial",
       "chiasm-all",
       "chiasm-none",
-      "chiasm-auditory"
+      "chiasm-reversed"
     ]
   },
   {

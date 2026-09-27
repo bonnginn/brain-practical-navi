@@ -12,5 +12,12 @@ const questions=[...visual,...concepts].filter(isQuizAnatomyAvailable);
 const rows=await Promise.all(questions.map(async q=>({...await questionMetric(q),prompt:q.prompt,options:q.options})));
 if(new Set(rows.map(q=>q.question)).size!==rows.length)throw Error('Duplicate question identity');
 const folder=new URL('../services/quiz-statistics/',import.meta.url);mkdirSync(folder,{recursive:true});
-writeFileSync(new URL('catalog.json',folder),JSON.stringify(rows,null,2)+'\n');
-console.log(`Statistics allowlist: ${rows.length} questions (held questions excluded)`);
+const destination=new URL('catalog.json',folder);
+const content=JSON.stringify(rows,null,2)+'\n';
+if(process.argv.includes('--check')){
+  if(readFileSync(destination,'utf8')!==content)throw Error('Statistics allowlist is out of date; run node scripts/build_quiz_statistics_catalog.mjs before release');
+  console.log(`Statistics allowlist matches ${rows.length} current questions`);
+}else{
+  writeFileSync(destination,content);
+  console.log(`Statistics allowlist: ${rows.length} questions (held questions excluded)`);
+}
