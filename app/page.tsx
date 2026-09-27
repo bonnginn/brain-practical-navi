@@ -1743,7 +1743,7 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
       </>}
       {workspace==="surface"&&<>
         <p className="eyebrow">SURFACE VIEW</p>
-        {(Object.keys(surfaceViews) as SurfaceViewKey[]).map((key,i)=><button key={key} className={`planeBtn lessonRailBtn ${!brodmannActive&&surfaceView===key?"active":""}`} aria-current={!brodmannActive&&surfaceView===key?"page":undefined} onClick={()=>chooseSurface(key)}><span>{key==="free"?"自由":`0${i+1}`}</span><b>{surfaceViews[key].name}</b><small>{surfaceViews[key].en}</small></button>)}
+        {(Object.keys(surfaceViews) as SurfaceViewKey[]).map((key,i)=><button key={key} className={`planeBtn lessonRailBtn ${!brodmannActive&&surfaceView===key?"active":""}`} aria-current={!brodmannActive&&surfaceView===key?"page":undefined} onClick={()=>chooseSurface(key)}><span>{key==="free"?"•":`0${i+1}`}</span><b>{surfaceViews[key].name}</b><small>{surfaceViews[key].en}</small></button>)}
         <button type="button" data-brodmann-open="true" className={`planeBtn lessonRailBtn ${brodmannActive?"active":""}`} aria-current={brodmannActive?"page":undefined} onClick={()=>{setBrodmannActive(true);updateScreenHistory("#workspace/surface/brodmann","push")}}><span>07</span><b>{englishEdition?"Brodmann areas":"ブロードマン領野"}</b><small>BRODMANN AREAS</small></button>
         <div className="railLine"/>
       </>}
