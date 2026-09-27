@@ -319,7 +319,8 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /提供者は死後組織の研究・教育目的の一般利用に書面同意/);
   assert.match(page, /Heinrich Heine University Düsseldorf医学部倫理委員会の承認（#4863）/);
   assert.match(page, /https:\/\/bigbrainproject\.org\/about\.html/);
-  assert.match(page, /試作中・解剖学的正確性は未保証/);
+  assert.match(page, /className="blockReleaseNote"><span className="sourceBadge">試作<\/span>/);
+  assert.match(page, /形状・範囲・接続関係の完全性や解剖学的正確性は保証しません/);
   assert.match(page, /ブロック標本（試作中）/);
   assert.match(page, /key:"blocks",label:"ブロック標本",sub:"試作品"/);
   assert.match(page, /blockIntroOpen&&<section className="workArea blockIntroPage"/);
