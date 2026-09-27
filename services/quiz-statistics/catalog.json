@@ -34,13 +34,13 @@
   },
   {
     "question": "identify-accumbens",
-    "revision": "579678a4a8a55415c65db47b766807aada6b52d2bf835a8237f04154e4d8e114",
+    "revision": "7212bbc68faa931ebf67adb803cf3fbf9d8fcb08e3ae261aa287d13c72a5c5e6",
     "prompt": "尾状核頭と被殻が腹側で連続する領域はどれですか？",
     "options": [
       "accumbens",
       "caudate",
       "pallidum",
-      "opticChiasm"
+      "septumPellucidumPartial"
     ]
   },
   {
@@ -100,13 +100,13 @@
   },
   {
     "question": "identify-subthalamic",
-    "revision": "d521d346e38724399f5ad8bc1457b3986e2b8b988c720dd3aa53a0ea6281d928",
+    "revision": "045204e8ad8df819359e8a449c4d595bc6f25b70a28bc8862cde428dba80851e",
     "prompt": "間脳の視床下域にあり、視床の腹側・黒質の背側にある小さな核はどれですか？",
     "options": [
       "subthalamic",
       "redNucleus",
-      "accumbens",
-      "amygdala"
+      "substantiaNigra",
+      "thalamus"
     ]
   },
   {
