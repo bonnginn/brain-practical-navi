@@ -1860,7 +1860,7 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
         </div>
       </section></div>
       <div className="sectionUtilities">
-      {contrast==="bigbrain"&&<SectionStudyGuide english={englishEdition} onObserve={observeStudyTheme}><ForamenGuide english={englishEdition} onObserve={observeForamenSlice}/></SectionStudyGuide>}
+      {contrast==="bigbrain"&&<><SectionStudyGuide english={englishEdition} onObserve={observeStudyTheme}><ForamenGuide english={englishEdition} onObserve={observeForamenSlice}/></SectionStudyGuide><ExternalSpecimenVideo context="sections" english={englishEdition}/></>}
       {sectionLinkStatus&&<p role="status">{englishEdition?"This observation link is invalid or uses a different label revision. Its settings were not applied.":"観察リンクが不正、またはラベルの版が異なるため、リンクの設定は適用していません。"}</p>}
       {contrast==="bigbrain"&&<ObservationLink english={englishEdition} onOpen={()=>setPlaying(false)} url={typeof window==="undefined"?"":observationUrl(window.location.href,sectionLinkHash(plane,{version:1,positions:{...sectionPositions.current,[plane]:position},visible:visibleStructures,selected:selectedStructure,layout:sectionLayout,views:sectionModelViews,share:sectionModelShare},sectionAllowedKeys,SEGMENTATION_LABEL_SHA256)??"")}/>}
       </div>
@@ -2003,7 +2003,7 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
       <div className="inspectorTop"><div className="inspectIndex"><span>STRUCTURE GUIDE</span><b>{String(structureKeys.indexOf(selectedStructure)+1).padStart(2,"0")} / {structureKeys.length}</b></div><button className="inspectorClose" onClick={closeSectionDetails} aria-label="解説を閉じる">×</button></div>
       <div className="structureColor" style={{background:current.color}}/>
       <h2 id="section-structure-title">{current.name}</h2>{!englishEdition&&<em>{anatomyDisplayEnglish(current.latin)}</em>}
-      <div className="rule"/><h3>主な役割</h3><p>{structureFunctions[selectedStructure]}</p><ExternalSpecimenVideo context={["ventricle","hippocampus","fornixBodyPartial"].includes(selectedStructure)?"limbic":"sections"} english={englishEdition}/>
+      <div className="rule"/><h3>主な役割</h3><p>{structureFunctions[selectedStructure]}</p>{["ventricle","hippocampus","fornixBodyPartial"].includes(selectedStructure)&&<ExternalSpecimenVideo context="limbic" english={englishEdition}/>}
       <h3>{englishEdition?"Observation landmarks":"観察の手がかり"}</h3>{sectionObservationGuides[selectedStructure]?<div data-no-localize><p>{sectionObservationGuides[selectedStructure]!.observe[englishEdition?"en":"ja"]}</p><p className="structureComparison">{sectionObservationGuides[selectedStructure]!.compare[englishEdition?"en":"ja"]}</p></div>:<p>{current.note}</p>}
       {contrast==="bigbrain"&&sectionComparisonKeys.length>0&&<div className="sectionCompareAction" data-no-localize><button type="button" onClick={showSectionComparison}>{englishEdition?"Show neighbouring structures":"周囲の構造も表示"}</button><small>{sectionComparisonKeys.map(key=>englishEdition?anatomyDisplayEnglish(structures[key].latin):structures[key].name).join(englishEdition?", ":"・")}</small><small>{englishEdition?"Keeps your current slice and selections.":"現在の断面位置と選択を保ち、周囲の構造を追加します。"}</small></div>}
       <dl><div><dt>位置関係</dt><dd>{current.relation}</dd></div><div><dt>現在の断面</dt><dd>{planeData[plane].ja}・位置 {positionLabel}</dd></div></dl>
