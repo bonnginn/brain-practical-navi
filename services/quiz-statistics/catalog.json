@@ -903,8 +903,8 @@
   },
   {
     "question": "cn2-function",
-    "revision": "29eb4388e3d9670f2ca5f26424b242c2862103d8af774941eef18cbccad1e528",
-    "prompt": "白色で示された視神経（II）が伝える情報はどれですか？",
+    "revision": "7a910f041080440f2d3644993c13ce449d0978cd247de55692f7bc1decaea66f",
+    "prompt": "白色の視覚路模式表示に含まれる視神経（II）が伝える情報はどれですか？",
     "options": [
       "cn2-vision",
       "cn2-smell",
