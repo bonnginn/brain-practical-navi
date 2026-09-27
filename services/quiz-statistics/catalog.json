@@ -892,8 +892,8 @@
   },
   {
     "question": "cn1-function",
-    "revision": "8dc86bd65c63c725c915386cf07817dc053419b1d8dd7173d695951d83fe228c",
-    "prompt": "白色で示された嗅神経（I）の主な機能はどれですか？",
+    "revision": "93ae9a6db79adf53d3a3ad7fa1fbfb26e5be5cb80a0d23c2f67025a171a8968e",
+    "prompt": "白色の嗅球・嗅索に入る嗅神経（I）が伝える感覚はどれですか？",
     "options": [
       "cn1-smell",
       "cn1-vision",

@@ -401,7 +401,7 @@ const neurovascularStructures:Record<NeurovascularStructureKey,{name:string;lati
   basilar:{name:"脳底動脈",latin:"Basilar artery",kind:"arteries",ids:[12],note:"橋腹側正中の脳底溝を上行し、終末で後大脳動脈へ分岐する。"},
   pca:{name:"後大脳動脈",latin:"Posterior cerebral artery",kind:"arteries",ids:[13,14],note:"中脳周囲を外側・後方へ回り、後頭葉下面へ向かう。"},
   cerebellarArteries:{name:"小脳動脈群",latin:"SCA / AICA / PICA",kind:"arteries",ids:[15,16,17,18,19,20],note:"脳底動脈・椎骨動脈から小脳へ向かう上・前下・後下小脳動脈。"},
-  cn1:{name:"I 嗅球・嗅索",latin:"Olfactory bulb and tract",kind:"nerves",ids:[21,22],note:"前端の嗅球から、前頭葉下面の嗅溝に沿って嗅索が後方へ走る模式です。"},
+  cn1:{name:"嗅球・嗅索",latin:"Olfactory bulb and tract",kind:"nerves",ids:[21,22],note:"嗅神経（I）の線維は嗅球に入り、嗅球から嗅索が前頭葉下面を後方へ走ります。この模式表示は嗅球・嗅索であり、細い嗅神経根糸そのものは含みません。"},
   cn2:{name:"視神経（II）・視索",latin:"Optic nerve (II) / optic tract",kind:"nerves",ids:[23,24],note:"視神経（II）と、視交叉後の視索を一つにまとめた既存の模式表示です。視索は第II脳神経そのものとは区別します。個体境界や視交叉を分節した表示ではありません。"},
   opticChiasm:{name:"視交叉",latin:"Optic chiasm",kind:"nerves",ids:[25],note:"視交叉では視神経線維の一部が交叉します。模式形状は交叉・非交叉線維を描き分けていません。"},
   cn3:{name:"III 動眼神経",latin:"Oculomotor nerve",kind:"nerves",ids:[26,27],note:"中脳の脚間窩から腹側へ現れる神経です。現行の模式管には中脳組織内を通る部分があり、実際の脳内線維束を追跡したものではありません。脳外の近位経路・根糸・正確な出現境界も未確定です。出現位置の正解図としては扱わないでください。"},
