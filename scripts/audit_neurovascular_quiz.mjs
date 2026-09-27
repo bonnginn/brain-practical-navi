@@ -118,14 +118,14 @@ function assertSourceContract(source, errors) {
     "recordQuizAnswer(wrongTargets,quizQuestion,correct)",
     "neurovascularOverlay={neurovascularQuiz?(quizQuestion.detail===\"arteries\"?\"vessels\":\"nerves\"):\"none\"}",
     "neurovascularHighlights={neurovascularQuiz?quizNeurovascularHighlight:[]}",
-    "view={neurovascularQuiz?\"ghost\":\"inside\"}",
+    "view={neurovascularQuiz&&quizQuestion.detail===\"arteries\"?\"ghost\":\"inside\"}",
+    "showCerebralHemispheres={!neurovascularQuiz||quizQuestion.detail!==\"cranialNerves\"||reviewNerveDisplay(quizQuestion.target).showCerebralHemispheres}",
     "showCerebellum={neurovascularQuiz?false:quizQuestion.view!==\"medial\"}",
     "keepBrainstemOpaqueInGhost={neurovascularQuiz&&quizQuestion.detail===\"cranialNerves\"}",
     "color:[255,255,255]",
     "function reviewQuizQuestion(question:QuizQuestion)",
   ];
   for (const snippet of requiredSnippets) if (!source.includes(snippet)) errors.push(`app source missing pilot contract: ${snippet}`);
-  if (/isNeurovascularQuiz\(question\)[\s\S]{0,500}setSurfaceGhost\(false\)/.test(source)) errors.push("neurovascular review link must preserve the transparent surface policy");
 }
 
 export function auditNeurovascularQuiz({ rootDir = REPOSITORY_ROOT, source, metadata } = {}) {

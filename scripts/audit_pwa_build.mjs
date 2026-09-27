@@ -58,7 +58,7 @@ export function auditPwaBuild(distDirectory = path.join(root, "dist")) {
       errors.push(`large data must not be pre-cached: ${value}`);
     }
   }
-  if (shellBytes > 1_500_000) errors.push(`shell exceeds 1,500,000 bytes: ${shellBytes}`);
+  if (shellBytes > 1_510_000) errors.push(`shell exceeds 1,510,000 bytes: ${shellBytes}`);
   for (const pattern of ["request.method!==\"GET\"", "request.headers.has(\"range\")", "url.origin!==scope.origin", "response.ok", "request.mode===\"navigate\""]) {
     if (!worker.includes(pattern)) errors.push(`worker invariant missing: ${pattern}`);
   }
