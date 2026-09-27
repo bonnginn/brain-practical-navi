@@ -20,6 +20,14 @@ export const quizOptionTeachingTargets:Record<string,string>={
   "caudate-thalamic-relay": "thalamus",
   "caudate-callosal": "corpusCallosum",
   "caudate-hippocampal-memory": "hippocampus",
+  "putamen-with-pallidum": "pallidum",
+  "putamen-with-caudate": "caudate",
+  "putamen-with-thalamus": "thalamus",
+  "putamen-with-amygdala": "amygdala",
+  "hippocampus-fornix": "fornixBodyPartial",
+  "hippocampus-callosum": "corpusCallosum",
+  "hippocampus-capsule": "internalCapsule",
+  "hippocampus-optic": "opticTractsPartial",
   "insula-callosum": "corpusCallosum",
   "insula-cerebellum": "cerebellum",
   "insula-thalamus": "thalamus",
@@ -70,7 +78,11 @@ export const quizOptionTeachingTargets:Record<string,string>={
   "cn4-tongue": "cn12",
   "cn7-tongue-motor": "cn12",
   "cn11-tongue": "cn12",
-  "cn12-tongue": "cn12"
+  "cn12-tongue": "cn12",
+  "basilar-vertebral": "vertebral",
+  "basilar-ica": "ica",
+  "basilar-mca": "mca",
+  "basilar-acomm": "acomm"
 };
 
 export const quizFunctionOverrides:Record<string,string>={
