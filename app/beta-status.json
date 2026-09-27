@@ -26,7 +26,7 @@
     {
       "id": "limitation-unrecorded-items",
       "heading": "未収録項目",
-      "body": "鉤、XI脊髄根、閂・薄束・楔状束の詳細、表在・深部脳静脈と硬膜静脈洞などは未収録です。旧模式海馬采・鉤は使用しません。脳弓体部・脚・柱と両側海馬采の一部は断面・対応3D・関連ブロックに収録していますが、全長・全外縁・精密な終端境界は未確定です。",
+      "body": "鉤、XIの脊髄根糸と大後頭孔・頸静脈孔までの全経路、閂・薄束・楔状束の詳細、表在・深部脳静脈と硬膜静脈洞などは未収録です。XIは延髄外側に沿う短い上行区間だけを模式表示しています。旧模式海馬采・鉤は使用しません。脳弓体部・脚・柱と両側海馬采の一部は断面・対応3D・関連ブロックに収録していますが、全長・全外縁・精密な終端境界は未確定です。",
       "evidenceRefs": ["public/atlas/structure-provenance.json", "LECTURE_COVERAGE_AUDIT.md", "MEDIAL_TEMPORAL_AUDIT.md"],
       "provenanceKeys": ["section-temporal-lobe", "hindbrain-gracile-cuneate-structures", "vascular-venous-system"]
     },
