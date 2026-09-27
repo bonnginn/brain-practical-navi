@@ -46,3 +46,4 @@
 
 概念問題で誤答ごとの説明がなかった9問27選択肢に、短い日英の対比を追加した。淡蒼球内外節、黒質・視床下核、脳幹・小脳、脳表内側面、内頸動脈の問題では、選んだ選択肢が指す別の構造・位置・系を示して正答と比較する。根拠は[UTHealth 淡蒼球](https://nba.uth.tmc.edu/neuroanatomy/L10/Lab10p11_index.html)、[基底核](https://nba.uth.tmc.edu/neuroanatomy/L5/Lab05p14_index.html)、[中脳](https://nba.uth.tmc.edu/neuroanatomy/L10/Lab10p29_index.html)、[第四脳室と小脳](https://nba.uth.tmc.edu/neuroanatomy/l5/Lab05p23_index.html)、[大脳内側面](https://nba.uth.tmc.edu/neuroanatomy/L1/Lab01p22_index.html)、[内頸動脈系](https://nba.uth.tmc.edu/neuroanatomy/l4/Lab04p06_index.html)を照合した。正答や解剖ラベルは変更していない。
 この追補は対象Node 13件、日英文言監査、型検査、通常build、PWA容量監査（1,530,751バイト）が成功。ブラウザでの27通り個別表示と実習での理解確認は未実施。
+9問の答え合わせ画面からも対応するUTHealthの実習ページを開けるよう、問題別の参考先へ直接リンクを同期した。新しい3参照先は実ページを確認済み。四択の問題版には影響せず、現行92問の集計許可リストとの一致と対象Node 10件を確認した。
