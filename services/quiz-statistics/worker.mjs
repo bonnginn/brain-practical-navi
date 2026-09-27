@@ -1,5 +1,6 @@
 import catalog from './catalog.json' with {type:'json'};
-const allowed=new Map(catalog.map(row=>[`${row.question}:${row.revision}`,new Set(row.options)]));
+import legacyCatalog from './legacy-catalog.json' with {type:'json'};
+const allowed=new Map([...catalog,...legacyCatalog].map(row=>[`${row.question}:${row.revision}`,new Set(row.options)]));
 export async function receiveAnswer(request,env) {
   const origin=request.headers.get('Origin');
   if(!origin||origin!==env.ALLOWED_ORIGIN)return new Response(null,{status:403});
