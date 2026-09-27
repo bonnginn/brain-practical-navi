@@ -71,6 +71,25 @@ test('cached beta question revisions remain valid without mixing their new optio
   assert.equal(writes,1);
 });
 
+test('cached identification questions keep their original answer sets during rollout',async()=>{
+  const currentRows=JSON.parse(readFileSync(new URL('../services/quiz-statistics/catalog.json',import.meta.url),'utf8'));
+  let writes=0;
+  const env={ALLOWED_ORIGIN:origin,DB:{prepare:()=>({bind:()=>({run:async()=>{writes++}})})}};
+  for(const question of ['identify-accumbens','identify-subthalamic']){
+    const old=legacyRows.find(item=>item.question===question);
+    const current=currentRows.find(item=>item.question===question);
+    assert.ok(old&&current);
+    const oldOnly=old.options.find(choice=>!current.options.includes(choice));
+    const newOnly=current.options.find(choice=>!old.options.includes(choice));
+    assert.ok(oldOnly&&newOnly);
+    assert.notEqual(old.revision,current.revision);
+    assert.equal((await receiveAnswer(request('/answer','POST',{question,revision:old.revision,choice:oldOnly}),env)).status,204);
+    assert.equal((await receiveAnswer(request('/answer','POST',{question,revision:old.revision,choice:newOnly}),env)).status,400);
+    assert.equal((await receiveAnswer(request('/answer','POST',{question,revision:current.revision,choice:oldOnly}),env)).status,400);
+  }
+  assert.equal(writes,2);
+});
+
 test('read uses public totals without credentials and handles receiver failure',async()=>{
   const fetcher=async(url,options)=>{assert.equal(url,'https://example.org/results');assert.equal(options.credentials,'omit');return {ok:true,json:async()=>[{question:'q',revision:'r',choice:'a',answers:2}]}};
   assert.equal((await readQuizStatistics('https://example.org/answer',fetcher))[0].answers,2);

@@ -130,5 +130,17 @@
       "chiasm-none",
       "chiasm-auditory"
     ]
+  },
+  {
+    "question": "identify-accumbens",
+    "revision": "579678a4a8a55415c65db47b766807aada6b52d2bf835a8237f04154e4d8e114",
+    "prompt": "尾状核頭と被殻が腹側で連続する領域はどれですか？",
+    "options": ["accumbens", "caudate", "pallidum", "opticChiasm"]
+  },
+  {
+    "question": "identify-subthalamic",
+    "revision": "d521d346e38724399f5ad8bc1457b3986e2b8b988c720dd3aa53a0ea6281d928",
+    "prompt": "間脳の視床下域にあり、視床の腹側・黒質の背側にある小さな核はどれですか？",
+    "options": ["subthalamic", "redNucleus", "accumbens", "amygdala"]
   }
 ]
