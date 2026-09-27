@@ -19,7 +19,7 @@
 .findTask .quizSliceNavigator{display:flex;flex-direction:column;align-items:stretch;gap:2px;min-height:0;padding:6px 12px 4px}
 .findTask .quizSliceNavigator label{display:block;width:100%;line-height:0}
 .findTask .quizSliceNavigator input{display:block;width:100%;margin:0}
-@media(max-width:760px){.findExercise>label{align-items:stretch;flex-direction:column}.findTask{grid-template-columns:1fr}.findTask .quizImageStage{min-height:280px}}
+@media(max-width:760px){.findExercise>label{align-items:stretch;flex-direction:column}.findTask{grid-template-columns:1fr}.appShell.workspace-quiz.findPractice .findExercise .quizImageCard{height:max-content;align-self:start;grid-template-rows:auto minmax(220px,1fr) auto auto}.findTask .quizSliceNavigator{min-height:52px}}
 
 .findExercise{display:flex;flex-direction:column;flex:1;min-height:0}.findExercise .findTask{min-height:350px}.findExercise .findTaskGuide{display:flex;flex-direction:column;min-height:0;overflow:hidden}.findTaskGuideBody{flex:1;min-height:0;overflow:auto}
 
