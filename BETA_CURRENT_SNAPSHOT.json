@@ -190,7 +190,7 @@
   "opticPathway": {
     "legacyId33": {
       "legacyVolumeId33TargetExcluded": true,
-      "semanticOpticChiasmWrongOptionPresent": true,
+      "semanticOpticChiasmWrongOptionPresent": false,
       "legacyEntryLearnerMappingCount": 0
     },
     "ids36To38": {

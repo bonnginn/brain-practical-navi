@@ -216,7 +216,7 @@ test("boundary derivation rejects exact ledger and current-document drift", asyn
 test("snapshot keeps optic-pathway adoption boundaries explicit", () => {
   assert.deepEqual(snapshot.opticPathway.legacyId33, {
     legacyVolumeId33TargetExcluded: true,
-    semanticOpticChiasmWrongOptionPresent: true,
+    semanticOpticChiasmWrongOptionPresent: false,
     legacyEntryLearnerMappingCount: 0,
   });
   assert.deepEqual(snapshot.opticPathway.ids36To38, {
@@ -378,7 +378,7 @@ test("validator rejects PWA boundary, blocker, non-evidence, and unverified-boun
 test("validator rejects optic adoption and exclusion mutations", () => {
   const mutated = structuredClone(snapshot);
   mutated.opticPathway.legacyId33.legacyVolumeId33TargetExcluded = false;
-  mutated.opticPathway.legacyId33.semanticOpticChiasmWrongOptionPresent = false;
+  mutated.opticPathway.legacyId33.semanticOpticChiasmWrongOptionPresent = true;
   mutated.opticPathway.ids36To38.status = "adopted";
   mutated.opticPathway.ids39To40.expertReview = "expert-reviewed";
   const result = validateCurrentBetaSnapshot(mutated);
