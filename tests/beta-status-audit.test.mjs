@@ -21,7 +21,7 @@ test("beta status registry is valid and covers the fixed provenance references",
   assert.match(baseStatus.changes.find(item => item.id === "change-beta-readiness-display").body, /専門家確認待ち4/);
   assert.match(baseStatus.changes.find(item => item.id === "change-pwa-install-affordance").body, /実際のホーム画面追加と追加後起動は未確認/);
   assert.match(baseStatus.changes.find(item => item.id === "change-ventricle-cavity-repair").body, /33 voxel/);
-  assert.match(baseStatus.changes.find(item => item.id === "change-papez-provenance-stepper").body, /乳頭体は断面ラベルのみ/);
+  assert.match(baseStatus.changes.find(item => item.id === "change-papez-provenance-stepper").body, /乳頭体の対応3D.*視床前部核は現在も独立分節されていません/);
   assert.match(baseStatus.changes.find(item => item.id === "change-block-priority-routing").body, /観察導線/);
   assert.match(baseStatus.changes.find(item => item.id === "change-block-guided-observation").body, /最終段階だけ全layer/);
   assert.match(baseStatus.changes.find(item => item.id === "change-download-progress").body, /総量不明/);

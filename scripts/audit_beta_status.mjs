@@ -83,7 +83,11 @@ function validateItem(item, label, rootDir, errors, ids) {
     if (claim.pattern.test(text)) errors.push(`${label} contains a forbidden claim: ${claim.name}`);
   }
   const bodyText = typeof item.body === "string" ? item.body : "";
-  if (/(海馬采|鉤|fimbria|uncus)/i.test(bodyText) && /(?:現行|現在|収録|表示|実装|搭載|included|shipped)/i.test(bodyText)
+  const mentionsUncus = /(鉤|uncus)/i.test(bodyText);
+  const mentionsFimbria = /(海馬采|fimbria)/i.test(bodyText);
+  const explicitlyPartialFimbria = /(海馬采の部分分節|両側海馬采の一部|partial (?:bilateral )?fimbria|parts of both fimbriae)/i.test(bodyText);
+  if ((mentionsUncus || (mentionsFimbria && !explicitlyPartialFimbria))
+      && /(?:現行|現在|収録|表示|実装|搭載|included|shipped)/i.test(bodyText)
       && !/(除外|未収録|表示しません|収録していません|含めません|使用しません|退役|not included|not shipped)/i.test(bodyText)) {
     errors.push(`${label} describes retired fimbria/uncus content as current`);
   }

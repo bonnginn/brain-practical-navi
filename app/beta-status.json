@@ -129,8 +129,8 @@
     {
       "id": "change-papez-provenance-stepper",
       "heading": "Papez回路の由来別段階観察",
-      "body": "海馬・乳頭体・視床の既存断面ラベル、脳弓の模式3D、帯状回・海馬傍回・嗅内野のアトラス3Dを、由来を分けた6段階で観察できるようにしました。乳頭体は断面ラベルのみ、視床前部核は未分節と明示し、新しい経路線・mesh・voxelは追加していません。視覚路の同等表示はID36–38未分節のため保留しています。",
-      "evidenceRefs": ["PATHWAY_STEPPER_AUDIT.md", "BETA_ROADMAP.md", "src/pathwayStepper.mjs"]
+      "body": "初期の6段階表示では、海馬・乳頭体・視床の断面ラベル、脳弓の模式3D、帯状回・海馬傍回・嗅内野のアトラス3Dを由来別に観察できるようにしました。後続の更新で、乳頭体の対応3D、脳弓・海馬采の部分分節、視交叉・左右視索の部分分節を追加しました。視床前部核は現在も独立分節されていません。",
+      "evidenceRefs": ["PATHWAY_STEPPER_AUDIT.md", "src/pathwayStepper.mjs", "docs/CURRENT_CIRCUIT_SYNC_2026-09-20.md"]
     },
     {
       "id": "change-orthogonal-audit",
