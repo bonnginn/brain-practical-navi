@@ -1765,10 +1765,11 @@ test("covers every cranial nerve without hiding schematic limitations", async ()
   assert.deepEqual(nerves.map(item => item.id), Array.from({ length: 25 }, (_, index) => index + 21));
   const normalized = nerves.map(item => item.name.replace(/^[左右]/, ""));
   const expectedCounts = new Map([
-    ["I", 2], ["II", 3], ["III", 2], ["IV", 2], ["V", 2], ["VI", 2],
+    ["III", 2], ["IV", 2], ["V", 2], ["VI", 2],
     ["VII", 2], ["VIII", 2], ["IX", 2], ["X", 2], ["XI", 2], ["XII", 2],
   ]);
-  assert.equal(nerves.filter(item => item.name.includes("I 嗅球・嗅索")).length, 2);
+  assert.deepEqual(nerves.filter(item => [21,22,23,24,25].includes(item.id)).map(item => item.name),
+    ["左嗅球・嗅索","右嗅球・嗅索","左視神経（II）・視索","右視神経（II）・視索","視交叉"]);
   for (const [roman, expected] of expectedCounts) {
     assert.equal(normalized.filter(name => name.startsWith(`${roman} `)).length, expected, `cranial nerve ${roman}`);
   }
