@@ -29,8 +29,6 @@
 .freeExplorer>section>header small{display:none}
 .freeExplorer>section>header button{font-size:12px;padding:5px;border:1px solid #bccbc4;background:transparent}
 .freeExplorer>section>header b{display:none}
-.freeExplorer .freeEmptySelection{padding:8px;font-size:13px}
-.freeExplorer .freeEmptySelection p{margin:4px 0;font-size:13px}
 .blockPriorityDetails{margin:8px 10px;color:#5b6b65;font-size:12px}
 .blockPriorityDetails summary{cursor:pointer}
 .sectionPlaneTabs{display:flex;gap:3px;margin-bottom:4px}
