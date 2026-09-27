@@ -101,6 +101,8 @@ test('cached cranial-nerve answers remain accepted after teaching revisions',asy
     assert.notEqual(old.revision,current.revision);
     assert.equal((await receiveAnswer(request('/answer','POST',{question,revision:old.revision,choice:old.options[0]}),env)).status,204);
     assert.equal((await receiveAnswer(request('/answer','POST',{question,revision:current.revision,choice:current.options[0]}),env)).status,204);
+    const currentOnly=current.options.find(choice=>!old.options.includes(choice));
+    if(currentOnly)assert.equal((await receiveAnswer(request('/answer','POST',{question,revision:old.revision,choice:currentOnly}),env)).status,400);
   }
   assert.equal(writes,10);
 });
