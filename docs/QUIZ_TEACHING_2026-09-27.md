@@ -43,3 +43,6 @@
 この2問も公開βのPWAキャッシュに残る可能性があるため、改訂前の問題版を互換用許可リストへ追加した。さらに乳頭体の名称問題では、旧ID33の広い「視交叉〜視索候補」を誤答から外し、現行の視交叉中央部（部分）へ置き換えた。現行部分ラベルと乳頭体の位置関係を比較できる。改訂前の乳頭体問題も互換用に保持し、次期Worker候補の旧版は合計15問。新旧版の選択肢・回答数は混ぜない。Workerとアプリの公開は未実施。
 
 乳頭体の改訂は対象Node 21件、日英文言監査、型検査、通常build、PWA容量監査（1,522,575バイト）が成功。新ポートの実画面で4選択肢と、視交叉を選んだ際の乳頭体との位置・機能の比較を確認した。
+
+概念問題で誤答ごとの説明がなかった9問27選択肢に、短い日英の対比を追加した。淡蒼球内外節、黒質・視床下核、脳幹・小脳、脳表内側面、内頸動脈の問題では、選んだ選択肢が指す別の構造・位置・系を示して正答と比較する。根拠は[UTHealth 淡蒼球](https://nba.uth.tmc.edu/neuroanatomy/L10/Lab10p11_index.html)、[基底核](https://nba.uth.tmc.edu/neuroanatomy/L5/Lab05p14_index.html)、[中脳](https://nba.uth.tmc.edu/neuroanatomy/L10/Lab10p29_index.html)、[第四脳室と小脳](https://nba.uth.tmc.edu/neuroanatomy/l5/Lab05p23_index.html)、[大脳内側面](https://nba.uth.tmc.edu/neuroanatomy/L1/Lab01p22_index.html)、[内頸動脈系](https://nba.uth.tmc.edu/neuroanatomy/l4/Lab04p06_index.html)を照合した。正答や解剖ラベルは変更していない。
+この追補は対象Node 13件、日英文言監査、型検査、通常build、PWA容量監査（1,530,751バイト）が成功。ブラウザでの27通り個別表示と実習での理解確認は未実施。

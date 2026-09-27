@@ -56,6 +56,51 @@ const guidance={
     "red-nigra":["黒質は大脳脚の背側に沿う帯状構造です。赤核はそれより背内側の被蓋内に見えます。","The substantia nigra forms a band along the dorsal side of the cerebral peduncle. The red nucleus lies dorsomedial to it in the tegmentum."],
     "red-tectum":["上丘・下丘は中脳水道の背側にある中脳蓋の隆起です。赤核は水道より腹側の被蓋内にあります。","The superior and inferior colliculi are tectal elevations dorsal to the aqueduct. The red nucleus is in the tegmentum ventral to it."],
   },
+  "pallidum-segment-choice":{
+    "pallidum-reversed-output":["視床へ向かう主要な基底核出力は内節（GPi）から出ます。外節（GPe）は主に視床下核などとの基底核内回路に関わります。","The internal segment (GPi) is a major basal-ganglia output toward the thalamus. The external segment (GPe) mainly participates in circuits within the basal ganglia, including the subthalamic nucleus."],
+    "pallidum-reversed-location":["被殻に近い外側がGPe、内包に近い内側がGPiです。断面で外から内へ追ってください。","The GPe lies laterally beside the putamen; the GPi lies medially beside the internal capsule. Trace them from lateral to medial in the section."],
+    "pallidum-striatal-input":["皮質からの主な入力を受ける線条体は尾状核と被殻です。淡蒼球のGPi・GPeとは区別します。","The caudate and putamen form the principal cortical input region of the striatum. They are distinct from the GPi and GPe of the globus pallidus."],
+  },
+  "substantia-nigra-relation-choice":{
+    "sn-ventricle":["側脳室前角の外側壁には尾状核頭部が接します。黒質は中脳で大脳脚の背側に沿います。","The caudate head adjoins the lateral wall of the anterior horn. The substantia nigra lies in the midbrain along the dorsal side of the cerebral peduncle."],
+    "sn-cerebellar":["小脳皮質は小脳半球の表面です。黒質は中脳の深部にある帯状の核です。","Cerebellar cortex covers the cerebellar hemispheres. The substantia nigra is a band-like nucleus deep in the midbrain."],
+    "sn-callosal":["左右半球を結ぶ交連線維は脳梁です。黒質は中脳にある核で、交連線維ではありません。","The corpus callosum contains commissural fibres joining the hemispheres. The substantia nigra is a midbrain nucleus, not a commissural bundle."],
+  },
+  "subthalamic-classification-choice":{
+    "stn-hypothalamus":["視床下核と視床下部はともに間脳にありますが、視床下核は視床下域に属します。","The subthalamic nucleus and hypothalamus are both in the diencephalon, but the nucleus belongs to the subthalamus."],
+    "stn-midbrain":["中脳の黒質とは隣接しますが、視床下核自体はその上方の間脳・視床下域にあります。","The subthalamic nucleus is adjacent to the midbrain substantia nigra but belongs to the diencephalic subthalamus above it."],
+    "stn-cortex":["大脳皮質は半球の表層です。視床下核は間脳深部の小さな核です。","Cerebral cortex forms the hemispheric surface. The subthalamic nucleus is a small deep diencephalic nucleus."],
+  },
+  "brainstem-components-choice":{
+    "brainstem-thalamus":["視床と視床下部は間脳、尾状核は大脳半球深部の線条体です。脳幹の3部位は中脳・橋・延髄です。","The thalamus and hypothalamus are diencephalic; the caudate is part of the deep cerebral striatum. The brainstem comprises midbrain, pons and medulla."],
+    "brainstem-cerebellum":["小脳半球・虫部・片葉は小脳の部分です。小脳は脳幹の背側に隣接しますが、脳幹の3部位には含めません。","The hemispheres, vermis and flocculus are parts of the cerebellum. It lies dorsal to the brainstem but is not one of its three divisions."],
+    "brainstem-lobes":["前頭葉・頭頂葉・側頭葉は大脳半球の葉です。脳幹は中脳・橋・延髄を縦に追います。","Frontal, parietal and temporal are cerebral lobes. Trace the brainstem vertically through the midbrain, pons and medulla."],
+  },
+  "cerebellum-relation-choice":{
+    "cerebellum-third":["第三脳室の側壁は間脳の視床・視床下部に接します。小脳の腹側にあるのは第四脳室です。","The third ventricle borders the diencephalic thalamus and hypothalamus. The fourth ventricle lies ventral to the cerebellum."],
+    "cerebellum-lateral":["側脳室前角の外側には尾状核頭部があります。小脳は後頭蓋窩で第四脳室の背側に位置します。","The caudate head adjoins the anterior horn of the lateral ventricle. The cerebellum lies in the posterior fossa, dorsal to the fourth ventricle."],
+    "cerebellum-insula":["外側溝の深部にあるのは島皮質です。小脳は脳幹の背側にあり、第四脳室を挟んで橋・延髄と向かい合います。","The insula lies deep in the lateral sulcus. The cerebellum is dorsal to the brainstem, facing the pons and medulla across the fourth ventricle."],
+  },
+  "superior-frontal-relation":{
+    "sfg-temporal":["外側溝より下は側頭葉です。上前頭回は前頭葉上面の、大脳縦裂に近い側を探します。","Below the lateral sulcus lies the temporal lobe. Look for the superior frontal gyrus on the frontal surface near the interhemispheric fissure."],
+    "sfg-occipital":["鳥距溝の下方は後頭葉内側面の舌状回側です。上前頭回は前頭葉上面にあります。","Below the calcarine sulcus lies the lingual-gyrus side of medial occipital cortex. The superior frontal gyrus is on the superior frontal surface."],
+    "sfg-cerebellar":["小脳半球は大脳の後下方にある別の構造です。上前頭回は大脳縦裂に近い前頭葉上面を探します。","The cerebellar hemisphere is a separate structure below and behind the cerebrum. The superior frontal gyrus lies near the interhemispheric fissure on the frontal lobe."],
+  },
+  "precuneus-relation":{
+    "precuneus-below":["鳥距溝の下方は舌状回側です。楔前部はその前方、頭頂葉内側面で頭頂後頭溝の前にあります。","Below the calcarine sulcus lies the lingual-gyrus side. The precuneus is farther anterior on the medial parietal surface, before the parieto-occipital sulcus."],
+    "precuneus-lateral":["外側溝は大脳外側面の目印です。楔前部は内側面で中心傍小葉の後方を探します。","The lateral sulcus is a landmark on the lateral cerebral surface. Find the precuneus on the medial surface behind the paracentral lobule."],
+    "precuneus-brainstem":["橋延髄境界は脳幹にあります。楔前部は大脳の内側面、頭頂葉後方の皮質です。","The pontomedullary junction is in the brainstem. The precuneus is medial cerebral cortex in the posterior parietal lobe."],
+  },
+  "cuneus-relation":{
+    "cuneus-central":["中心溝と外側溝は大脳外側面を読む目印です。楔部は後頭葉内側面で頭頂後頭溝と鳥距溝に挟まれます。","The central and lateral sulci are lateral-surface landmarks. The cuneus lies between the parieto-occipital and calcarine sulci on the medial occipital surface."],
+    "cuneus-olfactory":["嗅溝と眼窩溝は前頭葉の下面にあります。楔部を囲むのは後頭葉内側面の頭頂後頭溝と鳥距溝です。","Olfactory and orbital sulci are on the inferior frontal surface. The cuneus is bounded by the parieto-occipital and calcarine sulci on the medial occipital surface."],
+    "cuneus-collateral":["側副溝と海馬溝は側頭・後頭葉の腹側を読む目印です。楔部の上下を分ける組合せは頭頂後頭溝と鳥距溝です。","The collateral and hippocampal sulci help orient the ventral temporal and occipital surfaces. The cuneus is delimited by the parieto-occipital and calcarine sulci."],
+  },
+  "ica-function":{
+    "ica-posterior":["椎骨動脈が合流して脳底動脈となる系は後方循環です。内頸動脈は前大脳・中大脳動脈へ続く前方循環の入口です。","The vertebral arteries unite as the basilar artery in the posterior circulation. The internal carotid supplies the anterior circulation through the anterior and middle cerebral arteries."],
+    "ica-venous":["硬膜静脈洞は脳から戻る静脈血の排出路です。内頸動脈は脳へ血液を送る動脈です。","Dural venous sinuses drain venous blood from the brain. The internal carotid is an artery that supplies blood to it."],
+    "ica-csf":["脳室は脳脊髄液の腔です。内頸動脈は脳底を走り、前方循環へ血液を送ります。","Ventricles are CSF-filled cavities. The internal carotid runs at the brain base and supplies the anterior circulation."],
+  },
 };
 
 export function quizChoiceGuidance(question,choice,english=false){
