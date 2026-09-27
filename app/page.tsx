@@ -1293,7 +1293,19 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
     phoneSettingsReturnFocus.current=null;
     if(target&&target.isConnected)window.requestAnimationFrame(()=>target.focus());
   },[phoneSettingsOpen]);
-  useEffect(()=>{if(!phoneMode)return;const frame=window.requestAnimationFrame(()=>{document.querySelector<HTMLElement>(".workspaceSwitch button.active")?.scrollIntoView({block:"nearest",inline:"center"});document.querySelector<HTMLElement>(".leftRail .planeBtn.active")?.scrollIntoView({block:"nearest",inline:"center"})});return()=>window.cancelAnimationFrame(frame)},[phoneMode,workspace,surfaceView,plane,blockSpecimen]);
+  useEffect(()=>{
+    let frame=0;
+    const revealCurrentNavigation=()=>{
+      window.cancelAnimationFrame(frame);
+      frame=window.requestAnimationFrame(()=>{
+        if(phoneMode)document.querySelector<HTMLElement>(".leftRail .planeBtn.active")?.scrollIntoView({block:"nearest",inline:"center"});
+        else if(window.innerWidth<=760)document.querySelector<HTMLElement>(".workspaceSwitch button.active")?.scrollIntoView({block:"nearest",inline:"center"});
+      });
+    };
+    revealCurrentNavigation();
+    window.addEventListener("resize",revealCurrentNavigation);
+    return()=>{window.cancelAnimationFrame(frame);window.removeEventListener("resize",revealCurrentNavigation)};
+  },[phoneMode,workspace,surfaceView,plane,blockSpecimen]);
 
   function wrapAngle(value:number){return ((value+180)%360+360)%360-180}
 
