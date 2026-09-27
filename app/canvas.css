@@ -1071,6 +1071,15 @@ html[lang="en"] .specimenLayerPicker button span small { display: none; }
 @media(max-width:1120px){.workspaceSwitch button>span{font-size:12px}}
 @media(max-width:760px){.workspaceSwitch button>span{font-size:10px}.legalButton,.helpButton{font-size:10px}.feedbackButton::after{font-size:10px}.workHead{display:block}.workHead h1{font-size:24px;line-height:1.25}.sourceBadge{display:inline-block;margin-top:10px}}
 
+/* A narrow mouse-driven window keeps desktop controls, but the learner's
+   current question must precede the settings for the next quiz run. */
+@media(max-width:760px){
+  .appShell.workspace-quiz:not(.phone-mode){display:flex;flex-direction:column}
+  .appShell.workspace-quiz:not(.phone-mode)>.workArea.quizArea{order:0}
+  .appShell.workspace-quiz:not(.phone-mode)>.phoneSettingsSheet>.leftRail{order:1}
+  .appShell.workspace-quiz:not(.phone-mode) .quizImageCard{height:clamp(300px,48svh,360px)}
+}
+
 /* On narrow screens, preserve readable destinations instead of squeezing all
    six workspaces and the utility actions into a single 390 px row. */
 @media(max-width:760px){
