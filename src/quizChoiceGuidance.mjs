@@ -31,6 +31,11 @@ const guidance={
     "callosum-reversed-fibres":["投射線維は離れた領域を結びますが、脳梁は左右の大脳半球を結ぶ交連線維です。脳弓の主体は海馬からの投射線維です。","Projection fibres link distant regions, whereas the corpus callosum links the two hemispheres and is commissural. The fornix is principally a hippocampal projection pathway."],
     "callosum-reversed-classes":["連合線維は同じ半球内を結び、脳梁は半球間を結ぶ交連線維です。脳弓の主体は海馬からの投射線維です。","Association fibres connect regions within one hemisphere; the corpus callosum crosses between hemispheres and is commissural. The fornix is principally a hippocampal projection pathway."],
   },
+  "optic-chiasm-function":{
+    "chiasm-all":["耳側網膜からの線維は交叉せず、同側の視索へ進みます。対側へ渡るのは鼻側網膜からの線維です。","Fibres from temporal retina remain on the same side and enter the ipsilateral optic tract. Fibres from nasal retina cross."],
+    "chiasm-none":["鼻側網膜からの線維は視交叉で対側へ渡ります。耳側網膜からの線維は同側へ進みます。","Fibres from nasal retina cross at the optic chiasm; fibres from temporal retina remain ipsilateral."],
+    "chiasm-reversed":["交叉するのは耳側ではなく鼻側網膜の線維です。左右の視索はそれぞれ反対側の視野情報を両眼から受け取ります。","Nasal, not temporal, retinal fibres cross. Each optic tract carries information from the opposite visual field of both eyes."],
+  },
 };
 
 export function quizChoiceGuidance(question,choice,english=false){
