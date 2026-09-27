@@ -4,7 +4,9 @@
 
 - [正式版1.0へのロードマップ](V1_ROADMAP.md)
 - [四択の任意参加集計・Cloudflare設定手順](QUIZ_STATISTICS.md)
+- [復習クイズの教材文言・選択肢の見直し](QUIZ_TEACHING_2026-09-27.md)
 - [1.0候補：匿名集計と復習の仕上げ](V1_CANDIDATE_2026-09-27.md)
+- [1.0候補：表示文言と分節範囲の照合](V1_COPY_ALIGNMENT_2026-09-27.md)
 - [学習ワークスペース再構成：教材選択・観察・必要時の解説](UX_WORKSPACE_REDESIGN_2026-09-26.md)
 - [観察画面のUI/UX見直し：断面とスライダーの初期表示](UX_OBSERVATION_REVIEW_2026-09-26.md)
 - [1.0開発記録：9月22日](V1_DEVELOPMENT_2026-09-22.md)

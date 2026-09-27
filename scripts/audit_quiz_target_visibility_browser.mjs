@@ -30,7 +30,7 @@ export const EXPECTED_QUIZ_TARGET_COUNTS = Object.freeze({ section:17,surface:6,
 export const EXPECTED_QUIZ_TARGET_VISIBILITY_MATRIX_COUNT = 135;
 export const EXPECTED_QUIZ_TARGET_INVENTORY_SHA256 = "673aa770a5c78fc09e1baa197abfe0a6aec31d33e3ce8f2e40c8f98183550c61";
 // Covers target, format, options, and the render namespace/IDs used by this audit.
-export const EXPECTED_QUIZ_VISIBILITY_OPTIONS_SHA256 = "f3c501553d9dd7f298360fa6ee90007d151352d0e48ff64105ddfd46ab2423d7";
+export const EXPECTED_QUIZ_VISIBILITY_OPTIONS_SHA256 = "8835fc2192c4bdf54bb5ad19b6bcaf87b66c1fa123fee93c5291142deb63f58c";
 
 const VIEWPORT_KEYS=["id","label","width","height","dpr","deviceScaleFactor","mobile","isMobile","touch","hasTouch","coarse","pointer"];
 const IDENTITY_KEYS=["key","target","format","plane","position","view","detail","viewportId"];
