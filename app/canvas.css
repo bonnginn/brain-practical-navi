@@ -1490,7 +1490,7 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
   .phone-mode .phoneSegmentGuard h2{font-size:24px}
   .phone-mode .phoneSegmentGuard>div{display:grid;grid-template-columns:1fr}
   .phone-mode .phoneSegmentGuard button{width:100%;min-height:44px}
-  .phone-mode .quizImageCard{height:clamp(420px,68svh,620px)}
+  .phone-mode .quizImageCard{height:clamp(360px,52svh,500px)}
   .phone-mode .quizImageStage{min-height:0}
   .phone-mode .sliceStage{min-height:610px}
   .phone-mode .rangeWrap button{min-width:44px;min-height:44px}
