@@ -98,10 +98,6 @@
 .contrastSwitch button, .displaySwitch button { padding: 7px 9px; font-size: 16px; }
 .sliceStage { height: clamp(610px, 68vh, 720px); display: grid; grid-template-columns: minmax(0,1fr) clamp(240px,22vw,320px); place-items: stretch; }
 .sliceViewport { position: relative; min-width: 0; height: 100%; overflow: hidden; border-right: 1px solid #455052; }
-.identifyHint { position: absolute; z-index: 7; top: 12px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 9px; padding: 7px 10px; border: 1px solid #77818488; background: #172126d9; color: #f3f2ec; pointer-events: none; white-space: normal; width: max-content; max-width: calc(100% - 24px); box-sizing: border-box; flex-wrap: wrap; justify-content: center; text-align: center; }
-.identifyHint b { font-size: 16px; }
-.identifyHint span { padding-left: 9px; border-left: 1px solid #7d8788; color: #b9c2bf; font: 15px monospace; }
-.identifyHint.unavailable { border-color: #b49b6b88; background: #2b2924e8; }
 .identifyMarker { position: absolute; z-index: 8; transform: translate(-50%,calc(-100% - 12px)); min-width: 150px; padding: 8px 58px 8px 10px; border: 1px solid #e36e57; background: #f8f6ef; color: #202a2e; box-shadow: 0 6px 18px #0008; pointer-events: none; }
 .identifyMarker::after { content: ""; position: absolute; left: 50%; top: 100%; border: 7px solid transparent; border-top-color: #e36e57; transform: translateX(-50%); }
 .identifyMarker i { position: absolute; left: 50%; top: calc(100% + 7px); width: 8px; height: 8px; border: 2px solid white; border-radius: 50%; background: #e36e57; box-shadow: 0 0 0 2px #e36e57; transform: translate(-50%,-50%); }
@@ -281,7 +277,7 @@ html, body, #root { height: 100%; overflow: hidden; }
 @media(max-width:1250px){.appShell{grid-template-columns:190px minmax(0,1fr)}.topbar{grid-column:1/3}.structureBtn{padding-inline:15px}.sliceStage{grid-template-columns:minmax(0,1fr) 260px}}
 @media(max-width:1050px){.appShell{grid-template-columns:160px minmax(0,1fr)}.topbar{grid-column:1/3}.sliceStage{grid-template-columns:minmax(0,1fr) 230px}}
 @media(max-width:940px){.sliceStage{height:auto;grid-template-columns:minmax(0,1fr) 210px}.insetHead{flex-basis:38px;height:38px}.modelInset .blockControls{left:7px;right:7px;bottom:7px}.modelInset .blockControls button{font-size:15px;padding-block:6px}.modelInset .orientation{display:none}}
-@media(max-width:760px){html,body,#root{height:auto;overflow:auto}.appShell{display:block;height:auto;padding:60px 0 72px}.leftRail,.workArea{overflow:visible}.visualGrid{display:block}.slicePanel{display:block}.sliceStage{height:760px;grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) 340px}.sliceViewport{border-right:0;border-bottom:1px solid #455052}.slicePanel{margin-top:0}.slicePanel .panelHead{display:block}.sliceTools{margin-top:8px;gap:4px;flex-wrap:wrap;justify-content:flex-start}.contrastSwitch button,.displaySwitch button{padding:6px 7px;font-size:15px}.workArea{padding:20px 12px}.workHead h1{font-size:26px}.panelHead b{font-size:16px}.panelHead small{font-size:16px}.sliceTimeline{padding-inline:13px}.rangeWrap button span{font-size:15px}.miniSlices>button>b{font-size:15px}.miniSlices>button>small{font-size:15px}.modelInset{width:auto;margin:0}.insetHead{flex-basis:30px;height:30px}.insetHead small,.insetHead>span{display:none}.insetViews{grid-template-columns:1fr 1fr;grid-template-rows:1fr;padding-bottom:0}.modelInset .blockControls,.modelInset .orientation{display:none}.identifyHint{top:8px;padding:5px 7px}.identifyHint b{font-size:15px}.identifyHint span{display:none}.identifyMarker{min-width:132px}.selectedStructureBar{max-height:280px}.selectedStructureSummary{grid-template-columns:7px minmax(0,1fr) auto;padding-inline:11px}.selectedStructureList>button{grid-template-columns:7px minmax(0,1fr);padding-inline:11px}.selectedStructureList p{grid-column:2}.clearStructures,.structureGroupGrid{display:none}.inspectorBackdrop{top:60px}.inspector{top:60px;width:min(360px,94vw);padding:20px}}
+@media(max-width:760px){html,body,#root{height:auto;overflow:auto}.appShell{display:block;height:auto;padding:60px 0 72px}.leftRail,.workArea{overflow:visible}.visualGrid{display:block}.slicePanel{display:block}.sliceStage{height:760px;grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) 340px}.sliceViewport{border-right:0;border-bottom:1px solid #455052}.slicePanel{margin-top:0}.slicePanel .panelHead{display:block}.sliceTools{margin-top:8px;gap:4px;flex-wrap:wrap;justify-content:flex-start}.contrastSwitch button,.displaySwitch button{padding:6px 7px;font-size:15px}.workArea{padding:20px 12px}.workHead h1{font-size:26px}.panelHead b{font-size:16px}.panelHead small{font-size:16px}.sliceTimeline{padding-inline:13px}.rangeWrap button span{font-size:15px}.miniSlices>button>b{font-size:15px}.miniSlices>button>small{font-size:15px}.modelInset{width:auto;margin:0}.insetHead{flex-basis:30px;height:30px}.insetHead small,.insetHead>span{display:none}.insetViews{grid-template-columns:1fr 1fr;grid-template-rows:1fr;padding-bottom:0}.modelInset .blockControls,.modelInset .orientation{display:none}.identifyMarker{min-width:132px}.selectedStructureBar{max-height:280px}.selectedStructureSummary{grid-template-columns:7px minmax(0,1fr) auto;padding-inline:11px}.selectedStructureList>button{grid-template-columns:7px minmax(0,1fr);padding-inline:11px}.selectedStructureList p{grid-column:2}.clearStructures,.structureGroupGrid{display:none}.inspectorBackdrop{top:60px}.inspector{top:60px;width:min(360px,94vw);padding:20px}}
 @media(max-width:520px){.selectedStructureSummary{grid-template-columns:7px minmax(0,1fr);align-items:start}.selectedStructureSummary>span{grid-row:1/3;margin-top:3px}.selectedBarActions{grid-column:2;flex-wrap:wrap}.selectedStructureRole{font-size:13px}.selectedStructureBar button{min-height:40px}}
 
 .topbar { gap: 12px; }
@@ -1035,7 +1031,6 @@ html[lang="en"] .specimenLayerPicker button span small { display: none; }
 .atlasCredit { color: #3d4947 !important; }
 .modelLegend > span,
 .modelLegend small,
-.identifyHint span,
 .insetHead small,
 .insetHead > span,
 .modelFocusTag span,
@@ -1629,7 +1624,6 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
 .panelHead small,
 .contrastSwitch button,
 .displaySwitch button,
-.identifyHint b,
 .orientation,
 .dragTip,
 .sliceStage .scale,
