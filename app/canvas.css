@@ -1540,6 +1540,14 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
 .quizImageCard { container: quiz-image / inline-size; min-width: 0; }
 .quizImageCard .panelHead > div { min-width: 0; }
 .quizImageCard .panelHead small { white-space: normal; overflow-wrap: anywhere; }
+/* In a short desktop window, keep all four choices visible before scrolling.
+   Full-height layouts retain their established reading size and spacing. */
+@media (min-width:761px) and (max-height:650px) {
+  .appShell.workspace-quiz:not(.phone-mode) .quizQuestionCard { padding-block: 12px; }
+  .appShell.workspace-quiz:not(.phone-mode) .quizQuestionCard h2 { margin: 6px 0 12px; line-height: 1.4; }
+  .appShell.workspace-quiz:not(.phone-mode) .quizOptions { gap: 5px; }
+  .appShell.workspace-quiz:not(.phone-mode) .quizOptions button { min-height: 50px; padding-block: 5px; }
+}
 @container quiz-image (max-width: 32rem) {
   .quizSliceNavigator { grid-template-columns: minmax(0,1fr) auto; gap: .5rem; }
   .quizSliceAxis { grid-column: 1 / -1; }
