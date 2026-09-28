@@ -680,6 +680,8 @@ html, body, #root { height: 100%; overflow: hidden; }
 .pathwayObservationOrder li { counter-increment: specimen-order; padding: 3px 6px; border: 1px solid #d6c7b8; background: #fff; font-size: 12px; }
 .pathwayObservationOrder li::before { content: counter(specimen-order) ". "; color: #9a5b35; font-weight: 700; }
 .pathwayStepper { display: grid; gap: 9px; margin-top: 10px; padding: 10px; border: 1px solid #ae9b72; background: #fff8e9; }
+.circuitSectionToggle { width: 100%; margin-top: 10px; padding: 8px 10px; border: 1px solid #9eaaa4; background: #f7f9f5; color: #315b50; font: inherit; font-size: 13px; font-weight: 700; text-align: left; cursor: pointer; }
+.circuitSectionToggle:hover,.circuitSectionToggle:focus-visible { border-color: #47786a; background: #e9f2ed; }
 .pathwayStepper > header { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
 .pathwayStepper > header > div { display: grid; gap: 2px; }
 .pathwayStepper > header b { color: #4d4532; font-size: 15px; }
