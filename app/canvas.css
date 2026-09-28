@@ -114,7 +114,7 @@
 .insetHead > div:first-child { min-width: 0; }
 .insetHead b { display: block; font-size: 15px; }
 .insetHead small { display: block; margin-top: 2px; overflow: hidden; color: #aeb7b8; font-size: 15px; text-overflow: ellipsis; white-space: nowrap; }
-@media(max-width:1200px){.insetHead small{display:none}}
+@media(max-width:1200px){.sliceStage.layout-both .insetHead small{display:none}}
 .insetHeadActions { display: flex; align-items: center; gap: 7px; }
 .insetHeadActions > span { padding: 4px 6px; border: 1px solid #667174; color: #c6ced0; font: 15px monospace; letter-spacing: .12em; }
 .sectionModelViewSwitch { display: flex; overflow: hidden; border: 1px solid #667174; border-radius: 3px; }
