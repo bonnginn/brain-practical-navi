@@ -49,7 +49,7 @@ function FindTaskView({task,english,onNext}:{task:FindTask;english:boolean;onNex
       {!model&&!revealed&&<details className="findPlaneGuide" data-no-localize><summary>{english?`How to read the ${planeTitle.toLowerCase()}`:`${planeTitle}の見方`}</summary><p>{english?{coronal:'A front–back series: screen left/right = specimen L/R, top/bottom = superior/inferior.',horizontal:'A top–bottom series: screen left/right = specimen L/R, top/bottom = anterior/posterior.',sagittal:'A left–right series: screen left/right = anterior/posterior, top/bottom = superior/inferior.'}[task.plane]:{coronal:'前後に切り進める断面です。画面の左右は標本のL/R、上が上方、下が下方です。',horizontal:'上下に切り進める断面です。画面の左右は標本のL/R、上が前方、下が後方です。',sagittal:'左右に切り進める断面です。画面の左が前方、右が後方、上が上方です。'}[task.plane]}</p><p>{english?'The same structure changes shape and may disappear as the cut moves. Compare neighbouring slices; return to the starting view if it is no longer visible.':'同じ構造でも切る位置により形や大きさが変わり、断面に現れなくなることがあります。隣接断面と見比べ、見失ったら開始位置に戻してください。'}</p></details>}
       {model&&unavailable&&<p>{english?'3D is unavailable. Choose a section task to continue.':'3Dを表示できません。断面の課題を選んで続けられます。'}</p>}
       </div>
-      <div className="findActions"><button disabled={stage==='search'} onClick={()=>setStage('search')}>{english?'Try again without colour':'色を消してもう一度'}</button><button onClick={onNext}>{english?'Next structure':'次の構造へ'}</button></div>
+      <div className="findActions"><button disabled={stage==='search'} onClick={()=>setStage('search')}>{stage==='hint'?(english?'Hide hint and try again':'ヒントを閉じてもう一度'):(english?'Try again without colour':'色を消してもう一度')}</button><button onClick={onNext}>{english?'Next structure':'次の構造へ'}</button></div>
     </aside>
   </div>;
 }
