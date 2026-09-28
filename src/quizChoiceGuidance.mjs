@@ -116,6 +116,41 @@ const guidance={
     "cn6-medial-rectus":["内側直筋は動眼神経（III）の支配で、眼球の内転に関わります。外転神経（VI）は外側直筋による外転です。","The oculomotor nerve (III) supplies the medial rectus for adduction. The abducens nerve (VI) supplies the lateral rectus for abduction."],
     "cn6-inferior-oblique":["下斜筋は動眼神経（III）の支配です。外転神経（VI）が支配するのは外側直筋です。","The oculomotor nerve (III) supplies the inferior oblique. The abducens nerve (VI) supplies the lateral rectus."],
   },
+  "cn5-function":{
+    "cn5-hearing":["聴覚と平衡覚は内耳神経（VIII）が伝えます。三叉神経（V）は顔面の一般感覚と咀嚼筋運動を担います。","The vestibulocochlear nerve (VIII) carries hearing and balance. The trigeminal nerve (V) carries much of facial sensation and motor fibres for mastication."],
+    "cn5-vision":["視覚情報は視神経（II）を通ります。三叉神経（V）では顔面の感覚と咀嚼筋への運動線維に注目します。","Visual information travels in the optic nerve (II). For the trigeminal nerve (V), look for facial sensation and motor fibres to the muscles of mastication."],
+    "cn5-parasymp":["胸腹部臓器への副交感神経は主に迷走神経（X）です。三叉神経（V）の主要な役割は顔面感覚と咀嚼筋運動です。","The vagus nerve (X) provides much of the parasympathetic supply to thoracic and abdominal viscera. The main roles of V are facial sensation and mastication."],
+  },
+  "cn7-function":{
+    "cn7-face-sensation":["顔面の一般感覚の大部分は三叉神経（V）が伝えます。顔面神経（VII）は表情筋運動に加え、味覚と一部の腺への副交感線維を含みます。","Most general facial sensation travels in the trigeminal nerve (V). The facial nerve (VII) moves facial-expression muscles and also carries taste and parasympathetic fibres."],
+    "cn7-hearing":["聴覚と平衡覚は内耳神経（VIII）の役割です。隣接して脳幹を出る顔面神経（VII）は表情筋運動などを担います。","Hearing and balance belong to VIII. The adjacent facial nerve (VII) supplies muscles of facial expression, among other functions."],
+    "cn7-tongue-motor":["舌筋の運動は主に舌下神経（XII）です。顔面神経（VII）が舌から受けるのは前方2/3の味覚です。","Most tongue muscles are supplied by the hypoglossal nerve (XII). The facial nerve (VII) carries taste from the anterior two-thirds of the tongue."],
+  },
+  "cn8-function":{
+    "cn8-smell":["嗅覚は嗅神経（I）から嗅球へ入ります。内耳神経（VIII）は聴覚と平衡覚を伝えます。","Smell enters the olfactory bulb through nerve I. The vestibulocochlear nerve (VIII) carries hearing and balance."],
+    "cn8-face":["顔面の一般感覚の大部分は三叉神経（V）が伝えます。内耳神経（VIII）は蝸牛・前庭からの情報を伝えます。","Most general facial sensation travels in V. The vestibulocochlear nerve (VIII) carries input from the cochlea and vestibular apparatus."],
+    "cn8-visceral":["胸腹部の内臓感覚は主に迷走神経（X）を通ります。内耳神経（VIII）の感覚は聴覚と平衡覚です。","Visceral sensation from the thorax and abdomen travels mainly in X. The sensory modalities of VIII are hearing and balance."],
+  },
+  "cn9-function":{
+    "cn9-eye":["眼球の外転は外転神経（VI）が外側直筋を動かします。舌咽神経（IX）は舌後方の味覚・感覚や咽頭機能に関わります。","The abducens nerve (VI) abducts the eye through the lateral rectus. The glossopharyngeal nerve (IX) carries posterior-tongue taste and sensation and contributes to pharyngeal function."],
+    "cn9-face":["表情筋を動かすのは顔面神経（VII）です。舌咽神経（IX）は舌後方と咽頭、耳下腺への経路をたどります。","The facial nerve (VII) moves facial-expression muscles. The glossopharyngeal nerve (IX) serves the posterior tongue, pharynx and parotid secretory pathway."],
+    "cn9-smell":["嗅覚は嗅神経（I）です。舌咽神経（IX）では舌後方1/3の味覚と咽頭の感覚・運動を区別して確認します。","Smell travels in the olfactory nerve (I). For IX, identify taste from the posterior third of the tongue and its sensory and motor roles in the pharynx."],
+  },
+  "cn10-function":{
+    "cn10-vision":["視覚は視神経（II）から視交叉・視索へ進みます。迷走神経（X）は咽頭・喉頭と胸腹部臓器に関わります。","Vision travels through the optic nerve (II), chiasm and tract. The vagus nerve (X) serves the pharynx, larynx and thoracoabdominal viscera."],
+    "cn10-mastication":["咀嚼筋運動は三叉神経（V）の運動線維です。迷走神経（X）は咽頭・喉頭の運動や内臓への経路を含みます。","Motor fibres for mastication belong to V. The vagus nerve (X) includes motor supply to the pharynx and larynx and pathways to the viscera."],
+    "cn10-eye":["眼球外転は外転神経（VI）が担います。迷走神経（X）は咽頭・喉頭と広い内臓領域に関わる混合神経です。","Eye abduction depends on the abducens nerve (VI). The vagus nerve (X) is a mixed nerve serving the pharynx, larynx and a broad visceral territory."],
+  },
+  "cn11-function":{
+    "cn11-lateral-rectus":["外側直筋は外転神経（VI）が支配します。副神経（XI）では胸鎖乳突筋と僧帽筋を探します。","The abducens nerve (VI) supplies the lateral rectus. For the accessory nerve (XI), identify sternocleidomastoid and trapezius."],
+    "cn11-masseter":["咬筋は三叉神経（V）の運動枝が支配します。副神経（XI）の主な標的は胸鎖乳突筋と僧帽筋です。","The motor division of V supplies the masseter. The principal targets of XI are sternocleidomastoid and trapezius."],
+    "cn11-tongue":["舌筋の運動は主に舌下神経（XII）です。副神経（XI）は頭部の回旋や肩を上げる筋に関わります。","Most tongue muscles are supplied by the hypoglossal nerve (XII). The accessory nerve (XI) acts through muscles that rotate the head and elevate the shoulder."],
+  },
+  "cn12-function":{
+    "cn12-hearing":["聴覚と平衡覚は内耳神経（VIII）の機能です。舌下神経（XII）は舌筋の運動を担います。","Hearing and balance belong to VIII. The hypoglossal nerve (XII) moves the tongue muscles."],
+    "cn12-face":["顔面の一般感覚の大部分は三叉神経（V）が伝えます。舌下神経（XII）は舌の運動神経です。","Most general facial sensation travels in V. The hypoglossal nerve (XII) is a motor nerve for the tongue."],
+    "cn12-pupil":["縮瞳は動眼神経（III）の副交感線維が関わります。舌下神経（XII）は舌筋を動かします。","Pupillary constriction involves parasympathetic fibres in the oculomotor nerve (III). The hypoglossal nerve (XII) moves tongue muscles."],
+  },
 };
 
 export function quizChoiceGuidance(question,choice,english=false){
