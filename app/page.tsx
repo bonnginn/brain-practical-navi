@@ -334,7 +334,7 @@ const blockSpecimens:Record<BlockSpecimenKey,BlockLesson>={
     {key:"choroid-plexus",name:"脈絡叢",latin:"Plexus choroideus",color:"#b34c62",source:"模式補助",note:"脈絡裂に沿う付着方向を示す房状モデルです。"},
     {key:"hippocampus",name:"海馬",latin:"Hippocampus",color:"#c8798d",source:"標本分節",note:"側脳室下角の床と脈絡裂の位置を理解する基準です。"},
   ]},
-  "medial-temporal":{name:"海馬・扁桃体標本",en:"MEDIAL TEMPORAL SPECIMEN",visual:"model",plane:"horizontal",position:69,focus:"hippocampus",view:"inside",rotation:{x:-20,y:-48},intro:"右内側側頭葉だけを小さく切り出し、同一格子上の海馬、側脳室下角、扁桃体の前後関係を見比べる標本です。前後方向を回転させ、扁桃体から海馬へ移る関係を追います。",observe:["海馬頭・体と側脳室下角","海馬前方の扁桃体","このブロックには海馬采・鉤を未収録（両側海馬采の一部は連続断面で観察）"],caution:"海馬と扁桃体は同一標本の手動分節、側脳室下角は試作腔ラベルです。海馬采と鉤は、手置き形状では位置と連続性を正確に示せないためβ候補の3Dから除外しました。海馬采は海馬の内側縁から脳弓へ続く白質帯、鉤は海馬傍回前端の複雑な折り返しとして実標本・検証済み資料で確認してください。表面の線維感、湿潤感、切断面の質感も再現していません。",layers:[
+  "medial-temporal":{name:"海馬・扁桃体標本",en:"MEDIAL TEMPORAL SPECIMEN",visual:"model",plane:"horizontal",position:69,focus:"hippocampus",view:"inside",rotation:{x:-20,y:-48},intro:"右内側側頭葉だけを小さく切り出し、同一格子上の海馬、側脳室下角、扁桃体の前後関係を見比べる標本です。前後方向を回転させ、扁桃体から海馬へ移る関係を追います。",observe:["海馬頭・体と側脳室下角","海馬前方の扁桃体","海馬の内側縁に沿う海馬采（部分）と脳弓脚へ向かう方向"],caution:"海馬と扁桃体は同一標本の手動分節、側脳室下角は試作腔ラベルです。海馬采は同一BigBrain原画像を参照した部分分節として、ブロックの露出面と連続断面に表示します。全長・全外縁や個々の線維は示しません。手置きの旧模式海馬采と鉤は、位置と連続性を正確に示せないため除外しました。鉤は海馬傍回前端の折り返しとして実標本・検証済み資料で確認してください。表面の線維感、湿潤感、切断面の質感は再現していません。",layers:[
     {key:"hippocampus",name:"海馬",latin:"Hippocampus",color:"#c8798d",source:"標本分節",note:"下角の床を隆起させ、後方へ細く続きます。"},
     {key:"amygdala",name:"扁桃体",latin:"Corpus amygdaloideum",color:"#9c6cae",source:"標本分節",note:"海馬の前方、側脳室下角前端の近くに位置します。"},
     {key:"inferior-horn",name:"側脳室下角",latin:"Cornu inferius",color:"#45aebd",source:"試作分節",note:"海馬と扁桃体の上下前後関係を読む空間基準です。"},
