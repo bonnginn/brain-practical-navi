@@ -116,11 +116,18 @@
   .compactLearningHome>footer{display:flex;flex-wrap:wrap}
   .compactLearningHome>footer button{width:auto;font-size:12px}
 }
-@media(min-width:761px) and (max-width:1050px){
+@media(min-width:761px) and (max-width:969px){
   .appShell[data-locale=en]:not(.workspace-entrance):not(.phone-mode){grid-template-rows:96px minmax(0,1fr)}
   .appShell[data-locale=en]:not(.workspace-entrance):not(.phone-mode) .topbar{height:96px;flex-wrap:wrap;gap:0 8px;padding-block:5px}
   .appShell[data-locale=en]:not(.workspace-entrance) .workspaceSwitch{order:3;flex-basis:100%}
   .appShell[data-locale=en]:not(.workspace-entrance) .brandMark{font-size:10px!important;letter-spacing:0}
+}
+@media(min-width:970px) and (max-width:1050px){
+  .appShell[data-locale=en]:not(.workspace-entrance) .brand{font-size:13px}
+  .appShell[data-locale=en]:not(.workspace-entrance) .workspaceSwitch button{padding-inline:6px;font-size:12px}
+  .appShell[data-locale=en]:not(.workspace-entrance) .workspaceSwitch button>span{font-size:12px}
+  .appShell[data-locale=en]:not(.workspace-entrance) .topActions{gap:4px}
+  .appShell[data-locale=en]:not(.workspace-entrance) .languageSwitch,.appShell[data-locale=en]:not(.workspace-entrance) .headerMoreTrigger{font-size:11px;padding-inline:6px}
 }
 @media(min-width:761px) and (max-width:900px){
   .appShell:not(.workspace-entrance):not(.phone-mode){grid-template-rows:96px minmax(0,1fr)}
