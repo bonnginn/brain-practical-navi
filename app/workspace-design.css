@@ -93,7 +93,7 @@
   .appShell:not(.workspace-entrance) .surfaceRegionLessonRow small{font-size:11px}
   .appShell:not(.workspace-entrance) .freeExplorer{margin-top:12px;padding-top:8px}
   .appShell:not(.workspace-entrance) .freeStructureIndex{margin-top:8px}
-  .appShell:not(.workspace-entrance) .freeSelectedHeader{margin-top:10px}
+  .appShell:not(.workspace-entrance) .freeSelectedHeader{margin-top:6px;padding-top:6px}
   .appShell:not(.workspace-entrance) .freeSelectedHeader span{display:none}
   .surfaceModelCard:has(.surfaceDisplayControls){grid-template-rows:auto minmax(140px,1fr) auto auto;overflow:hidden}
   .surfaceModelCard>.panelHead{padding:8px 10px;min-height:54px}
