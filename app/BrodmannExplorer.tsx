@@ -224,13 +224,13 @@ export const notes: Record<number, { ja: string; en: string }> = {
   41: {"ja": "外側溝の奥の横側頭回付近にあり、音の情報を受け取る一次聴覚野に関連します。周囲の領野を隠すときは、位置関係も見比べてください。", "en": "Located around the transverse temporal gyri deep in the lateral sulcus and associated with primary auditory processing. Compare the surrounding anatomy when hiding other areas."},
   42: {"ja": "一次聴覚野に隣接し、音の情報の処理に関わる領域です。機能的な聴覚皮質の区分はBA番号だけでは表しきれません。", "en": "Adjacent to primary auditory cortex and involved in processing sound. Functional auditory subdivisions cannot be fully represented by BA numbers."},
 
-  1: { ja: '体性感覚に関わる領野の一つです。BA 2・3と見比べて位置関係を観察します。', en: 'One of the somatosensory areas. Compare its location with BA 2 and 3.' },
-  2: { ja: '体性感覚に関わる領野の一つです。BA 1・3と見比べて位置関係を観察します。', en: 'One of the somatosensory areas. Compare its location with BA 1 and 3.' },
-  3: { ja: '体性感覚に関わる領野です。この歴史的地図では3a・3bを分けていません。', en: 'A somatosensory area. This historical map does not separate 3a and 3b.' },
-  4: { ja: '一次運動野に対応する領野です。この地図では4a・4pを分けていません。', en: 'Corresponds to primary motor cortex. This map does not separate 4a and 4p.' },
-  6: { ja: '外側の運動前野と内側の補足運動野を含み、運動の準備や順序づけに関わります。', en: 'Includes lateral premotor and medial supplementary motor regions, involved in preparing and sequencing movement.' },
-  17: { ja: '一次視覚野に対応する領野です。内側面からも観察します。', en: 'Corresponds to primary visual cortex. Explore it from the medial view as well.' },
-  18: { ja: '二次視覚野に関連する領野です。BA 17との位置関係を観察します。', en: 'Associated with secondary visual cortex. Compare its location with BA 17.' },
+  1: { ja: '中心溝の後方にある中心後回の体性感覚野です。BA 3から後方へBA 1、BA 2と並ぶ関係を、外側面と上面で探します。', en: 'A somatosensory area in the postcentral gyrus, behind the central sulcus. From lateral and superior views, find its position between BA 3 anteriorly and BA 2 posteriorly.' },
+  2: { ja: '中心後回の体性感覚野で、BA 1より後方に位置します。さらに後方のBA 5と見比べ、感覚を受ける領域から頭頂葉の連合領域への並びを観察します。', en: 'A somatosensory area in the postcentral gyrus, posterior to BA 1. Compare it with BA 5 farther back to trace the transition toward parietal association cortex.' },
+  3: { ja: '中心溝の後壁付近にある体性感覚野です。溝の前側にある一次運動野BA 4と向かい合う位置を探します。この地図では3a・3bを分けていません。', en: 'A somatosensory area near the posterior bank of the central sulcus. Find it opposite primary motor BA 4 across the sulcus. This map does not separate 3a and 3b.' },
+  4: { ja: '中心溝の前方、中心前回の一次運動野です。反対側の身体の随意運動に関わります。溝を挟んで後方の体性感覚野BA 3と見比べます。', en: 'Primary motor cortex in the precentral gyrus, anterior to the central sulcus. It contributes to voluntary movement of the opposite side of the body. Compare it with somatosensory BA 3 across the sulcus.' },
+  6: { ja: 'BA 4の前方に位置し、外側の運動前野と内側の補足運動野を含みます。外側面と内側面を切り替え、運動の準備・順序づけに関わる領域の広がりを見ます。', en: 'Anterior to BA 4, this area includes lateral premotor and medial supplementary motor regions. Switch between lateral and medial views to see the extent of regions involved in preparing and sequencing movement.' },
+  17: { ja: '後頭葉内側面の鳥距溝の壁に沿う一次視覚野です。視床の外側膝状体から視放線を経て視覚情報が届きます。内側面で溝を探し、周囲のBA 18と見比べます。', en: 'Primary visual cortex lines the calcarine sulcus on the medial occipital surface. Visual input reaches it from the lateral geniculate nucleus via the optic radiations. Find the sulcus medially and compare the surrounding BA 18.' },
+  18: { ja: '一次視覚野BA 17を囲む線条外の視覚野です。内側面から外側面へ観察し、鳥距溝に沿うBA 17との位置の違いを確かめます。', en: 'An extrastriate visual area surrounding primary visual BA 17. Compare medial and lateral views to distinguish it from BA 17 along the calcarine sulcus.' },
   44: { ja: '言語優位半球（多くは左）のBA 45とともにブローカ領域を構成し、発話や言語処理に関わります。主に下前頭回の弁蓋部に対応します。右側の同じ番号が同じ言語機能を担うという意味ではありません。', en: 'Together with BA 45 in the language-dominant hemisphere (usually left), forms the Broca region, involved in speech and language processing. Mainly corresponds to the pars opercularis. The right-sided number does not imply the same language function.' },
   45: { ja: '言語優位半球（多くは左）のBA 44とともにブローカ領域を構成し、発話や言語処理に関わります。主に下前頭回の三角部に対応します。右側の同じ番号が同じ言語機能を担うという意味ではありません。', en: 'Together with BA 44 in the language-dominant hemisphere (usually left), forms the Broca region, involved in speech and language processing. Mainly corresponds to the pars triangularis. The right-sided number does not imply the same language function.' },
 };
@@ -328,6 +328,9 @@ export default function BrodmannExplorer({ english = false }: { english?: boolea
         <a href="https://www2.imm.dtu.dk/~faan/bib/Nielsen2001BibNeuroinformatics/node11.html" target="_blank" rel="noreferrer">{text('歴史的な領野名称の対応表', 'Historical area nomenclature')}</a>
         <a href="https://surfer.nmr.mgh.harvard.edu/fswiki/Perirhinal" target="_blank" rel="noreferrer">{text('BA 35・嗅周皮質の解剖', 'BA 35 / perirhinal anatomy')}</a>
         <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4691684/" target="_blank" rel="noreferrer">{text('ウェルニッケ領域の範囲と現代的理解', 'Wernicke region: scope and modern interpretation')}</a>
+        <a href="https://nba.uth.tmc.edu/neuroanatomy/L1/Lab01p10_index.html" target="_blank" rel="noreferrer">{text('中心前回・一次運動野', 'Precentral gyrus and primary motor cortex')}</a>
+        <a href="https://nba.uth.tmc.edu/neuroanatomy/L1/Lab01p14_index.html" target="_blank" rel="noreferrer">{text('中心後回・体性感覚野', 'Postcentral gyrus and somatosensory cortex')}</a>
+        <a href="https://nba.uth.tmc.edu/neuroanatomy/L8/Lab08p08_index.html" target="_blank" rel="noreferrer">{text('鳥距溝周囲の視覚皮質', 'Visual cortex around the calcarine sulcus')}</a>
         <a href={`${import.meta.env.BASE_URL}atlas/BRODMANN-FREESURFER-NOTICE.txt`} target="_blank" rel="noreferrer">{text('出典・利用条件・改変記録', 'Credits, licence and modifications')}</a>
       </nav>
     </div>
