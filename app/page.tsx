@@ -146,12 +146,12 @@ const planeData: Record<Plane, { ja: string; en: string; axis: string; from: str
   sagittal: { ja: "矢状断", en: "SAGITTAL", axis: "左右位置", from: "左外側", to: "右外側" },
 };
 
-const workspaceModes:{key:WorkspaceMode;label:string;sub:string}[]=[
-  {key:"home",label:"Home",sub:"学習メニュー"},
-  {key:"surface",label:"脳表",sub:"外表・脳溝"},
-  {key:"sections",label:"断面",sub:"連続切片"},
-  {key:"blocks",label:"ブロック標本",sub:"試作品"},
-  {key:"quiz",label:"復習",sub:"四択・構造同定"},
+const workspaceModes:{key:WorkspaceMode;label:string;englishLabel:string;shortJa:string;shortEn:string;sub:string}[]=[
+  {key:"home",label:"Home",englishLabel:"Home",shortJa:"Home",shortEn:"Home",sub:"学習メニュー"},
+  {key:"surface",label:"脳表",englishLabel:"Brain surface",shortJa:"脳表",shortEn:"Surface",sub:"外表・脳溝"},
+  {key:"sections",label:"断面",englishLabel:"Sections",shortJa:"断面",shortEn:"Sections",sub:"連続切片"},
+  {key:"blocks",label:"ブロック標本",englishLabel:"Block specimens",shortJa:"標本",shortEn:"Blocks",sub:"試作品"},
+  {key:"quiz",label:"復習",englishLabel:"Review quiz",shortJa:"復習",shortEn:"Review",sub:"四択・構造同定"},
 ];
 const workspaceModeKeys:WorkspaceMode[]=[...workspaceModes.map(item=>item.key),"entrance","collaborate","segment"];
 function workspaceFromHash(hash:string):WorkspaceMode{
@@ -1724,7 +1724,7 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
     <header className="topbar">
       <a className="brand" href="#workspace/entrance" onClick={event=>{event.preventDefault();openWorkspace("entrance")}}><span className="brandMark" data-no-localize>{englishEdition?"B":"脳"}</span><span>脳実習ナビ<small>脳解剖実習 学習補助アプリ</small></span></a>
       {workspace!=="entrance"&&<nav className="modeSwitch workspaceSwitch" aria-label="教材を選択">
-        {workspaceModes.map(item=><button key={item.key} className={`${workspace===item.key?"active":""} ${item.key==="blocks"?"prototype":""}`} aria-current={workspace===item.key?"page":undefined} onClick={()=>openWorkspace(item.key)}><span>{item.label}</span><i>{item.sub}</i></button>)}
+        {workspaceModes.map(item=><button key={item.key} className={`${workspace===item.key?"active":""} ${item.key==="blocks"?"prototype":""}`} aria-label={englishEdition?item.englishLabel:item.label} aria-current={workspace===item.key?"page":undefined} onClick={()=>openWorkspace(item.key)}><span className="workspaceNavFull">{item.label}</span><span className="workspaceNavShort" aria-hidden="true" data-no-localize>{englishEdition?item.shortEn:item.shortJa}</span><i>{item.sub}</i></button>)}
       </nav>}
       <div className="topActions">{offline&&<span className="offlineStatus" role="status">オフライン</span>}<span title="スマートフォンでも閲覧・クイズ・基本操作を利用できます">PC・横向きタブレット推奨</span><a className="languageSwitch" href={languageUrl} lang={englishEdition?"ja":"en"} data-no-localize>{englishEdition?"日本語":"English"}</a><button className="phoneRailToggle" onClick={event=>openPhoneSettings(event.currentTarget)} aria-controls="phone-settings-panel" aria-label="現在の教材の設定を表示">設定</button><button className="helpButton" onClick={()=>openOverlay("help")} aria-label="操作ガイドを表示">操作ガイド</button><button className="feedbackButton topActionSecondary" onClick={()=>openOverlay("feedback")} aria-label="匿名の意見・誤り報告を表示">意見・誤り報告</button>{!englishEdition&&<button className="collaborateButton topActionSecondary" onClick={()=>openWorkspace("collaborate")} aria-label="共同制作ページを表示">共同制作</button>}<button className="legalButton topActionSecondary" data-no-localize onClick={()=>openOverlay("sources")}>{englishEdition?"Sources":"出典"}</button><button className="legalButton topActionSecondary" onClick={()=>openOverlay("legal")} aria-label="利用条件・クレジットを表示">利用条件</button><HeaderMoreMenu english={englishEdition} onAction={action=>action==="collaborate"?openWorkspace("collaborate"):openOverlay(action)}/></div>
     </header>

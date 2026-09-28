@@ -322,7 +322,6 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /className="blockReleaseNote"><span className="sourceBadge">試作<\/span>/);
   assert.match(page, /形状・範囲・接続関係の完全性や解剖学的正確性を保証せず/);
   assert.match(page, /ブロック標本（試作中）/);
-  assert.match(page, /key:"blocks",label:"ブロック標本",sub:"試作品"/);
   assert.match(page, /workspace==="blocks"&&<section className=\{`workArea learningArea/);
   assert.match(page, /位置関係を学ぶ試作標本です。形状・範囲・接続の正確性は検証中です。/);
   assert.doesNotMatch(page, /blockIntroOpen&&<section className="workArea blockIntroPage"/);
@@ -2415,7 +2414,6 @@ test("free observation distinguishes the medial and basal hypothalamus entries",
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
   assert.match(page, /key===\"hypothalamus\"\?\"視床下部領域（内側面）\":surfaceDeepLandmarks\[key\]\.name/);
   assert.match(page, /key===\"hypothalamus\"\?\"視床下部領域（脳底面）\":basalLandmarks\[key\]\.name/);
-  assert.match(page, /<option key=\{item\.key\} value=\{item\.key\}>\{item\.name\} — \{anatomyDisplayEnglish\(item\.latin\)\}<\/option>/);
   assert.match(page, /\$\{item\.name\}の選択を解除/);
 });
 

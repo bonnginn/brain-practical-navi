@@ -1733,3 +1733,13 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
   .workspace-quiz:not(.phone-mode) .provisionalQuizToggle{padding:5px}
 }
 @media(pointer:coarse){.workspace-quiz .quizSetup select,.workspace-quiz .quizCountButtons button,.workspace-quiz .quizStart{min-height:44px}}
+
+/* A narrow desktop window should still expose every learning destination. */
+.workspaceSwitch .workspaceNavShort{display:none}
+@media(max-width:760px){
+  .appShell:not(.phone-mode) .workspaceSwitch{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;overflow:visible;scroll-snap-type:none}
+  html[lang="en"] .appShell:not(.phone-mode) .workspaceSwitch button,
+  .appShell:not(.phone-mode) .workspaceSwitch button{min-width:0;min-height:44px;padding:4px 2px;scroll-snap-align:none}
+  .appShell:not(.phone-mode) .workspaceSwitch .workspaceNavFull{display:none}
+  .appShell:not(.phone-mode) .workspaceSwitch .workspaceNavShort{display:block;font-size:11px;line-height:1.12;white-space:nowrap}
+}
