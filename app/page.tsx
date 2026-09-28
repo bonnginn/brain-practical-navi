@@ -1052,7 +1052,12 @@ export default function Home() {
   const surfaceHighlightLayers=useMemo<HighlightLayer[]>(()=>renderedSurfaceRegions.map(key=>({ids:surfaceRegions[key].ids,color:surfaceRegions[key].rgb,conditional:surfaceView==="medial"&&key==="cuneus"?{ids:surfaceRegions.pericalcarine.ids,axis:0,min:-14}:surfaceView==="medial"&&key==="lingual"?{ids:surfaceRegions.pericalcarine.ids,axis:0,max:-14}:undefined})),[renderedSurfaceRegions,surfaceView]);
   const normalizedFreeSearch=normalizeJapaneseSearch(freeSearch);
   const freeFilteredItems=useMemo(()=>freeObservationItems.filter(item=>matchesJapaneseSearch(normalizedFreeSearch,[item.name,item.latin,anatomyDisplayEnglish(item.latin),item.kind,item.source,...(freeObservationReadings[item.key]??[])])),[normalizedFreeSearch]);
-  const freeSelectedItems=useMemo(()=>freeSelections.map(key=>freeObservationByKey.get(key)).filter((item):item is FreeObservationItem=>!!item),[freeSelections]);
+  const freeSelectedItems=useMemo(()=>{
+    const items=freeSelections.map(key=>freeObservationByKey.get(key)).filter((item):item is FreeObservationItem=>!!item);
+    if(!freeFocusedKey)return items;
+    const focused=items.find(item=>item.key===freeFocusedKey);
+    return focused?[focused,...items.filter(item=>item.key!==freeFocusedKey)]:items;
+  },[freeSelections,freeFocusedKey]);
   const freeFocusedItem=freeFocusedKey?freeObservationByKey.get(freeFocusedKey):undefined;
   const activePathway=selectedPathway?pathwayPresets[selectedPathway]:null;
   const circuitReviewQuestions=useMemo(()=>{
