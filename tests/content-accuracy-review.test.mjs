@@ -78,7 +78,7 @@ test("来歴台帳の該当項目にも分類・機能・命名の注意を残�
   const byKey = new Map(provenance.entries.map((entry) => [entry.key, entry]));
   assert.match(byKey.get("section-subthalamic-nucleus").knownLimitations.join(" "), /間脳の視床下域/);
   assert.match(byKey.get("section-pallidum-external-internal").knownLimitations.join(" "), /GPe.*中継・調節.*GPi.*主要出力/);
-  assert.match(byKey.get("section-ventricular-system").knownLimitations.join(" "), /上方は視床、下方（底側）は視床下部/);
+  assert.match(byKey.get("section-ventricular-system").knownLimitations.join(" "), /上方.{0,5}視床、下方（底側）.{0,5}視床下部/);
   for (const key of [
     "app-surface-rostral-middle-frontal",
     "app-surface-caudal-middle-frontal",

@@ -291,7 +291,7 @@
       "projectReview": "pending",
       "quizEligibility": "pilot",
       "sourceRefs": ["combined-practical-segmentation", "mni-cerebra-browser-assets", "specimen-block-assets"],
-      "knownLimitations": ["小脳半球の教育用候補で、葉・虫部の区分や小脳脚の連続性は発展項目です。BigBrain連続断面の3Dは現行ID28・29から再構成し、原画像で確認した197点の局所修正を反映しています。残る塗り落としや孤立成分は完成扱いしていません。"],
+      "knownLimitations": ["小脳半球の教育用候補で、葉・虫部の区分や小脳脚の連続性は発展項目です。BigBrain連続断面の3Dは現行ID28・29から再構成し、原画像で確認した先行197点の局所修正と葉縁90点の補完を反映しています。残る塗り落としや孤立成分は完成扱いしていません。"],
       "appKeys": ["cerebellum"]
     },
     {
@@ -408,7 +408,7 @@
       "projectReview": "pending",
       "quizEligibility": "pilot",
       "sourceRefs": ["combined-practical-segmentation", "mni-cerebra-browser-assets", "specimen-block-assets"],
-      "knownLimitations": ["アトラス照合の腔候補で、脳室間の細い連続部や全境界は検証中です。2026-08-24に、X・Y・Z各軸で同一脳室ラベルに挟まれた内部欠損33 voxelだけをPR #14のプロジェクト内レビューで補完しましたが、構造全体の専門家レビューは未完了です。第三脳室は左右の視床・視床下部に囲まれ、上方は視床、下方（底側）は視床下部という位置関係を教材文言で示します。"],
+      "knownLimitations": ["位置照合したアトラスを出発点に、同一BigBrain原画像と直交断で局所修正した脳室腔の教材用ラベルです。左右側脳室・第三脳室・中脳水道・第四脳室の主腔は接続表示していますが、第三脳室屋根、細い腔縁、第四脳室下方の外部開口などは未確定です。第三脳室の側壁は上方が視床、下方（底側）が視床下部に接します。構造全体の専門家レビューは未完了です。"],
       "appKeys": ["ventricle", "thirdVentricle", "fourthVentricle"]
     },
     {
