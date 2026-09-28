@@ -116,6 +116,21 @@ const guidance={
     "basilar-mca":["中大脳動脈は内頸動脈から外側へ向かう枝です。脳底動脈の合流元は左右の椎骨動脈です。","The middle cerebral arteries branch laterally from the internal carotid system. The paired vertebral arteries unite to form the basilar artery."],
     "basilar-acomm":["前交通動脈は左右の前大脳動脈をつなぎます。橋の腹側を上行する脳底動脈は左右の椎骨動脈の合流で始まります。","The anterior communicating artery links the anterior cerebral arteries. The basilar artery ascends on the ventral pons after the vertebral arteries unite."],
   },
+  "precentral-function":{
+    "precentral-auditory":["聴覚の一次受容は外側溝の深部にある横側頭回が中心です。中心前回には一次運動野があり、随意運動に関わります。","Primary auditory input is received mainly in the transverse temporal gyri deep in the lateral sulcus. The precentral gyrus contains primary motor cortex for voluntary movement."],
+    "precentral-visual":["一次視覚野は後頭葉内側面の鳥距溝周囲にあります。中心前回の一次運動野は随意運動に関わります。","Primary visual cortex lies around the calcarine sulcus on the medial occipital lobe. Primary motor cortex in the precentral gyrus contributes to voluntary movement."],
+    "precentral-somatosensory":["体性感覚の一次処理は中心溝の後方、中心後回が中心です。中心溝の前方にある中心前回は主に随意運動に関わります。","Primary somatosensory processing is centred in the postcentral gyrus, behind the central sulcus. The precentral gyrus in front of it is chiefly associated with voluntary movement."],
+  },
+  "superior-temporal-function":{
+    "stg-motor":["随意運動の一次運動野は中心前回です。上側頭回は聴覚情報の処理と関係します。","Primary motor cortex for voluntary movement is in the precentral gyrus. The superior temporal gyrus is associated with auditory processing."],
+    "stg-somatosensory":["体性感覚の一次処理は中心後回が中心です。上側頭回は聴覚関連皮質を含み、一次聴覚野は主にその深部の横側頭回にあります。","Primary somatosensory processing is centred in the postcentral gyrus. The superior temporal region is related to hearing; primary auditory cortex lies mainly in the transverse temporal gyri deep to it."],
+    "stg-visual":["一次視覚野は鳥距溝周囲の後頭葉皮質です。上側頭回では聴覚情報の処理に注目します。","Primary visual cortex surrounds the calcarine sulcus in the occipital lobe. In the superior temporal gyrus, focus on auditory processing."],
+  },
+  "fusiform-function":{
+    "fusiform-primary-visual":["一次視覚野は鳥距溝周囲にあります。紡錘状回は腹側視覚系の一部として、顔や物体などの高次視覚認識に関わります。","Primary visual cortex surrounds the calcarine sulcus. The fusiform gyrus participates in higher-order ventral visual recognition, including faces and objects."],
+    "fusiform-auditory":["聴覚の一次受容は横側頭回が中心です。紡錘状回は聴覚野ではなく、腹側視覚系の高次視覚認識に関わります。","Primary auditory input is received mainly in the transverse temporal gyri. The fusiform gyrus belongs to higher-order ventral visual processing, not primary auditory cortex."],
+    "fusiform-somatosensory":["体性感覚の一次処理は中心後回が中心です。紡錘状回では腹側視覚系の高次視覚認識を考えます。","Primary somatosensory processing is centred in the postcentral gyrus. The fusiform gyrus is associated with higher-order recognition in the ventral visual stream."],
+  },
   "cn3-function":{
     "cn3-lateral-rectus":["外側直筋は外転神経（VI）の支配です。動眼神経（III）は内側直筋など多くの外眼筋と、上眼瞼挙上・縮瞳・調節に関わります。","The abducens nerve (VI) supplies the lateral rectus. Oculomotor (III) supplies most other extraocular muscles, lifts the upper eyelid, and carries fibres for pupillary constriction and accommodation."],
     "cn3-superior-oblique":["上斜筋は滑車神経（IV）の支配です。動眼神経（III）は下斜筋や内側直筋などを支配します。","The trochlear nerve (IV) supplies the superior oblique. Oculomotor (III) supplies the inferior oblique, medial rectus, and other muscles."],
