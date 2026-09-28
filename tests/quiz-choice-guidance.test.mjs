@@ -26,3 +26,17 @@ test('guidance never appears before answering or for an unrelated option',()=>{
   assert.equal(quizChoiceGuidance(question,'not-an-option'),null);
   assert.equal(quizChoiceGuidance({...question,id:'other-question'},'mammillary-fornix'),null);
 });
+
+test('every function-to-structure distractor contrasts both structures in both languages',()=>{
+  const questions=bank.questions.filter(question=>question.kind==='function-to-structure');
+  assert.equal(questions.length,17);
+  for(const seed of questions){
+    const question={...seed,questionKind:seed.kind,options:seed.options.map(option=>option.key)};
+    for(const choice of question.options.filter(option=>option!==question.correctAnswer)){
+      const ja=quizChoiceGuidance(question,choice);
+      const en=quizChoiceGuidance(question,choice,true);
+      assert.match(ja,/[。].+[。]/u,`${question.id}/${choice}: selected and expected, Japanese`);
+      assert.match(en,/[.].+[.]/u,`${question.id}/${choice}: selected and expected, English`);
+    }
+  }
+});

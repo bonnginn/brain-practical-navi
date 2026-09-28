@@ -193,8 +193,58 @@ const guidance={
   },
 };
 
+// Function-to-structure questions need a direct contrast between the selected
+// structure and the defining clue in the stem. These are teaching descriptions,
+// not claims that a single structure has only one function.
+const functionClues={
+  "caudate-function-clue":["尾状核は背側線条体の一部で、運動の選択や認知の基底核ループに関わります。","The caudate belongs to the dorsal striatum and participates in basal-ganglia loops for action selection and cognition."],
+  "putamen-function-clue":["被殻は背側線条体の一部で、特に運動系の基底核ループに関わります。","The putamen belongs to the dorsal striatum and is especially involved in motor basal-ganglia loops."],
+  "pallidum-function-clue":["淡蒼球では内節が主要な出力部、外節が主に基底核内の調節に関わります。","In the globus pallidus, the internal segment is a major output region while the external segment mainly modulates basal-ganglia circuits."],
+  "accumbens-function-clue":["側坐核は腹側線条体に属し、報酬や動機づけの回路に関わります。","The nucleus accumbens belongs to the ventral striatum and participates in reward and motivation circuits."],
+  "hippocampus-function-clue":["海馬体は内側側頭葉にあり、新しい出来事の記憶形成に重要です。","The hippocampal formation lies in the medial temporal lobe and is important for forming new event memories."],
+  "amygdala-function-clue":["扁桃体は内側側頭葉の核群で、刺激の情動的な意味づけや情動記憶に関わります。","The amygdala is a medial temporal nuclear complex involved in emotional significance and emotional memory."],
+  "mammillary-function-clue":["乳頭体は脳弓から情報を受け、乳頭視床路を介して前部視床へつなぐ中継部です。","The mammillary bodies receive input through the fornix and relay it to anterior thalamus through the mammillothalamic tract."],
+  "red-nucleus-function-clue":["赤核は中脳被蓋の核で、運動調節系と関係します。","The red nucleus is in the midbrain tegmentum and participates in motor control."],
+  "substantia-nigra-function-clue":["黒質は中脳にあり、緻密部のドパミン作動性投射などで基底核回路を調節します。","The substantia nigra lies in the midbrain; dopaminergic projections from its compact part help modulate basal-ganglia circuits."],
+  "subthalamic-function-clue":["視床下核は基底核回路へ興奮性に作用し、間接路・ハイパー直接路に関わります。","The subthalamic nucleus provides excitatory input within basal-ganglia circuits and participates in indirect and hyperdirect pathways."],
+  "ventricle-function-clue":["側脳室は左右の大脳半球内をC字形に走る一対の髄液腔です。","The lateral ventricles are paired, C-shaped CSF spaces within the cerebral hemispheres."],
+  "thalamus-function-clue":["視床は多くの感覚・運動関連情報を大脳皮質へ中継・調節する核群です。","The thalamus relays and modulates much sensory and motor-related information reaching cerebral cortex."],
+  "callosum-function-clue":["脳梁は左右の大脳皮質を結ぶ主要な交連線維束です。","The corpus callosum is the major commissural bundle joining the cerebral cortices."],
+  "capsule-function-clue":["内包は大脳皮質と視床・脳幹などを結ぶ投射線維が密集する白質路です。","The internal capsule is a dense projection-fiber pathway between cortex and structures such as the thalamus and brainstem."],
+  "insula-function-clue":["島皮質は外側溝の深部にある皮質で、内臓感覚や味覚などの処理に関わります。","The insula is cortex deep in the lateral sulcus and participates in processing visceral sensation and taste, among other functions."],
+  "brainstem-function-clue":["脳幹は中脳・橋・延髄からなり、生命維持に関わる中枢や脳神経核・上下行路を含みます。","The brainstem comprises midbrain, pons and medulla and contains vital centers, cranial-nerve nuclei and ascending and descending pathways."],
+  "cerebellum-function-clue":["小脳は運動の正確さ・タイミング・平衡や運動学習を調整します。","The cerebellum adjusts movement accuracy and timing, balance and motor learning."],
+};
+
+const alternativeClues={
+  thalamus:["視床は多くの情報を大脳皮質へ中継する間脳の核群です。","The thalamus is a diencephalic nuclear complex that relays much information to cortex."],
+  amygdala:["扁桃体は情動的な意味づけに関わる内側側頭葉の核群です。","The amygdala is a medial temporal nuclear complex involved in emotional significance."],
+  cerebellum:["小脳は運動のタイミングや誤差の調整に関わります。","The cerebellum helps adjust movement timing and error."],
+  pallidum:["淡蒼球は線条体とは異なる基底核の核で、内節は主要な出力部です。","The globus pallidus is distinct from the striatum; its internal segment is a major output region."],
+  hippocampus:["海馬体は新しい出来事の記憶形成に重要です。","The hippocampal formation is important for forming new event memories."],
+  putamen:["被殻は運動系の基底核ループに関わる背側線条体です。","The putamen is dorsal striatum involved in motor basal-ganglia loops."],
+  accumbens:["側坐核は報酬・動機づけに関わる腹側線条体です。","The nucleus accumbens is ventral striatum involved in reward and motivation."],
+  redNucleus:["赤核は中脳被蓋の運動調節に関わる核です。","The red nucleus is a motor-related nucleus in the midbrain tegmentum."],
+  insula:["島皮質は外側溝の深部にある皮質で、内臓感覚や味覚などに関わります。","The insula is cortex deep in the lateral sulcus, involved in visceral sensation and taste among other functions."],
+  caudate:["尾状核は運動・認知の基底核ループに関わる背側線条体です。","The caudate is dorsal striatum involved in motor and cognitive basal-ganglia loops."],
+  corpusCallosum:["脳梁は左右の大脳皮質を結ぶ交連線維です。","The corpus callosum is a commissural fiber bundle joining the cerebral cortices."],
+  opticChiasm:["視交叉は視神経線維の一部が交叉する視覚路です。","The optic chiasm is a visual pathway where some optic-nerve fibers cross."],
+  substantiaNigra:["黒質は中脳の基底核関連核で、緻密部のドパミン作動性投射などを含みます。","The substantia nigra is a basal-ganglia-related midbrain nucleus that includes dopaminergic projections from its compact part."],
+  subthalamic:["視床下核は間脳の視床下域にあり、基底核回路へ興奮性に作用します。","The subthalamic nucleus lies in the subthalamus and provides excitatory input in basal-ganglia circuits."],
+  thirdVentricle:["第三脳室は間脳の正中にある髄液腔です。","The third ventricle is a midline CSF space within the diencephalon."],
+  fourthVentricle:["第四脳室は橋・延髄の背側と小脳の間にある髄液腔です。","The fourth ventricle is a CSF space between the dorsal pons and medulla and the cerebellum."],
+  internalCapsule:["内包は脳室ではなく、大脳深部を通る投射線維の白質路です。","The internal capsule is a deep projection-fiber pathway, not a ventricle."],
+  brainstem:["脳幹は中脳・橋・延髄からなり、脳神経核や上下行路を含みます。","The brainstem comprises midbrain, pons and medulla, with cranial-nerve nuclei and long pathways."],
+  ventricle:["側脳室は大脳半球内の髄液腔で、神経組織ではありません。","The lateral ventricle is a CSF space within a cerebral hemisphere, not neural tissue."],
+};
+
 export function quizChoiceGuidance(question,choice,english=false){
   if(!question?.id||!choice||choice===question.correctAnswer||!question.options?.includes(choice))return null;
   const note=Object.hasOwn(guidance,question.id)?guidance[question.id][choice]:null;
-  return note?.[english?1:0]??null;
+  if(note)return note[english?1:0];
+  if(question.questionKind==='function-to-structure'&&Object.hasOwn(functionClues,question.id)&&Object.hasOwn(alternativeClues,choice)){
+    const index=english?1:0;
+    return `${alternativeClues[choice][index]} ${functionClues[question.id][index]}`;
+  }
+  return null;
 }
