@@ -107,6 +107,22 @@ test('cached cranial-nerve answers remain accepted after teaching revisions',asy
   assert.equal(writes,10);
 });
 
+test('visual nerve and vessel wording revisions accept both cached and current answers',async()=>{
+  const currentRows=JSON.parse(readFileSync(new URL('../services/quiz-statistics/catalog.json',import.meta.url),'utf8'));
+  const revised=currentRows.filter(item=>item.question.startsWith('identify-')&&/脳底で白く示された血管・血管群|脳底・脳幹で白く示された構造/.test(item.prompt));
+  assert.equal(revised.length,18);
+  let writes=0;
+  const env={ALLOWED_ORIGIN:origin,DB:{prepare:()=>({bind:()=>({run:async()=>{writes++}})})}};
+  for(const current of revised){
+    const old=legacyRows.find(item=>item.question===current.question&&item.prompt==='白色で強調された模式3Dの名称はどれですか？');
+    assert.ok(old,`${current.question}: cached wording remains allowed`);
+    assert.notEqual(old.revision,current.revision);
+    assert.deepEqual(old.options,current.options);
+    for(const version of [old,current])assert.equal((await receiveAnswer(request('/answer','POST',{question:version.question,revision:version.revision,choice:version.options[0]}),env)).status,204);
+  }
+  assert.equal(writes,36);
+});
+
 test('read uses public totals without credentials and handles receiver failure',async()=>{
   const fetcher=async(url,options)=>{assert.equal(url,'https://example.org/results');assert.equal(options.credentials,'omit');return {ok:true,json:async()=>[{question:'q',revision:'r',choice:'a',answers:2}]}};
   assert.equal((await readQuizStatistics('https://example.org/answer',fetcher))[0].answers,2);

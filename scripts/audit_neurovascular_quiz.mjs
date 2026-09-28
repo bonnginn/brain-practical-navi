@@ -21,11 +21,14 @@ export const CN2_OVERLAY_REGION_IDS = Object.freeze([23, 24]);
 export const CN2_FORBIDDEN_REGION_IDS = Object.freeze([25, 33, 36, 37, 38]);
 export const OPTIC_CHIASM_OVERLAY_REGION_IDS = Object.freeze([25]);
 export const OPTIC_CHIASM_FORBIDDEN_REGION_IDS = Object.freeze([23, 24, 33, 36, 37, 38]);
-export const PILOT_PROMPT = "白色で強調された模式3Dの名称はどれですか？";
+export const PILOT_PROMPTS = Object.freeze({
+  arteries: "脳底で白く示された血管・血管群はどれですか？",
+  cranialNerves: "脳底・脳幹で白く示された構造はどれですか？",
+});
 
 // Updated after the 22-question inventory is intentionally frozen. This hash
 // covers only the new pilot fields, never the separate 23-question snapshot.
-export const EXPECTED_NEUROVASCULAR_QUIZ_SHA256 = "d5cfdee13e96bcb90f0c5d7e8396c0f613c18a049d01787bc20f204f8b53719d";
+export const EXPECTED_NEUROVASCULAR_QUIZ_SHA256 = "c20b895f359e44b5bce8a2fdb9c0a59f7ee8e04a588622069b111583ef6badf3";
 
 function readRepositoryFile(rootDir, relativePath) {
   return fs.readFileSync(path.join(rootDir, relativePath), "utf8");
@@ -148,7 +151,7 @@ export function auditNeurovascularQuiz({ rootDir = REPOSITORY_ROOT, source, meta
     const item = registry.get(question.target);
     if (!item) errors.push(`pilot target is missing from neurovascular registry: ${question.target}`);
     if (question.category !== "neurovascular" || question.format !== "neurovascular" || question.origin !== "provisional") errors.push(`${question.target}: category/format/origin must be neurovascular/provisional`);
-    if (question.prompt !== PILOT_PROMPT) errors.push(`${question.target}: pilot prompt must remain identification-only`);
+    if (question.prompt !== PILOT_PROMPTS[question.detail]) errors.push(`${question.target}: pilot prompt must remain visual identification for its view`);
     if (question.options.length !== 4 || !question.options.includes(question.target)) errors.push(`${question.target}: target must appear in exactly four options`);
     if (item) {
       const expectedDetail = item.kind === "arteries" ? "arteries" : "cranialNerves";
