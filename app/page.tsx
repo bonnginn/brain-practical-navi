@@ -1522,7 +1522,35 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
   function clearFreeObservation(){setFreeSelections([]);setFreeFocusedKey(null);setSelectedPathway(null);setBasalStepperIndex(0);setPapezStepperIndex(0);setCircuitSectionsOpen(false)}
   function selectFreeObservation(key:FreeObservationKey){
     if(!freeSelectedSet.has(key))toggleFreeObservation(key);else setFreeFocusedKey(key);
-    if(surfaceView!=="free"||selectedPathway||(!key.startsWith("basal:")&&!key.startsWith("neuro:")))return;
+    if(surfaceView!=="free"||selectedPathway)return;
+    const observationRotation=(view:SurfaceViewKey)=>({
+      ...surfaceViews[view].rotation,
+      ...(freeHemisphere==="right"&&(view==="lateral"||view==="medial")?{y:-surfaceViews[view].rotation.y}:{}),
+    });
+    if(key.startsWith("region:")){
+      const region=key.slice(7) as SurfaceRegionKey;
+      const medial:SurfaceRegionKey[]=["cingulate","paracentral","precuneus","cuneus","pericalcarine","lingual","parahippocampal","entorhinal"];
+      const inferior:SurfaceRegionKey[]=["fusiform","orbitofrontal"];
+      setSurfaceGhost(false);
+      setRotation(observationRotation(medial.includes(region)?"medial":inferior.includes(region)?"inferior":"lateral"));
+      if(medial.includes(region)&&freeHemisphere==="both")setFreeHemisphere("left");
+      return;
+    }
+    if(key.startsWith("landmark:")){
+      const landmark=key.slice(9) as SurfaceLandmarkKey;
+      const view:SurfaceViewKey=["parieto-occipital-sulcus","calcarine-sulcus"].includes(landmark)?"medial":landmark==="olfactory-sulcus"?"inferior":landmark==="longitudinal-fissure"?"superior":"lateral";
+      setSurfaceGhost(false);
+      setRotation(observationRotation(view));
+      if(view==="medial"&&freeHemisphere==="both")setFreeHemisphere("left");
+      return;
+    }
+    if(key.startsWith("deep:")){
+      setSurfaceGhost(true);
+      if(freeHemisphere==="both")setFreeHemisphere("left");
+      setRotation(observationRotation("medial"));
+      return;
+    }
+    if(!key.startsWith("basal:")&&!key.startsWith("neuro:"))return;
     const dorsal=key==="basal:superior-colliculi"||key==="basal:inferior-colliculi";
     const trochlear=key==="neuro:cn4";
     if(dorsal||trochlear)setSurfaceGhost(true);
