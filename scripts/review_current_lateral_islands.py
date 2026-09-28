@@ -31,8 +31,10 @@ def main():
         raise ValueError("Image/label grid mismatch")
     OUTPUT.mkdir(parents=True)
     results = []
+    repeated_ids = {label_id for label_id, _, _ in TARGETS if sum(target[0] == label_id for target in TARGETS) > 1}
     for label_id, seed, expected_count in TARGETS:
         seed = np.asarray(seed)
+        stem = f"id{label_id}-x{seed[0]}y{seed[1]}z{seed[2]}" if label_id in repeated_ids else f"id{label_id}"
         bounds = tuple(slice(max(0, int(v)-25), min(int(labels.shape[i]), int(v)+26)) for i, v in enumerate(seed))
         local = labels[bounds] == label_id
         components, _ = ndimage.label(local, ndimage.generate_binary_structure(3, 3))
@@ -73,7 +75,7 @@ def main():
             for panel in panels:
                 sheet.paste(panel, (0, y))
                 y += panel.height
-            name = f"id{label_id}-{axis}.png"
+            name = f"{stem}-{axis}.png"
             sheet.save(OUTPUT / name)
             files.append(name)
         results.append({"labelId": label_id, "seedXYZ": seed.tolist(), "pointsXYZ": points.tolist(), "centerXYZ": center.tolist(), "count": len(points), "figures": files})
