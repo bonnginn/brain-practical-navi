@@ -37,6 +37,26 @@
 .sectionPlaneTabs button:focus-visible{outline:3px solid #d99556;outline-offset:1px}
 .workspace-sections .sectionUtilities{margin-top:12px;grid-template-columns:minmax(0,1fr) auto}
 @media(max-width:760px){.sectionPlaneTabs button{min-height:44px;padding:7px 10px}.workspace-sections .sectionUtilities{grid-template-columns:1fr}}
+@media(max-width:600px){
+  .workspace-sections .slicePanel{min-width:0;grid-template-columns:minmax(0,1fr)}
+  .workspace-sections .slicePanel>.panelHead,
+  .workspace-sections .sliceStage,
+  .workspace-sections .sliceTimeline{min-width:0;width:100%}
+  .workspace-sections .sectionPlaneTabs{min-width:0}
+  .workspace-sections .sectionPlaneTabs button{min-width:0;flex:1;padding-inline:4px}
+  .workspace-sections .sliceTools{min-width:0;width:100%}
+  .workspace-sections .sectionLayoutSwitch{min-width:0;width:100%}
+  .workspace-sections .sectionLayoutSwitch button{min-width:0;white-space:normal;line-height:1.2}
+  .workspace-sections .sliceTimeline{grid-template-columns:minmax(0,1fr)}
+  .workspace-sections .sliceTimeline>*{min-width:0}
+  .workspace-sections .sliceTimeline .sectionSliceStepper{width:100%}
+  .workspace-sections .sliceStage.layout-model .insetViews.views-2{grid-template-columns:minmax(0,1fr);grid-template-rows:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:360px){
+  .workspace-sections .timelineHead>div{min-width:0}
+  .workspace-sections .timelineHead b{display:none}
+  .workspace-sections .timelineHead output{margin-left:6px}
+}
 .blockPriorityGroup>header small{display:none}
 .blockPriorityGroup .blockPriorityReason{display:none}
 .circuitOverview{font-size:13px;margin:8px 0}
