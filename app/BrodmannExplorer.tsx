@@ -302,6 +302,10 @@ export default function BrodmannExplorer({ english = false }: { english?: boolea
           <button type="button" aria-pressed={colorMode === 'none'} onClick={() => {setColorMode('none')}}>{text('着色なし', 'No colour')}</button>
           <button type="button" onClick={()=>{setSelectedAreas([]);setSelected(null)}}>{text('選択解除','Clear selection')}</button>
         </div>
+        <div className="brodmannDescription" aria-live="polite">
+          <h3>{selected ? `BA ${selected}${selectedName ? ` · ${english ? selectedName.en : selectedName.ja}` : ''}` : text('領野を選んで観察', 'Choose an area to explore')}</h3>
+          <p>{selectedNote ? (english ? selectedNote.en : selectedNote.ja) : text('外側面・内側面・上面・下面を切り替えて、領野の広がりを確認しましょう。見えないときは、観察する側や方向を変えてください。', 'Switch between lateral, medial, superior and inferior views to inspect the extent of an area. If it is hidden, change the side or direction.')}</p>
+        </div>
         {hiddenAreas.length>0&&<p>{text('非表示：','Hidden: ')}{hiddenAreas.map(n=>`BA ${n}`).join(', ')} — {text('番号を再選択すると戻ります','Select the number again to restore')}</p>}<div className="brodmannAreaGrid" role="group" aria-label={text('領野番号を選択', 'Select an area number')}>
           {atlas.areaNumbers.map(area => {
             const name = areaNames[area];
@@ -309,17 +313,13 @@ export default function BrodmannExplorer({ english = false }: { english?: boolea
             return <button type="button" key={area} data-brodmann-area={area} aria-label={label} title={label} aria-pressed={selectedAreas.includes(area)} onClick={() => toggleArea(area)}><i aria-hidden="true" style={{ background: `rgb(${brodmannColor(area).join(',')})` }} />BA {area}</button>;
           })}
         </div>
-        <div className="brodmannDescription" aria-live="polite">
-          <h3>{selected ? `BA ${selected}${selectedName ? ` · ${english ? selectedName.en : selectedName.ja}` : ''}` : text('領野を選んで観察', 'Choose an area to explore')}</h3>
-          <p>{selectedNote ? (english ? selectedNote.en : selectedNote.ja) : text('外側面・内側面・上面・下面を切り替えて、領野の広がりを確認しましょう。見えないときは、観察する側や方向を変えてください。', 'Switch between lateral, medial, superior and inferior views to inspect the extent of an area. If it is hidden, change the side or direction.')}</p>
-          <p>{text('番号は細胞構築による区分です。併記した名称は代表的な対応で、脳回・機能領域の境界と厳密には一致しません。', 'Numbers describe cytoarchitectonic divisions. The accompanying names are common associations, not exact matches to gyral or functional boundaries.')}</p>
-        </div>
       </aside>
     </div>
     <div className="brodmannSource">
       <b>{text('この地図の由来', 'About this map')}</b>
       <p>{text('PALS-B12の歴史的ブロードマン地図をfsaverageへ対応づけた表示です。Colin右半球に由来する地図を両側へ対応づけており、実際の左右差や個人ごとの細胞構築境界を実測したものではありません。灰色は領野未割当の部分です。', 'This historical PALS-B12 Brodmann map was transferred to fsaverage. A map originating from Colin’s right hemisphere was mapped to both sides; it does not measure individual cytoarchitectonic boundaries or actual hemispheric asymmetry. Grey regions are unassigned.')}</p>
       <p>{text('収録された41領野を表示します。島皮質の独立したBA区画はこの地図に収録されていません。欠番を補完したり、既存の脳回ラベルを番号へ置き換えたりしていません。BigBrain断面との位置合わせ・専門家レビューは未実施です。', 'The map does not include a separate insular BA parcel. The 41 supplied areas are displayed without filling missing numbers or relabelling existing gyral parcels. Registration to BigBrain sections and expert review have not been performed.')}</p>
+      <p>{text('番号は細胞構築による区分です。併記した名称は代表的な対応で、脳回・機能領域の境界と厳密には一致しません。', 'Numbers describe cytoarchitectonic divisions. The accompanying names are common associations, not exact matches to gyral or functional boundaries.')}</p>
       <nav aria-label={text('ブロードマン表示の参考文献', 'Brodmann display references')}>
         <a href="https://surfer.nmr.mgh.harvard.edu/fswiki/PALS_B12" target="_blank" rel="noreferrer">PALS-B12 / FreeSurfer</a>
         <a href="https://doi.org/10.1016/j.neuroimage.2005.06.058" target="_blank" rel="noreferrer">Van Essen (2005)</a>
