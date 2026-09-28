@@ -1531,7 +1531,7 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
       const region=key.slice(7) as SurfaceRegionKey;
       const medial:SurfaceRegionKey[]=["cingulate","paracentral","precuneus","cuneus","pericalcarine","lingual","parahippocampal","entorhinal"];
       const inferior:SurfaceRegionKey[]=["fusiform","orbitofrontal"];
-      setSurfaceGhost(false);
+      setSurfaceGhost(region==="insula"||region==="transverseTemporal");
       setRotation(observationRotation(medial.includes(region)?"medial":inferior.includes(region)?"inferior":"lateral"));
       if(medial.includes(region)&&freeHemisphere==="both")setFreeHemisphere("left");
       return;
