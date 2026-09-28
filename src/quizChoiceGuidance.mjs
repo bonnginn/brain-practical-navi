@@ -1,6 +1,11 @@
 // Short teaching contrasts for plausible distractors. Keys are stable quiz IDs
 // and option keys, so a different question cannot inherit an unrelated clue.
 const guidance={
+  "caudate-role-choice":{
+    "caudate-thalamic-relay":["多くの感覚情報を皮質へ中継するのは視床です。尾状核は皮質から入力を受ける線条体の一部で、基底核ループに参加します。","The thalamus relays much sensory information to cortex. The caudate is part of the striatum; it receives cortical input and participates in basal-ganglia loops."],
+    "caudate-callosal":["左右の大脳皮質を結ぶ主要な交連線維は脳梁です。尾状核は線維束ではなく基底核の一部です。","The corpus callosum is the major commissural bundle joining the cerebral cortices. The caudate is a basal-ganglia nucleus, not that fibre bundle."],
+    "caudate-hippocampal-memory":["新しい出来事の記憶形成では内側側頭葉の海馬体が重要です。尾状核は主に皮質―基底核ループで捉えます。","The medial temporal hippocampal formation is important for forming new event memories. The caudate is best identified here by its role in cortico-basal-ganglia loops."],
+  },
   "putamen-relation-choice":{
     "putamen-with-caudate":["尾状核と被殻は線条体を構成します。レンズ核を問う場合、被殻と組になるのは淡蒼球です。","The caudate and putamen form the striatum. The putamen pairs with the globus pallidus to form the lentiform nucleus."],
     "putamen-with-thalamus":["視床は間脳の構造です。被殻と淡蒼球を合わせてレンズ核と呼びます。","The thalamus is part of the diencephalon. The putamen and globus pallidus form the lentiform nucleus."],
@@ -25,6 +30,11 @@ const guidance={
     "capsule-surface":["内包は脳表ではなく深部の白質路です。冠状断では尾状核・視床とレンズ核の間を探します。","The internal capsule is a deep white-matter pathway, not a surface structure. In a coronal section, look between the caudate or thalamus and the lentiform nucleus."],
     "capsule-ventricle":["第三脳室は髄液腔です。内包はその外側寄りで、尾状核・視床とレンズ核の間を通る白質路です。","The third ventricle is a CSF-filled cavity. The internal capsule is a white-matter pathway farther laterally, between the caudate or thalamus and the lentiform nucleus."],
     "capsule-cerebellar":["小脳皮質は後頭蓋窩の小脳表面です。内包は大脳深部の投射線維です。","The cerebellar cortex is on the cerebellar surface in the posterior fossa. The internal capsule is a deep cerebral projection-fiber bundle."],
+  },
+  "insula-relation-choice":{
+    "insula-callosum":["脳梁膨大部は大脳半球を結ぶ脳梁の後部です。島皮質を外側から覆うのは外側溝周囲の弁蓋部です。","The splenium is the posterior corpus callosum between the hemispheres. Opercular cortex around the lateral sulcus covers the insula from the side."],
+    "insula-cerebellum":["小脳虫部は小脳半球の間にあります。島皮質は外側溝の深部で前頭・頭頂・側頭葉の弁蓋部に覆われます。","The vermis lies between the cerebellar hemispheres. The insula is buried in the lateral sulcus beneath frontal, parietal and temporal opercula."],
+    "insula-thalamus":["視床枕は視床の後部で、大脳深部にあります。島皮質を脳表から隠すのは外側溝の弁蓋部です。","The pulvinar is the posterior thalamus deep in the brain. The opercula of the lateral sulcus conceal the insula from the cortical surface."],
   },
   "callosum-classification-choice":{
     "callosum-both-commissure":["脳梁は左右の大脳半球を結ぶ交連線維です。脳弓には海馬交連も含まれますが、主体は海馬からの投射線維です。","The corpus callosum is commissural. Although the fornix includes the hippocampal commissure, most of it carries projections from the hippocampal formation."],
@@ -100,6 +110,11 @@ const guidance={
     "ica-posterior":["椎骨動脈が合流して脳底動脈となる系は後方循環です。内頸動脈は前大脳・中大脳動脈へ続く前方循環の入口です。","The vertebral arteries unite as the basilar artery in the posterior circulation. The internal carotid supplies the anterior circulation through the anterior and middle cerebral arteries."],
     "ica-venous":["硬膜静脈洞は脳から戻る静脈血の排出路です。内頸動脈は脳へ血液を送る動脈です。","Dural venous sinuses drain venous blood from the brain. The internal carotid is an artery that supplies blood to it."],
     "ica-csf":["脳室は脳脊髄液の腔です。内頸動脈は脳底を走り、前方循環へ血液を送ります。","Ventricles are CSF-filled cavities. The internal carotid runs at the brain base and supplies the anterior circulation."],
+  },
+  "basilar-formation":{
+    "basilar-ica":["内頸動脈は前方循環へ続きます。脳底動脈は左右の椎骨動脈が橋延髄境界付近で合流してできます。","The internal carotids supply the anterior circulation. The basilar artery forms where the paired vertebral arteries unite near the pontomedullary junction."],
+    "basilar-mca":["中大脳動脈は内頸動脈から外側へ向かう枝です。脳底動脈の合流元は左右の椎骨動脈です。","The middle cerebral arteries branch laterally from the internal carotid system. The paired vertebral arteries unite to form the basilar artery."],
+    "basilar-acomm":["前交通動脈は左右の前大脳動脈をつなぎます。橋の腹側を上行する脳底動脈は左右の椎骨動脈の合流で始まります。","The anterior communicating artery links the anterior cerebral arteries. The basilar artery ascends on the ventral pons after the vertebral arteries unite."],
   },
   "cn3-function":{
     "cn3-lateral-rectus":["外側直筋は外転神経（VI）の支配です。動眼神経（III）は内側直筋など多くの外眼筋と、上眼瞼挙上・縮瞳・調節に関わります。","The abducens nerve (VI) supplies the lateral rectus. Oculomotor (III) supplies most other extraocular muscles, lifts the upper eyelid, and carries fibres for pupillary constriction and accommodation."],
