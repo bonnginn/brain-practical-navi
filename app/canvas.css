@@ -747,7 +747,7 @@ html[lang="en"] .specimenLayerPicker button span small { display: none; }
 .quizSliceControl button { width: 32px; height: 32px; padding: 0; font-size: 19px; line-height: 1; }
 .quizQuestionCard { min-height: 0; overflow-y: auto; padding: 26px 28px; border: 1px solid #c7cac4; background: #e7e5df; }
 .quizQuestionCard h2 { margin: 10px 0 20px; font: 400 23px/1.55 Georgia,"Yu Mincho",serif; }
-.provisionalQuizFlag { display: inline-block; margin-top: 8px; padding: 3px 7px; border: 1px solid #d1a276; border-radius: 999px; background: #fff0df; color: #82502b; font-size: 12px; font-weight: 700; }
+.quizDisplaySource { display: block; margin-top: 12px; color: #5e6662; font-size: 12px; line-height: 1.4; }
 .quizQuestionKind { display: inline-block; margin: 8px 6px 0 0; padding: 3px 7px; border: 1px solid #9ab5b2; border-radius: 999px; background: #edf5f3; color: #285e5a; font-size: 12px; font-weight: 700; }
 .quizOptions { display: grid; gap: 7px; }
 .quizOptions button { display: grid; grid-template-columns: 34px 1fr auto; align-items: center; gap: 10px; min-height: 58px; padding: 8px 12px; border: 1px solid #bdc1bb; background: #f6f4ef; text-align: left; }
@@ -1517,6 +1517,9 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
 .quizArea .workHead { flex-wrap: wrap; gap: .5rem; }
 .quizArea .workHead h1 { font-size: clamp(1.5rem,1.1rem + 1cqi,2rem); }
 .quizWorkspace { grid-template-columns: minmax(0,1fr) minmax(280px,.85fr); }
+.quizNarrowPrompt { display: none; }
+.quizNarrowPrompt > span { display: block; color: #437572; font: 700 12px/1.4 sans-serif; letter-spacing: .06em; }
+.quizNarrowPrompt h2 { margin: 5px 0 0; font: 400 clamp(17px,4.5vw,21px)/1.45 Georgia,"Yu Mincho",serif; overflow-wrap: anywhere; }
 .quizQuestionCard { min-width: 0; padding: clamp(.875rem,2cqi,1.75rem); }
 .quizQuestionCard h2 { font-size: clamp(1.125rem,.875rem + .8cqi,1.4375rem); overflow-wrap: anywhere; }
 .quizOptions button { grid-template-columns: 28px minmax(0,1fr) auto; gap: .5rem; padding-inline: .625rem; }
@@ -1544,11 +1547,18 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
 }
 @container quiz-area (max-width: 42rem) {
   .quizWorkspace { display: grid; flex: 0 0 auto; grid-template-columns: minmax(0,1fr); }
-  .quizImageCard { height: clamp(360px,55svh,560px); }
+  .quizNarrowPrompt { display: block; padding: 12px 14px; border: 1px solid #c7cac4; background: #e7e5df; }
+  .quizImageCard { height: clamp(300px,46svh,480px); }
   .quizQuestionCard { overflow: visible; margin-top: 0; }
+  .quizQuestionCard > .guideIndex,.quizQuestionCard > .quizQuestionKind,.quizQuestionCard > h2 { display: none; }
   .quizSliceNavigator { grid-template-columns: minmax(0,1fr) auto; gap: .5rem; }
   .quizSliceAxis { grid-column: 1 / -1; }
   .quizSliceNavigator > button { grid-column: 1 / -1; }
+}
+@media (min-width:673px) and (max-width:760px) {
+  .quizNarrowPrompt { display: block; padding: 12px 14px; border: 1px solid #c7cac4; background: #e7e5df; }
+  .quizImageCard { height: clamp(300px,46svh,480px); }
+  .quizQuestionCard > .guideIndex,.quizQuestionCard > .quizQuestionKind,.quizQuestionCard > h2 { display: none; }
 }
 
 /* Preserve the established 1440 px typography while easing dense learner UI
