@@ -262,11 +262,11 @@ const surfaceViewLandmarks:Record<SurfaceViewKey,SurfaceLandmarkKey[]>={
   free:surfaceLandmarkKeys,
 };
 const surfaceDeepLandmarks:Record<SurfaceDeepLandmarkKey,{name:string;latin:string;color:string;source:string;note:string}>={
-  "corpus-callosum":{name:"脳梁",latin:"Corpus callosum",color:"#dbc270",source:"試作分節",note:"左右半球を結ぶ大交連のうち、左半球側だけを内側面の位置関係用に表示します。試作分節は帯状回・脳弓など周辺構造との分離が不十分であり、確定境界ではありません。"},
+  "corpus-callosum":{name:"脳梁",latin:"Corpus callosum",color:"#dbc270",source:"試作分節",note:"内側面では左側だけを表示します。自由観察では半球を切り替えて反対側も確認できます。試作分節は帯状回・脳弓など周辺構造との分離が不十分であり、確定境界ではありません。"},
   "septum-pellucidum":{name:"透明中隔（位置目安）",latin:"Septum pellucidum",color:"#a9c5bd",source:"模式補助",note:"脳梁下面と脳弓上面を結ぶ両葉性の薄い隔壁のうち、左葉の位置だけを示します。輪郭は正解分節ではなく、上下関係の確認に限ってください。"},
   fornix:{name:"脳弓",latin:"Fornix",color:"#e8d9a6",source:"模式補助",note:"左右の海馬系から乳頭体方向へ向かう概略形状です。全脳から選ぶと左半球が開き、右側は半球切替で確認できます。標本由来の部分分節とは異なります。"},
-  thalami:{name:"視床",latin:"Thalamus",color:"#8d82c4",source:"標本分節",note:"第三脳室の外側を占める灰白質のうち、左視床だけを表示します。"},
-  hypothalamus:{name:"視床下部領域",latin:"Hypothalamus",color:"#b97864",source:"位置目安",note:"左視床腹側から第三脳室底へ続く概略領域です。核境界ではなく、右側成分は表示しません。"},
+  thalami:{name:"視床",latin:"Thalamus",color:"#8d82c4",source:"標本分節",note:"第三脳室の外側にある灰白質です。内側面では左視床を、自由観察では半球切替に応じた側を表示します。"},
+  hypothalamus:{name:"視床下部領域",latin:"Hypothalamus",color:"#b97864",source:"位置目安",note:"視床腹側から第三脳室底へ続く概略領域です。核境界ではありません。内側面では左側を、自由観察では半球切替に応じた側を表示します。"},
 };
 const surfaceDeepLandmarkKeys=Object.keys(surfaceDeepLandmarks) as SurfaceDeepLandmarkKey[];
 // This hemisected teaching specimen does not visibly preserve the fornix or

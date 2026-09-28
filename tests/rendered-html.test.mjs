@@ -1730,7 +1730,8 @@ test("left medial view clips every paired deep overlay to the displayed side", a
   assert.match(canvas, /gl\.uniform1f\(gl\.getUniformLocation\(prog,"hemiMode"\),hemisphere==="left"\?-1/);
   assert.match(page, /hemisphere:"left"/);
   assert.match(page, /初期状態は非表示・左側だけを描画/);
-  assert.match(page, /右側成分は表示しません/);
+  assert.match(page, /内側面では左側だけを表示します/);
+  assert.match(page, /自由観察では半球を切り替えて反対側も確認できます/);
 
   for (const name of [
     "block-commissural-system-corpus-callosum",
