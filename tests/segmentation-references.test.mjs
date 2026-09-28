@@ -31,8 +31,9 @@ for(const english of [false,true])test(`browser references render source roles a
   assert.match(html,/data-brainstem-representation="partial-tissue-repair"/);
   assert.match(html,english?/not a completed segmentation/:/全脳幹の完成分節でも/);
   assert.match(html,/17876227/);assert.match(html,/NBK540988/);
-  assert.match(html,/data-aqueduct-representation="partial-versus-schematic"/);
-  assert.match(html,english?/not the schematic aqueduct/:/模式中脳水道とは別/);
+  assert.match(html,/data-aqueduct-representation="current-teaching-block"/);
+  assert.match(html,english?/current midbrain teaching block uses a partial lumen cast/:/現行の中脳横断ブロックも同じラベルから切り出した部分鋳型/);
+  assert.match(html,english?/197- and 90-voxel/:/197点・90点/);
   assert.match(html,/s00276-024-03312-1/);
   assert.match(html,english?/missing specimen walls/:/標本で失われた壁/);
   assert.match(html,/s41597-019-0217-0/);

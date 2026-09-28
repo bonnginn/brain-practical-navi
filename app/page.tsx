@@ -325,11 +325,11 @@ const blockSpecimens:Record<BlockSpecimenKey,BlockLesson>={
     {key:"optic-radiation",name:"視放線",latin:"Radiatio optica",color:"#7d9fd0",source:"模式補助",note:"外側膝状体から側頭・頭頂葉を経て後頭葉へ向かいます。"},
     {key:"auditory-radiation",name:"聴放線",latin:"Radiatio acustica",color:"#74b99e",source:"模式補助",note:"内側膝状体から側頭葉の聴覚皮質へ向かいます。"},
   ]},
-  "commissural-system":{name:"脳梁・脳弓標本",en:"CORPUS CALLOSUM AND FORNIX",visual:"model",plane:"sagittal",position:50,focus:"ventricle",view:"inside",rotation:{x:-7,y:76},intro:"正中周囲だけを残し、脳梁の弧、側脳室、透明中隔、脳弓の上下関係を内側から見る標本です。側脳室を空間基準に、交連線維と辺縁系の出力路を分けて観察します。",observe:["脳梁の膝・幹・膨大へ続く弧","脳梁直下の側脳室","脳梁と脳弓の間の透明中隔","海馬から乳頭体方向へ続く脳弓","脳梁と脳弓が別の線維系であること"],caution:"脳梁は画像誘導の試作分節、側脳室は同一格子の試作分節です。脳弓は模式3D、透明中隔は位置目安であり、薄い膜や線維束の実測境界ではありません。脳弓柱・交連前後の詳細形態は今後の修正対象です。",layers:[
+  "commissural-system":{name:"脳梁・脳弓標本",en:"CORPUS CALLOSUM AND FORNIX",visual:"model",plane:"sagittal",position:50,focus:"ventricle",view:"inside",rotation:{x:-7,y:76},intro:"正中周囲だけを残し、脳梁の弧、側脳室、透明中隔、脳弓の上下関係を内側から見る標本です。側脳室を空間基準に、交連線維と辺縁系の出力路を分けて観察します。",observe:["脳梁の膝・幹・膨大へ続く弧","脳梁直下の側脳室","脳梁と脳弓の間の透明中隔","海馬から乳頭体方向へ続く脳弓","脳梁と脳弓が別の線維系であること"],caution:"脳梁・側脳室・脳弓・透明中隔は同一標本の部分的な試作分節です。薄い隔壁や脳弓の端部には未収録部分があり、全境界を確定した表示ではありません。",layers:[
     {key:"corpus-callosum",name:"脳梁",latin:"Corpus callosum",color:"#dbc270",source:"試作分節",note:"左右大脳半球を結ぶ大きな交連線維の弧です。局所的な誤収録は修正しましたが、帯状回・脳弓など周辺構造との分離には未修正部分が残ります。原画像と照合してください。"},
     {key:"lateral-ventricles",name:"側脳室",latin:"Ventriculi laterales",color:"#45aebd",source:"試作分節",note:"脳梁・透明中隔・脳弓の位置を読む空間基準です。"},
-    {key:"fornix",name:"脳弓",latin:"Fornix",color:"#e7d9a6",source:"模式補助",note:"海馬から中隔野・乳頭体方向へ弧を描く線維路の模式です。"},
-    {key:"septum-pellucidum",name:"透明中隔",latin:"Septum pellucidum",color:"#a9c5bd",source:"位置目安",note:"脳梁下面と脳弓上面を結ぶ両葉性の薄い隔壁の位置を示します。現在の3Dは左葉だけの模式です。"},
+    {key:"fornix",name:"脳弓",latin:"Fornix",color:"#e7d9a6",source:"試作分節",note:"同一標本の脳弓体部・脚・柱と海馬采の部分分節です。終端と全外縁は未収録です。"},
+    {key:"septum-pellucidum",name:"透明中隔",latin:"Septum pellucidum",color:"#a9c5bd",source:"試作分節",note:"左右側脳室の間に残る薄い隔壁の部分分節です。付着部と細い箇所は未収録です。"},
   ]},
   "choroid-plexus":{name:"脈絡叢を開く",en:"CHOROID PLEXUS",visual:"model",plane:"sagittal",position:55,focus:"ventricle",view:"inside",rotation:{x:-18,y:-54},intro:"側脳室の内側壁を開き、脳室腔、海馬、脈絡裂に沿う脈絡叢を観察する局所標本です。腔の全体像と脈絡叢の付着位置を混同しないよう、別レイヤーにしました。",observe:["側脳室体部・三角部・下角","脈絡裂のC字形の方向","脈絡叢と視床・海馬の位置関係","下角の床をつくる海馬","脈絡叢が存在しない前角・後角の方向"],caution:"組織像から脈絡叢を安定して抽出できないため、赤紫の房状構造は脈絡裂に沿わせた模式3Dです。側脳室腔と海馬は同一標本格子に基づきます。脈絡叢の細かな形・付着範囲は検証用標本で今後修正します。",layers:[
     {key:"ventricular-cavity",name:"側脳室腔",latin:"Ventriculus lateralis",color:"#45aebd",source:"試作分節",note:"脈絡叢が入る腔を先に把握するための基準です。"},
@@ -342,10 +342,10 @@ const blockSpecimens:Record<BlockSpecimenKey,BlockLesson>={
     {key:"inferior-horn",name:"側脳室下角",latin:"Cornu inferius",color:"#45aebd",source:"試作分節",note:"海馬と扁桃体の上下前後関係を読む空間基準です。"},
     {key:"fimbria",name:"海馬采（部分）",latin:"Fimbria (partial)",color:"#e7d9a6",source:"試作分節",note:"海馬内側縁から脳弓脚へ向かう部分分節です。全長と全外縁は未収録です。"},
   ]},
-  "midbrain-section":{name:"中脳核・大脳脚標本",en:"MIDBRAIN CROSS-SECTION",visual:"model",plane:"horizontal",position:67,focus:"thalamus",view:"inside",rotation:{x:-62,y:0},intro:"中脳の位置関係を比較する試作表示です。現在の褐色組織は中脳の一部しか覆わず、完全な横断標本ではありません。赤核・黒質の分節と、大脳脚・丘・膝状体などの位置目安を重ねています。",observe:["正中背側寄りの中脳水道","被蓋に並ぶ左右の赤核","赤核の腹外側に沿う黒質","黒質腹側の大脳脚と脚間窩","上丘・下丘と外側・内側膝状体の対応"],caution:"赤核・黒質は手動分節です。褐色組織は同一標本の脳幹ラベルを10 mm厚に切り出していますが、元ラベルの欠けにより大脳脚側などの組織が不足しています。部品が組織から離れて見える状態を実際の解剖として覚えないでください。中脳水道は模式3D、大脳脚、上丘・下丘、膝状体、脚間窩は位置目安で、核境界の正解分節ではありません。",layers:[
+  "midbrain-section":{name:"中脳核・大脳脚標本",en:"MIDBRAIN CROSS-SECTION",visual:"model",plane:"horizontal",position:67,focus:"thalamus",view:"inside",rotation:{x:-62,y:0},intro:"中脳の位置関係を比較する試作表示です。現在の褐色組織は中脳の一部しか覆わず、完全な横断標本ではありません。赤核・黒質の分節と、大脳脚・丘・膝状体などの位置目安を重ねています。",observe:["正中背側寄りの中脳水道","被蓋に並ぶ左右の赤核","赤核の腹外側に沿う黒質","黒質腹側の大脳脚と脚間窩","上丘・下丘と外側・内側膝状体の対応"],caution:"赤核・黒質は手動分節です。褐色組織は同一標本の脳幹ラベルを10 mm厚に切り出していますが、元ラベルの欠けにより大脳脚側などの組織が不足しています。部品が組織から離れて見える状態を実際の解剖として覚えないでください。中脳水道は同一標本の部分的な腔ラベルから切り出した鋳型です。大脳脚、上丘・下丘、膝状体、脚間窩は位置目安で、核境界の正解分節ではありません。",layers:[
     {key:"red-nuclei",name:"赤核",latin:"Nuclei rubri",color:"#d24f49",source:"標本分節",note:"中脳被蓋内に左右一対で現れる円形の核です。"},
     {key:"substantia-nigra",name:"黒質",latin:"Substantia nigra",color:"#716387",source:"標本分節",note:"被蓋と大脳脚の間に沿う帯状の核です。"},
-    {key:"aqueduct",name:"中脳水道",latin:"Aqueductus mesencephali",color:"#45aebd",source:"模式補助",note:"第三脳室と第四脳室を結ぶ正中の細い腔を、視認できる太さで示します。"},
+    {key:"aqueduct",name:"中脳水道",latin:"Aqueductus mesencephali",color:"#45aebd",source:"試作分節",note:"現在の中脳水道ラベルから切り出した部分鋳型です。組織ではなく腔を示します。"},
     {key:"cerebral-peduncles",name:"大脳脚領域",latin:"Pedunculi cerebri",color:"#d29a55",source:"位置目安",note:"黒質の腹側にある大脳脚底部の概略領域です。"},
     {key:"superior-colliculi",name:"上丘",latin:"Colliculi superiores",color:"#bd6f56",source:"位置目安",note:"中脳蓋上部にある一対の隆起の位置です。"},
     {key:"inferior-colliculi",name:"下丘",latin:"Colliculi inferiores",color:"#a85d4e",source:"位置目安",note:"上丘の尾側にある一対の聴覚系隆起の位置です。"},

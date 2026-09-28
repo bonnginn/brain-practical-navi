@@ -65,6 +65,8 @@ test('partial aqueduct synchronizes all affected tissue masks without replacing 
  assert.deepEqual(r.sectionMeshImpact.changedFiles,['section-current-ventricular-system.mesh']);
  const latest=await withRegionalBatches(r,{afterRevision:r.afterSha256});
  for(const [name,info] of Object.entries(latest.sectionMeshImpact.after.meshes))assert.equal(sha(await read('public/atlas/'+name+'.mesh')),info.sha256);
- const page=await read('app/page.tsx');assert.match(page.toString(),/中脳水道は模式3D/);
+ assert.equal(manifest.specimens['midbrain-section'].find(p=>p.part==='aqueduct').sourceType,'schematic-3d');
+ const teaching=JSON.parse(await read('app/teachingSpecimens.json'));
+ assert.equal(teaching.specimens['midbrain-section'].parts.find(p=>p.key==='aqueduct').source,'same-grid-segmentation');
  assert.ok(r.meshImpact.blockMaskImpact.filter(p=>p.part==='aqueduct').every(p=>p.changedMaskVoxels===0));
 });
