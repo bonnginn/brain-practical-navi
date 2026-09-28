@@ -1185,7 +1185,7 @@ export default function Home() {
   },[workspace,blockSpecimen]);
   useEffect(()=>{try{const restored=restoreQuizHistory(localStorage.getItem(QUIZ_WRONG_CACHE_KEY),localStorage.getItem("brain-practical-quiz-wrong-v1"),allQuizQuestions);setWrongTargets(restored);localStorage.setItem(QUIZ_WRONG_CACHE_KEY,JSON.stringify(restored))}catch{/* Invalid or inaccessible storage is left untouched. */}},[]);
   useEffect(()=>setQuizSlicePosition(quizStartPosition),[quizStartPosition,surfaceQuiz]);
-  useEffect(()=>{if(isSurfaceQuiz(quizQuestion)||isNeurovascularQuiz(quizQuestion))setRotation({...quizModelInitialRotation})},[quizQuestion]);
+  useEffect(()=>{if(workspace==="quiz"&&!reviewMenu&&!findMode&&(isSurfaceQuiz(quizQuestion)||isNeurovascularQuiz(quizQuestion)))setRotation({...quizModelInitialRotation})},[quizQuestion,workspace,reviewMenu,findMode]);
   useEffect(()=>{if(quizVisibilityAuditTarget&&!isSurfaceQuiz(quizQuestion)&&!isNeurovascularQuiz(quizQuestion))setRotation({...homeRotation})},[quizVisibilityAuditTarget?.target,quizQuestion]);
   useEffect(()=>{
     const widthQuery=window.matchMedia("(max-width: 760px)");
