@@ -33,7 +33,7 @@ export const PHONE_CORE_DOCK = Object.freeze([
   Object.freeze({ key: "home", label: "Home", hash: "#workspace/home", canvasCount: 0 }),
   Object.freeze({ key: "surface", label: "脳表", hash: "#workspace/surface/lateral", canvasCount: 1 }),
   Object.freeze({ key: "sections", label: "断面", hash: "#workspace/sections/coronal", canvasCount: 1 }),
-  Object.freeze({ key: "blocks", label: "ブロック標本", hash: "#workspace/blocks/lateral-ventricle", canvasCount: 0 }),
+  Object.freeze({ key: "blocks", label: "ブロック標本", hash: "#workspace/blocks/lateral-ventricle", canvasCount: 1 }),
   Object.freeze({ key: "quiz", label: "復習", hash: "#workspace/quiz", canvasCount: 1 }),
 ]);
 /**
@@ -444,30 +444,15 @@ async function runBlockSpecimenGuide(cdp, state, baseUrl, specimen, { initialPro
     if (navigation === "fresh-route") await navigatePhoneFreshRoute(cdp, baseUrl, specimen.hash);
     else await navigatePhoneRoute(cdp, baseUrl, specimen.hash);
     initialProbe = await waitPhoneStable(cdp, state, specimen.hash, {
-      minCanvas: 0,
+      minCanvas: 1,
       predicate: value => value.block?.specimenKey === specimen.specimenKey
-        && value.block?.introOpen === true
-        && value.block?.guidedStatus === null
-        && value.block?.layerKeys?.length === 0,
+        && value.block?.introOpen === false
+        && value.block?.guidedStatus === "off"
+        && sameJson(value.block?.layerKeys, specimen.layerKeys),
     });
   }
-
-  const intro = await tap(cdp, '.blockIntroCard button[data-block-intro-action="close"]', "試作品を確認する");
-  let probe = await waitPhoneStable(cdp, state, specimen.hash, {
-    minCanvas: 1,
-    predicate: value => value.block?.specimenKey === specimen.specimenKey
-      && value.block?.introOpen === false
-      && value.block?.guidedStatus === "off"
-      && sameJson(value.block?.layerKeys, specimen.layerKeys),
-  });
+  let probe = initialProbe;
   const manualLayers = [...probe.block.layerKeys];
-  const introAction = interaction("intro-close", {
-    target: intro.target,
-    touch: intro,
-    expectedHash: specimen.hash,
-    manualLayerKeys: manualLayers,
-    afterProbe: probe,
-  });
 
   const start = await tap(cdp, '[data-block-guided-action="start"]');
   const beforeStart = probe;
@@ -542,7 +527,7 @@ async function runBlockSpecimenGuide(cdp, state, baseUrl, specimen, { initialPro
     initialProbe,
     finalProbe: probe,
     manualLayerKeys: manualLayers,
-    actions: [introAction, startAction, interaction("guided-steps", { transitions }), stopAction],
+    actions: [startAction, interaction("guided-steps", { transitions }), stopAction],
   };
 }
 
@@ -555,11 +540,11 @@ async function blocksJourney(cdp, state, baseUrl) {
   const dockTarget = await inspectTouchTarget(cdp, ".phoneDock button", PHONE_CORE_DOCK.find(item => item.key === "blocks")?.label || "ブロック標本");
   const dockTouch = await touchTarget(cdp, dockTarget);
   probe = await waitPhoneStable(cdp, state, firstSpecimen.hash, {
-    minCanvas: 0,
+    minCanvas: 1,
     predicate: value => value.block?.specimenKey === firstSpecimen.specimenKey
-      && value.block?.introOpen === true
-      && value.block?.guidedStatus === null
-      && value.block?.layerKeys?.length === 0,
+      && value.block?.introOpen === false
+      && value.block?.guidedStatus === "off"
+      && sameJson(value.block?.layerKeys, firstSpecimen.layerKeys),
   });
   const dockAction = interaction("dock-to-blocks", {
     target: dockTarget,
@@ -741,7 +726,7 @@ function validateBlocksJourney(journey, failures) {
   const dock = actions[0]?.details;
   validateTargetAndTouch(dock, failures, "blocks dock");
   const firstSpecimen = PHONE_CORE_BLOCK_GUIDED.specimens[0];
-  validateBlockProbe(dock?.afterProbe, firstSpecimen.hash, failures, "blocks dock", { minCanvas: 0, introOpen: true, guidedStatus: null, specimenKey: firstSpecimen.specimenKey, allLayerKeys: firstSpecimen.layerKeys, layerKeys: [] });
+  validateBlockProbe(dock?.afterProbe, firstSpecimen.hash, failures, "blocks dock", { minCanvas: 1, introOpen: false, guidedStatus: "off", specimenKey: firstSpecimen.specimenKey, allLayerKeys: firstSpecimen.layerKeys, layerKeys: firstSpecimen.layerKeys });
   if (dock?.target?.dataKey !== "blocks" || dock?.key !== firstSpecimen.specimenKey || dock?.expectedHash !== firstSpecimen.hash) addFailure(failures, "blocks dock: semantic key or route copy is not fixed");
 
   const specimenDetails = actions[1]?.details;
@@ -756,21 +741,17 @@ function validateBlocksJourney(journey, failures) {
     const expectedNavigation = index === 0 ? "dock" : "fresh-route";
     const expectedNavigationEvidence = { mode: expectedNavigation, intermediateHash: expectedNavigation === "fresh-route" ? "about:blank" : null, targetHash: expected.hash };
     if (scenario?.specimenKey !== expected.specimenKey || scenario?.hash !== expected.hash || scenario?.label !== expected.label || scenario?.navigation !== expectedNavigation || !sameJson(scenario?.navigationEvidence, expectedNavigationEvidence) || !sameJson(scenario?.manualLayerKeys, expected.layerKeys)) addFailure(failures, `blocks specimen ${index + 1}: fixed identity/navigation/manual layer contract mismatch`);
-    validateBlockProbe(scenario?.initialProbe, expected.hash, failures, `blocks ${expected.specimenKey} initial`, { minCanvas: 0, introOpen: true, guidedStatus: null, specimenKey: expected.specimenKey, allLayerKeys: expected.layerKeys, layerKeys: [] });
+    validateBlockProbe(scenario?.initialProbe, expected.hash, failures, `blocks ${expected.specimenKey} initial`, { minCanvas: 1, introOpen: false, guidedStatus: "off", specimenKey: expected.specimenKey, allLayerKeys: expected.layerKeys, layerKeys: expected.layerKeys });
     const scenarioActions = scenario?.actions || [];
-    if (scenarioActions.map(action => action.name).join("|") !== "intro-close|guided-start|guided-steps|guided-stop") addFailure(failures, `blocks ${expected.specimenKey}: action order mismatch`);
-    const intro = scenarioActions[0]?.details;
-    validateTargetAndTouch(intro, failures, `blocks ${expected.specimenKey} intro close`);
-    validateBlockProbe(intro?.afterProbe, expected.hash, failures, `blocks ${expected.specimenKey} intro close`, { minCanvas: 1, introOpen: false, guidedStatus: "off", specimenKey: expected.specimenKey, allLayerKeys: expected.layerKeys, layerKeys: expected.layerKeys });
-    if (intro?.target?.dataKey !== "close" || intro?.expectedHash !== expected.hash || !sameJson(intro?.manualLayerKeys, expected.layerKeys) || !sameJson(intro?.manualLayerKeys, intro?.afterProbe?.block?.layerKeys)) addFailure(failures, `blocks ${expected.specimenKey} intro close: manual layer capture/restoration is missing`);
+    if (scenarioActions.map(action => action.name).join("|") !== "guided-start|guided-steps|guided-stop") addFailure(failures, `blocks ${expected.specimenKey}: action order mismatch`);
 
-    const start = scenarioActions[1]?.details;
+    const start = scenarioActions[0]?.details;
     validateTargetAndTouch(start, failures, `blocks ${expected.specimenKey} guided start`);
     validateBlockProbe(start?.beforeProbe, expected.hash, failures, `blocks ${expected.specimenKey} guided start before`, { minCanvas: 1, introOpen: false, guidedStatus: "off", specimenKey: expected.specimenKey, allLayerKeys: expected.layerKeys, layerKeys: expected.layerKeys });
     validateBlockProbe(start?.afterProbe, expected.hash, failures, `blocks ${expected.specimenKey} guided start after`, { minCanvas: 1, introOpen: false, guidedStatus: "active", specimenKey: expected.specimenKey, allLayerKeys: expected.layerKeys, guidedStepKey: expected.layerKeys[0], guidedFinal: false, layerKeys: [expected.layerKeys[0]] });
-    if (start?.target?.dataKey !== "start" || !sameJson(start?.beforeProbe, intro?.afterProbe) || !sameJson(start?.savedLayerKeys, expected.layerKeys) || !sameJson(start?.expectedLayerKeys, [expected.layerKeys[0]]) || start?.expectedStepKey !== start?.afterProbe?.block?.guidedStepKey) addFailure(failures, `blocks ${expected.specimenKey} guided start: state continuity or step derivation is missing`);
+    if (start?.target?.dataKey !== "start" || !sameJson(start?.beforeProbe, scenario?.initialProbe) || !sameJson(start?.savedLayerKeys, expected.layerKeys) || !sameJson(start?.expectedLayerKeys, [expected.layerKeys[0]]) || start?.expectedStepKey !== start?.afterProbe?.block?.guidedStepKey) addFailure(failures, `blocks ${expected.specimenKey} guided start: state continuity or step derivation is missing`);
 
-    const steps = scenarioActions[2]?.details?.transitions;
+    const steps = scenarioActions[1]?.details?.transitions;
     const expectedStepKeys = [...expected.layerKeys, "all"];
     if (!Array.isArray(steps) || steps.length !== expected.layerKeys.length || !sameJson(steps.map(step => step?.expectedStepKey), expectedStepKeys.slice(1))) addFailure(failures, `blocks ${expected.specimenKey} guided steps: every single-layer and final-all transition is required`);
     let previousProbe = start?.afterProbe;
@@ -783,7 +764,7 @@ function validateBlocksJourney(journey, failures) {
       if (transition?.target?.dataKey !== "next" || !sameJson(transition?.beforeProbe, previousProbe) || transition?.beforeStepKey !== previousProbe?.block?.guidedStepKey || transition?.afterStepKey !== transition?.afterProbe?.block?.guidedStepKey || transition?.expectedStepKey !== expectedStepKey || !sameJson(transition?.expectedLayerKeys, expectedLayerKeys) || transition?.beforeStepKey === transition?.afterStepKey) addFailure(failures, `blocks ${expected.specimenKey} guided step ${stepIndex + 1}: no-op/continuity/expected evidence mismatch`);
       previousProbe = transition?.afterProbe;
     }
-    const stop = scenarioActions[3]?.details;
+    const stop = scenarioActions[2]?.details;
     validateTargetAndTouch(stop, failures, `blocks ${expected.specimenKey} guided stop`);
     validateBlockProbe(stop?.beforeProbe, expected.hash, failures, `blocks ${expected.specimenKey} guided stop before`, { minCanvas: 1, introOpen: false, guidedStatus: "active", specimenKey: expected.specimenKey, allLayerKeys: expected.layerKeys, guidedStepKey: "all", guidedFinal: true, layerKeys: expected.layerKeys });
     validateBlockProbe(stop?.afterProbe, expected.hash, failures, `blocks ${expected.specimenKey} guided stop after`, { minCanvas: 1, introOpen: false, guidedStatus: "off", specimenKey: expected.specimenKey, allLayerKeys: expected.layerKeys, guidedStepKey: null, guidedFinal: false, layerKeys: expected.layerKeys });

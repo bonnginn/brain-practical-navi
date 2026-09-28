@@ -320,12 +320,13 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /Heinrich Heine University Düsseldorf医学部倫理委員会の承認（#4863）/);
   assert.match(page, /https:\/\/bigbrainproject\.org\/about\.html/);
   assert.match(page, /className="blockReleaseNote"><span className="sourceBadge">試作<\/span>/);
-  assert.match(page, /形状・範囲・接続関係の完全性や解剖学的正確性は保証しません/);
+  assert.match(page, /形状・範囲・接続関係の完全性や解剖学的正確性を保証せず/);
   assert.match(page, /ブロック標本（試作中）/);
   assert.match(page, /key:"blocks",label:"ブロック標本",sub:"試作品"/);
-  assert.match(page, /blockIntroOpen&&<section className="workArea blockIntroPage"/);
-  assert.match(page, /ブロック標本は試作中です/);
-  assert.match(page, /形状・範囲・接続関係の完全性や解剖学的正確性は保証しません/);
+  assert.match(page, /workspace==="blocks"&&<section className=\{`workArea learningArea/);
+  assert.match(page, /位置関係を学ぶ試作標本です。形状・範囲・接続の正確性は検証中です。/);
+  assert.doesNotMatch(page, /blockIntroOpen&&<section className="workArea blockIntroPage"/);
+  assert.match(page, /形状・範囲・接続関係の完全性や解剖学的正確性を保証せず/);
   assert.match(page, /Cloudflare Web Analytics/);
   assert.match(page, /CookieやlocalStorageを使わず、訪問者の個人データを収集・利用しません/);
   assert.match(page, /クイズの誤答履歴、断面の観察設定、分節差分、M2比較の下書き、解剖レビューの下書きは端末内のlocalStorageに保存されます/);
@@ -2229,9 +2230,8 @@ test("complex workspaces expose visible keyboard focus and a main-content shortc
     readFile(new URL("app/ManualSegmentationWorkbench.tsx", root), "utf8"),
   ]);
   assert.match(page, /className="skipLink" onClick=\{\(\)=>document\.getElementById\("workspace"\)\?\.focus\(\)\}/);
-  assert.equal((page.match(/id="workspace" tabIndex=\{-1\}/g) ?? []).length, 9);
-  assert.match(page, /workspace==="blocks"&&blockIntroOpen/);
-  assert.match(page, /workspace==="blocks"&&!blockIntroOpen/);
+  assert.equal((page.match(/id="workspace" tabIndex=\{-1\}/g) ?? []).length, 8);
+  assert.match(page, /workspace==="blocks"&&<section className=\{`workArea learningArea/);
   assert.ok((page.match(/aria-current=\{/g) ?? []).length >= 4);
   assert.match(page, /role="group" aria-label="構造グループの一括表示"/);
   assert.match(css, /:focus-visible \{ outline: 3px solid #e36e57/);

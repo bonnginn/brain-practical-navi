@@ -576,14 +576,6 @@ html, body, #root { height: 100%; overflow: hidden; }
 .blockContextNotice { margin-top: 12px; padding: 10px 12px; border-left: 4px solid #bc8667; background: #f7eee7; color: #5a4a42; }
 .blockContextNotice b { display: block; color: #744b39; font-size: 14px; }
 .blockContextNotice p { margin: 4px 0 0; font-size: 14px; line-height: 1.65; }
-.blockIntroPage { display: grid; place-items: center; padding: clamp(24px,6vw,80px); background: radial-gradient(circle at 50% 38%,#f4f1e9 0,#e4e1da 72%); }
-.blockIntroCard { width: min(660px,100%); padding: clamp(28px,5vw,58px); border: 1px solid #c5b9ad; border-top: 6px solid #c44737; background: #f8f6f0; box-shadow: 0 22px 65px rgba(35,31,28,.14); text-align: center; }
-.blockIntroCard > span { color: #b53b2e; font: 900 15px monospace; letter-spacing: .18em; }
-.blockIntroCard h1 { margin: 12px 0 14px; color: #2c3534; font: 400 clamp(28px,4vw,40px) Georgia,"Yu Mincho",serif; }
-.blockIntroCard p { max-width: 560px; margin: 0 auto; color: #596260; font-size: 17px; line-height: 1.9; }
-.blockIntroCard > div { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 25px; }
-.blockIntroCard button { padding: 10px 16px; border: 1px solid #404b49; background: #263331; color: #fff; font-size: 15px; font-weight: 800; }
-.blockIntroCard button + button { border-color: #b66a5d; background: transparent; color: #7f3b31; }
 .blockReleaseNote { display: flex; align-items: center; gap: 7px; }
 .blockReleaseNote button { padding: 7px 10px; border: 1px solid #b85e4c; background: #f4e4df; color: #823d31; font-size: 14px; font-weight: 800; white-space: nowrap; }
 .blockReleaseNote button:hover { background: #ead0c8; }
@@ -1495,7 +1487,6 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
   .phone-mode .panelActions button{min-height:44px}
   .phone-mode .sliceTimeline input[type=range]{min-height:44px}
   .phone-mode .quizFeedback button{min-height:44px}
-  .phone-mode .blockIntroCard button{min-height:44px}
   .phone-mode .segmentationEntry{display:none}
   .phone-mode .phoneSegmentGuard{margin:14px 0;padding:22px 18px}
   .phone-mode .phoneSegmentGuard h2{font-size:24px}
@@ -1632,8 +1623,7 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
 .specimenLayerPicker > header small,
 .specimenLayerPicker > header button,
 .specimenLayerPicker > footer,
-.learningGuide h3,
-.blockIntroCard button { font-size: var(--ui-font-15); }
+.learningGuide h3 { font-size: var(--ui-font-15); }
 
 .planeBtn > span,
 .panelHead small,
@@ -1657,8 +1647,7 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
 
 .planeBtn b,
 .panelHead b,
-.identifyCard b,
-.blockIntroCard p { font-size: var(--ui-font-17); }
+.identifyCard b { font-size: var(--ui-font-17); }
 .sectionTitle h2 { font-size: var(--ui-font-23); }
 .workHead h1 { font-size: var(--ui-font-25); }
 .inspector h2 { font-size: var(--ui-font-27); }
