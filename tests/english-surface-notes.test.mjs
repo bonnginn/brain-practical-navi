@@ -37,17 +37,17 @@ test("arterial explanations retain the named connections and limitations",()=>{
 
 test("nerve descriptions do not lose emergence sites or relative directions",()=>{
   assert.equal(catalog["舌下神経と錐体・オリーブ"],"Hypoglossal nerve, medullary pyramids and olives");
-  const cn3=catalog["中脳の脚間窩から腹側へ現れる神経です。現行の模式管には中脳組織内を通る部分があり、実際の脳内線維束を追跡したものではありません。脳外の近位経路・根糸・正確な出現境界も未確定です。出現位置の正解図としては扱わないでください。"];
+  const cn3=Object.entries(catalog).find(([key])=>key.startsWith("動眼神経（III）は多くの外眼筋"))?.[1];
   assert.match(cn3,/ventrally from the interpeduncular fossa/);
-  assert.match(cn3,/not traced intramesencephalic nerve fascicles/);
-  assert.match(cn3,/extra-axial proximal course, rootlets and precise root exit zone remain unresolved/);
-  assert.match(catalog["橋延髄境界の正中寄りから現れる。"],/near the midline at the pontomedullary junction/);
-  for(const nerve of ["顔面神経","前庭蝸牛神経"]){
-    const entry=Object.entries(catalog).find(([key])=>key.startsWith(nerve+"の近位部だけを示す模式です。"));
+  assert.match(cn3,/does not represent traced intramesencephalic fibers/);
+  assert.match(cn3,/extra-axial proximal course, rootlets and precise root exit boundary remain unresolved/);
+  assert.match(catalog["外転神経（VI）は外側直筋を支配し、眼球を外転させます。橋延髄境界の正中寄りから現れます。"],/near the midline at the pontomedullary junction/);
+  for(const nerve of ["顔面神経（VII）","内耳神経（VIII）"]){
+    const entry=Object.entries(catalog).find(([key])=>key.startsWith(nerve));
     assert.ok(entry);
-    assert.match(entry[1],/display cutoff, not the end of the nerve/);
-    assert.match(entry[1],/precise root exit.*not reconstructed/);
-    assert.match(entry[1],/not shown separately/);
+    assert.match(entry[1],/tip is not the end of the nerve/);
+    assert.match(entry[1],/precise root exit/);
+    assert.match(entry[1],/distinction between .* are not shown/);
   }
   const accessory=Object.entries(catalog).find(([key])=>key.startsWith("配置を修正中です。")&&key.includes("副神経全体"));
   assert.match(accessory?.[1]??'',/must not be used to identify the entire nerve/);
