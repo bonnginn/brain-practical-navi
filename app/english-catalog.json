@@ -1031,7 +1031,7 @@
   "左島皮質候補（試作）": "Left insular cortex candidate (provisional)",
   "左扁桃体": "left amygdala",
   "左海馬": "left hippocampus",
-  "左海馬系から乳頭体方向へ弓状に走る概略形状です。右側成分は表示しません。": "An approximate arching shape from the left hippocampal system toward the mammillary bodies. The right-sided component is not shown.",
+  "左右の海馬系から乳頭体方向へ向かう概略形状です。全脳から選ぶと左半球が開き、右側は半球切替で確認できます。標本由来の部分分節とは異なります。": "An approximate shape from both hippocampal regions toward the mammillary bodies. Selecting it from the whole-brain view opens the left hemisphere; switch hemispheres to inspect the right side. This schematic differs from the partial specimen-derived segmentation.",
   "左淡蒼球内節": "Left internal globus pallidus (GPi)",
   "左淡蒼球外節": "Left external globus pallidus (GPe)",
   "左被殻": "left putamen",
