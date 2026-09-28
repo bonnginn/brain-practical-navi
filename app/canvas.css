@@ -167,6 +167,7 @@ html[lang="en"] .selectedStructureList p em::before { content: "Location: "; }
 .selectedStructureList > button { border: 0; padding: 9px 18px; }
 .selectedStructureBar button:disabled, .quiz:disabled { cursor: default; opacity: .48; }
 .selectedBarActions { display: flex; gap: 5px; }
+.selectedBarActions .visibleSliceButton { border-color: #a85a46; color: #8d3e2f; font-weight: 700; }
 .selectedBarActions .detailToggle { border-color: #487875; background: #487875; color: #fff; font-weight: 700; }
 .timelineHead > div { font-size: 14px; }
 .timelineHead b { font-size: 15px; }

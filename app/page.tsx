@@ -33,7 +33,8 @@ import {ObservationLink} from "./ObservationLink";
 import {ActiveSectionStudy} from "./ActiveSectionStudy";
 import {SectionStudyGuide} from "./SectionStudyGuide";
 import {sectionStudyThemes,type SectionStudyTheme} from "../src/sectionStudyThemes";
-import { formatSectionPosition, stepPlanePosition, planeSliceIndex, segmentationPlaneNames } from "./segmentationGeometry";
+import { formatSectionPosition, stepPlanePosition, planeSliceIndex, planePositionForSlice, nearestLabeledSection, segmentationPlaneNames } from "./segmentationGeometry";
+import sectionLabelPresence from "./sectionLabelPresence.json";
 import betaGoNoGoDisplay from "./beta-go-no-go-display.json";
 import quizConceptBank from "./quiz-concept-bank.json";
 import { restoreQuizHistory, recordQuizAnswer } from "../src/quizHistory.mjs";
@@ -1022,6 +1023,8 @@ export default function Home() {
   const visibleSet=useMemo(()=>new Set(visibleStructures),[visibleStructures]);
   const selectedSummaryKey:StructureKey|undefined=activeVisibleStructures.includes(selectedStructure)?selectedStructure:activeVisibleStructures[0];
   const selectedSummary=selectedSummaryKey?structures[selectedSummaryKey]:null;
+  const selectedSliceSuggestion=contrast==="bigbrain"&&selectedSummary&&sectionLabelPresence.revision===SEGMENTATION_LABEL_SHA256?
+    nearestLabeledSection(sectionLabelPresence.labels,selectedSummary.bigbrainIds??[],plane,planeSliceIndex(position,plane,BIGBRAIN_SECTION_DIMS)):null;
   const sectionSelectionMeshLayers=activeVisibleStructures.flatMap(key=>{const files=(contrast==="bigbrain"?bigbrainSectionMeshFiles[key]:undefined)??structureMeshFiles[key]??[];return files.length?[{files,color:structures[key].rgb}]:[]});
   const modelFocusVisible=labels&&sectionSelectionMeshLayers.length>0;
   const currentSourceNote=contrast==="single"?"固定脳MRIでは未検証ラベルを表示しません":!structureAvailable(selectedStructure)?"現在の画像ソースでは未分節・着色できません":contrast==="bigbrain"?(cavitySelection?"脳実質を避け、腔の範囲だけを塗りつぶし":current.labelSource==="manual"?"同一格子の手動ラベル":current.labelSource==="image-guided-reviewed"?"連続切片で確認した画像誘導ラベル":current.labelSource==="image-guided"?"画像誘導の試作ラベル":current.labelSource==="atlas-image-guided"?"アトラス照合後に原画像で局所修正した試作ラベル":"位置照合済みアトラスの試作ラベル"):"アトラス領域を表示中";
@@ -1897,10 +1900,10 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
           <div className="selectedStructureSummary">
             <span className={selectedSummary?"":"empty"} style={selectedSummary?{background:selectedSummary.color}:undefined}/>
             <div className="selectedStructureSummaryText">
-              <small>{`${activeVisibleStructures.length}構造を同時表示中`}</small>
+              <small>{selectedSliceSuggestion!==null?(englishEdition?"Selected label is outside this slice":"選択したラベルはこの断面にありません"):`${activeVisibleStructures.length}構造を同時表示中`}</small>
               {selectedSummary&&selectedSummaryKey?<><b className="selectedStructureTarget"><span>現在の対象</span>{selectedSummary.name}</b><p className="selectedStructureRole"><strong>主な役割</strong>{structureFunctions[selectedSummaryKey]}</p></>:<b>構造を選択してください</b>}
             </div>
-            <div className="selectedBarActions"><button className="detailToggle" onClick={event=>{sectionDetailsReturnFocus.current=event.currentTarget;if(selectedSummaryKey)focusStructure(selectedSummaryKey);setDetailsOpen(true)}} disabled={!selectedSummary}>詳細解説</button><button onClick={()=>setLabels(!labels)} disabled={contrast==="single"}>{labels?"隠す":"表示"}</button></div>
+            <div className="selectedBarActions">{selectedSliceSuggestion!==null&&<button type="button" className="visibleSliceButton" onClick={()=>{jump(plane,planePositionForSlice(selectedSliceSuggestion,plane,BIGBRAIN_SECTION_DIMS),"replace");setLabels(true);window.requestAnimationFrame(()=>sectionStageRef.current?.scrollIntoView({block:"start"}))}}>{englishEdition?"Go to a visible slice":"見える断面へ"}</button>}<button className="detailToggle" onClick={event=>{sectionDetailsReturnFocus.current=event.currentTarget;if(selectedSummaryKey)focusStructure(selectedSummaryKey);setDetailsOpen(true)}} disabled={!selectedSummary}>詳細解説</button><button onClick={()=>setLabels(!labels)} disabled={contrast==="single"}>{labels?"隠す":"表示"}</button></div>
           </div>
           {activeVisibleStructures.length>0&&<div className="selectedStructureList" aria-label="選択中の構造と解説">{activeVisibleStructures.map(key=>{const item=structures[key],source=item.labelSource?learnerLabelSourceDisplay[item.labelSource]:null;return <button key={key} className={selectedSummaryKey===key?"current":""} onClick={()=>focusStructure(key)}><i style={{background:item.color}}/><span><b>{item.name}</b>{!englishEdition&&<small>{anatomyDisplayEnglish(item.latin)}</small>}{source&&<small className={`provenanceBadge ${source.className}`}>{source.label}</small>}</span><p>{labels?item.relation:"解答を隠しています"}{labels&&sectionDeveloperControls&&key===selectedStructure&&<em>{currentSourceNote}</em>}</p></button>})}</div>}
         </div>

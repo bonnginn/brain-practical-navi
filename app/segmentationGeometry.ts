@@ -21,6 +21,21 @@ export function planePositionForSlice(index:number,plane:SegmentationPlane,dims:
   const size=planeAxisSize(dims,plane),bounded=Math.max(0,Math.min(size-1,index));
   return (plane==="horizontal"?1-bounded/(size-1):bounded/(size-1))*100;
 }
+
+/** A navigation hint from already adopted labels, never an anatomical boundary decision. */
+export function nearestLabeledSection(
+  rangesByLabel:Record<string,Record<SegmentationPlane,number[][]>>,
+  labelIds:readonly number[],plane:SegmentationPlane,currentIndex:number,
+):number|null{
+  const ranges=labelIds.flatMap(id=>rangesByLabel[String(id)]?.[plane]??[]);
+  if(ranges.some(([first,last])=>currentIndex>=first&&currentIndex<=last))return null;
+  let best:[number,number]|null=null;
+  for(const [first,last,peak] of ranges){
+    const distance=currentIndex<first?first-currentIndex:currentIndex-last;
+    if(!best||distance<best[0]||(distance===best[0]&&Math.abs(peak-currentIndex)<Math.abs(best[1]-currentIndex)))best=[distance,peak];
+  }
+  return best?.[1]??null;
+}
 /** Move one voxel in slider order, preserving the horizontal axis reversal. */
 export function stepPlanePosition(position:number,plane:SegmentationPlane,dims:[number,number,number],direction:-1|1){
   const delta=plane==="horizontal"?-direction:direction;
