@@ -3,8 +3,8 @@ export function englishDynamic(core, translations) {
   const counted=(n,noun)=>`${n} ${noun}${Number(n)===1?"":"s"}`;
   let m=core.match(/^(\d+)構造を同時表示中$/u);
   if(m)return `${counted(m[1],"structure")} displayed`;
-  const accessibleSlice=core.match(/^(coronal|horizontal|sagittal)断面 ([\d.]+)。(クリックで構造を選択、)?ドラッグまたは矢印キーで移動、ホイールまたはプラス・マイナスで拡大縮小$/u);
-  if(accessibleSlice)return `${accessibleSlice[1]} slice ${accessibleSlice[2]}. ${accessibleSlice[3]?"Click to identify; ":""}Drag or use arrow keys to pan. Use the wheel or plus/minus keys to zoom. Press Home or R to reset.`;
+  const accessibleSlice=core.match(/^(coronal|horizontal|sagittal)断面 ([\d.]+)。(タップ・クリックで構造を選択、)?ドラッグまたは矢印キーで移動、ホイールまたはプラス・マイナスで拡大縮小$/u);
+  if(accessibleSlice)return `${accessibleSlice[1]} slice ${accessibleSlice[2]}. ${accessibleSlice[3]?"Tap or click to identify; ":""}Drag or use arrow keys to pan. Use the wheel or on-screen plus/minus buttons to zoom. Press Home or R to reset.`;
   const sliceInteraction=core.match(/^(coronal|horizontal|sagittal)断面 ([\d.]+)。クリックで構造を選択、ドラッグで移動、ホイールで拡大縮小$/u);
   if(sliceInteraction)return `${sliceInteraction[1]} slice ${sliceInteraction[2]}. Click to identify, drag to pan, and use the wheel to zoom.`;
   const planes={"冠状断":"coronal","水平断":"horizontal","矢状断":"sagittal"};
@@ -16,10 +16,10 @@ export function englishDynamic(core, translations) {
   if(m)return `Quiz slice position (${{"前後":"anteroposterior","上下":"superoinferior","左右":"left–right"}[m[1]]})`;
   m=core.match(/^(coronal|horizontal|sagittal)断面 ([\d.]+)。ホイールで拡大縮小、(?:Shift)?ドラッグで移動$/u);
   if(m)return `${m[1]} slice ${m[2]}. Use the wheel to zoom and ${core.includes("Shift")?"Shift-drag":"drag"} to pan.`;
-  m=core.match(/^(MNI高密度皮質表面モデル|0.5 mm標本から構成した局所3D標本)(と収録済み標本の位置目安)?(と模式3D神経血管レイヤー)?。ホイールで拡大縮小(、画面ボタンでも操作可能)?(、クリックで構造を選択)?$/u);
+  m=core.match(/^(MNI高密度皮質表面モデル|0.5 mm標本から構成した局所3D標本)(と収録済み標本の位置目安)?(と模式3D神経血管レイヤー)?。ホイールで拡大縮小(、画面ボタンでも操作可能)?(、タップ・クリックで構造を選択)?$/u);
   if(m){
     const model=m[1].startsWith("MNI")?"High-density MNI cortical surface model":"Local 3D specimen reconstructed from 0.5 mm tissue images";
-    return model+(m[2]?" with a specimen location guide":"")+(m[3]?" and a schematic 3D neurovascular layer":"")+". Use the wheel to zoom."+(m[4]?" On-screen zoom controls are also available.":"")+(m[5]?" Click to select a structure.":"");
+    return model+(m[2]?" with a specimen location guide":"")+(m[3]?" and a schematic 3D neurovascular layer":"")+". Use the wheel to zoom."+(m[4]?" On-screen zoom controls are also available.":"")+(m[5]?" Tap or click to select a structure.":"");
   }
   if(core.startsWith("位置：")&&translations[core.slice(3)])return `Location: ${translations[core.slice(3)]}`;
   m=core.match(/^(標本分節|試作分節|模式補助)。(.+)$/u);

@@ -27,12 +27,12 @@ test('section model accessibility names retain both view directions',()=>{
 
 test('all surface-label combinations are complete, correctly spaced instructions',()=>{
   for(const model of ['MNI高密度皮質表面モデル','0.5 mm標本から構成した局所3D標本'])for(const context of [false,true])for(const neuro of [false,true])for(const zoom of [false,true])for(const pick of [false,true]){
-    const source=model+(context?'と収録済み標本の位置目安':'')+(neuro?'と模式3D神経血管レイヤー':'')+'。ホイールで拡大縮小'+(zoom?'、画面ボタンでも操作可能':'')+(pick?'、クリックで構造を選択':'');
+    const source=model+(context?'と収録済み標本の位置目安':'')+(neuro?'と模式3D神経血管レイヤー':'')+'。ホイールで拡大縮小'+(zoom?'、画面ボタンでも操作可能':'')+(pick?'、タップ・クリックで構造を選択':'');
     const result=englishDynamic(source,{});
     assert.ok(result?.includes('. Use the wheel to zoom.'));
     assert.equal(result.includes('neurovascular layer'),neuro);
     assert.equal(result.includes('On-screen zoom controls'),zoom);
-    assert.equal(result.includes('Click to select'),pick);
+    assert.equal(result.includes('Tap or click to select'),pick);
     assert.equal(result.includes('specimen location guide'),context);
     assert.doesNotMatch(result,/[\u3040-\u30ff\u3400-\u9fff]|Modeland|zoom.Can/);
   }
@@ -40,9 +40,9 @@ test('all surface-label combinations are complete, correctly spaced instructions
 
 test('slice templates retain direction and position and unknown anatomy is not guessed',()=>{
   for(const selectable of [false,true]){
-    const instruction=`coronal断面 65。${selectable?'クリックで構造を選択、':''}ドラッグまたは矢印キーで移動、ホイールまたはプラス・マイナスで拡大縮小`;
+    const instruction=`coronal断面 65。${selectable?'タップ・クリックで構造を選択、':''}ドラッグまたは矢印キーで移動、ホイールまたはプラス・マイナスで拡大縮小`;
     const translated=englishDynamic(instruction,{});
-    assert.equal(translated?.includes('Click to identify'),selectable);
+    assert.equal(translated?.includes('Tap or click to identify'),selectable);
     assert.match(translated,/coronal slice 65.*Drag or use arrow keys to pan/);
   }
   assert.equal(englishDynamic('coronal断面 53。ホイールで拡大縮小、Shiftドラッグで移動',{}),'coronal slice 53. Use the wheel to zoom and Shift-drag to pan.');
