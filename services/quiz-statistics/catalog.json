@@ -892,8 +892,8 @@
   },
   {
     "question": "cn1-function",
-    "revision": "93ae9a6db79adf53d3a3ad7fa1fbfb26e5be5cb80a0d23c2f67025a171a8968e",
-    "prompt": "白色の嗅球・嗅索に入る嗅神経（I）が伝える感覚はどれですか？",
+    "revision": "4d834be5d0745eb63b0d67a78f11c92f9dd8f26432f66bf7b72f81df4678c04c",
+    "prompt": "脳底面の嗅球へ入る嗅神経（I）が伝える感覚はどれですか？",
     "options": [
       "cn1-smell",
       "cn1-vision",
@@ -903,8 +903,8 @@
   },
   {
     "question": "cn2-function",
-    "revision": "7a910f041080440f2d3644993c13ce449d0978cd247de55692f7bc1decaea66f",
-    "prompt": "白色の視覚路模式表示に含まれる視神経（II）が伝える情報はどれですか？",
+    "revision": "34cd80f48be0eb7f1be3a12f6bed651b47e302c74bd5c6aeaac4e7b5b2613918",
+    "prompt": "網膜から視交叉へ向かう視神経（II）が伝える情報はどれですか？",
     "options": [
       "cn2-vision",
       "cn2-smell",

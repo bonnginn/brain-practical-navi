@@ -116,6 +116,16 @@ const guidance={
     "cn6-medial-rectus":["内側直筋は動眼神経（III）の支配で、眼球の内転に関わります。外転神経（VI）は外側直筋による外転です。","The oculomotor nerve (III) supplies the medial rectus for adduction. The abducens nerve (VI) supplies the lateral rectus for abduction."],
     "cn6-inferior-oblique":["下斜筋は動眼神経（III）の支配です。外転神経（VI）が支配するのは外側直筋です。","The oculomotor nerve (III) supplies the inferior oblique. The abducens nerve (VI) supplies the lateral rectus."],
   },
+  "cn1-function":{
+    "cn1-vision":["視覚は網膜から視神経（II）へ伝わります。嗅神経（I）は鼻腔の嗅上皮から嗅球へ嗅覚情報を運びます。","Vision travels from the retina through the optic nerve (II). The olfactory nerve (I) carries smell information from the olfactory epithelium to the bulb."],
+    "cn1-hearing":["聴覚と平衡覚は内耳神経（VIII）の役割です。嗅神経（I）は嗅覚を嗅球へ伝えます。","Hearing and balance belong to VIII. The olfactory nerve (I) carries smell information to the olfactory bulb."],
+    "cn1-tongue":["舌筋運動は主に舌下神経（XII）が担います。嗅神経（I）は運動ではなく嗅覚の経路です。","Most tongue muscles are moved by the hypoglossal nerve (XII). The olfactory nerve (I) carries smell, not motor commands."],
+  },
+  "cn2-function":{
+    "cn2-smell":["嗅覚は嗅神経（I）から嗅球へ入ります。視神経（II）は網膜からの視覚情報を視交叉へ運びます。","Smell reaches the olfactory bulb through nerve I. The optic nerve (II) carries visual information from the retina to the chiasm."],
+    "cn2-face":["顔面の一般感覚の大部分は三叉神経（V）が伝えます。視神経（II）が運ぶのは網膜からの視覚情報です。","Most general facial sensation travels in V. The optic nerve (II) carries visual information from the retina."],
+    "cn2-taste":["舌後方1/3の味覚は主に舌咽神経（IX）が伝えます。視神経（II）は味覚ではなく視覚の経路です。","Taste from the posterior third of the tongue travels mainly in IX. The optic nerve (II) is a visual, not a taste, pathway."],
+  },
   "cn5-function":{
     "cn5-hearing":["聴覚と平衡覚は内耳神経（VIII）が伝えます。三叉神経（V）は顔面の一般感覚と咀嚼筋運動を担います。","The vestibulocochlear nerve (VIII) carries hearing and balance. The trigeminal nerve (V) carries much of facial sensation and motor fibres for mastication."],
     "cn5-vision":["視覚情報は視神経（II）を通ります。三叉神経（V）では顔面の感覚と咀嚼筋への運動線維に注目します。","Visual information travels in the optic nerve (II). For the trigeminal nerve (V), look for facial sensation and motor fibres to the muscles of mastication."],

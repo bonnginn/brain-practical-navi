@@ -135,48 +135,110 @@
     "question": "identify-accumbens",
     "revision": "579678a4a8a55415c65db47b766807aada6b52d2bf835a8237f04154e4d8e114",
     "prompt": "尾状核頭と被殻が腹側で連続する領域はどれですか？",
-    "options": ["accumbens", "caudate", "pallidum", "opticChiasm"]
+    "options": [
+      "accumbens",
+      "caudate",
+      "pallidum",
+      "opticChiasm"
+    ]
   },
   {
     "question": "identify-subthalamic",
     "revision": "d521d346e38724399f5ad8bc1457b3986e2b8b988c720dd3aa53a0ea6281d928",
     "prompt": "間脳の視床下域にあり、視床の腹側・黒質の背側にある小さな核はどれですか？",
-    "options": ["subthalamic", "redNucleus", "accumbens", "amygdala"]
+    "options": [
+      "subthalamic",
+      "redNucleus",
+      "accumbens",
+      "amygdala"
+    ]
   },
   {
     "question": "identify-mammillaryBody",
     "revision": "1a8ccd4e73d1aeeeec9bb98e4a46ab560ebd513be96b8136e6195e1627486d80",
     "prompt": "漏斗の後方、脚間窩の前方に左右一対で見える小隆起はどれですか？",
-    "options": ["mammillaryBody", "redNucleus", "thalamus", "opticChiasm"]
+    "options": [
+      "mammillaryBody",
+      "redNucleus",
+      "thalamus",
+      "opticChiasm"
+    ]
   },
   {
     "question": "cn3-function",
     "revision": "e9f4eb8f61209f0ef6542f62f6eb6862f39b83c4e8fe3c9304c6a0f89042579e",
     "prompt": "白色で示された動眼神経（III）の機能として最も適切なのはどれですか？",
-    "options": ["cn3-eye", "cn3-smell", "cn3-hearing", "cn3-tongue"]
+    "options": [
+      "cn3-eye",
+      "cn3-smell",
+      "cn3-hearing",
+      "cn3-tongue"
+    ]
   },
   {
     "question": "cn4-function",
     "revision": "671a71ac208112607296a8362697fe08317cb6704256958e40db4512a8b818de",
     "prompt": "白色で示された滑車神経（IV）が支配する外眼筋はどれですか？",
-    "options": ["cn4-superior-oblique", "cn4-lateral-rectus", "cn4-masseter", "cn4-tongue"]
+    "options": [
+      "cn4-superior-oblique",
+      "cn4-lateral-rectus",
+      "cn4-masseter",
+      "cn4-tongue"
+    ]
   },
   {
     "question": "cn6-function",
     "revision": "6bc706ef7a8ce97f2dfc3367a2fd1795299075a45f07eb7f81903bafac8f7393",
     "prompt": "白色で示された外転神経（VI）が支配する筋と運動はどれですか？",
-    "options": ["cn6-lateral-rectus", "cn6-superior-oblique", "cn6-facial", "cn6-mastication"]
+    "options": [
+      "cn6-lateral-rectus",
+      "cn6-superior-oblique",
+      "cn6-facial",
+      "cn6-mastication"
+    ]
   },
   {
     "question": "cn1-function",
     "revision": "8dc86bd65c63c725c915386cf07817dc053419b1d8dd7173d695951d83fe228c",
     "prompt": "白色で示された嗅神経（I）の主な機能はどれですか？",
-    "options": ["cn1-smell", "cn1-vision", "cn1-hearing", "cn1-tongue"]
+    "options": [
+      "cn1-smell",
+      "cn1-vision",
+      "cn1-hearing",
+      "cn1-tongue"
+    ]
   },
   {
     "question": "cn2-function",
     "revision": "29eb4388e3d9670f2ca5f26424b242c2862103d8af774941eef18cbccad1e528",
     "prompt": "白色で示された視神経（II）が伝える情報はどれですか？",
-    "options": ["cn2-vision", "cn2-smell", "cn2-face", "cn2-taste"]
+    "options": [
+      "cn2-vision",
+      "cn2-smell",
+      "cn2-face",
+      "cn2-taste"
+    ]
+  },
+  {
+    "question": "cn1-function",
+    "revision": "93ae9a6db79adf53d3a3ad7fa1fbfb26e5be5cb80a0d23c2f67025a171a8968e",
+    "prompt": "白色の嗅球・嗅索に入る嗅神経（I）が伝える感覚はどれですか？",
+    "options": [
+      "cn1-smell",
+      "cn1-vision",
+      "cn1-hearing",
+      "cn1-tongue"
+    ]
+  },
+  {
+    "question": "cn2-function",
+    "revision": "7a910f041080440f2d3644993c13ce449d0978cd247de55692f7bc1decaea66f",
+    "prompt": "白色の視覚路模式表示に含まれる視神経（II）が伝える情報はどれですか？",
+    "options": [
+      "cn2-vision",
+      "cn2-smell",
+      "cn2-face",
+      "cn2-taste"
+    ]
   }
 ]
