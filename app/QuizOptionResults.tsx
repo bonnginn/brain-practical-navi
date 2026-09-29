@@ -46,7 +46,7 @@ export default function QuizOptionResults({questions,currentQuestion,english,ref
     let active=true;
     void readQuizSessionStatistics(endpoint).then(rows=>{if(active){setSessionRows(rows);setSessionFailed(rows===null)}});
     return()=>{active=false};
-  },[endpoint,currentQuestion]);
+  },[endpoint,currentQuestion,refresh]);
   if(!endpoint)return <p className="quizStatsUnavailable">{english?'Answer totals are not connected yet.':'回答集計はまだ接続されていません。'}</p>;
   if(failed)return <p className="quizStatsUnavailable" role="status">{english?'Answer totals are temporarily unavailable.':'回答集計を取得できませんでした。'}</p>;
   if(!rows)return <p className="quizStatsUnavailable" role="status">{english?'Loading answer totals…':'回答集計を読み込み中…'}</p>;
