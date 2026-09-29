@@ -127,7 +127,7 @@
     "26": 9200,
     "27": 264456,
     "28": 736175,
-    "29": 725061,
+    "29": 725021,
     "30": 145707,
     "31": 56790,
     "32": 53587,
@@ -481,7 +481,7 @@
     "workflowMetadataStatus": "strict"
   },
   "preClassificationCompressedSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
-  "rawVoxelSha256": "85522e864f5090ded0baa282c97abe6a799500d8e6c4323da628095714384f5c",
+  "rawVoxelSha256": "c282a3c0dde72e253d34b0f2b223fa5664e6c36446269b992e3607845c0175ea",
   "brainstemThreeIslandsAudit": {
     "record": "segmentation-patches/review/brainstem-three-islands-adoption-2026-09-06.json",
     "recordSha256": "9c7b14f4272969261e3e2415d3f522b7e5d7db1eeca7cb0c8ae28b225458be66",
@@ -1713,6 +1713,13 @@
       "changedVoxelCount": 90,
       "projectAdopted": true,
       "expertReviewed": false
+    },
+    "cerebellar-exterior-islands40": {
+      "record": "segmentation-patches/review/cerebellar-exterior-islands40-adoption-2026-09-29.json",
+      "recordSha256": "9b9755b8b3038f6ca01beb4d976ed2d8aa65133914d15575b3b968e5d3a695e1",
+      "changedVoxelCount": 40,
+      "projectAdopted": true,
+      "expertReviewed": false
     }
   },
   "historicalGenerationClaims": {
@@ -1722,9 +1729,9 @@
   },
   "currentImageMeasurements": {
     "schemaVersion": 1,
-    "sourceLabelSha256": "71eebaf135377bf8da9b121e6a7a510de8066c3ca9172cf02d32b55baa140a0a",
+    "sourceLabelSha256": "e9c0a83f03cde2a64a53d2912a5502130ec872ea2fbfa9b0d75ea83ff1a9914f",
     "sourceImageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
-    "rawVoxelSha256": "85522e864f5090ded0baa282c97abe6a799500d8e6c4323da628095714384f5c",
+    "rawVoxelSha256": "c282a3c0dde72e253d34b0f2b223fa5664e6c36446269b992e3607845c0175ea",
     "dimensionsXYZ": [
       394,
       466,
@@ -1761,7 +1768,7 @@
       "26": 9200,
       "27": 264456,
       "28": 736175,
-      "29": 725061,
+      "29": 725021,
       "30": 145707,
       "31": 56790,
       "32": 53587,
