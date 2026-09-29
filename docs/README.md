@@ -3,6 +3,7 @@
 利用方法は [トップのREADME](../README.md)、現在地・作業期限と次の作業は [短い再開メモ](RESUME_SUMMARY.md) を参照してください。
 
 - [正式版1.0へのロードマップ](V1_ROADMAP.md)
+- [9月29日〜30日の24時間開発記録](DEVELOPMENT_24H_2026-09-30.md)
 - [左小脳下方の外部浮遊ラベル16点：原画像照合と可逆差分](CEREBELLAR_LEFT_LOWER16_2026-09-29.md)
 - [四択の任意参加集計・Cloudflare設定手順](QUIZ_STATISTICS.md)
 - [復習クイズの教材文言・選択肢の見直し](QUIZ_TEACHING_2026-09-27.md)
