@@ -151,6 +151,8 @@ test('completed quiz sends only set length and score, without learner history',a
   assert.equal(calls[0][1].referrerPolicy,'no-referrer');
   for(const [n,correct] of [[0,0],[10,11],[93,20],[10,1.5]])assert.equal(await sendQuizSessionStatistic(n,correct,'https://example.org/answer',fetcher),false);
   assert.equal(calls.length,1);
+  assert.equal(await sendQuizSessionStatistic(10,8,'https://example.org/answer',async()=>{throw Error('offline')}),false);
+  assert.equal(await sendQuizSessionStatistic(10,8,'https://example.org/answer',async()=>({ok:false})),false);
 });
 
 test('completed quiz receiver aggregates scores and rejects identifiers or invalid totals',async()=>{
