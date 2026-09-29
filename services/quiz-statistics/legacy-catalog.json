@@ -526,5 +526,38 @@
       "amygdala-ventricle",
       "amygdala-midline"
     ]
+  },
+  {
+    "question": "identify-subthalamic",
+    "revision": "045204e8ad8df819359e8a449c4d595bc6f25b70a28bc8862cde428dba80851e",
+    "prompt": "間脳の視床下域にあり、視床の腹側・黒質の背側にある小さな核はどれですか？",
+    "options": [
+      "subthalamic",
+      "redNucleus",
+      "substantiaNigra",
+      "thalamus"
+    ]
+  },
+  {
+    "question": "subthalamic-function-clue",
+    "revision": "443463b8b1e3d759345822364d5f1e4c6cb7dcf34d5540bc41ba229b210cc45e",
+    "prompt": "基底核回路へ興奮性に作用し、競合する運動の抑制に関わる色付きの核はどれですか？",
+    "options": [
+      "subthalamic",
+      "redNucleus",
+      "accumbens",
+      "amygdala"
+    ]
+  },
+  {
+    "question": "subthalamic-classification-choice",
+    "revision": "38f3fdee698fce9f1c03eea730ba2fe13a482e1a08c595ca102929adf1b84963",
+    "prompt": "色で示された視床下核の解剖学的な所属として適切なのはどれですか？",
+    "options": [
+      "stn-subthalamus",
+      "stn-hypothalamus",
+      "stn-midbrain",
+      "stn-cortex"
+    ]
   }
 ]
