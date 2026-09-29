@@ -148,6 +148,7 @@ const planeData: Record<Plane, { ja: string; en: string; axis: string; from: str
   horizontal: { ja: "水平断", en: "HORIZONTAL", axis: "上下位置", from: "上方", to: "下方", fromEn: "Superior", toEn: "Inferior", fromCompass: "S", toCompass: "I" },
   sagittal: { ja: "矢状断", en: "SAGITTAL", axis: "左右位置", from: "左外側", to: "右外側", fromEn: "Left", toEn: "Right", fromCompass: "L", toCompass: "R" },
 };
+const sectionInitialRotation:Rotation={x:-7,y:45,z:0};
 
 const workspaceModes:{key:WorkspaceMode;label:string;englishLabel:string;shortJa:string;shortEn:string;sub:string}[]=[
   {key:"home",label:"Home",englishLabel:"Home",shortJa:"Home",shortEn:"Home",sub:"学習メニュー"},
@@ -911,7 +912,7 @@ export default function Home() {
   const [compactSectionLayout,setCompactSectionLayout]=useState(()=>typeof window!=="undefined"&&window.matchMedia("(max-width: 760px)").matches);
   const [display, setDisplay] = useState<"specimen" | "diagram" | "outline">("specimen");
   const [contrast, setContrast] = useState<"t1" | "t2" | "bigbrain" | "single">("bigbrain");
-  const [rotation, setRotation] = useState<Rotation>(()=>workspace==="sections"?{x:-7,y:-18,z:0}:workspace==="surface"?surfaceViews[surfaceView].rotation:workspace==="blocks"?blockInitialRotations[initialBlockSpecimen]:{...homeRotation});
+  const [rotation, setRotation] = useState<Rotation>(()=>workspace==="sections"?{...sectionInitialRotation}:workspace==="surface"?surfaceViews[surfaceView].rotation:workspace==="blocks"?blockInitialRotations[initialBlockSpecimen]:{...homeRotation});
   const [webglUnavailable,setWebglUnavailable]=useState(false);
   const [playing, setPlaying] = useState(false);
   const [sectionPlaybackDelay,setSectionPlaybackDelay]=useState(200);
@@ -1371,7 +1372,7 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
     if(workspace==="surface")return resetSurfaceView();
     if(workspace==="blocks"){setBlockViewPreset("initial");setRotation(blockPresetRotation("initial"));return}
     if(workspace==="quiz"&&(isSurfaceQuiz(quizQuestion)||isNeurovascularQuiz(quizQuestion))){setRotation({...quizModelInitialRotation});return}
-    setRotation(workspace==="sections"?{x:-7,y:-18,z:0}:{...homeRotation});
+    setRotation(workspace==="sections"?{...sectionInitialRotation}:{...homeRotation});
   }
 
   function handleModelKey(event:ReactKeyboardEvent<HTMLDivElement>){
