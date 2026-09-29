@@ -301,6 +301,7 @@ Historical audit results describe their recorded checkpoint, not the current rel
 - [基底部の黒い領域の画像照合](BASAL_BLACK_REGION_LOCALIZATION_2026-09-29.md)
 - [脳幹外部3点の確認と局所除外](BRAINSTEM_ISLANDS3_REVIEW_2026-09-29.md)
 - [脳梁皮質側93点成分の局所除外](CALLOSUM_CORTICAL_COMPONENT93_2026-09-29.md)
+- [脳梁の小さな独立成分11点の原画像確認・保留](CALLOSUM_SMALL_ISLANDS11_2026-09-29.md)
 - [尾状核・内包の単点確認](CAUDATE_CAPSULE_SINGLETONS_REVIEW_2026-09-29.md)
 - [小脳外部10点の局所除外](CEREBELLAR_EXTERIOR10_2026-09-29.md)
 - [小脳内部の孤立16点の局所除外](CEREBELLAR_INTERSTITIAL16_2026-09-29.md)
