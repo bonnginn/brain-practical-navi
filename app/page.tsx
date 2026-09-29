@@ -887,7 +887,7 @@ export default function Home() {
   const [identified, setIdentified] = useState<(IdentifiedPoint & {name:string;side:string;note:string}) | null>(null);
   const [labels, setLabels] = useState(true);
   const [block, setBlock] = useState<"inside" | "ghost" | "extracted" | "segmented">("ghost");
-  const [sectionLayout,setSectionLayout]=useState<"both"|"slice"|"model">(()=>savedSectionSession?.layout??(typeof window!=="undefined"&&window.matchMedia("(max-width: 760px)").matches?"slice":"both"));
+  const [sectionLayout,setSectionLayout]=useState<"both"|"slice"|"model">(()=>typeof window!=="undefined"&&window.matchMedia("(max-width: 760px)").matches?"slice":savedSectionSession?.layout??"both");
   const [sectionModelShare,setSectionModelShare]=useState(savedSectionSession?.share??40);
   const [sectionModelZoom,setSectionModelZoom]=useState(1);
   const [sectionModelViews,setSectionModelViews]=useState<1|2>(savedSectionSession?.views??1);
