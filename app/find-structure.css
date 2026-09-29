@@ -19,10 +19,11 @@
 .findGuessMarker{position:absolute;z-index:10;width:19px;height:19px;box-sizing:border-box;transform:translate(-50%,-50%);border:3px solid #ffca63;border-radius:50%;background:#50330080;box-shadow:0 0 0 2px #263027,0 0 9px #000b;pointer-events:none}
 .findGuessMarker::after{content:"";position:absolute;left:5px;top:5px;width:3px;height:3px;border-radius:50%;background:#fff7df}
 .findTaskGuide .findGuessStatus{font-size:12px;color:#765027;margin:6px 0}
+.findImageActions{display:none}
 .findTask .quizSliceNavigator{display:flex;flex-direction:column;align-items:stretch;gap:2px;min-height:0;padding:6px 12px 4px}
 .findTask .quizSliceNavigator label{display:block;width:100%;line-height:0}
 .findTask .quizSliceNavigator input{display:block;width:100%;margin:0}
-@media(max-width:760px){.findExercise>label{align-items:stretch;flex-direction:column}.findTask{grid-template-columns:1fr}.appShell.workspace-quiz.findPractice .findExercise .quizImageCard{height:max-content;align-self:start;grid-template-rows:auto minmax(220px,1fr) auto auto}.findTask .quizSliceNavigator{min-height:52px}}
+@media(max-width:760px){.findExercise>label{align-items:stretch;flex-direction:column}.findTask{grid-template-columns:1fr}.appShell.workspace-quiz.findPractice .findExercise .quizImageCard{height:max-content;align-self:start;grid-template-rows:auto auto minmax(220px,1fr) auto auto}.findTask .quizSliceNavigator{min-height:52px}.findImageActions{display:flex;gap:6px;padding:6px 10px;background:#edf3ef}.findImageActions button{flex:1;min-width:0;min-height:38px;padding:5px 7px;border:1px solid #91aaa5;border-radius:5px;background:#fff;color:#244d40;font:inherit;font-size:12px;line-height:1.25}.findImageActions .findRevealAnswer{background:#285e55;color:#fff;border-color:#285e55;font-weight:700}.findImageActions button:disabled{opacity:.45}.findTaskGuideBody>.findActions{display:none}}
 
 .findExercise{display:flex;flex-direction:column;flex:1;min-height:0}.findExercise .findTask{min-height:350px}.findExercise .findTaskGuide{display:flex;flex-direction:column;min-height:0;overflow:hidden}.findTaskGuideBody{flex:1;min-height:0;overflow:auto}
 
