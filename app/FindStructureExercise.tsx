@@ -3,7 +3,7 @@ import {AtlasVolumeCanvas,type HighlightLayer} from './AtlasVolumeCanvas';
 import {OrientationCompass} from './OrientationCompass';
 import {reviewNerveDisplay} from '../src/reviewNerveDisplay';
 import {BIGBRAIN_SECTION_DIMS} from './SectionSliceStepper';
-import {stepPlanePosition,planeSliceIndex,nearestLabeledSection,segmentationPlaneNames} from './segmentationGeometry';
+import {stepSectionSliderPosition,sectionSliderDirections,sectionSliderValue,sectionPositionFromSlider,planeSliceIndex,nearestLabeledSection,segmentationPlaneNames} from './segmentationGeometry';
 import {SEGMENTATION_LABEL_SHA256} from './segmentationLabelRevision';
 import sectionLabelPresence from './sectionLabelPresence.json';
 import './find-structure.css';
@@ -30,9 +30,10 @@ function FindTaskView({task,english,onNext}:{task:FindTask;english:boolean;onNex
   const press=useRef<{x:number;y:number;moved:boolean}|null>(null);
   const model=task.kind!=='section',revealed=stage==='answer';
   const planeInfo=segmentationPlaneNames[task.plane];
+  const sliderDirections=sectionSliderDirections[task.plane];
   const planeTitle=english?{coronal:'Coronal section',horizontal:'Horizontal section',sagittal:'Sagittal section'}[task.plane]:planeInfo.label;
-  const rangeStartLabel=english?{coronal:'Posterior',horizontal:'Superior',sagittal:'Left'}[task.plane]:planeInfo.rangeStart;
-  const rangeEndLabel=english?{coronal:'Anterior',horizontal:'Inferior',sagittal:'Right'}[task.plane]:planeInfo.rangeEnd;
+  const rangeStartLabel=english?sliderDirections.start.en:sliderDirections.start.ja;
+  const rangeEndLabel=english?sliderDirections.end.en:sliderDirections.end.ja;
   const highlights=revealed?[task.highlight]:[];
   const answerAbsentFromSlice=!model&&sectionLabelPresence.revision===SEGMENTATION_LABEL_SHA256&&nearestLabeledSection(sectionLabelPresence.labels,task.highlight.ids,task.plane,planeSliceIndex(position,task.plane,BIGBRAIN_SECTION_DIMS))!==null;
   function revealAnswer(){
@@ -55,9 +56,9 @@ function FindTaskView({task,english,onNext}:{task:FindTask;english:boolean;onNex
         {guess&&<span className="findGuessMarker" style={{left:`${guess.x}%`,top:`${guess.y}%`}} aria-hidden="true"/>}
       </div>
       {!model&&<div className="quizSliceNavigator findSliceNavigator" data-no-localize>
-        <span className="findSliceEnd"><strong>{{coronal:'P',horizontal:'S',sagittal:'L'}[task.plane]}</strong>{rangeStartLabel}</span>
-        <label><span className="srOnly">{english?`Move through nearby sections: ${rangeStartLabel} on the left, ${rangeEndLabel} on the right`:`近くの断面へ動かす。左が${rangeStartLabel}、右が${rangeEndLabel}`}</span><input type="range" min="0" max="100" step="any" value={position} onChange={event=>{setGuess(null);setAnswerReturnedToStart(false);setPosition(Number(event.target.value))}} onKeyDown={event=>{if(['ArrowLeft','ArrowRight'].includes(event.key)){event.preventDefault();setGuess(null);setAnswerReturnedToStart(false);setPosition(old=>stepPlanePosition(old,task.plane,BIGBRAIN_SECTION_DIMS,event.key==='ArrowLeft'?-1:1))}}}/></label>
-        <span className="findSliceEnd"><strong>{{coronal:'A',horizontal:'I',sagittal:'R'}[task.plane]}</strong>{rangeEndLabel}</span>
+        <span className="findSliceEnd"><strong>{sliderDirections.start.compass}</strong>{rangeStartLabel}</span>
+        <label><span className="srOnly">{english?`Move through nearby sections: ${rangeStartLabel} on the left, ${rangeEndLabel} on the right`:`近くの断面へ動かす。左が${rangeStartLabel}、右が${rangeEndLabel}`}</span><input type="range" min="0" max="100" step="any" value={sectionSliderValue(position,task.plane)} onChange={event=>{setGuess(null);setAnswerReturnedToStart(false);setPosition(sectionPositionFromSlider(Number(event.target.value),task.plane))}} onKeyDown={event=>{if(['ArrowLeft','ArrowRight'].includes(event.key)){event.preventDefault();setGuess(null);setAnswerReturnedToStart(false);setPosition(old=>stepSectionSliderPosition(old,task.plane,BIGBRAIN_SECTION_DIMS,event.key==='ArrowLeft'?-1:1))}}}/></label>
+        <span className="findSliceEnd"><strong>{sliderDirections.end.compass}</strong>{rangeEndLabel}</span>
       </div>}
       <button onClick={()=>{setGuess(null);setAnswerReturnedToStart(false);setRotation(task.rotation);setPosition(task.position);setViewReset(value=>value+1)}}>{english?'Return to starting view':'開始位置・向きに戻す'}</button>
     </section>

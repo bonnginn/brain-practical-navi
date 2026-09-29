@@ -2457,9 +2457,9 @@ test("section quiz slices can be stepped without dragging the range control", as
     readFile(new URL("app/canvas.css", root), "utf8"),
   ]);
   assert.match(page, /aria-label=\{englishEdition\?"Previous section \(0\.5 mm\)":"1断面戻る"\}/);
-  assert.match(page, /stepPlanePosition\(value,quizQuestion\.plane,BIGBRAIN_SECTION_DIMS,-1\)/);
+  assert.match(page, /stepSectionSliderPosition\(value,quizQuestion\.plane,BIGBRAIN_SECTION_DIMS,-1\)/);
   assert.match(page, /aria-label=\{englishEdition\?"Next section \(0\.5 mm\)":"1断面進む"\}/);
-  assert.match(page, /stepPlanePosition\(value,quizQuestion\.plane,BIGBRAIN_SECTION_DIMS,1\)/);
+  assert.match(page, /stepSectionSliderPosition\(value,quizQuestion\.plane,BIGBRAIN_SECTION_DIMS,1\)/);
   assert.match(css, /\.quizSliceControl\s*\{[^}]*grid-template-columns:\s*32px minmax\(0,1fr\) 32px/);
 });
 test("keeps the internal capsule distinct from adjacent basal nuclei", async () => {

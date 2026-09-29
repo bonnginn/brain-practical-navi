@@ -9,6 +9,16 @@ export const segmentationPlaneNames:Record<SegmentationPlane,{label:string;axis:
   sagittal:{label:"矢状断",axis:"X",rangeStart:"左",rangeEnd:"右",increment:"右",decrement:"左",top:"S",bottom:"I",left:"A",right:"P"},
 };
 
+// Slider order is a teaching-view choice. Keep the stored 0–100 position and
+// voxel coordinates unchanged so existing observations and quiz links stay put.
+export const sectionSliderDirections={
+  coronal:{start:{ja:"前方",en:"Anterior",compass:"A"},end:{ja:"後方",en:"Posterior",compass:"P"}},
+  horizontal:{start:{ja:"下方",en:"Inferior",compass:"I"},end:{ja:"上方",en:"Superior",compass:"S"}},
+  sagittal:{start:{ja:"左外側",en:"Left",compass:"L"},end:{ja:"右外側",en:"Right",compass:"R"}},
+} as const;
+export function sectionSliderValue(position:number,plane:SegmentationPlane){return plane==="sagittal"?position:100-position;}
+export function sectionPositionFromSlider(value:number,plane:SegmentationPlane){return plane==="sagittal"?value:100-value;}
+
 /** Display order follows AtlasVolumeCanvas.sectionVoxel. */
 export function planeShape(dims:[number,number,number],plane:SegmentationPlane):[number,number]{
   return plane==="sagittal"?[dims[1],dims[2]]:plane==="horizontal"?[dims[0],dims[1]]:[dims[0],dims[2]];
@@ -45,10 +55,13 @@ export function nearestLabeledSection(
   }
   return best?.[1]??null;
 }
-/** Move one voxel in slider order, preserving the horizontal axis reversal. */
+/** Move one voxel in stored-position order, preserving the horizontal axis reversal. */
 export function stepPlanePosition(position:number,plane:SegmentationPlane,dims:[number,number,number],direction:-1|1){
   const delta=plane==="horizontal"?-direction:direction;
   return planePositionForSlice(planeSliceIndex(position,plane,dims)+delta,plane,dims);
+}
+export function stepSectionSliderPosition(position:number,plane:SegmentationPlane,dims:[number,number,number],direction:-1|1){
+  return stepPlanePosition(position,plane,dims,plane==="sagittal"?direction:direction===1?-1:1);
 }
 /** Display precision only: never feed this rounded label back into sampling. */
 export function formatSectionPosition(position:number){return String(Number(position.toFixed(2)));}
