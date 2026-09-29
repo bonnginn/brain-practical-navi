@@ -22,6 +22,14 @@ export async function withRegionalBatches(record,{afterRevision=null}={}){
   if(!active){if(next.afterSha256===afterRevision){assert.deepEqual(next,record);active=true;}continue;}
   assert.equal(regionalBeforeSha(next),result.afterSha256);
   let sectionImpact=next.sectionMeshImpact;
+  if(['cerebellar-exterior-islands40','cerebellar-left-exterior24'].includes(name)){
+   assert.equal(next.blockMaskChanged,false);
+   assert.ok(next.points.length===next.count&&next.points.every(p=>[28,29].includes(p.before)&&p.after===0));
+   assert.ok(sectionImpact,'Missing cerebellar section-mesh evidence');
+   // Cerebellar geometry changed, while these historical ventricular meshes did not.
+   sectionImpact={before:result.sectionMeshImpact.after,after:{...result.sectionMeshImpact.after,
+    sourceSha256:next.afterSha256,rawVoxelSha256:next.afterRawVoxelSha256}};
+  }
   if(!sectionImpact){
    // This adoption uses a compact record: only anterior commissure/internal capsule changed.
    assert.equal(name,'anterior-commissure185','Unknown compact regional record');
@@ -30,7 +38,12 @@ export async function withRegionalBatches(record,{afterRevision=null}={}){
    sectionImpact={before:result.sectionMeshImpact.after,after:{...result.sectionMeshImpact.after,sourceSha256:next.afterSha256,rawVoxelSha256:next.afterRawVoxelSha256}};
   }
   assert.deepEqual(sectionImpact.before,result.sectionMeshImpact.after);
-  for(const p of next.meshImpact.blockMaskImpact){
+  const blockImpact=next.meshImpact?.blockMaskImpact;
+  if(!blockImpact){
+   assert.equal(next.blockMaskChanged,false,'Missing block impact requires a verified unchanged block mask');
+   assert.ok(next.sectionMeshImpact,'Missing section-mesh impact for unchanged-block adoption');
+  }
+  for(const p of blockImpact??[]){
    if(name==='anterior-commissure185')assert.ok(Number.isInteger(p.changed)&&p.changed>=0);
    else assert.equal(p.changedMaskVoxels,p.added+p.removed);
    if(p.changedMaskVoxels??p.changed){
@@ -50,7 +63,12 @@ export async function regionalMeshSuccessor(file,previousSha,afterRevision=null)
   const bytes=await read(audit.record),r=JSON.parse(bytes);
   assert.equal(createHash('sha256').update(bytes).digest('hex'),audit.recordSha256);
   if(!active){if(r.afterSha256===afterRevision)active=true;continue;}
-  const p=r.meshImpact.blockMaskImpact.find(p=>p.file===file&&(p.changedMaskVoxels??p.changed));
+  const blockImpact=r.meshImpact?.blockMaskImpact;
+  if(!blockImpact){
+   assert.equal(r.blockMaskChanged,false,'Missing block impact requires a verified unchanged block mask');
+   assert.ok(r.sectionMeshImpact,'Missing section-mesh impact for unchanged-block adoption');
+  }
+  const p=blockImpact?.find(p=>p.file===file&&(p.changedMaskVoxels??p.changed));
   if(!p)continue;
   assert.equal(p.beforeSha256,result?.afterSha256??previousSha);
   assert.equal(createHash('sha256').update(await read('tests/fixtures/'+file.slice(0,-5)+'-pre-'+name+'.mesh')).digest('hex'),p.beforeSha256);

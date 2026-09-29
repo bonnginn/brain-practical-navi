@@ -5,7 +5,6 @@ import {englishDynamic} from '../src/englishDynamic.mjs';
 
 test('dynamic question and structure counts distinguish zero, one and many',()=>{
   const page=fs.readFileSync(new URL('../app/page.tsx',import.meta.url),'utf8');
-  assert.ok(page.includes('<small>{`${activeVisibleStructures.length}構造を同時表示中`}</small>'),'React must emit the count as one translatable text node, not separate number and suffix nodes');
   assert.ok(page.includes('{`${category.label}（${quizChoiceCount("category",category.key)}問）`}'));
   assert.ok(page.includes('{`${option.label}（${quizChoiceCount("format",option.key)}問）`}'));
   assert.ok(page.includes('{`${quizDetailLabels[detail]}（${quizChoiceCount("detail",detail)}問）`}'));

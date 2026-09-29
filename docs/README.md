@@ -297,6 +297,10 @@ Historical audit results describe their recorded checkpoint, not the current rel
 
 ## 最近の変更記録
 
+- [左小脳の外部浮遊ラベル24点を除外](CEREBELLAR_LEFT_EXTERIOR24_2026-09-29.md)
+- [右小脳の外部浮遊ラベル40点を除外](CEREBELLAR_EXTERIOR_ISLANDS40_2026-09-29.md)
+- [側脳室の小片確認](LATERAL_ISLANDS_REVIEW_2026-09-29.md)
+- [第三脳室の小片確認](THIRD_OUTLIERS_REVIEW_2026-09-29.md)
 - [β版更新 2026-09-26](BETA_UPDATE_2026-09-26.md)
 - [CEREBELLAR_MARGINS90_2026-09-22](CEREBELLAR_MARGINS90_2026-09-22.md)
 - [EDUCATION_SITE_COMPARISON_2026-09-25](EDUCATION_SITE_COMPARISON_2026-09-25.md)
