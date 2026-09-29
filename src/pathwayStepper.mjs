@@ -36,7 +36,7 @@ export const PAPEZ_STEPS = Object.freeze([
     quizRefs: Object.freeze(["hippocampus"]),
     labelIds: Object.freeze([17, 18]),
     provenance: "既存クイズの海馬 target と BigBrain ID17・18を再利用",
-    note: "3Dメッシュと同じ段階番号で、既存の海馬断面ラベルを確認します。",
+    note: "側脳室下角の床に沿う海馬を探し、海馬采から脳弓へ続く位置関係を確かめます。",
   }),
   Object.freeze({
     key: "fornixBodyPartial",
@@ -48,7 +48,7 @@ export const PAPEZ_STEPS = Object.freeze([
     position: 53,
     labelIds: Object.freeze([46]),
     provenance: "同一BigBrain native原画像で確認した脳弓体部・脚・柱の部分ラベルID46（プロジェクト内採用・専門家未確認）",
-    note: "同一標本から追った体部・脚・柱と両側海馬采の部分分節を断面と3Dで観察します。左右の脚を海馬側へ、柱を前交連後方から乳頭体付近へ延長しています。海馬采全長と乳頭体付近の精密な終端境界は未収録です。",
+    note: "海馬采から脳弓の脚・体部・柱へとたどり、乳頭体の方向へ下る束の位置を見ます。表示は部分的な形で、個々の線維を追跡したものではありません。",
   }),
   Object.freeze({
     key: "mammillaryBody",
@@ -62,7 +62,7 @@ export const PAPEZ_STEPS = Object.freeze([
     labelIds: Object.freeze([39, 40]),
     provenance: "既存クイズの乳頭体 target と公開教材ラベルID39・40を再利用",
     reviewStatus: "project-reviewed-expert-pending",
-    note: "同一BigBrain標本のID39・40から生成した左右乳頭体の3Dと、対応する断面ラベルを表示します。専門家レビューは未完了です。",
+    note: "脳底側にある左右の乳頭体を探します。脳弓から入力を受け、乳頭視床路を通じて視床前核へつながる中継部です。",
   }),
   Object.freeze({
     key: "thalamus",
@@ -75,7 +75,7 @@ export const PAPEZ_STEPS = Object.freeze([
     quizRefs: Object.freeze(["thalamus"]),
     labelIds: Object.freeze([15, 16]),
     provenance: "既存クイズの視床 target と BigBrain ID15・16を再利用",
-    note: "視床全体の既存ラベルを表示します。前部核そのものは未分節です。",
+    note: "乳頭視床路が向かう前核群を、第三脳室の外側にある視床の前部として位置づけます。着色されるのは視床全体です。",
   }),
   Object.freeze({
     key: "cingulate",
@@ -84,7 +84,7 @@ export const PAPEZ_STEPS = Object.freeze([
     source: "atlas-3d",
     targetKeys: Object.freeze(["cingulate"]),
     provenance: "既存 CerebrA/Desikan 系の帯状回アトラス領域",
-    note: "帯状回はアトラス対応3Dのみです。画像分節や断面Canvasは表示しません。",
+    note: "視床前核から皮質へ向かう経路の先にある帯状回を、脳梁の上方で探します。帯状束はその深部を走ります。",
   }),
   Object.freeze({
     key: "parahippocampal-entorhinal",
@@ -93,7 +93,7 @@ export const PAPEZ_STEPS = Object.freeze([
     source: "atlas-3d",
     targetKeys: Object.freeze(["parahippocampal", "entorhinal"]),
     provenance: "既存 CerebrA/Desikan 系の海馬傍回・嗅内野アトラス領域",
-    note: "海馬傍回・嗅内野はアトラス対応3Dのみです。画像分節や断面Canvasは表示しません。",
+    note: "内側側頭葉の海馬傍回と嗅内野を探します。嗅内野から海馬体へ情報が入り、回路の出発点へ戻ります。",
   }),
 ]);
 
@@ -285,7 +285,9 @@ export function auditBasalGangliaStepper({steps = BASAL_GANGLIA_STEPS, quizQuest
   };
 }
 
-const PAPEZ_FORBIDDEN_TEXT = /(乳頭視床路|乳頭視床束|帯状束|投射線維|投射方向|興奮性|抑制性|excitatory|inhibitory|projection\s+fiber|mammillothalamic|cingulum\s+bundle)/i;
+// Established tract names may be explained in prose, but the stage data must
+// not claim reconstructed fibres, projection direction, or physiology.
+const PAPEZ_FORBIDDEN_TEXT = /(投射線維|投射方向|興奮性|抑制性|excitatory|inhibitory|projection\s+fiber)/i;
 const PAPEZ_FORBIDDEN_TARGET_PATTERN = /optic|視覚/;
 const PAPEZ_FORBIDDEN_ATLAS_IDS = new Set([30 + 3, 30 + 6, 30 + 7, 30 + 8].map(String));
 
