@@ -480,7 +480,7 @@ const structures: Record<StructureKey, StructureInfo> = {
   amygdala: { name:"扁桃体", latin:"Corpus amygdaloideum", color:"#c76878", rgb:[199,104,120], ids:[70,19], bigbrainIds:[21,22], labelSource:"manual", note:"側頭葉内側前方の核群です。海馬の前端との移行を連続断面で追います。", relation:"海馬頭の前上方、側脳室下角の前方" },
   accumbens: { name:"側坐核", latin:"Nucleus accumbens", color:"#78b579", rgb:[120,181,121], ids:[55,4], bigbrainIds:[19,20], labelSource:"manual", note:"尾状核頭と被殻が腹側で連続する領域に位置します。前方の冠状断で確認します。", relation:"尾状核頭・被殻の腹側、前交連の前下方" },
   redNucleus: { name:"赤核", latin:"Nucleus ruber", color:"#d24f49", rgb:[210,79,73], ids:[], bigbrainIds:[1,2], labelSource:"manual", note:"中脳被蓋にある円形の核です。黒質・中脳水道との位置関係を確認します。", relation:"中脳水道の腹外側、黒質の背内側" },
-  substantiaNigra: { name:"黒質", latin:"Substantia nigra", color:"#716387", rgb:[113,99,135], ids:[], bigbrainIds:[3,4], labelSource:"manual", note:"中脳脚と被蓋の境界に沿う帯状の核です。赤核より腹側に位置します。", relation:"大脳脚の背側、赤核の腹外側" },
+  substantiaNigra: { name:"黒質", latin:"Substantia nigra", color:"#716387", rgb:[113,99,135], ids:[], bigbrainIds:[3,4], labelSource:"manual", note:"中脳脚と被蓋の境界に沿う帯状の核です。赤核より腹側に位置します。現在の分節は緻密部と網様部を分けていません。", relation:"大脳脚の背側、赤核の腹外側" },
   subthalamic: { name:"視床下核", latin:"Nucleus subthalamicus", color:"#e0ad45", rgb:[224,173,69], ids:[], bigbrainIds:[5,6], labelSource:"manual", note:"間脳の視床下域にある小さなレンズ状の核です。視床下部や中脳そのものとは区別し、淡蒼球内節・黒質との位置関係を連続断面で追います。", relation:"視床の腹側、黒質の背側、内包の内側" },
   brainstem: { name:"脳幹", latin:"Truncus encephali", color:"#739b72", rgb:[115,155,114], ids:[62,11], bigbrainIds:[27], labelSource:"atlas-image-guided", note:"中脳・橋・延髄へ連続する軸性構造です。脳神経の出入口を考える基準になります。", relation:"間脳の下方、小脳の前方" },
   cerebellum: { name:"小脳", latin:"Cerebellum", color:"#8ba867", rgb:[139,168,103], ids:[97,46,90,39], bigbrainIds:[28,29], labelSource:"atlas-image-guided", note:"皮質と白質、正中の虫部を区別します。水平断と矢状断で小脳脚との連続を追います。", relation:"脳幹の後方、後頭葉の下方" },
@@ -568,7 +568,7 @@ const structureFunctions:Record<StructureKey,string>={
   amygdala:"情動、脅威や報酬の評価、自律反応を伴う記憶形成に関わります。",
   accumbens:"報酬予測、動機づけ、行動を起こす価値判断に関わる腹側線条体です。",
   redNucleus:"小脳などから入力を受ける中脳核で、運動調節系の位置理解に重要です。",
-  substantiaNigra:"緻密部（SNc）は線条体へドパミンを送り、運動や学習を調節します。網様部（SNr）は淡蒼球内節とともに基底核の主要な出力部をなします。この表示では両部を分けていません。",
+  substantiaNigra:"緻密部（SNc）は線条体へドパミンを送り、運動や学習を調節します。網様部（SNr）は淡蒼球内節とともに基底核の主要な出力部をなします。",
   subthalamic:"間脳の視床下域にある視床下核（STN）です。視床下部や中脳そのものとは区別し、大脳基底核回路を興奮性に調節して競合する運動の抑制に関わります。",
   brainstem:"脳神経核、上下行路、覚醒・呼吸・循環など生命維持に関わる中枢を含みます。",
   cerebellum:"運動の正確さ、タイミング、平衡、姿勢、運動学習を調整します。",
@@ -586,7 +586,7 @@ const vascularReviewExplanations:Partial<Record<NeurovascularStructureKey,string
   vertebral:"左右の椎骨動脈は延髄腹側を上行して合流し、脳底動脈を形成します。枝は延髄や小脳の一部へ向かいます。",
   basilar:"脳底動脈は左右の椎骨動脈の合流で形成され、橋腹側を上行します。橋・小脳へ枝を出し、通常は後大脳動脈に分かれます。",
   pca:"後大脳動脈は通常、脳底動脈の終末枝として中脳を回り、後頭葉の視覚野などへ血液を送ります。",
-  cerebellarArteries:"上・前下・後下小脳動脈は、脳底動脈系または椎骨動脈から分かれ、小脳と脳幹の異なる領域へ向かいます。この表示では枝の個体差を省いています。",
+  cerebellarArteries:"上・前下・後下小脳動脈は、脳底動脈系または椎骨動脈から分かれ、小脳と脳幹の異なる領域へ向かいます。",
 };
 const nerveDistractorExplanations:Partial<Record<NeurovascularStructureKey,string>>={
   cn5:"三叉神経（V）は顔面の一般感覚と咀嚼筋の運動に関わり、橋の前外側から現れます。",
