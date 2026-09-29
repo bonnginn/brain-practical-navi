@@ -28,9 +28,9 @@ def read_labels(compressed):
     return np.frombuffer(raw, np.uint8, offset=10).reshape(struct.unpack_from("<3H", raw, 4), order="F")
 
 
-def plan():
-    record = json.loads((STAGE / "repair.json").read_text(encoding="utf-8"))
-    before_bytes, after_bytes = (STAGE / "before.bin.gz").read_bytes(), (STAGE / "labels.bin.gz").read_bytes()
+def plan(stage=STAGE, record_path=RECORD, audit_key="cerebellar-interstitial16"):
+    record = json.loads((stage / "repair.json").read_text(encoding="utf-8"))
+    before_bytes, after_bytes = (stage / "before.bin.gz").read_bytes(), (stage / "labels.bin.gz").read_bytes()
     base, after_sha = record["beforeSha256"], record["afterSha256"]
     if sha(before_bytes) != base or SOURCE.read_bytes() != before_bytes or sha(after_bytes) != after_sha:
         raise ValueError("current labels or staged output differ")
@@ -46,7 +46,7 @@ def plan():
         seen.add(point)
         forward[point] = 0
         reverse[point] = edit["before"]
-    if len(seen) != 16 or not np.array_equal(forward, after) or not np.array_equal(reverse, before):
+    if len(seen) != record["count"] or not np.array_equal(forward, after) or not np.array_equal(reverse, before):
         raise ValueError("forward/reverse replay failed")
     for relative, digest in record["evidence"].items():
         if sha((ROOT / relative).read_bytes()) != digest:
@@ -68,7 +68,7 @@ def plan():
     meta.update(new_info, sourceSha256=after_sha, rawSha256=sha(new_mesh), storedSha256=sha(stored),
                 rawBytes=len(new_mesh), storedBytes=len(stored), sha256=sha(stored), bytes=len(stored),
                 labelVoxelCounts=record["countsAfter"],
-                reviewRecord=RECORD.relative_to(ROOT).as_posix())
+                reviewRecord=record_path.relative_to(ROOT).as_posix())
     writes.extend(((ATLAS / f"{stem}.mesh", stored), (ATLAS / f"{stem}.json", encode(meta))))
 
     for path in sorted(ATLAS.glob("section-current-*.json")):
@@ -128,14 +128,14 @@ def plan():
         measurements["labelCounts"][str(label_id)] = record["countsAfter"][str(label_id)]
     record.update(projectAdopted=True, adopted=True, installed=True, status="AI-image-reviewed-project-adopted-development-only",
                   sectionMeshImpact={"before": old_info, "after": new_info}, blockMaskChanged=False,
-                  integrationVerification="docs/CEREBELLAR_INTERSTITIAL16_2026-09-29.md")
+                  integrationVerification=record.get("integrationVerification", "docs/CEREBELLAR_INTERSTITIAL16_2026-09-29.md"))
     accepted = encode(record)
-    validation["regionalBatchAudits"]["cerebellar-interstitial16"] = {
-        "record": RECORD.relative_to(ROOT).as_posix(), "recordSha256": sha(accepted),
-        "changedVoxelCount": 16, "projectAdopted": True, "expertReviewed": False,
+    validation["regionalBatchAudits"][audit_key] = {
+        "record": record_path.relative_to(ROOT).as_posix(), "recordSha256": sha(accepted),
+        "changedVoxelCount": record["count"], "projectAdopted": True, "expertReviewed": False,
     }
-    writes.extend(((RECORD, accepted), (validation_path, encode(validation)), (SOURCE, after_bytes)))
-    if RECORD.exists():
+    writes.extend(((record_path, accepted), (validation_path, encode(validation)), (SOURCE, after_bytes)))
+    if record_path.exists():
         raise ValueError("adoption record already exists")
     return writes, old_info, new_info, after_sha
 
