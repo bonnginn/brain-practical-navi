@@ -329,7 +329,8 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /Cloudflare Web Analytics/);
   assert.match(page, /CookieやlocalStorageを使わず、訪問者の個人データを収集・利用しません/);
   assert.match(page, /クイズの誤答履歴、断面の観察設定、分節差分、M2比較の下書き、解剖レビューの下書きは端末内のlocalStorageに保存されます/);
-  assert.match(page, /自動送信は行わず、サイトデータを消去すると失われます/);
+  assert.match(page, /これらの端末内記録は自動送信しません/);
+  assert.match(page, /集計が有効な場合に選択肢と、完了セットの問題数・正答数を別途送信します/);
   assert.match(page, /原著者やデータ提供機関の推奨・承認を示すものではありません/);
   for (const marker of ["source-credit", "license-boundaries", "modifications", "no-endorsement", "educational-nonclinical", "privacy-analytics", "privacy-local-storage", "corresponding-source"]) assert.equal((page.match(new RegExp(`data-legal-disclosure=\\"${marker}\\"`, "g")) ?? []).length, 1, marker);
   assert.match(page, /data-legal-disclosure="source-credit">.*?BigBrain/);
