@@ -530,6 +530,13 @@ const structureGroups:{key:string;name:string;color:string;members:StructureKey[
   {key:"midbrain",name:"中脳核・視床下域",color:"#b06e75",members:["redNucleus","substantiaNigra","subthalamic"]},
   {key:"posterior",name:"脳幹・小脳",color:"#7e9f6c",members:["brainstem","cerebellum"]},
 ];
+const sectionCoreStructureKeys:StructureKey[]=[
+  "ventricle","thirdVentricle","fourthVentricle",
+  "caudate","putamen","pallidum","pallidumExternal","pallidumInternal","accumbens",
+  "thalamus","internalCapsule","corpusCallosum",
+  "hippocampus","amygdala","mammillaryBody","insula",
+  "redNucleus","substantiaNigra","subthalamic","brainstem","cerebellum",
+];
 
 const structureFunctions:Record<StructureKey,string>={
   aqueductPartial:"中脳水道は第三脳室と第四脳室を結ぶ細い髄液の通路で、中脳の正中を通ります。",
@@ -1040,7 +1047,7 @@ export default function Home() {
   const cavitySelection=selectedStructure==="ventricle"||selectedStructure==="thirdVentricle"||selectedStructure==="fourthVentricle";
   // ID 33 is an atlas-derived scaffold that merges the optic chiasm and tracts.
   // Keep it out of learner-facing identification until image-guided labels 36-38 are reviewed.
-  const structureKeys:StructureKey[]=(Object.keys(structures) as StructureKey[]).filter(key=>key!=="opticChiasm");
+  const structureKeys:StructureKey[]=[...sectionCoreStructureKeys,...(Object.keys(structures) as StructureKey[]).filter(key=>key!=="opticChiasm"&&!sectionCoreStructureKeys.includes(key))];
   const structureAvailable=(key:StructureKey)=>contrast==="single"?false:contrast==="bigbrain"?(structures[key].bigbrainIds?.length??0)>0:structures[key].ids.length>0;
   const normalizedSectionSearch=normalizeJapaneseSearch(sectionSearch);
   const filteredStructureKeys=structureKeys.filter(key=>matchesJapaneseSearch(normalizedSectionSearch,[structures[key].name,structures[key].latin,anatomyDisplayEnglish(structures[key].latin),...(sectionStructureReadings[key]??[])]));
