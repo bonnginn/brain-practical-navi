@@ -35,10 +35,10 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
  for(const [name,audit] of Object.entries(meta.regionalBatchAudits)){
   const bytes=await read(audit.record),r=JSON.parse(bytes);
   assert.equal(sha(bytes),audit.recordSha256);
-  const compactCerebellar=['cerebellar-exterior-islands40','cerebellar-left-exterior24'].includes(name);
+  const compactCerebellar=['cerebellar-exterior-islands40','cerebellar-left-exterior24','cerebellar-left-lower16'].includes(name);
   if(compactCerebellar){
    assert.equal(r.blockMaskChanged,false);assert.ok(r.sectionMeshImpact);
-   assert.equal(r.count,name==='cerebellar-exterior-islands40'?40:24);
+   assert.equal(r.count,{'cerebellar-exterior-islands40':40,'cerebellar-left-exterior24':24,'cerebellar-left-lower16':16}[name]);
    assert.ok(r.points.every(p=>p.before===(name==='cerebellar-exterior-islands40'?29:28)&&p.after===0));
    r.transition=name==='cerebellar-exterior-islands40'?'29->0':'28->0';
   }

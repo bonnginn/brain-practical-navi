@@ -22,7 +22,7 @@ export async function withRegionalBatches(record,{afterRevision=null}={}){
   if(!active){if(next.afterSha256===afterRevision){assert.deepEqual(next,record);active=true;}continue;}
   assert.equal(regionalBeforeSha(next),result.afterSha256);
   let sectionImpact=next.sectionMeshImpact;
-  if(['cerebellar-exterior-islands40','cerebellar-left-exterior24'].includes(name)){
+  if(['cerebellar-exterior-islands40','cerebellar-left-exterior24','cerebellar-left-lower16'].includes(name)){
    assert.equal(next.blockMaskChanged,false);
    assert.ok(next.points.length===next.count&&next.points.every(p=>[28,29].includes(p.before)&&p.after===0));
    assert.ok(sectionImpact,'Missing cerebellar section-mesh evidence');
