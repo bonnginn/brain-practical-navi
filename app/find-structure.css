@@ -23,9 +23,9 @@
 .findTask .quizSliceNavigator{display:flex;align-items:center;gap:8px;min-height:0;padding:8px 12px}
 .findTask .quizSliceNavigator label{display:block;flex:1;min-width:0;line-height:0}
 .findTask .quizSliceNavigator input{display:block;width:100%;margin:0}
-.findSliceEnd{display:inline-flex;align-items:center;gap:3px;white-space:nowrap;color:#e6e9e6;font-size:12px}
-.findSliceEnd small{color:#aab7b3;font-size:10px;font-weight:700}
-@media(max-width:480px){.findTask .quizSliceNavigator{gap:5px;padding-inline:8px}.findSliceEnd{font-size:11px;gap:2px}}
+.findSliceEnd{display:inline-flex;align-items:center;gap:4px;white-space:nowrap;color:#e6e9e6;font-size:12px;font-weight:600}
+.findSliceEnd strong{display:inline-grid;place-items:center;min-width:20px;height:20px;border:1px solid #7aa29c;border-radius:3px;background:#314e4a;color:#e9f6f2;font:700 12px/1 sans-serif}
+@media(max-width:480px){.findTask .quizSliceNavigator{gap:5px;padding-inline:8px}.findSliceEnd{font-size:11px;gap:2px}.findSliceEnd strong{min-width:18px;height:18px;font-size:11px}}
 @media(max-width:760px){.findExercise>label{align-items:stretch;flex-direction:column}.findTask{grid-template-columns:1fr}.appShell.workspace-quiz.findPractice .findExercise .quizImageCard{height:max-content;align-self:start;grid-template-rows:auto auto minmax(220px,1fr) auto auto}.findTask .quizSliceNavigator{min-height:52px}.findImageActions{display:flex;gap:6px;padding:6px 10px;background:#edf3ef}.findImageActions button{flex:1;min-width:0;min-height:38px;padding:5px 7px;border:1px solid #91aaa5;border-radius:5px;background:#fff;color:#244d40;font:inherit;font-size:12px;line-height:1.25}.findImageActions .findRevealAnswer{background:#285e55;color:#fff;border-color:#285e55;font-weight:700}.findImageActions button:disabled{opacity:.45}.findTaskGuideBody>.findActions{display:none}}
 
 .findExercise{display:flex;flex-direction:column;flex:1;min-height:0}.findExercise .findTask{min-height:350px}.findExercise .findTaskGuide{display:flex;flex-direction:column;min-height:0;overflow:hidden}.findTaskGuideBody{flex:1;min-height:0;overflow:auto}

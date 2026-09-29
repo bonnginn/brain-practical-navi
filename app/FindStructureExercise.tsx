@@ -31,6 +31,8 @@ function FindTaskView({task,english,onNext}:{task:FindTask;english:boolean;onNex
   const model=task.kind!=='section',revealed=stage==='answer';
   const planeInfo=segmentationPlaneNames[task.plane];
   const planeTitle=english?{coronal:'Coronal section',horizontal:'Horizontal section',sagittal:'Sagittal section'}[task.plane]:planeInfo.label;
+  const rangeStartLabel=english?{coronal:'Posterior',horizontal:'Superior',sagittal:'Left'}[task.plane]:planeInfo.rangeStart;
+  const rangeEndLabel=english?{coronal:'Anterior',horizontal:'Inferior',sagittal:'Right'}[task.plane]:planeInfo.rangeEnd;
   const highlights=revealed?[task.highlight]:[];
   const answerAbsentFromSlice=!model&&sectionLabelPresence.revision===SEGMENTATION_LABEL_SHA256&&nearestLabeledSection(sectionLabelPresence.labels,task.highlight.ids,task.plane,planeSliceIndex(position,task.plane,BIGBRAIN_SECTION_DIMS))!==null;
   function revealAnswer(){
@@ -53,9 +55,9 @@ function FindTaskView({task,english,onNext}:{task:FindTask;english:boolean;onNex
         {guess&&<span className="findGuessMarker" style={{left:`${guess.x}%`,top:`${guess.y}%`}} aria-hidden="true"/>}
       </div>
       {!model&&<div className="quizSliceNavigator findSliceNavigator" data-no-localize>
-        <span className="findSliceEnd">{english?{coronal:'Posterior',horizontal:'Superior',sagittal:'Left'}[task.plane]:planeInfo.rangeStart}<small>{{coronal:'P',horizontal:'S',sagittal:'L'}[task.plane]}</small></span>
-        <label><span className="srOnly">{english?'Move through nearby sections':'近くの断面へ動かす'}</span><input type="range" min="0" max="100" step="any" value={position} onChange={event=>{setGuess(null);setAnswerReturnedToStart(false);setPosition(Number(event.target.value))}} onKeyDown={event=>{if(['ArrowLeft','ArrowRight'].includes(event.key)){event.preventDefault();setGuess(null);setAnswerReturnedToStart(false);setPosition(old=>stepPlanePosition(old,task.plane,BIGBRAIN_SECTION_DIMS,event.key==='ArrowLeft'?-1:1))}}}/></label>
-        <span className="findSliceEnd">{english?{coronal:'Anterior',horizontal:'Inferior',sagittal:'Right'}[task.plane]:planeInfo.rangeEnd}<small>{{coronal:'A',horizontal:'I',sagittal:'R'}[task.plane]}</small></span>
+        <span className="findSliceEnd"><strong>{{coronal:'P',horizontal:'S',sagittal:'L'}[task.plane]}</strong>{rangeStartLabel}</span>
+        <label><span className="srOnly">{english?`Move through nearby sections: ${rangeStartLabel} on the left, ${rangeEndLabel} on the right`:`近くの断面へ動かす。左が${rangeStartLabel}、右が${rangeEndLabel}`}</span><input type="range" min="0" max="100" step="any" value={position} onChange={event=>{setGuess(null);setAnswerReturnedToStart(false);setPosition(Number(event.target.value))}} onKeyDown={event=>{if(['ArrowLeft','ArrowRight'].includes(event.key)){event.preventDefault();setGuess(null);setAnswerReturnedToStart(false);setPosition(old=>stepPlanePosition(old,task.plane,BIGBRAIN_SECTION_DIMS,event.key==='ArrowLeft'?-1:1))}}}/></label>
+        <span className="findSliceEnd"><strong>{{coronal:'A',horizontal:'I',sagittal:'R'}[task.plane]}</strong>{rangeEndLabel}</span>
       </div>}
       <button onClick={()=>{setGuess(null);setAnswerReturnedToStart(false);setRotation(task.rotation);setPosition(task.position);setViewReset(value=>value+1)}}>{english?'Return to starting view':'開始位置・向きに戻す'}</button>
     </section>
