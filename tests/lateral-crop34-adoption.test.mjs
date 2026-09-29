@@ -35,13 +35,15 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
  for(const [name,audit] of Object.entries(meta.regionalBatchAudits)){
   const bytes=await read(audit.record),r=JSON.parse(bytes);
   assert.equal(sha(bytes),audit.recordSha256);
-  const compactCerebellar=['cerebellar-exterior-islands40','cerebellar-left-exterior24','cerebellar-left-lower16'].includes(name);
+  const compactCerebellar=['cerebellar-exterior-islands40','cerebellar-left-exterior24','cerebellar-left-lower16','cerebellar-white-islands46','cerebellar-interstitial16'].includes(name);
+  const compactCallosal=name==='callosal-cortical-component93';
   if(compactCerebellar){
    assert.equal(r.blockMaskChanged,false);assert.ok(r.sectionMeshImpact);
-   assert.equal(r.count,{'cerebellar-exterior-islands40':40,'cerebellar-left-exterior24':24,'cerebellar-left-lower16':16}[name]);
-   assert.ok(r.points.every(p=>p.before===(name==='cerebellar-exterior-islands40'?29:28)&&p.after===0));
-   r.transition=name==='cerebellar-exterior-islands40'?'29->0':'28->0';
+   assert.equal(r.count,{'cerebellar-exterior-islands40':40,'cerebellar-left-exterior24':24,'cerebellar-left-lower16':16,'cerebellar-white-islands46':46,'cerebellar-interstitial16':16}[name]);
+   assert.ok(r.points.every(p=>[28,29].includes(p.before)&&p.after===0));
+   r.transition='mixed-cerebellar-exclusion';
   }
+  if(compactCallosal){assert.equal(r.count,278);assert.ok(r.points.every(p=>p.before===30&&p.after===0));r.transition='30->0';}
   // Compact final records retain per-voxel before/after values without a transition string.
   if(name==='third-residual11'){assert.equal(r.count,11);assert.ok(r.points.every(p=>p.before===25&&p.after===0));r.transition='25->0';}
   if(name==='anterior-commissure185'){assert.equal(r.count,185);assert.ok(r.points.every(p=>[0,31,32].includes(p.before)&&p.after===42));r.transition='mixed-anterior-commissure';}
@@ -52,10 +54,11 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
    assert.ok(Number.isInteger(audit.changedVoxelCount)&&audit.changedVoxelCount>0);
    r.count=audit.changedVoxelCount;
   }
-  const base=compactCerebellar?null:await read('tests/fixtures/bigbrain-practical-segmentation-pre-'+name+'.bin.gz');
-  if(compactCerebellar){assert.ok(current);assert.equal(sha(current.subarray(10)),r.beforeRawVoxelSha256);}
+  const compact=compactCerebellar||compactCallosal;
+  const base=compact?null:await read('tests/fixtures/bigbrain-practical-segmentation-pre-'+name+'.bin.gz');
+  if(compact){assert.ok(current);assert.equal(sha(current.subarray(10)),r.beforeRawVoxelSha256);}
   else {assert.equal(sha(base),regionalBeforeSha(r));if(current)assert.deepEqual(gunzipSync(base),current);}
-  const expected=compactCerebellar?Buffer.from(current):gunzipSync(base),seen=new Set(),label=r.transition==='mixed-to-26'?26:r.transition==='mixed-to-41'?41:Number(r.transition.split('->')[1]);
+  const expected=compact?Buffer.from(current):gunzipSync(base),seen=new Set(),label=r.transition==='mixed-to-26'?26:r.transition==='mixed-to-41'?41:Number(r.transition.split('->')[1]);
   const exclusions=r.transition==='mixed-ventricular-exclusions'||['23->0','24->0','25->0','26->0','41->0'].includes(r.transition);
   const brainstem=r.transition==='27->26';
   const interfaceHold=r.transition==='27->0';
@@ -68,7 +71,7 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
   const fornixDescent=r.transition==='mixed-fornix-descent-interior-partial';
   const fornixColumn=r.transition==='mixed-fornix-upper-column-interior-partial';
   const fornixLowerColumn=r.transition==='mixed-fornix-lower-column-interior-partial';
-  const genericRecord=compactCerebellar||['cerebellar-margins90','cerebellar-folia197','septal-membrane282','anterior-commissure-core416','aqueduct-fourth44','optic-central112','optic-tract77','optic-fourth9','fornix-posterior85', 'fornix-crural182', 'optic-left152', 'fornix-crura870', 'fornix-transition347', 'optic-central258', 'optic-tract243', 'optic-proximal995', 'optic-junction118', 'fornix-columns234', 'fornix-hippocampal1034', 'optic-right110', 'optic-lgn1267', 'third-posterior197', 'fimbria-left653', 'fimbria-right814', 'fimbria-left128', 'fimbria-right441', 'fornix-postcommissural939', 'anterior-commissure185'].includes(name);
+  const genericRecord=compact||['cerebellar-margins90','cerebellar-folia197','septal-membrane282','anterior-commissure-core416','aqueduct-fourth44','optic-central112','optic-tract77','optic-fourth9','fornix-posterior85', 'fornix-crural182', 'optic-left152', 'fornix-crura870', 'fornix-transition347', 'optic-central258', 'optic-tract243', 'optic-proximal995', 'optic-junction118', 'fornix-columns234', 'fornix-hippocampal1034', 'optic-right110', 'optic-lgn1267', 'third-posterior197', 'fimbria-left653', 'fimbria-right814', 'fimbria-left128', 'fimbria-right441', 'fornix-postcommissural939', 'anterior-commissure185'].includes(name);
   const posterior=r.transition==='mixed-posterior-ventricular-repair';
   const bilateral=r.transition==='mixed-lateral-cavity-fill';
   const combined=r.transition==='mixed-ventricular-repair'||posterior||bilateral;
@@ -121,7 +124,7 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
   if(r.expertReviewed===undefined)assert.equal(r.status,'AI-image-reviewed-project-adopted-development-only');
   const manifest=JSON.parse(await read('public/atlas/specimen-blocks.json'));
   const ids=Object.entries(manifest.specimens).flatMap(([b,ps])=>ps.map(p=>b+'/'+p.part)).sort();
-  if(!compactCerebellar)assert.deepEqual(r.meshImpact.blockMaskImpact.map(p=>p.block+'/'+p.part).sort(),ids);
+  if(!compact)assert.deepEqual(r.meshImpact.blockMaskImpact.map(p=>p.block+'/'+p.part).sort(),ids);
   const changed=compactCerebellar?[]:r.meshImpact.blockMaskImpact.filter(p=>p.changedMaskVoxels??p.changed);
   const expectedChanges={'left-lower-majority':[['diencephalon','tissue',0,4]],'left-lower-posterior1396':[['diencephalon','tissue',0,58],['commissural-system','tissue',41,0]],'ventricular-exclusions46':[['diencephalon','third-ventricle',0,5]]};
   expectedChanges['upper-fourth-gap']=[['diencephalon','tissue',0,23],['medial-temporal','tissue',0,2],['hindbrain','pons-medulla',0,9],['hindbrain','midbrain',0,1],['hindbrain','fourth-ventricle',24,0]];
@@ -162,6 +165,7 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
   expectedChanges['third-inferior-current16']=[['diencephalon','third-ventricle',0,2]];
   expectedChanges['cerebellar-folia197']=[['hindbrain','cerebellum',22,0]];
   expectedChanges['cerebellar-margins90']=[['hindbrain','cerebellum',11,0]];
+  expectedChanges['callosal-cortical-component93']=[['commissural-system','tissue',21,0],['commissural-system','corpus-callosum',0,45]];
   expectedChanges['septal-membrane282']=[];
   expectedChanges['anterior-commissure-core416']=[];
   expectedChanges['aqueduct-fourth44']=[['diencephalon','tissue',0,2],['midbrain-section','tissue',0,4],['hindbrain','midbrain',0,6],['hindbrain','fourth-ventricle',4,0]];

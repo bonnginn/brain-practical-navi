@@ -1,5 +1,5 @@
 {
-  "sourceLabelSha256": "7d94c6e30aa6182b4cb68d1969772e71eb7fe64199d7ea58b6028f6050932f3e",
+  "sourceLabelSha256": "98868c413e45436756294f06a693e5dc51efd5c34e98335470fbb27bce204f9d",
   "sourceImageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
   "preparation": "Shared opaque tissue surfaces with specimen-specific virtual cuts. Lateral ventricle: roof and temporal opening; other preparations: planar cuts. Colour annotates exposed surfaces only.",
   "specimens": {
@@ -371,11 +371,11 @@
       "parts": [
         {
           "file": "teaching-block-commissural-system-corpus-callosum.mesh",
-          "vertices": 3117,
-          "faces": 4346,
+          "vertices": 3111,
+          "faces": 4330,
           "shadeMin": 0.4884,
           "shadeMax": 1.0,
-          "meshSha256": "3f31831911e8f941f242f8042e9d3ace46a238171586258ca5f8fa9b052f4377",
+          "meshSha256": "b498ed8b31a48ad41764e743e698df37917a453d8be3a25dca1bd754b8edb322",
           "key": "corpus-callosum",
           "role": "structure",
           "source": "image-guided-segmentation",
@@ -422,11 +422,11 @@
         },
         {
           "file": "teaching-block-commissural-system-tissue.mesh",
-          "vertices": 45841,
-          "faces": 89602,
+          "vertices": 45851,
+          "faces": 89618,
           "shadeMin": 0.0,
           "shadeMax": 1.0,
-          "meshSha256": "c2baf8c7d039b46ac126ebc4fec745c5d3d7fa86eb2f574e4a3b4fac5959581f",
+          "meshSha256": "6ecc2d1a54d04a0edcdad729198b6d36708b092b716d1d09623300df07466119",
           "key": "tissue",
           "role": "tissue",
           "source": "specimen-derived",

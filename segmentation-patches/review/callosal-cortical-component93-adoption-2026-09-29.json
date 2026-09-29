@@ -1,0 +1,3292 @@
+{
+  "beforeSha256": "7d94c6e30aa6182b4cb68d1969772e71eb7fe64199d7ea58b6028f6050932f3e",
+  "afterSha256": "98868c413e45436756294f06a693e5dc51efd5c34e98335470fbb27bce204f9d",
+  "beforeRawVoxelSha256": "107b7a3b33e30bfdb6606ad6a1fd18bbce0ff975a9d0e1861e883e1a36925ee9",
+  "afterRawVoxelSha256": "a689cf70857a85186bee7f8a108f1d38df54f5791fdfd805d7149be48200e161",
+  "component": 93,
+  "count": 278,
+  "indicesSha256": "e414ec0cfa1b09476342ef0ce9c24c3a67da4cf9a6a6eaac2f250307013c2748",
+  "points": [
+    {
+      "xyz": [
+        207,
+        225,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        207,
+        226,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        207,
+        226,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        207,
+        227,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        207,
+        227,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        207,
+        228,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        207,
+        228,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        207,
+        228,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        207,
+        229,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        207,
+        229,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        207,
+        229,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        207,
+        230,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        208,
+        225,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        208,
+        225,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        208,
+        226,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        208,
+        226,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        208,
+        227,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        208,
+        227,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        208,
+        228,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        208,
+        228,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        208,
+        228,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        208,
+        229,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        208,
+        229,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        208,
+        229,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        208,
+        230,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        208,
+        230,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        209,
+        223,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        209,
+        224,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        209,
+        224,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        209,
+        225,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        209,
+        225,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        209,
+        226,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        209,
+        226,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        209,
+        227,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        209,
+        227,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        209,
+        227,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        209,
+        228,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        209,
+        228,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        209,
+        228,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        209,
+        229,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        209,
+        229,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        209,
+        229,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        209,
+        230,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        209,
+        230,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        209,
+        231,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        210,
+        223,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        210,
+        223,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        210,
+        224,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        210,
+        224,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        210,
+        225,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        210,
+        225,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        210,
+        225,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        210,
+        226,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        210,
+        226,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        210,
+        226,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        210,
+        227,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        210,
+        227,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        210,
+        228,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        210,
+        228,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        210,
+        229,
+        215
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        210,
+        229,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        210,
+        229,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        210,
+        229,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        210,
+        230,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        210,
+        230,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        210,
+        230,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        210,
+        231,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        210,
+        231,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        219,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        220,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        221,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        222,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        223,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        224,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        224,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        225,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        225,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        225,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        226,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        226,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        226,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        227,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        227,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        228,
+        215
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        228,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        228,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        228,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        229,
+        215
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        229,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        229,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        229,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        230,
+        215
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        230,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        230,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        230,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        231,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        231,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        231,
+        219
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        231,
+        220
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        232,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        232,
+        219
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        232,
+        220
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        219,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        220,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        221,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        222,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        222,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        223,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        223,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        224,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        224,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        225,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        225,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        225,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        226,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        226,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        226,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        227,
+        215
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        227,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        227,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        227,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        228,
+        215
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        228,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        228,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        228,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        229,
+        215
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        229,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        229,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        229,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        230,
+        215
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        230,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        230,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        230,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        231,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        231,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        231,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        231,
+        219
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        231,
+        220
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        232,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        232,
+        219
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        232,
+        220
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        213,
+        219,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        213,
+        220,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        213,
+        221,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        213,
+        222,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        213,
+        222,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        213,
+        223,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        213,
+        224,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        213,
+        224,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        213,
+        225,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        213,
+        225,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        213,
+        226,
+        215
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        213,
+        226,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        213,
+        226,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        213,
+        226,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        213,
+        227,
+        215
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        213,
+        227,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        213,
+        227,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        213,
+        227,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        213,
+        228,
+        215
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        213,
+        228,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        213,
+        228,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        213,
+        228,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        213,
+        229,
+        215
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        213,
+        229,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        213,
+        229,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        213,
+        229,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        213,
+        230,
+        215
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        213,
+        230,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        213,
+        230,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        213,
+        230,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        213,
+        231,
+        215
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        213,
+        231,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        213,
+        231,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        213,
+        231,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        213,
+        232,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        213,
+        232,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        219,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        220,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        221,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        221,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        222,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        222,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        223,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        223,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        224,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        225,
+        215
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        225,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        225,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        226,
+        215
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        226,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        226,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        226,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        227,
+        215
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        227,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        227,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        227,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        228,
+        214
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        228,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        228,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        228,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        229,
+        214
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        229,
+        215
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        229,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        229,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        229,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        230,
+        214
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        230,
+        215
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        230,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        230,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        230,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        231,
+        215
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        231,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        231,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        231,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        232,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        232,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        214,
+        232,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        215,
+        219,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        215,
+        220,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        215,
+        220,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        215,
+        221,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        215,
+        222,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        215,
+        223,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        215,
+        224,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        215,
+        225,
+        215
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        215,
+        225,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        215,
+        226,
+        215
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        215,
+        227,
+        214
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        215,
+        227,
+        215
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        215,
+        228,
+        215
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        215,
+        228,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        215,
+        229,
+        214
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        215,
+        229,
+        215
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        215,
+        229,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        215,
+        230,
+        214
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        215,
+        230,
+        215
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        215,
+        230,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        215,
+        231,
+        215
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        215,
+        231,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        215,
+        231,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        215,
+        231,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        215,
+        232,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        215,
+        232,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        215,
+        232,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        216,
+        219,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        216,
+        220,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        216,
+        220,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        216,
+        221,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        216,
+        222,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        216,
+        223,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        216,
+        224,
+        215
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        216,
+        224,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        216,
+        225,
+        215
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        216,
+        225,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        216,
+        226,
+        214
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        216,
+        226,
+        215
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        216,
+        226,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        216,
+        227,
+        214
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        216,
+        227,
+        215
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        216,
+        227,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        216,
+        228,
+        214
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        216,
+        228,
+        215
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        216,
+        228,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        216,
+        229,
+        214
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        216,
+        229,
+        215
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        216,
+        229,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        216,
+        230,
+        214
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        216,
+        230,
+        215
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        216,
+        230,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        216,
+        231,
+        215
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        216,
+        231,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        216,
+        231,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        216,
+        231,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        216,
+        232,
+        216
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        216,
+        232,
+        217
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        216,
+        232,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    },
+    {
+      "xyz": [
+        216,
+        233,
+        218
+      ],
+      "before": 30,
+      "after": 0
+    }
+  ],
+  "countsBefore": {
+    "30": 145707
+  },
+  "countsAfter": {
+    "30": 145429
+  },
+  "evidence": {
+    "work/anatomy-review/callosum-cortical-spillover-component93-v1/report.json": "839b7510fa8b773a096facf7906f443d8441e8d82be0fcb6d8528525a51c95fb",
+    "work/anatomy-review/callosum-cortical-spillover-component93-v1/x-206-210.png": "df39165720971bfea921e20e841d1bf51fe226115941126608f7feaacbe69984",
+    "work/anatomy-review/callosum-cortical-spillover-component93-v1/x-211-215.png": "11732e1b706b65093b50b9fa5463c5d7e795e4d9c4babd00f7661d226946940f",
+    "work/anatomy-review/callosum-cortical-spillover-component93-v1/x-216-217.png": "7897a1f9e23a9bf3117729f24a1579f1b20ccbd669481a90192d1989bfceb4b6",
+    "work/anatomy-review/callosum-cortical-spillover-component93-v1/y-218-222.png": "c5d4ad024535a57e95a8311700ae4a721f87000968c9a222b1fab0eab739d1fd",
+    "work/anatomy-review/callosum-cortical-spillover-component93-v1/y-223-227.png": "860ea29786b88cc0105f5381a3ff682f16e9813c0eec729985478d1be8a9dbaa",
+    "work/anatomy-review/callosum-cortical-spillover-component93-v1/y-228-232.png": "c34c9a3a2fc814a79804ac3770acd789306ff291b2ec8c51399bd4ef9144bc98",
+    "work/anatomy-review/callosum-cortical-spillover-component93-v1/y-233-234.png": "e2d29f7b907bef7488ee94307aad1a87d9d093b2687fdbfcb24964ac18551bda",
+    "work/anatomy-review/callosum-cortical-spillover-component93-v1/z-213-217.png": "b83284feb2d2dd2b6f1dc95e8fe9b037140e52df5b75e2f169dca38704c5357e",
+    "work/anatomy-review/callosum-cortical-spillover-component93-v1/z-218-221.png": "747d9124712cbe2b330d5c95a81230ec402f9e61a2a3b718658a7ce00576002c"
+  },
+  "projectAdopted": true,
+  "expertReviewed": false,
+  "published": false,
+  "decision": "Exclude 278 C93 points from the corpus-callosum label: all 38 occupied and adjacent orthogonal planes show the candidate following folded cortical tissue above the main callosal white band. Tissue remains visible in the raw image; this is not a tissue deletion or expert-confirmed border.",
+  "status": "AI-image-reviewed-project-adopted-development-only",
+  "sectionMeshImpact": {
+    "before": {
+      "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
+      "sourceSha256": "7d94c6e30aa6182b4cb68d1969772e71eb7fe64199d7ea58b6028f6050932f3e",
+      "rawVoxelSha256": "107b7a3b33e30bfdb6606ad6a1fd18bbce0ff975a9d0e1861e883e1a36925ee9",
+      "dimensionsXYZ": [
+        394,
+        466,
+        378
+      ],
+      "samplingMm": 0.5,
+      "displayOriginZYX": [
+        -90.0,
+        -116.0,
+        -98.0
+      ],
+      "method": "marching cubes 0.5; no smoothing, resampling, filling or component removal",
+      "scope": "section-view BigBrain selection/context only; not expert validation",
+      "meshes": {
+        "section-current-lateral-ventricles": {
+          "voxels": 163920,
+          "components6": 65,
+          "componentSizes": [
+            82210,
+            81593,
+            12,
+            8,
+            7,
+            7,
+            4,
+            4,
+            3,
+            3,
+            3,
+            3,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "boundsZYX": [
+            [
+              80,
+              145,
+              117
+            ],
+            [
+              202,
+              330,
+              276
+            ]
+          ],
+          "vertices": 80204,
+          "faces": 161964,
+          "sha256": "f329900f8c6d5197b8d807838fc7853bcfc4e0c7a08aab58805989b52cc3d728",
+          "bytes": 4189292,
+          "labelIds": [
+            23,
+            24
+          ]
+        },
+        "section-current-third-ventricle": {
+          "voxels": 11665,
+          "components6": 18,
+          "componentSizes": [
+            11492,
+            95,
+            35,
+            10,
+            7,
+            4,
+            4,
+            4,
+            4,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "boundsZYX": [
+            [
+              109,
+              201,
+              189
+            ],
+            [
+              173,
+              274,
+              202
+            ]
+          ],
+          "vertices": 8772,
+          "faces": 17596,
+          "sha256": "af6497b9e5e7a238cc5da948c5bf2ebb718d51308246c8f35c71c707dccacf13",
+          "bytes": 456780,
+          "labelIds": [
+            25
+          ]
+        },
+        "section-current-fourth-ventricle": {
+          "voxels": 9200,
+          "components6": 1,
+          "componentSizes": [
+            9200
+          ],
+          "boundsZYX": [
+            [
+              59,
+              157,
+              179
+            ],
+            [
+              113,
+              202,
+              212
+            ]
+          ],
+          "vertices": 5418,
+          "faces": 10856,
+          "sha256": "018c8bad9f0553c39e788d115312ca403a65e349cb5d5a593d47779587077479",
+          "bytes": 281988,
+          "labelIds": [
+            26
+          ]
+        },
+        "section-current-ventricular-system": {
+          "voxels": 185052,
+          "components6": 80,
+          "componentSizes": [
+            184763,
+            95,
+            35,
+            12,
+            10,
+            8,
+            7,
+            7,
+            7,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            3,
+            3,
+            3,
+            3,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "boundsZYX": [
+            [
+              59,
+              145,
+              117
+            ],
+            [
+              202,
+              330,
+              276
+            ]
+          ],
+          "vertices": 94842,
+          "faces": 191336,
+          "sha256": "5bc74b3b11cad0ea9933b3c051bbd507c6cb619276d0cbcc293218140db48c63",
+          "bytes": 4951620,
+          "labelIds": [
+            23,
+            24,
+            25,
+            26,
+            41
+          ]
+        }
+      }
+    },
+    "after": {
+      "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
+      "sourceSha256": "98868c413e45436756294f06a693e5dc51efd5c34e98335470fbb27bce204f9d",
+      "rawVoxelSha256": "a689cf70857a85186bee7f8a108f1d38df54f5791fdfd805d7149be48200e161",
+      "dimensionsXYZ": [
+        394,
+        466,
+        378
+      ],
+      "samplingMm": 0.5,
+      "displayOriginZYX": [
+        -90.0,
+        -116.0,
+        -98.0
+      ],
+      "method": "marching cubes 0.5; no smoothing, resampling, filling or component removal",
+      "scope": "section-view BigBrain selection/context only; not expert validation",
+      "meshes": {
+        "section-current-lateral-ventricles": {
+          "voxels": 163920,
+          "components6": 65,
+          "componentSizes": [
+            82210,
+            81593,
+            12,
+            8,
+            7,
+            7,
+            4,
+            4,
+            3,
+            3,
+            3,
+            3,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "boundsZYX": [
+            [
+              80,
+              145,
+              117
+            ],
+            [
+              202,
+              330,
+              276
+            ]
+          ],
+          "vertices": 80204,
+          "faces": 161964,
+          "sha256": "f329900f8c6d5197b8d807838fc7853bcfc4e0c7a08aab58805989b52cc3d728",
+          "bytes": 4189292,
+          "labelIds": [
+            23,
+            24
+          ]
+        },
+        "section-current-third-ventricle": {
+          "voxels": 11665,
+          "components6": 18,
+          "componentSizes": [
+            11492,
+            95,
+            35,
+            10,
+            7,
+            4,
+            4,
+            4,
+            4,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "boundsZYX": [
+            [
+              109,
+              201,
+              189
+            ],
+            [
+              173,
+              274,
+              202
+            ]
+          ],
+          "vertices": 8772,
+          "faces": 17596,
+          "sha256": "af6497b9e5e7a238cc5da948c5bf2ebb718d51308246c8f35c71c707dccacf13",
+          "bytes": 456780,
+          "labelIds": [
+            25
+          ]
+        },
+        "section-current-fourth-ventricle": {
+          "voxels": 9200,
+          "components6": 1,
+          "componentSizes": [
+            9200
+          ],
+          "boundsZYX": [
+            [
+              59,
+              157,
+              179
+            ],
+            [
+              113,
+              202,
+              212
+            ]
+          ],
+          "vertices": 5418,
+          "faces": 10856,
+          "sha256": "018c8bad9f0553c39e788d115312ca403a65e349cb5d5a593d47779587077479",
+          "bytes": 281988,
+          "labelIds": [
+            26
+          ]
+        },
+        "section-current-ventricular-system": {
+          "voxels": 185052,
+          "components6": 80,
+          "componentSizes": [
+            184763,
+            95,
+            35,
+            12,
+            10,
+            8,
+            7,
+            7,
+            7,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            3,
+            3,
+            3,
+            3,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "boundsZYX": [
+            [
+              59,
+              145,
+              117
+            ],
+            [
+              202,
+              330,
+              276
+            ]
+          ],
+          "vertices": 94842,
+          "faces": 191336,
+          "sha256": "5bc74b3b11cad0ea9933b3c051bbd507c6cb619276d0cbcc293218140db48c63",
+          "bytes": 4951620,
+          "labelIds": [
+            23,
+            24,
+            25,
+            26,
+            41
+          ]
+        }
+      }
+    }
+  },
+  "callosalSectionMeshImpact": {
+    "before": {
+      "voxels": 145707,
+      "components6": 43,
+      "componentSizes": [
+        145602,
+        13,
+        8,
+        7,
+        5,
+        4,
+        4,
+        4,
+        4,
+        3,
+        3,
+        3,
+        3,
+        3,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "boundsZYX": [
+        [
+          147,
+          167,
+          175
+        ],
+        [
+          222,
+          348,
+          216
+        ]
+      ],
+      "vertices": 52362,
+      "faces": 105020,
+      "sha256": "d3a455ef7317302f6243143c166c88c133dfb6198a48c93d8b311cf9c9f122df",
+      "bytes": 2726388
+    },
+    "after": {
+      "voxels": 145429,
+      "components6": 49,
+      "componentSizes": [
+        145310,
+        13,
+        8,
+        7,
+        6,
+        5,
+        4,
+        4,
+        4,
+        4,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "boundsZYX": [
+        [
+          147,
+          167,
+          175
+        ],
+        [
+          222,
+          348,
+          216
+        ]
+      ],
+      "vertices": 52452,
+      "faces": 105200,
+      "sha256": "cacbe6f9ec17dace83a5bfe7586dbd38e7e9122c11e543787b545420e872b386",
+      "bytes": 2731068
+    }
+  },
+  "meshImpact": {
+    "blockMaskImpact": [
+      {
+        "block": "commissural-system",
+        "part": "tissue",
+        "file": "block-commissural-system-tissue.mesh",
+        "changedMaskVoxels": 21,
+        "added": 21,
+        "removed": 0,
+        "beforeSha256": "efbe10e649421e1de18062a5b1869fe85f6c357e880347ba97c0b8ae46024b84",
+        "afterSha256": "67fad4f06674f5e285e16bdd7cf5c1801af54c0c113b92507a16d2340a5333b9",
+        "reproducedBeforeSha256": "efbe10e649421e1de18062a5b1869fe85f6c357e880347ba97c0b8ae46024b84",
+        "beforeMatches": true
+      },
+      {
+        "block": "commissural-system",
+        "part": "corpus-callosum",
+        "file": "block-commissural-system-corpus-callosum.mesh",
+        "changedMaskVoxels": 45,
+        "added": 0,
+        "removed": 45,
+        "beforeSha256": "722c0a73c98838f20bf953702998cc6f5488c751469082ae42e8215cbbc42069",
+        "afterSha256": "f77ab1166a4e2e9bcb021b5e693c95c34f01ab0e877e23163a4b553bc15b05cf",
+        "reproducedBeforeSha256": "722c0a73c98838f20bf953702998cc6f5488c751469082ae42e8215cbbc42069",
+        "beforeMatches": true
+      }
+    ]
+  },
+  "teachingMeshChanges": [
+    [
+      "commissural-system",
+      "corpus-callosum"
+    ],
+    [
+      "commissural-system",
+      "tissue"
+    ]
+  ]
+}

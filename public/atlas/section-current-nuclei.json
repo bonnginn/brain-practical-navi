@@ -1,6 +1,6 @@
 {
   "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
-  "sourceSha256": "7d94c6e30aa6182b4cb68d1969772e71eb7fe64199d7ea58b6028f6050932f3e",
+  "sourceSha256": "98868c413e45436756294f06a693e5dc51efd5c34e98335470fbb27bce204f9d",
   "method": "0.5 mm marching cubes; no resampling, filling, smoothing or component removal",
   "scope": "Display synchronization only; not anatomical validation",
   "meshes": {
@@ -393,13 +393,14 @@
       "compression": "gzip"
     },
     "section-current-corpus-callosum": {
-      "voxels": 145707,
-      "components6": 43,
+      "voxels": 145429,
+      "components6": 49,
       "componentSizes": [
-        145602,
+        145310,
         13,
         8,
         7,
+        6,
         5,
         4,
         4,
@@ -410,6 +411,7 @@
         3,
         3,
         3,
+        3,
         2,
         2,
         2,
@@ -422,6 +424,10 @@
         2,
         2,
         2,
+        2,
+        1,
+        1,
+        1,
         1,
         1,
         1,
@@ -452,18 +458,19 @@
           216
         ]
       ],
-      "vertices": 52362,
-      "faces": 105020,
-      "sha256": "1f5bc94c2fe06f9530212636c49083919cdf079e89dbde2318e81fd36b09c76b",
-      "bytes": 605694,
+      "vertices": 52452,
+      "faces": 105200,
+      "sha256": "73849c949e2a87944fe74618ede0d113461fa0535ccdaac4b7aaa3238f09eb98",
+      "bytes": 608299,
       "labelIds": [
         30
       ],
       "labelVoxelCounts": {
-        "30": 145707
+        "30": 145429
       },
-      "rawSha256": "d3a455ef7317302f6243143c166c88c133dfb6198a48c93d8b311cf9c9f122df",
-      "compression": "gzip"
+      "rawSha256": "cacbe6f9ec17dace83a5bfe7586dbd38e7e9122c11e543787b545420e872b386",
+      "compression": "gzip",
+      "reviewRecord": "segmentation-patches/review/callosal-cortical-component93-adoption-2026-09-29.json"
     },
     "section-current-mammillary-bodies": {
       "voxels": 1288,

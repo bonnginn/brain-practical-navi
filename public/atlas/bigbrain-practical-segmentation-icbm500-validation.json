@@ -128,7 +128,7 @@
     "27": 264456,
     "28": 736105,
     "29": 724989,
-    "30": 145707,
+    "30": 145429,
     "31": 56790,
     "32": 53587,
     "33": 6775,
@@ -481,7 +481,7 @@
     "workflowMetadataStatus": "strict"
   },
   "preClassificationCompressedSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
-  "rawVoxelSha256": "107b7a3b33e30bfdb6606ad6a1fd18bbce0ff975a9d0e1861e883e1a36925ee9",
+  "rawVoxelSha256": "a689cf70857a85186bee7f8a108f1d38df54f5791fdfd805d7149be48200e161",
   "brainstemThreeIslandsAudit": {
     "record": "segmentation-patches/review/brainstem-three-islands-adoption-2026-09-06.json",
     "recordSha256": "9c7b14f4272969261e3e2415d3f522b7e5d7db1eeca7cb0c8ae28b225458be66",
@@ -1748,6 +1748,13 @@
       "changedVoxelCount": 16,
       "projectAdopted": true,
       "expertReviewed": false
+    },
+    "callosal-cortical-component93": {
+      "record": "segmentation-patches/review/callosal-cortical-component93-adoption-2026-09-29.json",
+      "recordSha256": "4fbd0d5bf04ae93bfc880d3bb21837d0c7ef56005dc2f0b09baf73d9fe6b28bf",
+      "changedVoxelCount": 278,
+      "projectAdopted": true,
+      "expertReviewed": false
     }
   },
   "historicalGenerationClaims": {
@@ -1757,9 +1764,9 @@
   },
   "currentImageMeasurements": {
     "schemaVersion": 1,
-    "sourceLabelSha256": "7d94c6e30aa6182b4cb68d1969772e71eb7fe64199d7ea58b6028f6050932f3e",
+    "sourceLabelSha256": "98868c413e45436756294f06a693e5dc51efd5c34e98335470fbb27bce204f9d",
     "sourceImageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
-    "rawVoxelSha256": "107b7a3b33e30bfdb6606ad6a1fd18bbce0ff975a9d0e1861e883e1a36925ee9",
+    "rawVoxelSha256": "a689cf70857a85186bee7f8a108f1d38df54f5791fdfd805d7149be48200e161",
     "dimensionsXYZ": [
       394,
       466,
@@ -1797,7 +1804,7 @@
       "27": 264456,
       "28": 736105,
       "29": 724989,
-      "30": 145707,
+      "30": 145429,
       "31": 56790,
       "32": 53587,
       "33": 6775,
