@@ -16,6 +16,9 @@
 .findActions button:disabled{opacity:.45}
 .findActions .findRevealAnswer{background:#285e55;color:#fff;border-color:#285e55;font-weight:700}
 .findTaskGuide .findClickNote{font-size:12px;color:#60716b;margin-top:6px}
+.findGuessMarker{position:absolute;z-index:10;width:19px;height:19px;box-sizing:border-box;transform:translate(-50%,-50%);border:3px solid #ffca63;border-radius:50%;background:#50330080;box-shadow:0 0 0 2px #263027,0 0 9px #000b;pointer-events:none}
+.findGuessMarker::after{content:"";position:absolute;left:5px;top:5px;width:3px;height:3px;border-radius:50%;background:#fff7df}
+.findTaskGuide .findGuessStatus{font-size:12px;color:#765027;margin:6px 0}
 .findTask .quizSliceNavigator{display:flex;flex-direction:column;align-items:stretch;gap:2px;min-height:0;padding:6px 12px 4px}
 .findTask .quizSliceNavigator label{display:block;width:100%;line-height:0}
 .findTask .quizSliceNavigator input{display:block;width:100%;margin:0}
