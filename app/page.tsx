@@ -1003,6 +1003,7 @@ export default function Home() {
   const [quizScore,setQuizScore]=useState(0);
   const [quizFinished,setQuizFinished]=useState(false);
   useEffect(()=>{if(!quizFinished||workspace!=="quiz"||reviewMenu||findMode||quizStatsOpen)return;const result=document.querySelector<HTMLElement>(".quizResultState");result?.focus({preventScroll:true});result?.scrollIntoView({block:"start"})},[quizFinished,workspace,reviewMenu,findMode,quizStatsOpen]);
+  useEffect(()=>{if(!quizStatsOpen||workspace!=="quiz")return;document.querySelector<HTMLElement>(".quizArea .findModeSwitch")?.scrollIntoView({block:"start"})},[quizStatsOpen,workspace]);
   const [quizSlicePosition,setQuizSlicePosition]=useState(52);
   const [quizMisses,setQuizMisses]=useState<{question:QuizQuestion;choice:string;number:number}[]>([]);
   const quizVisibilityAuditHighlight=quizVisibilityAuditHighlightOverride();
