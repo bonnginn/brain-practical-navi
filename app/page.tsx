@@ -562,11 +562,22 @@ const structureFunctions:Record<StructureKey,string>={
   insula:"内臓感覚、味覚、痛み、情動、自律反応を統合し、身体内部の状態認識に関わります。",
 };
 
+const vascularReviewExplanations:Partial<Record<NeurovascularStructureKey,string>>={
+  ica:"内頸動脈は前方循環の主要な流入路で、前・中大脳動脈を通じて大脳半球の広い範囲へ血液を送ります。",
+  aca:"前大脳動脈は大脳縦裂内を進み、主に前頭葉・頭頂葉の内側面へ血液を送ります。外側溝へ向かう中大脳動脈と見分けます。",
+  acomm:"前交通動脈は左右の前大脳動脈を結び、前方循環の左右間の交通路になります。動脈輪の形や血流には個体差があります。",
+  mca:"中大脳動脈は内頸動脈から外側溝へ入り、前頭葉・頭頂葉・側頭葉の外側面の広い範囲へ血液を送ります。",
+  pcomm:"後交通動脈は内頸動脈と後大脳動脈を結び、前方循環と後方循環の間の交通路になります。",
+  vertebral:"左右の椎骨動脈は延髄腹側を上行して合流し、脳底動脈を形成します。枝は延髄や小脳の一部へ向かいます。",
+  basilar:"脳底動脈は左右の椎骨動脈の合流で形成され、橋腹側を上行します。橋・小脳へ枝を出し、通常は後大脳動脈に分かれます。",
+  pca:"後大脳動脈は通常、脳底動脈の終末枝として中脳を回り、後頭葉の視覚野などへ血液を送ります。",
+  cerebellarArteries:"上・前下・後下小脳動脈は、脳底動脈系または椎骨動脈から分かれ、小脳と脳幹の異なる領域へ向かいます。この表示では枝の個体差を省いています。",
+};
 function quizTeachingRegistry(question:QuizQuestion){
   if(isNeurovascularQuiz(question))return Object.fromEntries(neurovascularStructureKeys.map(key=>{
     const item=neurovascularStructures[key];
     const concept=quizConceptData.questions.find(q=>q.target===key);
-    return [key,{name:item.name,note:concept?.explanation??item.note,relation:quizNerveLocations[key]??null}];
+    return [key,{name:item.name,note:isConceptQuiz(question)?concept?.explanation??item.note:vascularReviewExplanations[key]??item.note,relation:quizNerveLocations[key]??(item.kind==="arteries"?item.note:null)}];
   }));
   if(isSurfaceQuiz(question))return Object.fromEntries(surfaceRegionKeys.map(key=>[key,{name:surfaceRegions[key].name,note:surfaceRegionLessons[key]?.ja??surfaceRegions[key].note,relation:surfaceRegions[key].note}]));
   return Object.fromEntries((Object.keys(structures) as StructureKey[]).map(key=>[key,{name:structures[key].name,note:quizFunctionOverrides[key]??structureFunctions[key],relation:key==="aqueductPartial"?"中脳蓋と被蓋の間":structures[key].relation}]));
