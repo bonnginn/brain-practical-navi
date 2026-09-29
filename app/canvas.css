@@ -1676,6 +1676,7 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
 
 /* Full-width 3D uses the available width for two independent views. */
 .sliceStage.layout-model .insetViews.views-2 { grid-template-columns: repeat(2,minmax(0,1fr)); grid-template-rows: minmax(0,1fr); }
+.sliceStage.layout-both .insetViews.views-2 { grid-template-columns: repeat(2,minmax(0,1fr)); grid-template-rows: minmax(0,1fr); }
 
 .modelStepSummary:empty { display:none; }
 .modelStepSummary .pathwayStepperModelTag { position:static; max-width:none; margin:0; padding:8px 12px; box-shadow:none; }
