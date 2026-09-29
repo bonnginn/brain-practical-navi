@@ -12,7 +12,7 @@ export const quizNerveLocations:Record<string,string>={
   "cn8": "橋延髄境界の外側で、顔面神経とともに内耳道へ向かいます。",
   "cn9": "延髄のオリーブ後方から出ます。",
   "cn10": "延髄のオリーブ後方で、舌咽神経より尾側から出ます。",
-  "cn11": "脊髄根は上位頸髄から上行し、大後頭孔を通って頭蓋内へ入り、頸静脈孔から出ます。",
+  "cn11": "脊髄根は上位頸髄から大後頭孔を経て頸静脈孔へ向かいます。この3Dでは全経路を示していません。",
   "cn12": "延髄の錐体とオリーブの間から出ます。"
 };
 export const quizOptionTeachingTargets:Record<string,string>={
