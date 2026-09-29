@@ -13,7 +13,7 @@ test("block controls sit outside the draggable image and retain touch-sized butt
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
   const css = await readFile(new URL("app/canvas.css", root), "utf8");
   const block = page.slice(page.indexOf('className="learningModelCard blockModelCard"'), page.indexOf('className="learningModelCard blockModelCard"') + 6500);
-  assert.match(block, /OrientationCompass rotation=\{rotation\}\/\>\}\s*<\/div>\s*\{!webglUnavailable&&<div className="blockModelToolbar">/);
+  assert.match(block, /OrientationCompass rotation=\{rotation\} english=\{englishEdition\}\/\>\}\s*<\/div>\s*\{!webglUnavailable&&<div className="blockModelToolbar">/);
   for (const group of ["specimenTissueControls", "specimenViewControls"]) {
     assert.ok(block.indexOf(group) > block.indexOf('className="blockModelToolbar"'));
   }
@@ -268,7 +268,7 @@ test("presents the practical flow clearly and keeps interface text readable", as
   assert.match(canvasCss, /\.workspaceSwitch button > span\s*\{\s*font-size:\s*14px/);
   assert.match(canvasCss, /\.workspaceSwitch button > i\s*\{\s*font:\s*11px\/1\.2 monospace/);
   assert.match(canvasCss, /\.legalButton, \.feedbackButton, \.helpButton\s*\{\s*font-size:\s*13px/);
-  assert.match(page, /aria-label="利用条件・クレジットを表示">利用条件<\/button>/);
+  assert.match(page, /aria-label=\{englishEdition\?"Open terms of use and credits":"利用条件・クレジットを表示"\}>利用条件<\/button>/);
   assert.match(globalsCss, /font-family/);
   assert.doesNotMatch(`${canvas}\n${editor}`, /font="(?:7|8|9|10|11|12|13)px/);
 });
@@ -320,16 +320,17 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /Heinrich Heine University Düsseldorf医学部倫理委員会の承認（#4863）/);
   assert.match(page, /https:\/\/bigbrainproject\.org\/about\.html/);
   assert.match(page, /className="blockReleaseNote"><span className="sourceBadge">試作<\/span>/);
-  assert.match(page, /形状・範囲・接続関係の完全性や解剖学的正確性は保証しません/);
+  assert.match(page, /形状・範囲・接続関係の完全性や解剖学的正確性を保証せず/);
   assert.match(page, /ブロック標本（試作中）/);
-  assert.match(page, /key:"blocks",label:"ブロック標本",sub:"試作品"/);
-  assert.match(page, /blockIntroOpen&&<section className="workArea blockIntroPage"/);
-  assert.match(page, /ブロック標本は試作中です/);
-  assert.match(page, /形状・範囲・接続関係の完全性や解剖学的正確性は保証しません/);
+  assert.match(page, /workspace==="blocks"&&<section className=\{`workArea learningArea/);
+  assert.match(page, /位置関係を学ぶ試作標本です。形状・範囲・接続の正確性は検証中です。/);
+  assert.doesNotMatch(page, /blockIntroOpen&&<section className="workArea blockIntroPage"/);
+  assert.match(page, /形状・範囲・接続関係の完全性や解剖学的正確性を保証せず/);
   assert.match(page, /Cloudflare Web Analytics/);
   assert.match(page, /CookieやlocalStorageを使わず、訪問者の個人データを収集・利用しません/);
   assert.match(page, /クイズの誤答履歴、断面の観察設定、分節差分、M2比較の下書き、解剖レビューの下書きは端末内のlocalStorageに保存されます/);
-  assert.match(page, /自動送信は行わず、サイトデータを消去すると失われます/);
+  assert.match(page, /これらの端末内記録は自動送信しません/);
+  assert.match(page, /集計が有効な場合に選択肢と、完了セットの問題数・正答数を別途送信します/);
   assert.match(page, /原著者やデータ提供機関の推奨・承認を示すものではありません/);
   for (const marker of ["source-credit", "license-boundaries", "modifications", "no-endorsement", "educational-nonclinical", "privacy-analytics", "privacy-local-storage", "corresponding-source"]) assert.equal((page.match(new RegExp(`data-legal-disclosure=\\"${marker}\\"`, "g")) ?? []).length, 1, marker);
   assert.match(page, /data-legal-disclosure="source-credit">.*?BigBrain/);
@@ -419,7 +420,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /key==="lingual"\?\{ids:surfaceRegions\.pericalcarine\.ids,axis:0,max:-14\}/);
   assert.match(page, /複数選択/);
   assert.match(page, /useState<"inside" \| "ghost" \| "extracted" \| "segmented">\("ghost"\)/);
-  assert.match(page, /useState<"both"\|"slice"\|"model">\(\(\)=>savedSectionSession\?\.layout\?\?\(typeof window/);
+  assert.match(page, /useState<"both"\|"slice"\|"model">\(\(\)=>typeof window!=="undefined"&&window\.matchMedia\("\(max-width: 760px\)"\)\.matches\?"slice":savedSectionSession\?\.layout\?\?"both"/);
   assert.match(page, /const \[sectionModelShare,setSectionModelShare\]=useState\(savedSectionSession\?\.share\?\?40\)/);
   assert.match(page, /const \[sectionModelViews,setSectionModelViews\]=useState<1\|2>\(savedSectionSession\?\.views\?\?1\)/);
   assert.match(page, /const \[compactSectionLayout,setCompactSectionLayout\]=useState\(\(\)=>typeof window/);
@@ -430,10 +431,10 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /3Dのみ/);
   assert.doesNotMatch(page, /className="sectionAreaControl"/);
   assert.match(page, /className="sectionResizeHandle" role="separator"/);
-  assert.match(page, /aria-label="断面と3Dの境界。ドラッグで表示面積を変更"/);
+  assert.match(page, /aria-label=\{englishEdition\?"Boundary between the section and 3D views\. Drag to resize them":"断面と3Dの境界。ドラッグで表示面積を変更"\}/);
   assert.match(page, /aria-valuemin=\{25\} aria-valuemax=\{75\} aria-valuenow=\{sectionModelShare\}/);
   assert.match(page, /onPointerDown=\{beginSectionResize\} onPointerMove=\{moveSectionResize\}/);
-  assert.match(page, /className="sectionModelViewSwitch" aria-label="3D表示数"/);
+  assert.match(page, /className="sectionModelViewSwitch" aria-label=\{englishEdition\?"Number of 3D views":"3D表示数"\}/);
   assert.match(page, /setSectionModelViews\(1\).*1面.*setSectionModelViews\(2\).*2面/);
   assert.match(page, /"--section-model-share":`\$\{sectionModelShare\}%`/);
   assert.match(page, /sectionLayout!=="model"&&<div className="sliceViewport">/);
@@ -1730,7 +1731,8 @@ test("left medial view clips every paired deep overlay to the displayed side", a
   assert.match(canvas, /gl\.uniform1f\(gl\.getUniformLocation\(prog,"hemiMode"\),hemisphere==="left"\?-1/);
   assert.match(page, /hemisphere:"left"/);
   assert.match(page, /初期状態は非表示・左側だけを描画/);
-  assert.match(page, /右側成分は表示しません/);
+  assert.match(page, /内側面では左側だけを表示します/);
+  assert.match(page, /自由観察では半球を切り替えて反対側も確認できます/);
 
   for (const name of [
     "block-commissural-system-corpus-callosum",
@@ -2229,11 +2231,10 @@ test("complex workspaces expose visible keyboard focus and a main-content shortc
     readFile(new URL("app/ManualSegmentationWorkbench.tsx", root), "utf8"),
   ]);
   assert.match(page, /className="skipLink" onClick=\{\(\)=>document\.getElementById\("workspace"\)\?\.focus\(\)\}/);
-  assert.equal((page.match(/id="workspace" tabIndex=\{-1\}/g) ?? []).length, 9);
-  assert.match(page, /workspace==="blocks"&&blockIntroOpen/);
-  assert.match(page, /workspace==="blocks"&&!blockIntroOpen/);
+  assert.equal((page.match(/id="workspace" tabIndex=\{-1\}/g) ?? []).length, 8);
+  assert.match(page, /workspace==="blocks"&&<section className=\{`workArea learningArea/);
   assert.ok((page.match(/aria-current=\{/g) ?? []).length >= 4);
-  assert.match(page, /role="group" aria-label="構造グループの一括表示"/);
+  assert.match(page, /role="group" aria-label=\{englishEdition\?"Select structure groups":"構造グループの一括表示"\}/);
   assert.match(css, /:focus-visible \{ outline: 3px solid #e36e57/);
   assert.match(css, /\.skipLink:focus-visible \{ top: 8px; \}/);
   assert.match(css, /prefers-reduced-motion:reduce/);
@@ -2246,7 +2247,7 @@ test("narrow layouts keep destination rails and full workflow panels distinct", 
     readFile(new URL("app/canvas.css", root), "utf8"),
   ]);
   assert.match(page, /appShell workspace-\$\{workspace\}/);
-  assert.match(page, /aria-label="匿名の意見・誤り報告を表示"/);
+  assert.match(page, /aria-label=\{englishEdition\?"Open anonymous feedback and error report":"匿名の意見・誤り報告を表示"\}/);
   assert.match(page, /aria-label="共同制作ページを表示"/);
   assert.match(css, /\.leftRail \.lessonRailBtn\{min-width:136px;display:grid/);
   assert.match(css, /\.leftRail \.planeBtn small\{display:none\}/);
@@ -2296,20 +2297,21 @@ test("research-backed anatomy cautions distinguish source data from teaching sch
 });
 
 test("3D viewers expose orientation, keyboard rotation, reset, and visible zoom controls", async () => {
-  const [page, canvas, css] = await Promise.all([
+  const [page, canvas, css, compass] = await Promise.all([
     readFile(new URL("app/page.tsx", root), "utf8"),
     readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8"),
     readFile(new URL("app/globals.css", root), "utf8"),
+    readFile(new URL("app/OrientationCompass.tsx", root), "utf8"),
   ]);
-  assert.match(page, /function OrientationCompass/);
-  assert.match(page, /R 右、L 左、A 前、P 後、S 上、I 下/);
+  assert.match(compass, /function OrientationCompass|export function OrientationCompass/);
+  assert.match(compass, /R 右、L 左、A 前、P 後、S 上、I 下/);
   assert.ok((page.match(/onKeyDown=\{(?:webglUnavailable\?undefined:|surfaceQuiz&&!webglUnavailable\?)handleModelKey/g) ?? []).length >= 3);
   assert.match(page, /event\.key\.toLowerCase\(\)==="r"/);
   assert.match(canvas, /className="modelZoomControls"/);
   assert.match(canvas, /aria-label="拡大率を100パーセントに戻す"/);
   assert.match(canvas, /showZoomControls=true/);
   assert.match(page, /showZoomControls=\{false\}/);
-  assert.match(page, /<OrientationCompass rotation=\{modelRotation\} compact\/>/);
+  assert.match(page, /<OrientationCompass rotation=\{modelRotation\} compact english=\{englishEdition\}\/>/);
   assert.match(page, /復習問題の脳表3Dモデル。ドラッグまたは矢印キーで回転/);
   assert.match(page, /quizModelQuestion\?<><AtlasVolumeCanvas[^>]+rotation=\{rotation\}[^>]+surfaceHighlights=\{neurovascularQuiz\?\[\]:quizSurfaceHighlight\}/);
   assert.match(page, /workspace==="quiz"&&\(isSurfaceQuiz\(quizQuestion\)\|\|isNeurovascularQuiz\(quizQuestion\)\)/);
@@ -2352,7 +2354,7 @@ test("failed atlas requests can clear rejected caches and retry in place", async
 
 test("defers the optional section 3D comparison on narrow screens", async () => {
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
-  assert.match(page, /matchMedia\("\(max-width: 760px\)"\)\.matches\?"slice":"both"/);
+  assert.match(page, /matchMedia\("\(max-width: 760px\)"\)\.matches\?"slice":savedSectionSession\?\.layout\?\?"both"/);
   assert.match(page, /sectionLayout!=="slice"&&<aside className="modelInset"/);
   assert.match(page, /断面＋3D[\s\S]*断面のみ[\s\S]*3Dのみ/);
 });
@@ -2402,7 +2404,7 @@ test("free observation separates circuit teaching from specimen observation", as
   assert.match(page, /visual:\{name:"視覚路"/);
   assert.match(page, /papez:\{name:"Papez回路"/);
   assert.match(page, /"basal-ganglia":\{name:"大脳基底核回路"/);
-  assert.match(page, /経路観察と回路解説/);
+  assert.match(page, /freeInspector!=="circuits"/);
   assert.match(page, /標本での観察順/);
   assert.match(page, /<CircuitTeachingPanel/);
   assert.match(page, /selectionMeshLayers=\{surfaceView==="free"\?\(basalStepperActive\?freePathwayMeshLayers:papezStepperActive\?papezStepperMeshLayers:freePathwayMeshLayers\):\[\]\}/);
@@ -2415,7 +2417,6 @@ test("free observation distinguishes the medial and basal hypothalamus entries",
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
   assert.match(page, /key===\"hypothalamus\"\?\"視床下部領域（内側面）\":surfaceDeepLandmarks\[key\]\.name/);
   assert.match(page, /key===\"hypothalamus\"\?\"視床下部領域（脳底面）\":basalLandmarks\[key\]\.name/);
-  assert.match(page, /<option key=\{item\.key\} value=\{item\.key\}>\{item\.name\} — \{anatomyDisplayEnglish\(item\.latin\)\}<\/option>/);
   assert.match(page, /\$\{item\.name\}の選択を解除/);
 });
 
@@ -2455,10 +2456,10 @@ test("section quiz slices can be stepped without dragging the range control", as
     readFile(new URL("app/page.tsx", root), "utf8"),
     readFile(new URL("app/canvas.css", root), "utf8"),
   ]);
-  assert.match(page, /aria-label="1断面戻る"/);
-  assert.match(page, /stepPlanePosition\(value,quizQuestion\.plane,BIGBRAIN_SECTION_DIMS,-1\)/);
-  assert.match(page, /aria-label="1断面進む"/);
-  assert.match(page, /stepPlanePosition\(value,quizQuestion\.plane,BIGBRAIN_SECTION_DIMS,1\)/);
+  assert.match(page, /aria-label=\{englishEdition\?"Previous section \(0\.5 mm\)":"1断面戻る"\}/);
+  assert.match(page, /stepSectionSliderPosition\(value,quizQuestion\.plane,BIGBRAIN_SECTION_DIMS,-1\)/);
+  assert.match(page, /aria-label=\{englishEdition\?"Next section \(0\.5 mm\)":"1断面進む"\}/);
+  assert.match(page, /stepSectionSliderPosition\(value,quizQuestion\.plane,BIGBRAIN_SECTION_DIMS,1\)/);
   assert.match(css, /\.quizSliceControl\s*\{[^}]*grid-template-columns:\s*32px minmax\(0,1fr\) 32px/);
 });
 test("keeps the internal capsule distinct from adjacent basal nuclei", async () => {

@@ -14,7 +14,10 @@ const nativeRequire=createRequire(import.meta.url);
 const searchSource=await readFile(new URL('../src/japaneseSearch.ts',import.meta.url),'utf8');
 const searchExports={};
 vm.runInNewContext(ts.transpileModule(searchSource,{compilerOptions:{module:ts.ModuleKind.CommonJS}}).outputText,{exports:searchExports,require:nativeRequire});
-vm.runInNewContext(compiled,{exports:exported,require:name=>name==='../src/japaneseSearch'?searchExports:name.endsWith('.css')?{}:nativeRequire(name)});
+const videoSource=await readFile(new URL('../app/ExternalSpecimenVideo.tsx',import.meta.url),'utf8');
+const videoExports={};
+vm.runInNewContext(ts.transpileModule(videoSource,{compilerOptions:{jsx:ts.JsxEmit.ReactJSX,module:ts.ModuleKind.CommonJS}}).outputText,{exports:videoExports,require:nativeRequire});
+vm.runInNewContext(compiled,{exports:exported,require:name=>name==='../src/japaneseSearch'?searchExports:name==='./ExternalSpecimenVideo'?videoExports:name.endsWith('.css')?{}:nativeRequire(name)});
 for(const english of [false,true])test(`browser references render source roles and safely opened reference links (${english?'en':'ja'})`,async()=>{
   const html=renderToStaticMarkup(createElement(exported.SegmentationReferences,{english}));
   const anchors=html.match(/<a [^>]+>/g)||[];
@@ -31,8 +34,9 @@ for(const english of [false,true])test(`browser references render source roles a
   assert.match(html,/data-brainstem-representation="partial-tissue-repair"/);
   assert.match(html,english?/not a completed segmentation/:/全脳幹の完成分節でも/);
   assert.match(html,/17876227/);assert.match(html,/NBK540988/);
-  assert.match(html,/data-aqueduct-representation="partial-versus-schematic"/);
-  assert.match(html,english?/not the schematic aqueduct/:/模式中脳水道とは別/);
+  assert.match(html,/data-aqueduct-representation="current-teaching-block"/);
+  assert.match(html,english?/current midbrain teaching block uses a partial lumen cast/:/現行の中脳横断ブロックも同じラベルから切り出した部分鋳型/);
+  assert.match(html,english?/197- and 90-voxel/:/197点・90点/);
   assert.match(html,/s00276-024-03312-1/);
   assert.match(html,english?/missing specimen walls/:/標本で失われた壁/);
   assert.match(html,/s41597-019-0217-0/);
@@ -42,6 +46,10 @@ for(const english of [false,true])test(`browser references render source roles a
   assert.match(html,/NBK10847/);
   assert.match(html,/PMC3543080/);
   assert.match(html,/PMC3424008/);
+  assert.match(html,/lzm3K6nQNF0/);
+  assert.match(html,/ErpxEwlWww4/);
+  assert.match(html,/xB7rXw_3gVY/);
+  assert.match(html,english?/not reproduced in this app/:/動画を転載せず/);
   assert.match(html,english?/partial crossing/:/部分交叉/);
   assert.match(html,english?/not adopted boundary data/:/採用境界データではありません/);
   assert.match(html,english?/expert review/:/専門家レビュー/);

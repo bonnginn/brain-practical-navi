@@ -125,10 +125,10 @@
     "24": 82250,
     "25": 11665,
     "26": 9200,
-    "27": 264456,
-    "28": 736175,
-    "29": 725061,
-    "30": 145707,
+    "27": 264453,
+    "28": 736101,
+    "29": 724983,
+    "30": 145429,
     "31": 56790,
     "32": 53587,
     "33": 6775,
@@ -481,7 +481,7 @@
     "workflowMetadataStatus": "strict"
   },
   "preClassificationCompressedSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
-  "rawVoxelSha256": "85522e864f5090ded0baa282c97abe6a799500d8e6c4323da628095714384f5c",
+  "rawVoxelSha256": "a0fe72f4a377c8dc290a07c787712517aba4a861eba0eb323ad980579e9c636b",
   "brainstemThreeIslandsAudit": {
     "record": "segmentation-patches/review/brainstem-three-islands-adoption-2026-09-06.json",
     "recordSha256": "9c7b14f4272969261e3e2415d3f522b7e5d7db1eeca7cb0c8ae28b225458be66",
@@ -1713,6 +1713,62 @@
       "changedVoxelCount": 90,
       "projectAdopted": true,
       "expertReviewed": false
+    },
+    "cerebellar-exterior-islands40": {
+      "record": "segmentation-patches/review/cerebellar-exterior-islands40-adoption-2026-09-29.json",
+      "recordSha256": "9b9755b8b3038f6ca01beb4d976ed2d8aa65133914d15575b3b968e5d3a695e1",
+      "changedVoxelCount": 40,
+      "projectAdopted": true,
+      "expertReviewed": false
+    },
+    "cerebellar-left-exterior24": {
+      "record": "segmentation-patches/review/cerebellar-left-exterior24-adoption-2026-09-29.json",
+      "recordSha256": "6c8ed7b596728419668ed934f8bef8772a16e070d28742c704309ce512a06472",
+      "changedVoxelCount": 24,
+      "projectAdopted": true,
+      "expertReviewed": false
+    },
+    "cerebellar-left-lower16": {
+      "record": "segmentation-patches/review/cerebellar-left-lower16-adoption-2026-09-29.json",
+      "recordSha256": "621dcd739679f18328fff3fd5956f7734c162bae378d64922059c11b5aea41d0",
+      "changedVoxelCount": 16,
+      "projectAdopted": true,
+      "expertReviewed": false
+    },
+    "cerebellar-white-islands46": {
+      "record": "segmentation-patches/review/cerebellar-white-islands46-adoption-2026-09-29.json",
+      "recordSha256": "68bcdd910af7c1f3c6202026eac922e61696fb3d7cf439fdfe5b16ae02a25897",
+      "changedVoxelCount": 46,
+      "projectAdopted": true,
+      "expertReviewed": false
+    },
+    "cerebellar-interstitial16": {
+      "record": "segmentation-patches/review/cerebellar-interstitial16-adoption-2026-09-29.json",
+      "recordSha256": "e5af5472d85e9e6c2e0a506f01d0b481ee7b5a3c11ed4e342b3bfe95f120da37",
+      "changedVoxelCount": 16,
+      "projectAdopted": true,
+      "expertReviewed": false
+    },
+    "callosal-cortical-component93": {
+      "record": "segmentation-patches/review/callosal-cortical-component93-adoption-2026-09-29.json",
+      "recordSha256": "4fbd0d5bf04ae93bfc880d3bb21837d0c7ef56005dc2f0b09baf73d9fe6b28bf",
+      "changedVoxelCount": 278,
+      "projectAdopted": true,
+      "expertReviewed": false
+    },
+    "cerebellar-exterior10": {
+      "record": "segmentation-patches/review/cerebellar-exterior10-adoption-2026-09-29.json",
+      "recordSha256": "a559990be1cd14dd407fc9dec4fba8240364b0f315363f7b4a70f1ee900b45a5",
+      "changedVoxelCount": 10,
+      "projectAdopted": true,
+      "expertReviewed": false
+    },
+    "brainstem-exterior3": {
+      "record": "segmentation-patches/review/brainstem-exterior3-adoption-2026-09-29.json",
+      "recordSha256": "703b8b887ad56b66a594bba4fa34ded91e1e443c29f558861fb8e4045f4d66d3",
+      "changedVoxelCount": 3,
+      "projectAdopted": true,
+      "expertReviewed": false
     }
   },
   "historicalGenerationClaims": {
@@ -1722,9 +1778,9 @@
   },
   "currentImageMeasurements": {
     "schemaVersion": 1,
-    "sourceLabelSha256": "71eebaf135377bf8da9b121e6a7a510de8066c3ca9172cf02d32b55baa140a0a",
+    "sourceLabelSha256": "f2c489829d1b0d9515bcced16e42bb2daff25fa15f2d169e75ee5065ea001721",
     "sourceImageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
-    "rawVoxelSha256": "85522e864f5090ded0baa282c97abe6a799500d8e6c4323da628095714384f5c",
+    "rawVoxelSha256": "a0fe72f4a377c8dc290a07c787712517aba4a861eba0eb323ad980579e9c636b",
     "dimensionsXYZ": [
       394,
       466,
@@ -1759,10 +1815,10 @@
       "24": 82250,
       "25": 11665,
       "26": 9200,
-      "27": 264456,
-      "28": 736175,
-      "29": 725061,
-      "30": 145707,
+      "27": 264453,
+      "28": 736101,
+      "29": 724983,
+      "30": 145429,
       "31": 56790,
       "32": 53587,
       "33": 6775,

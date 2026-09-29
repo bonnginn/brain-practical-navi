@@ -1,0 +1,244 @@
+{
+  "beforeSha256": "98868c413e45436756294f06a693e5dc51efd5c34e98335470fbb27bce204f9d",
+  "afterSha256": "0c8fb1da5099b6a0979caa7cf6de08e136e7538d289848979efdf9a86c79c150",
+  "beforeRawVoxelSha256": "a689cf70857a85186bee7f8a108f1d38df54f5791fdfd805d7149be48200e161",
+  "afterRawVoxelSha256": "f43801dc103f82280801b56cbf191d22da7fee9fe86a67a190af71cb85049061",
+  "imageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
+  "count": 10,
+  "points": [
+    {
+      "xyz": [
+        173,
+        159,
+        132
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        173,
+        160,
+        132
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        189,
+        131,
+        127
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        189,
+        131,
+        128
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        200,
+        111,
+        113
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        200,
+        111,
+        114
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        219,
+        153,
+        11
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        220,
+        153,
+        11
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        281,
+        188,
+        65
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        281,
+        188,
+        66
+      ],
+      "before": 29,
+      "after": 0
+    }
+  ],
+  "countsBefore": {
+    "28": 736105,
+    "29": 724989
+  },
+  "countsAfter": {
+    "28": 736101,
+    "29": 724983
+  },
+  "evidence": {
+    "work/anatomy-review/post-interstitial16-tiny10-2026-09-29/report.json": "e80975894deda4800900504cb3df392cfcaae66598b99702d6550b46500627fe",
+    "work/anatomy-review/post-interstitial16-tiny10-2026-09-29/id28-x173y159z132.png": "d9404deb1b93dc41262b58378864bf2779208c96c21bcd12446d8531061e0f3c",
+    "work/anatomy-review/post-interstitial16-tiny10-2026-09-29/id28-x189y131z127.png": "0082b6747b6aaa4e89edb6ec88eb026aa0b9d2da45ae6eb40e8bb6d6ae28953e",
+    "work/anatomy-review/post-interstitial16-tiny10-2026-09-29/id29-x200y111z113.png": "a4fefe13a663d19eef5d698da225903a8db684b28b8d08211caba35594ad7aa8",
+    "work/anatomy-review/post-interstitial16-tiny10-2026-09-29/id29-x219y153z11.png": "f93e72c0d6080026ee87df7606a0e8d60bce2afd39f22e199295f0f9987d7de9",
+    "work/anatomy-review/post-interstitial16-tiny10-2026-09-29/id29-x281y188z65.png": "32d0b78acf26ed0bff45310df23122185c69e99b6e7536073af8bc74ffbf6065"
+  },
+  "decision": "Remove five tiny detached label islands in pale exterior space after reviewing adjacent and orthogonal source-image sections. Do not alter unresolved foliar-edge islands.",
+  "integrationVerification": "docs/CEREBELLAR_EXTERIOR10_2026-09-29.md",
+  "projectAdopted": true,
+  "expertReviewed": false,
+  "published": false,
+  "adopted": true,
+  "installed": true,
+  "status": "AI-image-reviewed-project-adopted-development-only",
+  "sectionMeshImpact": {
+    "before": {
+      "voxels": 1461094,
+      "components6": 39,
+      "componentSizes": [
+        1460714,
+        40,
+        40,
+        24,
+        24,
+        16,
+        16,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "boundsZYX": [
+        [
+          7,
+          81,
+          79
+        ],
+        [
+          148,
+          224,
+          310
+        ]
+      ],
+      "vertices": 160330,
+      "faces": 320832,
+      "sha256": "1279a279516af5423448064279351a8fc227f2e22235fc59c46ca02e89900a85",
+      "bytes": 8339236
+    },
+    "after": {
+      "voxels": 1461084,
+      "components6": 34,
+      "componentSizes": [
+        1460714,
+        40,
+        40,
+        24,
+        24,
+        16,
+        16,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        2
+      ],
+      "boundsZYX": [
+        [
+          7,
+          81,
+          79
+        ],
+        [
+          148,
+          224,
+          310
+        ]
+      ],
+      "vertices": 160280,
+      "faces": 320752,
+      "sha256": "8358bf634ff1b642f39b165353a965f14786fd23e87a2c4263c9380438d8069d",
+      "bytes": 8336876
+    }
+  },
+  "blockMaskChanged": false
+}

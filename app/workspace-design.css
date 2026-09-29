@@ -1,6 +1,11 @@
 /* Learning workspace: navigation, observation, then on-demand explanation.
    The educational entrance deliberately retains its original presentation. */
 .appShell:not(.workspace-entrance){--ui-font-14:14px;--ui-font-15:14px;--ui-font-16:15px;--ui-font-18:16px;--ui-font-20:18px}
+@media(min-width:761px){
+  .appShell:not(.workspace-entrance):not(.phone-mode):has(> .pwaUpdateNoticeCompact){grid-template-rows:64px auto minmax(0,1fr)}
+  .appShell:has(> .pwaUpdateNoticeCompact)>.pwaUpdateNoticeCompact{grid-column:1/-1;grid-row:2}
+  .appShell:has(> .pwaUpdateNoticeCompact) .leftRail,.appShell:has(> .pwaUpdateNoticeCompact)>.workArea{grid-row:3}
+}
 .appShell:not(.workspace-entrance) .headerMoreMenu{display:block}
 .appShell:not(.workspace-entrance) .topActions>.topActionSecondary{display:none}
 .compactLearningHome{width:min(1080px,100%);padding:24px;box-shadow:none;border:0;background:transparent}
@@ -37,15 +42,35 @@
 .sectionPlaneTabs button:focus-visible{outline:3px solid #d99556;outline-offset:1px}
 .workspace-sections .sectionUtilities{margin-top:12px;grid-template-columns:minmax(0,1fr) auto}
 @media(max-width:760px){.sectionPlaneTabs button{min-height:44px;padding:7px 10px}.workspace-sections .sectionUtilities{grid-template-columns:1fr}}
+@media(max-width:600px){
+  .workspace-sections .slicePanel{min-width:0;grid-template-columns:minmax(0,1fr)}
+  .workspace-sections .slicePanel>.panelHead,
+  .workspace-sections .sliceStage,
+  .workspace-sections .sliceTimeline{min-width:0;width:100%}
+  .workspace-sections .sectionPlaneTabs{min-width:0}
+  .workspace-sections .sectionPlaneTabs button{min-width:0;flex:1;padding-inline:4px}
+  .workspace-sections .sliceTools{min-width:0;width:100%}
+  .workspace-sections .sectionLayoutSwitch{min-width:0;width:100%}
+  .workspace-sections .sectionLayoutSwitch button{min-width:0;white-space:normal;line-height:1.2}
+  .workspace-sections .sliceTimeline{grid-template-columns:minmax(0,1fr)}
+  .workspace-sections .sliceTimeline>*{min-width:0}
+  .workspace-sections .sliceTimeline .sectionSliceStepper{width:100%}
+  .workspace-sections .sliceStage.layout-model .insetViews.views-2{grid-template-columns:minmax(0,1fr);grid-template-rows:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:360px){
+  .workspace-sections .timelineHead>div{min-width:0}
+  .workspace-sections .timelineHead b{display:none}
+  .workspace-sections .timelineHead output{margin-left:6px}
+}
 .blockPriorityGroup>header small{display:none}
 .blockPriorityGroup .blockPriorityReason{display:none}
 .circuitOverview{font-size:13px;margin:8px 0}
 .circuitOverview summary,.pathwayObservationOrder summary{cursor:pointer;font-size:13px}
-.pathwayPresets>div{display:none}
-.pathwayPresets{margin:0 0 10px;padding:8px}
+.pathwayPresets>div{display:block;flex:none;font-size:12px;white-space:nowrap}
+.pathwayPresets{display:flex;align-items:center;gap:7px;margin:0 0 5px;padding:0;border:0;background:transparent}
 .pathwayPresets nav{gap:4px}
 .pathwayPresets nav button{font-size:12px;padding:7px 5px}
-.circuitTeaching{padding:10px;margin-top:8px}
+.circuitTeaching{gap:7px;padding:8px;margin-top:4px}
 .circuitTeaching>header>span{display:none}
 .circuitTeaching>header h3{margin:0;font-size:16px}
 .circuitTeaching .circuitPlaybackNote{font-size:12px;line-height:1.5}
@@ -54,7 +79,7 @@
 .learningGuide:has(.freeExplorer)>.surfaceNomenclatureNote{order:2}
 .learningGuide:has(.freeExplorer)>.freeExplorer{margin-top:0;border-top:0;padding-top:0}
 .learningGuide:has(.freeExplorer)>h2{flex-shrink:0}
-.pathwayPresets>select{width:100%;min-height:36px;border:1px solid #9bad9f;background:#fff;color:#234e43;font:inherit;font-size:14px;padding:6px}
+.pathwayPresets>select{flex:1;min-width:0;width:auto;min-height:36px;border:1px solid #9bad9f;background:#fff;color:#234e43;font:inherit;font-size:14px;padding:6px}
 .appShell:not(.workspace-entrance) .learningGuide:has(.freeExplorer)>h2{display:none}
 .appShell:not(.workspace-entrance) .learningGuide:has(.freeExplorer)>.freeExplorer{margin:0;padding:0;border:0}
 .appShell:not(.workspace-entrance) .learningGuide .circuitTeaching>header h3{margin:0}
@@ -93,7 +118,7 @@
   .appShell:not(.workspace-entrance) .surfaceRegionLessonRow small{font-size:11px}
   .appShell:not(.workspace-entrance) .freeExplorer{margin-top:12px;padding-top:8px}
   .appShell:not(.workspace-entrance) .freeStructureIndex{margin-top:8px}
-  .appShell:not(.workspace-entrance) .freeSelectedHeader{margin-top:10px}
+  .appShell:not(.workspace-entrance) .freeSelectedHeader{margin-top:6px;padding-top:6px}
   .appShell:not(.workspace-entrance) .freeSelectedHeader span{display:none}
   .surfaceModelCard:has(.surfaceDisplayControls){grid-template-rows:auto minmax(140px,1fr) auto auto;overflow:hidden}
   .surfaceModelCard>.panelHead{padding:8px 10px;min-height:54px}
@@ -116,14 +141,82 @@
   .compactLearningHome>footer{display:flex;flex-wrap:wrap}
   .compactLearningHome>footer button{width:auto;font-size:12px}
 }
-@media(min-width:761px) and (max-width:1050px){
+/* Keep the specimen visible while learners pick a gyrus from the long list. */
+@media(max-width:760px){
+  .workspace-surface .surfaceRegionStudyGrid:not(.blockContext-active){
+    flex:none;
+    height:calc(100dvh - 290px);
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    scroll-padding-top:min(39dvh,300px);
+    scroll-padding-bottom:18px;
+  }
+  .workspace-surface .surfaceRegionStudyGrid:not(.blockContext-active)>.surfaceModelCard{
+    position:sticky;
+    top:0;
+    z-index:3;
+    height:min(39dvh,300px);
+  }
+  .surfaceRegionStudyGrid .surfaceModelCard>.panelHead{display:block;min-height:0;padding:6px 10px}
+  .surfaceRegionStudyGrid .surfaceModelCard>.panelHead .panelActions{display:flex;flex-wrap:nowrap;justify-content:flex-start;gap:5px;max-width:none;margin-top:5px}
+  .surfaceRegionStudyGrid .surfaceModelCard>.panelHead .panelActions button{min-height:32px;padding:5px 8px;font-size:12px;white-space:nowrap}
+  .phone-mode.workspace-surface .surfaceRegionStudyGrid:not(.blockContext-active){height:calc(100dvh - 235px)}
+  .workspace-surface .surfaceOverlayStudyGrid{
+    flex:none;
+    height:calc(100dvh - 290px);
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    scroll-padding-top:370px;
+    scroll-padding-bottom:18px;
+  }
+  .workspace-surface .surfaceOverlayStudyGrid>.surfaceModelCard{
+    position:sticky;
+    top:0;
+    z-index:3;
+    height:370px;
+    grid-template-rows:auto minmax(0,1fr) auto;
+  }
+  .surfaceOverlayStudyGrid .surfaceModelCard>.panelHead{min-height:0;padding:6px 10px}
+  .surfaceOverlayStudyGrid .surfaceModelCard>.panelHead small{display:none}
+  .surfaceOverlayStudyGrid .surfaceModelCard>.panelHead .panelActions{margin-left:auto}
+  .surfaceOverlayStudyGrid .surfaceModelCard .modelStage{min-height:0}
+  .surfaceOverlayStudyGrid .surfaceModelCard>.panelHead:has(.panelActions button:nth-child(2))>div:first-child{flex:0 1 auto}
+  .surfaceOverlayStudyGrid .neurovascularControls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}
+  .surfaceOverlayStudyGrid .neurovascularControls button{min-width:0;min-height:44px;line-height:1.2}
+  .phone-mode.workspace-surface .surfaceOverlayStudyGrid{height:calc(100dvh - 235px)}
+}
+/* A short viewport needs a usable model and controls more than a fixed split. */
+@media(max-width:760px) and (max-height:740px){
+  .workspace-surface .surfaceOverlayStudyGrid,.phone-mode.workspace-surface .surfaceOverlayStudyGrid{height:auto;overflow:visible}
+  .workspace-surface .surfaceOverlayStudyGrid>.surfaceModelCard{position:static;height:520px}
+}
+@media(max-width:760px) and (max-height:650px){
+  .workspace-surface .surfaceRegionStudyGrid:not(.blockContext-active),.phone-mode.workspace-surface .surfaceRegionStudyGrid:not(.blockContext-active){height:auto;overflow:visible}
+  .workspace-surface .surfaceRegionStudyGrid:not(.blockContext-active)>.surfaceModelCard{position:static;height:520px}
+}
+@media(min-width:761px) and (max-width:969px){
   .appShell[data-locale=en]:not(.workspace-entrance):not(.phone-mode){grid-template-rows:96px minmax(0,1fr)}
   .appShell[data-locale=en]:not(.workspace-entrance):not(.phone-mode) .topbar{height:96px;flex-wrap:wrap;gap:0 8px;padding-block:5px}
   .appShell[data-locale=en]:not(.workspace-entrance) .workspaceSwitch{order:3;flex-basis:100%}
   .appShell[data-locale=en]:not(.workspace-entrance) .brandMark{font-size:10px!important;letter-spacing:0}
 }
+@media(min-width:970px) and (max-width:1050px){
+  .appShell[data-locale=en]:not(.workspace-entrance) .brand{font-size:13px}
+  .appShell[data-locale=en]:not(.workspace-entrance) .workspaceSwitch button{padding-inline:6px;font-size:12px}
+  .appShell[data-locale=en]:not(.workspace-entrance) .workspaceSwitch button>span{font-size:12px}
+  .appShell[data-locale=en]:not(.workspace-entrance) .topActions{gap:4px}
+  .appShell[data-locale=en]:not(.workspace-entrance) .languageSwitch,.appShell[data-locale=en]:not(.workspace-entrance) .headerMoreTrigger{font-size:11px;padding-inline:6px}
+}
 @media(min-width:761px) and (max-width:900px){
   .appShell:not(.workspace-entrance):not(.phone-mode){grid-template-rows:96px minmax(0,1fr)}
   .appShell:not(.workspace-entrance):not(.phone-mode) .topbar{height:96px;flex-wrap:wrap;gap:0 8px;padding-block:5px}
   .appShell:not(.workspace-entrance) .workspaceSwitch{order:3;flex-basis:100%}
+  .appShell.workspace-quiz:not(.findPractice):not(.phone-mode){grid-template-columns:190px minmax(0,1fr)}
+  .appShell.workspace-quiz:not(.phone-mode) .quizWorkspace{grid-template-columns:minmax(0,1fr) minmax(310px,1.1fr)}
+}
+@media(min-width:761px) and (max-width:900px){
+  .appShell:not(.workspace-entrance):not(.phone-mode):has(> .pwaUpdateNoticeCompact){grid-template-rows:96px auto minmax(0,1fr)}
+}
+@media(min-width:901px) and (max-width:969px){
+  .appShell[data-locale=en]:not(.workspace-entrance):not(.phone-mode):has(> .pwaUpdateNoticeCompact){grid-template-rows:96px auto minmax(0,1fr)}
 }

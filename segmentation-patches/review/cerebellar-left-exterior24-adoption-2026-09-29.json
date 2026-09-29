@@ -1,0 +1,391 @@
+{
+  "beforeSha256": "e9c0a83f03cde2a64a53d2912a5502130ec872ea2fbfa9b0d75ea83ff1a9914f",
+  "afterSha256": "79d93fc5b30a3ca1530e6fd365c4a7c8a0cc0d0f5463582cb1c468d4f05c7cae",
+  "beforeRawVoxelSha256": "c282a3c0dde72e253d34b0f2b223fa5664e6c36446269b992e3607845c0175ea",
+  "afterRawVoxelSha256": "c17b72fe2ef5df6483bab183f5aea3a0b2ea2fa9ef29f5d49843f120e406a966",
+  "imageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
+  "count": 24,
+  "points": [
+    {
+      "xyz": [
+        163,
+        81,
+        65
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        163,
+        81,
+        66
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        163,
+        82,
+        65
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        163,
+        82,
+        66
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        164,
+        81,
+        65
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        164,
+        81,
+        66
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        164,
+        82,
+        65
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        164,
+        82,
+        66
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        165,
+        81,
+        65
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        165,
+        81,
+        66
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        165,
+        82,
+        65
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        165,
+        82,
+        66
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        166,
+        81,
+        65
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        166,
+        81,
+        66
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        166,
+        82,
+        65
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        166,
+        82,
+        66
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        167,
+        81,
+        65
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        167,
+        81,
+        66
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        167,
+        82,
+        65
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        167,
+        82,
+        66
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        168,
+        81,
+        65
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        168,
+        81,
+        66
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        168,
+        82,
+        65
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        168,
+        82,
+        66
+      ],
+      "before": 28,
+      "after": 0
+    }
+  ],
+  "countsBefore": {
+    "28": 736175
+  },
+  "countsAfter": {
+    "28": 736151
+  },
+  "evidence": {
+    "work/anatomy-review/current-left-cerebellar-face-island-2026-09-29/full/report.json": "05c51d820d2a03eba0561b192ada4bbf1c504b855228cb6e88d8f1f3e32f2517",
+    "work/anatomy-review/current-left-cerebellar-face-island-2026-09-29/full/x-162-165.png": "c9ffd232ca4b389311bd31c0fd78682f1d6fcdf7d37df5a58fdc3124d7622851",
+    "work/anatomy-review/current-left-cerebellar-face-island-2026-09-29/full/x-166-169.png": "f4a3bca68116e50678862bb0c2b0d92515a447f73516c9260fee9ffddca93fd3",
+    "work/anatomy-review/current-left-cerebellar-face-island-2026-09-29/full/y-80-83.png": "464f1ba74dcf122beeeda3d479e56a18d2208580a2b13de0d6d4b59ced20c075",
+    "work/anatomy-review/current-left-cerebellar-face-island-2026-09-29/full/z-64-67.png": "2d9d9f17e59af715c9ea821fd47e1cf621e7b52b08b469a417efbd559c7d60fe"
+  },
+  "decision": "Remove the left cerebellar exterior patch after reviewing every occupied and adjacent X/Y/Z source section; 26-neighbour contact and raw 255 alone did not decide its anatomy.",
+  "projectAdopted": true,
+  "expertReviewed": false,
+  "published": false,
+  "adopted": true,
+  "installed": true,
+  "status": "AI-image-reviewed-project-adopted-development-only",
+  "sectionMeshImpact": {
+    "before": {
+      "voxels": 1461196,
+      "components6": 49,
+      "componentSizes": [
+        1460714,
+        40,
+        40,
+        24,
+        24,
+        24,
+        16,
+        16,
+        16,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        6,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "boundsZYX": [
+        [
+          7,
+          81,
+          79
+        ],
+        [
+          148,
+          224,
+          310
+        ]
+      ],
+      "vertices": 160620,
+      "faces": 321380,
+      "sha256": "5d401032f2ac7a80af06d2534b056fff00c7cba75ef7b5a9f6c08b587e3f3e68",
+      "bytes": 8353932
+    },
+    "after": {
+      "voxels": 1461172,
+      "components6": 48,
+      "componentSizes": [
+        1460714,
+        40,
+        40,
+        24,
+        24,
+        16,
+        16,
+        16,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        6,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "boundsZYX": [
+        [
+          7,
+          81,
+          79
+        ],
+        [
+          148,
+          224,
+          310
+        ]
+      ],
+      "vertices": 160564,
+      "faces": 321268,
+      "sha256": "f08efb83e87b45ad134916b57e25b986218850620bf0345ed69f7cd34b2bf882",
+      "bytes": 8351020
+    }
+  },
+  "blockMaskChanged": false,
+  "integrationVerification": "docs/CEREBELLAR_LEFT_EXTERIOR24_2026-09-29.md"
+}

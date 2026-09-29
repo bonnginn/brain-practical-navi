@@ -12,7 +12,7 @@
   },
   {
     "question": "identify-putamen",
-    "revision": "9e8d4ee635d58ef3ce53b65454ca7b00420d85c3445a3d4f42910c2a1c19a3a6",
+    "revision": "c0fc3db830a60f789ea5dc11fa096c872ab82b1c1bad49d0a74bd33889759bff",
     "prompt": "淡蒼球の外側にあるレンズ核の構成要素はどれですか？",
     "options": [
       "putamen",
@@ -56,7 +56,7 @@
   },
   {
     "question": "identify-amygdala",
-    "revision": "86526fe77c1887a144f411efb84fdb31079a4eb3a4f37d424e3931180be68894",
+    "revision": "1cb328478e7b604f2e23be33d6936c25f26e97cdbe4bacab638f48bab46e9318",
     "prompt": "海馬頭の前上方にある核群はどれですか？",
     "options": [
       "amygdala",
@@ -100,7 +100,7 @@
   },
   {
     "question": "identify-subthalamic",
-    "revision": "045204e8ad8df819359e8a449c4d595bc6f25b70a28bc8862cde428dba80851e",
+    "revision": "fe814438b6c9468eb2482bc6af3090c29d20caa090e7603b13d612203a0f6363",
     "prompt": "間脳の視床下域にあり、視床の腹側・黒質の背側にある小さな核はどれですか？",
     "options": [
       "subthalamic",
@@ -133,8 +133,8 @@
   },
   {
     "question": "identify-corpusCallosum",
-    "revision": "c553664c4ecb59d5617b024361415e9e3fa1819058c413adbbfec565daad6b69",
-    "prompt": "正中矢状断で側脳室の上方を弓状に走る交連線維はどれですか？",
+    "revision": "9f8c5adfeb2ca4bca22bf662c2e6a040abb65a53cf42f6e94c4a96e1a8c003b7",
+    "prompt": "正中近くの矢状断で側脳室の上方を弓状に走る交連線維はどれですか？",
     "options": [
       "corpusCallosum",
       "internalCapsule",
@@ -144,7 +144,7 @@
   },
   {
     "question": "identify-internalCapsule",
-    "revision": "66ac021d2964f9bd0b3f678c45d74b83f8cdfedd2d624b3db757c1f09aaf13ba",
+    "revision": "26d40578e33f30bca27e738edd13407dd1df71c0aab5ffd3ce182188433e03f4",
     "prompt": "尾状核・視床とレンズ核の間を通る白質路はどれですか？",
     "options": [
       "internalCapsule",
@@ -254,8 +254,8 @@
   },
   {
     "question": "identify-ica",
-    "revision": "c008e80f1c7bd67521027154f01367adf0d1d8cfab8f3062d8fa8f6ecc0d133f",
-    "prompt": "白色で強調された模式3Dの名称はどれですか？",
+    "revision": "c2097a6a09c7064042701f656cb5f74ea9117642f7735c4ca2e22b054ebb952b",
+    "prompt": "脳底で白く示された血管・血管群はどれですか？",
     "options": [
       "ica",
       "aca",
@@ -265,8 +265,8 @@
   },
   {
     "question": "identify-aca",
-    "revision": "ccd41d8a21bf84cc876deae3b7650d55180825234b594a104eabd76e497f60ae",
-    "prompt": "白色で強調された模式3Dの名称はどれですか？",
+    "revision": "3359624575ce44683333ee75d2db854fe995c2f8343cfcc3d8fa130c46a318da",
+    "prompt": "脳底で白く示された血管・血管群はどれですか？",
     "options": [
       "aca",
       "ica",
@@ -276,8 +276,8 @@
   },
   {
     "question": "identify-acomm",
-    "revision": "0e378904ed74d89de4f90b9af804ded54e8e9f00be42db6c13f146694107d424",
-    "prompt": "白色で強調された模式3Dの名称はどれですか？",
+    "revision": "8c0e889347f556cebbe073940d66ed311439ab5152e4b0a433fea65bebee681e",
+    "prompt": "脳底で白く示された血管・血管群はどれですか？",
     "options": [
       "acomm",
       "aca",
@@ -287,8 +287,8 @@
   },
   {
     "question": "identify-mca",
-    "revision": "2e39d9c4e0edf43cdb36b872c9cecc0f2f395596da4201dac6e48c8c8432491a",
-    "prompt": "白色で強調された模式3Dの名称はどれですか？",
+    "revision": "13f5fd8bd74938f7f31585117fbb6ece3ea7fd683e450293860a7f34969d1765",
+    "prompt": "脳底で白く示された血管・血管群はどれですか？",
     "options": [
       "mca",
       "ica",
@@ -298,8 +298,8 @@
   },
   {
     "question": "identify-pcomm",
-    "revision": "9022eb53f12f9616660d23bc0c236c58c24f04c2483d73dafaefcaf66e7e6608",
-    "prompt": "白色で強調された模式3Dの名称はどれですか？",
+    "revision": "ab1a8b1ee42ee69f6d4edf7d3e68d1ebe1e016411b823036c5e22ff402e212ed",
+    "prompt": "脳底で白く示された血管・血管群はどれですか？",
     "options": [
       "pcomm",
       "acomm",
@@ -309,8 +309,8 @@
   },
   {
     "question": "identify-vertebral",
-    "revision": "842757fea1614cefbe8e4fcc95a93acc6113c0cdbcb05d21ddfe5c2f568b303b",
-    "prompt": "白色で強調された模式3Dの名称はどれですか？",
+    "revision": "bf9908a22fe706536da34556e8aec7254e93fb90405cd67a8f914e3a46432278",
+    "prompt": "脳底で白く示された血管・血管群はどれですか？",
     "options": [
       "vertebral",
       "basilar",
@@ -320,8 +320,8 @@
   },
   {
     "question": "identify-basilar",
-    "revision": "4977e8f0d8b600b86b409217f890b1013897f2ad052e0f50ed2334239e0a2f09",
-    "prompt": "白色で強調された模式3Dの名称はどれですか？",
+    "revision": "5075dd78558341171df42a4f2bf8d84302e44f8fb56a68ed4a5ae56eb9039378",
+    "prompt": "脳底で白く示された血管・血管群はどれですか？",
     "options": [
       "basilar",
       "vertebral",
@@ -331,8 +331,8 @@
   },
   {
     "question": "identify-pca",
-    "revision": "1b57a36e00ad457cb4120d691b5df873a407a33728b43a0db7b545072c5be86f",
-    "prompt": "白色で強調された模式3Dの名称はどれですか？",
+    "revision": "5f2cb3bc70c93b54fc8cf5877178a01135bc669e34e8a91633d893ca67ebd5a0",
+    "prompt": "脳底で白く示された血管・血管群はどれですか？",
     "options": [
       "pca",
       "basilar",
@@ -342,8 +342,8 @@
   },
   {
     "question": "identify-cerebellarArteries",
-    "revision": "7511332b076413443fc7d878aa2706728efac6949a578992f120d5d663f3551a",
-    "prompt": "白色で強調された模式3Dの名称はどれですか？",
+    "revision": "154f07e47ad3c9d07e3206bd9218237b420439bd8461118f1d6dbce8b1a8fdfb",
+    "prompt": "脳底で白く示された血管・血管群はどれですか？",
     "options": [
       "cerebellarArteries",
       "vertebral",
@@ -353,8 +353,8 @@
   },
   {
     "question": "identify-cn1",
-    "revision": "a249cef9fb8666e526cffa0823f10db2a6c35ca7c2b522ead53b7b6fab2c7145",
-    "prompt": "白色で強調された模式3Dの名称はどれですか？",
+    "revision": "a285b9f51e9c6cecdef53abb276cd1731b775dd73204fabea812c5ac0f595eba",
+    "prompt": "脳底・脳幹で白く示された構造はどれですか？",
     "options": [
       "cn1",
       "cn3",
@@ -364,8 +364,8 @@
   },
   {
     "question": "identify-cn2",
-    "revision": "2e18a371c0402588f67f21b45df091caf028167133a896b543e4d9b1eb3e422c",
-    "prompt": "白色で強調された模式3Dの名称はどれですか？",
+    "revision": "60ee96528a137e0188ac2e988df5e0452a66cb0879bd18cc145a722e4366d8ef",
+    "prompt": "脳底・脳幹で白く示された構造はどれですか？",
     "options": [
       "cn2",
       "cn1",
@@ -375,8 +375,8 @@
   },
   {
     "question": "identify-opticChiasm",
-    "revision": "56ba08692ed610dcb9232fcb52395d94b61c310885d31f8f00644882d2863420",
-    "prompt": "白色で強調された模式3Dの名称はどれですか？",
+    "revision": "f7ed84b8862c72abcb072197dc882ce38b80ae50bd4573fc97c9111c64896494",
+    "prompt": "脳底・脳幹で白く示された構造はどれですか？",
     "options": [
       "opticChiasm",
       "cn2",
@@ -386,8 +386,8 @@
   },
   {
     "question": "identify-cn3",
-    "revision": "f1542cf410e88c8684e6d1034738d3cfa5f5bb1f8ce3c7ee459f7e65f532bdcd",
-    "prompt": "白色で強調された模式3Dの名称はどれですか？",
+    "revision": "8b0dd3f088d71c7f4b540053bfa291ece9be0ac1b411d3aacf0b70cfd7788e88",
+    "prompt": "脳底・脳幹で白く示された構造はどれですか？",
     "options": [
       "cn3",
       "cn4",
@@ -397,8 +397,8 @@
   },
   {
     "question": "identify-cn4",
-    "revision": "c60d25053d99f39de79d5563b86ddf6f8d444e89d350a16edba4feea1b16e4fc",
-    "prompt": "白色で強調された模式3Dの名称はどれですか？",
+    "revision": "6be90d3734879be44e18e3d2fbb81694e64bd4f62065b779b5c61db764fa70b3",
+    "prompt": "脳底・脳幹で白く示された構造はどれですか？",
     "options": [
       "cn4",
       "cn3",
@@ -408,8 +408,8 @@
   },
   {
     "question": "identify-cn6",
-    "revision": "546af2144ad93500040755c4b26ebcf3ab600c9f1ba7e498272d3f2f00b988c7",
-    "prompt": "白色で強調された模式3Dの名称はどれですか？",
+    "revision": "a5d66e824ed775b831af585cb222ab6b34853deee3d7a24b4ad76e1e5768519e",
+    "prompt": "脳底・脳幹で白く示された構造はどれですか？",
     "options": [
       "cn6",
       "cn5",
@@ -419,8 +419,8 @@
   },
   {
     "question": "identify-cn7",
-    "revision": "f6076be4a8a8526def20f5e0a175da7ff7d204aee09afb2b445b819382b267cc",
-    "prompt": "白色で強調された模式3Dの名称はどれですか？",
+    "revision": "f3bc0143ff315f5a9d4395f96a124e7b563df7d689abec47eba2ffe40f9dee2b",
+    "prompt": "脳底・脳幹で白く示された構造はどれですか？",
     "options": [
       "cn7",
       "cn6",
@@ -430,8 +430,8 @@
   },
   {
     "question": "identify-cn8",
-    "revision": "3d2a401434b60f3ceb39e2f1d0255f6e3d71b5d66f5857b93ae5c74be0302c55",
-    "prompt": "白色で強調された模式3Dの名称はどれですか？",
+    "revision": "6bb720e610c5cb0c2700ca9d8fa6c7e11d7609fe6c65da48bce431f42a80b23b",
+    "prompt": "脳底・脳幹で白く示された構造はどれですか？",
     "options": [
       "cn8",
       "cn7",
@@ -441,8 +441,8 @@
   },
   {
     "question": "identify-cn12",
-    "revision": "1c6561fcf9594ae163f8a33da3b59836ab2ba3d03bbfeacba6f9e70dac75526b",
-    "prompt": "白色で強調された模式3Dの名称はどれですか？",
+    "revision": "46684f3fcde5e65868a6d5ac3885cc6db5f974029cb2d27c610c4e6e1f9422f2",
+    "prompt": "脳底・脳幹で白く示された構造はどれですか？",
     "options": [
       "cn12",
       "cn9",
@@ -474,7 +474,7 @@
   },
   {
     "question": "putamen-function-clue",
-    "revision": "8dd04c053b43222b424104727ff96562f1238859f78f072debe486b62f7bf88d",
+    "revision": "1996794d8fb0027a7e286482368c4086cec1310ab5f3c965000d9e6574e47b65",
     "prompt": "随意運動の調節や運動学習に関わる線条体のうち、色で示されている構造はどれですか？",
     "options": [
       "putamen",
@@ -485,7 +485,7 @@
   },
   {
     "question": "putamen-relation-choice",
-    "revision": "3e5e4ca949567fecea371e9b94a80760e8d45b3e0cf1c4ec9b0e64b20735241d",
+    "revision": "f554e8bc3f3254675ec3fb4014fc3b302eaed909cb55462c7cd9851baead7ed1",
     "prompt": "色で示された被殻とともにレンズ核を構成する構造はどれですか？",
     "options": [
       "putamen-with-pallidum",
@@ -562,7 +562,7 @@
   },
   {
     "question": "amygdala-function-clue",
-    "revision": "7815316c198194706b047773ec6efb1fca8cd52eaec04b4b9fcbf76c58600c41",
+    "revision": "43bceacabfe8d7de824488682588e7af710081c311afb8933557262ada7ceff9",
     "prompt": "恐怖など情動的な意味づけや情動記憶に関わる、色で示された構造はどれですか？",
     "options": [
       "amygdala",
@@ -573,7 +573,7 @@
   },
   {
     "question": "amygdala-relation-choice",
-    "revision": "9017e98e1c548dc1826f48f6e40267941f742d5c18a1ef1e704d525597c89725",
+    "revision": "417f90f0735299ba071f6f5ef8233f22e0ee8d47d13c980a85c54eab587add86",
     "prompt": "色で示された扁桃体と海馬頭の位置関係として適切なのはどれですか？",
     "options": [
       "amygdala-anterosuperior",
@@ -650,7 +650,7 @@
   },
   {
     "question": "subthalamic-function-clue",
-    "revision": "443463b8b1e3d759345822364d5f1e4c6cb7dcf34d5540bc41ba229b210cc45e",
+    "revision": "dbb73730a0de43ba1bc05dc0ba7269399beb08401914d7fe641793728f6a8522",
     "prompt": "基底核回路へ興奮性に作用し、競合する運動の抑制に関わる色付きの核はどれですか？",
     "options": [
       "subthalamic",
@@ -661,7 +661,7 @@
   },
   {
     "question": "subthalamic-classification-choice",
-    "revision": "38f3fdee698fce9f1c03eea730ba2fe13a482e1a08c595ca102929adf1b84963",
+    "revision": "c266db486a76c70e79c0ea8fd80053c62e48cb8ebae9050acda5ef45ceb20d80",
     "prompt": "色で示された視床下核の解剖学的な所属として適切なのはどれですか？",
     "options": [
       "stn-subthalamus",
@@ -716,7 +716,7 @@
   },
   {
     "question": "callosum-function-clue",
-    "revision": "64106aa20bdc03c740d57ad0c974a604bbf09e0509167454866b3dfbe61105d1",
+    "revision": "fd198822a85b134b0a225e0c3bbef8387265a1f3ad0a94e3cdbc5f0335c4333a",
     "prompt": "左右の大脳半球を結ぶ最大の交連線維束として色で示されている構造はどれですか？",
     "options": [
       "corpusCallosum",
@@ -727,7 +727,7 @@
   },
   {
     "question": "callosum-classification-choice",
-    "revision": "c741fcd14b7aa522c059a5242e0ac068ef387bec6c97ac6453fa550b41fef3fb",
+    "revision": "a949432bbd66fdfddb96819959ce41226364d0996fc4528074cd82b1c43fbde2",
     "prompt": "色で示された脳梁と脳弓の線維分類として正しい整理はどれですか？",
     "options": [
       "callosum-fornix",
@@ -738,7 +738,7 @@
   },
   {
     "question": "capsule-function-clue",
-    "revision": "21c4dc4fb92057c9f3cbe87d649c58d69b321cf11d89f5c42d61738bbdc50357",
+    "revision": "040cb4e18da38806e46ffc89610dd2f6550ea4fad18c88a922f983a67cc3add7",
     "prompt": "大脳皮質と視床・脳幹・脊髄を結ぶ投射線維が密集する、色付きの白質路はどれですか？",
     "options": [
       "internalCapsule",
@@ -749,7 +749,7 @@
   },
   {
     "question": "capsule-relation-choice",
-    "revision": "2b8995c520ba43e9e42d17b28b8dc98e5950eaa9c8b067f25b755b317ad6a0cf",
+    "revision": "8ca4f403805a503ce340d968feb52e8fda20b54d0b9f4156a68aff9668a67fe9",
     "prompt": "色で示された内包の位置関係として適切なのはどれですか？",
     "options": [
       "capsule-between",
@@ -892,8 +892,8 @@
   },
   {
     "question": "cn1-function",
-    "revision": "93ae9a6db79adf53d3a3ad7fa1fbfb26e5be5cb80a0d23c2f67025a171a8968e",
-    "prompt": "白色の嗅球・嗅索に入る嗅神経（I）が伝える感覚はどれですか？",
+    "revision": "4d834be5d0745eb63b0d67a78f11c92f9dd8f26432f66bf7b72f81df4678c04c",
+    "prompt": "脳底面の嗅球へ入る嗅神経（I）が伝える感覚はどれですか？",
     "options": [
       "cn1-smell",
       "cn1-vision",
@@ -903,8 +903,8 @@
   },
   {
     "question": "cn2-function",
-    "revision": "7a910f041080440f2d3644993c13ce449d0978cd247de55692f7bc1decaea66f",
-    "prompt": "白色の視覚路模式表示に含まれる視神経（II）が伝える情報はどれですか？",
+    "revision": "34cd80f48be0eb7f1be3a12f6bed651b47e302c74bd5c6aeaac4e7b5b2613918",
+    "prompt": "網膜から視交叉へ向かう視神経（II）が伝える情報はどれですか？",
     "options": [
       "cn2-vision",
       "cn2-smell",

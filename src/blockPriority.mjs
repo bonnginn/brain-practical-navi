@@ -60,7 +60,7 @@ export const BLOCK_PRIORITY_ENTRIES = Object.freeze([
   Object.freeze({
     key: "radiations",
     group: "focus",
-    reason: "内包を基準にレンズ核と投射線維の位置関係を整理",
+    reason: "内包を基準に被殻・淡蒼球の位置関係を確認",
   }),
   Object.freeze({
     key: "commissural-system",
@@ -70,7 +70,7 @@ export const BLOCK_PRIORITY_ENTRIES = Object.freeze([
   Object.freeze({
     key: "choroid-plexus",
     group: "focus",
-    reason: "脳室腔・脈絡裂・海馬の隣接関係を観察",
+    reason: "脳室腔と海馬の位置関係を切断面で確認",
   }),
   Object.freeze({
     key: "medial-temporal",
@@ -80,7 +80,7 @@ export const BLOCK_PRIORITY_ENTRIES = Object.freeze([
   Object.freeze({
     key: "midbrain-section",
     group: "development",
-    reason: "中脳水道を基準に赤核・黒質・大脳脚を比較",
+    reason: "中脳水道を基準に赤核・黒質の位置関係を比較",
   }),
   Object.freeze({
     key: "hindbrain",

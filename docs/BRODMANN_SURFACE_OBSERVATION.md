@@ -1,5 +1,13 @@
 # ブロードマン分類による脳表観察 / Brodmann surface observation
 
+## 2026-09-29 教材説明の補強
+
+BA 1・2・3・4・6・17・18の選択後の説明を、名称の反復から「どの溝・脳回を探し、隣の領野とどう見分けるか」という観察指示へ改めた。中心溝前後の運動野と体性感覚野、鳥距溝に沿う視覚野と周囲の線条外皮質、視放線からBA 17への入力を日英で説明する。元の領野境界、表示色、番号、3D資産は変更していない。
+
+選択後の説明が41領野の一覧の下へ隠れていたため、一覧の上に固定し、番号一覧だけを独立してスクロールできるようにした。繰り返していた境界の注意書きは下部の出典説明へまとめた。日本語BA 4と長文の英語BA 44を4481番の実画面で確認し、どちらも3D・選択状態・説明が同時に見える。
+
+解剖学的な位置と機能は[UTHealthの中心前回](https://nba.uth.tmc.edu/neuroanatomy/L1/Lab01p10_index.html)、[中心後回](https://nba.uth.tmc.edu/neuroanatomy/L1/Lab01p14_index.html)、[視覚皮質](https://nba.uth.tmc.edu/neuroanatomy/L8/Lab08p08_index.html)、[視放線とBA 17](https://nba.uth.tmc.edu/neuroanatomy/L8/Lab08p15_index.html)、[BA 3→1→2の前後順](https://pmc.ncbi.nlm.nih.gov/articles/PMC3155604/)と照合した。領野の細胞構築境界を脳溝だけで厳密に決めたものではない。対象Node 10件・通常build成功。4479番の実画面で日本語BA 1/17と英語BA 4の選択・説明を確認。公開版は変更していない。
+
 2026-09-08、開発版のみ。main統合・公開更新はしていない。進行中のBigBrain分節作業とは独立した参照脳表。
 
 ## 使い方

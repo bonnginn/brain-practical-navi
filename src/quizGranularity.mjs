@@ -17,7 +17,7 @@ export const QUIZ_GRANULARITY_BY_TARGET = Object.freeze({
   mammillaryBody: {format: "section", detail: "horizontal", origin: "standard"},
   redNucleus: {format: "section", detail: "horizontal", origin: "standard"},
   substantiaNigra: {format: "section", detail: "horizontal", origin: "standard"},
-  subthalamic: {format: "section", detail: "horizontal", origin: "standard"},
+  subthalamic: {format: "section", detail: "coronal", origin: "standard"},
   ventricle: {format: "section", detail: "horizontal", origin: "provisional"},
   thalamus: {format: "section", detail: "coronal", origin: "standard"},
   corpusCallosum: {format: "section", detail: "sagittal", origin: "provisional"},

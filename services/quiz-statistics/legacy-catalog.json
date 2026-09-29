@@ -135,48 +135,429 @@
     "question": "identify-accumbens",
     "revision": "579678a4a8a55415c65db47b766807aada6b52d2bf835a8237f04154e4d8e114",
     "prompt": "尾状核頭と被殻が腹側で連続する領域はどれですか？",
-    "options": ["accumbens", "caudate", "pallidum", "opticChiasm"]
+    "options": [
+      "accumbens",
+      "caudate",
+      "pallidum",
+      "opticChiasm"
+    ]
   },
   {
     "question": "identify-subthalamic",
     "revision": "d521d346e38724399f5ad8bc1457b3986e2b8b988c720dd3aa53a0ea6281d928",
     "prompt": "間脳の視床下域にあり、視床の腹側・黒質の背側にある小さな核はどれですか？",
-    "options": ["subthalamic", "redNucleus", "accumbens", "amygdala"]
+    "options": [
+      "subthalamic",
+      "redNucleus",
+      "accumbens",
+      "amygdala"
+    ]
   },
   {
     "question": "identify-mammillaryBody",
     "revision": "1a8ccd4e73d1aeeeec9bb98e4a46ab560ebd513be96b8136e6195e1627486d80",
     "prompt": "漏斗の後方、脚間窩の前方に左右一対で見える小隆起はどれですか？",
-    "options": ["mammillaryBody", "redNucleus", "thalamus", "opticChiasm"]
+    "options": [
+      "mammillaryBody",
+      "redNucleus",
+      "thalamus",
+      "opticChiasm"
+    ]
   },
   {
     "question": "cn3-function",
     "revision": "e9f4eb8f61209f0ef6542f62f6eb6862f39b83c4e8fe3c9304c6a0f89042579e",
     "prompt": "白色で示された動眼神経（III）の機能として最も適切なのはどれですか？",
-    "options": ["cn3-eye", "cn3-smell", "cn3-hearing", "cn3-tongue"]
+    "options": [
+      "cn3-eye",
+      "cn3-smell",
+      "cn3-hearing",
+      "cn3-tongue"
+    ]
   },
   {
     "question": "cn4-function",
     "revision": "671a71ac208112607296a8362697fe08317cb6704256958e40db4512a8b818de",
     "prompt": "白色で示された滑車神経（IV）が支配する外眼筋はどれですか？",
-    "options": ["cn4-superior-oblique", "cn4-lateral-rectus", "cn4-masseter", "cn4-tongue"]
+    "options": [
+      "cn4-superior-oblique",
+      "cn4-lateral-rectus",
+      "cn4-masseter",
+      "cn4-tongue"
+    ]
   },
   {
     "question": "cn6-function",
     "revision": "6bc706ef7a8ce97f2dfc3367a2fd1795299075a45f07eb7f81903bafac8f7393",
     "prompt": "白色で示された外転神経（VI）が支配する筋と運動はどれですか？",
-    "options": ["cn6-lateral-rectus", "cn6-superior-oblique", "cn6-facial", "cn6-mastication"]
+    "options": [
+      "cn6-lateral-rectus",
+      "cn6-superior-oblique",
+      "cn6-facial",
+      "cn6-mastication"
+    ]
   },
   {
     "question": "cn1-function",
     "revision": "8dc86bd65c63c725c915386cf07817dc053419b1d8dd7173d695951d83fe228c",
     "prompt": "白色で示された嗅神経（I）の主な機能はどれですか？",
-    "options": ["cn1-smell", "cn1-vision", "cn1-hearing", "cn1-tongue"]
+    "options": [
+      "cn1-smell",
+      "cn1-vision",
+      "cn1-hearing",
+      "cn1-tongue"
+    ]
   },
   {
     "question": "cn2-function",
     "revision": "29eb4388e3d9670f2ca5f26424b242c2862103d8af774941eef18cbccad1e528",
     "prompt": "白色で示された視神経（II）が伝える情報はどれですか？",
-    "options": ["cn2-vision", "cn2-smell", "cn2-face", "cn2-taste"]
+    "options": [
+      "cn2-vision",
+      "cn2-smell",
+      "cn2-face",
+      "cn2-taste"
+    ]
+  },
+  {
+    "question": "cn1-function",
+    "revision": "93ae9a6db79adf53d3a3ad7fa1fbfb26e5be5cb80a0d23c2f67025a171a8968e",
+    "prompt": "白色の嗅球・嗅索に入る嗅神経（I）が伝える感覚はどれですか？",
+    "options": [
+      "cn1-smell",
+      "cn1-vision",
+      "cn1-hearing",
+      "cn1-tongue"
+    ]
+  },
+  {
+    "question": "cn2-function",
+    "revision": "7a910f041080440f2d3644993c13ce449d0978cd247de55692f7bc1decaea66f",
+    "prompt": "白色の視覚路模式表示に含まれる視神経（II）が伝える情報はどれですか？",
+    "options": [
+      "cn2-vision",
+      "cn2-smell",
+      "cn2-face",
+      "cn2-taste"
+    ]
+  },
+  {
+    "question": "identify-ica",
+    "revision": "c008e80f1c7bd67521027154f01367adf0d1d8cfab8f3062d8fa8f6ecc0d133f",
+    "prompt": "白色で強調された模式3Dの名称はどれですか？",
+    "options": [
+      "ica",
+      "aca",
+      "mca",
+      "pca"
+    ]
+  },
+  {
+    "question": "identify-aca",
+    "revision": "ccd41d8a21bf84cc876deae3b7650d55180825234b594a104eabd76e497f60ae",
+    "prompt": "白色で強調された模式3Dの名称はどれですか？",
+    "options": [
+      "aca",
+      "ica",
+      "mca",
+      "pca"
+    ]
+  },
+  {
+    "question": "identify-acomm",
+    "revision": "0e378904ed74d89de4f90b9af804ded54e8e9f00be42db6c13f146694107d424",
+    "prompt": "白色で強調された模式3Dの名称はどれですか？",
+    "options": [
+      "acomm",
+      "aca",
+      "pcomm",
+      "basilar"
+    ]
+  },
+  {
+    "question": "identify-mca",
+    "revision": "2e39d9c4e0edf43cdb36b872c9cecc0f2f395596da4201dac6e48c8c8432491a",
+    "prompt": "白色で強調された模式3Dの名称はどれですか？",
+    "options": [
+      "mca",
+      "ica",
+      "aca",
+      "pca"
+    ]
+  },
+  {
+    "question": "identify-pcomm",
+    "revision": "9022eb53f12f9616660d23bc0c236c58c24f04c2483d73dafaefcaf66e7e6608",
+    "prompt": "白色で強調された模式3Dの名称はどれですか？",
+    "options": [
+      "pcomm",
+      "acomm",
+      "pca",
+      "ica"
+    ]
+  },
+  {
+    "question": "identify-vertebral",
+    "revision": "842757fea1614cefbe8e4fcc95a93acc6113c0cdbcb05d21ddfe5c2f568b303b",
+    "prompt": "白色で強調された模式3Dの名称はどれですか？",
+    "options": [
+      "vertebral",
+      "basilar",
+      "pca",
+      "mca"
+    ]
+  },
+  {
+    "question": "identify-basilar",
+    "revision": "4977e8f0d8b600b86b409217f890b1013897f2ad052e0f50ed2334239e0a2f09",
+    "prompt": "白色で強調された模式3Dの名称はどれですか？",
+    "options": [
+      "basilar",
+      "vertebral",
+      "pca",
+      "mca"
+    ]
+  },
+  {
+    "question": "identify-pca",
+    "revision": "1b57a36e00ad457cb4120d691b5df873a407a33728b43a0db7b545072c5be86f",
+    "prompt": "白色で強調された模式3Dの名称はどれですか？",
+    "options": [
+      "pca",
+      "basilar",
+      "vertebral",
+      "mca"
+    ]
+  },
+  {
+    "question": "identify-cerebellarArteries",
+    "revision": "7511332b076413443fc7d878aa2706728efac6949a578992f120d5d663f3551a",
+    "prompt": "白色で強調された模式3Dの名称はどれですか？",
+    "options": [
+      "cerebellarArteries",
+      "vertebral",
+      "basilar",
+      "pca"
+    ]
+  },
+  {
+    "question": "identify-cn1",
+    "revision": "a249cef9fb8666e526cffa0823f10db2a6c35ca7c2b522ead53b7b6fab2c7145",
+    "prompt": "白色で強調された模式3Dの名称はどれですか？",
+    "options": [
+      "cn1",
+      "cn3",
+      "cn5",
+      "cn12"
+    ]
+  },
+  {
+    "question": "identify-cn2",
+    "revision": "2e18a371c0402588f67f21b45df091caf028167133a896b543e4d9b1eb3e422c",
+    "prompt": "白色で強調された模式3Dの名称はどれですか？",
+    "options": [
+      "cn2",
+      "cn1",
+      "cn3",
+      "cn4"
+    ]
+  },
+  {
+    "question": "identify-opticChiasm",
+    "revision": "56ba08692ed610dcb9232fcb52395d94b61c310885d31f8f00644882d2863420",
+    "prompt": "白色で強調された模式3Dの名称はどれですか？",
+    "options": [
+      "opticChiasm",
+      "cn2",
+      "cn1",
+      "cn3"
+    ]
+  },
+  {
+    "question": "identify-cn3",
+    "revision": "f1542cf410e88c8684e6d1034738d3cfa5f5bb1f8ce3c7ee459f7e65f532bdcd",
+    "prompt": "白色で強調された模式3Dの名称はどれですか？",
+    "options": [
+      "cn3",
+      "cn4",
+      "cn5",
+      "cn6"
+    ]
+  },
+  {
+    "question": "identify-cn4",
+    "revision": "c60d25053d99f39de79d5563b86ddf6f8d444e89d350a16edba4feea1b16e4fc",
+    "prompt": "白色で強調された模式3Dの名称はどれですか？",
+    "options": [
+      "cn4",
+      "cn3",
+      "cn6",
+      "cn7"
+    ]
+  },
+  {
+    "question": "identify-cn6",
+    "revision": "546af2144ad93500040755c4b26ebcf3ab600c9f1ba7e498272d3f2f00b988c7",
+    "prompt": "白色で強調された模式3Dの名称はどれですか？",
+    "options": [
+      "cn6",
+      "cn5",
+      "cn7",
+      "cn8"
+    ]
+  },
+  {
+    "question": "identify-cn7",
+    "revision": "f6076be4a8a8526def20f5e0a175da7ff7d204aee09afb2b445b819382b267cc",
+    "prompt": "白色で強調された模式3Dの名称はどれですか？",
+    "options": [
+      "cn7",
+      "cn6",
+      "cn8",
+      "cn9"
+    ]
+  },
+  {
+    "question": "identify-cn8",
+    "revision": "3d2a401434b60f3ceb39e2f1d0255f6e3d71b5d66f5857b93ae5c74be0302c55",
+    "prompt": "白色で強調された模式3Dの名称はどれですか？",
+    "options": [
+      "cn8",
+      "cn7",
+      "cn9",
+      "cn10"
+    ]
+  },
+  {
+    "question": "identify-cn12",
+    "revision": "1c6561fcf9594ae163f8a33da3b59836ab2ba3d03bbfeacba6f9e70dac75526b",
+    "prompt": "白色で強調された模式3Dの名称はどれですか？",
+    "options": [
+      "cn12",
+      "cn9",
+      "cn10",
+      "cn11"
+    ]
+  },
+  {
+    "question": "identify-internalCapsule",
+    "revision": "66ac021d2964f9bd0b3f678c45d74b83f8cdfedd2d624b3db757c1f09aaf13ba",
+    "prompt": "尾状核・視床とレンズ核の間を通る白質路はどれですか？",
+    "options": [
+      "internalCapsule",
+      "corpusCallosum",
+      "pallidum",
+      "insula"
+    ]
+  },
+  {
+    "question": "identify-putamen",
+    "revision": "9e8d4ee635d58ef3ce53b65454ca7b00420d85c3445a3d4f42910c2a1c19a3a6",
+    "prompt": "淡蒼球の外側にあるレンズ核の構成要素はどれですか？",
+    "options": [
+      "putamen",
+      "pallidum",
+      "caudate",
+      "amygdala"
+    ]
+  },
+  {
+    "question": "identify-amygdala",
+    "revision": "86526fe77c1887a144f411efb84fdb31079a4eb3a4f37d424e3931180be68894",
+    "prompt": "海馬頭の前上方にある核群はどれですか？",
+    "options": [
+      "amygdala",
+      "hippocampus",
+      "putamen",
+      "thalamus"
+    ]
+  },
+  {
+    "question": "identify-corpusCallosum",
+    "revision": "c553664c4ecb59d5617b024361415e9e3fa1819058c413adbbfec565daad6b69",
+    "prompt": "正中矢状断で側脳室の上方を弓状に走る交連線維はどれですか？",
+    "options": [
+      "corpusCallosum",
+      "internalCapsule",
+      "thalamus",
+      "caudate"
+    ]
+  },
+  {
+    "question": "putamen-function-clue",
+    "revision": "8dd04c053b43222b424104727ff96562f1238859f78f072debe486b62f7bf88d",
+    "prompt": "随意運動の調節や運動学習に関わる線条体のうち、色で示されている構造はどれですか？",
+    "options": [
+      "putamen",
+      "pallidum",
+      "thalamus",
+      "hippocampus"
+    ]
+  },
+  {
+    "question": "putamen-relation-choice",
+    "revision": "3e5e4ca949567fecea371e9b94a80760e8d45b3e0cf1c4ec9b0e64b20735241d",
+    "prompt": "色で示された被殻とともにレンズ核を構成する構造はどれですか？",
+    "options": [
+      "putamen-with-pallidum",
+      "putamen-with-caudate",
+      "putamen-with-thalamus",
+      "putamen-with-amygdala"
+    ]
+  },
+  {
+    "question": "amygdala-function-clue",
+    "revision": "7815316c198194706b047773ec6efb1fca8cd52eaec04b4b9fcbf76c58600c41",
+    "prompt": "恐怖など情動的な意味づけや情動記憶に関わる、色で示された構造はどれですか？",
+    "options": [
+      "amygdala",
+      "hippocampus",
+      "caudate",
+      "corpusCallosum"
+    ]
+  },
+  {
+    "question": "amygdala-relation-choice",
+    "revision": "9017e98e1c548dc1826f48f6e40267941f742d5c18a1ef1e704d525597c89725",
+    "prompt": "色で示された扁桃体と海馬頭の位置関係として適切なのはどれですか？",
+    "options": [
+      "amygdala-anterosuperior",
+      "amygdala-posterior",
+      "amygdala-ventricle",
+      "amygdala-midline"
+    ]
+  },
+  {
+    "question": "identify-subthalamic",
+    "revision": "045204e8ad8df819359e8a449c4d595bc6f25b70a28bc8862cde428dba80851e",
+    "prompt": "間脳の視床下域にあり、視床の腹側・黒質の背側にある小さな核はどれですか？",
+    "options": [
+      "subthalamic",
+      "redNucleus",
+      "substantiaNigra",
+      "thalamus"
+    ]
+  },
+  {
+    "question": "subthalamic-function-clue",
+    "revision": "443463b8b1e3d759345822364d5f1e4c6cb7dcf34d5540bc41ba229b210cc45e",
+    "prompt": "基底核回路へ興奮性に作用し、競合する運動の抑制に関わる色付きの核はどれですか？",
+    "options": [
+      "subthalamic",
+      "redNucleus",
+      "accumbens",
+      "amygdala"
+    ]
+  },
+  {
+    "question": "subthalamic-classification-choice",
+    "revision": "38f3fdee698fce9f1c03eea730ba2fe13a482e1a08c595ca102929adf1b84963",
+    "prompt": "色で示された視床下核の解剖学的な所属として適切なのはどれですか？",
+    "options": [
+      "stn-subthalamus",
+      "stn-hypothalamus",
+      "stn-midbrain",
+      "stn-cortex"
+    ]
   }
 ]

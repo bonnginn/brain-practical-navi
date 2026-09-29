@@ -92,7 +92,7 @@ function appQuizTargets(source) {
     if (question.category === "surface") return { ...question, expectedEligibility: "pilot" };
     const labelSource = labelSources.get(question.target);
     if (!labelSource) throw new Error(`Could not resolve labelSource for quiz target ${question.target}`);
-    const expectedEligibility = ["atlas-provisional", "image-guided"].includes(labelSource) ? "pilot" : "standard";
+    const expectedEligibility = ["atlas-provisional", "atlas-image-guided", "image-guided"].includes(labelSource) ? "pilot" : "standard";
     return { ...question, labelSource, expectedEligibility };
   });
 }

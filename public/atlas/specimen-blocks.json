@@ -310,14 +310,14 @@
         "sourceType": "specimen-derived",
         "color": "#c9a27d",
         "material": "specimen",
-        "meshSha256": "efbe10e649421e1de18062a5b1869fe85f6c357e880347ba97c0b8ae46024b84",
-        "segmentationSourceSha256": "96fb242a78c66cc4ab9fd69e8bd6ed3cef5fca51b67f0338f063da98ae02381b",
-        "repairReview": "AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review."
+        "meshSha256": "67fad4f06674f5e285e16bdd7cf5c1801af54c0c113b92507a16d2340a5333b9",
+        "segmentationSourceSha256": "98868c413e45436756294f06a693e5dc51efd5c34e98335470fbb27bce204f9d",
+        "repairReview": "AI-image-reviewed cortical overlabel exclusion; development only, not expert review."
       },
       {
         "file": "block-commissural-system-corpus-callosum.mesh",
-        "vertices": 12856,
-        "faces": 25684,
+        "vertices": 12874,
+        "faces": 25712,
         "shadeMin": 0.82,
         "shadeMax": 0.82,
         "part": "corpus-callosum",
@@ -325,9 +325,9 @@
         "sourceType": "image-guided-segmentation",
         "color": "#dbc270",
         "material": "model",
-        "meshSha256": "722c0a73c98838f20bf953702998cc6f5488c751469082ae42e8215cbbc42069",
-        "segmentationSourceSha256": "84f91400e7f6b9d059707772b01889f74112d62e853bcebfffddaf589b423ba3",
-        "repairReview": "AI-image-reviewed local callosal exclusion; derived block synchronized. Development only, not expert review."
+        "meshSha256": "f77ab1166a4e2e9bcb021b5e693c95c34f01ab0e877e23163a4b553bc15b05cf",
+        "segmentationSourceSha256": "98868c413e45436756294f06a693e5dc51efd5c34e98335470fbb27bce204f9d",
+        "repairReview": "AI-image-reviewed cortical overlabel exclusion; development only, not expert review."
       },
       {
         "file": "block-commissural-system-lateral-ventricles.mesh",

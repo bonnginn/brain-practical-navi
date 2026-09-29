@@ -55,6 +55,34 @@
 .brodmannPanel h2{margin:0 0 .45rem}
 .brodmannColorModes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;margin-bottom:.4rem}
 .brodmannColorModes button{min-height:32px;padding:4px 6px;font-size:.75rem;line-height:1.2}
+.brodmannDescription{padding:.45rem 0;margin:0 0 .45rem;border-top:1px solid #dce5e2;border-bottom:1px solid #dce5e2}
+.brodmannDescription h3{font-size:.95rem;margin:0 0 .25rem}
+.brodmannDescription p{font-size:.82rem;line-height:1.4;margin:0}
 .brodmannAreaGrid{gap:4px;padding:2px}
 .brodmannAreaGrid button{min-height:34px;padding:4px 3px;font-size:.78rem;gap:4px;line-height:1.2}
 .brodmannAreaGrid i{width:.55rem;height:.55rem}
+@media(min-width:761px){
+.brodmannPanel{display:flex;flex-direction:column;overflow:hidden}
+.brodmannAreaGrid{flex:1 1 auto;min-height:80px;max-height:none}
+}
+
+@media(max-width:760px){
+  .brodmannExplorer{flex:none;height:calc(100dvh - 275px);scroll-padding-top:320px}
+  .brodmannModel{display:flex;flex-direction:column;position:sticky;top:0;z-index:3;height:320px}
+  .brodmannModel .brodmannCanvas{flex:1 1 auto;min-height:0;height:auto}
+  .brodmannViews{gap:3px;padding:5px}
+  .brodmannViews button{flex-basis:90px;min-height:32px;padding:4px;font-size:11px}
+  .brodmannTools{gap:3px;padding:4px}
+  .brodmannTools button{flex:1 1 95px;min-height:32px;padding:4px 6px;font-size:11px;line-height:1.2}
+  .brodmannTools span{display:none}
+}
+
+@media(max-width:760px) and (pointer:coarse){
+  .brodmannViews button,.brodmannTools button{min-height:44px}
+}
+
+@media(max-width:760px) and (max-height:740px){
+  .brodmannExplorer{height:auto;overflow:visible}
+  .brodmannModel{position:static;height:auto}
+  .brodmannModel .brodmannCanvas{flex:none;height:340px}
+}

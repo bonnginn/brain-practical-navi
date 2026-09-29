@@ -6,7 +6,6 @@ export function QuizSessionReview({rows,english,onObserve,onRetry}:{rows:ReviewR
   if(!rows.length)return null;
   return <section className="quizSessionReview" aria-label={english?"Review missed questions":"今回間違えた問題の見直し"}>
     <h3>{english?"Review what you missed":"間違えた問題を見直す"}</h3>
-    <p>{english?"Open a question to compare your answer with the explanation, or return to the specimen.":"問題を開いて答えと解説を見比べるか、観察画面で位置を確かめます。"}</p>
     {rows.map((row,index)=><details key={row.number}>
       <summary><span>{english?`Question ${row.number}`:`問題 ${row.number}`}</span><b>{row.name}</b></summary>
       <div className="quizSessionReviewBody"><p className="quizSessionPrompt">{row.prompt}</p>

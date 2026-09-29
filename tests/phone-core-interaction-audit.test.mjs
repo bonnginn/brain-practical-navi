@@ -214,9 +214,8 @@ function blockProbe(specimen, overrides = {}) {
 }
 
 function buildBlockSpecimenScenario(specimen, { navigation = "fresh-route" } = {}) {
-  const empty = blockState(specimen, { introOpen: true, guidedStatus: null, layerKeys: [], layerStates: [] });
-  const initialProbe = probe(specimen.hash, { canvasCount: 0, block: empty });
   const manualProbe = blockProbe(specimen);
+  const initialProbe = manualProbe;
   const startProbe = blockProbe(specimen, { guidedStatus: "active", guidedStepKey: specimen.layerKeys[0], guidedStage: `段階 1 / ${specimen.layerKeys.length + 1}`, layerKeys: [specimen.layerKeys[0]], layerStates: specimen.layerKeys.map((key, index) => ({ key, pressed: index === 0 })) });
   const transitions = [];
   let previous = startProbe;
@@ -238,7 +237,6 @@ function buildBlockSpecimenScenario(specimen, { navigation = "fresh-route" } = {
     finalProbe: stopProbe,
     manualLayerKeys: [...specimen.layerKeys],
     actions: [
-      action("intro-close", { ...tapTarget("試作品を確認する", "close"), expectedHash: specimen.hash, manualLayerKeys: [...specimen.layerKeys], afterProbe: manualProbe }),
       action("guided-start", { ...tapTarget("開始", "start"), beforeProbe: manualProbe, savedLayerKeys: [...specimen.layerKeys], expectedStepKey: specimen.layerKeys[0], expectedLayerKeys: [specimen.layerKeys[0]], afterProbe: startProbe }),
       action("guided-steps", { transitions }),
       action("guided-stop", { ...tapTarget("ガイドを終了", "stop"), beforeProbe: previous, restoredLayerKeys: [...specimen.layerKeys], afterProbe: stopProbe }),
@@ -251,7 +249,7 @@ function buildBlocksJourney() {
   const initialProbe = probe("#workspace/home", { canvasCount: 0, block: empty });
   const firstSpecimen = PHONE_CORE_BLOCK_GUIDED.specimens[0];
   const firstScenario = buildBlockSpecimenScenario(firstSpecimen, { navigation: "dock" });
-  firstScenario.initialProbe = probe(firstSpecimen.hash, { canvasCount: 0, block: blockState(firstSpecimen, { introOpen: true, guidedStatus: null, layerKeys: [], layerStates: [] }) });
+  firstScenario.initialProbe = blockProbe(firstSpecimen);
   const scenarios = [firstScenario, ...PHONE_CORE_BLOCK_GUIDED.specimens.slice(1).map(specimen => buildBlockSpecimenScenario(specimen))];
   const dock = tapTarget("ブロック標本", "blocks");
   return {
@@ -282,7 +280,7 @@ function validReport() {
 
 test("phone audit exposes a fixed five-destination dock, coarse-touch policy, and non-visual hooks", () => {
   assert.deepEqual(PHONE_CORE_DOCK.map(item => item.key), ["home", "surface", "sections", "blocks", "quiz"]);
-  assert.deepEqual(PHONE_CORE_DOCK.map(item => item.canvasCount), [0, 1, 1, 0, 1]);
+  assert.deepEqual(PHONE_CORE_DOCK.map(item => item.canvasCount), [0, 1, 1, 1, 1]);
   assert.deepEqual(PHONE_CORE_JOURNEY_IDS, ["dock", "surface-lateral", "sections-horizontal", "quiz", "blocks"]);
   assert.equal(PHONE_CORE_VIEWPORT.width, 390);
   assert.equal(PHONE_CORE_VIEWPORT.height, 768);
@@ -297,14 +295,12 @@ test("phone audit exposes a fixed five-destination dock, coarse-touch policy, an
   assert.match(page, /data-block-guided-action="start"/);
   assert.match(page, /data-block-guided-action="next"/);
   assert.match(page, /data-block-guided-action="stop"/);
-  assert.match(page, /data-block-intro-action="close"/);
   assert.match(css, /\.phone-mode \.sectionLayoutSwitch button\{min-height:44px\}/);
   assert.match(css, /\.sectionResizeHandle\{width:100%;min-width:0;height:1px;min-height:1px/);
   assert.match(css, /\.sectionModelViewSwitch button\{min-width:44px;min-height:36px/);
   assert.match(css, /\.phone-mode \.panelActions button\{min-height:44px\}/);
   assert.match(css, /\.phone-mode \.sliceTimeline input\[type=range\]\{min-height:44px\}/);
   assert.match(css, /\.phone-mode \.quizFeedback button\{min-height:44px\}/);
-  assert.match(css, /\.phone-mode \.blockIntroCard button\{min-height:44px\}/);
   assert.match(runnerSource, /Input\.dispatchTouchEvent/);
   assert.match(runnerSource, /about:blank/);
   assert.doesNotMatch(runnerSource, /\.click\(/);
@@ -333,7 +329,7 @@ test("independent phone report validator rejects provenance, touch, state, and d
     ["missing dock", report => { report.journeys[0].actions[0].details.destinations.pop(); }],
     ["wrong dock label", report => { report.journeys[0].initialProbe.dock[1].text = "別表示"; }],
     ["wrong active dock", report => { report.journeys[1].initialProbe.activeDockKey = "quiz"; }],
-    ["wrong route canvas", report => { report.journeys[0].actions[0].details.destinations[3].afterProbe.canvasCount = 1; }],
+    ["wrong route canvas", report => { report.journeys[0].actions[0].details.destinations[3].afterProbe.canvasCount = 0; }],
     ["small target", report => { report.journeys[1].actions[3].details.target.rect.width = 20; }],
     ["offscreen target", report => { report.journeys[1].actions[3].details.target.onscreen = false; }],
     ["rect claims onscreen outside viewport", report => { report.journeys[1].actions[3].details.target.rect.x = 380; }],
@@ -373,17 +369,17 @@ test("independent phone report validator rejects provenance, touch, state, and d
     ["block missing specimen", report => { report.journeys[4].actions[1].details.specimens.pop(); }],
     ["block non-fresh navigation", report => { report.journeys[4].actions[1].details.specimens[1].navigation = "route"; }],
     ["block wrong fresh-navigation evidence", report => { report.journeys[4].actions[1].details.specimens[1].navigationEvidence.intermediateHash = ""; }],
-    ["block intro remains open", report => { report.journeys[4].actions[1].details.specimens[0].actions[0].details.afterProbe.block.introOpen = true; }],
-    ["block guided action key", report => { report.journeys[4].actions[1].details.specimens[0].actions[1].details.target.dataKey = "next"; }],
-    ["block wrong stage index", report => { report.journeys[4].actions[1].details.specimens[0].actions[1].details.afterProbe.block.guidedStage = "段階 2 / 5"; }],
-    ["block wrong stage count", report => { report.journeys[4].actions[1].details.specimens[0].actions[2].details.transitions[0].afterProbe.block.guidedStage = "段階 2 / 4"; }],
-    ["block missing final-all step", report => { report.journeys[4].actions[1].details.specimens[0].actions[2].details.transitions.pop(); }],
-    ["block guided step no-op", report => { const transition = report.journeys[4].actions[1].details.specimens[0].actions[2].details.transitions[0]; transition.afterStepKey = transition.beforeStepKey; }],
-    ["block wrong final flag", report => { const transition = report.journeys[4].actions[1].details.specimens[0].actions[2].details.transitions.at(-1); transition.afterProbe.block.guidedFinal = false; }],
-    ["block null final stage", report => { const transition = report.journeys[4].actions[1].details.specimens[0].actions[2].details.transitions.at(-1); transition.afterProbe.block.guidedStage = null; }],
-    ["block null final flag", report => { const transition = report.journeys[4].actions[1].details.specimens[0].actions[2].details.transitions.at(-1); transition.afterProbe.block.guidedFinal = null; }],
-    ["block layer continuity", report => { report.journeys[4].actions[1].details.specimens[0].actions[3].details.restoredLayerKeys = ["caudate"]; }],
-    ["block viewport", report => { report.journeys[4].actions[1].details.specimens[1].actions[2].details.transitions[0].target.rect.height = 20; }],
+    ["block specimen remains hidden", report => { report.journeys[4].actions[1].details.specimens[0].initialProbe.canvasCount = 0; }],
+    ["block guided action key", report => { report.journeys[4].actions[1].details.specimens[0].actions[0].details.target.dataKey = "next"; }],
+    ["block wrong stage index", report => { report.journeys[4].actions[1].details.specimens[0].actions[0].details.afterProbe.block.guidedStage = "段階 2 / 5"; }],
+    ["block wrong stage count", report => { report.journeys[4].actions[1].details.specimens[0].actions[1].details.transitions[0].afterProbe.block.guidedStage = "段階 2 / 4"; }],
+    ["block missing final-all step", report => { report.journeys[4].actions[1].details.specimens[0].actions[1].details.transitions.pop(); }],
+    ["block guided step no-op", report => { const transition = report.journeys[4].actions[1].details.specimens[0].actions[1].details.transitions[0]; transition.afterStepKey = transition.beforeStepKey; }],
+    ["block wrong final flag", report => { const transition = report.journeys[4].actions[1].details.specimens[0].actions[1].details.transitions.at(-1); transition.afterProbe.block.guidedFinal = false; }],
+    ["block null final stage", report => { const transition = report.journeys[4].actions[1].details.specimens[0].actions[1].details.transitions.at(-1); transition.afterProbe.block.guidedStage = null; }],
+    ["block null final flag", report => { const transition = report.journeys[4].actions[1].details.specimens[0].actions[1].details.transitions.at(-1); transition.afterProbe.block.guidedFinal = null; }],
+    ["block layer continuity", report => { report.journeys[4].actions[1].details.specimens[0].actions[2].details.restoredLayerKeys = ["caudate"]; }],
+    ["block viewport", report => { report.journeys[4].actions[1].details.specimens[1].actions[1].details.transitions[0].target.rect.height = 20; }],
     ["ui error", report => { report.journeys[0].initialProbe.uiErrors = [{ text: "error" }]; }],
     ["overflow", report => { report.journeys[2].finalProbe.horizontalOverflow = true; }],
     ["allPassed contradiction", report => { report.allPassed = false; }],

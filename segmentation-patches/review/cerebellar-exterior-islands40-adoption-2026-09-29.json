@@ -1,0 +1,540 @@
+{
+  "beforeSha256": "71eebaf135377bf8da9b121e6a7a510de8066c3ca9172cf02d32b55baa140a0a",
+  "afterSha256": "e9c0a83f03cde2a64a53d2912a5502130ec872ea2fbfa9b0d75ea83ff1a9914f",
+  "beforeRawVoxelSha256": "85522e864f5090ded0baa282c97abe6a799500d8e6c4323da628095714384f5c",
+  "afterRawVoxelSha256": "c282a3c0dde72e253d34b0f2b223fa5664e6c36446269b992e3607845c0175ea",
+  "imageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
+  "count": 40,
+  "points": [
+    {
+      "xyz": [
+        223,
+        81,
+        65
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        223,
+        81,
+        66
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        223,
+        82,
+        65
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        223,
+        82,
+        66
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        224,
+        81,
+        65
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        224,
+        81,
+        66
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        224,
+        82,
+        65
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        224,
+        82,
+        66
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        225,
+        81,
+        65
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        225,
+        81,
+        66
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        225,
+        82,
+        65
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        225,
+        82,
+        66
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        226,
+        81,
+        65
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        226,
+        81,
+        66
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        226,
+        82,
+        65
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        226,
+        82,
+        66
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        227,
+        81,
+        65
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        227,
+        81,
+        66
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        227,
+        82,
+        65
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        227,
+        82,
+        66
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        228,
+        81,
+        65
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        228,
+        81,
+        66
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        228,
+        82,
+        65
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        228,
+        82,
+        66
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        271,
+        191,
+        49
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        271,
+        191,
+        50
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        271,
+        192,
+        49
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        271,
+        192,
+        50
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        272,
+        191,
+        49
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        272,
+        191,
+        50
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        272,
+        192,
+        49
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        272,
+        192,
+        50
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        273,
+        191,
+        49
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        273,
+        191,
+        50
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        273,
+        192,
+        49
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        273,
+        192,
+        50
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        274,
+        191,
+        49
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        274,
+        191,
+        50
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        274,
+        192,
+        49
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        274,
+        192,
+        50
+      ],
+      "before": 29,
+      "after": 0
+    }
+  ],
+  "countsBefore": {
+    "29": 725061
+  },
+  "countsAfter": {
+    "29": 725021
+  },
+  "evidence": {
+    "work/anatomy-review/current-cerebellar-islands-2026-09-29/id29-x223y81z65-x.png": "7e35e5b46f3c11beb6683b56cdb27e9bf1bd3339b4b446ab9fcd886c31669ae5",
+    "work/anatomy-review/current-cerebellar-islands-2026-09-29/id29-x223y81z65-y.png": "5a7ece8bfaf42a4861292530ba8bb936307ec5823c395522e76f515125f580b2",
+    "work/anatomy-review/current-cerebellar-islands-2026-09-29/id29-x223y81z65-z.png": "af6e284f96ff066fd59f1eaad467d770f1a181aeb642584956dd9ed76a5f501e",
+    "work/anatomy-review/current-cerebellar-islands-2026-09-29/id29-x271y191z49-x.png": "9823431a221864823ee3fc51d70c9729c8f94f0368dc7bd7c332f38b23dd7852",
+    "work/anatomy-review/current-cerebellar-islands-2026-09-29/id29-x271y191z49-y.png": "199d873a6fe76c78189f1db6c8ca4aa2a4d16bbcbdde79b7d02b7e2752b79c89",
+    "work/anatomy-review/current-cerebellar-islands-2026-09-29/id29-x271y191z49-z.png": "11e2d500bfeb9941541f41d84b0ad6c99cfd5b5260626753336841cdff60c30c",
+    "work/anatomy-review/current-cerebellar-islands-2026-09-29/report.json": "9d2544b050c8ade65ba539340930f2f2a343c9a3a265e338f79ed5c98b1fcba8"
+  },
+  "decision": "Remove two exterior white-background islands after original and adjacent orthogonal review; connectivity and raw value alone were not the decision.",
+  "projectAdopted": true,
+  "expertReviewed": false,
+  "published": false,
+  "adopted": true,
+  "installed": true,
+  "status": "AI-image-reviewed-project-adopted-development-only",
+  "sectionMeshImpact": {
+    "before": {
+      "voxels": 1461236,
+      "components6": 51,
+      "componentSizes": [
+        1460714,
+        40,
+        40,
+        24,
+        24,
+        24,
+        24,
+        16,
+        16,
+        16,
+        16,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        6,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "boundsZYX": [
+        [
+          7,
+          81,
+          79
+        ],
+        [
+          148,
+          224,
+          310
+        ]
+      ],
+      "vertices": 160716,
+      "faces": 321564,
+      "sha256": "80842f168c3ec3eabcb584b1f980b5fba2cd4e5712a8f1b072435c064c2dcb8b",
+      "bytes": 8358828
+    },
+    "after": {
+      "voxels": 1461196,
+      "components6": 49,
+      "componentSizes": [
+        1460714,
+        40,
+        40,
+        24,
+        24,
+        24,
+        16,
+        16,
+        16,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        6,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "boundsZYX": [
+        [
+          7,
+          81,
+          79
+        ],
+        [
+          148,
+          224,
+          310
+        ]
+      ],
+      "vertices": 160620,
+      "faces": 321380,
+      "sha256": "5d401032f2ac7a80af06d2534b056fff00c7cba75ef7b5a9f6c08b587e3f3e68",
+      "bytes": 8353932
+    }
+  },
+  "blockMaskChanged": false,
+  "integrationVerification": "docs/CEREBELLAR_EXTERIOR_ISLANDS40_2026-09-29.md"
+}

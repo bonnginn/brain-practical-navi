@@ -51,7 +51,7 @@ test('partial aqueduct repair replays exactly 64 zero and 115 brainstem cells wi
  const meta=JSON.parse(await read('public/atlas/bigbrain-practical-segmentation-icbm500-validation.json'));
  assert.equal(meta.regionalBatchAudits['aqueduct-core179'].recordSha256,sha(bytes));
  const latest=await withRegionalBatches(r,{afterRevision:r.afterSha256});
- assert.equal(meta.labelCounts['41'],267);assert.equal(meta.labelCounts['27'],264456);assert.equal(meta.labelCounts['25'],currentSegmentation.counts[25]);
+ assert.equal(meta.labelCounts['41'],267);assert.equal(meta.labelCounts['27'],currentSegmentation.counts[27]);assert.equal(meta.labelCounts['25'],currentSegmentation.counts[25]);
  assert.equal(meta.rawVoxelSha256,latest.afterRawVoxelSha256);
 });
 
@@ -65,6 +65,8 @@ test('partial aqueduct synchronizes all affected tissue masks without replacing 
  assert.deepEqual(r.sectionMeshImpact.changedFiles,['section-current-ventricular-system.mesh']);
  const latest=await withRegionalBatches(r,{afterRevision:r.afterSha256});
  for(const [name,info] of Object.entries(latest.sectionMeshImpact.after.meshes))assert.equal(sha(await read('public/atlas/'+name+'.mesh')),info.sha256);
- const page=await read('app/page.tsx');assert.match(page.toString(),/中脳水道は模式3D/);
+ assert.equal(manifest.specimens['midbrain-section'].find(p=>p.part==='aqueduct').sourceType,'schematic-3d');
+ const teaching=JSON.parse(await read('app/teachingSpecimens.json'));
+ assert.equal(teaching.specimens['midbrain-section'].parts.find(p=>p.key==='aqueduct').source,'same-grid-segmentation');
  assert.ok(r.meshImpact.blockMaskImpact.filter(p=>p.part==='aqueduct').every(p=>p.changedMaskVoxels===0));
 });

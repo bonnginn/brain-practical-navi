@@ -1,6 +1,11 @@
 // Short teaching contrasts for plausible distractors. Keys are stable quiz IDs
 // and option keys, so a different question cannot inherit an unrelated clue.
 const guidance={
+  "caudate-role-choice":{
+    "caudate-thalamic-relay":["多くの感覚情報を皮質へ中継するのは視床です。尾状核は皮質から入力を受ける線条体の一部で、基底核ループに参加します。","The thalamus relays much sensory information to cortex. The caudate is part of the striatum; it receives cortical input and participates in basal-ganglia loops."],
+    "caudate-callosal":["左右の大脳皮質を結ぶ主要な交連線維は脳梁です。尾状核は線維束ではなく基底核の一部です。","The corpus callosum is the major commissural bundle joining the cerebral cortices. The caudate is a basal-ganglia nucleus, not that fibre bundle."],
+    "caudate-hippocampal-memory":["新しい出来事の記憶形成では内側側頭葉の海馬体が重要です。尾状核は主に皮質―基底核ループで捉えます。","The medial temporal hippocampal formation is important for forming new event memories. The caudate is best identified here by its role in cortico-basal-ganglia loops."],
+  },
   "putamen-relation-choice":{
     "putamen-with-caudate":["尾状核と被殻は線条体を構成します。レンズ核を問う場合、被殻と組になるのは淡蒼球です。","The caudate and putamen form the striatum. The putamen pairs with the globus pallidus to form the lentiform nucleus."],
     "putamen-with-thalamus":["視床は間脳の構造です。被殻と淡蒼球を合わせてレンズ核と呼びます。","The thalamus is part of the diencephalon. The putamen and globus pallidus form the lentiform nucleus."],
@@ -25,6 +30,11 @@ const guidance={
     "capsule-surface":["内包は脳表ではなく深部の白質路です。冠状断では尾状核・視床とレンズ核の間を探します。","The internal capsule is a deep white-matter pathway, not a surface structure. In a coronal section, look between the caudate or thalamus and the lentiform nucleus."],
     "capsule-ventricle":["第三脳室は髄液腔です。内包はその外側寄りで、尾状核・視床とレンズ核の間を通る白質路です。","The third ventricle is a CSF-filled cavity. The internal capsule is a white-matter pathway farther laterally, between the caudate or thalamus and the lentiform nucleus."],
     "capsule-cerebellar":["小脳皮質は後頭蓋窩の小脳表面です。内包は大脳深部の投射線維です。","The cerebellar cortex is on the cerebellar surface in the posterior fossa. The internal capsule is a deep cerebral projection-fiber bundle."],
+  },
+  "insula-relation-choice":{
+    "insula-callosum":["脳梁膨大部は大脳半球を結ぶ脳梁の後部です。島皮質を外側から覆うのは外側溝周囲の弁蓋部です。","The splenium is the posterior corpus callosum between the hemispheres. Opercular cortex around the lateral sulcus covers the insula from the side."],
+    "insula-cerebellum":["小脳虫部は小脳半球の間にあります。島皮質は外側溝の深部で前頭・頭頂・側頭葉の弁蓋部に覆われます。","The vermis lies between the cerebellar hemispheres. The insula is buried in the lateral sulcus beneath frontal, parietal and temporal opercula."],
+    "insula-thalamus":["視床枕は視床の後部で、大脳深部にあります。島皮質を脳表から隠すのは外側溝の弁蓋部です。","The pulvinar is the posterior thalamus deep in the brain. The opercula of the lateral sulcus conceal the insula from the cortical surface."],
   },
   "callosum-classification-choice":{
     "callosum-both-commissure":["脳梁は左右の大脳半球を結ぶ交連線維です。脳弓には海馬交連も含まれますが、主体は海馬からの投射線維です。","The corpus callosum is commissural. Although the fornix includes the hippocampal commissure, most of it carries projections from the hippocampal formation."],
@@ -101,6 +111,26 @@ const guidance={
     "ica-venous":["硬膜静脈洞は脳から戻る静脈血の排出路です。内頸動脈は脳へ血液を送る動脈です。","Dural venous sinuses drain venous blood from the brain. The internal carotid is an artery that supplies blood to it."],
     "ica-csf":["脳室は脳脊髄液の腔です。内頸動脈は脳底を走り、前方循環へ血液を送ります。","Ventricles are CSF-filled cavities. The internal carotid runs at the brain base and supplies the anterior circulation."],
   },
+  "basilar-formation":{
+    "basilar-ica":["内頸動脈は前方循環へ続きます。脳底動脈は左右の椎骨動脈が橋延髄境界付近で合流してできます。","The internal carotids supply the anterior circulation. The basilar artery forms where the paired vertebral arteries unite near the pontomedullary junction."],
+    "basilar-mca":["中大脳動脈は内頸動脈から外側へ向かう枝です。脳底動脈の合流元は左右の椎骨動脈です。","The middle cerebral arteries branch laterally from the internal carotid system. The paired vertebral arteries unite to form the basilar artery."],
+    "basilar-acomm":["前交通動脈は左右の前大脳動脈をつなぎます。橋の腹側を上行する脳底動脈は左右の椎骨動脈の合流で始まります。","The anterior communicating artery links the anterior cerebral arteries. The basilar artery ascends on the ventral pons after the vertebral arteries unite."],
+  },
+  "precentral-function":{
+    "precentral-auditory":["聴覚の一次受容は外側溝の深部にある横側頭回が中心です。中心前回には一次運動野があり、随意運動に関わります。","Primary auditory input is received mainly in the transverse temporal gyri deep in the lateral sulcus. The precentral gyrus contains primary motor cortex for voluntary movement."],
+    "precentral-visual":["一次視覚野は後頭葉内側面の鳥距溝周囲にあります。中心前回の一次運動野は随意運動に関わります。","Primary visual cortex lies around the calcarine sulcus on the medial occipital lobe. Primary motor cortex in the precentral gyrus contributes to voluntary movement."],
+    "precentral-somatosensory":["体性感覚の一次処理は中心溝の後方、中心後回が中心です。中心溝の前方にある中心前回は主に随意運動に関わります。","Primary somatosensory processing is centred in the postcentral gyrus, behind the central sulcus. The precentral gyrus in front of it is chiefly associated with voluntary movement."],
+  },
+  "superior-temporal-function":{
+    "stg-motor":["随意運動の一次運動野は中心前回です。上側頭回は聴覚情報の処理と関係します。","Primary motor cortex for voluntary movement is in the precentral gyrus. The superior temporal gyrus is associated with auditory processing."],
+    "stg-somatosensory":["体性感覚の一次処理は中心後回が中心です。上側頭回は聴覚関連皮質を含み、一次聴覚野は主にその深部の横側頭回にあります。","Primary somatosensory processing is centred in the postcentral gyrus. The superior temporal region is related to hearing; primary auditory cortex lies mainly in the transverse temporal gyri deep to it."],
+    "stg-visual":["一次視覚野は鳥距溝周囲の後頭葉皮質です。上側頭回では聴覚情報の処理に注目します。","Primary visual cortex surrounds the calcarine sulcus in the occipital lobe. In the superior temporal gyrus, focus on auditory processing."],
+  },
+  "fusiform-function":{
+    "fusiform-primary-visual":["一次視覚野は鳥距溝周囲にあります。紡錘状回は腹側視覚系の一部として、顔や物体などの高次視覚認識に関わります。","Primary visual cortex surrounds the calcarine sulcus. The fusiform gyrus participates in higher-order ventral visual recognition, including faces and objects."],
+    "fusiform-auditory":["聴覚の一次受容は横側頭回が中心です。紡錘状回は聴覚野ではなく、腹側視覚系の高次視覚認識に関わります。","Primary auditory input is received mainly in the transverse temporal gyri. The fusiform gyrus belongs to higher-order ventral visual processing, not primary auditory cortex."],
+    "fusiform-somatosensory":["体性感覚の一次処理は中心後回が中心です。紡錘状回では腹側視覚系の高次視覚認識を考えます。","Primary somatosensory processing is centred in the postcentral gyrus. The fusiform gyrus is associated with higher-order recognition in the ventral visual stream."],
+  },
   "cn3-function":{
     "cn3-lateral-rectus":["外側直筋は外転神経（VI）の支配です。動眼神経（III）は内側直筋など多くの外眼筋と、上眼瞼挙上・縮瞳・調節に関わります。","The abducens nerve (VI) supplies the lateral rectus. Oculomotor (III) supplies most other extraocular muscles, lifts the upper eyelid, and carries fibres for pupillary constriction and accommodation."],
     "cn3-superior-oblique":["上斜筋は滑車神経（IV）の支配です。動眼神経（III）は下斜筋や内側直筋などを支配します。","The trochlear nerve (IV) supplies the superior oblique. Oculomotor (III) supplies the inferior oblique, medial rectus, and other muscles."],
@@ -116,10 +146,105 @@ const guidance={
     "cn6-medial-rectus":["内側直筋は動眼神経（III）の支配で、眼球の内転に関わります。外転神経（VI）は外側直筋による外転です。","The oculomotor nerve (III) supplies the medial rectus for adduction. The abducens nerve (VI) supplies the lateral rectus for abduction."],
     "cn6-inferior-oblique":["下斜筋は動眼神経（III）の支配です。外転神経（VI）が支配するのは外側直筋です。","The oculomotor nerve (III) supplies the inferior oblique. The abducens nerve (VI) supplies the lateral rectus."],
   },
+  "cn1-function":{
+    "cn1-vision":["視覚は網膜から視神経（II）へ伝わります。嗅神経（I）は鼻腔の嗅上皮から嗅球へ嗅覚情報を運びます。","Vision travels from the retina through the optic nerve (II). The olfactory nerve (I) carries smell information from the olfactory epithelium to the bulb."],
+    "cn1-hearing":["聴覚と平衡覚は内耳神経（VIII）の役割です。嗅神経（I）は嗅覚を嗅球へ伝えます。","Hearing and balance belong to VIII. The olfactory nerve (I) carries smell information to the olfactory bulb."],
+    "cn1-tongue":["舌筋運動は主に舌下神経（XII）が担います。嗅神経（I）は運動ではなく嗅覚の経路です。","Most tongue muscles are moved by the hypoglossal nerve (XII). The olfactory nerve (I) carries smell, not motor commands."],
+  },
+  "cn2-function":{
+    "cn2-smell":["嗅覚は嗅神経（I）から嗅球へ入ります。視神経（II）は網膜からの視覚情報を視交叉へ運びます。","Smell reaches the olfactory bulb through nerve I. The optic nerve (II) carries visual information from the retina to the chiasm."],
+    "cn2-face":["顔面の一般感覚の大部分は三叉神経（V）が伝えます。視神経（II）が運ぶのは網膜からの視覚情報です。","Most general facial sensation travels in V. The optic nerve (II) carries visual information from the retina."],
+    "cn2-taste":["舌後方1/3の味覚は主に舌咽神経（IX）が伝えます。視神経（II）は味覚ではなく視覚の経路です。","Taste from the posterior third of the tongue travels mainly in IX. The optic nerve (II) is a visual, not a taste, pathway."],
+  },
+  "cn5-function":{
+    "cn5-hearing":["聴覚と平衡覚は内耳神経（VIII）が伝えます。三叉神経（V）は顔面の一般感覚と咀嚼筋運動を担います。","The vestibulocochlear nerve (VIII) carries hearing and balance. The trigeminal nerve (V) carries much of facial sensation and motor fibres for mastication."],
+    "cn5-vision":["視覚情報は視神経（II）を通ります。三叉神経（V）では顔面の感覚と咀嚼筋への運動線維に注目します。","Visual information travels in the optic nerve (II). For the trigeminal nerve (V), look for facial sensation and motor fibres to the muscles of mastication."],
+    "cn5-parasymp":["胸腹部臓器への副交感神経は主に迷走神経（X）です。三叉神経（V）の主要な役割は顔面感覚と咀嚼筋運動です。","The vagus nerve (X) provides much of the parasympathetic supply to thoracic and abdominal viscera. The main roles of V are facial sensation and mastication."],
+  },
+  "cn7-function":{
+    "cn7-face-sensation":["顔面の一般感覚の大部分は三叉神経（V）が伝えます。顔面神経（VII）は表情筋運動に加え、味覚と一部の腺への副交感線維を含みます。","Most general facial sensation travels in the trigeminal nerve (V). The facial nerve (VII) moves facial-expression muscles and also carries taste and parasympathetic fibres."],
+    "cn7-hearing":["聴覚と平衡覚は内耳神経（VIII）の役割です。隣接して脳幹を出る顔面神経（VII）は表情筋運動などを担います。","Hearing and balance belong to VIII. The adjacent facial nerve (VII) supplies muscles of facial expression, among other functions."],
+    "cn7-tongue-motor":["舌筋の運動は主に舌下神経（XII）です。顔面神経（VII）が舌から受けるのは前方2/3の味覚です。","Most tongue muscles are supplied by the hypoglossal nerve (XII). The facial nerve (VII) carries taste from the anterior two-thirds of the tongue."],
+  },
+  "cn8-function":{
+    "cn8-smell":["嗅覚は嗅神経（I）から嗅球へ入ります。内耳神経（VIII）は聴覚と平衡覚を伝えます。","Smell enters the olfactory bulb through nerve I. The vestibulocochlear nerve (VIII) carries hearing and balance."],
+    "cn8-face":["顔面の一般感覚の大部分は三叉神経（V）が伝えます。内耳神経（VIII）は蝸牛・前庭からの情報を伝えます。","Most general facial sensation travels in V. The vestibulocochlear nerve (VIII) carries input from the cochlea and vestibular apparatus."],
+    "cn8-visceral":["胸腹部の内臓感覚は主に迷走神経（X）を通ります。内耳神経（VIII）の感覚は聴覚と平衡覚です。","Visceral sensation from the thorax and abdomen travels mainly in X. The sensory modalities of VIII are hearing and balance."],
+  },
+  "cn9-function":{
+    "cn9-eye":["眼球の外転は外転神経（VI）が外側直筋を動かします。舌咽神経（IX）は舌後方の味覚・感覚や咽頭機能に関わります。","The abducens nerve (VI) abducts the eye through the lateral rectus. The glossopharyngeal nerve (IX) carries posterior-tongue taste and sensation and contributes to pharyngeal function."],
+    "cn9-face":["表情筋を動かすのは顔面神経（VII）です。舌咽神経（IX）は舌後方と咽頭、耳下腺への経路をたどります。","The facial nerve (VII) moves facial-expression muscles. The glossopharyngeal nerve (IX) serves the posterior tongue, pharynx and parotid secretory pathway."],
+    "cn9-smell":["嗅覚は嗅神経（I）です。舌咽神経（IX）では舌後方1/3の味覚と咽頭の感覚・運動を区別して確認します。","Smell travels in the olfactory nerve (I). For IX, identify taste from the posterior third of the tongue and its sensory and motor roles in the pharynx."],
+  },
+  "cn10-function":{
+    "cn10-vision":["視覚は視神経（II）から視交叉・視索へ進みます。迷走神経（X）は咽頭・喉頭と胸腹部臓器に関わります。","Vision travels through the optic nerve (II), chiasm and tract. The vagus nerve (X) serves the pharynx, larynx and thoracoabdominal viscera."],
+    "cn10-mastication":["咀嚼筋運動は三叉神経（V）の運動線維です。迷走神経（X）は咽頭・喉頭の運動や内臓への経路を含みます。","Motor fibres for mastication belong to V. The vagus nerve (X) includes motor supply to the pharynx and larynx and pathways to the viscera."],
+    "cn10-eye":["眼球外転は外転神経（VI）が担います。迷走神経（X）は咽頭・喉頭と広い内臓領域に関わる混合神経です。","Eye abduction depends on the abducens nerve (VI). The vagus nerve (X) is a mixed nerve serving the pharynx, larynx and a broad visceral territory."],
+  },
+  "cn11-function":{
+    "cn11-lateral-rectus":["外側直筋は外転神経（VI）が支配します。副神経（XI）では胸鎖乳突筋と僧帽筋を探します。","The abducens nerve (VI) supplies the lateral rectus. For the accessory nerve (XI), identify sternocleidomastoid and trapezius."],
+    "cn11-masseter":["咬筋は三叉神経（V）の運動枝が支配します。副神経（XI）の主な標的は胸鎖乳突筋と僧帽筋です。","The motor division of V supplies the masseter. The principal targets of XI are sternocleidomastoid and trapezius."],
+    "cn11-tongue":["舌筋の運動は主に舌下神経（XII）です。副神経（XI）は頭部の回旋や肩を上げる筋に関わります。","Most tongue muscles are supplied by the hypoglossal nerve (XII). The accessory nerve (XI) acts through muscles that rotate the head and elevate the shoulder."],
+  },
+  "cn12-function":{
+    "cn12-hearing":["聴覚と平衡覚は内耳神経（VIII）の機能です。舌下神経（XII）は舌筋の運動を担います。","Hearing and balance belong to VIII. The hypoglossal nerve (XII) moves the tongue muscles."],
+    "cn12-face":["顔面の一般感覚の大部分は三叉神経（V）が伝えます。舌下神経（XII）は舌の運動神経です。","Most general facial sensation travels in V. The hypoglossal nerve (XII) is a motor nerve for the tongue."],
+    "cn12-pupil":["縮瞳は動眼神経（III）の副交感線維が関わります。舌下神経（XII）は舌筋を動かします。","Pupillary constriction involves parasympathetic fibres in the oculomotor nerve (III). The hypoglossal nerve (XII) moves tongue muscles."],
+  },
+};
+
+// Function-to-structure questions need a direct contrast between the selected
+// structure and the defining clue in the stem. These are teaching descriptions,
+// not claims that a single structure has only one function.
+const functionClues={
+  "caudate-function-clue":["尾状核は背側線条体の一部で、運動の選択や認知の基底核ループに関わります。","The caudate belongs to the dorsal striatum and participates in basal-ganglia loops for action selection and cognition."],
+  "putamen-function-clue":["被殻は背側線条体の一部で、特に運動系の基底核ループに関わります。","The putamen belongs to the dorsal striatum and is especially involved in motor basal-ganglia loops."],
+  "pallidum-function-clue":["淡蒼球では内節が主要な出力部、外節が主に基底核内の調節に関わります。","In the globus pallidus, the internal segment is a major output region while the external segment mainly modulates basal-ganglia circuits."],
+  "accumbens-function-clue":["側坐核は腹側線条体に属し、報酬や動機づけの回路に関わります。","The nucleus accumbens belongs to the ventral striatum and participates in reward and motivation circuits."],
+  "hippocampus-function-clue":["海馬体は内側側頭葉にあり、新しい出来事の記憶形成に重要です。","The hippocampal formation lies in the medial temporal lobe and is important for forming new event memories."],
+  "amygdala-function-clue":["扁桃体は内側側頭葉の核群で、刺激の情動的な意味づけや情動記憶に関わります。","The amygdala is a medial temporal nuclear complex involved in emotional significance and emotional memory."],
+  "mammillary-function-clue":["乳頭体は脳弓から情報を受け、乳頭視床路を介して前部視床へつなぐ中継部です。","The mammillary bodies receive input through the fornix and relay it to anterior thalamus through the mammillothalamic tract."],
+  "red-nucleus-function-clue":["赤核は中脳被蓋の核で、運動調節系と関係します。","The red nucleus is in the midbrain tegmentum and participates in motor control."],
+  "substantia-nigra-function-clue":["黒質は中脳にあり、緻密部のドパミン作動性投射などで基底核回路を調節します。","The substantia nigra lies in the midbrain; dopaminergic projections from its compact part help modulate basal-ganglia circuits."],
+  "subthalamic-function-clue":["視床下核は基底核回路へ興奮性に作用し、間接路・ハイパー直接路に関わります。","The subthalamic nucleus provides excitatory input within basal-ganglia circuits and participates in indirect and hyperdirect pathways."],
+  "ventricle-function-clue":["側脳室は左右の大脳半球内をC字形に走る一対の髄液腔です。","The lateral ventricles are paired, C-shaped CSF spaces within the cerebral hemispheres."],
+  "thalamus-function-clue":["視床は多くの感覚・運動関連情報を大脳皮質へ中継・調節する核群です。","The thalamus relays and modulates much sensory and motor-related information reaching cerebral cortex."],
+  "callosum-function-clue":["脳梁は左右の大脳皮質を結ぶ主要な交連線維束です。","The corpus callosum is the major commissural bundle joining the cerebral cortices."],
+  "capsule-function-clue":["内包は大脳皮質と視床・脳幹などを結ぶ投射線維が密集する白質路です。","The internal capsule is a dense projection-fiber pathway between cortex and structures such as the thalamus and brainstem."],
+  "insula-function-clue":["島皮質は外側溝の深部にある皮質で、内臓感覚や味覚などの処理に関わります。","The insula is cortex deep in the lateral sulcus and participates in processing visceral sensation and taste, among other functions."],
+  "brainstem-function-clue":["脳幹は中脳・橋・延髄からなり、生命維持に関わる中枢や脳神経核・上下行路を含みます。","The brainstem comprises midbrain, pons and medulla and contains vital centers, cranial-nerve nuclei and ascending and descending pathways."],
+  "cerebellum-function-clue":["小脳は運動の正確さ・タイミング・平衡や運動学習を調整します。","The cerebellum adjusts movement accuracy and timing, balance and motor learning."],
+};
+
+const alternativeClues={
+  thalamus:["視床は多くの情報を大脳皮質へ中継する間脳の核群です。","The thalamus is a diencephalic nuclear complex that relays much information to cortex."],
+  amygdala:["扁桃体は情動的な意味づけに関わる内側側頭葉の核群です。","The amygdala is a medial temporal nuclear complex involved in emotional significance."],
+  cerebellum:["小脳は運動のタイミングや誤差の調整に関わります。","The cerebellum helps adjust movement timing and error."],
+  pallidum:["淡蒼球は線条体とは異なる基底核の核で、内節は主要な出力部です。","The globus pallidus is distinct from the striatum; its internal segment is a major output region."],
+  hippocampus:["海馬体は新しい出来事の記憶形成に重要です。","The hippocampal formation is important for forming new event memories."],
+  putamen:["被殻は運動系の基底核ループに関わる背側線条体です。","The putamen is dorsal striatum involved in motor basal-ganglia loops."],
+  accumbens:["側坐核は報酬・動機づけに関わる腹側線条体です。","The nucleus accumbens is ventral striatum involved in reward and motivation."],
+  redNucleus:["赤核は中脳被蓋の運動調節に関わる核です。","The red nucleus is a motor-related nucleus in the midbrain tegmentum."],
+  insula:["島皮質は外側溝の深部にある皮質で、内臓感覚や味覚などに関わります。","The insula is cortex deep in the lateral sulcus, involved in visceral sensation and taste among other functions."],
+  caudate:["尾状核は運動・認知の基底核ループに関わる背側線条体です。","The caudate is dorsal striatum involved in motor and cognitive basal-ganglia loops."],
+  corpusCallosum:["脳梁は左右の大脳皮質を結ぶ交連線維です。","The corpus callosum is a commissural fiber bundle joining the cerebral cortices."],
+  opticChiasm:["視交叉は視神経線維の一部が交叉する視覚路です。","The optic chiasm is a visual pathway where some optic-nerve fibers cross."],
+  substantiaNigra:["黒質は中脳の基底核関連核で、緻密部のドパミン作動性投射などを含みます。","The substantia nigra is a basal-ganglia-related midbrain nucleus that includes dopaminergic projections from its compact part."],
+  subthalamic:["視床下核は間脳の視床下域にあり、基底核回路へ興奮性に作用します。","The subthalamic nucleus lies in the subthalamus and provides excitatory input in basal-ganglia circuits."],
+  thirdVentricle:["第三脳室は間脳の正中にある髄液腔です。","The third ventricle is a midline CSF space within the diencephalon."],
+  fourthVentricle:["第四脳室は橋・延髄の背側と小脳の間にある髄液腔です。","The fourth ventricle is a CSF space between the dorsal pons and medulla and the cerebellum."],
+  internalCapsule:["内包は脳室ではなく、大脳深部を通る投射線維の白質路です。","The internal capsule is a deep projection-fiber pathway, not a ventricle."],
+  brainstem:["脳幹は中脳・橋・延髄からなり、脳神経核や上下行路を含みます。","The brainstem comprises midbrain, pons and medulla, with cranial-nerve nuclei and long pathways."],
+  ventricle:["側脳室は大脳半球内の髄液腔で、神経組織ではありません。","The lateral ventricle is a CSF space within a cerebral hemisphere, not neural tissue."],
 };
 
 export function quizChoiceGuidance(question,choice,english=false){
   if(!question?.id||!choice||choice===question.correctAnswer||!question.options?.includes(choice))return null;
   const note=Object.hasOwn(guidance,question.id)?guidance[question.id][choice]:null;
-  return note?.[english?1:0]??null;
+  if(note)return note[english?1:0];
+  if(question.questionKind==='function-to-structure'&&Object.hasOwn(functionClues,question.id)&&Object.hasOwn(alternativeClues,choice)){
+    const index=english?1:0;
+    return `${alternativeClues[choice][index]} ${functionClues[question.id][index]}`;
+  }
+  return null;
 }

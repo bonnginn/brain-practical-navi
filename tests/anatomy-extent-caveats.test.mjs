@@ -28,7 +28,7 @@ test('midbrain specimen and hidden oculomotor course are not presented as anatom
   const caution=notesContaining('元ラベルの欠け');
   assert.equal(caution.length,1);
   assert.match(catalog[caution[0]],/Do not learn.*as real anatomy/);
-  const nerve=notesContaining('出現位置の正解図');
+  const nerve=notesContaining('正確な出現境界も未確定');
   assert.equal(nerve.length,1);
   assert.match(catalog[nerve[0]],/do not use.*exact emergence point/);
   assert.match(page,/cn3:.*ids:\[26,27\]/);

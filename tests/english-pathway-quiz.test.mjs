@@ -21,7 +21,8 @@ test('pathway labels preserve structures and unsegmented nuclei',()=>{
   assert.equal(catalog['視床（前部核は未分節）'],'Thalamus (anterior nuclei not segmented)');
   assert.equal(catalog['海馬傍回・嗅内野'],'Parahippocampal gyrus and entorhinal cortex');
   assert.equal(catalog['淡蒼球外節・内節'],'External and internal globus pallidus (GPe and GPi)');
-  assert.match(catalog['海馬傍回・嗅内野はアトラス対応3Dのみです。画像分節や断面Canvasは表示しません。'],/No image-derived segmentation or sectional canvas/);
+  assert.match(catalog['対応する標本断面ラベルはありません。'],/no corresponding specimen-derived section label/i);
+  assert.match(catalog['この試作は既存の断面ラベル、プロジェクト内で採用した脳弓の部分ラベル、模式補助、アトラス領域を由来別に表示します。ID46は体部・脚・柱と両側海馬采を部分収録しています。交連後の下行部は乳頭体に接する概略表示です。海馬采全長と精密な終端境界は未収録で、全脳弓の完成分節ではありません。帯状回・海馬傍回・嗅内野の3Dはアトラス対応であり、同一標本の断面分節ではありません。新たな結合、投射方向、興奮／抑制は示しません。'],/not section labels from the same specimen/);
 });
 test('reviewed quiz explanations retain omitted anatomical information',()=>{
   assert.match(catalog[bank.questions.find(q=>q.id==='callosum-classification-choice').explanation],/hippocampal commissure/);

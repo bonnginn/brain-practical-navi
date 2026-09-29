@@ -1,14 +1,12 @@
 {
-  "voxels": 264456,
-  "components6": 7,
+  "voxels": 264453,
+  "components6": 5,
   "componentSizes": [
     264417,
     14,
     12,
     8,
-    2,
-    2,
-    1
+    2
   ],
   "boundsZYX": [
     [
@@ -22,18 +20,18 @@
       233
     ]
   ],
-  "vertices": 54294,
-  "faces": 108744,
-  "sha256": "8510f16d0d4c301dad9083d7e4318b5d028437f748a7c3b8c67fcd527fa9110b",
-  "bytes": 652138,
+  "vertices": 54278,
+  "faces": 108720,
+  "sha256": "d64c27b2f35242f8a992b1b8dd774ad2dd4f035b5cce855893f99b09b2cfbd1b",
+  "bytes": 652016,
   "labelIds": [
     27
   ],
-  "sourceSha256": "71eebaf135377bf8da9b121e6a7a510de8066c3ca9172cf02d32b55baa140a0a",
-  "rawSha256": "ee8ecf1db0f1d46847e40ed055b7b707945ad672e3ab09c7d544d39e506cf4cd",
-  "storedSha256": "8510f16d0d4c301dad9083d7e4318b5d028437f748a7c3b8c67fcd527fa9110b",
-  "rawBytes": 2825172,
-  "storedBytes": 652138,
+  "sourceSha256": "f2c489829d1b0d9515bcced16e42bb2daff25fa15f2d169e75ee5065ea001721",
+  "rawSha256": "62dfa372a933687ba9a55767c4f2c2ee83795199bf76bf9e946fc64bea1e3531",
+  "storedSha256": "d64c27b2f35242f8a992b1b8dd774ad2dd4f035b5cce855893f99b09b2cfbd1b",
+  "rawBytes": 2824436,
+  "storedBytes": 652016,
   "meshBoundsZYXmm": [
     [
       -88.75,
@@ -57,8 +55,8 @@
   "method": "marching cubes 0.5; no resampling, smoothing, filling or component removal",
   "scope": "Current BigBrain section labels only. Includes the project-reviewed local cerebellar folia repair; remaining boundaries are not expert-validated.",
   "labelVoxelCounts": {
-    "27": 264456
+    "27": 264453
   },
   "compression": "gzip",
-  "reviewRecord": "segmentation-patches/review/aqueduct-fourth44-adoption-2026-09-16.json"
+  "reviewRecord": "segmentation-patches/review/brainstem-exterior3-adoption-2026-09-29.json"
 }

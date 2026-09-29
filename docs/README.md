@@ -3,6 +3,9 @@
 利用方法は [トップのREADME](../README.md)、現在地・作業期限と次の作業は [短い再開メモ](RESUME_SUMMARY.md) を参照してください。
 
 - [正式版1.0へのロードマップ](V1_ROADMAP.md)
+- [9月29日〜30日の24時間開発記録](DEVELOPMENT_24H_2026-09-30.md)
+- [Papez回路の観察ガイド確認](PAPEZ_GUIDE_REVIEW_2026-09-29.md)
+- [左小脳下方の外部浮遊ラベル16点：原画像照合と可逆差分](CEREBELLAR_LEFT_LOWER16_2026-09-29.md)
 - [四択の任意参加集計・Cloudflare設定手順](QUIZ_STATISTICS.md)
 - [復習クイズの教材文言・選択肢の見直し](QUIZ_TEACHING_2026-09-27.md)
 - [1.0候補：匿名集計と復習の仕上げ](V1_CANDIDATE_2026-09-27.md)
@@ -297,6 +300,23 @@ Historical audit results describe their recorded checkpoint, not the current rel
 
 ## 最近の変更記録
 
+- [基底部の黒い領域の画像照合](BASAL_BLACK_REGION_LOCALIZATION_2026-09-29.md)
+- [脳幹外部3点の確認と局所除外](BRAINSTEM_ISLANDS3_REVIEW_2026-09-29.md)
+- [脳梁皮質側93点成分の局所除外](CALLOSUM_CORTICAL_COMPONENT93_2026-09-29.md)
+- [脳梁の小さな独立成分11点の原画像確認・保留](CALLOSUM_SMALL_ISLANDS11_2026-09-29.md)
+- [尾状核・内包の単点確認](CAUDATE_CAPSULE_SINGLETONS_REVIEW_2026-09-29.md)
+- [小脳外部10点の局所除外](CEREBELLAR_EXTERIOR10_2026-09-29.md)
+- [小脳内部の孤立16点の局所除外](CEREBELLAR_INTERSTITIAL16_2026-09-29.md)
+- [小脳下方の左右8点確認](CEREBELLAR_LOWER_SYMMETRIC8_REVIEW_2026-09-29.md)
+- [小脳中部の左右8点確認](CEREBELLAR_MID8_PAIR_REVIEW_2026-09-29.md)
+- [小脳画像の指摘位置を照合](CEREBELLAR_USER_CLIP_LOCALIZATION_2026-09-29.md)
+- [小脳白質内の孤立46点を確認](CEREBELLAR_WHITE_ISLANDS46_2026-09-29.md)
+- [旧ID33の小片285点を確認](OPTIC_ATLAS_ID33_ISLAND285_REVIEW_2026-09-29.md)
+- [整理前の再開履歴](RESUME_HISTORY_THROUGH_2026-09-29.md)
+- [左小脳の外部浮遊ラベル24点を除外](CEREBELLAR_LEFT_EXTERIOR24_2026-09-29.md)
+- [右小脳の外部浮遊ラベル40点を除外](CEREBELLAR_EXTERIOR_ISLANDS40_2026-09-29.md)
+- [側脳室の小片確認](LATERAL_ISLANDS_REVIEW_2026-09-29.md)
+- [第三脳室の小片確認](THIRD_OUTLIERS_REVIEW_2026-09-29.md)
 - [β版更新 2026-09-26](BETA_UPDATE_2026-09-26.md)
 - [CEREBELLAR_MARGINS90_2026-09-22](CEREBELLAR_MARGINS90_2026-09-22.md)
 - [EDUCATION_SITE_COMPARISON_2026-09-25](EDUCATION_SITE_COMPARISON_2026-09-25.md)

@@ -1,16 +1,12 @@
 {
-  "voxels": 1461236,
-  "components6": 51,
+  "voxels": 1461084,
+  "components6": 34,
   "componentSizes": [
     1460714,
     40,
     40,
     24,
     24,
-    24,
-    24,
-    16,
-    16,
     16,
     16,
     8,
@@ -39,19 +35,6 @@
     8,
     8,
     8,
-    8,
-    8,
-    8,
-    8,
-    8,
-    8,
-    8,
-    6,
-    2,
-    2,
-    2,
-    2,
-    2,
     2
   ],
   "boundsZYX": [
@@ -66,19 +49,19 @@
       310
     ]
   ],
-  "vertices": 160716,
-  "faces": 321564,
-  "sha256": "8502ff00bd7178a405a1cbf4cc0ae861a2eb58835a210ed0cc4a60863bb6ce48",
-  "bytes": 1953195,
+  "vertices": 160280,
+  "faces": 320752,
+  "sha256": "a33ce7aaab10b5a11cdc21a46092a14a40a37a12e2caf478809fd3aa95002bf9",
+  "bytes": 1949283,
   "labelIds": [
     28,
     29
   ],
-  "sourceSha256": "71eebaf135377bf8da9b121e6a7a510de8066c3ca9172cf02d32b55baa140a0a",
-  "rawSha256": "80842f168c3ec3eabcb584b1f980b5fba2cd4e5712a8f1b072435c064c2dcb8b",
-  "storedSha256": "8502ff00bd7178a405a1cbf4cc0ae861a2eb58835a210ed0cc4a60863bb6ce48",
-  "rawBytes": 8358828,
-  "storedBytes": 1953195,
+  "sourceSha256": "f2c489829d1b0d9515bcced16e42bb2daff25fa15f2d169e75ee5065ea001721",
+  "rawSha256": "8358bf634ff1b642f39b165353a965f14786fd23e87a2c4263c9380438d8069d",
+  "storedSha256": "a33ce7aaab10b5a11cdc21a46092a14a40a37a12e2caf478809fd3aa95002bf9",
+  "rawBytes": 8336876,
+  "storedBytes": 1949283,
   "meshBoundsZYXmm": [
     [
       -86.75,
@@ -102,9 +85,9 @@
   "method": "marching cubes 0.5; no resampling, smoothing, filling or component removal",
   "scope": "Current BigBrain section labels only. Includes the project-reviewed local cerebellar folia repair; remaining boundaries are not expert-validated.",
   "labelVoxelCounts": {
-    "28": 736175,
-    "29": 725061
+    "28": 736101,
+    "29": 724983
   },
   "compression": "gzip",
-  "reviewRecord": "segmentation-patches/review/cerebellar-margins90-adoption-2026-09-22.json"
+  "reviewRecord": "segmentation-patches/review/cerebellar-exterior10-adoption-2026-09-29.json"
 }
