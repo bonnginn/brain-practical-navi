@@ -17,6 +17,20 @@ vm.runInNewContext(compiled,{exports,require:name=>name==='./segmentationGeometr
 const {SectionSliceStepper,BIGBRAIN_SECTION_DIMS:dims}=exports;
 const {planeAxisSize,planeSliceIndex,planePositionForSlice,stepPlanePosition,formatSectionPosition}=geometry;
 
+test('3D cut plane uses the displayed BigBrain slice and follows the labeled slider direction',()=>{
+  const origins={coronal:-116,horizontal:-90,sagittal:-98};
+  for(const plane of ['coronal','horizontal','sagittal']){
+    const last=planeAxisSize(dims,plane)-1;
+    for(const index of [0,Math.floor(last/2),last]){
+      const position=planePositionForSlice(index,plane,dims);
+      assert.equal(geometry.bigBrainSectionWorldCoordinate(position,plane),origins[plane]+index*.5);
+    }
+  }
+  assert.ok(geometry.bigBrainSectionWorldCoordinate(0,'coronal')<geometry.bigBrainSectionWorldCoordinate(100,'coronal')); // posterior to anterior
+  assert.ok(geometry.bigBrainSectionWorldCoordinate(0,'horizontal')>geometry.bigBrainSectionWorldCoordinate(100,'horizontal')); // superior to inferior
+  assert.ok(geometry.bigBrainSectionWorldCoordinate(0,'sagittal')<geometry.bigBrainSectionWorldCoordinate(100,'sagittal')); // left to right
+});
+
 test('stepper geometry is pinned to the actual BigBrain header, not MRI or an assumed cube',()=>{
   const raw=gunzipSync(fs.readFileSync(new URL('public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz',root)));
   assert.equal(raw.subarray(0,4).toString(),'BBS1');

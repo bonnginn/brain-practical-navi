@@ -7,7 +7,7 @@ import { decodeCompactSurface } from "./brodmannMesh";
 import { SEGMENTATION_LABEL_REVISION } from "./segmentationLabelRevision";
 import { atlasMeshRevisionQuery } from "../src/atlasMeshRevision.mjs";
 import { createDownloadProgressTracker, formatDownloadBytes } from "../src/downloadProgress.mjs";
-import { formatSectionPosition, segmentationPlaneNames } from "./segmentationGeometry";
+import { bigBrainSectionWorldCoordinate, formatSectionPosition, segmentationPlaneNames } from "./segmentationGeometry";
 import { withoutHiddenCranialNerveRegions } from "../src/neurovascularDisplayPolicy";
 import teachingSpecimens from "./teachingSpecimens.json";
 
@@ -711,7 +711,7 @@ function drawSlice(c:CanvasRenderingContext2D,w:number,h:number,v:Volume|null,bb
 function shader(gl:WebGLRenderingContext,type:number,source:string){const s=gl.createShader(type)!;gl.shaderSource(s,source);gl.compileShader(s);return s}
 function cutCoordinate(plane:Plane,position:number,contrast:"t1"|"t2"|"bigbrain"|"single"){
   const p=position/100;
-  if(contrast==="bigbrain")return plane==="sagittal"?-98+196.5*p:plane==="horizontal"?98.5-188.5*p:-116+232.5*p;
+  if(contrast==="bigbrain")return bigBrainSectionWorldCoordinate(position,plane);
   if(contrast==="single")return plane==="sagittal"?-70.7+139.6*p:plane==="horizontal"?67-125.8*p:-71.6+160.5*p;
   return plane==="sagittal"?-96+192*p:plane==="horizontal"?96-192*p:-114+228*p;
 }

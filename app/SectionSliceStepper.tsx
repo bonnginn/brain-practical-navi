@@ -1,7 +1,7 @@
-import { planeAxisSize, planeSliceIndex, segmentationPlaneNames, type SegmentationPlane } from "./segmentationGeometry";
+import { BIGBRAIN_SECTION_DIMS, planeAxisSize, planeSliceIndex, segmentationPlaneNames, type SegmentationPlane } from "./segmentationGeometry";
 
-// Verified against the BBS1 header in the regression test; not used for other sources.
-export const BIGBRAIN_SECTION_DIMS:[number,number,number]=[394,466,378];
+// Keep the existing import path for the quiz and section controls.
+export { BIGBRAIN_SECTION_DIMS };
 const directions={coronal:["後方","前方","posterior","anterior"],horizontal:["上方","下方","superior","inferior"],sagittal:["左","右","left","right"]} as const;
 
 export function SectionSliceStepper({position,plane,english,onStep}:{position:number;plane:SegmentationPlane;english:boolean;onStep:(direction:-1|1)=>void}){

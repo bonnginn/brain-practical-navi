@@ -143,10 +143,10 @@ const quizConceptData=quizConceptBank as unknown as QuizConceptBank;
 type QuizFormatFilter = "all"|QuizFormat;
 type QuizDetailFilter = "all"|QuizDetail;
 
-const planeData: Record<Plane, { ja: string; en: string; axis: string; from: string; to: string }> = {
-  coronal: { ja: "冠状断", en: "CORONAL", axis: "前後位置", from: "後方", to: "前方" },
-  horizontal: { ja: "水平断", en: "HORIZONTAL", axis: "上下位置", from: "上方", to: "下方" },
-  sagittal: { ja: "矢状断", en: "SAGITTAL", axis: "左右位置", from: "左外側", to: "右外側" },
+const planeData: Record<Plane, { ja: string; en: string; axis: string; from: string; to: string; fromEn: string; toEn: string; fromCompass: string; toCompass: string }> = {
+  coronal: { ja: "冠状断", en: "CORONAL", axis: "前後位置", from: "後方", to: "前方", fromEn: "Posterior", toEn: "Anterior", fromCompass: "P", toCompass: "A" },
+  horizontal: { ja: "水平断", en: "HORIZONTAL", axis: "上下位置", from: "上方", to: "下方", fromEn: "Superior", toEn: "Inferior", fromCompass: "S", toCompass: "I" },
+  sagittal: { ja: "矢状断", en: "SAGITTAL", axis: "左右位置", from: "左外側", to: "右外側", fromEn: "Left", toEn: "Right", fromCompass: "L", toCompass: "R" },
 };
 
 const workspaceModes:{key:WorkspaceMode;label:string;englishLabel:string;shortJa:string;shortEn:string;sub:string}[]=[
@@ -1922,9 +1922,9 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
           </aside>}
         </div>
         <section className="timeline sliceTimeline">
-          <div className="timelineHead"><button className={`playButton ${playing ? "active" : ""}`} onClick={() => {if(!playing&&position>=100)setPosition(0);setPlaying(!playing)}} aria-pressed={playing} aria-label={playing ? "連続断面を停止" : "連続断面を再生"}>{playing ? "Ⅱ" : "▶"}</button><div><span>{planeData[plane].from}</span><b>{planeData[plane].axis}</b><span>{planeData[plane].to}</span></div><output>{positionLabel}</output></div>
+          <div className="timelineHead"><button className={`playButton ${playing ? "active" : ""}`} onClick={() => {if(!playing&&position>=100)setPosition(0);setPlaying(!playing)}} aria-pressed={playing} aria-label={playing ? "連続断面を停止" : "連続断面を再生"}>{playing ? "Ⅱ" : "▶"}</button><div><b data-no-localize>{englishEdition?`${planeData[plane].en.toLowerCase()} position`:planeData[plane].axis}</b></div><output>{positionLabel}</output></div>
           <div className="sectionPlaybackOptions" data-no-localize><label>{englishEdition?"Playback speed":"再生速度"}<select aria-label={englishEdition?"Playback speed":"再生速度"} value={sectionPlaybackDelay} onChange={event=>setSectionPlaybackDelay(Number(event.target.value))}><option value={500}>{englishEdition?"Slow":"ゆっくり"}</option><option value={200}>{englishEdition?"Normal":"通常"}</option><option value={100}>{englishEdition?"Fast":"速い"}</option></select></label><small>{englishEdition?"Stops at the last slice":"最後の断面で停止"}</small></div>
-          <div className="rangeWrap"><input aria-label={`${planeData[plane].ja}の${planeData[plane].axis}`} aria-valuetext={contrast==="bigbrain"?`${segmentationPlaneNames[plane].axis} ${planeSliceIndex(position,plane,BIGBRAIN_SECTION_DIMS)}`:positionLabel} type="range" min="0" max="100" step={contrast==="bigbrain"?"any":1} value={position} onChange={e => {setPlaying(false);setPosition(Number(e.target.value))}} onKeyDown={e => {if(["ArrowLeft","ArrowRight","ArrowUp","ArrowDown"].includes(e.key)){setPlaying(false);if(contrast==="bigbrain"){e.preventDefault();stepSection(e.key==="ArrowLeft"||e.key==="ArrowDown"?-1:1)}}}}/></div>
+          <div className="rangeWrap sectionPositionRange" data-no-localize><span className="sectionRangeEnd">{englishEdition?planeData[plane].fromEn:planeData[plane].from}<small>{planeData[plane].fromCompass}</small></span><input aria-label={englishEdition?`${planeData[plane].en.toLowerCase()} position`:`${planeData[plane].ja}の${planeData[plane].axis}`} aria-valuetext={contrast==="bigbrain"?`${segmentationPlaneNames[plane].axis} ${planeSliceIndex(position,plane,BIGBRAIN_SECTION_DIMS)}`:positionLabel} type="range" min="0" max="100" step={contrast==="bigbrain"?"any":1} value={position} onChange={e => {setPlaying(false);setPosition(Number(e.target.value))}} onKeyDown={e => {if(["ArrowLeft","ArrowRight","ArrowUp","ArrowDown"].includes(e.key)){setPlaying(false);if(contrast==="bigbrain"){e.preventDefault();stepSection(e.key==="ArrowLeft"||e.key==="ArrowDown"?-1:1)}}}}/><span className="sectionRangeEnd">{englishEdition?planeData[plane].toEn:planeData[plane].to}<small>{planeData[plane].toCompass}</small></span></div>
           {contrast==="bigbrain"&&<SectionSliceStepper position={position} plane={plane} english={englishEdition} onStep={stepSection}/>}
         </section>
         <div className="selectedStructureBar">

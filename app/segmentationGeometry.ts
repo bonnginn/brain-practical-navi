@@ -1,5 +1,8 @@
 export type SegmentationPlane="horizontal"|"coronal"|"sagittal";
 
+// Same 0.5 mm XYZ grid as the BBS1/BBV1 header and the section renderer.
+export const BIGBRAIN_SECTION_DIMS:[number,number,number]=[394,466,378];
+
 export const segmentationPlaneNames:Record<SegmentationPlane,{label:string;axis:"X"|"Y"|"Z";rangeStart:string;rangeEnd:string;increment:string;decrement:string;top:string;bottom:string;left:string;right:string}>={
   horizontal:{label:"水平断",axis:"Z",rangeStart:"上方",rangeEnd:"下方",increment:"上方",decrement:"下方",top:"A",bottom:"P",left:"L",right:"R"},
   coronal:{label:"冠状断",axis:"Y",rangeStart:"後方",rangeEnd:"前方",increment:"前方",decrement:"後方",top:"S",bottom:"I",left:"L",right:"R"},
@@ -20,6 +23,12 @@ export function planeSliceIndex(position:number,plane:SegmentationPlane,dims:[nu
 export function planePositionForSlice(index:number,plane:SegmentationPlane,dims:[number,number,number]){
   const size=planeAxisSize(dims,plane),bounded=Math.max(0,Math.min(size-1,index));
   return (plane==="horizontal"?1-bounded/(size-1):bounded/(size-1))*100;
+}
+/** World coordinate of the exact displayed BigBrain slice, shared with the 3D cut plane. */
+export function bigBrainSectionWorldCoordinate(position:number,plane:SegmentationPlane){
+  const index=planeSliceIndex(position,plane,BIGBRAIN_SECTION_DIMS);
+  const origin=plane==="sagittal"?-98:plane==="coronal"?-116:-90;
+  return origin+index*.5;
 }
 
 /** A navigation hint from already adopted labels, never an anatomical boundary decision. */
