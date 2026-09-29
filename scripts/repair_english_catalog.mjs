@@ -667,7 +667,7 @@ const exact={
   "左右の視床と第三脳室":"Paired thalami and the third ventricle",
   "延髄オリーブ後溝の上部から現れる。":"Emerges from the upper part of the postolivary sulcus of the medulla.",
   "構造グループの一括表示":"Show all structures in a group",
-  "正中矢状断で側脳室の上方を弓状に走る交連線維はどれですか？":"Which commissural fibre bundle arches above the lateral ventricle in a midsagittal section?",
+  "正中近くの矢状断で側脳室の上方を弓状に走る交連線維はどれですか？":"Which commissural fibre bundle arches above the lateral ventricle in a section near the midline?",
   "海馬体から脳弓を介して入力を受け、乳頭視床路を通じて前部視床へ伝えるPapez回路の中継部です。":"A Papez-circuit relay receiving hippocampal input through the fornix and projecting toward the anterior thalamus through the mammillothalamic tract.",
   "海馬頭の前上方、側脳室下角の前方":"Anterosuperior to the hippocampal head and anterior to the inferior horn of the lateral ventricle",
   "海馬頭の前上方にある核群はどれですか？":"Which group of nuclei lies anterosuperior to the head of the hippocampus?",

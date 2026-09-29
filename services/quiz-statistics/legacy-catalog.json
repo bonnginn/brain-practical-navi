@@ -449,5 +449,82 @@
       "pallidum",
       "insula"
     ]
+  },
+  {
+    "question": "identify-putamen",
+    "revision": "9e8d4ee635d58ef3ce53b65454ca7b00420d85c3445a3d4f42910c2a1c19a3a6",
+    "prompt": "淡蒼球の外側にあるレンズ核の構成要素はどれですか？",
+    "options": [
+      "putamen",
+      "pallidum",
+      "caudate",
+      "amygdala"
+    ]
+  },
+  {
+    "question": "identify-amygdala",
+    "revision": "86526fe77c1887a144f411efb84fdb31079a4eb3a4f37d424e3931180be68894",
+    "prompt": "海馬頭の前上方にある核群はどれですか？",
+    "options": [
+      "amygdala",
+      "hippocampus",
+      "putamen",
+      "thalamus"
+    ]
+  },
+  {
+    "question": "identify-corpusCallosum",
+    "revision": "c553664c4ecb59d5617b024361415e9e3fa1819058c413adbbfec565daad6b69",
+    "prompt": "正中矢状断で側脳室の上方を弓状に走る交連線維はどれですか？",
+    "options": [
+      "corpusCallosum",
+      "internalCapsule",
+      "thalamus",
+      "caudate"
+    ]
+  },
+  {
+    "question": "putamen-function-clue",
+    "revision": "8dd04c053b43222b424104727ff96562f1238859f78f072debe486b62f7bf88d",
+    "prompt": "随意運動の調節や運動学習に関わる線条体のうち、色で示されている構造はどれですか？",
+    "options": [
+      "putamen",
+      "pallidum",
+      "thalamus",
+      "hippocampus"
+    ]
+  },
+  {
+    "question": "putamen-relation-choice",
+    "revision": "3e5e4ca949567fecea371e9b94a80760e8d45b3e0cf1c4ec9b0e64b20735241d",
+    "prompt": "色で示された被殻とともにレンズ核を構成する構造はどれですか？",
+    "options": [
+      "putamen-with-pallidum",
+      "putamen-with-caudate",
+      "putamen-with-thalamus",
+      "putamen-with-amygdala"
+    ]
+  },
+  {
+    "question": "amygdala-function-clue",
+    "revision": "7815316c198194706b047773ec6efb1fca8cd52eaec04b4b9fcbf76c58600c41",
+    "prompt": "恐怖など情動的な意味づけや情動記憶に関わる、色で示された構造はどれですか？",
+    "options": [
+      "amygdala",
+      "hippocampus",
+      "caudate",
+      "corpusCallosum"
+    ]
+  },
+  {
+    "question": "amygdala-relation-choice",
+    "revision": "9017e98e1c548dc1826f48f6e40267941f742d5c18a1ef1e704d525597c89725",
+    "prompt": "色で示された扁桃体と海馬頭の位置関係として適切なのはどれですか？",
+    "options": [
+      "amygdala-anterosuperior",
+      "amygdala-posterior",
+      "amygdala-ventricle",
+      "amygdala-midline"
+    ]
   }
 ]

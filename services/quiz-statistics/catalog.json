@@ -12,7 +12,7 @@
   },
   {
     "question": "identify-putamen",
-    "revision": "9e8d4ee635d58ef3ce53b65454ca7b00420d85c3445a3d4f42910c2a1c19a3a6",
+    "revision": "c0fc3db830a60f789ea5dc11fa096c872ab82b1c1bad49d0a74bd33889759bff",
     "prompt": "淡蒼球の外側にあるレンズ核の構成要素はどれですか？",
     "options": [
       "putamen",
@@ -56,7 +56,7 @@
   },
   {
     "question": "identify-amygdala",
-    "revision": "86526fe77c1887a144f411efb84fdb31079a4eb3a4f37d424e3931180be68894",
+    "revision": "1cb328478e7b604f2e23be33d6936c25f26e97cdbe4bacab638f48bab46e9318",
     "prompt": "海馬頭の前上方にある核群はどれですか？",
     "options": [
       "amygdala",
@@ -133,8 +133,8 @@
   },
   {
     "question": "identify-corpusCallosum",
-    "revision": "c553664c4ecb59d5617b024361415e9e3fa1819058c413adbbfec565daad6b69",
-    "prompt": "正中矢状断で側脳室の上方を弓状に走る交連線維はどれですか？",
+    "revision": "9f8c5adfeb2ca4bca22bf662c2e6a040abb65a53cf42f6e94c4a96e1a8c003b7",
+    "prompt": "正中近くの矢状断で側脳室の上方を弓状に走る交連線維はどれですか？",
     "options": [
       "corpusCallosum",
       "internalCapsule",
@@ -474,7 +474,7 @@
   },
   {
     "question": "putamen-function-clue",
-    "revision": "8dd04c053b43222b424104727ff96562f1238859f78f072debe486b62f7bf88d",
+    "revision": "1996794d8fb0027a7e286482368c4086cec1310ab5f3c965000d9e6574e47b65",
     "prompt": "随意運動の調節や運動学習に関わる線条体のうち、色で示されている構造はどれですか？",
     "options": [
       "putamen",
@@ -485,7 +485,7 @@
   },
   {
     "question": "putamen-relation-choice",
-    "revision": "3e5e4ca949567fecea371e9b94a80760e8d45b3e0cf1c4ec9b0e64b20735241d",
+    "revision": "f554e8bc3f3254675ec3fb4014fc3b302eaed909cb55462c7cd9851baead7ed1",
     "prompt": "色で示された被殻とともにレンズ核を構成する構造はどれですか？",
     "options": [
       "putamen-with-pallidum",
@@ -562,7 +562,7 @@
   },
   {
     "question": "amygdala-function-clue",
-    "revision": "7815316c198194706b047773ec6efb1fca8cd52eaec04b4b9fcbf76c58600c41",
+    "revision": "43bceacabfe8d7de824488682588e7af710081c311afb8933557262ada7ceff9",
     "prompt": "恐怖など情動的な意味づけや情動記憶に関わる、色で示された構造はどれですか？",
     "options": [
       "amygdala",
@@ -573,7 +573,7 @@
   },
   {
     "question": "amygdala-relation-choice",
-    "revision": "9017e98e1c548dc1826f48f6e40267941f742d5c18a1ef1e704d525597c89725",
+    "revision": "417f90f0735299ba071f6f5ef8233f22e0ee8d47d13c980a85c54eab587add86",
     "prompt": "色で示された扁桃体と海馬頭の位置関係として適切なのはどれですか？",
     "options": [
       "amygdala-anterosuperior",
@@ -716,7 +716,7 @@
   },
   {
     "question": "callosum-function-clue",
-    "revision": "64106aa20bdc03c740d57ad0c974a604bbf09e0509167454866b3dfbe61105d1",
+    "revision": "fd198822a85b134b0a225e0c3bbef8387265a1f3ad0a94e3cdbc5f0335c4333a",
     "prompt": "左右の大脳半球を結ぶ最大の交連線維束として色で示されている構造はどれですか？",
     "options": [
       "corpusCallosum",
@@ -727,7 +727,7 @@
   },
   {
     "question": "callosum-classification-choice",
-    "revision": "c741fcd14b7aa522c059a5242e0ac068ef387bec6c97ac6453fa550b41fef3fb",
+    "revision": "a949432bbd66fdfddb96819959ce41226364d0996fc4528074cd82b1c43fbde2",
     "prompt": "色で示された脳梁と脳弓の線維分類として正しい整理はどれですか？",
     "options": [
       "callosum-fornix",

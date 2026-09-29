@@ -619,18 +619,18 @@ bigBrainNameById.set(38,"右視索（部分）");
 
 const quizQuestions:QuizQuestion[]=[
   {target:"caudate",category:"basal",plane:"coronal",position:65,prompt:"側脳室前角の外側に沿う核はどれですか？",options:["caudate","putamen","pallidum","thalamus"]},
-  {target:"putamen",category:"basal",plane:"coronal",position:61,prompt:"淡蒼球の外側にあるレンズ核の構成要素はどれですか？",options:["putamen","pallidum","caudate","amygdala"]},
+  {target:"putamen",category:"basal",plane:"coronal",position:59,prompt:"淡蒼球の外側にあるレンズ核の構成要素はどれですか？",options:["putamen","pallidum","caudate","amygdala"]},
   {target:"pallidum",category:"basal",plane:"coronal",position:57,prompt:"被殻の内側、内包の外側に位置する構造はどれですか？",options:["pallidum","putamen","thalamus","internalCapsule"]},
   {target:"accumbens",category:"basal",plane:"coronal",position:62,prompt:"尾状核頭と被殻が腹側で連続する領域はどれですか？",options:["accumbens","caudate","pallidum","septumPellucidumPartial"]},
   {target:"hippocampus",category:"limbic",plane:"coronal",position:51,prompt:"側脳室下角の床に沿う構造はどれですか？",options:["hippocampus","amygdala","accumbens","insula"]},
-  {target:"amygdala",category:"limbic",plane:"coronal",position:56,prompt:"海馬頭の前上方にある核群はどれですか？",options:["amygdala","hippocampus","putamen","thalamus"]},
+  {target:"amygdala",category:"limbic",plane:"coronal",position:54,prompt:"海馬頭の前上方にある核群はどれですか？",options:["amygdala","hippocampus","putamen","thalamus"]},
   {target:"mammillaryBody",category:"limbic",plane:"horizontal",position:69,prompt:"漏斗の後方、脚間窩の前方に左右一対で見える小隆起はどれですか？",options:["mammillaryBody","redNucleus","thalamus","opticChiasmPartial"]},
   {target:"redNucleus",category:"midbrain",plane:"horizontal",position:67,prompt:"中脳水道の腹外側、黒質の背内側に見える核はどれですか？",options:["redNucleus","substantiaNigra","subthalamic","thalamus"]},
   {target:"substantiaNigra",category:"midbrain",plane:"horizontal",position:69,prompt:"大脳脚の背側に沿う帯状の核はどれですか？",options:["substantiaNigra","redNucleus","pallidum","putamen"]},
   {target:"subthalamic",category:"midbrain",plane:"horizontal",position:66,prompt:"間脳の視床下域にあり、視床の腹側・黒質の背側にある小さな核はどれですか？",options:["subthalamic","redNucleus","substantiaNigra","thalamus"]},
   {target:"ventricle",category:"ventricles",plane:"horizontal",position:51,prompt:"左右大脳半球の内部でC字形に連続する髄液腔はどれですか？",options:["ventricle","thirdVentricle","fourthVentricle","corpusCallosum"]},
   {target:"thalamus",category:"connections",plane:"coronal",position:49,prompt:"第三脳室の両側を占める大きな灰白質はどれですか？",options:["thalamus","caudate","hippocampus","subthalamic"]},
-  {target:"corpusCallosum",category:"connections",plane:"sagittal",position:50,prompt:"正中矢状断で側脳室の上方を弓状に走る交連線維はどれですか？",options:["corpusCallosum","internalCapsule","thalamus","caudate"]},
+  {target:"corpusCallosum",category:"connections",plane:"sagittal",position:49,prompt:"正中近くの矢状断で側脳室の上方を弓状に走る交連線維はどれですか？",options:["corpusCallosum","internalCapsule","thalamus","caudate"]},
   {target:"internalCapsule",category:"connections",plane:"coronal",position:56,prompt:"尾状核・視床とレンズ核の間を通る白質路はどれですか？",options:["internalCapsule","corpusCallosum","pallidum","insula"]},
   {target:"insula",category:"connections",plane:"coronal",position:64,prompt:"外側溝の深部で、被殻・外包より外側にある皮質はどれですか？",options:["insula","putamen","internalCapsule","pallidum"]},
   {target:"brainstem",category:"hindbrain",plane:"horizontal",position:83,prompt:"第四脳室の腹側で中脳・橋・延髄へ連続する構造はどれですか？",options:["brainstem","cerebellum","thalamus","fourthVentricle"]},
@@ -783,7 +783,7 @@ const findStructureTasks:FindTask[]=allQuizQuestions.filter(question=>!isConcept
     highlight:neuro?{ids:record.ids,color:[255,255,255]}:surface?{ids:record.ids,color:surfaceRegions[question.target].rgb}:{ids:structures[question.target].bigbrainIds??[],color:structures[question.target].rgb,mode:"quiz"},
     hint:teaching.relation??teaching.note,explanation:teaching.note};
 });
-const QUIZ_VISIBILITY_INVENTORY_SHA256="42e2f25901eab9234d3404db02aa73f2508c0bb435db2e4e0ff09969986d4712";
+const QUIZ_VISIBILITY_INVENTORY_SHA256="972c82bde806e593cd192a1994b18c01fe8577fd467002b705a258ca6a797ec6";
 
 const anatomyReviewSurfaceLabels:Record<AnatomyReviewSurface,string>={all:"すべての表示面",surface:"脳表",sections:"断面",blocks:"ブロック標本",quiz:"復習"};
 const anatomyReviewRepresentationLabels:Record<string,string>={
