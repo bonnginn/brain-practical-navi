@@ -106,6 +106,7 @@ def plan():
     generated=STAGE/"block-reproduction"
     generated.mkdir(exist_ok=True)
     block_changes=[]
+    block_mesh_changes=[]
     for specimen,parts in old_defs.items():
         for old in parts:
             new=next(part for part in new_defs[specimen] if part.key==old.key)
@@ -125,6 +126,8 @@ def plan():
                          repairReview="AI image-reviewed broad cingulate/cingulum overlabel exclusion; project-adopted, not expert reviewed.")
             add(ATLAS/entry["file"],new_stored)
             block_changes.append(dict(specimen=specimen,part=old.key,changed=count))
+            block_mesh_changes.append(dict(file=entry["file"],beforeSha256=sha(old_stored),
+                                           afterSha256=sha(new_stored),changedMaskVoxels=count))
     expected=[dict(specimen=e["specimen"],part=e["part"],changed=e["changed"]) for e in impact["blockMaskChanges"]]
     if sorted(block_changes,key=str)!=sorted(expected,key=str):
         raise ValueError("Block impact differs from audit")
@@ -185,7 +188,9 @@ def plan():
     measurements["labelCounts"]["30"]=proposal["callosumAfter"]
     proposal.update(projectAdopted=True,published=False,status="AI-image-reviewed-project-adopted-development-only",
                     sectionMeshImpact={"before":old_info,"after":new_info},
-                    blockMaskImpact=expected,teachingMeshChanges=teaching_changes)
+                    blockMaskImpact=expected,blockMeshImpact=block_mesh_changes,
+                    beforeRawVoxelSha256=old_raw_sha,afterRawVoxelSha256=proposal["rawVoxelSha256"],
+                    teachingMeshChanges=teaching_changes)
     record_bytes=encode(proposal)
     validation["regionalBatchAudits"]["callosal-cingulate-broad"]={
         "record":RECORD.relative_to(ROOT).as_posix(),"recordSha256":sha(record_bytes),

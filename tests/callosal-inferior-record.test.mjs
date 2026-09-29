@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {gunzipSync} from 'node:zlib';
+import {currentSegmentation} from './helpers/current-segmentation.mjs';
 const root=new URL('../',import.meta.url),sha=b=>createHash('sha256').update(b).digest('hex');
 
 test('inferior repair changes only its exact reviewed 2160 voxels without identifying a complete fornix',async()=>{
@@ -24,7 +25,7 @@ test('inferior repair changes only its exact reviewed 2160 voxels without identi
  assert.equal(sha(installed),'098edfbf365016c6c53ccf7b7032258db72a4912378c457d348c01613a4a1694');
  assert.deepEqual(gunzipSync(installed).subarray(10),after);
  const metadata=JSON.parse(await readFile(new URL('public/atlas/bigbrain-practical-segmentation-icbm500-validation.json',root),'utf8'));
- assert.equal(metadata.labelCounts['30'],145429);assert.equal(metadata.callosalInferiorPatchAudit.editCount,2160);
+ assert.equal(metadata.labelCounts['30'],currentSegmentation.counts[30]);assert.equal(metadata.callosalInferiorPatchAudit.editCount,2160);
  assert.equal(metadata.callosalInferiorPatchAudit.expertReviewed,false);
  assert.equal(metadata.callosalInferiorPatchAudit.completeCallosum,false);
  assert.equal(metadata.callosalInferiorPatchAudit.completeFornix,false);

@@ -152,5 +152,21 @@
   "teachingMeshChanges": [
     "corpus-callosum",
     "tissue"
-  ]
+  ],
+  "blockMeshImpact": [
+    {
+      "file": "block-commissural-system-corpus-callosum.mesh",
+      "beforeSha256": "f77ab1166a4e2e9bcb021b5e693c95c34f01ab0e877e23163a4b553bc15b05cf",
+      "afterSha256": "047d3751e8b021a32cba7872249d1aee1717070ea97db672792925c0cb166915",
+      "changedMaskVoxels": 6004
+    },
+    {
+      "file": "block-commissural-system-tissue.mesh",
+      "beforeSha256": "67fad4f06674f5e285e16bdd7cf5c1801af54c0c113b92507a16d2340a5333b9",
+      "afterSha256": "22034de216d4a632c89af4021716b54442e023a5741075696f546c7d996f9c21",
+      "changedMaskVoxels": 2356
+    }
+  ],
+  "afterRawVoxelSha256": "7cb462c16be2857d47edb40642cd11083752c6dc1532b9d91e980b02650487b8",
+  "beforeRawVoxelSha256": "a0fe72f4a377c8dc290a07c787712517aba4a861eba0eb323ad980579e9c636b"
 }

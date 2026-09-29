@@ -57,7 +57,7 @@ test('lateral roof8 preserves other labels and synchronizes successor metadata a
   const latest = await withRegionalBatches(record, { afterRevision: record.afterSha256 });
   assert.equal(latest.afterSha256, currentSegmentation.sha256);
   assert.equal(latest.afterRawVoxelSha256, currentSegmentation.rawVoxelSha256);
-  assert.deepEqual(metadata.labelCounts, { ...metadata.labelCounts, '23': 81670, '24': 82250, '30': 145429 });
+  assert.deepEqual(metadata.labelCounts, { ...metadata.labelCounts, '23': 81670, '24': 82250, '30': currentSegmentation.counts[30] });
   assert.equal(metadata.rawVoxelSha256, latest.afterRawVoxelSha256);
   assert.equal(sections.sourceSha256, latest.afterSha256);
   assert.equal(sections.meshes['section-current-lateral-ventricles'].voxels, 163920);

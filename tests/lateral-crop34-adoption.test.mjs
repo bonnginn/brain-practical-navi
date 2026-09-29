@@ -35,6 +35,27 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
  for(const [name,audit] of Object.entries(meta.regionalBatchAudits)){
   const bytes=await read(audit.record),r=JSON.parse(bytes);
   assert.equal(sha(bytes),audit.recordSha256);
+  if(name==='callosal-cingulate-broad'){
+   // This broad correction stores one reversible sorted index set, not 48,395 JSON points.
+   assert.ok(current);assert.equal(sha(current.subarray(10)),r.beforeRawVoxelSha256);
+   const indexBytes=gunzipSync(await read('segmentation-patches/review/callosal-cingulate-broad-2026-09-30.indices.bin.gz'));
+   assert.equal(sha(indexBytes),r.indexSha256);assert.equal(indexBytes.length,r.count*4);
+   const after=Buffer.from(current);let previous=-1;
+   for(let i=0;i<r.count;i++){
+    const index=indexBytes.readUInt32LE(i*4);
+    assert.ok(index>previous);previous=index;
+    assert.equal(after[index+10],30);after[index+10]=0;
+   }
+   assert.equal(sha(after.subarray(10)),r.afterRawVoxelSha256);
+   assert.equal(r.callosumBefore-r.callosumAfter,r.count);
+   assert.equal(r.projectAdopted,true);assert.equal(r.expertReviewed,false);
+   const manifest=JSON.parse(await read('public/atlas/specimen-blocks.json'));
+   for(const part of r.blockMeshImpact){
+    assert.equal(sha(await read('public/atlas/'+part.file)),part.afterSha256);
+    assert.equal(manifest.specimens['commissural-system'].find(p=>p.file===part.file).meshSha256,part.afterSha256);
+   }
+   current=after;continue;
+  }
   const compactCerebellar=['cerebellar-exterior-islands40','cerebellar-left-exterior24','cerebellar-left-lower16','cerebellar-white-islands46','cerebellar-interstitial16','cerebellar-exterior10'].includes(name);
   const compactBrainstem=name==='brainstem-exterior3';
   const compactCallosal=name==='callosal-cortical-component93';

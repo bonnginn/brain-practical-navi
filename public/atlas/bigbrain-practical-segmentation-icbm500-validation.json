@@ -1772,7 +1772,7 @@
     },
     "callosal-cingulate-broad": {
       "record": "segmentation-patches/review/callosal-cingulate-broad-adoption-2026-09-30.json",
-      "recordSha256": "dfb59de7ef37426cd19739a708a9b4583ad52936f060c4a4ed3245d5ae5f53eb",
+      "recordSha256": "5600accb756e4f70d445b12675d3b63e3259320db5b40c053227fda0173c6721",
       "changedVoxelCount": 48395,
       "projectAdopted": true,
       "expertReviewed": false
