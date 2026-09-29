@@ -60,7 +60,7 @@ function FindTaskView({task,english,onNext}:{task:FindTask;english:boolean;onNex
     <aside className="quizQuestionCard findTaskGuide">
       <div className="findTaskGuideBody">
       <h2>{english?`Find ${task.englishName}`:`${task.name}を探してください`}</h2>
-      {stage==='search'&&<><p className="findInstruction" data-no-localize>{english?<>First, locate the structure yourself. Tap or click your predicted location to leave a marker, then press <strong>“Reveal colour to check”</strong>.</>:<>まず、自分で構造を探します。予想した場所をタップ・クリックすると印を付けられます。その後、<strong>「着色して答え合わせ」</strong>を押してください。</>}</p><p className="findClickNote" data-no-localize>{english?'The marker is optional and not scored. Dragging rotates or moves the image.':'印は任意で、採点はしません。ドラッグでは画像を回す・動かすことができます。'}</p></>}
+      {stage==='search'&&<><p className="findInstruction" data-no-localize>{english?<>First, locate the structure yourself. Tap or click your predicted location to leave a marker, then press <strong>“Reveal colour to check”</strong>.</>:<>まず、自分で構造を探します。予想した場所をタップ・クリックすると印を付けられます。その後、<strong>「着色して答え合わせ」</strong>を押してください。</>}</p><p className="findClickNote" data-no-localize>{english?(model?'The marker is optional and not scored. Drag to rotate the 3D model.':'The marker is optional and not scored. Drag to move the section image.'):(model?'印は任意で、採点はしません。ドラッグで3Dモデルを回転できます。':'印は任意で、採点はしません。ドラッグで断面画像を移動できます。')}</p></>}
       {guess&&<p className="findGuessStatus" role="status">{english?'Your predicted location is marked in amber.':'予想した位置に琥珀色の印を付けました。'}</p>}
       {!revealed&&<div className="findActions">
         {stage==='search'&&<button onClick={()=>setStage('hint')}>{english?'Need a hint?':'迷ったらヒント'}</button>}
