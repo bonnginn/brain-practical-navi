@@ -7,9 +7,9 @@ import {CircuitRecall} from "./CircuitRecall";
 import {circuitStageDuration} from "../src/circuitTravel.mjs";
 
 export type CircuitPosition={pathIndex:number;nodeIndex:number};
-type Props={circuitKey:string;english:boolean;suspended?:boolean;initialPosition?:CircuitPosition;onPositionChange?:(position:CircuitPosition)=>void;onObserve?:(index:number,nodeKey:string)=>void;onPreview?:(index:number,nodeKey:string)=>void;onPulseChange?:(active:boolean)=>void;onReview?:()=>void;reviewCount?:number};
+type Props={circuitKey:string;english:boolean;suspended?:boolean;initialPosition?:CircuitPosition;onPositionChange?:(position:CircuitPosition)=>void;onObserve?:(index:number,nodeKey:string)=>void;onPreview?:(index:number,nodeKey:string)=>void;onConceptStage?:(nodeKey:string)=>void;onPulseChange?:(active:boolean)=>void;onReview?:()=>void;reviewCount?:number};
 
-export function CircuitTeachingPanel({circuitKey,english,suspended=false,initialPosition,onPositionChange,onObserve,onPreview,onPulseChange,onReview,reviewCount=0}:Props){
+export function CircuitTeachingPanel({circuitKey,english,suspended=false,initialPosition,onPositionChange,onObserve,onPreview,onConceptStage,onPulseChange,onReview,reviewCount=0}:Props){
   const circuit=circuitTeaching(circuitKey);
   const [selectedPosition,setSelectedPosition]=useState(initialPosition??{pathIndex:0,nodeIndex:0});
   const positionChangeRef=useRef(onPositionChange);
@@ -19,6 +19,8 @@ export function CircuitTeachingPanel({circuitKey,english,suspended=false,initial
   const stageRef=useRef<HTMLElement|null>(null);
   const previewRef=useRef(onPreview);
   previewRef.current=onPreview;
+  const conceptRef=useRef(onConceptStage);
+  conceptRef.current=onConceptStage;
   const pathLength=circuit?.paths[selectedPosition.pathIndex]?.nodes.length??0;
   useEffect(()=>{
     if(!playing||!circuit)return;
@@ -33,6 +35,7 @@ export function CircuitTeachingPanel({circuitKey,english,suspended=false,initial
       setSelectedPosition({...selectedPosition,nodeIndex:next});
       const target=node?.observationIndex??node?.observations?.[0]?.index;
       if(target!==null&&target!==undefined)previewRef.current?.(target,node!.key);
+      else if(node)conceptRef.current?.(node.key);
     },circuitStageDuration(circuit.paths[selectedPosition.pathIndex]?.nodes[selectedPosition.nodeIndex]));
     return()=>{window.clearTimeout(timer);document.removeEventListener("visibilitychange",stop)};
   },[playing,circuit,selectedPosition,pathLength,suspended]);
@@ -59,6 +62,7 @@ export function CircuitTeachingPanel({circuitKey,english,suspended=false,initial
     const node=nodeByKey.get(circuit!.paths[pathIndex].nodes[nodeIndex]);
     const target=node?.observationIndex??node?.observations?.[0]?.index;
     if(target!==null&&target!==undefined)onPreview?.(target,node!.key);
+    else if(node)onConceptStage?.(node.key);
   }
   function play(){
     if(playing){setPlaying(false);return}
