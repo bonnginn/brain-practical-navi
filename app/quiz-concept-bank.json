@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-09-22",
+  "updated": "2026-09-29",
   "reviewState": "project-reviewed-expert-pending",
   "sources": [
     {"id": "uth-cerebellum", "label": "UTHealth Neuroanatomy Online: Cerebellum", "ref": "https://nba.uth.tmc.edu/neuroanatomy/l5/Lab05p21_index.html"},
@@ -18,6 +18,8 @@
     {"id": "uth-brainstem-overview", "label": "UTHealth Neuroanatomy Online: Brainstem overview", "ref": "https://nba.uth.tmc.edu/neuroanatomy/L10/Lab10p29_index.html"},
     {"id": "uth-fourth-roof", "label": "UTHealth Neuroanatomy Online: Fourth ventricle and cerebellum", "ref": "https://nba.uth.tmc.edu/neuroanatomy/l5/Lab05p23_index.html"},
     {"id": "uth-ica-system", "label": "UTHealth Neuroanatomy Online: Internal carotid system", "ref": "https://nba.uth.tmc.edu/neuroanatomy/l4/Lab04p06_index.html"},
+    {"id": "ncbi-circle-willis", "label": "NCBI Bookshelf: Neuroanatomy, Circle of Willis", "ref": "https://www.ncbi.nlm.nih.gov/books/NBK534861/"},
+    {"id": "ncbi-brain-arteries", "label": "NCBI Bookshelf: Neuroanatomy, Brain Arteries", "ref": "https://www.ncbi.nlm.nih.gov/books/NBK549894/"},
     {"id": "uth-pallidum-segments", "label": "UTHealth Neuroanatomy Online: Globus pallidus and putamen", "ref": "https://nba.uth.tmc.edu/neuroanatomy/L10/Lab10p11_index.html"},
     {"id": "uth-temporal-functional", "label": "UTHealth Neuroanatomy Online: Temporal-lobe functional areas", "ref": "https://nba.uth.tmc.edu/neuroanatomy/L1/Lab01p17_index.html"},
     {"id": "uth-medial-structures", "label": "UTHealth Neuroanatomy Online: Medial structures", "ref": "https://nba.uth.tmc.edu/neuroanatomy/L1/Lab01p22_index.html"},

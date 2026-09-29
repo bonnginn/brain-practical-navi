@@ -573,11 +573,25 @@ const vascularReviewExplanations:Partial<Record<NeurovascularStructureKey,string
   pca:"後大脳動脈は通常、脳底動脈の終末枝として中脳を回り、後頭葉の視覚野などへ血液を送ります。",
   cerebellarArteries:"上・前下・後下小脳動脈は、脳底動脈系または椎骨動脈から分かれ、小脳と脳幹の異なる領域へ向かいます。この表示では枝の個体差を省いています。",
 };
+const nerveDistractorExplanations:Partial<Record<NeurovascularStructureKey,string>>={
+  cn5:"三叉神経（V）は顔面の一般感覚と咀嚼筋の運動に関わり、橋の前外側から現れます。",
+  cn9:"舌咽神経（IX）は舌後方の味覚・感覚、咽頭の感覚・運動、耳下腺への副交感に関わります。延髄のオリーブ外側から現れます。",
+  cn10:"迷走神経（X）は咽頭・喉頭の運動と、胸腹部臓器の感覚・副交感機能に関わります。延髄のオリーブ外側から現れます。",
+  cn11:"副神経（XI）は主に胸鎖乳突筋と僧帽筋を動かし、頸部でこれらの筋へ向かいます。",
+};
+const basicNeurovascularReferences:Partial<Record<NeurovascularStructureKey,string[]>>={
+  ica:["uth-ica-system","ncbi-brain-arteries"],aca:["uth-ica-system","ncbi-brain-arteries"],acomm:["ncbi-circle-willis"],
+  mca:["ncbi-brain-arteries"],pcomm:["ncbi-circle-willis"],vertebral:["ncbi-brain-arteries"],basilar:["ncbi-brain-arteries"],
+  pca:["ncbi-brain-arteries"],cerebellarArteries:["ncbi-brain-arteries"],
+  cn1:["nih-olfactory-nerve"],cn2:["nih-optic-nerve","nih-optic-tract"],opticChiasm:["optic-chiasm-photomicrography"],
+  cn3:["uth-eye-muscles"],cn4:["uth-eye-muscles"],cn6:["uth-eye-muscles"],cn7:["ttu-facial"],
+  cn8:["uams-head-nerves"],cn12:["uams-head-nerves"],
+};
 function quizTeachingRegistry(question:QuizQuestion){
   if(isNeurovascularQuiz(question))return Object.fromEntries(neurovascularStructureKeys.map(key=>{
     const item=neurovascularStructures[key];
     const concept=quizConceptData.questions.find(q=>q.target===key);
-    return [key,{name:item.name,note:isConceptQuiz(question)?concept?.explanation??item.note:vascularReviewExplanations[key]??item.note,relation:quizNerveLocations[key]??(item.kind==="arteries"?item.note:null)}];
+    return [key,{name:item.name,note:isConceptQuiz(question)?concept?.explanation??item.note:vascularReviewExplanations[key]??nerveDistractorExplanations[key]??concept?.explanation??item.note,relation:quizNerveLocations[key]??(item.kind==="arteries"?item.note:null)}];
   }));
   if(isSurfaceQuiz(question))return Object.fromEntries(surfaceRegionKeys.map(key=>[key,{name:surfaceRegions[key].name,note:surfaceRegionLessons[key]?.ja??surfaceRegions[key].note,relation:surfaceRegions[key].note}]));
   return Object.fromEntries((Object.keys(structures) as StructureKey[]).map(key=>[key,{name:structures[key].name,note:quizFunctionOverrides[key]??structureFunctions[key],relation:key==="aqueductPartial"?"中脳蓋と被蓋の間":structures[key].relation}]));
@@ -1727,7 +1741,10 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
     requestAnimationFrame(()=>circuitGuideRef.current?.scrollIntoView({block:"start"}));
   }
   function focusQuizContent(){requestAnimationFrame(()=>{const target=document.querySelector<HTMLElement>(".quizResultState")??document.querySelector<HTMLElement>(".quizFeedback")??document.querySelector<HTMLElement>(".quizQuestionCard");target?.focus({preventScroll:true});target?.scrollIntoView({block:"nearest"})})}
-  function quizReferences(question:QuizQuestion){return quizConceptData.sources.filter(source=>(question.sourceRefs?.includes(source.id)||(isNeurovascularQuiz(question)&&source.id==="uams-head-nerves"))&&source.ref.startsWith("https://")).map(source=>({label:source.label,url:source.ref}))}
+  function quizReferences(question:QuizQuestion){
+    const sourceIds=question.sourceRefs??(isNeurovascularQuiz(question)?basicNeurovascularReferences[question.target]??["uams-head-nerves"]:[]);
+    return quizConceptData.sources.filter(source=>sourceIds.includes(source.id)&&source.ref.startsWith("https://")).map(source=>({label:source.label,url:source.ref}));
+  }
   function quizOptionName(question:QuizQuestion,key:string){
     const registry=isNeurovascularQuiz(question)?neurovascularStructures:isSurfaceQuiz(question)?surfaceRegions:structures;
     return question.optionLabels?.[key]??(registry as Record<string,{name:string}>)[key]?.name??key;
