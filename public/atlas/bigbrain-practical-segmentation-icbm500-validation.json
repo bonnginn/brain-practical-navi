@@ -125,7 +125,7 @@
     "24": 82250,
     "25": 11665,
     "26": 9200,
-    "27": 264456,
+    "27": 264453,
     "28": 736101,
     "29": 724983,
     "30": 145429,
@@ -481,7 +481,7 @@
     "workflowMetadataStatus": "strict"
   },
   "preClassificationCompressedSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
-  "rawVoxelSha256": "f43801dc103f82280801b56cbf191d22da7fee9fe86a67a190af71cb85049061",
+  "rawVoxelSha256": "a0fe72f4a377c8dc290a07c787712517aba4a861eba0eb323ad980579e9c636b",
   "brainstemThreeIslandsAudit": {
     "record": "segmentation-patches/review/brainstem-three-islands-adoption-2026-09-06.json",
     "recordSha256": "9c7b14f4272969261e3e2415d3f522b7e5d7db1eeca7cb0c8ae28b225458be66",
@@ -1762,6 +1762,13 @@
       "changedVoxelCount": 10,
       "projectAdopted": true,
       "expertReviewed": false
+    },
+    "brainstem-exterior3": {
+      "record": "segmentation-patches/review/brainstem-exterior3-adoption-2026-09-29.json",
+      "recordSha256": "703b8b887ad56b66a594bba4fa34ded91e1e443c29f558861fb8e4045f4d66d3",
+      "changedVoxelCount": 3,
+      "projectAdopted": true,
+      "expertReviewed": false
     }
   },
   "historicalGenerationClaims": {
@@ -1771,9 +1778,9 @@
   },
   "currentImageMeasurements": {
     "schemaVersion": 1,
-    "sourceLabelSha256": "0c8fb1da5099b6a0979caa7cf6de08e136e7538d289848979efdf9a86c79c150",
+    "sourceLabelSha256": "f2c489829d1b0d9515bcced16e42bb2daff25fa15f2d169e75ee5065ea001721",
     "sourceImageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
-    "rawVoxelSha256": "f43801dc103f82280801b56cbf191d22da7fee9fe86a67a190af71cb85049061",
+    "rawVoxelSha256": "a0fe72f4a377c8dc290a07c787712517aba4a861eba0eb323ad980579e9c636b",
     "dimensionsXYZ": [
       394,
       466,
@@ -1808,7 +1815,7 @@
       "24": 82250,
       "25": 11665,
       "26": 9200,
-      "27": 264456,
+      "27": 264453,
       "28": 736101,
       "29": 724983,
       "30": 145429,

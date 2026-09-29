@@ -1,0 +1,119 @@
+{
+  "beforeSha256": "0c8fb1da5099b6a0979caa7cf6de08e136e7538d289848979efdf9a86c79c150",
+  "afterSha256": "f2c489829d1b0d9515bcced16e42bb2daff25fa15f2d169e75ee5065ea001721",
+  "beforeRawVoxelSha256": "f43801dc103f82280801b56cbf191d22da7fee9fe86a67a190af71cb85049061",
+  "afterRawVoxelSha256": "a0fe72f4a377c8dc290a07c787712517aba4a861eba0eb323ad980579e9c636b",
+  "imageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
+  "count": 3,
+  "points": [
+    {
+      "xyz": [
+        175,
+        201,
+        125
+      ],
+      "before": 27,
+      "after": 0
+    },
+    {
+      "xyz": [
+        208,
+        171,
+        35
+      ],
+      "before": 27,
+      "after": 0
+    },
+    {
+      "xyz": [
+        208,
+        171,
+        36
+      ],
+      "before": 27,
+      "after": 0
+    }
+  ],
+  "countsBefore": {
+    "27": 264456
+  },
+  "countsAfter": {
+    "27": 264453
+  },
+  "evidence": {
+    "work/anatomy-review/current-brainstem-islands3-2026-09-29/report.json": "4ed217a5431571b830db7b924771e76e81352fd7ae976306e3329c1beb97dd9d",
+    "work/anatomy-review/current-brainstem-islands3-2026-09-29/id27-x208y171z35-x.png": "ebe244ea694f2bbda7829616186deec2979cf05f51dcdfd5232e9c6f33c08b8c",
+    "work/anatomy-review/current-brainstem-islands3-2026-09-29/id27-x208y171z35-y.png": "3c5fb51942c7dc74579e54773ffa44c9cce9d86aa80fa5aa9283cb603fc0966b",
+    "work/anatomy-review/current-brainstem-islands3-2026-09-29/id27-x208y171z35-z.png": "fdbe9c4c6f93ae570ea7ad11d11c05a270fb781e798b23dce6888cc725a4e560",
+    "work/anatomy-review/current-brainstem-islands3-2026-09-29/id27-x175y201z125-x.png": "1014de4248b0919841e9c795441c423ca06f0e12fd6cc3d63884ae61683135c9",
+    "work/anatomy-review/current-brainstem-islands3-2026-09-29/id27-x175y201z125-y.png": "c8b6eaaa8176c52716915cd93b701015af47e70e18ad5c0fb21b271dfca7661b",
+    "work/anatomy-review/current-brainstem-islands3-2026-09-29/id27-x175y201z125-z.png": "279410d6d36492fea035215353f1341526ff562b3ce6ca4e4410e8367e501604"
+  },
+  "decision": "Remove two detached brainstem-label islands from exterior space after reviewing the source image in adjacent orthogonal sections. Retain unresolved boundary islands.",
+  "integrationVerification": "docs/BRAINSTEM_ISLANDS3_REVIEW_2026-09-29.md",
+  "projectAdopted": true,
+  "expertReviewed": false,
+  "published": false,
+  "adopted": true,
+  "installed": true,
+  "status": "AI-image-reviewed-project-adopted-development-only",
+  "sectionMeshImpact": {
+    "before": {
+      "voxels": 264456,
+      "components6": 7,
+      "componentSizes": [
+        264417,
+        14,
+        12,
+        8,
+        2,
+        2,
+        1
+      ],
+      "boundsZYX": [
+        [
+          3,
+          165,
+          158
+        ],
+        [
+          148,
+          256,
+          233
+        ]
+      ],
+      "vertices": 54294,
+      "faces": 108744,
+      "sha256": "ee8ecf1db0f1d46847e40ed055b7b707945ad672e3ab09c7d544d39e506cf4cd",
+      "bytes": 2825172
+    },
+    "after": {
+      "voxels": 264453,
+      "components6": 5,
+      "componentSizes": [
+        264417,
+        14,
+        12,
+        8,
+        2
+      ],
+      "boundsZYX": [
+        [
+          3,
+          165,
+          158
+        ],
+        [
+          148,
+          256,
+          233
+        ]
+      ],
+      "vertices": 54278,
+      "faces": 108720,
+      "sha256": "62dfa372a933687ba9a55767c4f2c2ee83795199bf76bf9e946fc64bea1e3531",
+      "bytes": 2824436
+    }
+  },
+  "blockMaskChanged": false
+}

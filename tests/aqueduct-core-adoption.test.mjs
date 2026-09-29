@@ -51,7 +51,7 @@ test('partial aqueduct repair replays exactly 64 zero and 115 brainstem cells wi
  const meta=JSON.parse(await read('public/atlas/bigbrain-practical-segmentation-icbm500-validation.json'));
  assert.equal(meta.regionalBatchAudits['aqueduct-core179'].recordSha256,sha(bytes));
  const latest=await withRegionalBatches(r,{afterRevision:r.afterSha256});
- assert.equal(meta.labelCounts['41'],267);assert.equal(meta.labelCounts['27'],264456);assert.equal(meta.labelCounts['25'],currentSegmentation.counts[25]);
+ assert.equal(meta.labelCounts['41'],267);assert.equal(meta.labelCounts['27'],currentSegmentation.counts[27]);assert.equal(meta.labelCounts['25'],currentSegmentation.counts[25]);
  assert.equal(meta.rawVoxelSha256,latest.afterRawVoxelSha256);
 });
 

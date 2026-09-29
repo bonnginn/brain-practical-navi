@@ -27,6 +27,17 @@ export async function withRegionalBatches(record,{afterRevision=null}={}){
    assert.ok(next.points.length===next.count&&next.points.every(p=>[28,29].includes(p.before)&&p.after===0));
    assert.ok(sectionImpact,'Missing cerebellar section-mesh evidence');
    // Cerebellar geometry changed, while these historical ventricular meshes did not.
+    sectionImpact={before:result.sectionMeshImpact.after,after:{...result.sectionMeshImpact.after,
+    sourceSha256:next.afterSha256,rawVoxelSha256:next.afterRawVoxelSha256}};
+  }
+  if(name==='cerebellar-exterior10'||name==='brainstem-exterior3'){
+   assert.equal(next.blockMaskChanged,false);
+   assert.equal(next.count,name==='brainstem-exterior3'?3:10);
+   assert.ok(next.points.every(p=>(name==='brainstem-exterior3'?p.before===27:[28,29].includes(p.before))&&p.after===0));
+   assert.ok(next.sectionMeshImpact?.before?.sha256&&next.sectionMeshImpact?.after?.sha256);
+   const stored=await read('public/atlas/'+(name==='brainstem-exterior3'?'section-current-brainstem.mesh':'section-current-cerebellum.mesh'));
+   assert.equal(createHash('sha256').update(stored[0]===0x1f&&stored[1]===0x8b?gunzipSync(stored):stored).digest('hex'),next.sectionMeshImpact.after.sha256);
+   // These tissue meshes are recorded separately; the historical ventricular mesh chain is unchanged.
    sectionImpact={before:result.sectionMeshImpact.after,after:{...result.sectionMeshImpact.after,
     sourceSha256:next.afterSha256,rawVoxelSha256:next.afterRawVoxelSha256}};
   }
