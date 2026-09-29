@@ -172,7 +172,7 @@ test('completed quiz receiver aggregates scores and rejects identifiers or inval
 });
 
 test('score totals are read without credentials and malformed rows are ignored',async()=>{
-  const fetcher=async(url,options)=>{assert.equal(url,'https://example.org/session-results');assert.equal(options.credentials,'omit');return {ok:true,json:async()=>[{questions:10,correct:8,sessions:4},{questions:10,correct:12,sessions:1}]}};
+  const fetcher=async(url,options)=>{assert.equal(url,'https://example.org/session-results');assert.equal(options.credentials,'omit');return {ok:true,json:async()=>[{questions:10,correct:8,sessions:4},{questions:5,correct:3,sessions:0},{questions:10,correct:12,sessions:1}]}};
   assert.deepEqual(await readQuizSessionStatistics('https://example.org/answer',fetcher),[{questions:10,correct:8,sessions:4}]);
   assert.equal(await readQuizSessionStatistics('',fetcher),null);
 });
