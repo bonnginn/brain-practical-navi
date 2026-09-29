@@ -13,7 +13,7 @@ test("block controls sit outside the draggable image and retain touch-sized butt
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
   const css = await readFile(new URL("app/canvas.css", root), "utf8");
   const block = page.slice(page.indexOf('className="learningModelCard blockModelCard"'), page.indexOf('className="learningModelCard blockModelCard"') + 6500);
-  assert.match(block, /OrientationCompass rotation=\{rotation\}\/\>\}\s*<\/div>\s*\{!webglUnavailable&&<div className="blockModelToolbar">/);
+  assert.match(block, /OrientationCompass rotation=\{rotation\} english=\{englishEdition\}\/\>\}\s*<\/div>\s*\{!webglUnavailable&&<div className="blockModelToolbar">/);
   for (const group of ["specimenTissueControls", "specimenViewControls"]) {
     assert.ok(block.indexOf(group) > block.indexOf('className="blockModelToolbar"'));
   }
@@ -268,7 +268,7 @@ test("presents the practical flow clearly and keeps interface text readable", as
   assert.match(canvasCss, /\.workspaceSwitch button > span\s*\{\s*font-size:\s*14px/);
   assert.match(canvasCss, /\.workspaceSwitch button > i\s*\{\s*font:\s*11px\/1\.2 monospace/);
   assert.match(canvasCss, /\.legalButton, \.feedbackButton, \.helpButton\s*\{\s*font-size:\s*13px/);
-  assert.match(page, /aria-label="利用条件・クレジットを表示">利用条件<\/button>/);
+  assert.match(page, /aria-label=\{englishEdition\?"Open terms of use and credits":"利用条件・クレジットを表示"\}>利用条件<\/button>/);
   assert.match(globalsCss, /font-family/);
   assert.doesNotMatch(`${canvas}\n${editor}`, /font="(?:7|8|9|10|11|12|13)px/);
 });
@@ -419,7 +419,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /key==="lingual"\?\{ids:surfaceRegions\.pericalcarine\.ids,axis:0,max:-14\}/);
   assert.match(page, /複数選択/);
   assert.match(page, /useState<"inside" \| "ghost" \| "extracted" \| "segmented">\("ghost"\)/);
-  assert.match(page, /useState<"both"\|"slice"\|"model">\(\(\)=>savedSectionSession\?\.layout\?\?\(typeof window/);
+  assert.match(page, /useState<"both"\|"slice"\|"model">\(\(\)=>typeof window!=="undefined"&&window\.matchMedia\("\(max-width: 760px\)"\)\.matches\?"slice":savedSectionSession\?\.layout\?\?"both"/);
   assert.match(page, /const \[sectionModelShare,setSectionModelShare\]=useState\(savedSectionSession\?\.share\?\?40\)/);
   assert.match(page, /const \[sectionModelViews,setSectionModelViews\]=useState<1\|2>\(savedSectionSession\?\.views\?\?1\)/);
   assert.match(page, /const \[compactSectionLayout,setCompactSectionLayout\]=useState\(\(\)=>typeof window/);
@@ -430,10 +430,10 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /3Dのみ/);
   assert.doesNotMatch(page, /className="sectionAreaControl"/);
   assert.match(page, /className="sectionResizeHandle" role="separator"/);
-  assert.match(page, /aria-label="断面と3Dの境界。ドラッグで表示面積を変更"/);
+  assert.match(page, /aria-label=\{englishEdition\?"Boundary between the section and 3D views\. Drag to resize them":"断面と3Dの境界。ドラッグで表示面積を変更"\}/);
   assert.match(page, /aria-valuemin=\{25\} aria-valuemax=\{75\} aria-valuenow=\{sectionModelShare\}/);
   assert.match(page, /onPointerDown=\{beginSectionResize\} onPointerMove=\{moveSectionResize\}/);
-  assert.match(page, /className="sectionModelViewSwitch" aria-label="3D表示数"/);
+  assert.match(page, /className="sectionModelViewSwitch" aria-label=\{englishEdition\?"Number of 3D views":"3D表示数"\}/);
   assert.match(page, /setSectionModelViews\(1\).*1面.*setSectionModelViews\(2\).*2面/);
   assert.match(page, /"--section-model-share":`\$\{sectionModelShare\}%`/);
   assert.match(page, /sectionLayout!=="model"&&<div className="sliceViewport">/);
@@ -2233,7 +2233,7 @@ test("complex workspaces expose visible keyboard focus and a main-content shortc
   assert.equal((page.match(/id="workspace" tabIndex=\{-1\}/g) ?? []).length, 8);
   assert.match(page, /workspace==="blocks"&&<section className=\{`workArea learningArea/);
   assert.ok((page.match(/aria-current=\{/g) ?? []).length >= 4);
-  assert.match(page, /role="group" aria-label="構造グループの一括表示"/);
+  assert.match(page, /role="group" aria-label=\{englishEdition\?"Select structure groups":"構造グループの一括表示"\}/);
   assert.match(css, /:focus-visible \{ outline: 3px solid #e36e57/);
   assert.match(css, /\.skipLink:focus-visible \{ top: 8px; \}/);
   assert.match(css, /prefers-reduced-motion:reduce/);
@@ -2246,7 +2246,7 @@ test("narrow layouts keep destination rails and full workflow panels distinct", 
     readFile(new URL("app/canvas.css", root), "utf8"),
   ]);
   assert.match(page, /appShell workspace-\$\{workspace\}/);
-  assert.match(page, /aria-label="匿名の意見・誤り報告を表示"/);
+  assert.match(page, /aria-label=\{englishEdition\?"Open anonymous feedback and error report":"匿名の意見・誤り報告を表示"\}/);
   assert.match(page, /aria-label="共同制作ページを表示"/);
   assert.match(css, /\.leftRail \.lessonRailBtn\{min-width:136px;display:grid/);
   assert.match(css, /\.leftRail \.planeBtn small\{display:none\}/);
@@ -2296,20 +2296,21 @@ test("research-backed anatomy cautions distinguish source data from teaching sch
 });
 
 test("3D viewers expose orientation, keyboard rotation, reset, and visible zoom controls", async () => {
-  const [page, canvas, css] = await Promise.all([
+  const [page, canvas, css, compass] = await Promise.all([
     readFile(new URL("app/page.tsx", root), "utf8"),
     readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8"),
     readFile(new URL("app/globals.css", root), "utf8"),
+    readFile(new URL("app/OrientationCompass.tsx", root), "utf8"),
   ]);
-  assert.match(page, /function OrientationCompass/);
-  assert.match(page, /R 右、L 左、A 前、P 後、S 上、I 下/);
+  assert.match(compass, /function OrientationCompass|export function OrientationCompass/);
+  assert.match(compass, /R 右、L 左、A 前、P 後、S 上、I 下/);
   assert.ok((page.match(/onKeyDown=\{(?:webglUnavailable\?undefined:|surfaceQuiz&&!webglUnavailable\?)handleModelKey/g) ?? []).length >= 3);
   assert.match(page, /event\.key\.toLowerCase\(\)==="r"/);
   assert.match(canvas, /className="modelZoomControls"/);
   assert.match(canvas, /aria-label="拡大率を100パーセントに戻す"/);
   assert.match(canvas, /showZoomControls=true/);
   assert.match(page, /showZoomControls=\{false\}/);
-  assert.match(page, /<OrientationCompass rotation=\{modelRotation\} compact\/>/);
+  assert.match(page, /<OrientationCompass rotation=\{modelRotation\} compact english=\{englishEdition\}\/>/);
   assert.match(page, /復習問題の脳表3Dモデル。ドラッグまたは矢印キーで回転/);
   assert.match(page, /quizModelQuestion\?<><AtlasVolumeCanvas[^>]+rotation=\{rotation\}[^>]+surfaceHighlights=\{neurovascularQuiz\?\[\]:quizSurfaceHighlight\}/);
   assert.match(page, /workspace==="quiz"&&\(isSurfaceQuiz\(quizQuestion\)\|\|isNeurovascularQuiz\(quizQuestion\)\)/);
@@ -2352,7 +2353,7 @@ test("failed atlas requests can clear rejected caches and retry in place", async
 
 test("defers the optional section 3D comparison on narrow screens", async () => {
   const page = await readFile(new URL("app/page.tsx", root), "utf8");
-  assert.match(page, /matchMedia\("\(max-width: 760px\)"\)\.matches\?"slice":"both"/);
+  assert.match(page, /matchMedia\("\(max-width: 760px\)"\)\.matches\?"slice":savedSectionSession\?\.layout\?\?"both"/);
   assert.match(page, /sectionLayout!=="slice"&&<aside className="modelInset"/);
   assert.match(page, /断面＋3D[\s\S]*断面のみ[\s\S]*3Dのみ/);
 });
@@ -2402,7 +2403,7 @@ test("free observation separates circuit teaching from specimen observation", as
   assert.match(page, /visual:\{name:"視覚路"/);
   assert.match(page, /papez:\{name:"Papez回路"/);
   assert.match(page, /"basal-ganglia":\{name:"大脳基底核回路"/);
-  assert.match(page, /経路観察と回路解説/);
+  assert.match(page, /freeInspector!=="circuits"/);
   assert.match(page, /標本での観察順/);
   assert.match(page, /<CircuitTeachingPanel/);
   assert.match(page, /selectionMeshLayers=\{surfaceView==="free"\?\(basalStepperActive\?freePathwayMeshLayers:papezStepperActive\?papezStepperMeshLayers:freePathwayMeshLayers\):\[\]\}/);
@@ -2454,9 +2455,9 @@ test("section quiz slices can be stepped without dragging the range control", as
     readFile(new URL("app/page.tsx", root), "utf8"),
     readFile(new URL("app/canvas.css", root), "utf8"),
   ]);
-  assert.match(page, /aria-label="1断面戻る"/);
+  assert.match(page, /aria-label=\{englishEdition\?"Previous section \(0\.5 mm\)":"1断面戻る"\}/);
   assert.match(page, /stepPlanePosition\(value,quizQuestion\.plane,BIGBRAIN_SECTION_DIMS,-1\)/);
-  assert.match(page, /aria-label="1断面進む"/);
+  assert.match(page, /aria-label=\{englishEdition\?"Next section \(0\.5 mm\)":"1断面進む"\}/);
   assert.match(page, /stepPlanePosition\(value,quizQuestion\.plane,BIGBRAIN_SECTION_DIMS,1\)/);
   assert.match(css, /\.quizSliceControl\s*\{[^}]*grid-template-columns:\s*32px minmax\(0,1fr\) 32px/);
 });

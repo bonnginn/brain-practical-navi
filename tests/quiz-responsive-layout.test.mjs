@@ -7,7 +7,7 @@ test('quiz keeps a readable desktop rail without overriding phone settings',()=>
   assert.match(css,/\.quizSetup \.quizCandidateSummary \{ grid-template-columns: minmax\(0,1fr\)/);
 });
 test('quiz reflows by panel width while retaining readable answer text',()=>{
-  assert.match(css,/@container quiz-area \(max-width: 42rem\)/);
+  assert.match(css,/@container quiz-area \(max-width: 38rem\)/);
   assert.match(css,/@container quiz-image \(max-width: 32rem\)/);
   assert.match(css,/\.quizOptions button > span \{ min-width: 0; font-size: 1rem; overflow-wrap: anywhere/);
   assert.match(css,/\.quizQuestionCard h2 \{ font-size: clamp\(1\.125rem/);
