@@ -90,6 +90,18 @@ test('cached identification questions keep their original answer sets during rol
   assert.equal(writes,3);
 });
 
+test('the moved internal-capsule section keeps the previous question revision valid',async()=>{
+  const old=legacyRows.find(item=>item.question==='identify-internalCapsule');
+  const current=JSON.parse(readFileSync(new URL('../services/quiz-statistics/catalog.json',import.meta.url),'utf8')).find(item=>item.question===old.question);
+  assert.deepEqual(old.options,current.options);
+  assert.equal(old.prompt,current.prompt);
+  assert.notEqual(old.revision,current.revision);
+  let writes=0;
+  const env={ALLOWED_ORIGIN:origin,DB:{prepare:()=>({bind:()=>({run:async()=>{writes++}})})}};
+  for(const row of [old,current])assert.equal((await receiveAnswer(request('/answer','POST',{question:row.question,revision:row.revision,choice:row.options[0]}),env)).status,204);
+  assert.equal(writes,2);
+});
+
 test('cached cranial-nerve answers remain accepted after teaching revisions',async()=>{
   const currentRows=JSON.parse(readFileSync(new URL('../services/quiz-statistics/catalog.json',import.meta.url),'utf8'));
   let writes=0;

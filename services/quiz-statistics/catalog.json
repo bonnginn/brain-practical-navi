@@ -144,7 +144,7 @@
   },
   {
     "question": "identify-internalCapsule",
-    "revision": "66ac021d2964f9bd0b3f678c45d74b83f8cdfedd2d624b3db757c1f09aaf13ba",
+    "revision": "26d40578e33f30bca27e738edd13407dd1df71c0aab5ffd3ce182188433e03f4",
     "prompt": "尾状核・視床とレンズ核の間を通る白質路はどれですか？",
     "options": [
       "internalCapsule",
@@ -738,7 +738,7 @@
   },
   {
     "question": "capsule-function-clue",
-    "revision": "21c4dc4fb92057c9f3cbe87d649c58d69b321cf11d89f5c42d61738bbdc50357",
+    "revision": "040cb4e18da38806e46ffc89610dd2f6550ea4fad18c88a922f983a67cc3add7",
     "prompt": "大脳皮質と視床・脳幹・脊髄を結ぶ投射線維が密集する、色付きの白質路はどれですか？",
     "options": [
       "internalCapsule",
@@ -749,7 +749,7 @@
   },
   {
     "question": "capsule-relation-choice",
-    "revision": "2b8995c520ba43e9e42d17b28b8dc98e5950eaa9c8b067f25b755b317ad6a0cf",
+    "revision": "8ca4f403805a503ce340d968feb52e8fda20b54d0b9f4156a68aff9668a67fe9",
     "prompt": "色で示された内包の位置関係として適切なのはどれですか？",
     "options": [
       "capsule-between",

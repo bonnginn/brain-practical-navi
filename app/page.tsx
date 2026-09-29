@@ -631,7 +631,7 @@ const quizQuestions:QuizQuestion[]=[
   {target:"ventricle",category:"ventricles",plane:"horizontal",position:51,prompt:"左右大脳半球の内部でC字形に連続する髄液腔はどれですか？",options:["ventricle","thirdVentricle","fourthVentricle","corpusCallosum"]},
   {target:"thalamus",category:"connections",plane:"coronal",position:49,prompt:"第三脳室の両側を占める大きな灰白質はどれですか？",options:["thalamus","caudate","hippocampus","subthalamic"]},
   {target:"corpusCallosum",category:"connections",plane:"sagittal",position:50,prompt:"正中矢状断で側脳室の上方を弓状に走る交連線維はどれですか？",options:["corpusCallosum","internalCapsule","thalamus","caudate"]},
-  {target:"internalCapsule",category:"connections",plane:"coronal",position:58,prompt:"尾状核・視床とレンズ核の間を通る白質路はどれですか？",options:["internalCapsule","corpusCallosum","pallidum","insula"]},
+  {target:"internalCapsule",category:"connections",plane:"coronal",position:56,prompt:"尾状核・視床とレンズ核の間を通る白質路はどれですか？",options:["internalCapsule","corpusCallosum","pallidum","insula"]},
   {target:"insula",category:"connections",plane:"coronal",position:64,prompt:"外側溝の深部で、被殻・外包より外側にある皮質はどれですか？",options:["insula","putamen","internalCapsule","pallidum"]},
   {target:"brainstem",category:"hindbrain",plane:"horizontal",position:83,prompt:"第四脳室の腹側で中脳・橋・延髄へ連続する構造はどれですか？",options:["brainstem","cerebellum","thalamus","fourthVentricle"]},
   {target:"cerebellum",category:"hindbrain",plane:"horizontal",position:80,prompt:"橋・延髄の後方にあり、左右半球と虫部をもつ構造はどれですか？",options:["cerebellum","brainstem","thalamus","hippocampus"]},
@@ -783,7 +783,7 @@ const findStructureTasks:FindTask[]=allQuizQuestions.filter(question=>!isConcept
     highlight:neuro?{ids:record.ids,color:[255,255,255]}:surface?{ids:record.ids,color:surfaceRegions[question.target].rgb}:{ids:structures[question.target].bigbrainIds??[],color:structures[question.target].rgb,mode:"quiz"},
     hint:teaching.relation??teaching.note,explanation:teaching.note};
 });
-const QUIZ_VISIBILITY_INVENTORY_SHA256="673aa770a5c78fc09e1baa197abfe0a6aec31d33e3ce8f2e40c8f98183550c61";
+const QUIZ_VISIBILITY_INVENTORY_SHA256="42e2f25901eab9234d3404db02aa73f2508c0bb435db2e4e0ff09969986d4712";
 
 const anatomyReviewSurfaceLabels:Record<AnatomyReviewSurface,string>={all:"すべての表示面",surface:"脳表",sections:"断面",blocks:"ブロック標本",quiz:"復習"};
 const anatomyReviewRepresentationLabels:Record<string,string>={

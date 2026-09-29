@@ -28,7 +28,7 @@ export const QUIZ_TARGET_VISIBILITY_VIEWPORTS = Object.freeze([
 ]);
 export const EXPECTED_QUIZ_TARGET_COUNTS = Object.freeze({ section:17,surface:6,neurovascular:22,total:45 });
 export const EXPECTED_QUIZ_TARGET_VISIBILITY_MATRIX_COUNT = 135;
-export const EXPECTED_QUIZ_TARGET_INVENTORY_SHA256 = "673aa770a5c78fc09e1baa197abfe0a6aec31d33e3ce8f2e40c8f98183550c61";
+export const EXPECTED_QUIZ_TARGET_INVENTORY_SHA256 = "42e2f25901eab9234d3404db02aa73f2508c0bb435db2e4e0ff09969986d4712";
 // Covers target, format, options, and the render namespace/IDs used by this audit.
 export const EXPECTED_QUIZ_VISIBILITY_OPTIONS_SHA256 = "8b07b8e2c386ca1ee37f88797a35eabc0f54c88046707cdf9fb092b7ba339c0e";
 

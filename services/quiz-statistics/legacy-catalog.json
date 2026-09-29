@@ -438,5 +438,16 @@
       "cn10",
       "cn11"
     ]
+  },
+  {
+    "question": "identify-internalCapsule",
+    "revision": "66ac021d2964f9bd0b3f678c45d74b83f8cdfedd2d624b3db757c1f09aaf13ba",
+    "prompt": "尾状核・視床とレンズ核の間を通る白質路はどれですか？",
+    "options": [
+      "internalCapsule",
+      "corpusCallosum",
+      "pallidum",
+      "insula"
+    ]
   }
 ]
