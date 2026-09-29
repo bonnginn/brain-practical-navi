@@ -95,13 +95,14 @@ test("pixel audit rejects a grouped stage when one label disappears", () => {
   assert.ok(result.errors.some(error => /putamen has no visible label pixels/.test(error)), result.errors.join("\n"));
 });
 
-test("stepper refuses a position that is not borrowed from the quiz", () => {
+test("stepper refuses a quiz reference that has no matching question target", () => {
   const {dims, labels} = segmentation();
   const steps = BASAL_GANGLIA_STEPS.map(step => ({...step, targetKeys: [...step.targetKeys]}));
-  steps[0].position = 60;
-  const result = auditBasalGangliaStepper({steps, dims, labels, quizQuestions: [{target: "putamen", plane: "coronal", position: 61}]});
+  steps[0].quizRefs = ["opticChiasm"];
+  const quizQuestions = BASAL_GANGLIA_STEPS.flatMap(step => step.quizRefs.map(target => ({target})));
+  const result = auditBasalGangliaStepper({steps, dims, labels, quizQuestions});
   assert.equal(result.ok, false);
-  assert.ok(result.errors.some(error => /not reused from an existing quiz question/.test(error)), result.errors.join("\n"));
+  assert.ok(result.errors.some(error => /step 1: no existing quiz target is referenced/.test(error)), result.errors.join("\n"));
 });
 
 test("label audit rejects drift from the app structure registry", () => {

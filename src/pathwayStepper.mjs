@@ -117,8 +117,8 @@ export const BASAL_GANGLIA_LABEL_IDS = Object.freeze({
   thalamus: Object.freeze([15, 16]),
 });
 
-// These are deliberately existing quiz positions, not new anatomical
-// landmarks. A grouped stage uses the same section for every listed label.
+// The quiz targets are reused, while each grouped stage chooses a section
+// where every listed label is visible. Its position need not match a quiz.
 export const BASAL_GANGLIA_STEPS = Object.freeze([
   Object.freeze({
     key: "striatum",
@@ -259,8 +259,8 @@ export function auditBasalGangliaStepper({steps = BASAL_GANGLIA_STEPS, quizQuest
       }
     }
     const refs = step?.quizRefs ?? [];
-    if (!refs.length || !refs.some(target => quizQuestions.some(question => question.target === target && question.plane === step.plane && question.position === step.position))) {
-      errors.push(`${prefix}: position ${step?.plane} ${step?.position} is not reused from an existing quiz question`);
+    if (!refs.length || !refs.some(target => quizQuestions.some(question => question.target === target))) {
+      errors.push(`${prefix}: no existing quiz target is referenced`);
     }
     const pixelCounts = {};
     for (const target of step?.targetKeys ?? []) {
