@@ -6,6 +6,7 @@
 - [9月29日〜30日の24時間開発記録](DEVELOPMENT_24H_2026-09-30.md)
 - [9月30日の公開更新と脳梁・帯状回境界の確認](PUBLIC_RELEASE_AND_CALLOSUM_REVIEW_2026-09-30.md)
 - [脳梁と帯状回側組織の広域境界修正（開発版）](CALLOSUM_CINGULATE_BROAD_REPAIR_2026-09-30.md)
+- [脳梁・帯状回側の修正を公開βへ反映](CALLOSUM_CINGULATE_PUBLIC_RELEASE_2026-09-30.md)
 - [Papez回路の観察ガイド確認](PAPEZ_GUIDE_REVIEW_2026-09-29.md)
 - [左小脳下方の外部浮遊ラベル16点：原画像照合と可逆差分](CEREBELLAR_LEFT_LOWER16_2026-09-29.md)
 - [四択の任意参加集計・Cloudflare設定手順](QUIZ_STATISTICS.md)
