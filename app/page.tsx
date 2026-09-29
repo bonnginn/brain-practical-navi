@@ -1223,6 +1223,7 @@ export default function Home() {
     mediaQueries.forEach(query=>query.addEventListener("change",update));
     return()=>{window.removeEventListener("resize",update);window.removeEventListener("orientationchange",update);mediaQueries.forEach(query=>query.removeEventListener("change",update))};
   },[]);
+  useEffect(()=>{if(compactSectionLayout)setSectionLayout(layout=>layout==="both"?"slice":layout)},[compactSectionLayout]);
   useEffect(()=>{if(!phoneMode)setPhoneSettingsOpen(false)},[phoneMode]);
   useEffect(()=>{
     const dock=phoneDockRef.current,shell=dock?.closest<HTMLElement>(".appShell");
