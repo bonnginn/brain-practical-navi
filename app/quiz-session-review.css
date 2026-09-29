@@ -1,4 +1,4 @@
-.quizEmptyState.quizResultState{align-content:start;justify-content:stretch;padding:22px 24px}
+.quizEmptyState.quizResultState{align-content:start;justify-content:stretch;padding:22px 24px;scroll-margin-top:72px}
 .quizSessionReview{width:min(760px,100%);min-width:0;margin:12px 0 4px;text-align:left}
 .quizSessionReview h3{margin:0;font-size:var(--ui-font-16,16px)}
 .quizSessionReview p{font-size:var(--ui-font-13,13px);line-height:1.7;max-width:none}

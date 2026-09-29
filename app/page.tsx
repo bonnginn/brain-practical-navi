@@ -1002,6 +1002,7 @@ export default function Home() {
   const [quizSessionSubmission,setQuizSessionSubmission]=useState<"idle"|"sending"|"sent"|"failed">("idle");
   const [quizScore,setQuizScore]=useState(0);
   const [quizFinished,setQuizFinished]=useState(false);
+  useEffect(()=>{if(!quizFinished||workspace!=="quiz"||reviewMenu||findMode||quizStatsOpen)return;const result=document.querySelector<HTMLElement>(".quizResultState");result?.focus({preventScroll:true});result?.scrollIntoView({block:"start"})},[quizFinished,workspace,reviewMenu,findMode,quizStatsOpen]);
   const [quizSlicePosition,setQuizSlicePosition]=useState(52);
   const [quizMisses,setQuizMisses]=useState<{question:QuizQuestion;choice:string;number:number}[]>([]);
   const quizVisibilityAuditHighlight=quizVisibilityAuditHighlightOverride();
@@ -1732,7 +1733,7 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
     openWorkspace("surface");chooseSurface("free","replace");applyPathwayPreset(quizCircuit);
     requestAnimationFrame(()=>circuitGuideRef.current?.scrollIntoView({block:"start"}));
   }
-  function focusQuizContent(){requestAnimationFrame(()=>{const target=document.querySelector<HTMLElement>(".quizResultState")??document.querySelector<HTMLElement>(".quizFeedback")??document.querySelector<HTMLElement>(".quizQuestionCard");target?.focus({preventScroll:true});target?.scrollIntoView({block:"nearest"})})}
+  function focusQuizContent(){requestAnimationFrame(()=>{const result=document.querySelector<HTMLElement>(".quizResultState");const target=result??document.querySelector<HTMLElement>(".quizFeedback")??document.querySelector<HTMLElement>(".quizQuestionCard");target?.focus({preventScroll:true});target?.scrollIntoView({block:result?"start":"nearest"})})}
   function quizReferences(question:QuizQuestion){
     const sourceIds=question.sourceRefs??(isNeurovascularQuiz(question)?basicNeurovascularReferences[question.target]??["uams-head-nerves"]:[]);
     return quizConceptData.sources.filter(source=>sourceIds.includes(source.id)&&source.ref.startsWith("https://")).map(source=>({label:source.label,url:source.ref}));
@@ -1752,7 +1753,7 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
   const answeredMetricRef=useRef<QuizQuestion|null>(null);
   const quizRunRef=useRef(0);
   function answerQuiz(key:string){if(quizChoice||quizEmpty||answeredMetricRef.current===quizQuestion||!quizQuestion.options.includes(key))return;answeredMetricRef.current=quizQuestion;setQuizChoice(key);const correct=key===quizCorrectAnswer(quizQuestion);if(correct)setQuizScore(score=>score+1);else setQuizMisses(previous=>[...previous,{question:quizQuestion,choice:key,number:quizIndex+1}]);saveWrongTargets(recordQuizAnswer(wrongTargets,quizQuestion,correct));focusQuizContent();const endpoint=import.meta.env.VITE_QUIZ_STATISTICS_URL??'';void sendQuizStatistic(quizQuestion,key,endpoint).finally(()=>setQuizStatsRefresh(value=>value+1));if(quizIndex===quizQueue.length-1){const run=quizRunRef.current;setQuizSessionSubmission("sending");void sendQuizSessionStatistic(quizQueue.length,quizScore+(correct?1:0),endpoint).then(sent=>{if(quizRunRef.current===run)setQuizSessionSubmission(sent?"sent":"failed")}).finally(()=>setQuizStatsRefresh(value=>value+1))}}
-  function nextQuiz(){answeredMetricRef.current=null;if(quizIndex>=quizQueue.length-1){setQuizChoice(null);setQuizFinished(true);focusQuizContent();return}setQuizChoice(null);setQuizIndex(index=>index+1);focusQuizContent()}
+  function nextQuiz(){answeredMetricRef.current=null;if(quizIndex>=quizQueue.length-1){setQuizChoice(null);setQuizFinished(true);return}setQuizChoice(null);setQuizIndex(index=>index+1);focusQuizContent()}
   function resetQuiz(){quizRunRef.current++;answeredMetricRef.current=null;setQuizSessionSubmission("idle");setQuizIndex(0);setQuizChoice(null);setQuizScore(0);setQuizMisses([]);setQuizFinished(false);focusQuizContent()}
   function startRelatedReview(questions:QuizQuestion[],title:string){setReviewMenu(false);setFindMode(false);
     setQuizThemeOrigin(null);
