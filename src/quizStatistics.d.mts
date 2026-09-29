@@ -4,3 +4,6 @@ export function statisticsEndpoint(value:string):string|null;
 export function sendQuizStatistic(question:MetricQuestion,choice:string,endpoint:string,fetcher?:typeof fetch):Promise<boolean>;
 export type QuizOptionCount={question:string;revision:string;choice:string;answers:number};
 export function readQuizStatistics(endpoint:string,fetcher?:typeof fetch):Promise<QuizOptionCount[]|null>;
+export function sendQuizSessionStatistic(questions:number,correct:number,endpoint:string,fetcher?:typeof fetch):Promise<boolean>;
+export type QuizSessionCount={questions:number;correct:number;sessions:number};
+export function readQuizSessionStatistics(endpoint:string,fetcher?:typeof fetch):Promise<QuizSessionCount[]|null>;

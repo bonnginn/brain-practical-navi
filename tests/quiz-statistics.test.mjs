@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {execFileSync} from 'node:child_process';
 import {fileURLToPath} from 'node:url';
-import {questionMetric,readQuizStatistics,sendQuizStatistic} from '../src/quizStatistics.mjs';
+import {questionMetric,readQuizStatistics,readQuizSessionStatistics,sendQuizStatistic,sendQuizSessionStatistic} from '../src/quizStatistics.mjs';
 import {receiveAnswer} from '../services/quiz-statistics/worker.mjs';
 
 const q={target:'caudate',prompt:'Find it',options:['caudate','putamen','pallidum','thalamus'],plane:'coronal',position:65};
@@ -140,4 +140,39 @@ test('read uses public totals without credentials and handles receiver failure',
   assert.equal((await readQuizStatistics('https://example.org/answer',fetcher))[0].answers,2);
   assert.equal(await readQuizStatistics('',fetcher),null);
   assert.equal(await readQuizStatistics('https://example.org/answer',async()=>{throw Error('offline')}),null);
+});
+
+test('completed quiz sends only set length and score, without learner history',async()=>{
+  const calls=[];const fetcher=async(...args)=>{calls.push(args);return {ok:true}};
+  assert.equal(await sendQuizSessionStatistic(10,8,'https://example.org/answer',fetcher),true);
+  assert.equal(calls[0][0],'https://example.org/session');
+  assert.deepEqual(JSON.parse(calls[0][1].body),{questions:10,correct:8});
+  assert.equal(calls[0][1].credentials,'omit');
+  assert.equal(calls[0][1].referrerPolicy,'no-referrer');
+  for(const [n,correct] of [[0,0],[10,11],[93,20],[10,1.5]])assert.equal(await sendQuizSessionStatistic(n,correct,'https://example.org/answer',fetcher),false);
+  assert.equal(calls.length,1);
+});
+
+test('completed quiz receiver aggregates scores and rejects identifiers or invalid totals',async()=>{
+  const counts=new Map();let writes=0;
+  const env={ALLOWED_ORIGIN:origin,DB:{prepare:statement=>({
+    bind:(questions,correct)=>({run:async()=>{writes++;const key=`${questions}:${correct}`;counts.set(key,(counts.get(key)??0)+1)}}),
+    all:async()=>({results:[...counts].map(([key,sessions])=>{const [questions,correct]=key.split(':').map(Number);return {questions,correct,sessions}})})
+  })}};
+  for(const body of [{questions:10,correct:11},{questions:10,correct:8,learner:'abc'},{questions:10,correct:8,answers:['a']},{questions:10.5,correct:8}])assert.equal((await receiveAnswer(request('/session','POST',body),env)).status,400);
+  assert.equal((await receiveAnswer(request('/session','POST',{questions:10,correct:8},'https://elsewhere.example'),env)).status,403);
+  assert.equal(writes,0);
+  for(const body of [{questions:10,correct:8},{questions:10,correct:8},{questions:5,correct:5}])assert.equal((await receiveAnswer(request('/session','POST',body),env)).status,204);
+  assert.equal(writes,3);
+  const response=await receiveAnswer(request('/session-results'),env);
+  assert.equal(response.status,200);
+  const rows=await response.json();
+  assert.deepEqual(rows.find(row=>row.questions===10),{questions:10,correct:8,sessions:2});
+  assert.equal((await receiveAnswer(request('/session-results','GET',undefined,'https://elsewhere.example'),env)).status,403);
+});
+
+test('score totals are read without credentials and malformed rows are ignored',async()=>{
+  const fetcher=async(url,options)=>{assert.equal(url,'https://example.org/session-results');assert.equal(options.credentials,'omit');return {ok:true,json:async()=>[{questions:10,correct:8,sessions:4},{questions:10,correct:12,sessions:1}]}};
+  assert.deepEqual(await readQuizSessionStatistics('https://example.org/answer',fetcher),[{questions:10,correct:8,sessions:4}]);
+  assert.equal(await readQuizSessionStatistics('',fetcher),null);
 });
