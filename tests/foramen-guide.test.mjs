@@ -21,6 +21,8 @@ test("raw and colored crops sample the same coronal voxels with superior up",()=
 });
 
 test("guide anchor comes from the reviewed right-foramen patch and all three slices retain both cavity labels",()=>{
+  // The guide follows the learner's coronal slider from anterior to posterior.
+  assert.ok(FORAMEN_GUIDE.slices.every((slice,index)=>index===0||FORAMEN_GUIDE.slices[index-1]>slice));
   const compressed=fs.readFileSync(new URL("../public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz",import.meta.url));
   const patch=JSON.parse(fs.readFileSync(new URL("../segmentation-patches/review/right-foramen36-adoption-2026-09-16.json",import.meta.url)));
   assert.ok(patch.points.some(point=>point.every((value,i)=>value===FORAMEN_GUIDE.center[i])));

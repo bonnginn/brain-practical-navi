@@ -2,7 +2,7 @@
 // docs/RIGHT_FORAMEN_CONNECTION_2026-09-16.md. This is not a segmentation mask.
 export const FORAMEN_GUIDE = {
   center: [201, 266, 149] as const,
-  slices: [265, 266, 267] as const,
+  slices: [267, 266, 265] as const,
   crop: { x: 167, z: 119, width: 66, height: 90 },
 };
 
