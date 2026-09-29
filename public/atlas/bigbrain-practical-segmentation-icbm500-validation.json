@@ -128,7 +128,7 @@
     "27": 264453,
     "28": 736101,
     "29": 724983,
-    "30": 145429,
+    "30": 97034,
     "31": 56790,
     "32": 53587,
     "33": 6775,
@@ -481,7 +481,7 @@
     "workflowMetadataStatus": "strict"
   },
   "preClassificationCompressedSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
-  "rawVoxelSha256": "a0fe72f4a377c8dc290a07c787712517aba4a861eba0eb323ad980579e9c636b",
+  "rawVoxelSha256": "7cb462c16be2857d47edb40642cd11083752c6dc1532b9d91e980b02650487b8",
   "brainstemThreeIslandsAudit": {
     "record": "segmentation-patches/review/brainstem-three-islands-adoption-2026-09-06.json",
     "recordSha256": "9c7b14f4272969261e3e2415d3f522b7e5d7db1eeca7cb0c8ae28b225458be66",
@@ -1769,6 +1769,13 @@
       "changedVoxelCount": 3,
       "projectAdopted": true,
       "expertReviewed": false
+    },
+    "callosal-cingulate-broad": {
+      "record": "segmentation-patches/review/callosal-cingulate-broad-adoption-2026-09-30.json",
+      "recordSha256": "dfb59de7ef37426cd19739a708a9b4583ad52936f060c4a4ed3245d5ae5f53eb",
+      "changedVoxelCount": 48395,
+      "projectAdopted": true,
+      "expertReviewed": false
     }
   },
   "historicalGenerationClaims": {
@@ -1778,9 +1785,9 @@
   },
   "currentImageMeasurements": {
     "schemaVersion": 1,
-    "sourceLabelSha256": "f2c489829d1b0d9515bcced16e42bb2daff25fa15f2d169e75ee5065ea001721",
+    "sourceLabelSha256": "71f012431e3bd605deabc8d19b9cdaf1d35dff076f54e7a9f84a32e3a4eb5866",
     "sourceImageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
-    "rawVoxelSha256": "a0fe72f4a377c8dc290a07c787712517aba4a861eba0eb323ad980579e9c636b",
+    "rawVoxelSha256": "7cb462c16be2857d47edb40642cd11083752c6dc1532b9d91e980b02650487b8",
     "dimensionsXYZ": [
       394,
       466,
@@ -1818,7 +1825,7 @@
       "27": 264453,
       "28": 736101,
       "29": 724983,
-      "30": 145429,
+      "30": 97034,
       "31": 56790,
       "32": 53587,
       "33": 6775,

@@ -1,6 +1,6 @@
 {
   "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
-  "sourceSha256": "f2c489829d1b0d9515bcced16e42bb2daff25fa15f2d169e75ee5065ea001721",
+  "sourceSha256": "71f012431e3bd605deabc8d19b9cdaf1d35dff076f54e7a9f84a32e3a4eb5866",
   "method": "0.5 mm marching cubes; no resampling, filling, smoothing or component removal",
   "scope": "Display synchronization only; not anatomical validation",
   "meshes": {
@@ -393,58 +393,10 @@
       "compression": "gzip"
     },
     "section-current-corpus-callosum": {
-      "voxels": 145429,
-      "components6": 49,
+      "voxels": 97034,
+      "components6": 1,
       "componentSizes": [
-        145310,
-        13,
-        8,
-        7,
-        6,
-        5,
-        4,
-        4,
-        4,
-        4,
-        3,
-        3,
-        3,
-        3,
-        3,
-        3,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        2,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1,
-        1
+        97034
       ],
       "boundsZYX": [
         [
@@ -453,24 +405,24 @@
           175
         ],
         [
-          222,
+          202,
           348,
           216
         ]
       ],
-      "vertices": 52452,
-      "faces": 105200,
-      "sha256": "73849c949e2a87944fe74618ede0d113461fa0535ccdaac4b7aaa3238f09eb98",
-      "bytes": 608299,
+      "vertices": 31247,
+      "faces": 62530,
+      "sha256": "60d1d559ed39f5778e8c447e51d559eeb2231582e12b01652a775211c4a327a8",
+      "bytes": 353822,
       "labelIds": [
         30
       ],
       "labelVoxelCounts": {
-        "30": 145429
+        "30": 97034
       },
-      "rawSha256": "cacbe6f9ec17dace83a5bfe7586dbd38e7e9122c11e543787b545420e872b386",
+      "rawSha256": "dfb142642cba4ff931ce45ca12b20bb472eaf7f4fcae3ae9d292ed355a75e576",
       "compression": "gzip",
-      "reviewRecord": "segmentation-patches/review/callosal-cortical-component93-adoption-2026-09-29.json"
+      "reviewRecord": "segmentation-patches/review/callosal-cingulate-broad-adoption-2026-09-30.json"
     },
     "section-current-mammillary-bodies": {
       "voxels": 1288,

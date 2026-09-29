@@ -1,0 +1,156 @@
+{
+  "beforeSha256": "f2c489829d1b0d9515bcced16e42bb2daff25fa15f2d169e75ee5065ea001721",
+  "afterSha256": "71f012431e3bd605deabc8d19b9cdaf1d35dff076f54e7a9f84a32e3a4eb5866",
+  "rawVoxelSha256": "7cb462c16be2857d47edb40642cd11083752c6dc1532b9d91e980b02650487b8",
+  "sourceImageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
+  "independentTissueSampleSha256": "539cbbb64a8264300e74a32a348ec3b80ad91775e743ff10eaa432cc7348fa56",
+  "indexSha256": "e5ce1fd13a788240010facf5dc822de6cc9002661991ad1cc8f46b23b88b660b",
+  "count": 48395,
+  "transition": "30→0",
+  "callosumBefore": 145429,
+  "callosumAfter": 97034,
+  "seedCounts": {
+    "175-189": 1609,
+    "201-216": 1720
+  },
+  "selection": {
+    "tissueClassCounts": {
+      "1": 1650,
+      "2": 14135,
+      "3": 29955,
+      "5": 2634,
+      "6": 21
+    },
+    "seeded": 39454,
+    "midlineCeiling": 46146
+  },
+  "reviewFigures": {
+    "work/anatomy-review/callosum-cingulate-post-release-20260930/candidate-0.png": "4f3cf3db5fee21d2e1b278dbd6bcf4c27889fe5197638cf29abe63588b316bb9",
+    "work/anatomy-review/callosum-cingulate-post-release-20260930/candidate-1.png": "2544077d88a510d41f5f3c11c1edf5f90a1b674b5e68a6844e71e8b84c3d870e",
+    "work/anatomy-review/callosum-cingulate-post-release-20260930/candidate-2.png": "2d3270c736d8b593ea71dafea122cf852f61259d285129ee0dffe8bd4e6a581f",
+    "work/anatomy-review/callosum-cingulate-post-release-20260930/candidate-3.png": "9bbc448321383ff390293a826125820b526ddf5a121eb8fc17f47a7da90df41b",
+    "work/anatomy-review/callosum-cingulate-post-release-20260930/candidate-4.png": "27ac41f37f9fa02db038b2c2d7324e5db0225b536c5c5e86562f973ff436ac67",
+    "work/anatomy-review/callosum-cingulate-post-release-20260930/candidate-5.png": "c90c4ebc1c0d6ff8cccf65becda7682aa4bc55c068bcf2f244dfe87dd896ea60",
+    "work/anatomy-review/callosum-cingulate-post-release-20260930/candidate-coronal-0.png": "6fd3dc63b7d0d2cc1f759e305c0479daa583a74867c43c197f7004881d329db5",
+    "work/anatomy-review/callosum-cingulate-post-release-20260930/candidate-coronal-1.png": "6a760fe0d0da44abe883bc5b3ed9e606bd713d11ce0c983855076dfdcb7df7d1",
+    "work/anatomy-review/callosum-cingulate-post-release-20260930/candidate-coronal-2.png": "81660e893218e4cb8d9bc26e8c297be87e5008709f1def22d0ac09e10fd79636"
+  },
+  "decision": "Work-only proposal. Original sagittal and coronal images show broad cingulate/cingulum tissue above the callosal white band on both sides. Remove upper mislabeled tissue while preserving the near-midline arch. Tissue is unlabelled, not erased.",
+  "limitation": "AI image review at 0.5 mm; approximate educational boundary, not expert or native-resolution validation. Do not assign removed voxels to another named structure.",
+  "projectAdopted": true,
+  "expertReviewed": false,
+  "published": false,
+  "status": "AI-image-reviewed-project-adopted-development-only",
+  "sectionMeshImpact": {
+    "before": {
+      "voxels": 145429,
+      "components6": 49,
+      "componentSizes": [
+        145310,
+        13,
+        8,
+        7,
+        6,
+        5,
+        4,
+        4,
+        4,
+        4,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "boundsZYX": [
+        [
+          147,
+          167,
+          175
+        ],
+        [
+          222,
+          348,
+          216
+        ]
+      ],
+      "vertices": 52452,
+      "faces": 105200,
+      "sha256": "cacbe6f9ec17dace83a5bfe7586dbd38e7e9122c11e543787b545420e872b386",
+      "bytes": 2731068
+    },
+    "after": {
+      "voxels": 97034,
+      "components6": 1,
+      "componentSizes": [
+        97034
+      ],
+      "boundsZYX": [
+        [
+          147,
+          167,
+          175
+        ],
+        [
+          202,
+          348,
+          216
+        ]
+      ],
+      "vertices": 31247,
+      "faces": 62530,
+      "sha256": "dfb142642cba4ff931ce45ca12b20bb472eaf7f4fcae3ae9d292ed355a75e576",
+      "bytes": 1625288
+    }
+  },
+  "blockMaskImpact": [
+    {
+      "specimen": "commissural-system",
+      "part": "tissue",
+      "changed": 2356
+    },
+    {
+      "specimen": "commissural-system",
+      "part": "corpus-callosum",
+      "changed": 6004
+    }
+  ],
+  "teachingMeshChanges": [
+    "corpus-callosum",
+    "tissue"
+  ]
+}

@@ -301,8 +301,8 @@
     "commissural-system": [
       {
         "file": "block-commissural-system-tissue.mesh",
-        "vertices": 19354,
-        "faces": 38508,
+        "vertices": 18488,
+        "faces": 36808,
         "shadeMin": 0.1581,
         "shadeMax": 1.0,
         "part": "tissue",
@@ -310,14 +310,14 @@
         "sourceType": "specimen-derived",
         "color": "#c9a27d",
         "material": "specimen",
-        "meshSha256": "67fad4f06674f5e285e16bdd7cf5c1801af54c0c113b92507a16d2340a5333b9",
-        "segmentationSourceSha256": "98868c413e45436756294f06a693e5dc51efd5c34e98335470fbb27bce204f9d",
-        "repairReview": "AI-image-reviewed cortical overlabel exclusion; development only, not expert review."
+        "meshSha256": "22034de216d4a632c89af4021716b54442e023a5741075696f546c7d996f9c21",
+        "segmentationSourceSha256": "71f012431e3bd605deabc8d19b9cdaf1d35dff076f54e7a9f84a32e3a4eb5866",
+        "repairReview": "AI image-reviewed broad cingulate/cingulum overlabel exclusion; project-adopted, not expert reviewed."
       },
       {
         "file": "block-commissural-system-corpus-callosum.mesh",
-        "vertices": 12874,
-        "faces": 25712,
+        "vertices": 7786,
+        "faces": 15572,
         "shadeMin": 0.82,
         "shadeMax": 0.82,
         "part": "corpus-callosum",
@@ -325,9 +325,9 @@
         "sourceType": "image-guided-segmentation",
         "color": "#dbc270",
         "material": "model",
-        "meshSha256": "f77ab1166a4e2e9bcb021b5e693c95c34f01ab0e877e23163a4b553bc15b05cf",
-        "segmentationSourceSha256": "98868c413e45436756294f06a693e5dc51efd5c34e98335470fbb27bce204f9d",
-        "repairReview": "AI-image-reviewed cortical overlabel exclusion; development only, not expert review."
+        "meshSha256": "047d3751e8b021a32cba7872249d1aee1717070ea97db672792925c0cb166915",
+        "segmentationSourceSha256": "71f012431e3bd605deabc8d19b9cdaf1d35dff076f54e7a9f84a32e3a4eb5866",
+        "repairReview": "AI image-reviewed broad cingulate/cingulum overlabel exclusion; project-adopted, not expert reviewed."
       },
       {
         "file": "block-commissural-system-lateral-ventricles.mesh",
