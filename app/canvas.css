@@ -64,7 +64,7 @@
 .structureBtn.unavailable { color: #939a98; background: #ebeae5; }
 .structureBtn.unavailable i { filter: grayscale(1); opacity: .42; }
 .structureBtn.unavailable strong { color: #a8aeac; }
-.structureHeading { display: grid; align-items: start; gap: 4px; }
+.structureHeading { display: grid; align-items: start; gap: 4px; font-size: 11px; letter-spacing: .08em; }
 .structureHeading small { color: #1d6e69; font: 700 15px sans-serif; letter-spacing: 0; }
 .clearStructures { width: calc(100% - 36px); margin: 0 18px 4px; padding: 4px 7px; border: 1px solid #c0c4bf; background: #f4f3ee; color: #6f7877; font-size: 15px; text-align: right; }
 .clearStructures:disabled { opacity: .4; cursor: default; }
