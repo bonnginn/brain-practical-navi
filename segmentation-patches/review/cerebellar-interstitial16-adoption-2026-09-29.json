@@ -1,0 +1,302 @@
+{
+  "beforeSha256": "3ccdd3391eaeb124a12b547f4a8c27f59a7e4192341bec6e7394597d7c562648",
+  "afterSha256": "7d94c6e30aa6182b4cb68d1969772e71eb7fe64199d7ea58b6028f6050932f3e",
+  "beforeRawVoxelSha256": "b44b5cb652e70be02e8436c87090485838a58230ead292d9864605e1400afe79",
+  "afterRawVoxelSha256": "107b7a3b33e30bfdb6606ad6a1fd18bbce0ff975a9d0e1861e883e1a36925ee9",
+  "imageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
+  "count": 16,
+  "points": [
+    {
+      "xyz": [
+        169,
+        137,
+        123
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        169,
+        137,
+        124
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        169,
+        138,
+        123
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        169,
+        138,
+        124
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        170,
+        137,
+        123
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        170,
+        137,
+        124
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        170,
+        138,
+        123
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        170,
+        138,
+        124
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        217,
+        117,
+        117
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        217,
+        117,
+        118
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        217,
+        118,
+        117
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        217,
+        118,
+        118
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        218,
+        117,
+        117
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        218,
+        117,
+        118
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        218,
+        118,
+        117
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        218,
+        118,
+        118
+      ],
+      "before": 29,
+      "after": 0
+    }
+  ],
+  "countsBefore": {
+    "28": 736113,
+    "29": 724997
+  },
+  "countsAfter": {
+    "28": 736105,
+    "29": 724989
+  },
+  "evidence": {
+    "work/anatomy-review/post-white46-cerebellar-components-2026-09-29/report.json": "cbb0ea451e961689a448195db8b5c2c1abaa6fdb8ac3ae01c9794bcf84c715ba",
+    "work/anatomy-review/post-white46-cerebellar-components-2026-09-29/id28-x169y137z123.png": "f1d5b13a6ef51d8009e6ac96879b102b736c37804bfc9baa3f6678798463f498",
+    "work/anatomy-review/post-white46-cerebellar-components-2026-09-29/id29-x217y117z117.png": "3bda9cc155f40402ae7871396c18769866eac9a484db45b5b11dc56cdc16afca"
+  },
+  "decision": "Remove two paired cerebellar labels in the intervening pale exterior space between cerebral and cerebellar tissue after reviewing adjacent X/Y/Z sections; keep the separately reviewed lower foliar margins.",
+  "projectAdopted": true,
+  "expertReviewed": false,
+  "published": false,
+  "adopted": true,
+  "installed": true,
+  "status": "AI-image-reviewed-project-adopted-development-only",
+  "sectionMeshImpact": {
+    "before": {
+      "voxels": 1461110,
+      "components6": 41,
+      "componentSizes": [
+        1460714,
+        40,
+        40,
+        24,
+        24,
+        16,
+        16,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "boundsZYX": [
+        [
+          7,
+          81,
+          79
+        ],
+        [
+          148,
+          224,
+          310
+        ]
+      ],
+      "vertices": 160378,
+      "faces": 320920,
+      "sha256": "b7ad443da4fa5c77a4271075619674bc857d4c1347ef4c9cd4600014607a9862",
+      "bytes": 8341636
+    },
+    "after": {
+      "voxels": 1461094,
+      "components6": 39,
+      "componentSizes": [
+        1460714,
+        40,
+        40,
+        24,
+        24,
+        16,
+        16,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "boundsZYX": [
+        [
+          7,
+          81,
+          79
+        ],
+        [
+          148,
+          224,
+          310
+        ]
+      ],
+      "vertices": 160330,
+      "faces": 320832,
+      "sha256": "1279a279516af5423448064279351a8fc227f2e22235fc59c46ca02e89900a85",
+      "bytes": 8339236
+    }
+  },
+  "blockMaskChanged": false,
+  "integrationVerification": "docs/CEREBELLAR_INTERSTITIAL16_2026-09-29.md"
+}
