@@ -34,7 +34,7 @@
   "sha256": "42f6e75052ad8f376c126179df892e3d3b4af49f8b6fba01a84b7b3c56a2d48a",
   "bytes": 64200,
   "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
-  "sourceSha256": "2e6cd6b4afac0c064dcaa2a59aacd086c17a5207ba4188edcf0560a5f805220e",
+  "sourceSha256": "3ccdd3391eaeb124a12b547f4a8c27f59a7e4192341bec6e7394597d7c562648",
   "labelIds": [
     44,
     45

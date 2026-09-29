@@ -1,0 +1,584 @@
+{
+  "beforeSha256": "2e6cd6b4afac0c064dcaa2a59aacd086c17a5207ba4188edcf0560a5f805220e",
+  "afterSha256": "3ccdd3391eaeb124a12b547f4a8c27f59a7e4192341bec6e7394597d7c562648",
+  "beforeRawVoxelSha256": "29a52f360a138b93b8e213d6aedd875bca79ccddaa6678a31f93400c55af9f95",
+  "afterRawVoxelSha256": "b44b5cb652e70be02e8436c87090485838a58230ead292d9864605e1400afe79",
+  "imageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
+  "count": 46,
+  "points": [
+    {
+      "xyz": [
+        173,
+        117,
+        117
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        173,
+        117,
+        118
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        173,
+        118,
+        117
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        173,
+        118,
+        118
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        173,
+        163,
+        132
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        173,
+        164,
+        132
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        173,
+        165,
+        132
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        173,
+        166,
+        132
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        173,
+        167,
+        132
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        173,
+        168,
+        132
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        174,
+        117,
+        117
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        174,
+        117,
+        118
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        174,
+        118,
+        117
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        174,
+        118,
+        118
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        179,
+        113,
+        117
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        179,
+        113,
+        118
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        179,
+        114,
+        117
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        179,
+        114,
+        118
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        180,
+        113,
+        117
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        180,
+        113,
+        118
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        180,
+        114,
+        117
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        180,
+        114,
+        118
+      ],
+      "before": 28,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        113,
+        117
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        113,
+        118
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        114,
+        117
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        211,
+        114,
+        118
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        113,
+        117
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        113,
+        118
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        114,
+        117
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        212,
+        114,
+        118
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        279,
+        101,
+        61
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        279,
+        101,
+        62
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        279,
+        102,
+        61
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        279,
+        102,
+        62
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        280,
+        101,
+        61
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        280,
+        101,
+        62
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        280,
+        102,
+        61
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        280,
+        102,
+        62
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        291,
+        109,
+        67
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        291,
+        109,
+        68
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        291,
+        110,
+        67
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        291,
+        110,
+        68
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        292,
+        109,
+        67
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        292,
+        109,
+        68
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        292,
+        110,
+        67
+      ],
+      "before": 29,
+      "after": 0
+    },
+    {
+      "xyz": [
+        292,
+        110,
+        68
+      ],
+      "before": 29,
+      "after": 0
+    }
+  ],
+  "countsBefore": {
+    "28": 736135,
+    "29": 725021
+  },
+  "countsAfter": {
+    "28": 736113,
+    "29": 724997
+  },
+  "evidence": {
+    "work/anatomy-review/current-posterior-white-islands-2026-09-29/report.json": "c01f1b7cd4467cf3f64bf24414fd42e47e377cf5a4df5ebf5dd6cc4408b059d8",
+    "work/anatomy-review/current-posterior-white-islands-2026-09-29/id28-x173y117z117.png": "3ac8d980397c786a2edc7074c3c7726337dc6a3adfccd7c2d72e91115833772d",
+    "work/anatomy-review/current-posterior-white-islands-2026-09-29/id28-x179y113z117.png": "366a7a23d107ecaa17ac31d848bd804c52c405f13dc64e1464f7ab42b67f70fa",
+    "work/anatomy-review/current-posterior-white-islands-2026-09-29/id28-x173y163z132.png": "f1ad91fd4a12e2b632c273bd218b93ade725908b873652ba2774a08879c4ca93",
+    "work/anatomy-review/current-posterior-white-islands-2026-09-29/id29-x211y113z117.png": "56938900d0a53ad08c6ab1b197f4d74b3b28a91fa65b8775a7f75fe91869d089",
+    "work/anatomy-review/current-posterior-white-islands-2026-09-29/id29-x279y101z61.png": "5387bf8d5667751ec6d5d46198ed80d9a4b34f476cd017e2eebf2ca08590b107",
+    "work/anatomy-review/current-posterior-white-islands-2026-09-29/id29-x291y109z67.png": "0603ac7156b7bfc8da21b50326c381ef0f563d25a23de204c2426903fcd4c91c"
+  },
+  "decision": "Remove six small cerebellar labels visible in white exterior space on original and adjacent X/Y/Z sections; connectivity and intensity alone were insufficient.",
+  "projectAdopted": true,
+  "expertReviewed": false,
+  "published": false,
+  "adopted": true,
+  "installed": true,
+  "status": "AI-image-reviewed-project-adopted-development-only",
+  "sectionMeshImpact": {
+    "before": {
+      "voxels": 1461156,
+      "components6": 47,
+      "componentSizes": [
+        1460714,
+        40,
+        40,
+        24,
+        24,
+        16,
+        16,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        6,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "boundsZYX": [
+        [
+          7,
+          81,
+          79
+        ],
+        [
+          148,
+          224,
+          310
+        ]
+      ],
+      "vertices": 160524,
+      "faces": 321188,
+      "sha256": "de102bfc20abb22e4b679a4b8213e42f63f069f9a2994a4ef365880fd94af75c",
+      "bytes": 8348940
+    },
+    "after": {
+      "voxels": 1461110,
+      "components6": 41,
+      "componentSizes": [
+        1460714,
+        40,
+        40,
+        24,
+        24,
+        16,
+        16,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "boundsZYX": [
+        [
+          7,
+          81,
+          79
+        ],
+        [
+          148,
+          224,
+          310
+        ]
+      ],
+      "vertices": 160378,
+      "faces": 320920,
+      "sha256": "b7ad443da4fa5c77a4271075619674bc857d4c1347ef4c9cd4600014607a9862",
+      "bytes": 8341636
+    }
+  },
+  "blockMaskChanged": false,
+  "integrationVerification": "docs/CEREBELLAR_WHITE_ISLANDS46_2026-09-29.md"
+}

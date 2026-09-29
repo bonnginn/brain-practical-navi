@@ -126,8 +126,8 @@
     "25": 11665,
     "26": 9200,
     "27": 264456,
-    "28": 736135,
-    "29": 725021,
+    "28": 736113,
+    "29": 724997,
     "30": 145707,
     "31": 56790,
     "32": 53587,
@@ -481,7 +481,7 @@
     "workflowMetadataStatus": "strict"
   },
   "preClassificationCompressedSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
-  "rawVoxelSha256": "29a52f360a138b93b8e213d6aedd875bca79ccddaa6678a31f93400c55af9f95",
+  "rawVoxelSha256": "b44b5cb652e70be02e8436c87090485838a58230ead292d9864605e1400afe79",
   "brainstemThreeIslandsAudit": {
     "record": "segmentation-patches/review/brainstem-three-islands-adoption-2026-09-06.json",
     "recordSha256": "9c7b14f4272969261e3e2415d3f522b7e5d7db1eeca7cb0c8ae28b225458be66",
@@ -1734,6 +1734,13 @@
       "changedVoxelCount": 16,
       "projectAdopted": true,
       "expertReviewed": false
+    },
+    "cerebellar-white-islands46": {
+      "record": "segmentation-patches/review/cerebellar-white-islands46-adoption-2026-09-29.json",
+      "recordSha256": "68bcdd910af7c1f3c6202026eac922e61696fb3d7cf439fdfe5b16ae02a25897",
+      "changedVoxelCount": 46,
+      "projectAdopted": true,
+      "expertReviewed": false
     }
   },
   "historicalGenerationClaims": {
@@ -1743,9 +1750,9 @@
   },
   "currentImageMeasurements": {
     "schemaVersion": 1,
-    "sourceLabelSha256": "2e6cd6b4afac0c064dcaa2a59aacd086c17a5207ba4188edcf0560a5f805220e",
+    "sourceLabelSha256": "3ccdd3391eaeb124a12b547f4a8c27f59a7e4192341bec6e7394597d7c562648",
     "sourceImageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
-    "rawVoxelSha256": "29a52f360a138b93b8e213d6aedd875bca79ccddaa6678a31f93400c55af9f95",
+    "rawVoxelSha256": "b44b5cb652e70be02e8436c87090485838a58230ead292d9864605e1400afe79",
     "dimensionsXYZ": [
       394,
       466,
@@ -1781,8 +1788,8 @@
       "25": 11665,
       "26": 9200,
       "27": 264456,
-      "28": 736135,
-      "29": 725021,
+      "28": 736113,
+      "29": 724997,
       "30": 145707,
       "31": 56790,
       "32": 53587,
