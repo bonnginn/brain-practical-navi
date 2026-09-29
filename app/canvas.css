@@ -769,6 +769,7 @@ html[lang="en"] .specimenLayerPicker button span small { display: none; }
 .quizFeedback.wrong { border-left-color: #e36e57; }
 .quizFeedback > b { font-size: 15px; }
 .quizFeedback p { margin: 6px 0 10px; color: #606a68; font-size: 14px; line-height: 1.65; }
+.quizFeedback .quizFeedbackPrompt { margin: 8px 0; color: #233c39; font-weight: 700; line-height: 1.45; }
 .quizFeedback > div { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 9px; }
 .quizFeedbackActions { padding-bottom: 12px; margin-bottom: 12px; border-bottom: 1px solid #cbd3cd; }
 .quizFeedback button { width: 100%; padding: 9px; border: 0; background: #172126; color: white; font-size: 14px; font-weight: 700; }
