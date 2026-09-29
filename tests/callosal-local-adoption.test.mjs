@@ -4,6 +4,7 @@ import {readFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {gunzipSync} from 'node:zlib';
 import {regionalMeshSuccessor} from './helpers/residual-mesh-successor.mjs';
+import {currentSegmentation} from './helpers/current-segmentation.mjs';
 const sha=data=>createHash('sha256').update(data).digest('hex');
 const root=new URL('../',import.meta.url);
 
@@ -22,7 +23,7 @@ test('archived first callosal stage is exactly 1605 edits retained by the curren
  const metadata=JSON.parse(await readFile(new URL('public/atlas/bigbrain-practical-segmentation-icbm500-validation.json',root),'utf8'));
  const live=gunzipSync(await readFile(new URL('public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz',root)));
  for(const index of indices)assert.equal(live[index+10],0);
- assert.equal(metadata.labelCounts['30'],145429);assert.equal(metadata.rawVoxelSha256,sha(live.subarray(10)));
+ assert.equal(metadata.labelCounts['30'],currentSegmentation.counts[30]);assert.equal(metadata.rawVoxelSha256,sha(live.subarray(10)));
  assert.equal(metadata.callosalLocalPatchAudit.completeCallosum,false);assert.equal(metadata.callosalLocalPatchAudit.expertReviewed,false);
  assert.ok(metadata.imageGuidedCandidateIds.includes(30));assert.ok(!metadata.imageGuidedReviewedIds.includes(30));
  const catalog=JSON.parse(await readFile(new URL('app/english-catalog.json',root),'utf8'));
@@ -34,7 +35,6 @@ test('callosal block mesh carries the corresponding actual geometry metadata',as
  const data=await readFile(new URL('public/atlas/'+name,root));
  const callosalSuccessor=await regionalMeshSuccessor(name,'c9e4162ee7e4c43c5c8356c50db34b0e69488cf73c6c061dadddc9d84724bed3');
  assert.equal(sha(data),callosalSuccessor.afterSha256);
- assert.equal(sha(data),'f77ab1166a4e2e9bcb021b5e693c95c34f01ab0e877e23163a4b553bc15b05cf');
  const metadata=JSON.parse(await readFile(new URL('public/atlas/specimen-blocks.json',root),'utf8'));
  const part=metadata.specimens['commissural-system'].find(p=>p.file===name);
  assert.equal(part.vertices,data.readUInt32LE(4));assert.equal(part.faces,data.readUInt32LE(8));

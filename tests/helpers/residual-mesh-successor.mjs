@@ -3,6 +3,23 @@ import {readFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {gunzipSync} from 'node:zlib';
 const read=p=>readFile(new URL('../../'+p,import.meta.url));
+const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
+async function verifyCallosalCingulateSuccessor(record){
+ assert.equal(record.transition,'30→0');
+ assert.equal(record.count,48395);
+ assert.equal(record.callosumBefore-record.callosumAfter,record.count);
+ assert.equal(record.afterRawVoxelSha256,record.rawVoxelSha256);
+ const indices=gunzipSync(await read('segmentation-patches/review/callosal-cingulate-broad-2026-09-30.indices.bin.gz'));
+ assert.equal(sha(indices),record.indexSha256);
+ assert.equal(indices.length,record.count*4);
+ const section=gunzipSync(await read('public/atlas/section-current-corpus-callosum.mesh'));
+ assert.equal(sha(section),record.sectionMeshImpact.after.sha256);
+ assert.deepEqual(record.blockMeshImpact.map(p=>[p.file,p.changedMaskVoxels]),[
+  ['block-commissural-system-corpus-callosum.mesh',6004],
+  ['block-commissural-system-tissue.mesh',2356],
+ ]);
+ for(const p of record.blockMeshImpact)assert.equal(sha(await read('public/atlas/'+p.file)),p.afterSha256);
+}
 // Older immutable fibre records name the input sourceSha256. Accept that field
 // without rewriting their pinned bytes, and reject contradictory dual fields.
 export function regionalBeforeSha(record){
@@ -22,6 +39,12 @@ export async function withRegionalBatches(record,{afterRevision=null}={}){
   if(!active){if(next.afterSha256===afterRevision){assert.deepEqual(next,record);active=true;}continue;}
   assert.equal(regionalBeforeSha(next),result.afterSha256);
   let sectionImpact=next.sectionMeshImpact;
+  if(name==='callosal-cingulate-broad'){
+   await verifyCallosalCingulateSuccessor(next);
+   // The callosal mesh changes; the historical ventricular mesh chain does not.
+   sectionImpact={before:result.sectionMeshImpact.after,after:{...result.sectionMeshImpact.after,
+    sourceSha256:next.afterSha256,rawVoxelSha256:next.afterRawVoxelSha256}};
+  }
   if(['cerebellar-exterior-islands40','cerebellar-left-exterior24','cerebellar-left-lower16','cerebellar-white-islands46','cerebellar-interstitial16'].includes(name)){
    assert.equal(next.blockMaskChanged,false);
    assert.ok(next.points.length===next.count&&next.points.every(p=>[28,29].includes(p.before)&&p.after===0));
@@ -49,7 +72,7 @@ export async function withRegionalBatches(record,{afterRevision=null}={}){
    sectionImpact={before:result.sectionMeshImpact.after,after:{...result.sectionMeshImpact.after,sourceSha256:next.afterSha256,rawVoxelSha256:next.afterRawVoxelSha256}};
   }
   assert.deepEqual(sectionImpact.before,result.sectionMeshImpact.after);
-  const blockImpact=next.meshImpact?.blockMaskImpact;
+  const blockImpact=next.meshImpact?.blockMaskImpact??(name==='callosal-cingulate-broad'?[]:undefined);
   if(!blockImpact){
    assert.equal(next.blockMaskChanged,false,'Missing block impact requires a verified unchanged block mask');
    assert.ok(next.sectionMeshImpact,'Missing section-mesh impact for unchanged-block adoption');
@@ -74,6 +97,16 @@ export async function regionalMeshSuccessor(file,previousSha,afterRevision=null)
   const bytes=await read(audit.record),r=JSON.parse(bytes);
   assert.equal(createHash('sha256').update(bytes).digest('hex'),audit.recordSha256);
   if(!active){if(r.afterSha256===afterRevision)active=true;continue;}
+  if(name==='callosal-cingulate-broad'){
+   await verifyCallosalCingulateSuccessor(r);
+   const p=r.blockMeshImpact.find(p=>p.file===file);
+   if(p){
+    assert.equal(p.beforeSha256,result?.afterSha256??previousSha);
+    result={...p,segmentationSourceSha256:r.afterSha256,
+     firstRecoveryPath:result?.firstRecoveryPath};
+   }
+   continue;
+  }
   const blockImpact=r.meshImpact?.blockMaskImpact;
   if(!blockImpact){
    assert.equal(r.blockMaskChanged,false,'Missing block impact requires a verified unchanged block mask');
