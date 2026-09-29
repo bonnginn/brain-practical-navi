@@ -1,6 +1,11 @@
 /* Learning workspace: navigation, observation, then on-demand explanation.
    The educational entrance deliberately retains its original presentation. */
 .appShell:not(.workspace-entrance){--ui-font-14:14px;--ui-font-15:14px;--ui-font-16:15px;--ui-font-18:16px;--ui-font-20:18px}
+@media(min-width:761px){
+  .appShell:not(.workspace-entrance):not(.phone-mode):has(> .pwaUpdateNoticeCompact){grid-template-rows:64px auto minmax(0,1fr)}
+  .appShell:has(> .pwaUpdateNoticeCompact)>.pwaUpdateNoticeCompact{grid-column:1/-1;grid-row:2}
+  .appShell:has(> .pwaUpdateNoticeCompact) .leftRail,.appShell:has(> .pwaUpdateNoticeCompact)>.workArea{grid-row:3}
+}
 .appShell:not(.workspace-entrance) .headerMoreMenu{display:block}
 .appShell:not(.workspace-entrance) .topActions>.topActionSecondary{display:none}
 .compactLearningHome{width:min(1080px,100%);padding:24px;box-shadow:none;border:0;background:transparent}
