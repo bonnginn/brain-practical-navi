@@ -159,3 +159,9 @@
   .appShell:not(.workspace-entrance):not(.phone-mode) .topbar{height:96px;flex-wrap:wrap;gap:0 8px;padding-block:5px}
   .appShell:not(.workspace-entrance) .workspaceSwitch{order:3;flex-basis:100%}
 }
+@media(min-width:761px) and (max-width:900px){
+  .appShell:not(.workspace-entrance):not(.phone-mode):has(> .pwaUpdateNoticeCompact){grid-template-rows:96px auto minmax(0,1fr)}
+}
+@media(min-width:901px) and (max-width:969px){
+  .appShell[data-locale=en]:not(.workspace-entrance):not(.phone-mode):has(> .pwaUpdateNoticeCompact){grid-template-rows:96px auto minmax(0,1fr)}
+}

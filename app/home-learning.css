@@ -2,7 +2,7 @@
 .pwaUpdateNotice { margin-top: 18px; padding: 12px 15px; border-left: 4px solid #39715f; background: #edf5e9; color: #294d40; }
 .pwaUpdateNotice p { margin: 6px 0 0; font-size: 14px; line-height: 1.6; }
 .pwaUpdateNoticeCompact { display: flex; align-items: baseline; gap: 10px; margin: 0; padding: 6px 14px; border-left: 0; border-bottom: 1px solid #a8c8b7; font-size: 13px; }
-.pwaUpdateNoticeCompact p { margin: 0; font-size: 12px; line-height: 1.4; overflow-wrap: anywhere; }
+.pwaUpdateNoticeCompact p { min-width: 0; margin: 0; font-size: 12px; line-height: 1.4; overflow-wrap: anywhere; }
 @media(max-width:700px) { .pwaUpdateNoticeCompact { display: block; } }
 .homeLearningGuide > header h2 { margin: 0 0 6px; font-size: 23px; color: #244d47; }
 .homeLearningGuide > header p { margin: 0; color: #54645f; font-size: 15px; line-height: 1.65; }
