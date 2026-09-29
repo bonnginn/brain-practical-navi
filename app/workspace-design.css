@@ -161,7 +161,7 @@
   .surfaceRegionStudyGrid .surfaceModelCard>.panelHead .panelActions{display:flex;flex-wrap:nowrap;justify-content:flex-start;gap:5px;max-width:none;margin-top:5px}
   .surfaceRegionStudyGrid .surfaceModelCard>.panelHead .panelActions button{min-height:32px;padding:5px 8px;font-size:12px;white-space:nowrap}
   .phone-mode.workspace-surface .surfaceRegionStudyGrid:not(.blockContext-active){height:calc(100dvh - 235px)}
-  .workspace-surface .surfaceNeurovascularStudyGrid{
+  .workspace-surface .surfaceOverlayStudyGrid{
     flex:none;
     height:calc(100dvh - 290px);
     overflow-y:auto;
@@ -169,18 +169,19 @@
     scroll-padding-top:370px;
     scroll-padding-bottom:18px;
   }
-  .workspace-surface .surfaceNeurovascularStudyGrid>.surfaceModelCard{
+  .workspace-surface .surfaceOverlayStudyGrid>.surfaceModelCard{
     position:sticky;
     top:0;
     z-index:3;
     height:370px;
     grid-template-rows:auto minmax(0,1fr) auto;
   }
-  .surfaceNeurovascularStudyGrid .surfaceModelCard>.panelHead{min-height:0;padding:6px 10px}
-  .surfaceNeurovascularStudyGrid .surfaceModelCard>.panelHead small{display:none}
-  .surfaceNeurovascularStudyGrid .surfaceModelCard>.panelHead .panelActions{margin-left:auto}
-  .surfaceNeurovascularStudyGrid .surfaceModelCard .modelStage{min-height:0}
-  .phone-mode.workspace-surface .surfaceNeurovascularStudyGrid{height:calc(100dvh - 235px)}
+  .surfaceOverlayStudyGrid .surfaceModelCard>.panelHead{min-height:0;padding:6px 10px}
+  .surfaceOverlayStudyGrid .surfaceModelCard>.panelHead small{display:none}
+  .surfaceOverlayStudyGrid .surfaceModelCard>.panelHead .panelActions{margin-left:auto}
+  .surfaceOverlayStudyGrid .surfaceModelCard .modelStage{min-height:0}
+  .surfaceOverlayStudyGrid .surfaceModelCard>.panelHead:has(.panelActions button:nth-child(2))>div:first-child{flex:0 1 auto}
+  .phone-mode.workspace-surface .surfaceOverlayStudyGrid{height:calc(100dvh - 235px)}
 }
 @media(min-width:761px) and (max-width:969px){
   .appShell[data-locale=en]:not(.workspace-entrance):not(.phone-mode){grid-template-rows:96px minmax(0,1fr)}
