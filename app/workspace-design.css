@@ -66,11 +66,11 @@
 .blockPriorityGroup .blockPriorityReason{display:none}
 .circuitOverview{font-size:13px;margin:8px 0}
 .circuitOverview summary,.pathwayObservationOrder summary{cursor:pointer;font-size:13px}
-.pathwayPresets>div{display:none}
-.pathwayPresets{margin:0 0 10px;padding:8px}
+.pathwayPresets>div{display:block;flex:none;font-size:12px;white-space:nowrap}
+.pathwayPresets{display:flex;align-items:center;gap:7px;margin:0 0 5px;padding:0;border:0;background:transparent}
 .pathwayPresets nav{gap:4px}
 .pathwayPresets nav button{font-size:12px;padding:7px 5px}
-.circuitTeaching{padding:10px;margin-top:8px}
+.circuitTeaching{gap:7px;padding:8px;margin-top:4px}
 .circuitTeaching>header>span{display:none}
 .circuitTeaching>header h3{margin:0;font-size:16px}
 .circuitTeaching .circuitPlaybackNote{font-size:12px;line-height:1.5}
@@ -79,7 +79,7 @@
 .learningGuide:has(.freeExplorer)>.surfaceNomenclatureNote{order:2}
 .learningGuide:has(.freeExplorer)>.freeExplorer{margin-top:0;border-top:0;padding-top:0}
 .learningGuide:has(.freeExplorer)>h2{flex-shrink:0}
-.pathwayPresets>select{width:100%;min-height:36px;border:1px solid #9bad9f;background:#fff;color:#234e43;font:inherit;font-size:14px;padding:6px}
+.pathwayPresets>select{flex:1;min-width:0;width:auto;min-height:36px;border:1px solid #9bad9f;background:#fff;color:#234e43;font:inherit;font-size:14px;padding:6px}
 .appShell:not(.workspace-entrance) .learningGuide:has(.freeExplorer)>h2{display:none}
 .appShell:not(.workspace-entrance) .learningGuide:has(.freeExplorer)>.freeExplorer{margin:0;padding:0;border:0}
 .appShell:not(.workspace-entrance) .learningGuide .circuitTeaching>header h3{margin:0}
