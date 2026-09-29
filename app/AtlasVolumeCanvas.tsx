@@ -831,7 +831,7 @@ function drawWebGL(canvas:HTMLCanvasElement,selectionLayers:CircuitSelectionLaye
       gl.uniform1f(gl.getUniformLocation(prog,"depthBias"),0);
     }
   }
-  const contextOpacity=ghostSurface&&dimContextOverlays ? .12 : TEACHING_OVERLAY_OPACITY;
+  const contextOpacity=dimContextOverlays ? (ghostSurface ? .12 : .25) : TEACHING_OVERLAY_OPACITY;
   if(neurovascularOverlay!=="none"){
     // Vessels and nerves use the same depth-tested teaching-layer policy in
     // normal and ghost views. Free-view context fades with the brain shell.
