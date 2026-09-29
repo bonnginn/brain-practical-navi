@@ -158,6 +158,8 @@
   .appShell:not(.workspace-entrance):not(.phone-mode){grid-template-rows:96px minmax(0,1fr)}
   .appShell:not(.workspace-entrance):not(.phone-mode) .topbar{height:96px;flex-wrap:wrap;gap:0 8px;padding-block:5px}
   .appShell:not(.workspace-entrance) .workspaceSwitch{order:3;flex-basis:100%}
+  .appShell.workspace-quiz:not(.findPractice):not(.phone-mode){grid-template-columns:190px minmax(0,1fr)}
+  .appShell.workspace-quiz:not(.phone-mode) .quizWorkspace{grid-template-columns:minmax(0,1fr) minmax(310px,1.1fr)}
 }
 @media(min-width:761px) and (max-width:900px){
   .appShell:not(.workspace-entrance):not(.phone-mode):has(> .pwaUpdateNoticeCompact){grid-template-rows:96px auto minmax(0,1fr)}

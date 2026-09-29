@@ -1557,7 +1557,7 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
   .quizSliceAxis { grid-column: 1 / -1; }
   .quizSliceNavigator > button { grid-column: 1 / -1; white-space: normal; }
 }
-@container quiz-area (max-width: 42rem) {
+@container quiz-area (max-width: 38rem) {
   .quizWorkspace { display: grid; flex: 0 0 auto; grid-template-columns: minmax(0,1fr); }
   .quizNarrowPrompt { display: block; padding: 12px 14px; border: 1px solid #c7cac4; background: #e7e5df; }
   .quizImageCard { height: clamp(300px,46svh,480px); }
