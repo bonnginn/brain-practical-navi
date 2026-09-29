@@ -141,6 +141,24 @@
   .compactLearningHome>footer{display:flex;flex-wrap:wrap}
   .compactLearningHome>footer button{width:auto;font-size:12px}
 }
+/* Keep the specimen visible while learners pick a gyrus from the long list. */
+@media(max-width:760px){
+  .workspace-surface .surfaceRegionStudyGrid:not(.blockContext-active){
+    flex:none;
+    height:calc(100dvh - 290px);
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    scroll-padding-top:min(39dvh,300px);
+    scroll-padding-bottom:18px;
+  }
+  .workspace-surface .surfaceRegionStudyGrid:not(.blockContext-active)>.surfaceModelCard{
+    position:sticky;
+    top:0;
+    z-index:3;
+    height:min(39dvh,300px);
+  }
+  .phone-mode.workspace-surface .surfaceRegionStudyGrid:not(.blockContext-active){height:calc(100dvh - 235px)}
+}
 @media(min-width:761px) and (max-width:969px){
   .appShell[data-locale=en]:not(.workspace-entrance):not(.phone-mode){grid-template-rows:96px minmax(0,1fr)}
   .appShell[data-locale=en]:not(.workspace-entrance):not(.phone-mode) .topbar{height:96px;flex-wrap:wrap;gap:0 8px;padding-block:5px}
