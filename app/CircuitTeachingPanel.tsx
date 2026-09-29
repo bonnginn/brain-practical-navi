@@ -48,6 +48,10 @@ export function CircuitTeachingPanel({circuitKey,english,suspended=false,initial
   const selected=(nodeByKey.get(selectedPath.nodes[selectedPosition.nodeIndex])??circuit.nodes[0]) as CircuitNode;
   const selectedLabel=selectedPath.labels?.[selectedPosition.nodeIndex]??selected.label;
   const t=(value:{ja:string;en:string})=>circuitText(value,english);
+  const pathLabel=(index:number)=>{
+    const node=nodeByKey.get(selectedPath.nodes[index]);
+    return node?t(selectedPath.labels?.[index]??node.label):"";
+  };
   function selectStage(pathIndex:number,nodeIndex:number){
     setPlaying(false);setSelectedPosition({pathIndex,nodeIndex});
     const node=nodeByKey.get(circuit!.paths[pathIndex].nodes[nodeIndex]);
@@ -67,6 +71,11 @@ export function CircuitTeachingPanel({circuitKey,english,suspended=false,initial
       <button onClick={()=>selectStage(selectedPosition.pathIndex,selectedPosition.nodeIndex+1)} disabled={selectedPosition.nodeIndex>=pathLength-1}>{english?"Next":"次へ"}</button>
       <span>{t(selectedPath.label)} · {selectedPosition.nodeIndex+1}/{pathLength}</span>
     </nav>
+    <div className="circuitTrail" aria-label={english?"Previous, current, and next stages":"前・現在・次の段階"}>
+      {selectedPosition.nodeIndex>0&&<span><small>{english?"From":"前"}</small>{pathLabel(selectedPosition.nodeIndex-1)}</span>}
+      <strong aria-current="step"><small>{english?"Now":"現在"}</small>{t(selectedLabel)}</strong>
+      {selectedPosition.nodeIndex<pathLength-1&&<span><small>{english?"Next":"次"}</small>{pathLabel(selectedPosition.nodeIndex+1)}</span>}
+    </div>
     <article ref={stageRef} tabIndex={-1} className="circuitStage" aria-live={playing?"off":"polite"}><div className="circuitStageHeading"><span>{english?"Selected stage":"選択中の段階"}</span><h4>{t(selectedLabel)}</h4>{onObserve&&(selected.observations?.length?<span className="circuitObservationActions">{selected.observations.map(action=><button type="button" key={action.index} onClick={()=>{setPlaying(false);onObserve(action.index,selected.key)}}>{t(action.label)}</button>)}</span>:selected.observationIndex!==null&&<button type="button" onClick={()=>{setPlaying(false);onObserve(selected.observationIndex!,selected.key)}}>{selected.observationKind==="schematic"?(english?"View schematic 3D":"模式3Dを見る"):(english?"Inspect in specimen":"標本で見る")}</button>)}</div><dl><div><dt>{english?"Role and connection":"役割とつながり"}</dt><dd>{t(selected.detail)}</dd></div><div><dt>{english?"Where to inspect":"標本で見る位置"}</dt><dd>{t(selected.specimen)}</dd></div></dl>{selected.observationKind==="schematic"&&<p className="circuitStageScope">{english?"A schematic 3D model shows the approximate course; this is not specimen segmentation.":"走行の目安を模式3Dで表示しています。標本由来の分節ではありません。"}</p>}<details className="circuitDisplayDetails" key={selected.key}><summary>{english?"Display scope and limits":"表示範囲と限界"}</summary><dl>{circuitKey==="visual"&&<div><dt>{english?"3D correspondence":"3Dとの対応"}</dt><dd>{english?"The selected row identifies a side in the concept diagram. Specimen observation selects the existing structure group; it does not isolate that eye, side, or retinal fibers.":"選択した行は概念図上の左右を示します。標本では既存の構造群を表示し、その眼・左右・網膜線維だけを選択分離するものではありません。"}</dd></div>}<div><dt>{english?"Display limitation":"表示限界"}</dt><dd>{t(selected.limitation)}</dd></div></dl></details></article>
     <details className="circuitOverview"><summary>{english?"Learning goal and role":"学習目標と役割"}</summary><div className="circuitTeachingLead"><div><b>{english?"Learning goal":"学習目標"}</b><p>{t(circuit.goal)}</p></div><div><b>{english?"Main role":"主な役割"}</b><p>{t(circuit.role)}</p></div></div></details>
     <div className={`circuitDiagram${playing?" is-playing":""}`} aria-label={english?"Concept diagram":"概念図"}>

@@ -9,6 +9,7 @@
 @media(max-width:760px){.surfaceModelCard .panelHead:has(.circuitReturnButton){flex-wrap:wrap;gap:6px}.surfaceModelCard .panelHead:has(.circuitReturnButton)>div:first-child{flex-basis:100%}.surfaceModelCard .panelHead:has(.circuitReturnButton) .panelActions{flex-wrap:wrap}}
 
 .circuitPlayback{display:flex;gap:6px;align-items:center;flex-wrap:wrap}.circuitPlayback button{min-height:38px;padding:6px 10px;border:1px solid #739086;background:#fff;color:#29463d;font:inherit;font-size:var(--ui-font-13,13px)}.circuitPlayback button[aria-pressed="true"]{background:#496f62;color:white}.circuitPlayback button:disabled{opacity:.45}.circuitPlayback span,.circuitPlaybackNote{font-size:var(--ui-font-12,12px);line-height:1.5}.circuitPlaybackNote{margin:0;color:#586860}.circuitNodePair i{position:relative;min-width:26px}.circuitNodePair i.is-flowing:after{content:"";position:absolute;top:0;left:0;width:7px;height:7px;border-radius:50%;background:#c64b35;animation:circuit-flow 2.2s linear infinite}.is-playing .circuitNodePair button.active{border-color:#c64b35;outline-color:#c64b35}
+.circuitTrail{display:flex;align-items:stretch;gap:3px;min-width:0}.circuitTrail>*{position:relative;flex:1 1 0;min-width:0;padding:5px 7px;border:1px solid #ccd5d0;background:#fff;color:#394b45;font-size:var(--ui-font-12,12px);line-height:1.25;overflow-wrap:anywhere}.circuitTrail>*+*:before{content:"→";position:absolute;left:-6px;top:50%;transform:translateY(-50%);z-index:1;background:#f7faf7;color:#a45440;font-weight:800}.circuitTrail strong{border-color:#b85a42;background:#fff0e9;color:#733b2b}.circuitTrail small{display:block;margin-bottom:2px;color:#687a73;font-size:var(--ui-font-11,11px);font-weight:600}
 @keyframes circuit-flow{from{transform:translateX(0)}to{transform:translateX(22px)}}
 @media(prefers-reduced-motion:reduce){.circuitNodePair i.is-flowing:after{animation:none;left:12px}}
 
@@ -24,5 +25,6 @@
 .circuitDisplayDetails[open]>.circuitPlaybackNote{margin-top:8px}
 .circuitStage .circuitDisplayDetails{margin-top:6px}
 .circuitPlayback button{min-height:44px}
+.circuitTeaching>.circuitPlayback{gap:4px}.circuitTeaching>.circuitPlayback button{padding-inline:5px;font-size:var(--ui-font-12,12px)}
 
 .circuitRecall{border-top:1px solid #ccd5d0;padding-top:10px}.circuitRecall h4{margin:0;font-size:var(--ui-font-15,15px)}.circuitRecall>p{margin:5px 0 8px;font-size:var(--ui-font-12,12px);line-height:1.6;color:#586860}.circuitRecall details{margin-top:6px;border:1px solid #bccdc5;background:white;padding:0 10px}.circuitRecall summary{cursor:pointer;padding:11px 0;font-size:var(--ui-font-13,13px);font-weight:700;line-height:1.6}.circuitRecall details p{margin:0 0 8px;font-size:var(--ui-font-13,13px);line-height:1.65}.circuitRecall button{min-height:44px;margin-bottom:10px;padding:6px 10px;border:1px solid #739086;background:#eef3f0;color:#29463d;font:inherit;font-size:var(--ui-font-13,13px)}
