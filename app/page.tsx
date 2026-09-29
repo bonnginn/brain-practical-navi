@@ -2015,7 +2015,7 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
     </section>}
 
     {workspace==="quiz"&&<section className="workArea quizArea" id="workspace" tabIndex={-1}>
-      {reviewMenu&&!quizStatsOpen&&<div className="workHead"><div><span className="eyebrow">ANATOMY REVIEW QUIZ</span><h1 data-no-localize>{englishEdition?"Review":"復習"}</h1></div><span className="sourceBadge">名称・機能・位置関係を確認</span></div>}
+      {reviewMenu&&!quizStatsOpen&&<div className="workHead"><div><span className="eyebrow">ANATOMY REVIEW QUIZ</span><h1 data-no-localize>{englishEdition?"Review":"復習"}</h1></div><span className="sourceBadge" data-no-localize>{englishEdition?"name, function, and location":"名称・機能・位置関係を確認"}</span></div>}
 
       {(!reviewMenu&&!findMode||quizStatsOpen)&&<div className="findModeSwitch" data-no-localize><button onClick={()=>{setQuizStatsOpen(false);setReviewMenu(true)}}>{englishEdition?"← Choose a practice method":"← 復習の入口に戻る"}</button><strong>{quizStatsOpen?(englishEdition?"Question results":"問題別集計"):(englishEdition?"Multiple-choice quiz":"四択クイズ")}</strong></div>}
 
