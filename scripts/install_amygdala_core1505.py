@@ -147,6 +147,11 @@ def plan():
     m=v['currentImageMeasurements'];assert m['sourceLabelSha256']==BASE
     m.update(sourceLabelSha256=AFTER,rawVoxelSha256=r['afterRawVoxelSha256']);m['labelCounts'].update(r['countsAfter'])
     v['regionalBatchAudits']['amygdala-core1505']=dict(record=RECORD.relative_to(ROOT).as_posix(),recordSha256=sha(record),changedVoxelCount=1505,projectAdopted=True,expertReviewed=False)
+    v['officialLabelPolicy'] += ' Gross amygdala IDs21/22 additionally contain 1,505 reviewed same-BigBrain published eight-nucleus-map additions; those additions are not original Xiao manual delineations.'
+    v['amygdalaPublishedMapSupplement']=dict(labelIds=[21,22],addedVoxels=1505,
+        sourceDoi=r['sourceDoi'],sourceVersionId=r['sourceVersionId'],sourceLicense=r['sourceLicense'],
+        sourceCodes=r['sourceCodes'],record=RECORD.relative_to(ROOT).as_posix(),
+        originalManualSourceRetained=True,separateNucleiImplemented=False,expertReviewed=False)
     add(path,encode(v));add(ATLAS/'bigbrain-practical-segmentation-icbm500.bin.gz',data)
     return writes,dict(files=len(writes),changedVoxels=1505,section=info,blocks=[x for x in impact if x['changedMaskVoxels']],teaching=changes)
 

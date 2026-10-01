@@ -34,7 +34,7 @@
     22
   ],
   "officialLabelsPreserved": false,
-  "officialLabelPolicy": "All source manual delineations now use the reviewed corrected registration. Internal bands and unresolved subregions are retained. Project adoption, not expert approval.",
+  "officialLabelPolicy": "All source manual delineations now use the reviewed corrected registration. Internal bands and unresolved subregions are retained. Project adoption, not expert approval. Gross amygdala IDs21/22 additionally contain 1,505 reviewed same-BigBrain published eight-nucleus-map additions; those additions are not original Xiao manual delineations.",
   "redNucleusRegistrationAudit": {
     "record": "segmentation-patches/review/red-nuclei-registration-project-adoption-2026-09-06.json",
     "recordSha256": "4e8e83794e932261c4d1d1b288989216cf33d301765b7c4f3977e1917ad8f102",
@@ -1929,5 +1929,29 @@
   "publishedCytoarchitectonicIds": [
     44,
     45
-  ]
+  ],
+  "amygdalaPublishedMapSupplement": {
+    "labelIds": [
+      21,
+      22
+    ],
+    "addedVoxels": 1505,
+    "sourceDoi": "10.25493/TKTP-7NR",
+    "sourceVersionId": "cb40a501-b155-4c2f-8df3-0ee7c5f1ed00",
+    "sourceLicense": "CC BY-NC-SA 4.0",
+    "sourceCodes": [
+      "bl",
+      "bm",
+      "ce",
+      "la",
+      "me",
+      "pl",
+      "vcod",
+      "vcov"
+    ],
+    "record": "segmentation-patches/review/amygdala-core1505-adoption-2026-10-01.json",
+    "originalManualSourceRetained": true,
+    "separateNucleiImplemented": false,
+    "expertReviewed": false
+  }
 }
