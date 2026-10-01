@@ -55,6 +55,19 @@ export function nearestLabeledSection(
   }
   return best?.[1]??null;
 }
+/** Start an identification view at an indexed peak, never in a gap between components. */
+export function representativeLabeledSection(
+  rangesByLabel:Record<string,Record<SegmentationPlane,number[][]>>,
+  labelIds:readonly number[],plane:SegmentationPlane,
+):number|null{
+  const ranges=labelIds.flatMap(id=>rangesByLabel[String(id)]?.[plane]??[]);
+  let widest:number[]|undefined;
+  for(const range of ranges){
+    if(!widest||range[1]-range[0]>widest[1]-widest[0])widest=range;
+  }
+  return widest?.[2]??null;
+}
+
 /** Move one voxel in stored-position order, preserving the horizontal axis reversal. */
 export function stepPlanePosition(position:number,plane:SegmentationPlane,dims:[number,number,number],direction:-1|1){
   const delta=plane==="horizontal"?-direction:direction;

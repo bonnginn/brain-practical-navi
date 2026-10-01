@@ -2,6 +2,7 @@
 
 利用方法は [トップのREADME](../README.md)、現在地・作業期限と次の作業は [短い再開メモ](RESUME_SUMMARY.md) を参照してください。
 
+- [構造同定で3方向を切り替える（ローカル）](IDENTIFICATION_PLANES_2026-10-01.md)
 - [視床の参考位置と回路学習の接続（ローカル）](THALAMUS_CIRCUIT_CONNECTIONS_2026-10-01.md)
 - [10月1日の公開β反映・Cloudflare更新](OCTOBER1_BETA_RELEASE_2026-10-01.md)
 - [10月1日の10時間開発記録](DEVELOPMENT_10H_2026-10-01.md)
