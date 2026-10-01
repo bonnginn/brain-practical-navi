@@ -1,8 +1,8 @@
 {
-  "voxels": 1461658,
+  "voxels": 1461674,
   "components6": 34,
   "componentSizes": [
-    1461288,
+    1461304,
     40,
     40,
     24,
@@ -49,19 +49,19 @@
       310
     ]
   ],
-  "vertices": 159085,
-  "faces": 318390,
-  "sha256": "34060d10a9605f9b08140a6e0d253df82d53ff1db244a563601edc9db5d6768b",
-  "bytes": 1936150,
+  "vertices": 159045,
+  "faces": 318314,
+  "sha256": "9ffedaf3977ccf034f08d0f9d1e05d16f9f6c43869b994df003038736435205f",
+  "bytes": 1935991,
   "labelIds": [
     28,
     29
   ],
-  "sourceSha256": "56092c1a5418a424c54a509abe1d8d9ce1ad48a3ad7175141621ba179abe48a9",
-  "rawSha256": "84f88224e593582e48a8a3ba0edd1cb086299258c4fa7eae6e5bfce84b0fedb4",
-  "storedSha256": "34060d10a9605f9b08140a6e0d253df82d53ff1db244a563601edc9db5d6768b",
-  "rawBytes": 8275072,
-  "storedBytes": 1936150,
+  "sourceSha256": "3f0bc383ccc4e8434cc71340f3db0772e4581ddf177133678364f1cd9c4b09f1",
+  "rawSha256": "82b62124b53536aafb875a1b9a49c843da0bf1df81d1b30fb54155422cd91a8f",
+  "storedSha256": "9ffedaf3977ccf034f08d0f9d1e05d16f9f6c43869b994df003038736435205f",
+  "rawBytes": 8273040,
+  "storedBytes": 1935991,
   "meshBoundsZYXmm": [
     [
       -86.75,
@@ -85,9 +85,9 @@
   "method": "marching cubes 0.5; no resampling, smoothing, filling or component removal",
   "scope": "Current BigBrain section labels only. Includes the project-reviewed local cerebellar folia repair; remaining boundaries are not expert-validated.",
   "labelVoxelCounts": {
-    "28": 736385,
+    "28": 736401,
     "29": 725273
   },
   "compression": "gzip",
-  "reviewRecord": "segmentation-patches/review/cerebellar-midline64-adoption-2026-10-01.json"
+  "reviewRecord": "segmentation-patches/review/cerebellar-folial16-adoption-2026-10-01.json"
 }

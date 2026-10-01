@@ -10,6 +10,7 @@
 - [小脳内側のnative100照合](CEREBELLAR_MEDIAL_NATIVE100_2026-10-01.md)
 - [内側膝状体の同一BigBrain参照位置](THALAMUS_MGB_REFERENCE_2026-10-01.md)
 - [小脳正中部の葉の組織64点を補完](CEREBELLAR_MIDLINE64_2026-10-01.md)
+- [小脳葉先16点を補完・ほか93点を保留](CEREBELLAR_FOLIAL16_2026-10-01.md)
 - [小脳下方・後方の葉の組織80点を追加補完](CEREBELLAR_PAIRED80_2026-10-01.md)
 - [小脳内側・後方の葉の組織160点を追加補完](CEREBELLAR_ENCLOSED160_2026-10-01.md)
 - [小脳の葉の組織123点を追加補完](CEREBELLAR_ENCLOSED123_2026-10-01.md)

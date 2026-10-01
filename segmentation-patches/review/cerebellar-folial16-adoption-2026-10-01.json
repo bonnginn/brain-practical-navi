@@ -1,0 +1,1335 @@
+{
+  "beforeSha256": "56092c1a5418a424c54a509abe1d8d9ce1ad48a3ad7175141621ba179abe48a9",
+  "afterSha256": "3f0bc383ccc4e8434cc71340f3db0772e4581ddf177133678364f1cd9c4b09f1",
+  "beforeRawVoxelSha256": "2898a125656ac5dd4b1f7c8c5345624f9ff1b15544c9b7842e00de841e5cfd52",
+  "afterRawVoxelSha256": "541e0df92bf28a53a95219d49401240a977c134358748359fa3a80ead66adcc1",
+  "count": 16,
+  "points": [
+    {
+      "xyz": [
+        121,
+        183,
+        65
+      ],
+      "before": 0,
+      "after": 28
+    },
+    {
+      "xyz": [
+        121,
+        183,
+        66
+      ],
+      "before": 0,
+      "after": 28
+    },
+    {
+      "xyz": [
+        121,
+        184,
+        65
+      ],
+      "before": 0,
+      "after": 28
+    },
+    {
+      "xyz": [
+        121,
+        184,
+        66
+      ],
+      "before": 0,
+      "after": 28
+    },
+    {
+      "xyz": [
+        121,
+        185,
+        65
+      ],
+      "before": 0,
+      "after": 28
+    },
+    {
+      "xyz": [
+        121,
+        185,
+        66
+      ],
+      "before": 0,
+      "after": 28
+    },
+    {
+      "xyz": [
+        121,
+        186,
+        65
+      ],
+      "before": 0,
+      "after": 28
+    },
+    {
+      "xyz": [
+        121,
+        186,
+        66
+      ],
+      "before": 0,
+      "after": 28
+    },
+    {
+      "xyz": [
+        122,
+        183,
+        65
+      ],
+      "before": 0,
+      "after": 28
+    },
+    {
+      "xyz": [
+        122,
+        183,
+        66
+      ],
+      "before": 0,
+      "after": 28
+    },
+    {
+      "xyz": [
+        122,
+        184,
+        65
+      ],
+      "before": 0,
+      "after": 28
+    },
+    {
+      "xyz": [
+        122,
+        184,
+        66
+      ],
+      "before": 0,
+      "after": 28
+    },
+    {
+      "xyz": [
+        122,
+        185,
+        65
+      ],
+      "before": 0,
+      "after": 28
+    },
+    {
+      "xyz": [
+        122,
+        185,
+        66
+      ],
+      "before": 0,
+      "after": 28
+    },
+    {
+      "xyz": [
+        122,
+        186,
+        65
+      ],
+      "before": 0,
+      "after": 28
+    },
+    {
+      "xyz": [
+        122,
+        186,
+        66
+      ],
+      "before": 0,
+      "after": 28
+    }
+  ],
+  "countsBefore": {
+    "28": 736385,
+    "29": 725273
+  },
+  "countsAfter": {
+    "28": 736401,
+    "29": 725273
+  },
+  "evidence": {
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/right-thin-strip-x1071.png": "93464fed6264aa0d571a34ece34563c40707fee38796a6a935f13d356340e745",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/right-thin-strip-x1084.png": "f16fad82e1e72b32cac77d4cb9d0c38026c615ddd3518748f5b954b08badc330",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/right-thin-strip-x1101.png": "c1eebf5aef54ae3ec8e720cb3e61971c6350b2a8fc2adc45dd1aaaa98a6b031c",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/right-thin-strip-x1125.png": "3c55da61cdcc6ca4e39f30b82d24572005715da93f6a664a119d318e7da2864f",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/right-thin-strip-x1149.png": "454483335053b18ca9027fa435e84d29c409cb7aad3888f14c2e04c916d691d4",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/right-thin-strip-y329.png": "480e404367b8d5652dae666e4d89c6bfa9456b379f1fd38b7d656ab216f717e3",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/right-thin-strip-y339.png": "1eabc881de4d1e6ccefad45af1e54562635a58142354c3f8e2e5e251109900bc",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/right-thin-strip-y349.png": "bb5cb9989665b7b0fbb9fe268ffc64d1535d21782c599ee46f2d26ba04801773",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/right-thin-strip-z390.png": "099ef83084cdd425a51ceb4d27d796b949d86ed85afce6fea230eb4189c87ec8",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/right-thin-strip-z400.png": "2d262f7c4ca4fdef9cf3e5fee29479f86d1ba3b90264ff76819b2519c43d6e53",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/right-thin-strip-z410.png": "dd2f6ea5a1243b541180d8bb76109f8d7bbbf87a06f679fe8a9d31703add79d5",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/left-inferior-lateral-x435.png": "b86a293f06dfe1d48bf2c0d1549c54a893aca27ee265dfd56365fcdf9379dbdd",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/left-inferior-lateral-x445.png": "dd33522f71b24ed7728bf2adea0719f4def41d6835db76f1b8d65fa0a97aa99d",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/left-inferior-lateral-x455.png": "370f61f552f37ae0feba70c48f44e554b260376d7ca669dd7a44707c1cee0db9",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/left-inferior-lateral-y557.png": "e9be15bf8fd8a52a3c0c8c706fe8c8f47249846842b6eb70745174adff5107c4",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/left-inferior-lateral-y567.png": "39e423fbd14cfc5c6d7af896a33d2d73c85b46ef4859dee43ff13120eb89179c",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/left-inferior-lateral-y577.png": "007c9b93dd7ea2714b9d51ec6c9173139180888e4884f499ab5ec0210d2a63ec",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/left-inferior-lateral-z257.png": "7047009a0aad6d1accf15397b0d7a6adf568e3d8f8220d7ef97f52e781d987a3",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/left-inferior-lateral-z267.png": "dd801089e869ff3427cdd73c8b96726cedca1c9fa85a2003960f082eec709c2e",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/left-inferior-lateral-z277.png": "a30cc6c1afc8b138ab305d62ed726894c0fe1836894c1f5321710e89a3e832ac",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/left-inferior-medial-x719.png": "5bc169093e775111c58c7421dcdcde794d4e3b0485689e58483a2d0a81bd6da0",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/left-inferior-medial-x729.png": "e79794afb65269fe14baff4cdc2efafc749bdd74e32e7cee74015f3a6a4b32c7",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/left-inferior-medial-x739.png": "7165f1faf759e7454bc30d3a0ff3656b61f0e684b025b7a2ff0bc41561fc8d1b",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/left-inferior-medial-y437.png": "cb778a3663bbe268166fd17b7296176a2d9ad1c5203bc91a2c4709196b278455",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/left-inferior-medial-y447.png": "024cb4cd634366fa19cb1ff6a5b844880456021c7f32aebac2ee8885a58db5a0",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/left-inferior-medial-y457.png": "c5f1d0c24bb8ab51f3096cfcc0699f33be4403930fb82e1019acd87f86150078",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/left-inferior-medial-z277.png": "d121c01d1505544f3334a54cb10774c887e93996f0e79905c9da4766f8d732e8",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/left-inferior-medial-z287.png": "fac53cc471fedfab606d947d1ef2d02ba04cd57324c0c73b9684a33375aa4a62",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/left-inferior-medial-z297.png": "b585bf685d464be2e91a5b509ae95d6cf22e6afd8a25fe040635ac07e9554aff",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/right-inferior-medial-x788.png": "27fd4d1d27f823d969fa32b16609aeb0ec6809d91bdaf96b0859a9db829df8e3",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/right-inferior-medial-x798.png": "b9dfa966e3efa3f19464879fe53e659e4b58635d42f5c5d73eb2bf816e89ef7e",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/right-inferior-medial-x808.png": "ae9b34ed35635246e1f9501d35a5285dfab31fc81a083c6a0c5c5e83ed55f5fa",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/right-inferior-medial-y441.png": "8191e293843e5071999411e5d6f86d32d422e6b53b0770bd770038e0619122a0",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/right-inferior-medial-y451.png": "ff4de41ce472a303377b3783f9007a99c85920f080775b90be44294ad441bdf9",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/right-inferior-medial-y461.png": "1a9d2aae9b419089e47dbce44fc470d2b27bc9aa7fd944f2d2fe27fb8318cd23",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/right-inferior-medial-z276.png": "1554bcdf6a874cbed829ff7973ab45bbd4b2b432e04e741ff79864c2fe78fed7",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/right-inferior-medial-z286.png": "c0171402e1b3cea5ca0d02f612ef6ff046dae282318af02df59f5efe8b1a9d4e",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/right-inferior-medial-z296.png": "e7d3530fc3a091d0159114f3db2aa4b1d11331842bdf5f48da570d97812605ac",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/right-inferior-lateral-x1146.png": "82c1b81d70c46bf66c83fbcb541b72b8dc1d28d8b69fd158f50c21034f60c228",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/right-inferior-lateral-x1159.png": "eb9d8a5448e460dcaa402b071b3dbe50c34d01920f49b6b84ea5911bdcc4155c",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/right-inferior-lateral-x1171.png": "0102464941ed56e61e21d55fd4bce90a697a30557f18e51f0ab61b791d50027c",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/right-inferior-lateral-y343.png": "abb6859e7104c388bf848bdc2a96b40acaa352b242224dee1753fba1107e4b68",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/right-inferior-lateral-y353.png": "00254c7b313fad2d3374cc3d2a54f54dd3a359427995197e47245080dc7e79eb",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/right-inferior-lateral-y363.png": "892bf30bd6dcf2b75ba5442952a6b9dc12338af05ae5d34529cfc938aa031a28",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/right-inferior-lateral-z388.png": "f956084d87f32d034162ce2d255c472e30324a63937fb2fbe66cc5c6cb4e9729",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/right-inferior-lateral-z398.png": "1e3b07984a6cdf3b2065879c839eff231c952a5e1bcb9b98ea0c45ea71d6f915",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/right-inferior-lateral-z408.png": "0fdf887ff5630c1533e89ae04976f4b28faefdbc80f9192067daa0ca89c32315",
+    "work/anatomy-review/cerebellar-remaining109-native100-2026-10-01/report.json": "9e03332c2de6bb5bb18a7816c55e25ecec1edda650815e83f170ca56981cca73",
+    "work/anatomy-review/cerebellar-remaining109-widewindow-native100-2026-10-01/right-thin-strip-x1101.png": "67a49cd49f1f54dea77b7314625c282fcedbb22a8422a5ed25d1966fb2fcf266",
+    "work/anatomy-review/cerebellar-remaining109-widewindow-native100-2026-10-01/right-thin-strip-y339.png": "4c13ade8c3b2a1b8f2f4f96e84caaec593e41bf3ebd6cd74b0b55d68e9a2057a",
+    "work/anatomy-review/cerebellar-remaining109-widewindow-native100-2026-10-01/right-thin-strip-z400.png": "e99d78df371aa38bde5e6ab0ac9304c8a6f5d311db5f022aeb821de2dac81b61",
+    "work/anatomy-review/cerebellar-remaining109-widewindow-native100-2026-10-01/left-inferior-lateral-x445.png": "53e5fb656613eec4b742ede3bbbc681d44ad75b46da2c900ae4393124e68ab34",
+    "work/anatomy-review/cerebellar-remaining109-widewindow-native100-2026-10-01/left-inferior-lateral-y567.png": "8350e0b142c203bea1a73e7bcc25081fa1b41a2c6f2247a7ff90abbbf60e742d",
+    "work/anatomy-review/cerebellar-remaining109-widewindow-native100-2026-10-01/left-inferior-lateral-z267.png": "5bd0646859068c1c95eb6135989cab539582edf3b56a56b0b946f5006a76bcc6",
+    "work/anatomy-review/cerebellar-remaining109-widewindow-native100-2026-10-01/left-inferior-medial-x729.png": "f215bb8de3ff1c0f52fa71ad9f6329244c3100ca9a97d765dc9eb315ee296cbf",
+    "work/anatomy-review/cerebellar-remaining109-widewindow-native100-2026-10-01/left-inferior-medial-y447.png": "06dae72845ee09b233cc9e1e407f0c7ed506b7f60dcddc6fdad5f1368648b560",
+    "work/anatomy-review/cerebellar-remaining109-widewindow-native100-2026-10-01/left-inferior-medial-z287.png": "20364ee1a04e6e6bbaf5d9944ca41f0e2ad47d5735e5f7752b333fb59679002d",
+    "work/anatomy-review/cerebellar-remaining109-widewindow-native100-2026-10-01/right-inferior-medial-x798.png": "e91f5cb38064ae575816c53ce0fc6990a4c52ce4b7f4a895eeadaf99e0db4e1e",
+    "work/anatomy-review/cerebellar-remaining109-widewindow-native100-2026-10-01/right-inferior-medial-y451.png": "3faf5c62ce85c59cd161212190b04a66c69e6fa8ef8c251a05fe8dd048c8aa76",
+    "work/anatomy-review/cerebellar-remaining109-widewindow-native100-2026-10-01/right-inferior-medial-z286.png": "6a6c633c361159b4af9dd44330d998b91b92f75d6e68fa89b54fd68c8aab3a74",
+    "work/anatomy-review/cerebellar-remaining109-widewindow-native100-2026-10-01/right-inferior-lateral-x1159.png": "ce0b8836513be55eb61c0858e1c1d0db1075e712be7662b6effcd4242c3602b4",
+    "work/anatomy-review/cerebellar-remaining109-widewindow-native100-2026-10-01/right-inferior-lateral-y353.png": "3fc3c08d8cf7890d821a23c8cd9e6e5aa51a34d51bb8bd2fb4d9805261714761",
+    "work/anatomy-review/cerebellar-remaining109-widewindow-native100-2026-10-01/right-inferior-lateral-z398.png": "d33b1e3aa02a1881b3dfcb748280fb4c3ff9e5824406a3b0cc060a0af4362ca0",
+    "work/anatomy-review/cerebellar-remaining109-widewindow-native100-2026-10-01/report.json": "1496b38ba893d6315aa0e2c69df5ddd7f4e0fa02126a5f9b2ba71ef861039d4b"
+  },
+  "candidateCount": 109,
+  "reviewedDistinctPlanes": 47,
+  "alternateWindowPlanesViewed": 15,
+  "alternateWindowIsNotAdditionalSections": true,
+  "heldCandidateCount": 93,
+  "heldRegions": {
+    "right-thin-strip45": "Long bright band near interfolial/external spaces; no demonstrated tissue-only extent.",
+    "inferior-medial32": "White bands near inferior medial folial clefts; tissue versus space remains ambiguous.",
+    "right-inferior-lateral16": "Bright band contiguous with interfolial space; attribution not sufficiently established."
+  },
+  "decision": "Adopt the left inferior lateral 16-voxel folial tissue region after orthogonal, neighbouring and wider-window comparison. The dark granular leaf and its pale internal continuity are traceable. Use an approximate folial-edge boundary with partial-volume uncertainty, not a pixel-perfect contour. Do not fill the other 93 candidates merely because enclosed or bright.",
+  "sourceSha256": "61e6ebbeb0d6876051b9348a68bfe22b733fead04d112c35ff1a29819b67d351",
+  "projectAdopted": true,
+  "expertReviewed": false,
+  "published": false,
+  "status": "AI-image-reviewed-project-adopted-development-only",
+  "adopted": true,
+  "installed": true,
+  "transition": "bounded-cerebellar-enclosed-tissue-repair",
+  "meshImpact": {
+    "blockMaskImpact": [
+      {
+        "block": "lateral-ventricle",
+        "part": "tissue",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "ventricular-cavity",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "caudate",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "thalamus",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "lateral-ventricle",
+        "part": "hippocampus",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "tissue",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "thalami",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "third-ventricle",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "hypothalamus",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "subthalamic-nuclei",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "diencephalon",
+        "part": "mammillary-bodies",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "tissue",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "putamen",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "pallidum-external",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "pallidum-internal",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "internal-capsule",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "corona-radiata",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "optic-radiation",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "radiations",
+        "part": "auditory-radiation",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "tissue",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "corpus-callosum",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "lateral-ventricles",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "fornix",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "commissural-system",
+        "part": "septum-pellucidum",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "tissue",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "ventricular-cavity",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "choroid-plexus",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "choroid-plexus",
+        "part": "hippocampus",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "tissue",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "hippocampus",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "amygdala",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "medial-temporal",
+        "part": "inferior-horn",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "tissue",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "red-nuclei",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "substantia-nigra",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "aqueduct",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "cerebral-peduncles",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "superior-colliculi",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "inferior-colliculi",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "lateral-geniculate-bodies",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "medial-geniculate-bodies",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "midbrain-section",
+        "part": "interpeduncular-fossa",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "pons-medulla",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "cerebellum",
+        "changedMaskVoxels": 1,
+        "added": 1,
+        "removed": 0,
+        "file": "block-hindbrain-cerebellum.mesh",
+        "beforeSha256": "2e4e034fb125eff63ab0bd9319321cf3747ba9f8dc434ec023fc9024ceb97a18",
+        "afterSha256": "70178a13d41660b8336919f0339e867765dce352601f8b6b916d4c5d8fe61b81",
+        "reproducedBeforeSha256": "2e4e034fb125eff63ab0bd9319321cf3747ba9f8dc434ec023fc9024ceb97a18",
+        "beforeMatches": true
+      },
+      {
+        "block": "hindbrain",
+        "part": "midbrain",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "fourth-ventricle",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "superior-cerebellar-peduncles",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "middle-cerebellar-peduncles",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "inferior-cerebellar-peduncles",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "facial-colliculi",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "vestibular-areas",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "hypoglossal-trigones",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "vagal-trigones",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "pyramids",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      },
+      {
+        "block": "hindbrain",
+        "part": "olives",
+        "changedMaskVoxels": 0,
+        "added": 0,
+        "removed": 0
+      }
+    ]
+  },
+  "cerebellarSectionMeshImpact": {
+    "before": {
+      "voxels": 1461658,
+      "components6": 34,
+      "componentSizes": [
+        1461288,
+        40,
+        40,
+        24,
+        24,
+        16,
+        16,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        2
+      ],
+      "boundsZYX": [
+        [
+          7,
+          81,
+          79
+        ],
+        [
+          148,
+          224,
+          310
+        ]
+      ],
+      "vertices": 159085,
+      "faces": 318390,
+      "sha256": "84f88224e593582e48a8a3ba0edd1cb086299258c4fa7eae6e5bfce84b0fedb4",
+      "bytes": 8275072
+    },
+    "after": {
+      "voxels": 1461674,
+      "components6": 34,
+      "componentSizes": [
+        1461304,
+        40,
+        40,
+        24,
+        24,
+        16,
+        16,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8,
+        2
+      ],
+      "boundsZYX": [
+        [
+          7,
+          81,
+          79
+        ],
+        [
+          148,
+          224,
+          310
+        ]
+      ],
+      "vertices": 159045,
+      "faces": 318314,
+      "sha256": "82b62124b53536aafb875a1b9a49c843da0bf1df81d1b30fb54155422cd91a8f",
+      "bytes": 8273040
+    }
+  },
+  "sectionMeshImpact": {
+    "before": {
+      "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
+      "sourceSha256": "56092c1a5418a424c54a509abe1d8d9ce1ad48a3ad7175141621ba179abe48a9",
+      "rawVoxelSha256": "2898a125656ac5dd4b1f7c8c5345624f9ff1b15544c9b7842e00de841e5cfd52",
+      "dimensionsXYZ": [
+        394,
+        466,
+        378
+      ],
+      "samplingMm": 0.5,
+      "displayOriginZYX": [
+        -90.0,
+        -116.0,
+        -98.0
+      ],
+      "method": "marching cubes 0.5; no smoothing, resampling, filling or component removal",
+      "scope": "section-view BigBrain selection/context only; not expert validation",
+      "meshes": {
+        "section-current-lateral-ventricles": {
+          "voxels": 163920,
+          "components6": 65,
+          "componentSizes": [
+            82210,
+            81593,
+            12,
+            8,
+            7,
+            7,
+            4,
+            4,
+            3,
+            3,
+            3,
+            3,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "boundsZYX": [
+            [
+              80,
+              145,
+              117
+            ],
+            [
+              202,
+              330,
+              276
+            ]
+          ],
+          "vertices": 80204,
+          "faces": 161964,
+          "sha256": "f329900f8c6d5197b8d807838fc7853bcfc4e0c7a08aab58805989b52cc3d728",
+          "bytes": 4189292,
+          "labelIds": [
+            23,
+            24
+          ]
+        },
+        "section-current-third-ventricle": {
+          "voxels": 11665,
+          "components6": 18,
+          "componentSizes": [
+            11492,
+            95,
+            35,
+            10,
+            7,
+            4,
+            4,
+            4,
+            4,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "boundsZYX": [
+            [
+              109,
+              201,
+              189
+            ],
+            [
+              173,
+              274,
+              202
+            ]
+          ],
+          "vertices": 8772,
+          "faces": 17596,
+          "sha256": "af6497b9e5e7a238cc5da948c5bf2ebb718d51308246c8f35c71c707dccacf13",
+          "bytes": 456780,
+          "labelIds": [
+            25
+          ]
+        },
+        "section-current-fourth-ventricle": {
+          "voxels": 9200,
+          "components6": 1,
+          "componentSizes": [
+            9200
+          ],
+          "boundsZYX": [
+            [
+              59,
+              157,
+              179
+            ],
+            [
+              113,
+              202,
+              212
+            ]
+          ],
+          "vertices": 5418,
+          "faces": 10856,
+          "sha256": "018c8bad9f0553c39e788d115312ca403a65e349cb5d5a593d47779587077479",
+          "bytes": 281988,
+          "labelIds": [
+            26
+          ]
+        },
+        "section-current-ventricular-system": {
+          "voxels": 185052,
+          "components6": 80,
+          "componentSizes": [
+            184763,
+            95,
+            35,
+            12,
+            10,
+            8,
+            7,
+            7,
+            7,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            3,
+            3,
+            3,
+            3,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "boundsZYX": [
+            [
+              59,
+              145,
+              117
+            ],
+            [
+              202,
+              330,
+              276
+            ]
+          ],
+          "vertices": 94842,
+          "faces": 191336,
+          "sha256": "5bc74b3b11cad0ea9933b3c051bbd507c6cb619276d0cbcc293218140db48c63",
+          "bytes": 4951620,
+          "labelIds": [
+            23,
+            24,
+            25,
+            26,
+            41
+          ]
+        }
+      }
+    },
+    "after": {
+      "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
+      "sourceSha256": "3f0bc383ccc4e8434cc71340f3db0772e4581ddf177133678364f1cd9c4b09f1",
+      "rawVoxelSha256": "541e0df92bf28a53a95219d49401240a977c134358748359fa3a80ead66adcc1",
+      "dimensionsXYZ": [
+        394,
+        466,
+        378
+      ],
+      "samplingMm": 0.5,
+      "displayOriginZYX": [
+        -90.0,
+        -116.0,
+        -98.0
+      ],
+      "method": "marching cubes 0.5; no smoothing, resampling, filling or component removal",
+      "scope": "section-view BigBrain selection/context only; not expert validation",
+      "meshes": {
+        "section-current-lateral-ventricles": {
+          "voxels": 163920,
+          "components6": 65,
+          "componentSizes": [
+            82210,
+            81593,
+            12,
+            8,
+            7,
+            7,
+            4,
+            4,
+            3,
+            3,
+            3,
+            3,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "boundsZYX": [
+            [
+              80,
+              145,
+              117
+            ],
+            [
+              202,
+              330,
+              276
+            ]
+          ],
+          "vertices": 80204,
+          "faces": 161964,
+          "sha256": "f329900f8c6d5197b8d807838fc7853bcfc4e0c7a08aab58805989b52cc3d728",
+          "bytes": 4189292,
+          "labelIds": [
+            23,
+            24
+          ]
+        },
+        "section-current-third-ventricle": {
+          "voxels": 11665,
+          "components6": 18,
+          "componentSizes": [
+            11492,
+            95,
+            35,
+            10,
+            7,
+            4,
+            4,
+            4,
+            4,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "boundsZYX": [
+            [
+              109,
+              201,
+              189
+            ],
+            [
+              173,
+              274,
+              202
+            ]
+          ],
+          "vertices": 8772,
+          "faces": 17596,
+          "sha256": "af6497b9e5e7a238cc5da948c5bf2ebb718d51308246c8f35c71c707dccacf13",
+          "bytes": 456780,
+          "labelIds": [
+            25
+          ]
+        },
+        "section-current-fourth-ventricle": {
+          "voxels": 9200,
+          "components6": 1,
+          "componentSizes": [
+            9200
+          ],
+          "boundsZYX": [
+            [
+              59,
+              157,
+              179
+            ],
+            [
+              113,
+              202,
+              212
+            ]
+          ],
+          "vertices": 5418,
+          "faces": 10856,
+          "sha256": "018c8bad9f0553c39e788d115312ca403a65e349cb5d5a593d47779587077479",
+          "bytes": 281988,
+          "labelIds": [
+            26
+          ]
+        },
+        "section-current-ventricular-system": {
+          "voxels": 185052,
+          "components6": 80,
+          "componentSizes": [
+            184763,
+            95,
+            35,
+            12,
+            10,
+            8,
+            7,
+            7,
+            7,
+            4,
+            4,
+            4,
+            4,
+            4,
+            4,
+            3,
+            3,
+            3,
+            3,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "boundsZYX": [
+            [
+              59,
+              145,
+              117
+            ],
+            [
+              202,
+              330,
+              276
+            ]
+          ],
+          "vertices": 94842,
+          "faces": 191336,
+          "sha256": "5bc74b3b11cad0ea9933b3c051bbd507c6cb619276d0cbcc293218140db48c63",
+          "bytes": 4951620,
+          "labelIds": [
+            23,
+            24,
+            25,
+            26,
+            41
+          ]
+        }
+      }
+    }
+  },
+  "integrationVerification": "docs/CEREBELLAR_FOLIAL16_2026-10-01.md"
+}
