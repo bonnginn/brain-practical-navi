@@ -1637,5 +1637,49 @@
       "cerebellar-artery-parent-pairing-c",
       "cerebellar-artery-parent-pairing-d"
     ]
+  },
+  {
+    "question": "cerebellum-climbing-origin",
+    "revision": "7e636a5c783702a50fa3560049dcb541c31e854759c72f03ce5861fa90871c56",
+    "prompt": "小脳皮質への登上線維の主な起始はどれですか？",
+    "options": [
+      "cerebellum-climbing-origin-a",
+      "cerebellum-climbing-origin-b",
+      "cerebellum-climbing-origin-c",
+      "cerebellum-climbing-origin-d"
+    ]
+  },
+  {
+    "question": "cerebellum-purkinje-output-sign",
+    "revision": "c099955a1805c092ff973833aa70c063e472ddc186a7d149c99cb4e1d5df2d0b",
+    "prompt": "小脳皮質のプルキンエ細胞から深部小脳核への作用はどれですか？",
+    "options": [
+      "cerebellum-purkinje-output-sign-a",
+      "cerebellum-purkinje-output-sign-b",
+      "cerebellum-purkinje-output-sign-c",
+      "cerebellum-purkinje-output-sign-d"
+    ]
+  },
+  {
+    "question": "cerebellum-deep-nuclei-medial-lateral",
+    "revision": "6d20d57643304ba425af532265ef0e27c2e054f934d6b62908ec77d0a237cc5c",
+    "prompt": "深部小脳核を内側から外側へ並べた順序はどれですか？",
+    "options": [
+      "cerebellum-deep-nuclei-medial-lateral-a",
+      "cerebellum-deep-nuclei-medial-lateral-b",
+      "cerebellum-deep-nuclei-medial-lateral-c",
+      "cerebellum-deep-nuclei-medial-lateral-d"
+    ]
+  },
+  {
+    "question": "cerebellum-interposed-nuclei",
+    "revision": "c92ba88089b721150fe5232edde2ad5403d79dd105ec00e99eb40401d89312fc",
+    "prompt": "小脳の中位核を構成する二つの核はどれですか？",
+    "options": [
+      "cerebellum-interposed-nuclei-a",
+      "cerebellum-interposed-nuclei-b",
+      "cerebellum-interposed-nuclei-c",
+      "cerebellum-interposed-nuclei-d"
+    ]
   }
 ]
