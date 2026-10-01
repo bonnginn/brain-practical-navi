@@ -1343,7 +1343,7 @@
   },
   {
     "question": "fornix-pre-post-landmark",
-    "revision": "fb08f32eb55a67be098d803449a2fbc20a213a934de0cdb594dff8d63965a063",
+    "revision": "6e00885fec779b49c9eb2fd9094b83014099f661709f7bc40f108d3f7fec5dd2",
     "prompt": "脳弓の交連前部・交連後部を区別するとき、基準となる交連はどれですか？",
     "options": [
       "fornix-pre-post-landmark-a",
@@ -1354,7 +1354,7 @@
   },
   {
     "question": "fornix-body-callosal-relation",
-    "revision": "2c06378aac5159a140e14cc610d1f474d2cd7c5ae4aa7cb18493a9c01f6b1aaa",
+    "revision": "1d12fda81838c5b04dcd59d5d8e5e89fa5823fd6b294e8e864149575f9759ac7",
     "prompt": "脳弓体を冠状断で探すとき、脳梁との大まかな位置関係はどれですか？",
     "options": [
       "fornix-body-callosal-relation-a",
@@ -1365,7 +1365,7 @@
   },
   {
     "question": "fornix-postcommissural-destination",
-    "revision": "796c4429a887c5a3d34fddb4a7a27a6ead475438be945a9f6bb4a7271832fb54",
+    "revision": "8169ff3bfe6e7972d84bd0dfa20d7ae9d1b019a81ea3e5cbf3337cccefe1506f",
     "prompt": "脳弓の交連後部を下方へ追うとき、代表的な到達先として探すのはどれですか？",
     "options": [
       "fornix-postcommissural-destination-a",
@@ -1427,6 +1427,72 @@
       "lgn-other-retinal-targets-b",
       "lgn-other-retinal-targets-c",
       "lgn-other-retinal-targets-d"
+    ]
+  },
+  {
+    "question": "precentral-central-sulcus-side",
+    "revision": "07b64f829da248a1eacf611df86bb1172e18213e46ee83f0b0bff3bdd74c7f3b",
+    "prompt": "中心前回は中心溝のどちら側にありますか？",
+    "options": [
+      "precentral-central-sulcus-side-a",
+      "precentral-central-sulcus-side-b",
+      "precentral-central-sulcus-side-c",
+      "precentral-central-sulcus-side-d"
+    ]
+  },
+  {
+    "question": "precentral-contralateral-movement",
+    "revision": "0eccf019e111f72e4bcd9679bfe784b6c2abd168d7dc2c8cac77eef0e7c14a74",
+    "prompt": "左の一次運動野からの出力は、主にどちら側の随意運動に関わりますか？",
+    "options": [
+      "precentral-contralateral-movement-a",
+      "precentral-contralateral-movement-b",
+      "precentral-contralateral-movement-c",
+      "precentral-contralateral-movement-d"
+    ]
+  },
+  {
+    "question": "superior-frontal-sma-location",
+    "revision": "7c4a5982ffe14f69000cdeea4279280b3cb0ad55d33a8b03673ab869e8049793",
+    "prompt": "補足運動野を探すとき、上前頭回のどの面を主に見ますか？",
+    "options": [
+      "superior-frontal-sma-location-a",
+      "superior-frontal-sma-location-b",
+      "superior-frontal-sma-location-c",
+      "superior-frontal-sma-location-d"
+    ]
+  },
+  {
+    "question": "precuneus-medial-lobe",
+    "revision": "2be15f21d0d47778f33a8294a99774c3891ad1cf0366ed0da60af7ad59dd8bf0",
+    "prompt": "楔前部を探す基本的な面と脳葉の組合せはどれですか？",
+    "options": [
+      "precuneus-medial-lobe-a",
+      "precuneus-medial-lobe-b",
+      "precuneus-medial-lobe-c",
+      "precuneus-medial-lobe-d"
+    ]
+  },
+  {
+    "question": "cuneus-calcarine-upper-bank",
+    "revision": "160911ef37066139c88dd7e09d96c3d5688fb05e475c7be76b0a1c8b944e4d2a",
+    "prompt": "鳥距溝を基準にすると、楔部はどちら側にありますか？",
+    "options": [
+      "cuneus-calcarine-upper-bank-a",
+      "cuneus-calcarine-upper-bank-b",
+      "cuneus-calcarine-upper-bank-c",
+      "cuneus-calcarine-upper-bank-d"
+    ]
+  },
+  {
+    "question": "fusiform-bounding-sulci",
+    "revision": "45bf40e787fef5e29cbf7f58a750cffb9cc8dd0515db159f16bf160e61ad07d3",
+    "prompt": "紡錘状回の内側と外側を探すとき、目印となる溝の組合せはどれですか？",
+    "options": [
+      "fusiform-bounding-sulci-a",
+      "fusiform-bounding-sulci-b",
+      "fusiform-bounding-sulci-c",
+      "fusiform-bounding-sulci-d"
     ]
   }
 ]
