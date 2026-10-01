@@ -1,5 +1,5 @@
 {
-  "sourceLabelSha256": "71f012431e3bd605deabc8d19b9cdaf1d35dff076f54e7a9f84a32e3a4eb5866",
+  "sourceLabelSha256": "d6358cb5145bff9b861f8c885c643cea7feeec1b008d9e5afe477ba4061d87b4",
   "sourceImageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
   "preparation": "Shared opaque tissue surfaces with specimen-specific virtual cuts. Lateral ventricle: roof and temporal opening; other preparations: planar cuts. Colour annotates exposed surfaces only.",
   "specimens": {
@@ -41,11 +41,11 @@
         },
         {
           "file": "teaching-block-lateral-ventricle-hippocampus.mesh",
-          "vertices": 1093,
-          "faces": 1236,
+          "vertices": 1100,
+          "faces": 1245,
           "shadeMin": 0.5209,
           "shadeMax": 1.0,
-          "meshSha256": "9f1d6cf11c66c795f04c1fa908ec6ebc193483cda0555060cffcef7cb06d52f4",
+          "meshSha256": "63add0e6745e786c8eeebfaa3d97375544af94bb727d8207ebd8e801d71d2960",
           "key": "hippocampus",
           "role": "structure",
           "source": "manual-segmentation",
@@ -58,11 +58,11 @@
         },
         {
           "file": "teaching-block-lateral-ventricle-tissue.mesh",
-          "vertices": 83078,
-          "faces": 162100,
+          "vertices": 83074,
+          "faces": 162091,
           "shadeMin": 0.0,
           "shadeMax": 1.0,
-          "meshSha256": "029fbebe87650fe7874e611910753e5cb029e0ca3f229d0811c6b8e39e63dd72",
+          "meshSha256": "459522b9437f3a99019f0ac087e63a341e721bae254e2194b224e4b2c638de25",
           "key": "tissue",
           "role": "tissue",
           "source": "specimen-derived",
@@ -151,7 +151,7 @@
       "retainedLabelVoxels": {
         "8": 3137,
         "16": 8382,
-        "18": 4094
+        "18": 4108
       }
     },
     "diencephalon": {
@@ -470,11 +470,11 @@
       "parts": [
         {
           "file": "teaching-block-choroid-plexus-hippocampus.mesh",
-          "vertices": 699,
-          "faces": 925,
+          "vertices": 700,
+          "faces": 927,
           "shadeMin": 0.4558,
           "shadeMax": 1.0,
-          "meshSha256": "5127b25b450a22a712b71663b9fdd26d423a97c0d0aebb5287ff4c14c4221e6b",
+          "meshSha256": "e56a1e385e3f5d09aec20913f909343705b4e9f4bccb7a646f13769bcdd93a47",
           "key": "hippocampus",
           "role": "structure",
           "source": "manual-segmentation",
@@ -487,11 +487,11 @@
         },
         {
           "file": "teaching-block-choroid-plexus-tissue.mesh",
-          "vertices": 25679,
-          "faces": 50623,
+          "vertices": 25678,
+          "faces": 50621,
           "shadeMin": 0.0,
           "shadeMax": 1.0,
-          "meshSha256": "caa72aab6223314bb72b79de200dea6b1797fd037d9e4f5d976b4c1d88094ef7",
+          "meshSha256": "464686c094ceed20bd9199d9f75c78a10a781162feb6bdf9378c099f37112608",
           "key": "tissue",
           "role": "tissue",
           "source": "specimen-derived",
@@ -548,11 +548,11 @@
       "parts": [
         {
           "file": "teaching-block-medial-temporal-hippocampus.mesh",
-          "vertices": 549,
-          "faces": 675,
+          "vertices": 551,
+          "faces": 676,
           "shadeMin": 0.4837,
           "shadeMax": 0.9953,
-          "meshSha256": "01095083a56989fff7a50967fe634432017a53c6794939a9dc6b58a8bf54e8e4",
+          "meshSha256": "6057a55f7ceb1ef0e7c50cfe8d02c3ccb4536fc5cd22a03e04e6d2c9b8804f35",
           "key": "hippocampus",
           "role": "structure",
           "source": "manual-segmentation",
@@ -565,11 +565,11 @@
         },
         {
           "file": "teaching-block-medial-temporal-amygdala.mesh",
-          "vertices": 435,
-          "faces": 611,
+          "vertices": 477,
+          "faces": 656,
           "shadeMin": 0.5302,
-          "shadeMax": 0.9442,
-          "meshSha256": "a921b0768a1ee7d8f33c4f8423fa4e83a541056254ea6dd86e8800b47e283b55",
+          "shadeMax": 0.9488,
+          "meshSha256": "7e8da014705fa340d48b97e4ddbe3d69d099d136304a5df46c2273ccd1a6edee",
           "key": "amygdala",
           "role": "structure",
           "source": "manual-segmentation",
@@ -599,11 +599,11 @@
         },
         {
           "file": "teaching-block-medial-temporal-tissue.mesh",
-          "vertices": 11876,
-          "faces": 23051,
+          "vertices": 11866,
+          "faces": 23005,
           "shadeMin": 0.0,
           "shadeMax": 1.0,
-          "meshSha256": "94972f75f9834cf65c0db5c7e7bab4477742d14bd16e426344958e8f7610384f",
+          "meshSha256": "2a44a6eb58e25c315d81e91c24571f182977c12b48d9e46b60157bf9c324c60a",
           "key": "tissue",
           "role": "tissue",
           "source": "specimen-derived",
@@ -1008,11 +1008,11 @@
         },
         {
           "file": "teaching-block-lateral-ventricle-open-hippocampus.mesh",
-          "vertices": 1140,
-          "faces": 1334,
+          "vertices": 1149,
+          "faces": 1344,
           "shadeMin": 0.5209,
           "shadeMax": 1.0,
-          "meshSha256": "2317f3ceb7c6dab9ee88c09d2f67879bbe783a03967af35fe72d9208db5adf5d",
+          "meshSha256": "438df42736acaa070cbcac070b58a1dfd8be6548928e9e85d4aeaaf039bef49f",
           "key": "hippocampus",
           "role": "structure",
           "source": "manual-segmentation",
@@ -1025,11 +1025,11 @@
         },
         {
           "file": "teaching-block-lateral-ventricle-open-tissue.mesh",
-          "vertices": 78305,
-          "faces": 153026,
+          "vertices": 78301,
+          "faces": 153016,
           "shadeMin": 0.0,
           "shadeMax": 1.0,
-          "meshSha256": "c5234724e3ae73a07a6316423e5a26d09757fdb03e32e877e0201b0c8f02e44f",
+          "meshSha256": "e77baab3415e8c307e939b4deeb92989cb7ef30b373a7239dd0cc5df7b93f9b0",
           "key": "tissue",
           "role": "tissue",
           "source": "specimen-derived",
@@ -1106,7 +1106,7 @@
       "retainedLabelVoxels": {
         "8": 648,
         "16": 8358,
-        "18": 4077
+        "18": 4091
       }
     }
   }

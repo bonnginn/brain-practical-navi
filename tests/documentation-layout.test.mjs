@@ -10,7 +10,8 @@ const root = fileURLToPath(new URL("../", import.meta.url));
 test("README remains a concise bilingual entry with current status and working document links", () => {
   const readme = fs.readFileSync(path.join(root, "README.md"), "utf8");
   assert.ok(readme.split(/\r?\n/).length < 100);
-  for (const marker of ["公開β版", "public beta", "92問", "docs/README.md", "docs/RESUME_SUMMARY.md"]) assert.ok(readme.includes(marker), marker);
+  const eligibleQuizCatalog = JSON.parse(fs.readFileSync(path.join(root, "services/quiz-statistics/catalog.json"), "utf8"));
+  for (const marker of ["公開β版", "public beta", `出題対象は${eligibleQuizCatalog.length}問`, "docs/README.md", "docs/RESUME_SUMMARY.md"]) assert.ok(readme.includes(marker), marker);
   const index = fs.readFileSync(path.join(root, "docs/README.md"), "utf8");
   for (const name of fs.readdirSync(path.join(root, "docs")).filter(n => n.endsWith(".md") && n !== "README.md")) assert.ok(index.includes(`](${name})`), name);
   for (const relative of ["README.md", "docs/README.md", "docs/DEVELOPMENT.md", "docs/RESUME_SUMMARY.md"]) {

@@ -30,6 +30,7 @@ import {circuitTeaching} from "../src/circuitTeaching.mjs";
 import { CircuitTeachingPanel, type CircuitPosition } from "./CircuitTeachingPanel";
 import { BIGBRAIN_SECTION_DIMS, SectionSliceStepper } from "./SectionSliceStepper";
 import { ForamenGuide } from "./ForamenGuide";
+import { ThalamusGuide } from "./ThalamusGuide";
 import {ObservationLink} from "./ObservationLink";
 import {ActiveSectionStudy} from "./ActiveSectionStudy";
 import {SectionStudyGuide} from "./SectionStudyGuide";
@@ -133,12 +134,12 @@ function learnerSourceLabel(source:string){
 type QuizCategory = "basal" | "limbic" | "midbrain" | "ventricles" | "connections" | "hindbrain" | "surface" | "neurovascular";
 type QuizTargetKey = StructureKey | SurfaceRegionKey | NeurovascularStructureKey;
 type QuizQuestionKind = "identification" | "function-to-structure" | "function-choice" | "relation-choice" | "pathway-choice";
-type QuizConceptFields = { id?:string; questionKind?:QuizQuestionKind; correctAnswer?:string; optionLabels?:Record<string,string>; explanation?:string;sourceRefs?:string[] };
+type QuizConceptFields = { id?:string; questionKind?:QuizQuestionKind; correctAnswer?:string; optionLabels?:Record<string,string>; explanation?:string;sourceRefs?:string[];choiceGuidance?:Record<string,[string,string]> };
 type SectionQuizQuestion = { target: StructureKey; category: Exclude<QuizCategory,"surface"|"neurovascular">; plane: Plane; position: number; prompt: string; options: string[]; format?:"section"; detail?:Plane; origin?:QuizOrigin } & QuizConceptFields;
 type SurfaceQuizQuestion = { target: SurfaceRegionKey; category: "surface"; view: SurfaceViewKey; prompt: string; options: string[]; format?:"surface"; detail?:Exclude<QuizDetail,Plane>; origin?:QuizOrigin } & QuizConceptFields;
 type NeurovascularQuizQuestion = { target: NeurovascularStructureKey; category:"neurovascular"; view:"arteries"|"cranialNerves"; prompt:string; options:string[]; format:"neurovascular"; detail:"arteries"|"cranialNerves"; origin:"provisional" } & QuizConceptFields;
 type QuizQuestion = SectionQuizQuestion | SurfaceQuizQuestion | NeurovascularQuizQuestion;
-type QuizConceptSeed = { id:string; target:QuizTargetKey; kind:Exclude<QuizQuestionKind,"identification">; prompt:string; correctAnswer:string; options:{key:string;label:string}[]; explanation:string; sourceRefs:string[] };
+type QuizConceptSeed = { id:string; target:QuizTargetKey; kind:Exclude<QuizQuestionKind,"identification">; prompt:string; correctAnswer:string; options:{key:string;label:string}[]; explanation:string; sourceRefs:string[];choiceGuidance?:Record<string,[string,string]>;sectionView?:{plane:Plane;position:number;category:Exclude<QuizCategory,"surface"|"neurovascular">} };
 type QuizConceptBank = { schemaVersion:number; updated:string; reviewState:"project-reviewed-expert-pending"; sources:{id:string;label:string;ref:string}[]; questions:QuizConceptSeed[] };
 const quizConceptData=quizConceptBank as unknown as QuizConceptBank;
 type QuizFormatFilter = "all"|QuizFormat;
@@ -686,10 +687,23 @@ const neurovascularQuizQuestions:NeurovascularQuizQuestion[]=[
 ];
 const visualQuizQuestions:QuizQuestion[]=[...quizQuestions,...neurovascularQuizQuestions];
 const conceptQuizQuestions:QuizQuestion[]=quizConceptData.questions.map(seed=>{
-  const visual=visualQuizQuestions.find(question=>question.target===seed.target);
+  const visual=visualQuizQuestions.find(question=>question.target===seed.target)??(seed.sectionView&&Object.hasOwn(structures,seed.target)?{target:seed.target as StructureKey,...seed.sectionView,format:"section" as const,prompt:seed.prompt,options:seed.options.map(option=>option.key)}:undefined);
   if(!visual)throw new Error(`Concept quiz target has no visual question: ${seed.target}`);
-  return {...visual,id:seed.id,questionKind:seed.kind,prompt:seed.prompt,correctAnswer:seed.correctAnswer,options:seed.options.map(option=>option.key),optionLabels:Object.fromEntries(seed.options.map(option=>[option.key,option.label])),explanation:seed.explanation,sourceRefs:seed.sourceRefs,origin:"provisional"};
+  if(seed.sectionView&&!("plane" in visual))throw new Error(`Section context requires a section target: ${seed.id}`);
+  const context=seed.sectionView&&"plane" in visual?{...visual,...seed.sectionView,detail:seed.sectionView.plane}:visual;
+  return {...context,id:seed.id,questionKind:seed.kind,prompt:seed.prompt,correctAnswer:seed.correctAnswer,options:seed.options.map(option=>option.key),optionLabels:Object.fromEntries(seed.options.map(option=>[option.key,option.label])),explanation:seed.explanation,sourceRefs:seed.sourceRefs,choiceGuidance:seed.choiceGuidance,origin:"provisional"};
 });
+// Open only after answering; these are schematic reference locations, not answer masks.
+const quizThalamicReferenceRegions:Record<string,string>={
+  "thalamus-anterior-mammillary-input":"A",
+  "thalamus-md-prefrontal-connection":"MD",
+  "thalamus-va-vl-motor-group":"VA",
+  "thalamus-vpl-body-input":"VPL",
+  "thalamus-vpm-trigeminal-input":"VPM",
+  "thalamus-pulvinar-posterior-landmark":"Pul",
+  "cerebellum-dentate-cortical-loop":"VL",
+  "lgn-output-radiation":"LGN",
+};
 const allQuizQuestions:QuizQuestion[]=[...visualQuizQuestions,...conceptQuizQuestions].filter(isQuizAnatomyAvailable);
 
 function isNeurovascularQuiz(question:QuizQuestion):question is NeurovascularQuizQuestion{return question.category==="neurovascular"}
@@ -758,6 +772,8 @@ function quizVisibilityAuditTargetOverride():QuizQuestion|null{
   if(host!=="127.0.0.1"&&host!=="localhost"&&host!=="::1")return null;
   const params=new URLSearchParams(window.location.search);
   if(params.get("quizVisibilityAudit")!=="1")return null;
+  const questionId=params.get("question");
+  if(questionId)return allQuizQuestions.find(question=>question.id===questionId)??null;
   const target=params.get("target");
   return allQuizQuestions.find(question=>question.target===target)??null;
 }
@@ -1937,7 +1953,7 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
         </div>
       </section></div>
       <div className="sectionUtilities">
-      {contrast==="bigbrain"&&<><SectionStudyGuide english={englishEdition} onObserve={observeStudyTheme}><ForamenGuide english={englishEdition} onObserve={observeForamenSlice}/></SectionStudyGuide><ExternalSpecimenVideo context="sections" english={englishEdition}/></>}
+      {contrast==="bigbrain"&&<><SectionStudyGuide english={englishEdition} onObserve={observeStudyTheme}><ForamenGuide english={englishEdition} onObserve={observeForamenSlice}/></SectionStudyGuide><ThalamusGuide english={englishEdition}/><ExternalSpecimenVideo context="sections" english={englishEdition}/></>}
       {sectionLinkStatus&&<p role="status">{englishEdition?"This observation link is invalid or uses a different label revision. Its settings were not applied.":"観察リンクが不正、またはラベルの版が異なるため、リンクの設定は適用していません。"}</p>}
       {contrast==="bigbrain"&&<ObservationLink english={englishEdition} onOpen={()=>setPlaying(false)} url={typeof window==="undefined"?"":observationUrl(window.location.href,sectionLinkHash(plane,{version:1,positions:{...sectionPositions.current,[plane]:position},visible:visibleStructures,selected:selectedStructure,layout:sectionLayout,views:sectionModelViews,share:sectionModelShare},sectionAllowedKeys,SEGMENTATION_LABEL_SHA256)??"")}/>}
       </div>
@@ -1970,6 +1986,7 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
             {freeSelectedItems.length>0&&<>
             <div className="freeSelectedHeader"><div><b>選択した構造</b><small data-no-localize>{englishEdition?`${freeSelectedItems.length} ${freeSelectedItems.length===1?"item":"items"} selected`:`${freeSelectedItems.length}件の情報を表示`}</small></div></div>
             <div className="freeSelectedCards" aria-label="選択した構造">{freeSelectedItems.map(item=>{const displayAvailable=!item.key.startsWith("neuro:")||neurovascularDisplayAvailable(item.key.slice(6) as NeurovascularStructureKey);return <article key={item.key} className={freeFocusedKey===item.key?"focused":""}><i style={{background:item.color}}/><div><em>{item.kind} · {learnerSourceLabel(item.source)}</em><b>{item.name}</b>{!englishEdition&&<small>{anatomyDisplayEnglish(item.latin)}</small>}{!displayAvailable&&<small>形状調整中・3D非表示</small>}<p>{item.note}</p>{item.key.startsWith("region:")&&<button type="button" className="regionLessonOpen" onClick={()=>openSurfaceRegionLesson(item.key.slice(7) as SurfaceRegionKey)}>{englishEdition?"Learn about this region":"この部位の解説"}</button>}<details><summary>由来の詳細</summary><p>{item.source}。詳細な根拠と確度は共同制作ページおよび由来台帳で確認できます。</p></details></div><button aria-label={englishEdition?`Remove ${anatomyDisplayEnglish(item.latin)} from selection`:`${item.name}の選択を解除`} onClick={()=>toggleFreeObservation(item.key)}>×</button></article>})}</div>
+            {freeSelectedSet.has("deep:thalami")&&<ThalamusGuide english={englishEdition}/>}
             </>}
             <label className="freeSearch"><span>検索</span><input type="search" value={freeSearch} placeholder="例：中心前回、視神経、artery" onChange={event=>setFreeSearch(event.target.value)} onKeyDown={event=>{if(event.nativeEvent.isComposing||event.nativeEvent.keyCode===229)return;if(event.key==="Escape"){event.preventDefault();event.stopPropagation();setFreeSearch("");return}if(event.key==="Enter"&&normalizedFreeSearch&&freeFilteredItems[0]){event.preventDefault();selectFreeObservation(freeFilteredItems[0].key)}}}/>{freeSearch&&<button type="button" aria-label="検索をクリア" onClick={event=>{(event.currentTarget.previousElementSibling as HTMLInputElement)?.focus();setFreeSearch("")}}>×</button>}</label>
             {normalizedFreeSearch&&<div className="freeSearchResults" aria-label="検索結果"><div className="freeResultSummary" role="status"><b data-no-localize>{englishEdition?`${freeFilteredItems.length} ${freeFilteredItems.length===1?"result":"results"}`:`${freeFilteredItems.length}件`}</b><span>クリックして詳細を確認</span></div>{freeFilteredItems.length?<div>{freeFilteredItems.map(item=>{const active=freeSelectedSet.has(item.key),displayAvailable=!item.key.startsWith("neuro:")||neurovascularDisplayAvailable(item.key.slice(6) as NeurovascularStructureKey);return <button key={item.key} className={active?"active":""} aria-pressed={active} onClick={()=>selectFreeObservation(item.key)}><i style={{background:item.color}}/><span><b>{item.name}</b>{!englishEdition&&<small>{anatomyDisplayEnglish(item.latin)}</small>}{!displayAvailable&&<small>形状調整中・3D非表示</small>}</span><em>{item.kind}</em><strong>{displayAvailable?(active?"✓":"＋"):(englishEdition?"Details":"説明")}</strong></button>})}</div>:<p>該当する構造はありません。</p>}</div>}
@@ -2046,7 +2063,7 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
             const option=quizQuestion.optionLabels?.[key]?{name:quizQuestion.optionLabels[key],latin:""}:registryOption;
             return <button key={key} data-quiz-option={key} className={quizChoice?(correct?"correct":chosen?"wrong":"muted"):""} onClick={()=>answerQuiz(key)} disabled={!!quizChoice}><i>{String.fromCharCode(65+i)}</i><span>{option.name}{!englishEdition&&<small>{anatomyDisplayEnglish(option.latin)}</small>}</span>{quizChoice&&correct&&<b>正解</b>}{quizChoice&&chosen&&!correct&&<b>選択</b>}</button>
           })}</div>
-{quizChoice&&<div className={`quizFeedback ${quizChoice===quizCorrectKey?"correct":"wrong"}`} tabIndex={-1} role="status" aria-live="polite"><b>{quizChoice===quizCorrectKey?"正解です":"解説と観察画面で確認"}</b><p className="quizFeedbackPrompt">{quizQuestion.prompt}</p><div className="quizFeedbackActions"><button className="reviewTarget" onClick={()=>reviewQuizQuestion(quizQuestion)}>{englishEdition?"View structure":"観察画面で位置を確認"}</button><button className="quizNextPrimary" onClick={nextQuiz}>{quizIndex===quizQueue.length-1?"結果を見る":"次の問題へ"} →</button></div>{quizSelectedGuidance?<p data-no-localize>{quizSelectedGuidance}</p>:(quizQuestion.explanation?[quizQuestion.explanation]:!quizComparison?.expected.note?quizExplanationParagraphs(quizQuestion,quizChoice):[]).map((paragraph,index)=><p key={index}>{paragraph}</p>)}{quizComparison&&<section className="quizAnswerComparison" aria-label="正答と選択した答えの比較"><dl>{([["正答",quizComparison.expected],["あなたの選択",quizComparison.selected]] as const).map(([label,item])=><div key={label}><dt>{label}</dt><dd><strong>{item.name}</strong>{!quizSelectedGuidance&&item.relation&&<p>{item.relation}</p>}{!quizSelectedGuidance&&item.note&&<p>{item.note}</p>}</dd></div>)}</dl></section>}<QuizSources sources={quizReferences(quizQuestion)} english={englishEdition}/><Suspense fallback={null}><QuizOptionResults questions={allQuizQuestions} currentQuestion={quizQuestion} english={englishEdition} refresh={quizStatsRefresh} labelFor={(question,key)=>quizOptionName(question as QuizQuestion,key)}/></Suspense></div>}
+{quizChoice&&<div className={`quizFeedback ${quizChoice===quizCorrectKey?"correct":"wrong"}`} tabIndex={-1} role="status" aria-live="polite"><b>{quizChoice===quizCorrectKey?"正解です":"解説と観察画面で確認"}</b><p className="quizFeedbackPrompt">{quizQuestion.prompt}</p><div className="quizFeedbackActions"><button className="reviewTarget" onClick={()=>reviewQuizQuestion(quizQuestion)}>{englishEdition?"View structure":"観察画面で位置を確認"}</button><button className="quizNextPrimary" onClick={nextQuiz}>{quizIndex===quizQueue.length-1?"結果を見る":"次の問題へ"} →</button></div>{quizSelectedGuidance?<p data-no-localize>{quizSelectedGuidance}</p>:(quizQuestion.explanation?[quizQuestion.explanation]:!quizComparison?.expected.note?quizExplanationParagraphs(quizQuestion,quizChoice):[]).map((paragraph,index)=><p key={index}>{paragraph}</p>)}{quizComparison&&<section className="quizAnswerComparison" aria-label="正答と選択した答えの比較"><dl>{([["正答",quizComparison.expected],["あなたの選択",quizComparison.selected]] as const).map(([label,item])=><div key={label}><dt>{label}</dt><dd><strong>{item.name}</strong>{!quizSelectedGuidance&&item.relation&&<p>{item.relation}</p>}{!quizSelectedGuidance&&item.note&&<p>{item.note}</p>}</dd></div>)}</dl></section>}{quizQuestion.id&&quizThalamicReferenceRegions[quizQuestion.id]&&<ThalamusGuide key={quizQuestion.id} english={englishEdition} initialRegion={quizThalamicReferenceRegions[quizQuestion.id]}/>}<QuizSources sources={quizReferences(quizQuestion)} english={englishEdition}/><Suspense fallback={null}><QuizOptionResults questions={allQuizQuestions} currentQuestion={quizQuestion} english={englishEdition} refresh={quizStatsRefresh} labelFor={(question,key)=>quizOptionName(question as QuizQuestion,key)}/></Suspense></div>}
           {(neurovascularQuiz||!isConceptQuiz(quizQuestion)&&isProvisionalQuiz(quizQuestion))&&<small className="quizDisplaySource" data-no-localize>{englishEdition?"Display source: ":"表示の由来："}{neurovascularQuiz?(englishEdition?"schematic 3D":"模式3D"):surfaceQuiz?(englishEdition?"atlas-based cortical surface":"アトラス脳表"):(englishEdition?"provisional labels":"試作ラベル")}</small>}
           <div className="quizScoreLine"><span>現在の正答</span><b>{quizScore}</b><small>/ {quizChoice?quizIndex+1:quizIndex}</small></div>
         </aside>

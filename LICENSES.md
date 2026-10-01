@@ -41,3 +41,11 @@ React、Vite、TypeScriptなどの依存ソフトウェアは、それぞれの�
 ## 5. 商標・氏名・プライバシー
 
 ライセンスは、プロジェクト名、組織名、投稿者名の商標的利用、個人情報、肖像、患者情報、標本画像などについて追加の許諾を与えるものではありません。
+
+## 視床VIMの一切片参照輪郭 / Single-section VIM reference
+
+`app/thalamusVimReference.json` はsiibra-pythonの第3797切片の公開注釈を座標変換した参照データです。元リポジトリのApache-2.0表示、固定版の出典、変更内容、全文を [個別notice](public/THALAMUS-VIM-REFERENCE-NOTICE.txt) に保持し、アプリコードのAGPL表示で上書きしません。原BigBrain画像の利用条件は別途維持します。このガイドは原画像や論文図を再配布せず、一枚の文献輪郭を核全体の3D分節として扱いません。
+
+2026-10-01追加：app/thalamusMgbReference.jsonとapp/thalamusMgbSurface.jsonはSchifferほかの同一BigBrain内側膝状体3D地図（10.25493/PNY0-NCW）から求めた参考座標・参照形状で、CC BY-NC-SA 4.0を保持する。アプリコードのAGPLでは置き換えない。public/THALAMUS-MGB-REFERENCE-NOTICE.txtに著者・変換・表示範囲を記載。
+
+2026-10-01追加：扁桃体ID21/22の補完1,505点と対応meshはSchiffer, Kedo, Amunts, Dickscheidの同一BigBrain扁桃体地図（[10.25493/TKTP-7NR](https://doi.org/10.25493/TKTP-7NR)）を使用する派生物。CC BY-NC-SA 4.0を保持し、著者・変換・収録範囲をatlas/ATTRIBUTION.txtに掲載。

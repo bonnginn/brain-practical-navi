@@ -42,7 +42,7 @@ export async function readQuizStatistics(endpoint, fetcher = fetch) {
 export async function sendQuizSessionStatistic(questions, correct, endpoint, fetcher = fetch) {
   try {
     const url = statisticsEndpoint(endpoint);
-    if (!url?.endsWith('/answer') || !Number.isInteger(questions) || questions<1 || questions>92 || !Number.isInteger(correct) || correct<0 || correct>questions) return false;
+    if (!url?.endsWith('/answer') || !Number.isInteger(questions) || questions<1 || questions>200 || !Number.isInteger(correct) || correct<0 || correct>questions) return false;
     const response = await fetcher(new URL('session',url).href, {method:'POST', credentials:'omit', referrerPolicy:'no-referrer',
       headers:{'Content-Type':'application/json'}, body:JSON.stringify({questions,correct}), signal:AbortSignal.timeout(4000)});
     return response.ok;
@@ -56,6 +56,6 @@ export async function readQuizSessionStatistics(endpoint, fetcher = fetch) {
     const response = await fetcher(new URL('session-results',url).href, {method:'GET', credentials:'omit', referrerPolicy:'no-referrer', signal:AbortSignal.timeout(4000)});
     if (!response.ok) return null;
     const data = await response.json();
-    return Array.isArray(data) ? data.filter(row=>Number.isInteger(row.questions)&&row.questions>=1&&row.questions<=92&&Number.isInteger(row.correct)&&row.correct>=0&&row.correct<=row.questions&&Number.isInteger(row.sessions)&&row.sessions>0) : null;
+    return Array.isArray(data) ? data.filter(row=>Number.isInteger(row.questions)&&row.questions>=1&&row.questions<=200&&Number.isInteger(row.correct)&&row.correct>=0&&row.correct<=row.questions&&Number.isInteger(row.sessions)&&row.sessions>0) : null;
   } catch { return null; }
 }

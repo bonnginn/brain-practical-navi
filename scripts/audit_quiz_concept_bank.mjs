@@ -5,11 +5,14 @@ import { isQuizAnatomyAvailable } from "../src/quizAnatomyHold.mjs";
 import { parseNeurovascularQuizInventory } from "./audit_neurovascular_quiz.mjs";
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),"..");
-export const CONCEPT_COUNT=55;
+export const MIN_CONCEPT_COUNT=55;
 export const BASE_COUNT=45;
-export const TOTAL_COUNT=100;
 export const KINDS=new Set(["function-to-structure","function-choice","relation-choice","pathway-choice"]);
 const expectedMultiplicity={caudate:2,putamen:2,pallidum:2,accumbens:2,hippocampus:2,amygdala:2,mammillaryBody:2,redNucleus:2,substantiaNigra:2,subthalamic:2,ventricle:2,thalamus:2,corpusCallosum:2,internalCapsule:2,insula:2,brainstem:2,cerebellum:2,precentral:1,superiorTemporal:1,superiorFrontal:1,precuneus:1,cuneus:1,fusiform:1,cn1:1,cn2:1,opticChiasm:1,cn3:1,cn4:1,cn5:1,cn6:1,cn7:1,cn8:1,cn9:1,cn10:1,cn11:1,cn12:1,ica:1,basilar:1};
+// These already-rendered section structures need their own explicit context.
+// Aqueduct remains outside the quiz target set; its partial display is not a new approval.
+const additionalSectionTargets=new Set(['thirdVentricle','fourthVentricle','anteriorCommissurePartial','septumPellucidumPartial','lateralGeniculateBodies','fornixBodyPartial','opticChiasmPartial','opticTractsPartial','pallidumExternal','pallidumInternal']);
+const additionalVascularTargets=new Set(['aca','acomm','mca','pcomm','vertebral','pca','cerebellarArteries']);
 
 export function validateQuizConceptBank(bank,source=""){
   const errors=[];
@@ -19,27 +22,39 @@ export function validateQuizConceptBank(bank,source=""){
   const sources=new Set(), sourceList=Array.isArray(bank?.sources)?bank.sources:[];
   for(const item of sourceList){if(!item?.id||sources.has(item.id))errors.push(`invalid or duplicate source: ${item?.id??"missing"}`);else sources.add(item.id);if(!item?.label||!item?.ref)errors.push(`${item?.id??"source"}: label/ref required`)}
   const questions=Array.isArray(bank?.questions)?bank.questions:[];
-  if(questions.length!==CONCEPT_COUNT)errors.push(`concept question count must be ${CONCEPT_COUNT}, found ${questions.length}`);
+  if(questions.length<MIN_CONCEPT_COUNT)errors.push(`retain at least ${MIN_CONCEPT_COUNT} existing concept questions, found ${questions.length}`);
   const ids=new Set(), counts={};
   for(const question of questions){
     if(!question?.id||ids.has(question.id))errors.push(`invalid or duplicate question id: ${question?.id??"missing"}`);else ids.add(question.id);
-    if(!(question?.target in expectedMultiplicity))errors.push(`${question?.id}: unknown visual target ${question?.target}`);else counts[question.target]=(counts[question.target]??0)+1;
+    if(!(question?.target in expectedMultiplicity)&&!additionalSectionTargets.has(question?.target)&&!additionalVascularTargets.has(question?.target))errors.push(`${question?.id}: unknown visual target ${question?.target}`);else counts[question.target]=(counts[question.target]??0)+1;
+    if(additionalSectionTargets.has(question?.target)&&!question.sectionView)errors.push(`${question.id}: new section target requires sectionView`);
     if(!KINDS.has(question?.kind))errors.push(`${question?.id}: invalid kind ${question?.kind}`);
+    if(question?.sectionView){
+      const view=question.sectionView;
+      if(['precentral','superiorTemporal','superiorFrontal','precuneus','cuneus','fusiform'].includes(question.target)||additionalVascularTargets.has(question.target)||/^(cn\d|opticChiasm$|ica$|basilar$)/.test(question.target))errors.push(`${question.id}: sectionView requires a section target`);
+      if(!['coronal','horizontal','sagittal'].includes(view.plane)||!Number.isFinite(view.position)||view.position<0||view.position>100||!['basal','limbic','midbrain','ventricles','connections','hindbrain'].includes(view.category))errors.push(`${question.id}: invalid sectionView`);
+    }
     if(!question?.prompt?.trim()||!question?.explanation?.trim())errors.push(`${question?.id}: prompt/explanation required`);
     const options=Array.isArray(question?.options)?question.options:[];
     const optionKeys=options.map(option=>option?.key);
     if(options.length!==4||new Set(optionKeys).size!==4)errors.push(`${question?.id}: exactly four unique options required`);
     if(optionKeys.filter(key=>key===question?.correctAnswer).length!==1)errors.push(`${question?.id}: correctAnswer must occur exactly once`);
     if(options.some(option=>!option?.key||!option?.label?.trim()))errors.push(`${question?.id}: option key/label required`);
+    if(question?.choiceGuidance!==undefined){
+      const expected=optionKeys.filter(key=>key!==question.correctAnswer).sort();
+      const notes=question.choiceGuidance;
+      if(!notes||Array.isArray(notes)||JSON.stringify(Object.keys(notes).sort())!==JSON.stringify(expected))errors.push(`${question.id}: guidance must cover exactly the three distractors`);
+      else for(const [key,note] of Object.entries(notes))if(!Array.isArray(note)||note.length!==2||note.some(text=>typeof text!=='string'||!text.trim()))errors.push(`${question.id}/${key}: Japanese and English guidance required`);
+    }
     if(!Array.isArray(question?.sourceRefs)||question.sourceRefs.length<1)errors.push(`${question?.id}: sourceRefs required`);
     else for(const ref of question.sourceRefs)if(!sources.has(ref))errors.push(`${question?.id}: unknown sourceRef ${ref}`);
   }
-  for(const [target,count] of Object.entries(expectedMultiplicity))if((counts[target]??0)!==count)errors.push(`${target}: expected ${count} concept questions, found ${counts[target]??0}`);
+  for(const [target,count] of Object.entries(expectedMultiplicity))if((counts[target]??0)<count)errors.push(`${target}: retain at least ${count} concept questions, found ${counts[target]??0}`);
   if(source){
     const snippets=["import quizConceptBank from \"./quiz-concept-bank.json\"","const conceptQuizQuestions:QuizQuestion[]=quizConceptData.questions.map","const allQuizQuestions:QuizQuestion[]=[...visualQuizQuestions,...conceptQuizQuestions]","function quizCorrectAnswer(question:QuizQuestion)","key===quizCorrectKey","data-quiz-kind={quizQuestionKind}"];
     for(const snippet of snippets)if(!source.includes(snippet))errors.push(`app source missing concept contract: ${snippet}`);
   }
-  return {ok:errors.length===0,errors,summary:{baseQuestionCount:BASE_COUNT,conceptQuestionCount:questions.length,totalQuestionCount:BASE_COUNT+questions.length,uniqueVisualTargetCount:45,conceptVisualTargetCount:Object.keys(counts).length,reviewState:bank?.reviewState??null}};
+  return {ok:errors.length===0,errors,summary:{baseQuestionCount:BASE_COUNT,conceptQuestionCount:questions.length,totalQuestionCount:BASE_COUNT+questions.length,uniqueVisualTargetCount:45+Object.keys(counts).filter(key=>additionalSectionTargets.has(key)).length,conceptVisualTargetCount:Object.keys(counts).length,reviewState:bank?.reviewState??null}};
 }
 
 export function auditQuizConceptBank({rootDir=root,bank,source}={}){

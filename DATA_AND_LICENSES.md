@@ -357,3 +357,27 @@ BigBrain元手動区画へ公式変位場を適用した高精度候補から、
 2026-09-19開発版：視交叉中央部（部分）ID36は同一BigBrainの40／100 µm原画像から内部112点を選び、0.5 mm格子で無平滑・無補間の断面3Dを作成した派生データ。BigBrainのCC BY-NC-SA 4.0条件を継承する。全外縁・視神経・視索・視放線の完成を示さない。[統合記録](docs/OPTIC_CENTRAL112_INTEGRATION_2026-09-19.md)。
 
 English: Partial central optic chiasm ID36 is a project-reviewed derivative of the same BigBrain specimen, based on native 40/100 µm images. Its 112-voxel interior and unsmoothed section mesh retain BigBrain CC BY-NC-SA 4.0 terms; this is not a complete optic chiasm or visual pathway and is not expert-reviewed.
+
+## 2026-10-01：BigBrain VIM参照切片の位置比較（開発版）
+
+siibra-pythonのfigure-6教材の公開注釈（第3797切片、native Y5.93 mm、71頂点）を固定コミット `e1bf71cf74d63fa00f93d38369ca50a8a8201ade` から取得。原座標と原SHA、公式変換列のSHAを保持し、現行表示座標へ移した。核全体への押し出し・補間・ラベル追加は行わない。別標本のJulich-Brain確率地図とは区別し、7模式目印とは別の一切片の参照輪郭として表示。元リポジトリのApache-2.0全文と変更表示は [notice](public/THALAMUS-VIM-REFERENCE-NOTICE.txt)。原BigBrainの条件は維持し、元画像・論文図はガイドへ転載しない。
+
+English: A pinned siibra-python example annotates VIM on one BigBrain histological section. Its 71-vertex contour is registered into the current display as a single-section literature reference, without extrusion, nucleus labels or changes to specimen segmentation. Original coordinates, hashes, attribution, source repository licence and modifications are retained separately from the seven schematic guide points.
+
+2026-10-01：内側膝状体の参考点はSchiffer, Kiwitz, Brandstetter, Mohlberg, Amunts, Dickscheidの[BigBrain MGB 3D地図](https://doi.org/10.25493/PNY0-NCW)、CC BY-NC-SA 4.0に基づく。左右3区分の配信を実解像度で復元、公式変換・0.5 mm最近傍標本化・側別和集合から代表座標を求めた。原画像18面で位置を照合。核ラベル・核境界・聴放線は追加していない。
+
+English: The MGB reference positions derive from the same-BigBrain 3D map by Schiffer et al. (DOI 10.25493/PNY0-NCW, CC BY-NC-SA 4.0). Six source masks were decoded at their actual overview scales, officially registered, nearest-neighbour sampled at 0.5 mm and unioned separately by side to obtain representative positions. Native-image alignment was reviewed on 18 planes. No MGB voxel labels, nuclear boundaries or auditory radiation were added. Credits and modifications: public/THALAMUS-MGB-REFERENCE-NOTICE.txt.
+
+2026-10-01追記：同じ変換済み左MGBの571点から、平滑化・穴埋め・成分削除・左右転写なしのmarching cubesで705頂点／1,386三角面の参照形状を作成。app/thalamusMgbSurface.jsonは上記CC BY-NC-SA 4.0を保持。ガイド内のみ桃色で表示し、採用済みLGNの青色形状と比較する。主分節ラベルと断面用MGB個別着色は追加していない。原点・軸順、候補SHA、閉じた面を生成時検証。
+
+English: A left-sided literature reference surface was reconstructed from the same 571 reviewed application-grid samples, with marching cubes and no smoothing, filling, component removal or mirroring. Its 705 vertices and 1,386 triangles are distributed in app/thalamusMgbSurface.json under the same CC BY-NC-SA 4.0 terms. Pink MGB is shown only in the reference guide, distinct from the adopted blue LGN shape. Main segmentation labels and section colouring are unchanged.
+
+2026-10-01：同一BigBrain扁桃体地図から8核に属する未ラベル1,505点（左649／右856）を補完した。13領域全体や6線維束の一括転写ではなく、海馬との既存重複は保持した。原画像36面で照合し、公式変換・0.5 mm最近傍標本化と無平滑mesh生成を使用。[採用範囲と可逆差分](docs/AMYGDALA_CORE1505_2026-10-01.md)。
+
+English: Same-specimen BigBrain amygdala maps by Schiffer, Kedo, Amunts and Dickscheid (DOI10.25493/TKTP-7NR, CC BY-NC-SA 4.0) support 1,505 additions to the gross left/right labels (649/856). Eight nuclear codes were used; five area/transition codes and six fibre codes were excluded from the additions. Existing hippocampal labels were preserved. Native-image review covered 36 orthogonal/adjacent planes. Registration, nearest-neighbour sampling at 0.5 mm and unsmoothed mesh reconstruction are project modifications, not new expert validation.
+
+## Same-BigBrain hippocampal CA/DG supplement (2026-10-01)
+
+同一BigBrainのKedo/JD手動地図（DeKraker et al. 2023、[データ](https://doi.org/10.5281/zenodo.7757416)、[論文](https://doi.org/10.7554/eLife.88404)）と原画像81面の地域別照合により、未ラベル356点（左226・右130）を海馬ID17/18へ補完。海馬台・嗅内皮質・既存の他ラベルは拡張・上書きしない。データのCC BY 4.0と原BigBrainのCC BY-NC-SA 4.0は別条件として保持。公式登録、最近傍再標本化とメッシュ再構築が変更内容。核・細区分の独立分節や専門家確認済みを意味しない。
+
+English: Two same-BigBrain manual CA/DG maps support 356 native-image-reviewed additions to gross hippocampus labels (226 left, 130 right). DeKraker et al. and the Kedo/JD delineators are credited; dataset CC BY 4.0 and underlying BigBrain CC BY-NC-SA 4.0 remain distinct. Official registration, nearest-neighbour resampling and unsmoothed reconstruction are project modifications, not expert validation. See [adoption record](docs/HIPPOCAMPAL_CORE356_2026-10-01.md).

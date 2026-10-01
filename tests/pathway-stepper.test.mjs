@@ -175,7 +175,11 @@ test("Papez section stages show existing pixels and 3D-only stages do not invent
   assert.equal(result.ok, true, result.errors.join("\n"));
   assert.equal(result.summary.stepCount, 6);
   assert.equal(result.summary.targetCount, 7);
-  assert.deepEqual(result.summary.sectionPixelCounts, {hippocampus: 1398, fornixBodyPartial: 53, mammillaryBody: 120, thalamus: 2729});
+  // Keep the earlier slice checkpoint, adding only reviewed CA/DG points on this plane.
+  const hippocampalSupplement = JSON.parse(fs.readFileSync(path.join(root, "segmentation-patches/review/hippocampal-core356-adoption-2026-10-01.json"), "utf8"));
+  const hippocampalSlice = Math.round(51 / 100 * (staged.dims[1] - 1));
+  const hippocampalAdditions = hippocampalSupplement.points.filter(point => point.xyz[1] === hippocampalSlice && point.before === 0 && [17, 18].includes(point.after)).length;
+  assert.deepEqual(result.summary.sectionPixelCounts, {hippocampus: 1398 + hippocampalAdditions, fornixBodyPartial: 53, mammillaryBody: 120, thalamus: 2729});
   assert.deepEqual(result.summary.stages.filter(stage => !stage.sectionCanvas).map(stage => stage.key), ["cingulate", "parahippocampal-entorhinal"]);
   assert.equal(advancePapezStepperIndex(0, PAPEZ_STEPS.length), 1);
   assert.equal(advancePapezStepperIndex(PAPEZ_STEPS.length - 1, PAPEZ_STEPS.length), PAPEZ_STEPS.length - 1);

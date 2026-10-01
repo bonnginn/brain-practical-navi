@@ -2,6 +2,23 @@
 
 利用方法は [トップのREADME](../README.md)、現在地・作業期限と次の作業は [短い再開メモ](RESUME_SUMMARY.md) を参照してください。
 
+- [10月1日の10時間開発記録](DEVELOPMENT_10H_2026-10-01.md)
+- [視床核群の参考位置ガイド](THALAMUS_REFERENCE_GUIDE_2026-10-01.md)
+- [海馬体部のnative100照合](HIPPOCAMPAL_BODY_REVIEW_2026-10-01.md)
+- [同一標本の手動地図と原画像による海馬356点補完](HIPPOCAMPAL_CORE356_2026-10-01.md)
+- [海馬細区分・海馬台・嗅内皮質の同一標本比較](HIPPOCAMPAL_SUBFIELDS_REFERENCE_2026-10-01.md)
+- [内包後脚のnative100照合](CAPSULE_POSTERIOR_NATIVE100_2026-10-01.md)
+- [脳梁体部上縁のnative100照合](CALLOSAL_BODY_NATIVE100_2026-10-01.md)
+- [小脳内側のnative100照合](CEREBELLAR_MEDIAL_NATIVE100_2026-10-01.md)
+- [扁桃体の同一BigBrain8核による概略補完](AMYGDALA_CORE1505_2026-10-01.md)
+- [内側膝状体の同一BigBrain参照位置](THALAMUS_MGB_REFERENCE_2026-10-01.md)
+- [小脳正中部の葉の組織64点を補完](CEREBELLAR_MIDLINE64_2026-10-01.md)
+- [小脳葉先16点を補完・ほか93点を保留](CEREBELLAR_FOLIAL16_2026-10-01.md)
+- [小脳下方・後方の葉の組織80点を追加補完](CEREBELLAR_PAIRED80_2026-10-01.md)
+- [小脳内側・後方の葉の組織160点を追加補完](CEREBELLAR_ENCLOSED160_2026-10-01.md)
+- [小脳の葉の組織123点を追加補完](CEREBELLAR_ENCLOSED123_2026-10-01.md)
+- [小脳の葉の組織147点を補完](CEREBELLAR_ENCLOSED147_2026-10-01.md)
+
 - [正式版1.0へのロードマップ](V1_ROADMAP.md)
 - [9月29日〜30日の24時間開発記録](DEVELOPMENT_24H_2026-09-30.md)
 - [9月30日の公開更新と脳梁・帯状回境界の確認](PUBLIC_RELEASE_AND_CALLOSUM_REVIEW_2026-09-30.md)

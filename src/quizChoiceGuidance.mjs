@@ -240,6 +240,8 @@ const alternativeClues={
 
 export function quizChoiceGuidance(question,choice,english=false){
   if(!question?.id||!choice||choice===question.correctAnswer||!question.options?.includes(choice))return null;
+  const authored=question.choiceGuidance?.[choice];
+  if(Array.isArray(authored)&&authored.length===2)return authored[english?1:0];
   const note=Object.hasOwn(guidance,question.id)?guidance[question.id][choice]:null;
   if(note)return note[english?1:0];
   if(question.questionKind==='function-to-structure'&&Object.hasOwn(functionClues,question.id)&&Object.hasOwn(alternativeClues,choice)){

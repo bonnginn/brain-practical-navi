@@ -34,7 +34,7 @@
     22
   ],
   "officialLabelsPreserved": false,
-  "officialLabelPolicy": "All source manual delineations now use the reviewed corrected registration. Internal bands and unresolved subregions are retained. Project adoption, not expert approval.",
+  "officialLabelPolicy": "All source manual delineations now use the reviewed corrected registration. Internal bands and unresolved subregions are retained. Project adoption, not expert approval. Gross amygdala IDs21/22 additionally contain 1,505 reviewed same-BigBrain published eight-nucleus-map additions; those additions are not original Xiao manual delineations. Gross hippocampus IDs17/18 additionally contain 356 reviewed CA/DG additions supported by two same-BigBrain manual maps; those additions are not original Xiao delineations.",
   "redNucleusRegistrationAudit": {
     "record": "segmentation-patches/review/red-nuclei-registration-project-adoption-2026-09-06.json",
     "recordSha256": "4e8e83794e932261c4d1d1b288989216cf33d301765b7c4f3977e1917ad8f102",
@@ -115,19 +115,19 @@
     "14": 4853,
     "15": 66476,
     "16": 67297,
-    "17": 35259,
-    "18": 34251,
+    "17": 35485,
+    "18": 34381,
     "19": 4189,
     "20": 3920,
-    "21": 14647,
-    "22": 15077,
+    "21": 15296,
+    "22": 15933,
     "23": 81670,
     "24": 82250,
     "25": 11665,
     "26": 9200,
     "27": 264453,
-    "28": 736101,
-    "29": 724983,
+    "28": 736401,
+    "29": 725273,
     "30": 97034,
     "31": 56790,
     "32": 53587,
@@ -481,7 +481,7 @@
     "workflowMetadataStatus": "strict"
   },
   "preClassificationCompressedSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
-  "rawVoxelSha256": "7cb462c16be2857d47edb40642cd11083752c6dc1532b9d91e980b02650487b8",
+  "rawVoxelSha256": "4de49227896d52c19753d1f060f48cc9a811f0e180dcf95b56c15e7203d8ff7d",
   "brainstemThreeIslandsAudit": {
     "record": "segmentation-patches/review/brainstem-three-islands-adoption-2026-09-06.json",
     "recordSha256": "9c7b14f4272969261e3e2415d3f522b7e5d7db1eeca7cb0c8ae28b225458be66",
@@ -1776,6 +1776,62 @@
       "changedVoxelCount": 48395,
       "projectAdopted": true,
       "expertReviewed": false
+    },
+    "cerebellar-enclosed147": {
+      "record": "segmentation-patches/review/cerebellar-enclosed147-adoption-2026-10-01.json",
+      "recordSha256": "fdd00ac2408214bd31f75a0838079ab88545aa1250e5d1668bed7c335a2a24d3",
+      "changedVoxelCount": 147,
+      "projectAdopted": true,
+      "expertReviewed": false
+    },
+    "cerebellar-enclosed123": {
+      "record": "segmentation-patches/review/cerebellar-enclosed123-adoption-2026-10-01.json",
+      "recordSha256": "f9106b88b56492e9e30f73dcbd28a796aed399799ca5d86e1d589e1963134e31",
+      "changedVoxelCount": 123,
+      "projectAdopted": true,
+      "expertReviewed": false
+    },
+    "cerebellar-enclosed160": {
+      "record": "segmentation-patches/review/cerebellar-enclosed160-adoption-2026-10-01.json",
+      "recordSha256": "e0bf26bf0a2d30a8f494e4f5d1dbe9faec526f4c12ee08096ab8bd64a1c58c96",
+      "changedVoxelCount": 160,
+      "projectAdopted": true,
+      "expertReviewed": false
+    },
+    "cerebellar-paired80": {
+      "record": "segmentation-patches/review/cerebellar-paired80-adoption-2026-10-01.json",
+      "recordSha256": "c290fccfab5be1b8a1d52d7016f17aad0864db7df8bcfd7a83222c115df2b49c",
+      "changedVoxelCount": 80,
+      "projectAdopted": true,
+      "expertReviewed": false
+    },
+    "cerebellar-midline64": {
+      "record": "segmentation-patches/review/cerebellar-midline64-adoption-2026-10-01.json",
+      "recordSha256": "545061a448a70cd426a2414ef80c9ed0ee93d98dcc050e4ea69994240a3a19ff",
+      "changedVoxelCount": 64,
+      "projectAdopted": true,
+      "expertReviewed": false
+    },
+    "cerebellar-folial16": {
+      "record": "segmentation-patches/review/cerebellar-folial16-adoption-2026-10-01.json",
+      "recordSha256": "7a20f5d671b38b7eb1248577786311f33f0b5a9cabd4c43408777e7641d98c95",
+      "changedVoxelCount": 16,
+      "projectAdopted": true,
+      "expertReviewed": false
+    },
+    "amygdala-core1505": {
+      "record": "segmentation-patches/review/amygdala-core1505-adoption-2026-10-01.json",
+      "recordSha256": "4ca64be0781142ab15bf58843b1d1cab502fb043f64cc34abbb04d73f1fccf6b",
+      "changedVoxelCount": 1505,
+      "projectAdopted": true,
+      "expertReviewed": false
+    },
+    "hippocampal-core356": {
+      "record": "segmentation-patches/review/hippocampal-core356-adoption-2026-10-01.json",
+      "recordSha256": "234c8fa07e97c2445cca021ed58d6f07842de1434457228509ccc9ec6a903753",
+      "changedVoxelCount": 356,
+      "projectAdopted": true,
+      "expertReviewed": false
     }
   },
   "historicalGenerationClaims": {
@@ -1785,9 +1841,9 @@
   },
   "currentImageMeasurements": {
     "schemaVersion": 1,
-    "sourceLabelSha256": "71f012431e3bd605deabc8d19b9cdaf1d35dff076f54e7a9f84a32e3a4eb5866",
+    "sourceLabelSha256": "d6358cb5145bff9b861f8c885c643cea7feeec1b008d9e5afe477ba4061d87b4",
     "sourceImageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
-    "rawVoxelSha256": "7cb462c16be2857d47edb40642cd11083752c6dc1532b9d91e980b02650487b8",
+    "rawVoxelSha256": "4de49227896d52c19753d1f060f48cc9a811f0e180dcf95b56c15e7203d8ff7d",
     "dimensionsXYZ": [
       394,
       466,
@@ -1812,19 +1868,19 @@
       "14": 4853,
       "15": 66476,
       "16": 67297,
-      "17": 35259,
-      "18": 34251,
+      "17": 35485,
+      "18": 34381,
       "19": 4189,
       "20": 3920,
-      "21": 14647,
-      "22": 15077,
+      "21": 15296,
+      "22": 15933,
       "23": 81670,
       "24": 82250,
       "25": 11665,
       "26": 9200,
       "27": 264453,
-      "28": 736101,
-      "29": 724983,
+      "28": 736401,
+      "29": 725273,
       "30": 97034,
       "31": 56790,
       "32": 53587,
@@ -1880,5 +1936,47 @@
   "publishedCytoarchitectonicIds": [
     44,
     45
-  ]
+  ],
+  "amygdalaPublishedMapSupplement": {
+    "labelIds": [
+      21,
+      22
+    ],
+    "addedVoxels": 1505,
+    "sourceDoi": "10.25493/TKTP-7NR",
+    "sourceVersionId": "cb40a501-b155-4c2f-8df3-0ee7c5f1ed00",
+    "sourceLicense": "CC BY-NC-SA 4.0",
+    "sourceCodes": [
+      "bl",
+      "bm",
+      "ce",
+      "la",
+      "me",
+      "pl",
+      "vcod",
+      "vcov"
+    ],
+    "record": "segmentation-patches/review/amygdala-core1505-adoption-2026-10-01.json",
+    "originalManualSourceRetained": true,
+    "separateNucleiImplemented": false,
+    "expertReviewed": false
+  },
+  "hippocampalPublishedMapSupplement": {
+    "labelIds": [
+      17,
+      18
+    ],
+    "addedVoxels": 356,
+    "sourceDoi": "10.5281/zenodo.7757416",
+    "paperDoi": "10.7554/eLife.88404",
+    "sourceLicense": "Zenodo CC BY 4.0; underlying BigBrain CC BY-NC-SA 4.0 retained",
+    "sourceCodes": [
+      "Kedo CA1/CA2/CA3/CA4/FD",
+      "JD CA1/CA2/CA3/CA4-DG"
+    ],
+    "record": "segmentation-patches/review/hippocampal-core356-adoption-2026-10-01.json",
+    "originalManualSourceRetained": true,
+    "separateSubfieldsImplemented": false,
+    "expertReviewed": false
+  }
 }

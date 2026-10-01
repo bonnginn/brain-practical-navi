@@ -1010,5 +1010,1105 @@
       "basilar-mca",
       "basilar-acomm"
     ]
+  },
+  {
+    "question": "ventricle-roof-landmark",
+    "revision": "428ca4e8c8a1886994dfa552f530c776bc9c7f2b047d2a4a1c934a99f62c034c",
+    "prompt": "側脳室体部の屋根をなす主な構造はどれですか？",
+    "options": [
+      "ventricle-roof-landmark-a",
+      "ventricle-roof-landmark-b",
+      "ventricle-roof-landmark-c",
+      "ventricle-roof-landmark-d"
+    ]
+  },
+  {
+    "question": "ventricle-monro-route",
+    "revision": "9b6027b271e3c1afb55570bb5c8f8e6867e7d4ab338b9eeb064211eacf24a852",
+    "prompt": "側脳室から第三脳室へ髄液が通る開口はどれですか？",
+    "options": [
+      "ventricle-monro-route-a",
+      "ventricle-monro-route-b",
+      "ventricle-monro-route-c",
+      "ventricle-monro-route-d"
+    ]
+  },
+  {
+    "question": "ventricle-horn-lobes",
+    "revision": "262d1c9292b048967b39550f4bfd080b6f549c81fa70fcb99365a52975d8c69d",
+    "prompt": "側脳室の前角・後角・下角と大脳葉の組合せとして適切なのはどれですか？",
+    "options": [
+      "ventricle-horn-lobes-a",
+      "ventricle-horn-lobes-b",
+      "ventricle-horn-lobes-c",
+      "ventricle-horn-lobes-d"
+    ]
+  },
+  {
+    "question": "ventricle-septum-landmark",
+    "revision": "03e9a500bd33ed9584c831c45f5d360fad00802bba7cc2bd0c38cea378b61bc4",
+    "prompt": "左右の側脳室の前角・体部を正中で隔てる薄い構造はどれですか？",
+    "options": [
+      "ventricle-septum-landmark-a",
+      "ventricle-septum-landmark-b",
+      "ventricle-septum-landmark-c",
+      "ventricle-septum-landmark-d"
+    ]
+  },
+  {
+    "question": "ventricle-choroid-role",
+    "revision": "71213a3f7df910bde855b4d569b76dcbfb72e187cd5a8fa7965c0f14ff124134",
+    "prompt": "側脳室内で見られる脈絡叢の主な役割はどれですか？",
+    "options": [
+      "ventricle-choroid-role-a",
+      "ventricle-choroid-role-b",
+      "ventricle-choroid-role-c",
+      "ventricle-choroid-role-d"
+    ]
+  },
+  {
+    "question": "ventricle-third-midline",
+    "revision": "e0581531989e2932fdd7260e78830d4a23c57efdf3824dc6f360500b51dcff21",
+    "prompt": "側脳室につながる第三脳室の位置として適切なのはどれですか？",
+    "options": [
+      "ventricle-third-midline-a",
+      "ventricle-third-midline-b",
+      "ventricle-third-midline-c",
+      "ventricle-third-midline-d"
+    ]
+  },
+  {
+    "question": "capsule-anterior-limb-neighbours",
+    "revision": "0f8d00036d70fc9c8aef253e6446ef6ce573d920a04bcc9af01f792f38eb6ae2",
+    "prompt": "内包前脚の両側にある構造の組合せはどれですか？",
+    "options": [
+      "capsule-anterior-limb-neighbours-a",
+      "capsule-anterior-limb-neighbours-b",
+      "capsule-anterior-limb-neighbours-c",
+      "capsule-anterior-limb-neighbours-d"
+    ]
+  },
+  {
+    "question": "capsule-posterior-limb-neighbours",
+    "revision": "60ad4fda7f79bd3a0b1262f3f07e42e6b1ea57336ccf4da110709779291313dd",
+    "prompt": "内包後脚の両側にある構造の組合せはどれですか？",
+    "options": [
+      "capsule-posterior-limb-neighbours-a",
+      "capsule-posterior-limb-neighbours-b",
+      "capsule-posterior-limb-neighbours-c",
+      "capsule-posterior-limb-neighbours-d"
+    ]
+  },
+  {
+    "question": "capsule-horizontal-shape",
+    "revision": "f044ea2e4747a499c68a332473872a79b6a64ef560dca9d8084f742d0a158275",
+    "prompt": "内包の前脚・膝・後脚の区別を一緒に捉えやすい切断方向はどれですか？",
+    "options": [
+      "capsule-horizontal-shape-a",
+      "capsule-horizontal-shape-b",
+      "capsule-horizontal-shape-c",
+      "capsule-horizontal-shape-d"
+    ]
+  },
+  {
+    "question": "capsule-corona-continuity",
+    "revision": "dd46f6c081e7fb708fb47af9dbe7985af68925f3c1dd5ce909eb4ef1163972e2",
+    "prompt": "内包の線維が大脳皮質へ向かって扇状に広がる部分はどれですか？",
+    "options": [
+      "capsule-corona-continuity-a",
+      "capsule-corona-continuity-b",
+      "capsule-corona-continuity-c",
+      "capsule-corona-continuity-d"
+    ]
+  },
+  {
+    "question": "hippocampus-temporal-horn-floor",
+    "revision": "41e7fa2006cb3474f62b194cecac21e1b4a1f23d4c4f36ad6624f9a260122595",
+    "prompt": "海馬の隆起を脳室内から観察するとき、主にどの部分の床を見ますか？",
+    "options": [
+      "hippocampus-temporal-horn-floor-a",
+      "hippocampus-temporal-horn-floor-b",
+      "hippocampus-temporal-horn-floor-c",
+      "hippocampus-temporal-horn-floor-d"
+    ]
+  },
+  {
+    "question": "hippocampus-entorhinal-input",
+    "revision": "0c9e9dc8be6a32e548a309829a84e889c40c582b098e070dbaf183dacbe1d78b",
+    "prompt": "海馬体への皮質性入力の重要な入口となるのはどれですか？",
+    "options": [
+      "hippocampus-entorhinal-input-a",
+      "hippocampus-entorhinal-input-b",
+      "hippocampus-entorhinal-input-c",
+      "hippocampus-entorhinal-input-d"
+    ]
+  },
+  {
+    "question": "amygdala-tissue-class",
+    "revision": "9ffe3d691e9fc696d2d37c4daa0e90c10d04e89d602897e44f592b9314e213ce",
+    "prompt": "扁桃体を組織の種類で分類すると、最も適切なのはどれですか？",
+    "options": [
+      "amygdala-tissue-class-a",
+      "amygdala-tissue-class-b",
+      "amygdala-tissue-class-c",
+      "amygdala-tissue-class-d"
+    ]
+  },
+  {
+    "question": "caudate-temporal-tail",
+    "revision": "3946d153b5c2e6146416ef75dc1c8d820579e53bde9d69658fc2ea2d7e0eeca0",
+    "prompt": "尾状核の尾部を側頭葉で追うと、終端付近で近接する核群はどれですか？",
+    "options": [
+      "caudate-temporal-tail-a",
+      "caudate-temporal-tail-b",
+      "caudate-temporal-tail-c",
+      "caudate-temporal-tail-d"
+    ]
+  },
+  {
+    "question": "callosum-rostral-caudal-order",
+    "revision": "b817037c60c1705154990b782833701b8269d0f0e6ec35924bc583cf5ab8e26f",
+    "prompt": "正中矢状断で、脳梁の下前方の細い部分から前端の曲がりを経て後端へ、輪郭に沿ってたどる順序はどれですか？",
+    "options": [
+      "callosum-rostral-caudal-order-a",
+      "callosum-rostral-caudal-order-b",
+      "callosum-rostral-caudal-order-c",
+      "callosum-rostral-caudal-order-d"
+    ]
+  },
+  {
+    "question": "callosum-cingulate-separation",
+    "revision": "71b5613e4018463b1c069ed8af678d4b4532bc4bc3c86af2db1216fee4102ed6",
+    "prompt": "内側面で脳梁とその上方の帯状回を隔てる溝はどれですか？",
+    "options": [
+      "callosum-cingulate-separation-a",
+      "callosum-cingulate-separation-b",
+      "callosum-cingulate-separation-c",
+      "callosum-cingulate-separation-d"
+    ]
+  },
+  {
+    "question": "caudate-c-shaped-course",
+    "revision": "798e4a8e50f3fb12b000cd3313899a15154d6c9a3aa520b720a39ed2542e8df2",
+    "prompt": "尾状核の頭部・体部・尾部を連続して追うための形態の手がかりはどれですか？",
+    "options": [
+      "caudate-c-shaped-course-a",
+      "caudate-c-shaped-course-b",
+      "caudate-c-shaped-course-c",
+      "caudate-c-shaped-course-d"
+    ]
+  },
+  {
+    "question": "putamen-pallidum-lateral",
+    "revision": "16cb233ecb2637089f08c595592664a3f8fa338eb471177d5c945f9ecb7d650b",
+    "prompt": "レンズ核の中で、被殻は淡蒼球に対してどちら側にありますか？",
+    "options": [
+      "putamen-pallidum-lateral-a",
+      "putamen-pallidum-lateral-b",
+      "putamen-pallidum-lateral-c",
+      "putamen-pallidum-lateral-d"
+    ]
+  },
+  {
+    "question": "pallidum-thalamic-fibre-bundles",
+    "revision": "e0bd30f781c12cbd7b08c7363aefe0b8d260f4fcf0b8fa824176f193d50a7d13",
+    "prompt": "淡蒼球から視床へ向かう線維を運ぶ代表的な二つの束はどれですか？",
+    "options": [
+      "pallidum-thalamic-fibre-bundles-a",
+      "pallidum-thalamic-fibre-bundles-b",
+      "pallidum-thalamic-fibre-bundles-c",
+      "pallidum-thalamic-fibre-bundles-d"
+    ]
+  },
+  {
+    "question": "nigra-compact-reticulate-roles",
+    "revision": "6f7ea099de8cf4fff8aa1a5aee0025089d1b0ae9ae06a3e35e12b48d1e6c3673",
+    "prompt": "黒質の緻密部（SNc）と網様部（SNr）の役割の組合せとして適切なのはどれですか？",
+    "options": [
+      "nigra-compact-reticulate-roles-a",
+      "nigra-compact-reticulate-roles-b",
+      "nigra-compact-reticulate-roles-c",
+      "nigra-compact-reticulate-roles-d"
+    ]
+  },
+  {
+    "question": "subthalamic-transmitter",
+    "revision": "1dc5e65a898e463a555ed7d3dc7375dcf949845ab57ead73ad742ea3e7d44a96",
+    "prompt": "視床下核から淡蒼球などへの投射は、どの性質として整理しますか？",
+    "options": [
+      "subthalamic-transmitter-a",
+      "subthalamic-transmitter-b",
+      "subthalamic-transmitter-c",
+      "subthalamic-transmitter-d"
+    ]
+  },
+  {
+    "question": "accumbens-vta-input",
+    "revision": "acfc593c6f176155d2a4aaacc7f5b2d89fe91e348be6992f9d4553ad1e57b356",
+    "prompt": "側坐核へのドパミン作動性投射の代表的な起始部はどれですか？",
+    "options": [
+      "accumbens-vta-input-a",
+      "accumbens-vta-input-b",
+      "accumbens-vta-input-c",
+      "accumbens-vta-input-d"
+    ]
+  },
+  {
+    "question": "brainstem-tectum-aqueduct",
+    "revision": "5b177065f23ccfe5d462f8479f4e03c23785ae96865b87d03d6e19480ae47c6f",
+    "prompt": "中脳水道に対する中脳蓋の位置と構成として適切なのはどれですか？",
+    "options": [
+      "brainstem-tectum-aqueduct-a",
+      "brainstem-tectum-aqueduct-b",
+      "brainstem-tectum-aqueduct-c",
+      "brainstem-tectum-aqueduct-d"
+    ]
+  },
+  {
+    "question": "brainstem-aqueduct-grey",
+    "revision": "9c38f70095cab20ff950467f693d731a24a2d0c6390c09775ef53714cef2f214",
+    "prompt": "中脳水道を直接取り囲む灰白質は何と呼ばれますか？",
+    "options": [
+      "brainstem-aqueduct-grey-a",
+      "brainstem-aqueduct-grey-b",
+      "brainstem-aqueduct-grey-c",
+      "brainstem-aqueduct-grey-d"
+    ]
+  },
+  {
+    "question": "brainstem-tegmentum-borders",
+    "revision": "5695bb49d9b7265c7d1cb3f7ca79b61c6fc5b6dea30006ef502be7f1d0b13586",
+    "prompt": "中脳被蓋の範囲を大まかに捉える組合せはどれですか？",
+    "options": [
+      "brainstem-tegmentum-borders-a",
+      "brainstem-tegmentum-borders-b",
+      "brainstem-tegmentum-borders-c",
+      "brainstem-tegmentum-borders-d"
+    ]
+  },
+  {
+    "question": "brainstem-oculomotor-exit",
+    "revision": "43776407eb9ecabfaf781e37b4414199f36bd6cd1c6f1d78decf4a76b3a63a80",
+    "prompt": "中脳腹側で動眼神経の出現部を探すときの主要な目印はどれですか？",
+    "options": [
+      "brainstem-oculomotor-exit-a",
+      "brainstem-oculomotor-exit-b",
+      "brainstem-oculomotor-exit-c",
+      "brainstem-oculomotor-exit-d"
+    ]
+  },
+  {
+    "question": "third-ventricle-downstream",
+    "revision": "38f1d989598e79474e76c74ffcdfc5fc09f1a8c4c00e0f1a1b82e75f06d8276b",
+    "prompt": "色で示された第三脳室から中脳水道を通ると、次にどの髄液腔へ至りますか？",
+    "options": [
+      "third-ventricle-downstream-a",
+      "third-ventricle-downstream-b",
+      "third-ventricle-downstream-c",
+      "third-ventricle-downstream-d"
+    ]
+  },
+  {
+    "question": "third-ventricle-wall-levels",
+    "revision": "7b71d4b2a141778982027dd6dfdbc1d20973e0fafe613b17d79b3993b7b603cc",
+    "prompt": "第三脳室の側壁を、上方と下方の構造で整理した組合せはどれですか？",
+    "options": [
+      "third-ventricle-wall-levels-a",
+      "third-ventricle-wall-levels-b",
+      "third-ventricle-wall-levels-c",
+      "third-ventricle-wall-levels-d"
+    ]
+  },
+  {
+    "question": "fourth-ventricle-floor-landmarks",
+    "revision": "def6c9ef37211bab1c046b3befe094664f4eca91426c754100dbea6ce52aeaaa",
+    "prompt": "第四脳室の床をつくる主な部位はどれですか？",
+    "options": [
+      "fourth-ventricle-floor-landmarks-a",
+      "fourth-ventricle-floor-landmarks-b",
+      "fourth-ventricle-floor-landmarks-c",
+      "fourth-ventricle-floor-landmarks-d"
+    ]
+  },
+  {
+    "question": "fourth-ventricle-apertures",
+    "revision": "ba990a4ce45a2ea53da41786d8abe12227d60bc00333b206a8c43bc78ea1e50c",
+    "prompt": "第四脳室からくも膜下腔への通路となる開口の組合せはどれですか？",
+    "options": [
+      "fourth-ventricle-apertures-a",
+      "fourth-ventricle-apertures-b",
+      "fourth-ventricle-apertures-c",
+      "fourth-ventricle-apertures-d"
+    ]
+  },
+  {
+    "question": "fornix-pre-post-landmark",
+    "revision": "6e00885fec779b49c9eb2fd9094b83014099f661709f7bc40f108d3f7fec5dd2",
+    "prompt": "脳弓の交連前部・交連後部を区別するとき、基準となる交連はどれですか？",
+    "options": [
+      "fornix-pre-post-landmark-a",
+      "fornix-pre-post-landmark-b",
+      "fornix-pre-post-landmark-c",
+      "fornix-pre-post-landmark-d"
+    ]
+  },
+  {
+    "question": "fornix-body-callosal-relation",
+    "revision": "1d12fda81838c5b04dcd59d5d8e5e89fa5823fd6b294e8e864149575f9759ac7",
+    "prompt": "脳弓体を冠状断で探すとき、脳梁との大まかな位置関係はどれですか？",
+    "options": [
+      "fornix-body-callosal-relation-a",
+      "fornix-body-callosal-relation-b",
+      "fornix-body-callosal-relation-c",
+      "fornix-body-callosal-relation-d"
+    ]
+  },
+  {
+    "question": "fornix-postcommissural-destination",
+    "revision": "8169ff3bfe6e7972d84bd0dfa20d7ae9d1b019a81ea3e5cbf3337cccefe1506f",
+    "prompt": "脳弓の交連後部を下方へ追うとき、代表的な到達先として探すのはどれですか？",
+    "options": [
+      "fornix-postcommissural-destination-a",
+      "fornix-postcommissural-destination-b",
+      "fornix-postcommissural-destination-c",
+      "fornix-postcommissural-destination-d"
+    ]
+  },
+  {
+    "question": "lgn-output-radiation",
+    "revision": "3732308633e163437630e48daa83cff26905c207911719309bab0641a99d2396",
+    "prompt": "外側膝状体から一次視覚野へ向かう線維束はどれですか？",
+    "options": [
+      "lgn-output-radiation-a",
+      "lgn-output-radiation-b",
+      "lgn-output-radiation-c",
+      "lgn-output-radiation-d"
+    ]
+  },
+  {
+    "question": "lgn-meyer-loop-landmark",
+    "revision": "edd2d83850dc0757abd8aeb48aec4f0a6fd301dc4299f146190981e5fc0f5d41",
+    "prompt": "外側膝状体からの視放線で、マイヤーループの走行を捉える目印はどれですか？",
+    "options": [
+      "lgn-meyer-loop-landmark-a",
+      "lgn-meyer-loop-landmark-b",
+      "lgn-meyer-loop-landmark-c",
+      "lgn-meyer-loop-landmark-d"
+    ]
+  },
+  {
+    "question": "optic-tract-retinal-halves",
+    "revision": "e8192b46c1ea8fdb2c0e06972b7af48059acb9a5d735c46a61d8385fa3cc1f61",
+    "prompt": "一側の視索に含まれる網膜由来の線維の組合せはどれですか？",
+    "options": [
+      "optic-tract-retinal-halves-a",
+      "optic-tract-retinal-halves-b",
+      "optic-tract-retinal-halves-c",
+      "optic-tract-retinal-halves-d"
+    ]
+  },
+  {
+    "question": "optic-chiasm-crossing-half",
+    "revision": "0e09c30589f490ecc07dd0bda6d0528b694eb2f08f304107eb79d1271678312a",
+    "prompt": "視交叉で反対側へ交叉するのは、主に網膜のどちら側の線維ですか？",
+    "options": [
+      "optic-chiasm-crossing-half-a",
+      "optic-chiasm-crossing-half-b",
+      "optic-chiasm-crossing-half-c",
+      "optic-chiasm-crossing-half-d"
+    ]
+  },
+  {
+    "question": "lgn-other-retinal-targets",
+    "revision": "1752b59328f94ca38a634480c8cb850f7049c65462f2cdab2df032d91a56a120",
+    "prompt": "網膜からの投射は外側膝状体だけでしょうか？適切な説明はどれですか？",
+    "options": [
+      "lgn-other-retinal-targets-a",
+      "lgn-other-retinal-targets-b",
+      "lgn-other-retinal-targets-c",
+      "lgn-other-retinal-targets-d"
+    ]
+  },
+  {
+    "question": "precentral-central-sulcus-side",
+    "revision": "07b64f829da248a1eacf611df86bb1172e18213e46ee83f0b0bff3bdd74c7f3b",
+    "prompt": "中心前回は中心溝のどちら側にありますか？",
+    "options": [
+      "precentral-central-sulcus-side-a",
+      "precentral-central-sulcus-side-b",
+      "precentral-central-sulcus-side-c",
+      "precentral-central-sulcus-side-d"
+    ]
+  },
+  {
+    "question": "precentral-contralateral-movement",
+    "revision": "0eccf019e111f72e4bcd9679bfe784b6c2abd168d7dc2c8cac77eef0e7c14a74",
+    "prompt": "左の一次運動野からの出力は、主にどちら側の随意運動に関わりますか？",
+    "options": [
+      "precentral-contralateral-movement-a",
+      "precentral-contralateral-movement-b",
+      "precentral-contralateral-movement-c",
+      "precentral-contralateral-movement-d"
+    ]
+  },
+  {
+    "question": "superior-frontal-sma-location",
+    "revision": "7c4a5982ffe14f69000cdeea4279280b3cb0ad55d33a8b03673ab869e8049793",
+    "prompt": "補足運動野を探すとき、上前頭回のどの面を主に見ますか？",
+    "options": [
+      "superior-frontal-sma-location-a",
+      "superior-frontal-sma-location-b",
+      "superior-frontal-sma-location-c",
+      "superior-frontal-sma-location-d"
+    ]
+  },
+  {
+    "question": "precuneus-medial-lobe",
+    "revision": "2be15f21d0d47778f33a8294a99774c3891ad1cf0366ed0da60af7ad59dd8bf0",
+    "prompt": "楔前部を探す基本的な面と脳葉の組合せはどれですか？",
+    "options": [
+      "precuneus-medial-lobe-a",
+      "precuneus-medial-lobe-b",
+      "precuneus-medial-lobe-c",
+      "precuneus-medial-lobe-d"
+    ]
+  },
+  {
+    "question": "cuneus-calcarine-upper-bank",
+    "revision": "160911ef37066139c88dd7e09d96c3d5688fb05e475c7be76b0a1c8b944e4d2a",
+    "prompt": "鳥距溝を基準にすると、楔部はどちら側にありますか？",
+    "options": [
+      "cuneus-calcarine-upper-bank-a",
+      "cuneus-calcarine-upper-bank-b",
+      "cuneus-calcarine-upper-bank-c",
+      "cuneus-calcarine-upper-bank-d"
+    ]
+  },
+  {
+    "question": "fusiform-bounding-sulci",
+    "revision": "45bf40e787fef5e29cbf7f58a750cffb9cc8dd0515db159f16bf160e61ad07d3",
+    "prompt": "紡錘状回の内側と外側を探すとき、目印となる溝の組合せはどれですか？",
+    "options": [
+      "fusiform-bounding-sulci-a",
+      "fusiform-bounding-sulci-b",
+      "fusiform-bounding-sulci-c",
+      "fusiform-bounding-sulci-d"
+    ]
+  },
+  {
+    "question": "cn3-ciliary-ganglion",
+    "revision": "816b9690ca1a2745996bf5ac9615436f130d3ef657d5f22979c7374e9c0f04a5",
+    "prompt": "動眼神経の縮瞳・調節に関わる副交感線維が中継する神経節はどれですか？",
+    "options": [
+      "cn3-ciliary-ganglion-a",
+      "cn3-ciliary-ganglion-b",
+      "cn3-ciliary-ganglion-c",
+      "cn3-ciliary-ganglion-d"
+    ]
+  },
+  {
+    "question": "cn3-medial-rectus-action",
+    "revision": "358c2ff09f0c887d378cd67a61f7a53b697772855cc3468ee21714ac105816f4",
+    "prompt": "動眼神経が支配する内側直筋の主な働きはどれですか？",
+    "options": [
+      "cn3-medial-rectus-action-a",
+      "cn3-medial-rectus-action-b",
+      "cn3-medial-rectus-action-c",
+      "cn3-medial-rectus-action-d"
+    ]
+  },
+  {
+    "question": "cn7-stapedius-supply",
+    "revision": "e3be5949f78bd883dcdba45389802585ea4f5ee40c757f2e5b556c42c577f7a7",
+    "prompt": "顔面神経が支配する耳小骨に関係する筋はどれですか？",
+    "options": [
+      "cn7-stapedius-supply-a",
+      "cn7-stapedius-supply-b",
+      "cn7-stapedius-supply-c",
+      "cn7-stapedius-supply-d"
+    ]
+  },
+  {
+    "question": "cn8-component-functions",
+    "revision": "c97b72030d46cec3cc80d90c8d55715f8e447001fd356220a163b4408e60ee64",
+    "prompt": "内耳神経の前庭部と蝸牛部の役割の対応はどれですか？",
+    "options": [
+      "cn8-component-functions-a",
+      "cn8-component-functions-b",
+      "cn8-component-functions-c",
+      "cn8-component-functions-d"
+    ]
+  },
+  {
+    "question": "cn12-palatoglossus-exception",
+    "revision": "5c2a6f0997397a655f91dacfcbb217d3d660b33000d4b93701b65eca926520e1",
+    "prompt": "舌下神経が支配する主な舌筋の例外となるのはどれですか？",
+    "options": [
+      "cn12-palatoglossus-exception-a",
+      "cn12-palatoglossus-exception-b",
+      "cn12-palatoglossus-exception-c",
+      "cn12-palatoglossus-exception-d"
+    ]
+  },
+  {
+    "question": "aca-medial-territory",
+    "revision": "68b05c78ceeead814d769c3ea7d2fa2e2951b95a53172547349b18aef71eafa8",
+    "prompt": "前大脳動脈の主な皮質領域として、どの面を結びつけますか？",
+    "options": [
+      "aca-medial-territory-a",
+      "aca-medial-territory-b",
+      "aca-medial-territory-c",
+      "aca-medial-territory-d"
+    ]
+  },
+  {
+    "question": "acomm-partner-vessels",
+    "revision": "a7dfe045f3cbe2032fccad2345cb080c535e876ebef061b8b8a8d6080a4672a8",
+    "prompt": "前交通動脈が結ぶ二つの血管はどれですか？",
+    "options": [
+      "acomm-partner-vessels-a",
+      "acomm-partner-vessels-b",
+      "acomm-partner-vessels-c",
+      "acomm-partner-vessels-d"
+    ]
+  },
+  {
+    "question": "mca-deep-perforators",
+    "revision": "aa282ff10e71c12fcdb3be60969f922c9c808984729554b11f75ae8f5cc15da2",
+    "prompt": "中大脳動脈から出て線条体や内包へ入る代表的な穿通枝はどれですか？",
+    "options": [
+      "mca-deep-perforators-a",
+      "mca-deep-perforators-b",
+      "mca-deep-perforators-c",
+      "mca-deep-perforators-d"
+    ]
+  },
+  {
+    "question": "pcomm-carotid-posterior-link",
+    "revision": "acf5b310a22d4b04e4913d9274fee40ae75dc9b740f08ac177ff9f7119672527",
+    "prompt": "後交通動脈の通常の接続として適切なのはどれですか？",
+    "options": [
+      "pcomm-carotid-posterior-link-a",
+      "pcomm-carotid-posterior-link-b",
+      "pcomm-carotid-posterior-link-c",
+      "pcomm-carotid-posterior-link-d"
+    ]
+  },
+  {
+    "question": "pca-calcarine-supply",
+    "revision": "3a939d887ecf5f5068ca0315bd5104f7d6952a2bbfcaff17e0723c32c337c384",
+    "prompt": "後大脳動脈と結びつけて観察する代表的な皮質領域はどれですか？",
+    "options": [
+      "pca-calcarine-supply-a",
+      "pca-calcarine-supply-b",
+      "pca-calcarine-supply-c",
+      "pca-calcarine-supply-d"
+    ]
+  },
+  {
+    "question": "vertebral-usual-origin",
+    "revision": "8e26dd9b7b14f41f1080acf6d7c1a10fd322e3b309932af169d33ac10ccff073",
+    "prompt": "椎骨動脈の通常の起始血管はどれですか？",
+    "options": [
+      "vertebral-usual-origin-a",
+      "vertebral-usual-origin-b",
+      "vertebral-usual-origin-c",
+      "vertebral-usual-origin-d"
+    ]
+  },
+  {
+    "question": "basilar-pons-surface",
+    "revision": "eed75113a8da4a167f82f31251c16b00bd7dc63a304653653e33e11629d48962",
+    "prompt": "脳底動脈を脳幹上で追うとき、橋のどの面を見ますか？",
+    "options": [
+      "basilar-pons-surface-a",
+      "basilar-pons-surface-b",
+      "basilar-pons-surface-c",
+      "basilar-pons-surface-d"
+    ]
+  },
+  {
+    "question": "cerebellar-artery-parent-pairing",
+    "revision": "b565332be6206758b334bf5d9673b9333876e4d45f9dcd99bf4461ffa1cd9ebc",
+    "prompt": "小脳動脈の通常の起始を整理した組合せはどれですか？",
+    "options": [
+      "cerebellar-artery-parent-pairing-a",
+      "cerebellar-artery-parent-pairing-b",
+      "cerebellar-artery-parent-pairing-c",
+      "cerebellar-artery-parent-pairing-d"
+    ]
+  },
+  {
+    "question": "cerebellum-climbing-origin",
+    "revision": "7e636a5c783702a50fa3560049dcb541c31e854759c72f03ce5861fa90871c56",
+    "prompt": "小脳皮質への登上線維の主な起始はどれですか？",
+    "options": [
+      "cerebellum-climbing-origin-a",
+      "cerebellum-climbing-origin-b",
+      "cerebellum-climbing-origin-c",
+      "cerebellum-climbing-origin-d"
+    ]
+  },
+  {
+    "question": "cerebellum-purkinje-output-sign",
+    "revision": "c099955a1805c092ff973833aa70c063e472ddc186a7d149c99cb4e1d5df2d0b",
+    "prompt": "小脳皮質のプルキンエ細胞から深部小脳核への作用はどれですか？",
+    "options": [
+      "cerebellum-purkinje-output-sign-a",
+      "cerebellum-purkinje-output-sign-b",
+      "cerebellum-purkinje-output-sign-c",
+      "cerebellum-purkinje-output-sign-d"
+    ]
+  },
+  {
+    "question": "cerebellum-deep-nuclei-medial-lateral",
+    "revision": "6d20d57643304ba425af532265ef0e27c2e054f934d6b62908ec77d0a237cc5c",
+    "prompt": "深部小脳核を内側から外側へ並べた順序はどれですか？",
+    "options": [
+      "cerebellum-deep-nuclei-medial-lateral-a",
+      "cerebellum-deep-nuclei-medial-lateral-b",
+      "cerebellum-deep-nuclei-medial-lateral-c",
+      "cerebellum-deep-nuclei-medial-lateral-d"
+    ]
+  },
+  {
+    "question": "cerebellum-interposed-nuclei",
+    "revision": "c92ba88089b721150fe5232edde2ad5403d79dd105ec00e99eb40401d89312fc",
+    "prompt": "小脳の中位核を構成する二つの核はどれですか？",
+    "options": [
+      "cerebellum-interposed-nuclei-a",
+      "cerebellum-interposed-nuclei-b",
+      "cerebellum-interposed-nuclei-c",
+      "cerebellum-interposed-nuclei-d"
+    ]
+  },
+  {
+    "question": "thalamus-anterior-mammillary-input",
+    "revision": "be6d3b14f27f725aa8be805936277a49b565655c8cd2797d38419e0989cc669f",
+    "prompt": "視床前核群へ乳頭視床路を通って入力する構造はどれですか？",
+    "options": [
+      "thalamus-anterior-mammillary-input-a",
+      "thalamus-anterior-mammillary-input-b",
+      "thalamus-anterior-mammillary-input-c",
+      "thalamus-anterior-mammillary-input-d"
+    ]
+  },
+  {
+    "question": "thalamus-md-prefrontal-connection",
+    "revision": "836d117104bc3d8265e76d33faead47304f6e792edbf15c2059d34976947a96f",
+    "prompt": "視床背内側核（MD）が特に強く結びつく大脳皮質はどれですか？",
+    "options": [
+      "thalamus-md-prefrontal-connection-a",
+      "thalamus-md-prefrontal-connection-b",
+      "thalamus-md-prefrontal-connection-c",
+      "thalamus-md-prefrontal-connection-d"
+    ]
+  },
+  {
+    "question": "thalamus-va-vl-motor-group",
+    "revision": "bc76b23ab1d1b55cd7f069d1a5f22b3881e3212cf4b6735119e2b7921ef4a4dd",
+    "prompt": "視床のVA/VLを、主にどの情報の中継と結びつけて理解しますか？",
+    "options": [
+      "thalamus-va-vl-motor-group-a",
+      "thalamus-va-vl-motor-group-b",
+      "thalamus-va-vl-motor-group-c",
+      "thalamus-va-vl-motor-group-d"
+    ]
+  },
+  {
+    "question": "thalamus-vpl-body-input",
+    "revision": "4aa27ed230994dffc1e35aafb05240b176ca94628bf84ed637f2a2711367ec9a",
+    "prompt": "内側毛帯と脊髄視床路による体幹・四肢の感覚を受ける視床核はどれですか？",
+    "options": [
+      "thalamus-vpl-body-input-a",
+      "thalamus-vpl-body-input-b",
+      "thalamus-vpl-body-input-c",
+      "thalamus-vpl-body-input-d"
+    ]
+  },
+  {
+    "question": "thalamus-vpm-trigeminal-input",
+    "revision": "f3e89fa49b9c5b8eacb98a895ef32d8592a7f6d1c9a26bf3204536c90f2c6611",
+    "prompt": "三叉神経系から顔の体性感覚を受ける視床核はどれですか？",
+    "options": [
+      "thalamus-vpm-trigeminal-input-a",
+      "thalamus-vpm-trigeminal-input-b",
+      "thalamus-vpm-trigeminal-input-c",
+      "thalamus-vpm-trigeminal-input-d"
+    ]
+  },
+  {
+    "question": "thalamus-pulvinar-posterior-landmark",
+    "revision": "b8b45c016ced65a1881db292bfafd1b446902523010eb40147a7be5e16a587d2",
+    "prompt": "視床後端の大きな膨らみで、その下方に膝状体を探す目印となる領域はどれですか？",
+    "options": [
+      "thalamus-pulvinar-posterior-landmark-a",
+      "thalamus-pulvinar-posterior-landmark-b",
+      "thalamus-pulvinar-posterior-landmark-c",
+      "thalamus-pulvinar-posterior-landmark-d"
+    ]
+  },
+  {
+    "question": "thalamus-internal-medullary-lamina",
+    "revision": "718f63fc940edcb301314864126201f9403f3425d26c57ed035ff1e121484103",
+    "prompt": "視床の内側核群と外側核群を隔てる主要な白質の板はどれですか？",
+    "options": [
+      "thalamus-internal-medullary-lamina-a",
+      "thalamus-internal-medullary-lamina-b",
+      "thalamus-internal-medullary-lamina-c",
+      "thalamus-internal-medullary-lamina-d"
+    ]
+  },
+  {
+    "question": "thalamus-centromedian-intralaminar",
+    "revision": "49492725effabe31b94bc92cb481e6034d52cdcd9b17f30c2749472c4b70a259",
+    "prompt": "視床中心正中核（CM）が属する核群はどれですか？",
+    "options": [
+      "thalamus-centromedian-intralaminar-a",
+      "thalamus-centromedian-intralaminar-b",
+      "thalamus-centromedian-intralaminar-c",
+      "thalamus-centromedian-intralaminar-d"
+    ]
+  },
+  {
+    "question": "cerebellum-primary-fissure-lobes",
+    "revision": "a82c463c98a46573e38ae566b39f66910f245a4ee7970bcc8f0883c9ad91d616",
+    "prompt": "小脳の一次裂が主に分ける二つの葉はどれですか？",
+    "options": [
+      "cerebellum-primary-fissure-lobes-a",
+      "cerebellum-primary-fissure-lobes-b",
+      "cerebellum-primary-fissure-lobes-c",
+      "cerebellum-primary-fissure-lobes-d"
+    ]
+  },
+  {
+    "question": "cerebellum-posterolateral-fissure",
+    "revision": "a1b1898f3f8aeea5791804b4f63f2ae0671fdadd589beba4c271e0effb45f02f",
+    "prompt": "片葉小節葉と後葉の境界となる小脳の裂はどれですか？",
+    "options": [
+      "cerebellum-posterolateral-fissure-a",
+      "cerebellum-posterolateral-fissure-b",
+      "cerebellum-posterolateral-fissure-c",
+      "cerebellum-posterolateral-fissure-d"
+    ]
+  },
+  {
+    "question": "cerebellum-middle-peduncle-origin",
+    "revision": "3d6f063794e577d77381c78530c1037a19b5ee8d9847327efc850181d508e476",
+    "prompt": "中小脳脚を構成する主な線維の起始はどれですか？",
+    "options": [
+      "cerebellum-middle-peduncle-origin-a",
+      "cerebellum-middle-peduncle-origin-b",
+      "cerebellum-middle-peduncle-origin-c",
+      "cerebellum-middle-peduncle-origin-d"
+    ]
+  },
+  {
+    "question": "cerebellum-superior-peduncle-efferent",
+    "revision": "469b34df477755b481bcd154088f202525d780bcc0874eb868e0568e419f865d",
+    "prompt": "小脳から赤核・視床へ向かう主要な遠心性経路が通る小脳脚はどれですか？",
+    "options": [
+      "cerebellum-superior-peduncle-efferent-a",
+      "cerebellum-superior-peduncle-efferent-b",
+      "cerebellum-superior-peduncle-efferent-c",
+      "cerebellum-superior-peduncle-efferent-d"
+    ]
+  },
+  {
+    "question": "cerebellum-inferior-peduncle-connection",
+    "revision": "cb14d56e9d45d26098f7cf01eb5449998a0f99f9226c67e3cdb4316f5ab964cb",
+    "prompt": "下小脳脚による接続を大まかに捉えた組合せはどれですか？",
+    "options": [
+      "cerebellum-inferior-peduncle-connection-a",
+      "cerebellum-inferior-peduncle-connection-b",
+      "cerebellum-inferior-peduncle-connection-c",
+      "cerebellum-inferior-peduncle-connection-d"
+    ]
+  },
+  {
+    "question": "cerebellum-mossy-granule-synapse",
+    "revision": "cdb22bdf51a683bc4ab3edfa39998e939347bd5fd415f11fb27420e954a6d670",
+    "prompt": "苔状線維から小脳皮質への入力を受け、平行線維を出す細胞はどれですか？",
+    "options": [
+      "cerebellum-mossy-granule-synapse-a",
+      "cerebellum-mossy-granule-synapse-b",
+      "cerebellum-mossy-granule-synapse-c",
+      "cerebellum-mossy-granule-synapse-d"
+    ]
+  },
+  {
+    "question": "cerebellum-climbing-direct-target",
+    "revision": "f99d1dd2dec6abfd36487bcb705a05517c0a514b3fababb4539b216e14679ad8",
+    "prompt": "登上線維が小脳皮質内で直接、強い入力を与える細胞はどれですか？",
+    "options": [
+      "cerebellum-climbing-direct-target-a",
+      "cerebellum-climbing-direct-target-b",
+      "cerebellum-climbing-direct-target-c",
+      "cerebellum-climbing-direct-target-d"
+    ]
+  },
+  {
+    "question": "cerebellum-vestibular-direct-output",
+    "revision": "f328e413f2d6bee1684ac9d1fb5e5995f79fb2ecc1226375520a5cdc3a6eb873",
+    "prompt": "虫部・片葉小節葉の一部のプルキンエ細胞が、深部小脳核以外へ直接投射する先はどれですか？",
+    "options": [
+      "cerebellum-vestibular-direct-output-a",
+      "cerebellum-vestibular-direct-output-b",
+      "cerebellum-vestibular-direct-output-c",
+      "cerebellum-vestibular-direct-output-d"
+    ]
+  },
+  {
+    "question": "pons-corticofugal-sequence",
+    "revision": "8c3e5156f34e834d38484a08a3d78f889812804a225b8efd3a8d014493efe697",
+    "prompt": "大脳皮質から橋へ下行する線維を追うとき、橋に達する前の順序として適切なのはどれですか？",
+    "options": [
+      "pons-corticofugal-sequence-a",
+      "pons-corticofugal-sequence-b",
+      "pons-corticofugal-sequence-c",
+      "pons-corticofugal-sequence-d"
+    ]
+  },
+  {
+    "question": "pons-pontocerebellar-crossing",
+    "revision": "50f4360bdac06dd0f053670103c510a0ef7eec736e38afa976d5e0e2636e38ac",
+    "prompt": "橋核から小脳へ向かう橋小脳線維の主要な走行はどれですか？",
+    "options": [
+      "pons-pontocerebellar-crossing-a",
+      "pons-pontocerebellar-crossing-b",
+      "pons-pontocerebellar-crossing-c",
+      "pons-pontocerebellar-crossing-d"
+    ]
+  },
+  {
+    "question": "pons-base-fibre-directions",
+    "revision": "515609a34a10ee14b69be0bb63c02ba87085b3de16e5fafc8ab0eb19893626fe",
+    "prompt": "橋底部では、縦方向と横方向の線維がどのように組み合わさっていますか？",
+    "options": [
+      "pons-base-fibre-directions-a",
+      "pons-base-fibre-directions-b",
+      "pons-base-fibre-directions-c",
+      "pons-base-fibre-directions-d"
+    ]
+  },
+  {
+    "question": "pons-facial-colliculus-components",
+    "revision": "29d8424da718165c990dd8022c8e96f595701daf78b0a0e44c148763a6988af4",
+    "prompt": "第四脳室床の顔面神経丘を形成する主要な組合せはどれですか？",
+    "options": [
+      "pons-facial-colliculus-components-a",
+      "pons-facial-colliculus-components-b",
+      "pons-facial-colliculus-components-c",
+      "pons-facial-colliculus-components-d"
+    ]
+  },
+  {
+    "question": "medulla-pyramidal-tract-content",
+    "revision": "2d16915f8ed1caf6832ca07e2ccf510d1aff662f03f069a632420b3325a36b52",
+    "prompt": "延髄腹側の錐体を通る主要な下行線維はどれですか？",
+    "options": [
+      "medulla-pyramidal-tract-content-a",
+      "medulla-pyramidal-tract-content-b",
+      "medulla-pyramidal-tract-content-c",
+      "medulla-pyramidal-tract-content-d"
+    ]
+  },
+  {
+    "question": "pons-sulcus-limitans-location",
+    "revision": "e363fc5ad19c4ae8ad8897d8a856e61884d7aa35318c499939b3b1533653c48b",
+    "prompt": "第四脳室床で、顔面神経丘とその外側の前庭野の間を探す溝はどれですか？",
+    "options": [
+      "pons-sulcus-limitans-location-a",
+      "pons-sulcus-limitans-location-b",
+      "pons-sulcus-limitans-location-c",
+      "pons-sulcus-limitans-location-d"
+    ]
+  },
+  {
+    "question": "pallidum-direct-disinhibition",
+    "revision": "d04105cadc49208b467d25d8bcf88dfda726b53f81548182c1e2b312d1ab382a",
+    "prompt": "基底核の直接路で線条体がGPiを抑制すると、視床への作用は基本模式ではどう変わりますか？",
+    "options": [
+      "pallidum-direct-disinhibition-a",
+      "pallidum-direct-disinhibition-b",
+      "pallidum-direct-disinhibition-c",
+      "pallidum-direct-disinhibition-d"
+    ]
+  },
+  {
+    "question": "pallidum-indirect-route-sequence",
+    "revision": "5e3d05314ad6303c98e50dab5529832d51f8497d63a1b15e978b64944f768ad1",
+    "prompt": "基本的な間接路で、線条体からGPiへ至る途中に通る順序はどれですか？",
+    "options": [
+      "pallidum-indirect-route-sequence-a",
+      "pallidum-indirect-route-sequence-b",
+      "pallidum-indirect-route-sequence-c",
+      "pallidum-indirect-route-sequence-d"
+    ]
+  },
+  {
+    "question": "nigra-dopamine-d1-d2",
+    "revision": "78133bc3e3b79db936aecba6a716927d332048fa3e937354da7bc53089556014",
+    "prompt": "黒質緻密部のドパミン作用を、基本的な直接路・間接路モデルで表す組合せはどれですか？",
+    "options": [
+      "nigra-dopamine-d1-d2-a",
+      "nigra-dopamine-d1-d2-b",
+      "nigra-dopamine-d1-d2-c",
+      "nigra-dopamine-d1-d2-d"
+    ]
+  },
+  {
+    "question": "nigra-reticulata-collicular-output",
+    "revision": "9630eb308b01af02efbb7abd868643e6a134fa63c60105c334295077d6ae375b",
+    "prompt": "黒質網様部から、眼球運動に関係する中脳の構造へ向かう主要な抑制性接続先はどれですか？",
+    "options": [
+      "nigra-reticulata-collicular-output-a",
+      "nigra-reticulata-collicular-output-b",
+      "nigra-reticulata-collicular-output-c",
+      "nigra-reticulata-collicular-output-d"
+    ]
+  },
+  {
+    "question": "capsule-thalamic-two-directions",
+    "revision": "7ade664bcf4beb827d5b23d439a7fa6c2b08d606d649434f7def911631adcd70",
+    "prompt": "内包を通る視床と大脳皮質の接続について、正しい向きの組合せはどれですか？",
+    "options": [
+      "capsule-thalamic-two-directions-a",
+      "capsule-thalamic-two-directions-b",
+      "capsule-thalamic-two-directions-c",
+      "capsule-thalamic-two-directions-d"
+    ]
+  },
+  {
+    "question": "capsule-retrolenticular-visual-route",
+    "revision": "2050177adb6404d96377f41b643b88e7522f35c6b5784d57ea81ab127932e0be",
+    "prompt": "内包のレンズ核後部を通る代表的な感覚経路はどれですか？",
+    "options": [
+      "capsule-retrolenticular-visual-route-a",
+      "capsule-retrolenticular-visual-route-b",
+      "capsule-retrolenticular-visual-route-c",
+      "capsule-retrolenticular-visual-route-d"
+    ]
+  },
+  {
+    "question": "capsule-corticobulbar-destination",
+    "revision": "c16fe99e4b14478e4c972c9fe71877a80bbf2cebaea9ba081682c7817d48a838",
+    "prompt": "内包を下行する皮質核路（皮質延髄路）の主要な接続先はどれですか？",
+    "options": [
+      "capsule-corticobulbar-destination-a",
+      "capsule-corticobulbar-destination-b",
+      "capsule-corticobulbar-destination-c",
+      "capsule-corticobulbar-destination-d"
+    ]
+  },
+  {
+    "question": "anterior-commissure-temporal-connection",
+    "revision": "a159d798c1888348963ec57813de505ec67a5cde754af44b806a92058a994202",
+    "prompt": "前交連の大きな成分が結ぶ大脳皮質の組合せはどれですか？",
+    "options": [
+      "anterior-commissure-temporal-connection-a",
+      "anterior-commissure-temporal-connection-b",
+      "anterior-commissure-temporal-connection-c",
+      "anterior-commissure-temporal-connection-d"
+    ]
+  },
+  {
+    "question": "anterior-commissure-rostrum-landmark",
+    "revision": "8897b0bfd19256a5ea66df6afc4cfe9ae8ee526ffa7583f1876976aa0654e75b",
+    "prompt": "正中矢状面で、前交連を脳梁のどの部分の下方に探しますか？",
+    "options": [
+      "anterior-commissure-rostrum-landmark-a",
+      "anterior-commissure-rostrum-landmark-b",
+      "anterior-commissure-rostrum-landmark-c",
+      "anterior-commissure-rostrum-landmark-d"
+    ]
+  },
+  {
+    "question": "superior-temporal-heschl-view",
+    "revision": "743da284301ff2dc76109d6895abade6c584ce5fadd585b64b6aa62062d569d0",
+    "prompt": "横側頭回（ヘシュル回）を探すには、上側頭回のどの面を見る必要がありますか？",
+    "options": [
+      "superior-temporal-heschl-view-a",
+      "superior-temporal-heschl-view-b",
+      "superior-temporal-heschl-view-c",
+      "superior-temporal-heschl-view-d"
+    ]
+  },
+  {
+    "question": "superior-temporal-inferior-boundary",
+    "revision": "276df123f6744f999df14b68afb43333ae45fc4b369854f3987276bf9b81032d",
+    "prompt": "外側面で上側頭回と中側頭回を隔てる溝はどれですか？",
+    "options": [
+      "superior-temporal-inferior-boundary-a",
+      "superior-temporal-inferior-boundary-b",
+      "superior-temporal-inferior-boundary-c",
+      "superior-temporal-inferior-boundary-d"
+    ]
+  },
+  {
+    "question": "insula-extreme-capsule-neighbour",
+    "revision": "4bd9886fd2594aac8d8914b92740ca5d0c65ab97fce7fcef7bafde9b1797c70e",
+    "prompt": "島皮質と前障の間にある白質層はどれですか？",
+    "options": [
+      "insula-extreme-capsule-neighbour-a",
+      "insula-extreme-capsule-neighbour-b",
+      "insula-extreme-capsule-neighbour-c",
+      "insula-extreme-capsule-neighbour-d"
+    ]
+  },
+  {
+    "question": "precentral-medial-continuation",
+    "revision": "00ab84f1ecd136fc466cb90c0cf12057d5b569533878f220e88c7039a1e9f080",
+    "prompt": "中心前回・中心後回が大脳半球内側面へ続く領域はどれですか？",
+    "options": [
+      "precentral-medial-continuation-a",
+      "precentral-medial-continuation-b",
+      "precentral-medial-continuation-c",
+      "precentral-medial-continuation-d"
+    ]
+  },
+  {
+    "question": "cuneus-calcarine-visual-cortex",
+    "revision": "a2ca496da8c4e40d6c6cc88cb2a97910740b3ffa50a534af38adce7bf3a732b9",
+    "prompt": "楔部の鳥距溝に接する皮質を観察するとき、主にどの感覚の一次皮質との関係を考えますか？",
+    "options": [
+      "cuneus-calcarine-visual-cortex-a",
+      "cuneus-calcarine-visual-cortex-b",
+      "cuneus-calcarine-visual-cortex-c",
+      "cuneus-calcarine-visual-cortex-d"
+    ]
+  },
+  {
+    "question": "red-nucleus-crossed-cerebellar-input",
+    "revision": "fe910f98c5e0babef76cad58f78436e2dcec86bcb374954f7561a0835afd1923",
+    "prompt": "赤核周囲へ入る小脳由来の線維について、適切なものはどれですか？",
+    "options": [
+      "red-nucleus-crossed-cerebellar-input-a",
+      "red-nucleus-crossed-cerebellar-input-b",
+      "red-nucleus-crossed-cerebellar-input-c",
+      "red-nucleus-crossed-cerebellar-input-d"
+    ]
+  },
+  {
+    "question": "cerebellum-vermis-fastigial-output",
+    "revision": "df17d25e1320b6d0a7ab6ce96d3c5401e639b65eaf697067a285d2741081830a",
+    "prompt": "小脳虫部からの出力を中継し、前庭神経核・網様体への接続に関わる深部核はどれですか？",
+    "options": [
+      "cerebellum-vermis-fastigial-output-a",
+      "cerebellum-vermis-fastigial-output-b",
+      "cerebellum-vermis-fastigial-output-c",
+      "cerebellum-vermis-fastigial-output-d"
+    ]
+  },
+  {
+    "question": "cerebellum-dentate-cortical-loop",
+    "revision": "f80bab51c699d01d911af7f258aed5df8c1bfef8e3db5585a7dbf474e83ea88e",
+    "prompt": "外側小脳半球の歯状核から大脳皮質へ戻る運動関連出力は、代表的にどこで中継されますか？",
+    "options": [
+      "cerebellum-dentate-cortical-loop-a",
+      "cerebellum-dentate-cortical-loop-b",
+      "cerebellum-dentate-cortical-loop-c",
+      "cerebellum-dentate-cortical-loop-d"
+    ]
   }
 ]

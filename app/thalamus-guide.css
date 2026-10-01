@@ -1,0 +1,12 @@
+.thalamusGuide { border:1px solid #bcc9c8; border-radius:8px; margin-block:8px; padding:8px 12px; font-size:.9rem; }
+.thalamusGuide>summary { cursor:pointer; font-weight:600; }
+.thalamusGuideBody p { margin:10px 0; }
+.thalamusGuideRegions,.thalamusGuideViews { display:flex; gap:5px; flex-wrap:wrap; margin-block:10px; }
+.thalamusGuide button,.quizFeedback .thalamusGuide button { width:auto; font:inherit; padding:5px 8px; min-height:32px; border:1px solid #a8bcbb; border-radius:5px; background:#fff; color:#203e41; cursor:pointer; }
+.thalamusGuide button[aria-pressed=true] { background:#e1eeeb; border-color:#247b77; box-shadow:inset 0 0 0 1px #247b77; }
+.thalamusGuideLayout { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr)); gap:16px; }
+.thalamusGuide canvas { display:block; width:100%; max-width:360px; height:auto; border-radius:6px; }
+.thalamusGuide h4 { margin:12px 0; }
+.thalamusGuideScope { font-size:.8rem; color:#536368; }
+@media(max-width:650px) { .thalamusGuideLayout { grid-template-columns:1fr; } }
+.thalamusGuideCompare { display:flex; align-items:center; gap:6px; margin-block:8px; font-size:.8rem; cursor:pointer; }
