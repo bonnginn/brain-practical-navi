@@ -2102,7 +2102,7 @@
   },
   {
     "question": "cerebellum-dentate-cortical-loop",
-    "revision": "e4db8d41eb2eb4386f981ab62483c4d90d1803e57b4b37cdf855415686e2e7fc",
+    "revision": "f80bab51c699d01d911af7f258aed5df8c1bfef8e3db5585a7dbf474e83ea88e",
     "prompt": "外側小脳半球の歯状核から大脳皮質へ戻る運動関連出力は、代表的にどこで中継されますか？",
     "options": [
       "cerebellum-dentate-cortical-loop-a",

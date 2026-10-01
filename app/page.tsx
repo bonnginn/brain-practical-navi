@@ -701,6 +701,7 @@ const quizThalamicReferenceRegions:Record<string,string>={
   "thalamus-vpl-body-input":"VPL",
   "thalamus-vpm-trigeminal-input":"VPM",
   "thalamus-pulvinar-posterior-landmark":"Pul",
+  "cerebellum-dentate-cortical-loop":"VL",
 };
 const allQuizQuestions:QuizQuestion[]=[...visualQuizQuestions,...conceptQuizQuestions].filter(isQuizAnatomyAvailable);
 
