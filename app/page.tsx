@@ -1,6 +1,7 @@
 "use client";
 import {useSectionViewport} from "./useSectionViewport";
 import {FindStructureExercise,type FindTask} from "./FindStructureExercise";
+import {additionalIdentificationSections,identificationLocationHints} from "../src/identificationSectionLessons";
 import {OrientationCompass} from "./OrientationCompass";
 import {reviewNerveDisplay} from "../src/reviewNerveDisplay";
 import {ExternalSpecimenVideo} from "./ExternalSpecimenVideo";
@@ -35,7 +36,7 @@ import {ObservationLink} from "./ObservationLink";
 import {ActiveSectionStudy} from "./ActiveSectionStudy";
 import {SectionStudyGuide} from "./SectionStudyGuide";
 import {sectionStudyThemes,type SectionStudyTheme} from "../src/sectionStudyThemes";
-import { formatSectionPosition, stepSectionSliderPosition, sectionSliderValue, sectionPositionFromSlider, planeSliceIndex, planePositionForSlice, nearestLabeledSection, segmentationPlaneNames } from "./segmentationGeometry";
+import { formatSectionPosition, stepSectionSliderPosition, representativeLabeledSection, sectionSliderValue, sectionPositionFromSlider, planeSliceIndex, planePositionForSlice, nearestLabeledSection, segmentationPlaneNames } from "./segmentationGeometry";
 import sectionLabelPresence from "./sectionLabelPresence.json";
 import betaGoNoGoDisplay from "./beta-go-no-go-display.json";
 import quizConceptBank from "./quiz-concept-bank.json";
@@ -777,7 +778,7 @@ function quizVisibilityAuditTargetOverride():QuizQuestion|null{
   const target=params.get("target");
   return allQuizQuestions.find(question=>question.target===target)??null;
 }
-const findStructureTasks:FindTask[]=allQuizQuestions.filter(question=>!isConceptQuiz(question)).map(question=>{
+const quizFindStructureTasks:FindTask[]=allQuizQuestions.filter(question=>!isConceptQuiz(question)).map(question=>{
   const neuro=isNeurovascularQuiz(question),surface=isSurfaceQuiz(question);
   const record=neuro?neurovascularStructures[question.target]:surface?surfaceRegions[question.target]:structures[question.target];
   const teaching=quizTeachingRegistry(question)[question.target];
@@ -787,6 +788,15 @@ const findStructureTasks:FindTask[]=allQuizQuestions.filter(question=>!isConcept
     highlight:neuro?{ids:record.ids,color:[255,255,255]}:surface?{ids:record.ids,color:surfaceRegions[question.target].rgb}:{ids:structures[question.target].bigbrainIds??[],color:structures[question.target].rgb,mode:"quiz"},
     hint:teaching.relation??teaching.note,explanation:teaching.note};
 });
+const additionalFindTasks:FindTask[]=additionalIdentificationSections.flatMap(lesson=>{
+  const key=lesson.key as StructureKey,record=structures[key],guide=sectionObservationGuides[key];
+  if(quizFindStructureTasks.some(task=>task.key===key)||!guide||sectionLabelPresence.revision!==SEGMENTATION_LABEL_SHA256)return [];
+  const ids=record.bigbrainIds??[],slice=representativeLabeledSection(sectionLabelPresence.labels,ids,lesson.plane);
+  if(slice===null)return [];
+  const hint=identificationLocationHints[lesson.key]??guide.observe;
+  return [{key,name:record.name,englishName:key==='fornixBodyPartial'?'Fornix and fimbria (partial)':anatomyDisplayEnglish(record.latin),kind:'section',viewName:'',englishViewName:'',plane:lesson.plane,position:planePositionForSlice(slice,lesson.plane,BIGBRAIN_SECTION_DIMS),rotation:{...homeRotation},hemisphere:'both',medial:false,overlay:'none',focus:record.meshFocus??'thalamus',highlight:{ids,color:record.rgb,mode:'quiz'},hint:hint.ja,englishHint:hint.en,explanation:structureFunctions[key],englishExplanation:lesson.roleEn,scope:'scope' in lesson?lesson.scope:undefined,reference:guide.reference}];
+});
+const findStructureTasks:FindTask[]=[...quizFindStructureTasks.filter(task=>task.kind==='section'),...additionalFindTasks,...quizFindStructureTasks.filter(task=>task.kind!=='section')];
 const QUIZ_VISIBILITY_INVENTORY_SHA256="a715dba9fec6ee2e987befc90da9ce5769ff052fc6f79777a2280aeb886b88c1";
 
 const anatomyReviewSurfaceLabels:Record<AnatomyReviewSurface,string>={all:"すべての表示面",surface:"脳表",sections:"断面",blocks:"ブロック標本",quiz:"復習"};

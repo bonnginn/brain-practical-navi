@@ -43,3 +43,5 @@
 .findPlaneTabs button[aria-pressed=true]{background:#dcece8;border-color:#24776d;font-weight:700}
 .findPlaneTabs button:disabled{opacity:.45;cursor:default}
 @media(max-width:760px){.findPlaneTabs button{min-height:38px;flex:1;padding-inline:5px}}
+
+.findTaskGuide .findScope{font-size:12px;color:#60716b;line-height:1.55}
