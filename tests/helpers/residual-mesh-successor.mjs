@@ -4,7 +4,17 @@ import {createHash} from 'node:crypto';
 import {gunzipSync} from 'node:zlib';
 const read=p=>readFile(new URL('../../'+p,import.meta.url));
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
-const regionalBlockImpact=r=>r.meshImpact?.blockMaskImpact??(r.sourceDoi==='10.25493/TKTP-7NR'?r.blockMaskImpact:undefined);
+const regionalBlockImpact=r=>r.meshImpact?.blockMaskImpact??(['10.25493/TKTP-7NR','10.5281/zenodo.7757416'].includes(r.sourceDoi)?r.blockMaskImpact:undefined);
+async function verifyHippocampalSuccessor(record){
+ assert.equal(record.count,356);
+ assert.equal(record.sourceDoi,'10.5281/zenodo.7757416');
+ assert.equal(record.paperDoi,'10.7554/eLife.88404');
+ assert.equal(record.points.length,record.count);
+ assert.ok(record.points.every(p=>p.before===0&&[17,18].includes(p.after)));
+ assert.deepEqual(record.countsBySide,{left:226,right:130});
+ assert.equal(sha(gunzipSync(await read('tests/fixtures/section-current-hippocampus-pre-hippocampal-core356.mesh'))),record.sectionMeshImpact.before.sha256);
+ assert.equal(sha(gunzipSync(await read('public/atlas/section-current-hippocampus.mesh'))),record.sectionMeshImpact.after.sha256);
+}
 async function verifyTissueSectionSuccessor(meta,record,stem,field){
  let expected=record.sectionMeshImpact.after,active=false;
  for(const audit of Object.values(meta.regionalBatchAudits??{})){
@@ -76,6 +86,12 @@ export async function withRegionalBatches(record,{afterRevision=null}={}){
   if(name==='amygdala-core1505'){
    await verifyAmygdalaSuccessor(next);
    // The amygdala surface changes, while the ventricular representations do not.
+   sectionImpact={before:result.sectionMeshImpact.after,after:{...result.sectionMeshImpact.after,
+    sourceSha256:next.afterSha256,rawVoxelSha256:next.afterRawVoxelSha256}};
+  }
+  if(name==='hippocampal-core356'){
+   await verifyHippocampalSuccessor(next);
+   // This changes hippocampal surfaces; the ventricular geometry is unchanged.
    sectionImpact={before:result.sectionMeshImpact.after,after:{...result.sectionMeshImpact.after,
     sourceSha256:next.afterSha256,rawVoxelSha256:next.afterRawVoxelSha256}};
   }

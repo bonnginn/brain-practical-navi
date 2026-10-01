@@ -34,7 +34,7 @@
     22
   ],
   "officialLabelsPreserved": false,
-  "officialLabelPolicy": "All source manual delineations now use the reviewed corrected registration. Internal bands and unresolved subregions are retained. Project adoption, not expert approval. Gross amygdala IDs21/22 additionally contain 1,505 reviewed same-BigBrain published eight-nucleus-map additions; those additions are not original Xiao manual delineations.",
+  "officialLabelPolicy": "All source manual delineations now use the reviewed corrected registration. Internal bands and unresolved subregions are retained. Project adoption, not expert approval. Gross amygdala IDs21/22 additionally contain 1,505 reviewed same-BigBrain published eight-nucleus-map additions; those additions are not original Xiao manual delineations. Gross hippocampus IDs17/18 additionally contain 356 reviewed CA/DG additions supported by two same-BigBrain manual maps; those additions are not original Xiao delineations.",
   "redNucleusRegistrationAudit": {
     "record": "segmentation-patches/review/red-nuclei-registration-project-adoption-2026-09-06.json",
     "recordSha256": "4e8e83794e932261c4d1d1b288989216cf33d301765b7c4f3977e1917ad8f102",
@@ -115,8 +115,8 @@
     "14": 4853,
     "15": 66476,
     "16": 67297,
-    "17": 35259,
-    "18": 34251,
+    "17": 35485,
+    "18": 34381,
     "19": 4189,
     "20": 3920,
     "21": 15296,
@@ -481,7 +481,7 @@
     "workflowMetadataStatus": "strict"
   },
   "preClassificationCompressedSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
-  "rawVoxelSha256": "d990ca618c45c90764b4a51186b017f3fe5d082176496dc5597379013a030215",
+  "rawVoxelSha256": "4de49227896d52c19753d1f060f48cc9a811f0e180dcf95b56c15e7203d8ff7d",
   "brainstemThreeIslandsAudit": {
     "record": "segmentation-patches/review/brainstem-three-islands-adoption-2026-09-06.json",
     "recordSha256": "9c7b14f4272969261e3e2415d3f522b7e5d7db1eeca7cb0c8ae28b225458be66",
@@ -1825,6 +1825,13 @@
       "changedVoxelCount": 1505,
       "projectAdopted": true,
       "expertReviewed": false
+    },
+    "hippocampal-core356": {
+      "record": "segmentation-patches/review/hippocampal-core356-adoption-2026-10-01.json",
+      "recordSha256": "234c8fa07e97c2445cca021ed58d6f07842de1434457228509ccc9ec6a903753",
+      "changedVoxelCount": 356,
+      "projectAdopted": true,
+      "expertReviewed": false
     }
   },
   "historicalGenerationClaims": {
@@ -1834,9 +1841,9 @@
   },
   "currentImageMeasurements": {
     "schemaVersion": 1,
-    "sourceLabelSha256": "84f56821b8b47ef5a6551f756978dee2512fc0a9a8f5ae972bab5674c84564c0",
+    "sourceLabelSha256": "d6358cb5145bff9b861f8c885c643cea7feeec1b008d9e5afe477ba4061d87b4",
     "sourceImageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
-    "rawVoxelSha256": "d990ca618c45c90764b4a51186b017f3fe5d082176496dc5597379013a030215",
+    "rawVoxelSha256": "4de49227896d52c19753d1f060f48cc9a811f0e180dcf95b56c15e7203d8ff7d",
     "dimensionsXYZ": [
       394,
       466,
@@ -1861,8 +1868,8 @@
       "14": 4853,
       "15": 66476,
       "16": 67297,
-      "17": 35259,
-      "18": 34251,
+      "17": 35485,
+      "18": 34381,
       "19": 4189,
       "20": 3920,
       "21": 15296,
@@ -1952,6 +1959,24 @@
     "record": "segmentation-patches/review/amygdala-core1505-adoption-2026-10-01.json",
     "originalManualSourceRetained": true,
     "separateNucleiImplemented": false,
+    "expertReviewed": false
+  },
+  "hippocampalPublishedMapSupplement": {
+    "labelIds": [
+      17,
+      18
+    ],
+    "addedVoxels": 356,
+    "sourceDoi": "10.5281/zenodo.7757416",
+    "paperDoi": "10.7554/eLife.88404",
+    "sourceLicense": "Zenodo CC BY 4.0; underlying BigBrain CC BY-NC-SA 4.0 retained",
+    "sourceCodes": [
+      "Kedo CA1/CA2/CA3/CA4/FD",
+      "JD CA1/CA2/CA3/CA4-DG"
+    ],
+    "record": "segmentation-patches/review/hippocampal-core356-adoption-2026-10-01.json",
+    "originalManualSourceRetained": true,
+    "separateSubfieldsImplemented": false,
     "expertReviewed": false
   }
 }

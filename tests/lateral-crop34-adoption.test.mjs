@@ -35,9 +35,9 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
  for(const [name,audit] of Object.entries(meta.regionalBatchAudits)){
   const bytes=await read(audit.record),r=JSON.parse(bytes);
   assert.equal(sha(bytes),audit.recordSha256);
-  const tissueAdditions={'cerebellar-enclosed147':[147,17],'cerebellar-enclosed123':[123,16],'cerebellar-enclosed160':[160,20],'cerebellar-paired80':[80,10],'cerebellar-midline64':[64,8],'cerebellar-folial16':[16,1],'amygdala-core1505':[1505,106]};
+  const tissueAdditions={'cerebellar-enclosed147':[147,17],'cerebellar-enclosed123':[123,16],'cerebellar-enclosed160':[160,20],'cerebellar-paired80':[80,10],'cerebellar-midline64':[64,8],'cerebellar-folial16':[16,1],'amygdala-core1505':[1505,106],'hippocampal-core356':[356,null]};
   if(Object.hasOwn(tissueAdditions,name)){
-   const [count,coarseAdded]=tissueAdditions[name],amygdala=name==='amygdala-core1505';
+   const [count,coarseAdded]=tissueAdditions[name],amygdala=name==='amygdala-core1505',hippocampus=name==='hippocampal-core356';
    const base=await read('tests/fixtures/bigbrain-practical-segmentation-pre-'+name+'.bin.gz');
    assert.equal(sha(base),regionalBeforeSha(r));assert.deepEqual(gunzipSync(base),current);
    assert.equal(r.count,count);assert.equal(r.points.length,count);
@@ -45,16 +45,19 @@ test('regional cavity batches replay exactly and preserve every unrelated voxel 
    for(const p of r.points){
     const [x,y,z]=p.xyz;assert.ok(p.xyz.length===3&&p.xyz.every(Number.isInteger)&&x>=0&&x<394&&y>=0&&y<466&&z>=0&&z<378);
     const i=10+x+394*(y+466*z);assert.ok(!seen.has(i));seen.add(i);
-    assert.equal(p.before,0);assert.equal(after[i],0);assert.ok((amygdala?[21,22]:[28,29]).includes(p.after));after[i]=p.after;
+    assert.equal(p.before,0);assert.equal(after[i],0);assert.ok((hippocampus?[17,18]:amygdala?[21,22]:[28,29]).includes(p.after));after[i]=p.after;
    }
    assert.equal(sha(after.subarray(10)),r.afterRawVoxelSha256);
    const restored=Buffer.from(after);for(const i of seen)restored[i]=0;assert.deepEqual(restored,current);
    assert.equal(r.projectAdopted,true);assert.equal(r.expertReviewed,false);assert.equal(r.published,false);
-   const rows=amygdala?r.blockMaskImpact:r.meshImpact.blockMaskImpact;
+   const rows=(amygdala||hippocampus)?r.blockMaskImpact:r.meshImpact.blockMaskImpact;
    const manifest=JSON.parse(await read('public/atlas/specimen-blocks.json'));
    assert.deepEqual(rows.map(p=>p.block+'/'+p.part).sort(),Object.entries(manifest.specimens).flatMap(([b,ps])=>ps.map(p=>b+'/'+p.part)).sort());
    const changed=rows.filter(p=>p.changedMaskVoxels??p.changed);
-   assert.deepEqual(changed.map(p=>[p.block,p.part,p.added,p.removed]),amygdala?[['medial-temporal','tissue',0,coarseAdded],['medial-temporal','amygdala',coarseAdded,0]]:[['hindbrain','cerebellum',coarseAdded,0]]);
+   assert.deepEqual(changed.map(p=>[p.block,p.part,p.added,p.removed]),hippocampus?[
+    ['lateral-ventricle','tissue',0,12],['lateral-ventricle','hippocampus',15,0],['choroid-plexus','tissue',0,7],['choroid-plexus','hippocampus',15,0],
+    ['medial-temporal','tissue',0,14],['medial-temporal','hippocampus',14,0],
+   ]:amygdala?[['medial-temporal','tissue',0,coarseAdded],['medial-temporal','amygdala',coarseAdded,0]]:[['hindbrain','cerebellum',coarseAdded,0]]);
    for(const p of changed){
     assert.equal(p.beforeMatches,true);if(!amygdala)assert.equal(p.reproducedBeforeSha256,p.beforeSha256);
     assert.equal(sha(await read('tests/fixtures/'+p.file.slice(0,-5)+'-pre-'+name+'.mesh')),p.beforeSha256);

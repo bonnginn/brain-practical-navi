@@ -10,8 +10,8 @@
     "lateral-ventricle": [
       {
         "file": "block-lateral-ventricle-tissue.mesh",
-        "vertices": 35031,
-        "faces": 69302,
+        "vertices": 35043,
+        "faces": 69326,
         "shadeMin": 0.0,
         "shadeMax": 1.0,
         "part": "tissue",
@@ -20,9 +20,9 @@
         "color": "#c9a27d",
         "material": "specimen",
         "registrationSourceSha256": "7ebed144c2b200233ad1389d3288b2407edcb542fe46eaf8626ef872522f8c3f",
-        "meshSha256": "b715a6f70a6fa18b81205ecb9d15be80fdb03f3b6dcd83618ecee6b645cd7b4a",
+        "meshSha256": "149844c84fa792037c02c0975b87181f8e83d38ee2bb86f8a5c5fa6a907509e1",
         "registrationReview": "AI-assisted source-registration project adoption; not expert review. Existing meshing and cutaway rules retained.",
-        "segmentationSourceSha256": "a0d068e7497a1b926f3a53b290ddc8a6760a7a1027e37bb40a363b397fe2557c",
+        "segmentationSourceSha256": "d6358cb5145bff9b861f8c885c643cea7feeec1b008d9e5afe477ba4061d87b4",
         "repairReview": "AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review."
       },
       {
@@ -75,8 +75,8 @@
       },
       {
         "file": "block-lateral-ventricle-hippocampus.mesh",
-        "vertices": 3732,
-        "faces": 7456,
+        "vertices": 3746,
+        "faces": 7484,
         "shadeMin": 0.82,
         "shadeMax": 0.82,
         "part": "hippocampus",
@@ -85,8 +85,9 @@
         "color": "#c8798d",
         "material": "model",
         "registrationSourceSha256": "7ebed144c2b200233ad1389d3288b2407edcb542fe46eaf8626ef872522f8c3f",
-        "meshSha256": "698757bbb1f2d7f287aeeccb563ca701e9afd7dd717ca35229e875468e2e5ca3",
-        "registrationReview": "AI-assisted source-registration project adoption; not expert review. Existing meshing and cutaway rules retained."
+        "meshSha256": "18213fcdc7dbba3363e00b934a6d4a6dad23b0b003e35fbf193d69dad56e7413",
+        "registrationReview": "AI-assisted source-registration project adoption; not expert review. Existing meshing and cutaway rules retained.",
+        "segmentationSourceSha256": "d6358cb5145bff9b861f8c885c643cea7feeec1b008d9e5afe477ba4061d87b4"
       }
     ],
     "diencephalon": [
@@ -375,9 +376,9 @@
     "choroid-plexus": [
       {
         "file": "block-choroid-plexus-tissue.mesh",
-        "vertices": 19066,
-        "faces": 37904,
-        "shadeMin": 0.0233,
+        "vertices": 19072,
+        "faces": 37916,
+        "shadeMin": 0.0,
         "shadeMax": 1.0,
         "part": "tissue",
         "nameJa": "脳室内側壁",
@@ -385,9 +386,9 @@
         "color": "#c9a27d",
         "material": "specimen",
         "registrationSourceSha256": "7ebed144c2b200233ad1389d3288b2407edcb542fe46eaf8626ef872522f8c3f",
-        "meshSha256": "9dd3c256700a07b305cdba0ef5abe319d3b0d740701b6379dac591f239539f75",
+        "meshSha256": "a6754a64a7d3b366f526120ddb7115269840ba298a9fea6894150918bd303e6b",
         "registrationReview": "AI-assisted source-registration project adoption; not expert review. Existing meshing and cutaway rules retained.",
-        "segmentationSourceSha256": "a0d068e7497a1b926f3a53b290ddc8a6760a7a1027e37bb40a363b397fe2557c",
+        "segmentationSourceSha256": "d6358cb5145bff9b861f8c885c643cea7feeec1b008d9e5afe477ba4061d87b4",
         "repairReview": "AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review."
       },
       {
@@ -422,8 +423,8 @@
       },
       {
         "file": "block-choroid-plexus-hippocampus.mesh",
-        "vertices": 3732,
-        "faces": 7456,
+        "vertices": 3746,
+        "faces": 7484,
         "shadeMin": 0.82,
         "shadeMax": 0.82,
         "part": "hippocampus",
@@ -432,15 +433,16 @@
         "color": "#c8798d",
         "material": "model",
         "registrationSourceSha256": "7ebed144c2b200233ad1389d3288b2407edcb542fe46eaf8626ef872522f8c3f",
-        "meshSha256": "698757bbb1f2d7f287aeeccb563ca701e9afd7dd717ca35229e875468e2e5ca3",
-        "registrationReview": "AI-assisted source-registration project adoption; not expert review. Existing meshing and cutaway rules retained."
+        "meshSha256": "18213fcdc7dbba3363e00b934a6d4a6dad23b0b003e35fbf193d69dad56e7413",
+        "registrationReview": "AI-assisted source-registration project adoption; not expert review. Existing meshing and cutaway rules retained.",
+        "segmentationSourceSha256": "d6358cb5145bff9b861f8c885c643cea7feeec1b008d9e5afe477ba4061d87b4"
       }
     ],
     "medial-temporal": [
       {
         "file": "block-medial-temporal-tissue.mesh",
-        "vertices": 29541,
-        "faces": 58846,
+        "vertices": 29554,
+        "faces": 58880,
         "shadeMin": 0.0,
         "shadeMax": 1.0,
         "part": "tissue",
@@ -449,15 +451,15 @@
         "color": "#c9a27d",
         "material": "specimen",
         "registrationSourceSha256": "7ebed144c2b200233ad1389d3288b2407edcb542fe46eaf8626ef872522f8c3f",
-        "meshSha256": "60c094aca5fef94a569f8b647f9861964fad6dd9e34c08117717139880c2a902",
+        "meshSha256": "4fe469a59784b2529021e0502a205d68431bfb1a6f5e31e80d61307f7f9fb249",
         "registrationReview": "AI-assisted source-registration project adoption; not expert review. Existing meshing and cutaway rules retained.",
-        "segmentationSourceSha256": "84f56821b8b47ef5a6551f756978dee2512fc0a9a8f5ae972bab5674c84564c0",
+        "segmentationSourceSha256": "d6358cb5145bff9b861f8c885c643cea7feeec1b008d9e5afe477ba4061d87b4",
         "repairReview": "AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review."
       },
       {
         "file": "block-medial-temporal-hippocampus.mesh",
-        "vertices": 3364,
-        "faces": 6720,
+        "vertices": 3378,
+        "faces": 6748,
         "shadeMin": 0.82,
         "shadeMax": 0.82,
         "part": "hippocampus",
@@ -466,8 +468,9 @@
         "color": "#c8798d",
         "material": "model",
         "registrationSourceSha256": "7ebed144c2b200233ad1389d3288b2407edcb542fe46eaf8626ef872522f8c3f",
-        "meshSha256": "88f85a49919966e4bd843499702481a1e6fcd6e4fc6dd768a04855f13da200d8",
-        "registrationReview": "AI-assisted source-registration project adoption; not expert review. Existing meshing and cutaway rules retained."
+        "meshSha256": "1231d80a4f09e4842fdefba7fe59c177b0c4d5ae5966034d3c01d2c3d8b5ad6d",
+        "registrationReview": "AI-assisted source-registration project adoption; not expert review. Existing meshing and cutaway rules retained.",
+        "segmentationSourceSha256": "d6358cb5145bff9b861f8c885c643cea7feeec1b008d9e5afe477ba4061d87b4"
       },
       {
         "file": "block-medial-temporal-amygdala.mesh",

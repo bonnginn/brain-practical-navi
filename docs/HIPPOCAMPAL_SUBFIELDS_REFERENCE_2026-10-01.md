@@ -48,3 +48,7 @@ JD-OK_comparison.tar.gz（656,233,630 bytes）の公開MD5 30915bd0eaafd649291d5
 取得資料のZenodo記録にはCC BY 4.0の記載があるが、BigBrain原資料のCC BY-NC-SA 4.0を置き換えない。今回のvolume・crop・比較図はwork内に保持し、アプリでは日英の論文リンクと学習目的だけを掲載する。
 
 保存先はwork/hippocampal-subfields-reference-2026-10-01/manual-comparisonのbounded-crop-report.json、projection-report.json、manual-app500-reference.npz、core-agreement-zero-candidates.npz。原画像27面とSHA・範囲はwork/anatomy-review/hippo-manual-agreement-native100-2026-10-01/report.json。再現コードはwork/october1-crop-hippo-manual.py、october1-project-hippo-manual.py、october1-review-hippo-manual.py。アーカイブと失敗時の出力を削除していない。
+
+## 19:50 JST頃の後続採用
+
+上記0点は27面までの比較段階の記録。後続の左右6地域54面を加え、計81面の原画像照合から概略補完356点を採用し、表示も同期した。現在の開発SHAはd6358cb5。海馬台・嗅内皮質・白板／海馬采の独立分節は未採用。[採用範囲・復元・表示検証](HIPPOCAMPAL_CORE356_2026-10-01.md)。

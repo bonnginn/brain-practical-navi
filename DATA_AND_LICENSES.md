@@ -375,3 +375,9 @@ English: A left-sided literature reference surface was reconstructed from the sa
 2026-10-01：同一BigBrain扁桃体地図から8核に属する未ラベル1,505点（左649／右856）を補完した。13領域全体や6線維束の一括転写ではなく、海馬との既存重複は保持した。原画像36面で照合し、公式変換・0.5 mm最近傍標本化と無平滑mesh生成を使用。[採用範囲と可逆差分](docs/AMYGDALA_CORE1505_2026-10-01.md)。
 
 English: Same-specimen BigBrain amygdala maps by Schiffer, Kedo, Amunts and Dickscheid (DOI10.25493/TKTP-7NR, CC BY-NC-SA 4.0) support 1,505 additions to the gross left/right labels (649/856). Eight nuclear codes were used; five area/transition codes and six fibre codes were excluded from the additions. Existing hippocampal labels were preserved. Native-image review covered 36 orthogonal/adjacent planes. Registration, nearest-neighbour sampling at 0.5 mm and unsmoothed mesh reconstruction are project modifications, not new expert validation.
+
+## Same-BigBrain hippocampal CA/DG supplement (2026-10-01)
+
+同一BigBrainのKedo/JD手動地図（DeKraker et al. 2023、[データ](https://doi.org/10.5281/zenodo.7757416)、[論文](https://doi.org/10.7554/eLife.88404)）と原画像81面の地域別照合により、未ラベル356点（左226・右130）を海馬ID17/18へ補完。海馬台・嗅内皮質・既存の他ラベルは拡張・上書きしない。データのCC BY 4.0と原BigBrainのCC BY-NC-SA 4.0は別条件として保持。公式登録、最近傍再標本化とメッシュ再構築が変更内容。核・細区分の独立分節や専門家確認済みを意味しない。
+
+English: Two same-BigBrain manual CA/DG maps support 356 native-image-reviewed additions to gross hippocampus labels (226 left, 130 right). DeKraker et al. and the Kedo/JD delineators are credited; dataset CC BY 4.0 and underlying BigBrain CC BY-NC-SA 4.0 remain distinct. Official registration, nearest-neighbour resampling and unsmoothed reconstruction are project modifications, not expert validation. See [adoption record](docs/HIPPOCAMPAL_CORE356_2026-10-01.md).
