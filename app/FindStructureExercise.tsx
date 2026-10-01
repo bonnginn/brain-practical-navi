@@ -9,13 +9,13 @@ import {SEGMENTATION_LABEL_SHA256} from './segmentationLabelRevision';
 import sectionLabelPresence from './sectionLabelPresence.json';
 import './find-structure.css';
 
-export type FindTask={key:string;name:string;englishName:string;kind:'section'|'surface'|'neurovascular';viewName:string;englishViewName:string;plane:'coronal'|'horizontal'|'sagittal';position:number;rotation:{x:number;y:number;z?:number};hemisphere:'both'|'left'|'right';medial:boolean;overlay:'none'|'vessels'|'nerves';focus:'ventricle'|'caudate'|'hippocampus'|'thalamus';highlight:HighlightLayer;hint:string;explanation:string;englishHint?:string;englishExplanation?:string;scope?:{ja:string;en:string};reference?:{title:string;url:string}};
-export function FindStructureExercise({tasks,english,onBack}:{tasks:FindTask[];english:boolean;onBack:()=>void}){
-  const [key,setKey]=useState(tasks[0]?.key);
+export type FindTask={key:string;name:string;englishName:string;kind:'section'|'surface'|'neurovascular';viewName:string;englishViewName:string;plane:'coronal'|'horizontal'|'sagittal';position:number;rotation:{x:number;y:number;z?:number};hemisphere:'both'|'left'|'right';medial:boolean;overlay:'none'|'vessels'|'nerves';focus:'ventricle'|'caudate'|'hippocampus'|'thalamus';highlight:HighlightLayer;hint:string;explanation:string;englishHint?:string;englishExplanation?:string;scope?:{ja:string;en:string};reference?:{title:string;url:string};startingNote?:{ja:string;en:string}};
+export function FindStructureExercise({tasks,english,onBack,initialKey,returnToObservation=false}:{tasks:FindTask[];english:boolean;onBack:()=>void;initialKey?:string;returnToObservation?:boolean}){
+  const [key,setKey]=useState(initialKey??tasks[0]?.key);
   const task=tasks.find(task=>task.key===key)??tasks[0];
   if(!task)return <p>{english?'No observation tasks available.':'観察課題がありません。'}</p>;
   return <div className="findExercise">
-    <header className="findReviewHeader" data-no-localize><button type="button" onClick={onBack}>{english?"← Practice menu":"← 復習の入口"}</button><strong>{english?"Structure identification":"構造同定"}</strong><label><span>{english?'Structure to find':'探す構造'}</span><select aria-label={english?"Structure to find":"探す構造"} value={task.key} onChange={event=>setKey(event.target.value)}>{(['section','surface','neurovascular'] as const).map(kind=><optgroup key={kind} label={english?{section:'Sections',surface:'Brain surface',neurovascular:'Nerves and vessels'}[kind]:{section:'断面',surface:'脳表',neurovascular:'神経・血管'}[kind]}>{tasks.filter(task=>task.kind===kind).map(task=><option key={task.key} value={task.key}>{english?task.englishName:task.name}</option>)}</optgroup>)}</select></label></header>
+    <header className="findReviewHeader" data-no-localize><button type="button" onClick={onBack}>{returnToObservation?(english?'← Back to observation':'← 観察に戻る'):(english?"← Practice menu":"← 復習の入口")}</button><strong>{english?"Structure identification":"構造同定"}</strong><label><span>{english?'Structure to find':'探す構造'}</span><select aria-label={english?"Structure to find":"探す構造"} value={task.key} onChange={event=>setKey(event.target.value)}>{(['section','surface','neurovascular'] as const).map(kind=><optgroup key={kind} label={english?{section:'Sections',surface:'Brain surface',neurovascular:'Nerves and vessels'}[kind]:{section:'断面',surface:'脳表',neurovascular:'神経・血管'}[kind]}>{tasks.filter(task=>task.kind===kind).map(task=><option key={task.key} value={task.key}>{english?task.englishName:task.name}</option>)}</optgroup>)}</select></label></header>
     <FindTaskView key={task.key} task={task} english={english} onNext={()=>setKey(tasks[(tasks.indexOf(task)+1)%tasks.length].key)}/>
   </div>;
 }
@@ -77,7 +77,7 @@ function FindTaskView({task,english,onNext}:{task:FindTask;english:boolean;onNex
     </section>
     <aside className="quizQuestionCard findTaskGuide">
       <div className="findTaskGuideBody">
-      <h2>{english?`Find ${task.englishName}`:`${task.name}を探してください`}</h2>
+      <h2>{english?`Find ${task.englishName}`:`${task.name}を探してください`}</h2>{stage!=="answer"&&plane===task.plane&&task.startingNote&&<p className="findClickNote" data-no-localize>{task.startingNote[english?"en":"ja"]}</p>}
       {stage==='search'&&<><p className="findInstruction" data-no-localize>{english?<>First, locate the structure yourself. Tap or click your predicted location to leave a marker, then press <strong>“Reveal colour to check”</strong>.</>:<>まず、自分で構造を探します。予想した場所をタップ・クリックすると印を付けられます。その後、<strong>「着色して答え合わせ」</strong>を押してください。</>}</p><p className="findClickNote" data-no-localize>{english?(model?'The marker is optional and not scored. Drag to rotate the 3D model.':'The marker is optional and not scored. Drag to move the section image.'):(model?'印は任意で、採点はしません。ドラッグで3Dモデルを回転できます。':'印は任意で、採点はしません。ドラッグで断面画像を移動できます。')}</p></>}
       {guess&&<p className="findGuessStatus" role="status">{english?'Your predicted location is marked in amber.':'予想した位置に琥珀色の印を付けました。'}</p>}
       {!revealed&&<div className="findActions">
