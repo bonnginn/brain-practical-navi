@@ -47,4 +47,8 @@ test("concept audit rejects malformed evidence and answers",()=>{
   const review=clone();review.reviewState="expert-verified";assert.match(validateQuizConceptBank(review,page).errors.join("\n"),/reviewState/);
   const guidance=clone();const expanded=guidance.questions.find(q=>q.choiceGuidance);expanded.choiceGuidance[expanded.correctAnswer]=["答え","Answer"];
   assert.match(validateQuizConceptBank(guidance,page).errors.join("\n"),/exactly the three distractors/);
+  const misplaced=clone();misplaced.questions.find(q=>q.target==='cn3').sectionView={plane:'horizontal',position:67,category:'midbrain'};
+  assert.match(validateQuizConceptBank(misplaced,page).errors.join("\n"),/sectionView requires a section target/);
+  const outside=clone();outside.questions.find(q=>q.sectionView).sectionView.position=101;
+  assert.match(validateQuizConceptBank(outside,page).errors.join("\n"),/invalid sectionView/);
 });

@@ -6,7 +6,7 @@ import {questionMetric} from '../src/quizStatistics.mjs';
 const source=readFileSync(new URL('../app/page.tsx',import.meta.url),'utf8');
 const bank=JSON.parse(readFileSync(new URL('../app/quiz-concept-bank.json',import.meta.url),'utf8'));
 const visual=[...parseQuizGranularity(source),...parseNeurovascularQuizInventory(source)];
-const concepts=bank.questions.map(seed=>({...visual.find(q=>q.target===seed.target),id:seed.id,prompt:seed.prompt,
+const concepts=bank.questions.map(seed=>({...visual.find(q=>q.target===seed.target),...seed.sectionView,id:seed.id,prompt:seed.prompt,
   correctAnswer:seed.correctAnswer,options:seed.options.map(o=>o.key),optionLabels:Object.fromEntries(seed.options.map(o=>[o.key,o.label])),explanation:seed.explanation}));
 const questions=[...visual,...concepts].filter(isQuizAnatomyAvailable);
 const rows=await Promise.all(questions.map(async q=>({...await questionMetric(q),prompt:q.prompt,options:q.options})));

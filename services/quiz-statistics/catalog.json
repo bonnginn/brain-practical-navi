@@ -1120,5 +1120,181 @@
       "capsule-corona-continuity-c",
       "capsule-corona-continuity-d"
     ]
+  },
+  {
+    "question": "hippocampus-temporal-horn-floor",
+    "revision": "41e7fa2006cb3474f62b194cecac21e1b4a1f23d4c4f36ad6624f9a260122595",
+    "prompt": "海馬の隆起を脳室内から観察するとき、主にどの部分の床を見ますか？",
+    "options": [
+      "hippocampus-temporal-horn-floor-a",
+      "hippocampus-temporal-horn-floor-b",
+      "hippocampus-temporal-horn-floor-c",
+      "hippocampus-temporal-horn-floor-d"
+    ]
+  },
+  {
+    "question": "hippocampus-entorhinal-input",
+    "revision": "0c9e9dc8be6a32e548a309829a84e889c40c582b098e070dbaf183dacbe1d78b",
+    "prompt": "海馬体への皮質性入力の重要な入口となるのはどれですか？",
+    "options": [
+      "hippocampus-entorhinal-input-a",
+      "hippocampus-entorhinal-input-b",
+      "hippocampus-entorhinal-input-c",
+      "hippocampus-entorhinal-input-d"
+    ]
+  },
+  {
+    "question": "amygdala-tissue-class",
+    "revision": "9ffe3d691e9fc696d2d37c4daa0e90c10d04e89d602897e44f592b9314e213ce",
+    "prompt": "扁桃体を組織の種類で分類すると、最も適切なのはどれですか？",
+    "options": [
+      "amygdala-tissue-class-a",
+      "amygdala-tissue-class-b",
+      "amygdala-tissue-class-c",
+      "amygdala-tissue-class-d"
+    ]
+  },
+  {
+    "question": "caudate-temporal-tail",
+    "revision": "3946d153b5c2e6146416ef75dc1c8d820579e53bde9d69658fc2ea2d7e0eeca0",
+    "prompt": "尾状核の尾部を側頭葉で追うと、終端付近で近接する核群はどれですか？",
+    "options": [
+      "caudate-temporal-tail-a",
+      "caudate-temporal-tail-b",
+      "caudate-temporal-tail-c",
+      "caudate-temporal-tail-d"
+    ]
+  },
+  {
+    "question": "callosum-rostral-caudal-order",
+    "revision": "89b5690bd4ee8ca090b88e5fb2b7dfbe1c75f39c63dc638ad01009edc8573dfe",
+    "prompt": "脳梁の各部を前方から後方へ並べたものはどれですか？",
+    "options": [
+      "callosum-rostral-caudal-order-a",
+      "callosum-rostral-caudal-order-b",
+      "callosum-rostral-caudal-order-c",
+      "callosum-rostral-caudal-order-d"
+    ]
+  },
+  {
+    "question": "callosum-cingulate-separation",
+    "revision": "71b5613e4018463b1c069ed8af678d4b4532bc4bc3c86af2db1216fee4102ed6",
+    "prompt": "内側面で脳梁とその上方の帯状回を隔てる溝はどれですか？",
+    "options": [
+      "callosum-cingulate-separation-a",
+      "callosum-cingulate-separation-b",
+      "callosum-cingulate-separation-c",
+      "callosum-cingulate-separation-d"
+    ]
+  },
+  {
+    "question": "caudate-c-shaped-course",
+    "revision": "798e4a8e50f3fb12b000cd3313899a15154d6c9a3aa520b720a39ed2542e8df2",
+    "prompt": "尾状核の頭部・体部・尾部を連続して追うための形態の手がかりはどれですか？",
+    "options": [
+      "caudate-c-shaped-course-a",
+      "caudate-c-shaped-course-b",
+      "caudate-c-shaped-course-c",
+      "caudate-c-shaped-course-d"
+    ]
+  },
+  {
+    "question": "putamen-pallidum-lateral",
+    "revision": "16cb233ecb2637089f08c595592664a3f8fa338eb471177d5c945f9ecb7d650b",
+    "prompt": "レンズ核の中で、被殻は淡蒼球に対してどちら側にありますか？",
+    "options": [
+      "putamen-pallidum-lateral-a",
+      "putamen-pallidum-lateral-b",
+      "putamen-pallidum-lateral-c",
+      "putamen-pallidum-lateral-d"
+    ]
+  },
+  {
+    "question": "pallidum-thalamic-fibre-bundles",
+    "revision": "e0bd30f781c12cbd7b08c7363aefe0b8d260f4fcf0b8fa824176f193d50a7d13",
+    "prompt": "淡蒼球から視床へ向かう線維を運ぶ代表的な二つの束はどれですか？",
+    "options": [
+      "pallidum-thalamic-fibre-bundles-a",
+      "pallidum-thalamic-fibre-bundles-b",
+      "pallidum-thalamic-fibre-bundles-c",
+      "pallidum-thalamic-fibre-bundles-d"
+    ]
+  },
+  {
+    "question": "nigra-compact-reticulate-roles",
+    "revision": "6f7ea099de8cf4fff8aa1a5aee0025089d1b0ae9ae06a3e35e12b48d1e6c3673",
+    "prompt": "黒質の緻密部（SNc）と網様部（SNr）の役割の組合せとして適切なのはどれですか？",
+    "options": [
+      "nigra-compact-reticulate-roles-a",
+      "nigra-compact-reticulate-roles-b",
+      "nigra-compact-reticulate-roles-c",
+      "nigra-compact-reticulate-roles-d"
+    ]
+  },
+  {
+    "question": "subthalamic-transmitter",
+    "revision": "1dc5e65a898e463a555ed7d3dc7375dcf949845ab57ead73ad742ea3e7d44a96",
+    "prompt": "視床下核から淡蒼球などへの投射は、どの性質として整理しますか？",
+    "options": [
+      "subthalamic-transmitter-a",
+      "subthalamic-transmitter-b",
+      "subthalamic-transmitter-c",
+      "subthalamic-transmitter-d"
+    ]
+  },
+  {
+    "question": "accumbens-vta-input",
+    "revision": "acfc593c6f176155d2a4aaacc7f5b2d89fe91e348be6992f9d4553ad1e57b356",
+    "prompt": "側坐核へのドパミン作動性投射の代表的な起始部はどれですか？",
+    "options": [
+      "accumbens-vta-input-a",
+      "accumbens-vta-input-b",
+      "accumbens-vta-input-c",
+      "accumbens-vta-input-d"
+    ]
+  },
+  {
+    "question": "brainstem-tectum-aqueduct",
+    "revision": "5b177065f23ccfe5d462f8479f4e03c23785ae96865b87d03d6e19480ae47c6f",
+    "prompt": "中脳水道に対する中脳蓋の位置と構成として適切なのはどれですか？",
+    "options": [
+      "brainstem-tectum-aqueduct-a",
+      "brainstem-tectum-aqueduct-b",
+      "brainstem-tectum-aqueduct-c",
+      "brainstem-tectum-aqueduct-d"
+    ]
+  },
+  {
+    "question": "brainstem-aqueduct-grey",
+    "revision": "9c38f70095cab20ff950467f693d731a24a2d0c6390c09775ef53714cef2f214",
+    "prompt": "中脳水道を直接取り囲む灰白質は何と呼ばれますか？",
+    "options": [
+      "brainstem-aqueduct-grey-a",
+      "brainstem-aqueduct-grey-b",
+      "brainstem-aqueduct-grey-c",
+      "brainstem-aqueduct-grey-d"
+    ]
+  },
+  {
+    "question": "brainstem-tegmentum-borders",
+    "revision": "5695bb49d9b7265c7d1cb3f7ca79b61c6fc5b6dea30006ef502be7f1d0b13586",
+    "prompt": "中脳被蓋の範囲を大まかに捉える組合せはどれですか？",
+    "options": [
+      "brainstem-tegmentum-borders-a",
+      "brainstem-tegmentum-borders-b",
+      "brainstem-tegmentum-borders-c",
+      "brainstem-tegmentum-borders-d"
+    ]
+  },
+  {
+    "question": "brainstem-oculomotor-exit",
+    "revision": "43776407eb9ecabfaf781e37b4414199f36bd6cd1c6f1d78decf4a76b3a63a80",
+    "prompt": "中脳腹側で動眼神経の出現部を探すときの主要な目印はどれですか？",
+    "options": [
+      "brainstem-oculomotor-exit-a",
+      "brainstem-oculomotor-exit-b",
+      "brainstem-oculomotor-exit-c",
+      "brainstem-oculomotor-exit-d"
+    ]
   }
 ]

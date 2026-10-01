@@ -138,7 +138,7 @@ type SectionQuizQuestion = { target: StructureKey; category: Exclude<QuizCategor
 type SurfaceQuizQuestion = { target: SurfaceRegionKey; category: "surface"; view: SurfaceViewKey; prompt: string; options: string[]; format?:"surface"; detail?:Exclude<QuizDetail,Plane>; origin?:QuizOrigin } & QuizConceptFields;
 type NeurovascularQuizQuestion = { target: NeurovascularStructureKey; category:"neurovascular"; view:"arteries"|"cranialNerves"; prompt:string; options:string[]; format:"neurovascular"; detail:"arteries"|"cranialNerves"; origin:"provisional" } & QuizConceptFields;
 type QuizQuestion = SectionQuizQuestion | SurfaceQuizQuestion | NeurovascularQuizQuestion;
-type QuizConceptSeed = { id:string; target:QuizTargetKey; kind:Exclude<QuizQuestionKind,"identification">; prompt:string; correctAnswer:string; options:{key:string;label:string}[]; explanation:string; sourceRefs:string[];choiceGuidance?:Record<string,[string,string]> };
+type QuizConceptSeed = { id:string; target:QuizTargetKey; kind:Exclude<QuizQuestionKind,"identification">; prompt:string; correctAnswer:string; options:{key:string;label:string}[]; explanation:string; sourceRefs:string[];choiceGuidance?:Record<string,[string,string]>;sectionView?:{plane:Plane;position:number;category:Exclude<QuizCategory,"surface"|"neurovascular">} };
 type QuizConceptBank = { schemaVersion:number; updated:string; reviewState:"project-reviewed-expert-pending"; sources:{id:string;label:string;ref:string}[]; questions:QuizConceptSeed[] };
 const quizConceptData=quizConceptBank as unknown as QuizConceptBank;
 type QuizFormatFilter = "all"|QuizFormat;
@@ -688,7 +688,9 @@ const visualQuizQuestions:QuizQuestion[]=[...quizQuestions,...neurovascularQuizQ
 const conceptQuizQuestions:QuizQuestion[]=quizConceptData.questions.map(seed=>{
   const visual=visualQuizQuestions.find(question=>question.target===seed.target);
   if(!visual)throw new Error(`Concept quiz target has no visual question: ${seed.target}`);
-  return {...visual,id:seed.id,questionKind:seed.kind,prompt:seed.prompt,correctAnswer:seed.correctAnswer,options:seed.options.map(option=>option.key),optionLabels:Object.fromEntries(seed.options.map(option=>[option.key,option.label])),explanation:seed.explanation,sourceRefs:seed.sourceRefs,choiceGuidance:seed.choiceGuidance,origin:"provisional"};
+  if(seed.sectionView&&!("plane" in visual))throw new Error(`Section context requires a section target: ${seed.id}`);
+  const context=seed.sectionView&&"plane" in visual?{...visual,...seed.sectionView,detail:seed.sectionView.plane}:visual;
+  return {...context,id:seed.id,questionKind:seed.kind,prompt:seed.prompt,correctAnswer:seed.correctAnswer,options:seed.options.map(option=>option.key),optionLabels:Object.fromEntries(seed.options.map(option=>[option.key,option.label])),explanation:seed.explanation,sourceRefs:seed.sourceRefs,choiceGuidance:seed.choiceGuidance,origin:"provisional"};
 });
 const allQuizQuestions:QuizQuestion[]=[...visualQuizQuestions,...conceptQuizQuestions].filter(isQuizAnatomyAvailable);
 
