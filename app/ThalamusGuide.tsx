@@ -43,8 +43,8 @@ function Shape({mesh,selected,view,english}:{mesh:GuideMesh;selected:number;view
   },[mesh,selected,view,english]);
   return <canvas width={360} height={250} ref={ref} role="img" aria-label={english?`Left thalamus: approximate projected location of ${regions[selected].name[1]}`:`左視床上に投影した${regions[selected].name[0]}の参考位置`}/>;
 }
-function Content({english}:{english:boolean}){
-  const [mesh,setMesh]=useState<GuideMesh|null>(null),[failed,setFailed]=useState(false),[attempt,setAttempt]=useState(0),[selected,setSelected]=useState(0),[view,setView]=useState<View>("oblique");
+function Content({english,initialRegion}:{english:boolean;initialRegion?:string}){
+  const [mesh,setMesh]=useState<GuideMesh|null>(null),[failed,setFailed]=useState(false),[attempt,setAttempt]=useState(0),[selected,setSelected]=useState(()=>Math.max(0,regions.findIndex(region=>region.key===initialRegion))),[view,setView]=useState<View>("oblique");
   useEffect(()=>{let active=true;setFailed(false);loadThalamusGuideMesh().then(value=>{if(active)setMesh(value)},()=>{if(active)setFailed(true)});return()=>{active=false}},[attempt]);
   const region=regions[selected],lang=english?1:0;
   return <div className="thalamusGuideBody" lang={english?"en":"ja"}>
@@ -55,7 +55,7 @@ function Content({english}:{english:boolean}){
     <details><summary>{english?"References and method":"出典・表示方法"}</summary><p>{english?"Marker fractions are authored orientation aids, not registered atlas coordinates. No nucleus labels or specimen voxels were changed.":"位置比率は方向を学ぶために設定した目安で、登録済みアトラスの座標ではありません。核ラベルや標本voxelは変更していません。"}</p><a href="https://nba.uth.tmc.edu/neuroanatomy/L5/Lab05p10_index.html" target="_blank" rel="noreferrer">UTHealth · Thalamic nuclei</a><p><a href="https://doi.org/10.1016/j.morpho.2018.07.060" target="_blank" rel="noreferrer">Pascal et al. (2018) · BigBrain / Dejerine</a> — {english?"Research precedent (abstract reviewed); its nucleus data were not obtained or used here.":"BigBrainでの研究例（抄録確認）。核データは未取得で、この図には使用していません。"}</p></details>
   </div>;
 }
-export function ThalamusGuide({english}:{english:boolean}){
+export function ThalamusGuide({english,initialRegion}:{english:boolean;initialRegion?:string}){
   const [open,setOpen]=useState(false);
-  return <details className="thalamusGuide" onToggle={event=>setOpen(event.currentTarget.open)} data-no-localize><summary>{english?"Inside the thalamus · reference locations":"視床の内部 — 核群の参考位置"}</summary>{open&&<Content english={english}/>}</details>;
+  return <details className="thalamusGuide" onToggle={event=>setOpen(event.currentTarget.open)} data-no-localize><summary>{english?"Inside the thalamus · reference locations":"視床の内部 — 核群の参考位置"}</summary>{open&&<Content english={english} initialRegion={initialRegion}/>}</details>;
 }

@@ -44,9 +44,9 @@
   "quiz": {
     "existingQuestionCount": 23,
     "neurovascularPilotCount": 22,
-    "conceptVariantCount": 55,
+    "conceptVariantCount": 155,
     "uniqueVisualTargetCount": 45,
-    "totalQuestionCount": 100
+    "totalQuestionCount": 200
   },
   "routes": {
     "canonicalRouteCount": 27,

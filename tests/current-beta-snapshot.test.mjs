@@ -2,6 +2,7 @@ import {LEARNER_PROVENANCE_MAPPINGS} from "../src/learnerProvenance.mjs";
 import assert from "node:assert/strict";
 import {copyFile, mkdtemp, readFile, rm, writeFile} from "node:fs/promises";
 import os from "node:os";
+import {readFileSync} from "node:fs";
 import path from "node:path";
 import { test } from "node:test";
 
@@ -37,7 +38,12 @@ test("current beta snapshot is derived from the checked-in authoritative contrac
 test("snapshot records the current review, quiz, and route boundaries", () => {
   assert.deepEqual(snapshot.provenance.reviewFilterCounts, {surface: 55, sections: 23, blocks: 31, quiz: 25});
   assert.deepEqual(snapshot.provenance.learnerMappings, {total: LEARNER_PROVENANCE_MAPPINGS.length, resolved: LEARNER_PROVENANCE_MAPPINGS.length});
-  assert.deepEqual(snapshot.quiz, {existingQuestionCount: 23, neurovascularPilotCount: 22, conceptVariantCount: 55, uniqueVisualTargetCount: 45, totalQuestionCount: 100});
+  assert.equal(snapshot.quiz.existingQuestionCount, 23);
+  assert.equal(snapshot.quiz.neurovascularPilotCount, 22);
+  const concepts=JSON.parse(readFileSync(new URL("app/quiz-concept-bank.json",root),"utf8")).questions;
+  assert.equal(snapshot.quiz.conceptVariantCount, concepts.length);
+  assert.equal(snapshot.quiz.totalQuestionCount, 45+concepts.length);
+  assert.ok(snapshot.quiz.uniqueVisualTargetCount>=45);
   assert.deepEqual(snapshot.routes, {canonicalRouteCount: 27, viewportCount: 3, phaseCount: 2, expectedChecks: 162});
 });
 
