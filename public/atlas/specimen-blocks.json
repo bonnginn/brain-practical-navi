@@ -655,8 +655,8 @@
       },
       {
         "file": "block-hindbrain-cerebellum.mesh",
-        "vertices": 46169,
-        "faces": 90534,
+        "vertices": 46135,
+        "faces": 90470,
         "shadeMin": 0.0,
         "shadeMax": 1.0,
         "part": "cerebellum",
@@ -664,8 +664,8 @@
         "sourceType": "same-grid-segmentation",
         "color": "#d0ad83",
         "material": "specimen",
-        "meshSha256": "eb717fa191dd2519e7d9bed3ebf194ab26d3e42c696070010d0d6ed76a4fadae",
-        "segmentationSourceSha256": "21c6c5d04ce348d27760eaccca6c7cb8b03f64a49a54276bbf645812755f6f25",
+        "meshSha256": "2e4e034fb125eff63ab0bd9319321cf3747ba9f8dc434ec023fc9024ceb97a18",
+        "segmentationSourceSha256": "56092c1a5418a424c54a509abe1d8d9ce1ad48a3ad7175141621ba179abe48a9",
         "segmentationReview": "Image-guided project correction of cerebellar-side misclassification; not expert review.",
         "repairReview": "AI-image-reviewed local cerebellar folia repair; derived block synchronized. Development only, not expert review."
       },
