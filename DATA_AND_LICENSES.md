@@ -367,3 +367,7 @@ English: A pinned siibra-python example annotates VIM on one BigBrain histologic
 2026-10-01：内側膝状体の参考点はSchiffer, Kiwitz, Brandstetter, Mohlberg, Amunts, Dickscheidの[BigBrain MGB 3D地図](https://doi.org/10.25493/PNY0-NCW)、CC BY-NC-SA 4.0に基づく。左右3区分の配信を実解像度で復元、公式変換・0.5 mm最近傍標本化・側別和集合から代表座標を求めた。原画像18面で位置を照合。核ラベル・核境界・聴放線は追加していない。
 
 English: The MGB reference positions derive from the same-BigBrain 3D map by Schiffer et al. (DOI 10.25493/PNY0-NCW, CC BY-NC-SA 4.0). Six source masks were decoded at their actual overview scales, officially registered, nearest-neighbour sampled at 0.5 mm and unioned separately by side to obtain representative positions. Native-image alignment was reviewed on 18 planes. No MGB voxel labels, nuclear boundaries or auditory radiation were added. Credits and modifications: public/THALAMUS-MGB-REFERENCE-NOTICE.txt.
+
+2026-10-01追記：同じ変換済み左MGBの571点から、平滑化・穴埋め・成分削除・左右転写なしのmarching cubesで705頂点／1,386三角面の参照形状を作成。app/thalamusMgbSurface.jsonは上記CC BY-NC-SA 4.0を保持。ガイド内のみ桃色で表示し、採用済みLGNの青色形状と比較する。主分節ラベルと断面用MGB個別着色は追加していない。原点・軸順、候補SHA、閉じた面を生成時検証。
+
+English: A left-sided literature reference surface was reconstructed from the same 571 reviewed application-grid samples, with marching cubes and no smoothing, filling, component removal or mirroring. Its 705 vertices and 1,386 triangles are distributed in app/thalamusMgbSurface.json under the same CC BY-NC-SA 4.0 terms. Pink MGB is shown only in the reference guide, distinct from the adopted blue LGN shape. Main segmentation labels and section colouring are unchanged.
