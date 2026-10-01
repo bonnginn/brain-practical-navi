@@ -17,5 +17,6 @@ export function ExternalSpecimenVideo({context,english,accordionGroup}:Props){
     <a href={video.url} target="_blank" rel="noopener noreferrer">{video.title} ↗</a>
     <small>{video.provider} · {context==="basal"?(english?"Duration ":"長さ "):(english?"From / total ":"開始 / 全長 ")}{video.time}</small>
     <small>{english?"Human brain specimen; English narration. Opens the publisher's video in a new tab.":"人体の脳標本・英語音声。公開元の動画を別タブで開きます。"}</small>
+    <small><a href={context==="basal"?"https://nba.uth.tmc.edu/neuroanatomy/L9/L9_index.html":"https://www.neuroanatomy.ca/videos.html"} target="_blank" rel="noopener noreferrer">{english?"Video unavailable? Open the publisher's teaching page ↗":"動画が開けない場合：公開元の教材ページへ ↗"}</a></small>
   </details>;
 }

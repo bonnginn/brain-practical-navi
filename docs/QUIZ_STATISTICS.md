@@ -68,3 +68,6 @@ FROM quiz_option_counts ORDER BY question, revision, choice;
 
 - [Cloudflare Workers Logs](https://developers.cloudflare.com/workers/observability/logs/workers-logs/): 配備時のログ設定。
 - [Cloudflare D1 Database API](https://developers.cloudflare.com/d1/worker-api/d1-database/): prepared statementによる加算・読出し。
+# 2026-10-02の運用補足
+
+ローカル候補に「集計を再取得」を追加。失敗後は読み取りだけを再試行し、回答を再送しない。休止時の保存と停止は [運用・再開手順](MAINTENANCE_AND_RESTART.md) を参照。以下の公開履歴は当時の記録として維持する。

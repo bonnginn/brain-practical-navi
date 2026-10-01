@@ -14,14 +14,15 @@ test('inferior parietal parcel distinguishes its painted scope from the separate
   assert.doesNotMatch(line,/縁上回・角回周辺を含む/);
 });
 
-test('callosal boundary caveat is present in sections, medial surface and block descriptions with English counterparts',()=>{
-  const notes=[...page.matchAll(/note:"([^"]*帯状回・脳弓[^"]*)"/g)].map(m=>m[1]);
+test('callosal descriptions distinguish neighbouring cingulate cortex and fornix without claiming exact boundaries',()=>{
+  const notes=[...page.matchAll(/note:"([^"]*輪郭は教材用の近似です。[^"]*)"/g)].map(m=>m[1]);
   assert.equal(notes.length,3);
   for(const note of notes){
-    assert.match(note,/帯状回・脳弓/);
-    assert.match(note,/分離.*(不十分|未修正)/);
-    assert.match(catalog[note],/cingulate gyrus and fornix/);
-    assert.match(catalog[note],/does not adequately separate|separation.*remains incomplete/i);
+    assert.match(note,/帯状回/);
+    assert.match(note,/脳弓/);
+    assert.match(catalog[note],/cingulate/i);
+    assert.match(catalog[note],/fornix/i);
+    assert.match(catalog[note],/approximation/i);
   }
   assert.match(page,/corpusCallosum:.*bigbrainIds:\[30\]/);
 });
