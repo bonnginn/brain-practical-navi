@@ -2725,5 +2725,17 @@
   "反対側の視床前核群": "Contralateral anterior thalamic nuclei",
   "視放線です。レンズ核の後方という位置を手がかりに、外側膝状体から後頭葉の一次視覚野へ向かう経路を考えます。外側膝状体へ入る視索と、そこから皮質へ出る視放線を区別します。": "Optic radiations. Use the position behind the lentiform nucleus to trace the route from the lateral geniculate body to primary visual cortex in the occipital lobe. Distinguish the incoming optic tract from the outgoing geniculocortical fibers.",
   "左右の側頭葉皮質です。前交連は正中を横切る交連線維の束で、脳梁吻の下方に見つかります。左右半球を結ぶ交連線維と、視床・皮質を結ぶ投射線維を区別します。": "The left and right temporal cortices. The anterior commissure is a bundle of commissural fibers crossing the midline below the callosal rostrum. Distinguish interhemispheric commissural fibers from thalamocortical projection fibers.",
-  "最外包です。外側から島皮質→最外包→前障→外包→被殻と位置をたどります。前障の外側が最外包、内側が外包と覚えると、二つの白質層を区別できます。": "The extreme capsule. Follow insular cortex, extreme capsule, claustrum, external capsule and putamen from lateral to medial. The extreme capsule is lateral to the claustrum, whereas the external capsule is medial to it."
+  "最外包です。外側から島皮質→最外包→前障→外包→被殻と位置をたどります。前障の外側が最外包、内側が外包と覚えると、二つの白質層を区別できます。": "The extreme capsule. Follow insular cortex, extreme capsule, claustrum, external capsule and putamen from lateral to medial. The extreme capsule is lateral to the claustrum, whereas the external capsule is medial to it.",
+  "正中矢状断で、脳梁の下前方の細い部分から前端の曲がりを経て後端へ、輪郭に沿ってたどる順序はどれですか？": "In a midsagittal view, which sequence follows the callosal contour from its thin anteroinferior part, around the anterior bend, to its posterior end?",
+  "吻 → 膝 → 体 → 膨大": "Rostrum → genu → body → splenium",
+  "膨大 → 体 → 膝 → 吻": "Splenium → body → genu → rostrum",
+  "膝 → 膨大 → 吻 → 体": "Genu → splenium → rostrum → body",
+  "体 → 吻 → 膨大 → 膝": "Body → rostrum → splenium → genu",
+  "吻は膝の下方に続く細い部分、膝は前端の曲がり、体はその後方へ続く部分、膨大は後端の厚い部分です。直線上の前後順位ではなく、脳梁の輪郭に沿って確認します。": "The rostrum is the thin part continuing below the genu; the genu is the anterior bend, the body extends posteriorly, and the splenium is the thick posterior end. Follow the callosal contour rather than treating the parts as a straight anterior-to-posterior row.",
+  "橋底部では、縦方向と横方向の線維がどのように組み合わさっていますか？": "How are longitudinal and transverse fibres arranged in the base of the pons?",
+  "皮質遠心性線維が縦走し、その間を橋小脳線維が横走する": "Longitudinal corticofugal fibres with transverse pontocerebellar fibres between them",
+  "橋小脳線維が縦走し、皮質遠心性線維が横走する": "Longitudinal pontocerebellar fibres with transverse corticofugal fibres",
+  "視索が縦走し、脳梁線維が横走する": "Longitudinal optic tracts with transverse callosal fibres",
+  "すべて縦走する皮質遠心性線維で、横走線維はない": "Only longitudinal corticofugal fibres, with no transverse fibres",
+  "橋底部では縦走する皮質遠心性線維の間に橋核があり、そこから小脳へ向かう線維が横走・交叉して中小脳脚へ続きます。小脳へ中継されない皮質脊髄線維は、さらに延髄の錐体へ下行します。": "Pontine nuclei lie among longitudinal corticofugal fibres in the base. Pontocerebellar fibres run transversely, cross and continue through the middle cerebellar peduncle. Corticospinal fibres that do not relay to the cerebellum descend onward into the medullary pyramids."
 }

@@ -1167,8 +1167,8 @@
   },
   {
     "question": "callosum-rostral-caudal-order",
-    "revision": "89b5690bd4ee8ca090b88e5fb2b7dfbe1c75f39c63dc638ad01009edc8573dfe",
-    "prompt": "脳梁の各部を前方から後方へ並べたものはどれですか？",
+    "revision": "b817037c60c1705154990b782833701b8269d0f0e6ec35924bc583cf5ab8e26f",
+    "prompt": "正中矢状断で、脳梁の下前方の細い部分から前端の曲がりを経て後端へ、輪郭に沿ってたどる順序はどれですか？",
     "options": [
       "callosum-rostral-caudal-order-a",
       "callosum-rostral-caudal-order-b",
@@ -1881,14 +1881,14 @@
     ]
   },
   {
-    "question": "pons-dorsal-fourth-floor",
-    "revision": "5fc79de38cd4ff676491d7aa6ec82ffd7c06c26c9e29d0e261ef3248773c8870",
-    "prompt": "橋の背側面が形成する脳室系の部分はどれですか？",
+    "question": "pons-base-fibre-directions",
+    "revision": "515609a34a10ee14b69be0bb63c02ba87085b3de16e5fafc8ab0eb19893626fe",
+    "prompt": "橋底部では、縦方向と横方向の線維がどのように組み合わさっていますか？",
     "options": [
-      "pons-dorsal-fourth-floor-a",
-      "pons-dorsal-fourth-floor-b",
-      "pons-dorsal-fourth-floor-c",
-      "pons-dorsal-fourth-floor-d"
+      "pons-base-fibre-directions-a",
+      "pons-base-fibre-directions-b",
+      "pons-base-fibre-directions-c",
+      "pons-base-fibre-directions-d"
     ]
   },
   {
