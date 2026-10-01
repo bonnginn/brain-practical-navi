@@ -45,3 +45,7 @@
 @media(max-width:760px){.findPlaneTabs button{min-height:38px;flex:1;padding-inline:5px}}
 
 .findTaskGuide .findScope{font-size:12px;color:#60716b;line-height:1.55}
+
+/* The selected structure is already named in the select above the image. */
+@media(max-width:760px){.findReviewHeader>button{font-size:12px}.findReviewHeader>strong{font-size:13px;line-height:1.25}.findTask .panelHead>div>b{display:none}.findTask .panelHead>span{font-size:11px;letter-spacing:0}.findTask .panelHead small{font-size:12px}}
+@media(max-width:480px) and (max-height:700px){.appShell.workspace-quiz.findPractice .findExercise .quizImageCard{grid-template-rows:auto auto minmax(180px,1fr) auto auto}.findExercise .quizImageStage{min-height:180px}}
