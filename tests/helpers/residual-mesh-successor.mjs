@@ -4,6 +4,30 @@ import {createHash} from 'node:crypto';
 import {gunzipSync} from 'node:zlib';
 const read=p=>readFile(new URL('../../'+p,import.meta.url));
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
+const regionalBlockImpact=r=>r.meshImpact?.blockMaskImpact??(r.sourceDoi==='10.25493/TKTP-7NR'?r.blockMaskImpact:undefined);
+async function verifyTissueSectionSuccessor(meta,record,stem,field){
+ let expected=record.sectionMeshImpact.after,active=false;
+ for(const audit of Object.values(meta.regionalBatchAudits??{})){
+  const bytes=await read(audit.record),next=JSON.parse(bytes);
+  assert.equal(sha(bytes),audit.recordSha256);
+  if(!active){if(next.afterSha256===record.afterSha256)active=true;continue;}
+  const impact=next[field];
+  if(impact){assert.deepEqual(impact.before,expected);expected=impact.after;}
+ }
+ assert.equal(active,true);
+ const stored=await read('public/atlas/'+stem+'.mesh');
+ assert.equal(sha(stored[0]===0x1f&&stored[1]===0x8b?gunzipSync(stored):stored),expected.sha256);
+}
+async function verifyAmygdalaSuccessor(record){
+ assert.equal(record.count,1505);
+ assert.equal(record.sourceDoi,'10.25493/TKTP-7NR');
+ assert.deepEqual(record.sourceCodes,['bl','bm','ce','la','me','pl','vcod','vcov']);
+ assert.equal(record.points.length,record.count);
+ assert.ok(record.points.every(p=>p.before===0&&[21,22].includes(p.after)));
+ assert.deepEqual(record.countsBySide,{left:649,right:856});
+ assert.equal(sha(gunzipSync(await read('tests/fixtures/section-current-amygdala-pre-amygdala-core1505.mesh'))),record.sectionMeshImpact.before.sha256);
+ assert.equal(sha(gunzipSync(await read('public/atlas/section-current-amygdala.mesh'))),record.sectionMeshImpact.after.sha256);
+}
 async function verifyCallosalCingulateSuccessor(record){
  assert.equal(record.transition,'30→0');
  assert.equal(record.count,48395);
@@ -20,11 +44,15 @@ async function verifyCallosalCingulateSuccessor(record){
  ]);
  for(const p of record.blockMeshImpact)assert.equal(sha(await read('public/atlas/'+p.file)),p.afterSha256);
 }
-// Older immutable fibre records name the input sourceSha256. Accept that field
-// without rewriting their pinned bytes, and reject contradictory dual fields.
+// Older fibre records use sourceSha256 for input labels. The enclosed-tissue
+// schema instead uses it for the pinned native100 image, with beforeSha256 for labels.
 export function regionalBeforeSha(record){
- if(record.beforeSha256!==undefined&&record.sourceSha256!==undefined)
-  assert.equal(record.beforeSha256,record.sourceSha256,'Conflicting regional input revisions');
+ if(record.beforeSha256!==undefined&&record.sourceSha256!==undefined){
+  if(record.transition==='bounded-cerebellar-enclosed-tissue-repair'){
+   assert.ok(record.cerebellarSectionMeshImpact,'Missing separate cerebellar surface evidence');
+   assert.equal(record.sourceSha256,'61e6ebbeb0d6876051b9348a68bfe22b733fead04d112c35ff1a29819b67d351','Wrong native100 source identity');
+  }else assert.equal(record.beforeSha256,record.sourceSha256,'Conflicting regional input revisions');
+ }
  const before=record.beforeSha256??record.sourceSha256;
  assert.match(before??'',/^[a-f0-9]{64}$/,'Missing regional input revision');
  return before;
@@ -45,6 +73,12 @@ export async function withRegionalBatches(record,{afterRevision=null}={}){
    sectionImpact={before:result.sectionMeshImpact.after,after:{...result.sectionMeshImpact.after,
     sourceSha256:next.afterSha256,rawVoxelSha256:next.afterRawVoxelSha256}};
   }
+  if(name==='amygdala-core1505'){
+   await verifyAmygdalaSuccessor(next);
+   // The amygdala surface changes, while the ventricular representations do not.
+   sectionImpact={before:result.sectionMeshImpact.after,after:{...result.sectionMeshImpact.after,
+    sourceSha256:next.afterSha256,rawVoxelSha256:next.afterRawVoxelSha256}};
+  }
   if(['cerebellar-exterior-islands40','cerebellar-left-exterior24','cerebellar-left-lower16','cerebellar-white-islands46','cerebellar-interstitial16'].includes(name)){
    assert.equal(next.blockMaskChanged,false);
    assert.ok(next.points.length===next.count&&next.points.every(p=>[28,29].includes(p.before)&&p.after===0));
@@ -58,8 +92,7 @@ export async function withRegionalBatches(record,{afterRevision=null}={}){
    assert.equal(next.count,name==='brainstem-exterior3'?3:10);
    assert.ok(next.points.every(p=>(name==='brainstem-exterior3'?p.before===27:[28,29].includes(p.before))&&p.after===0));
    assert.ok(next.sectionMeshImpact?.before?.sha256&&next.sectionMeshImpact?.after?.sha256);
-   const stored=await read('public/atlas/'+(name==='brainstem-exterior3'?'section-current-brainstem.mesh':'section-current-cerebellum.mesh'));
-   assert.equal(createHash('sha256').update(stored[0]===0x1f&&stored[1]===0x8b?gunzipSync(stored):stored).digest('hex'),next.sectionMeshImpact.after.sha256);
+   await verifyTissueSectionSuccessor(meta,next,name==='brainstem-exterior3'?'section-current-brainstem':'section-current-cerebellum',name==='brainstem-exterior3'?'brainstemSectionMeshImpact':'cerebellarSectionMeshImpact');
    // These tissue meshes are recorded separately; the historical ventricular mesh chain is unchanged.
    sectionImpact={before:result.sectionMeshImpact.after,after:{...result.sectionMeshImpact.after,
     sourceSha256:next.afterSha256,rawVoxelSha256:next.afterRawVoxelSha256}};
@@ -72,7 +105,7 @@ export async function withRegionalBatches(record,{afterRevision=null}={}){
    sectionImpact={before:result.sectionMeshImpact.after,after:{...result.sectionMeshImpact.after,sourceSha256:next.afterSha256,rawVoxelSha256:next.afterRawVoxelSha256}};
   }
   assert.deepEqual(sectionImpact.before,result.sectionMeshImpact.after);
-  const blockImpact=next.meshImpact?.blockMaskImpact??(name==='callosal-cingulate-broad'?[]:undefined);
+  const blockImpact=regionalBlockImpact(next)??(name==='callosal-cingulate-broad'?[]:undefined);
   if(!blockImpact){
    assert.equal(next.blockMaskChanged,false,'Missing block impact requires a verified unchanged block mask');
    assert.ok(next.sectionMeshImpact,'Missing section-mesh impact for unchanged-block adoption');
@@ -81,7 +114,7 @@ export async function withRegionalBatches(record,{afterRevision=null}={}){
    if(name==='anterior-commissure185')assert.ok(Number.isInteger(p.changed)&&p.changed>=0);
    else assert.equal(p.changedMaskVoxels,p.added+p.removed);
    if(p.changedMaskVoxels??p.changed){
-    assert.equal(p.beforeMatches,true);if(name!=='anterior-commissure185')assert.equal(p.reproducedBeforeSha256,p.beforeSha256);
+    assert.equal(p.beforeMatches,true);if(!['anterior-commissure185','amygdala-core1505'].includes(name))assert.equal(p.reproducedBeforeSha256,p.beforeSha256);
     assert.equal(createHash('sha256').update(await read('tests/fixtures/'+p.file.slice(0,-5)+'-pre-'+name+'.mesh')).digest('hex'),p.beforeSha256);
    }
   }
@@ -107,7 +140,7 @@ export async function regionalMeshSuccessor(file,previousSha,afterRevision=null)
    }
    continue;
   }
-  const blockImpact=r.meshImpact?.blockMaskImpact;
+  const blockImpact=regionalBlockImpact(r);
   if(!blockImpact){
    assert.equal(r.blockMaskChanged,false,'Missing block impact requires a verified unchanged block mask');
    assert.ok(r.sectionMeshImpact,'Missing section-mesh impact for unchanged-block adoption');
