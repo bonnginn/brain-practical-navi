@@ -10,3 +10,9 @@
 .thalamusGuideScope { font-size:.8rem; color:#536368; }
 @media(max-width:650px) { .thalamusGuideLayout { grid-template-columns:1fr; } }
 .thalamusGuideCompare { display:flex; align-items:center; gap:6px; margin-block:8px; font-size:.8rem; cursor:pointer; }
+
+.thalamusGuideSelector>summary{cursor:pointer;font-size:.8rem;padding-block:8px}
+.thalamusGuideCompact .thalamusGuideLayout>div:first-child{display:flex;flex-direction:column}
+.thalamusGuideCompact .thalamusGuideLayout canvas{order:-1;margin-top:8px}
+.thalamusGuideCompact .thalamusGuideLayout{gap:8px}
+.thalamusGuideCompact .thalamusGuideViews{margin-block:6px}

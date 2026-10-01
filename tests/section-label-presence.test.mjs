@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import {createHash} from "node:crypto";
 import {readFileSync} from "node:fs";
 import test from "node:test";
-import {nearestLabeledSection,planeSliceIndex} from "../app/segmentationGeometry.ts";
+import {nearestLabeledSection,representativeLabeledSection,planePositionForSlice,planeSliceIndex} from "../app/segmentationGeometry.ts";
 import {sectionStudyThemes} from "../src/sectionStudyThemes.ts";
 
 const root=new URL("../",import.meta.url);
@@ -26,6 +26,23 @@ test("paired labels count either hemisphere as present",()=>{
   assert.equal(nearestLabeledSection(index.labels,[37,38],"sagittal",154),null);
   assert.equal(nearestLabeledSection(index.labels,[37,38],"sagittal",239),null);
   assert.equal(nearestLabeledSection(index.labels,[37,38],"sagittal",197),239);
+});
+
+test("identification starts within a component instead of between paired hemispheres",()=>{
+  const peak=representativeLabeledSection(index.labels,[37,38],"sagittal");
+  assert.notEqual(peak,197);
+  assert.equal(nearestLabeledSection(index.labels,[37,38],"sagittal",peak),null);
+  assert.equal(representativeLabeledSection(index.labels,[999],"sagittal"),null);
+});
+
+test("indexed starting views remain occupied through all three plane coordinate conversions",()=>{
+  for(const id of Object.keys(index.labels))for(const plane of ["coronal","horizontal","sagittal"]){
+    const peak=representativeLabeledSection(index.labels,[Number(id)],plane);
+    assert.notEqual(peak,null,`${id}: ${plane}`);
+    const position=planePositionForSlice(peak,plane,index.dims);
+    assert.equal(planeSliceIndex(position,plane,index.dims),peak);
+    assert.equal(nearestLabeledSection(index.labels,[Number(id)],plane,peak),null);
+  }
 });
 
 test("the internal-capsule lesson starts where all five compared structures are visible",()=>{

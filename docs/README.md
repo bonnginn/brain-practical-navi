@@ -2,6 +2,15 @@
 
 利用方法は [トップのREADME](../README.md)、現在地・作業期限と次の作業は [短い再開メモ](RESUME_SUMMARY.md) を参照してください。
 
+- [長期休止時の運用・復元・再開](MAINTENANCE_AND_RESTART.md)
+- [長期休止への準備と統合確認（ローカル）](FREEZE_PREPARATION_2026-10-02.md)
+- [追加教材を含む断面UIの整理（ローカル）](OBSERVATION_UI_POLISH_2026-10-01.md)
+- [10月1日夜の教材導線改善（ローカル）](EVENING_TEACHING_POLISH_2026-10-01.md)
+- [観察から同じ構造の自己同定へ（ローカル）](OBSERVATION_IDENTIFICATION_LINK_2026-10-01.md)
+- [現行脳梁の表示と説明の整合（ローカル）](CALLOSAL_COPY_ALIGNMENT_2026-10-01.md)
+- [構造同定に主要11対象を追加（ローカル）](IDENTIFICATION_COVERAGE_2026-10-01.md)
+- [構造同定で3方向を切り替える（ローカル）](IDENTIFICATION_PLANES_2026-10-01.md)
+- [視床の参考位置と回路学習の接続（ローカル）](THALAMUS_CIRCUIT_CONNECTIONS_2026-10-01.md)
 - [10月1日の公開β反映・Cloudflare更新](OCTOBER1_BETA_RELEASE_2026-10-01.md)
 - [10月1日の10時間開発記録](DEVELOPMENT_10H_2026-10-01.md)
 - [視床核群の参考位置ガイド](THALAMUS_REFERENCE_GUIDE_2026-10-01.md)

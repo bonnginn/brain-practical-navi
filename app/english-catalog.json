@@ -1021,13 +1021,10 @@
   "左右位置": "Left and Right",
   "左右側脳室・第三脳室について、X・Y・Z各軸で同じ脳室ラベルに挟まれ、別ラベルと6近傍接触しない内部欠損33 voxelだけを固定差分としてプロジェクト内レビューし、公開教材ラベルへ採用した。": "A fixed patch filling 33 internal gaps in the left and right lateral ventricles and the third ventricle was reviewed within the project and adopted into the published educational labels. Each edited voxel was bracketed by the same ventricular label along the X, Y and Z axes and had no face-sharing contact with a different nonzero label.",
   "左右半球を結ぶ交連線維である": "A commissural fibre bundle connecting the left and right hemispheres",
-  "内側面では左側だけを表示します。自由観察では半球を切り替えて反対側も確認できます。試作分節は帯状回・脳弓など周辺構造との分離が不十分であり、確定境界ではありません。": "The medial-surface view shows only the left side. In free observation, switch hemispheres to inspect the opposite side. This provisional segmentation does not adequately separate neighbouring structures such as the cingulate gyrus and fornix; its outline is not a definitive boundary.",
   "左右大脳半球の内部でC字形に連続する髄液腔はどれですか？": "Which CSF-filled cavity follows a C-shaped course within each cerebral hemisphere?",
   "左右大脳半球の皮質間を連絡し、両半球の情報統合を担う最大の交連線維です。": "The corpus callosum is the largest commissural fibre bundle, connecting the cerebral cortices and supporting integration between the hemispheres.",
   "左右大脳半球を分ける正中の裂を示します。": "Shows the midline fissure separating the cerebral hemispheres.",
   "左右大脳半球を結ぶ交連線維である": "A commissural fibre bundle connecting the cerebral hemispheres",
-  "左右大脳半球を結ぶ交連線維です。矢状断で膝・幹・膨大を連続して確認します。局所的な誤収録は修正しましたが、帯状回・脳弓との分離など未修正部分があり、輪郭は確定境界ではありません。": "A commissural fibre bundle connecting the cerebral hemispheres. Follow the genu, body, and splenium in sagittal sections. Local mislabelled areas have been corrected, but separation from the cingulate gyrus and fornix remains incomplete. The outline is not a definitive anatomical boundary.",
-  "左右大脳半球を結ぶ大きな交連線維の弧です。局所的な誤収録は修正しましたが、帯状回・脳弓など周辺構造との分離には未修正部分が残ります。原画像と照合してください。": "The arch of the major commissural fibre bundle connecting the cerebral hemispheres. Local mislabelled areas have been corrected, but separation from neighbouring structures such as the cingulate gyrus and fornix remains incomplete. Compare the outline with the original images.",
   "左右大脳脚の間で動眼神経が現れる腹側のくぼみです。": "The ventral depression between the cerebral peduncles where the oculomotor nerves emerge.",
   "左外側": "Left",
   "左外側面": "Left lateral surface",
@@ -2737,5 +2734,8 @@
   "橋小脳線維が縦走し、皮質遠心性線維が横走する": "Longitudinal pontocerebellar fibres with transverse corticofugal fibres",
   "視索が縦走し、脳梁線維が横走する": "Longitudinal optic tracts with transverse callosal fibres",
   "すべて縦走する皮質遠心性線維で、横走線維はない": "Only longitudinal corticofugal fibres, with no transverse fibres",
-  "橋底部では縦走する皮質遠心性線維の間に橋核があり、そこから小脳へ向かう線維が横走・交叉して中小脳脚へ続きます。小脳へ中継されない皮質脊髄線維は、さらに延髄の錐体へ下行します。": "Pontine nuclei lie among longitudinal corticofugal fibres in the base. Pontocerebellar fibres run transversely, cross and continue through the middle cerebellar peduncle. Corticospinal fibres that do not relay to the cerebellum descend onward into the medullary pyramids."
+  "橋底部では縦走する皮質遠心性線維の間に橋核があり、そこから小脳へ向かう線維が横走・交叉して中小脳脚へ続きます。小脳へ中継されない皮質脊髄線維は、さらに延髄の錐体へ下行します。": "Pontine nuclei lie among longitudinal corticofugal fibres in the base. Pontocerebellar fibres run transversely, cross and continue through the middle cerebellar peduncle. Corticospinal fibres that do not relay to the cerebellum descend onward into the medullary pyramids.",
+  "左右大脳半球を結ぶ白質の弧です。内側面では左側を表示し、自由観察では半球を切り替えて反対側も確認できます。上方の帯状回と下方の脳弓を見分けましょう。輪郭は教材用の近似です。": "A white-matter arch connecting the cerebral hemispheres. The medial view shows the left side; switch hemispheres in free observation to inspect the opposite side. Distinguish the cingulate gyrus above from the fornix below. The outline is an educational approximation.",
+  "左右大脳半球を結ぶ大きな交連線維の弧です。上方の帯状回と下方の脳弓を見分け、側脳室の屋根との位置関係を確認します。輪郭は教材用の近似です。": "The arch of the major commissural fibre bundle connecting the cerebral hemispheres. Distinguish the cingulate gyrus above from the fornix below, and relate it to the roof of the lateral ventricles. The outline is an educational approximation.",
+  "左右大脳半球を結ぶ交連線維です。正中近くの矢状断で膝・幹・膨大を追い、上方の帯状回、下方の脳弓・側脳室と見比べます。輪郭は教材用の近似です。": "A commissural fibre bundle connecting the cerebral hemispheres. Near the midsagittal plane, follow the genu, body and splenium, comparing the cingulate gyrus above with the fornix and lateral ventricles below. The outline is an educational approximation."
 }

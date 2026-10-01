@@ -3,11 +3,11 @@ import {sectionStudyThemes,type SectionStudyTheme} from '../src/sectionStudyThem
 import './section-study.css';
 import {segmentationPlaneNames,type SegmentationPlane} from './segmentationGeometry';
 
-export function SectionStudyGuide({english,onObserve,children}:{english:boolean;onObserve:(theme:SectionStudyTheme)=>void;children:ReactNode}){
+export function SectionStudyGuide({english,onObserve,children,accordionGroup}:{english:boolean;onObserve:(theme:SectionStudyTheme)=>void;children:ReactNode;accordionGroup?:string}){
   const [open,setOpen]=useState(false);
   const summaryRef=useRef<HTMLElement|null>(null);
   const language=english?'en':'ja';
-  return <details className="sectionStudyGuide" data-no-localize open={open} onToggle={event=>setOpen(event.currentTarget.open)}>
+  return <details className="sectionStudyGuide" name={accordionGroup} data-no-localize open={open} onToggle={event=>setOpen(event.currentTarget.open)}>
     <summary ref={summaryRef}>{english?'Optional observation guides':'観察の補助ガイド'}</summary>
     <div className="sectionStudyContent">
       <p>{english?'Choose a starting view, then move through neighbouring sections. Each button replaces the current slice and selected structures; you can freely change them afterwards.':'テーマの開始断面から、隣接する断面へ進めて観察しましょう。ボタンを押すと断面位置と選択構造が切り替わります。その後は自由に変更できます。'}</p>

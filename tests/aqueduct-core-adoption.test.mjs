@@ -10,7 +10,7 @@ const sha=b=>createHash('sha256').update(b).digest('hex');
 
 test('partial aqueduct is selectable only for BigBrain, labelled partial, and absent from the quiz bank',async()=>{
  const page=(await read('app/page.tsx')).toString();
- assert.match(page,/aqueductPartial: \{name:"中脳水道候補（部分）",latin:"Cerebral aqueduct \(partial\)"[^\n]+ids:\[\],bigbrainIds:\[41\],labelSource:"image-guided"/);
+ assert.match(page,/aqueductPartial: \{name:"中脳水道候補（部分）",latin:"Cerebral aqueduct candidate \(partial\)"[^\n]+ids:\[\],bigbrainIds:\[41\],labelSource:"image-guided"/);
  assert.match(page,/aqueductPartial:\["section-current-aqueduct-partial"\]/);
  assert.match(page,/members:\["ventricle","thirdVentricle","fourthVentricle","aqueductPartial"\]/);
  const questions=page.slice(page.indexOf('const quizQuestions:'),page.indexOf('const visualQuizQuestions:'));

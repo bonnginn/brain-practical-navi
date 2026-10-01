@@ -1,4 +1,4 @@
-type Props={context:"basal"|"limbic"|"sections";english:boolean};
+type Props={context:"basal"|"limbic"|"sections";english:boolean;accordionGroup?:string};
 export const externalSpecimenVideos={
   basal:{provider:"UTHealth · Neuroscience Online",title:"Cranial Nerves and Vessels 2",url:"https://www.youtube.com/watch?v=lzm3K6nQNF0",time:"4:43",ja:"脳底で神経と血管が重なる様子を確認します。神経は冒頭から、血管は2:23頃から。神経の付着部を探し、3Dで見た位置と比べてください。",en:"Compare the overlapping nerves and vessels at the brain base with the 3D view. Follow nerve attachments from the start; vessels begin around 2:23."},
   limbic:{provider:"UBC · Functional Neuroanatomy",title:"Hypothalamus and Limbic System",url:"https://www.youtube.com/watch?v=ErpxEwlWww4&t=267s",time:"4:27 / 10:13",ja:"側脳室を開いた実物標本で海馬を探します。どの組織を除くと下角の床が見えるのか、周囲の残った組織にも注目してください。",en:"Starting at 4:27, find the hippocampus in an opened lateral ventricle. Notice what has been removed to expose the temporal-horn floor and which surrounding tissues remain."},
@@ -9,13 +9,14 @@ const summaries={
   limbic:{ja:"実標本で側脳室と海馬を見る",en:"Real specimen: ventricle and hippocampus"},
   sections:{ja:"実標本で断面の切り方を見る",en:"Real specimen: section planes"},
 };
-export function ExternalSpecimenVideo({context,english}:Props){
+export function ExternalSpecimenVideo({context,english,accordionGroup}:Props){
   const video=externalSpecimenVideos[context];
-  return <details className="externalSpecimenVideo" data-no-localize>
+  return <details className="externalSpecimenVideo" name={accordionGroup} data-no-localize>
     <summary>{summaries[context][english?"en":"ja"]} · {english?"external video":"外部動画"}</summary>
     <p>{english?video.en:video.ja}</p>
     <a href={video.url} target="_blank" rel="noopener noreferrer">{video.title} ↗</a>
     <small>{video.provider} · {context==="basal"?(english?"Duration ":"長さ "):(english?"From / total ":"開始 / 全長 ")}{video.time}</small>
     <small>{english?"Human brain specimen; English narration. Opens the publisher's video in a new tab.":"人体の脳標本・英語音声。公開元の動画を別タブで開きます。"}</small>
+    <small><a href={context==="basal"?"https://nba.uth.tmc.edu/neuroanatomy/L9/L9_index.html":"https://www.neuroanatomy.ca/videos.html"} target="_blank" rel="noopener noreferrer">{english?"Video unavailable? Open the publisher's teaching page ↗":"動画が開けない場合：公開元の教材ページへ ↗"}</a></small>
   </details>;
 }
