@@ -1299,7 +1299,7 @@ export default function Home() {
   useEffect(()=>{
     if(!detailsOpen||overlayOpen||workspace!=="sections")return;
     const dialog=document.querySelector<HTMLElement>(".inspector.open");
-    const frame=requestAnimationFrame(()=>dialog?.querySelector<HTMLButtonElement>(".inspectorClose")?.focus());
+    const frame=requestAnimationFrame(()=>{sectionStageRef.current?.scrollIntoView({block:'nearest'});dialog?.querySelector<HTMLButtonElement>(".inspectorClose")?.focus({preventScroll:true})});
     const trap=(event:KeyboardEvent)=>{
       if(event.key!=="Tab"||!dialog)return;
       const buttons=[...dialog.querySelectorAll<HTMLButtonElement>("button:not(:disabled)")].filter(button=>button.getClientRects().length>0);
@@ -1805,7 +1805,7 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
     if(!findObservationRotation){setReviewMenu(true);return;}
     const originalRotation=findObservationRotation;
     openWorkspace('sections');setRotation(originalRotation);setPlaying(false);
-    requestAnimationFrame(()=>sectionStageRef.current?.querySelector<HTMLElement>('canvas[tabindex="0"]')?.focus({preventScroll:true}));
+    requestAnimationFrame(()=>{const stage=sectionStageRef.current;stage?.scrollIntoView({block:'nearest'});stage?.querySelector<HTMLElement>('canvas[tabindex="0"]')?.focus({preventScroll:true})});
   }
   function startThemeReview(){setReviewMenu(false);setFindMode(false);
     if(!activeStudyTheme||!themeReviewQuestions.length)return;
@@ -2130,10 +2130,10 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
       <h3>{englishEdition?"Observation landmarks":"観察の手がかり"}</h3>{sectionObservationGuides[selectedStructure]?<div data-no-localize><p>{sectionObservationGuides[selectedStructure]!.observe[englishEdition?"en":"ja"]}</p><p className="structureComparison">{sectionObservationGuides[selectedStructure]!.compare[englishEdition?"en":"ja"]}</p></div>:<p>{current.note}</p>}
       {contrast==="bigbrain"&&sectionComparisonKeys.length>0&&<div className="sectionCompareAction" data-no-localize><button type="button" onClick={showSectionComparison}>{englishEdition?"Show neighbouring structures":"周囲の構造も表示"}</button><small>{sectionComparisonKeys.map(key=>englishEdition?anatomyDisplayEnglish(structures[key].latin):structures[key].name).join(englishEdition?", ":"・")}</small><small>{englishEdition?"Keeps your current slice and selections.":"現在の断面位置と選択を保ち、周囲の構造を追加します。"}</small></div>}
       <dl><div><dt>位置関係</dt><dd>{current.relation}</dd></div><div><dt>現在の断面</dt><dd>{planeData[plane].ja}・位置 {positionLabel}</dd></div></dl>
-      {sectionObservationGuides[selectedStructure]&&<details className="sectionScopeDetails"><summary>{englishEdition?"Label coverage and observation reference":"分節の収録範囲・観察の参考資料"}</summary><p>{current.note}</p><a href={sectionObservationGuides[selectedStructure]!.reference.url} target="_blank" rel="noreferrer">{sectionObservationGuides[selectedStructure]!.reference.title}</a></details>}
-      {current.labelSource&&<div className={`structureProvenance ${labelSourceDisplay[current.labelSource].className}`}><b>{labelSourceDisplay[current.labelSource].label}</b><span>{labelSourceDisplay[current.labelSource].detail}</span></div>}
-      <div className="identifyCard"><span>構造の確認</span>{contrast==="single"?<><b>画像参照モード</b><small>座標未確認のラベルは重ねません。照合済みの「BigBrain組織 0.5」を選択してください。</small></>:identified?<><b>{labels?`${identified.side}${identified.name}`:"解答非表示"}</b><small>{sectionDeveloperControls?(identified.certainty==="atlas"?"位置照合した試作ラベル":identified.certainty==="manual"?"画像と同一格子のBigBrain手動ラベル":identified.certainty==="reviewed"?"連続切片で確認した画像誘導ラベル":"位置照合または画像誘導による試作ラベル"):identified.note}</small></>:<><b>断面をタップ・クリック</b><small>指した場所の構造名を表示します。画面の＋／−ボタンやホイールで拡大縮小できます。</small></>}</div>
-      <p className="sectionReviewReminder">連続性や境界は前後の断面と見比べて確認してください。この画面は構造の見えやすさや正確性を数値評価していません。</p>
+      {sectionObservationGuides[selectedStructure]&&<details className="sectionScopeDetails"><summary>{englishEdition?"Label coverage and observation reference":"分節の収録範囲・観察の参考資料"}</summary><p>{current.note}</p><a href={sectionObservationGuides[selectedStructure]!.reference.url} target="_blank" rel="noreferrer">{sectionObservationGuides[selectedStructure]!.reference.title}</a>{current.labelSource&&<div className={`structureProvenance ${labelSourceDisplay[current.labelSource].className}`}><b>{labelSourceDisplay[current.labelSource].label}</b><span>{labelSourceDisplay[current.labelSource].detail}</span></div>}</details>}
+      {!sectionObservationGuides[selectedStructure]&&current.labelSource&&<div className={`structureProvenance ${labelSourceDisplay[current.labelSource].className}`}><b>{labelSourceDisplay[current.labelSource].label}</b><span>{labelSourceDisplay[current.labelSource].detail}</span></div>}
+      {(sectionDeveloperControls||identified)&&<div className="identifyCard"><span>構造の確認</span>{contrast==="single"?<><b>画像参照モード</b><small>座標未確認のラベルは重ねません。照合済みの「BigBrain組織 0.5」を選択してください。</small></>:identified?<><b>{labels?`${identified.side}${identified.name}`:"解答非表示"}</b><small>{sectionDeveloperControls?(identified.certainty==="atlas"?"位置照合した試作ラベル":identified.certainty==="manual"?"画像と同一格子のBigBrain手動ラベル":identified.certainty==="reviewed"?"連続切片で確認した画像誘導ラベル":"位置照合または画像誘導による試作ラベル"):identified.note}</small></>:<><b>断面をタップ・クリック</b><small>指した場所の構造名を表示します。画面の＋／−ボタンやホイールで拡大縮小できます。</small></>}</div>}
+      <p className="sectionReviewReminder" data-no-localize>{englishEdition?"Compare neighbouring sections and the 3D view to follow the structure and its relationships.":"前後の断面と3Dを見比べ、構造のつながりと周囲との関係を確かめましょう。"}</p>
       <RelatedCircuitLinks circuits={sectionCircuitLinks[selectedStructure]} english={englishEdition} onOpen={openRelatedCircuit}/>
       {sectionRelatedQuestions.length>0&&<button className="structureReviewButton" data-no-localize onClick={()=>startRelatedReview(sectionRelatedQuestions,englishEdition?anatomyDisplayEnglish(current.latin):current.name)}>{englishEdition?`Review this structure (${sectionRelatedQuestions.length} questions)`:`この構造を復習（${sectionRelatedQuestions.length}問）`}</button>}
       <button className="quiz" data-no-localize onClick={findObservedStructure} disabled={contrast!=="bigbrain"||sectionLabelPresence.revision!==SEGMENTATION_LABEL_SHA256}>{englishEdition?"Find this structure without colour":"この構造を無着色で探す"}<b>→</b></button>
