@@ -1,5 +1,5 @@
 {
-  "sourceLabelSha256": "3f0bc383ccc4e8434cc71340f3db0772e4581ddf177133678364f1cd9c4b09f1",
+  "sourceLabelSha256": "84f56821b8b47ef5a6551f756978dee2512fc0a9a8f5ae972bab5674c84564c0",
   "sourceImageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
   "preparation": "Shared opaque tissue surfaces with specimen-specific virtual cuts. Lateral ventricle: roof and temporal opening; other preparations: planar cuts. Colour annotates exposed surfaces only.",
   "specimens": {
@@ -565,11 +565,11 @@
         },
         {
           "file": "teaching-block-medial-temporal-amygdala.mesh",
-          "vertices": 435,
-          "faces": 611,
+          "vertices": 477,
+          "faces": 656,
           "shadeMin": 0.5302,
-          "shadeMax": 0.9442,
-          "meshSha256": "a921b0768a1ee7d8f33c4f8423fa4e83a541056254ea6dd86e8800b47e283b55",
+          "shadeMax": 0.9488,
+          "meshSha256": "7e8da014705fa340d48b97e4ddbe3d69d099d136304a5df46c2273ccd1a6edee",
           "key": "amygdala",
           "role": "structure",
           "source": "manual-segmentation",
@@ -599,11 +599,11 @@
         },
         {
           "file": "teaching-block-medial-temporal-tissue.mesh",
-          "vertices": 11876,
-          "faces": 23051,
+          "vertices": 11866,
+          "faces": 23006,
           "shadeMin": 0.0,
           "shadeMax": 1.0,
-          "meshSha256": "94972f75f9834cf65c0db5c7e7bab4477742d14bd16e426344958e8f7610384f",
+          "meshSha256": "801584b4619cf773ad6d436c7bb37cd450769460ff819c36c87bf47aa1e61d0a",
           "key": "tissue",
           "role": "tissue",
           "source": "specimen-derived",

@@ -119,8 +119,8 @@
     "18": 34251,
     "19": 4189,
     "20": 3920,
-    "21": 14647,
-    "22": 15077,
+    "21": 15296,
+    "22": 15933,
     "23": 81670,
     "24": 82250,
     "25": 11665,
@@ -481,7 +481,7 @@
     "workflowMetadataStatus": "strict"
   },
   "preClassificationCompressedSha256": "b75a24903ec08526b3e7f08df9efc8cee15af80d86bb96a821260913a2b176f3",
-  "rawVoxelSha256": "541e0df92bf28a53a95219d49401240a977c134358748359fa3a80ead66adcc1",
+  "rawVoxelSha256": "d990ca618c45c90764b4a51186b017f3fe5d082176496dc5597379013a030215",
   "brainstemThreeIslandsAudit": {
     "record": "segmentation-patches/review/brainstem-three-islands-adoption-2026-09-06.json",
     "recordSha256": "9c7b14f4272969261e3e2415d3f522b7e5d7db1eeca7cb0c8ae28b225458be66",
@@ -1818,6 +1818,13 @@
       "changedVoxelCount": 16,
       "projectAdopted": true,
       "expertReviewed": false
+    },
+    "amygdala-core1505": {
+      "record": "segmentation-patches/review/amygdala-core1505-adoption-2026-10-01.json",
+      "recordSha256": "4ca64be0781142ab15bf58843b1d1cab502fb043f64cc34abbb04d73f1fccf6b",
+      "changedVoxelCount": 1505,
+      "projectAdopted": true,
+      "expertReviewed": false
     }
   },
   "historicalGenerationClaims": {
@@ -1827,9 +1834,9 @@
   },
   "currentImageMeasurements": {
     "schemaVersion": 1,
-    "sourceLabelSha256": "3f0bc383ccc4e8434cc71340f3db0772e4581ddf177133678364f1cd9c4b09f1",
+    "sourceLabelSha256": "84f56821b8b47ef5a6551f756978dee2512fc0a9a8f5ae972bab5674c84564c0",
     "sourceImageSha256": "c4b69975f0dece2512adf3bcae690226492cfa66ded38380b3b94aa8dba52746",
-    "rawVoxelSha256": "541e0df92bf28a53a95219d49401240a977c134358748359fa3a80ead66adcc1",
+    "rawVoxelSha256": "d990ca618c45c90764b4a51186b017f3fe5d082176496dc5597379013a030215",
     "dimensionsXYZ": [
       394,
       466,
@@ -1858,8 +1865,8 @@
       "18": 34251,
       "19": 4189,
       "20": 3920,
-      "21": 14647,
-      "22": 15077,
+      "21": 15296,
+      "22": 15933,
       "23": 81670,
       "24": 82250,
       "25": 11665,

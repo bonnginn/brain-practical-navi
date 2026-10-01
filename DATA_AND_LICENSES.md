@@ -371,3 +371,7 @@ English: The MGB reference positions derive from the same-BigBrain 3D map by Sch
 2026-10-01追記：同じ変換済み左MGBの571点から、平滑化・穴埋め・成分削除・左右転写なしのmarching cubesで705頂点／1,386三角面の参照形状を作成。app/thalamusMgbSurface.jsonは上記CC BY-NC-SA 4.0を保持。ガイド内のみ桃色で表示し、採用済みLGNの青色形状と比較する。主分節ラベルと断面用MGB個別着色は追加していない。原点・軸順、候補SHA、閉じた面を生成時検証。
 
 English: A left-sided literature reference surface was reconstructed from the same 571 reviewed application-grid samples, with marching cubes and no smoothing, filling, component removal or mirroring. Its 705 vertices and 1,386 triangles are distributed in app/thalamusMgbSurface.json under the same CC BY-NC-SA 4.0 terms. Pink MGB is shown only in the reference guide, distinct from the adopted blue LGN shape. Main segmentation labels and section colouring are unchanged.
+
+2026-10-01：同一BigBrain扁桃体地図から8核に属する未ラベル1,505点（左649／右856）を補完した。13領域全体や6線維束の一括転写ではなく、海馬との既存重複は保持した。原画像36面で照合し、公式変換・0.5 mm最近傍標本化と無平滑mesh生成を使用。[採用範囲と可逆差分](docs/AMYGDALA_CORE1505_2026-10-01.md)。
+
+English: Same-specimen BigBrain amygdala maps by Schiffer, Kedo, Amunts and Dickscheid (DOI10.25493/TKTP-7NR, CC BY-NC-SA 4.0) support 1,505 additions to the gross left/right labels (649/856). Eight nuclear codes were used; five area/transition codes and six fibre codes were excluded from the additions. Existing hippocampal labels were preserved. Native-image review covered 36 orthogonal/adjacent planes. Registration, nearest-neighbour sampling at 0.5 mm and unsmoothed mesh reconstruction are project modifications, not new expert validation.

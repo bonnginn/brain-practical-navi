@@ -439,8 +439,8 @@
     "medial-temporal": [
       {
         "file": "block-medial-temporal-tissue.mesh",
-        "vertices": 29496,
-        "faces": 58776,
+        "vertices": 29541,
+        "faces": 58846,
         "shadeMin": 0.0,
         "shadeMax": 1.0,
         "part": "tissue",
@@ -449,9 +449,9 @@
         "color": "#c9a27d",
         "material": "specimen",
         "registrationSourceSha256": "7ebed144c2b200233ad1389d3288b2407edcb542fe46eaf8626ef872522f8c3f",
-        "meshSha256": "02d56715089a6963c6356f23d5b443c2286f57987fae7be012944c59c28369f1",
+        "meshSha256": "60c094aca5fef94a569f8b647f9861964fad6dd9e34c08117717139880c2a902",
         "registrationReview": "AI-assisted source-registration project adoption; not expert review. Existing meshing and cutaway rules retained.",
-        "segmentationSourceSha256": "055feec985e9b3a007e7856904cef0f36bbc7b00040061fdcba5d5d74820c491",
+        "segmentationSourceSha256": "84f56821b8b47ef5a6551f756978dee2512fc0a9a8f5ae972bab5674c84564c0",
         "repairReview": "AI-image-reviewed regional cavity repair; derived block synchronized. Development only, not expert review."
       },
       {
@@ -471,8 +471,8 @@
       },
       {
         "file": "block-medial-temporal-amygdala.mesh",
-        "vertices": 1354,
-        "faces": 2704,
+        "vertices": 1480,
+        "faces": 2956,
         "shadeMin": 0.82,
         "shadeMax": 0.82,
         "part": "amygdala",
@@ -481,8 +481,9 @@
         "color": "#9c6cae",
         "material": "model",
         "registrationSourceSha256": "7ebed144c2b200233ad1389d3288b2407edcb542fe46eaf8626ef872522f8c3f",
-        "meshSha256": "9b6730999b63ebc8b0ed115933bde09643865a736d06368ccf8d4e38b9a61f17",
-        "registrationReview": "AI-assisted source-registration project adoption; not expert review. Existing meshing and cutaway rules retained."
+        "meshSha256": "241bc1ac97ccb135c2dae2e3adb5d17d46af73ba7411a253e776ef84e1102fab",
+        "registrationReview": "AI-assisted source-registration project adoption; not expert review. Existing meshing and cutaway rules retained.",
+        "segmentationSourceSha256": "84f56821b8b47ef5a6551f756978dee2512fc0a9a8f5ae972bab5674c84564c0"
       },
       {
         "file": "block-medial-temporal-inferior-horn.mesh",

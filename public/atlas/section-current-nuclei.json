@@ -1,6 +1,6 @@
 {
   "source": "bigbrain-practical-segmentation-icbm500.bin.gz",
-  "sourceSha256": "3f0bc383ccc4e8434cc71340f3db0772e4581ddf177133678364f1cd9c4b09f1",
+  "sourceSha256": "84f56821b8b47ef5a6551f756978dee2512fc0a9a8f5ae972bab5674c84564c0",
   "method": "0.5 mm marching cubes; no resampling, filling, smoothing or component removal",
   "scope": "Display synchronization only; not anatomical validation",
   "meshes": {
@@ -257,38 +257,41 @@
       "compression": "gzip"
     },
     "section-current-amygdala": {
-      "voxels": 29724,
-      "components6": 2,
+      "voxels": 31229,
+      "components6": 4,
       "componentSizes": [
-        15077,
-        14647
+        15933,
+        15294,
+        1,
+        1
       ],
       "boundsZYX": [
         [
           83,
-          243,
+          237,
           128
         ],
         [
-          125,
+          127,
           271,
           264
         ]
       ],
-      "vertices": 11021,
-      "faces": 22038,
-      "sha256": "62244eed43030b4c649763723c70741fde823f5209c593205f22a1058fce8909",
-      "bytes": 141028,
+      "vertices": 12237,
+      "faces": 24534,
+      "sha256": "77af5efed5cee9c64560736c0a3381eed3f9a945dc468b2cd19928fbcde76260",
+      "bytes": 160055,
       "labelIds": [
         21,
         22
       ],
       "labelVoxelCounts": {
-        "21": 14647,
-        "22": 15077
+        "21": 15296,
+        "22": 15933
       },
-      "rawSha256": "bb90f9bf984e00b550d6dbd90c65252082d2699535641b7ab58e6313e760f6b7",
-      "compression": "gzip"
+      "rawSha256": "1c02742e7bffaab61f489afe9e47c74bbf9436abecbbc96ef9e9253310f68c60",
+      "compression": "gzip",
+      "reviewRecord": "segmentation-patches/review/amygdala-core1505-adoption-2026-10-01.json"
     },
     "section-current-red-nucleus": {
       "voxels": 5775,
