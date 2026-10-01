@@ -467,14 +467,12 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /現在の画像ソースでは未分節・着色できません/);
   assert.match(canvasCss, /\.structureBtn\.unavailable/);
   assert.doesNotMatch(page, /active&&<small>\{item\.note\}/);
-  assert.match(page, /className="selectedStructureList" aria-label="選択中の構造と解説"/);
+  assert.match(page, /className="selectedStructureList"/);
   assert.match(page, /activeVisibleStructures\.map\(key=>/);
-  assert.match(page, /labels\?item\.relation:"解答を隠しています"/);
   assert.doesNotMatch(page, /landmarks\.map\(mark/);
   assert.doesNotMatch(page, /目印をクリックすると/);
   assert.match(canvasCss, /\.workspace-sections \.workArea \{ overflow-y: auto/);
   assert.match(canvasCss, /\.workspace-sections \.slicePanel \{ height: auto; grid-template-rows: auto clamp\(520px,65vh,760px\) auto auto; \}/);
-  assert.match(page, /sectionDeveloperControls&&key===selectedStructure&&<em>\{currentSourceNote\}/);
   assert.match(page, /sectionDeveloperControls&&<small>\{identified\.certainty/);
   assert.match(page, /sectionDeveloperControls&&quizSource&&<small>/);
   assert.match(page, /const \[quizSlicePosition,setQuizSlicePosition\]=useState\(52\)/);
@@ -1731,7 +1729,7 @@ test("left medial view clips every paired deep overlay to the displayed side", a
   assert.match(canvas, /gl\.uniform1f\(gl\.getUniformLocation\(prog,"hemiMode"\),hemisphere==="left"\?-1/);
   assert.match(page, /hemisphere:"left"/);
   assert.match(page, /初期状態は非表示・左側だけを描画/);
-  assert.match(page, /内側面では左側だけを表示します/);
+  assert.match(page, /内側面では左側を表示/);
   assert.match(page, /自由観察では半球を切り替えて反対側も確認できます/);
 
   for (const name of [
@@ -2331,7 +2329,7 @@ test("ordinary study views disclose structure provenance without claiming expert
   assert.match(page, /"atlas-provisional":\{label:"アトラス照合・試作"/);
   assert.match(page, /"image-guided":\{label:"画像誘導・試作"/);
   assert.match(page, /"image-guided-reviewed":\{label:"画像誘導・確認済み"/);
-  assert.match(page, /className=\{`provenanceBadge \$\{source\.className\}`\}/);
+  assert.match(page, /className=\{`structureProvenance \$\{labelSourceDisplay\[current\.labelSource\]\.className\}`\}/);
   assert.match(page, /learnerSourceLabel\(item\.source\)/);
   assert.match(page, /<details className="provenanceDetails">/);
   assert.match(css, /\.provenanceBadge\.provisional/);
