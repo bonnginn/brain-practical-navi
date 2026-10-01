@@ -2722,5 +2722,8 @@
   "脳弓を通る乳頭体だけ": "Only mammillary body via fornix",
   "同側の視床VLなど": "Ipsilateral thalamic VL and related nuclei",
   "反対側の内側膝状体": "Contralateral medial geniculate body",
-  "反対側の視床前核群": "Contralateral anterior thalamic nuclei"
+  "反対側の視床前核群": "Contralateral anterior thalamic nuclei",
+  "視放線です。レンズ核の後方という位置を手がかりに、外側膝状体から後頭葉の一次視覚野へ向かう経路を考えます。外側膝状体へ入る視索と、そこから皮質へ出る視放線を区別します。": "Optic radiations. Use the position behind the lentiform nucleus to trace the route from the lateral geniculate body to primary visual cortex in the occipital lobe. Distinguish the incoming optic tract from the outgoing geniculocortical fibers.",
+  "左右の側頭葉皮質です。前交連は正中を横切る交連線維の束で、脳梁吻の下方に見つかります。左右半球を結ぶ交連線維と、視床・皮質を結ぶ投射線維を区別します。": "The left and right temporal cortices. The anterior commissure is a bundle of commissural fibers crossing the midline below the callosal rostrum. Distinguish interhemispheric commissural fibers from thalamocortical projection fibers.",
+  "最外包です。外側から島皮質→最外包→前障→外包→被殻と位置をたどります。前障の外側が最外包、内側が外包と覚えると、二つの白質層を区別できます。": "The extreme capsule. Follow insular cortex, extreme capsule, claustrum, external capsule and putamen from lateral to medial. The extreme capsule is lateral to the claustrum, whereas the external capsule is medial to it."
 }

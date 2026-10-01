@@ -1981,7 +1981,7 @@
   },
   {
     "question": "capsule-retrolenticular-visual-route",
-    "revision": "ed7357018e271d25e067e97f4320823363cf9ba8b795ddd592997d911682b4bc",
+    "revision": "2050177adb6404d96377f41b643b88e7522f35c6b5784d57ea81ab127932e0be",
     "prompt": "内包のレンズ核後部を通る代表的な感覚経路はどれですか？",
     "options": [
       "capsule-retrolenticular-visual-route-a",
@@ -2003,7 +2003,7 @@
   },
   {
     "question": "anterior-commissure-temporal-connection",
-    "revision": "038cc1d9e9b2394973be79134d4c7cf74629cd5b4b936264d63b3bd146a4159c",
+    "revision": "a159d798c1888348963ec57813de505ec67a5cde754af44b806a92058a994202",
     "prompt": "前交連の大きな成分が結ぶ大脳皮質の組合せはどれですか？",
     "options": [
       "anterior-commissure-temporal-connection-a",
@@ -2047,7 +2047,7 @@
   },
   {
     "question": "insula-extreme-capsule-neighbour",
-    "revision": "06bf98e6a44897db387703f18930409f896a9659170ae48b4a1d4c9dbea1065d",
+    "revision": "4bd9886fd2594aac8d8914b92740ca5d0c65ab97fce7fcef7bafde9b1797c70e",
     "prompt": "島皮質と前障の間にある白質層はどれですか？",
     "options": [
       "insula-extreme-capsule-neighbour-a",
