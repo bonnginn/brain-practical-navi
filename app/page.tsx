@@ -30,6 +30,7 @@ import {circuitTeaching} from "../src/circuitTeaching.mjs";
 import { CircuitTeachingPanel, type CircuitPosition } from "./CircuitTeachingPanel";
 import { BIGBRAIN_SECTION_DIMS, SectionSliceStepper } from "./SectionSliceStepper";
 import { ForamenGuide } from "./ForamenGuide";
+import { ThalamusGuide } from "./ThalamusGuide";
 import {ObservationLink} from "./ObservationLink";
 import {ActiveSectionStudy} from "./ActiveSectionStudy";
 import {SectionStudyGuide} from "./SectionStudyGuide";
@@ -1939,7 +1940,7 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
         </div>
       </section></div>
       <div className="sectionUtilities">
-      {contrast==="bigbrain"&&<><SectionStudyGuide english={englishEdition} onObserve={observeStudyTheme}><ForamenGuide english={englishEdition} onObserve={observeForamenSlice}/></SectionStudyGuide><ExternalSpecimenVideo context="sections" english={englishEdition}/></>}
+      {contrast==="bigbrain"&&<><SectionStudyGuide english={englishEdition} onObserve={observeStudyTheme}><ForamenGuide english={englishEdition} onObserve={observeForamenSlice}/></SectionStudyGuide><ThalamusGuide english={englishEdition}/><ExternalSpecimenVideo context="sections" english={englishEdition}/></>}
       {sectionLinkStatus&&<p role="status">{englishEdition?"This observation link is invalid or uses a different label revision. Its settings were not applied.":"観察リンクが不正、またはラベルの版が異なるため、リンクの設定は適用していません。"}</p>}
       {contrast==="bigbrain"&&<ObservationLink english={englishEdition} onOpen={()=>setPlaying(false)} url={typeof window==="undefined"?"":observationUrl(window.location.href,sectionLinkHash(plane,{version:1,positions:{...sectionPositions.current,[plane]:position},visible:visibleStructures,selected:selectedStructure,layout:sectionLayout,views:sectionModelViews,share:sectionModelShare},sectionAllowedKeys,SEGMENTATION_LABEL_SHA256)??"")}/>}
       </div>

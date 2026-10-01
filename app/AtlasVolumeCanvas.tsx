@@ -283,6 +283,12 @@ if(!meshCache.has(name))meshCache.set(name,trackAtlasProcessing(id,async token=>
   }));return meshCache.get(name)!
 }
 
+// Share the existing decoder, revision URL and cache with the reference guide.
+export async function loadThalamusGuideMesh(){
+  const mesh=await loadMesh("section-current-thalamus");
+  return {vertices:mesh.vertices,faces:mesh.faces};
+}
+
 function smoothCerebellarDisplayNormals(mesh:Mesh){
   // The CerebrA voxel boundary is kept bit-for-bit: only display normals are
   // averaged. A crease threshold avoids blending opposing banks of deep folia.
