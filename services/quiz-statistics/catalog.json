@@ -1923,5 +1923,49 @@
       "pons-sulcus-limitans-location-c",
       "pons-sulcus-limitans-location-d"
     ]
+  },
+  {
+    "question": "pallidum-direct-disinhibition",
+    "revision": "d04105cadc49208b467d25d8bcf88dfda726b53f81548182c1e2b312d1ab382a",
+    "prompt": "基底核の直接路で線条体がGPiを抑制すると、視床への作用は基本模式ではどう変わりますか？",
+    "options": [
+      "pallidum-direct-disinhibition-a",
+      "pallidum-direct-disinhibition-b",
+      "pallidum-direct-disinhibition-c",
+      "pallidum-direct-disinhibition-d"
+    ]
+  },
+  {
+    "question": "pallidum-indirect-route-sequence",
+    "revision": "5e3d05314ad6303c98e50dab5529832d51f8497d63a1b15e978b64944f768ad1",
+    "prompt": "基本的な間接路で、線条体からGPiへ至る途中に通る順序はどれですか？",
+    "options": [
+      "pallidum-indirect-route-sequence-a",
+      "pallidum-indirect-route-sequence-b",
+      "pallidum-indirect-route-sequence-c",
+      "pallidum-indirect-route-sequence-d"
+    ]
+  },
+  {
+    "question": "nigra-dopamine-d1-d2",
+    "revision": "78133bc3e3b79db936aecba6a716927d332048fa3e937354da7bc53089556014",
+    "prompt": "黒質緻密部のドパミン作用を、基本的な直接路・間接路モデルで表す組合せはどれですか？",
+    "options": [
+      "nigra-dopamine-d1-d2-a",
+      "nigra-dopamine-d1-d2-b",
+      "nigra-dopamine-d1-d2-c",
+      "nigra-dopamine-d1-d2-d"
+    ]
+  },
+  {
+    "question": "nigra-reticulata-collicular-output",
+    "revision": "9630eb308b01af02efbb7abd868643e6a134fa63c60105c334295077d6ae375b",
+    "prompt": "黒質網様部から、眼球運動に関係する中脳の構造へ向かう主要な抑制性接続先はどれですか？",
+    "options": [
+      "nigra-reticulata-collicular-output-a",
+      "nigra-reticulata-collicular-output-b",
+      "nigra-reticulata-collicular-output-c",
+      "nigra-reticulata-collicular-output-d"
+    ]
   }
 ]
