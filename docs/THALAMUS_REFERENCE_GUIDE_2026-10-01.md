@@ -36,3 +36,16 @@
 「ほかの核群の参考位置も重ねる」で7目印を同時に比較できる。選択項目を金色、他を淡い青で描き、外側のVA/VL/VPLの文字は目印の外側へ配置してVPL/VPMの文字重なりを減らした。初期状態は一項目で、核の輪郭や体積は示さない。日本語の上面VPL、英語の内側面MDで目印・方位・凡例を実画面確認した。
 
 自由観察で視床を選ぶと、選択構造の解説の下から同じガイドを開ける。狭い側欄でガイドを読んでも主3Dは残る。VPMの模型・解説を表示し、視床の選択解除でガイドも消えることを確認。型検査・preview build成功。共通メッシュや分節資産は不変のため全件試験は反復していない。検証タブのキャッシュ迂回を復元し、タブを閉じた。
+
+## 同一BigBrainのVIM参照輪郭を追加
+
+[siibra公式の皮質下地図評価教材](https://siibra-python.readthedocs.io/en/latest/examples/tutorials/2025-paper-fig6.html)には、Julich-Brain確率地図などの別標本由来の比較とは別に、第3797切片に組織学的基準で注釈されたVIMの一切片輪郭がある。[固定版の原注釈](https://github.com/FZJ-INM1-BDA/siibra-python/blob/e1bf71cf74d63fa00f93d38369ca50a8a8201ade/examples/tutorials/e2ec8c09.sands.json)を取得。研究教材の公開注釈として使用し、別標本の確率地図を当該標本の核境界へ転写していない。関連論文は [Dickscheid et al., Nature Methods (2026)](https://doi.org/10.1038/s41592-026-03159-x)。今回の原注釈と照合方法は以下。
+
+- 原SHA `823b136c18204da3d1edd19da137d4e52e373017e66db6216129a5a5855793bc`、71頂点、BigBrain native Y5.93 mm。元のcoordinateSpace IDを確認。
+- 同一標本native100のY789はY5.93 mmと一致。原画像、現行視床/内包輪郭、文献VIM輪郭を並べ、腹外側寄りの位置を目視。図とSHAは `work/anatomy-review/thalamus-vim-native100-2026-10-01/`、入力と変換記録は `work/anatomy-review/thalamus-vim-reference-2026-10-01/`。
+- native→従来ICBM→改良ICBMの公式変換列で移す。最大順逆誤差2.14e-6 mm。科学座標と表示用原点を区別し、表示XYZ原点[-98,-116,-90] mmへ変換する。原座標、変換SHA、表示座標は `app/thalamusVimReference.json`。再現用 `scripts/build_thalamus_vim_reference.py`。
+- 原輪郭71頂点の最近傍現行ラベルは15が57、31が11、0が3。既存0.5 mmの視床/内包縁へ輪郭を強制変形していない。包含検査は核の正しさの証明ではなく、核全体の容積や前後の連続形は取得していない。
+- VIM選択時に金色の参照輪郭と、その2D多角形の代表点を形状へ投影。核全体の3D境界や核中心ではない。輪郭が読める「後ろから」へ自動切替し、他の投影と7模式点との比較も可能。VIMは左側の資料だけで、右側への輪郭転写は行わない。
+- 日英の位置・運動中継の解説、ブラウザ参考文献と個別noticeを追加。原リポジトリのApache-2.0全文と改変表示、原BigBrainの条件を保持。原画像・論文図のガイド内転載はない。
+
+型検査とpreview build成功。日本語でVIM選択→冠状方向、輪郭全体、斜め表示と比較を実画面確認。英語で説明と出典・noticeへの導線を確認した。核ラベル・標本meshは変更していない。今後も他の7模式点をこのVIM輪郭から逆算しない。

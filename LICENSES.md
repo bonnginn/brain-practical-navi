@@ -41,3 +41,7 @@ React、Vite、TypeScriptなどの依存ソフトウェアは、それぞれの�
 ## 5. 商標・氏名・プライバシー
 
 ライセンスは、プロジェクト名、組織名、投稿者名の商標的利用、個人情報、肖像、患者情報、標本画像などについて追加の許諾を与えるものではありません。
+
+## 視床VIMの一切片参照輪郭 / Single-section VIM reference
+
+`app/thalamusVimReference.json` はsiibra-pythonの第3797切片の公開注釈を座標変換した参照データです。元リポジトリのApache-2.0表示、固定版の出典、変更内容、全文を [個別notice](public/THALAMUS-VIM-REFERENCE-NOTICE.txt) に保持し、アプリコードのAGPL表示で上書きしません。原BigBrain画像の利用条件は別途維持します。このガイドは原画像や論文図を再配布せず、一枚の文献輪郭を核全体の3D分節として扱いません。

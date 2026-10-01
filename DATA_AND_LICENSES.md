@@ -357,3 +357,9 @@ BigBrain元手動区画へ公式変位場を適用した高精度候補から、
 2026-09-19開発版：視交叉中央部（部分）ID36は同一BigBrainの40／100 µm原画像から内部112点を選び、0.5 mm格子で無平滑・無補間の断面3Dを作成した派生データ。BigBrainのCC BY-NC-SA 4.0条件を継承する。全外縁・視神経・視索・視放線の完成を示さない。[統合記録](docs/OPTIC_CENTRAL112_INTEGRATION_2026-09-19.md)。
 
 English: Partial central optic chiasm ID36 is a project-reviewed derivative of the same BigBrain specimen, based on native 40/100 µm images. Its 112-voxel interior and unsmoothed section mesh retain BigBrain CC BY-NC-SA 4.0 terms; this is not a complete optic chiasm or visual pathway and is not expert-reviewed.
+
+## 2026-10-01：BigBrain VIM参照切片の位置比較（開発版）
+
+siibra-pythonのfigure-6教材の公開注釈（第3797切片、native Y5.93 mm、71頂点）を固定コミット `e1bf71cf74d63fa00f93d38369ca50a8a8201ade` から取得。原座標と原SHA、公式変換列のSHAを保持し、現行表示座標へ移した。核全体への押し出し・補間・ラベル追加は行わない。別標本のJulich-Brain確率地図とは区別し、7模式目印とは別の一切片の参照輪郭として表示。元リポジトリのApache-2.0全文と変更表示は [notice](public/THALAMUS-VIM-REFERENCE-NOTICE.txt)。原BigBrainの条件は維持し、元画像・論文図はガイドへ転載しない。
+
+English: A pinned siibra-python example annotates VIM on one BigBrain histological section. Its 71-vertex contour is registered into the current display as a single-section literature reference, without extrusion, nucleus labels or changes to specimen segmentation. Original coordinates, hashes, attribution, source repository licence and modifications are retained separately from the seven schematic guide points.
