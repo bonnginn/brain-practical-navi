@@ -1340,5 +1340,93 @@
       "fourth-ventricle-apertures-c",
       "fourth-ventricle-apertures-d"
     ]
+  },
+  {
+    "question": "fornix-pre-post-landmark",
+    "revision": "fb08f32eb55a67be098d803449a2fbc20a213a934de0cdb594dff8d63965a063",
+    "prompt": "脳弓の交連前部・交連後部を区別するとき、基準となる交連はどれですか？",
+    "options": [
+      "fornix-pre-post-landmark-a",
+      "fornix-pre-post-landmark-b",
+      "fornix-pre-post-landmark-c",
+      "fornix-pre-post-landmark-d"
+    ]
+  },
+  {
+    "question": "fornix-body-callosal-relation",
+    "revision": "2c06378aac5159a140e14cc610d1f474d2cd7c5ae4aa7cb18493a9c01f6b1aaa",
+    "prompt": "脳弓体を冠状断で探すとき、脳梁との大まかな位置関係はどれですか？",
+    "options": [
+      "fornix-body-callosal-relation-a",
+      "fornix-body-callosal-relation-b",
+      "fornix-body-callosal-relation-c",
+      "fornix-body-callosal-relation-d"
+    ]
+  },
+  {
+    "question": "fornix-postcommissural-destination",
+    "revision": "796c4429a887c5a3d34fddb4a7a27a6ead475438be945a9f6bb4a7271832fb54",
+    "prompt": "脳弓の交連後部を下方へ追うとき、代表的な到達先として探すのはどれですか？",
+    "options": [
+      "fornix-postcommissural-destination-a",
+      "fornix-postcommissural-destination-b",
+      "fornix-postcommissural-destination-c",
+      "fornix-postcommissural-destination-d"
+    ]
+  },
+  {
+    "question": "lgn-output-radiation",
+    "revision": "3732308633e163437630e48daa83cff26905c207911719309bab0641a99d2396",
+    "prompt": "外側膝状体から一次視覚野へ向かう線維束はどれですか？",
+    "options": [
+      "lgn-output-radiation-a",
+      "lgn-output-radiation-b",
+      "lgn-output-radiation-c",
+      "lgn-output-radiation-d"
+    ]
+  },
+  {
+    "question": "lgn-meyer-loop-landmark",
+    "revision": "edd2d83850dc0757abd8aeb48aec4f0a6fd301dc4299f146190981e5fc0f5d41",
+    "prompt": "外側膝状体からの視放線で、マイヤーループの走行を捉える目印はどれですか？",
+    "options": [
+      "lgn-meyer-loop-landmark-a",
+      "lgn-meyer-loop-landmark-b",
+      "lgn-meyer-loop-landmark-c",
+      "lgn-meyer-loop-landmark-d"
+    ]
+  },
+  {
+    "question": "optic-tract-retinal-halves",
+    "revision": "e8192b46c1ea8fdb2c0e06972b7af48059acb9a5d735c46a61d8385fa3cc1f61",
+    "prompt": "一側の視索に含まれる網膜由来の線維の組合せはどれですか？",
+    "options": [
+      "optic-tract-retinal-halves-a",
+      "optic-tract-retinal-halves-b",
+      "optic-tract-retinal-halves-c",
+      "optic-tract-retinal-halves-d"
+    ]
+  },
+  {
+    "question": "optic-chiasm-crossing-half",
+    "revision": "0e09c30589f490ecc07dd0bda6d0528b694eb2f08f304107eb79d1271678312a",
+    "prompt": "視交叉で反対側へ交叉するのは、主に網膜のどちら側の線維ですか？",
+    "options": [
+      "optic-chiasm-crossing-half-a",
+      "optic-chiasm-crossing-half-b",
+      "optic-chiasm-crossing-half-c",
+      "optic-chiasm-crossing-half-d"
+    ]
+  },
+  {
+    "question": "lgn-other-retinal-targets",
+    "revision": "1752b59328f94ca38a634480c8cb850f7049c65462f2cdab2df032d91a56a120",
+    "prompt": "網膜からの投射は外側膝状体だけでしょうか？適切な説明はどれですか？",
+    "options": [
+      "lgn-other-retinal-targets-a",
+      "lgn-other-retinal-targets-b",
+      "lgn-other-retinal-targets-c",
+      "lgn-other-retinal-targets-d"
+    ]
   }
 ]
