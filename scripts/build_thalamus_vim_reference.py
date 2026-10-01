@@ -47,7 +47,8 @@ def build():
     world = forward_chain(improved, grid.forward(native @ linear[:, :3].T + linear[:, 3]))
     back, error = native_points(world, improved, grid, linear)
     assert np.max(np.abs(back - native)) < 1e-4
-    affine = np.array(json.loads((ROOT / "public/atlas/bigbrain-icbm500-validation.json").read_bytes())["affine"])
+    geometry = json.loads((ROOT / "public/atlas/bigbrain-icbm500-validation.json").read_bytes())
+    affine = np.array(geometry["affine"])
     indices = (np.linalg.inv(affine) @ np.c_[world, np.ones(len(world))].T).T[:, :3]
     display = indices * .5 + DISPLAY_ORIGIN_ZYX[::-1]
     return {
@@ -61,6 +62,8 @@ def build():
         "nativeContourXYZmm": points.tolist(),
         "displayContourXYZmm": display[:-1].round(6).tolist(),
         "displayReferencePointXYZmm": display[-1].round(6).tolist(),
+        "applicationReferenceXYZ": indices[-1].round(6).tolist(),
+        "applicationDimensionsXYZ": geometry["shape"],
         "maximumRoundtripErrorMm": float(error.max()),
         "mappingHashes": {"nativeGrid": GRID_SHA, "linear": LIN_SHA, "nonlinear": NL_SHA,
                           "improvedGrids": GRID_SHAS, "improvedTransform": XFM_SHA},

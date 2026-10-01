@@ -728,6 +728,16 @@
     4.580664,
     -16.812278
   ],
+  "applicationReferenceXYZ": [
+    169.134667,
+    241.161328,
+    146.375445
+  ],
+  "applicationDimensionsXYZ": [
+    394,
+    466,
+    378
+  ],
   "maximumRoundtripErrorMm": 2.1380020100991715e-06,
   "mappingHashes": {
     "nativeGrid": "03ba5b1c91d77f66f72ccbbee5044874fc45b1da6cdaffd4b2ac2111dec8f9df",
