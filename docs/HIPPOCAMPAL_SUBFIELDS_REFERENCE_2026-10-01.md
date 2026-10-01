@@ -26,3 +26,7 @@
 - `work/october1-fetch-hippo-all-surfaces.py`、`october1-project-entorhinal.py`、`october1-review-hippo-subfields-native100.py`：再現用コード。
 
 次は海馬の範囲を無条件に広げず、白板と海馬采を示す別の直接資料、または海馬台を独立して教える必要性に照らして検討する。既存保留の薄い帯を同じ根拠だけで再採用しない。ラベル変更なしのため全件試験・再メッシュは行わない。
+
+### 「with_white」配布物の実体確認
+
+公式JSON目録のhippocampus_with_white_left.jsonを取得し、実際のshapeを確認した。140,128,511 bytes、SHA-256 523cc1d5d290a4efbcd866931f0938d8bbee5c9e7f9e1920b6b4dff2ffd92522。7 shapeは左CA1〜CA4・歯状回・海馬台と「Left white」。後者は163,842頂点／327,680面、座標範囲[-62.1607,-68.8546,-34.6825]〜[3.78936,77.4745,53.5233]で、海馬局所の白板・海馬采ラベルではなく半球全体を覆う参照表面である。ファイル名のwhiteを根拠に脳弓の追加分節へ使わない。実ファイルとshape別範囲は同じworkディレクトリのwhite-left-inspection.jsonに保持。アプリ配布物への追加はしない。
