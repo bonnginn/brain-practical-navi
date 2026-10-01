@@ -12,6 +12,7 @@ const expectedMultiplicity={caudate:2,putamen:2,pallidum:2,accumbens:2,hippocamp
 // These already-rendered section structures need their own explicit context.
 // Aqueduct remains outside the quiz target set; its partial display is not a new approval.
 const additionalSectionTargets=new Set(['thirdVentricle','fourthVentricle','anteriorCommissurePartial','septumPellucidumPartial','lateralGeniculateBodies','fornixBodyPartial','opticChiasmPartial','opticTractsPartial','pallidumExternal','pallidumInternal']);
+const additionalVascularTargets=new Set(['aca','acomm','mca','pcomm','vertebral','pca','cerebellarArteries']);
 
 export function validateQuizConceptBank(bank,source=""){
   const errors=[];
@@ -25,12 +26,12 @@ export function validateQuizConceptBank(bank,source=""){
   const ids=new Set(), counts={};
   for(const question of questions){
     if(!question?.id||ids.has(question.id))errors.push(`invalid or duplicate question id: ${question?.id??"missing"}`);else ids.add(question.id);
-    if(!(question?.target in expectedMultiplicity)&&!additionalSectionTargets.has(question?.target))errors.push(`${question?.id}: unknown visual target ${question?.target}`);else counts[question.target]=(counts[question.target]??0)+1;
+    if(!(question?.target in expectedMultiplicity)&&!additionalSectionTargets.has(question?.target)&&!additionalVascularTargets.has(question?.target))errors.push(`${question?.id}: unknown visual target ${question?.target}`);else counts[question.target]=(counts[question.target]??0)+1;
     if(additionalSectionTargets.has(question?.target)&&!question.sectionView)errors.push(`${question.id}: new section target requires sectionView`);
     if(!KINDS.has(question?.kind))errors.push(`${question?.id}: invalid kind ${question?.kind}`);
     if(question?.sectionView){
       const view=question.sectionView;
-      if(['precentral','superiorTemporal','superiorFrontal','precuneus','cuneus','fusiform'].includes(question.target)||/^(cn\d|opticChiasm$|ica$|basilar$)/.test(question.target))errors.push(`${question.id}: sectionView requires a section target`);
+      if(['precentral','superiorTemporal','superiorFrontal','precuneus','cuneus','fusiform'].includes(question.target)||additionalVascularTargets.has(question.target)||/^(cn\d|opticChiasm$|ica$|basilar$)/.test(question.target))errors.push(`${question.id}: sectionView requires a section target`);
       if(!['coronal','horizontal','sagittal'].includes(view.plane)||!Number.isFinite(view.position)||view.position<0||view.position>100||!['basal','limbic','midbrain','ventricles','connections','hindbrain'].includes(view.category))errors.push(`${question.id}: invalid sectionView`);
     }
     if(!question?.prompt?.trim()||!question?.explanation?.trim())errors.push(`${question?.id}: prompt/explanation required`);

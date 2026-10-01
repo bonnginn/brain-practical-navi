@@ -1549,5 +1549,93 @@
       "cn12-palatoglossus-exception-c",
       "cn12-palatoglossus-exception-d"
     ]
+  },
+  {
+    "question": "aca-medial-territory",
+    "revision": "68b05c78ceeead814d769c3ea7d2fa2e2951b95a53172547349b18aef71eafa8",
+    "prompt": "前大脳動脈の主な皮質領域として、どの面を結びつけますか？",
+    "options": [
+      "aca-medial-territory-a",
+      "aca-medial-territory-b",
+      "aca-medial-territory-c",
+      "aca-medial-territory-d"
+    ]
+  },
+  {
+    "question": "acomm-partner-vessels",
+    "revision": "a7dfe045f3cbe2032fccad2345cb080c535e876ebef061b8b8a8d6080a4672a8",
+    "prompt": "前交通動脈が結ぶ二つの血管はどれですか？",
+    "options": [
+      "acomm-partner-vessels-a",
+      "acomm-partner-vessels-b",
+      "acomm-partner-vessels-c",
+      "acomm-partner-vessels-d"
+    ]
+  },
+  {
+    "question": "mca-deep-perforators",
+    "revision": "aa282ff10e71c12fcdb3be60969f922c9c808984729554b11f75ae8f5cc15da2",
+    "prompt": "中大脳動脈から出て線条体や内包へ入る代表的な穿通枝はどれですか？",
+    "options": [
+      "mca-deep-perforators-a",
+      "mca-deep-perforators-b",
+      "mca-deep-perforators-c",
+      "mca-deep-perforators-d"
+    ]
+  },
+  {
+    "question": "pcomm-carotid-posterior-link",
+    "revision": "acf5b310a22d4b04e4913d9274fee40ae75dc9b740f08ac177ff9f7119672527",
+    "prompt": "後交通動脈の通常の接続として適切なのはどれですか？",
+    "options": [
+      "pcomm-carotid-posterior-link-a",
+      "pcomm-carotid-posterior-link-b",
+      "pcomm-carotid-posterior-link-c",
+      "pcomm-carotid-posterior-link-d"
+    ]
+  },
+  {
+    "question": "pca-calcarine-supply",
+    "revision": "3a939d887ecf5f5068ca0315bd5104f7d6952a2bbfcaff17e0723c32c337c384",
+    "prompt": "後大脳動脈と結びつけて観察する代表的な皮質領域はどれですか？",
+    "options": [
+      "pca-calcarine-supply-a",
+      "pca-calcarine-supply-b",
+      "pca-calcarine-supply-c",
+      "pca-calcarine-supply-d"
+    ]
+  },
+  {
+    "question": "vertebral-usual-origin",
+    "revision": "8e26dd9b7b14f41f1080acf6d7c1a10fd322e3b309932af169d33ac10ccff073",
+    "prompt": "椎骨動脈の通常の起始血管はどれですか？",
+    "options": [
+      "vertebral-usual-origin-a",
+      "vertebral-usual-origin-b",
+      "vertebral-usual-origin-c",
+      "vertebral-usual-origin-d"
+    ]
+  },
+  {
+    "question": "basilar-pons-surface",
+    "revision": "eed75113a8da4a167f82f31251c16b00bd7dc63a304653653e33e11629d48962",
+    "prompt": "脳底動脈を脳幹上で追うとき、橋のどの面を見ますか？",
+    "options": [
+      "basilar-pons-surface-a",
+      "basilar-pons-surface-b",
+      "basilar-pons-surface-c",
+      "basilar-pons-surface-d"
+    ]
+  },
+  {
+    "question": "cerebellar-artery-parent-pairing",
+    "revision": "b565332be6206758b334bf5d9673b9333876e4d45f9dcd99bf4461ffa1cd9ebc",
+    "prompt": "小脳動脈の通常の起始を整理した組合せはどれですか？",
+    "options": [
+      "cerebellar-artery-parent-pairing-a",
+      "cerebellar-artery-parent-pairing-b",
+      "cerebellar-artery-parent-pairing-c",
+      "cerebellar-artery-parent-pairing-d"
+    ]
   }
 ]
