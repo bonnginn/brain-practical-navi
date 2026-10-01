@@ -2,6 +2,7 @@
 
 利用方法は [トップのREADME](../README.md)、現在地・作業期限と次の作業は [短い再開メモ](RESUME_SUMMARY.md) を参照してください。
 
+- [10月1日の公開β反映・Cloudflare更新](OCTOBER1_BETA_RELEASE_2026-10-01.md)
 - [10月1日の10時間開発記録](DEVELOPMENT_10H_2026-10-01.md)
 - [視床核群の参考位置ガイド](THALAMUS_REFERENCE_GUIDE_2026-10-01.md)
 - [海馬体部のnative100照合](HIPPOCAMPAL_BODY_REVIEW_2026-10-01.md)
