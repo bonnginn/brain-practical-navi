@@ -1967,5 +1967,148 @@
       "nigra-reticulata-collicular-output-c",
       "nigra-reticulata-collicular-output-d"
     ]
+  },
+  {
+    "question": "capsule-thalamic-two-directions",
+    "revision": "7ade664bcf4beb827d5b23d439a7fa6c2b08d606d649434f7def911631adcd70",
+    "prompt": "内包を通る視床と大脳皮質の接続について、正しい向きの組合せはどれですか？",
+    "options": [
+      "capsule-thalamic-two-directions-a",
+      "capsule-thalamic-two-directions-b",
+      "capsule-thalamic-two-directions-c",
+      "capsule-thalamic-two-directions-d"
+    ]
+  },
+  {
+    "question": "capsule-retrolenticular-visual-route",
+    "revision": "ed7357018e271d25e067e97f4320823363cf9ba8b795ddd592997d911682b4bc",
+    "prompt": "内包のレンズ核後部を通る代表的な感覚経路はどれですか？",
+    "options": [
+      "capsule-retrolenticular-visual-route-a",
+      "capsule-retrolenticular-visual-route-b",
+      "capsule-retrolenticular-visual-route-c",
+      "capsule-retrolenticular-visual-route-d"
+    ]
+  },
+  {
+    "question": "capsule-corticobulbar-destination",
+    "revision": "c16fe99e4b14478e4c972c9fe71877a80bbf2cebaea9ba081682c7817d48a838",
+    "prompt": "内包を下行する皮質核路（皮質延髄路）の主要な接続先はどれですか？",
+    "options": [
+      "capsule-corticobulbar-destination-a",
+      "capsule-corticobulbar-destination-b",
+      "capsule-corticobulbar-destination-c",
+      "capsule-corticobulbar-destination-d"
+    ]
+  },
+  {
+    "question": "anterior-commissure-temporal-connection",
+    "revision": "038cc1d9e9b2394973be79134d4c7cf74629cd5b4b936264d63b3bd146a4159c",
+    "prompt": "前交連の大きな成分が結ぶ大脳皮質の組合せはどれですか？",
+    "options": [
+      "anterior-commissure-temporal-connection-a",
+      "anterior-commissure-temporal-connection-b",
+      "anterior-commissure-temporal-connection-c",
+      "anterior-commissure-temporal-connection-d"
+    ]
+  },
+  {
+    "question": "anterior-commissure-rostrum-landmark",
+    "revision": "8897b0bfd19256a5ea66df6afc4cfe9ae8ee526ffa7583f1876976aa0654e75b",
+    "prompt": "正中矢状面で、前交連を脳梁のどの部分の下方に探しますか？",
+    "options": [
+      "anterior-commissure-rostrum-landmark-a",
+      "anterior-commissure-rostrum-landmark-b",
+      "anterior-commissure-rostrum-landmark-c",
+      "anterior-commissure-rostrum-landmark-d"
+    ]
+  },
+  {
+    "question": "superior-temporal-heschl-view",
+    "revision": "743da284301ff2dc76109d6895abade6c584ce5fadd585b64b6aa62062d569d0",
+    "prompt": "横側頭回（ヘシュル回）を探すには、上側頭回のどの面を見る必要がありますか？",
+    "options": [
+      "superior-temporal-heschl-view-a",
+      "superior-temporal-heschl-view-b",
+      "superior-temporal-heschl-view-c",
+      "superior-temporal-heschl-view-d"
+    ]
+  },
+  {
+    "question": "superior-temporal-inferior-boundary",
+    "revision": "276df123f6744f999df14b68afb43333ae45fc4b369854f3987276bf9b81032d",
+    "prompt": "外側面で上側頭回と中側頭回を隔てる溝はどれですか？",
+    "options": [
+      "superior-temporal-inferior-boundary-a",
+      "superior-temporal-inferior-boundary-b",
+      "superior-temporal-inferior-boundary-c",
+      "superior-temporal-inferior-boundary-d"
+    ]
+  },
+  {
+    "question": "insula-extreme-capsule-neighbour",
+    "revision": "06bf98e6a44897db387703f18930409f896a9659170ae48b4a1d4c9dbea1065d",
+    "prompt": "島皮質と前障の間にある白質層はどれですか？",
+    "options": [
+      "insula-extreme-capsule-neighbour-a",
+      "insula-extreme-capsule-neighbour-b",
+      "insula-extreme-capsule-neighbour-c",
+      "insula-extreme-capsule-neighbour-d"
+    ]
+  },
+  {
+    "question": "precentral-medial-continuation",
+    "revision": "00ab84f1ecd136fc466cb90c0cf12057d5b569533878f220e88c7039a1e9f080",
+    "prompt": "中心前回・中心後回が大脳半球内側面へ続く領域はどれですか？",
+    "options": [
+      "precentral-medial-continuation-a",
+      "precentral-medial-continuation-b",
+      "precentral-medial-continuation-c",
+      "precentral-medial-continuation-d"
+    ]
+  },
+  {
+    "question": "cuneus-calcarine-visual-cortex",
+    "revision": "a2ca496da8c4e40d6c6cc88cb2a97910740b3ffa50a534af38adce7bf3a732b9",
+    "prompt": "楔部の鳥距溝に接する皮質を観察するとき、主にどの感覚の一次皮質との関係を考えますか？",
+    "options": [
+      "cuneus-calcarine-visual-cortex-a",
+      "cuneus-calcarine-visual-cortex-b",
+      "cuneus-calcarine-visual-cortex-c",
+      "cuneus-calcarine-visual-cortex-d"
+    ]
+  },
+  {
+    "question": "red-nucleus-crossed-cerebellar-input",
+    "revision": "fe910f98c5e0babef76cad58f78436e2dcec86bcb374954f7561a0835afd1923",
+    "prompt": "赤核周囲へ入る小脳由来の線維について、適切なものはどれですか？",
+    "options": [
+      "red-nucleus-crossed-cerebellar-input-a",
+      "red-nucleus-crossed-cerebellar-input-b",
+      "red-nucleus-crossed-cerebellar-input-c",
+      "red-nucleus-crossed-cerebellar-input-d"
+    ]
+  },
+  {
+    "question": "cerebellum-vermis-fastigial-output",
+    "revision": "df17d25e1320b6d0a7ab6ce96d3c5401e639b65eaf697067a285d2741081830a",
+    "prompt": "小脳虫部からの出力を中継し、前庭神経核・網様体への接続に関わる深部核はどれですか？",
+    "options": [
+      "cerebellum-vermis-fastigial-output-a",
+      "cerebellum-vermis-fastigial-output-b",
+      "cerebellum-vermis-fastigial-output-c",
+      "cerebellum-vermis-fastigial-output-d"
+    ]
+  },
+  {
+    "question": "cerebellum-dentate-cortical-loop",
+    "revision": "e4db8d41eb2eb4386f981ab62483c4d90d1803e57b4b37cdf855415686e2e7fc",
+    "prompt": "外側小脳半球の歯状核から大脳皮質へ戻る運動関連出力は、代表的にどこで中継されますか？",
+    "options": [
+      "cerebellum-dentate-cortical-loop-a",
+      "cerebellum-dentate-cortical-loop-b",
+      "cerebellum-dentate-cortical-loop-c",
+      "cerebellum-dentate-cortical-loop-d"
+    ]
   }
 ]
