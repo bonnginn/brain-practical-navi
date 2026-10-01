@@ -15,7 +15,7 @@ const regions=[
 ];
 type GuideMesh=Awaited<ReturnType<typeof loadThalamusGuideMesh>>;
 type View="dorsal"|"medial"|"oblique";
-function Shape({mesh,selected,view,english}:{mesh:GuideMesh;selected:number;view:View;english:boolean}){
+function Shape({mesh,selected,view,english,compare}:{mesh:GuideMesh;selected:number;view:View;english:boolean;compare:boolean}){
   const ref=useRef<HTMLCanvasElement>(null);
   useEffect(()=>{
     const c=ref.current?.getContext("2d");if(!c)return;
@@ -34,24 +34,31 @@ function Shape({mesh,selected,view,english}:{mesh:GuideMesh;selected:number;view
     const screen=(p:number[])=>[180+(p[0]-cx)*scale,125+(p[1]-cy)*scale];
     c.fillStyle="#182225";c.fillRect(0,0,360,250);faces.sort((a,b)=>a.depth-b.depth);
     for(const face of faces){const p=face.p.map(screen);c.beginPath();c.moveTo(p[0][0],p[0][1]);c.lineTo(p[1][0],p[1][1]);c.lineTo(p[2][0],p[2][1]);c.closePath();const light=Math.max(85,Math.min(175,125+face.depth*2));c.fillStyle=`rgb(${light},${light},${light+15})`;c.fill()}
-    const region=regions[selected],at=region.at,anchor=[hi[0]-at[0]*(hi[0]-lo[0]),lo[1]+at[1]*(hi[1]-lo[1]),lo[2]+at[2]*(hi[2]-lo[2])];
-    const [sx,sy]=screen(project(anchor));c.strokeStyle="#ffc86b";c.lineWidth=2;c.setLineDash([3,3]);c.beginPath();c.arc(sx,sy,10,0,Math.PI*2);c.stroke();c.setLineDash([]);c.fillStyle="#ffc86b";c.beginPath();c.arc(sx,sy,3,0,Math.PI*2);c.fill();c.font="bold 16px sans-serif";c.fillText(region.key,sx+14,sy+5);
+    // Draw the selected marker last so it remains distinct in overlapping views.
+    const markerIndices=compare?[...regions.keys()].filter(index=>index!==selected).concat(selected):[selected];
+    for(const index of markerIndices){
+      const region=regions[index],at=region.at,anchor=[hi[0]-at[0]*(hi[0]-lo[0]),lo[1]+at[1]*(hi[1]-lo[1]),lo[2]+at[2]*(hi[2]-lo[2])];
+      const [sx,sy]=screen(project(anchor)),active=index===selected;
+      c.strokeStyle=active?"#ffc86b":"#b8d3d8";c.fillStyle=c.strokeStyle;c.lineWidth=active?2:1;
+      if(active){c.setLineDash([3,3]);c.beginPath();c.arc(sx,sy,10,0,Math.PI*2);c.stroke();c.setLineDash([])}
+      c.beginPath();c.arc(sx,sy,active?3:2,0,Math.PI*2);c.fill();c.font=active?"bold 16px sans-serif":"12px sans-serif";const leftLabel=["VA","VL","VPL"].includes(region.key),offset=active?14:6;c.fillText(region.key,leftLabel?sx-offset-c.measureText(region.key).width:sx+offset,sy+5);
+    }
     c.fillStyle="#fff";c.font="13px sans-serif";c.fillText(english?"Left thalamus":"左視床",12,20);
     if(view==="dorsal"){c.fillText("A",174,36);c.fillText("P",174,240);c.fillText("L",12,130);c.fillText("M",333,130)}
     if(view==="medial"){c.fillText("A",10,130);c.fillText("P",337,130);c.fillText("S",174,36);c.fillText("I",174,240)}
     if(view==="oblique")for(const [label,dx,dy] of [["A",-.6,-.4],["L",-.8,0],["S",0,-.8]] as const){const x=320+dx*35,y=225+dy*35;c.strokeStyle="#fff";c.lineWidth=1;c.beginPath();c.moveTo(320,225);c.lineTo(x,y);c.stroke();c.fillText(label,x-4,y-5)}
-  },[mesh,selected,view,english]);
+  },[mesh,selected,view,english,compare]);
   return <canvas width={360} height={250} ref={ref} role="img" aria-label={english?`Left thalamus: approximate projected location of ${regions[selected].name[1]}`:`左視床上に投影した${regions[selected].name[0]}の参考位置`}/>;
 }
 function Content({english,initialRegion}:{english:boolean;initialRegion?:string}){
-  const [mesh,setMesh]=useState<GuideMesh|null>(null),[failed,setFailed]=useState(false),[attempt,setAttempt]=useState(0),[selected,setSelected]=useState(()=>Math.max(0,regions.findIndex(region=>region.key===initialRegion))),[view,setView]=useState<View>("oblique");
+  const [mesh,setMesh]=useState<GuideMesh|null>(null),[failed,setFailed]=useState(false),[attempt,setAttempt]=useState(0),[selected,setSelected]=useState(()=>Math.max(0,regions.findIndex(region=>region.key===initialRegion))),[view,setView]=useState<View>("oblique"),[compare,setCompare]=useState(false);
   useEffect(()=>{let active=true;setFailed(false);loadThalamusGuideMesh().then(value=>{if(active)setMesh(value)},()=>{if(active)setFailed(true)});return()=>{active=false}},[attempt]);
   const region=regions[selected],lang=english?1:0;
   return <div className="thalamusGuideBody" lang={english?"en":"ja"}>
     <p>{english?"Explore anterior memory-related, medial prefrontal-related, ventral motor/sensory and posterior association regions.":"前方の記憶関連、内側の前頭前野関連、腹側の運動・感覚中継、後方の連合領域という並びを確認します。"}</p>
     <div className="thalamusGuideRegions" role="group" aria-label={english?"Thalamic regions":"視床の領域"}>{regions.map((item,index)=><button key={item.key} type="button" aria-pressed={selected===index} onClick={()=>setSelected(index)}>{item.key} · {item.name[lang]}</button>)}</div>
-    <div className="thalamusGuideLayout"><div><div className="thalamusGuideViews">{(["oblique","dorsal","medial"] as View[]).map((item,index)=><button key={item} type="button" aria-pressed={view===item} onClick={()=>setView(item)}>{(english?["Oblique","From above","From medial side"]:["斜め","上から","内側から"])[index]}</button>)}</div>{mesh?<Shape mesh={mesh} selected={selected} view={view} english={english}/>:failed?<p role="alert">{english?"Image unavailable":"形状を読み込めませんでした"} <button onClick={()=>setAttempt(n=>n+1)}>{english?"Retry":"再試行"}</button></p>:<p role="status">{english?"Loading thalamic shape…":"視床の形状を読み込み中…"}</p>}</div><article aria-live="polite"><h4>{region.key} · {region.name[lang]}</h4><p>{region.where[lang]}</p><p>{region.role[lang]}</p></article></div>
-    <p className="thalamusGuideScope">{english?"Grey: this specimen’s left thalamus. Gold: a coarse schematic location projected through its shape, not a surface feature or a nucleus boundary. Read the right side as a mirrored arrangement. Most nuclei cannot be identified on gross slices.":"灰色は本標本の左視床。金色の点は内部の概略位置を形状越しに投影した模式的な目印で、表面構造や核の境界ではありません。右側は左右対称の位置関係として読みます。多くの核は肉眼断面だけでは同定できません。"}</p>
+    <div className="thalamusGuideLayout"><div><div className="thalamusGuideViews">{(["oblique","dorsal","medial"] as View[]).map((item,index)=><button key={item} type="button" aria-pressed={view===item} onClick={()=>setView(item)}>{(english?["Oblique","From above","From medial side"]:["斜め","上から","内側から"])[index]}</button>)}</div><label className="thalamusGuideCompare"><input type="checkbox" checked={compare} onChange={event=>setCompare(event.target.checked)}/>{english?"Compare all reference positions":"ほかの核群の参考位置も重ねる"}</label>{mesh?<Shape mesh={mesh} selected={selected} view={view} english={english} compare={compare}/>:failed?<p role="alert">{english?"Image unavailable":"形状を読み込めませんでした"} <button onClick={()=>setAttempt(n=>n+1)}>{english?"Retry":"再試行"}</button></p>:<p role="status">{english?"Loading thalamic shape…":"視床の形状を読み込み中…"}</p>}</div><article aria-live="polite"><h4>{region.key} · {region.name[lang]}</h4><p>{region.where[lang]}</p><p>{region.role[lang]}</p></article></div>
+    <p className="thalamusGuideScope">{english?"Grey: this specimen’s left thalamus. Gold: the selected reference location; pale blue: other reference locations when comparison is enabled. All are coarse schematic positions projected through the shape, not surface features or nucleus boundaries. Read the right side as a mirrored arrangement. Most nuclei cannot be identified on gross slices.":"灰色は本標本の左視床。金色は選択した核群の目印、淡い青は比較時のほかの核群の目印。いずれも内部の概略位置を形状越しに投影したもので、表面構造や核の境界ではありません。右側は左右対称の位置関係として読みます。多くの核は肉眼断面だけでは同定できません。"}</p>
     <details><summary>{english?"References and method":"出典・表示方法"}</summary><p>{english?"Marker fractions are authored orientation aids, not registered atlas coordinates. No nucleus labels or specimen voxels were changed.":"位置比率は方向を学ぶために設定した目安で、登録済みアトラスの座標ではありません。核ラベルや標本voxelは変更していません。"}</p><a href="https://nba.uth.tmc.edu/neuroanatomy/L5/Lab05p10_index.html" target="_blank" rel="noreferrer">UTHealth · Thalamic nuclei</a><p><a href="https://doi.org/10.1016/j.morpho.2018.07.060" target="_blank" rel="noreferrer">Pascal et al. (2018) · BigBrain / Dejerine</a> — {english?"Research precedent (abstract reviewed); its nucleus data were not obtained or used here.":"BigBrainでの研究例（抄録確認）。核データは未取得で、この図には使用していません。"}</p></details>
   </div>;
 }
