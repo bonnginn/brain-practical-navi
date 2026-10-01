@@ -8,11 +8,15 @@ const bank=JSON.parse(await readFile(new URL("app/quiz-concept-bank.json",root),
 const page=await readFile(new URL("app/page.tsx",root),"utf8");
 const clone=()=>structuredClone(bank);
 
-test("quiz bank expands 45 visual targets to 100 varied questions",()=>{
+test("quiz bank retains visual coverage and excludes held anatomy after expansion",()=>{
   const report=auditQuizConceptBank();
   assert.equal(report.ok,true,report.errors.join("\n"));
-  assert.deepEqual(report.summary,{baseQuestionCount:45,conceptQuestionCount:55,totalQuestionCount:100,uniqueVisualTargetCount:45,conceptVisualTargetCount:38,reviewState:"project-reviewed-expert-pending"});
-  assert.deepEqual(report.eligibility,{authoredQuestionCount:100,heldVisualQuestionCount:4,heldConceptQuestionCount:4,eligibleQuestionCount:92});
+  assert.ok(report.summary.totalQuestionCount>=100);
+  assert.equal(report.summary.uniqueVisualTargetCount,45);
+  assert.ok(report.summary.conceptVisualTargetCount>=38);
+  assert.equal(report.eligibility.heldVisualQuestionCount,4);
+  assert.equal(report.eligibility.heldConceptQuestionCount,4);
+  assert.equal(report.eligibility.eligibleQuestionCount,report.summary.totalQuestionCount-8);
 });
 
 test("audit rejects dropping the runtime anatomy hold even when authored bank is unchanged",()=>{
@@ -41,4 +45,6 @@ test("concept audit rejects malformed evidence and answers",()=>{
   const source=clone();source.questions[0].sourceRefs=["missing"];assert.match(validateQuizConceptBank(source,page).errors.join("\n"),/unknown sourceRef/);
   const target=clone();target.questions[0].target="missing";assert.match(validateQuizConceptBank(target,page).errors.join("\n"),/unknown visual target/);
   const review=clone();review.reviewState="expert-verified";assert.match(validateQuizConceptBank(review,page).errors.join("\n"),/reviewState/);
+  const guidance=clone();const expanded=guidance.questions.find(q=>q.choiceGuidance);expanded.choiceGuidance[expanded.correctAnswer]=["答え","Answer"];
+  assert.match(validateQuizConceptBank(guidance,page).errors.join("\n"),/exactly the three distractors/);
 });

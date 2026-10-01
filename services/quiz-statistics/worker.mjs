@@ -31,7 +31,7 @@ export async function receiveAnswer(request,env) {
     const buffer=new Uint8Array(bytes);let offset=0;for(const chunk of chunks){buffer.set(chunk,offset);offset+=chunk.length}
     let data;try{data=JSON.parse(new TextDecoder().decode(buffer))}catch{return reply(400)}
     if(path==='/session'){
-      if(!data||Array.isArray(data)||Object.keys(data).sort().join(',')!=='correct,questions'||!Number.isInteger(data.questions)||data.questions<1||data.questions>92||!Number.isInteger(data.correct)||data.correct<0||data.correct>data.questions)return reply(400);
+      if(!data||Array.isArray(data)||Object.keys(data).sort().join(',')!=='correct,questions'||!Number.isInteger(data.questions)||data.questions<1||data.questions>200||!Number.isInteger(data.correct)||data.correct<0||data.correct>data.questions)return reply(400);
       await env.DB.prepare('INSERT INTO quiz_session_counts (questions,correct,sessions) VALUES (?,?,1) ON CONFLICT(questions,correct) DO UPDATE SET sessions=sessions+1').bind(data.questions,data.correct).run();
       return reply(204);
     }

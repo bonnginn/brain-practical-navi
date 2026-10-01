@@ -5,7 +5,7 @@ import {PAPEZ_STEPS,BASAL_GANGLIA_STEPS} from '../src/pathwayStepper.mjs';
 const catalog=JSON.parse(readFileSync(new URL('../app/english-catalog.json',import.meta.url),'utf8'));
 const bank=JSON.parse(readFileSync(new URL('../app/quiz-concept-bank.json',import.meta.url),'utf8'));
 test('all concept prompts, explanations and options have complete catalog entries',()=>{
-  assert.equal(bank.questions.length,55);
+  assert.ok(bank.questions.length>=55);
   for(const q of bank.questions)for(const text of [q.prompt,q.explanation,...q.options.map(o=>o.label)]){
     assert.ok(catalog[text]?.trim(),`${q.id}: ${text}`);
     assert.doesNotMatch(catalog[text],/[\u3040-\u30ff\u3400-\u9fff]/u);

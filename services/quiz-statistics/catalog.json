@@ -1010,5 +1010,115 @@
       "basilar-mca",
       "basilar-acomm"
     ]
+  },
+  {
+    "question": "ventricle-roof-landmark",
+    "revision": "428ca4e8c8a1886994dfa552f530c776bc9c7f2b047d2a4a1c934a99f62c034c",
+    "prompt": "側脳室体部の屋根をなす主な構造はどれですか？",
+    "options": [
+      "ventricle-roof-landmark-a",
+      "ventricle-roof-landmark-b",
+      "ventricle-roof-landmark-c",
+      "ventricle-roof-landmark-d"
+    ]
+  },
+  {
+    "question": "ventricle-monro-route",
+    "revision": "9b6027b271e3c1afb55570bb5c8f8e6867e7d4ab338b9eeb064211eacf24a852",
+    "prompt": "側脳室から第三脳室へ髄液が通る開口はどれですか？",
+    "options": [
+      "ventricle-monro-route-a",
+      "ventricle-monro-route-b",
+      "ventricle-monro-route-c",
+      "ventricle-monro-route-d"
+    ]
+  },
+  {
+    "question": "ventricle-horn-lobes",
+    "revision": "262d1c9292b048967b39550f4bfd080b6f549c81fa70fcb99365a52975d8c69d",
+    "prompt": "側脳室の前角・後角・下角と大脳葉の組合せとして適切なのはどれですか？",
+    "options": [
+      "ventricle-horn-lobes-a",
+      "ventricle-horn-lobes-b",
+      "ventricle-horn-lobes-c",
+      "ventricle-horn-lobes-d"
+    ]
+  },
+  {
+    "question": "ventricle-septum-landmark",
+    "revision": "03e9a500bd33ed9584c831c45f5d360fad00802bba7cc2bd0c38cea378b61bc4",
+    "prompt": "左右の側脳室の前角・体部を正中で隔てる薄い構造はどれですか？",
+    "options": [
+      "ventricle-septum-landmark-a",
+      "ventricle-septum-landmark-b",
+      "ventricle-septum-landmark-c",
+      "ventricle-septum-landmark-d"
+    ]
+  },
+  {
+    "question": "ventricle-choroid-role",
+    "revision": "71213a3f7df910bde855b4d569b76dcbfb72e187cd5a8fa7965c0f14ff124134",
+    "prompt": "側脳室内で見られる脈絡叢の主な役割はどれですか？",
+    "options": [
+      "ventricle-choroid-role-a",
+      "ventricle-choroid-role-b",
+      "ventricle-choroid-role-c",
+      "ventricle-choroid-role-d"
+    ]
+  },
+  {
+    "question": "ventricle-third-midline",
+    "revision": "e0581531989e2932fdd7260e78830d4a23c57efdf3824dc6f360500b51dcff21",
+    "prompt": "側脳室につながる第三脳室の位置として適切なのはどれですか？",
+    "options": [
+      "ventricle-third-midline-a",
+      "ventricle-third-midline-b",
+      "ventricle-third-midline-c",
+      "ventricle-third-midline-d"
+    ]
+  },
+  {
+    "question": "capsule-anterior-limb-neighbours",
+    "revision": "0f8d00036d70fc9c8aef253e6446ef6ce573d920a04bcc9af01f792f38eb6ae2",
+    "prompt": "内包前脚の両側にある構造の組合せはどれですか？",
+    "options": [
+      "capsule-anterior-limb-neighbours-a",
+      "capsule-anterior-limb-neighbours-b",
+      "capsule-anterior-limb-neighbours-c",
+      "capsule-anterior-limb-neighbours-d"
+    ]
+  },
+  {
+    "question": "capsule-posterior-limb-neighbours",
+    "revision": "60ad4fda7f79bd3a0b1262f3f07e42e6b1ea57336ccf4da110709779291313dd",
+    "prompt": "内包後脚の両側にある構造の組合せはどれですか？",
+    "options": [
+      "capsule-posterior-limb-neighbours-a",
+      "capsule-posterior-limb-neighbours-b",
+      "capsule-posterior-limb-neighbours-c",
+      "capsule-posterior-limb-neighbours-d"
+    ]
+  },
+  {
+    "question": "capsule-horizontal-shape",
+    "revision": "f044ea2e4747a499c68a332473872a79b6a64ef560dca9d8084f742d0a158275",
+    "prompt": "内包の前脚・膝・後脚の区別を一緒に捉えやすい切断方向はどれですか？",
+    "options": [
+      "capsule-horizontal-shape-a",
+      "capsule-horizontal-shape-b",
+      "capsule-horizontal-shape-c",
+      "capsule-horizontal-shape-d"
+    ]
+  },
+  {
+    "question": "capsule-corona-continuity",
+    "revision": "dd46f6c081e7fb708fb47af9dbe7985af68925f3c1dd5ce909eb4ef1163972e2",
+    "prompt": "内包の線維が大脳皮質へ向かって扇状に広がる部分はどれですか？",
+    "options": [
+      "capsule-corona-continuity-a",
+      "capsule-corona-continuity-b",
+      "capsule-corona-continuity-c",
+      "capsule-corona-continuity-d"
+    ]
   }
 ]

@@ -6,6 +6,18 @@ import {quizChoiceGuidance} from '../src/quizChoiceGuidance.mjs';
 const bank=JSON.parse(readFileSync(new URL('../app/quiz-concept-bank.json',import.meta.url),'utf8'));
 const ids=['putamen-relation-choice','hippocampus-pathway-choice','mammillary-pathway-choice','thalamus-relation-choice','capsule-relation-choice','callosum-classification-choice','optic-chiasm-function','ventricle-relation-choice','amygdala-relation-choice','accumbens-relation-choice','red-nucleus-relation-choice','pallidum-segment-choice','substantia-nigra-relation-choice','subthalamic-classification-choice','brainstem-components-choice','cerebellum-relation-choice','superior-frontal-relation','precuneus-relation','cuneus-relation','ica-function','precentral-function','superior-temporal-function','fusiform-function','cn3-function','cn4-function','cn6-function'];
 
+test('bank-authored contrasts stay specific to the chosen distractor in both languages',()=>{
+  for(const seed of bank.questions.filter(q=>q.choiceGuidance)){
+    const question={...seed,options:seed.options.map(o=>o.key)};
+    assert.equal(quizChoiceGuidance(question,seed.correctAnswer),null);
+    assert.equal(quizChoiceGuidance(question,'unrelated'),null);
+    for(const option of question.options.filter(key=>key!==seed.correctAnswer)){
+      assert.equal(quizChoiceGuidance(question,option),seed.choiceGuidance[option][0]);
+      assert.equal(quizChoiceGuidance(question,option,true),seed.choiceGuidance[option][1]);
+    }
+  }
+});
+
 test('each selected distractor in the priority questions explains the relevant contrast in both languages',()=>{
   for(const id of ids){
     const seed=bank.questions.find(question=>question.id===id);

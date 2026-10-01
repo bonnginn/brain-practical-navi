@@ -133,12 +133,12 @@ function learnerSourceLabel(source:string){
 type QuizCategory = "basal" | "limbic" | "midbrain" | "ventricles" | "connections" | "hindbrain" | "surface" | "neurovascular";
 type QuizTargetKey = StructureKey | SurfaceRegionKey | NeurovascularStructureKey;
 type QuizQuestionKind = "identification" | "function-to-structure" | "function-choice" | "relation-choice" | "pathway-choice";
-type QuizConceptFields = { id?:string; questionKind?:QuizQuestionKind; correctAnswer?:string; optionLabels?:Record<string,string>; explanation?:string;sourceRefs?:string[] };
+type QuizConceptFields = { id?:string; questionKind?:QuizQuestionKind; correctAnswer?:string; optionLabels?:Record<string,string>; explanation?:string;sourceRefs?:string[];choiceGuidance?:Record<string,[string,string]> };
 type SectionQuizQuestion = { target: StructureKey; category: Exclude<QuizCategory,"surface"|"neurovascular">; plane: Plane; position: number; prompt: string; options: string[]; format?:"section"; detail?:Plane; origin?:QuizOrigin } & QuizConceptFields;
 type SurfaceQuizQuestion = { target: SurfaceRegionKey; category: "surface"; view: SurfaceViewKey; prompt: string; options: string[]; format?:"surface"; detail?:Exclude<QuizDetail,Plane>; origin?:QuizOrigin } & QuizConceptFields;
 type NeurovascularQuizQuestion = { target: NeurovascularStructureKey; category:"neurovascular"; view:"arteries"|"cranialNerves"; prompt:string; options:string[]; format:"neurovascular"; detail:"arteries"|"cranialNerves"; origin:"provisional" } & QuizConceptFields;
 type QuizQuestion = SectionQuizQuestion | SurfaceQuizQuestion | NeurovascularQuizQuestion;
-type QuizConceptSeed = { id:string; target:QuizTargetKey; kind:Exclude<QuizQuestionKind,"identification">; prompt:string; correctAnswer:string; options:{key:string;label:string}[]; explanation:string; sourceRefs:string[] };
+type QuizConceptSeed = { id:string; target:QuizTargetKey; kind:Exclude<QuizQuestionKind,"identification">; prompt:string; correctAnswer:string; options:{key:string;label:string}[]; explanation:string; sourceRefs:string[];choiceGuidance?:Record<string,[string,string]> };
 type QuizConceptBank = { schemaVersion:number; updated:string; reviewState:"project-reviewed-expert-pending"; sources:{id:string;label:string;ref:string}[]; questions:QuizConceptSeed[] };
 const quizConceptData=quizConceptBank as unknown as QuizConceptBank;
 type QuizFormatFilter = "all"|QuizFormat;
@@ -688,7 +688,7 @@ const visualQuizQuestions:QuizQuestion[]=[...quizQuestions,...neurovascularQuizQ
 const conceptQuizQuestions:QuizQuestion[]=quizConceptData.questions.map(seed=>{
   const visual=visualQuizQuestions.find(question=>question.target===seed.target);
   if(!visual)throw new Error(`Concept quiz target has no visual question: ${seed.target}`);
-  return {...visual,id:seed.id,questionKind:seed.kind,prompt:seed.prompt,correctAnswer:seed.correctAnswer,options:seed.options.map(option=>option.key),optionLabels:Object.fromEntries(seed.options.map(option=>[option.key,option.label])),explanation:seed.explanation,sourceRefs:seed.sourceRefs,origin:"provisional"};
+  return {...visual,id:seed.id,questionKind:seed.kind,prompt:seed.prompt,correctAnswer:seed.correctAnswer,options:seed.options.map(option=>option.key),optionLabels:Object.fromEntries(seed.options.map(option=>[option.key,option.label])),explanation:seed.explanation,sourceRefs:seed.sourceRefs,choiceGuidance:seed.choiceGuidance,origin:"provisional"};
 });
 const allQuizQuestions:QuizQuestion[]=[...visualQuizQuestions,...conceptQuizQuestions].filter(isQuizAnatomyAvailable);
 

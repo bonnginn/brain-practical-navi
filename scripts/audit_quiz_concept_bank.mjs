@@ -19,7 +19,7 @@ export function validateQuizConceptBank(bank,source=""){
   const sources=new Set(), sourceList=Array.isArray(bank?.sources)?bank.sources:[];
   for(const item of sourceList){if(!item?.id||sources.has(item.id))errors.push(`invalid or duplicate source: ${item?.id??"missing"}`);else sources.add(item.id);if(!item?.label||!item?.ref)errors.push(`${item?.id??"source"}: label/ref required`)}
   const questions=Array.isArray(bank?.questions)?bank.questions:[];
-  if(questions.length!==CONCEPT_COUNT)errors.push(`concept question count must be ${CONCEPT_COUNT}, found ${questions.length}`);
+  if(questions.length<CONCEPT_COUNT)errors.push(`retain at least ${CONCEPT_COUNT} existing concept questions, found ${questions.length}`);
   const ids=new Set(), counts={};
   for(const question of questions){
     if(!question?.id||ids.has(question.id))errors.push(`invalid or duplicate question id: ${question?.id??"missing"}`);else ids.add(question.id);
@@ -31,10 +31,16 @@ export function validateQuizConceptBank(bank,source=""){
     if(options.length!==4||new Set(optionKeys).size!==4)errors.push(`${question?.id}: exactly four unique options required`);
     if(optionKeys.filter(key=>key===question?.correctAnswer).length!==1)errors.push(`${question?.id}: correctAnswer must occur exactly once`);
     if(options.some(option=>!option?.key||!option?.label?.trim()))errors.push(`${question?.id}: option key/label required`);
+    if(question?.choiceGuidance!==undefined){
+      const expected=optionKeys.filter(key=>key!==question.correctAnswer).sort();
+      const notes=question.choiceGuidance;
+      if(!notes||Array.isArray(notes)||JSON.stringify(Object.keys(notes).sort())!==JSON.stringify(expected))errors.push(`${question.id}: guidance must cover exactly the three distractors`);
+      else for(const [key,note] of Object.entries(notes))if(!Array.isArray(note)||note.length!==2||note.some(text=>typeof text!=='string'||!text.trim()))errors.push(`${question.id}/${key}: Japanese and English guidance required`);
+    }
     if(!Array.isArray(question?.sourceRefs)||question.sourceRefs.length<1)errors.push(`${question?.id}: sourceRefs required`);
     else for(const ref of question.sourceRefs)if(!sources.has(ref))errors.push(`${question?.id}: unknown sourceRef ${ref}`);
   }
-  for(const [target,count] of Object.entries(expectedMultiplicity))if((counts[target]??0)!==count)errors.push(`${target}: expected ${count} concept questions, found ${counts[target]??0}`);
+  for(const [target,count] of Object.entries(expectedMultiplicity))if((counts[target]??0)<count)errors.push(`${target}: retain at least ${count} concept questions, found ${counts[target]??0}`);
   if(source){
     const snippets=["import quizConceptBank from \"./quiz-concept-bank.json\"","const conceptQuizQuestions:QuizQuestion[]=quizConceptData.questions.map","const allQuizQuestions:QuizQuestion[]=[...visualQuizQuestions,...conceptQuizQuestions]","function quizCorrectAnswer(question:QuizQuestion)","key===quizCorrectKey","data-quiz-kind={quizQuestionKind}"];
     for(const snippet of snippets)if(!source.includes(snippet))errors.push(`app source missing concept contract: ${snippet}`);
