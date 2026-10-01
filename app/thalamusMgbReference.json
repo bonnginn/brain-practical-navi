@@ -1,0 +1,71 @@
+{
+  "sourceDataset": {
+    "doi": "10.25493/PNY0-NCW",
+    "license": "CC BY-NC-SA 4.0",
+    "paper": "https://doi.org/10.3389/fnana.2022.837485",
+    "providerRecordSha256": "dae103b80610b31ac4ee8c691f718eb6015463e7bee9c0f82bab0cffc50035dd"
+  },
+  "method": "Provider overview-scale masks, with actual scale-specific resolution and documented centre convention; six independent source regions unioned by side. Official native-linear, native nonlinear and improved ICBM registration; inverse sampling at app500 centres. No fill, smoothing, mirrored source or tract extension.",
+  "sourceScales": {
+    "CGM_dn_left": "80um",
+    "CGM_dn_right": "80um",
+    "CGM_mn_left": "40um",
+    "CGM_mn_right": "80um",
+    "CGM_vn_left": "40um",
+    "CGM_vn_right": "40um"
+  },
+  "transformShas": {
+    "linear": "d2b9980b1212ed40dbe45693b548854fbf52eacd418926d31cbfb87786a56944",
+    "nativeGrid": "03ba5b1c91d77f66f72ccbbee5044874fc45b1da6cdaffd4b2ac2111dec8f9df",
+    "nativeNonlinear": "43ed6cff8ad7f0349981a463c97789a0fdb02f8bd5491a0e14ee3a52d0dc6a75",
+    "improvedTransform": "1ca059cb2ccc682daa945cabaec0dcfc61a2e28e8f275141e31f40b995ab0c71",
+    "improvedGrids": [
+      "fa7d59742c38447b2b454d1c4cb940024611628b9da563a648c8a1ea35bd4ceb",
+      "32b9611a78c6005ef8d324f42f2517b9bec6014c08ad059365b86c1586869e5d",
+      "a651912a0def70359e0fad2b8a0148d51c131c16a458241925d44858964e29f5"
+    ]
+  },
+  "maxInverseForwardRoundtripErrorMm": 3.2938878714583453e-06,
+  "applicationDimensionsXYZ": [
+    394,
+    466,
+    378
+  ],
+  "references": [
+    {
+      "side": "left",
+      "displayReferencePointXYZmm": [
+        -15.046409807355516,
+        -9.161996497373025,
+        -24.777583187390547
+      ],
+      "applicationReferenceXYZ": [
+        165.90718038528897,
+        213.67600700525395,
+        130.4448336252189
+      ],
+      "sampledVoxelCount": 571
+    },
+    {
+      "side": "right",
+      "displayReferencePointXYZmm": [
+        14.784649776453051,
+        -8.94709388971684,
+        -24.068554396423252
+      ],
+      "applicationReferenceXYZ": [
+        225.5692995529061,
+        214.10581222056632,
+        131.8628912071535
+      ],
+      "sampledVoxelCount": 671
+    }
+  ],
+  "review": {
+    "path": "work/anatomy-review/mgb-native100-2026-10-01/report.json",
+    "sha256": "0ef4a2ba026809b3b81ac0658b4b54c296134f34de6d70fb7a0e73709afcc917",
+    "planesViewed": 18,
+    "expertReviewed": false
+  },
+  "scope": "Representative points of published same-BigBrain MGB subdivision unions at app500 sampling. Positions only; no nucleus boundary, left/right mirroring, tract or label adoption."
+}
