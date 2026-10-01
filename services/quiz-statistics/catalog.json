@@ -1494,5 +1494,60 @@
       "fusiform-bounding-sulci-c",
       "fusiform-bounding-sulci-d"
     ]
+  },
+  {
+    "question": "cn3-ciliary-ganglion",
+    "revision": "816b9690ca1a2745996bf5ac9615436f130d3ef657d5f22979c7374e9c0f04a5",
+    "prompt": "動眼神経の縮瞳・調節に関わる副交感線維が中継する神経節はどれですか？",
+    "options": [
+      "cn3-ciliary-ganglion-a",
+      "cn3-ciliary-ganglion-b",
+      "cn3-ciliary-ganglion-c",
+      "cn3-ciliary-ganglion-d"
+    ]
+  },
+  {
+    "question": "cn3-medial-rectus-action",
+    "revision": "358c2ff09f0c887d378cd67a61f7a53b697772855cc3468ee21714ac105816f4",
+    "prompt": "動眼神経が支配する内側直筋の主な働きはどれですか？",
+    "options": [
+      "cn3-medial-rectus-action-a",
+      "cn3-medial-rectus-action-b",
+      "cn3-medial-rectus-action-c",
+      "cn3-medial-rectus-action-d"
+    ]
+  },
+  {
+    "question": "cn7-stapedius-supply",
+    "revision": "e3be5949f78bd883dcdba45389802585ea4f5ee40c757f2e5b556c42c577f7a7",
+    "prompt": "顔面神経が支配する耳小骨に関係する筋はどれですか？",
+    "options": [
+      "cn7-stapedius-supply-a",
+      "cn7-stapedius-supply-b",
+      "cn7-stapedius-supply-c",
+      "cn7-stapedius-supply-d"
+    ]
+  },
+  {
+    "question": "cn8-component-functions",
+    "revision": "c97b72030d46cec3cc80d90c8d55715f8e447001fd356220a163b4408e60ee64",
+    "prompt": "内耳神経の前庭部と蝸牛部の役割の対応はどれですか？",
+    "options": [
+      "cn8-component-functions-a",
+      "cn8-component-functions-b",
+      "cn8-component-functions-c",
+      "cn8-component-functions-d"
+    ]
+  },
+  {
+    "question": "cn12-palatoglossus-exception",
+    "revision": "5c2a6f0997397a655f91dacfcbb217d3d660b33000d4b93701b65eca926520e1",
+    "prompt": "舌下神経が支配する主な舌筋の例外となるのはどれですか？",
+    "options": [
+      "cn12-palatoglossus-exception-a",
+      "cn12-palatoglossus-exception-b",
+      "cn12-palatoglossus-exception-c",
+      "cn12-palatoglossus-exception-d"
+    ]
   }
 ]
