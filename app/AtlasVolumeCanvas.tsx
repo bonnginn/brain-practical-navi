@@ -288,6 +288,10 @@ export async function loadThalamusGuideMesh(){
   const mesh=await loadMesh("section-current-thalamus");
   return {vertices:mesh.vertices,faces:mesh.faces};
 }
+export async function loadThalamusGuideLgnMesh(){
+  const mesh=await loadMesh("section-current-lateral-geniculate-bodies");
+  return {vertices:mesh.vertices,faces:mesh.faces};
+}
 
 function smoothCerebellarDisplayNormals(mesh:Mesh){
   // The CerebrA voxel boundary is kept bit-for-bit: only display normals are

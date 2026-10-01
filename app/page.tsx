@@ -702,6 +702,7 @@ const quizThalamicReferenceRegions:Record<string,string>={
   "thalamus-vpm-trigeminal-input":"VPM",
   "thalamus-pulvinar-posterior-landmark":"Pul",
   "cerebellum-dentate-cortical-loop":"VL",
+  "lgn-output-radiation":"LGN",
 };
 const allQuizQuestions:QuizQuestion[]=[...visualQuizQuestions,...conceptQuizQuestions].filter(isQuizAnatomyAvailable);
 
