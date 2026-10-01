@@ -276,7 +276,7 @@ const surfaceViewLandmarks:Record<SurfaceViewKey,SurfaceLandmarkKey[]>={
   free:surfaceLandmarkKeys,
 };
 const surfaceDeepLandmarks:Record<SurfaceDeepLandmarkKey,{name:string;latin:string;color:string;source:string;note:string}>={
-  "corpus-callosum":{name:"脳梁",latin:"Corpus callosum",color:"#dbc270",source:"試作分節",note:"内側面では左側だけを表示します。自由観察では半球を切り替えて反対側も確認できます。試作分節は帯状回・脳弓など周辺構造との分離が不十分であり、確定境界ではありません。"},
+  "corpus-callosum":{name:"脳梁",latin:"Corpus callosum",color:"#dbc270",source:"試作分節",note:"左右大脳半球を結ぶ白質の弧です。内側面では左側を表示し、自由観察では半球を切り替えて反対側も確認できます。上方の帯状回と下方の脳弓を見分けましょう。輪郭は教材用の近似です。"},
   "septum-pellucidum":{name:"透明中隔（位置目安）",latin:"Septum pellucidum",color:"#a9c5bd",source:"模式補助",note:"脳梁下面と脳弓上面を結ぶ両葉性の薄い隔壁のうち、左葉の位置だけを示します。輪郭は正解分節ではなく、上下関係の確認に限ってください。"},
   fornix:{name:"脳弓",latin:"Fornix",color:"#e8d9a6",source:"模式補助",note:"左右の海馬系から乳頭体方向へ向かう概略形状です。全脳から選ぶと左半球が開き、右側は半球切替で確認できます。標本由来の部分分節とは異なります。"},
   thalami:{name:"視床",latin:"Thalamus",color:"#8d82c4",source:"標本分節",note:"第三脳室の外側にある灰白質です。内側面では左視床を、自由観察では半球切替に応じた側を表示します。"},
@@ -338,7 +338,7 @@ const blockSpecimens:Record<BlockSpecimenKey,BlockLesson>={
     {key:"auditory-radiation",name:"聴放線",latin:"Radiatio acustica",color:"#74b99e",source:"模式補助",note:"内側膝状体から側頭葉の聴覚皮質へ向かいます。"},
   ]},
   "commissural-system":{name:"脳梁・脳弓標本",en:"CORPUS CALLOSUM AND FORNIX",visual:"model",plane:"sagittal",position:50,focus:"ventricle",view:"inside",rotation:{x:-7,y:76},intro:"正中周囲だけを残し、脳梁の弧、側脳室、透明中隔、脳弓の上下関係を内側から見る標本です。側脳室を空間基準に、交連線維と辺縁系の出力路を分けて観察します。",observe:["脳梁の膝・幹・膨大へ続く弧","脳梁直下の側脳室","脳梁と脳弓の間の透明中隔","海馬から乳頭体方向へ続く脳弓","脳梁と脳弓が別の線維系であること"],caution:"脳梁・側脳室・脳弓・透明中隔は同一標本の部分的な試作分節です。薄い隔壁や脳弓の端部には未収録部分があり、全境界を確定した表示ではありません。",layers:[
-    {key:"corpus-callosum",name:"脳梁",latin:"Corpus callosum",color:"#dbc270",source:"試作分節",note:"左右大脳半球を結ぶ大きな交連線維の弧です。局所的な誤収録は修正しましたが、帯状回・脳弓など周辺構造との分離には未修正部分が残ります。原画像と照合してください。"},
+    {key:"corpus-callosum",name:"脳梁",latin:"Corpus callosum",color:"#dbc270",source:"試作分節",note:"左右大脳半球を結ぶ大きな交連線維の弧です。上方の帯状回と下方の脳弓を見分け、側脳室の屋根との位置関係を確認します。輪郭は教材用の近似です。"},
     {key:"lateral-ventricles",name:"側脳室",latin:"Ventriculi laterales",color:"#45aebd",source:"試作分節",note:"脳梁・透明中隔・脳弓の位置を読む空間基準です。"},
     {key:"fornix",name:"脳弓",latin:"Fornix",color:"#e7d9a6",source:"試作分節",note:"同一標本の脳弓体部・脚・柱と海馬采の部分分節です。終端と全外縁は未収録です。"},
     {key:"septum-pellucidum",name:"透明中隔",latin:"Septum pellucidum",color:"#a9c5bd",source:"試作分節",note:"左右側脳室の間に残る薄い隔壁の部分分節です。付着部と細い箇所は未収録です。"},
@@ -470,7 +470,7 @@ const structures: Record<StructureKey, StructureInfo> = {
   ventricle: { name: "側脳室", latin: "Ventriculus lateralis", color: "#49a9b4", rgb:[73,169,180], ids:[92,41,56,5], bigbrainIds:[23,24], labelSource:"atlas-image-guided", meshFocus:"ventricle", note: "前角・体部・後角・下角が連続する空間です。断面を動かして形の変化を追います。", relation: "脳梁の下方。体部は視床の上方、尾状核体部の内側" },
   thirdVentricle: { name:"第三脳室", latin:"Ventriculus tertius", color:"#58aeb8", rgb:[88,174,184], ids:[80,29], bigbrainIds:[25], labelSource:"atlas-image-guided", meshFocus:"ventricle", note:"左右の視床・視床下部に囲まれる正中の細い腔です。側壁の上部は視床、下部は視床下部に接します。水平断・冠状断で側脳室との位置関係を確認し、後方の外側の空隙とは区別して観察します。屋根と後方境界の一部は未確定です。", relation:"左右の視床・視床下部の間（側壁上部：視床、側壁下部：視床下部）" },
   fourthVentricle: { name:"第四脳室", latin:"Ventriculus quartus", color:"#4997b0", rgb:[73,151,176], ids:[88,37], bigbrainIds:[26], labelSource:"atlas-image-guided", meshFocus:"ventricle", note:"橋・延髄と小脳の間にある腔です。連続断面では上端の塗り残しを原画像で確認して補い、中脳水道から続く主腔を表示します。下方の出口と全外縁は確認が残っており、専門家レビューは未完了です。ブロック標本は粗い格子のため細い接続の再現に限界があります。", relation:"脳幹の背側、小脳の腹側" },
-  corpusCallosum: { name:"脳梁", latin:"Corpus callosum", color:"#dbc270", rgb:[219,194,112], ids:[], bigbrainIds:[30], labelSource:"image-guided", note:"左右大脳半球を結ぶ交連線維です。矢状断で膝・幹・膨大を連続して確認します。局所的な誤収録は修正しましたが、帯状回・脳弓との分離など未修正部分があり、輪郭は確定境界ではありません。", relation:"側脳室の上方、帯状回の下方" },
+  corpusCallosum: { name:"脳梁", latin:"Corpus callosum", color:"#dbc270", rgb:[219,194,112], ids:[], bigbrainIds:[30], labelSource:"image-guided", note:"左右大脳半球を結ぶ交連線維です。正中近くの矢状断で膝・幹・膨大を追い、上方の帯状回、下方の脳弓・側脳室と見比べます。輪郭は教材用の近似です。", relation:"側脳室の上方、帯状回の下方" },
   internalCapsule: { name:"内包", latin:"Capsula interna", color:"#e3d8b0", rgb:[227,216,176], ids:[], bigbrainIds:[31,32], labelSource:"image-guided", note:"尾状核・視床とレンズ核の間を走る白質路です。水平断で前脚・膝・後脚の曲がりを、冠状断で周囲の核との内外の位置関係を確認します。", relation:"尾状核・視床の外側、被殻・淡蒼球の内側" },
   caudate: { name: "尾状核", latin: "Nucleus caudatus", color: "#e19749", rgb:[225,151,73], ids:[100,49], bigbrainIds:[7,8], labelSource:"manual", meshFocus:"caudate", note: "側脳室に沿って弧状に走る核です。現在の分節は頭部・体部が中心で、下角へ回り込む尾部全長を収録していません。ラベルの終端を尾状核そのものの終端と誤認しないでください。", relation: "側脳室の外側、内包の内側" },
   putamen: { name:"被殻", latin:"Putamen", color:"#d9854f", rgb:[217,133,79], ids:[72,21], bigbrainIds:[9,10], labelSource:"manual", note:"レンズ核の外側部です。淡蒼球との境界と、外側を走る外包を確認します。", relation:"淡蒼球の外側、島皮質の内側" },
