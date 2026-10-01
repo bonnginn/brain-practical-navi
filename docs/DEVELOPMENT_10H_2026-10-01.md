@@ -104,3 +104,9 @@ VIM参照位置から主断面へ戻る導線を追加。版付き共有リン�
 失敗を含む27ファイルの再検証は60件中59成功、残る履歴再生1件を修正してそのファイル2件成功。関連4ファイル21件も成功。修正後に全668件を再実行したという意味ではなく、初回の失敗を対象再検証で解消した記録として保持する。ログはwork/october1-final-node.log、october1-final-node-retest.log、october1-final-chain-retest.log、october1-final-fix-target.log。
 
 型検査、通常build、GitHub Pages形式build成功。両配布物のPWA・権利表示照合成功（通常shell 1,921,202 bytes、全217素材の出典対応）。公開先・Cloudflare・CONTRIBUTING.mdは変更していない。
+
+### 海馬の同一標本細区分との比較
+
+公式配布の左右CA1〜CA4・DG・Subの12表面と嗅内皮質の左右配信を取得し、native100の原画像18面を全目視した。CA/DGの巻き込む層は現行海馬と概ね対応する。一方、海馬台・嗅内皮質を海馬本体へ一括追加することや、灰白質の表面から白板／海馬采を推定することはしない。新規採用0点、SHA84f56821は不変。[資料・判断・保存先](HIPPOCAMPAL_SUBFIELDS_REFERENCE_2026-10-01.md)。日英参考文献を2件追加し、対象Node2件とpreview build成功。日本語の新リンクと説明、英語の出典画面を実ブラウザで確認し、検証タブを閉じた。
+
+ID3〜20の各皮質下構造について、26近傍の補集合で閉じた未ラベル領域を読取専用で選別。淡蒼球に4・5点の小穴があるだけで、8点以上の候補は見つからなかった。開いた境界や解剖学的な正しさを検証する方法ではなく、追加採用はしない。現行SHA付きの報告はwork/anatomy-review/subcortical-enclosed-zero-2026-10-01.jsonに保持。
