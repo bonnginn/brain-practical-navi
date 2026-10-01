@@ -30,3 +30,21 @@
 ### 「with_white」配布物の実体確認
 
 公式JSON目録のhippocampus_with_white_left.jsonを取得し、実際のshapeを確認した。140,128,511 bytes、SHA-256 523cc1d5d290a4efbcd866931f0938d8bbee5c9e7f9e1920b6b4dff2ffd92522。7 shapeは左CA1〜CA4・歯状回・海馬台と「Left white」。後者は163,842頂点／327,680面、座標範囲[-62.1607,-68.8546,-34.6825]〜[3.78936,77.4745,53.5233]で、海馬局所の白板・海馬采ラベルではなく半球全体を覆う参照表面である。ファイル名のwhiteを根拠に脳弓の追加分節へ使わない。実ファイルとshape別範囲は同じworkディレクトリのwhite-left-inspection.jsonに保持。アプリ配布物への追加はしない。
+
+## 2023年の二つの手動地図を追加比較
+
+[DeKraker et al., 2023](https://doi.org/10.7554/eLife.88404)の公開最終PDFのMethods（主に2〜4頁）と、[Zenodo 7757416](https://zenodo.org/records/7757416)の実データ・著者コードを確認した。論文全20頁を精読したという記録ではない。2025年の新12区分とは別資料である。
+
+JD-OK_comparison.tar.gz（656,233,630 bytes）の公開MD5 30915bd0eaafd649291d55c366558bfdと取得物の一致を確認。全592エントリを目録化し、比較用のKedo_100um.nii.gz、JDKF_100um.nii.gz、二つの著者スクリプトと図だけを抽出した。10.3 GBのBIDS全体や4.2 GBの派生物は取得していない。float64のJD volumeは全配列をメモリ展開せず、gzipを順に読んで海馬周囲の限定cropを保存した。
+
+著者のRecon3D.mによりKedo値は1 PaS、2 Sub、3 PreS、4 ProS、5 CA1、6 CA2、7 CA3、8 CA4、9 FD。JDは1 Sub系、2 CA1、3 CA2、4 CA3、5 CA4/DG。Kedoは元の離散的な組織切片から再構成した地図で、間の未ラベル断面を組織の欠如と扱わない。著者の一致率計算は外縁を共通範囲へ切り詰めるため、高い一致率を外縁全体の保証と解釈しない。論文のSRLM等の混合領域も、白板・海馬采の代わりにはならない。
+
+両volumeの実affineはnative世界座標、0.1 mm、原点[-70.6666030884,-72.9700012207,-58.7776985168]。公式登録列の逆写像で現行0.5 mm voxel中心へ参照投影した（往復最大誤差7.133e-6 mm）。二資料がCA/DGを示し現行が0の点は356、26近傍で157成分。この一致だけで採用しない。三つのまとまった左の候補領域（16・12・12点）の周囲を、原画像／Kedo／JD／現行＋候補の4列で比較し、各軸の隣接3面、計27面を全目視した。
+
+確認面は体部X488〜490・Y642〜644・Z451〜453、頭部側X440〜442・Y742〜744・Z412〜414、移行域X469〜471・Y693〜695・Z432〜434。原画像で巻き込む灰白質の帯と小さな島状の断面が連続し、現行境界の局所的不足を支持する面がある。一方、Kedoの離散面とJDの連続地図では外縁の広さが異なる。今回の27面は356点全体・左右全域の採否確認ではない。海馬台・嗅内皮質への無条件の拡張や、元々含まれている白質の一括除外は行わない。
+
+この段階では海馬変更0点。次は157小片を一つずつ再発見するのではなく、この同一標本資料を使って頭部・体部・尾部ごとに収録する灰白質と周囲白質の範囲を定め、まとまった補完として確認する。候補の支持があることと、label・3D・ブロックの同期まで採用を完了したことを区別する。
+
+取得資料のZenodo記録にはCC BY 4.0の記載があるが、BigBrain原資料のCC BY-NC-SA 4.0を置き換えない。今回のvolume・crop・比較図はwork内に保持し、アプリでは日英の論文リンクと学習目的だけを掲載する。
+
+保存先はwork/hippocampal-subfields-reference-2026-10-01/manual-comparisonのbounded-crop-report.json、projection-report.json、manual-app500-reference.npz、core-agreement-zero-candidates.npz。原画像27面とSHA・範囲はwork/anatomy-review/hippo-manual-agreement-native100-2026-10-01/report.json。再現コードはwork/october1-crop-hippo-manual.py、october1-project-hippo-manual.py、october1-review-hippo-manual.py。アーカイブと失敗時の出力を削除していない。
