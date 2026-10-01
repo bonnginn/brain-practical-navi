@@ -686,7 +686,7 @@ const neurovascularQuizQuestions:NeurovascularQuizQuestion[]=[
 ];
 const visualQuizQuestions:QuizQuestion[]=[...quizQuestions,...neurovascularQuizQuestions];
 const conceptQuizQuestions:QuizQuestion[]=quizConceptData.questions.map(seed=>{
-  const visual=visualQuizQuestions.find(question=>question.target===seed.target);
+  const visual=visualQuizQuestions.find(question=>question.target===seed.target)??(seed.sectionView&&Object.hasOwn(structures,seed.target)?{target:seed.target as StructureKey,...seed.sectionView,format:"section" as const,prompt:seed.prompt,options:seed.options.map(option=>option.key)}:undefined);
   if(!visual)throw new Error(`Concept quiz target has no visual question: ${seed.target}`);
   if(seed.sectionView&&!("plane" in visual))throw new Error(`Section context requires a section target: ${seed.id}`);
   const context=seed.sectionView&&"plane" in visual?{...visual,...seed.sectionView,detail:seed.sectionView.plane}:visual;

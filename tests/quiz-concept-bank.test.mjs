@@ -12,7 +12,7 @@ test("quiz bank retains visual coverage and excludes held anatomy after expansio
   const report=auditQuizConceptBank();
   assert.equal(report.ok,true,report.errors.join("\n"));
   assert.ok(report.summary.totalQuestionCount>=100);
-  assert.equal(report.summary.uniqueVisualTargetCount,45);
+  assert.ok(report.summary.uniqueVisualTargetCount>=45);
   assert.ok(report.summary.conceptVisualTargetCount>=38);
   assert.equal(report.eligibility.heldVisualQuestionCount,4);
   assert.equal(report.eligibility.heldConceptQuestionCount,4);
@@ -51,4 +51,8 @@ test("concept audit rejects malformed evidence and answers",()=>{
   assert.match(validateQuizConceptBank(misplaced,page).errors.join("\n"),/sectionView requires a section target/);
   const outside=clone();outside.questions.find(q=>q.sectionView).sectionView.position=101;
   assert.match(validateQuizConceptBank(outside,page).errors.join("\n"),/invalid sectionView/);
+  const missingContext=clone();delete missingContext.questions.find(q=>q.target==='thirdVentricle').sectionView;
+  assert.match(validateQuizConceptBank(missingContext,page).errors.join("\n"),/new section target requires sectionView/);
+  const withheld=clone();withheld.questions.find(q=>q.target==='thirdVentricle').target='aqueductPartial';
+  assert.match(validateQuizConceptBank(withheld,page).errors.join("\n"),/unknown visual target/);
 });

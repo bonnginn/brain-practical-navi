@@ -1296,5 +1296,49 @@
       "brainstem-oculomotor-exit-c",
       "brainstem-oculomotor-exit-d"
     ]
+  },
+  {
+    "question": "third-ventricle-downstream",
+    "revision": "38f1d989598e79474e76c74ffcdfc5fc09f1a8c4c00e0f1a1b82e75f06d8276b",
+    "prompt": "色で示された第三脳室から中脳水道を通ると、次にどの髄液腔へ至りますか？",
+    "options": [
+      "third-ventricle-downstream-a",
+      "third-ventricle-downstream-b",
+      "third-ventricle-downstream-c",
+      "third-ventricle-downstream-d"
+    ]
+  },
+  {
+    "question": "third-ventricle-wall-levels",
+    "revision": "7b71d4b2a141778982027dd6dfdbc1d20973e0fafe613b17d79b3993b7b603cc",
+    "prompt": "第三脳室の側壁を、上方と下方の構造で整理した組合せはどれですか？",
+    "options": [
+      "third-ventricle-wall-levels-a",
+      "third-ventricle-wall-levels-b",
+      "third-ventricle-wall-levels-c",
+      "third-ventricle-wall-levels-d"
+    ]
+  },
+  {
+    "question": "fourth-ventricle-floor-landmarks",
+    "revision": "def6c9ef37211bab1c046b3befe094664f4eca91426c754100dbea6ce52aeaaa",
+    "prompt": "第四脳室の床をつくる主な部位はどれですか？",
+    "options": [
+      "fourth-ventricle-floor-landmarks-a",
+      "fourth-ventricle-floor-landmarks-b",
+      "fourth-ventricle-floor-landmarks-c",
+      "fourth-ventricle-floor-landmarks-d"
+    ]
+  },
+  {
+    "question": "fourth-ventricle-apertures",
+    "revision": "ba990a4ce45a2ea53da41786d8abe12227d60bc00333b206a8c43bc78ea1e50c",
+    "prompt": "第四脳室からくも膜下腔への通路となる開口の組合せはどれですか？",
+    "options": [
+      "fourth-ventricle-apertures-a",
+      "fourth-ventricle-apertures-b",
+      "fourth-ventricle-apertures-c",
+      "fourth-ventricle-apertures-d"
+    ]
   }
 ]
