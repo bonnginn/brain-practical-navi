@@ -761,6 +761,8 @@ function quizVisibilityAuditTargetOverride():QuizQuestion|null{
   if(host!=="127.0.0.1"&&host!=="localhost"&&host!=="::1")return null;
   const params=new URLSearchParams(window.location.search);
   if(params.get("quizVisibilityAudit")!=="1")return null;
+  const questionId=params.get("question");
+  if(questionId)return allQuizQuestions.find(question=>question.id===questionId)??null;
   const target=params.get("target");
   return allQuizQuestions.find(question=>question.target===target)??null;
 }
