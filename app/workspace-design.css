@@ -40,7 +40,22 @@
 .sectionPlaneTabs button{border:1px solid transparent;border-radius:5px;background:transparent;color:#4a635b;font:inherit;font-size:14px;padding:6px 10px;min-height:34px;white-space:nowrap}
 .sectionPlaneTabs button[aria-pressed=true]{background:#285e55;color:#fff}
 .sectionPlaneTabs button:focus-visible{outline:3px solid #d99556;outline-offset:1px}
-.workspace-sections .sectionUtilities{margin-top:12px;grid-template-columns:minmax(0,1fr) auto}
+.workspace-sections .sectionUtilities{margin-top:10px;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.workspace-sections .sectionUtilities>details{border:1px solid #c4d2cd;border-radius:7px;background:#fafcfb;padding:0;overflow:hidden}
+.workspace-sections .sectionUtilities>details[open]{grid-column:1/-1}
+.workspace-sections .sectionUtilities>details>summary{padding:9px 11px;font-size:12px;line-height:1.4;min-height:38px;box-sizing:border-box;color:#365b52}
+.workspace-sections .sectionUtilities>details[open]>summary{background:#e8f1ed;border-bottom:1px solid #ccd9d3}
+.workspace-sections .sectionUtilities>details>div,.workspace-sections .sectionUtilities>details>p{margin-inline:12px}
+.workspace-sections .selectedStructureSummary{gap:8px;padding:8px 12px}
+.workspace-sections .selectedStructureSummaryText>small{font-size:11px}
+.workspace-sections .selectedStructureRole{font-size:13px;line-height:1.5;margin-top:4px}
+.workspace-sections .selectedStructureList{display:flex;flex-wrap:wrap;gap:5px;padding:8px 12px;background:#f3f5f2;border-top:1px solid #d1d9d3}
+.workspace-sections .selectedStructureList>button{display:inline-flex;align-items:center;gap:6px;min-width:0;min-height:34px;padding:5px 9px;border:1px solid #c6d2cb;border-radius:6px;background:#fff;color:#40574e;text-align:left}
+.workspace-sections .selectedStructureList>button.current{background:#e2eee8;border-color:#428478;box-shadow:none;color:#214e42}
+.workspace-sections .selectedStructureList>button>b{margin:0;font-size:12px;line-height:1.4;font-weight:600}
+.workspace-sections .selectedStructureList>button>i{width:7px;height:7px;min-height:0;flex:none;border-radius:50%}
+.workspace-sections .selectedStructureList>button:focus-visible{outline:3px solid #d99556;outline-offset:2px}
+@media(max-width:760px){.workspace-sections .selectedStructureList>button{min-height:44px}.workspace-sections .sectionUtilities>details>summary{min-height:44px}}
 @media(max-width:760px){.sectionPlaneTabs button{min-height:44px;padding:7px 10px}.workspace-sections .sectionUtilities{grid-template-columns:1fr}}
 @media(max-width:600px){
   .workspace-sections .slicePanel{min-width:0;grid-template-columns:minmax(0,1fr)}

@@ -2,6 +2,7 @@
 
 利用方法は [トップのREADME](../README.md)、現在地・作業期限と次の作業は [短い再開メモ](RESUME_SUMMARY.md) を参照してください。
 
+- [追加教材を含む断面UIの整理（ローカル）](OBSERVATION_UI_POLISH_2026-10-01.md)
 - [10月1日夜の教材導線改善（ローカル）](EVENING_TEACHING_POLISH_2026-10-01.md)
 - [観察から同じ構造の自己同定へ（ローカル）](OBSERVATION_IDENTIFICATION_LINK_2026-10-01.md)
 - [現行脳梁の表示と説明の整合（ローカル）](CALLOSAL_COPY_ALIGNMENT_2026-10-01.md)

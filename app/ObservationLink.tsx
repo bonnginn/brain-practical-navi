@@ -1,6 +1,6 @@
 import {useRef,useState} from 'react';
 
-export function ObservationLink({url,english,onOpen}:{url:string;english:boolean;onOpen?:()=>void}){
+export function ObservationLink({url,english,onOpen,accordionGroup}:{url:string;english:boolean;onOpen?:()=>void;accordionGroup?:string}){
   const input=useRef<HTMLInputElement>(null);
   const [result,setResult]=useState<{url:string;copied:boolean}|null>(null);
   const [copying,setCopying]=useState(false);
@@ -16,7 +16,7 @@ export function ObservationLink({url,english,onOpen}:{url:string;english:boolean
     }finally{setCopying(false)}
   }
   const current=result?.url===url?result:null;
-  return <details className="sectionObservationLink" data-no-localize onToggle={event=>{if(event.currentTarget.open)onOpen?.()}}>
+  return <details className="sectionObservationLink" name={accordionGroup} data-no-localize onToggle={event=>{if(event.currentTarget.open)onOpen?.()}}>
     <summary>{english?'Link to this observation':'この観察のリンク'}</summary>
     <p>{english?'Reopen the same slice, selected structures and panel layout. Rotation and zoom are not included. No personal data is included.':'断面位置・選択構造・表示配分を再現するリンクです。回転と拡大率は含みません。個人情報は含まれません。'}</p>
     <div className="observationLinkActions"><input ref={input} aria-label={english?'Observation URL':'観察URL'} readOnly onFocus={event=>event.currentTarget.select()} value={url}/><button type="button" onClick={copy} disabled={!url||copying}>{copying?(english?'Copying…':'コピー中…'):(english?'Copy link':'リンクをコピー')}</button></div>
