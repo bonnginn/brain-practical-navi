@@ -171,6 +171,11 @@ test("independent audit rejects focus UI, layer-order, forbidden-text, and route
   assert.equal(forbiddenReport.ok, false);
   assert.ok(forbiddenReport.errors.some(error => error.code === "prohibited-layer-text"));
 
+  const missingWorkspaceCleanup = pageSource.replace('if(key!=="blocks")stopBlockGuided();', '');
+  const cleanupReport = auditBlockGuidedSource({source: missingWorkspaceCleanup, routeSource});
+  assert.equal(cleanupReport.ok, false);
+  assert.ok(cleanupReport.errors.some(error => error.code === "cleanup-workspace"));
+
   const missingRoute = routeSource.replace('hash: "#workspace/blocks/hindbrain"', 'hash: "#workspace/blocks/removed"');
   const routeReport = auditBlockGuidedSource({source: pageSource, routeSource: missingRoute});
   assert.equal(routeReport.ok, false);

@@ -21,6 +21,7 @@ export const additionalIdentificationSections=[
 export const identificationLocationHints:Partial<Record<typeof additionalIdentificationSections[number]['key'],{ja:string;en:string}>>={
   fornixBodyPartial:{ja:'海馬に沿う海馬采から、正中近くの脳弓体部と下行する柱を探します。脳梁の下にある白質を、冠状断と矢状断で見比べましょう。',en:'Look for the fimbria along the hippocampus, the fornix body beneath the corpus callosum near the midline, and the descending columns. Compare coronal and sagittal views.'},
   opticTractsPartial:{ja:'視交叉から後外側へ延びる左右の帯を探します。隣接断面で追い、外側膝状体へ近づく位置関係を確かめましょう。',en:'Find the paired bands running posterolaterally from the chiasm. Follow neighbouring slices toward the lateral geniculate bodies.'},
+  opticChiasmPartial:{ja:'正中付近で、その後方に左右の視索が続く視交叉の中央部を探します。近くの水平断を見比べ、中央部から左右へ続く形を手がかりにしましょう。',en:'Find the central chiasm near the midline, with the paired optic tracts continuing behind it. Compare nearby horizontal slices and use the shape extending toward either side as a clue.'},
   pallidumExternal:{ja:'淡蒼球のうち、被殻に近い外側の区画を探します。画面の端ではなく、被殻・内包との並びを手がかりにしましょう。',en:'Find the pallidal segment nearer the putamen. Use the arrangement of the putamen and internal capsule, rather than the edge of the screen, as your reference.'},
   pallidumInternal:{ja:'淡蒼球のうち、内包に近い内側の区画を探します。灰白質の内節と、その内側を通る白い内包を見分けましょう。',en:'Find the pallidal segment nearer the internal capsule. Distinguish its grey matter from the white-matter capsule on its medial side.'},
 };

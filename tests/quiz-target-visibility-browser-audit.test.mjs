@@ -6,6 +6,7 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 
 import {
+  LABEL_ASSET_SHA256,
   EXPECTED_QUIZ_TARGET_COUNTS,
   EXPECTED_QUIZ_TARGET_INVENTORY_SHA256,
   EXPECTED_QUIZ_VISIBILITY_OPTIONS_SHA256,
@@ -27,12 +28,23 @@ import {
 const root=new URL("../",import.meta.url),scriptPath=new URL("scripts/audit_quiz_target_visibility_browser.mjs",root),appSource=fs.readFileSync(new URL("app/page.tsx",root),"utf8"),atlasSource=fs.readFileSync(new URL("app/AtlasVolumeCanvas.tsx",root),"utf8"),runnerSource=fs.readFileSync(scriptPath,"utf8");
 function validateFixture(fixture){return validateQuizTargetVisibilityFixture(fixture.report,{rawArtifactLoader:fixture.rawArtifactLoader,sourceRoot:fixture.sourceRoot})}
 
+test("live visibility source pins match the shipped labels and meshes",()=>{
+  const labels=fs.readFileSync(new URL("public/atlas/bigbrain-practical-segmentation-icbm500.bin.gz",root));
+  assert.equal(sha256Bytes(labels),LABEL_ASSET_SHA256);
+  const revision=fs.readFileSync(new URL("app/segmentationLabelRevision.ts",root),"utf8");
+  assert.equal(revision.match(/SEGMENTATION_LABEL_SHA256="([a-f0-9]+)"/)[1],LABEL_ASSET_SHA256);
+  for(const[file,digest]of Object.entries(describeQuizVisibilitySourceRoot().manifest)){
+    assert.equal(sha256Bytes(fs.readFileSync(new URL(`public/atlas/${file}`,root))),digest,file);
+  }
+});
+
 test("freezes exact 17/6/22 inventory, options/render dependency, and 135-row matrix",()=>{
   const audit=auditQuizTargetVisibilitySource({source:appSource});assert.equal(audit.ok,true,audit.errors.join("; "));assert.deepEqual(audit.counts,EXPECTED_QUIZ_TARGET_COUNTS);assert.equal(audit.inventorySha256,EXPECTED_QUIZ_TARGET_INVENTORY_SHA256);assert.equal(audit.optionsSha256,EXPECTED_QUIZ_VISIBILITY_OPTIONS_SHA256);
   const matrix=buildQuizTargetVisibilityMatrix();assert.equal(matrix.length,135);assert.equal(new Set(matrix.map(row=>row.key)).size,135);assert.deepEqual(QUIZ_TARGET_VISIBILITY_VIEWPORTS.at(-1),{id:"phone",label:"phone",width:390,height:768,dpr:1,deviceScaleFactor:1,mobile:true,isMobile:true,touch:true,hasTouch:true,coarse:true,pointer:"coarse"});
   assert.ok(QUIZ_TARGET_VISIBILITY_INVENTORY.every(entry=>entry.options.length===4&&entry.options.includes(entry.target)&&entry.expectedIds.length>0));
   const transformFor=target=>QUIZ_TARGET_VISIBILITY_INVENTORY.find(entry=>entry.target===target)?.expectedTransform;
-  assert.deepEqual(transformFor("ventricle"),{rotation:{x:-8,y:-28,z:0},zoom:1,pan:{x:0,y:0}});assert.deepEqual(transformFor("precentral"),{rotation:{x:0,y:-90,z:0},zoom:1,pan:{x:0,y:0}});assert.deepEqual(transformFor("ica"),{rotation:{x:110,y:2,z:180},zoom:1,pan:{x:0,y:0}});assert.deepEqual(transformFor("cn1"),{rotation:{x:-42,y:2,z:0},zoom:1,pan:{x:0,y:0}});
+  assert.deepEqual(transformFor("ventricle"),{rotation:{x:-8,y:-28,z:0},zoom:1,pan:{x:0,y:0}});assert.deepEqual(transformFor("precentral"),{rotation:{x:0,y:-90,z:0},zoom:1,pan:{x:0,y:0}});assert.deepEqual(transformFor("ica"),{rotation:{x:110,y:2,z:180},zoom:1,pan:{x:0,y:0}});assert.deepEqual(transformFor("cn1"),{rotation:{x:70,y:4,z:0},zoom:1,pan:{x:0,y:0}});
+  assert.deepEqual(transformFor("cn6").rotation,{x:-10,y:178,z:0});assert.deepEqual(transformFor("basilar").rotation,{x:174,y:2,z:180});assert.deepEqual(transformFor("cn4").rotation,{x:-42,y:-118,z:0});
   const changedRotation=auditQuizTargetVisibilitySource({source:appSource.replace('lateral:{name:"左外側面",en:"LEFT LATERAL SURFACE",visual:"cortex",rotation:{x:0,y:-90,z:0}','lateral:{name:"左外側面",en:"LEFT LATERAL SURFACE",visual:"cortex",rotation:{x:1,y:-90,z:0}')});assert.equal(changedRotation.ok,false);assert.ok(changedRotation.errors.some(error=>error.includes("options/render hash")));
 });
 
@@ -111,8 +123,8 @@ test("app and independent validator use depth, shader alpha, and identical conse
     assert.match(source,/depth\[index\]/,`${label} must resolve visible fragments with depth`);
     assert.match(source,/for\(let dy=-1;dy<=1;dy\+\+\)for\(let dx=-1;dx<=1;dx\+\+\)/,`${label} must apply exactly one conservative pixel of dilation`);
   }
-  assert.match(atlasSource,/visible-highlight-depth-v3/);
-  assert.match(runnerSource,/visible-highlight-depth-v3/);
+  assert.match(atlasSource,/visible-highlight-depth-v4/);
+  assert.match(runnerSource,/visible-highlight-depth-v4/);
   assert.match(runnerSource,/stableMeshInterior\(mask,width,height\)/);
   assert.match(runnerSource,/meshVisibilityCoverage\(loaded\.H1\.core,loaded\.H1\.mask/);
   assert.match(atlasSource,/if\(highlightAlpha>\.5\)mask\[index\]=1;else if\(namespace==="surface"\)mask\[index\]=0/);

@@ -2014,8 +2014,8 @@
   },
   {
     "question": "anterior-commissure-rostrum-landmark",
-    "revision": "8897b0bfd19256a5ea66df6afc4cfe9ae8ee526ffa7583f1876976aa0654e75b",
-    "prompt": "正中矢状面で、前交連を脳梁のどの部分の下方に探しますか？",
+    "revision": "dd873bf432a37346e068eeb3d65dcc38bc5605dd9ece7fc08c30f11eaf7bfe2e",
+    "prompt": "前交連の正中での位置を確かめるとき、上方の目印となる脳梁の部分はどれですか？",
     "options": [
       "anterior-commissure-rostrum-landmark-a",
       "anterior-commissure-rostrum-landmark-b",

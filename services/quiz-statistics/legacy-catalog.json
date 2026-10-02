@@ -559,5 +559,16 @@
       "stn-midbrain",
       "stn-cortex"
     ]
+  },
+  {
+    "question": "anterior-commissure-rostrum-landmark",
+    "revision": "8897b0bfd19256a5ea66df6afc4cfe9ae8ee526ffa7583f1876976aa0654e75b",
+    "prompt": "正中矢状面で、前交連を脳梁のどの部分の下方に探しますか？",
+    "options": [
+      "anterior-commissure-rostrum-landmark-a",
+      "anterior-commissure-rostrum-landmark-b",
+      "anterior-commissure-rostrum-landmark-c",
+      "anterior-commissure-rostrum-landmark-d"
+    ]
   }
 ]

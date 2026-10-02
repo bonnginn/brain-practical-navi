@@ -773,7 +773,7 @@ html[lang="en"] .specimenLayerPicker button span small { display: none; }
 .quizFeedback.wrong { border-left-color: #e36e57; }
 .quizFeedback > b { font-size: 15px; }
 .quizFeedback p { margin: 6px 0 10px; color: #606a68; font-size: 14px; line-height: 1.65; }
-.quizFeedback .quizFeedbackPrompt { margin: 8px 0; color: #233c39; font-weight: 700; line-height: 1.45; }
+.quizFeedback .quizFeedbackAnswer { margin: 8px 0; color: #233c39; line-height: 1.45; }
 .quizFeedback > div { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 9px; }
 .quizFeedbackActions { padding-bottom: 12px; margin-bottom: 12px; border-bottom: 1px solid #cbd3cd; }
 .quizFeedback button { width: 100%; padding: 9px; border: 0; background: #172126; color: white; font-size: 14px; font-weight: 700; }
@@ -1530,7 +1530,9 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
 .quizArea .workHead { flex-wrap: wrap; gap: .5rem; }
 .quizArea .workHead h1 { font-size: clamp(1.5rem,1.1rem + 1cqi,2rem); }
 .quizWorkspace { grid-template-columns: minmax(0,1fr) minmax(280px,.85fr); }
-.quizNarrowPrompt { display: none; }
+.quizNarrowPrompt { display: none; scroll-margin-top: 74px; }
+@media(max-width:969px){.quizNarrowPrompt{scroll-margin-top:110px}}
+.phone-mode .quizNarrowPrompt{scroll-margin-top:70px}
 .quizNarrowPrompt > span { display: block; color: #437572; font: 700 12px/1.4 sans-serif; letter-spacing: .06em; }
 .quizNarrowPrompt h2 { margin: 5px 0 0; font: 400 clamp(17px,4.5vw,21px)/1.45 Georgia,"Yu Mincho",serif; overflow-wrap: anywhere; }
 .quizQuestionCard { min-width: 0; padding: clamp(.875rem,2cqi,1.75rem); }
@@ -1567,10 +1569,19 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
   .quizSliceAxis { grid-column: 1 / -1; }
   .quizSliceNavigator > button { grid-column: 1 / -1; white-space: normal; }
 }
+@container quiz-image (max-width: 24rem) {
+  .quizImageCard .quizSliceControl { grid-template-columns: 44px minmax(0,1fr) 44px; grid-template-rows: auto 44px; column-gap: 5px; row-gap: 0; }
+  .quizSliceControl > button:first-child { grid-column: 1; grid-row: 2; }
+  .quizSliceControl > button:last-child { grid-column: 3; grid-row: 2; }
+  .quizSliceControl > input { grid-column: 2; grid-row: 2; min-width: 0; margin: 0; }
+  .quizSliceControl > .quizSliceEnd:nth-child(2) { grid-column: 1 / -1; grid-row: 1; justify-self: start; }
+  .quizSliceControl > .quizSliceEnd:nth-child(4) { grid-column: 1 / -1; grid-row: 1; justify-self: end; }
+}
 @container quiz-area (max-width: 38rem) {
   .quizWorkspace { display: grid; flex: 0 0 auto; grid-template-columns: minmax(0,1fr); }
   .quizNarrowPrompt { display: block; padding: 12px 14px; border: 1px solid #c7cac4; background: #e7e5df; }
-  .quizImageCard { height: clamp(300px,46svh,480px); }
+  .quizImageCard { height: auto; grid-template-rows: auto minmax(220px,32svh) auto; }
+  .appShell.workspace-quiz:not(.findPractice) .quizImageCard { height: auto; }
   .quizQuestionCard { overflow: visible; margin-top: 0; }
   .quizQuestionCard > .guideIndex,.quizQuestionCard > .quizQuestionKind,.quizQuestionCard > h2 { display: none; }
   .quizSliceNavigator { grid-template-columns: minmax(0,1fr) auto; gap: .5rem; }
@@ -1579,7 +1590,8 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
 }
 @media (min-width:673px) and (max-width:760px) {
   .quizNarrowPrompt { display: block; padding: 12px 14px; border: 1px solid #c7cac4; background: #e7e5df; }
-  .quizImageCard { height: clamp(300px,46svh,480px); }
+  .quizImageCard { height: auto; grid-template-rows: auto minmax(220px,32svh) auto; }
+  .appShell.workspace-quiz:not(.findPractice) .quizImageCard { height: auto; }
   .quizQuestionCard > .guideIndex,.quizQuestionCard > .quizQuestionKind,.quizQuestionCard > h2 { display: none; }
 }
 
@@ -1777,3 +1789,6 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
   .appShell:not(.phone-mode) .workspaceSwitch .workspaceNavFull{display:none}
   .appShell:not(.phone-mode) .workspaceSwitch .workspaceNavShort{display:block;font-size:11px;line-height:1.12;white-space:nowrap}
 }
+
+/* Reading instructions are prose, not a spaced technical status label. */
+.quizImageCard .panelHead > span { font-family:system-ui,sans-serif; font-size:12px; line-height:1.35; letter-spacing:0; }
