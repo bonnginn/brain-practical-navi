@@ -10,3 +10,6 @@
 .quizSessionCurrent{background:#edf5f1;outline:1px solid #337d74;border-radius:4px;padding:3px 5px}.quizSessionBar small b{display:block;font-size:11px;color:#28594f}
 .quizSessionSummaryCurrent{margin-left:10px;font-size:11px;color:#28594f}
 @media(max-width:600px){.quizStatsBar{grid-template-columns:minmax(70px,1fr) minmax(55px,1fr) 36px 25px;gap:4px}.quizStatsOverview{padding:12px}.quizStatsList summary{flex-wrap:wrap;gap:4px}.quizStatsList summary small{white-space:normal}.quizSessionOverview{padding:10px}.quizSessionGroups details{padding:6px}.quizSessionBar{grid-template-columns:44px minmax(0,1fr) 80px;gap:5px;font-size:11px}}
+.quizStatsCorrectBadge{display:inline-block;margin-left:5px;padding:1px 5px;border:1px solid #94b8ad;border-radius:4px;background:#edf5f1;color:#28594f;font:600 10px/1.4 system-ui,sans-serif;white-space:nowrap}
+
+.quizStatsSearchCount{font:12px/1.5 system-ui,sans-serif;color:#536765;white-space:nowrap;padding:8px 0}

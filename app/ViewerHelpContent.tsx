@@ -16,7 +16,7 @@ const ja:HelpSection[]=[
     ["黒い空間","脳の外側の黒は、組織が表示されていない場所です。脳内の黒い腔も、暗さだけで脳室とは決められません。周囲の構造と隣接断面を見比べてください。"],
     ["併設3Dの拡大","3Dにフォーカスして−／＋キーで拡大縮小、0キーで100%へ戻します。2面表示では両方の倍率が揃います。"],
     ["構造の同定","画像を短くクリックすると構造を同定します。構造一覧は名称・かな・英語で検索して複数選択できます。検索の絞り込みで選択中の構造は消えません。詳細解説の「周囲の構造も表示」で比較対象を追加できます。"],
-    ["観察テーマ","断面上部のガイドで観察順を読み、開始断面へ進めます。その後は断面と選択を自由に変えられます。"],
+    ["観察テーマ","断面の下にある「観察の補助ガイド」で観察順を読み、開始断面へ進めます。その後は断面と選択を自由に変えられます。"],
   ]},
   {title:"脳表・ブロック標本",rows:[
     ["着色","構造名を押して着色を切り替えます。「全選択」「すべて解除」がある画面ではまとめて変更できます。"],
@@ -25,9 +25,10 @@ const ja:HelpSection[]=[
     ["自由観察","構造索引または検索から複数の対象を追加します。"],
   ]},
   {title:"回路・復習",rows:[
-    ["回路を追う","自由観察で回路を選び、段階を押すか赤い模式信号を再生します。「標本で見る」でモデルへ、「回路解説へ戻る」でガイドへ移動します。操作ガイドや出典を開くと再生は一時停止します。"],
+    ["回路を追う","自由観察で回路を選び、段階を押すか赤い模式信号を再生します。「標本で見る」でモデルや対応する断面へ、「回路解説へ戻る」で選んだ段階のガイドへ移動します。操作ガイドや出典を開くと再生は一時停止します。"],
     ["回路の確認","回路の下の問いに自分で答えてから、解説を開きます。「このつながりを見直す」で対応する段階へ戻れます。"],
-    ["復習","回答後は「観察画面で位置を確認」へ進めます。「回答・解説へ戻る」（完了後は「結果へ戻る」）で、回答と得点を保って復習に戻れます。"],
+    ["四択クイズ","名称・機能・位置関係を選択肢から答え、正答と自分の選択を解説で比べます。「観察画面で位置を確認」から、回答と得点を保って観察・復習を往復できます。"],
+    ["構造同定","無着色の画像で探し、予想位置に印を付けてから「着色して答え合わせ」を押します。迷ったらヒントを開けます。印は任意で採点しません。断面方向を変えると、同じ構造を無着色で探し直します。"],
   ]},
 ];
 
@@ -47,7 +48,7 @@ const en:HelpSection[]=[
     ["Dark spaces","Black outside the brain has no displayed tissue. A dark space inside the brain is not necessarily a ventricle. Compare its neighbours and adjacent sections."],
     ["Companion 3D zoom","Focus either 3D view and use − / + to zoom, or 0 to restore 100%. Both views share the same zoom."],
     ["Identify","Click briefly on the image to identify a structure. Search the list by Japanese, kana or English names and select multiple structures. Filtering does not remove your selections. In the explanation, Show neighbouring structures adds comparison targets."],
-    ["Observation themes","Open the guide above the section, read the observation steps, then open a starting slice. You can freely change the section and selected structures afterwards."],
+    ["Observation themes","Open Optional observation guides below the section, read the observation steps, then open a starting slice. You can freely change the section and selected structures afterwards."],
   ]},
   {title:"Surface and block specimens",rows:[
     ["Colouring","Select structure names to change their colouring. Where offered, Select all and Deselect all change the group together."],
@@ -56,15 +57,16 @@ const en:HelpSection[]=[
     ["Free observation","Add multiple structures from the structure index or search."],
   ]},
   {title:"Circuits and review",rows:[
-    ["Follow a circuit","In Free observation, choose a circuit, then select its stages or play the schematic red signal. Inspect in specimen moves to the model; Back to explanation returns to the guide. Opening help or sources pauses playback."],
+    ["Follow a circuit","In Free observation, choose a circuit, then select its stages or play the schematic red signal. Inspect in specimen opens the model or a matching section; Back to explanation returns to the selected stage. Opening help or sources pauses playback."],
     ["Circuit recall","Answer the prompts below a circuit before opening their explanations. Revisit this connection takes you back to the relevant stage."],
-    ["Review","After answering, open the observation view to check the location. Use Back to answer and explanation (or Back to results) to return without losing your answer or score."],
+    ["Multiple-choice quiz","Answer about a name, function or spatial relationship, then compare the correct answer and your choice in the explanation. View structure opens an observation view; return without losing your answer or score."],
+    ["Structure identification","Search the uncoloured image, mark your predicted location, then choose Reveal colour to check. Hints are optional, and markers are not scored. Changing the section plane starts a fresh, uncoloured search for the same structure."],
   ]},
 ];
 
 export function ViewerHelpContent({english}:{english:boolean}){
   return <div data-no-localize>
-    <p className="helpIntro">{english?"Start with the learning guide on Home. For keyboard controls, first focus the image, model or slider you want to operate.":"初めての方はHomeの「教材を選ぶ」から進められます。キー操作では、操作したい画像・モデル・スライダーに先にフォーカスしてください。"}</p>
+    <p className="helpIntro">{english?"Start with the learning guide on Home. For keyboard controls, first focus the image, model or slider you want to operate.":"初めての方はHomeで教材を選んで進められます。キー操作では、操作したい画像・モデル・スライダーに先にフォーカスしてください。"}</p>
     <div className="helpGrid">{(english?en:ja).map(section=><article key={section.title}><h3>{section.title}</h3><dl>{section.rows.map(([label,description])=><div key={label}><dt>{label}</dt><dd>{description}</dd></div>)}</dl></article>)}</div>
     <details className="helpEditorDetails"><summary>{english?"Segmentation editor shortcuts (contributors)":"分節編集ツールの操作（共同制作者向け）"}</summary><p>{english?"Paint by dragging in the editor. Pan with right / middle drag or Alt + drag. Undo with Ctrl / ⌘ + Z; add Shift to redo.":"編集Canvasを左ドラッグで塗ります。右・中・Altドラッグで移動。Ctrl／⌘＋Zで元に戻し、Shiftも押すとやり直します。"}</p></details>
   </div>;

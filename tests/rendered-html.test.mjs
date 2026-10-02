@@ -1921,9 +1921,10 @@ test("block specimens support continuous rotation and reuse the shared WebGL ren
   assert.doesNotMatch(page, /<AtlasVolumeCanvas[^>]*key=\{blockSpecimen\}/);
   assert.match(canvas, /let sharedAtlasRenderCanvas:HTMLCanvasElement\|null=null/);
   assert.match(canvas, /target\.drawImage\(canvas,0,0\)/);
-  assert.match(canvas, /gl\.deleteShader\(vertexShader\);gl\.deleteShader\(fragmentShader\)/);
-  assert.match(canvas, /if\(!ext\)\{gl\.deleteProgram\(prog\);return false\}/);
-  assert.match(canvas, /gl\.deleteProgram\(prog\)/);
+  // Resource cleanup and program reuse are exercised by webgl-program-cache.test.mjs.
+  // A cached program survives a frame; lack of uint-index support still fails safely.
+  assert.match(canvas, /const prog=atlasProgram\(gl,vs,fs\);if\(!prog\)return false/);
+  assert.match(canvas, /if\(!ext\)return false/);
   assert.doesNotMatch(canvas, /Promise\.all\(\["brain",focus/);
   assert.doesNotMatch(canvas, /focus:Mesh/);
   assert.match(canvas, /const loadOptional=\(needed:boolean,name:string\)=>needed\?loadMesh\(name\):Promise\.resolve\(EMPTY_MESH\)/);
@@ -2368,11 +2369,23 @@ test("releases expanded atlas volumes after the last consuming canvas unmounts",
   assert.match(editor, /return\(\)=>\{active=false;dataCache=null\}/);
   assert.match(performanceAudit, /ブラウザのHTTPキャッシュは消さない/);
 });
-test("releases decoded 3D mesh caches after the last surface canvas unmounts", async () => {
+test("releases decoded 3D meshes and GPU only after the last view stays unmounted", async () => {
   const canvas = await readFile(new URL("app/AtlasVolumeCanvas.tsx", root), "utf8");
-  assert.match(canvas,/surfaceMeshConsumers=0,surfaceMeshReleaseTimer:number\|null=null/);
-  assert.match(canvas,/function retainSurfaceMeshCaches\(\)\{surfaceMeshConsumers\+\+/);
-  assert.match(canvas,/function releaseSurfaceMeshCaches\(\)[\s\S]*if\(surfaceMeshConsumers===0\)meshCache\.clear\(\)/);
+  const start=canvas.indexOf("function retainSurfaceMeshCaches()"),end=canvas.indexOf("async function loadVolume()",start);
+  assert.ok(start>=0&&end>start);
+  let nextTimer=0,meshClears=0,gpuReleases=0;
+  const timers=new Map();
+  const window={setTimeout(fn,delay){assert.equal(delay,750);const id=++nextTimer;timers.set(id,fn);return id},clearTimeout(id){timers.delete(id)}};
+  // Execute the actual lifecycle functions with controlled timers and resources.
+  const lifecycle=new Function("window","meshCache","releaseAtlasRenderCanvas",`let surfaceMeshConsumers=0,surfaceMeshReleaseTimer=null;${canvas.slice(start,end)};return {retain:retainSurfaceMeshCaches,release:releaseSurfaceMeshCaches}`)(window,{clear(){meshClears++}},()=>gpuReleases++);
+  lifecycle.retain();lifecycle.retain();lifecycle.release();
+  assert.equal(timers.size,0,"one remaining view must keep resources");
+  lifecycle.release();assert.equal(timers.size,1);
+  const staleCallback=[...timers.values()][0];
+  lifecycle.retain();assert.equal(timers.size,0,"quick return cancels release");
+  staleCallback();assert.equal(meshClears,0);assert.equal(gpuReleases,0);
+  lifecycle.release();const finish=[...timers.values()][0];timers.clear();finish();
+  assert.equal(meshClears,1);assert.equal(gpuReleases,1);
   assert.match(canvas,/if\(kind!=="surface"\)return;retainSurfaceMeshCaches\(\);return releaseSurfaceMeshCaches/);
 });
 test("skips canvas drawing while a responsive panel has zero size", async () => {
@@ -2443,7 +2456,7 @@ test("quiz mistakes link back to the exact study view", async () => {
   assert.match(page, /const \[quizMisses,setQuizMisses\]=useState<\{question:QuizQuestion;choice:string;number:number\}\[]>\(\[\]\)/);
   assert.match(page, /function reviewQuizQuestion\(question:QuizQuestion\)/);
   assert.match(page, /jump\(question\.plane,question\.position,"replace"\);setVisibleStructures\(\[question\.target\]\)/);
-  assert.match(page, /onObserve=\{index=>reviewQuizQuestion\(quizMisses\[index\]\.question\)\}/);
+  assert.match(page, /onObserve=\{index=>\{[^}]*reviewQuizQuestion\(quizMisses\[index\]\.question\)/);
   assert.match(page, /観察画面で位置を確認/);
   assert.doesNotMatch(page, /観察画面で復習/);
   assert.match(page, /<QuizSources sources=\{quizReferences\(quizQuestion\)\}/);
@@ -2454,9 +2467,9 @@ test("section quiz slices can be stepped without dragging the range control", as
     readFile(new URL("app/page.tsx", root), "utf8"),
     readFile(new URL("app/canvas.css", root), "utf8"),
   ]);
-  assert.match(page, /aria-label=\{englishEdition\?"Previous section \(0\.5 mm\)":"1断面戻る"\}/);
+  assert.ok(page.includes("One slice ${planeData[quizQuestion.plane].fromEn.toLowerCase()} (0.5 mm)"));
   assert.match(page, /stepSectionSliderPosition\(value,quizQuestion\.plane,BIGBRAIN_SECTION_DIMS,-1\)/);
-  assert.match(page, /aria-label=\{englishEdition\?"Next section \(0\.5 mm\)":"1断面進む"\}/);
+  assert.ok(page.includes("One slice ${planeData[quizQuestion.plane].toEn.toLowerCase()} (0.5 mm)"));
   assert.match(page, /stepSectionSliderPosition\(value,quizQuestion\.plane,BIGBRAIN_SECTION_DIMS,1\)/);
   assert.match(css, /\.quizSliceControl\s*\{[^}]*grid-template-columns:\s*32px minmax\(0,1fr\) 32px/);
 });

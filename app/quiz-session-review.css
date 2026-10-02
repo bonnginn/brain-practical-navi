@@ -8,11 +8,11 @@
 .quizSessionReview summary span{margin-right:10px;color:#547469}
 .quizSessionReviewBody{padding:0 14px 14px;overflow-wrap:anywhere}
 .quizSessionPrompt{font-weight:700}
-.quizSessionReview dl{display:grid;gap:10px;margin:12px 0;padding:12px;background:#f2f5f1}
+.quizSessionReview dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:12px 0;padding:12px;background:#f2f5f1}
 .quizSessionReview dt{font-size:var(--ui-font-12,12px);font-weight:700;color:#476359}
 .quizSessionReview dd{margin:3px 0 0;font-size:var(--ui-font-13,13px);line-height:1.6}
 .quizSessionReview button{max-width:100%;min-height:44px;margin-top:8px;padding:10px 14px;border:1px solid #52786b;background:#f4faf7;color:#244d40;font:inherit;font-size:var(--ui-font-13,13px);white-space:normal}
 .quizResultState>div{flex-wrap:wrap;justify-content:center;margin-top:12px}
 .quizSources{margin:10px 0;font-size:var(--ui-font-12,12px);line-height:1.6}
 .quizSources summary{cursor:pointer;font-weight:700}.quizSources ul{padding-left:20px}.quizSources a{color:#216a63;overflow-wrap:anywhere}
-@media(max-width:600px){.quizEmptyState.quizResultState{padding:18px 12px}}
+@media(max-width:600px){.quizEmptyState.quizResultState{padding:18px 12px}.quizSessionReview dl{grid-template-columns:1fr;gap:10px}}

@@ -4,7 +4,7 @@ export const CIRCUIT_TEACHING = Object.freeze({
   papez: Object.freeze({
     key: "papez",
     name: bilingual("Papez回路", "Papez circuit"),
-    goal: bilingual("記憶に関わる内側側頭葉―間脳―帯状回の環状のつながりを、標本で確認できる構造と未分節の中継部に分けて説明できる。", "Explain the memory-related loop linking the medial temporal lobe, diencephalon and cingulate region, while separating structures visible in this specimen from unsegmented relays."),
+    goal: bilingual("記憶に関わる内側側頭葉―間脳―帯状回の環状のつながりを、位置関係と中継の順序を結びつけて説明できる。", "Explain the positions and relay order in the memory-related loop linking the medial temporal lobe, diencephalon and cingulate region."),
     role: bilingual("海馬体から間脳と帯状回を経て内側側頭葉へ戻る結合を示す歴史的な回路モデルです。現在は記憶ネットワークを理解する基本図として使われますが、記憶や情動をこの一回路だけで説明するものではありません。", "A historical circuit model linking the hippocampal formation through diencephalic and cingulate relays back to the medial temporal lobe. It remains a useful framework for memory networks, but does not by itself explain memory or emotion."),
     paths: Object.freeze([
       Object.freeze({key:"loop", label:bilingual("情報の流れ（簡略）", "Information flow (simplified)"), kind:"relay", nodes:Object.freeze(["hippocampus","fornix","mammillary","mammillothalamic","anterior-thalamus","cingulate","cingulum","entorhinal","hippocampus"])})
