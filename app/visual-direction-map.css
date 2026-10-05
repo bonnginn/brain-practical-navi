@@ -1,0 +1,19 @@
+.visualDirectionMap{padding:12px;border:1px solid #abc2ba;border-radius:12px;background:#f7faf8;color:#263e35;min-width:0}
+.visualDirectionHeading{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px;justify-content:space-between}.visualDirectionHeading b{font-size:var(--ui-font-15,15px);line-height:1.5}.visualDirectionHeading small{font-size:var(--ui-font-12,12px)}
+.visualFieldChoice,.visualRouteChoice{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}.visualDirectionMap button{font:inherit;line-height:1.45;min-height:44px;border:1px solid #718a7f;border-radius:7px;padding:7px 10px;background:#fff;color:#25473a}.visualFieldChoice button,.visualRouteChoice button{flex:1 1 120px;font-size:var(--ui-font-13,13px)}.visualDirectionMap button[aria-pressed=true]{background:#365d4d;color:#fff}.visualDirectionMap button:focus-visible{outline:3px solid #1c6395;outline-offset:3px}
+.visualDirectionMap svg{display:block;width:100%;height:auto;max-height:440px;margin:10px auto 0}.visualDirectionMap svg text{font-size:15px;fill:#253d35;font-family:inherit}.visualDirectionMap svg .visualSideLabel{font-weight:750;font-size:16px}.visualDirectionMap svg .visualMapLandmark{fill:#496556;font-size:14px}.visualMapLegend,.visualCurrentScope{font-size:var(--ui-font-12,12px);line-height:1.6;margin:8px 0 0;overflow-wrap:anywhere}.visualCurrentScope{padding-top:8px;border-top:1px solid #ccd8d1}
+.visualStageButtons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;list-style:none;margin:12px 0 0;padding:0}.visualStageButtons button{width:100%;display:flex;gap:7px;align-items:center;text-align:left;font-size:var(--ui-font-12,12px);overflow-wrap:anywhere}.visualStageButtons button[aria-current=step]{border-color:#a34220;background:#fff0e6;box-shadow:inset 3px 0 #a34220}.visualStageButtons span{display:grid;place-items:center;flex:0 0 22px;height:22px;border-radius:50%;background:#e1eae4;font-weight:750}.visualStageButtons button[aria-current=step] span{background:#a34220;color:#fff}
+.visualStageCursor.is-playing circle{animation:visual-stage-pulse 1.5s ease-in-out infinite}@keyframes visual-stage-pulse{50%{stroke-width:5;fill:#ffe5d4}}
+.visualDirectionMap .visualStageButtons li{display:block;min-width:0;min-height:0;border:0;padding:0;margin:0}.visualDirectionMap .visualStageButtons span{font-size:12px}
+@media(prefers-reduced-motion:reduce){.visualStageCursor.is-playing circle{animation:none}}@container (max-width:300px){.visualStageButtons{grid-template-columns:1fr}}
+.visualMapViewport{min-width:0}.visualMapScrollHint,.visualMobileChiasmLabel{display:none}
+@media(max-width:760px){
+ .visualDirectionMap{padding:4px 0;border:0;border-radius:0;background:transparent}
+ .visualMapScrollHint{display:block;margin:10px 0 0;font-size:13px;line-height:1.5;color:#365d4d}
+ .visualMapViewport{overflow-x:auto;overscroll-behavior-x:contain;scrollbar-gutter:stable;scroll-padding-inline:8px;border:1px solid #c5d2cc;border-radius:6px;background:#f7faf8}
+ .visualMapViewport:focus-visible{outline:3px solid #1c6395;outline-offset:2px}
+ .visualDirectionMap svg{width:420px;min-width:420px;max-height:none;margin:4px 0}
+ .visualDirectionMap svg .visualMapLandmark{fill:#365548}
+ .visualDesktopChiasmLabel{display:none}.visualMobileChiasmLabel{display:block}
+ .visualStageButtons button{font-size:13px}
+}

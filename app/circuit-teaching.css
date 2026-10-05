@@ -31,3 +31,10 @@
 .circuitRecall{border-top:1px solid #ccd5d0;padding-top:10px}.circuitRecall h4{margin:0;font-size:var(--ui-font-15,15px)}.circuitRecall>p{margin:5px 0 8px;font-size:var(--ui-font-12,12px);line-height:1.6;color:#586860}.circuitRecall details{margin-top:6px;border:1px solid #bccdc5;background:white;padding:0 10px}.circuitRecall summary{cursor:pointer;padding:11px 0;font-size:var(--ui-font-13,13px);font-weight:700;line-height:1.6}.circuitRecall details p{margin:0 0 8px;font-size:var(--ui-font-13,13px);line-height:1.65}.circuitRecall button{min-height:44px;margin-bottom:10px;padding:6px 10px;border:1px solid #739086;background:#eef3f0;color:#29463d;font:inherit;font-size:var(--ui-font-13,13px)}
 
 .circuitThalamicConnection>p{margin:8px 0;font-size:var(--ui-font-13,13px);line-height:1.65}.circuitThalamicConnection .thalamusGuide{margin:0}.circuitThalamicConnection{min-width:0}
+@media(max-width:760px){
+ .circuitTeaching{padding:8px;border:0;gap:8px;scroll-margin-top:70px}
+ .circuitTeaching>header{flex-wrap:wrap;gap:4px 8px}
+ .circuitTeaching>header>span{display:none}
+ .circuitTeaching>nav.circuitPlayback{display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:6px}
+ .circuitTeaching>nav.circuitPlayback button{padding:8px;font-size:13px;white-space:nowrap}
+}

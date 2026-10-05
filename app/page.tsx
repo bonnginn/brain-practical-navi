@@ -1,4 +1,6 @@
 "use client";
+import {CircuitSectionBridge} from "./CircuitSectionBridge";
+import {readCircuitHistory,circuitHistoryState,type CircuitHistoryContext} from "../src/circuitHistory.mjs";
 import {useSectionViewport} from "./useSectionViewport";
 import {FindStructureExercise,type FindTask} from "./FindStructureExercise";
 import {additionalIdentificationSections,identificationLocationHints} from "../src/identificationSectionLessons";
@@ -1344,7 +1346,7 @@ export default function Home() {
 useEffect(()=>{const restore=()=>{const overlay=overlayFromHash(window.location.hash);setHelpOpen(overlay==="help");setFeedbackOpen(overlay==="feedback");setLegalOpen(overlay==="legal");setSourcesOpen(overlay==="sources");setStatusOpen(overlay==="status");setPhoneSettingsOpen(false);const origin=overlay?overlayOriginFromHistory():null;const route=origin??window.location.hash;
 if(overlayOriginRef.current&&overlayOriginRef.current===route)return;
 overlayOriginRef.current=origin;
-const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWorkspaceForLocale(requestedWorkspace,locale) as WorkspaceMode;if(englishEdition&&nextWorkspace==="home"&&(requestedWorkspace==="collaborate"||requestedWorkspace==="segment"))window.history.replaceState(null,"",workspaceHash("home"));setModelStrategyComparisonOpen(nextWorkspace==="collaborate"&&modelStrategyFromHash(route));transitionBlockContextState({type:"restore-route",workspace:nextWorkspace,specimen:blockSpecimenFromHash(route)});setBlockContextDrag(null);setWorkspace(nextWorkspace);if(nextWorkspace==="surface"){chooseSurface(surfaceViewFromHash(route),"none");setBrodmannActive(route.endsWith("/brodmann"));}else if(nextWorkspace==="sections"){setRotation(sectionInitialRotationForPlane(planeFromHash(route)));restoreSectionRoute(route)}else if(nextWorkspace==="blocks")chooseBlock(blockSpecimenFromHash(route),"none")};restore();window.addEventListener("hashchange",restore);window.addEventListener("popstate",restore);return()=>{window.removeEventListener("hashchange",restore);window.removeEventListener("popstate",restore)}},[]);
+const circuitHistory=restoreCircuitContext(route);const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWorkspaceForLocale(requestedWorkspace,locale) as WorkspaceMode;if(englishEdition&&nextWorkspace==="home"&&(requestedWorkspace==="collaborate"||requestedWorkspace==="segment"))window.history.replaceState(null,"",workspaceHash("home"));setModelStrategyComparisonOpen(nextWorkspace==="collaborate"&&modelStrategyFromHash(route));transitionBlockContextState({type:"restore-route",workspace:nextWorkspace,specimen:blockSpecimenFromHash(route)});setBlockContextDrag(null);setWorkspace(nextWorkspace);if(nextWorkspace==="surface"){chooseSurface(surfaceViewFromHash(route),"none");setBrodmannActive(route.endsWith("/brodmann"));if(circuitHistory)applyPathwayPreset(circuitHistory.circuitKey as PathwayPresetKey);else if(surfaceViewFromHash(route)==="free"){setSelectedPathway(null);setCircuitNodeKey(null);setFreeInspector("structures");setVisualObservationIndex(null)}}else if(nextWorkspace==="sections"){setRotation(sectionInitialRotationForPlane(planeFromHash(route)));restoreSectionRoute(route,circuitHistory?.section)}else if(nextWorkspace==="blocks")chooseBlock(blockSpecimenFromHash(route),"none")};restore();window.addEventListener("hashchange",restore);window.addEventListener("popstate",restore);return()=>{window.removeEventListener("hashchange",restore);window.removeEventListener("popstate",restore)}},[]);
   useEffect(()=>{
     if(!phoneMode||!phoneSettingsOpen)return;
     const dialog=phoneSettingsDialogRef.current;
@@ -1524,10 +1526,12 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
     }));
   }
 
+  useEffect(()=>{if(workspace==="sections"&&circuitSectionOrigin)saveCircuitHistory(circuitSectionOrigin,{plane,position,structureKey:selectedStructure})},[workspace,circuitSectionOrigin,plane,position,selectedStructure]);
+
   function updateScreenHistory(nextHash:string,mode:"push"|"replace"|"none"="push"){
     if(mode!=="none")overlayOriginRef.current=null;
     if(mode==="none"||window.location.hash===nextHash)return;
-    window.history[mode==="push"?"pushState":"replaceState"](null,"",nextHash);
+    window.history[mode==="push"?"pushState":"replaceState"](circuitHistoryState(window.history.state,nextHash,readCircuitHistory(window.history.state,window.location.hash)),"",nextHash);
   }
 
   function jump(nextPlane: Plane, nextPosition?: number,historyMode:"push"|"replace"|"none"="push") {
@@ -1557,10 +1561,10 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
     window.requestAnimationFrame(()=>{const stage=sectionStageRef.current;stage?.querySelector<HTMLElement>('canvas[tabindex="0"], .insetStage[tabindex="0"]')?.focus({preventScroll:true});stage?.scrollIntoView({block:"start"})});
   }
 
-  function restoreSectionRoute(route=window.location.hash){
+  function restoreSectionRoute(route=window.location.hash,historySection?:CircuitHistoryContext["section"]){
     const link=readSectionLink(route,sectionAllowedKeys,SEGMENTATION_LABEL_SHA256);
     setSectionLinkStatus(link.status==="invalid"||link.status==="revision-mismatch"?link.status:"");
-    if(link.status!=="valid"){jump(planeFromHash(route),undefined,"none");return;}
+    if(link.status!=="valid"){if(historySection&&sectionAllowedKeys.includes(historySection.structureKey)){setContrast("bigbrain");jump(historySection.plane,historySection.position,"none");setVisibleStructures([historySection.structureKey as StructureKey]);focusStructure(historySection.structureKey as StructureKey,true);setLabels(true);}else jump(planeFromHash(route),undefined,"none");return;}
     const s=link.state;
     setPlaying(false);setIdentified(null);setSectionViewVersion(version=>version+1);
     setContrast("bigbrain");setPlane(link.plane);setPosition(s.positions[link.plane]);
@@ -1650,6 +1654,16 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
     if(trochlear)setSurfaceCerebellum(false);
     setRotation(trochlear?{...surfaceViews.cranialNerves.rotation}:dorsal?{x:-42,y:-118,z:0}:{...surfaceViews.inferior.rotation});
   }
+  function saveCircuitHistory(key:PathwayPresetKey,section?:CircuitHistoryContext["section"]){
+    const position=circuitPositionsRef.current[key]??{pathIndex:0,nodeIndex:0};
+    window.history.replaceState(circuitHistoryState(window.history.state,window.location.hash,{circuitKey:key,...position,section}),"",window.location.hash);
+  }
+  function restoreCircuitContext(route:string){
+    const context=readCircuitHistory(window.history.state,route);
+    setCircuitSectionOrigin(context&&workspaceFromHash(route)==="sections"?context.circuitKey as PathwayPresetKey:null);
+    if(context){const key=context.circuitKey as PathwayPresetKey;circuitPositionsRef.current[key]={pathIndex:context.pathIndex,nodeIndex:context.nodeIndex};setSelectedPathway(key);setFreeInspector("circuits");setCircuitNodeKey(circuitTeaching(key)?.paths[context.pathIndex]?.nodes[context.nodeIndex]??null);}
+    return context;
+  }
   function applyPathwayPreset(key:PathwayPresetKey){
     const preset=pathwayPresets[key];
     const saved=circuitPositionsRef.current[key];
@@ -1697,11 +1711,12 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
       // the guide. The explicit observation button opens the matching section.
       if(sectionTarget&&!moveFocus){setSurfaceGhost(true);return}
       if(sectionTarget){
+        saveCircuitHistory(selectedPathway!);
         openWorkspace("sections");setCircuitSectionOrigin(selectedPathway);
         setActiveStudyTheme(null);setContrast("bigbrain");setPlaying(false);setIdentified(null);
         setSectionLayout(compactSectionLayout||phoneMode||webglUnavailable?"slice":"both");setSectionViewVersion(version=>version+1);
-        jump("coronal",sectionTarget.position,"replace");setVisibleStructures([sectionTarget.key]);focusStructure(sectionTarget.key,true);setLabels(true);
-        window.requestAnimationFrame(()=>{const stage=sectionStageRef.current;stage?.querySelector<HTMLElement>('canvas[tabindex="0"]')?.focus({preventScroll:true});stage?.scrollIntoView({block:"start"})});return;
+        jump("coronal",sectionTarget.position,"replace");setVisibleStructures([sectionTarget.key]);focusStructure(sectionTarget.key,true);setLabels(true);saveCircuitHistory(selectedPathway!,{plane:"coronal",position:sectionTarget.position,structureKey:sectionTarget.key});
+        window.requestAnimationFrame(()=>{const stage=sectionStageRef.current;stage?.querySelector<HTMLElement>('canvas[tabindex="0"]')?.focus({preventScroll:true});stage?.closest(".workArea")?.querySelector(".circuitSectionBridge")?.scrollIntoView({block:"start"})});return;
       }
       const visualTargets:(FreeObservationKey|null)[]=["neuro:cn2","neuro:opticChiasm","neuro:cn2","deep:thalami",null,"region:pericalcarine"];
       const key=visualTargets[index];
@@ -1719,7 +1734,7 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
   function returnFromCircuitSection(){
     if(!circuitSectionOrigin)return;
     const origin=circuitSectionOrigin;
-    openWorkspace("surface");chooseSurface("free","replace");applyPathwayPreset(origin);
+    openWorkspace("surface");chooseSurface("free","replace");applyPathwayPreset(origin);saveCircuitHistory(origin);
     requestAnimationFrame(()=>{const guide=circuitGuideRef.current;guide?.focus({preventScroll:true});guide?.scrollIntoView({block:"start"})});
   }
   function returnToCircuitGuide(){
@@ -1760,8 +1775,8 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
     setLabels(true);setPlaying(false);setSectionSearch("");setDetailsOpen(false);
     requestAnimationFrame(()=>{const target=document.querySelector<HTMLElement>(".sliceViewport canvas")??document.querySelector<HTMLElement>(".insetStage");target?.focus({preventScroll:true});target?.scrollIntoView({block:"center"})});
   }
-  function closeOverlay(){setHelpOpen(false);setFeedbackOpen(false);setLegalOpen(false);setSourcesOpen(false);setStatusOpen(false);const nextHash=overlayOriginFromHistory()??workspaceHash(workspace,surfaceView,plane,blockSpecimen);if(window.location.hash!==nextHash)window.history.replaceState(null,"",nextHash)}
-  function openOverlay(key:OverlayMode){if(!overlayOpen)overlayReturnFocus.current=document.activeElement instanceof HTMLElement?document.activeElement:null;const origin=overlayOpen?(overlayOriginFromHistory()??workspaceHash(workspace,surfaceView,plane,blockSpecimen)):(window.location.hash||"#workspace/entrance");overlayOriginRef.current=origin;window.history.pushState({learningOrigin:origin},"",`#workspace/${key}`);setHelpOpen(key==="help");setFeedbackOpen(key==="feedback");setLegalOpen(key==="legal");setSourcesOpen(key==="sources");setStatusOpen(key==="status")}
+  function closeOverlay(){setHelpOpen(false);setFeedbackOpen(false);setLegalOpen(false);setSourcesOpen(false);setStatusOpen(false);const nextHash=overlayOriginFromHistory()??workspaceHash(workspace,surfaceView,plane,blockSpecimen);if(window.location.hash!==nextHash)window.history.replaceState(circuitHistoryState(window.history.state,nextHash,readCircuitHistory(window.history.state,nextHash)),"",nextHash)}
+  function openOverlay(key:OverlayMode){if(!overlayOpen)overlayReturnFocus.current=document.activeElement instanceof HTMLElement?document.activeElement:null;const origin=overlayOpen?(overlayOriginFromHistory()??workspaceHash(workspace,surfaceView,plane,blockSpecimen)):(window.location.hash||"#workspace/entrance");overlayOriginRef.current=origin;window.history.pushState({...window.history.state,learningOrigin:origin},"",`#workspace/${key}`);setHelpOpen(key==="help");setFeedbackOpen(key==="feedback");setLegalOpen(key==="legal");setSourcesOpen(key==="sources");setStatusOpen(key==="status")}
   async function requestPwaInstall(){
     const affordance=pwaInstallAffordanceRef.current;
     if(!affordance||!pwaInstallState.canInstall)return;
@@ -1914,7 +1929,7 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
 
     {workspace!=="home"&&workspace!=="entrance"&&<PwaUpdateNotice english={englishEdition} compact/>}
 
-    {phoneMode&&workspace!=="entrance"&&<nav ref={phoneDockRef} className="phoneDock" aria-label="学習者向け教材"><div>{workspaceModes.map(item=><button key={item.key} data-workspace-key={item.key} className={workspace===item.key?"active":""} aria-current={workspace===item.key?"page":undefined} onClick={()=>{setQuizObservationTitle(null);openWorkspace(item.key)}}><span>{item.label}</span><small>{item.sub}</small></button>)}</div></nav>}
+    {phoneMode&&workspace!=="entrance"&&<nav ref={phoneDockRef} className="phoneDock" aria-label="学習者向け教材"><div>{workspaceModes.map(item=><button key={item.key} data-workspace-key={item.key} aria-label={englishEdition?item.englishLabel:item.label} className={workspace===item.key?"active":""} aria-current={workspace===item.key?"page":undefined} onClick={()=>{setQuizObservationTitle(null);openWorkspace(item.key)}}><span className="phoneDockFull">{item.label}</span><span className="phoneDockShort" data-no-localize>{englishEdition?item.shortEn:item.shortJa}</span><small>{item.sub}</small></button>)}</div></nav>}
 
     <dialog ref={phoneSettingsDialogRef} id="phone-settings-panel" className="phoneSettingsSheet" role={phoneMode?"dialog":"presentation"} aria-labelledby={phoneMode?"phone-settings-title":undefined} onCancel={event=>{event.preventDefault();closePhoneSettings()}} onMouseDown={event=>{if(event.target===event.currentTarget)closePhoneSettings()}}>
       <div className="phoneSettingsBackdrop" aria-hidden="true" onClick={closePhoneSettings}/>
@@ -2010,7 +2025,7 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
     </section>}
 
     {workspace==="sections"&&<section className="workArea" id="workspace" tabIndex={-1}><h1 className="srOnly">断面実習</h1>
-      {circuitSectionOrigin&&<div className="quizObservationReturn" data-no-localize><p><strong>{englishEdition?"Observation from the circuit guide":"回路からの観察"}</strong><span>{circuitTeaching(circuitSectionOrigin)?.name[englishEdition?"en":"ja"]}</span></p><button type="button" onClick={returnFromCircuitSection}>{englishEdition?"Back to circuit explanation":"回路解説へ戻る"} <span aria-hidden="true">→</span></button></div>}
+      {circuitSectionOrigin&&<CircuitSectionBridge circuitKey={circuitSectionOrigin} position={circuitPositionsRef.current[circuitSectionOrigin]} nodeKey={circuitNodeKey} english={englishEdition} structureName={englishEdition?anatomyDisplayEnglish(structures[selectedStructure].latin):structures[selectedStructure].name} planeName={englishEdition?{coronal:"Coronal",horizontal:"Horizontal",sagittal:"Sagittal"}[plane]:planeData[plane].ja} sectionPosition={positionLabel} onReturn={returnFromCircuitSection}/>}
       {quizObservationTitle&&!circuitSectionOrigin&&<QuizObservationReturn english={englishEdition} title={quizObservationTitle} finished={quizFinished} answered={Boolean(quizChoice)||quizFinished} onReturn={returnToQuiz}/>}
       {contrast==="bigbrain"&&activeStudyTheme&&<ActiveSectionStudy theme={activeStudyTheme} english={englishEdition} questionCount={themeReviewQuestions.length} onRestart={()=>observeStudyTheme(activeStudyTheme)} onReview={startThemeReview} onClose={()=>setActiveStudyTheme(null)}/>}
       <div className="visualGrid"><section className="slicePanel">
@@ -2087,7 +2102,7 @@ const requestedWorkspace=workspaceFromHash(route);const nextWorkspace=publicWork
             {normalizedFreeSearch&&<div className="freeSearchResults" aria-label="検索結果"><div className="freeResultSummary" role="status"><b data-no-localize>{englishEdition?`${freeFilteredItems.length} ${freeFilteredItems.length===1?"result":"results"}`:`${freeFilteredItems.length}件`}</b><span>クリックして詳細を確認</span></div>{freeFilteredItems.length?<div>{freeFilteredItems.map(item=>{const active=freeSelectedSet.has(item.key),displayAvailable=!item.key.startsWith("neuro:")||neurovascularDisplayAvailable(item.key.slice(6) as NeurovascularStructureKey);return <button key={item.key} className={active?"active":""} aria-pressed={active} onClick={()=>selectFreeObservation(item.key)}><i style={{background:item.color}}/><span><b>{item.name}</b>{!englishEdition&&<small>{anatomyDisplayEnglish(item.latin)}</small>}{!displayAvailable&&<small>形状調整中・3D非表示</small>}</span><em>{item.kind}</em><strong>{displayAvailable?(active?"✓":"＋"):(englishEdition?"Details":"説明")}</strong></button>})}</div>:<p>該当する構造はありません。</p>}</div>}
             <label className="freeStructureIndex"><span><b>構造索引</b><small>分類から名称を選択</small></span><select value="" onChange={event=>{if(event.target.value)selectFreeObservation(event.target.value as FreeObservationKey)}}><option value="">構造を選んで追加…</option>{freeObservationKinds.map(kind=><optgroup key={kind} label={kind}>{freeObservationItems.filter(item=>item.kind===kind).map(item=><option key={item.key} value={item.key}>{item.name}{!englishEdition&&` — ${anatomyDisplayEnglish(item.latin)}`}</option>)}</optgroup>)}</select></label>
             </section><section hidden={freeInspector!=="circuits"}><section className="pathwayPresets" aria-label={englishEdition?"Circuit observation presets":"経路観察プリセット"}><div><b>{englishEdition?"Circuit":"回路"}</b></div><select aria-label={englishEdition?"Choose a circuit":"回路を選択"} value={selectedPathway??""} onChange={event=>{if(event.target.value)applyPathwayPreset(event.target.value as PathwayPresetKey)}}><option value="" disabled>{englishEdition?"Choose a circuit":"回路を選択…"}</option>{pathwayPresetKeys.map(key=><option key={key} value={key}>{englishEdition?key==="papez"?"Papez circuit":key==="visual"?"Visual pathway":"Basal ganglia circuits":pathwayPresets[key].name}</option>)}</select></section>
-            {selectedPathway&&<div ref={circuitGuideRef} tabIndex={-1}><CircuitTeachingPanel key={selectedPathway} circuitKey={selectedPathway} english={englishEdition} suspended={overlayOpen||phoneSettingsOpen||!!surfaceLessonKey||freeInspector!=="circuits"} initialPosition={circuitPositionsRef.current[selectedPathway]} onPositionChange={position=>{circuitPositionsRef.current[selectedPathway]=position}} onReview={startCircuitReview} reviewCount={Math.min(5,circuitReviewQuestions.length)} onPulseChange={setCircuitPulse} onObserve={(index,nodeKey)=>observeCircuitStage(index,true,nodeKey)} onPreview={(index,nodeKey)=>observeCircuitStage(index,false,nodeKey)} onConceptStage={nodeKey=>{if((selectedPathway==="basal-ganglia"&&nodeKey==="cortex")||(selectedPathway==="papez"&&(nodeKey==="mammillothalamic"||nodeKey==="cingulum"))||(selectedPathway==="visual"&&nodeKey==="retina")){setCircuitNodeKey(nodeKey);setCircuitSectionsOpen(false);if(selectedPathway==="visual")setVisualObservationIndex(null)}}}/></div>}
+            {selectedPathway&&<div ref={circuitGuideRef} tabIndex={-1}><CircuitTeachingPanel key={selectedPathway} circuitKey={selectedPathway} english={englishEdition} suspended={overlayOpen||phoneSettingsOpen||!!surfaceLessonKey||freeInspector!=="circuits"} initialPosition={circuitPositionsRef.current[selectedPathway]} onPositionChange={position=>{circuitPositionsRef.current[selectedPathway]=position;if(workspace==="surface"&&freeInspector==="circuits")saveCircuitHistory(selectedPathway)}} onReview={startCircuitReview} reviewCount={Math.min(5,circuitReviewQuestions.length)} onPulseChange={setCircuitPulse} onObserve={(index,nodeKey)=>observeCircuitStage(index,true,nodeKey)} onPreview={(index,nodeKey)=>observeCircuitStage(index,false,nodeKey)} onConceptStage={nodeKey=>{if((selectedPathway==="basal-ganglia"&&nodeKey==="cortex")||(selectedPathway==="papez"&&(nodeKey==="mammillothalamic"||nodeKey==="cingulum"))||(selectedPathway==="visual"&&nodeKey==="retina")){setCircuitNodeKey(nodeKey);setCircuitSectionsOpen(false);if(selectedPathway==="visual")setVisualObservationIndex(null)}}}/></div>}
             {activePathway&&selectedPathway&&<details className="pathwayObservationOrder"><summary>{englishEdition?"Order for specimen observation":"標本での観察順"}</summary><ol>{(englishEdition?pathwayObservationStepsEnglish[selectedPathway]:activePathway.steps).map(step=><li key={step}>{step}</li>)}</ol></details>}
             {((basalStepperActive&&!basalCortexStage)||(papezStepperActive&&!papezConceptOnly))&&<button type="button" className="circuitSectionToggle" aria-expanded={circuitSectionsOpen} onClick={()=>setCircuitSectionsOpen(open=>!open)}>{englishEdition?(circuitSectionsOpen?"Hide specimen detail":papezStepperActive&&papezStepperStep.kind!=="section-label"&&papezStepperStep.kind!=="image-reviewed-partial-section"?"Show specimen display detail":"Compare with a brain section"):(circuitSectionsOpen?"標本表示の詳細を閉じる":papezStepperActive&&papezStepperStep.kind!=="section-label"&&papezStepperStep.kind!=="image-reviewed-partial-section"?"標本表示の詳細を見る":"断面と見比べる")}</button>}
             {basalStepperActive&&!basalCortexStage&&circuitSectionsOpen&&<section id="circuit-section-observation" ref={circuitObservationRef} tabIndex={-1} className="pathwayStepper" aria-label="大脳基底核回路の位置関係ステッパー">
