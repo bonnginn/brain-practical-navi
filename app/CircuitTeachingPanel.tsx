@@ -6,6 +6,7 @@ import "./circuit-teaching.css";
 import {CircuitRecall} from "./CircuitRecall";
 import {ThalamusGuide} from "./ThalamusGuide";
 import {circuitStageDuration} from "../src/circuitTravel.mjs";
+import {VisualDirectionMap} from "./VisualDirectionMap";
 
 export type CircuitPosition={pathIndex:number;nodeIndex:number};
 type Props={circuitKey:string;english:boolean;suspended?:boolean;initialPosition?:CircuitPosition;onPositionChange?:(position:CircuitPosition)=>void;onObserve?:(index:number,nodeKey:string)=>void;onPreview?:(index:number,nodeKey:string)=>void;onConceptStage?:(nodeKey:string)=>void;onPulseChange?:(active:boolean)=>void;onReview?:()=>void;reviewCount?:number};
@@ -82,6 +83,7 @@ export function CircuitTeachingPanel({circuitKey,english,suspended=false,initial
       <button aria-pressed={playing} onClick={play}>{playing?(english?"Pause":"一時停止"):(english?"Play flow":"流れを再生")}</button>
       <button onClick={()=>selectStage(selectedPosition.pathIndex,selectedPosition.nodeIndex+1)} disabled={selectedPosition.nodeIndex>=pathLength-1}>{english?"Next":"次へ"}</button>
     </nav>
+    {circuitKey==="visual"&&<VisualDirectionMap english={english} pathIndex={selectedPosition.pathIndex} nodeIndex={selectedPosition.nodeIndex} playing={playing} onSelect={selectStage}/>}
     <div className="circuitTrail" aria-label={english?"Previous, current, and next stages":"前・現在・次の段階"}>
       {selectedPosition.nodeIndex>0&&<><span><small>{english?"From":"前"}</small>{pathLabel(selectedPosition.nodeIndex-1)}</span><i aria-label={trailSignLabel(selectedPosition.nodeIndex-1)} title={trailSignLabel(selectedPosition.nodeIndex-1)}>{trailSign(selectedPosition.nodeIndex-1)}</i></>}
       <strong aria-current="step"><small>{english?"Now":"現在"}</small>{t(selectedLabel)}</strong>
