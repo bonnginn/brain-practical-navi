@@ -2055,7 +2055,7 @@ test("help, feedback, and credit dialogs have durable shareable URLs", async () 
   assert.match(page, /overlayFromHash\(window\.location\.hash\)==="feedback"/);
   assert.match(page, /overlayFromHash\(window\.location\.hash\)==="legal"/);
   assert.match(page, /overlayFromHash\(window\.location\.hash\)==="status"/);
-  assert.match(page, /window\.history\.pushState\(\{learningOrigin:origin\},"",`#workspace\/\$\{key\}`\)/);
+  assert.match(page, /window\.history\.pushState\(\{\.\.\.window\.history\.state,learningOrigin:origin\},"",`#workspace\/\$\{key\}`\)/);
   assert.match(page, /onClick=\{\(\)=>openOverlay\("feedback"\)\}/);
   assert.match(page, /onClick=\{\(\)=>openOverlay\("legal"\)\}/);
   assert.match(page, /onClick=\{\(\)=>openOverlay\("help"\)\}/);
