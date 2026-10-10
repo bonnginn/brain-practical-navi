@@ -45,6 +45,9 @@
   .learningGuide>header>span{font-size:11px}
 }
 @media(max-width:760px){
+  /* Narrow desktop observation still needs the searchable structure picker. */
+  .workspace-sections:not(.phone-mode) .leftRail{position:static;height:auto;max-height:280px;display:block;padding:12px 0;overflow-y:auto;overflow-x:hidden;border-top:0;border-right:0;border-bottom:1px solid var(--line)}
+  .workspace-sections:not(.phone-mode) .leftRail .structureBtn{display:flex;min-height:44px}
   .phone-mode .workspace-sections .sliceStage,.phone-mode .sliceStage{min-height:0}
   .workspace-sections .sliceTimeline{grid-template-columns:1fr;gap:3px}
   .sliceTimeline .sectionPlaybackOptions{grid-row:4}

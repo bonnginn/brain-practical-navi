@@ -22,3 +22,39 @@ test('malformed, ambiguous, stale, or excluded-structure links are not applied',
   for(const bad of [hash+'&position=40',hash.replace('position=53','position='),hash.replace('position=53','position=101'),hash.replace('share=45','share=24'),hash.replace('visible=caudate','visible=opticChiasm'),hash+'&unknown=1',hash.replace('views=1','views=3')])assert.equal(readSectionLink(bad,allowed,'revision').status,'invalid');
   assert.equal(sectionLinkHash('unknown',state,allowed,'revision'),null);
 });
+
+test('incomplete observation URLs are rejected rather than mistaken for ordinary navigation',()=>{
+  const incomplete=[
+    '#workspace/sections/coronal/observe',
+    '#workspace/sections/horizontal/observe?',
+    '#workspace/sections/sagittal/observe/',
+    '#workspace/sections/oblique/observe?v=1',
+    '#workspace/sections/observe',
+    '#workspace/sections//observe',
+    '#sections/coronal/observe?v=1',
+  ];
+  for(const hash of incomplete){
+    const result=readSectionLink(hash,allowed,'revision');
+    assert.deepEqual(result,{status:'invalid'},hash);
+    assert.equal('state' in result,false,'invalid link must not supply observation settings');
+  }
+});
+test('ordinary navigation and neighbouring routes remain separate from shared observation state',()=>{
+  for(const hash of [
+    '#workspace/sections/coronal','#sections/sagittal',
+    '#workspace/sections/horizontal?guide=observe',
+    '#workspace/surface/lateral','#workspace/quiz',
+    '#workspace/sections/coronal/observe-notes',
+  ])assert.deepEqual(readSectionLink(hash,allowed,'revision'),{status:'absent'},hash);
+});
+test('a valid observation link can follow a rejected or stale link without inheriting its failure',()=>{
+  const hash=sectionLinkHash('sagittal',state,allowed,'current-revision');
+  assert.deepEqual(readSectionLink(hash,allowed,'new-revision'),{status:'revision-mismatch'});
+  assert.deepEqual(readSectionLink('#workspace/sections/sagittal/observe',allowed,'current-revision'),{status:'invalid'});
+  const result=readSectionLink(hash,allowed,'current-revision');
+  assert.equal(result.status,'valid');
+  assert.equal(result.plane,'sagittal');
+  assert.equal(result.state.positions.sagittal,50);
+  assert.deepEqual(result.state.visible,['caudate']);
+  assert.equal(result.state.selected,'caudate');
+});

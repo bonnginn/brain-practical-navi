@@ -15,7 +15,7 @@ export function SurfaceObservationGuide({view,english,open,onOpenChange,active,o
         {(['landmarks','compare','uncolored'] as const).map((mode,index)=><button key={mode} type="button" aria-pressed={active===mode} onClick={()=>onObserve(mode)}>{index+1}. {english?{landmarks:'Show landmarks',compare:'Compare gyri',uncolored:'Hide colour and guides'}[mode]:{landmarks:'目印を表示',compare:'脳回を比較',uncolored:'色とガイドを消す'}[mode]}</button>)}
       </div>
       <p className="surfaceStudyScope">{english?'These buttons replace the current highlighted structures and guides. You can still rotate the model and select other structures.':'ボタンは現在の着色構造とガイドを切り替えます。回転や個別の構造選択も続けられます。'}</p>
-      <div className="surfaceStudyLessons"><span>{english?'Read about each region':'部位の解説'}</span>{lessons.map(item=><button type="button" key={item.key} onClick={()=>onLesson(item.key)}>{item.name}</button>)}</div>
+      <div className="surfaceStudyLessons"><span>{english?'Region explanations (close to restore colours)':'部位の解説（閉じると元の着色へ）'}</span>{lessons.map(item=><button type="button" key={item.key} onClick={()=>onLesson(item.key)}>{item.name}</button>)}</div>
     </div>
   </details>;
 }

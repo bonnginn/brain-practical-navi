@@ -2,12 +2,12 @@ export type SurfaceRegionLesson = {ja:string;en:string};
 
 export const surfaceRegionLessons:Record<string,SurfaceRegionLesson> = {
   precentral:{
-    ja:"中心前回は中心溝の前方にあり、一次運動野の主要部を含みます。反対側の身体の随意運動に強く関わり、内側へ続く中心傍小葉では下肢に関連する表現が多くなります。脳回全体が一次運動野だけで占められるわけではありません。",
-    en:"The precentral gyrus lies anterior to the central sulcus and contains most of the primary motor cortex. It is strongly involved in voluntary movement of the contralateral body, with lower-limb representations extending medially into the paracentral lobule. The whole gyrus should not be equated with primary motor cortex alone.",
+    ja:"中心前回は中心溝の前方にあり、一次運動野の主要部を含みます。反対側の身体の随意運動に強く関わり、内側へ続く中心傍小葉の前部では下肢に関連する表現が多くなります。脳回全体が一次運動野だけで占められるわけではありません。",
+    en:"The precentral gyrus lies anterior to the central sulcus and contains most of the primary motor cortex. It is strongly involved in voluntary movement of the contralateral body, with lower-limb representations extending medially into the anterior paracentral lobule. The whole gyrus should not be equated with primary motor cortex alone.",
   },
   postcentral:{
-    ja:"中心後回は中心溝の後方にあり、一次体性感覚野の主要部を含みます。反対側の身体から届く触覚・固有感覚などの処理に関わり、内側の中心傍小葉へ下肢に関連する表現が続きます。感覚処理は後方の頭頂連合野にも広がります。",
-    en:"The postcentral gyrus lies posterior to the central sulcus and contains most of the primary somatosensory cortex. It processes touch, proprioception, and related signals mainly from the contralateral body, with lower-limb representations continuing into the medial paracentral lobule. Somatosensory processing also extends into posterior parietal association cortex.",
+    ja:"中心後回は中心溝の後方にあり、一次体性感覚野の主要部を含みます。反対側の身体から届く触覚・固有感覚などの処理に関わり、中心傍小葉の後部へ下肢に関連する表現が続きます。触覚・固有感覚の主な上行路では、体幹・四肢の情報は視床VPL、顔面の情報はVPMを経て、内包後脚からこの皮質へ届きます。感覚処理は後方の頭頂連合野にも広がります。",
+    en:"The postcentral gyrus lies posterior to the central sulcus and contains most of the primary somatosensory cortex. It processes touch, proprioception, and related signals mainly from the contralateral body, with lower-limb representations continuing into the posterior paracentral lobule. In the principal ascending touch and proprioception pathways, body information relays through thalamic VPL and facial information through VPM, then reaches this cortex through the posterior limb of the internal capsule. Somatosensory processing also extends into posterior parietal association cortex.",
   },
   superiorFrontal:{
     ja:"上前頭回は大脳縦裂に近い前頭葉の上部を前後に走り、内側前頭面へ連続します。運動の準備、作業記憶、自己生成した行動の調整などに関わる複数の前頭領域を含みますが、機能は一様ではありません。後方では中心前回や中心傍小葉との位置関係を確認できます。",
@@ -108,7 +108,9 @@ export const surfaceRegionLessons:Record<string,SurfaceRegionLesson> = {
 };
 
 export const surfaceRegionLessonSources = [
-  {title:"Manera et al. (2020) — CerebrA: a population-based nonlinear normalization framework paired with a manual anatomical parcellation atlas of MNI-ICBM152",url:"https://doi.org/10.1038/s41597-020-0557-9"},
+  {title:"UTHealth — Motor Cortex: 3.2 M1, premotor cortex and supplementary motor area (Figures 3.1, 3.3)",url:"https://nba.uth.tmc.edu/neuroscience/s3/chapter03.html"},
+  {title:"UTHealth — Somatosensory Pathways: 4.6 Medial Lemniscal (VPL), 4.7 Main Sensory Trigeminal (VPM)",url:"https://nba.uth.tmc.edu/neuroscience/s2/chapter04.html"},
+  {title:"Manera et al. (2020) — CerebrA, registration and manual label correction of Mindboggle-101 atlas for MNI-ICBM152 template",url:"https://doi.org/10.1038/s41597-020-0557-9"},
   {title:"FreeSurfer Wiki — Cortical Parcellation",url:"https://surfer.nmr.mgh.harvard.edu/fswiki/CorticalParcellation"},
   {title:"NCBI Bookshelf — Neuroanatomy, Cerebral Cortex",url:"https://www.ncbi.nlm.nih.gov/books/NBK537247/"},
   {title:"NCBI Bookshelf — Brodmann Areas",url:"https://www.ncbi.nlm.nih.gov/books/NBK575742/"},

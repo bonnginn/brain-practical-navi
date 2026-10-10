@@ -1,0 +1,697 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Existing curriculum source map",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "job_id",
+    "baseline_commit",
+    "scope",
+    "sources",
+    "materials",
+    "topics",
+    "tasks",
+    "circuits",
+    "gaps",
+    "concept_inventory"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "job_id": {
+      "const": "BRAIN-WIN-20261008-CONTENT-MAP-02"
+    },
+    "baseline_commit": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{40}$"
+    },
+    "scope": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "file",
+          "sha256"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "file": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        }
+      }
+    },
+    "materials": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "existing_key",
+          "source_text_refs",
+          "material",
+          "name",
+          "label_ids",
+          "label_id_namespace",
+          "evidence",
+          "evidence_gap",
+          "circuit_refs",
+          "evidence_state",
+          "provenance_mapping"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "existing_key": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_text_refs": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": [
+                "file",
+                "symbol",
+                "key",
+                "fields"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "file": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "symbol": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "key": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "fields": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          },
+          "material": {
+            "enum": [
+              "surface",
+              "sections"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "label_ids": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "label_id_namespace": {
+            "enum": [
+              "bigbrain-section",
+              "registry-local",
+              "none"
+            ]
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "entry_key",
+                "representations",
+                "project_review",
+                "expert_review",
+                "quiz_eligibility",
+                "source_refs",
+                "limitations"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "entry_key": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "representations": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "project_review": {
+                  "enum": [
+                    "pending",
+                    "reviewed-by-project"
+                  ]
+                },
+                "expert_review": {
+                  "enum": [
+                    "pending",
+                    "expert-reviewed"
+                  ]
+                },
+                "quiz_eligibility": {
+                  "enum": [
+                    "standard",
+                    "pilot",
+                    "none"
+                  ]
+                },
+                "source_refs": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "limitations": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          },
+          "evidence_gap": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "circuit_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "evidence_state": {
+            "type": "object",
+            "required": [
+              "existing_basis",
+              "medical_judgment",
+              "image_position"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "existing_basis": {
+                "const": "既存根拠あり"
+              },
+              "medical_judgment": {
+                "enum": [
+                  "既存専門家確認あり",
+                  "医学判断待ち"
+                ]
+              },
+              "image_position": {
+                "enum": [
+                  "既存ラベル対応あり・画像位置未検証",
+                  "画像位置対応不足"
+                ]
+              }
+            }
+          },
+          "provenance_mapping": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "additionalProperties": false,
+            "required": [
+              "file",
+              "symbol",
+              "mapping"
+            ],
+            "properties": {
+              "file": {
+                "const": "src/learnerProvenance.mjs"
+              },
+              "symbol": {
+                "const": "LEARNER_PROVENANCE_MAPPINGS"
+              },
+              "mapping": {
+                "type": "object",
+                "required": [
+                  "target",
+                  "family",
+                  "entryKeys",
+                  "composite",
+                  "requiredSurfaces",
+                  "unresolvedTargetKeys",
+                  "unresolvedReason"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "target": {
+                    "type": "string"
+                  },
+                  "family": {
+                    "type": "string"
+                  },
+                  "entryKeys": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "composite": {
+                    "type": "boolean"
+                  },
+                  "requiredSurfaces": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "unresolvedTargetKeys": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "unresolvedReason": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "topics": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "existing_key",
+          "source_text_refs",
+          "kind",
+          "material",
+          "name",
+          "goal",
+          "material_refs",
+          "target_refs",
+          "circuit_refs",
+          "existing_entry",
+          "evidence_note"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "existing_key": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_text_refs": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": [
+                "file",
+                "symbol",
+                "key",
+                "fields"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "file": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "symbol": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "key": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "fields": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          },
+          "kind": {
+            "enum": [
+              "observation-theme",
+              "observation-guide"
+            ]
+          },
+          "material": {
+            "enum": [
+              "surface",
+              "sections"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "goal": {
+            "type": "string",
+            "minLength": 1
+          },
+          "material_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "target_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "circuit_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "existing_entry": {
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "evidence_note": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "tasks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "existing_key",
+          "source_text_refs",
+          "kind",
+          "material_refs",
+          "option_refs",
+          "availability",
+          "availability_note"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "existing_key": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_text_refs": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": [
+                "file",
+                "symbol",
+                "key",
+                "fields"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "file": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "symbol": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "key": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "fields": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          },
+          "kind": {
+            "enum": [
+              "quiz-identification-definition",
+              "unscored-identification-definition",
+              "unscored-surface-guide-candidate"
+            ]
+          },
+          "material_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 1
+          },
+          "option_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "availability": {
+            "const": "definition-only-runtime-filtered"
+          },
+          "availability_note": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "circuits": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "goal",
+          "material_refs",
+          "source_text_refs",
+          "evidence_note"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "enum": [
+              "papez",
+              "visual",
+              "basal-ganglia"
+            ]
+          },
+          "name": {
+            "type": "object"
+          },
+          "goal": {
+            "type": "object"
+          },
+          "material_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "source_text_refs": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": [
+                "file",
+                "symbol",
+                "key",
+                "fields"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "file": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "symbol": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "key": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "fields": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          },
+          "evidence_note": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "gaps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "kind",
+          "subject_ref",
+          "status",
+          "detail"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "enum": [
+              "missing-provenance-link",
+              "no-dedicated-observation-lesson"
+            ]
+          },
+          "subject_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "const": "unresolved"
+          },
+          "detail": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "concept_inventory": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "target",
+          "source_refs",
+          "source_text_ref",
+          "scope",
+          "material_refs"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "target": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "source_text_ref": {
+            "type": "object"
+          },
+          "scope": {
+            "const": "existing-concept-quiz-not-image-identification"
+          },
+          "material_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    }
+  }
+}

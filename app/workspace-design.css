@@ -251,3 +251,38 @@
 .workspace-sections .modelInset .blockControls{position:static;flex:none;margin:0 8px 8px;box-shadow:none}
 
 .modelStepSummary .pathwayStepperModelTag>small.circuitConceptLocation{display:block}
+
+/* Resume/conflict notices share the header's full width without implicit grid rows. */
+@media(min-width:761px){
+  .appShell[data-locale]:not(.phone-mode):has(> .learningProgressNotice){grid-template-rows:auto auto minmax(0,1fr)}
+  .appShell[data-locale]:not(.phone-mode):has(> .learningProgressNotice)>.topbar{grid-row:1}
+  .appShell[data-locale]:not(.phone-mode)>.learningProgressNotice{grid-column:1/-1;grid-row:2;min-width:0}
+  .appShell[data-locale]:not(.phone-mode):has(> .learningProgressNotice)>:is(.leftRail,.workArea,.homeArea){grid-row:3}
+  .appShell[data-locale]:not(.phone-mode):has(> .pwaUpdateNoticeCompact):has(> .learningProgressNotice){grid-template-rows:auto auto auto minmax(0,1fr)}
+  .appShell[data-locale]:not(.phone-mode):has(> .pwaUpdateNoticeCompact)>.learningProgressNotice{grid-row:3}
+  .appShell[data-locale]:not(.phone-mode):has(> .pwaUpdateNoticeCompact):has(> .learningProgressNotice)>:is(.leftRail,.workArea,.homeArea){grid-row:4}
+}
+
+/* The desktop rail remains a grid item through its display:contents dialog. */
+@media(min-width:761px){
+  .appShell[data-locale]:not(.phone-mode):has(> .learningProgressNotice)>.phoneSettingsSheet>.leftRail,
+  .appShell[data-locale]:not(.phone-mode):has(> .learningProgressNotice)>.leftRail{grid-column:1;grid-row:3}
+  .appShell[data-locale]:not(.phone-mode):has(> .pwaUpdateNoticeCompact):has(> .learningProgressNotice)>.phoneSettingsSheet>.leftRail,
+  .appShell[data-locale]:not(.phone-mode):has(> .pwaUpdateNoticeCompact):has(> .learningProgressNotice)>.leftRail{grid-column:1;grid-row:4}
+}
+
+/* The dedicated circuit view has no observation sidebar. */
+@media(min-width:761px){
+  .appShell.workspace-circuits:not(.phone-mode){grid-template-columns:minmax(0,1fr)}
+}
+@media(max-width:760px){
+  .appShell:not(.phone-mode){padding-top:146px}
+  .appShell:not(.phone-mode) .topbar{height:146px;grid-template-rows:52px 94px}
+  .appShell:not(.phone-mode) .workspaceSwitch{grid-template-columns:repeat(3,minmax(0,1fr));align-self:stretch;align-items:stretch}
+  .appShell:not(.phone-mode) .workspaceSwitch .workspaceNavShort{white-space:normal}
+  .phone-mode .phoneDock>div{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .appShell:not(.phone-mode) .inspector,.appShell:not(.phone-mode) .inspectorBackdrop{top:146px}
+}
+
+.learningProgressGroup{display:grid;gap:4px;max-height:28dvh;overflow:auto}
+.learningProgressGroup>.learningProgressNotice{margin:0}

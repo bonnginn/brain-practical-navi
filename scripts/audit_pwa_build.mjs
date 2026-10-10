@@ -58,8 +58,8 @@ export function auditPwaBuild(distDirectory = path.join(root, "dist")) {
     }
   }
   // The 200-question bilingual bank adds teaching text to the 100-question shell.
-  // Keep a 2 MB uncompressed code/text budget; atlas and model assets remain excluded.
-  if (shellBytes > 2_000_000) errors.push(`shell exceeds 2,000,000 bytes: ${shellBytes}`);
+  // The approved circuit/review continuity release uses a 2.15 MB uncompressed code/text budget after removing unused curriculum inventory from the runtime; atlas and model assets remain excluded.
+  if (shellBytes > 2_150_000) errors.push(`shell exceeds 2,150,000 bytes: ${shellBytes}`);
   for (const pattern of ["request.method!==\"GET\"", "request.headers.has(\"range\")", "url.origin!==scope.origin", "response.ok", "request.mode===\"navigate\""]) {
     if (!worker.includes(pattern)) errors.push(`worker invariant missing: ${pattern}`);
   }

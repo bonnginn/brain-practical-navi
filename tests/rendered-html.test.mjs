@@ -290,7 +290,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
     readFile(new URL("GOVERNANCE.md", root), "utf8"),
   ]);
 
-  for (const label of ["Home", "断面実習", "脳表観察", "ブロック標本", "脳底動脈", "脳神経・脳幹", "四択クイズ", "セグメンテーション編集", "利用条件・クレジット", "共同制作"]) {
+  for (const label of ["Home", "断面", "脳表", "ブロック標本", "脳底動脈", "脳神経・脳幹", "四択クイズ", "セグメンテーション編集", "利用条件・クレジット", "共同制作"]) {
     assert.match(page, new RegExp(label));
   }
   assert.match(page, /useState<WorkspaceMode>\(\(\)=>typeof window==="undefined"\?"home":workspaceFromHash\(window.location.hash\)\)/);
@@ -2055,7 +2055,7 @@ test("help, feedback, and credit dialogs have durable shareable URLs", async () 
   assert.match(page, /overlayFromHash\(window\.location\.hash\)==="feedback"/);
   assert.match(page, /overlayFromHash\(window\.location\.hash\)==="legal"/);
   assert.match(page, /overlayFromHash\(window\.location\.hash\)==="status"/);
-  assert.match(page, /window\.history\.pushState\(\{\.\.\.window\.history\.state,learningOrigin:origin\},"",`#workspace\/\$\{key\}`\)/);
+  assert.match(page, /window\.history\.pushState\(\{learningOrigin:origin\},"",`#workspace\/\$\{key\}`\)/);
   assert.match(page, /onClick=\{\(\)=>openOverlay\("feedback"\)\}/);
   assert.match(page, /onClick=\{\(\)=>openOverlay\("legal"\)\}/);
   assert.match(page, /onClick=\{\(\)=>openOverlay\("help"\)\}/);

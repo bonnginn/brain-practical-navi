@@ -10,7 +10,11 @@ export function observationUrl(currentUrl,hash){
 }
 export function readSectionLink(hash,allowedKeys,revision){
   const match=hash.match(/^#workspace\/sections\/(coronal|horizontal|sagittal)\/observe\?(.*)$/);
-  if(!match)return {status:'absent'};
+  if(!match){
+    // An attempted observation link must not silently fall back to a saved view.
+    const observationRoute=/^#(?:workspace\/)?sections(?:\/[^?#]*)?\/observe(?:[/?#]|$)/.test(hash);
+    return {status:observationRoute?'invalid':'absent'};
+  }
   const p=new URLSearchParams(match[2]);
   const keys=['v','revision','position','visible','selected','layout','views','share'];
   if([...p.keys()].some(k=>!keys.includes(k))||keys.some(k=>p.getAll(k).length!==1)||p.get('v')!=='1')return {status:'invalid'};
