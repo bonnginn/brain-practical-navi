@@ -1,0 +1,9 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import {runtimeReferences} from '../scripts/build_curriculum_runtime_references.mjs';
+import {validateContentMap} from '../scripts/validate_curriculum_content_map.mjs';
+const source=JSON.parse(await fs.readFile(new URL('../data/curriculum/content-map.json',import.meta.url),'utf8'));
+test('runtime references retain current review boundary and definition-only availability',async()=>{const projected=runtimeReferences(source);assert.deepEqual(JSON.parse(JSON.stringify(projected)),JSON.parse(await fs.readFile(new URL('../data/curriculum/runtime-reference-map.json',import.meta.url),'utf8')));for(const m of projected.materials)assert.equal(m.evidence_state.medical_judgment,'医学判断待ち');for(const t of projected.tasks)assert.equal(t.availability,'definition-only-runtime-filtered');});
+test('malformed evidence and unsupported future teaching states fail before browser rendering',()=>{for(const mutate of [m=>delete m.materials.find(x=>x.evidence.length).evidence[0].limitations,m=>m.materials.find(x=>x.evidence.length).evidence[0].source_refs=[null],m=>m.materials.find(x=>x.provenance_mapping).provenance_mapping.mapping={},m=>m.gaps[0].kind='unrendered-new-kind',m=>m.materials[0].evidence_state.medical_judgment='new-reviewed-state',m=>m.tasks[0].availability='student-adopted']){const copy=structuredClone(source);mutate(copy);assert.throws(()=>runtimeReferences(copy),/Invalid|Unsupported/);}});
+test('a renamed guide reference is rejected by the publication preflight',async()=>{const copy=structuredClone(source),m=copy.materials.find(x=>x.source_text_refs.some(r=>r.symbol==='surfaceObservationGuides'));m.source_text_refs.find(r=>r.symbol==='surfaceObservationGuides').key='missing-guide';const result=await validateContentMap(copy,{verifySources:false});assert(result.errors.some(error=>error.includes('unsupported observation guide linkage')));});

@@ -1,23 +1,26 @@
 "use client";
 
-import {useEffect,useRef,useState} from "react";
+import {useEffect,useLayoutEffect,useRef,useState} from "react";
 import {circuitTeaching,circuitText,type CircuitNode} from "../src/circuitTeaching.mjs";
 import "./circuit-teaching.css";
 import {CircuitRecall} from "./CircuitRecall";
 import {ThalamusGuide} from "./ThalamusGuide";
 import {circuitStageDuration} from "../src/circuitTravel.mjs";
-import {VisualDirectionMap} from "./VisualDirectionMap";
+import {scheduleReadingRestore} from "../src/scheduleReadingRestore.mjs";
 
 export type CircuitPosition={pathIndex:number;nodeIndex:number};
-type Props={circuitKey:string;english:boolean;suspended?:boolean;initialPosition?:CircuitPosition;onPositionChange?:(position:CircuitPosition)=>void;onObserve?:(index:number,nodeKey:string)=>void;onPreview?:(index:number,nodeKey:string)=>void;onConceptStage?:(nodeKey:string)=>void;onPulseChange?:(active:boolean)=>void;onReview?:()=>void;reviewCount?:number};
+type Props={circuitKey:string;english:boolean;suspended?:boolean;initialPosition?:CircuitPosition;readingMemory?:Record<string,{scroll:number;openDetails:number[]}>;onReadingChange?:()=>void;onPositionChange?:(position:CircuitPosition)=>void;onObserve?:(index:number,nodeKey:string)=>void;onPreview?:(index:number,nodeKey:string)=>void;onConceptStage?:(nodeKey:string)=>void;onPulseChange?:(active:boolean)=>void;onReview?:()=>void;reviewCount?:number};
 
-export function CircuitTeachingPanel({circuitKey,english,suspended=false,initialPosition,onPositionChange,onObserve,onPreview,onConceptStage,onPulseChange,onReview,reviewCount=0}:Props){
+export function CircuitTeachingPanel({circuitKey,english,suspended=false,initialPosition,readingMemory,onReadingChange,onPositionChange,onObserve,onPreview,onConceptStage,onPulseChange,onReview,reviewCount=0}:Props){
   const circuit=circuitTeaching(circuitKey);
   const [selectedPosition,setSelectedPosition]=useState(initialPosition??{pathIndex:0,nodeIndex:0});
   const positionChangeRef=useRef(onPositionChange);
   positionChangeRef.current=onPositionChange;
   useEffect(()=>{positionChangeRef.current?.(selectedPosition)},[selectedPosition]);
   const [playing,setPlaying]=useState(false);
+  const panelRef=useRef<HTMLElement|null>(null);
+  const restoreReadingPending=useRef(false);
+  const readingChangeRef=useRef(onReadingChange);readingChangeRef.current=onReadingChange;
   const stageRef=useRef<HTMLElement|null>(null);
   const previewRef=useRef(onPreview);
   previewRef.current=onPreview;
@@ -47,6 +50,19 @@ export function CircuitTeachingPanel({circuitKey,english,suspended=false,initial
     onPulseChange?.(playing&&hasTarget);
     return()=>onPulseChange?.(false);
   },[playing,currentNode,onPulseChange]);
+  const readingPath=circuit?.paths[selectedPosition.pathIndex];
+  const readingKey=circuitKey+'|'+(readingPath?.key??'')+'|'+selectedPosition.nodeIndex+'|'+(readingPath?.nodes[selectedPosition.nodeIndex]??'');
+  useLayoutEffect(()=>{
+    const panel=panelRef.current,body=panel?.closest<HTMLElement>('.learningGuide');if(!panel||!body||!readingMemory)return;
+    const saved=readingMemory[readingKey];restoreReadingPending.current=true;
+    let disposed=false,restored=false,cancelRestore=()=>{};
+    const restore=()=>{if(disposed||restored||body.clientHeight===0)return;panel.querySelectorAll('details').forEach((d,i)=>d.open=saved?.openDetails.includes(i)??false);body.scrollTop=saved?.scroll??0;restored=true;restoreReadingPending.current=false;};
+    const scheduleRestore=()=>{cancelRestore();cancelRestore=scheduleReadingRestore(callback=>requestAnimationFrame(callback),cancelAnimationFrame,restore);};
+    scheduleRestore();const observer=new ResizeObserver(()=>{if(!restored&&body.clientHeight>0)scheduleRestore();});observer.observe(body);
+    const remember=()=>{if(disposed||restoreReadingPending.current||body.clientHeight===0)return;readingMemory[readingKey]={scroll:body.scrollTop,openDetails:[...panel.querySelectorAll('details')].flatMap((d,i)=>d.open?[i]:[])};readingChangeRef.current?.();};
+    body.addEventListener('scroll',remember);panel.addEventListener('toggle',remember,true);
+    return()=>{disposed=true;cancelRestore();observer.disconnect();body.removeEventListener('scroll',remember);panel.removeEventListener('toggle',remember,true);};
+  },[readingKey,readingMemory]);
   if(!circuit)return null;
   const nodeByKey=new Map(circuit.nodes.map(node=>[node.key,node]));
   const selectedPath=circuit.paths[selectedPosition.pathIndex]??circuit.paths[0];
@@ -76,14 +92,13 @@ export function CircuitTeachingPanel({circuitKey,english,suspended=false,initial
     selectStage(selectedPosition.pathIndex,selectedPosition.nodeIndex>=pathLength-1?0:selectedPosition.nodeIndex);
     setPlaying(true);
   }
-  return <section className="circuitTeaching" aria-label={english?`${t(circuit.name)} learning guide`:`${t(circuit.name)}の学習ガイド`}>
+  return <section ref={panelRef} className="circuitTeaching" aria-label={english?`${t(circuit.name)} learning guide`:`${t(circuit.name)}の学習ガイド`}>
     <header><span>{english?"CIRCUIT GUIDE":"回路ガイド"}</span><h3>{t(circuit.name)}</h3><small className="circuitProgress" title={t(selectedPath.label)}>{circuit.paths.length>1&&<>{t(shortPathNames[selectedPath.key]??selectedPath.label)} · </>}{selectedPosition.nodeIndex+1}/{pathLength}</small></header>
     <nav className="circuitPlayback" aria-label={english?"Follow the pathway":"経路を順に追う"}>
       <button onClick={()=>selectStage(selectedPosition.pathIndex,selectedPosition.nodeIndex-1)} disabled={selectedPosition.nodeIndex===0}>{english?"Previous":"前へ"}</button>
       <button aria-pressed={playing} onClick={play}>{playing?(english?"Pause":"一時停止"):(english?"Play flow":"流れを再生")}</button>
       <button onClick={()=>selectStage(selectedPosition.pathIndex,selectedPosition.nodeIndex+1)} disabled={selectedPosition.nodeIndex>=pathLength-1}>{english?"Next":"次へ"}</button>
     </nav>
-    {circuitKey==="visual"&&<VisualDirectionMap english={english} pathIndex={selectedPosition.pathIndex} nodeIndex={selectedPosition.nodeIndex} playing={playing} onSelect={selectStage}/>}
     <div className="circuitTrail" aria-label={english?"Previous, current, and next stages":"前・現在・次の段階"}>
       {selectedPosition.nodeIndex>0&&<><span><small>{english?"From":"前"}</small>{pathLabel(selectedPosition.nodeIndex-1)}</span><i aria-label={trailSignLabel(selectedPosition.nodeIndex-1)} title={trailSignLabel(selectedPosition.nodeIndex-1)}>{trailSign(selectedPosition.nodeIndex-1)}</i></>}
       <strong aria-current="step"><small>{english?"Now":"現在"}</small>{t(selectedLabel)}</strong>

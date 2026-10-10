@@ -1,0 +1,11 @@
+# Circuit and review continuity release
+
+This release separates the neural-circuit entrance and keeps review at the main Review entrance. Home and navigation use matching Brain surface, Sections, and Neural circuits names. Opening a surface explanation applies temporary teaching colours without changing the original observation selections or inspection geometry; closing it restores the original colours and pose. Existing answered quizzes, scores, results, and observation returns remain available.
+
+The runtime reference map contains only fields displayed by Teaching references and evidence. The full inventory stays separate from the browser bundle; a preservation test compares every displayed evidence statement, guide reference, scoped task, and gap. This reduces the uncompressed release shell by about 142 KB to 2,111,927 bytes. The bounded shell ceiling changes from 2,000,000 to 2,150,000 bytes for the approved additional continuity UI. Atlas/model data remain outside the shell cache, and updates do not replace an active session.
+
+No anatomy assets, question-bank content, expert approval, or student adoption of teacher drafts changes. The later identification-to-section/3D workflow is excluded from this release.
+
+Validation: TypeScript; normal and Pages builds; source and distribution rights/notices; affected Node regression tests; normal Japanese/English desktop/narrow entrance and temporary-colour checks; desktop/narrow answered-quiz and completed-result reload checks. CI runs the full Node and portable Python suites with the repository's existing pinned dependencies. Local Python verification is incomplete where SciPy is unavailable; the release must pass the existing CI before merging to main.
+
+The publication build now validates the original inventory, guide references, supported teaching states, evidence arrays, and scoped definition-only task availability before checking the runtime projection. Unsupported future states or gap types fail before browser rendering. Medical-review boundary and availability fields remain in the projection; Windows CRLF checkout is accepted without hiding content drift. Current gap kinds are already represented by the missing-provenance or missing-observation-lesson messages. Other lesson modules retain their existing panels.

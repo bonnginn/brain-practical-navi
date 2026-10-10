@@ -47,7 +47,7 @@ test("free observation wires the stepper controls without introducing pathway ge
   const stepper = fs.readFileSync(path.join(root, "src/pathwayStepper.mjs"), "utf8");
   assert.match(page, /aria-label="大脳基底核回路の位置関係ステッパー"/);
   assert.doesNotMatch(page, /startBasalGangliaStepperTimer/);
-  assert.match(page, /workspace==="surface"&&surfaceView==="free"/);
+  assert.match(page, /workspace==="circuits"&&surfaceView==="free"/);
   assert.match(page, /showFocus=\{surfaceView==="free"\}/);
   assert.match(page, /3Dと断面を同じ色で表示/);
   assert.match(page, /既存の手動分節ラベルを3Dと断面で同期表示します/);

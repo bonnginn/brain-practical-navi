@@ -49,7 +49,7 @@ test("cleanup preserves the active Vite, Sites, and PWA configuration", async ()
     readFile(new URL("build/sites-vite-plugin.ts", root), "utf8"),
     readFile(new URL("build/pwa-vite-plugin.ts", root), "utf8"),
   ]);
-  assert.equal(pkg.scripts.build, "tsc -b && vite build");
+  assert.equal(pkg.scripts.build, "node scripts/build_curriculum_runtime_references.mjs --check && tsc -b && vite build");
   assert.equal(hosting.d1, null);
   assert.equal(hosting.r2, null);
   assert.match(vite, /sites\(\)/);

@@ -1793,5 +1793,12 @@ html[lang="en"] .workspaceSwitch button{min-width:108px}
 /* Reading instructions are prose, not a spaced technical status label. */
 .quizImageCard .panelHead > span { font-family:system-ui,sans-serif; font-size:12px; line-height:1.35; letter-spacing:0; }
 
-.phone-mode .phoneDockShort{display:none}
-@media(max-width:420px){.phone-mode .phoneDock button{font-size:13px;line-height:1.3;white-space:nowrap;min-height:48px}.phone-mode .phoneDock .phoneDockFull,.phone-mode .phoneDock button small{display:none}.phone-mode .phoneDock .phoneDockShort{display:block}}
+/* Keep all six destinations visible at narrow widths. */
+@media(max-width:760px){
+  .appShell:not(.phone-mode) .workspaceSwitch,.phone-mode .phoneDock>div{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .appShell:not(.phone-mode) .workspaceSwitch .workspaceNavShort{white-space:normal}
+}
+
+.workspace-circuits{grid-template-columns:minmax(0,1fr)}
+.workspace-circuits>.leftRail{display:none}
+.workspace-circuits>.workArea{grid-column:1 / -1}

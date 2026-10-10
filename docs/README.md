@@ -360,3 +360,5 @@ Historical audit results describe their recorded checkpoint, not the current rel
 - [回路・切片の対応案内候補](CIRCUIT_SECTION_BRIDGE_2026-10-04.md)
 - [回路・切片の履歴復帰修正](CIRCUIT_HISTORY_FIX_2026-10-04.md)
 - [狭幅の回路図・操作配置](CIRCUIT_RESPONSIVE_REVIEW_2026-10-04.md)
+
+- [回路・復習入口の公開候補 / Circuit and review release candidate](RELEASE_CIRCUIT_REVIEW_2026-10-10.md)

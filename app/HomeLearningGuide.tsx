@@ -3,10 +3,9 @@ import "./home-learning.css";
 export type LearningEntry = "surface" | "sections" | "circuits" | "quiz";
 
 const entries: {key:LearningEntry; ja:[string,string,string]; en:[string,string,string]}[] = [
-  {key:"surface",ja:["脳表で目印をつかむ","脳を回して、主な脳回と溝の位置を確認します。部位を選ぶと、その役割を読めます。","脳表を観察する"],en:["Find landmarks on the surface","Rotate the brain to locate major gyri and sulci. Select a region to read about its role.","Explore the surface"]},
-  {key:"sections",ja:["断面と3Dを見比べる","脳室を目印に、深部構造の位置を比べます。断面を少しずつ動かし、形の変化を追いましょう。","断面を観察する"],en:["Compare sections with 3D","Use the ventricles as landmarks to compare deep structures. Move through adjacent sections and follow their changing shapes.","Explore sections"]},
-  {key:"circuits",ja:["構造をつないで働きを学ぶ","まずPapez回路を順にたどります。慣れたら視覚路・大脳基底核回路へ切り替えて比べましょう。","回路ガイドを開く"],en:["Connect structures with function","Start by following the Papez circuit. Then switch to the visual pathway or basal ganglia circuits to compare their organization.","Open circuit guides"]},
-  {key:"quiz",ja:["説明できるか確かめる","名称だけでなく、機能・位置関係も復習します。回答後は解説と観察画面で確認できます。","復習クイズを開く"],en:["Check your understanding","Review names, functions and anatomical relationships. After answering, check the explanation and inspect the structure.","Open review quiz"]},
+  {key:"surface",ja:["脳表で目印をつかむ","脳を回して、主な脳回と溝の位置を確認します。部位を選ぶと、その役割を読めます。","脳表"],en:["Find landmarks on the surface","Rotate the brain to locate major gyri and sulci. Select a region to read about its role.","Brain surface"]},
+  {key:"sections",ja:["断面と3Dを見比べる","脳室を目印に、深部構造の位置を比べます。断面を少しずつ動かし、形の変化を追いましょう。","断面"],en:["Compare sections with 3D","Use the ventricles as landmarks to compare deep structures. Move through adjacent sections and follow their changing shapes.","Sections"]},
+  {key:"circuits",ja:["構造をつないで働きを学ぶ","まずPapez回路を順にたどります。慣れたら視覚路・大脳基底核回路へ切り替えて比べましょう。","神経回路"],en:["Connect structures with function","Start by following the Papez circuit. Then switch to the visual pathway or basal ganglia circuits to compare their organization.","Neural circuits"]},
 ];
 
 const checks:Record<LearningEntry,{ja:string;en:string}>={

@@ -16,6 +16,19 @@
 .sectionCompareAction{display:grid;gap:6px;margin:12px 0;padding:12px;border:1px solid #bccbc3;background:#f3f8f5}
 .sectionCompareAction button{min-height:44px;padding:8px;border:1px solid #789c8c;background:#fff;color:#29463d;font:inherit;font-size:var(--ui-font-13,13px)}
 .sectionCompareAction small{font-size:var(--ui-font-12,12px);line-height:1.6;overflow-wrap:anywhere}
+.sectionNeighbourChoices{display:flex;flex-wrap:wrap;gap:6px}
+.sectionNeighbourChoices button[aria-pressed="true"]{background:#d9e9df;border-color:#416e59}
 
 .activeSectionStudy{margin-bottom:8px;border:1px solid #aabfb3;border-left:4px solid #357866;background:#f4f8f4;padding:8px 12px;color:#293f37;font-size:var(--ui-font-13,13px);line-height:1.6}
 .activeSectionStudy summary{cursor:pointer;font-weight:700;overflow-wrap:anywhere}.activeSectionStudy summary>span{color:#546b5d;font-size:var(--ui-font-12,12px);margin-right:8px}.activeSectionStudy p{margin:8px 0}.activeSectionStudy ol{padding-left:22px}.activeStudyActions{display:flex;flex-wrap:wrap;gap:8px}.activeStudyActions button{min-height:44px;padding:8px 12px;font:inherit;color:inherit;background:#fff;border:1px solid #aabfb3}
+
+.activeSectionStudy h3{margin:0;font-size:inherit;line-height:1.6;overflow-wrap:anywhere}.activeSectionStudy h3>span{color:#546b5d;font-size:var(--ui-font-12,12px);margin-right:8px}.activeSectionStudy details{margin:8px 0}.activeStudyGoal{max-width:75ch}
+
+.activeStudyStructures>span{display:block;margin:6px 0}.activeStudyStructures>div{display:flex;flex-wrap:wrap;gap:6px}.activeStudyStructures button{min-height:44px;padding:6px 10px;font:inherit;color:inherit;background:white;border:1px solid #aabfb3}.activeStudyStructures button[aria-pressed="true"]{background:#d9e9df;border-color:#416e59}
+
+.activeThemeJump{display:block;max-width:100%;min-height:44px;padding:6px 10px;margin:0 0 8px;background:#f4f8f4;color:#293f37;border:1px solid #aabfb3;font:inherit;font-size:var(--ui-font-13,13px);text-align:left;overflow-wrap:anywhere}
+
+.activeSectionStudy,.workspace-sections .sliceStage{scroll-margin-top:160px}.phone-mode .activeSectionStudy,.phone-mode.workspace-sections .sliceStage{scroll-margin-top:78px}
+
+.csfRouteLesson h4{margin:16px 0 6px}.csfRouteSequence{border-left:3px solid #3c8372;padding:8px;background:#eaf2ec;font-weight:700;overflow-wrap:anywhere}.csfSelfCheck{margin:8px 0;border:1px solid #b4c9be;padding:8px;background:#fff}.csfSelfCheck summary{cursor:pointer;font-weight:600}.csfSelfCheck p{margin:8px 0 2px}
+.sectionThemeBibliography a{overflow-wrap:anywhere}
