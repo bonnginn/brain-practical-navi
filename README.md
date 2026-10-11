@@ -11,12 +11,12 @@
 - 8種類のブロック標本と、名称・機能・位置関係を学ぶ復習クイズ
 - PC・タブレット・スマートフォン、日本語・英語に対応
 
-現在は**公開版 v1.0.0版**です。クイズは全200問を作成済みですが、模型の配置に課題がある8問を保留し、現在の出題対象は192問です。設定により実際の出題範囲は変わります。
+現在は**公開版 v1.0.0**です。クイズは全200問を作成済みですが、模型の配置に課題がある8問を保留し、現在の出題対象は192問です。設定により実際の出題範囲は変わります。
 
 分節・模式表示には未完成の部分があり、専門家レビューは完了していません。教科書等と照合して使用してください。診断・治療・手術計画・定量研究には使用できません。特定の大学・部局の公式教材や承認済み事業ではありません。
 
 [ブロードマン分類による脳表観察](docs/BRODMANN_SURFACE_OBSERVATION.md)では41領野の複数選択・着色・部分非表示ができます。脳回ごとの位置と機能の解説も利用できます。
-機能の要約、3回路の解説、画面幅に応じた文字サイズと[模式神経の表示改善](docs/SEPTEMBER15_SCHEMATIC_COMPLETION.md)も利用できます。
+機能の要約、7つの神経回路の観察・解説、画面幅に応じた文字サイズと[模式神経の表示改善](docs/SEPTEMBER15_SCHEMATIC_COMPLETION.md)も利用できます。
 
 ## English
 
@@ -25,7 +25,7 @@
 This is a **public v1.0.0**, not an expert-validated atlas. Of 200 authored questions, 192 are currently eligible; eight are withheld because of model-placement limitations. Available questions also depend on quiz settings. Segmentations and schematic models remain incomplete and must be checked against reliable teaching references. Do not use this app for clinical decisions, surgical planning or quantitative research. It is not an officially endorsed university resource.
 
 [Brodmann surface observation](docs/BRODMANN_SURFACE_OBSERVATION.md) supports multiple selection, colouring and selective hiding of 41 areas. Individual cortical regions also have location and function explanations.
-It also includes function summaries, three circuit guides, responsive text sizes and [revised nerve schematics](docs/SEPTEMBER15_SCHEMATIC_COMPLETION.md).
+It also includes function summaries, seven neural-circuit learning routes, responsive text sizes and [revised nerve schematics](docs/SEPTEMBER15_SCHEMATIC_COMPLETION.md).
 
 ## 出典・利用条件 / Sources and terms
 
@@ -53,6 +53,8 @@ npm run dev
 設定・テスト・日英フォームの運用は [開発ガイド / Development guide](docs/DEVELOPMENT.md) を参照してください。
 
 ## 詳しい資料 / Further documentation
+
+[公開後の改善ロードマップ / Post-1.0 roadmap](docs/V1_ROADMAP.md)
 
 **[文書案内 / Documentation index](docs/README.md)** · [短い再開メモ](docs/RESUME_SUMMARY.md) · [変更・開発記録](docs/README_DEVELOPMENT_LOG_2026-09-07.md)
 
