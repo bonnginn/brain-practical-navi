@@ -2,8 +2,8 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {CIRCUIT_TEACHING,CIRCUIT_KEYS,circuitText} from "../src/circuitTeaching.mjs";
 
-test("three circuit guides contain the complete bilingual teaching contract",()=>{
-  assert.deepEqual(CIRCUIT_KEYS,["papez","visual","basal-ganglia"]);
+test("finite circuit guides contain the complete bilingual teaching contract",()=>{
+  assert.deepEqual([...CIRCUIT_KEYS].sort(),["papez","visual","basal-ganglia","motor-descending","dcml","anterolateral"].sort());
   for(const circuit of Object.values(CIRCUIT_TEACHING)){
     assert.ok(circuit.goal.ja&&circuit.goal.en);
     assert.ok(circuit.role.ja&&circuit.role.en);

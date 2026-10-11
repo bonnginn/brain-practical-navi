@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { sites } from "./build/sites-vite-plugin.ts";
 import { pwa } from "./build/pwa-vite-plugin.ts";
+import { runtimeDisplayData } from "./build/runtime-data-vite-plugin.ts";
 
 const sourceRepositoryUrl = process.env.VITE_SOURCE_REPOSITORY_URL?.trim() || "https://github.com/bonnginn/brain-practical-navi";
 
@@ -17,5 +18,5 @@ function correspondingSourceMeta() {
 
 export default defineConfig({
   base: process.env.DEPLOY_GITHUB_PAGES === "true" ? "/brain-practical-navi/" : "/",
-  plugins: [react(), pwa(), sites(), correspondingSourceMeta()],
+  plugins: [react(), runtimeDisplayData(), pwa(), sites(), correspondingSourceMeta()],
 });

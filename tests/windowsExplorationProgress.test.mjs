@@ -187,3 +187,15 @@ test('identical failed primary retries reuse one verified archive and return eve
  store.setItem=base;const result=preserveAndWriteWindowsExplorationProgress(store,raw,registry,['loaded','previous']);assert.equal(result.status,'saved');assert.deepEqual(result.records.map(r=>r.raw),['loaded','previous','current']);assert.equal([...store.values.keys()].filter(k=>k.includes(':preserved:')).length,1);
 });
 test('recovery with no originals saves without creating an empty archive',()=>{const store=new Store(),result=preserveAndWriteWindowsExplorationProgress(store,serializeWindowsExplorationProgress(data(),registry),registry);assert.equal(result.status,'saved');assert.equal(result.archiveKey,undefined);assert.deepEqual(result.records,[]);assert.equal(store.writes.length,1);});
+
+test('circuit workspace return retains selected auditory stage and viewport without authored extras',()=>{
+ const value=data(),snapshot={key:'auditory',positions:{},auditoryStep:'cortex',observation:{target:'cortex',mode:'model',medicalProse:'discard'},rotation:{x:2,y:9},zoom:1.4,pan:{x:4,y:5},prose:'discard'};
+ value.practice.returnTo={...surface(),circuitWorkspace:snapshot};
+ const saved=parse(value).value.practice.returnTo.circuitWorkspace;
+ assert.equal(saved.key,'auditory');assert.equal(saved.auditoryStep,'cortex');assert.deepEqual(saved.observation,{target:'cortex',mode:'model'});assert.equal(saved.zoom,1.4);assert.deepEqual(saved.pan,{x:4,y:5});assert.ok(!Object.hasOwn(saved,'prose'));
+});
+test('invalid circuit workspace return cannot overwrite a previous record',()=>{
+ const store=new Store([[KEY,JSON.stringify(data())]]),before=store.getItem(KEY);
+ const value=data();value.practice.returnTo={...surface(),circuitWorkspace:{key:'auditory',positions:{},auditoryStep:'cortex',observation:{target:'invented',mode:'model'},rotation:{x:0,y:0}}};
+ assert.equal(serializeWindowsExplorationProgress(value,registry),null);assert.equal(store.getItem(KEY),before);
+});

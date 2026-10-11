@@ -2,11 +2,14 @@
 export function quizHistoryKey(question) { return question.id ?? question.target; }
 
 export function restoreQuizHistory(current, legacy, questions) {
-  const keys = new Set(questions.map(quizHistoryKey));
+  // Availability can change (for example an anatomy hold). Keep stable keys
+  // even when they are absent from this bank revision. Unknown keys may belong
+  // to a temporarily unavailable or older bank; loading is not permission to
+  // delete them. Display filtering uses the eligible question list separately.
   if (current !== null) {
     const saved = JSON.parse(current);
-    if (!Array.isArray(saved)) return [];
-    return [...new Set(saved.filter(key => typeof key === 'string' && keys.has(key)))];
+    if (!Array.isArray(saved)) throw new TypeError('Quiz history must be an array');
+    return [...new Set(saved.filter(key => typeof key === 'string'))];
   }
   const targets = JSON.parse(legacy ?? '[]');
   if (!Array.isArray(targets)) return [];

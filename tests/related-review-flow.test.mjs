@@ -10,7 +10,7 @@ import {papezInlineViewportForContext} from '../src/papezInlineViewport.mjs';
 const require=createRequire(import.meta.url);
 const ts=require('typescript');
 const page=ts.createSourceFile('page.tsx',readFileSync(new URL('../app/page.tsx',import.meta.url),'utf8'),ts.ScriptTarget.Latest,true,ts.ScriptKind.TSX);
-const names=new Set(['restoreSurfaceObservation','openMainReview','captureRelatedObservation','startRelatedReview','returnFromRelatedReview','reviewQuizQuestion','startQuiz','returnFromThemeReview','isSurfaceQuiz','isNeurovascularQuiz','restoreRelatedObservation','openRelatedCircuit','returnFromRelatedCircuit','openWorkspace','startCircuitReview','returnFromCircuitReview','returnFromCircuitSection','returnToQuiz','observeCircuitStage','captureSectionObservation','startIdentificationReview','captureCircuitView','restoreCircuitView','storedObservation','restoredObservation','resumeCircuit']);
+const names=new Set(['observeAuditoryTarget','returnFromAuditoryObservation','startAuditoryReview','restoreSurfaceObservation','openMainReview','captureRelatedObservation','startRelatedReview','returnFromRelatedReview','reviewQuizQuestion','startQuiz','returnFromThemeReview','isSurfaceQuiz','isNeurovascularQuiz','restoreRelatedObservation','openRelatedCircuit','returnFromRelatedCircuit','openWorkspace','startCircuitReview','returnFromCircuitReview','returnFromCircuitSection','returnToQuiz','observeCircuitStage','captureSectionObservation','startIdentificationReview','captureCircuitView','restoreCircuitView','storedObservation','restoredObservation','resumeCircuit']);
 const functions=new Map(),selectors=new Map();
 function visit(node){
   if(ts.isFunctionDeclaration(node)&&names.has(node.name?.text))functions.set(node.name.text,node.getText(page));
@@ -26,8 +26,9 @@ const executable=ts.transpileModule([...functions.values()].join('\n')+'\nglobal
 function harness(overrides={}){
   const actions=[],ctx={
     copyReviewObservation,identificationReviewQuestions,papezInlineViewportForContext,
-    surfaceInspectionOrigin:{current:null},quizSaveActive:{current:false},quizSaveContextPending:{current:false},captureCurrentSectionReader:()=>null,scheduleReadingRestore(){},sectionObservationSaveActive:{current:false},sectionStructureReaders:{current:{}},
-
+    captureCurrentSectionReader:()=>undefined,sectionStructureReaders:{current:{}},pendingSectionReader:{current:null},sectionObservationSaveActive:{current:false},quizSaveActive:{current:false},quizSaveContextPending:{current:false},quizThemeOrigin:null,
+    surfaceInspectionOrigin:{current:null},
+    auditoryObservationOrigin:null,setAuditoryObservationOrigin:value=>actions.push(['auditoryOrigin',value]),
     workspace:'sections',plane:'sagittal',position:61,
     sectionPositions:{current:{coronal:42,horizontal:55,sagittal:61}},
     selectedStructure:'hippocampus',visibleStructures:['hippocampus','ventricle'],labels:false,
@@ -55,7 +56,7 @@ function harness(overrides={}){
     window:{location:{hash:''},history:{pushState(){}},requestAnimationFrame(){}},
     structures:{hippocampus:{name:'海馬',latin:'Hippocampus'},thalamus:{name:'視床',latin:'Thalamus'}},
     surfaceRegions:{precentral:{name:'中心前回',latin:'Precentral gyrus'}},
-    surfaceViews:{lateral:{rotation:{x:0,y:0,z:0}},free:{rotation:{x:0,y:0,z:0}}},
+    surfaceViews:{inferior:{rotation:{x:10,y:20,z:0}},lateral:{rotation:{x:0,y:0,z:0}},free:{rotation:{x:0,y:0,z:0}}},
     anatomyDisplayEnglish:value=>value,shuffledQuestions:questions=>[...questions],
     requestAnimationFrame(){actions.push('schedule-focus')},
     document:{getElementById:()=>null,querySelector:()=>null},
@@ -63,7 +64,7 @@ function harness(overrides={}){
     ...overrides,
   };
   const mapping={
-    setSurfaceInspectionKey:'surfaceInspectionKey',setSurfaceInspectionOrigin:'surfaceInspectionOrigin',setReadingRestoreActive:'readingRestoreActive',setFindStartTask:'findStartTask',setFindObservationRotation:'findObservationRotation',setRelatedReviewOrigin:'relatedReviewOrigin',setRelatedCircuitOrigin:'relatedCircuitOrigin',setQuizStudyLabel:'quizStudyLabel',setQuizQueue:'quizQueue',
+    setAuditoryObservationOrigin:'auditoryObservationOrigin',setFreeViewZoom:'freeViewZoom',setFreeViewPan:'freeViewPan',setFindComparisonReturn:'findComparisonReturn',setSurfaceInspectionKey:'surfaceInspectionKey',setSectionReaderVersion:'sectionReaderVersion',setFindStartTask:'findStartTask',setFindObservationRotation:'findObservationRotation',setRelatedReviewOrigin:'relatedReviewOrigin',setRelatedCircuitOrigin:'relatedCircuitOrigin',setQuizStudyLabel:'quizStudyLabel',setQuizQueue:'quizQueue',
     setReviewMenu:'reviewMenu',setFindMode:'findMode',setQuizThemeOrigin:'quizThemeOrigin',setQuizCircuit:'quizCircuit',
     setQuizObservationTitle:'quizObservationTitle',setPlaying:'playing',setIdentified:'identified',setContrast:'contrast',
     setLabels:'labels',setVisibleStructures:'visibleStructures',setActiveStudyTheme:'activeStudyTheme',
@@ -133,21 +134,25 @@ test('empty related-question data leaves observation usable without switching in
   assert.equal(h.ctx.workspace,'sections');assert.equal(h.ctx.relatedReviewOrigin,null);
   assert.equal(h.actions.length,0);
 });
-test('new generic review clears an earlier structure-specific return context',()=>{const h=harness();h.api.startRelatedReview([{target:'hippocampus'}],'海馬',h.api.captureRelatedObservation());h.api.startQuiz();assert.equal(h.ctx.relatedReviewOrigin,null);});
-for(const mode of ['desktop','narrow','english'])test('stored legacy CSF theme review '+mode+' restores the full observation without resetting answers',()=>{
+test('new generic review clears an earlier structure-specific return context',()=>{
+  const h=harness();
+  h.api.startRelatedReview([{target:'hippocampus'}],'海馬',h.api.captureRelatedObservation());
+  h.api.startQuiz();assert.equal(h.ctx.relatedReviewOrigin,null);
+
+});
+for(const mode of ['desktop','narrow','english'])test('CSF observation through main review '+mode+' restores the full observation without resetting answers',()=>{
   const theme={key:'csf-route',ja:{name:'第三脳室から第四脳室への通路'},en:{name:'Third-to-fourth ventricular route'},members:['ventricle','thirdVentricle','aqueductPartial','fourthVentricle']};
   const question={target:'ventricle',category:'ventricles',plane:'horizontal',position:51};
-  const h=harness({activeStudyTheme:theme,themeReviewQuestions:[question],circuitSectionOrigin:null,
+  const h=harness({activeStudyTheme:theme,quizQueue:[question],circuitSectionOrigin:null,
     plane:'sagittal',position:50,sectionPositions:{current:{coronal:42,horizontal:55,sagittal:50}},
     selectedStructure:'thirdVentricle',visibleStructures:[...theme.members],sectionSearch:'脳室',
     rotation:{x:-7,y:37,z:0},sectionAtlasZoom:1.44,sectionAtlasPan:{x:24,y:-19},
     sectionModelViews:2,sectionModelShare:55,sectionModelZoom:1.8,englishEdition:mode==='english',
     structures:{ventricle:{name:'側脳室',latin:'Lateral ventricle'},thirdVentricle:{name:'第三脳室',latin:'Third ventricle'}}});
   const original=h.api.captureSectionObservation();
-  h.ctx.quizThemeOrigin=original;h.ctx.relatedReviewOrigin=null;h.ctx.quizStudyLabel=theme[mode==='english'?'en':'ja'].name;h.ctx.quizQueue=[question];
-  assert.deepEqual(JSON.parse(JSON.stringify(h.ctx.quizThemeOrigin)),JSON.parse(JSON.stringify(original)));
-  assert.equal(h.ctx.relatedReviewOrigin,null,'theme has its own single return action');
-  assert.equal(h.ctx.quizStudyLabel,theme[mode==='english'?'en':'ja'].name);
+  h.api.openMainReview();
+  assert.deepEqual(JSON.parse(JSON.stringify(h.ctx.relatedReviewOrigin)),JSON.parse(JSON.stringify(original)));
+  assert.equal(h.ctx.quizThemeOrigin,null,'main review provides the single observation return action');
   assert.deepEqual(Array.from(h.ctx.quizQueue),[question]);
   h.ctx.visibleStructures.push('hippocampus');h.ctx.sectionPositions.current.coronal=19;
   h.ctx.quizChoice='ventricle';h.ctx.quizScore=1;h.ctx.quizIndex=0;
@@ -155,9 +160,9 @@ for(const mode of ['desktop','narrow','english'])test('stored legacy CSF theme r
   h.ctx.sectionAtlasZoom=.9;h.ctx.sectionAtlasPan={x:-90,y:200};h.ctx.sectionModelViews=1;
   h.ctx.sectionModelShare=35;h.ctx.sectionModelZoom=.8;h.ctx.sectionSearch='';
   if(mode==='narrow')h.ctx.compactSectionLayout=true;
-  h.api.returnFromThemeReview();
+  h.api.returnFromRelatedReview();
   assert.deepEqual(h.api.captureSectionObservation(),mode==='narrow'?{...original,layout:'slice'}:original);
-  assert.equal(h.ctx.quizObservationTitle,theme[mode==='english'?'en':'ja'].name);
+  assert.equal(h.ctx.quizObservationTitle,null);
   assert.equal(h.ctx.quizChoice,'ventricle');assert.equal(h.ctx.quizScore,1);assert.equal(h.ctx.quizIndex,0);
   assert.deepEqual(Array.from(h.ctx.quizQueue),[question]);
   assert.equal(h.actions.filter(action=>action==='reset-quiz').length,0);
@@ -472,3 +477,36 @@ for(const section of [false,true])test('saved circuit '+(section?'section':'mode
 });
 
 test('main review captures the current observation and returns without clearing answers',()=>{const h=harness({circuitSectionOrigin:null,reviewMenu:true});const original=h.api.captureRelatedObservation();h.api.openMainReview();assert.equal(h.ctx.workspace,'quiz');h.ctx.quizChoice='hippocampus';h.ctx.quizScore=1;h.api.returnFromRelatedReview();assert.deepEqual(h.api.captureRelatedObservation(),original);assert.equal(h.ctx.quizChoice,'hippocampus');assert.equal(h.ctx.quizScore,1);assert.equal(h.actions.filter(x=>x==='reset-quiz').length,0)});
+
+test('auditory cortex and CN VIII excursions keep the first section and clear stale inspection',()=>{
+ const h=harness({activeStudyTheme:{key:'auditory',ja:{name:'聴覚'},en:{name:'Hearing'}},circuitSectionOrigin:null});
+ const original=h.api.captureRelatedObservation();
+ h.api.observeAuditoryTarget('cortex');
+ assert.equal(h.ctx.surfaceInspectionKey,'transverseTemporal');
+ h.api.observeAuditoryTarget('cn8');
+ assert.equal(h.ctx.surfaceInspectionKey,null);
+ h.api.returnFromAuditoryObservation();
+ assert.deepEqual(h.api.captureRelatedObservation(),original);
+ assert.equal(h.ctx.auditoryObservationOrigin,null);
+});
+test('auditory context transfers once to existing main-review questions; independent navigation clears it',()=>{
+ const h=harness({allQuizQuestions:[{id:'cn8-function',target:'cn8'},{id:'unrelated',target:'caudate'}],circuitSectionOrigin:null});
+ const original=h.api.captureRelatedObservation();h.ctx.auditoryObservationOrigin=original;
+ h.api.startAuditoryReview();
+ assert.equal(h.ctx.quizQueue.length,1);assert.equal(h.ctx.quizQueue[0].id,'cn8-function');
+ assert.equal(h.ctx.auditoryObservationOrigin,null);assert.deepEqual(h.ctx.relatedReviewOrigin,original);
+ h.ctx.quizChoice='answer';h.api.returnFromRelatedReview();assert.deepEqual(h.api.captureRelatedObservation(),original);assert.equal(h.ctx.quizChoice,'answer');
+ h.ctx.auditoryObservationOrigin=original;h.api.openWorkspace('home');assert.equal(h.ctx.auditoryObservationOrigin,null);
+});
+
+test('MGB reference excursion persists the original section then suspends temporary autosave',()=>{
+ const theme={key:'auditory',ja:{name:'聴覚'},en:{name:'Hearing'}};
+ const h=harness({activeStudyTheme:theme,sectionStudyThemes:[theme],circuitSectionOrigin:null});
+ const original=h.api.captureRelatedObservation();let saved=null,flushed=false;
+ h.ctx.exploration.updateObservation=value=>{saved=value};h.ctx.exploration.flush=()=>{flushed=true};
+ h.ctx.restoreSectionRoute=()=>{h.ctx.position=45;h.ctx.visibleStructures=['thalamus','lateralGeniculateBodies','brainstem']};
+ h.api.observeAuditoryTarget('mgb','#workspace/sections/coronal');
+ assert.equal(saved.position,original.position);assert.deepEqual(saved.visible,original.visible);assert.equal(saved.themeKey,'auditory');
+ assert.equal(flushed,true);assert.equal(h.ctx.sectionObservationSaveActive.current,false);
+ h.api.returnFromAuditoryObservation();assert.deepEqual(h.api.captureRelatedObservation(),original);
+});

@@ -6,11 +6,11 @@
   "sources": [
     {
       "file": "app/page.tsx",
-      "sha256": "c207ef2cd29d8836ee10b9fd751578c16cdd31197f02a97371cb1f07619618f0"
+      "sha256": "b9d1eb409b713a931ef6bf2d66a2a15c2b7dfaa448549dbb9362b8a0e9c80709"
     },
     {
       "file": "app/quiz-concept-bank.json",
-      "sha256": "35d4c88585a3d29324f097174549b6a33fe7a62634eb1de47882b528548b5339"
+      "sha256": "f6f7662a777d914fea95b00e4b1fbd241ba49a7a1a7dffb7501f6825dadb9970"
     },
     {
       "file": "public/atlas/structure-provenance.json",
@@ -18,7 +18,7 @@
     },
     {
       "file": "src/circuitTeaching.mjs",
-      "sha256": "2d8b41bd212fcbe873f394984679bb021d48d6eb989acb39a11c2a66c4c43279"
+      "sha256": "cc4bb357034fe21c8e1d08dbd2065528d983578227dfeacb18f9f1b15328533a"
     },
     {
       "file": "src/identificationSectionLessons.ts",
@@ -38,7 +38,7 @@
     },
     {
       "file": "src/sectionStudyThemes.ts",
-      "sha256": "b72df93c1be50871456565d7e8cd6d933f35feade66a1c68b5974a87beb73160"
+      "sha256": "9dd052bd8b0988dd111bf7d8ebab85cf1f24594aa5d1ca767cd8eb323f618124"
     },
     {
       "file": "src/surfaceObservationGuides.ts",
@@ -6288,6 +6288,41 @@
       "existing_entry": {
         "plane": "horizontal",
         "position": 67
+      },
+      "evidence_note": "Entry positions are existing exploration starting points, not anatomical boundaries."
+    },
+    {
+      "id": "sectionStudyThemes/auditory",
+      "existing_key": "auditory",
+      "kind": "observation-theme",
+      "material": "sections",
+      "name": "聴覚：耳から両側の中継、皮質へ",
+      "goal": "脳幹・視床を位置の目印にし、聴覚の主要中継と両側への伝わりを、MGB参照と聴覚皮質の観察につなぎます。",
+      "material_refs": [
+        "structures/thalamus",
+        "structures/brainstem"
+      ],
+      "target_refs": [
+        "structures/thalamus"
+      ],
+      "circuit_refs": [
+        "papez",
+        "basal-ganglia"
+      ],
+      "source_text_refs": [
+        {
+          "file": "src/sectionStudyThemes.ts",
+          "symbol": "sectionStudyThemes",
+          "key": "auditory",
+          "fields": [
+            "ja",
+            "en"
+          ]
+        }
+      ],
+      "existing_entry": {
+        "plane": "coronal",
+        "position": 49
       },
       "evidence_note": "Entry positions are existing exploration starting points, not anatomical boundaries."
     },

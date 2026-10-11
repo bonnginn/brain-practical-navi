@@ -117,7 +117,7 @@ function assertSourceContract(source, errors) {
     "const visualQuizQuestions:QuizQuestion[]=[...quizQuestions,...neurovascularQuizQuestions]",
     "const allQuizQuestions:QuizQuestion[]=[...visualQuizQuestions,...conceptQuizQuestions]",
     "shuffledQuestions(allQuizQuestions).slice(0,10)",
-    "restoreQuizHistory(localStorage.getItem(QUIZ_WRONG_CACHE_KEY),localStorage.getItem(\"brain-practical-quiz-wrong-v1\"),allQuizQuestions)",
+    "restoreQuizHistory(localStorage.getItem(QUIZ_WRONG_CACHE_KEY),localStorage.getItem(\"brain-practical-quiz-wrong-v1\"),quizHistoryQuestions)",
     "recordQuizAnswer(wrongTargets,quizQuestion,correct)",
     "neurovascularOverlay={neurovascularQuiz?(quizQuestion.detail===\"arteries\"?\"vessels\":\"nerves\"):\"none\"}",
     "neurovascularHighlights={neurovascularQuiz?quizNeurovascularHighlight:[]}",

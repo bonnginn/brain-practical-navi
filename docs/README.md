@@ -362,3 +362,5 @@ Historical audit results describe their recorded checkpoint, not the current rel
 - [狭幅の回路図・操作配置](CIRCUIT_RESPONSIVE_REVIEW_2026-10-04.md)
 
 - [回路・復習入口の公開候補 / Circuit and review release candidate](RELEASE_CIRCUIT_REVIEW_2026-10-10.md)
+
+- [v1.0.0 release notes / 公開版の更新](RELEASE_V1_2026-10-11.md)

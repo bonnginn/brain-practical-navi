@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
+import { resolve } from "node:path";
+import { readdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { auditPwaBuild } from "../scripts/audit_pwa_build.mjs";
 
@@ -50,9 +52,15 @@ test("generated worker keeps initial install small and runtime caching bounded",
 });
 
 test("current production build has a bounded, complete PWA shell", () => {
-  const result = auditPwaBuild(fileURLToPath(new URL("../dist", import.meta.url)));
+  const result = auditPwaBuild(process.env.BRAIN_PWA_DIST?resolve(process.env.BRAIN_PWA_DIST):fileURLToPath(new URL("../dist", import.meta.url)));
   assert.equal(result.ok, true, result.errors.join("\n"));
-  assert.ok(result.shellBytes < 2_150_000);
+  assert.ok(result.shellBytes < 2_000_000);
   assert.ok(result.shellFiles.some(file => /assets\/index-.+\.js$/.test(file)));
   assert.ok(result.shellFiles.some(file => /assets\/index-.+\.css$/.test(file)));
+});
+
+test("production build excludes unadopted development-only teacher drafts", () => {
+  const dist=process.env.BRAIN_PWA_DIST?resolve(process.env.BRAIN_PWA_DIST):fileURLToPath(new URL("../dist",import.meta.url));
+  assert.equal(readdirSync(resolve(dist,"assets")).some(name=>name.startsWith("TeacherContentPreview-")),false);
+  assert.equal(auditPwaBuild(dist).shellFiles.some(name=>name.includes("TeacherContentPreview-")),false);
 });

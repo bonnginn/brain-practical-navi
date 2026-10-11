@@ -16,6 +16,9 @@ export const sectionStudyThemes=[
   {key:'midbrain',plane:'horizontal',position:67,target:'redNucleus',members:['redNucleus','substantiaNigra','aqueductPartial'],
     ja:{name:'中脳の背腹関係を読む',goal:'赤核・黒質と正中の水道の位置関係を見比べます。',steps:['赤核の腹外側にある黒質を探し、少し上下の断面も比較します。','背側の正中にある中脳水道の位置を確認します。着色の境界は暫定的です。'],check:'背側から腹側へ、どの構造が並ぶか説明できますか？'},
     en:{name:'Read dorsal–ventral relationships in the midbrain',goal:'Compare the red nuclei, substantia nigra and midline aqueduct.',steps:['Look for the substantia nigra ventrolateral to the red nuclei, comparing nearby superior and inferior sections.','Locate the aqueduct dorsally at the midline. The labelled boundary remains provisional.'],check:'Can you describe the order of these structures from dorsal to ventral?'}},
+  {key:'auditory',plane:'coronal',position:49,target:'thalamus',members:['thalamus','brainstem'],
+    ja:{name:'聴覚：耳から両側の中継、皮質へ',goal:'脳幹・視床を位置の目印にし、聴覚の主要中継と両側への伝わりを、MGB参照と聴覚皮質の観察につなぎます。',steps:['脳幹と視床を断面・3Dで見比べます。着色は全体の位置目安で、聴覚核や聴覚路の境界ではありません。','下の経路説明で両側への伝わりを確認し、内側膝状体の参照形状と横側頭回を観察します。'],check:'片耳からの情報が両側に伝わる段階と、MGBから皮質への経路を説明できますか？'},
+    en:{name:'Hearing: ear, bilateral relays and cortex',goal:'Use the brainstem and thalamus as landmarks, connecting the major auditory relays and bilateral transmission to the MGB reference and auditory cortex.',steps:['Compare the brainstem and thalamus in sections and 3D. Their colours locate whole structures, not auditory nuclei or pathways.','Follow the explanation below, then inspect the medial geniculate reference and transverse temporal gyri.'],check:'Can you explain bilateral transmission and the route from MGB to cortex?'}},
 ] as const;
 
 export type SectionStudyTheme=typeof sectionStudyThemes[number];

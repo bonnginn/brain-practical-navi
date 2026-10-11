@@ -290,7 +290,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
     readFile(new URL("GOVERNANCE.md", root), "utf8"),
   ]);
 
-  for (const label of ["Home", "断面", "脳表", "ブロック標本", "脳底動脈", "脳神経・脳幹", "四択クイズ", "セグメンテーション編集", "利用条件・クレジット", "共同制作"]) {
+  for (const label of ["Home", "断面実習", "脳表", "神経回路", "復習", "ブロック標本", "脳底動脈", "脳神経・脳幹", "四択クイズ", "セグメンテーション編集", "利用条件・クレジット", "共同制作"]) {
     assert.match(page, new RegExp(label));
   }
   assert.match(page, /useState<WorkspaceMode>\(\(\)=>typeof window==="undefined"\?"home":workspaceFromHash\(window.location.hash\)\)/);
@@ -304,7 +304,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(page, /workspaceSwitch button\.active/);
   assert.match(page, /leftRail \.planeBtn\.active/);
   assert.match(page, /scrollIntoView\(\{block:"nearest",inline:"center"\}\)/);
-  assert.match(page, /PUBLIC BETA · EDUCATIONAL USE ONLY/);
+  assert.match(page, /v1\.0\.0 · EDUCATIONAL USE ONLY/);
   assert.match(page, /className="homeNotice"/);
   assert.match(page, /教育目的での利用/);
   assert.match(page, /教科書や検証済み資料と照合して利用してください/);
@@ -451,7 +451,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.doesNotMatch(page, /setBlock\("inside"\)\}\}>脳表<\/button>/);
   assert.match(canvas, /selectionMeshLayers=\[\]/);
   assert.match(canvas, /if\(showFocus&&selectionLayers\.length\)/);
-  assert.match(canvas, /selectionLayers\.forEach\(layer=>layer\.meshes\.forEach/);
+  assert.match(canvas, /selectionLayers\.filter\(layer=>!layer\.spatialGuide\)\.forEach\(layer=>layer\.meshes\.forEach/);
   assert.match(canvasCss, /\.insetViews \{[^}]*grid-template-rows: repeat\(2,minmax\(0,1fr\)\)/);
   assert.match(canvasCss, /\.insetViews\.views-1 \{ grid-template-columns: minmax\(0,1fr\); grid-template-rows: minmax\(0,1fr\); \}/);
   assert.match(canvasCss, /\.insetViews\.views-2 \{ grid-template-columns: minmax\(0,1fr\); grid-template-rows: repeat\(2,minmax\(0,1fr\)\); \}/);
@@ -609,7 +609,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(workflow, /`reviewStatus`[\s\S]*`unreviewed`/);
   assert.match(workflow, /apply_segmentation_patch\.py/);
   assert.match(workflow, /workflowMetadataVersion/);
-  assert.equal(JSON.parse(packageJson).version, "0.1.0-beta.1");
+  assert.equal(JSON.parse(packageJson).version, "1.0.0");
   assert.equal(JSON.parse(packageJson).license, "AGPL-3.0-or-later");
   assert.match(softwareLicense, /GNU AFFERO GENERAL PUBLIC LICENSE/);
   assert.match(softwareLicense, /13\. Remote Network Interaction/);
@@ -2055,14 +2055,15 @@ test("help, feedback, and credit dialogs have durable shareable URLs", async () 
   assert.match(page, /overlayFromHash\(window\.location\.hash\)==="feedback"/);
   assert.match(page, /overlayFromHash\(window\.location\.hash\)==="legal"/);
   assert.match(page, /overlayFromHash\(window\.location\.hash\)==="status"/);
-  assert.match(page, /window\.history\.pushState\(\{learningOrigin:origin\},"",`#workspace\/\$\{key\}`\)/);
+  assert.match(page, /const state=\{learningOrigin:origin,learningOverlayEntry:[^;]+/);
+  assert.match(page, /window\.history\.pushState\(state,"",`#workspace\/\$\{key\}`\)/);
   assert.match(page, /onClick=\{\(\)=>openOverlay\("feedback"\)\}/);
   assert.match(page, /onClick=\{\(\)=>openOverlay\("legal"\)\}/);
   assert.match(page, /onClick=\{\(\)=>openOverlay\("help"\)\}/);
   assert.match(page, /onClick=\{\(\)=>openOverlay\("status"\)\}/);
   assert.match(page, /document\.body\.style\.overflow="hidden"/);
   assert.match(page, /document\.querySelector<HTMLButtonElement>\('\.legalDialog\[aria-modal="true"\] header button'\)\?\.focus\(\)/);
-  assert.match(page, /overlayReturnFocus\.current\?\.focus\(\)/);
+  assert.match(page, /target\?\.focus\(\{preventScroll:true\}\)/);
   assert.match(page, /event\.shiftKey&&document\.activeElement===first/);
   assert.match(page, /!event\.shiftKey&&document\.activeElement===last/);
   assert.match(page, /onClick=\{closeOverlay\} aria-label="意見・誤り報告を閉じる"/);
@@ -2077,7 +2078,7 @@ test("status dialog renders the JSON registry through a durable direct route", a
     readFile(new URL("app/canvas.css", root), "utf8"),
   ]);
   const data = JSON.parse(status);
-  assert.equal(data.phase, "公開β版／専門家監修は未実施");
+  assert.equal(data.phase, "公開版 v1.0.0／専門家監修は未実施");
   assert.ok(data.knownLimitations.some(item => item.body.includes("ID33")));
   assert.ok(data.changes.some(item => item.body.includes("162/162")));
   assert.ok(data.knownLimitations.some(item => item.id === "limitation-local-validation-scope" && item.body.includes("物理タッチ端末")));
@@ -2100,10 +2101,10 @@ test("status dialog renders the JSON registry through a durable direct route", a
   assert.match(css, /\.homeNotice\s*\{[^}]*align-self:\s*start/);
   assert.match(page, /TemplateFlow<\/a><button onClick=\{\(\)=>openOverlay\("status"\)\}>更新履歴・既知の制限/);
   assert.match(page, /document\.querySelector<HTMLButtonElement>\('\.legalDialog\[aria-modal="true"\] header button'\)\?\.focus\(\)/);
-  assert.match(page, /overlayReturnFocus\.current\?\.focus\(\)/);
+  assert.match(page, /target\?\.focus\(\{preventScroll:true\}\)/);
   assert.match(page, /\},\[helpOpen,feedbackOpen,legalOpen,statusOpen,sourcesOpen\]\);/);
-  assert.match(page, /if\(!overlayOpen\)overlayReturnFocus\.current\?\.focus\(\)\},\[overlayOpen\]\);/);
-  assert.match(page, /function openOverlay\(key:OverlayMode\)\{if\(!overlayOpen\)overlayReturnFocus\.current=document\.activeElement instanceof HTMLElement\?document\.activeElement:null;/);
+  assert.match(page, /if\(!overlayOpen\)\{const target=overlayReturnFocus\.current\?\.isConnected\?overlayReturnFocus\.current:document\.getElementById\("workspace"\);target\?\.focus\(\{preventScroll:true\}\)\}\},\[overlayOpen\]\);/);
+  assert.match(page, /function openOverlay\(key:OverlayMode\)\{\s*if\(overlayClosingRef\.current\)return;\s*if\(!overlayOpen\)overlayReturnFocus\.current=document\.activeElement instanceof HTMLElement\?document\.activeElement:null;/);
   assert.match(page, /海馬采は[^<]*部分分節/);
   assert.doesNotMatch(page, /海馬采・鉤はβ候補から除外し、現行3Dには収録していません/);
   assert.match(page, /旧模式乳頭体2資産は配布されても学習画面の代用表示には使用しません/);
@@ -2160,7 +2161,7 @@ test("keeps ghost-surface teaching layers depth-tested and opacity-consistent", 
   assert.match(atlasCanvas, /const ghostSurface=view==="ghost"&&blockMeshes===null/);
   assert.match(atlasCanvas, /else if\(!ghostSurface\)drawSurfaceShell\(\)/);
   assert.match(atlasCanvas, /if\(showFocus&&selectionLayers\.length\)\{if\(!ghostSurface\)gl\.clear\(gl\.DEPTH_BUFFER_BIT\)/);
-  assert.match(atlasCanvas, /selectionLayers\.forEach\(layer=>layer\.meshes\.forEach\(\(part,index\)=>draw\(part,selectionColor\(layer\.color\),1,gl\.TRIANGLES,\[\],layer\.pulse!==false,layer\.travel\?\.\[index\]\)\)\)/);
+  assert.match(atlasCanvas, /selectionLayers\.filter\(layer=>!layer\.spatialGuide\)\.forEach\(layer=>layer\.meshes\.forEach\(\(part,index\)=>draw\(part,selectionColor\(layer\.color,layer\.opacity\?\?\(dimContextOverlays&&layer\.pulse===false\?\.22:TEACHING_OVERLAY_SELECTED_OPACITY\)\),1,gl\.TRIANGLES,\[\],layer\.pulse!==false,layer\.travel\?\.\[index\]\)\)\)/);
   assert.match(atlasCanvas, /if\(ghostSurface\)\{[\s\S]*?gl\.depthFunc\(gl\.LESS\)[\s\S]*?drawSurfaceShell\(\)/);
   assert.doesNotMatch(atlasCanvas, /if\(view==="ghost"\)gl\.clear\(gl\.DEPTH_BUFFER_BIT\)/);
   assert.match(atlasCanvas, /draw\(overlays\[0\],teachingColor\(\[\.86,\.18,\.14\],contextOpacity\)/);

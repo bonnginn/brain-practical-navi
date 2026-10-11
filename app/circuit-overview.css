@@ -1,0 +1,103 @@
+.circuitOverview {
+  color: #172c39;
+  background: #f8fbfd;
+  border: 1px solid #b6ccd8;
+  border-radius: 16px;
+  padding: clamp(16px, 3vw, 28px);
+  min-width: 0;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+.circuitOverview * { box-sizing: border-box; }
+.circuitOverview .circuitOverviewHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+.circuitOverview .circuitOverviewHeader > div { min-width: 0; flex: 1 1 210px; }
+.circuitOverview h2 { margin: 0; font-size: clamp(1.35rem, 3vw, 1.85rem); line-height: 1.35; color: #173f54; }
+.circuitOverview h3 { margin: 0 0 8px; font-size: 1.12rem; line-height: 1.5; color: #173f54; }
+.circuitOverview p { margin: 0 0 12px; }
+.circuitOverview .circuitOverviewEyebrow { margin: 0 0 4px; color: #35566a; font-size: .84rem; font-weight: 700; }
+.circuitOverview button {
+  font: inherit;
+  cursor: pointer;
+  touch-action: manipulation;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  min-height: 44px;
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+.circuitOverview button:focus-visible { outline: 3px solid #096b9c; outline-offset: 3px; }
+.circuitOverview .circuitOverviewClose {
+  padding: 8px 12px;
+  color: #254a60;
+  background: white;
+  border: 1px solid #a9c0ce;
+  border-radius: 8px;
+  font-size: .88rem;
+}
+.circuitOverview .circuitOverviewClose:hover { background: #eaf3f8; }
+.circuitOverview .circuitOverviewContext { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 0 0 24px; }
+.circuitOverview .circuitOverviewContext > div { padding: 15px 18px; border-radius: 10px; background: #e9f2f7; border-left: 4px solid #3d778e; min-width: 0; }
+.circuitOverview .circuitOverviewContext dt { font-size: .85rem; font-weight: 700; color: #35566a; margin-bottom: 5px; }
+.circuitOverview .circuitOverviewContext dd { font-size: 1.08rem; font-weight: 650; margin: 0; line-height: 1.7; }
+.circuitOverview .circuitOverviewScope { color: #35566a; font-size: .9rem; margin-bottom: 6px; }
+.circuitOverview .circuitOverviewInstruction { color: #35566a; font-size: .9rem; margin-bottom: 16px; }
+.circuitOverview .circuitOverviewSteps { display: flex; flex-wrap: wrap; list-style: none; padding: 0; margin: 0; gap: 12px 0; }
+.circuitOverview .circuitOverviewSteps > li { display: flex; align-items: center; flex: 1 1 180px; min-width: 0; max-width: 100%; }
+.circuitOverview .circuitOverviewStep {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  text-align: left;
+  flex: 1;
+  min-width: 0;
+  align-self: stretch;
+  padding: 12px 14px;
+  color: #254a60;
+  background: white;
+  border: 2px solid #b6ccd8;
+  border-radius: 10px;
+}
+.circuitOverview .circuitOverviewStep:hover { background: #edf5f9; border-color: #5a8da5; }
+.circuitOverview .circuitOverviewStep[aria-pressed="true"] { background: #dceef6; border-color: #236482; color: #143f53; }
+.circuitOverview .circuitOverviewStepNumber { font-size: .79rem; font-weight: 650; }
+.circuitOverview .circuitOverviewStepName { font-size: .98rem; font-weight: 700; line-height: 1.55; }
+.circuitOverview .circuitOverviewSelectedBadge { font-size: .75rem; font-weight: 700; background: #236482; color: white; border-radius: 4px; padding: 1px 6px; }
+.circuitOverview .circuitOverviewArrow { flex: 0 0 28px; color: #37667e; text-align: center; font-size: 1.4rem; font-weight: 700; }
+.circuitOverview .circuitOverviewDetail { margin-top: 20px; padding: 18px; border: 1px solid #93b7cb; border-radius: 10px; background: white; }
+.circuitOverview .circuitOverviewDetailPosition { color: #35566a; font-size: .83rem; font-weight: 700; margin-bottom: 5px; }
+.circuitOverview .circuitOverviewExplanation { font-size: 1rem; }
+.circuitOverview .circuitOverviewRepresentation { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; margin: 14px 0; padding-top: 12px; border-top: 1px solid #d8e4eb; font-size: .9rem; }
+.circuitOverview .circuitOverviewRepresentation strong { color: #35566a; }
+.circuitOverview .circuitOverviewObserve { max-width: 100%; padding: 10px 16px; border: 1px solid #236482; border-radius: 8px; background: #236482; color: white; font-weight: 700; }
+.circuitOverview .circuitOverviewObserve:hover { background: #184d66; }
+.circuitOverview .circuitOverviewUnavailable { margin: 0; padding: 10px 12px; border-radius: 7px; background: #f0f4f6; color: #35566a; font-size: .9rem; }
+@media (max-width: 560px) {
+  .circuitOverview .circuitOverviewContext { grid-template-columns: 1fr; }
+  .circuitOverview .circuitOverviewSteps { flex-direction: column; gap: 0; }
+  .circuitOverview .circuitOverviewSteps > li { flex: none; flex-direction: column; align-items: stretch; }
+  .circuitOverview .circuitOverviewArrow { align-self: center; line-height: 28px; transform: rotate(90deg); }
+  .circuitOverview .circuitOverviewDetail { padding: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .circuitOverview button { transition: none; }
+}
+
+.overviewCircuitChooser{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:0 0 16px}
+.overviewCircuitChooser .activeStudyActions{margin:0}
+.circuitOverviewPath{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+
+.learningGuide .circuitOverview{display:flex;flex-direction:column;padding:12px}
+.learningGuide .circuitOverviewHeader{order:0;margin-bottom:8px}
+.learningGuide .circuitOverviewDetail{order:1;margin:0}
+.learningGuide .circuitOverviewSequence{order:2;margin-top:12px}
+.learningGuide .circuitOverviewContext{order:3;grid-template-columns:1fr;margin:12px 0 0}
+.learningGuide .circuitOverviewSteps{flex-direction:column}
+.learningGuide .circuitOverviewSteps>li{flex:none;flex-direction:column;align-items:stretch;border:0}
+.learningGuide .circuitOverviewArrow{align-self:center;transform:rotate(90deg)}

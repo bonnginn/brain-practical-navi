@@ -8,7 +8,7 @@ export const REPOSITORY_ROOT = path.resolve(SCRIPT_DIR, "..");
 export const STATUS_RELATIVE_PATH = "app/beta-status.json";
 export const PROVENANCE_RELATIVE_PATH = "public/atlas/structure-provenance.json";
 export const STATUS_SCHEMA_VERSION = 1;
-export const STATUS_PHASE = "公開β版／専門家監修は未実施";
+export const STATUS_PHASE = "公開版 v1.0.0／専門家監修は未実施";
 export const REQUIRED_PROVENANCE_REFERENCES = [
   { itemId: "limitation-optic-id33", keys: ["visual-pathway-legacy-optic-label"] },
   { itemId: "limitation-mammillary-39-40", keys: ["section-mammillary-bodies"] },
