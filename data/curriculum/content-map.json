@@ -6,47 +6,47 @@
   "sources": [
     {
       "file": "app/page.tsx",
-      "sha256": "c207ef2cd29d8836ee10b9fd751578c16cdd31197f02a97371cb1f07619618f0"
+      "sha256": "b74e6ce5079c054852ee97f2ae23f791e8c606391414ec4a4d9931f3bf62a648"
     },
     {
       "file": "app/quiz-concept-bank.json",
-      "sha256": "35d4c88585a3d29324f097174549b6a33fe7a62634eb1de47882b528548b5339"
+      "sha256": "4756c6cf501e9180c7f0bba552391d117b3f35e1ef2163b3d7e7379c554974e5"
     },
     {
       "file": "public/atlas/structure-provenance.json",
-      "sha256": "2abf7c9e1baff09fb9ce3d99a4242a929e2fc14c7d30774586f3b093f94c898c"
+      "sha256": "e928d7a6d0fdedcce8c012dc04d187c2de442a23e3613fde7ebdeceebc7a1e0d"
     },
     {
       "file": "src/circuitTeaching.mjs",
-      "sha256": "2d8b41bd212fcbe873f394984679bb021d48d6eb989acb39a11c2a66c4c43279"
+      "sha256": "95bee178b597ebdadc60151e612cc3a36ab21bbb44d060f33c218f36143472ce"
     },
     {
       "file": "src/identificationSectionLessons.ts",
-      "sha256": "5bff1830f84a6f714de18deaae3d9014ef62ce19820d543be5cfd1d5f738c25e"
+      "sha256": "2921d4ee13d972ec0d3d3fb6a859f6eb393d69f1ab0cdbf92f868f7878ee59e9"
     },
     {
       "file": "src/learnerProvenance.mjs",
-      "sha256": "85e04d2b8ae786ae45c6157db35896c34f2f75f862a63c391841c91cb55df04f"
+      "sha256": "65f156494346ebc40905eaa6a0ef9d362874f8d0401a065819d62a68b767adaf"
     },
     {
       "file": "src/learningConnections.ts",
-      "sha256": "f42da7cc81eb7d17587d21790167435e0565c059d52b63a965031bdd22c486d5"
+      "sha256": "5fc8ff88c7c9f7bf7840168d89b03b3052bf4e7c434aef55bdc4aff75bd29ffa"
     },
     {
       "file": "src/sectionObservationGuides.ts",
-      "sha256": "00944764dc6d46891f407a22bba75d9d1aaf473b09c2463a4a2c382310d7d1a3"
+      "sha256": "9805c890ab6a95d4c0d8feff95a04be47f420802911832f66d483995624cbed3"
     },
     {
       "file": "src/sectionStudyThemes.ts",
-      "sha256": "b72df93c1be50871456565d7e8cd6d933f35feade66a1c68b5974a87beb73160"
+      "sha256": "4705e7e482ace0020ba1315c6f33b79982b380316183cf250711b2a0e13e387f"
     },
     {
       "file": "src/surfaceObservationGuides.ts",
-      "sha256": "3fc071b2f7384fcad672d87e69cd4d3bdea09a7d7cc85f12f0257fca3d1b131a"
+      "sha256": "887e055a9fb4da5968f1e1ce4744459d41c1959927c9b65cede07fd55cc50415"
     },
     {
       "file": "src/surfaceRegionLessons.ts",
-      "sha256": "1c5ee7eccc1bf03e000270821672c8602973f4e64e0b48b7b377ead90c5e9ca1"
+      "sha256": "5469420bea0322855913d0e910c4bea9175fd122f58501c4bad580449b8e92f5"
     }
   ],
   "materials": [
@@ -6288,6 +6288,41 @@
       "existing_entry": {
         "plane": "horizontal",
         "position": 67
+      },
+      "evidence_note": "Entry positions are existing exploration starting points, not anatomical boundaries."
+    },
+    {
+      "id": "sectionStudyThemes/auditory",
+      "existing_key": "auditory",
+      "kind": "observation-theme",
+      "material": "sections",
+      "name": "聴覚：耳から両側の中継、皮質へ",
+      "goal": "脳幹・視床を位置の目印にし、聴覚の主要中継と両側への伝わりを、MGB参照と聴覚皮質の観察につなぎます。",
+      "material_refs": [
+        "structures/thalamus",
+        "structures/brainstem"
+      ],
+      "target_refs": [
+        "structures/thalamus"
+      ],
+      "circuit_refs": [
+        "papez",
+        "basal-ganglia"
+      ],
+      "source_text_refs": [
+        {
+          "file": "src/sectionStudyThemes.ts",
+          "symbol": "sectionStudyThemes",
+          "key": "auditory",
+          "fields": [
+            "ja",
+            "en"
+          ]
+        }
+      ],
+      "existing_entry": {
+        "plane": "coronal",
+        "position": 49
       },
       "evidence_note": "Entry positions are existing exploration starting points, not anatomical boundaries."
     },

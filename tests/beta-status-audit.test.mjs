@@ -12,7 +12,7 @@ const audit = status => auditBetaStatus({ status, rootDir: REPOSITORY_ROOT });
 test("beta status registry is valid and covers the fixed provenance references", () => {
   const result = audit(baseStatus);
   assert.equal(result.ok, true, result.errors.join("\n"));
-  assert.equal(STATUS_PHASE, "公開β版／専門家監修は未実施");
+  assert.equal(STATUS_PHASE, "公開版 v1.0.0／専門家監修は未実施");
   assert.equal(baseStatus.phase, STATUS_PHASE);
   assert.equal(baseStatus.knownLimitations.length, 6);
   assert.equal(baseStatus.changes.length, 22);

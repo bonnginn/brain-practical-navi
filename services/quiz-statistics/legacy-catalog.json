@@ -570,5 +570,27 @@
       "anterior-commissure-rostrum-landmark-c",
       "anterior-commissure-rostrum-landmark-d"
     ]
+  },
+  {
+    "question": "pallidum-direct-disinhibition",
+    "revision": "d04105cadc49208b467d25d8bcf88dfda726b53f81548182c1e2b312d1ab382a",
+    "prompt": "基底核の直接路で線条体がGPiを抑制すると、視床への作用は基本模式ではどう変わりますか？",
+    "options": [
+      "pallidum-direct-disinhibition-a",
+      "pallidum-direct-disinhibition-b",
+      "pallidum-direct-disinhibition-c",
+      "pallidum-direct-disinhibition-d"
+    ]
+  },
+  {
+    "question": "cerebellum-dentate-cortical-loop",
+    "revision": "f80bab51c699d01d911af7f258aed5df8c1bfef8e3db5585a7dbf474e83ea88e",
+    "prompt": "外側小脳半球の歯状核から大脳皮質へ戻る運動関連出力は、代表的にどこで中継されますか？",
+    "options": [
+      "cerebellum-dentate-cortical-loop-a",
+      "cerebellum-dentate-cortical-loop-b",
+      "cerebellum-dentate-cortical-loop-c",
+      "cerebellum-dentate-cortical-loop-d"
+    ]
   }
 ]

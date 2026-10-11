@@ -32,3 +32,7 @@
 
 .csfRouteLesson h4{margin:16px 0 6px}.csfRouteSequence{border-left:3px solid #3c8372;padding:8px;background:#eaf2ec;font-weight:700;overflow-wrap:anywhere}.csfSelfCheck{margin:8px 0;border:1px solid #b4c9be;padding:8px;background:#fff}.csfSelfCheck summary{cursor:pointer;font-weight:600}.csfSelfCheck p{margin:8px 0 2px}
 .sectionThemeBibliography a{overflow-wrap:anywhere}
+
+/* Observation explanations use prose lists, not the guide step grid. */
+.learningGuide [data-auditory-observation-guide] ol{display:block;list-style:decimal;padding-left:20px;border:0}
+.learningGuide [data-auditory-observation-guide] li{display:list-item;min-height:0;border:0;margin:8px 0}

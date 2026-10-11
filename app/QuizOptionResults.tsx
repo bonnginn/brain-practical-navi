@@ -23,7 +23,7 @@ export default function QuizOptionResults({questions,currentQuestion,english,ref
   const [englishText,setEnglishText]=useState<Record<string,string>>({});
   const [sessionRows,setSessionRows]=useState<QuizSessionCount[]|null>(null);
   const [sessionFailed,setSessionFailed]=useState(false);
-  useEffect(()=>{if(english)void import('./english-catalog.json').then(module=>setEnglishText(module.default as Record<string,string>))},[english]);
+  useEffect(()=>{if(english)void import('./english-catalog.json').then(module=>setEnglishText(module.default as Record<string,string>)).catch(()=>setEnglishText({}))},[english]);
   const endpoint=statisticsEndpoint(import.meta.env.VITE_QUIZ_STATISTICS_URL??'');
   const shownQuestions=useMemo(()=>currentQuestion?[currentQuestion]:questions,[currentQuestion,questions]);
   const rows=loadedRows?.length===shownQuestions.length&&loadedRows.every((row,index)=>row.question===shownQuestions[index])?loadedRows:null;

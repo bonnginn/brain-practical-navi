@@ -82,7 +82,7 @@ test("reviewed English catalog is enabled without the former safety hold",()=>{
   const localization=fs.readFileSync(new URL("../app/EnglishLocalization.tsx",import.meta.url),"utf8");
   assert.doesNotMatch(page,/englishSafetyHold|Translation quality review in progress/);
   assert.match(page,/const EnglishLocalization=lazy\(\(\)=>import\("\.\/EnglishLocalization"\)/);
-  assert.match(page,/\{englishEdition&&<Suspense fallback=\{null\}><EnglishLocalization enabled\/><\/Suspense>\}/);
+  assert.match(page,/\{englishEdition&&<EnglishTranslationBoundary><Suspense fallback=\{null\}><EnglishLocalization enabled\/><\/Suspense><\/EnglishTranslationBoundary>\}/);
   assert.match(localization,/key\.length>=2/);
   assert.match(localization,/"aria-label","title","placeholder","alt"/);
   const css=fs.readFileSync(new URL("../app/canvas.css",import.meta.url),"utf8");

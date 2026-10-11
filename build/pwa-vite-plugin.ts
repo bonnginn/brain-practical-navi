@@ -30,7 +30,7 @@ export function pwa(): Plugin {
       publicDirectory = config.publicDir;
       indexHtmlPath = resolve(config.root, "index.html");
     },
-    generateBundle(_options, bundle: OutputBundle) {
+    generateBundle: {order:"post",handler(_options, bundle: OutputBundle) {
       const generatedOutputs = Object.values(bundle)
         .filter(output =>
           isOutputChunk(output)
@@ -54,7 +54,7 @@ export function pwa(): Plugin {
       const revision = revisionHash.digest("hex").slice(0, 16);
       const workerSource = createServiceWorkerSource(revision, shellFiles, entryFiles);
       this.emitFile({ type: "asset", fileName: "service-worker.js", source: workerSource });
-    },
+    }},
   };
 }
 

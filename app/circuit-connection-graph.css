@@ -1,0 +1,50 @@
+.circuit-connection-graph {
+  position: relative;
+  --connection-ink: #183947;
+  --connection-line: #64858e;
+  margin: 1rem 0;
+  padding: 1rem 1.1rem .6rem;
+  border: 1px solid #cbdce1;
+  border-radius: 18px;
+  color: var(--connection-ink);
+  background: radial-gradient(ellipse at 50% 45%, #f2f8fa 0, #fff 75%);
+}
+.circuit-connection-graph__heading h3 {margin: 0; font-size: 1.05rem;}
+.circuit-connection-graph__heading p {margin: .35rem 0 .7rem; font-size: .84rem; line-height: 1.5; color: #49636e;}
+.circuit-connection-graph__legend {display: flex; flex-wrap: wrap; gap: .5rem 1.15rem; margin: 0; padding: 0; list-style: none; font-size: .75rem; color: #49636e;}
+.circuit-connection-graph__legend li {display: inline-flex; align-items: center; gap: .4rem;}
+.circuit-connection-graph__swatch {width: 17px; height: 12px; border: 1.5px solid; border-radius: 4px;}
+.circuit-connection-graph__swatch--model {background: #e1f3eb; border-color: #408a70;}
+.circuit-connection-graph__swatch--reference {background: #eef0fc; border-color: #777bb0;}
+.circuit-connection-graph__swatch--schematic {background: #fff8e9; border-color: #a58a55; border-style: dashed;}
+.circuit-connection-graph__canvas {display: block; width: 100%; height: auto; overflow: visible; margin-top: .3rem;}
+.circuit-connection-graph__edges {color: var(--connection-line);}
+.circuit-connection-graph__edge {fill: none; stroke: currentColor; stroke-width: 2.2;}
+.circuit-connection-graph__edge--dashed {stroke-dasharray: 6 5;}
+.circuit-connection-graph__edge-label {fill: #49636e; font-size: 12px; font-weight: 600; paint-order: stroke; stroke: #fff; stroke-width: 5px; stroke-linejoin: round;}
+.circuit-connection-graph__node {cursor: pointer; outline: none;}
+.circuit-connection-graph__node-box {fill: #fff8e9; stroke: #a58a55; stroke-width: 1.6; stroke-dasharray: 5 3; transition: fill .15s, stroke .15s;}
+.circuit-connection-graph__kind-dot {fill: #a58a55;}
+.circuit-connection-graph__node--model .circuit-connection-graph__node-box {fill: #e8f5ef; stroke: #408a70; stroke-dasharray: none;}
+.circuit-connection-graph__node--model .circuit-connection-graph__kind-dot {fill: #408a70;}
+.circuit-connection-graph__node--reference .circuit-connection-graph__node-box {fill: #f0f1fb; stroke: #777bb0; stroke-dasharray: none;}
+.circuit-connection-graph__node--reference .circuit-connection-graph__kind-dot {fill: #777bb0;}
+.circuit-connection-graph__node-label {fill: var(--connection-ink); font-size: 14px; font-weight: 650; pointer-events: none;}
+.circuit-connection-graph__focus {fill: none; stroke: transparent; stroke-width: 2.5;}
+.circuit-connection-graph__node:hover .circuit-connection-graph__node-box {stroke: #176e88; stroke-width: 2.5;}
+.circuit-connection-graph__node.is-selected .circuit-connection-graph__node-box {fill: #dceef6; stroke: #176e88; stroke-width: 3; stroke-dasharray: none;}
+.circuit-connection-graph__node.is-selected .circuit-connection-graph__node-label {font-weight: 750;}
+.circuit-connection-graph__node:focus-visible .circuit-connection-graph__focus {stroke: #176e88;}
+@media (max-width: 600px) {
+  .circuit-connection-graph {padding: .8rem .5rem .4rem; border-radius: 12px;}
+  .circuit-connection-graph__heading, .circuit-connection-graph__legend {padding: 0 .3rem;}
+  .circuit-connection-graph__legend {gap: .4rem .75rem; font-size: .7rem;}
+}
+@media (prefers-reduced-motion: reduce) {.circuit-connection-graph__node-box {transition: none;}}
+
+.circuit-connection-graph__viewport{max-width:100%;overflow-x:auto;outline-offset:2px}
+.circuit-connection-graph__canvas{min-width:560px}
+
+.circuit-connection-graph__edge.is-active{stroke:#176e88;stroke-width:3.4}
+.circuit-node-tooltip{position:absolute;z-index:5;width:280px;max-width:calc(100% - 16px);box-sizing:border-box;padding:8px 10px;border:1px solid #8ba5ae;border-radius:8px;background:#fff;color:#183947;box-shadow:0 3px 12px #18394726;font-size:13px;line-height:1.5;pointer-events:none}
+.circuit-node-tooltip strong,.circuit-node-tooltip span{display:block}

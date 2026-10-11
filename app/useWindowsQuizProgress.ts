@@ -7,6 +7,7 @@ export function useWindowsQuizProgress(questions:readonly QuizProgressQuestion[]
  const archivedReplacement=useRef(false);
  const blocked=useRef(!['empty','valid'].includes(loaded.status));
  const [status,setStatus]=useState(loaded.status),[record,setRecord]=useState(loaded.value);
+ const [recoveryVersion,setRecoveryVersion]=useState(0);
  const preserve=(raw:string|null)=>{if(raw!==null&&!preserved.current.includes(raw)&&preserved.current.length<2)preserved.current.push(raw);};
  function update(value:WindowsQuizProgress){
   if(blocked.current)return;
@@ -24,8 +25,9 @@ export function useWindowsQuizProgress(questions:readonly QuizProgressQuestion[]
    localStorage.setItem(archiveKey,archive);
    if(localStorage.getItem(archiveKey)!==archive||localStorage.getItem(WINDOWS_QUIZ_PROGRESS_KEY)!==current)throw Error('Archive readback or concurrent change');
    expected.current=current;archivedReplacement.current=true;blocked.current=false;setRecord(null);setStatus('empty');
+   setRecoveryVersion(version=>version+1);
   }catch{blocked.current=true;setStatus('unavailable');}
  }
  function exportOriginal(){if(!preserved.current.length)return;const url=URL.createObjectURL(new Blob([JSON.stringify({records:preserved.current.map(raw=>({key:WINDOWS_QUIZ_PROGRESS_KEY,raw}))},null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='brain-quiz-preserved-records.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),0);}
- return {record,status,preserveAndRestart,blocked:blocked.current,update,exportOriginal,hasOriginal:preserved.current.length>0};
+ return {record,status,recoveryVersion,preserveAndRestart,blocked:blocked.current,update,exportOriginal,hasOriginal:preserved.current.length>0};
 }

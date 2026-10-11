@@ -1,3 +1,4 @@
+import {readCircuitWorkspaceState} from './circuitWorkspaceProgress.mjs';
 import {readSectionReader} from './sectionReader.mjs';
 import {readFindProgress, readCircuitProgress} from './explorationProgress.mjs';
 
@@ -32,7 +33,9 @@ export function readWindowsObservationSnapshot(value, registry) {
   if (!record(free) || !['both', 'left', 'right'].includes(free.hemisphere) || !keysValid(free.selected, registry.freeKeys) || !(free.focused === null || Array.isArray(registry.freeKeys) && registry.freeKeys.includes(free.focused)) || !['structures', 'circuits'].includes(free.inspector) || typeof free.circuitSectionsOpen !== 'boolean') return null;
   if (!(free.pathway === null || record(registry.circuits) && Object.hasOwn(registry.circuits, free.pathway)) || !(free.node === null || typeof free.node === 'string' && free.pathway !== null && registry.circuits[free.pathway].paths.some(path => path.nodes.includes(free.node)))) return null;
   if (!indexValid(free.basalIndex, registry.basalCount) || !indexValid(free.papezIndex, registry.papezCount) || !(free.visualIndex === null || indexValid(free.visualIndex, registry.visualCount))) return null;
-  return {workspace: 'surface', view: value.view, rotation: rotationCopy(value.rotation), regions: [...value.regions], landmarks: [...value.landmarks], deepLandmarks: [...value.deepLandmarks], basalLandmarks: [...value.basalLandmarks], flags: Object.fromEntries(['cerebellum', 'vessels', 'nerves', 'ghost', 'pons'].map(key => [key, value.flags[key]])), free: {hemisphere: free.hemisphere, selected: [...free.selected], focused: free.focused, inspector: free.inspector, pathway: free.pathway, node: free.node, visualIndex: free.visualIndex, basalIndex: free.basalIndex, papezIndex: free.papezIndex, circuitSectionsOpen: free.circuitSectionsOpen}, studyOpen: value.studyOpen, search: value.search, ...optionalViewportCopy(value)};
+  const circuitWorkspace=value.circuitWorkspace==null?null:readCircuitWorkspaceState(value.circuitWorkspace);
+  if(value.circuitWorkspace!=null&&!circuitWorkspace)return null;
+  return {...(circuitWorkspace?{circuitWorkspace}:{}),workspace: 'surface', view: value.view, rotation: rotationCopy(value.rotation), regions: [...value.regions], landmarks: [...value.landmarks], deepLandmarks: [...value.deepLandmarks], basalLandmarks: [...value.basalLandmarks], flags: Object.fromEntries(['cerebellum', 'vessels', 'nerves', 'ghost', 'pons'].map(key => [key, value.flags[key]])), free: {hemisphere: free.hemisphere, selected: [...free.selected], focused: free.focused, inspector: free.inspector, pathway: free.pathway, node: free.node, visualIndex: free.visualIndex, basalIndex: free.basalIndex, papezIndex: free.papezIndex, circuitSectionsOpen: free.circuitSectionsOpen}, studyOpen: value.studyOpen, search: value.search, ...optionalViewportCopy(value)};
 }
 
 export function readWindowsExplorationProgress(raw, registry) {

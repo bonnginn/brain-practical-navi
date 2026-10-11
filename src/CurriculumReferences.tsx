@@ -1,4 +1,4 @@
-import map from '../data/curriculum/runtime-reference-map.json';
+import map from '../data/curriculum/content-map.json';
 import registry from '../public/atlas/structure-provenance.json';
 import {surfaceObservationGuides} from './surfaceObservationGuides';
 import {createCurriculumLookup} from './curriculumContent.mjs';

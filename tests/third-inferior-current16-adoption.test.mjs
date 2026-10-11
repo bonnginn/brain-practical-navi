@@ -88,6 +88,6 @@ test("unchanged aqueduct geometry is pinned to the current source revision", asy
   assert.equal(report.voxels, 267);
   assert.equal(sha(await read("public/atlas/section-current-aqueduct-partial.mesh")),
     "13cc011f6507b9f3ad3ff830009c2c9150fbb3b52602c1f561e253c4a9765faa");
-  assert.equal(sha(await read("tests/fixtures/section-current-aqueduct-partial-pre-third-inferior-current16.json")),
+  assert.equal(sha((await read("tests/fixtures/section-current-aqueduct-partial-pre-third-inferior-current16.json")).toString("utf8").replace(/\r\n/g,"\n")),
     "0a41cc5e785ef082c92ad65e359db4b0f4b25983447cf3fb321e0332f7dc9320");
 });

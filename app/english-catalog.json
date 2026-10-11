@@ -2738,5 +2738,20 @@
   "橋底部では縦走する皮質遠心性線維の間に橋核があり、そこから小脳へ向かう線維が横走・交叉して中小脳脚へ続きます。小脳へ中継されない皮質脊髄線維は、さらに延髄の錐体へ下行します。": "Pontine nuclei lie among longitudinal corticofugal fibres in the base. Pontocerebellar fibres run transversely, cross and continue through the middle cerebellar peduncle. Corticospinal fibres that do not relay to the cerebellum descend onward into the medullary pyramids.",
   "左右大脳半球を結ぶ白質の弧です。内側面では左側を表示し、自由観察では半球を切り替えて反対側も確認できます。上方の帯状回と下方の脳弓を見分けましょう。輪郭は教材用の近似です。": "A white-matter arch connecting the cerebral hemispheres. The medial view shows the left side; switch hemispheres in free observation to inspect the opposite side. Distinguish the cingulate gyrus above from the fornix below. The outline is an educational approximation.",
   "左右大脳半球を結ぶ大きな交連線維の弧です。上方の帯状回と下方の脳弓を見分け、側脳室の屋根との位置関係を確認します。輪郭は教材用の近似です。": "The arch of the major commissural fibre bundle connecting the cerebral hemispheres. Distinguish the cingulate gyrus above from the fornix below, and relate it to the roof of the lateral ventricles. The outline is an educational approximation.",
-  "左右大脳半球を結ぶ交連線維です。正中近くの矢状断で膝・幹・膨大を追い、上方の帯状回、下方の脳弓・側脳室と見比べます。輪郭は教材用の近似です。": "A commissural fibre bundle connecting the cerebral hemispheres. Near the midsagittal plane, follow the genu, body and splenium, comparing the cingulate gyrus above with the fornix and lateral ventricles below. The outline is an educational approximation."
+  "左右大脳半球を結ぶ交連線維です。正中近くの矢状断で膝・幹・膨大を追い、上方の帯状回、下方の脳弓・側脳室と見比べます。輪郭は教材用の近似です。": "A commissural fibre bundle connecting the cerebral hemispheres. Near the midsagittal plane, follow the genu, body and splenium, comparing the cingulate gyrus above with the fornix and lateral ventricles below. The outline is an educational approximation.",
+  "基底核の直接路で線条体がGPi（淡蒼球内節）を抑制すると、視床への作用は基本模式ではどう変わりますか？": "In the basic direct-pathway model, how does striatal inhibition of GPi affect the thalamus?",
+  "GPi（淡蒼球内節）からの抑制が弱まり、視床が脱抑制されます。抑制性接続を二段階たどると、最終的な作用を考えられます。": "GPi inhibition decreases, disinhibiting the thalamus. Follow both inhibitory connections to reason about the net effect.",
+  "GPi（淡蒼球内節）からの抑制が弱まり、視床が脱抑制される": "Reduced GPi inhibition disinhibits the thalamus",
+  "GPi（淡蒼球内節）の抑制性出力が増えて、視床が抑制される": "GPi inhibitory output increases, inhibiting thalamus",
+  "GPi（淡蒼球内節）から視床への接続が興奮性に変わる": "The GPi–thalamus connection becomes excitatory",
+  "反対側の視床VL（腹側外側核）などです。上小脳脚を通る小脳出力と、視床から皮質へ戻る段階を結びつけます。": "Contralateral thalamic VL and related nuclei. Link superior-peduncle output to the thalamocortical return stage.",
+  "反対側の視床VL（腹側外側核）など": "Contralateral thalamic VL and related nuclei",
+  "同側の視床VL（腹側外側核）など": "Ipsilateral thalamic VL and related nuclei",
+  "脳の構造・機能・位置関係を学ぶ公開版 v1.0.0です。専門家監修は未実施で、部分分節や模式表示を含みます。": "This public v1.0.0 supports learning brain structures, functions and anatomical relationships. Expert review has not been performed; some segmentations are partial and some displays are schematic.",
+  "教育用公開版 v1.0.0 です。正確性や継続提供を保証せず、診断・治療・手術計画・定量研究には使用できません。": "This is an educational v1.0.0. Accuracy and continued availability are not guaranteed. Do not use it for diagnosis, treatment, surgical planning or quantitative research.",
+  "公開版 v1.0.0": "Public v1.0.0",
+  "データを含む公開版 v1.0.0: 非営利教育用": "Public v1.0.0 including data: non-commercial education",
+  "公開版 v1.0.0／専門家監修は未実施": "Public v1.0.0 / expert review not performed",
+  "以下は開発時の確認台帳です。専門家確認と実機確認の未完了項目は残していますが、専門家監修は公開版 v1.0.0の条件から外しています。": "These are development verification records. Outstanding expert and physical-device checks remain recorded; expert review is not a prerequisite for the v1.0.0 release.",
+  "脳の構造・機能・位置関係を学ぶ公開版 v1.0.0 です。専門家監修は未実施で、部分分節や模式表示を含みます。": "This public v1.0.0 supports learning brain structures, functions and anatomical relationships. Expert review has not been performed; some segmentations are partial and some displays are schematic."
 }
