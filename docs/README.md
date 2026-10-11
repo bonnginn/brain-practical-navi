@@ -1,5 +1,7 @@
 # 文書案内 / Documentation index
 
+[公開後の改善ロードマップ / Post-1.0 roadmap](V1_ROADMAP.md)では、v1.0.0の達成範囲、延期・除外、未確認範囲、今後の改善候補を確認できます。
+
 利用方法は [トップのREADME](../README.md)、現在地・作業期限と次の作業は [短い再開メモ](RESUME_SUMMARY.md) を参照してください。
 
 - [長期休止時の運用・復元・再開](MAINTENANCE_AND_RESTART.md)
