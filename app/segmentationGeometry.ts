@@ -1,5 +1,10 @@
 export type SegmentationPlane="horizontal"|"coronal"|"sagittal";
 
+/** Proper rotations matching the existing 2D display axes; no L/R reflection. */
+export function sectionAlignedRotation(plane:SegmentationPlane){
+  return plane==="coronal"?{x:0,y:0,z:0}:plane==="horizontal"?{x:-90,y:0,z:0}:{x:0,y:-90,z:0};
+}
+
 // Same 0.5 mm XYZ grid as the BBS1/BBV1 header and the section renderer.
 export const BIGBRAIN_SECTION_DIMS:[number,number,number]=[394,466,378];
 

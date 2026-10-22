@@ -458,7 +458,7 @@ test("ships the learning workspaces, contributor editor, and public data notice"
   assert.match(canvasCss, /\.sliceStage\.layout-both \{ grid-template-columns: minmax\(0,calc\(100% - var\(--section-model-share,40%\) - 1px\)\) 1px minmax\(0,var\(--section-model-share,40%\)\); \}/);
   assert.match(canvasCss, /\.sectionResizeHandle \{[^}]*cursor: col-resize;[^}]*touch-action: none/);
   assert.match(page, /const sectionDeveloperControls=\(import\.meta\.env\.VITE_SECTION_DEVELOPER_CONTROLS as string\|undefined\)==="true"/);
-  assert.match(page, /BigBrain組織画像 0\.5 mm/);
+  assert.match(page, /BigBrain公開組織画像 0\.5 mm/);
   assert.match(page, /BigBrain公開組織画像 0\.5 mm/);
   assert.match(page, /\{sectionDeveloperControls&&<><div className="contrastSwitch" aria-label="開発者用・断面画像ソース"/);
   assert.match(page, /className="displaySwitch" aria-label="開発者用・断面表示調"/);
@@ -2456,7 +2456,7 @@ test("quiz mistakes link back to the exact study view", async () => {
   ]);
   assert.match(page, /const \[quizMisses,setQuizMisses\]=useState<\{question:QuizQuestion;choice:string;number:number\}\[]>\(\[\]\)/);
   assert.match(page, /function reviewQuizQuestion\(question:QuizQuestion\)/);
-  assert.match(page, /jump\(question\.plane,question\.position,"replace"\);setVisibleStructures\(\[question\.target\]\)/);
+  assert.match(page, /jump\(question\.plane,reviewSlice===null\?question\.position:planePositionForSlice\(reviewSlice,question\.plane,BIGBRAIN_SECTION_DIMS\),"replace"\);setVisibleStructures\(\[question\.target\]\)/);
   assert.match(page, /onObserve=\{index=>\{[^}]*reviewQuizQuestion\(quizMisses\[index\]\.question\)/);
   assert.match(page, /観察画面で位置を確認/);
   assert.doesNotMatch(page, /観察画面で復習/);

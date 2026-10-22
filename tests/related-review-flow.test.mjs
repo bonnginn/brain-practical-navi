@@ -7,10 +7,12 @@ import {copyReviewObservation} from '../src/reviewObservation.mjs';
 import {identificationReviewQuestions} from '../src/observationPractice.mjs';
 import {PAPEZ_STEPS} from '../src/pathwayStepper.mjs';
 import {papezInlineViewportForContext} from '../src/papezInlineViewport.mjs';
+import {representativeLabeledSection,planePositionForSlice,BIGBRAIN_SECTION_DIMS} from '../app/segmentationGeometry.ts';
 const require=createRequire(import.meta.url);
 const ts=require('typescript');
 const page=ts.createSourceFile('page.tsx',readFileSync(new URL('../app/page.tsx',import.meta.url),'utf8'),ts.ScriptTarget.Latest,true,ts.ScriptKind.TSX);
 const names=new Set(['observeAuditoryTarget','returnFromAuditoryObservation','startAuditoryReview','restoreSurfaceObservation','openMainReview','captureRelatedObservation','startRelatedReview','returnFromRelatedReview','reviewQuizQuestion','startQuiz','returnFromThemeReview','isSurfaceQuiz','isNeurovascularQuiz','restoreRelatedObservation','openRelatedCircuit','returnFromRelatedCircuit','openWorkspace','startCircuitReview','returnFromCircuitReview','returnFromCircuitSection','returnToQuiz','observeCircuitStage','captureSectionObservation','startIdentificationReview','captureCircuitView','restoreCircuitView','storedObservation','restoredObservation','resumeCircuit']);
+names.add('observeReviewStructure');
 const functions=new Map(),selectors=new Map();
 function visit(node){
   if(ts.isFunctionDeclaration(node)&&names.has(node.name?.text))functions.set(node.name.text,node.getText(page));
@@ -66,7 +68,7 @@ function harness(overrides={}){
   const mapping={
     setAuditoryObservationOrigin:'auditoryObservationOrigin',setFreeViewZoom:'freeViewZoom',setFreeViewPan:'freeViewPan',setFindComparisonReturn:'findComparisonReturn',setSurfaceInspectionKey:'surfaceInspectionKey',setSectionReaderVersion:'sectionReaderVersion',setFindStartTask:'findStartTask',setFindObservationRotation:'findObservationRotation',setRelatedReviewOrigin:'relatedReviewOrigin',setRelatedCircuitOrigin:'relatedCircuitOrigin',setQuizStudyLabel:'quizStudyLabel',setQuizQueue:'quizQueue',
     setReviewMenu:'reviewMenu',setFindMode:'findMode',setQuizThemeOrigin:'quizThemeOrigin',setQuizCircuit:'quizCircuit',
-    setQuizObservationTitle:'quizObservationTitle',setPlaying:'playing',setIdentified:'identified',setContrast:'contrast',
+    setQuizObservationTitle:'quizObservationTitle',setQuizObservationQuestionId:'quizObservationQuestionId',setPlaying:'playing',setIdentified:'identified',setContrast:'contrast',
     setLabels:'labels',setVisibleStructures:'visibleStructures',setActiveStudyTheme:'activeStudyTheme',
     setSectionLayout:'sectionLayout',setSectionModelViews:'sectionModelViews',setSectionModelShare:'sectionModelShare',
     setSectionModelZoom:'sectionModelZoom',setSectionSearch:'sectionSearch',setCircuitSectionOrigin:'circuitSectionOrigin',
@@ -509,4 +511,26 @@ test('MGB reference excursion persists the original section then suspends tempor
  assert.equal(saved.position,original.position);assert.deepEqual(saved.visible,original.visible);assert.equal(saved.themeKey,'auditory');
  assert.equal(flushed,true);assert.equal(h.ctx.sectionObservationSaveActive.current,false);
  h.api.returnFromAuditoryObservation();assert.deepEqual(h.api.captureRelatedObservation(),original);
+});
+
+test('observing a result-list question remembers that question independently of the current queue',()=>{
+ const h=harness({workspace:'quiz',quizQuestion:{id:'current-queue-question'},quizChoice:'saved-choice',quizScore:2,quizIndex:3});
+ h.api.reviewQuizQuestion({id:'hippocampus-pathway-choice',target:'hippocampus',category:'limbic',plane:'coronal',position:45});
+ assert.equal(h.ctx.quizObservationQuestionId,'hippocampus-pathway-choice');
+ assert.equal(h.ctx.quizChoice,'saved-choice');assert.equal(h.ctx.quizScore,2);assert.equal(h.ctx.quizIndex,3);
+ h.api.returnToQuiz();
+ assert.equal(h.ctx.quizObservationQuestionId,null);assert.equal(h.ctx.quizChoice,'saved-choice');
+});
+
+test('answer-related labelled observation can switch structures without replacing question or answers',()=>{
+ const h=harness({workspace:'sections',quizObservationQuestionId:'hippocampus-pathway-choice',quizChoice:'hippocampus-callosum',quizScore:2,quizIndex:3,
+   representativeLabeledSection,planePositionForSlice,BIGBRAIN_SECTION_DIMS,SEGMENTATION_LABEL_SHA256:'current',
+   sectionLabelPresence:{revision:'current',labels:{46:{coronal:[[191,273,199]],horizontal:[],sagittal:[]}}},
+   structures:{fornixBodyPartial:{name:'脳弓・海馬采（部分）',latin:'Fornix',bigbrainIds:[46]},thalamus:{name:'視床',latin:'Thalamus',bigbrainIds:[]}}});
+ h.api.observeReviewStructure('fornixBodyPartial');
+ assert.equal(h.ctx.plane,'coronal');assert.equal(h.ctx.position,planePositionForSlice(199,'coronal',BIGBRAIN_SECTION_DIMS));
+ assert.equal(h.ctx.selectedStructure,'fornixBodyPartial');assert.equal(h.ctx.sectionAtlasZoom,2);
+ assert.equal(h.ctx.quizObservationQuestionId,'hippocampus-pathway-choice');assert.equal(h.ctx.quizChoice,'hippocampus-callosum');assert.equal(h.ctx.quizScore,2);assert.equal(h.ctx.quizIndex,3);
+ const before=h.actions.length;h.api.observeReviewStructure('thalamus');assert.equal(h.actions.length,before,'no invented label fallback');
+ h.ctx.sectionLabelPresence.revision='stale';h.api.observeReviewStructure('fornixBodyPartial');assert.equal(h.actions.length,before,'revision mismatch leaves observation intact');
 });

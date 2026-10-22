@@ -27,7 +27,7 @@ function availableObservation(s:CircuitWorkspaceState):CircuitWorkspaceState['ob
 function withObservation(s:CircuitWorkspaceState){return {...s,observation:availableObservation(s)}}
 function suggestedView(key:CircuitWorkspaceState['key']) {
  const rotation=['motor-descending','dcml','anterolateral'].includes(key)?{x:15,y:35,z:0}:key==='basal-ganglia'?{x:25,y:35,z:0}:key==='auditory'?{x:25,y:55,z:0}:{x:-7,y:90,z:0};
- return {rotation,zoom:1.2,pan:{x:0,y:0}};
+ return {rotation:key==='visual'?{x:88,y:0,z:0}:rotation,zoom:key==='visual'?1:1.2,pan:{x:0,y:0}};
 }
 function initial(snapshot?:CircuitWorkspaceState|null):CircuitWorkspaceState{
  try {const saved=snapshot??JSON.parse(localStorage.getItem(memoryKey)??'null');
