@@ -4,6 +4,7 @@
 
 利用方法は [トップのREADME](../README.md)、現在地・作業期限と次の作業は [短い再開メモ](RESUME_SUMMARY.md) を参照してください。
 
+- [10月22日の観察・復習UX更新と中心溝の保持](UX_RELEASE_2026-10-22.md)
 - [長期休止時の運用・復元・再開](MAINTENANCE_AND_RESTART.md)
 - [10月3日の観察・復習操作の公開候補](OCTOBER3_BETA_UI_RELEASE.md)
 - [長期休止への準備と統合確認（ローカル）](FREEZE_PREPARATION_2026-10-02.md)
