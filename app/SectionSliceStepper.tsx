@@ -9,7 +9,7 @@ export function SectionSliceStepper({position,plane,english,onStep}:{position:nu
   const atEnd=sectionSliderValue(position,plane)===100;
   return <div className="sectionSliceStepper" aria-label={english?"Step through individual 0.5 mm slices":"0.5 mmの断面を1枚ずつ移動"}>
     <button type="button" onClick={()=>onStep(-1)} disabled={atStart} aria-label={english?`One slice ${start.en.toLowerCase()} (0.5 mm)`:`${start.ja}へ1枚（0.5 mm）`}>−1{english?" slice":"枚"}</button>
-    <span><b data-section-slice-index={index}>{segmentationPlaneNames[plane].axis} {index}</b><small>{english?"0.5 mm steps":"1枚＝0.5 mm"}</small></span>
+    <span><b data-section-slice-index={index}>{segmentationPlaneNames[plane].axis} {index}</b><small>{english?"Slice index, not mm · 0.5 mm steps":"断面番号（mm座標ではありません）・1枚＝0.5 mm"}</small></span>
     <button type="button" onClick={()=>onStep(1)} disabled={atEnd} aria-label={english?`One slice ${end.en.toLowerCase()} (0.5 mm)`:`${end.ja}へ1枚（0.5 mm）`}>＋1{english?" slice":"枚"}</button>
   </div>;
 }

@@ -67,7 +67,7 @@ export default function QuizOptionResults({questions,currentQuestion,english,ref
     if(a===null||b===null)return a===null?(b===null?left.index-right.index:1):-1;
     return (sortMode==='lowest'?a-b:b-a)||left.index-right.index;
   }).map(item=>item.row);
-  const bars=(row:Row)=><div className="quizStatsBars">{row.question.options.map((choice,index)=>{
+  const bars=(row:Row)=><div className="quizStatsBars"><p className="quizStatsSampleNote">{english?`Percentages describe these ${row.total} submitted answers only, including retries; they do not represent all learners.`:`割合はこの延べ${row.total}回答だけの値です（再挑戦を含む）。学習者全体の傾向を示すものではありません。`}</p>{row.question.options.map((choice,index)=>{
     const count=row.counts[index],share=row.total?Math.round(count/row.total*100):0,correct=choice===(row.question.correctAnswer??row.question.target);
     return <div className="quizStatsBar" key={choice}><span>{labelFor(row.question,choice)}{correct&&<b className="quizStatsCorrectBadge">{english?"Correct":"正答"}</b>}</span><div role="meter" aria-label={`${labelFor(row.question,choice)}${correct?(english?", correct answer":"、正答"):""}`} aria-valuemin={0} aria-valuemax={100} aria-valuenow={share}><i style={{width:`${share}%`}}/></div><strong>{share}%</strong><small>{count}</small></div>;
   })}</div>;

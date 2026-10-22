@@ -16,7 +16,9 @@ export function useSectionViewport(stageRef:RefObject<HTMLDivElement|null>,activ
         const dock=document.querySelector<HTMLElement>('.phoneDock');
         const dockHeight=dock?.getBoundingClientRect().height??0;
         const available=window.innerHeight-top-timeline.getBoundingClientRect().height-dockHeight-12;
-        const minimum=window.innerWidth<=760&&layout==='both'?320:170;
+        // An explicitly expanded 3D view needs enough height for deep structures;
+        // its timeline remains reachable by scrolling in a short window.
+        const minimum=layout==='model'?Math.max(420,Math.min(600,window.innerHeight*.72)):layout==='both'?(window.innerWidth<=760?700:360):170;
         panel.style.setProperty('--section-fit-height',`${Math.max(minimum,Math.min(760,available))}px`);
       });
     };

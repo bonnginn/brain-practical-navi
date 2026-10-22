@@ -12,13 +12,13 @@ export function CurriculumReferences({materialId,english=false,taskLabels={}}:{m
   return <details key={materialId} className="provenanceDetails" data-curriculum-material-id={materialId} data-no-localize>
     <summary>{english?'Teaching references and evidence':'教材参照・根拠'}</summary>
     <b>{content.material.name}</b>
-    <p>{english?'Expert review pending. Image position has not been verified.':'医学判断待ち。画像位置は未検証です。'}</p>
+    <p>{english?'The image location has not yet been independently checked. Compare it with a verified teaching reference.':'この画像上の位置は、専門家による確認が済んでいません。確認済みの教材と見比べてください。'}</p>
     {content.material.evidence_state.image_position==='画像位置対応不足'&&<p>{english?'Image-position mapping is insufficient.':'画像位置対応不足。'}</p>}
     {content.material.provenance_mapping?.mapping.composite&&<p>{english?'The evidence record covers a group of structures; it does not validate each individual boundary.':'根拠記録は複数構造をまとめた項目です。個々の境界が検証済みという意味ではありません。'}</p>}
     {guides.map((g,i)=>{const text=g[english?'en':'ja'];return <section key={i} data-curriculum-observation-guide><b>{text.title}</b><p>{text.landmark}</p><p>{text.compare}</p><p>{text.check}</p></section>})}
     {content.evidence.map(e=><section key={e.entry_key} data-curriculum-evidence={e.entry_key}><b>{entries.get(e.entry_key)?.lectureLabel??content.material.name}</b>{e.limitations.map((text,i)=><p key={i}>{text}</p>)}{e.source_refs.map(id=>{const label=sourceLabels[id];return <p key={id} data-curriculum-source-ref={id}>{label?label[english?1:0]:id}</p>})}</section>)}
     {!content.evidence.length&&<p>{english?'No explicit provenance link is recorded for this item.':'この項目の明示的な出典対応は未接続です。'}</p>}
-    {content.tasks.length>0&&<section><ul>{content.tasks.map(t=><li key={t.id} data-curriculum-task-ref={t.id}>{taskLabels[t.id]??(english?'Additional identification definition':'追加同定課題の定義')}</li>)}</ul><p data-curriculum-task-count={content.tasks.length}>{english?'Related identification definitions: '+content.tasks.length+'. Availability follows the existing quiz checks.':'関連する同定課題の定義：'+content.tasks.length+'件。出題可否は既存クイズの確認条件に従います。'}</p></section>}
+    {content.tasks.length>0&&<section><ul>{content.tasks.map(t=><li key={t.id} data-curriculum-task-ref={t.id}>{taskLabels[t.id]??(english?'Related identification exercise':'関連する構造同定の課題')}</li>)}</ul><p data-curriculum-task-count={content.tasks.length}>{english?'Related identification exercises: '+content.tasks.length+'. Only exercises currently available in Review can be started.':'関連する構造同定の課題：'+content.tasks.length+'件。実施できる課題はメインの「復習」で確認できます。'}</p></section>}
     {content.gaps.some(g=>g.kind==='no-dedicated-observation-lesson')&&<p>{english?'No dedicated observation lesson is linked. The existing explanation remains available.':'専用観察教材は未接続です。既存の説明文を参照してください。'}</p>}
   </details>;
 }
