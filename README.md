@@ -1,3 +1,5 @@
+[紹介ページ（日本語）](https://bonnginn.github.io/brain-practical-navi/about.html) | [Full English introduction](https://bonnginn.github.io/brain-practical-navi/about-en.html)
+
 # 脳実習ナビ / Brain Practical Navigator
 
 脳の断面と3Dモデルを見比べながら学ぶ、神経解剖学の教育・自主学習用Webアプリです。
